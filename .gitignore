@@ -1,0 +1,18 @@
+# JS/Remix
+node_modules
+
+/.cache
+/build
+/public/build
+
+# IDEs and editors
+.idea
+*.iml
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# OS files
+.DS_Store
