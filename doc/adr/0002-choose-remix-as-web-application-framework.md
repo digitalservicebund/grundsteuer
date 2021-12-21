@@ -14,10 +14,10 @@ The _Grundsteuer_ project hasn't started yet but we expect that we will build an
 
 We investigated several options and after getting an overview of possible candidates we made decisions.
 
-* we decided against a pure SPA + REST API approach, as this doesn't allow us to cater for users where JavaScript is disabled, isn't working or loading slowly. We want the framework to support server-side rendering (SSR).
-* we decided against a traditional setup with only server-side rendering, as this would restrict our possibilities to create a great UX. We want to be able to use client-side rendering.
-* we decided to use a fullstack framework, as it supports developers to create applications that support both – server-side and client-side rendering – without having to implement UI logic twice.
-* we chose [Remix](https://remix.run/) from several fullstack options, as besides data loading it also supports data writing very well. We will have quite some forms, so this is an important feature and a main differentiator to other fullstack frameworks.
+- we decided against a pure SPA + REST API approach, as this doesn't allow us to cater for users where JavaScript is disabled, isn't working or loading slowly. We want the framework to support server-side rendering (SSR).
+- we decided against a traditional setup with only server-side rendering, as this would restrict our possibilities to create a great UX. We want to be able to use client-side rendering.
+- we decided to use a fullstack framework, as it supports developers to create applications that support both – server-side and client-side rendering – without having to implement UI logic twice.
+- we chose [Remix](https://remix.run/) from several fullstack options, as besides data loading it also supports data writing very well. We will have quite some forms, so this is an important feature and a main differentiator to other fullstack frameworks.
 
 ## Consequences
 
