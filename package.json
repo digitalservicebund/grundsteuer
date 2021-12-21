@@ -23,7 +23,7 @@
     "remix": "^1.1.1"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.0.6",
+    "@remix-run/dev": "^1.1.1",
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
     "@typescript-eslint/eslint-plugin": "^5.8.0",
