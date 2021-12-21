@@ -9,7 +9,7 @@
     "lint:check": "eslint --ext .js,.ts,.tsx --ignore-path .gitignore .",
     "lint:fix": "npm run lint:check -- --fix",
     "format:check": "prettier --check .",
-    "format:fix": "prettier --write --ignore-path .gitignore --ignore-unknown .",
+    "format:fix": "prettier --write --ignore-unknown .",
     "style:check": "npm run format:check && npm run lint:check",
     "style:fix": "npm run format:fix && npm run lint:fix",
     "postinstall": "remix setup node",
