@@ -12,7 +12,7 @@
     "lint:fix": "npm run lint:check -- --fix",
     "format:check": "prettier --ignore-path .gitignore --check .",
     "format:fix": "prettier --write --ignore-path .gitignore --ignore-unknown .",
-    "style:check": "npm run format:check && npm run lint:check",
+    "style:check": "tsc && npm run format:check && npm run lint:check",
     "style:fix": "npm run format:fix && npm run lint:fix",
     "postinstall": "remix setup node",
     "start": "remix-serve build",
