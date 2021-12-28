@@ -12,5 +12,5 @@ services:
     stdin_open: true
     command: npm run dev
     ports:
-      - 3000:3000
-      - 8002:8002
+      - "3000:3000"
+      - "8002:8002"
