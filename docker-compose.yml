@@ -1,0 +1,16 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./app:/src/app
+    environment:
+      - NODE_ENV=development
+    tty: true
+    stdin_open: true
+    command: npm run dev
+    ports:
+      - 3000:3000
+      - 8002:8002

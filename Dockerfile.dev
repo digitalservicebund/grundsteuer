@@ -5,13 +5,7 @@ RUN mkdir -p /src/app
 WORKDIR /src
 # Required files are whitelisted in dockerignore
 COPY . ./
-RUN npm ci && npm run build && npm prune --production
+RUN npm ci && npm run build 
 
-FROM node:16-alpine
-USER node
-ENV NODE_ENV=production
-
-WORKDIR /home/node/src
-COPY --from=build /src ./
 EXPOSE 3000
 CMD ["npm", "start"]
