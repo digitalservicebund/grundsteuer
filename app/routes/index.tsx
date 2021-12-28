@@ -23,6 +23,7 @@ export default function Index() {
     >
       <div className="bg-beige-100 h-full p-4">
         <h1>Welcome to Remix</h1>
+        <p>Some content</p>
 
         <Button label="Hi" onClick={() => console.log("clicked")} />
       </div>
