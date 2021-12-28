@@ -12,6 +12,27 @@ npm run dev
 
 This starts your app in development mode, rebuilding assets on file changes.
 
+## Docker Tooling
+
+There are 2 docker files, the standard Dockerfile is intended for production images and the Dockerfile.dev can used for local development in combination with docker-compose where the app directory is mounted into the container for hot reload capabilities.
+
+### Production Flow
+
+```sh
+docker build -t grundsteuer .
+docker run --rm -it -p 3000:3000 grundsteuer
+```
+
+This builds and starts your app in production mode.
+
+### Development Flow
+
+```sh
+docker-compose up
+```
+
+This starts your app in development mode, rebuilding assets on file changes.
+
 ## Deployment
 
 First, build your app for production:
