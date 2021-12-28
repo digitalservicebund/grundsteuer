@@ -1,74 +1,83 @@
 /* BundesSans */
 @font-face {
-  font-family: 'BundesSansWeb';
+  font-family: "BundesSansWeb";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('fonts/BundesSansWeb-Regular.woff2') format('woff2'), url('fonts/BundesSansWeb-Regular.woff') format('woff');
+  src: url("fonts/BundesSansWeb-Regular.woff2") format("woff2"),
+    url("fonts/BundesSansWeb-Regular.woff") format("woff");
 }
 
 @font-face {
-  font-family: 'BundesSansWeb';
+  font-family: "BundesSansWeb";
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: url('fonts/BundesSansWeb-Italic.woff2') format('woff2'), url('fonts/BundesSansWeb-Italic.woff') format('woff');
+  src: url("fonts/BundesSansWeb-Italic.woff2") format("woff2"),
+    url("fonts/BundesSansWeb-Italic.woff") format("woff");
 }
 
 @font-face {
-  font-family: 'BundesSansWeb';
+  font-family: "BundesSansWeb";
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('fonts/BundesSansWeb-Bold.woff2') format('woff2'), url('fonts/BundesSansWeb-Bold.woff') format('woff');
+  src: url("fonts/BundesSansWeb-Bold.woff2") format("woff2"),
+    url("fonts/BundesSansWeb-Bold.woff") format("woff");
 }
 
 @font-face {
-  font-family: 'BundesSansWeb';
+  font-family: "BundesSansWeb";
   font-style: italic;
   font-weight: 700;
   font-display: swap;
-  src: url('fonts/BundesSansWeb-BoldItalic.woff2') format('woff2'), url('fonts/BundesSansWeb-BoldItalic.woff') format('woff');
+  src: url("fonts/BundesSansWeb-BoldItalic.woff2") format("woff2"),
+    url("fonts/BundesSansWeb-BoldItalic.woff") format("woff");
 }
 
 /* BundesSerif */
 @font-face {
-  font-family: 'BundesSerifWeb';
+  font-family: "BundesSerifWeb";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('fonts/BundesSerifWeb-Regular.woff2') format('woff2'), url('fonts/BundesSerifWeb-Regular.woff') format('woff');
+  src: url("fonts/BundesSerifWeb-Regular.woff2") format("woff2"),
+    url("fonts/BundesSerifWeb-Regular.woff") format("woff");
 }
 
 @font-face {
-  font-family: 'BundesSerifWeb';
+  font-family: "BundesSerifWeb";
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: url('fonts/BundesSerifWeb-Italic.woff2') format('woff2'), url('fonts/BundesSerifWeb-Italic.woff') format('woff');
+  src: url("fonts/BundesSerifWeb-Italic.woff2") format("woff2"),
+    url("fonts/BundesSerifWeb-Italic.woff") format("woff");
 }
 
 @font-face {
-  font-family: 'BundesSerifWeb';
+  font-family: "BundesSerifWeb";
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('fonts/BundesSerifWeb-Bold.woff2') format('woff2'), url('fonts/BundesSerifWeb-Bold.woff') format('woff');
+  src: url("fonts/BundesSerifWeb-Bold.woff2") format("woff2"),
+    url("fonts/BundesSerifWeb-Bold.woff") format("woff");
 }
 
 @font-face {
-  font-family: 'BundesSerifWeb';
+  font-family: "BundesSerifWeb";
   font-style: italic;
   font-weight: 700;
   font-display: swap;
-  src: url('fonts/BundesSerifWeb-BoldItalic.woff2') format('woff2'), url('fonts/BundesSerifWeb-BoldItalic.woff') format('woff');
+  src: url("fonts/BundesSerifWeb-BoldItalic.woff2") format("woff2"),
+    url("fonts/BundesSerifWeb-BoldItalic.woff") format("woff");
 }
 
 /* BundesSans Condensed */
 @font-face {
-  font-family: 'BundesSansCondWeb';
+  font-family: "BundesSansCondWeb";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('fonts/BundesSansCondWeb.woff2') format('woff2'), url('fonts/BundesSansCondWeb.woff') format('woff');
+  src: url("fonts/BundesSansCondWeb.woff2") format("woff2"),
+    url("fonts/BundesSansCondWeb.woff") format("woff");
 }
