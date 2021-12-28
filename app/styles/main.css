@@ -1,0 +1,26 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 220px 1.4fr 1fr;
+  grid-template-rows: 1fr 1.7fr 0.3fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "Navigation Content Content"
+    "Navigation Content Content"
+    "Navigation Footer Footer";
+}
+.navigation {
+  grid-area: Navigation;
+}
+.content {
+  grid-area: Content;
+  background-color: #fcf3e5;
+  padding: 10px;
+}
+.footer {
+  grid-area: Footer;
+}
