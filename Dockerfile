@@ -1,7 +1,6 @@
 FROM node:16 as build
 
 # Create app directory
-RUN mkdir -p /src/app
 WORKDIR /src
 # Required files are whitelisted in dockerignore
 COPY . ./
