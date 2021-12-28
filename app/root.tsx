@@ -8,6 +8,10 @@ import {
   ScrollRestoration,
 } from "remix";
 import type { MetaFunction } from "remix";
+import {
+  Layout,
+  Footer,
+} from "@digitalservice4germany/digital-service-library";
 import styles from "./tailwind.css";
 
 export const links: LinksFunction = () => {
@@ -35,7 +39,23 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <Layout
+          footer={<Footer> Footer </Footer>}
+          sidebarNavigation={
+            <div className="h-full p-4 bg-white">
+              <ul>
+                <li>Übersicht</li>
+              </ul>
+            </div>
+          }
+          topNavigation={
+            <div className="p-4 bg-blue-300">
+              topNavigation (hidden on larger screens)
+            </div>
+          }
+        >
+          <Outlet />
+        </Layout>
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}
