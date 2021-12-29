@@ -1,8 +1,12 @@
-# Welcome to Remix!
+# Grundsteuer
+
+This is the code repository of Grundsteuer by [DigitalService4Germany](https://digitalservice4germany.com).
+
+## Quick Start Guide
 
 - [Remix Docs](https://remix.run/docs)
 
-## Development
+### Development
 
 From your terminal:
 
@@ -12,28 +16,7 @@ npm run dev
 
 This starts your app in development mode, rebuilding assets on file changes.
 
-## Docker Tooling
-
-There are 2 docker files, the standard Dockerfile is intended for production images and the Dockerfile.dev can used for local development in combination with docker-compose where the app directory is mounted into the container for hot reload capabilities.
-
-### Production Flow
-
-```sh
-docker build -t grundsteuer .
-docker run --rm -it -p 3000:3000 grundsteuer
-```
-
-This builds and starts your app in production mode.
-
-### Development Flow
-
-```sh
-docker-compose up
-```
-
-This starts your app in development mode, rebuilding assets on file changes.
-
-## Deployment
+### Deployment
 
 First, build your app for production:
 
@@ -58,17 +41,25 @@ Make sure to deploy the output of `remix build`
 - `build/`
 - `public/build/`
 
-### Using a Template
+### Docker Tooling
 
-When you ran `npx create-remix@latest` there were a few choices for hosting. You can run that again to create a new project, then copy over your `app/` folder to the new project that's pre-configured for your target server.
+There are 2 docker files, the standard Dockerfile is intended for production images and the dev.Dockerfile can be used
+for local development in combination with docker-compose where the app directory is mounted into the container for hot
+reload capabilities.
+
+#### Production Flow
 
 ```sh
-cd ..
-# create a new project, and pick a pre-configured host
-npx create-remix@latest
-cd my-new-remix-app
-# remove the new project's app (not the old one!)
-rm -rf app
-# copy your app over
-cp -R ../my-old-remix-app/app app
+docker build -t grundsteuer .
+docker run --rm -it -p 3000:3000 grundsteuer
 ```
+
+This builds and starts your app in production mode.
+
+#### Development Flow
+
+```sh
+docker-compose up
+```
+
+This starts your app in development mode, rebuilding assets on file changes.
