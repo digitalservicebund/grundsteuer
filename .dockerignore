@@ -4,5 +4,7 @@
 !package-lock.json
 !public
 !remix.config.js
+!tailwind.config.js
+!remix.env.d.ts
 !tsconfig.json
 /public/build/

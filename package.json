@@ -4,7 +4,7 @@
   "description": "",
   "license": "",
   "scripts": {
-    "build": "tsc --noEmit && npm run build:css && remix build",
+    "build": "npm run build:css && tsc --noEmit && remix build",
     "build:css": "tailwindcss -i ./app/styles/tailwind.css -o ./app/tailwind.css",
     "clean": "rm -rf build public/build app/tailwind.css",
     "dev": "concurrently \"npm run dev:css\" \"remix dev\"",
