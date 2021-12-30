@@ -16,6 +16,29 @@ npm run dev
 
 This starts your app in development mode, rebuilding assets on file changes.
 
+#### Style (Linting & Formatting)
+
+We use [ESLint](https://eslint.org/docs/user-guide/getting-started) for linting
+and [Prettier](https://prettier.io/docs/en/index.html) to enforce consistent formatting.
+
+Check style:
+
+```sh
+npm run style:check
+```
+
+Autofix issues:
+
+```sh
+npm run style:fix
+```
+
+Run all checks (use before every commit!):
+
+```sh
+npm run check
+```
+
 ### Deployment
 
 First, build your app for production:
