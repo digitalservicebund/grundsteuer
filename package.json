@@ -21,7 +21,7 @@
     "prepare": "is-ci || husky install"
   },
   "dependencies": {
-    "@digitalservice4germany/digital-service-library": "^0.0.10",
+    "@digitalservice4germany/digital-service-library": "^0.0.18",
     "@remix-run/react": "^1.1.1",
     "@remix-run/serve": "^1.1.1",
     "react": "^17.0.2",
