@@ -15,13 +15,7 @@ import {
 import styles from "./tailwind.css";
 
 export const links: LinksFunction = () => {
-  return [
-    { rel: "stylesheet", href: styles },
-    {
-      rel: "stylesheet",
-      href: "https://unpkg.com/@digitalservice4germany/digital-service-library@latest/dist/cjs/index.css",
-    },
-  ];
+  return [{ rel: "stylesheet", href: styles }];
 };
 
 export const meta: MetaFunction = () => {
