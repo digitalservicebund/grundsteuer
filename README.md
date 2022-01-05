@@ -16,7 +16,10 @@ npm run dev
 
 This starts your app in development mode, rebuilding assets on file changes.
 
-You need a local `.env` file to load configuration parameters from. The default values for are stored in `.env.example`.
+You need a local `.env` file to load configuration parameters from. The default values are stored in `.env.example`.
+If no `.env` exists in project root, `npm run dev` will create one by copying `.env.example`. If there are parameters
+defined in `.env.example` that are missing in your local `.env`, the app will fail on startup
+with an error message indicating the missing keys.
 
 #### Style (Linting & Formatting)
 
