@@ -1,6 +1,6 @@
 # JS/Remix
 node_modules
-
+.env
 /.cache
 /build
 /public/build

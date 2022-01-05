@@ -2,8 +2,8 @@ import { LoaderFunction, useLoaderData } from "remix";
 
 type LoaderData = { status: "up" | "down" };
 
-const HOST = "http://localhost:3000";
 export const loader: LoaderFunction = async () => {
+  const HOST = process.env.SERVER_HOST + ":" + process.env.SERVER_PORT;
   try {
     return await fetch(HOST + "/api/status").then((data) => data.json());
   } catch (e) {

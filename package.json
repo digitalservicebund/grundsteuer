@@ -7,7 +7,7 @@
     "build": "npm run build:css && tsc --noEmit && remix build",
     "build:css": "tailwindcss -i ./app/styles/tailwind.css -o ./app/tailwind.css",
     "clean": "rm -rf build public/build app/tailwind.css",
-    "dev": "concurrently \"npm run dev:css\" \"remix dev\"",
+    "dev": "concurrently \"npm run dev:css\" \"node -r dotenv-safe/config node_modules/.bin/remix dev\"",
     "dev:css": "tailwindcss -i ./app/styles/tailwind.css -o ./app/tailwind.css --watch",
     "lint:check": "eslint --ext .js,.ts,.tsx .",
     "lint:fix": "npm run lint:check -- --fix",
@@ -24,6 +24,7 @@
     "@digitalservice4germany/digital-service-library": "^0.0.18",
     "@remix-run/react": "^1.1.1",
     "@remix-run/serve": "^1.1.1",
+    "dotenv-safe": "^8.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "remix": "^1.1.1"

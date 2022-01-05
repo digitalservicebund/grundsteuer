@@ -16,6 +16,8 @@ npm run dev
 
 This starts your app in development mode, rebuilding assets on file changes.
 
+You need a local `.env` file to load configuration parameters from. The default values for are stored in `.env.example`.
+
 #### Style (Linting & Formatting)
 
 We use [ESLint](https://eslint.org/docs/user-guide/getting-started) for linting
