@@ -4,7 +4,7 @@ node_modules
 /.cache
 /build
 /public/build
-/app/tailwind.css
+/public/tailwind.css
 
 # IDEs and editors
 .idea

@@ -12,10 +12,9 @@ import {
   Layout,
   Footer,
 } from "@digitalservice4germany/digital-service-library";
-import styles from "./tailwind.css";
 
 export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: styles }];
+  return [{ rel: "stylesheet", href: "/tailwind.css" }];
 };
 
 export const meta: MetaFunction = () => {

@@ -5,10 +5,10 @@
   "license": "",
   "scripts": {
     "build": "npm run build:css && tsc --noEmit && remix build",
-    "build:css": "tailwindcss -i ./app/styles/tailwind.css -o ./app/tailwind.css",
+    "build:css": "tailwindcss -i ./app/styles/tailwind.css -o ./public/tailwind.css",
     "clean": "rm -rf build public/build app/tailwind.css",
     "dev": "concurrently \"npm run dev:css\" \"copy-env-cli && node -r dotenv-safe/config node_modules/.bin/remix dev\"",
-    "dev:css": "tailwindcss -i ./app/styles/tailwind.css -o ./app/tailwind.css --watch",
+    "dev:css": "tailwindcss -i ./app/styles/tailwind.css -o ./public/tailwind.css --watch",
     "lint:check": "eslint --ext .js,.ts,.tsx .",
     "lint:fix": "npm run lint:check -- --fix",
     "format:check": "prettier --ignore-path .gitignore --check .",
