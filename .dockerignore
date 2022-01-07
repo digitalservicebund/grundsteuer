@@ -7,4 +7,5 @@
 !tailwind.config.js
 !remix.env.d.ts
 !tsconfig.json
+!.env.example
 /public/build/

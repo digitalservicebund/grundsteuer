@@ -17,7 +17,7 @@
     "style:fix": "npm run format:fix && npm run lint:fix",
     "check": "tsc --noEmit && npm run style:check",
     "postinstall": "remix setup node",
-    "start": "remix-serve build",
+    "start": "node -r dotenv-safe/config && node_modules/.bin/remix-serve build",
     "prepare": "is-ci || husky install"
   },
   "dependencies": {
