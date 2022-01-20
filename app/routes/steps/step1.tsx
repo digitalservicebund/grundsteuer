@@ -1,4 +1,7 @@
-import { Button } from "@digitalservice4germany/digital-service-library";
+import {
+  Button,
+  LabeledInput,
+} from "@digitalservice4germany/digital-service-library";
 
 export default function Index() {
   return (
@@ -6,8 +9,7 @@ export default function Index() {
       <h1>Step 1</h1>
 
       <form>
-        <label htmlFor="street">Straße</label>
-        <input name="street" id="street" />
+        <LabeledInput type="text" name="street" label="Straße" />
 
         <Button label="Weiter" />
       </form>
