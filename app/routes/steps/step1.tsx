@@ -1,10 +1,9 @@
 import { Button } from "@digitalservice4germany/digital-service-library";
 import { useLoaderData, Form, ActionFunction, LoaderFunction } from "remix";
-import { formDataCookie } from "~/cookies";
+import { formDataCookie, getFormDataCookie } from "~/cookies";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const cookieHeader = request.headers.get("Cookie");
-  const formData = (await formDataCookie.parse(cookieHeader)) || { a: 1 };
+  const formData = await getFormDataCookie(request);
   return [formData];
 };
 
@@ -12,8 +11,7 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const street = formData.get("street");
 
-  const cookieHeader = request.headers.get("Cookie");
-  const cookie = (await formDataCookie.parse(cookieHeader)) || {};
+  const cookie = await getFormDataCookie(request);
 
   cookie["street"] = street;
 
