@@ -6,7 +6,7 @@ export default function Index() {
       <h1>Welcome to Remix</h1>
       <p>Some content</p>
 
-      <Button label="Hi" onClick={() => console.log("clicked")} />
+      <Button onClick={() => console.log("clicked")}>Hi</Button>
     </div>
   );
 }
