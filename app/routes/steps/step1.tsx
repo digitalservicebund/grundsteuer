@@ -30,11 +30,16 @@ export default function Step1() {
   const formData = useLoaderData()[0]; // TODO do I have to map here?
   return (
     <div className="bg-beige-100 h-full p-4">
-      <h1>Step 1</h1>
+      <h1 className="mb-4 font-bold">Step 1</h1>
 
       <Form method="post">
         <label htmlFor="street">Straße</label>
-        <input name="street" id="street" defaultValue={formData.street} />
+        <input
+          name="street"
+          id="street"
+          defaultValue={formData.street}
+          className="block mb-4"
+        />
 
         <Button label="Weiter" />
       </Form>
