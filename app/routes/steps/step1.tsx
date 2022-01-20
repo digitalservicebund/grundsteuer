@@ -14,13 +14,14 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export const action: ActionFunction = async ({ request }) => {
-  const formData = await request.formData();
-  const street = formData.get("street");
+  const formData: FormData = await request.formData();
+  const street: string = "" + formData.get("street");
 
-  const cookie = await getFormDataCookie(request);
+  const cookie: Record<string, string> = await getFormDataCookie(request);
   cookie["street"] = street;
 
-  const responseHeader = await getFormDataCookieResponseHeader(cookie);
+  const responseHeader: Record<string, string> =
+    await getFormDataCookieResponseHeader(cookie);
   return redirect("/steps/step2", {
     headers: responseHeader,
   });
