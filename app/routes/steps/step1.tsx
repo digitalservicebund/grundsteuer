@@ -1,6 +1,12 @@
 import { Button } from "@digitalservice4germany/digital-service-library";
-import { useLoaderData, Form, ActionFunction, LoaderFunction } from "remix";
-import { formDataCookie, getFormDataCookie } from "~/cookies";
+import {
+  useLoaderData,
+  Form,
+  ActionFunction,
+  LoaderFunction,
+  redirect,
+} from "remix";
+import { getFormDataCookie, getFormDataCookieResponseHeader } from "~/cookies";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const formData = await getFormDataCookie(request);
@@ -12,18 +18,16 @@ export const action: ActionFunction = async ({ request }) => {
   const street = formData.get("street");
 
   const cookie = await getFormDataCookie(request);
-
   cookie["street"] = street;
 
-  return new Response("...", {
-    headers: {
-      "Set-Cookie": await formDataCookie.serialize(cookie),
-    },
+  const responseHeader = await getFormDataCookieResponseHeader(cookie);
+  return redirect("/steps/step2", {
+    headers: responseHeader,
   });
 };
 
-export default function Index() {
-  const formData = useLoaderData(); // TODO do I have to map here?
+export default function Step1() {
+  const formData = useLoaderData()[0]; // TODO do I have to map here?
   return (
     <div className="bg-beige-100 h-full p-4">
       <h1>Step 1</h1>
