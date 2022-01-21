@@ -1,5 +1,4 @@
 import { LoaderFunction, useLoaderData } from "remix";
-import { db } from "../db/db.server";
 
 type SystemStatus = { db: string };
 
@@ -9,13 +8,7 @@ export const loader: LoaderFunction = async () => {
 };
 
 export async function pingDb() {
-  try {
-    await db.$queryRaw`SELECT 1 AS result`;
-    return "up";
-  } catch (e) {
-    console.error(e);
-    return "down";
-  }
+  return "down";
 }
 
 export default function Health() {
