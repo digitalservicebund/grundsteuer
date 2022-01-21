@@ -11,8 +11,9 @@ export default function Step2() {
   return (
     <div className="bg-beige-100 h-full p-4">
       <h1 className="mb-4 font-bold">Step 2</h1>
-      Street: {formData.street}
-      <Link to="/steps/step1" className="mt-4 block">
+      <div>Straße: {formData.property_street}</div>
+      <div className="mb-4">Hausnummer: {formData.property_street_number}</div>
+      <Link to="/steps/step1" className="block">
         Zurück
       </Link>
     </div>

@@ -1,4 +1,8 @@
-import { Button, Input } from "@digitalservice4germany/digital-service-library";
+import {
+  Button,
+  Input,
+  Label,
+} from "@digitalservice4germany/digital-service-library";
 import {
   useLoaderData,
   Form,
@@ -14,10 +18,13 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ request }) => {
   const formData: FormData = await request.formData();
-  const street: string = "" + formData.get("street");
+  const property_street: string = "" + formData.get("property_street");
+  const property_street_number: string =
+    "" + formData.get("property_street_number");
 
   const cookie: Record<string, string> = await getFormDataCookie(request);
-  cookie["street"] = street;
+  cookie["property_street"] = property_street;
+  cookie["property_street_number"] = property_street_number;
 
   const responseHeader: Record<string, string> =
     await getFormDataCookieResponseHeader(cookie);
@@ -30,14 +37,21 @@ export default function Step1() {
   const formData = useLoaderData();
   return (
     <div className="bg-beige-100 h-full p-4">
-      <h1 className="mb-4 font-bold">Step 1</h1>
+      <h1 className="mb-4 font-bold">Lage des Grundstücks</h1>
 
       <Form method="post">
-        <label htmlFor="street">Straße</label>
+        <Label htmlFor="property_street">Straße</Label>
         <Input
-          name="street"
-          id="street"
-          defaultValue={formData.street}
+          name="property_street"
+          id="property_street"
+          defaultValue={formData.property_street}
+          className="mb-4"
+        />
+        <Label htmlFor="property_street_number">Hausnummer</Label>
+        <Input
+          name="property_street_number"
+          id="property_street_number"
+          defaultValue={formData.property_street_number}
           className="mb-4"
         />
 
