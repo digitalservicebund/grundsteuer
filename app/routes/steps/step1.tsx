@@ -1,4 +1,4 @@
-import { Button } from "@digitalservice4germany/digital-service-library";
+import { Button, Input } from "@digitalservice4germany/digital-service-library";
 import {
   useLoaderData,
   Form,
@@ -35,14 +35,14 @@ export default function Step1() {
 
       <Form method="post">
         <label htmlFor="street">Straße</label>
-        <input
+        <Input
           name="street"
           id="street"
           defaultValue={formData.street}
-          className="block mb-4"
+          className="mb-4"
         />
 
-        <Button label="Weiter" />
+        <Button>Weiter</Button>
       </Form>
     </div>
   );
