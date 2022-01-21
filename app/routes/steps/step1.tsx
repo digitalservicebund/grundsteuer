@@ -9,8 +9,7 @@ import {
 import { getFormDataCookie, getFormDataCookieResponseHeader } from "~/cookies";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const formData = await getFormDataCookie(request);
-  return [formData];
+  return await getFormDataCookie(request);
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -28,7 +27,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Step1() {
-  const formData = useLoaderData()[0]; // TODO do I have to map here?
+  const formData = useLoaderData();
   return (
     <div className="bg-beige-100 h-full p-4">
       <h1 className="mb-4 font-bold">Step 1</h1>
