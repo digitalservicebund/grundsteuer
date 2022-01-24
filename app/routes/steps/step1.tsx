@@ -12,8 +12,15 @@ import {
 } from "remix";
 import { getFormDataCookie, getFormDataCookieResponseHeader } from "~/cookies";
 
-export const loader: LoaderFunction = async ({ request }) => {
-  return await getFormDataCookie(request);
+type Step1FormData = {
+  property_street: string;
+  property_street_number: string;
+};
+
+export const loader: LoaderFunction = async ({
+  request,
+}): Promise<Step1FormData> => {
+  return (await getFormDataCookie(request)) as Step1FormData;
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -22,9 +29,11 @@ export const action: ActionFunction = async ({ request }) => {
   const property_street_number: string =
     "" + formData.get("property_street_number");
 
-  const cookie: Record<string, string> = await getFormDataCookie(request);
-  cookie["property_street"] = property_street;
-  cookie["property_street_number"] = property_street_number;
+  const cookie: Step1FormData = (await getFormDataCookie(
+    request
+  )) as Step1FormData;
+  cookie.property_street = property_street;
+  cookie.property_street_number = property_street_number;
 
   const responseHeader: Record<string, string> =
     await getFormDataCookieResponseHeader(cookie);
@@ -34,7 +43,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Step1() {
-  const formData = useLoaderData();
+  const formData: Step1FormData = useLoaderData();
   return (
     <div className="bg-beige-100 h-full p-4">
       <h1 className="mb-4 font-bold">Lage des Grundstücks</h1>
