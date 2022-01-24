@@ -79,3 +79,31 @@ jobs:
         run: |
           docker tag ${{ env.IMAGE_NAME }}:${{ github.sha }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+  deploy-staging:
+    needs: [build-push-image]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    env:
+      DEPLOYMENT_NAME: web
+      KUBECONFIG_PATH: /tmp/kubeconfig
+      NAMESPACE: ${{ secrets.NAMESPACE_STAGING }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install kubectl
+        run: |
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+          echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+          install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+      - name: Set kubeconfig
+        run: |
+          echo "Setup kubectl..."
+          echo ${{ secrets.CI_KUBECONFIG_B64 }} | base64 --decode > $KUBE_CINFIG_PATH
+
+      - name: Restart deployment
+        run: |
+          kubectl --namespace $NAMESPACE --kubeconfig $KUBE_CINFIG_PATH rollout restart deployment/$DEPLOYMENT_NAME
+          kubectl --namespace $NAMESPACE --kubeconfig $KUBE_CINFIG_PATH rollout status deployment/$DEPLOYMENT_NAME
