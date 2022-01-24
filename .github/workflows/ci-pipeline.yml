@@ -103,10 +103,9 @@ jobs:
         env:
           KUBECONFIG_B64: ${{ secrets.CI_KUBECONFIG_B64 }}
         run: |
-          echo "Setup kubectl..."
           echo $KUBECONFIG_B64 | base64 --decode > $KUBECONFIG_PATH
 
       - name: Restart deployment
         run: |
-          kubectl rollout restart deployment/$DEPLOYMENT_NAME --namespace $NAMESPACE --kubeconfig $KUBE_CINFIG_PATH
-          kubectl rollout status deployment/$DEPLOYMENT_NAME --namespace $NAMESPACE --kubeconfig $KUBE_CINFIG_PATH
+          kubectl rollout restart deployment/$DEPLOYMENT_NAME --namespace $NAMESPACE --kubeconfig $KUBECONFIG_PATH
+          kubectl rollout status deployment/$DEPLOYMENT_NAME --namespace $NAMESPACE --kubeconfig $KUBECONFIG_PATH
