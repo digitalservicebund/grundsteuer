@@ -104,7 +104,7 @@ jobs:
       - name: Set kubeconfig
         run: |
           echo "Setup kubectl..."
-          echo ${{ secrets.CI_KUBECONFIG_B64 }} | base64 --decode > $KUBE_CINFIG_PATH
+          echo ${{ secrets.CI_KUBECONFIG_B64 }} | base64 --decode > $KUBECONFIG_PATH
 
       - name: Restart deployment
         run: |
