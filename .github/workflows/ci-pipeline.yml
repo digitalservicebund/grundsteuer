@@ -110,5 +110,5 @@ jobs:
 
       - name: Restart deployment
         run: |
-          kubectl --namespace $NAMESPACE --kubeconfig $KUBE_CINFIG_PATH rollout restart deployment/$DEPLOYMENT_NAME
-          kubectl --namespace $NAMESPACE --kubeconfig $KUBE_CINFIG_PATH rollout status deployment/$DEPLOYMENT_NAME
+          kubectl rollout restart deployment/$DEPLOYMENT_NAME --namespace $NAMESPACE --kubeconfig $KUBE_CINFIG_PATH
+          kubectl rollout status deployment/$DEPLOYMENT_NAME --namespace $NAMESPACE --kubeconfig $KUBE_CINFIG_PATH
