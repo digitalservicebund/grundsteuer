@@ -11,29 +11,24 @@ import {
   redirect,
 } from "remix";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
+import { Step1Data, TaxForm } from "~/domain/tax-form";
 
-export type Step1FormData = {
-  propertyStreet: string;
-  propertyStreetNumber: string;
-};
-
-export const loader: LoaderFunction = async ({
-  request,
-}): Promise<Step1FormData> => {
-  return (await getFormDataCookie(request)) as Step1FormData;
+export const loader: LoaderFunction = async ({ request }): Promise<TaxForm> => {
+  return getFormDataCookie(request);
 };
 
 export const action: ActionFunction = async ({ request }) => {
   const formData: FormData = await request.formData();
-  const propertyStreet: string = "" + formData.get("property_street");
+  const propertyStreet: string =
+    (formData.get("property_street") as string | null) || "";
   const propertyStreetNumber: string =
-    "" + formData.get("property_street_number");
+    (formData.get("property_street_number") as string | null) || "";
 
-  const cookie: Step1FormData = (await getFormDataCookie(
-    request
-  )) as Step1FormData;
-  cookie.propertyStreet = propertyStreet;
-  cookie.propertyStreetNumber = propertyStreetNumber;
+  const cookie: TaxForm = await getFormDataCookie(request);
+  cookie.step1Data = {
+    propertyStreet,
+    propertyStreetNumber,
+  };
 
   const responseHeader: Headers = await createResponseHeaders(cookie);
   return redirect("/steps/summary", {
@@ -42,7 +37,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Step1() {
-  const formData: Step1FormData = useLoaderData();
+  const formData: Step1Data = useLoaderData().step1Data;
   return (
     <div className="bg-beige-100 h-full p-4">
       <h1 className="mb-4 font-bold">Lage des Grundstücks</h1>
@@ -52,14 +47,14 @@ export default function Step1() {
         <Input
           name="property_street"
           id="property_street"
-          defaultValue={formData.propertyStreet}
+          defaultValue={formData?.propertyStreet}
           className="mb-4"
         />
         <Label htmlFor="property_street_number">Hausnummer</Label>
         <Input
           name="property_street_number"
           id="property_street_number"
-          defaultValue={formData.propertyStreetNumber}
+          defaultValue={formData?.propertyStreetNumber}
           className="mb-4"
         />
 

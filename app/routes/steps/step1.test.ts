@@ -1,25 +1,27 @@
-import { loader, Step1FormData } from "./step1";
+import { loader } from "./step1";
 import { formDataCookie } from "~/cookies";
+import { TaxForm } from "../../domain/tax-form";
 
 describe("Step 1 Loader", () => {
   it("should handle empty cookie", async () => {
-    const response: Step1FormData = await loader({
+    const response: TaxForm = await loader({
       request: new Request("/path"),
       params: {},
       context: {},
     });
 
-    expect(response.propertyStreet).toEqual(undefined);
-    expect(response.propertyStreetNumber).toEqual(undefined);
+    expect(response.step1Data).toEqual(undefined);
   });
 
   it("should return the sent cookie correctly", async () => {
     const inputCookie: string = await formDataCookie.serialize({
-      propertyStreet: "Hauptstraße",
-      propertyStreetNumber: "42",
+      step1Data: {
+        propertyStreet: "Hauptstraße",
+        propertyStreetNumber: "42",
+      },
     });
 
-    const response: Step1FormData = await loader({
+    const response: TaxForm = await loader({
       request: new Request("/path", {
         headers: {
           Cookie: inputCookie,
@@ -29,7 +31,7 @@ describe("Step 1 Loader", () => {
       context: {},
     });
 
-    expect(response.propertyStreet).toEqual("Hauptstraße");
-    expect(response.propertyStreetNumber).toEqual("42");
+    expect(response.step1Data.propertyStreet).toEqual("Hauptstraße");
+    expect(response.step1Data.propertyStreetNumber).toEqual("42");
   });
 });
