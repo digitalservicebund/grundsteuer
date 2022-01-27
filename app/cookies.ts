@@ -1,6 +1,6 @@
 import { createCookie } from "remix";
 
-const formDataCookie = createCookie("form-data");
+export const formDataCookie = createCookie("form-data");
 
 export async function getFormDataCookie(request: Request): Promise<object> {
   const cookieHeader = request.headers.get("Cookie");

@@ -12,7 +12,7 @@ import {
 } from "remix";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 
-type Step1FormData = {
+export type Step1FormData = {
   propertyStreet: string;
   propertyStreetNumber: string;
 };
