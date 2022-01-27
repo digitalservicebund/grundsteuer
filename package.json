@@ -18,7 +18,8 @@
     "check": "tsc --noEmit && npm run style:check",
     "postinstall": "remix setup node",
     "start": "remix-serve build",
-    "prepare": "is-ci || husky install"
+    "prepare": "is-ci || husky install",
+    "test": "jest"
   },
   "dependencies": {
     "@digitalservice4germany/digital-service-library": "^0.0.19",
