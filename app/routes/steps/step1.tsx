@@ -36,7 +36,7 @@ export const action: ActionFunction = async ({ request }) => {
   cookie.propertyStreetNumber = propertyStreetNumber;
 
   const responseHeader: Headers = await createResponseHeaders(cookie);
-  return redirect("/steps/step2", {
+  return redirect("/steps/summary", {
     headers: responseHeader,
   });
 };
