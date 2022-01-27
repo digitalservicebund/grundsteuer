@@ -5,6 +5,7 @@ import {
 } from "@digitalservice4germany/digital-service-library";
 import {
   useLoaderData,
+  useActionData,
   Form,
   ActionFunction,
   LoaderFunction,
@@ -12,6 +13,8 @@ import {
 } from "remix";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 import { Step1Data, TaxForm } from "~/domain/tax-form";
+import { machine } from "~/steps.server";
+import { interpret } from "xstate";
 
 export const loader: LoaderFunction = async ({ request }): Promise<TaxForm> => {
   return getFormDataCookie(request);
@@ -30,17 +33,47 @@ export const action: ActionFunction = async ({ request }) => {
     propertyStreetNumber,
   };
 
-  const responseHeader: Headers = await createResponseHeaders(cookie);
-  return redirect("/steps/summary", {
-    headers: responseHeader,
-  });
+  // work in progress
+  new Promise((resolve, reject) => {
+    const stepsService = interpret(machine)
+      .onTransition((state) => {
+        console.log("STATE: ", JSON.stringify(state.value));
+
+        if (JSON.stringify(state.value) === '{"step1":"complete"}') {
+          resolve(true);
+        }
+      })
+      .onEvent((event) => {
+        console.log("EVENT: ", event.type);
+
+        if (event.type.match(/error.*step1/)) {
+          reject(true);
+        }
+      })
+      .start();
+    stepsService.send("VALIDATE");
+  })
+    .then(async () => {
+      // TODO: redirect depending on form data
+      const responseHeader: Headers = await createResponseHeaders(cookie);
+      return redirect("/steps/summary", {
+        headers: responseHeader,
+      });
+    })
+    .catch(() => {
+      // rerender
+      return { errors: "many" };
+    });
 };
 
 export default function Step1() {
   const formData: Step1Data = useLoaderData().step1Data;
+  const actionData = useActionData();
   return (
     <div className="bg-beige-100 h-full p-4">
       <h1 className="mb-4 font-bold">Lage des Grundstücks</h1>
+
+      {actionData?.errors ? "ERRORS: " + actionData.errors : ""}
 
       <Form method="post">
         <Label htmlFor="property_street">Straße</Label>
