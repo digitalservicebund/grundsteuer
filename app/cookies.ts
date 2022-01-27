@@ -7,10 +7,11 @@ export async function getFormDataCookie(request: Request): Promise<object> {
   return (await formDataCookie.parse(cookieHeader)) || {};
 }
 
-export async function getFormDataCookieResponseHeader(
+export async function createResponseHeaders(
   cookieData: object
-): Promise<Record<string, string>> {
-  return {
-    "Set-Cookie": await formDataCookie.serialize(cookieData),
-  };
+): Promise<Headers> {
+  const headers = new Headers();
+  const cookie = await formDataCookie.serialize(cookieData);
+  headers.set("Set-Cookie", cookie);
+  return headers;
 }

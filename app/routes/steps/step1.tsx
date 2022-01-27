@@ -10,11 +10,11 @@ import {
   LoaderFunction,
   redirect,
 } from "remix";
-import { getFormDataCookie, getFormDataCookieResponseHeader } from "~/cookies";
+import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 
 type Step1FormData = {
-  property_street: string;
-  property_street_number: string;
+  propertyStreet: string;
+  propertyStreetNumber: string;
 };
 
 export const loader: LoaderFunction = async ({
@@ -25,18 +25,17 @@ export const loader: LoaderFunction = async ({
 
 export const action: ActionFunction = async ({ request }) => {
   const formData: FormData = await request.formData();
-  const property_street: string = "" + formData.get("property_street");
-  const property_street_number: string =
+  const propertyStreet: string = "" + formData.get("property_street");
+  const propertyStreetNumber: string =
     "" + formData.get("property_street_number");
 
   const cookie: Step1FormData = (await getFormDataCookie(
     request
   )) as Step1FormData;
-  cookie.property_street = property_street;
-  cookie.property_street_number = property_street_number;
+  cookie.propertyStreet = propertyStreet;
+  cookie.propertyStreetNumber = propertyStreetNumber;
 
-  const responseHeader: Record<string, string> =
-    await getFormDataCookieResponseHeader(cookie);
+  const responseHeader: Headers = await createResponseHeaders(cookie);
   return redirect("/steps/step2", {
     headers: responseHeader,
   });
@@ -53,14 +52,14 @@ export default function Step1() {
         <Input
           name="property_street"
           id="property_street"
-          defaultValue={formData.property_street}
+          defaultValue={formData.propertyStreet}
           className="mb-4"
         />
         <Label htmlFor="property_street_number">Hausnummer</Label>
         <Input
           name="property_street_number"
           id="property_street_number"
-          defaultValue={formData.property_street_number}
+          defaultValue={formData.propertyStreetNumber}
           className="mb-4"
         />
 
