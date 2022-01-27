@@ -3,7 +3,7 @@ import { LoaderFunction, useLoaderData } from "remix";
 import { getFormDataCookie } from "~/cookies";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  return await getFormDataCookie(request);
+  return getFormDataCookie(request);
 };
 
 export default function Step2() {
