@@ -16,8 +16,11 @@ import { Step1Data, TaxForm } from "~/domain/tax-form";
 import { machine } from "~/steps.server";
 import { interpret } from "xstate";
 
-export const loader: LoaderFunction = async ({ request }): Promise<TaxForm> => {
-  return getFormDataCookie(request);
+export const loader: LoaderFunction = async ({
+  request,
+}): Promise<Step1Data> => {
+  const taxForm = await getFormDataCookie(request);
+  return taxForm.step1Data || {};
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -67,7 +70,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Step1() {
-  const formData: Step1Data = useLoaderData().step1Data;
+  const formData: Step1Data = useLoaderData();
   const actionData = useActionData();
   return (
     <div className="bg-beige-100 h-full p-4">

@@ -9,7 +9,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function Summary() {
   const formData: TaxForm = useLoaderData();
-  console.log(formData);
   return (
     <div className="bg-beige-100 h-full p-4">
       <h1 className="mb-4 font-bold">Übersicht</h1>
