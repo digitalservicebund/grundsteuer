@@ -85,10 +85,12 @@ export const machine = createMachine(
   },
   {
     services: {
+      /* eslint-disable @typescript-eslint/no-unused-vars */
       validateStep1FormData: (context, event) => Promise.resolve(true),
       validateStep2FormData: (context, event) => Promise.resolve(true),
       saveStep1FormData: (context, event) => Promise.resolve(true),
       saveStep2FormData: (context, event) => Promise.resolve(true),
+      /* eslint-enable @typescript-eslint/no-unused-vars */
     },
   }
 );
