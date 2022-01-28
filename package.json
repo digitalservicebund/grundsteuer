@@ -15,7 +15,7 @@
     "format:fix": "prettier --write --ignore-path .gitignore --ignore-unknown .",
     "style:check": "npm run format:check && npm run lint:check",
     "style:fix": "npm run format:fix && npm run lint:fix",
-    "check": "tsc --noEmit && npm run style:check",
+    "check": "npm install && npm run build && npm run style:check",
     "postinstall": "remix setup node",
     "start": "remix-serve build",
     "prepare": "is-ci || husky install",
