@@ -1,9 +1,10 @@
-import { loader } from "./step1";
+import { action, loader } from "./step1";
 import { formDataCookie } from "~/cookies";
-import { TaxForm } from "../../domain/tax-form";
+import { TaxForm } from "~/domain/tax-form";
+import { redirect } from "remix";
 
 describe("Step 1 Loader", () => {
-  it("should handle empty cookie", async () => {
+  it("Should handle empty cookie", async () => {
     const response: TaxForm = await loader({
       request: new Request("/path"),
       params: {},
@@ -13,7 +14,7 @@ describe("Step 1 Loader", () => {
     expect(response.step1Data).toEqual(undefined);
   });
 
-  it("should return the sent cookie correctly", async () => {
+  it("Should return the sent cookie correctly", async () => {
     const inputCookie: string = await formDataCookie.serialize({
       step1Data: {
         propertyStreet: "Hauptstraße",
@@ -33,5 +34,56 @@ describe("Step 1 Loader", () => {
 
     expect(response.step1Data.propertyStreet).toEqual("Hauptstraße");
     expect(response.step1Data.propertyStreetNumber).toEqual("42");
+  });
+});
+
+describe("Step 1 Action", () => {
+  let request: Request;
+  let testData: Record<string, string>;
+
+  describe("With valid data", () => {
+    beforeEach(() => {
+      testData = {
+        property_street: "Hauptstraße",
+        property_street_number: "42",
+      };
+
+      const body = new URLSearchParams(testData);
+
+      request = new Request("/path", {
+        method: "POST",
+        body,
+      });
+    });
+
+    it("Should redirect to summary page", async () => {
+      const response: Response = await action({
+        request,
+        params: {},
+        context: {},
+      });
+
+      expect(response.status).toEqual(302);
+      expect(response.headers.get("Location")).toEqual("/steps/summary");
+    });
+
+    it("Should set the cookie correctly", async () => {
+      const expectedCookieContent = {
+        step1Data: {
+          propertyStreet: "Hauptstraße",
+          propertyStreetNumber: "42",
+        },
+      };
+
+      const response: Response = await action({
+        request,
+        params: {},
+        context: {},
+      });
+
+      expect(
+        await formDataCookie.parse(response.headers.get("Set-Cookie"))
+      ).toEqual(expectedCookieContent);
+    });
   });
 });

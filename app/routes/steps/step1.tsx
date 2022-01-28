@@ -67,6 +67,11 @@ export const action: ActionFunction = async ({ request }) => {
       // rerender
       return { errors: "many" };
     });
+  // TODO: revisit once validation is complete
+  const responseHeader: Headers = await createResponseHeaders(cookie);
+  return redirect("/steps/summary", {
+    headers: responseHeader,
+  });
 };
 
 export default function Step1() {
