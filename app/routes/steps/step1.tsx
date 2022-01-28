@@ -37,7 +37,7 @@ export const action: ActionFunction = async ({ request }) => {
   };
 
   // work in progress
-  new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const stepsService = interpret(machine)
       .onTransition((state) => {
         console.log("STATE: ", JSON.stringify(state.value));
