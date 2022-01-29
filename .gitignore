@@ -2,6 +2,7 @@
 node_modules
 .env
 /.cache
+/.eslintcache
 /build
 /public/build
 /public/tailwind.css

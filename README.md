@@ -30,8 +30,14 @@ with an error message indicating the missing keys.
 
 #### Style (Linting & Formatting)
 
-We use [ESLint](https://eslint.org/docs/user-guide/getting-started) for linting
+We use [ESLint](https://eslint.org/docs/user-guide/getting-started) to find problems in our code
 and [Prettier](https://prettier.io/docs/en/index.html) to enforce consistent formatting.
+
+It's probably a good idea to setup ESLint and Prettier in your editor (it might even be there out-of-the-box). This way you become aware of linting errors immediately while coding. Auto-formatting on saving the file frees you from any manual formatting work.
+
+To be on the safe side ESLint and Prettier are also run on all staged files before a commit. Automatically, so you can't forget it.
+
+Additionally you can always run ESLint and Prettier manually via npm tasks:
 
 Check style:
 
@@ -43,12 +49,6 @@ Autofix issues:
 
 ```sh
 npm run style:fix
-```
-
-Run all checks (use before every commit!):
-
-```sh
-npm run check
 ```
 
 ### Deployment
