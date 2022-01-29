@@ -57,5 +57,9 @@
   "engines": {
     "node": ">=14"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "volta": {
+    "node": "16.13.2",
+    "npm": "8.4.0"
+  }
 }
