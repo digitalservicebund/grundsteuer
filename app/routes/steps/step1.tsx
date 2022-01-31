@@ -4,15 +4,15 @@ import {
   Label,
 } from "@digitalservice4germany/digital-service-library";
 import {
-  useLoaderData,
-  useActionData,
-  Form,
   ActionFunction,
+  Form,
   LoaderFunction,
   redirect,
+  useActionData,
+  useLoaderData,
 } from "remix";
-import { getFormDataCookie, createResponseHeaders } from "~/cookies";
-import { Step1Data, Formular } from "~/domain/formular";
+import { createResponseHeaders, getFormDataCookie } from "~/cookies";
+import { Formular, Step1Data } from "~/domain/formular";
 import { machine } from "~/steps.server";
 import { interpret } from "xstate";
 
@@ -68,10 +68,10 @@ export const action: ActionFunction = async ({ request }) => {
       return { errors: "many" };
     });
   // TODO: revisit once validation is complete
-  const responseHeader: Headers = await createResponseHeaders(cookie);
-  return redirect("/steps/summary", {
-    headers: responseHeader,
-  });
+  // const responseHeader: Headers = await createResponseHeaders(cookie);
+  // return redirect("/steps/summary", {
+  //   headers: responseHeader,
+  // });
 };
 
 export default function Step1() {
