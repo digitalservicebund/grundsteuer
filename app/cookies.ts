@@ -1,9 +1,9 @@
 import { createCookie } from "remix";
-import { TaxForm } from "./domain/tax-form";
+import { Formular } from "./domain/formular";
 
 export const formDataCookie = createCookie("form-data");
 
-export async function getFormDataCookie(request: Request): Promise<TaxForm> {
+export async function getFormDataCookie(request: Request): Promise<Formular> {
   const cookieHeader = request.headers.get("Cookie");
   return (await formDataCookie.parse(cookieHeader)) || {};
 }

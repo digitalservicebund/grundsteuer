@@ -1,4 +1,4 @@
-import { TaxForm } from "./domain/tax-form";
+import { Formular } from "./domain/formular";
 import {
   createResponseHeaders,
   formDataCookie,
@@ -8,7 +8,7 @@ import {
 describe("getFormDataCookie", () => {
   it("Should handle empty cookie", async () => {
     const request: Request = new Request("/path");
-    const cookie: TaxForm = await getFormDataCookie(request);
+    const cookie: Formular = await getFormDataCookie(request);
 
     expect(cookie).toEqual({});
   });
@@ -25,7 +25,7 @@ describe("getFormDataCookie", () => {
         Cookie: inputCookie,
       },
     });
-    const cookie: TaxForm = await getFormDataCookie(request);
+    const cookie: Formular = await getFormDataCookie(request);
 
     expect(Object.keys(cookie).length).toEqual(1);
     expect(Object.keys(cookie.step1Data).length).toEqual(2);

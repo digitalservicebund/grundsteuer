@@ -12,7 +12,7 @@ import {
   redirect,
 } from "remix";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
-import { Step1Data, TaxForm } from "~/domain/tax-form";
+import { Step1Data, Formular } from "~/domain/formular";
 import { machine } from "~/steps.server";
 import { interpret } from "xstate";
 
@@ -30,7 +30,7 @@ export const action: ActionFunction = async ({ request }) => {
   const propertyStreetNumber: string =
     (formData.get("property_street_number") as string | null) || "";
 
-  const cookie: TaxForm = await getFormDataCookie(request);
+  const cookie: Formular = await getFormDataCookie(request);
   cookie.step1Data = {
     propertyStreet,
     propertyStreetNumber,

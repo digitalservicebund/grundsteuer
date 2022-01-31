@@ -1,14 +1,14 @@
 import { Link } from "@remix-run/react";
 import { LoaderFunction, useLoaderData } from "remix";
 import { getFormDataCookie } from "~/cookies";
-import { TaxForm } from "~/domain/tax-form";
+import { Formular } from "~/domain/formular";
 
 export const loader: LoaderFunction = async ({ request }) => {
   return getFormDataCookie(request);
 };
 
 export default function Summary() {
-  const formData: TaxForm = useLoaderData();
+  const formData: Formular = useLoaderData();
   return (
     <div className="bg-beige-100 h-full p-4">
       <h1 className="mb-4 font-bold">Übersicht</h1>

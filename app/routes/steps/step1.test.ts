@@ -1,6 +1,6 @@
 import { action, loader } from "./step1";
 import { formDataCookie } from "~/cookies";
-import { Step1Data } from "~/domain/tax-form";
+import { Step1Data } from "~/domain/formular";
 
 describe("Step 1 Loader", () => {
   it("Should handle empty cookie", async () => {

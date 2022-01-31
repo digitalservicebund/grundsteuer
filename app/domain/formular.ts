@@ -1,4 +1,4 @@
-export interface TaxForm {
+export interface Formular {
   step1Data: Step1Data;
 }
 
