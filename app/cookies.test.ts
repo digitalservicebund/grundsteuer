@@ -3,19 +3,20 @@ import {
   createResponseHeaders,
   formDataCookie,
   getFormDataCookie,
+  CookieData,
 } from "~/cookies";
 
 describe("getFormDataCookie", () => {
   it("Should handle empty cookie", async () => {
     const request: Request = new Request("/path");
-    const cookie: Formular = await getFormDataCookie(request);
+    const cookie: CookieData = await getFormDataCookie(request);
 
     expect(cookie).toEqual({});
   });
 
   it("Should return the content of a cookie", async () => {
     const inputCookie: string = await formDataCookie.serialize({
-      step1Data: {
+      records: {
         propertyStreet: "Hauptstraße",
         propertyStreetNumber: "42",
       },
@@ -25,12 +26,12 @@ describe("getFormDataCookie", () => {
         Cookie: inputCookie,
       },
     });
-    const cookie: Formular = await getFormDataCookie(request);
+    const cookie: CookieData = await getFormDataCookie(request);
 
     expect(Object.keys(cookie).length).toEqual(1);
-    expect(Object.keys(cookie.step1Data).length).toEqual(2);
-    expect(cookie.step1Data.propertyStreet).toEqual("Hauptstraße");
-    expect(cookie.step1Data.propertyStreetNumber).toEqual("42");
+    expect(Object.keys(cookie.records).length).toEqual(2);
+    expect(cookie.records.propertyStreet).toEqual("Hauptstraße");
+    expect(cookie.records.propertyStreetNumber).toEqual("42");
   });
 });
 

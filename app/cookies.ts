@@ -1,9 +1,12 @@
 import { createCookie } from "remix";
-import { Formular } from "./domain/formular";
+
+export interface CookieData {
+  records: Record<string, Record<string, string>>;
+}
 
 export const formDataCookie = createCookie("form-data");
 
-export async function getFormDataCookie(request: Request): Promise<Formular> {
+export async function getFormDataCookie(request: Request): Promise<CookieData> {
   const cookieHeader = request.headers.get("Cookie");
   return (await formDataCookie.parse(cookieHeader)) || {};
 }

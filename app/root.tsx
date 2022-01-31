@@ -1,6 +1,7 @@
 import type { LinksFunction, MetaFunction } from "remix";
 import {
   Links,
+  Link,
   LiveReload,
   Meta,
   Outlet,
@@ -36,7 +37,9 @@ export default function App() {
           sidebarNavigation={
             <div className="h-full p-4 bg-white">
               <ul>
-                <li>Übersicht</li>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
               </ul>
             </div>
           }
