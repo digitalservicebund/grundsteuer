@@ -63,7 +63,9 @@ describe("Step 1 Action", () => {
       });
 
       expect(response.status).toEqual(302);
-      expect(response.headers.get("Location")).toEqual("/steps/summary");
+      expect(response.headers.get("Location")).toEqual(
+        "/steps/zusammenfassung"
+      );
     });
 
     it("Should set the cookie correctly", async () => {

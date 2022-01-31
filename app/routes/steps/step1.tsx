@@ -59,7 +59,7 @@ export const action: ActionFunction = async ({ request }) => {
     .then(async () => {
       // TODO: redirect depending on form data
       const responseHeader: Headers = await createResponseHeaders(cookie);
-      return redirect("/steps/summary", {
+      return redirect("/steps/zusammenfassung", {
         headers: responseHeader,
       });
     })
@@ -69,7 +69,7 @@ export const action: ActionFunction = async ({ request }) => {
     });
   // TODO: revisit once validation is complete
   // const responseHeader: Headers = await createResponseHeaders(cookie);
-  // return redirect("/steps/summary", {
+  // return redirect("/steps/zusammenfassung", {
   //   headers: responseHeader,
   // });
 };

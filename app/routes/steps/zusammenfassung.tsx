@@ -7,7 +7,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return getFormDataCookie(request);
 };
 
-export default function Summary() {
+export default function Zusammenfassung() {
   const formData: Formular = useLoaderData();
   return (
     <div className="bg-beige-100 h-full p-4">
