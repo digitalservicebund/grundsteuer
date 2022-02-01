@@ -3,11 +3,17 @@ import type { CookieData } from "~/cookies";
 interface ConfigStepFieldCommon {
   name: string;
   label: string;
-  type: "text" | "radio" | "select";
+  type: FieldType;
+}
+
+export enum FieldType {
+  Text,
+  Radio,
+  Select,
 }
 
 export interface ConfigStepFieldText extends ConfigStepFieldCommon {
-  type: "text";
+  type: FieldType.Text;
 }
 
 export interface ConfigStepFieldOptionsItem {
@@ -20,11 +26,11 @@ export interface ConfigStepFieldWithOptions extends ConfigStepFieldCommon {
 }
 
 export interface ConfigStepFieldRadio extends ConfigStepFieldWithOptions {
-  type: "radio";
+  type: FieldType.Radio;
 }
 
 export interface ConfigStepFieldSelect extends ConfigStepFieldWithOptions {
-  type: "select";
+  type: FieldType.Select;
 }
 
 export interface ConfigStepConditionFunction {
@@ -55,12 +61,12 @@ const config: Config = {
       fields: [
         {
           name: "strasse",
-          type: "text",
+          type: FieldType.Text,
           label: "Straße",
         },
         {
           name: "hausnummer",
-          type: "text",
+          type: FieldType.Text,
           label: "Hausnummer",
         },
       ],
@@ -71,7 +77,7 @@ const config: Config = {
       fields: [
         {
           name: "bebauung",
-          type: "radio",
+          type: FieldType.Radio,
           label: "Das Grundstück ist",
           options: [
             {
@@ -95,7 +101,7 @@ const config: Config = {
       fields: [
         {
           name: "gebaeudeart",
-          type: "select",
+          type: FieldType.Select,
           label: "Art des Gebäudes",
           options: [
             {

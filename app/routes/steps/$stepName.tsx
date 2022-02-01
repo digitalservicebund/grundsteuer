@@ -12,7 +12,7 @@ import {
   redirect,
 } from "remix";
 import invariant from "tiny-invariant";
-import stepConfig from "~/stepConfig";
+import stepConfig, { FieldType } from "~/stepConfig";
 import type {
   ConfigStepField,
   ConfigStepFieldText,
@@ -152,9 +152,9 @@ export default function FormularStep() {
     const { name, type } = field;
     return (
       <div key={name} className="mb-8">
-        {type === "text" && renderTextField(field)}
-        {type === "radio" && renderRadioField(field)}
-        {type === "select" && renderSelectField(field)}
+        {type === FieldType.Text && renderTextField(field)}
+        {type === FieldType.Radio && renderRadioField(field)}
+        {type === FieldType.Select && renderSelectField(field)}
       </div>
     );
   };
