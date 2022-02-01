@@ -10,7 +10,8 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["app/*"]
+      "~/*": ["app/*"],
+      "factories/*": ["factories/*"]
     },
 
     // Remix takes care of building everything in `remix build`.

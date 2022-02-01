@@ -1,6 +1,6 @@
 import { nextStep, finalStepName } from "./nextStep";
-import configFactory from "~/../factories/stepConfig";
-import configStepFactory from "~/../factories/configStep";
+import configFactory from "factories/stepConfig";
+import configStepFactory from "factories/configStep";
 
 const configStep = configStepFactory.build();
 const configStepWithUnfulfillableCondition = configStepFactory.build({
