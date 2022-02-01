@@ -106,8 +106,8 @@ export default function FormularStep() {
     return (
       <fieldset>
         <legend>{label}</legend>
-        {options.map(({ value, label }) =>
-          renderRadioFieldOption({ name, value, label })
+        {options.map((item) =>
+          renderRadioFieldOption({ name, value: item.value, label: item.label })
         )}
       </fieldset>
     );
@@ -126,8 +126,12 @@ export default function FormularStep() {
           {label}
         </Label>
         <select name={name} id={id} defaultValue={selected}>
-          {options.map(({ value, label }) =>
-            renderSelectFieldOption({ name, value, label })
+          {options.map((item) =>
+            renderSelectFieldOption({
+              name,
+              value: item.value,
+              label: item.label,
+            })
           )}
         </select>
       </>
