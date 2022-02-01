@@ -1,8 +1,9 @@
 import type { CookieData } from "~/cookies";
 
-export interface ConfigStepFieldCommon {
+interface ConfigStepFieldCommon {
   name: string;
   label: string;
+  type: "text" | "radio" | "select";
 }
 
 export interface ConfigStepFieldText extends ConfigStepFieldCommon {
