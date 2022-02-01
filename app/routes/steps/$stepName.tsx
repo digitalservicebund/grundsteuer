@@ -20,7 +20,7 @@ import type {
   ConfigStepFieldRadio,
   ConfigStepFieldOptionsItem,
 } from "~/stepConfig";
-import nextStep from "~/domain/nextStep";
+import { nextStep } from "~/domain/nextStep";
 import allowedStep from "~/domain/allowedStep";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 
@@ -35,8 +35,17 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   const config = getStepConfig(params.stepName);
   const cookie = await getFormDataCookie(request);
 
-  if (!config || !allowedStep(params.stepName, cookie.records)) {
-    return redirect(`/steps/${nextStep(cookie.records)}`);
+  if (
+    !config ||
+    !allowedStep({
+      name: params.stepName,
+      records: cookie.records,
+      config: stepConfig,
+    })
+  ) {
+    return redirect(
+      `/steps/${nextStep({ config: stepConfig, records: cookie.records })}`
+    );
   }
 
   const formData = cookie.records?.[params.stepName];
@@ -59,9 +68,12 @@ export const action: ActionFunction = async ({ params, request }) => {
     }, {});
 
   const responseHeader: Headers = await createResponseHeaders(cookie);
-  return redirect(`/steps/${nextStep(cookie.records)}`, {
-    headers: responseHeader,
-  });
+  return redirect(
+    `/steps/${nextStep({ config: stepConfig, records: cookie.records })}`,
+    {
+      headers: responseHeader,
+    }
+  );
 };
 
 export default function FormularStep() {
