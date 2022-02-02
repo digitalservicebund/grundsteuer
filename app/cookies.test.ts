@@ -1,4 +1,3 @@
-import { Formular } from "./domain/formular";
 import {
   createResponseHeaders,
   formDataCookie,
