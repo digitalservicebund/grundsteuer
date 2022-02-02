@@ -5,7 +5,7 @@ module.exports = {
   moduleDirectories: ["node_modules", "<rootDir>/app"],
   moduleNameMapper: {
     "~/(.*)": "<rootDir>/app/$1",
-    "factories/(.*)": "<rootDir>/factories/$1",
+    "test/(.*)": "<rootDir>/test/$1",
   },
   setupFiles: ["<rootDir>/private/jest/setup.js"],
 };

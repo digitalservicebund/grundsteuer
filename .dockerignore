@@ -8,5 +8,5 @@
 !remix.env.d.ts
 !tsconfig.json
 !.env.example
-!factories
+!test
 /public/build/
