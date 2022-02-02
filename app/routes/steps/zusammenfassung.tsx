@@ -14,7 +14,9 @@ export default function Zusammenfassung() {
     return (
       <div key={field.name}>
         <strong className="mr-4 inline-block">{field.label}</strong>
-        <span>{formData.records[stepName]?.[field.name]}</span>
+        <span>
+          {formData.records && formData.records[stepName]?.[field.name]}
+        </span>
       </div>
     );
   };
