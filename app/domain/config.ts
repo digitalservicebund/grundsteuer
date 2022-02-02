@@ -53,7 +53,7 @@ export interface Config {
   steps: ConfigStep[];
 }
 
-const config: Config = {
+export const config: Config = {
   steps: [
     {
       name: "adresse",
@@ -122,5 +122,3 @@ const config: Config = {
     },
   ],
 };
-
-export default config;
