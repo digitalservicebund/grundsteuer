@@ -1,7 +1,8 @@
 import { createCookie } from "remix";
+import type { Records } from "~/domain/records";
 
 export interface CookieData {
-  records: Record<string, Record<string, string>>;
+  records: Records;
 }
 
 export const formDataCookie = createCookie("form-data");

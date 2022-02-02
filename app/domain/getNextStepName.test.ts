@@ -12,7 +12,7 @@ const configStepWithAlwaysFulfilledCondition = configStepFactory.build({
 
 describe("getNextStepName", () => {
   describe("without records", () => {
-    const records = undefined;
+    const records = {};
     test("returns the first step", () => {
       expect(
         getNextStepName({

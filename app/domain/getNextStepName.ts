@@ -1,4 +1,5 @@
 import type { Config } from "~/domain/config";
+import type { Records } from "~/domain/records";
 
 export const finalStepName = "zusammenfassung";
 
@@ -7,7 +8,7 @@ export const getNextStepName = ({
   records,
 }: {
   config: Config;
-  records: any;
+  records: Records;
 }) => {
   const visitedStepNames = Object.keys(records || {});
 

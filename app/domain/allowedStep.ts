@@ -1,5 +1,6 @@
 import { getNextStepName } from "./getNextStepName";
 import type { Config } from "~/domain/config";
+import type { Records } from "~/domain/records";
 
 /** Every step has its own url, so every step could be reached directly by the user.
  * We might not want that the user gets to a step without visiting the previous steps.
@@ -14,7 +15,7 @@ export default ({
 }: {
   name: string;
   config: Config;
-  records: any;
+  records: Records;
 }) => {
   console.log({ name, records });
 
