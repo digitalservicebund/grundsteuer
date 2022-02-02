@@ -35,7 +35,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   const cookie = await getFormDataCookie(request);
 
   if (
-    !config ||
+    !stepConfig ||
     !isStepAllowed({
       name: params.stepName,
       records: cookie.records,
@@ -51,7 +51,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   }
 
   const formData = cookie.records?.[params.stepName];
-  return { config: stepConfig, cookie, formData };
+  return { stepConfig, cookie, formData };
 };
 
 export const action: ActionFunction = async ({ params, request }) => {
@@ -82,8 +82,8 @@ export const action: ActionFunction = async ({ params, request }) => {
 };
 
 export default function FormularStep() {
-  const { config, cookie, formData } = useLoaderData();
-  const { headline, fields } = config;
+  const { stepConfig, cookie, formData } = useLoaderData();
+  const { headline, fields } = stepConfig;
   const actionData = useActionData();
 
   const renderRadioFieldOption = ({
@@ -187,7 +187,7 @@ export default function FormularStep() {
         {fields.map((field: ConfigStepField) => renderField(field))}
         <Button>Weiter</Button>
       </Form>
-      <pre>config: {JSON.stringify(config, null, 2)}</pre>
+      <pre>stepConfig: {JSON.stringify(stepConfig, null, 2)}</pre>
       <pre>cookie: {JSON.stringify(cookie, null, 2)}</pre>
     </div>
   );
