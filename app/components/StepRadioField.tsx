@@ -9,24 +9,20 @@ export default function StepRadioField({
 }) {
   const { name, label, options } = config;
 
-  const renderRadioFieldOption = ({
-    name,
-    value,
-    label,
-    checkedValue,
-  }: ConfigStepFieldOptionsItem & { name: string; checkedValue: string }) => {
-    const id = `${name}-${value}`;
-    const checked = checkedValue === value;
+  const renderRadioFieldOption = (
+    option: ConfigStepFieldOptionsItem & { name: string; checked: boolean }
+  ) => {
+    const optionId = `${option.name}-${option.value}`;
     return (
-      <div key={value}>
+      <div key={option.value}>
         <input
-          defaultChecked={checked}
+          defaultChecked={option.checked}
           type="radio"
-          name={name}
-          value={value}
-          id={id}
+          name={option.name}
+          value={option.value}
+          id={optionId}
         />
-        <label htmlFor={id}>{label}</label>
+        <label htmlFor={optionId}>{option.label}</label>
       </div>
     );
   };
@@ -34,14 +30,16 @@ export default function StepRadioField({
   return (
     <fieldset>
       <legend>{label}</legend>
-      {options.map((item) =>
-        renderRadioFieldOption({
+      {options.map((option) => {
+        const checked = option.value === value;
+
+        return renderRadioFieldOption({
           name,
-          value: item.value,
-          label: item.label,
-          checkedValue: value || "",
-        })
-      )}
+          checked,
+          value: option.value,
+          label: option.label,
+        });
+      })}
     </fieldset>
   );
 }

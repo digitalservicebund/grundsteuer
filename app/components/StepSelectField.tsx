@@ -11,13 +11,10 @@ export default function StepSelectField({
   const { name, label, options } = config;
   const id = name;
 
-  const renderSelectFieldOption = ({
-    value,
-    label,
-  }: ConfigStepFieldOptionsItem & { name: string }) => {
+  const renderSelectFieldOption = (option: ConfigStepFieldOptionsItem) => {
     return (
-      <option value={value} key={value}>
-        {label}
+      <option value={option.value} key={option.value}>
+        {option.label}
       </option>
     );
   };
@@ -28,13 +25,7 @@ export default function StepSelectField({
         {label}
       </Label>
       <select name={name} id={id} defaultValue={value}>
-        {options.map((item: ConfigStepFieldOptionsItem) =>
-          renderSelectFieldOption({
-            name,
-            value: item.value,
-            label: item.label,
-          })
-        )}
+        {options.map(renderSelectFieldOption)}
       </select>
     </>
   );
