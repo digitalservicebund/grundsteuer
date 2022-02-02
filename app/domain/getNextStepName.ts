@@ -2,7 +2,7 @@ import type { Config } from "~/stepConfig";
 
 export const finalStepName = "zusammenfassung";
 
-export const nextStep = ({
+export const getNextStepName = ({
   config,
   records,
 }: {

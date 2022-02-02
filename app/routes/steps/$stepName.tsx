@@ -20,7 +20,7 @@ import type {
   ConfigStepFieldRadio,
   ConfigStepFieldOptionsItem,
 } from "~/stepConfig";
-import { nextStep } from "~/domain/nextStep";
+import { getNextStepName } from "~/domain/getNextStepName";
 import allowedStep from "~/domain/allowedStep";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 
@@ -44,7 +44,10 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     })
   ) {
     return redirect(
-      `/steps/${nextStep({ config: stepConfig, records: cookie.records })}`
+      `/steps/${getNextStepName({
+        config: stepConfig,
+        records: cookie.records,
+      })}`
     );
   }
 
@@ -69,7 +72,10 @@ export const action: ActionFunction = async ({ params, request }) => {
 
   const responseHeader: Headers = await createResponseHeaders(cookie);
   return redirect(
-    `/steps/${nextStep({ config: stepConfig, records: cookie.records })}`,
+    `/steps/${getNextStepName({
+      config: stepConfig,
+      records: cookie.records,
+    })}`,
     {
       headers: responseHeader,
     }

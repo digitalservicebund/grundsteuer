@@ -1,4 +1,4 @@
-import { nextStep } from "./nextStep";
+import { getNextStepName } from "./getNextStepName";
 import type { Config } from "~/stepConfig";
 
 /** Every step has its own url, so every step could be reached directly by the user.
@@ -24,7 +24,7 @@ export default ({
     return true;
   }
 
-  if (nextStep({ records, config }) === name) {
+  if (getNextStepName({ records, config }) === name) {
     console.log(`Allow step ${name} because it's the next planned step.`);
     return true;
   }

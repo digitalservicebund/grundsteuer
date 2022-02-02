@@ -1,4 +1,4 @@
-import { nextStep, finalStepName } from "./nextStep";
+import { getNextStepName, finalStepName } from "./getNextStepName";
 import configFactory from "test/factories/stepConfig";
 import configStepFactory from "test/factories/configStep";
 
@@ -10,12 +10,12 @@ const configStepWithAlwaysFulfilledCondition = configStepFactory.build({
   condition: () => true,
 });
 
-describe("nextStep", () => {
+describe("getNextStepName", () => {
   describe("without records", () => {
     const records = undefined;
     test("returns the first step", () => {
       expect(
-        nextStep({
+        getNextStepName({
           config: configFactory.build({
             steps: [configStep],
           }),
@@ -26,7 +26,7 @@ describe("nextStep", () => {
 
     test("returns step with fulfilled condition", () => {
       expect(
-        nextStep({
+        getNextStepName({
           config: configFactory.build({
             steps: [configStepWithAlwaysFulfilledCondition],
           }),
@@ -37,7 +37,7 @@ describe("nextStep", () => {
 
     test("skips step with unfulfillable condition", () => {
       expect(
-        nextStep({
+        getNextStepName({
           config: configFactory.build({
             steps: [configStepWithUnfulfillableCondition, configStep],
           }),
@@ -48,7 +48,7 @@ describe("nextStep", () => {
 
     test("returns final step when no steps found", () => {
       expect(
-        nextStep({
+        getNextStepName({
           config: configFactory.build({
             steps: [],
           }),
@@ -63,7 +63,7 @@ describe("nextStep", () => {
 
     test("skips the step from the records", () => {
       expect(
-        nextStep({
+        getNextStepName({
           config: configFactory.build({
             steps: [configStep, configStepWithAlwaysFulfilledCondition],
           }),
