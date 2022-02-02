@@ -12,27 +12,27 @@ import {
   redirect,
 } from "remix";
 import invariant from "tiny-invariant";
-import stepConfig, { FieldType } from "~/stepConfig";
+import config, { FieldType } from "~/domain/config";
 import type {
   ConfigStepField,
   ConfigStepFieldText,
   ConfigStepFieldSelect,
   ConfigStepFieldRadio,
   ConfigStepFieldOptionsItem,
-} from "~/stepConfig";
+} from "~/domain/config";
 import { getNextStepName } from "~/domain/getNextStepName";
 import allowedStep from "~/domain/allowedStep";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 
 const getStepConfig = (stepName: string) => {
-  const config = stepConfig.steps.find(({ name }) => name === stepName);
-  console.log(config);
-  return config;
+  const stepConfig = config.steps.find(({ name }) => name === stepName);
+  console.log(stepConfig);
+  return stepConfig;
 };
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   invariant(params.stepName, "Expected stepName");
-  const config = getStepConfig(params.stepName);
+  const stepConfig = getStepConfig(params.stepName);
   const cookie = await getFormDataCookie(request);
 
   if (
@@ -40,31 +40,31 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     !allowedStep({
       name: params.stepName,
       records: cookie.records,
-      config: stepConfig,
+      config,
     })
   ) {
     return redirect(
       `/steps/${getNextStepName({
-        config: stepConfig,
+        config,
         records: cookie.records,
       })}`
     );
   }
 
   const formData = cookie.records?.[params.stepName];
-  return { config, cookie, formData };
+  return { config: stepConfig, cookie, formData };
 };
 
 export const action: ActionFunction = async ({ params, request }) => {
   invariant(params.stepName, "Expected stepName");
-  const config = getStepConfig(params.stepName);
-  invariant(config, "Expected config");
+  const stepConfig = getStepConfig(params.stepName);
+  invariant(stepConfig, "Expected stepConfig");
   const cookie = await getFormDataCookie(request);
 
   const formData: FormData = await request.formData();
 
   cookie.records = cookie.records || {};
-  cookie.records[params.stepName] = config.fields
+  cookie.records[params.stepName] = stepConfig.fields
     .map((field) => field.name)
     .reduce((acc, name) => {
       return Object.assign(acc, { [name]: formData.get(name) });
@@ -73,7 +73,7 @@ export const action: ActionFunction = async ({ params, request }) => {
   const responseHeader: Headers = await createResponseHeaders(cookie);
   return redirect(
     `/steps/${getNextStepName({
-      config: stepConfig,
+      config,
       records: cookie.records,
     })}`,
     {

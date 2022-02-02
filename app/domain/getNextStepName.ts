@@ -1,4 +1,4 @@
-import type { Config } from "~/stepConfig";
+import type { Config } from "~/domain/config";
 
 export const finalStepName = "zusammenfassung";
 

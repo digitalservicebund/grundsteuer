@@ -1,5 +1,5 @@
 import { Factory } from "fishery";
-import type { Config } from "~/stepConfig";
+import type { Config } from "~/domain/config";
 
 export default Factory.define<Config>(() => ({
   steps: [],

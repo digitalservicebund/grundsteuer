@@ -1,5 +1,5 @@
 import { getNextStepName, finalStepName } from "./getNextStepName";
-import configFactory from "test/factories/stepConfig";
+import configFactory from "test/factories/config";
 import configStepFactory from "test/factories/configStep";
 
 const configStep = configStepFactory.build();

@@ -1,7 +1,7 @@
 import { Link } from "@remix-run/react";
 import { LoaderFunction, useLoaderData } from "remix";
 import { getFormDataCookie } from "~/cookies";
-import config, { ConfigStep, ConfigStepField } from "~/stepConfig";
+import config, { ConfigStep, ConfigStepField } from "~/domain/config";
 
 export const loader: LoaderFunction = async ({ request }) => {
   return getFormDataCookie(request);
