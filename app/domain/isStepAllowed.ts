@@ -8,7 +8,7 @@ import type { Records } from "~/domain/records";
  *   1. the given step is the planned next step
  *   or 2. the user already visited a step (and now might return to edit it)
  */
-export default ({
+export const isStepAllowed = ({
   name,
   config,
   records,

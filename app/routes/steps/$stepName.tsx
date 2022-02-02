@@ -20,8 +20,7 @@ import type {
   ConfigStepFieldRadio,
   ConfigStepFieldOptionsItem,
 } from "~/domain/config";
-import { getNextStepName } from "~/domain/getNextStepName";
-import allowedStep from "~/domain/allowedStep";
+import { getNextStepName, isStepAllowed } from "~/domain";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 
 const getStepConfig = (stepName: string) => {
@@ -37,7 +36,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
   if (
     !config ||
-    !allowedStep({
+    !isStepAllowed({
       name: params.stepName,
       records: cookie.records,
       config,
