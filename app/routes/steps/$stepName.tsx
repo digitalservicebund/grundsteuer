@@ -109,7 +109,6 @@ export default function FormularStep() {
   };
 
   const renderSelectFieldOption = ({
-    name,
     value,
     label,
   }: ConfigStepFieldOptionsItem & { name: string }) => {
