@@ -95,9 +95,6 @@ export const config: Config = {
     {
       name: "gebaeude",
       headline: "Gebäude auf dem Grundstück",
-      condition: (records) => {
-        return records?.bebauung?.bebauung === "bebaut";
-      },
       fields: [
         {
           name: "gebaeudeart",

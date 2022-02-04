@@ -1,26 +1,65 @@
-import type { Config } from "~/domain/config";
+import { createMachine, interpret } from "xstate";
 import type { Records } from "~/domain/records";
 
-export const finalStepName = "zusammenfassung";
+const isBebaut = (context: any, event: any) => {
+  return context.bebauung.bebauung === "bebaut";
+};
 
 export const getNextStepName = ({
-  config,
+  currentStepName,
   records,
 }: {
-  config: Config;
+  currentStepName: string;
   records: Records;
 }) => {
-  const visitedStepNames = Object.keys(records || {});
+  const machine = createMachine({
+    id: "machine",
+    initial: "adresse",
+    context: records,
+    states: {
+      adresse: {
+        on: {
+          NEXT: [
+            {
+              target: "bebauung",
+            },
+          ],
+        },
+      },
+      bebauung: {
+        on: {
+          NEXT: [
+            {
+              target: "gebaeude",
+              cond: isBebaut,
+            },
+            {
+              target: "zusammenfassung",
+            },
+          ],
+        },
+      },
+      gebaeude: {
+        on: {
+          NEXT: [
+            {
+              target: "zusammenfassung",
+            },
+          ],
+        },
+      },
+      zusammenfassung: { type: "final" },
+    },
+  });
 
-  return (
-    config.steps.find(({ name, condition }) => {
-      const visited = visitedStepNames.includes(name);
-      if (visited) return false;
+  const service = interpret(machine)
+    .onTransition((state) => console.log("Transition: ", state.value))
+    .start(currentStepName);
 
-      const unfulfilledCondition = condition && !condition(records);
-      if (unfulfilledCondition) return false;
+  const nextState = service.send({
+    type: "NEXT",
+    query: records,
+  });
 
-      return true;
-    })?.name || finalStepName
-  );
+  return nextState.value;
 };

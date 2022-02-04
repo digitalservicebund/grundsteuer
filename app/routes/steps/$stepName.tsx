@@ -10,13 +10,7 @@ import {
 import invariant from "tiny-invariant";
 
 import { StepTextField, StepRadioField, StepSelectField } from "~/components";
-import {
-  config,
-  ConfigStepField,
-  FieldType,
-  getNextStepName,
-  isStepAllowed,
-} from "~/domain";
+import { config, ConfigStepField, FieldType, getNextStepName } from "~/domain";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 
 const getStepConfig = (stepName: string) => {
@@ -31,16 +25,15 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   const cookie = await getFormDataCookie(request);
 
   if (
-    !stepConfig ||
-    !isStepAllowed({
-      name: params.stepName,
-      records: cookie.records,
-      config,
-    })
+    !(
+      stepConfig &&
+      (params.stepName === "adresse" ||
+        (cookie.allowedSteps && cookie.allowedSteps.includes(params.stepName)))
+    )
   ) {
     return redirect(
       `/steps/${getNextStepName({
-        config,
+        currentStepName: params.stepName,
         records: cookie.records,
       })}`
     );
@@ -65,16 +58,18 @@ export const action: ActionFunction = async ({ params, request }) => {
       return Object.assign(acc, { [name]: formData.get(name) });
     }, {});
 
+  const nextStepName = getNextStepName({
+    currentStepName: params.stepName,
+    records: cookie.records,
+  });
+
+  cookie.allowedSteps = cookie.allowedSteps || [];
+  cookie.allowedSteps.push(nextStepName as string);
+
   const responseHeader: Headers = await createResponseHeaders(cookie);
-  return redirect(
-    `/steps/${getNextStepName({
-      config,
-      records: cookie.records,
-    })}`,
-    {
-      headers: responseHeader,
-    }
-  );
+  return redirect(`/steps/${nextStepName}`, {
+    headers: responseHeader,
+  });
 };
 
 export default function FormularStep() {

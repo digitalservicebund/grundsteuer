@@ -3,6 +3,7 @@ import type { Records } from "~/domain/records";
 
 export interface CookieData {
   records: Records;
+  allowedSteps?: string[];
 }
 
 export const formDataCookie = createCookie("form-data");
