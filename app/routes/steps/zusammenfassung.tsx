@@ -13,10 +13,10 @@ export default function Zusammenfassung() {
   const renderField = (stepName: string, field: ConfigStepField) => {
     return (
       <div key={field.name}>
-        <strong className="mr-4 inline-block">{field.label}</strong>
-        <span>
+        <dt className="mr-4 inline font-bold">{field.label}</dt>
+        <dd className="inline">
           {formData.records && formData.records[stepName]?.[field.name]}
-        </span>
+        </dd>
       </div>
     );
   };
@@ -31,7 +31,7 @@ export default function Zusammenfassung() {
         >
           Edit (/steps/{step.name})
         </Link>
-        {step.fields.map((field) => renderField(step.name, field))}
+        <dl>{step.fields.map((field) => renderField(step.name, field))}</dl>
       </div>
     );
   };
