@@ -1,17 +1,15 @@
-import { Button } from "@digitalservice4germany/digital-service-library";
 import {
   useLoaderData,
   useActionData,
-  Form,
   ActionFunction,
   LoaderFunction,
   redirect,
 } from "remix";
 import invariant from "tiny-invariant";
 
-import { StepTextField, StepRadioField, StepSelectField } from "~/components";
-import { config, ConfigStepField, FieldType, getNextStepName } from "~/domain";
+import { config, getNextStepName } from "~/domain";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
+import { lookupStep } from "~/steps/stepLookup";
 
 const getStepConfig = (stepName: string) => {
   const stepConfig = config.steps.find(({ name }) => name === stepName);
@@ -40,7 +38,8 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   }
 
   const formData = cookie.records?.[params.stepName];
-  return { stepConfig, cookie, formData };
+  const stepName = params.stepName;
+  return { stepName, cookie, formData };
 };
 
 export const action: ActionFunction = async ({ params, request }) => {
@@ -73,39 +72,9 @@ export const action: ActionFunction = async ({ params, request }) => {
 };
 
 export default function FormularStep() {
-  const { stepConfig, cookie, formData } = useLoaderData();
-  const { headline, fields } = stepConfig;
+  const { stepName, cookie, formData } = useLoaderData();
   const actionData = useActionData();
 
-  const renderField = (field: ConfigStepField) => {
-    const { name, type } = field;
-    return (
-      <div key={name} className="mb-8">
-        {type === FieldType.Text && (
-          <StepTextField config={field} value={formData?.[name]} />
-        )}
-        {type === FieldType.Radio && (
-          <StepRadioField config={field} value={formData?.[name]} />
-        )}
-        {type === FieldType.Select && (
-          <StepSelectField config={field} value={formData?.[name]} />
-        )}
-      </div>
-    );
-  };
-
-  return (
-    <div className="bg-beige-100 h-full p-4">
-      <h1 className="mb-8 font-bold text-4xl">{headline}</h1>
-      {actionData?.errors ? "ERRORS: " + actionData.errors : ""}
-      {fields && (
-        <Form method="post" className="mb-16">
-          {fields.map((field: ConfigStepField) => renderField(field))}
-          <Button>Weiter</Button>
-        </Form>
-      )}
-      <pre>stepConfig: {JSON.stringify(stepConfig, null, 2)}</pre>
-      <pre>cookie: {JSON.stringify(cookie, null, 2)}</pre>
-    </div>
-  );
+  const step = lookupStep(stepName);
+  return new step().render(cookie, formData, actionData);
 }
