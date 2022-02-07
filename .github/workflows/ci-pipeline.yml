@@ -40,6 +40,9 @@ jobs:
       - name: Run tests
         run: npm test
 
+      - name: Run E2E tests
+        run: npm run test:e2e
+
   build-push-image:
     needs: [build-app]
     if: github.ref == 'refs/heads/main'
