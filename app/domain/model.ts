@@ -22,7 +22,7 @@ export default class GrundDataModel {
 
   constructor(sections: GrundDataModelData | undefined) {
     // TODO set default correctly
-    const default_sections = {
+    const defaultSections = {
       sectionGrundstueck: {
         adresse: {
           strasse: "",
@@ -38,7 +38,7 @@ export default class GrundDataModel {
         },
       },
     };
-    this.sections = { ...default_sections, ...sections };
+    this.sections = { ...defaultSections, ...sections };
   }
 
   addStepData(stepName: string, stepModelData: BaseStepData) {
