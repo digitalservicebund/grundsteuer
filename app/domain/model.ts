@@ -21,27 +21,24 @@ export default class GrundDataModel {
   sections: GrundDataModelData;
 
   constructor(sections: GrundDataModelData | undefined) {
-    if (sections == undefined) {
-      // TODO handle this correctly
-      this.sections = {
-        sectionGrundstueck: {
-          adresse: {
-            strasse: "",
-            hausnummer: 0,
-          },
-          bebauung: {
-            bebauung: "",
-          },
+    // TODO set default correctly
+    const default_sections = {
+      sectionGrundstueck: {
+        adresse: {
+          strasse: "",
+          hausnummer: 0,
         },
-        sectionGebaeude: {
-          gebaeude: {
-            gebaeudeart: "",
-          },
+        bebauung: {
+          bebauung: "",
         },
-      };
-    } else {
-      this.sections = sections;
-    }
+      },
+      sectionGebaeude: {
+        gebaeude: {
+          gebaeudeart: "",
+        },
+      },
+    };
+    this.sections = { ...default_sections, ...sections };
   }
 
   addStepData(stepName: string, stepModelData: BaseStepData) {
