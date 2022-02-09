@@ -1,4 +1,4 @@
-import { GebaeudeData } from "~/steps/gebaeude";
+import { GebaeudeDataData } from "~/steps/gebaeude";
 import { AdresseDataData } from "~/steps/adresse";
 import { BebauungDataData } from "~/steps/bebauung";
 import { BaseStepData } from "~/steps/baseStep";
@@ -9,7 +9,7 @@ interface SectionGrundstueckData {
 }
 
 interface SectionGebaeudeData {
-  gebaeudeart: GebaeudeData;
+  gebaeude: GebaeudeDataData;
 }
 
 export interface GrundDataModelData {
@@ -34,7 +34,7 @@ export default class GrundDataModel {
           },
         },
         sectionGebaeude: {
-          gebaeudeart: {
+          gebaeude: {
             gebaeudeart: "",
           },
         },

@@ -2,6 +2,7 @@ import { Link } from "@remix-run/react";
 import { LoaderFunction, useLoaderData } from "remix";
 import { getFormDataCookie } from "~/cookies";
 import { config, ConfigStep, ConfigStepField } from "~/domain";
+import GrundDataModel from "~/domain/model";
 
 export const loader: LoaderFunction = async ({ request }) => {
   return getFormDataCookie(request);
@@ -9,13 +10,15 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function Zusammenfassung() {
   const formData = useLoaderData();
+  const dataModel = new GrundDataModel(formData.records);
 
   const renderField = (stepName: string, field: ConfigStepField) => {
     return (
       <div key={field.name}>
         <dt className="mr-4 inline font-bold">{field.label}</dt>
         <dd className="inline">
-          {formData.records && formData.records[stepName]?.[field.name]}
+          {dataModel.getStepData(stepName) &&
+            dataModel.getStepData(stepName)[field.name]}
         </dd>
       </div>
     );

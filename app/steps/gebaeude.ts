@@ -1,18 +1,27 @@
-import BaseStep from "~/steps/baseStep";
+import BaseStep, { BaseDataData, BaseStepData } from "~/steps/baseStep";
 import { ConfigStepField, FieldType } from "~/domain";
+import invariant from "tiny-invariant";
 
-export class GebaeudeData {
+export interface GebaeudeDataData extends BaseDataData {
   gebaeudeart: string;
+}
 
-  constructor(gebaeudeart: string) {
-    this.gebaeudeart = gebaeudeart;
+export class GebaeudeData extends BaseStepData {
+  data: GebaeudeDataData;
+
+  constructor(formData: Record<string, any>) {
+    super(formData);
+    invariant(formData.get("gebaeudeart"), "Expected gebaeudeart");
+    this.data = {
+      gebaeudeart: formData.get("gebaeudeart"),
+    };
   }
   // TODO add validation here
 }
 
 export default class GebaeudeStep extends BaseStep {
-  static headline = "Gebäude auf dem Grundstück";
-  static fields: Array<ConfigStepField> = [
+  headline = "Gebäude auf dem Grundstück";
+  fields: Array<ConfigStepField> = [
     {
       name: "gebaeudeart",
       type: FieldType.Select,
@@ -33,5 +42,5 @@ export default class GebaeudeStep extends BaseStep {
       ],
     },
   ];
-  static dataModel = GebaeudeData;
+  dataModel = GebaeudeData;
 }
