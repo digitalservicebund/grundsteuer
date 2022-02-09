@@ -3,30 +3,30 @@ import { AdresseDataData } from "~/steps/adresse";
 import { BebauungDataData } from "~/steps/bebauung";
 import { BaseStepData } from "~/steps/baseStep";
 
-interface AreaGrundstueckData {
+interface SectionGrundstueckData {
   adresse: AdresseDataData;
   bebauung: BebauungDataData;
 }
 
-interface AreaGebaeudeData {
+interface SectionGebaeudeData {
   gebaeudeart: GebaeudeData;
 }
 
 export interface GrundDataModelData {
-  areaGrundstueck: AreaGrundstueckData;
-  areaGebaeude: AreaGebaeudeData;
+  sectionGrundstueck: SectionGrundstueckData;
+  sectionGebaeude: SectionGebaeudeData;
 }
 
 export default class GrundDataModel {
-  areas: GrundDataModelData;
+  sections: GrundDataModelData;
 
-  constructor(areas: GrundDataModelData | undefined) {
-    console.log("AREAS");
-    console.log(areas);
-    if (areas == undefined) {
+  constructor(sections: GrundDataModelData | undefined) {
+    console.log("SECTIONS");
+    console.log(sections);
+    if (sections == undefined) {
       // TODO handle this correctly
-      this.areas = {
-        areaGrundstueck: {
+      this.sections = {
+        sectionGrundstueck: {
           adresse: {
             strasse: "",
             hausnummer: 0,
@@ -35,35 +35,35 @@ export default class GrundDataModel {
             bebauung: "",
           },
         },
-        areaGebaeude: {
+        sectionGebaeude: {
           gebaeudeart: {
             gebaeudeart: "",
           },
         },
       };
     } else {
-      this.areas = areas;
+      this.sections = sections;
     }
-    console.log(this.areas);
+    console.log(this.sections);
   }
 
   addStepData(stepName: string, stepModelData: BaseStepData) {
-    Object.keys(this.areas).forEach((area: string) => {
-      const area_steps: Record<string, any> =
-        this.areas[area as keyof GrundDataModelData];
-      if (area_steps[stepName] != undefined) {
-        area_steps[stepName] = stepModelData.data;
+    Object.keys(this.sections).forEach((section: string) => {
+      const section_steps: Record<string, any> =
+        this.sections[section as keyof GrundDataModelData];
+      if (section_steps[stepName] != undefined) {
+        section_steps[stepName] = stepModelData.data;
       }
     });
   }
 
   getStepData(stepName: string) {
     // TODO make this recursive for indefinite levels
-    for (const area in this.areas) {
-      const area_steps: Record<string, any> =
-        this.areas[area as keyof GrundDataModelData];
-      if (area_steps[stepName] != undefined) {
-        return area_steps[stepName];
+    for (const section in this.sections) {
+      const section_steps: Record<string, any> =
+        this.sections[section as keyof GrundDataModelData];
+      if (section_steps[stepName] != undefined) {
+        return section_steps[stepName];
       }
     }
   }

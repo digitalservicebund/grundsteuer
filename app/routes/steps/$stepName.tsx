@@ -64,7 +64,7 @@ export const action: ActionFunction = async ({ params, request }) => {
   completeDataModel.addStepData(params.stepName, stepDataModel);
 
   // Add bigger model to cookie
-  cookie.records = completeDataModel.areas;
+  cookie.records = completeDataModel.sections;
 
   const nextStepName = getNextStepName({
     currentStepName: params.stepName,
