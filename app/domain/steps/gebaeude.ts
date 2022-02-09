@@ -1,6 +1,5 @@
-import BaseStep, { BaseDataData, BaseStepData } from "~/steps/baseStep";
+import BaseStep, { BaseDataData, BaseStepData } from "~/domain/steps/baseStep";
 import { ConfigStepField, FieldType } from "~/domain";
-import invariant from "tiny-invariant";
 
 export interface GebaeudeDataData extends BaseDataData {
   gebaeudeart: string;
@@ -11,7 +10,6 @@ export class GebaeudeData extends BaseStepData {
 
   constructor(formData: Record<string, any>) {
     super(formData);
-    invariant(formData.get("gebaeudeart"), "Expected gebaeudeart");
     this.data = {
       gebaeudeart: formData.get("gebaeudeart"),
     };

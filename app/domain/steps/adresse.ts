@@ -1,4 +1,4 @@
-import BaseStep, { BaseDataData, BaseStepData } from "~/steps/baseStep";
+import BaseStep, { BaseDataData, BaseStepData } from "~/domain/steps/baseStep";
 import { ConfigStepField, FieldType } from "~/domain";
 import invariant from "tiny-invariant";
 
@@ -12,14 +12,13 @@ export class AdresseData extends BaseStepData {
 
   constructor(formData: Record<string, any>) {
     super(formData);
-    invariant(formData.get("strasse"), "Expected strasse");
-    invariant(formData.get("hausnummer"), "Expected hausnummer");
     this.data = {
       strasse: formData.get("strasse"),
       hausnummer: formData.get("hausnummer"),
     };
   }
-  // TODO add validation here
+
+  // TODO add step-specific validation here
 }
 
 export default class AdresseStep extends BaseStep {

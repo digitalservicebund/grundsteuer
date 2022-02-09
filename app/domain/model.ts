@@ -1,7 +1,7 @@
-import { GebaeudeDataData } from "~/steps/gebaeude";
-import { AdresseDataData } from "~/steps/adresse";
-import { BebauungDataData } from "~/steps/bebauung";
-import { BaseStepData } from "~/steps/baseStep";
+import { GebaeudeDataData } from "~/domain/steps/gebaeude";
+import { AdresseDataData } from "~/domain/steps/adresse";
+import { BebauungDataData } from "~/domain/steps/bebauung";
+import { BaseStepData } from "~/domain/steps/baseStep";
 
 interface SectionGrundstueckData {
   adresse: AdresseDataData;

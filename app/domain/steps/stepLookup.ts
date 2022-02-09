@@ -1,7 +1,7 @@
-import BebauungStep from "~/steps/bebauung";
-import AdresseStep from "~/steps/adresse";
-import GebaeudeStep from "~/steps/gebaeude";
-import BaseStep from "~/steps/baseStep";
+import BebauungStep from "~/domain/steps/bebauung";
+import AdresseStep from "~/domain/steps/adresse";
+import GebaeudeStep from "~/domain/steps/gebaeude";
+import BaseStep from "~/domain/steps/baseStep";
 
 const stepLookup: Record<string, typeof BaseStep> = {
   adresse: AdresseStep,

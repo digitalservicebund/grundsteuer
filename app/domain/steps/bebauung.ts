@@ -1,4 +1,4 @@
-import BaseStep, { BaseDataData, BaseStepData } from "~/steps/baseStep";
+import BaseStep, { BaseDataData, BaseStepData } from "~/domain/steps/baseStep";
 import { ConfigStepField, FieldType } from "~/domain";
 import invariant from "tiny-invariant";
 
@@ -11,7 +11,6 @@ export class BebauungData extends BaseStepData {
 
   constructor(formData: Record<string, any>) {
     super();
-    invariant(formData.get("bebauung"), "Expected bebauung");
     this.data = { bebauung: formData.get("bebauung") };
   }
   // TODO add validation here
