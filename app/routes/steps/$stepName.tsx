@@ -7,9 +7,11 @@ import {
 } from "remix";
 import invariant from "tiny-invariant";
 
-import { config, getNextStepName } from "~/domain";
+import { config, getNextStepName, Records } from "~/domain";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 import { lookupStep } from "~/steps/stepLookup";
+import GrundDataModel, { GrundDataModelData } from "~/domain/model";
+import BaseStep from "~/steps/baseStep";
 
 const getStepConfig = (stepName: string) => {
   const stepConfig = config.steps.find(({ name }) => name === stepName);
@@ -37,7 +39,8 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     );
   }
 
-  const formData = cookie.records?.[params.stepName];
+  const cookieData = new GrundDataModel(cookie.records);
+  const formData = cookieData.getStepData(params.stepName);
   const stepName = params.stepName;
   return { stepName, cookie, formData };
 };
@@ -50,12 +53,18 @@ export const action: ActionFunction = async ({ params, request }) => {
 
   const formData: FormData = await request.formData();
 
-  cookie.records = cookie.records || {};
-  cookie.records[params.stepName] = stepConfig.fields
-    .map((field) => field.name)
-    .reduce((acc, name) => {
-      return Object.assign(acc, { [name]: formData.get(name) });
-    }, {});
+  // Parse sent data into step-model
+  const step: BaseStep = lookupStep(params.stepName);
+  invariant(step.dataModel, "Expected dataModel");
+  const stepDataModel = new step.dataModel(formData);
+  // validate step-model
+  // TODO validate stepDtaModel
+  // Add data to bigger model
+  const completeDataModel = new GrundDataModel(cookie.records);
+  completeDataModel.addStepData(params.stepName, stepDataModel);
+
+  // Add bigger model to cookie
+  cookie.records = completeDataModel.areas;
 
   const nextStepName = getNextStepName({
     currentStepName: params.stepName,
@@ -76,5 +85,5 @@ export default function FormularStep() {
   const actionData = useActionData();
 
   const step = lookupStep(stepName);
-  return new step().render(cookie, formData, actionData);
+  return step.render(cookie, formData, actionData);
 }

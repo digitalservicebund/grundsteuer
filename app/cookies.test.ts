@@ -16,8 +16,12 @@ describe("getFormDataCookie", () => {
   it("Should return the content of a cookie", async () => {
     const inputCookie: string = await formDataCookie.serialize({
       records: {
-        propertyStreet: "Hauptstraße",
-        propertyStreetNumber: "42",
+        areaGrundstueck: {
+          adresse: {
+            strasse: "Hauptstraße",
+            hausnummer: "42",
+          },
+        },
       },
     });
     const request: Request = new Request("/path", {
@@ -28,9 +32,10 @@ describe("getFormDataCookie", () => {
     const cookie: CookieData = await getFormDataCookie(request);
 
     expect(Object.keys(cookie).length).toEqual(1);
-    expect(Object.keys(cookie.records).length).toEqual(2);
-    expect(cookie.records.propertyStreet).toEqual("Hauptstraße");
-    expect(cookie.records.propertyStreetNumber).toEqual("42");
+    expect(cookie.records.areaGrundstueck.adresse.strasse).toEqual(
+      "Hauptstraße"
+    );
+    expect(cookie.records.areaGrundstueck.adresse.hausnummer).toEqual("42");
   });
 });
 

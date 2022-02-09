@@ -1,9 +1,18 @@
 import BaseStep from "~/steps/baseStep";
 import { ConfigStepField, FieldType } from "~/domain";
 
+export class GebaeudeData {
+  gebaeudeart: string;
+
+  constructor(gebaeudeart: string) {
+    this.gebaeudeart = gebaeudeart;
+  }
+  // TODO add validation here
+}
+
 export default class GebaeudeStep extends BaseStep {
-  headline = "Gebäude auf dem Grundstück";
-  fields: Array<ConfigStepField> = [
+  static headline = "Gebäude auf dem Grundstück";
+  static fields: Array<ConfigStepField> = [
     {
       name: "gebaeudeart",
       type: FieldType.Select,
@@ -24,4 +33,5 @@ export default class GebaeudeStep extends BaseStep {
       ],
     },
   ];
+  static dataModel = GebaeudeData;
 }

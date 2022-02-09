@@ -1,8 +1,9 @@
 import { createCookie } from "remix";
-import type { Records } from "~/domain/records";
+
+import { GrundDataModelData } from "~/domain/model";
 
 export interface CookieData {
-  records: Records;
+  records: GrundDataModelData;
   allowedSteps?: string[];
 }
 

@@ -1,5 +1,5 @@
 import { createMachine, interpret } from "xstate";
-import type { Records } from "~/domain/records";
+import { GrundDataModelData } from "~/domain/model";
 
 const isBebaut = (context: any, event: any) => {
   return context.bebauung.bebauung === "bebaut";
@@ -10,7 +10,7 @@ export const getNextStepName = ({
   records,
 }: {
   currentStepName: string;
-  records: Records;
+  records: GrundDataModelData;
 }) => {
   const machine = createMachine({
     id: "machine",

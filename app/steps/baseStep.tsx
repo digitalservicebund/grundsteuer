@@ -4,9 +4,21 @@ import { StepRadioField, StepSelectField, StepTextField } from "~/components";
 import { Button } from "@digitalservice4germany/digital-service-library";
 import { AppData } from "@remix-run/react/data";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface BaseDataData {}
+
+export class BaseStepData {
+  data: BaseDataData | undefined;
+
+  constructor(formData: Record<string, any> = {}) {
+    console.log("Parent");
+  }
+}
+
 export default class BaseStep {
   headline: string | undefined;
-  fields: Array<ConfigStepField> | undefined; // TODO make this special type FieldConfig
+  fields: Array<ConfigStepField> | undefined;
+  dataModel: typeof BaseStepData | undefined;
 
   render(cookie: object, formData: Record<string, any>, actionData: AppData) {
     const renderField = (field: ConfigStepField) => {
