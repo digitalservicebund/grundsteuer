@@ -21,8 +21,6 @@ export default class GrundDataModel {
   sections: GrundDataModelData;
 
   constructor(sections: GrundDataModelData | undefined) {
-    console.log("SECTIONS");
-    console.log(sections);
     if (sections == undefined) {
       // TODO handle this correctly
       this.sections = {
@@ -44,7 +42,6 @@ export default class GrundDataModel {
     } else {
       this.sections = sections;
     }
-    console.log(this.sections);
   }
 
   addStepData(stepName: string, stepModelData: BaseStepData) {
