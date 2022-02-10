@@ -8,6 +8,11 @@ export const loader: LoaderFunction = async ({ request }) => {
   return getFormDataCookie(request);
 };
 
+// this will activate showing the form navigation in root.tsx
+export const handle = {
+  showFormNavigation: true,
+};
+
 export default function Zusammenfassung() {
   const formData = useLoaderData();
   const dataModel = new GrundDataModel(formData.records);

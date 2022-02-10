@@ -1,5 +1,6 @@
 import { createMachine, interpret } from "xstate";
 import { GrundDataModelData } from "~/domain/model";
+import { getMachineConfig } from "./steps";
 
 const isBebaut = (context: GrundDataModelData) => {
   return context?.sectionGrundstueck?.bebauung.bebauung === "bebaut";
@@ -12,43 +13,9 @@ export const getNextStepName = ({
   currentStepName: string;
   records: GrundDataModelData;
 }) => {
-  const machine = createMachine({
-    id: "machine",
-    initial: "adresse",
-    context: records,
-    states: {
-      adresse: {
-        on: {
-          NEXT: [
-            {
-              target: "bebauung",
-            },
-          ],
-        },
-      },
-      bebauung: {
-        on: {
-          NEXT: [
-            {
-              target: "gebaeude",
-              cond: isBebaut,
-            },
-            {
-              target: "zusammenfassung",
-            },
-          ],
-        },
-      },
-      gebaeude: {
-        on: {
-          NEXT: [
-            {
-              target: "zusammenfassung",
-            },
-          ],
-        },
-      },
-      zusammenfassung: { type: "final" },
+  const machine = createMachine(getMachineConfig(records) as any, {
+    guards: {
+      isBebaut,
     },
   });
 

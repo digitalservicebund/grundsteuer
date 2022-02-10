@@ -1,4 +1,9 @@
-import type { LinksFunction, MetaFunction } from "remix";
+import {
+  LinksFunction,
+  LoaderFunction,
+  MetaFunction,
+  useLoaderData,
+} from "remix";
 import {
   Links,
   Link,
@@ -7,11 +12,15 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useMatches,
 } from "remix";
 import {
   Layout,
   Footer,
 } from "@digitalservice4germany/digital-service-library";
+import { stepNavigation } from "~/domain/stepNavigation";
+import { FormNavigation } from "~/components/FormNavigation";
+import { getFormDataCookie } from "~/cookies";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: "/tailwind.css" }];
@@ -21,7 +30,28 @@ export const meta: MetaFunction = () => {
   return { title: "New Remix App" };
 };
 
+export const loader: LoaderFunction = async ({ request }) => {
+  console.log("APP loader");
+
+  const cookie = await getFormDataCookie(request);
+  return { records: cookie.records };
+};
+
 export default function App() {
+  const matches = useMatches();
+  const { records } = useLoaderData();
+
+  const showFormNavigationData = matches.find(
+    (match) => match.handle?.showFormNavigation
+  )?.data;
+
+  let formNavigationData;
+  if (showFormNavigationData) {
+    console.log({ showFormNavigationData });
+    // formNavigationData = new Formular().navigationData();
+    formNavigationData = stepNavigation(records);
+  }
+
   return (
     <html lang="de">
       <head>
@@ -35,13 +65,22 @@ export default function App() {
         <Layout
           footer={<Footer> Footer </Footer>}
           sidebarNavigation={
-            <div className="h-full p-4 bg-white">
-              <ul>
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
-              </ul>
-            </div>
+            formNavigationData ? (
+              <div>
+                <FormNavigation data={formNavigationData} />
+                <pre className="text-xs">
+                  {JSON.stringify({ showFormNavigationData }, null, 2)}
+                </pre>
+              </div>
+            ) : (
+              <div className="h-full p-4 bg-white">
+                <ul>
+                  <li>
+                    <Link to="/">Home</Link>
+                  </li>
+                </ul>
+              </div>
+            )
           }
           topNavigation={
             <div className="p-4 bg-blue-300">

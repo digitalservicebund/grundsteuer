@@ -9,10 +9,11 @@ const stepLookup: Record<string, typeof BaseStep> = {
   gebaeude: GebaeudeStep,
 };
 
-export function lookupStep(stepName: string): BaseStep {
+export function lookupStep(stepName: string): BaseStep | false {
   const matchedStep = stepLookup[stepName];
-  if (matchedStep == undefined) {
-    throw Error("invalid step name");
+  if (typeof matchedStep === "undefined") {
+    // throw Error("invalid step name");
+    return false;
   }
   return new matchedStep();
 }
