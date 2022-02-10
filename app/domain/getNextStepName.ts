@@ -1,7 +1,7 @@
 import { createMachine, interpret } from "xstate";
 import { GrundDataModelData } from "~/domain/model";
 
-const isBebaut = (context: GrundDataModelData, event: any) => {
+const isBebaut = (context: GrundDataModelData) => {
   return context?.sectionGrundstueck?.bebauung.bebauung === "bebaut";
 };
 

@@ -7,10 +7,10 @@ import {
 } from "remix";
 import invariant from "tiny-invariant";
 
-import { config, getNextStepName, Records } from "~/domain";
+import { config, getNextStepName } from "~/domain";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 import { lookupStep } from "~/domain/steps/stepLookup";
-import GrundDataModel, { GrundDataModelData } from "~/domain/model";
+import GrundDataModel from "~/domain/model";
 import BaseStep from "~/domain/steps/baseStep";
 
 const getStepConfig = (stepName: string) => {

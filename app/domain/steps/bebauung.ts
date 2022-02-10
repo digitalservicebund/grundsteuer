@@ -1,6 +1,5 @@
 import BaseStep, { BaseDataData, BaseStepData } from "~/domain/steps/baseStep";
 import { ConfigStepField, FieldType } from "~/domain";
-import invariant from "tiny-invariant";
 
 export interface BebauungDataData extends BaseDataData {
   bebauung: string;
