@@ -79,7 +79,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   // }
 
   const cookieData = new GrundDataModel(cookie.records);
-  const formData = cookieData.getStepData(params.stepName);
+  const formData = cookieData.getStepData(currentState);
   const stepName = params.stepName;
   return { stepName, cookie, formData, params, resourceId, currentState };
 };
