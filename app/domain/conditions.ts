@@ -8,21 +8,11 @@ export type Conditions = Record<
 
 export const conditions: Conditions = {
   isBebaut: (context: GrundDataModelData) => {
-    if (
-      !context ||
-      !context.sectionGrundstueck ||
-      !context.sectionGrundstueck.bebauung
-    )
-      return false;
-    return context.sectionGrundstueck.bebauung.bebauung === "bebaut";
+    if (!context || !context.legacy || !context.legacy.bebauung) return false;
+    return context.legacy.bebauung.bebauung === "bebaut";
   },
   isUnbebaut: (context: GrundDataModelData) => {
-    if (
-      !context ||
-      !context.sectionGrundstueck ||
-      !context.sectionGrundstueck.bebauung
-    )
-      return false;
-    return context.sectionGrundstueck.bebauung.bebauung === "unbebaut";
+    if (!context || !context.legacy || !context.legacy.bebauung) return false;
+    return context.legacy.bebauung.bebauung === "unbebaut";
   },
 };

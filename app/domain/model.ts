@@ -6,15 +6,11 @@ import { BaseStepData } from "~/domain/steps/baseStep";
 interface SectionGrundstueckData {
   adresse: AdresseDataData;
   bebauung: BebauungDataData;
-}
-
-interface SectionGebaeudeData {
   gebaeude: GebaeudeDataData;
 }
 
 export interface GrundDataModelData {
-  sectionGrundstueck: SectionGrundstueckData;
-  sectionGebaeude: SectionGebaeudeData;
+  legacy: SectionGrundstueckData;
 }
 
 export default class GrundDataModel {
@@ -23,7 +19,7 @@ export default class GrundDataModel {
   constructor(sections: GrundDataModelData | undefined) {
     // TODO set default correctly
     const defaultSections = {
-      sectionGrundstueck: {
+      legacy: {
         adresse: {
           strasse: "",
           hausnummer: 0,
@@ -31,8 +27,6 @@ export default class GrundDataModel {
         bebauung: {
           bebauung: "",
         },
-      },
-      sectionGebaeude: {
         gebaeude: {
           gebaeudeart: "",
         },
@@ -51,15 +45,14 @@ export default class GrundDataModel {
     });
   }
 
-  getStepData(stepName: string) {
-    // TODO make this recursive for indefinite levels
-    for (const section in this.sections) {
-      const section_steps: Record<string, any> =
-        this.sections[section as keyof GrundDataModelData];
-      if (section_steps[stepName] != undefined) {
-        return section_steps[stepName];
-      }
-    }
+  getStepData(stepHierarchy: string) {
+    const hierarchyLevels = stepHierarchy.split(".");
+    let currentDataLevel: Record<string, any> = this.sections;
+    hierarchyLevels.forEach((hierachyLevel) => {
+      currentDataLevel =
+        currentDataLevel[hierachyLevel as keyof GrundDataModelData];
+    });
+    return currentDataLevel;
   }
 
   serialize() {

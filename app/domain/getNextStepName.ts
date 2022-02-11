@@ -3,7 +3,7 @@ import { GrundDataModelData } from "~/domain/model";
 import { getMachineConfig } from "./steps";
 
 const isBebaut = (context: GrundDataModelData) => {
-  return context?.sectionGrundstueck?.bebauung.bebauung === "bebaut";
+  return context?.legacy?.bebauung.bebauung === "bebaut";
 };
 
 export const getNextStepName = ({
