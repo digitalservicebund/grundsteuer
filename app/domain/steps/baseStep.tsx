@@ -15,41 +15,60 @@ export class BaseStepData {
   }
 }
 
-export default class BaseStep {
+interface StepRenderFunc {
+  (
+    cookie: object,
+    formData: Record<string, any>,
+    actionData: AppData
+  ): JSX.Element;
+}
+
+interface StepProperties {
   headline: string | undefined;
   fields: Array<ConfigStepField> | undefined;
   dataModel: typeof BaseStepData | undefined;
+}
 
-  render(cookie: object, formData: Record<string, any>, actionData: AppData) {
-    const renderField = (field: ConfigStepField) => {
-      const { name, type } = field;
-      return (
-        <div key={name} className="mb-8">
-          {type === FieldType.Text && (
-            <StepTextField config={field} value={formData?.[name]} />
-          )}
-          {type === FieldType.Radio && (
-            <StepRadioField config={field} value={formData?.[name]} />
-          )}
-          {type === FieldType.Select && (
-            <StepSelectField config={field} value={formData?.[name]} />
-          )}
-        </div>
-      );
-    };
+export interface Step extends StepProperties {
+  render: StepRenderFunc;
+}
 
+export function baseRender(
+  cookie: object,
+  formData: Record<string, any>,
+  actionData: AppData,
+  stepProperties: StepProperties
+) {
+  const renderField = (field: ConfigStepField) => {
+    const { name, type } = field;
     return (
-      <div className="bg-beige-100 h-full p-4">
-        <h1 className="mb-8 font-bold text-4xl">{this.headline}</h1>
-        {actionData?.errors ? "ERRORS: " + actionData.errors : ""}
-        {this.fields && (
-          <Form method="post" className="mb-16">
-            {this.fields.map((field: ConfigStepField) => renderField(field))}
-            <Button>Weiter</Button>
-          </Form>
+      <div key={name} className="mb-8">
+        {type === FieldType.Text && (
+          <StepTextField config={field} value={formData?.[name]} />
         )}
-        <pre>cookie: {JSON.stringify(cookie, null, 2)}</pre>
+        {type === FieldType.Radio && (
+          <StepRadioField config={field} value={formData?.[name]} />
+        )}
+        {type === FieldType.Select && (
+          <StepSelectField config={field} value={formData?.[name]} />
+        )}
       </div>
     );
-  }
+  };
+
+  return (
+    <div className="bg-beige-100 h-full p-4">
+      <h1 className="mb-8 font-bold text-4xl">{stepProperties.headline}</h1>
+      {actionData?.errors ? "ERRORS: " + actionData.errors : ""}
+      {stepProperties.fields && (
+        <Form method="post" className="mb-16">
+          {stepProperties.fields.map((field: ConfigStepField) =>
+            renderField(field)
+          )}
+          <Button>Weiter</Button>
+        </Form>
+      )}
+      <pre>cookie: {JSON.stringify(cookie, null, 2)}</pre>
+    </div>
+  );
 }

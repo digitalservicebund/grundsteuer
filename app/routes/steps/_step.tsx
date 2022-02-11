@@ -7,14 +7,13 @@ import {
   Form,
 } from "remix";
 import invariant from "tiny-invariant";
-import { createMachine, MachineConfig } from "xstate";
+import { createMachine } from "xstate";
 import { Button } from "@digitalservice4germany/digital-service-library";
 
-import { config, getNextStepName } from "~/domain";
+import { config } from "~/domain";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 import { lookupStep } from "~/domain/steps/stepLookup";
-import GrundDataModel, { GrundDataModelData } from "~/domain/model";
-import BaseStep from "~/domain/steps/baseStep";
+import GrundDataModel from "~/domain/model";
 import { getMachineConfig } from "~/domain/steps";
 import { conditions } from "~/domain/conditions";
 

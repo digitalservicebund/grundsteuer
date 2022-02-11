@@ -1,5 +1,11 @@
-import BaseStep, { BaseDataData, BaseStepData } from "~/domain/steps/baseStep";
+import {
+  BaseDataData,
+  baseRender,
+  BaseStepData,
+  Step,
+} from "~/domain/steps/baseStep";
 import { ConfigStepField, FieldType } from "~/domain";
+import { AppData } from "@remix-run/react/data";
 
 export interface GebaeudeDataData extends BaseDataData {
   gebaeudeart: string;
@@ -17,7 +23,7 @@ export class GebaeudeData extends BaseStepData {
   // TODO add validation here
 }
 
-export default class GebaeudeStep extends BaseStep {
+export default class GebaeudeStep implements Step {
   headline = "Gebäude auf dem Grundstück";
   fields: Array<ConfigStepField> = [
     {
@@ -41,4 +47,12 @@ export default class GebaeudeStep extends BaseStep {
     },
   ];
   dataModel = GebaeudeData;
+
+  render(cookie: object, formData: Record<string, any>, actionData: AppData) {
+    return baseRender(cookie, formData, actionData, {
+      headline: this.headline,
+      fields: this.fields,
+      dataModel: this.dataModel,
+    });
+  }
 }
