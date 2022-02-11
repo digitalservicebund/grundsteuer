@@ -41,9 +41,9 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
   // TODO: maybe improve cheap url -> state conversion
   const currentState = [
-    params.chapter,
     params.section,
     params.subsection,
+    params.subsubsection,
     params.stepName,
   ]
     .filter((v) => v)
@@ -122,9 +122,9 @@ export const action: ActionFunction = async ({ params, request }) => {
 
   // TODO: improve cheap url -> state conversion
   const currentState = [
-    params.chapter,
     params.section,
     params.subsection,
+    params.subsubsection,
     params.stepName,
   ]
     .filter((v) => v)
