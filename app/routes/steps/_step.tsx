@@ -149,3 +149,19 @@ export function Step() {
     </div>
   );
 }
+
+export function render(
+  actionData: any,
+  headline: string,
+  stepForm: JSX.Element
+) {
+  return (
+    <div className="p-8">
+      <div className="bg-beige-100 h-full p-4">
+        <h1 className="mb-8 font-bold text-4xl">{headline}</h1>
+        {actionData?.errors ? "ERRORS: " + actionData.errors : ""}
+        {stepForm}
+      </div>
+    </div>
+  );
+}
