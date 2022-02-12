@@ -10,26 +10,24 @@ import invariant from "tiny-invariant";
 import { createMachine } from "xstate";
 import { Button } from "@digitalservice4germany/digital-service-library";
 
-import { config } from "~/domain";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 import { lookupStep } from "~/domain/steps/stepLookup";
 import GrundDataModel from "~/domain/model";
 import { getMachineConfig } from "~/domain/steps";
 import { conditions } from "~/domain/conditions";
 
-const getStepConfig = (stepName: string) => {
-  const stepConfig = config.steps.find(({ name }) => name === stepName);
-  console.log(stepConfig);
-  return stepConfig;
-};
+function getCurrentState(request: Request) {
+  return new URL(request.url).pathname
+    .split("/")
+    .filter((e) => e && e !== "steps")
+    .join(".");
+}
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   console.log("LOADER", params);
-  invariant(params.stepName, "Expected stepName");
-  // const stepConfig = getStepConfig(params.stepName);
   const cookie = await getFormDataCookie(request);
 
-  const resourceId = new URL(request.url).searchParams.get("id");
+  const resourceId = new URL(request.url);
 
   const machine = createMachine(getMachineConfig(cookie.records) as any, {
     guards: conditions,
@@ -39,21 +37,11 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   // the context can than be used by the guard conditions
   // https://xstate.js.org/docs/guides/machines.html#initial-context
 
-  // TODO: maybe improve cheap url -> state conversion
-  const currentState = [
-    params.section,
-    params.subsection,
-    params.subsubsection,
-    params.stepName,
-  ]
-    .filter((v) => v)
-    .join(".");
-  console.log({ currentState });
+  const currentState = getCurrentState(request);
 
   // some pseudo/example code how this might work
   // I can get a specific state with "getStateNodeByPath" and access parents from there
   const currentStateNode = machine.getStateNodeByPath(currentState);
-  //console.log(currentStateNode?.parent?.parent);
   if (currentStateNode.meta?.visibilityCond) {
     // this just checks for presence of that condition, but doesn't execute it, needs some more thought
     throw new Error("NONO");
@@ -80,8 +68,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
   const cookieData = new GrundDataModel(cookie.records);
   const formData = cookieData.getStepData(currentState);
-  const stepName = params.stepName;
-  return { stepName, cookie, formData, params, resourceId, currentState };
+  return { cookie, formData, params, resourceId, currentState };
 };
 
 export const action: ActionFunction = async ({ params, request }) => {
@@ -108,11 +95,6 @@ export const action: ActionFunction = async ({ params, request }) => {
     cookie.records = completeDataModel.sections;
   }
 
-  // const nextStepName = getNextStepName({
-  //   currentStepName: params.stepName,
-  //   records: cookie.records,
-  // });
-
   // cookie.allowedSteps = cookie.allowedSteps || [];
   // cookie.allowedSteps.push(nextStepName as string);
 
@@ -121,14 +103,7 @@ export const action: ActionFunction = async ({ params, request }) => {
   });
 
   // TODO: improve cheap url -> state conversion
-  const currentState = [
-    params.section,
-    params.subsection,
-    params.subsubsection,
-    params.stepName,
-  ]
-    .filter((v) => v)
-    .join(".");
+  const currentState = getCurrentState(request);
   console.log({ currentState });
 
   const nextState = machine.transition(currentState, {
@@ -136,7 +111,6 @@ export const action: ActionFunction = async ({ params, request }) => {
   }).value;
   console.log({ nextState });
 
-  // TODO: improve cheap state -> url conversion
   const redirectUrl =
     "/steps/" +
     JSON.stringify(nextState).replace(/:/g, "/").replace(/[{}"]/g, "");

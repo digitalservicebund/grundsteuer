@@ -9,8 +9,17 @@ interface SectionGrundstueckData {
   gebaeude: GebaeudeDataData;
 }
 
+export interface SectionEigentuemer {
+  person: PersonData;
+}
+
+interface PersonData {
+  adresse: AdresseDataData;
+}
+
 export interface GrundDataModelData {
   legacy: SectionGrundstueckData;
+  eigentuemer: SectionEigentuemer;
 }
 
 export default class GrundDataModel {
@@ -29,6 +38,14 @@ export default class GrundDataModel {
         },
         gebaeude: {
           gebaeudeart: "",
+        },
+      },
+      eigentuemer: {
+        person: {
+          adresse: {
+            strasse: "",
+            hausnummer: 0,
+          },
         },
       },
     };
