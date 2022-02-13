@@ -71,17 +71,16 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   return { cookie, formData, params, resourceId, currentState };
 };
 
-export const action: ActionFunction = async ({ params, request }) => {
+export const action: ActionFunction = async ({ request }) => {
   console.log("ACTION");
-  invariant(params.stepName, "Expected stepName");
-  // const stepConfig = getStepConfig(params.stepName);
-  // invariant(stepConfig, "Expected stepConfig");
   const cookie = await getFormDataCookie(request);
 
   const formData: FormData = await request.formData();
+  const stepName = formData.get("stepName") as string;
+  invariant(stepName, "Expected stepName");
 
   // Parse sent data into step-model
-  const step = lookupStep(params.stepName);
+  const step = lookupStep(stepName);
   if (step) {
     invariant(step.dataModel, "Expected dataModel");
     const stepDataModel = new step.dataModel(formData);
@@ -89,7 +88,7 @@ export const action: ActionFunction = async ({ params, request }) => {
     // TODO validate stepDtaModel
     // Add data to bigger model
     const completeDataModel = new GrundDataModel(cookie.records);
-    completeDataModel.addStepData(params.stepName, stepDataModel);
+    completeDataModel.addStepData(stepName, stepDataModel);
 
     // Add bigger model to cookie
     cookie.records = completeDataModel.sections;

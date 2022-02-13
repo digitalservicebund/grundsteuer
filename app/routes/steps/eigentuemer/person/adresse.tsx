@@ -4,7 +4,7 @@ import { ConfigStepField, FieldType } from "~/domain";
 import { StepTextField } from "~/components";
 import { render } from "~/routes/steps/_step";
 
-export { action, loader } from "./../../_step";
+export { action, loader, handle } from "./../../_step";
 
 export default function Adresse() {
   const { formData } = useLoaderData();
@@ -32,6 +32,7 @@ export default function Adresse() {
         value={formData?.[streetAddress.name]}
       />
       <StepTextField config={houseNo} value={formData?.[houseNo.name]} />
+      <input type="hidden" name="stepName" value="adresse" />
       <Button>Weiter</Button>
     </Form>
   );
