@@ -71,28 +71,35 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   return { cookie, formData, params, resourceId, currentState };
 };
 
+function updateValues(model: GrundDataModel, path: string, values: any) {
+  let currentModel: any = model.sections;
+  path.split(".").forEach((level) => {
+    currentModel = currentModel[level];
+  });
+  for (const key in currentModel) {
+    currentModel[key] = values[key];
+  }
+}
+
 export const action: ActionFunction = async ({ request }) => {
   console.log("ACTION");
   const cookie = await getFormDataCookie(request);
 
+  const currentState = getCurrentState(request);
+
   const formData: FormData = await request.formData();
+  const fieldValues = Object.fromEntries(formData);
   const stepName = formData.get("stepName") as string;
   invariant(stepName, "Expected stepName");
 
-  // Parse sent data into step-model
-  const step = lookupStep(stepName);
-  if (step) {
-    invariant(step.dataModel, "Expected dataModel");
-    const stepDataModel = new step.dataModel(formData);
-    // validate step-model
-    // TODO validate stepDtaModel
-    // Add data to bigger model
-    const completeDataModel = new GrundDataModel(cookie.records);
-    completeDataModel.addStepData(stepName, stepDataModel);
+  // validate step-model
+  // TODO validate stepDtaModel
+  // Add data to bigger model
+  const completeDataModel = new GrundDataModel(cookie.records);
+  updateValues(completeDataModel, currentState, fieldValues);
 
-    // Add bigger model to cookie
-    cookie.records = completeDataModel.sections;
-  }
+  // Add bigger model to cookie
+  cookie.records = completeDataModel.sections;
 
   // cookie.allowedSteps = cookie.allowedSteps || [];
   // cookie.allowedSteps.push(nextStepName as string);
@@ -102,7 +109,6 @@ export const action: ActionFunction = async ({ request }) => {
   });
 
   // TODO: improve cheap url -> state conversion
-  const currentState = getCurrentState(request);
   console.log({ currentState });
 
   const nextState = machine.transition(currentState, {
