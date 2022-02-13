@@ -7,12 +7,10 @@ export type Conditions = Record<
 >;
 
 export const conditions: Conditions = {
-  isBebaut: (context: GrundDataModelData) => {
-    if (!context || !context.legacy || !context.legacy.bebauung) return false;
-    return context.legacy.bebauung.bebauung === "bebaut";
+  isBebaut: () => {
+    return true;
   },
-  isUnbebaut: (context: GrundDataModelData) => {
-    if (!context || !context.legacy || !context.legacy.bebauung) return false;
-    return context.legacy.bebauung.bebauung === "unbebaut";
+  isUnbebaut: () => {
+    return true;
   },
 };

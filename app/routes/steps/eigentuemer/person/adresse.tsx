@@ -1,6 +1,6 @@
 import { Form, useActionData, useLoaderData } from "remix";
 import { Button } from "@digitalservice4germany/digital-service-library";
-import { ConfigStepField, FieldType } from "~/domain";
+import { ConfigStepField } from "~/domain";
 import { StepTextField } from "~/components";
 import { render } from "~/routes/steps/_step";
 
@@ -12,13 +12,11 @@ export default function Adresse() {
 
   const streetAddress: ConfigStepField = {
     name: "strasse",
-    type: FieldType.Text,
     label: "Straße",
   };
 
-  const houseNo: ConfigStepField = {
+  const hausnummer: ConfigStepField = {
     name: "hausnummer",
-    type: FieldType.Text,
     label: "Hausnummer",
   };
 
@@ -31,7 +29,7 @@ export default function Adresse() {
         config={streetAddress}
         value={formData?.[streetAddress.name]}
       />
-      <StepTextField config={houseNo} value={formData?.[houseNo.name]} />
+      <StepTextField config={hausnummer} value={formData?.[hausnummer.name]} />
       <input type="hidden" name="stepName" value="adresse" />
       <Button>Weiter</Button>
     </Form>

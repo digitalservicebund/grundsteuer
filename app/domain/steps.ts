@@ -4,44 +4,6 @@ export const steps = {
   id: "steps",
   initial: "legacy",
   states: {
-    legacy: {
-      id: "legacy",
-      initial: "adresse",
-      states: {
-        adresse: {
-          on: {
-            NEXT: [
-              {
-                target: "bebauung",
-              },
-            ],
-          },
-        },
-        bebauung: {
-          on: {
-            NEXT: [
-              {
-                target: "gebaeude",
-                cond: "isBebaut",
-              },
-              {
-                target: "zusammenfassung",
-              },
-            ],
-          },
-        },
-        gebaeude: {
-          on: {
-            NEXT: [
-              {
-                target: "zusammenfassung",
-              },
-            ],
-          },
-        },
-        zusammenfassung: { on: { NEXT: "#steps.metadaten" } },
-      },
-    },
     metadaten: { on: { NEXT: "eigentuemer" } },
     eigentuemer: {
       id: "eigentuemer",

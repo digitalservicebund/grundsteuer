@@ -1,17 +1,8 @@
-import {
-  useLoaderData,
-  useActionData,
-  ActionFunction,
-  LoaderFunction,
-  redirect,
-  Form,
-} from "remix";
+import { ActionFunction, LoaderFunction, redirect } from "remix";
 import invariant from "tiny-invariant";
 import { createMachine } from "xstate";
-import { Button } from "@digitalservice4germany/digital-service-library";
 
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
-import { lookupStep } from "~/domain/steps/stepLookup";
 import GrundDataModel from "~/domain/model";
 import { getMachineConfig } from "~/domain/steps";
 import { conditions } from "~/domain/conditions";
@@ -51,35 +42,10 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   // idea: machine -> go to currentState -> check that state and all parents for visibilityConditions
   // if one says no, we don't allow access to this step
 
-  // if (
-  //   !(
-  //     stepConfig &&
-  //     (params.stepName === "adresse" ||
-  //       (cookie.allowedSteps && cookie.allowedSteps.includes(params.stepName)))
-  //   )
-  // ) {
-  //   return redirect(
-  //     `/steps/${getNextStepName({
-  //       currentStepName: params.stepName,
-  //       records: cookie.records,
-  //     })}`
-  //   );
-  // }
-
   const cookieData = new GrundDataModel(cookie.records);
   const formData = cookieData.getStepData(currentState);
-  return { cookie, formData, params, resourceId, currentState };
+  return { formData, resourceId };
 };
-
-function updateValues(model: GrundDataModel, path: string, values: any) {
-  let currentModel: any = model.sections;
-  path.split(".").forEach((level) => {
-    currentModel = currentModel[level];
-  });
-  for (const key in currentModel) {
-    currentModel[key] = values[key];
-  }
-}
 
 export const action: ActionFunction = async ({ request }) => {
   console.log("ACTION");
@@ -96,7 +62,7 @@ export const action: ActionFunction = async ({ request }) => {
   // TODO validate stepDtaModel
   // Add data to bigger model
   const completeDataModel = new GrundDataModel(cookie.records);
-  updateValues(completeDataModel, currentState, fieldValues);
+  completeDataModel.updateValues(currentState, fieldValues);
 
   // Add bigger model to cookie
   cookie.records = completeDataModel.sections;
@@ -131,29 +97,6 @@ export const action: ActionFunction = async ({ request }) => {
 export const handle = {
   showFormNavigation: true,
 };
-
-export function Step() {
-  const { stepName, cookie, formData, params, resourceId, currentState } =
-    useLoaderData();
-  const actionData = useActionData();
-
-  const step = lookupStep(stepName);
-  return (
-    <div className="p-8">
-      <pre>{JSON.stringify({ params }, null, 2)}</pre>
-      <pre>{JSON.stringify({ resourceId }, null, 2)}</pre>
-      <pre>{JSON.stringify({ currentState }, null, 2)}</pre>
-
-      {step ? (
-        step.render(cookie, formData, actionData)
-      ) : (
-        <Form method="post">
-          <Button>NEXT</Button>
-        </Form>
-      )}
-    </div>
-  );
-}
 
 export function render(
   actionData: any,

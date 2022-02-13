@@ -3,18 +3,9 @@ import type { CookieData } from "~/cookies";
 interface ConfigStepFieldCommon {
   name: string;
   label: string;
-  type: FieldType;
 }
 
-export enum FieldType {
-  Text,
-  Radio,
-  Select,
-}
-
-export interface ConfigStepFieldText extends ConfigStepFieldCommon {
-  type: FieldType.Text;
-}
+export type ConfigStepFieldText = ConfigStepFieldCommon;
 
 export interface ConfigStepFieldOptionsItem {
   value: string;
@@ -25,13 +16,9 @@ export interface ConfigStepFieldWithOptions extends ConfigStepFieldCommon {
   options: ConfigStepFieldOptionsItem[];
 }
 
-export interface ConfigStepFieldRadio extends ConfigStepFieldWithOptions {
-  type: FieldType.Radio;
-}
+export type ConfigStepFieldRadio = ConfigStepFieldWithOptions;
 
-export interface ConfigStepFieldSelect extends ConfigStepFieldWithOptions {
-  type: FieldType.Select;
-}
+export type ConfigStepFieldSelect = ConfigStepFieldWithOptions;
 
 export interface ConfigStepConditionFunction {
   (records: Pick<CookieData, "records"> | any): boolean;
@@ -53,6 +40,8 @@ export interface Config {
   steps: ConfigStep[];
 }
 
+// TODO remove/replace this
+
 export const config: Config = {
   steps: [
     {
@@ -61,12 +50,10 @@ export const config: Config = {
       fields: [
         {
           name: "strasse",
-          type: FieldType.Text,
           label: "Straße",
         },
         {
           name: "hausnummer",
-          type: FieldType.Text,
           label: "Hausnummer",
         },
       ],
@@ -77,7 +64,6 @@ export const config: Config = {
       fields: [
         {
           name: "bebauung",
-          type: FieldType.Radio,
           label: "Das Grundstück ist",
           options: [
             {
@@ -98,7 +84,6 @@ export const config: Config = {
       fields: [
         {
           name: "gebaeudeart",
-          type: FieldType.Select,
           label: "Art des Gebäudes",
           options: [
             {

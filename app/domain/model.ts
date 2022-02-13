@@ -1,25 +1,18 @@
-import { GebaeudeDataData } from "~/domain/steps/gebaeude";
-import { AdresseDataData } from "~/domain/steps/adresse";
-import { BebauungDataData } from "~/domain/steps/bebauung";
-import { BaseStepData } from "~/domain/steps/baseStep";
-
-interface SectionGrundstueckData {
-  adresse: AdresseDataData;
-  bebauung: BebauungDataData;
-  gebaeude: GebaeudeDataData;
+export interface GrundDataModelData {
+  eigentuemer: SectionEigentuemer;
 }
 
 export interface SectionEigentuemer {
   person: PersonData;
 }
 
-interface PersonData {
-  adresse: AdresseDataData;
+interface AdresseData {
+  strasse: string;
+  hausnummer: number;
 }
 
-export interface GrundDataModelData {
-  legacy: SectionGrundstueckData;
-  eigentuemer: SectionEigentuemer;
+interface PersonData {
+  adresse: AdresseData;
 }
 
 export default class GrundDataModel {
@@ -28,18 +21,6 @@ export default class GrundDataModel {
   constructor(sections: GrundDataModelData | undefined) {
     // TODO set default correctly
     const defaultSections = {
-      legacy: {
-        adresse: {
-          strasse: "",
-          hausnummer: 0,
-        },
-        bebauung: {
-          bebauung: "",
-        },
-        gebaeude: {
-          gebaeudeart: "",
-        },
-      },
       eigentuemer: {
         person: {
           adresse: {
@@ -52,14 +33,14 @@ export default class GrundDataModel {
     this.sections = { ...defaultSections, ...sections };
   }
 
-  addStepData(stepName: string, stepModelData: BaseStepData) {
-    Object.keys(this.sections).forEach((section: string) => {
-      const section_steps: Record<string, any> =
-        this.sections[section as keyof GrundDataModelData];
-      if (section_steps[stepName] != undefined) {
-        section_steps[stepName] = stepModelData.data;
-      }
+  updateValues(path: string, values: any) {
+    let currentModel: any = this.sections;
+    path.split(".").forEach((level) => {
+      currentModel = currentModel[level];
     });
+    for (const key in currentModel) {
+      currentModel[key] = values[key];
+    }
   }
 
   getStepData(stepHierarchy: string) {
