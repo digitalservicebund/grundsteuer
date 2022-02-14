@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 export interface GrundDataModelData {
   eigentuemer: SectionEigentuemer;
 }
@@ -33,14 +35,8 @@ export default class GrundDataModel {
     this.sections = { ...defaultSections, ...sections };
   }
 
-  updateValues(path: string, values: any) {
-    let currentModel: any = this.sections;
-    path.split(".").forEach((level) => {
-      currentModel = currentModel[level];
-    });
-    for (const key in currentModel) {
-      currentModel[key] = values[key];
-    }
+  setStepData(path: string, values: any) {
+    _.set(this.sections, path, values);
   }
 
   getStepData(stepHierarchy: string) {

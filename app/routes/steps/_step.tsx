@@ -62,7 +62,7 @@ export const action: ActionFunction = async ({ request }) => {
   // TODO validate stepDtaModel
   // Add data to bigger model
   const completeDataModel = new GrundDataModel(cookie.records);
-  completeDataModel.updateValues(currentState, fieldValues);
+  completeDataModel.setStepData(currentState, fieldValues);
 
   // Add bigger model to cookie
   cookie.records = completeDataModel.sections;
