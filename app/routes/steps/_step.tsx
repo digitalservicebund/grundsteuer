@@ -1,11 +1,12 @@
 import { ActionFunction, LoaderFunction, redirect } from "remix";
-import invariant from "tiny-invariant";
 import { createMachine } from "xstate";
 
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
-import GrundDataModel from "~/domain/model";
+import GrundDataModel, { StepFormData } from "~/domain/model";
 import { getMachineConfig } from "~/domain/steps";
 import { conditions } from "~/domain/conditions";
+import { validateField } from "~/domain/validations";
+import { ConfigStepFieldValidation } from "~/domain";
 
 function getCurrentState(request: Request) {
   return new URL(request.url).pathname
@@ -52,14 +53,24 @@ export const action: ActionFunction = async ({ request }) => {
   const cookie = await getFormDataCookie(request);
 
   const currentState = getCurrentState(request);
-
-  const formData: FormData = await request.formData();
-  const fieldValues = Object.fromEntries(formData);
-  const stepName = formData.get("stepName") as string;
-  invariant(stepName, "Expected stepName");
+  const fieldValues: StepFormData = Object.fromEntries(
+    await request.formData()
+  ) as StepFormData;
 
   // validate step-model
-  // TODO validate stepDtaModel
+  const machineWithoutData = createMachine(getMachineConfig(null) as any, {
+    guards: conditions,
+  });
+
+  const errors: Record<string, Array<string>> = {};
+  const state = machineWithoutData.getStateNodeByPath(currentState);
+  state.meta.stepDefinition.fields.forEach(
+    (field: ConfigStepFieldValidation) => {
+      errors[field.name] = validateField(field, fieldValues);
+    }
+  );
+  //if (Object.keys(errors).length >= 1) return { errors };
+
   // Add data to bigger model
   const completeDataModel = new GrundDataModel(cookie.records);
   completeDataModel.setStepData(currentState, fieldValues);
@@ -70,14 +81,12 @@ export const action: ActionFunction = async ({ request }) => {
   // cookie.allowedSteps = cookie.allowedSteps || [];
   // cookie.allowedSteps.push(nextStepName as string);
 
-  const machine = createMachine(getMachineConfig(cookie.records) as any, {
-    guards: conditions,
-  });
+  const machineWithData = machineWithoutData.withContext(cookie.records);
 
   // TODO: improve cheap url -> state conversion
   console.log({ currentState });
 
-  const nextState = machine.transition(currentState, {
+  const nextState = machineWithData.transition(currentState, {
     type: "NEXT",
   }).value;
   console.log({ nextState });
@@ -107,7 +116,9 @@ export function render(
     <div className="p-8">
       <div className="bg-beige-100 h-full p-4">
         <h1 className="mb-8 font-bold text-4xl">{headline}</h1>
-        {actionData?.errors ? "ERRORS: " + actionData.errors : ""}
+        {actionData?.errors
+          ? "ERRORS: " + JSON.stringify(actionData.errors)
+          : ""}
         {stepForm}
       </div>
     </div>

@@ -1,5 +1,8 @@
 import _ from "lodash";
 
+export type StepFormDataValue = string | undefined;
+export type StepFormData = Record<string, StepFormDataValue>;
+
 export interface GrundDataModelData {
   eigentuemer: SectionEigentuemer;
 }

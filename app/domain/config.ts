@@ -1,8 +1,15 @@
 import type { CookieData } from "~/cookies";
+import { Validation } from "~/domain/validations";
 
 interface ConfigStepFieldCommon {
   name: string;
   label: string;
+}
+
+export interface ConfigStepFieldValidation {
+  name: string;
+  label: string;
+  validations: Record<string, Validation>;
 }
 
 export type ConfigStepFieldText = ConfigStepFieldCommon;

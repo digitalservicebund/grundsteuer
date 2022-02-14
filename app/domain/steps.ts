@@ -19,7 +19,48 @@ export const steps = {
               meta: { title: "Persönliche Angaben" },
               on: { NEXT: "adresse" },
             },
-            adresse: { on: { NEXT: "telefonnummer" } },
+            adresse: {
+              meta: {
+                stepDefinition: {
+                  fields: [
+                    {
+                      name: "strasse",
+                      label: "Straße",
+                      validations: {
+                        required: {
+                          msg: "musst du eingeben",
+                        },
+                        maxLength: {
+                          param: 12,
+                          msg: "zu lang",
+                        },
+                      },
+                    },
+                    {
+                      name: "hausnummer",
+                      label: "Hausnummer",
+                      validations: {
+                        required: {
+                          msg: "musst du eingeben",
+                        },
+                        maxLength: {
+                          param: 12,
+                          msg: "zu lang",
+                        },
+                      },
+                    },
+                  ],
+                },
+              },
+              on: {
+                NEXT: [
+                  {
+                    target: "telefonnummer",
+                    cond: "isUnbebaut",
+                  },
+                ],
+              },
+            },
             telefonnummer: { on: { NEXT: "steuerId" } },
             steuerId: { on: { NEXT: "anteilGrundstueck" } },
             anteilGrundstueck: { on: { NEXT: "gesetzlicherVertreter" } },
@@ -77,6 +118,6 @@ export const steps = {
   },
 };
 
-export const getMachineConfig = (records: GrundDataModelData) => {
+export const getMachineConfig = (records: GrundDataModelData | null) => {
   return Object.assign({}, steps, { context: records });
 };
