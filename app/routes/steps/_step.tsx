@@ -3,14 +3,14 @@ import { createMachine } from "xstate";
 
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 import GrundDataModel, { StepFormData } from "~/domain/model";
-import { getMachineConfig } from "~/domain/steps";
+import { getMachineConfig, getStateNodeByPath } from "~/domain/steps";
 import { conditions } from "~/domain/conditions";
 import { validateField } from "~/domain/validation";
 import { ConfigStepField } from "~/domain";
 import { Button } from "@digitalservice4germany/digital-service-library";
 import { i18n } from "~/i18n.server";
 
-function getCurrentState(request: Request) {
+export function getCurrentState(request: Request) {
   return new URL(request.url).pathname
     .split("/")
     .filter((e) => e && e !== "steps")
@@ -31,11 +31,11 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   // the context can than be used by the guard conditions
   // https://xstate.js.org/docs/guides/machines.html#initial-context
 
-  const currentState = getCurrentState(request);
+  let currentState = getCurrentState(request);
 
   // some pseudo/example code how this might work
   // I can get a specific state with "getStateNodeByPath" and access parents from there
-  const currentStateNode = machine.getStateNodeByPath(currentState);
+  const currentStateNode = getStateNodeByPath(machine, currentState);
   if (currentStateNode.meta?.visibilityCond) {
     // this just checks for presence of that condition, but doesn't execute it, needs some more thought
     throw new Error("NONO");
@@ -46,6 +46,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   // if one says no, we don't allow access to this step
 
   const cookieData = new GrundDataModel(cookie.records);
+  currentState = currentState.replace(/\.\d+/, "");
   const formData = cookieData.getStepData(currentState);
   return {
     formData,
@@ -69,7 +70,7 @@ export const action: ActionFunction = async ({ request }) => {
   });
 
   const errors: Record<string, Array<string>> = {};
-  const state = machineWithoutData.getStateNodeByPath(currentState);
+  const state = getStateNodeByPath(machineWithoutData, currentState);
   state.meta?.stepDefinition?.fields.forEach((field: ConfigStepField) => {
     const fieldErrorMessages = validateField(field, fieldValues);
     if (fieldErrorMessages.length > 0) errors[field.name] = fieldErrorMessages;

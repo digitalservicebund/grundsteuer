@@ -126,3 +126,8 @@ export const steps = {
 export const getMachineConfig = (records: GrundDataModelData | null) => {
   return Object.assign({}, steps, { context: records });
 };
+
+export const getStateNodeByPath = (stateMachine: any, currentState: string) => {
+  currentState = currentState.replace(/\.\d+/, "");
+  return stateMachine.getStateNodeByPath(currentState)
+}

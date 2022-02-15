@@ -7,6 +7,9 @@ export interface GrundDataModelData {
   repeated: {
     count: number;
     currentIndex: number;
+    item: {
+      name: string
+    }
   };
   eigentuemer: SectionEigentuemer;
 }
@@ -31,7 +34,11 @@ export default class GrundDataModel {
     // TODO set default correctly
     const defaultSections = {
       repeated: {
-        count: 0
+        count: 0,
+        currentIndex: 0,
+        item:{
+          name: ""
+        }
       },
       eigentuemer: {
         person: {
