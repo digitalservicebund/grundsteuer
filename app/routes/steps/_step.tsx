@@ -6,7 +6,7 @@ import GrundDataModel, { StepFormData } from "~/domain/model";
 import { getMachineConfig } from "~/domain/steps";
 import { conditions } from "~/domain/conditions";
 import { validateField } from "~/domain/validation";
-import { ConfigStepFieldValidation } from "~/domain";
+import { ConfigStepField } from "~/domain";
 import { Button } from "@digitalservice4germany/digital-service-library";
 
 function getCurrentState(request: Request) {
@@ -65,13 +65,10 @@ export const action: ActionFunction = async ({ request }) => {
 
   const errors: Record<string, Array<string>> = {};
   const state = machineWithoutData.getStateNodeByPath(currentState);
-  state.meta.stepDefinition.fields.forEach(
-    (field: ConfigStepFieldValidation) => {
-      const fieldErrorMessages = validateField(field, fieldValues);
-      if (fieldErrorMessages.length > 0)
-        errors[field.name] = fieldErrorMessages;
-    }
-  );
+  state.meta.stepDefinition.fields.forEach((field: ConfigStepField) => {
+    const fieldErrorMessages = validateField(field, fieldValues);
+    if (fieldErrorMessages.length > 0) errors[field.name] = fieldErrorMessages;
+  });
   if (Object.keys(errors).length >= 1) return { errors };
 
   // Add data to bigger model
@@ -86,7 +83,6 @@ export const action: ActionFunction = async ({ request }) => {
 
   const machineWithData = machineWithoutData.withContext(cookie.records);
 
-  // TODO: improve cheap url -> state conversion
   console.log({ currentState });
 
   const nextState = machineWithData.transition(currentState, {

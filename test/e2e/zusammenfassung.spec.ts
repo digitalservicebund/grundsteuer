@@ -9,7 +9,7 @@ describe("Zusammenfassung route", () => {
     cy.get("h1").contains("Zusammenfassung");
   });
 
-  it("should display empty fields on no form input", () => {
+  it.skip("should display empty fields on no form input", () => {
     // uses baseUrl defined in cypress.json configuration
     cy.visit("/steps/zusammenfassung");
     // access DOM Nodes via e.g. class, id, data-test-id

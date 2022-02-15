@@ -1,8 +1,12 @@
 import { GrundDataModelData } from "./model";
+import {
+  hausnummer,
+  streetAddress,
+} from "~/routes/steps/eigentuemer/person/adresse";
 
 export const steps = {
   id: "steps",
-  initial: "legacy",
+  initial: "metadaten",
   states: {
     metadaten: { on: { NEXT: "eigentuemer" } },
     eigentuemer: {
@@ -22,36 +26,7 @@ export const steps = {
             adresse: {
               meta: {
                 stepDefinition: {
-                  fields: [
-                    {
-                      name: "strasse",
-                      label: "Straße",
-                      validations: {
-                        requiredIf: {
-                          dependentField: "hausnummer",
-                          msg: "musst du eingeben",
-                        },
-                        maxLength: {
-                          param: 12,
-                          msg: "zu lang",
-                        },
-                      },
-                    },
-                    {
-                      name: "hausnummer",
-                      label: "Hausnummer",
-                      validations: {
-                        requiredIf: {
-                          dependentField: "strasse",
-                          msg: "musst du eingeben",
-                        },
-                        maxLength: {
-                          param: 12,
-                          msg: "zu lang",
-                        },
-                      },
-                    },
-                  ],
+                  fields: [streetAddress, hausnummer],
                 },
               },
               on: {

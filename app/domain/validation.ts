@@ -1,5 +1,5 @@
 import invariant from "tiny-invariant";
-import { ConfigStepFieldValidation } from "~/domain/config";
+import { ConfigStepField } from "~/domain/config";
 import { StepFormData, StepFormDataValue } from "~/domain/model";
 
 export interface RequiredValidation {
@@ -27,10 +27,7 @@ type ValidatorFunction = (
   formData: StepFormData
 ) => string | undefined;
 
-export function validateField(
-  field: ConfigStepFieldValidation,
-  formData: StepFormData
-) {
+export function validateField(field: ConfigStepField, formData: StepFormData) {
   return Object.keys(field.validations).reduce(
     (previousErrorMessages: string[], validationKey: string) => {
       const validatorFunction: ValidatorFunction =
