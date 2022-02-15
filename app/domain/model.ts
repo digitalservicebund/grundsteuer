@@ -4,6 +4,10 @@ export type StepFormDataValue = string | undefined;
 export type StepFormData = Record<string, StepFormDataValue>;
 
 export interface GrundDataModelData {
+  repeated: {
+    count: number;
+    currentIndex: number;
+  };
   eigentuemer: SectionEigentuemer;
 }
 
@@ -26,6 +30,9 @@ export default class GrundDataModel {
   constructor(sections: GrundDataModelData | undefined) {
     // TODO set default correctly
     const defaultSections = {
+      repeated: {
+        count: 0
+      },
       eigentuemer: {
         person: {
           adresse: {

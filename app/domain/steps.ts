@@ -1,4 +1,4 @@
-import { GrundDataModelData } from "./model";
+import GrundDataModel, { GrundDataModelData } from "./model";
 import { personAdresseFields } from "~/routes/steps/eigentuemer/person/adresse";
 
 export const steps = {
@@ -6,6 +6,38 @@ export const steps = {
   initial: "metadaten",
   states: {
     metadaten: { on: { NEXT: "eigentuemer" } },
+    repeated: {
+      id: "repeated",
+      initial: "count",
+      states: {
+        // context.count -> 4
+        count: { on: { NEXT: "item" } },
+        item: {
+          id: "item",
+          initial: "name",
+          states: {
+            name: {
+              on: {
+                NEXT: [
+                  {
+                    target: "item",
+                    cond: (context: GrundDataModel) =>
+                      context.sections.repeated.currentIndex <
+                      context.sections.repeated.count,
+                  },
+                  {
+                    target: "eigentuemer",
+                    cond: (context: GrundDataModel) =>
+                      context.sections.repeated.currentIndex >=
+                      context.sections.repeated.count,
+                  },
+                ],
+              },
+            },
+          },
+        },
+      },
+    },
     eigentuemer: {
       id: "eigentuemer",
       initial: "uebersicht",
