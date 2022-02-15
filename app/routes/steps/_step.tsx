@@ -31,7 +31,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   // the context can than be used by the guard conditions
   // https://xstate.js.org/docs/guides/machines.html#initial-context
 
-  let currentState = getCurrentState(request);
+  const currentState = getCurrentState(request);
 
   // some pseudo/example code how this might work
   // I can get a specific state with "getStateNodeByPath" and access parents from there
@@ -46,7 +46,6 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   // if one says no, we don't allow access to this step
 
   const cookieData = new GrundDataModel(cookie.records);
-  currentState = currentState.replace(/\.\d+/, "");
   const formData = cookieData.getStepData(currentState);
   return {
     formData,

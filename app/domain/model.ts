@@ -7,9 +7,7 @@ export interface GrundDataModelData {
   repeated: {
     count: number;
     currentIndex: number;
-    item: {
-      name: string
-    }
+    item: { name: { name: string } }[];
   };
   eigentuemer: SectionEigentuemer;
 }
@@ -36,9 +34,7 @@ export default class GrundDataModel {
       repeated: {
         count: 0,
         currentIndex: 0,
-        item:{
-          name: ""
-        }
+        item: [{ name: { name: "" } }],
       },
       eigentuemer: {
         person: {
@@ -56,18 +52,16 @@ export default class GrundDataModel {
     this.sections = { ...defaultSections, ...sections };
   }
 
-  setStepData(path: string, values: any) {
-    _.set(this.sections, path, values);
+  static idToIndex(path: string) {
+    return path.split(".").map((s) => (s.match(/^\d+$/) ? parseInt(s) - 1 : s));
   }
 
-  getStepData(stepHierarchy: string) {
-    const hierarchyLevels = stepHierarchy.split(".");
-    let currentDataLevel: Record<string, any> = this.sections;
-    hierarchyLevels.forEach((hierachyLevel) => {
-      currentDataLevel =
-        currentDataLevel[hierachyLevel as keyof GrundDataModelData];
-    });
-    return currentDataLevel;
+  setStepData(path: string, values: any) {
+    return _.set(this.sections, GrundDataModel.idToIndex(path), values);
+  }
+
+  getStepData(path: string) {
+    return _.get(this.sections, GrundDataModel.idToIndex(path));
   }
 
   serialize() {
