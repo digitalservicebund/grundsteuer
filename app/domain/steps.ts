@@ -21,9 +21,13 @@ export const steps = {
                 NEXT: [
                   {
                     target: "name",
-                    cond: (context: GrundDataModel) =>
-                      context.sections.repeated.currentIndex <
-                      context.sections.repeated.count,
+                    cond: (context: any) => {
+                      return (
+                        context.currentId <
+                        parseInt(context.repeated.count.count)
+                      );
+                    },
+                    actions: ["incrementCurrentId"],
                   },
                 ],
               },

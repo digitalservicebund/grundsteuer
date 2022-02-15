@@ -1,5 +1,5 @@
 import { ActionFunction, Form, LoaderFunction, redirect } from "remix";
-import { createMachine } from "xstate";
+import { createMachine, assign } from "xstate";
 
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 import GrundDataModel, { StepFormData } from "~/domain/model";
@@ -32,6 +32,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   // https://xstate.js.org/docs/guides/machines.html#initial-context
 
   const currentState = getCurrentState(request);
+  console.log({ currentState });
 
   // some pseudo/example code how this might work
   // I can get a specific state with "getStateNodeByPath" and access parents from there
@@ -46,6 +47,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   // if one says no, we don't allow access to this step
 
   const cookieData = new GrundDataModel(cookie.records);
+  console.log(cookieData.serialize());
   const formData = cookieData.getStepData(currentState);
   return {
     formData,
@@ -54,19 +56,28 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   };
 };
 
-export const action: ActionFunction = async ({ request }) => {
+export const action: ActionFunction = async ({ params, request }) => {
   console.log("ACTION");
   const cookie = await getFormDataCookie(request);
 
   const currentState = getCurrentState(request);
+  console.log({ currentState });
   const fieldValues: StepFormData = Object.fromEntries(
     await request.formData()
   ) as StepFormData;
 
-  // validate step-model
   const machineWithoutData = createMachine(getMachineConfig(null) as any, {
     guards: conditions,
+    actions: {
+      incrementCurrentId: assign({
+        currentId: (context) => {
+          return parseInt((context as any).currentId || 0) + 1;
+        },
+      }),
+    },
   });
+
+  const currentStateWithoutId = currentState.replace(/\.\d+\./g, ".");
 
   const errors: Record<string, Array<string>> = {};
   const state = getStateNodeByPath(machineWithoutData, currentState);
@@ -86,14 +97,17 @@ export const action: ActionFunction = async ({ request }) => {
   // cookie.allowedSteps = cookie.allowedSteps || [];
   // cookie.allowedSteps.push(nextStepName as string);
 
-  const machineWithData = machineWithoutData.withContext(cookie.records);
+  const machineWithData = machineWithoutData.withContext({
+    ...cookie.records,
+    currentId: params.id,
+  });
 
   console.log({ currentState });
 
-  const nextState = machineWithData.transition(currentState, {
+  const nextState = machineWithData.transition(currentStateWithoutId, {
     type: "NEXT",
   });
-  console.log(nextState.value);
+  console.log(nextState.value, nextState.context);
 
   let redirectUrl = `/steps/${nextState
     .toStrings()
@@ -102,7 +116,10 @@ export const action: ActionFunction = async ({ request }) => {
     .join("/")}`;
 
   if (nextState.matches("repeated.item")) {
-    redirectUrl = redirectUrl.replace("item/", "item/1/");
+    redirectUrl = redirectUrl.replace(
+      "item/",
+      `item/${(nextState.context as any).currentId || 1}/`
+    );
   }
   console.log({ redirectUrl });
 
