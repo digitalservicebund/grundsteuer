@@ -13,7 +13,7 @@ export interface SectionEigentuemer {
 
 interface AdresseData {
   strasse: string;
-  hausnummer: number;
+  hausnummer: string;
 }
 
 interface PersonData {
@@ -30,7 +30,7 @@ export default class GrundDataModel {
         person: {
           adresse: {
             strasse: "",
-            hausnummer: 0,
+            hausnummer: "",
           },
         },
       },
