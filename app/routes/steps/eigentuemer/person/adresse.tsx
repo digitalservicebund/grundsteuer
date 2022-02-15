@@ -1,5 +1,4 @@
-import { Form, useActionData, useLoaderData } from "remix";
-import { Button } from "@digitalservice4germany/digital-service-library";
+import { useActionData, useLoaderData } from "remix";
 import { ConfigStepField } from "~/domain";
 import { StepTextField } from "~/components";
 import { render } from "~/routes/steps/_step";
@@ -24,14 +23,13 @@ export default function Adresse() {
     actionData,
     "Adresse",
 
-    <Form method="post" className="mb-16">
+    <>
       <StepTextField
         config={streetAddress}
         value={formData?.[streetAddress.name]}
       />
       <StepTextField config={hausnummer} value={formData?.[hausnummer.name]} />
       <input type="hidden" name="stepName" value="adresse" />
-      <Button>Weiter</Button>
-    </Form>
+    </>
   );
 }

@@ -1,4 +1,4 @@
-import { ActionFunction, LoaderFunction, redirect } from "remix";
+import { ActionFunction, Form, LoaderFunction, redirect } from "remix";
 import { createMachine } from "xstate";
 
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
@@ -7,6 +7,7 @@ import { getMachineConfig } from "~/domain/steps";
 import { conditions } from "~/domain/conditions";
 import { validateField } from "~/domain/validation";
 import { ConfigStepFieldValidation } from "~/domain";
+import { Button } from "@digitalservice4germany/digital-service-library";
 
 function getCurrentState(request: Request) {
   return new URL(request.url).pathname
@@ -121,7 +122,10 @@ export function render(
         {actionData?.errors
           ? "ERRORS: " + JSON.stringify(actionData.errors)
           : ""}
-        {stepForm}
+        <Form method="post" className="mb-16">
+          {stepForm}
+          <Button>Weiter</Button>
+        </Form>
       </div>
     </div>
   );
