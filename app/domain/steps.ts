@@ -20,15 +20,9 @@ export const steps = {
               on: {
                 NEXT: [
                   {
-                    target: "item",
+                    target: "name",
                     cond: (context: GrundDataModel) =>
                       context.sections.repeated.currentIndex <
-                      context.sections.repeated.count,
-                  },
-                  {
-                    target: "eigentuemer",
-                    cond: (context: GrundDataModel) =>
-                      context.sections.repeated.currentIndex >=
                       context.sections.repeated.count,
                   },
                 ],
@@ -37,6 +31,7 @@ export const steps = {
           },
         },
       },
+      on: { NEXT: "eigentuemer" },
     },
     eigentuemer: {
       id: "eigentuemer",
@@ -129,5 +124,5 @@ export const getMachineConfig = (records: GrundDataModelData | null) => {
 
 export const getStateNodeByPath = (stateMachine: any, currentState: string) => {
   currentState = currentState.replace(/\.\d+/, "");
-  return stateMachine.getStateNodeByPath(currentState)
-}
+  return stateMachine.getStateNodeByPath(currentState);
+};
