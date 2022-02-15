@@ -1,5 +1,5 @@
 import type { CookieData } from "~/cookies";
-import { Validation } from "~/domain/validations";
+import { Validation } from "~/domain/validation";
 
 interface ConfigStepFieldCommon {
   name: string;

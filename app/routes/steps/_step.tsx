@@ -5,7 +5,7 @@ import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 import GrundDataModel, { StepFormData } from "~/domain/model";
 import { getMachineConfig } from "~/domain/steps";
 import { conditions } from "~/domain/conditions";
-import { validateField } from "~/domain/validations";
+import { validateField } from "~/domain/validation";
 import { ConfigStepFieldValidation } from "~/domain";
 
 function getCurrentState(request: Request) {
@@ -66,10 +66,12 @@ export const action: ActionFunction = async ({ request }) => {
   const state = machineWithoutData.getStateNodeByPath(currentState);
   state.meta.stepDefinition.fields.forEach(
     (field: ConfigStepFieldValidation) => {
-      errors[field.name] = validateField(field, fieldValues);
+      const fieldErrorMessages = validateField(field, fieldValues);
+      if (fieldErrorMessages.length > 0)
+        errors[field.name] = fieldErrorMessages;
     }
   );
-  //if (Object.keys(errors).length >= 1) return { errors };
+  if (Object.keys(errors).length >= 1) return { errors };
 
   // Add data to bigger model
   const completeDataModel = new GrundDataModel(cookie.records);

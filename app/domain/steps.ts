@@ -27,7 +27,8 @@ export const steps = {
                       name: "strasse",
                       label: "Straße",
                       validations: {
-                        required: {
+                        requiredIf: {
+                          dependentField: "hausnummer",
                           msg: "musst du eingeben",
                         },
                         maxLength: {
@@ -40,7 +41,8 @@ export const steps = {
                       name: "hausnummer",
                       label: "Hausnummer",
                       validations: {
-                        required: {
+                        requiredIf: {
+                          dependentField: "strasse",
                           msg: "musst du eingeben",
                         },
                         maxLength: {
