@@ -92,12 +92,18 @@ export const action: ActionFunction = async ({ request }) => {
 
   const nextState = machineWithData.transition(currentState, {
     type: "NEXT",
-  }).value;
-  console.log({ nextState });
+  });
+  console.log(nextState.value);
 
-  const redirectUrl =
-    "/steps/" +
-    JSON.stringify(nextState).replace(/:/g, "/").replace(/[{}"]/g, "");
+  let redirectUrl = `/steps/${nextState
+    .toStrings()
+    .at(-1)
+    ?.split(".")
+    .join("/")}`;
+
+  if (nextState.matches("repeated.item")) {
+    redirectUrl = redirectUrl.replace("item/", "item/1/");
+  }
   console.log({ redirectUrl });
 
   const responseHeader: Headers = await createResponseHeaders(cookie);
