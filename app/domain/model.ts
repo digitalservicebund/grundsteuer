@@ -31,6 +31,10 @@ export default class GrundDataModel {
           adresse: {
             strasse: "",
             hausnummer: "",
+            zusatzangaben: "",
+            postfach: "",
+            plz: "",
+            ort: "",
           },
         },
       },

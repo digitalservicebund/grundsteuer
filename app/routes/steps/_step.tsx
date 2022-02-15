@@ -65,7 +65,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   const errors: Record<string, Array<string>> = {};
   const state = machineWithoutData.getStateNodeByPath(currentState);
-  state.meta.stepDefinition.fields.forEach((field: ConfigStepField) => {
+  state.meta?.stepDefinition?.fields.forEach((field: ConfigStepField) => {
     const fieldErrorMessages = validateField(field, fieldValues);
     if (fieldErrorMessages.length > 0) errors[field.name] = fieldErrorMessages;
   });

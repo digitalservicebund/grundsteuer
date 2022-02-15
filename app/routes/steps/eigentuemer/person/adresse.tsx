@@ -7,7 +7,7 @@ export { action, loader, handle } from "~/routes/steps/_step";
 
 export const streetAddress: ConfigStepField = {
   name: "strasse",
-  label: "Straße",
+  label: "Straße / Lagebezeichnung",
   validations: {
     requiredIf: {
       dependentField: "hausnummer",
@@ -22,7 +22,7 @@ export const streetAddress: ConfigStepField = {
 
 export const hausnummer: ConfigStepField = {
   name: "hausnummer",
-  label: "Hausnummer",
+  label: "Hausnummer (+Hausnummerzusatz)",
   validations: {
     requiredIf: {
       dependentField: "strasse",
@@ -33,6 +33,30 @@ export const hausnummer: ConfigStepField = {
       msg: "zu lang",
     },
   },
+};
+
+export const zusatzangaben: ConfigStepField = {
+  name: "zusatzangaben",
+  label: "Zusatzangaben (bswp. Hinterhaus)",
+  validations: {},
+};
+
+export const postfach: ConfigStepField = {
+  name: "postfach",
+  label: "Postfach",
+  validations: {},
+};
+
+export const plz: ConfigStepField = {
+  name: "plz",
+  label: "PLZ",
+  validations: {},
+};
+
+export const ort: ConfigStepField = {
+  name: "ort",
+  label: "Ort",
+  validations: {},
 };
 
 export default function Adresse() {
@@ -49,6 +73,13 @@ export default function Adresse() {
         value={formData?.[streetAddress.name]}
       />
       <StepTextField config={hausnummer} value={formData?.[hausnummer.name]} />
+      <StepTextField
+        config={zusatzangaben}
+        value={formData?.[zusatzangaben.name]}
+      />
+      <StepTextField config={postfach} value={formData?.[postfach.name]} />
+      <StepTextField config={plz} value={formData?.[plz.name]} />
+      <StepTextField config={ort} value={formData?.[ort.name]} />
       <input type="hidden" name="stepName" value="adresse" />
     </>
   );
