@@ -7,7 +7,7 @@ export interface CookieData {
   allowedSteps?: string[];
 }
 
-export const formDataCookie = createCookie("form-data");
+export const formDataCookie = createCookie("form-data", { path: "/" });
 
 export async function getFormDataCookie(request: Request): Promise<CookieData> {
   const cookieHeader = request.headers.get("Cookie");
