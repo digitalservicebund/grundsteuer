@@ -5,6 +5,8 @@ import { render } from "~/routes/steps/_step";
 
 export { action, loader, handle } from "~/routes/steps/_step";
 
+const headline = "Adresse";
+
 export const streetAddress: ConfigStepField = {
   name: "strasse",
   label: "Straße / Lagebezeichnung",
@@ -65,7 +67,7 @@ export default function Adresse() {
 
   return render(
     actionData,
-    "Adresse",
+    headline,
 
     <>
       <StepTextField
@@ -80,7 +82,6 @@ export default function Adresse() {
       <StepTextField config={postfach} value={formData?.[postfach.name]} />
       <StepTextField config={plz} value={formData?.[plz.name]} />
       <StepTextField config={ort} value={formData?.[ort.name]} />
-      <input type="hidden" name="stepName" value="adresse" />
     </>
   );
 }
