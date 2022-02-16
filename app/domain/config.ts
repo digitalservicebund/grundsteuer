@@ -11,7 +11,7 @@ export type ConfigStepFieldText = ConfigStepFieldCommon;
 
 export interface ConfigStepFieldOptionsItem {
   value: string;
-  label: string;
+  label?: string;
 }
 
 export interface ConfigStepFieldWithOptions extends ConfigStepFieldCommon {

@@ -9,6 +9,20 @@
         "postfach": "Postfach",
         "plz": "PLZ",
         "ort": "Ort"
+      },
+      "telefonnummer": {
+        "headline": "",
+        "telefonnummer": "Telefonnummer"
+      },
+      "steuerId": {
+        "headline": "",
+        "steuerId": "Steuer-ID"
+      },
+      "gesetzlicherVertreter": {
+        "headline": "Gesetzlicher Vertreter",
+        "question": "Möchten Sie einen gesetzlichen Vertreter angeben?",
+        "yes": "Ja, ich möchte einen ges. Vetreter angeben",
+        "no": "Nein, ich möchte keinen ges. Vetreter angeben"
       }
     }
   }

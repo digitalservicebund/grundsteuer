@@ -3,30 +3,27 @@ import { ConfigStepFieldRadio } from "~/domain";
 import { StepRadioField } from "~/components";
 import { render } from "~/routes/steps/_step";
 
-export { action, loader, handle } from "./../../_step";
+export { action, loader, handle } from "~/routes/steps/_step";
 
-const headline = "Gesetzlicher Vertreter";
+const gesVertreter: ConfigStepFieldRadio = {
+  name: "gesetzlicherVertreter",
+  options: [{ value: "true" }, { value: "false" }],
+  validations: {},
+};
+
+export const gesVertreterFields = [gesVertreter];
 
 export default function GesetzlicherVertreter() {
-  const { formData } = useLoaderData();
+  const { formData, i18n } = useLoaderData();
   const actionData = useActionData();
 
-  const gesVertreter: ConfigStepFieldRadio = {
-    name: "gesvertreter",
-    label: "Möchten Sie einen gesetzlichen Vertreter angeben?",
-    options: [
-      { label: "Ja, ich möchte einen ges. Vetreter angeben", value: "true" },
-      {
-        label: "Nein, ich möchte keinen ges. Vetreter angeben",
-        value: "false",
-      },
-    ],
-    validations: {},
-  };
+  gesVertreter.label = i18n.question;
+  gesVertreter.options[0].label = i18n.yes;
+  gesVertreter.options[1].label = i18n.no;
 
   return render(
     actionData,
-    headline,
+    i18n.headline,
     <>
       <StepRadioField
         config={gesVertreter}

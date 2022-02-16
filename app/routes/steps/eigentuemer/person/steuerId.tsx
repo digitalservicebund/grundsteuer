@@ -3,23 +3,26 @@ import { ConfigStepField } from "~/domain";
 import { StepTextField } from "~/components";
 import { render } from "~/routes/steps/_step";
 
-export { action, loader, handle } from "./../../_step";
+export { action, loader, handle } from "~/routes/steps/_step";
 
-const headline = "";
+const steuerId: ConfigStepField = {
+  name: "steuerId",
+  validations: {},
+};
+
+export const personSteuerIdFields = [steuerId];
 
 export default function SteuerId() {
-  const { formData } = useLoaderData();
+  const { formData, i18n } = useLoaderData();
   const actionData = useActionData();
 
-  const steuerId: ConfigStepField = {
-    name: "steuerId",
-    label: "Steuer-ID",
-    validations: {},
-  };
+  personSteuerIdFields.forEach((field) => {
+    field.label = i18n[field.name];
+  });
 
   return render(
     actionData,
-    headline,
+    i18n.headline,
     <>
       <StepTextField config={steuerId} value={formData?.[steuerId.name]} />
     </>
