@@ -9,6 +9,7 @@ import { validateField } from "~/domain/validation";
 import { ConfigStepField } from "~/domain";
 import { Button } from "@digitalservice4germany/digital-service-library";
 import { i18n } from "~/i18n.server";
+import { actions } from "~/domain/actions";
 
 export function getCurrentState(request: Request) {
   return new URL(request.url).pathname
@@ -69,13 +70,7 @@ export const action: ActionFunction = async ({ params, request }) => {
 
   const machineWithoutData = createMachine(getMachineConfig(null) as any, {
     guards: conditions,
-    actions: {
-      incrementCurrentId: assign({
-        currentId: (context) => {
-          return parseInt((context as any).currentId || 0) + 1;
-        },
-      }),
-    },
+    actions: actions,
   });
 
   const currentStateWithoutId = currentState.replace(/\.\d+\./g, ".");
