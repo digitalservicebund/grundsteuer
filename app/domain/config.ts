@@ -3,7 +3,7 @@ import { Validation } from "~/domain/validation";
 
 interface ConfigStepFieldCommon {
   name: string;
-  label: string;
+  label?: string;
   validations: Record<string, Validation>;
 }
 

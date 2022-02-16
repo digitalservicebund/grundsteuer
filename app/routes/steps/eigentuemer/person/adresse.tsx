@@ -5,11 +5,8 @@ import { render } from "~/routes/steps/_step";
 
 export { action, loader, handle } from "~/routes/steps/_step";
 
-const headline = "Adresse";
-
-export const streetAddress: ConfigStepField = {
+const strasse: ConfigStepField = {
   name: "strasse",
-  label: "Straße / Lagebezeichnung",
   validations: {
     requiredIf: {
       dependentField: "hausnummer",
@@ -22,9 +19,8 @@ export const streetAddress: ConfigStepField = {
   },
 };
 
-export const hausnummer: ConfigStepField = {
+const hausnummer: ConfigStepField = {
   name: "hausnummer",
-  label: "Hausnummer (+Hausnummerzusatz)",
   validations: {
     requiredIf: {
       dependentField: "strasse",
@@ -37,43 +33,49 @@ export const hausnummer: ConfigStepField = {
   },
 };
 
-export const zusatzangaben: ConfigStepField = {
+const zusatzangaben: ConfigStepField = {
   name: "zusatzangaben",
-  label: "Zusatzangaben (bswp. Hinterhaus)",
   validations: {},
 };
 
-export const postfach: ConfigStepField = {
+const postfach: ConfigStepField = {
   name: "postfach",
-  label: "Postfach",
   validations: {},
 };
 
-export const plz: ConfigStepField = {
+const plz: ConfigStepField = {
   name: "plz",
-  label: "PLZ",
   validations: {},
 };
 
-export const ort: ConfigStepField = {
+const ort: ConfigStepField = {
   name: "ort",
-  label: "Ort",
   validations: {},
 };
+
+export const personAdresseFields: ConfigStepField[] = [
+  strasse,
+  hausnummer,
+  zusatzangaben,
+  postfach,
+  plz,
+  ort,
+];
 
 export default function Adresse() {
-  const { formData } = useLoaderData();
+  const { formData, i18n } = useLoaderData();
   const actionData = useActionData();
+
+  personAdresseFields.forEach((field) => {
+    field.label = i18n[field.name];
+  });
 
   return render(
     actionData,
-    headline,
+    i18n.headline,
 
     <>
-      <StepTextField
-        config={streetAddress}
-        value={formData?.[streetAddress.name]}
-      />
+      <StepTextField config={strasse} value={formData?.[strasse.name]} />
       <StepTextField config={hausnummer} value={formData?.[hausnummer.name]} />
       <StepTextField
         config={zusatzangaben}

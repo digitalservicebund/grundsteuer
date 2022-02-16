@@ -1,26 +1,25 @@
 import {
-  LinksFunction,
-  LoaderFunction,
-  MetaFunction,
-  useLoaderData,
-} from "remix";
-import {
-  Links,
   Link,
+  Links,
+  LinksFunction,
   LiveReload,
+  LoaderFunction,
   Meta,
+  MetaFunction,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
   useMatches,
 } from "remix";
 import {
-  Layout,
   Footer,
+  Layout,
 } from "@digitalservice4germany/digital-service-library";
 import { stepNavigation } from "~/domain/stepNavigation";
 import { FormNavigation } from "~/components/FormNavigation";
 import { getFormDataCookie } from "~/cookies";
+import { useRemixI18Next } from "remix-i18next";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: "/tailwind.css" }];
@@ -40,6 +39,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function App() {
   const matches = useMatches();
   const { records } = useLoaderData();
+  useRemixI18Next("de");
 
   const showFormNavigationData = matches.find(
     (match) => match.handle?.showFormNavigation

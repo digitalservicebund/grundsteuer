@@ -1,8 +1,5 @@
 import { GrundDataModelData } from "./model";
-import {
-  hausnummer,
-  streetAddress,
-} from "~/routes/steps/eigentuemer/person/adresse";
+import { personAdresseFields } from "~/routes/steps/eigentuemer/person/adresse";
 
 export const steps = {
   id: "steps",
@@ -26,7 +23,7 @@ export const steps = {
             adresse: {
               meta: {
                 stepDefinition: {
-                  fields: [streetAddress, hausnummer],
+                  fields: personAdresseFields,
                 },
               },
               on: {

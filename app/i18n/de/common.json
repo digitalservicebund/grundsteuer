@@ -1,0 +1,15 @@
+{
+  "eigentuemer": {
+    "person": {
+      "adresse": {
+        "headline": "Adresse",
+        "strasse": "Straße / Lagebezeichnung",
+        "hausnummer": "Hausnummer (+Hausnummerzusatz)",
+        "zusatzangaben": "Zusatzangaben (bswp. Hinterhaus)",
+        "postfach": "Postfach",
+        "plz": "PLZ",
+        "ort": "Ort"
+      }
+    }
+  }
+}

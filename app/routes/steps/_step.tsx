@@ -8,6 +8,7 @@ import { conditions } from "~/domain/conditions";
 import { validateField } from "~/domain/validation";
 import { ConfigStepField } from "~/domain";
 import { Button } from "@digitalservice4germany/digital-service-library";
+import { i18n } from "~/i18n.server";
 
 function getCurrentState(request: Request) {
   return new URL(request.url).pathname
@@ -20,7 +21,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   console.log("LOADER", params);
   const cookie = await getFormDataCookie(request);
 
-  const resourceId = new URL(request.url);
+  const resourceId = new URL(request.url).searchParams.get("id");
 
   const machine = createMachine(getMachineConfig(cookie.records) as any, {
     guards: conditions,
@@ -46,7 +47,11 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
   const cookieData = new GrundDataModel(cookie.records);
   const formData = cookieData.getStepData(currentState);
-  return { formData, resourceId };
+  return {
+    formData,
+    resourceId,
+    i18n: (await i18n.getFixedT("de", "common"))(currentState),
+  };
 };
 
 export const action: ActionFunction = async ({ request }) => {
