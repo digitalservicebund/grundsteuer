@@ -1,12 +1,13 @@
 import { GrundDataModelData } from "./model";
 import { ConditionPredicate, AnyEventObject } from "xstate";
+import { StateMachineContext } from "~/domain/steps";
 
 export type Conditions = Record<
   string,
   ConditionPredicate<GrundDataModelData, AnyEventObject> | any
 >;
 
-const hasGesetzlicherVertreter = (context: any) => {
+const hasGesetzlicherVertreter = (context: StateMachineContext) => {
   console.log(
     "hasGesetzlicherVertreter",
     context.eigentuemer.person,
@@ -27,7 +28,7 @@ const hasGesetzlicherVertreter = (context: any) => {
   return true;
 };
 
-const repeatPerson = (context: any) => {
+const repeatPerson = (context: StateMachineContext) => {
   console.log(context.eigentuemer);
   return (context.currentId || 1) < parseInt(context.eigentuemer.anzahl.anzahl);
 };

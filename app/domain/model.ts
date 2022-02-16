@@ -3,66 +3,74 @@ import _ from "lodash";
 export type StepFormDataValue = string | undefined;
 export type StepFormData = Record<string, StepFormDataValue>;
 
-export interface GrundDataModelData {
-  eigentuemer: SectionEigentuemer;
-}
-
-export interface SectionEigentuemer {
-  person: PersonData[];
+interface AnzahlData {
+  anzahl: string;
 }
 
 interface AdresseData {
   strasse: string;
   hausnummer: string;
+  zusatzangaben: string;
+  postfach: string;
+  plz: string;
+  ort: string;
 }
 
-interface PersonData {
-  adresse: AdresseData;
+interface GesetzlicherVertreterData {
+  gesvertreter: string;
 }
 
-export default class GrundDataModel {
-  sections: GrundDataModelData;
+export type StepData =
+  | AnzahlData
+  | AdresseData
+  | GesetzlicherVertreterData
+  | StepFormData;
 
-  constructor(sections: GrundDataModelData | undefined) {
-    // TODO set default correctly
-    const defaultSections = {
-      eigentuemer: {
-        anzahl: 1,
-        person: [
-          {
-            adresse: {
-              strasse: "",
-              hausnummer: "",
-              zusatzangaben: "",
-              postfach: "",
-              plz: "",
-              ort: "",
-            },
-          },
-        ],
+export interface GrundDataModelData {
+  eigentuemer: {
+    anzahl: AnzahlData;
+    person: {
+      adresse: AdresseData;
+      gesetzlicherVertreter: GesetzlicherVertreterData;
+    }[];
+  };
+}
+
+const idToIndex = (path: string) => {
+  return path.split(".").map((s) => (s.match(/^\d+$/) ? parseInt(s) - 1 : s));
+};
+
+export const setStepData = (
+  data: GrundDataModelData,
+  path: string,
+  values: StepData
+) => {
+  return _.set(data, idToIndex(path), values);
+};
+
+export const getStepData = (data: GrundDataModelData, path: string) => {
+  return _.get(data, idToIndex(path));
+};
+
+export const defaults: GrundDataModelData = {
+  eigentuemer: {
+    anzahl: {
+      anzahl: "1",
+    },
+    person: [
+      {
+        adresse: {
+          strasse: "",
+          hausnummer: "",
+          zusatzangaben: "",
+          postfach: "",
+          plz: "",
+          ort: "",
+        },
+        gesetzlicherVertreter: {
+          gesvertreter: "false",
+        },
       },
-    };
-    this.sections = { ...defaultSections, ...sections };
-  }
-
-  static idToIndex(path: string) {
-    return path.split(".").map((s) => (s.match(/^\d+$/) ? parseInt(s) - 1 : s));
-  }
-
-  setStepData(path: string, values: any) {
-    console.log("setStepData", path, values);
-    return _.set(this.sections, GrundDataModel.idToIndex(path), values);
-  }
-
-  getStepData(path: string) {
-    return _.get(this.sections, GrundDataModel.idToIndex(path));
-  }
-
-  serialize() {
-    return JSON.stringify(this);
-  }
-
-  deserialize(jsonData: string) {
-    return JSON.parse(jsonData);
-  }
-}
+    ],
+  },
+};

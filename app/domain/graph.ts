@@ -1,4 +1,4 @@
-import { GrundDataModelData } from "~/domain/model";
+import { GrundDataModelData, getStepData } from "~/domain/model";
 import { createMachine } from "xstate";
 import { conditions } from "~/domain/conditions";
 import { actions } from "~/domain/actions";
@@ -12,10 +12,8 @@ import _ from "lodash";
  */
 export const createGraph = ({
   machineContext,
-  getStepData,
 }: {
   machineContext: GrundDataModelData;
-  getStepData: (arg0: string) => any;
 }) => {
   const machine = createMachine(getMachineConfig(machineContext) as any, {
     guards: conditions,
@@ -33,7 +31,7 @@ export const createGraph = ({
       const currentId = (state.context as any).currentId || 1;
       pathWithId = pathWithId.replace(/\.person\./, `.person.${currentId}.`);
     }
-    const data = getStepData(pathWithId);
+    const data = getStepData(machineContext, pathWithId);
     const meta = JSON.stringify(stateNode.meta?.stepDefinition, null, 2);
 
     return { path, pathWithId, data, meta };
