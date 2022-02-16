@@ -17,12 +17,14 @@ describe("getFormDataCookie", () => {
     const inputCookie: string = await formDataCookie.serialize({
       records: {
         eigentuemer: {
-          person: {
-            adresse: {
-              strasse: "Hauptstraße",
-              hausnummer: "42",
+          person: [
+            {
+              adresse: {
+                strasse: "Hauptstraße",
+                hausnummer: "42",
+              },
             },
-          },
+          ],
         },
       },
     });
@@ -34,10 +36,12 @@ describe("getFormDataCookie", () => {
     const cookie: CookieData = await getFormDataCookie(request);
 
     expect(Object.keys(cookie).length).toEqual(1);
-    expect(cookie.records.eigentuemer.person.adresse.strasse).toEqual(
+    expect(cookie.records.eigentuemer.person[0].adresse.strasse).toEqual(
       "Hauptstraße"
     );
-    expect(cookie.records.eigentuemer.person.adresse.hausnummer).toEqual("42");
+    expect(cookie.records.eigentuemer.person[0].adresse.hausnummer).toEqual(
+      "42"
+    );
   });
 });
 

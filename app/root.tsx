@@ -9,16 +9,12 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
   useMatches,
 } from "remix";
 import {
   Footer,
   Layout,
 } from "@digitalservice4germany/digital-service-library";
-import { stepNavigation } from "~/domain/stepNavigation";
-import { FormNavigation } from "~/components/FormNavigation";
-import { getFormDataCookie } from "~/cookies";
 import { useRemixI18Next } from "remix-i18next";
 
 export const links: LinksFunction = () => {
@@ -29,28 +25,13 @@ export const meta: MetaFunction = () => {
   return { title: "New Remix App" };
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
-  console.log("APP loader");
-
-  const cookie = await getFormDataCookie(request);
-  return { records: cookie.records };
-};
-
 export default function App() {
   const matches = useMatches();
-  const { records } = useLoaderData();
   useRemixI18Next("de");
 
-  const showFormNavigationData = matches.find(
+  const showFormNavigation = matches.find(
     (match) => match.handle?.showFormNavigation
-  )?.data;
-
-  let formNavigationData;
-  if (showFormNavigationData) {
-    console.log({ showFormNavigationData });
-    // formNavigationData = new Formular().navigationData();
-    formNavigationData = stepNavigation(records);
-  }
+  );
 
   return (
     <html lang="de">
@@ -65,12 +46,13 @@ export default function App() {
         <Layout
           footer={<Footer> Footer </Footer>}
           sidebarNavigation={
-            formNavigationData ? (
+            showFormNavigation ? (
               <div>
-                <FormNavigation data={formNavigationData} />
-                <pre className="text-xs">
-                  {JSON.stringify({ showFormNavigationData }, null, 2)}
-                </pre>
+                <Link to="/steps/eigentuemer/anzahl">Eigentümer:innen</Link>
+                <br />
+                <Link to="/steps/grundstueck">Grundstück</Link>
+                <br />
+                <Link to="/steps/zusammenfassung">Zusammenfassung</Link>
               </div>
             ) : (
               <div className="h-full p-4 bg-white">

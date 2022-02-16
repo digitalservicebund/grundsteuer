@@ -4,17 +4,11 @@ export type StepFormDataValue = string | undefined;
 export type StepFormData = Record<string, StepFormDataValue>;
 
 export interface GrundDataModelData {
-  repeated: {
-    count: {
-      count: string;
-    };
-    item: { name: { name: string } }[];
-  };
   eigentuemer: SectionEigentuemer;
 }
 
 export interface SectionEigentuemer {
-  person: PersonData;
+  person: PersonData[];
 }
 
 interface AdresseData {
@@ -32,23 +26,20 @@ export default class GrundDataModel {
   constructor(sections: GrundDataModelData | undefined) {
     // TODO set default correctly
     const defaultSections = {
-      repeated: {
-        count: {
-          count: "",
-        },
-        item: [{ name: { name: "" } }],
-      },
       eigentuemer: {
-        person: {
-          adresse: {
-            strasse: "",
-            hausnummer: "",
-            zusatzangaben: "",
-            postfach: "",
-            plz: "",
-            ort: "",
+        anzahl: 1,
+        person: [
+          {
+            adresse: {
+              strasse: "",
+              hausnummer: "",
+              zusatzangaben: "",
+              postfach: "",
+              plz: "",
+              ort: "",
+            },
           },
-        },
+        ],
       },
     };
     this.sections = { ...defaultSections, ...sections };
@@ -59,6 +50,7 @@ export default class GrundDataModel {
   }
 
   setStepData(path: string, values: any) {
+    console.log("setStepData", path, values);
     return _.set(this.sections, GrundDataModel.idToIndex(path), values);
   }
 

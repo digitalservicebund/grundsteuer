@@ -1,5 +1,5 @@
-import GrundDataModel, { GrundDataModelData } from "./model";
-import { personAdresseFields } from "~/routes/steps/eigentuemer/person/adresse";
+import { GrundDataModelData } from "./model";
+import { personAdresseFields } from "~/routes/steps/eigentuemer/person/$id.adresse";
 
 export interface StateMachineContext extends GrundDataModelData {
   currentId: number;
@@ -7,52 +7,31 @@ export interface StateMachineContext extends GrundDataModelData {
 
 export const steps = {
   id: "steps",
-  initial: "metadaten",
+  initial: "eigentuemer",
   states: {
-    metadaten: { on: { NEXT: "repeated" } },
-    repeated: {
-      id: "repeated",
-      initial: "count",
+    eigentuemer: {
+      id: "eigentuemer",
+      initial: "anzahl",
       states: {
-        // context.count -> 4
-        count: { on: { NEXT: "item" } },
-        item: {
-          id: "item",
-          initial: "name",
-          states: {
-            name: {
-              on: {
-                NEXT: [
-                  {
-                    target: "name",
-                    cond: (context: StateMachineContext) => {
-                      return (
-                        (context.currentId || 1) <
-                        parseInt(context.repeated.count.count)
-                      );
-                    },
-                    actions: ["incrementCurrentId"],
-                  },
-                ],
-              },
+        anzahl: {
+          on: {
+            NEXT: {
+              target: "person",
             },
           },
         },
-      },
-      on: { NEXT: "eigentuemer" },
-    },
-    eigentuemer: {
-      id: "eigentuemer",
-      initial: "uebersicht",
-      states: {
-        uebersicht: { on: { NEXT: "person" } },
         person: {
           id: "person",
           initial: "persoenlicheAngaben",
-          meta: { resource: true },
+          onDone: [
+            {
+              target: "person",
+              cond: "repeatPerson",
+              actions: ["incrementCurrentId"],
+            },
+          ],
           states: {
             persoenlicheAngaben: {
-              meta: { title: "Persönliche Angaben" },
               on: { NEXT: "adresse" },
             },
             adresse: {
@@ -72,56 +51,43 @@ export const steps = {
             },
             telefonnummer: { on: { NEXT: "steuerId" } },
             steuerId: { on: { NEXT: "gesetzlicherVertreter" } },
-            gesetzlicherVertreter: { on: { NEXT: "#steps.grundstueck" } },
-          },
-        },
-      },
-    },
-    grundstueck: {
-      id: "grundstueck",
-      initial: "adresse",
-      states: {
-        adresse: { on: { NEXT: "aktenzeichen" } },
-        aktenzeichen: { on: { NEXT: "finanzamt" } },
-        finanzamt: { on: { NEXT: "grundstuecksart" } },
-        grundstuecksart: {
-          on: {
-            NEXT: [
-              {
-                target: "unbebaut",
-                cond: "isUnbebaut",
+            gesetzlicherVertreter: {
+              on: {
+                NEXT: [
+                  {
+                    target: "#person",
+                    cond: "hasNotGesetzlicherVertreterAndRepeatPerson",
+                    actions: ["incrementCurrentId"],
+                  },
+                  {
+                    target: "gesetzlicherVertreterDaten",
+                    cond: "hasGesetzlicherVertreter",
+                  },
+                  {
+                    target: "#steps.grundstueck",
+                  },
+                ],
               },
-              {
-                target: "bebaut",
-                cond: "isBebaut",
-              },
-            ],
-          },
-        },
-        unbebaut: {
-          id: "unbebaut",
-          initial: "entwicklung",
-          meta: { visibilityCond: "isUnbebaut" },
-          states: {
-            entwicklung: {
-              on: { NEXT: "bauland" },
             },
-            bauland: { on: { NEXT: "#grundstueck.mehrereGemeinden" } },
+            gesetzlicherVertreterDaten: {
+              on: {
+                NEXT: [
+                  {
+                    target: "#person",
+                    cond: "repeatPerson",
+                    actions: ["incrementCurrentId"],
+                  },
+                  {
+                    target: "#steps.grundstueck",
+                  },
+                ],
+              },
+            },
           },
         },
-        bebaut: {
-          id: "bebaut",
-          initial: "something",
-          meta: { visibilityCond: "isBebaut" },
-          states: {
-            something: { on: { NEXT: "#grundstueck.mehrereGemeinden" } },
-          },
-        },
-        mehrereGemeinden: { on: { NEXT: "grundbuchblatt" } },
-        grundbuchblatt: { on: { NEXT: "#steps.gebaeude" } },
       },
     },
-    gebaeude: { on: { NEXT: "zusammenfassung" } },
+    grundstueck: { on: { NEXT: "zusammenfassung" } },
     zusammenfassung: { type: "final" },
   },
 };

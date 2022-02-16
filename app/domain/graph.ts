@@ -29,16 +29,17 @@ export const createGraph = ({
     const stateNode = state.configuration[0];
     const path: string = state.toStrings().at(-1) || "";
     let pathWithId = path;
-    if (state.matches("repeated.item")) {
+    if (state.matches("eigentuemer.person")) {
       const currentId = (state.context as any).currentId || 1;
-      pathWithId = pathWithId.replace(/\.item\./, `.item.${currentId}.`);
+      pathWithId = pathWithId.replace(/\.person\./, `.person.${currentId}.`);
     }
     const data = getStepData(pathWithId);
     const meta = JSON.stringify(stateNode.meta?.stepDefinition, null, 2);
-    // TODO: aus meta die Validations rausholen und den step validieren
 
     return { path, pathWithId, data, meta };
   });
+
+  console.log(JSON.stringify(list, null, 2));
 
   const graph = list.reduce((acc, item) => {
     return _.set(acc, item.pathWithId, item);

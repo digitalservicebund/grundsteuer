@@ -1,5 +1,5 @@
 import { loader } from "./zusammenfassung";
-import { CookieData, formDataCookie } from "~/cookies";
+import { formDataCookie } from "~/cookies";
 
 describe("Loader", () => {
   it("Should return form data cookie", async () => {
@@ -10,7 +10,7 @@ describe("Loader", () => {
     };
 
     const inputCookie: string = await formDataCookie.serialize(cookie);
-    const loaderData: CookieData = await loader({
+    const loaderData = await loader({
       request: new Request("/path", {
         headers: {
           Cookie: inputCookie,
@@ -20,6 +20,6 @@ describe("Loader", () => {
       context: {},
     });
 
-    expect(loaderData).toEqual(cookie);
+    expect(loaderData.formData).toEqual(cookie);
   });
 });

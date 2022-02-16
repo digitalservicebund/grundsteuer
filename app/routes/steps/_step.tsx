@@ -1,5 +1,5 @@
 import { ActionFunction, Form, LoaderFunction, redirect } from "remix";
-import { createMachine, assign } from "xstate";
+import { createMachine, interpret } from "xstate";
 
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 import GrundDataModel, { StepFormData } from "~/domain/model";
@@ -21,6 +21,7 @@ export function getCurrentState(request: Request) {
 export const loader: LoaderFunction = async ({ params, request }) => {
   console.log("LOADER", params);
   const cookie = await getFormDataCookie(request);
+  // console.log({ cookie: JSON.stringify(cookie, null, 2) });
 
   const resourceId = new URL(request.url).searchParams.get("id");
 
@@ -67,6 +68,7 @@ export const action: ActionFunction = async ({ params, request }) => {
   const fieldValues: StepFormData = Object.fromEntries(
     await request.formData()
   ) as StepFormData;
+  console.log({ fieldValues });
 
   const machineWithoutData = createMachine(getMachineConfig(null) as any, {
     guards: conditions,
@@ -89,6 +91,7 @@ export const action: ActionFunction = async ({ params, request }) => {
 
   // Add bigger model to cookie
   cookie.records = completeDataModel.sections;
+  console.log({ newData: cookie.records });
 
   // cookie.allowedSteps = cookie.allowedSteps || [];
   // cookie.allowedSteps.push(nextStepName as string);
@@ -103,7 +106,7 @@ export const action: ActionFunction = async ({ params, request }) => {
   const nextState = machineWithData.transition(currentStateWithoutId, {
     type: "NEXT",
   });
-  console.log(nextState.value, nextState.context);
+  console.log(nextState.value);
 
   let redirectUrl = `/steps/${nextState
     .toStrings()
@@ -111,10 +114,10 @@ export const action: ActionFunction = async ({ params, request }) => {
     ?.split(".")
     .join("/")}`;
 
-  if (nextState.matches("repeated.item")) {
+  if (nextState.matches("eigentuemer.person")) {
     redirectUrl = redirectUrl.replace(
-      "item/",
-      `item/${(nextState.context as StateMachineContext).currentId || 1}/`
+      "person/",
+      `person/${(nextState.context as StateMachineContext).currentId || 1}/`
     );
   }
   console.log({ redirectUrl });
