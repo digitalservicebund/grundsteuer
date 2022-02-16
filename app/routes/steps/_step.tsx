@@ -3,7 +3,11 @@ import { createMachine, assign } from "xstate";
 
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 import GrundDataModel, { StepFormData } from "~/domain/model";
-import { getMachineConfig, getStateNodeByPath } from "~/domain/steps";
+import {
+  getMachineConfig,
+  getStateNodeByPath,
+  StateMachineContext,
+} from "~/domain/steps";
 import { conditions } from "~/domain/conditions";
 import { validateField } from "~/domain/validation";
 import { ConfigStepField } from "~/domain";
@@ -118,7 +122,7 @@ export const action: ActionFunction = async ({ params, request }) => {
   if (nextState.matches("repeated.item")) {
     redirectUrl = redirectUrl.replace(
       "item/",
-      `item/${(nextState.context as any).currentId || 1}/`
+      `item/${(nextState.context as StateMachineContext).currentId || 1}/`
     );
   }
   console.log({ redirectUrl });

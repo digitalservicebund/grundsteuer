@@ -1,6 +1,10 @@
 import GrundDataModel, { GrundDataModelData } from "./model";
 import { personAdresseFields } from "~/routes/steps/eigentuemer/person/adresse";
 
+export interface StateMachineContext extends GrundDataModelData {
+  currentId: number;
+}
+
 export const steps = {
   id: "steps",
   initial: "metadaten",
@@ -21,7 +25,7 @@ export const steps = {
                 NEXT: [
                   {
                     target: "name",
-                    cond: (context: any) => {
+                    cond: (context: StateMachineContext) => {
                       return (
                         context.currentId <
                         parseInt(context.repeated.count.count)
