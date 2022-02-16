@@ -3,11 +3,7 @@ import { createMachine, assign } from "xstate";
 
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 import GrundDataModel, { StepFormData } from "~/domain/model";
-import {
-  getMachineConfig,
-  getStateNodeByPath,
-  StateMachineContext,
-} from "~/domain/steps";
+import { getMachineConfig, StateMachineContext } from "~/domain/steps";
 import { conditions } from "~/domain/conditions";
 import { validateField } from "~/domain/validation";
 import { ConfigStepField } from "~/domain";
@@ -37,10 +33,11 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
   const currentState = getCurrentState(request);
   console.log({ currentState });
+  const currentStateWithoutId = currentState.replace(/\.\d+\./g, ".");
 
   // some pseudo/example code how this might work
   // I can get a specific state with "getStateNodeByPath" and access parents from there
-  const currentStateNode = getStateNodeByPath(machine, currentState);
+  const currentStateNode = machine.getStateNodeByPath(currentStateWithoutId);
   if (currentStateNode.meta?.visibilityCond) {
     // this just checks for presence of that condition, but doesn't execute it, needs some more thought
     throw new Error("NONO");
@@ -84,7 +81,7 @@ export const action: ActionFunction = async ({ params, request }) => {
   const currentStateWithoutId = currentState.replace(/\.\d+\./g, ".");
 
   const errors: Record<string, Array<string>> = {};
-  const state = getStateNodeByPath(machineWithoutData, currentState);
+  const state = machineWithoutData.getStateNodeByPath(currentStateWithoutId);
   state.meta?.stepDefinition?.fields.forEach((field: ConfigStepField) => {
     const fieldErrorMessages = validateField(field, fieldValues);
     if (fieldErrorMessages.length > 0) errors[field.name] = fieldErrorMessages;
