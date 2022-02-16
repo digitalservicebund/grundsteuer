@@ -5,7 +5,9 @@ export type StepFormData = Record<string, StepFormDataValue>;
 
 export interface GrundDataModelData {
   repeated: {
-    count: number;
+    count: {
+      count: number;
+    };
     currentIndex: number;
     item: { name: { name: string } }[];
   };
@@ -32,7 +34,9 @@ export default class GrundDataModel {
     // TODO set default correctly
     const defaultSections = {
       repeated: {
-        count: 0,
+        count: {
+          count: 0,
+        },
         currentIndex: 0,
         item: [{ name: { name: "" } }],
       },
