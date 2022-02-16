@@ -9,7 +9,7 @@ export const steps = {
   id: "steps",
   initial: "metadaten",
   states: {
-    metadaten: { on: { NEXT: "eigentuemer" } },
+    metadaten: { on: { NEXT: "repeated" } },
     repeated: {
       id: "repeated",
       initial: "count",
@@ -27,7 +27,7 @@ export const steps = {
                     target: "name",
                     cond: (context: StateMachineContext) => {
                       return (
-                        context.currentId <
+                        (context.currentId || 1) <
                         parseInt(context.repeated.count.count)
                       );
                     },

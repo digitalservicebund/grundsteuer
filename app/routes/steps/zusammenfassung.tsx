@@ -1,15 +1,27 @@
 import { Link } from "@remix-run/react";
 import { LoaderFunction, useLoaderData } from "remix";
 import { getFormDataCookie } from "~/cookies";
-import { config, ConfigStep, ConfigStepField } from "~/domain";
+import { config, ConfigStep, ConfigStepField, createGraph } from "~/domain";
 import GrundDataModel from "~/domain/model";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  return getFormDataCookie(request);
+  const cookie = await getFormDataCookie(request);
+
+  const completeDataModel = new GrundDataModel(cookie.records);
+  console.log(completeDataModel.sections);
+
+  const graph = createGraph({
+    machineContext: completeDataModel.sections,
+    getStepData: completeDataModel.getStepData.bind(completeDataModel),
+  });
+
+  console.log({ graph });
+
+  return { graph, formData: cookie };
 };
 
 export default function Zusammenfassung() {
-  const formData = useLoaderData();
+  const { graph, formData } = useLoaderData();
   const dataModel = new GrundDataModel(formData.records);
 
   const renderField = (stepName: string, field: ConfigStepField) => {
@@ -50,8 +62,8 @@ export default function Zusammenfassung() {
           .map(renderStep)}
       </div>
 
-      <pre>config: {JSON.stringify(config, null, 2)}</pre>
-      <pre>cookie: {JSON.stringify(formData, null, 2)}</pre>
+      <pre>{JSON.stringify({ formData }, null, 2)}</pre>
+      <pre>{JSON.stringify({ graph }, null, 2)}</pre>
     </div>
   );
 }

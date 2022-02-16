@@ -4,7 +4,7 @@ import { StateMachineContext } from "~/domain/steps";
 export const actions = {
   incrementCurrentId: assign({
     currentId: (context) => {
-      return ((context as StateMachineContext).currentId || 0) + 1;
+      return ((context as StateMachineContext).currentId || 1) + 1;
     },
   }),
 };

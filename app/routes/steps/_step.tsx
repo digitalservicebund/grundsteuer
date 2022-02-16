@@ -95,7 +95,7 @@ export const action: ActionFunction = async ({ params, request }) => {
 
   const machineWithData = machineWithoutData.withContext({
     ...cookie.records,
-    currentId: params.id,
+    currentId: params.id ? parseInt(params.id) : null,
   });
 
   console.log({ currentState });
