@@ -2,7 +2,7 @@ import { GrundDataModelData } from "./model";
 import { personAdresseFields } from "~/routes/steps/eigentuemer/person/$id.adresse";
 
 export interface StateMachineContext extends GrundDataModelData {
-  currentId: number;
+  currentId?: number;
 }
 
 export const steps = {
@@ -92,6 +92,6 @@ export const steps = {
   },
 };
 
-export const getMachineConfig = (records: GrundDataModelData | null) => {
+export const getMachineConfig = (records: StateMachineContext) => {
   return Object.assign({}, steps, { context: records });
 };

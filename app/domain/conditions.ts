@@ -14,7 +14,7 @@ const hasGesetzlicherVertreter = (context: StateMachineContext) => {
     context.currentId
   );
 
-  const person = context?.eigentuemer?.person[context.currentId - 1];
+  const person = context?.eigentuemer?.person[(context.currentId || 1) - 1];
   if (!person) return false;
 
   const gesetzlicherVertreter = person.gesetzlicherVertreter;

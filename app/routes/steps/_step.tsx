@@ -1,7 +1,8 @@
 import { ActionFunction, Form, LoaderFunction, redirect } from "remix";
 import { createMachine } from "xstate";
-
+import { Button } from "@digitalservice4germany/digital-service-library";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
+import { i18n } from "~/i18n.server";
 import {
   getStepData,
   setStepData,
@@ -12,21 +13,23 @@ import { getMachineConfig, StateMachineContext } from "~/domain/steps";
 import { conditions } from "~/domain/conditions";
 import { validateField } from "~/domain/validation";
 import { ConfigStepField } from "~/domain";
-import { Button } from "@digitalservice4germany/digital-service-library";
-import { i18n } from "~/i18n.server";
 import { actions } from "~/domain/actions";
 
-export function getCurrentState(request: Request) {
+const getCurrentState = (request: Request) => {
   return new URL(request.url).pathname
     .split("/")
     .filter((e) => e && e !== "steps")
     .join(".");
-}
+};
+
+const getCurrentStateWithoutId = (currentState: string) => {
+  return currentState.replace(/\.\d+\./g, ".");
+};
 
 export const loader: LoaderFunction = async ({ request }) => {
   const cookie = await getFormDataCookie(request);
   const currentState = getCurrentState(request);
-  const currentStateWithoutId = currentState.replace(/\.\d+\./g, ".");
+  const currentStateWithoutId = getCurrentStateWithoutId(currentState);
 
   return {
     formData: getStepData(
@@ -39,61 +42,51 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ params, request }) => {
   const cookie = await getFormDataCookie(request);
-
-  if (!cookie.records) {
-    cookie.records = defaults;
-  }
+  if (!cookie.records) cookie.records = defaults;
 
   const currentState = getCurrentState(request);
-  console.log({ currentState });
+  const currentStateWithoutId = getCurrentStateWithoutId(currentState);
+
   const fieldValues = Object.fromEntries(
     await request.formData()
   ) as unknown as StepFormData;
-  console.log({ fieldValues });
 
-  const machineWithoutData = createMachine(getMachineConfig(null) as any, {
+  const machineContext = { ...cookie.records } as StateMachineContext;
+  if (params.id) {
+    machineContext.currentId = parseInt(params.id);
+  }
+  const machine = createMachine(getMachineConfig(machineContext) as any, {
     guards: conditions,
     actions: actions,
   });
 
-  const currentStateWithoutId = currentState.replace(/\.\d+\./g, ".");
-
+  // validate
   const errors: Record<string, Array<string>> = {};
-  const state = machineWithoutData.getStateNodeByPath(currentStateWithoutId);
-  state.meta?.stepDefinition?.fields.forEach((field: ConfigStepField) => {
+  const stateNode = machine.getStateNodeByPath(currentStateWithoutId);
+  stateNode.meta?.stepDefinition?.fields.forEach((field: ConfigStepField) => {
     const fieldErrorMessages = validateField(field, fieldValues);
     if (fieldErrorMessages.length > 0) errors[field.name] = fieldErrorMessages;
   });
   if (Object.keys(errors).length >= 1) return { errors };
 
+  // store
   cookie.records = setStepData(cookie.records, currentState, fieldValues);
 
-  const machineWithData = machineWithoutData.withContext({
-    ...cookie.records,
-    currentId: params.id ? parseInt(params.id) : null,
-  });
-
-  console.log({ currentState });
-
-  const nextState = machineWithData.transition(currentStateWithoutId, {
+  // redirect
+  const nextState = machine.transition(currentStateWithoutId, {
     type: "NEXT",
   });
-  console.log(nextState.value);
-
   let redirectUrl = `/steps/${nextState
     .toStrings()
     .at(-1)
     ?.split(".")
     .join("/")}`;
-
   if (nextState.matches("eigentuemer.person")) {
     redirectUrl = redirectUrl.replace(
       "person/",
       `person/${(nextState.context as StateMachineContext).currentId || 1}/`
     );
   }
-  console.log({ redirectUrl });
-
   const responseHeader: Headers = await createResponseHeaders(cookie);
   return redirect(redirectUrl, {
     headers: responseHeader,

@@ -1,10 +1,10 @@
-import { GrundDataModelData, getStepData } from "~/domain/model";
 import { createMachine } from "xstate";
-import { conditions } from "~/domain/conditions";
-import { actions } from "~/domain/actions";
-import { getMachineConfig } from "~/domain/steps";
 import { getShortestPaths } from "@xstate/graph";
 import _ from "lodash";
+import { getStepData } from "~/domain/model";
+import { conditions } from "~/domain/conditions";
+import { actions } from "~/domain/actions";
+import { getMachineConfig, StateMachineContext } from "~/domain/steps";
 
 /*
  * create a graph representation "hash"/"object" of the current state
@@ -13,7 +13,7 @@ import _ from "lodash";
 export const createGraph = ({
   machineContext,
 }: {
-  machineContext: GrundDataModelData;
+  machineContext: StateMachineContext;
 }) => {
   const machine = createMachine(getMachineConfig(machineContext) as any, {
     guards: conditions,
