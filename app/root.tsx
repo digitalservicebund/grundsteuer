@@ -10,6 +10,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
   useMatches,
 } from "remix";
 import {
@@ -21,6 +22,9 @@ import classNames from "classnames";
 import { RouteData } from "@remix-run/react/routeData";
 import { i18n } from "~/i18n.server";
 import { useTranslation } from "react-i18next";
+import { conditions } from "~/domain/conditions";
+import { getFormDataCookie } from "~/cookies";
+import { defaults } from "~/domain/model";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: "/tailwind.css" }];
@@ -61,7 +65,9 @@ function getNavigationLink(
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
+  const cookie = await getFormDataCookie(request);
   return json({
+    data: Object.keys(cookie).length < 1 ? defaults : cookie.records,
     i18n: await i18n.getTranslations(request, ["common"]),
   });
 };
@@ -70,6 +76,7 @@ export default function App() {
   const matches = useMatches();
   useRemixI18Next("de");
   const { t } = useTranslation("common");
+  const data = useLoaderData().data;
 
   const showFormNavigation = matches.find(
     (match) => match.handle?.showFormNavigation
@@ -103,12 +110,16 @@ export default function App() {
                   t("nav.grundstueck"),
                   showFormNavigation
                 )}
-                <br />
-                {getNavigationLink(
-                  "/steps/gebaeude",
-                  "/steps/gebaeude",
-                  t("nav.gebaeude"),
-                  showFormNavigation
+                {conditions.showGebaeude(data) && (
+                  <>
+                    <br />
+                    {getNavigationLink(
+                      "/steps/gebaeude",
+                      "/steps/gebaeude",
+                      t("nav.gebaeude"),
+                      showFormNavigation
+                    )}
+                  </>
                 )}
                 <br />
                 {getNavigationLink(

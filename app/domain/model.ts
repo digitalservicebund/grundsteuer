@@ -7,6 +7,10 @@ interface AnzahlData {
   anzahl: string;
 }
 
+interface BebautData {
+  bebaut: string;
+}
+
 interface AdresseData {
   strasse: string;
   hausnummer: string;
@@ -34,6 +38,7 @@ export interface GrundDataModelData {
       gesetzlicherVertreter: GesetzlicherVertreterData;
     }[];
   };
+  grundstueck: BebautData;
 }
 
 const idToIndex = (path: string) => {
@@ -72,5 +77,8 @@ export const defaults: GrundDataModelData = {
         },
       },
     ],
+  },
+  grundstueck: {
+    bebaut: "",
   },
 };

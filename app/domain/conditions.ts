@@ -26,10 +26,15 @@ const repeatPerson = (context: StateMachineContext) => {
   return (context.currentId || 1) < parseInt(context.eigentuemer.anzahl.anzahl);
 };
 
+const showGebaeude = (context: StateMachineContext) => {
+  return context.grundstueck.bebaut === "ja";
+};
+
 export const conditions: Conditions = {
   hasGesetzlicherVertreter,
   repeatPerson,
   hasNotGesetzlicherVertreterAndRepeatPerson: (context: any) => {
     return !hasGesetzlicherVertreter(context) && repeatPerson(context);
   },
+  showGebaeude,
 };
