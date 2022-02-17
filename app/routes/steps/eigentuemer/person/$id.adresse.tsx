@@ -1,7 +1,7 @@
 import { useActionData, useLoaderData } from "remix";
 import { ConfigStepField } from "~/domain";
-import { StepTextField } from "~/components";
 import { render } from "~/routes/steps/_step";
+import Address from "~/components/Address";
 
 export { action, loader, handle } from "~/routes/steps/_step";
 
@@ -74,16 +74,6 @@ export default function Adresse() {
     actionData,
     i18n.headline,
 
-    <>
-      <StepTextField config={strasse} value={formData?.[strasse.name]} />
-      <StepTextField config={hausnummer} value={formData?.[hausnummer.name]} />
-      <StepTextField
-        config={zusatzangaben}
-        value={formData?.[zusatzangaben.name]}
-      />
-      <StepTextField config={postfach} value={formData?.[postfach.name]} />
-      <StepTextField config={plz} value={formData?.[plz.name]} />
-      <StepTextField config={ort} value={formData?.[ort.name]} />
-    </>
+    <Address fields={personAdresseFields} formData={formData} />
   );
 }
