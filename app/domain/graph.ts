@@ -37,8 +37,6 @@ export const createGraph = ({
     return { path, pathWithId, data, meta };
   });
 
-  console.log(JSON.stringify(list, null, 2));
-
   const graph = list.reduce((acc, item) => {
     return _.set(acc, item.pathWithId, item);
   }, {});

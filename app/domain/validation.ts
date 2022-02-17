@@ -64,10 +64,8 @@ function requiredIf(
 ): string | undefined {
   const dependentFieldValue =
     formData[(validationConfig as RequiredIfValidation).dependentField];
-  console.log({ fieldValue, dependentFieldValue });
 
   if (dependentFieldValue && !fieldValue) {
-    console.log("MSG");
     return validationConfig.msg;
   }
 }

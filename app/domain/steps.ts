@@ -44,7 +44,6 @@ export const steps = {
                 NEXT: [
                   {
                     target: "telefonnummer",
-                    cond: "isUnbebaut",
                   },
                 ],
               },

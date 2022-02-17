@@ -8,12 +8,6 @@ export type Conditions = Record<
 >;
 
 const hasGesetzlicherVertreter = (context: StateMachineContext) => {
-  console.log(
-    "hasGesetzlicherVertreter",
-    context.eigentuemer.person,
-    context.currentId
-  );
-
   const person = context?.eigentuemer?.person[(context.currentId || 1) - 1];
   if (!person) return false;
 
@@ -29,17 +23,10 @@ const hasGesetzlicherVertreter = (context: StateMachineContext) => {
 };
 
 const repeatPerson = (context: StateMachineContext) => {
-  console.log(context.eigentuemer);
   return (context.currentId || 1) < parseInt(context.eigentuemer.anzahl.anzahl);
 };
 
 export const conditions: Conditions = {
-  isBebaut: () => {
-    return true;
-  },
-  isUnbebaut: () => {
-    return true;
-  },
   hasGesetzlicherVertreter,
   repeatPerson,
   hasNotGesetzlicherVertreterAndRepeatPerson: (context: any) => {
