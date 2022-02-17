@@ -1,6 +1,5 @@
 import {
   json,
-  Link,
   Links,
   LinksFunction,
   LiveReload,
@@ -18,13 +17,10 @@ import {
   Layout,
 } from "@digitalservice4germany/digital-service-library";
 import { useRemixI18Next } from "remix-i18next";
-import classNames from "classnames";
-import { RouteData } from "@remix-run/react/routeData";
 import { i18n } from "~/i18n.server";
-import { useTranslation } from "react-i18next";
-import { conditions } from "~/domain/conditions";
 import { getFormDataCookie } from "~/cookies";
 import { defaults } from "~/domain/model";
+import SidebarNavigation from "~/components/SidebarNavigation";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: "/tailwind.css" }];
@@ -33,36 +29,6 @@ export const links: LinksFunction = () => {
 export const meta: MetaFunction = () => {
   return { title: "New Remix App" };
 };
-
-export type Handle = {
-  showFormNavigation: boolean;
-};
-
-type MatchingRoute = {
-  id: string;
-  pathname: string;
-  params: import("react-router").Params;
-  data: RouteData;
-  handle: Handle;
-};
-
-function getNavigationLink(
-  href: string,
-  matchingUrl: string,
-  label: string,
-  showFormNavigation: MatchingRoute
-) {
-  return (
-    <Link
-      to={href}
-      className={classNames({
-        "font-bold": showFormNavigation.pathname.includes(matchingUrl),
-      })}
-    >
-      {label}
-    </Link>
-  );
-}
 
 export const loader: LoaderFunction = async ({ request }) => {
   const cookie = await getFormDataCookie(request);
@@ -73,14 +39,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function App() {
-  const matches = useMatches();
-  useRemixI18Next("de");
-  const { t } = useTranslation("common");
+  const matchingRoutes = useMatches();
   const data = useLoaderData().data;
-
-  const showFormNavigation = matches.find(
-    (match) => match.handle?.showFormNavigation
-  );
+  useRemixI18Next("de");
 
   return (
     <html lang="de">
@@ -95,49 +56,7 @@ export default function App() {
         <Layout
           footer={<Footer> Footer </Footer>}
           sidebarNavigation={
-            showFormNavigation ? (
-              <div>
-                {getNavigationLink(
-                  "/steps/eigentuemer/anzahl",
-                  "/steps/eigentuemer",
-                  t("nav.eigentuemer"),
-                  showFormNavigation
-                )}
-                <br />
-                {getNavigationLink(
-                  "/steps/grundstueck",
-                  "/steps/grundstueck",
-                  t("nav.grundstueck"),
-                  showFormNavigation
-                )}
-                {conditions.showGebaeude(data) && (
-                  <>
-                    <br />
-                    {getNavigationLink(
-                      "/steps/gebaeude",
-                      "/steps/gebaeude",
-                      t("nav.gebaeude"),
-                      showFormNavigation
-                    )}
-                  </>
-                )}
-                <br />
-                {getNavigationLink(
-                  "/steps/zusammenfassung",
-                  "/steps/zusammenfassung",
-                  t("nav.zusammenfassung"),
-                  showFormNavigation
-                )}
-              </div>
-            ) : (
-              <div className="h-full p-4 bg-white">
-                <ul>
-                  <li>
-                    <Link to="/">Home</Link>
-                  </li>
-                </ul>
-              </div>
-            )
+            <SidebarNavigation matchingRoutes={matchingRoutes} data={data} />
           }
           topNavigation={
             <div className="p-4 bg-blue-300">

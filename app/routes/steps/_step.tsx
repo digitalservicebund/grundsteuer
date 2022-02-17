@@ -14,7 +14,7 @@ import { conditions } from "~/domain/conditions";
 import { validateField } from "~/domain/validation";
 import { ConfigStepField } from "~/domain";
 import { actions } from "~/domain/actions";
-import { Handle } from "~/root";
+import { Handle } from "~/components/SidebarNavigation";
 
 const getCurrentState = (request: Request) => {
   return new URL(request.url).pathname

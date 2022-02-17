@@ -1,8 +1,8 @@
 import { LoaderFunction, useLoaderData } from "remix";
 import { getFormDataCookie } from "~/cookies";
 import { createGraph } from "~/domain";
-import { Handle } from "~/root";
 import { defaults } from "~/domain/model";
+import { Handle } from "~/components/SidebarNavigation";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const cookie = await getFormDataCookie(request);
