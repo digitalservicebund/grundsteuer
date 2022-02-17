@@ -10,7 +10,7 @@ import {
   defaults,
 } from "~/domain/model";
 import { getMachineConfig, StateMachineContext } from "~/domain/steps";
-import { conditions } from "~/domain/conditions";
+import { conditions } from "~/domain/guards";
 import { validateField } from "~/domain/validation";
 import { ConfigStepField } from "~/domain";
 import { actions } from "~/domain/actions";

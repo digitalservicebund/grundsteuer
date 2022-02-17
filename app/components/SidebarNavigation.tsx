@@ -1,4 +1,4 @@
-import { conditions } from "~/domain/conditions";
+import { conditions } from "~/domain/guards";
 import { Link } from "remix";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";

@@ -2,7 +2,7 @@ import { createMachine } from "xstate";
 import { getShortestPaths } from "@xstate/graph";
 import _ from "lodash";
 import { getStepData } from "~/domain/model";
-import { conditions } from "~/domain/conditions";
+import { conditions } from "~/domain/guards";
 import { actions } from "~/domain/actions";
 import { getMachineConfig, StateMachineContext } from "~/domain/steps";
 
