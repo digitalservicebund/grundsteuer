@@ -1,5 +1,5 @@
 module.exports = {
-  testEnvironment: "node",
+  testEnvironment: "jsdom",
   moduleDirectories: ["node_modules", "<rootDir>/app"],
   moduleNameMapper: {
     "~/(.*)": "<rootDir>/app/$1",
@@ -7,4 +7,5 @@ module.exports = {
   },
   testPathIgnorePatterns: ["<rootDir>/test/e2e"],
   setupFiles: ["<rootDir>/private/jest/setup.js"],
+  setupFilesAfterEnv: ["<rootDir>/private/jest/setupAfterEnv.js"],
 };

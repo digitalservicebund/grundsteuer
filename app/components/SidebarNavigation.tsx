@@ -1,3 +1,5 @@
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import { conditions } from "~/domain/guards";
 import { Link } from "remix";
 import classNames from "classnames";
@@ -9,7 +11,7 @@ export type Handle = {
   showFormNavigation: boolean;
 };
 
-type MatchingRoute = {
+export type MatchingRoute = {
   id: string;
   pathname: string;
   params: import("react-router").Params;
@@ -49,7 +51,7 @@ export default function SidebarNavigation({
   );
 
   return (
-    <>
+    <Router>
       {showFormNavigation ? (
         <div>
           {getNavigationLink(
@@ -93,6 +95,6 @@ export default function SidebarNavigation({
           </ul>
         </div>
       )}
-    </>
+    </Router>
   );
 }
