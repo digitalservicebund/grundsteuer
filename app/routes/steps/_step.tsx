@@ -14,6 +14,7 @@ import { conditions } from "~/domain/conditions";
 import { validateField } from "~/domain/validation";
 import { ConfigStepField } from "~/domain";
 import { actions } from "~/domain/actions";
+import { Handle } from "~/root";
 
 const getCurrentState = (request: Request) => {
   return new URL(request.url).pathname
@@ -94,7 +95,7 @@ export const action: ActionFunction = async ({ params, request }) => {
 };
 
 // this will activate showing the form navigation in root.tsx
-export const handle = {
+export const handle: Handle = {
   showFormNavigation: true,
 };
 

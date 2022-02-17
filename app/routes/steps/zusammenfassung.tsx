@@ -1,6 +1,7 @@
 import { LoaderFunction, useLoaderData } from "remix";
 import { getFormDataCookie } from "~/cookies";
 import { createGraph } from "~/domain";
+import { Handle } from "~/root";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const cookie = await getFormDataCookie(request);
@@ -13,7 +14,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 // this will activate showing the form navigation in root.tsx
-export const handle = {
+export const handle: Handle = {
   showFormNavigation: true,
 };
 

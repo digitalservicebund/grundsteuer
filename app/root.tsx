@@ -26,17 +26,23 @@ export const meta: MetaFunction = () => {
   return { title: "New Remix App" };
 };
 
+export type Handle = {
+  showFormNavigation: boolean;
+};
+
+type MatchingRoute = {
+  id: string;
+  pathname: string;
+  params: import("react-router").Params;
+  data: RouteData;
+  handle: Handle;
+};
+
 function getNavigationLink(
   href: string,
   matchingUrl: string,
   label: string,
-  showFormNavigation: {
-    id: string;
-    pathname: string;
-    params: import("react-router").Params<string>;
-    data: RouteData;
-    handle: any;
-  }
+  showFormNavigation: MatchingRoute
 ) {
   return (
     <Link
