@@ -15,6 +15,8 @@ import {
   Layout,
 } from "@digitalservice4germany/digital-service-library";
 import { useRemixI18Next } from "remix-i18next";
+import classNames from "classnames";
+import { RouteData } from "@remix-run/react/routeData";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: "/tailwind.css" }];
@@ -23,6 +25,30 @@ export const links: LinksFunction = () => {
 export const meta: MetaFunction = () => {
   return { title: "New Remix App" };
 };
+
+function getNavigationLink(
+  href: string,
+  matchingUrl: string,
+  label: string,
+  showFormNavigation: {
+    id: string;
+    pathname: string;
+    params: import("react-router").Params<string>;
+    data: RouteData;
+    handle: any;
+  }
+) {
+  return (
+    <Link
+      to={href}
+      className={classNames({
+        "font-bold": showFormNavigation.pathname.includes(matchingUrl),
+      })}
+    >
+      {label}
+    </Link>
+  );
+}
 
 export default function App() {
   const matches = useMatches();
@@ -47,11 +73,33 @@ export default function App() {
           sidebarNavigation={
             showFormNavigation ? (
               <div>
-                <Link to="/steps/eigentuemer/anzahl">Eigentümer:innen</Link>
+                {getNavigationLink(
+                  "/steps/eigentuemer/anzahl",
+                  "/steps/eigentuemer",
+                  "Eigentümer:innen",
+                  showFormNavigation
+                )}
                 <br />
-                <Link to="/steps/grundstueck">Grundstück</Link>
+                {getNavigationLink(
+                  "/steps/grundstueck",
+                  "/steps/grundstueck",
+                  "Grundstück",
+                  showFormNavigation
+                )}
                 <br />
-                <Link to="/steps/zusammenfassung">Zusammenfassung</Link>
+                {getNavigationLink(
+                  "/steps/gebaeude",
+                  "/steps/gebaeude",
+                  "Gebäude",
+                  showFormNavigation
+                )}
+                <br />
+                {getNavigationLink(
+                  "/steps/zusammenfassung",
+                  "/steps/zusammenfassung",
+                  "Zusammenfassung",
+                  showFormNavigation
+                )}
               </div>
             ) : (
               <div className="h-full p-4 bg-white">
