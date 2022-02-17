@@ -1,4 +1,10 @@
 {
+  "nav": {
+    "eigentuemer": "Eigentümer:innen",
+    "grundstueck": "Grundstück",
+    "gebaeude": "Gebäude",
+    "zusammenfassung": "Zusammenfassung"
+  },
   "eigentuemer": {
     "person": {
       "adresse": {

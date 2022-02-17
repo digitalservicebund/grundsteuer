@@ -1,8 +1,10 @@
 import {
+  json,
   Link,
   Links,
   LinksFunction,
   LiveReload,
+  LoaderFunction,
   Meta,
   MetaFunction,
   Outlet,
@@ -17,6 +19,8 @@ import {
 import { useRemixI18Next } from "remix-i18next";
 import classNames from "classnames";
 import { RouteData } from "@remix-run/react/routeData";
+import { i18n } from "~/i18n.server";
+import { useTranslation } from "react-i18next";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: "/tailwind.css" }];
@@ -56,9 +60,16 @@ function getNavigationLink(
   );
 }
 
+export const loader: LoaderFunction = async ({ request }) => {
+  return json({
+    i18n: await i18n.getTranslations(request, ["common"]),
+  });
+};
+
 export default function App() {
   const matches = useMatches();
   useRemixI18Next("de");
+  const { t } = useTranslation("common");
 
   const showFormNavigation = matches.find(
     (match) => match.handle?.showFormNavigation
@@ -82,28 +93,28 @@ export default function App() {
                 {getNavigationLink(
                   "/steps/eigentuemer/anzahl",
                   "/steps/eigentuemer",
-                  "Eigentümer:innen",
+                  t("nav.eigentuemer"),
                   showFormNavigation
                 )}
                 <br />
                 {getNavigationLink(
                   "/steps/grundstueck",
                   "/steps/grundstueck",
-                  "Grundstück",
+                  t("nav.grundstueck"),
                   showFormNavigation
                 )}
                 <br />
                 {getNavigationLink(
                   "/steps/gebaeude",
                   "/steps/gebaeude",
-                  "Gebäude",
+                  t("nav.gebaeude"),
                   showFormNavigation
                 )}
                 <br />
                 {getNavigationLink(
                   "/steps/zusammenfassung",
                   "/steps/zusammenfassung",
-                  "Zusammenfassung",
+                  t("nav.zusammenfassung"),
                   showFormNavigation
                 )}
               </div>
