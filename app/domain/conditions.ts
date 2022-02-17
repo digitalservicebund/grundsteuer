@@ -27,7 +27,7 @@ const repeatPerson = (context: StateMachineContext) => {
 };
 
 const showGebaeude = (context: StateMachineContext) => {
-  return context.grundstueck.bebaut === "ja";
+  return context.grundstueck.bebaut === "true";
 };
 
 export const conditions: Conditions = {

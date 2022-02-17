@@ -17,11 +17,11 @@ export default function Grundstueck() {
     validations: {},
     options: [
       {
-        value: "ja",
+        value: "true",
         label: "Ja",
       },
       {
-        value: "nein",
+        value: "false",
         label: "Nein",
       },
     ],
