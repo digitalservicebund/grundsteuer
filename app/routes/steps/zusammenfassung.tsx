@@ -2,12 +2,13 @@ import { LoaderFunction, useLoaderData } from "remix";
 import { getFormDataCookie } from "~/cookies";
 import { createGraph } from "~/domain";
 import { Handle } from "~/root";
+import { defaults } from "~/domain/model";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const cookie = await getFormDataCookie(request);
 
   const graph = createGraph({
-    machineContext: cookie.records,
+    machineContext: Object.keys(cookie).length < 1 ? defaults : cookie.records,
   });
 
   return { graph };
