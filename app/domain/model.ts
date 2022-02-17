@@ -21,7 +21,7 @@ interface AdresseData {
 }
 
 interface GesetzlicherVertreterData {
-  gesvertreter: string;
+  hasVertreter: string;
 }
 
 export type StepData =
@@ -73,7 +73,7 @@ export const defaults: GrundDataModelData = {
           ort: "",
         },
         gesetzlicherVertreter: {
-          gesvertreter: "false",
+          hasVertreter: "false",
         },
       },
     ],

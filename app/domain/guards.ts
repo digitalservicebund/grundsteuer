@@ -14,12 +14,8 @@ const hasGesetzlicherVertreter = (context: StateMachineContext) => {
   const gesetzlicherVertreter = person.gesetzlicherVertreter;
   if (!gesetzlicherVertreter) return false;
 
-  const value = gesetzlicherVertreter.gesvertreter;
-  if (!value) return false;
-
-  if (value !== "true") return false;
-
-  return true;
+  const value = gesetzlicherVertreter.hasVertreter;
+  return value === "true";
 };
 
 const repeatPerson = (context: StateMachineContext) => {

@@ -5,29 +5,29 @@ import { render } from "~/routes/steps/_step";
 
 export { action, loader, handle } from "~/routes/steps/_step";
 
-const gesVertreter: ConfigStepFieldRadio = {
-  name: "gesetzlicherVertreter",
+const hasVertreter: ConfigStepFieldRadio = {
+  name: "hasVertreter",
   options: [{ value: "true" }, { value: "false" }],
   validations: {},
 };
 
-export const gesVertreterFields = [gesVertreter];
+export const gesVertreterFields = [hasVertreter];
 
 export default function GesetzlicherVertreter() {
   const { formData, i18n } = useLoaderData();
   const actionData = useActionData();
 
-  gesVertreter.label = i18n.question;
-  gesVertreter.options[0].label = i18n.yes;
-  gesVertreter.options[1].label = i18n.no;
+  hasVertreter.label = i18n.question;
+  hasVertreter.options[0].label = i18n.yes;
+  hasVertreter.options[1].label = i18n.no;
 
   return render(
     actionData,
     i18n.headline,
     <>
       <StepRadioField
-        config={gesVertreter}
-        value={formData?.[gesVertreter.name]}
+        config={hasVertreter}
+        value={formData?.[hasVertreter.name]}
       />
     </>
   );
