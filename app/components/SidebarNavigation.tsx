@@ -3,7 +3,7 @@ import { conditions } from "~/domain/guards";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { RouteData } from "@remix-run/react/routeData";
-import { GrundDataModelData } from "~/domain/model";
+import { GrundModel } from "~/domain/model";
 
 export type Handle = {
   showFormNavigation: boolean;
@@ -40,7 +40,7 @@ export default function SidebarNavigation({
   data,
 }: {
   matchingRoutes: MatchingRoute[];
-  data: GrundDataModelData;
+  data: GrundModel;
 }) {
   const { t } = useTranslation("common");
 

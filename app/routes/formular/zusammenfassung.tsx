@@ -1,8 +1,8 @@
 import { LoaderFunction, useLoaderData } from "remix";
 import { getFormDataCookie } from "~/cookies";
 import { createGraph } from "~/domain";
-import { defaults, PersonData } from "~/domain/model";
 import { Handle } from "~/components/SidebarNavigation";
+import { defaults } from "~/domain/model";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const cookie = await getFormDataCookie(request);
@@ -40,7 +40,7 @@ export default function Zusammenfassung() {
           {data.eigentuemer.person && (
             <h3 className="font-bold text-xl mb-1">Personen</h3>
           )}
-          {data.eigentuemer.person.map((person: PersonData, index: number) => {
+          {data.eigentuemer.person.map((person: any, index: number) => {
             const personKey = "person-" + index;
             return (
               <div className="bg-gray-100 mb-3" key={personKey} id={personKey}>

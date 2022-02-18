@@ -1,7 +1,7 @@
-import { GrundDataModelData } from "./model";
+import { GrundModel } from "./model";
 import { personAdresseFields } from "~/domain/fields/eigentuemer/person/adresse";
 
-export interface StateMachineContext extends GrundDataModelData {
+export interface StateMachineContext extends GrundModel {
   currentId?: number;
 }
 

@@ -1,10 +1,10 @@
-import { GrundDataModelData } from "./model";
+import { GrundModel } from "./model";
 import { ConditionPredicate, AnyEventObject } from "xstate";
 import { StateMachineContext } from "~/domain/states";
 
 export type Conditions = Record<
   string,
-  ConditionPredicate<GrundDataModelData, AnyEventObject> | any
+  ConditionPredicate<GrundModel, AnyEventObject> | any
 >;
 
 const anzahlEigentuemerIsTwo = (context: StateMachineContext) => {
