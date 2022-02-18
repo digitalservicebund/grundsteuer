@@ -16,7 +16,7 @@ export default function Address({
   const hausnummer = fieldMap["hausnummer"];
   const zusatzangaben = fieldMap["zusatzangaben"];
   const postfach = fieldMap["postfach"];
-  const plz = fieldMap["postfach"];
+  const plz = fieldMap["plz"];
   const ort = fieldMap["ort"];
 
   return (

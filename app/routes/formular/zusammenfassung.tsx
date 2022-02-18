@@ -41,8 +41,9 @@ export default function Zusammenfassung() {
             <h3 className="font-bold text-xl mb-1">Personen</h3>
           )}
           {data.eigentuemer.person.map((person: PersonData, index: number) => {
+            const personKey = "person-" + index;
             return (
-              <div className="bg-gray-100 mb-3" key={index}>
+              <div className="bg-gray-100 mb-3" key={personKey} id={personKey}>
                 <h4 className="font-bold">Person {index + 1}</h4>
                 Straße: {person.adresse.strasse} <br />
                 Hausnummer: {person.adresse.hausnummer} <br />
@@ -50,7 +51,7 @@ export default function Zusammenfassung() {
                 PLZ: {person.adresse.plz} <br />
                 Zusatzangaben: {person.adresse.zusatzangaben} <br />
                 Postfach: {person.adresse.postfach} <br />
-                GesetzlicherVertreter:{" "}
+                Gesetzlicher Vertreter:{" "}
                 {person.gesetzlicherVertreter?.hasVertreter === "true"
                   ? "Ja"
                   : "Nein"}
