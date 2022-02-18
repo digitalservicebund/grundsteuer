@@ -91,13 +91,8 @@ export const states = {
             },
             vertreter: {
               id: "vertreter",
-              initial: "gesetzlicherVertreterDaten",
+              initial: "name",
               states: {
-                gesetzlicherVertreterDaten: {
-                  on: {
-                    NEXT: [{ target: "name" }],
-                  },
-                },
                 name: {
                   on: {
                     NEXT: [
