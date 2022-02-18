@@ -1,33 +1,22 @@
 import { useActionData, useLoaderData } from "remix";
-import { ConfigStepField } from "~/domain";
 import { StepTextField } from "~/components";
 import { render } from "~/routes/formular/_step";
+import { personTelefonnummerField } from "~/domain/fields/eigentuemer/person/telefonnummer";
 
 export { action, loader, handle } from "~/routes/formular/_step";
-
-const telefonnummer: ConfigStepField = {
-  name: "telefonnummer",
-  validations: {},
-};
-
-export const personTelefonnummerFields = [telefonnummer];
 
 export default function Telefonnummer() {
   const { formData, i18n } = useLoaderData();
   const actionData = useActionData();
 
-  personTelefonnummerFields.forEach((field) => {
-    field.label = i18n[field.name];
-  });
+  const field = personTelefonnummerField;
+  field.label = i18n[field.name];
 
   return render(
     actionData,
     i18n.headline,
     <>
-      <StepTextField
-        config={telefonnummer}
-        value={formData?.[telefonnummer.name]}
-      />
+      <StepTextField config={field} value={formData?.[field.name]} />
     </>
   );
 }

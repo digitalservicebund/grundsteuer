@@ -1,40 +1,26 @@
 import { useActionData, useLoaderData } from "remix";
-import { ConfigStepField } from "~/domain";
 import { StepRadioField } from "~/components";
 import { render } from "~/routes/formular/_step";
+import { verheiratetField } from "~/domain/fields/eigentuemer/verheiratet";
 
 export { action, loader, handle } from "./../_step";
 
 const headline = "Anzahl Eigentümer";
 
 export default function Anzahl() {
-  const { formData } = useLoaderData();
+  const { formData, i18n } = useLoaderData();
   const actionData = useActionData();
 
-  const areVerheiratet: ConfigStepField = {
-    name: "areVerheiratet",
-    label: "Sind die Eigentümer:innen verheiratet?",
-    validations: {},
-    options: [
-      {
-        value: "true",
-        label: "Ja",
-      },
-      {
-        value: "false",
-        label: "Nein",
-      },
-    ],
-  };
+  const field = verheiratetField;
+  field.label = i18n.question;
+  field.options[0].label = i18n.yes;
+  field.options[1].label = i18n.no;
 
   return render(
     actionData,
     headline,
     <>
-      <StepRadioField
-        config={areVerheiratet}
-        value={formData?.[areVerheiratet.name]}
-      />
+      <StepRadioField config={field} value={formData?.[field.name]} />
     </>
   );
 }

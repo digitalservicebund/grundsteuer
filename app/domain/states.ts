@@ -1,5 +1,5 @@
 import { GrundDataModelData } from "./model";
-import { personAdresseFields } from "~/routes/formular/eigentuemer/person/$id.adresse";
+import { personAdresseFields } from "~/domain/fields/eigentuemer/person/adresse";
 
 export interface StateMachineContext extends GrundDataModelData {
   currentId?: number;

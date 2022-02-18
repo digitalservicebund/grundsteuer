@@ -6,6 +6,16 @@
     "zusammenfassung": "Zusammenfassung"
   },
   "eigentuemer": {
+    "anzahl": {
+      "headline": "",
+      "anzahl": "Anzahl Eigentümer"
+    },
+    "verheiratet": {
+      "headline": "",
+      "question": "Sind die Eigentümer verheiratet?",
+      "yes": "Ja, die Eigentümer:innen sind verheiratet",
+      "no": "Nein, die Eigentümer:innen sind nicht verheiratet"
+    },
     "person": {
       "adresse": {
         "headline": "Adresse",

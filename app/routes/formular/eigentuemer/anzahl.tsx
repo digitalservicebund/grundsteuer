@@ -1,27 +1,22 @@
 import { useActionData, useLoaderData } from "remix";
-import { ConfigStepField } from "~/domain";
 import { StepTextField } from "~/components";
 import { render } from "~/routes/formular/_step";
+import { eigentuemerAnzahlField } from "~/domain/fields/eigentuemer/anzahl";
 
 export { action, loader, handle } from "./../_step";
 
-const headline = "Anzahl Eigentümer";
-
 export default function Anzahl() {
-  const { formData } = useLoaderData();
+  const { formData, i18n } = useLoaderData();
   const actionData = useActionData();
 
-  const anzahl: ConfigStepField = {
-    name: "anzahl",
-    label: "Anzahl",
-    validations: {},
-  };
+  const field = eigentuemerAnzahlField;
+  field.label = i18n[field.name];
 
   return render(
     actionData,
-    headline,
+    i18n.headline,
     <>
-      <StepTextField config={anzahl} value={formData?.[anzahl.name]} />
+      <StepTextField config={field} value={formData?.[field.name]} />
     </>
   );
 }
