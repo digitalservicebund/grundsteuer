@@ -23,13 +23,6 @@ export const steps = {
         person: {
           id: "person",
           initial: "persoenlicheAngaben",
-          onDone: [
-            {
-              target: "person",
-              cond: "repeatPerson",
-              actions: ["incrementCurrentId"],
-            },
-          ],
           states: {
             persoenlicheAngaben: {
               on: { NEXT: "adresse" },
