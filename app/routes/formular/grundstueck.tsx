@@ -1,5 +1,5 @@
 import { useActionData, useLoaderData } from "remix";
-import { render } from "~/routes/steps/_step";
+import { render } from "~/routes/formular/_step";
 import { ConfigStepField } from "~/domain";
 import { StepRadioField } from "~/components";
 

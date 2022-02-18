@@ -1,9 +1,9 @@
 import { useActionData, useLoaderData } from "remix";
 import { ConfigStepField } from "~/domain";
 import { StepTextField } from "~/components";
-import { render } from "~/routes/steps/_step";
+import { render } from "~/routes/formular/_step";
 
-export { action, loader, handle } from "~/routes/steps/_step";
+export { action, loader, handle } from "~/routes/formular/_step";
 
 const telefonnummer: ConfigStepField = {
   name: "telefonnummer",

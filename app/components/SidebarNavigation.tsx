@@ -53,15 +53,15 @@ export default function SidebarNavigation({
       {showFormNavigation ? (
         <div>
           {getNavigationLink(
-            "/steps/eigentuemer/anzahl",
-            "/steps/eigentuemer",
+            "/formular/eigentuemer/anzahl",
+            "/formular/eigentuemer",
             t("nav.eigentuemer"),
             showFormNavigation
           )}
           <br />
           {getNavigationLink(
-            "/steps/grundstueck",
-            "/steps/grundstueck",
+            "/formular/grundstueck",
+            "/formular/grundstueck",
             t("nav.grundstueck"),
             showFormNavigation
           )}
@@ -69,8 +69,8 @@ export default function SidebarNavigation({
             <>
               <br />
               {getNavigationLink(
-                "/steps/gebaeude",
-                "/steps/gebaeude",
+                "/formular/gebaeude",
+                "/formular/gebaeude",
                 t("nav.gebaeude"),
                 showFormNavigation
               )}
@@ -78,8 +78,8 @@ export default function SidebarNavigation({
           )}
           <br />
           {getNavigationLink(
-            "/steps/zusammenfassung",
-            "/steps/zusammenfassung",
+            "/formular/zusammenfassung",
+            "/formular/zusammenfassung",
             t("nav.zusammenfassung"),
             showFormNavigation
           )}

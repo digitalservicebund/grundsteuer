@@ -19,7 +19,7 @@ import { Handle } from "~/components/SidebarNavigation";
 const getCurrentState = (request: Request) => {
   return new URL(request.url).pathname
     .split("/")
-    .filter((e) => e && e !== "steps")
+    .filter((e) => e && e !== "formular")
     .join(".");
 };
 
@@ -77,7 +77,7 @@ export const action: ActionFunction = async ({ params, request }) => {
   const nextState = machine.transition(currentStateWithoutId, {
     type: "NEXT",
   });
-  let redirectUrl = `/steps/${nextState
+  let redirectUrl = `/formular/${nextState
     .toStrings()
     .at(-1)
     ?.split(".")

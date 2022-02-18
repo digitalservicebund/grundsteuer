@@ -53,15 +53,15 @@ describe("With default data", () => {
       render(<SidebarNavigation matchingRoutes={matchingRoutes} data={data} />);
       expect(screen.getByText("nav.eigentuemer").closest("a")).toHaveAttribute(
         "href",
-        "/steps/eigentuemer/anzahl"
+        "/formular/eigentuemer/anzahl"
       );
       expect(screen.getByText("nav.grundstueck").closest("a")).toHaveAttribute(
         "href",
-        "/steps/grundstueck"
+        "/formular/grundstueck"
       );
       expect(
         screen.getByText("nav.zusammenfassung").closest("a")
-      ).toHaveAttribute("href", "/steps/zusammenfassung");
+      ).toHaveAttribute("href", "/formular/zusammenfassung");
       expect(screen.queryByText("nav.gebaeude")).not.toBeInTheDocument();
     });
   });
@@ -90,15 +90,15 @@ describe("With bebaut data and matching routes indicating to show navigation", (
       render(<SidebarNavigation matchingRoutes={matchingRoutes} data={data} />);
       expect(screen.getByText("nav.eigentuemer").closest("a")).toHaveAttribute(
         "href",
-        "/steps/eigentuemer/anzahl"
+        "/formular/eigentuemer/anzahl"
       );
       expect(screen.getByText("nav.grundstueck").closest("a")).toHaveAttribute(
         "href",
-        "/steps/grundstueck"
+        "/formular/grundstueck"
       );
       expect(
         screen.getByText("nav.zusammenfassung").closest("a")
-      ).toHaveAttribute("href", "/steps/zusammenfassung");
+      ).toHaveAttribute("href", "/formular/zusammenfassung");
       expect(screen.queryByText("nav.gebaeude")).not.toBeInTheDocument();
     });
   });
@@ -112,18 +112,18 @@ describe("With bebaut data and matching routes indicating to show navigation", (
       render(<SidebarNavigation matchingRoutes={matchingRoutes} data={data} />);
       expect(screen.getByText("nav.eigentuemer").closest("a")).toHaveAttribute(
         "href",
-        "/steps/eigentuemer/anzahl"
+        "/formular/eigentuemer/anzahl"
       );
       expect(screen.getByText("nav.grundstueck").closest("a")).toHaveAttribute(
         "href",
-        "/steps/grundstueck"
+        "/formular/grundstueck"
       );
       expect(
         screen.getByText("nav.zusammenfassung").closest("a")
-      ).toHaveAttribute("href", "/steps/zusammenfassung");
+      ).toHaveAttribute("href", "/formular/zusammenfassung");
       expect(screen.getByText("nav.gebaeude").closest("a")).toHaveAttribute(
         "href",
-        "/steps/gebaeude"
+        "/formular/gebaeude"
       );
     });
   });
