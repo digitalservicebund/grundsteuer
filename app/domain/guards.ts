@@ -1,6 +1,6 @@
 import { GrundDataModelData } from "./model";
 import { ConditionPredicate, AnyEventObject } from "xstate";
-import { StateMachineContext } from "~/domain/steps";
+import { StateMachineContext } from "~/domain/states";
 
 export type Conditions = Record<
   string,

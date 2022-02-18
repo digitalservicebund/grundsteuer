@@ -5,7 +5,7 @@ export interface StateMachineContext extends GrundDataModelData {
   currentId?: number;
 }
 
-export const steps = {
+export const states = {
   id: "steps",
   initial: "eigentuemer",
   states: {
@@ -98,5 +98,5 @@ export const steps = {
 };
 
 export const getMachineConfig = (records: StateMachineContext) => {
-  return Object.assign({}, steps, { context: records });
+  return Object.assign({}, states, { context: records });
 };

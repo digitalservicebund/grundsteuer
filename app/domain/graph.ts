@@ -4,7 +4,7 @@ import _ from "lodash";
 import { getStepData } from "~/domain/model";
 import { conditions } from "~/domain/guards";
 import { actions } from "~/domain/actions";
-import { getMachineConfig, StateMachineContext } from "~/domain/steps";
+import { getMachineConfig, StateMachineContext } from "~/domain/states";
 
 /*
  * create a graph representation "hash"/"object" of the current state

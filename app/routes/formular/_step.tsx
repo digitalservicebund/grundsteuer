@@ -9,7 +9,7 @@ import {
   StepFormData,
   defaults,
 } from "~/domain/model";
-import { getMachineConfig, StateMachineContext } from "~/domain/steps";
+import { getMachineConfig, StateMachineContext } from "~/domain/states";
 import { conditions } from "~/domain/guards";
 import { validateField } from "~/domain/validation";
 import { ConfigStepField } from "~/domain";

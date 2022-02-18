@@ -1,5 +1,5 @@
 import { assign } from "xstate";
-import { StateMachineContext } from "~/domain/steps";
+import { StateMachineContext } from "~/domain/states";
 
 export const actions = {
   incrementCurrentId: assign({
