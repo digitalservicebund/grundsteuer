@@ -13,7 +13,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const cookie = await getFormDataCookie(request);
   const context = Object.keys(cookie).length < 1 ? defaults : cookie.records;
   const machineConfig = getMachineConfig(context);
-  return { guards, actions, machineConfig };
+  return { machineConfig };
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,7 +23,7 @@ function StateMachineInstance(props: any) {
 }
 
 export default function Machine() {
-  const { machineConfig, guards, actions } = useLoaderData();
+  const { machineConfig } = useLoaderData();
 
   const [initialized, setInitialized] = useState(false);
   useEffect(() => {
