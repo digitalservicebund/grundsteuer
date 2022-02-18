@@ -26,6 +26,29 @@ const inputData = {
       gesetzlicherVertreter: {
         hasVertreter: "true",
       },
+      vertreter: {
+        name: {
+          anrede: "foo",
+          titel: "bar",
+          name: "Mustermann",
+          vorname: "Max",
+        },
+        adresse: {
+          strasse: "Vertreterstr.",
+          hausnummer: "42",
+          zusatzangaben: "",
+          postfach: "",
+          plz: "54321",
+          ort: "Manchester",
+        },
+        telefonnummer: {
+          telefonnummer: "123-321",
+        },
+      },
+      anteil: {
+        zaehler: "1",
+        nenner: "2",
+      },
     },
     person2: {
       adresse: {
@@ -44,6 +67,10 @@ const inputData = {
       },
       gesetzlicherVertreter: {
         hasVertreter: "false",
+      },
+      anteil: {
+        zaehler: "1",
+        nenner: "2",
       },
     },
   },
@@ -82,7 +109,35 @@ it("Enter data for two eigentuemer", () => {
   cy.get(submitBtnSelector).click();
   cy.get("#hasVertreter-true").click();
   cy.get(submitBtnSelector).click();
-  // TODO gesetzlicher Vertreter Daten
+  cy.get(submitBtnSelector).click();
+  cy.get("#anrede")
+    .clear()
+    .type(inputData.eigentuemer.person1.vertreter.name.anrede);
+  cy.get("#titel")
+    .clear()
+    .type(inputData.eigentuemer.person1.vertreter.name.titel);
+  cy.get("#name")
+    .clear()
+    .type(inputData.eigentuemer.person1.vertreter.name.name);
+  cy.get("#vorname")
+    .clear()
+    .type(inputData.eigentuemer.person1.vertreter.name.vorname);
+  cy.get(submitBtnSelector).click();
+  cy.get("#strasse")
+    .clear()
+    .type(inputData.eigentuemer.person1.vertreter.adresse.strasse);
+  cy.get("#hausnummer")
+    .clear()
+    .type(inputData.eigentuemer.person1.adresse.hausnummer);
+  cy.get("#plz").clear().type(inputData.eigentuemer.person1.adresse.plz);
+  cy.get("#ort").clear().type(inputData.eigentuemer.person1.adresse.ort);
+  cy.get(submitBtnSelector).click();
+  cy.get("#telefonnummer")
+    .clear()
+    .type(inputData.eigentuemer.person1.vertreter.telefonnummer.telefonnummer);
+  cy.get(submitBtnSelector).click();
+  cy.get("#zaehler").clear().type(inputData.eigentuemer.person2.anteil.zaehler);
+  cy.get("#nenner").clear().type(inputData.eigentuemer.person2.anteil.nenner);
   cy.get(submitBtnSelector).click();
 
   // PERSON 2
@@ -110,6 +165,9 @@ it("Enter data for two eigentuemer", () => {
     .type(inputData.eigentuemer.person2.steuerId.steuerId);
   cy.get(submitBtnSelector).click();
   cy.get("#hasVertreter-false").click();
+  cy.get(submitBtnSelector).click();
+  cy.get("#zaehler").clear().type(inputData.eigentuemer.person2.anteil.zaehler);
+  cy.get("#nenner").clear().type(inputData.eigentuemer.person2.anteil.nenner);
   cy.get(submitBtnSelector).click();
 
   // GRUNDSTUECK
