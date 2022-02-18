@@ -30,18 +30,21 @@ interface GesetzlicherVertreterData {
 
 export type StepData =
   | AnzahlData
+  | VerheiratetData
   | AdresseData
   | GesetzlicherVertreterData
   | StepFormData;
+
+export interface PersonData {
+  adresse: AdresseData;
+  gesetzlicherVertreter: GesetzlicherVertreterData;
+}
 
 export interface GrundDataModelData {
   eigentuemer: {
     anzahl: AnzahlData;
     verheiratet: VerheiratetData;
-    person: {
-      adresse: AdresseData;
-      gesetzlicherVertreter: GesetzlicherVertreterData;
-    }[];
+    person: PersonData[];
   };
   grundstueck: BebautData;
 }
