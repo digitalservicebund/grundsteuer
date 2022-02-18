@@ -3,7 +3,7 @@
 describe("Zusammenfassung route", () => {
   it("should display the title", () => {
     // uses baseUrl defined in cypress.json configuration
-    cy.visit("/steps/zusammenfassung");
+    cy.visit("/formular/zusammenfassung");
     // access DOM Nodes via e.g. class, id, data-test-id
     // & interact with DOM
     cy.get("h1").contains("Zusammenfassung");
@@ -11,7 +11,7 @@ describe("Zusammenfassung route", () => {
 
   it.skip("should display empty fields on no form input", () => {
     // uses baseUrl defined in cypress.json configuration
-    cy.visit("/steps/zusammenfassung");
+    cy.visit("/formular/zusammenfassung");
     // access DOM Nodes via e.g. class, id, data-test-id
     // & interact with DOM
     cy.get("dt").contains("Straße").next().should("be.empty");
