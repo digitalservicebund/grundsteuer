@@ -27,10 +27,36 @@ const getCurrentStateWithoutId = (currentState: string) => {
   return currentState.replace(/\.\d+\./g, ".");
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+const getMachine = ({ cookie, params }: any) => {
+  const machineContext = { ...cookie.records } as StateMachineContext;
+  if (params.id) {
+    machineContext.currentId = parseInt(params.id);
+  }
+  const machine = createMachine(getMachineConfig(machineContext) as any, {
+    guards: conditions,
+    actions: actions,
+  });
+  return machine;
+};
+
+const getBackUrl = ({ machine, currentStateWithoutId }: any) => {
+  const backState = machine.transition(currentStateWithoutId, {
+    type: "BACK",
+  });
+  const dotNotation = backState.toStrings().at(-1);
+  if (dotNotation === currentStateWithoutId) {
+    return null;
+  }
+  return `/formular/${dotNotation.split(".").join("/")}`;
+};
+
+export const loader: LoaderFunction = async ({ params, request }) => {
   const cookie = await getFormDataCookie(request);
   const currentState = getCurrentState(request);
   const currentStateWithoutId = getCurrentStateWithoutId(currentState);
+
+  const machine = getMachine({ cookie, params });
+  const backUrl = getBackUrl({ machine, currentStateWithoutId });
 
   return {
     formData: getStepData(
@@ -38,6 +64,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       currentState
     ),
     i18n: (await i18n.getFixedT("de", "common"))(currentStateWithoutId),
+    backUrl,
   };
 };
 
@@ -52,14 +79,7 @@ export const action: ActionFunction = async ({ params, request }) => {
     await request.formData()
   ) as unknown as StepFormData;
 
-  const machineContext = { ...cookie.records } as StateMachineContext;
-  if (params.id) {
-    machineContext.currentId = parseInt(params.id);
-  }
-  const machine = createMachine(getMachineConfig(machineContext) as any, {
-    guards: conditions,
-    actions: actions,
-  });
+  const machine = getMachine({ cookie, params });
 
   // validate
   const errors: Record<string, Array<string>> = {};
