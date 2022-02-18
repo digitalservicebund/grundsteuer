@@ -1,6 +1,5 @@
 import React from "react";
 import { conditions } from "~/domain/guards";
-import { Link } from "remix";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { RouteData } from "@remix-run/react/routeData";
@@ -25,14 +24,14 @@ function getNavigationLink(
   showFormNavigation: MatchingRoute
 ) {
   return (
-    <Link
-      to={href}
+    <a
+      href={href}
       className={classNames({
         "font-bold": showFormNavigation.pathname.includes(matchingUrl),
       })}
     >
       {label}
-    </Link>
+    </a>
   );
 }
 
@@ -50,7 +49,7 @@ export default function SidebarNavigation({
   );
 
   return (
-    <>
+    <nav>
       {showFormNavigation ? (
         <div>
           {getNavigationLink(
@@ -89,11 +88,11 @@ export default function SidebarNavigation({
         <div className="h-full p-4 bg-white">
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <a href="/">Home</a>
             </li>
           </ul>
         </div>
       )}
-    </>
+    </nav>
   );
 }

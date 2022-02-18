@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import SidebarNavigation from "~/components/SidebarNavigation";
 import { defaults } from "~/domain/model";
 
-describe.skip("With default data", () => {
+describe("With default data", () => {
   const data = defaults;
 
   describe("No matching routes", () => {
@@ -67,7 +67,7 @@ describe.skip("With default data", () => {
   });
 });
 
-describe.skip("With bebaut data and matching routes indicating to show navigation", () => {
+describe("With bebaut data and matching routes indicating to show navigation", () => {
   const data = defaults;
   const matchingRoutes = [
     {
