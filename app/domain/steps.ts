@@ -15,6 +15,19 @@ export const steps = {
       states: {
         anzahl: {
           on: {
+            NEXT: [
+              {
+                target: "verheiratet",
+                cond: "anzahlEigentuemerIsTwo",
+              },
+              {
+                target: "person",
+              },
+            ],
+          },
+        },
+        verheiratet: {
+          on: {
             NEXT: {
               target: "person",
             },

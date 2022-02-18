@@ -7,6 +7,10 @@ export type Conditions = Record<
   ConditionPredicate<GrundDataModelData, AnyEventObject> | any
 >;
 
+const anzahlEigentuemerIsTwo = (context: StateMachineContext) => {
+  return context.eigentuemer?.anzahl?.anzahl === "2";
+};
+
 const hasGesetzlicherVertreter = (context: StateMachineContext) => {
   const person = context?.eigentuemer?.person[(context.currentId || 1) - 1];
   if (!person) return false;
@@ -27,6 +31,7 @@ const showGebaeude = (context: StateMachineContext) => {
 };
 
 export const conditions: Conditions = {
+  anzahlEigentuemerIsTwo,
   hasGesetzlicherVertreter,
   repeatPerson,
   hasNotGesetzlicherVertreterAndRepeatPerson: (context: any) => {

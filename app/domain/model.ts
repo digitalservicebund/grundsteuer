@@ -7,6 +7,10 @@ interface AnzahlData {
   anzahl: string;
 }
 
+interface VerheiratetData {
+  areVerheiratet: string;
+}
+
 interface BebautData {
   bebaut: string;
 }
@@ -33,6 +37,7 @@ export type StepData =
 export interface GrundDataModelData {
   eigentuemer: {
     anzahl: AnzahlData;
+    verheiratet: VerheiratetData;
     person: {
       adresse: AdresseData;
       gesetzlicherVertreter: GesetzlicherVertreterData;
@@ -61,6 +66,9 @@ export const defaults: GrundDataModelData = {
   eigentuemer: {
     anzahl: {
       anzahl: "1",
+    },
+    verheiratet: {
+      areVerheiratet: "",
     },
     person: [
       {
