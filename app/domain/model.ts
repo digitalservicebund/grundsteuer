@@ -84,7 +84,7 @@ export const defaults: GrundDataModelData = {
           ort: "",
         },
         gesetzlicherVertreter: {
-          hasVertreter: "false",
+          hasVertreter: "",
         },
       },
     ],
