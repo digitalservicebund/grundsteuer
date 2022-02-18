@@ -32,6 +32,9 @@ export const states = {
             NEXT: {
               target: "person",
             },
+            BACK: {
+              target: "anzahl",
+            },
           },
         },
         person: {
@@ -48,15 +51,18 @@ export const states = {
                 },
               },
               on: {
-                NEXT: [
-                  {
-                    target: "telefonnummer",
-                  },
-                ],
+                NEXT: {
+                  target: "telefonnummer",
+                },
+                BACK: {
+                  target: "persoenlicheAngaben",
+                },
               },
             },
-            telefonnummer: { on: { NEXT: "steuerId" } },
-            steuerId: { on: { NEXT: "gesetzlicherVertreter" } },
+            telefonnummer: { on: { NEXT: "steuerId", BACK: "adresse" } },
+            steuerId: {
+              on: { NEXT: "gesetzlicherVertreter", BACK: "telefonnummer" },
+            },
             gesetzlicherVertreter: {
               meta: {
                 stepDefinition: {
@@ -80,6 +86,7 @@ export const states = {
                     target: "#steps.grundstueck",
                   },
                 ],
+                BACK: { target: "steuerId" },
               },
             },
             vertreter: {
@@ -133,6 +140,7 @@ export const states = {
                     target: "#steps.grundstueck",
                   },
                 ],
+                BACK: { target: "gesetzlicherVertreter" },
               },
             },
           },
