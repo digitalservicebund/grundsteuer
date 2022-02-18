@@ -39,6 +39,31 @@
         "question": "Möchten Sie einen gesetzlichen Vertreter angeben?",
         "yes": "Ja, ich möchte einen ges. Vetreter angeben",
         "no": "Nein, ich möchte keinen ges. Vetreter angeben"
+      },
+      "vertreter": {
+        "name": {
+          "anrede": "Anrede",
+          "titel": "Titel",
+          "name": "Name",
+          "vorname": "Vorname"
+        },
+        "adresse": {
+          "strasse": "Straße / Lagebezeichnung",
+          "hausnummer": "Hausnummer (+Hausnummerzusatz)",
+          "zusatzangaben": "Zusatzangaben (bswp. Hinterhaus)",
+          "postfach": "Postfach",
+          "plz": "PLZ",
+          "ort": "Ort"
+        },
+        "telefonnummer": {
+          "headline": "",
+          "telefonnummer": "Telefonnummer"
+        }
+      },
+      "anteil": {
+        "headline": "Wie hoch ist Ihr Anteil am Gründstück?",
+        "zaehler": "Zähler",
+        "nenner": "Nenner"
       }
     }
   }

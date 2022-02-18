@@ -1,5 +1,6 @@
 import { GrundModel } from "./model";
 import { personAdresseFields } from "~/domain/fields/eigentuemer/person/adresse";
+import { gesVertreterField } from "~/domain/fields/eigentuemer/person/gesetzlicherVertreter";
 
 export interface StateMachineContext extends GrundModel {
   currentId?: number;
@@ -57,6 +58,11 @@ export const states = {
             telefonnummer: { on: { NEXT: "steuerId" } },
             steuerId: { on: { NEXT: "gesetzlicherVertreter" } },
             gesetzlicherVertreter: {
+              meta: {
+                stepDefinition: {
+                  fields: [gesVertreterField],
+                },
+              },
               on: {
                 NEXT: [
                   {
@@ -65,16 +71,57 @@ export const states = {
                     actions: ["incrementCurrentId"],
                   },
                   {
-                    target: "gesetzlicherVertreterDaten",
+                    target: "vertreter",
                     cond: "hasGesetzlicherVertreter",
                   },
+                  { target: "anteil", cond: "multipleEigentuemer" },
+
                   {
                     target: "#steps.grundstueck",
                   },
                 ],
               },
             },
-            gesetzlicherVertreterDaten: {
+            vertreter: {
+              id: "vertreter",
+              initial: "gesetzlicherVertreterDaten",
+              states: {
+                gesetzlicherVertreterDaten: {
+                  on: {
+                    NEXT: [{ target: "name" }],
+                  },
+                },
+                name: {
+                  on: {
+                    NEXT: [
+                      {
+                        target: "adresse",
+                      },
+                    ],
+                  },
+                },
+                adresse: {
+                  on: {
+                    NEXT: [
+                      {
+                        target: "telefonnummer",
+                      },
+                    ],
+                  },
+                },
+                telefonnummer: {
+                  on: {
+                    NEXT: [
+                      { target: "#person.anteil", cond: "multipleEigentuemer" },
+                      {
+                        target: "#steps.grundstueck",
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+            anteil: {
               on: {
                 NEXT: [
                   {

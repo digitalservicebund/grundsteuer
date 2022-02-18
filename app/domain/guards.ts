@@ -11,6 +11,10 @@ const anzahlEigentuemerIsTwo = (context: StateMachineContext) => {
   return context.eigentuemer?.anzahl?.anzahl === "2";
 };
 
+const multipleEigentuemer = (context: StateMachineContext) => {
+  return +context.eigentuemer?.anzahl?.anzahl > 1;
+};
+
 const hasGesetzlicherVertreter = (context: StateMachineContext) => {
   const person = context?.eigentuemer?.person[(context.currentId || 1) - 1];
   if (!person) return false;
@@ -32,6 +36,7 @@ const showGebaeude = (context: StateMachineContext) => {
 
 export const conditions: Conditions = {
   anzahlEigentuemerIsTwo,
+  multipleEigentuemer,
   hasGesetzlicherVertreter,
   repeatPerson,
   hasNotGesetzlicherVertreterAndRepeatPerson: (context: any) => {
