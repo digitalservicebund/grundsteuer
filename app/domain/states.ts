@@ -147,7 +147,8 @@ export const states = {
         },
       },
     },
-    grundstueck: { on: { NEXT: "zusammenfassung" } },
+    grundstueck: { on: { NEXT: "gebaeude" } },
+    gebaeude: { on: { NEXT: "zusammenfassung" } },
     zusammenfassung: { type: "final" },
   },
 };
