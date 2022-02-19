@@ -57,7 +57,14 @@ const getBackUrl = ({ machine, currentStateWithoutId }: any) => {
   if (dotNotation === currentStateWithoutId) {
     return null;
   }
-  return `/formular/${dotNotation.split(".").join("/")}`;
+  let backUrl = `/formular/${dotNotation.split(".").join("/")}`;
+  if (backState.matches("eigentuemer.person")) {
+    backUrl = backUrl.replace(
+      "person/",
+      `person/${(backState.context as StateMachineContext).currentId || 1}/`
+    );
+  }
+  return backUrl;
 };
 
 type LoaderData = {
