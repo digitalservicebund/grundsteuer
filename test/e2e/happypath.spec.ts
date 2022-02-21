@@ -101,15 +101,9 @@ it("Enter data for two eigentuemer", () => {
   cy.get(submitBtnSelector).click();
   // PERSON 1
   cy.get("#anrede").clear().type(inputData.eigentuemer.person1.name.anrede);
-  cy.get("#titel")
-    .clear()
-    .type(inputData.eigentuemer.person1.vertreter.name.titel);
-  cy.get("#name")
-    .clear()
-    .type(inputData.eigentuemer.person1.vertreter.name.name);
-  cy.get("#vorname")
-    .clear()
-    .type(inputData.eigentuemer.person1.vertreter.name.vorname);
+  cy.get("#titel").clear().type(inputData.eigentuemer.person1.name.titel);
+  cy.get("#name").clear().type(inputData.eigentuemer.person1.name.name);
+  cy.get("#vorname").clear().type(inputData.eigentuemer.person1.name.vorname);
   cy.get(submitBtnSelector).click();
   cy.get("#strasse")
     .clear()
@@ -166,16 +160,10 @@ it("Enter data for two eigentuemer", () => {
 
   // PERSON 2
   cy.url().should("include", "/formular/eigentuemer/person/2/");
-  cy.get("#anrede").clear().type(inputData.eigentuemer.person1.name.anrede);
-  cy.get("#titel")
-    .clear()
-    .type(inputData.eigentuemer.person1.vertreter.name.titel);
-  cy.get("#name")
-    .clear()
-    .type(inputData.eigentuemer.person1.vertreter.name.name);
-  cy.get("#vorname")
-    .clear()
-    .type(inputData.eigentuemer.person1.vertreter.name.vorname);
+  cy.get("#anrede").clear().type(inputData.eigentuemer.person2.name.anrede);
+  cy.get("#titel").clear().type(inputData.eigentuemer.person2.name.titel);
+  cy.get("#name").clear().type(inputData.eigentuemer.person2.name.name);
+  cy.get("#vorname").clear().type(inputData.eigentuemer.person2.name.vorname);
   cy.get(submitBtnSelector).click();
   cy.get("#strasse")
     .clear()
@@ -210,6 +198,18 @@ it("Enter data for two eigentuemer", () => {
   cy.visit("/formular/zusammenfassung");
   cy.contains("Anzahl: " + inputData.eigentuemer.anzahl.anzahl);
   cy.contains("Verheiratet: Ja");
+  cy.get("#person-0").contains(
+    "Anrede: " + inputData.eigentuemer.person1.name.anrede
+  );
+  cy.get("#person-0").contains(
+    "Titel: " + inputData.eigentuemer.person1.name.titel
+  );
+  cy.get("#person-0").contains(
+    "Name: " + inputData.eigentuemer.person1.name.name
+  );
+  cy.get("#person-0").contains(
+    "Vorname: " + inputData.eigentuemer.person1.name.vorname
+  );
   cy.get("#person-0").contains(
     "Straße: " + inputData.eigentuemer.person1.adresse.strasse
   );
@@ -265,6 +265,18 @@ it("Enter data for two eigentuemer", () => {
     "Anteil Nenner: " + inputData.eigentuemer.person1.anteil.nenner
   );
 
+  cy.get("#person-1").contains(
+    "Anrede: " + inputData.eigentuemer.person2.name.anrede
+  );
+  cy.get("#person-1").contains(
+    "Titel: " + inputData.eigentuemer.person2.name.titel
+  );
+  cy.get("#person-1").contains(
+    "Name: " + inputData.eigentuemer.person2.name.name
+  );
+  cy.get("#person-1").contains(
+    "Vorname: " + inputData.eigentuemer.person2.name.vorname
+  );
   cy.get("#person-1").contains(
     "Straße: " + inputData.eigentuemer.person2.adresse.strasse
   );

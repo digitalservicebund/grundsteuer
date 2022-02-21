@@ -45,6 +45,10 @@ export default function Zusammenfassung() {
             return (
               <div className="bg-gray-100 mb-3" key={personKey} id={personKey}>
                 <h4 className="font-bold">Person {index + 1}</h4>
+                Anrede: {person.name.anrede} <br />
+                Titel: {person.name.titel} <br />
+                Name: {person.name.name} <br />
+                Vorname: {person.name.vorname} <br />
                 Straße: {person.adresse.strasse} <br />
                 Hausnummer: {person.adresse.hausnummer} <br />
                 Ort: {person.adresse.ort} <br />
