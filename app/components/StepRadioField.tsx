@@ -1,13 +1,14 @@
-import { ConfigStepFieldRadio, ConfigStepFieldOptionsItem } from "~/domain";
+import { ConfigStepFieldOptionsItem } from "~/domain";
 
-export default function StepRadioField({
-  config,
-  value,
-}: {
-  config: ConfigStepFieldRadio;
-  value?: string;
-}) {
-  const { name, label, options } = config;
+export type StepRadioFieldProps = {
+  name: string;
+  value: string | undefined;
+  label: string;
+  options: { value: string; label: string }[];
+};
+
+export default function StepRadioField(props: StepRadioFieldProps) {
+  const { name, label, value, options } = props;
 
   const renderRadioFieldOption = (
     option: ConfigStepFieldOptionsItem & { name: string; checked: boolean }
