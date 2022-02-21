@@ -46,6 +46,29 @@ const modelTemplateWithDefaults = {
         gesetzlicherVertreter: {
           hasVertreter: "",
         },
+        vertreter: {
+          name: {
+            anrede: "",
+            titel: "",
+            name: "",
+            vorname: "",
+          },
+          adresse: {
+            strasse: "",
+            hausnummer: "",
+            zusatzangaben: "",
+            postfach: "",
+            plz: "",
+            ort: "",
+          },
+          telefonnummer: {
+            telefonnummer: "",
+          },
+        },
+        anteil: {
+          zaehler: "",
+          nenner: "",
+        },
       },
     ],
   },

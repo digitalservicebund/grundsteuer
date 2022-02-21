@@ -54,7 +54,47 @@ export default function Zusammenfassung() {
                 Gesetzlicher Vertreter:{" "}
                 {person.gesetzlicherVertreter?.hasVertreter === "true"
                   ? "Ja"
-                  : "Nein"}
+                  : "Nein"}{" "}
+                <br />
+                {person.vertreter && (
+                  <div
+                    className="bg-gray-300 mx-4"
+                    id={personKey + "-vertreter"}
+                  >
+                    <h5 className="font-bold">Gesetzlicher Vertreter</h5>
+                    Anrede: {person.vertreter.name?.anrede}
+                    <br />
+                    Titel: {person.vertreter.name?.titel}
+                    <br />
+                    Name: {person.vertreter.name?.name}
+                    <br />
+                    Vorname: {person.vertreter.name?.vorname}
+                    <br />
+                    Straße: {person.vertreter.adresse?.strasse}
+                    <br />
+                    Hausnummer: {person.vertreter.adresse?.hausnummer}
+                    <br />
+                    Zusatzangaben: {person.vertreter.adresse?.zusatzangaben}
+                    <br />
+                    Postfach: {person.vertreter.adresse?.postfach}
+                    <br />
+                    PLZ: {person.vertreter.adresse?.plz}
+                    <br />
+                    Ort: {person.vertreter.adresse?.ort}
+                    <br />
+                    Telefonnummer:{" "}
+                    {person.vertreter.telefonnummer?.telefonnummer}
+                    <br />
+                  </div>
+                )}
+                {person.anteil && (
+                  <>
+                    Anteil Zähler: {person.anteil.zaehler}
+                    <br />
+                    Anteil Nenner: {person.anteil.nenner}
+                    <br />
+                  </>
+                )}
               </div>
             );
           })}
