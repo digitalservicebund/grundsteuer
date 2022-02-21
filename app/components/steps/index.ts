@@ -1,41 +1,20 @@
-import { Anzahl, Verheiratet } from "./eigentuemer";
-import {
-  Adresse,
-  Anteil,
-  GesetzlicherVertreter,
-  SteuerId,
-  Telefonnummer,
-} from "./eigentuemer/person";
-import {
-  VertreterAdresse,
-  VertreterName,
-  VertreterTelefonnummer,
-} from "./eigentuemer/person/vertreter";
-import Grundstueck from "./grundstueck";
-import Gebaeude from "./gebaeude";
+import Adresse from "./eigentuemer/person/adresse";
+import Anteil from "./eigentuemer/person/anteil";
+import VertreterAdresse from "./eigentuemer/person/vertreter/adresse";
 import Debug from "./debug";
-import PersonName from "~/components/steps/eigentuemer/person/name";
+import Default from "./default";
 
-export { Debug as FallbackStepComponent };
+export { Default as FallbackStepComponent };
 
 export default {
   eigentuemer: {
-    anzahl: Anzahl,
-    verheiratet: Verheiratet,
     person: {
-      name: PersonName,
       adresse: Adresse,
       anteil: Anteil,
-      gesetzlicherVertreter: GesetzlicherVertreter,
-      steuerId: SteuerId,
-      telefonnummer: Telefonnummer,
       vertreter: {
         adresse: VertreterAdresse,
-        name: VertreterName,
-        telefonnummer: VertreterTelefonnummer,
       },
     },
   },
-  grundstueck: Grundstueck,
-  gebaeude: Gebaeude,
+  gebaeude: Debug,
 };

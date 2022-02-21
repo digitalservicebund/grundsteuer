@@ -25,6 +25,7 @@ import { ConfigStepField } from "~/domain";
 import { actions } from "~/domain/actions";
 import { Handle } from "~/components/SidebarNavigation";
 import stepComponents, { FallbackStepComponent } from "~/components/steps";
+import stepDefinitions from "~/domain/steps";
 
 const getCurrentState = (request: Request) => {
   return new URL(request.url).pathname
@@ -67,11 +68,30 @@ const getBackUrl = ({ machine, currentStateWithoutId }: any) => {
   return backUrl;
 };
 
+const getStepDefinition = ({
+  currentStateWithoutId,
+}: {
+  currentStateWithoutId: string;
+}) => {
+  return _.get(stepDefinitions, currentStateWithoutId);
+};
+
 type LoaderData = {
   formData: Record<string, any>;
-  i18n: Record<string, any>;
+  i18n: {
+    headline: string;
+    fields: {
+      [index: string]: {
+        label: string;
+        options?: Record<string, string>;
+      };
+    };
+  };
   backUrl: string | null;
   currentStateWithoutId: string;
+  stepDefinition: {
+    fields: Record<string, any>;
+  };
 };
 
 export const loader: LoaderFunction = async ({
@@ -84,6 +104,7 @@ export const loader: LoaderFunction = async ({
 
   const machine = getMachine({ cookie, params });
   const backUrl = getBackUrl({ machine, currentStateWithoutId });
+  const stepDefinition = getStepDefinition({ currentStateWithoutId });
 
   return {
     formData: getStepData(
@@ -95,6 +116,7 @@ export const loader: LoaderFunction = async ({
     }),
     backUrl,
     currentStateWithoutId,
+    stepDefinition,
   };
 };
 

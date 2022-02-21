@@ -1,14 +1,15 @@
 import { Label } from "@digitalservice4germany/digital-service-library";
-import { ConfigStepFieldSelect, ConfigStepFieldOptionsItem } from "~/domain";
+import { ConfigStepFieldOptionsItem } from "~/domain";
 
-export default function StepSelectField({
-  config,
-  value,
-}: {
-  config: ConfigStepFieldSelect;
-  value?: string;
-}) {
-  const { name, label, options } = config;
+export type StepSelectFieldProps = {
+  name: string;
+  value: string | undefined;
+  label: string;
+  options: { value: string; label: string }[];
+};
+
+export default function StepSelectField(props: StepSelectFieldProps) {
+  const { name, label, value, options } = props;
   const id = name;
 
   const renderSelectFieldOption = (option: ConfigStepFieldOptionsItem) => {

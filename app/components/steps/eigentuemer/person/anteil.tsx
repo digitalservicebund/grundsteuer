@@ -1,17 +1,8 @@
 import type { StepComponentFunction } from "~/routes/formular/_step";
-import { StepTextField } from "~/components";
-import { eigentuemerAnteilField } from "~/domain/fields/eigentuemer/person/anteil";
+import { StepFormFields } from "~/components";
 
-const Anteil: StepComponentFunction = ({ formData, i18n }) => {
-  const [zaehler, nenner] = eigentuemerAnteilField;
-  zaehler.label = i18n[zaehler.name];
-  nenner.label = i18n[nenner.name];
-  return (
-    <>
-      <StepTextField config={zaehler} value={formData?.[zaehler.name]} />
-      <StepTextField config={nenner} value={formData?.[nenner.name]} />
-    </>
-  );
+const Anteil: StepComponentFunction = ({ stepDefinition, formData, i18n }) => {
+  return <StepFormFields {...{ stepDefinition, formData, i18n }} />;
 };
 
 export default Anteil;

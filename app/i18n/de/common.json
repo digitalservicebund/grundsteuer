@@ -8,76 +8,117 @@
   "eigentuemer": {
     "anzahl": {
       "headline": "Wie viele Eigentümer:innen hat das Grundstück?",
-      "anzahl": "Anzahl"
+      "fields": {
+        "anzahl": {
+          "label": "Anzahl"
+        }
+      }
     },
     "verheiratet": {
       "headline": "Sind die Eigentümer:innen verheiratet?",
-      "question": "Sind die Eigentümer verheiratet?",
-      "yes": "Ja, die Eigentümer:innen sind verheiratet",
-      "no": "Nein, die Eigentümer:innen sind nicht verheiratet"
+      "fields": {
+        "areVerheiratet": {
+          "label": "Sind die Eigentümer verheiratet?",
+          "options": {
+            "true": "Ja, die Eigentümer:innen sind verheiratet",
+            "false": "Nein, die Eigentümer:innen sind nicht verheiratet"
+          }
+        }
+      }
     },
     "person": {
       "name": {
         "headline": "Name Person {{id}}",
-        "anrede": "Anrede",
-        "titel": "Titel",
-        "name": "Name",
-        "vorname": "Vorname"
+        "fields": {
+          "anrede": { "label": "Anrede" },
+          "titel": { "label": "Titel" },
+          "name": { "label": "Name" },
+          "vorname": { "label": "Vorname" }
+        }
       },
       "adresse": {
         "headline": "Adresse Person {{id}}",
-        "strasse": "Straße / Lagebezeichnung",
-        "hausnummer": "Hausnummer (+Hausnummerzusatz)",
-        "zusatzangaben": "Zusatzangaben (bswp. Hinterhaus)",
-        "postfach": "Postfach",
-        "plz": "PLZ",
-        "ort": "Ort"
+        "fields": {
+          "strasse": { "label": "Straße / Lagebezeichnung" },
+          "hausnummer": { "label": "Hausnummer (+Hausnummerzusatz)" },
+          "zusatzangaben": { "label": "Zusatzangaben (bswp. Hinterhaus)" },
+          "postfach": { "label": "Postfach" },
+          "plz": { "label": "PLZ" },
+          "ort": { "label": "Ort" }
+        }
       },
       "telefonnummer": {
         "headline": "Telefonnummer Person {{id}}",
-        "telefonnummer": "Telefonnummer"
+        "fields": {
+          "telefonnummer": { "label": "Telefonnummer" }
+        }
       },
       "steuerId": {
         "headline": "Steuer-ID Person {{id}}",
-        "steuerId": "Steuer-ID"
+        "fields": {
+          "steuerId": { "label": "Steuer-ID" }
+        }
       },
       "gesetzlicherVertreter": {
         "headline": "Gesetzlicher Vertreter Person {{id}}",
-        "question": "Möchten Sie einen gesetzlichen Vertreter angeben?",
-        "yes": "Ja, ich möchte einen ges. Vetreter angeben",
-        "no": "Nein, ich möchte keinen ges. Vetreter angeben"
+        "fields": {
+          "hasVertreter": {
+            "label": "Möchten Sie einen gesetzlichen Vertreter angeben?",
+            "options": {
+              "true": "Ja, ich möchte einen ges. Vetreter angeben",
+              "false": "Nein, ich möchte keinen ges. Vetreter angeben"
+            }
+          }
+        }
       },
       "vertreter": {
         "name": {
           "headline": "Gesetzlicher Vertreter Person {{id}} - Name",
-          "anrede": "Anrede",
-          "titel": "Titel",
-          "name": "Name",
-          "vorname": "Vorname"
+          "fields": {
+            "anrede": { "label": "Anrede" },
+            "titel": { "label": "Titel" },
+            "name": { "label": "Name" },
+            "vorname": { "label": "Vorname" }
+          }
         },
         "adresse": {
           "headline": "Gesetzlicher Vertreter Person {{id}} - Adresse",
-          "strasse": "Straße / Lagebezeichnung",
-          "hausnummer": "Hausnummer (+Hausnummerzusatz)",
-          "zusatzangaben": "Zusatzangaben (bswp. Hinterhaus)",
-          "postfach": "Postfach",
-          "plz": "PLZ",
-          "ort": "Ort"
+          "fields": {
+            "strasse": { "label": "Straße / Lagebezeichnung" },
+            "hausnummer": { "label": "Hausnummer (+Hausnummerzusatz)" },
+            "zusatzangaben": { "label": "Zusatzangaben (bswp. Hinterhaus)" },
+            "postfach": { "label": "Postfach" },
+            "plz": { "label": "PLZ" },
+            "ort": { "label": "Ort" }
+          }
         },
         "telefonnummer": {
           "headline": "Gesetzlicher Vertreter Person {{id}} - Telefonnummer",
-          "telefonnummer": "Telefonnummer"
+          "fields": {
+            "telefonnummer": { "label": "Telefonnummer" }
+          }
         }
       },
       "anteil": {
         "headline": "Wie hoch ist der Anteil am Gründstück von Person {{id}}?",
-        "zaehler": "Zähler",
-        "nenner": "Nenner"
+        "fields": {
+          "zaehler": { "label": "Zähler" },
+          "nenner": { "label": "Nenner" }
+        }
       }
     }
   },
   "grundstueck": {
-    "headline": "Grundstück"
+    "headline": "Grundstück",
+    "fields": {
+      "bebaut": {
+        "label": "Bebaut?",
+        "options": {
+          "true": "bebaut",
+          "false": "unbebaut"
+        }
+      }
+    }
   },
   "gebaeude": {
     "headline": "Gebäude"

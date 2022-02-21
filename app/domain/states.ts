@@ -1,7 +1,4 @@
 import { GrundModel } from "./model";
-import { personAdresseFields } from "~/domain/fields/eigentuemer/person/adresse";
-import { gesVertreterField } from "~/domain/fields/eigentuemer/person/gesetzlicherVertreter";
-import { personNameFields } from "~/domain/fields/eigentuemer/person/name";
 
 export interface StateMachineContext extends GrundModel {
   currentId?: number;
@@ -43,11 +40,6 @@ export const states = {
           initial: "name",
           states: {
             name: {
-              meta: {
-                stepDefinition: {
-                  fields: personNameFields,
-                },
-              },
               on: {
                 NEXT: {
                   target: "adresse",
@@ -55,11 +47,6 @@ export const states = {
               },
             },
             adresse: {
-              meta: {
-                stepDefinition: {
-                  fields: personAdresseFields,
-                },
-              },
               on: {
                 NEXT: {
                   target: "telefonnummer",
@@ -72,11 +59,6 @@ export const states = {
               on: { NEXT: "gesetzlicherVertreter", BACK: "telefonnummer" },
             },
             gesetzlicherVertreter: {
-              meta: {
-                stepDefinition: {
-                  fields: [gesVertreterField],
-                },
-              },
               on: {
                 NEXT: [
                   {

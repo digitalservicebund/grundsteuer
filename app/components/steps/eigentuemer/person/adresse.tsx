@@ -1,13 +1,8 @@
 import type { StepComponentFunction } from "~/routes/formular/_step";
-import { Address } from "~/components";
-import { personAdresseFields } from "~/domain/fields/eigentuemer/person/adresse";
+import { StepFormFields } from "~/components";
 
-const Adresse: StepComponentFunction = ({ formData, i18n }) => {
-  personAdresseFields.forEach((field) => {
-    field.label = i18n[field.name];
-  });
-
-  return <Address fields={personAdresseFields} formData={formData} />;
+const Adresse: StepComponentFunction = ({ stepDefinition, formData, i18n }) => {
+  return <StepFormFields {...{ stepDefinition, formData, i18n }} />;
 };
 
 export default Adresse;
