@@ -1,8 +1,1 @@
-export default {
-  fields: {
-    anrede: { validations: {} },
-    titel: { validations: {} },
-    name: { validations: {} },
-    vorname: { validations: {} },
-  },
-};
+export * as default from "~/domain/steps/shared/name";
