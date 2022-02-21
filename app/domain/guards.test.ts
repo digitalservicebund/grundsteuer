@@ -1,5 +1,7 @@
 import { defaults } from "~/domain/model";
 import { conditions } from "~/domain/guards";
+import { StateMachineContext } from "~/domain/states";
+import _ from "lodash";
 
 describe("anzahlEigentuemerIsTwo", () => {
   it("Should return false if default data", async () => {
@@ -50,6 +52,100 @@ describe("multipleEigentuemer", () => {
       inputData.eigentuemer.anzahl.anzahl = correctValue;
       const result = conditions.multipleEigentuemer(inputData);
       expect(result).toEqual(true);
+    });
+  });
+});
+
+describe("hasGesetzlicherVertreter", () => {
+  describe("first eigentuemer", () => {
+    let defaultInputData: StateMachineContext;
+    beforeEach(() => {
+      defaultInputData = { ..._.cloneDeep(defaults), currentId: 1 };
+    });
+
+    it("Should return false if default data", async () => {
+      const result = conditions.hasGesetzlicherVertreter(defaultInputData);
+      expect(result).toEqual(false);
+    });
+
+    it("Should return false if hasVertreter is false", async () => {
+      const inputData: StateMachineContext = defaultInputData;
+      inputData.eigentuemer.person[0].gesetzlicherVertreter.hasVertreter =
+        "false";
+      const result = conditions.hasGesetzlicherVertreter(inputData);
+      expect(result).toEqual(false);
+    });
+
+    it("Should return false if hasVertreter is true for different person", async () => {
+      const inputData: StateMachineContext = defaultInputData;
+      inputData.eigentuemer.person[0].gesetzlicherVertreter.hasVertreter =
+        "false";
+      inputData.eigentuemer.person[1] = {
+        ...inputData.eigentuemer.person[0],
+        gesetzlicherVertreter: {
+          hasVertreter: "true",
+        },
+      };
+      const result = conditions.hasGesetzlicherVertreter(inputData);
+      expect(result).toEqual(false);
+    });
+
+    it("Should return true if hasVertreter is true", async () => {
+      const inputData: StateMachineContext = defaultInputData;
+      inputData.eigentuemer.person[0].gesetzlicherVertreter.hasVertreter =
+        "true";
+      const result = conditions.hasGesetzlicherVertreter(inputData);
+      expect(result).toEqual(true);
+    });
+  });
+
+  describe("second eigentuemer", () => {
+    let defaultInputData: StateMachineContext;
+    beforeEach(() => {
+      defaultInputData = { ..._.cloneDeep(defaults), currentId: 2 };
+    });
+
+    it("Should return false if default data", async () => {
+      const result = conditions.hasGesetzlicherVertreter(defaultInputData);
+      expect(result).toEqual(false);
+    });
+
+    describe("with second eigentuemer set to default", () => {
+      beforeEach(() => {
+        defaultInputData.eigentuemer.person[1] = _.cloneDeep(
+          defaultInputData.eigentuemer.person[0]
+        );
+      });
+
+      it("Should return false if hasVertreter is false", async () => {
+        const inputData: StateMachineContext = defaultInputData;
+        inputData.eigentuemer.person[1].gesetzlicherVertreter.hasVertreter =
+          "false";
+        const result = conditions.hasGesetzlicherVertreter(inputData);
+        expect(result).toEqual(false);
+      });
+
+      it("Should return false if hasVertreter is true for different person", async () => {
+        const inputData: StateMachineContext = defaultInputData;
+        inputData.eigentuemer.person[1].gesetzlicherVertreter.hasVertreter =
+          "false";
+        inputData.eigentuemer.person[0] = {
+          ...inputData.eigentuemer.person[0],
+          gesetzlicherVertreter: {
+            hasVertreter: "true",
+          },
+        };
+        const result = conditions.hasGesetzlicherVertreter(inputData);
+        expect(result).toEqual(false);
+      });
+
+      it("Should return true if hasVertreter is true", async () => {
+        const inputData: StateMachineContext = defaultInputData;
+        inputData.eigentuemer.person[1].gesetzlicherVertreter.hasVertreter =
+          "true";
+        const result = conditions.hasGesetzlicherVertreter(inputData);
+        expect(result).toEqual(true);
+      });
     });
   });
 });
