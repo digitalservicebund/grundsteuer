@@ -17,6 +17,12 @@
       "no": "Nein, die Eigentümer:innen sind nicht verheiratet"
     },
     "person": {
+      "name": {
+        "anrede": "Anrede",
+        "titel": "Titel",
+        "name": "Name",
+        "vorname": "Vorname"
+      },
       "adresse": {
         "headline": "Adresse",
         "strasse": "Straße / Lagebezeichnung",

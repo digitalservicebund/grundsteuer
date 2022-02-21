@@ -29,6 +29,12 @@ const modelTemplateWithDefaults = {
     },
     person: [
       {
+        name: {
+          anrede: "",
+          titel: "",
+          name: "",
+          vorname: "",
+        },
         adresse: {
           strasse: "",
           hausnummer: "",

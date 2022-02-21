@@ -3,7 +3,6 @@ import {
   Adresse,
   Anteil,
   GesetzlicherVertreter,
-  PersoenlicheAngaben,
   SteuerId,
   Telefonnummer,
 } from "./eigentuemer/person";
@@ -15,6 +14,7 @@ import {
 import Grundstueck from "./grundstueck";
 import Gebaeude from "./gebaeude";
 import Debug from "./debug";
+import PersonName from "~/components/steps/eigentuemer/person/name";
 
 export { Debug as FallbackStepComponent };
 
@@ -23,10 +23,10 @@ export default {
     anzahl: Anzahl,
     verheiratet: Verheiratet,
     person: {
+      name: PersonName,
       adresse: Adresse,
       anteil: Anteil,
       gesetzlicherVertreter: GesetzlicherVertreter,
-      persoenlicheAngaben: PersoenlicheAngaben,
       steuerId: SteuerId,
       telefonnummer: Telefonnummer,
       vertreter: {

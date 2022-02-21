@@ -1,23 +1,3 @@
-import { ConfigStepField } from "~/domain";
+import { personNameFields } from "~/domain/fields/eigentuemer/person/name";
 
-const anrede: ConfigStepField = {
-  name: "anrede",
-  validations: {},
-};
-
-const titel: ConfigStepField = {
-  name: "titel",
-  validations: {},
-};
-
-const name: ConfigStepField = {
-  name: "name",
-  validations: {},
-};
-
-const vorname: ConfigStepField = {
-  name: "vorname",
-  validations: {},
-};
-
-export const vertreterNameFields = [anrede, titel, name, vorname];
+export const vertreterNameFields = personNameFields;

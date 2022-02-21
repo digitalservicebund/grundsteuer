@@ -9,6 +9,12 @@ const inputData = {
       areVerheiratet: "",
     },
     person1: {
+      name: {
+        anrede: "Frau",
+        titel: "Dr.",
+        name: "Drew",
+        vorname: "Nancy",
+      },
       adresse: {
         strasse: "Baker St.",
         hausnummer: "221b",
@@ -51,6 +57,12 @@ const inputData = {
       },
     },
     person2: {
+      name: {
+        anrede: "Herr",
+        titel: "Buccaneer",
+        name: "Threepwood",
+        vorname: "Guybrush",
+      },
       adresse: {
         strasse: "Privet Drive",
         hausnummer: "4",
@@ -84,14 +96,20 @@ const submitBtnSelector = "#nextButton";
 it("Enter data for two eigentuemer", () => {
   cy.visit("/formular/eigentuemer/anzahl");
   cy.get("#anzahl").clear().type(inputData.eigentuemer.anzahl.anzahl);
-  cy.wait(100);
   cy.get(submitBtnSelector).click();
   cy.get("label[for=areVerheiratet-true]").click();
-  cy.wait(100);
   cy.get(submitBtnSelector).click();
   // PERSON 1
-  // TODO persoenlicheAngaben
-  cy.wait(100);
+  cy.get("#anrede").clear().type(inputData.eigentuemer.person1.name.anrede);
+  cy.get("#titel")
+    .clear()
+    .type(inputData.eigentuemer.person1.vertreter.name.titel);
+  cy.get("#name")
+    .clear()
+    .type(inputData.eigentuemer.person1.vertreter.name.name);
+  cy.get("#vorname")
+    .clear()
+    .type(inputData.eigentuemer.person1.vertreter.name.vorname);
   cy.get(submitBtnSelector).click();
   cy.get("#strasse")
     .clear()
@@ -101,20 +119,16 @@ it("Enter data for two eigentuemer", () => {
     .type(inputData.eigentuemer.person1.adresse.hausnummer);
   cy.get("#plz").clear().type(inputData.eigentuemer.person1.adresse.plz);
   cy.get("#ort").clear().type(inputData.eigentuemer.person1.adresse.ort);
-  cy.wait(100);
   cy.get(submitBtnSelector).click();
   cy.get("#telefonnummer")
     .clear()
     .type(inputData.eigentuemer.person1.telefonnummer.telefonnummer);
-  cy.wait(100);
   cy.get(submitBtnSelector).click();
   cy.get("#steuerId")
     .clear()
     .type(inputData.eigentuemer.person1.steuerId.steuerId);
-  cy.wait(100);
   cy.get(submitBtnSelector).click();
   cy.get("#hasVertreter-true").click();
-  cy.wait(100);
   cy.get(submitBtnSelector).click();
   cy.get("#anrede")
     .clear()
@@ -128,7 +142,6 @@ it("Enter data for two eigentuemer", () => {
   cy.get("#vorname")
     .clear()
     .type(inputData.eigentuemer.person1.vertreter.name.vorname);
-  cy.wait(100);
   cy.get(submitBtnSelector).click();
   cy.get("#strasse")
     .clear()
@@ -142,22 +155,27 @@ it("Enter data for two eigentuemer", () => {
   cy.get("#ort")
     .clear()
     .type(inputData.eigentuemer.person1.vertreter.adresse.ort);
-  cy.wait(100);
   cy.get(submitBtnSelector).click();
   cy.get("#telefonnummer")
     .clear()
     .type(inputData.eigentuemer.person1.vertreter.telefonnummer.telefonnummer);
-  cy.wait(100);
   cy.get(submitBtnSelector).click();
   cy.get("#zaehler").clear().type(inputData.eigentuemer.person2.anteil.zaehler);
   cy.get("#nenner").clear().type(inputData.eigentuemer.person2.anteil.nenner);
-  cy.wait(100);
   cy.get(submitBtnSelector).click();
 
   // PERSON 2
   cy.url().should("include", "/formular/eigentuemer/person/2/");
-  // TODO persoenlicheAngaben
-  cy.wait(100);
+  cy.get("#anrede").clear().type(inputData.eigentuemer.person1.name.anrede);
+  cy.get("#titel")
+    .clear()
+    .type(inputData.eigentuemer.person1.vertreter.name.titel);
+  cy.get("#name")
+    .clear()
+    .type(inputData.eigentuemer.person1.vertreter.name.name);
+  cy.get("#vorname")
+    .clear()
+    .type(inputData.eigentuemer.person1.vertreter.name.vorname);
   cy.get(submitBtnSelector).click();
   cy.get("#strasse")
     .clear()
@@ -170,24 +188,19 @@ it("Enter data for two eigentuemer", () => {
     .type(inputData.eigentuemer.person2.adresse.zusatzangaben);
   cy.get("#plz").clear().type(inputData.eigentuemer.person2.adresse.plz);
   cy.get("#ort").clear().type(inputData.eigentuemer.person2.adresse.ort);
-  cy.wait(100);
   cy.get(submitBtnSelector).click();
   cy.get("#telefonnummer")
     .clear()
     .type(inputData.eigentuemer.person2.telefonnummer.telefonnummer);
-  cy.wait(100);
   cy.get(submitBtnSelector).click();
   cy.get("#steuerId")
     .clear()
     .type(inputData.eigentuemer.person2.steuerId.steuerId);
-  cy.wait(100);
   cy.get(submitBtnSelector).click();
   cy.get("#hasVertreter-false").click();
-  cy.wait(100);
   cy.get(submitBtnSelector).click();
   cy.get("#zaehler").clear().type(inputData.eigentuemer.person2.anteil.zaehler);
   cy.get("#nenner").clear().type(inputData.eigentuemer.person2.anteil.nenner);
-  cy.wait(100);
   cy.get(submitBtnSelector).click();
 
   // GRUNDSTUECK
