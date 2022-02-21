@@ -28,8 +28,8 @@ const inputData = {
       },
       vertreter: {
         name: {
-          anrede: "foo",
-          titel: "bar",
+          anrede: "Herr",
+          titel: "Prof Dr",
           name: "Mustermann",
           vorname: "Max",
         },
@@ -135,9 +135,13 @@ it("Enter data for two eigentuemer", () => {
     .type(inputData.eigentuemer.person1.vertreter.adresse.strasse);
   cy.get("#hausnummer")
     .clear()
-    .type(inputData.eigentuemer.person1.adresse.hausnummer);
-  cy.get("#plz").clear().type(inputData.eigentuemer.person1.adresse.plz);
-  cy.get("#ort").clear().type(inputData.eigentuemer.person1.adresse.ort);
+    .type(inputData.eigentuemer.person1.vertreter.adresse.hausnummer);
+  cy.get("#plz")
+    .clear()
+    .type(inputData.eigentuemer.person1.vertreter.adresse.plz);
+  cy.get("#ort")
+    .clear()
+    .type(inputData.eigentuemer.person1.vertreter.adresse.ort);
   cy.wait(100);
   cy.get(submitBtnSelector).click();
   cy.get("#telefonnummer")
@@ -205,10 +209,48 @@ it("Enter data for two eigentuemer", () => {
   cy.get("#person-0").contains(
     "Ort: " + inputData.eigentuemer.person1.adresse.ort
   );
-  // TODO check telefonnummer + SteuerID
-  // cy.get("#person-0").contains("Telefonnummer: " + inputData.eigentuemer.person1.telefonnummer.telefonnummer)
-  // cy.get("#person-0").contains("Steuer-ID: " + inputData.eigentuemer.person1.steuerId.steuerId)
+  cy.get("#person-0").contains(
+    "Telefonnummer: " +
+      inputData.eigentuemer.person1.telefonnummer.telefonnummer
+  );
+  cy.get("#person-0").contains(
+    "Steuer-ID: " + inputData.eigentuemer.person1.steuerId.steuerId
+  );
   cy.get("#person-0").contains("Gesetzlicher Vertreter: Ja");
+  cy.get("#person-0-vertreter").contains(
+    "Anrede: " + inputData.eigentuemer.person1.vertreter.name.anrede
+  );
+  cy.get("#person-0-vertreter").contains(
+    "Titel: " + inputData.eigentuemer.person1.vertreter.name.titel
+  );
+  cy.get("#person-0-vertreter").contains(
+    "Name: " + inputData.eigentuemer.person1.vertreter.name.name
+  );
+  cy.get("#person-0-vertreter").contains(
+    "Vorname: " + inputData.eigentuemer.person1.vertreter.name.vorname
+  );
+  cy.get("#person-0-vertreter").contains(
+    "Straße: " + inputData.eigentuemer.person1.vertreter.adresse.strasse
+  );
+  cy.get("#person-0-vertreter").contains(
+    "Hausnummer: " + inputData.eigentuemer.person1.vertreter.adresse.hausnummer
+  );
+  cy.get("#person-0-vertreter").contains(
+    "PLZ: " + inputData.eigentuemer.person1.vertreter.adresse.plz
+  );
+  cy.get("#person-0-vertreter").contains(
+    "Ort: " + inputData.eigentuemer.person1.vertreter.adresse.ort
+  );
+  cy.get("#person-0-vertreter").contains(
+    "Telefonnummer: " +
+      inputData.eigentuemer.person1.vertreter.telefonnummer.telefonnummer
+  );
+  cy.get("#person-0").contains(
+    "Anteil Zähler: " + inputData.eigentuemer.person1.anteil.zaehler
+  );
+  cy.get("#person-0").contains(
+    "Anteil Nenner: " + inputData.eigentuemer.person1.anteil.nenner
+  );
 
   cy.get("#person-1").contains(
     "Straße: " + inputData.eigentuemer.person2.adresse.strasse
@@ -222,8 +264,18 @@ it("Enter data for two eigentuemer", () => {
   cy.get("#person-1").contains(
     "Ort: " + inputData.eigentuemer.person2.adresse.ort
   );
-  // TODO check telefonnummer + SteuerID
-  // cy.get("#person-1").contains("Telefonnummer: " + inputData.eigentuemer.person2.telefonnummer.telefonnummer)
-  // cy.get("#person-1").contains("Steuer-ID: " + inputData.eigentuemer.person2.steuerId.steuerId)
+  cy.get("#person-1").contains(
+    "Telefonnummer: " +
+      inputData.eigentuemer.person2.telefonnummer.telefonnummer
+  );
+  cy.get("#person-1").contains(
+    "Steuer-ID: " + inputData.eigentuemer.person2.steuerId.steuerId
+  );
   cy.get("#person-1").contains("Gesetzlicher Vertreter: Nein");
+  cy.get("#person-1").contains(
+    "Anteil Zähler: " + inputData.eigentuemer.person2.anteil.zaehler
+  );
+  cy.get("#person-1").contains(
+    "Anteil Nenner: " + inputData.eigentuemer.person2.anteil.nenner
+  );
 });

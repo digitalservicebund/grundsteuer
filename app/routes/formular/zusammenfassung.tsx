@@ -51,6 +51,8 @@ export default function Zusammenfassung() {
                 PLZ: {person.adresse.plz} <br />
                 Zusatzangaben: {person.adresse.zusatzangaben} <br />
                 Postfach: {person.adresse.postfach} <br />
+                Telefonnummer: {person.telefonnummer?.telefonnummer} <br />
+                Steuer-ID: {person.steuerId?.steuerId} <br />
                 Gesetzlicher Vertreter:{" "}
                 {person.gesetzlicherVertreter?.hasVertreter === "true"
                   ? "Ja"
