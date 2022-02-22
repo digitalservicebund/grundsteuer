@@ -41,6 +41,12 @@ export const states = {
         person: {
           id: "person",
           initial: "name",
+          on: {
+            BACK: [
+              { target: "verheiratet", cond: "anzahlEigentuemerIsTwo" },
+              { target: "anzahl" },
+            ],
+          },
           states: {
             name: {
               meta: {
@@ -64,6 +70,7 @@ export const states = {
                 NEXT: {
                   target: "telefonnummer",
                 },
+                BACK: { target: "name" },
               },
             },
             telefonnummer: { on: { NEXT: "steuerId", BACK: "adresse" } },
@@ -101,20 +108,13 @@ export const states = {
               states: {
                 name: {
                   on: {
-                    NEXT: [
-                      {
-                        target: "adresse",
-                      },
-                    ],
+                    NEXT: { target: "adresse" },
                   },
                 },
                 adresse: {
                   on: {
-                    NEXT: [
-                      {
-                        target: "telefonnummer",
-                      },
-                    ],
+                    NEXT: { target: "telefonnummer" },
+                    BACK: { target: "name" },
                   },
                 },
                 telefonnummer: {
@@ -125,6 +125,7 @@ export const states = {
                         target: "#steps.grundstueck",
                       },
                     ],
+                    BACK: { target: "adresse" },
                   },
                 },
               },
@@ -141,15 +142,33 @@ export const states = {
                     target: "#steps.grundstueck",
                   },
                 ],
-                BACK: { target: "gesetzlicherVertreter" },
+                BACK: [
+                  {
+                    target: "vertreter.adresse",
+                    cond: "hasGesetzlicherVertreter",
+                  },
+                  { target: "gesetzlicherVertreter" },
+                ],
               },
             },
           },
         },
       },
     },
-    grundstueck: { on: { NEXT: "gebaeude" } },
-    gebaeude: { on: { NEXT: "zusammenfassung" } },
+    grundstueck: {
+      on: {
+        NEXT: "gebaeude",
+        BACK: [
+          { target: "eigentuemer.person.anteil", cond: "multipleEigentuemer" },
+          {
+            target: "eigentuemer.person.vertreter.telefonnummer",
+            cond: "hasGesetzlicherVertreter",
+          },
+          { target: "eigentuemer.person.gesetzlicherVertreter" },
+        ],
+      },
+    },
+    gebaeude: { on: { NEXT: "zusammenfassung", BACK: "grundstueck" } },
     zusammenfassung: { type: "final" },
   },
 };
