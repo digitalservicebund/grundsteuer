@@ -3,6 +3,10 @@ import { render, screen } from "@testing-library/react";
 import SidebarNavigation from "~/components/SidebarNavigation";
 import { defaults } from "~/domain/model";
 
+jest.mock("react-i18next", () => ({
+  useTranslation: () => ({ t: (key: string) => key }),
+}));
+
 describe("With default data", () => {
   const data = defaults;
 
