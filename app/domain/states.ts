@@ -41,12 +41,6 @@ export const states = {
         person: {
           id: "person",
           initial: "name",
-          on: {
-            BACK: [
-              { target: "verheiratet", cond: "anzahlEigentuemerIsTwo" },
-              { target: "anzahl" },
-            ],
-          },
           states: {
             name: {
               meta: {
@@ -90,14 +84,6 @@ export const states = {
                     cond: "hasGesetzlicherVertreter",
                   },
                   { target: "anteil", cond: "multipleEigentuemer" },
-                  {
-                    target: "#person",
-                    cond: "repeatPerson",
-                    actions: ["incrementCurrentId"],
-                  },
-                  {
-                    target: "#steps.grundstueck",
-                  },
                 ],
                 BACK: { target: "steuerId" },
               },
@@ -119,29 +105,16 @@ export const states = {
                 },
                 telefonnummer: {
                   on: {
-                    NEXT: [
-                      { target: "#person.anteil", cond: "multipleEigentuemer" },
-                      {
-                        target: "#steps.grundstueck",
-                      },
-                    ],
                     BACK: { target: "adresse" },
                   },
                 },
               },
+              on: {
+                NEXT: { target: "anteil", cond: "multipleEigentuemer" },
+              },
             },
             anteil: {
               on: {
-                NEXT: [
-                  {
-                    target: "#person",
-                    cond: "repeatPerson",
-                    actions: ["incrementCurrentId"],
-                  },
-                  {
-                    target: "#steps.grundstueck",
-                  },
-                ],
                 BACK: [
                   {
                     target: "vertreter.adresse",
@@ -152,7 +125,21 @@ export const states = {
               },
             },
           },
+          on: {
+            BACK: [
+              { target: "verheiratet", cond: "anzahlEigentuemerIsTwo" },
+              { target: "anzahl" },
+            ],
+            NEXT: {
+              target: "person",
+              cond: "repeatPerson",
+              actions: ["incrementCurrentId"],
+            },
+          },
         },
+      },
+      on: {
+        NEXT: { target: "grundstueck" },
       },
     },
     grundstueck: {
