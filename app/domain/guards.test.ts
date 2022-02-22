@@ -217,3 +217,24 @@ describe("repeatPerson", () => {
     });
   });
 });
+
+describe("showGebaeude", () => {
+  it("Should return false if default data", async () => {
+    const result = conditions.showGebaeude(_.cloneDeep(defaults));
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false if bebaut is false", async () => {
+    const inputData = _.cloneDeep(defaults);
+    inputData.grundstueck.bebaut = "false";
+    const result = conditions.showGebaeude(inputData);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return true if bebaut is true", async () => {
+    const inputData = _.cloneDeep(defaults);
+    inputData.grundstueck.bebaut = "true";
+    const result = conditions.showGebaeude(inputData);
+    expect(result).toEqual(true);
+  });
+});
