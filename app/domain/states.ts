@@ -111,13 +111,14 @@ export const states = {
               },
               on: {
                 NEXT: { target: "anteil", cond: "multipleEigentuemer" },
+                BACK: { target: "gesetzlicherVertreter" },
               },
             },
             anteil: {
               on: {
                 BACK: [
                   {
-                    target: "vertreter.adresse",
+                    target: "vertreter.telefonnummer",
                     cond: "hasGesetzlicherVertreter",
                   },
                   { target: "gesetzlicherVertreter" },
