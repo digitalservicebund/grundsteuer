@@ -90,7 +90,9 @@ export const loader: LoaderFunction = async ({
       Object.keys(cookie).length < 1 ? defaults : cookie.records,
       currentState
     ),
-    i18n: (await i18n.getFixedT("de", "common"))(currentStateWithoutId),
+    i18n: (await i18n.getFixedT("de", "common"))(currentStateWithoutId, {
+      id: params?.id ? parseInt(params.id) : undefined,
+    }),
     backUrl,
     currentStateWithoutId,
   };

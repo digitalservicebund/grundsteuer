@@ -18,13 +18,14 @@
     },
     "person": {
       "name": {
+        "headline": "Name Person {{id}}",
         "anrede": "Anrede",
         "titel": "Titel",
         "name": "Name",
         "vorname": "Vorname"
       },
       "adresse": {
-        "headline": "Adresse",
+        "headline": "Adresse Person {{id}}",
         "strasse": "Straße / Lagebezeichnung",
         "hausnummer": "Hausnummer (+Hausnummerzusatz)",
         "zusatzangaben": "Zusatzangaben (bswp. Hinterhaus)",
@@ -33,27 +34,29 @@
         "ort": "Ort"
       },
       "telefonnummer": {
-        "headline": "",
+        "headline": "Telefonnummer Person {{id}}",
         "telefonnummer": "Telefonnummer"
       },
       "steuerId": {
-        "headline": "",
+        "headline": "Steuer-ID Person {{id}}",
         "steuerId": "Steuer-ID"
       },
       "gesetzlicherVertreter": {
-        "headline": "Gesetzlicher Vertreter",
+        "headline": "Gesetzlicher Vertreter Person {{id}}",
         "question": "Möchten Sie einen gesetzlichen Vertreter angeben?",
         "yes": "Ja, ich möchte einen ges. Vetreter angeben",
         "no": "Nein, ich möchte keinen ges. Vetreter angeben"
       },
       "vertreter": {
         "name": {
+          "headline": "Gesetzlicher Vertreter Person {{id}} - Name",
           "anrede": "Anrede",
           "titel": "Titel",
           "name": "Name",
           "vorname": "Vorname"
         },
         "adresse": {
+          "headline": "Gesetzlicher Vertreter Person {{id}} - Adresse",
           "strasse": "Straße / Lagebezeichnung",
           "hausnummer": "Hausnummer (+Hausnummerzusatz)",
           "zusatzangaben": "Zusatzangaben (bswp. Hinterhaus)",
@@ -62,12 +65,12 @@
           "ort": "Ort"
         },
         "telefonnummer": {
-          "headline": "",
+          "headline": "Gesetzlicher Vertreter Person {{id}} - Telefonnummer",
           "telefonnummer": "Telefonnummer"
         }
       },
       "anteil": {
-        "headline": "Wie hoch ist Ihr Anteil am Gründstück?",
+        "headline": "Wie hoch ist der Anteil am Gründstück von Person {{id}}?",
         "zaehler": "Zähler",
         "nenner": "Nenner"
       }
