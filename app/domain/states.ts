@@ -79,16 +79,15 @@ export const states = {
               on: {
                 NEXT: [
                   {
-                    target: "#person",
-                    cond: "hasNotGesetzlicherVertreterAndRepeatPerson",
-                    actions: ["incrementCurrentId"],
-                  },
-                  {
                     target: "vertreter",
                     cond: "hasGesetzlicherVertreter",
                   },
                   { target: "anteil", cond: "multipleEigentuemer" },
-
+                  {
+                    target: "#person",
+                    cond: "repeatPerson",
+                    actions: ["incrementCurrentId"],
+                  },
                   {
                     target: "#steps.grundstueck",
                   },

@@ -154,8 +154,8 @@ it("Enter data for two eigentuemer", () => {
     .clear()
     .type(inputData.eigentuemer.person1.vertreter.telefonnummer.telefonnummer);
   cy.get(submitBtnSelector).click();
-  cy.get("#zaehler").clear().type(inputData.eigentuemer.person2.anteil.zaehler);
-  cy.get("#nenner").clear().type(inputData.eigentuemer.person2.anteil.nenner);
+  cy.get("#zaehler").clear().type(inputData.eigentuemer.person1.anteil.zaehler);
+  cy.get("#nenner").clear().type(inputData.eigentuemer.person1.anteil.nenner);
   cy.get(submitBtnSelector).click();
 
   // PERSON 2
