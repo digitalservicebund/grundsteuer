@@ -3,9 +3,9 @@
  */
 module.exports = {
   appDirectory: "app",
-  browserBuildDirectory: "public/build",
+  assetsBuildDirectory: "public/build",
   publicPath: "/build/",
-  serverBuildDirectory: "build",
+  serverBuildPath: "build/index.js",
   devServerPort: 8002,
   ignoredRouteFiles: ["**/*.test.ts", "**/*.test.tsx", "**/_*.tsx"],
 };
