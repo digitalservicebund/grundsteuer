@@ -22,7 +22,7 @@ export const getStepData = (data: GrundModel, path: string) => {
 const modelTemplateWithDefaults = {
   eigentuemer: {
     anzahl: {
-      anzahl: "1",
+      anzahl: "",
     },
     verheiratet: {
       areVerheiratet: "",
