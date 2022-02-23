@@ -17,7 +17,7 @@ import {
   Layout,
 } from "@digitalservice4germany/digital-service-library";
 import { useRemixI18Next } from "remix-i18next";
-import { i18n } from "~/i18n.server";
+import { i18Next } from "~/i18n.server";
 import { getFormDataCookie } from "~/cookies";
 import { defaults } from "~/domain/model";
 import SidebarNavigation from "~/components/SidebarNavigation";
@@ -34,7 +34,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const cookie = await getFormDataCookie(request);
   return json({
     data: Object.keys(cookie).length < 1 ? defaults : cookie.records,
-    i18n: await i18n.getTranslations(request, ["common"]),
+    i18n: await i18Next.getTranslations(request, ["common"]),
   });
 };
 

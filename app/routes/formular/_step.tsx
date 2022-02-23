@@ -11,7 +11,7 @@ import { createMachine } from "xstate";
 import _ from "lodash";
 import { Button } from "@digitalservice4germany/digital-service-library";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
-import { i18n } from "~/i18n.server";
+import { i18Next } from "~/i18n.server";
 import {
   getStepData,
   setStepData,
@@ -110,7 +110,7 @@ export const loader: LoaderFunction = async ({
       Object.keys(cookie).length < 1 ? defaults : cookie.records,
       currentState
     ),
-    i18n: (await i18n.getFixedT("de", "common"))(currentStateWithoutId, {
+    i18n: (await i18Next.getFixedT("de", "common"))(currentStateWithoutId, {
       id: params?.id ? parseInt(params.id) : undefined,
     }),
     backUrl,
