@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 import eigentuemerAnzahl from "./eigentuemer/anzahl";
 import eigentuemerPersonAdresse from "./eigentuemer/person/adresse";
 import eigentuemerPersonAnteil from "./eigentuemer/person/anteil";
@@ -11,7 +13,7 @@ import eigentuemerPersonVertreterTelefonnummer from "./eigentuemer/person/vertre
 import eigentuemerVerheiratet from "./eigentuemer/verheiratet";
 import grundstueck from "./grundstueck";
 
-export default {
+const stepDefinitions = {
   eigentuemer: {
     anzahl: eigentuemerAnzahl,
     person: {
@@ -30,4 +32,27 @@ export default {
     verheiratet: eigentuemerVerheiratet,
   },
   grundstueck: grundstueck,
+};
+
+export default stepDefinitions;
+
+export type StepDefinitionField = {
+  validations: any;
+};
+
+export type StepDefinitionFieldWithOptions = StepDefinitionField & {
+  type: "radio" | "select";
+  options: { value: string }[];
+};
+
+export type StepDefinition = {
+  fields: Record<string, StepDefinitionField | StepDefinitionFieldWithOptions>;
+};
+
+export const getStepDefinition = ({
+  currentStateWithoutId,
+}: {
+  currentStateWithoutId: string;
+}): StepDefinition => {
+  return _.get(stepDefinitions, currentStateWithoutId);
 };

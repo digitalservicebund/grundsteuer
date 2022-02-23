@@ -24,7 +24,7 @@ import { validateField } from "~/domain/validation";
 import { actions } from "~/domain/actions";
 import { Handle } from "~/components/SidebarNavigation";
 import stepComponents, { FallbackStepComponent } from "~/components/steps";
-import stepDefinitions from "~/domain/steps";
+import { getStepDefinition } from "~/domain/steps";
 
 const getCurrentState = (request: Request) => {
   return new URL(request.url).pathname
