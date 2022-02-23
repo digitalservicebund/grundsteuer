@@ -1,1 +1,1 @@
-export { sharedAdresse as default } from "~/domain/steps/shared/adresse";
+export { stepDefinition as default } from "~/domain/steps/shared/adresse";

@@ -67,14 +67,6 @@ const getBackUrl = ({ machine, currentStateWithoutId }: any) => {
   return backUrl;
 };
 
-const getStepDefinition = ({
-  currentStateWithoutId,
-}: {
-  currentStateWithoutId: string;
-}) => {
-  return _.get(stepDefinitions, currentStateWithoutId);
-};
-
 type LoaderData = {
   formData: Record<string, any>;
   i18n: {

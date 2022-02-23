@@ -1,4 +1,6 @@
-export default {
+import { StepDefinition } from "~/domain/steps";
+
+const stepDefinition: StepDefinition = {
   fields: {
     bebaut: {
       type: "radio",
@@ -7,3 +9,5 @@ export default {
     },
   },
 };
+
+export default stepDefinition;

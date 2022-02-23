@@ -1,4 +1,6 @@
-export default {
+import { StepDefinition } from "~/domain/steps";
+
+const stepDefinition: StepDefinition = {
   fields: {
     anzahl: {
       type: "select",
@@ -13,3 +15,5 @@ export default {
     },
   },
 };
+
+export default stepDefinition;

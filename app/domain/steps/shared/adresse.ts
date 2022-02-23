@@ -1,4 +1,6 @@
-export const sharedAdresse = {
+import { StepDefinition } from "~/domain/steps";
+
+export const stepDefinition: StepDefinition = {
   fields: {
     strasse: {
       validations: {
