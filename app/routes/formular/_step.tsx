@@ -137,11 +137,13 @@ export const action: ActionFunction = async ({ params, request }) => {
 
   // validate
   const errors: Record<string, Array<string>> = {};
-  const stateNode = machine.getStateNodeByPath(currentStateWithoutId);
-  stateNode.meta?.stepDefinition?.fields.forEach((field: ConfigStepField) => {
-    const fieldErrorMessages = validateField(field, fieldValues);
-    if (fieldErrorMessages.length > 0) errors[field.name] = fieldErrorMessages;
-  });
+  const stepDefinition = getStepDefinition({ currentStateWithoutId });
+  Object.entries(stepDefinition.fields).forEach(
+    ([name, field]: [string, any]) => {
+      const fieldErrorMessages = validateField(name, field, fieldValues);
+      if (fieldErrorMessages.length > 0) errors[name] = fieldErrorMessages;
+    }
+  );
   if (Object.keys(errors).length >= 1) return { errors } as ActionData;
 
   // store

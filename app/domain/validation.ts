@@ -27,14 +27,18 @@ type ValidatorFunction = (
   formData: StepFormData
 ) => string | undefined;
 
-export function validateField(field: ConfigStepField, formData: StepFormData) {
+export function validateField(
+  name: string,
+  field: ConfigStepField,
+  formData: StepFormData
+) {
   return Object.keys(field.validations).reduce(
     (previousErrorMessages: string[], validationKey: string) => {
       const validatorFunction: ValidatorFunction =
         validatorFunctions[validationKey];
-      invariant(formData[field.name] != null);
+      invariant(formData[name] != null);
       const errorMessage = validatorFunction(
-        formData[field.name],
+        formData[name],
         field.validations[validationKey],
         formData
       );
