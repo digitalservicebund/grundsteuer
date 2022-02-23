@@ -65,7 +65,7 @@
     "cypress": "^9.5.0",
     "dotenv-safe": "^8.2.0",
     "eslint": "^8.9.0",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-prettier": "^8.4.0",
     "husky": "^7.0.4",
     "is-ci": "^3.0.1",
     "jest": "^27.5.1",
