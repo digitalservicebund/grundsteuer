@@ -21,7 +21,6 @@ import {
 import { getMachineConfig, StateMachineContext } from "~/domain/states";
 import { conditions } from "~/domain/guards";
 import { validateField } from "~/domain/validation";
-import { ConfigStepField } from "~/domain";
 import { actions } from "~/domain/actions";
 import { Handle } from "~/components/SidebarNavigation";
 import stepComponents, { FallbackStepComponent } from "~/components/steps";
@@ -43,11 +42,11 @@ const getMachine = ({ cookie, params }: any) => {
   if (params.id) {
     machineContext.currentId = parseInt(params.id);
   }
-  const machine = createMachine(getMachineConfig(machineContext) as any, {
+
+  return createMachine(getMachineConfig(machineContext) as any, {
     guards: conditions,
     actions: actions,
   });
-  return machine;
 };
 
 const getBackUrl = ({ machine, currentStateWithoutId }: any) => {
@@ -182,7 +181,7 @@ export type StepComponentFunction = (
 ) => JSX.Element;
 
 export function Step() {
-  const loaderData = useLoaderData() as LoaderData;
+  const loaderData = useLoaderData();
   const actionData = useActionData() as ActionData;
   const { i18n, backUrl, currentStateWithoutId } = loaderData;
   const StepComponent =
