@@ -96,7 +96,7 @@ export const submitBtnSelector = "#nextButton";
 describe("Happy Path", () => {
   it("Enter data for two eigentuemer", () => {
     cy.visit("/formular/eigentuemer/anzahl");
-    cy.get("#anzahl").clear().type(inputData.eigentuemer.anzahl.anzahl);
+    cy.get("#anzahl").select(inputData.eigentuemer.anzahl.anzahl);
     cy.get(submitBtnSelector).click();
     cy.get("label[for=areVerheiratet-true]").click();
     cy.get(submitBtnSelector).click();
