@@ -22,7 +22,7 @@ describe("Person name route", () => {
   describe("With two eigentuemer set", () => {
     beforeEach(() => {
       cy.visit("/formular/eigentuemer/anzahl");
-      cy.get("#anzahl").clear().type("2");
+      cy.get("#anzahl").select("2");
       cy.get(submitBtnSelector).click();
       cy.visit("/formular/eigentuemer/person/1/name");
     });

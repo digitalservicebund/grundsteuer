@@ -7,7 +7,7 @@ export const sharedAdresse = {
           msg: "musst du eingeben",
         },
         maxLength: {
-          param: 12,
+          param: 200,
           msg: "zu lang",
         },
       },
