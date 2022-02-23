@@ -16,4 +16,4 @@ We use statecharts to model the user flow logic. They allow us to model even ver
 
 ## Consequences
 
-We get the benefits of using statecharts (easier to understand, decoupled behavior, scales well with complexity and more). It's a new technique for the team, need to learn it.
+We get the benefits of using statecharts (easier to understand, decoupled behavior, scales well with complexity and more). It's a new technique for the team, need to learn it. We might come to a point where the external library does not suit our demands (appropriately), so we might need workarounds.
