@@ -26,6 +26,7 @@ const StepFormFields = (props: StepFormFieldsProps) => {
             definition,
             i18n: i18n.fields[name],
             value: formData?.[name],
+            key: name,
           }}
         />
       ))}
