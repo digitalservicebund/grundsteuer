@@ -3,37 +3,51 @@ import _ from "lodash";
 import eigentuemerAnzahl, {
   EigentuemerAnzahlFields,
 } from "./eigentuemer/anzahl";
+export type { EigentuemerAnzahlFields };
+
 import eigentuemerPersonAdresse, {
   EigentuemerPersonAdresseFields,
 } from "./eigentuemer/person/adresse";
+
 import eigentuemerPersonAnteil, {
   EigentuemerPersonAnteilFields,
 } from "./eigentuemer/person/anteil";
+
 import eigentuemerPersonGesetzlicherVertreter, {
   EigentuemerPersonGesetzlicherVertreterFields,
 } from "./eigentuemer/person/gesetzlicherVertreter";
+export type { EigentuemerPersonGesetzlicherVertreterFields };
+
 import eigentuemerPersonName, {
   EigentuemerPersonNameFields,
 } from "./eigentuemer/person/name";
+
 import eigentuemerPersonSteuerId, {
   EigentuemerPersonSteuerIdFields,
 } from "./eigentuemer/person/steuerId";
+
 import eigentuemerPersonTelefonnummer, {
   EigentuemerPersonTelefonnummerFields,
 } from "./eigentuemer/person/telefonnummer";
+
 import eigentuemerPersonVertreterAdresse, {
   EigentuemerPersonVertreterAdresseFields,
 } from "./eigentuemer/person/vertreter/adresse";
+
 import eigentuemerPersonVertreterName, {
   EigentuemerPersonVertreterNameFields,
 } from "./eigentuemer/person/vertreter/name";
+
 import eigentuemerPersonVertreterTelefonnummer, {
   EigentuemerPersonVertreterTelefonnummerFields,
 } from "./eigentuemer/person/vertreter/telefonnummer";
+
 import eigentuemerVerheiratet, {
   EigentuemerVerheiratetFields,
 } from "./eigentuemer/verheiratet";
+
 import grundstueck, { GrundstueckFields } from "./grundstueck";
+export type { GrundstueckFields };
 
 const stepDefinitions = {
   eigentuemer: {

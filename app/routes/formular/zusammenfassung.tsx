@@ -2,13 +2,12 @@ import { LoaderFunction, useLoaderData } from "remix";
 import { getFormDataCookie } from "~/cookies";
 import { createGraph } from "~/domain";
 import { Handle } from "~/components/SidebarNavigation";
-import { defaults } from "~/domain/model";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const cookie = await getFormDataCookie(request);
 
   const graph = createGraph({
-    machineContext: Object.keys(cookie).length < 1 ? defaults : cookie.records,
+    machineContext: cookie.records,
   });
 
   return { graph, data: cookie.records };
@@ -45,16 +44,16 @@ export default function Zusammenfassung() {
             return (
               <div className="bg-gray-100 mb-3" key={personKey} id={personKey}>
                 <h4 className="font-bold">Person {index + 1}</h4>
-                Anrede: {person.name.anrede} <br />
-                Titel: {person.name.titel} <br />
-                Name: {person.name.name} <br />
-                Vorname: {person.name.vorname} <br />
-                Straße: {person.adresse.strasse} <br />
-                Hausnummer: {person.adresse.hausnummer} <br />
-                Ort: {person.adresse.ort} <br />
-                PLZ: {person.adresse.plz} <br />
-                Zusatzangaben: {person.adresse.zusatzangaben} <br />
-                Postfach: {person.adresse.postfach} <br />
+                Anrede: {person.name?.anrede} <br />
+                Titel: {person.name?.titel} <br />
+                Name: {person.name?.name} <br />
+                Vorname: {person.name?.vorname} <br />
+                Straße: {person.adresse?.strasse} <br />
+                Hausnummer: {person.adresse?.hausnummer} <br />
+                Ort: {person.adresse?.ort} <br />
+                PLZ: {person.adresse?.plz} <br />
+                Zusatzangaben: {person.adresse?.zusatzangaben} <br />
+                Postfach: {person.adresse?.postfach} <br />
                 Telefonnummer: {person.telefonnummer?.telefonnummer} <br />
                 Steuer-ID: {person.steuerId?.steuerId} <br />
                 Gesetzlicher Vertreter:{" "}

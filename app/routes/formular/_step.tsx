@@ -12,12 +12,7 @@ import _ from "lodash";
 import { Button } from "@digitalservice4germany/digital-service-library";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 import { i18Next } from "~/i18n.server";
-import {
-  getStepData,
-  setStepData,
-  StepFormData,
-  defaults,
-} from "~/domain/model";
+import { getStepData, setStepData, StepFormData } from "~/domain/model";
 import { getMachineConfig, StateMachineContext } from "~/domain/states";
 import { conditions } from "~/domain/guards";
 import { validateField } from "~/domain/validation";
@@ -98,10 +93,7 @@ export const loader: LoaderFunction = async ({
   const stepDefinition = getStepDefinition({ currentStateWithoutId });
 
   return {
-    formData: getStepData(
-      Object.keys(cookie).length < 1 ? defaults : cookie.records,
-      currentState
-    ),
+    formData: getStepData(cookie.records, currentState),
     i18n: (await i18Next.getFixedT("de", "common"))(currentStateWithoutId, {
       id: params?.id ? parseInt(params.id) : undefined,
     }),
@@ -117,7 +109,7 @@ type ActionData = {
 
 export const action: ActionFunction = async ({ params, request }) => {
   const cookie = await getFormDataCookie(request);
-  if (!cookie.records) cookie.records = defaults;
+  if (!cookie.records) cookie.records = {};
 
   const currentState = getCurrentState(request);
   const currentStateWithoutId = getCurrentStateWithoutId(currentState);

@@ -16,7 +16,7 @@ const multipleEigentuemer = (context: StateMachineContext) => {
 };
 
 const hasGesetzlicherVertreter = (context: StateMachineContext) => {
-  const person = context?.eigentuemer?.person?.[(context.currentId || 1) - 1];
+  const person = context?.eigentuemer?.person?.[(context?.currentId || 1) - 1];
   if (!person) return false;
 
   const gesetzlicherVertreter = person.gesetzlicherVertreter;
@@ -28,7 +28,7 @@ const hasGesetzlicherVertreter = (context: StateMachineContext) => {
 
 const repeatPerson = (context: StateMachineContext) => {
   return (
-    (context.currentId || 1) < Number(context?.eigentuemer?.anzahl?.anzahl)
+    (context?.currentId || 1) < Number(context?.eigentuemer?.anzahl?.anzahl)
   );
 };
 

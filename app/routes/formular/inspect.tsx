@@ -4,14 +4,13 @@ import { createMachine } from "xstate";
 import { inspect } from "@xstate/inspect";
 import { useMachine } from "@xstate/react";
 import { getFormDataCookie } from "~/cookies";
-import { defaults } from "~/domain/model";
 import { getMachineConfig } from "~/domain/states";
 import { conditions as guards } from "~/domain/guards";
 import { actions } from "~/domain/actions";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const cookie = await getFormDataCookie(request);
-  const context = Object.keys(cookie).length < 1 ? defaults : cookie.records;
+  const context = cookie.records;
   const machineConfig = getMachineConfig(context);
   return { machineConfig };
 };

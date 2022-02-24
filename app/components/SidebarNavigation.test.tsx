@@ -2,14 +2,14 @@ import React from "react";
 import _ from "lodash";
 import { render, screen } from "@testing-library/react";
 import SidebarNavigation from "~/components/SidebarNavigation";
-import { defaults } from "~/domain/model";
+import { grundModelFactory } from "test/factories";
 
 jest.mock("react-i18next", () => ({
   useTranslation: () => ({ t: (key: string) => key }),
 }));
 
 describe("With default data", () => {
-  const data = defaults;
+  const data = {};
 
   describe("No matching routes", () => {
     it("should render only home link", () => {
@@ -73,7 +73,6 @@ describe("With default data", () => {
 });
 
 describe("With bebaut data and matching routes indicating to show navigation", () => {
-  const data = defaults;
   const matchingRoutes = [
     {
       id: "/route",
@@ -87,9 +86,7 @@ describe("With bebaut data and matching routes indicating to show navigation", (
   ];
 
   describe("With bebaut false", () => {
-    beforeEach(() => {
-      _.set(data, "grundstueck.bebaut", "false");
-    });
+    const data = grundModelFactory.grundstueck({ bebaut: "false" }).build();
 
     it("should render the expected navigation links, not gebaeude", () => {
       render(<SidebarNavigation matchingRoutes={matchingRoutes} data={data} />);
@@ -109,9 +106,7 @@ describe("With bebaut data and matching routes indicating to show navigation", (
   });
 
   describe("With bebaut true", () => {
-    beforeEach(() => {
-      _.set(data, "grundstueck.bebaut", "true");
-    });
+    const data = grundModelFactory.grundstueck({ bebaut: "true" }).build();
 
     it("should render the expected navigation links, including gebaeude", () => {
       render(<SidebarNavigation matchingRoutes={matchingRoutes} data={data} />);
