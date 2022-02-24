@@ -1,4 +1,4 @@
-import { GrundModel } from "./model";
+import { GrundModel } from "./steps";
 
 export interface StateMachineContext extends GrundModel {
   currentId?: number;

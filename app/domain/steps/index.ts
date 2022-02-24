@@ -58,7 +58,7 @@ const stepDefinitions = {
 
 export default stepDefinitions;
 
-export type GrundModelNew = {
+export type GrundModel = {
   eigentuemer?: {
     anzahl?: EigentuemerAnzahlFields;
     person?: {

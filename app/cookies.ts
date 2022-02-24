@@ -1,6 +1,6 @@
 import { createCookie } from "remix";
 
-import { GrundModel } from "~/domain/model";
+import { GrundModel } from "~/domain/steps";
 
 export interface CookieData {
   records: GrundModel;

@@ -1,4 +1,4 @@
-import { GrundModel } from "./model";
+import { GrundModel } from "./steps";
 import { ConditionPredicate, AnyEventObject } from "xstate";
 import { StateMachineContext } from "~/domain/states";
 

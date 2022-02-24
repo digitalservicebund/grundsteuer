@@ -1,7 +1,6 @@
 import _ from "lodash";
 
-import type { GrundModelNew as GrundModel } from "~/domain/steps";
-export type { GrundModelNew as GrundModel } from "~/domain/steps";
+import type { GrundModel } from "~/domain/steps";
 
 export type StepFormDataValue = string | undefined;
 export type StepFormData = Record<string, StepFormDataValue>;

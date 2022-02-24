@@ -3,7 +3,7 @@ import { conditions } from "~/domain/guards";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { RouteData } from "@remix-run/react/routeData";
-import { GrundModel } from "~/domain/model";
+import { GrundModel } from "~/domain/steps";
 
 export type Handle = {
   showFormNavigation: boolean;
