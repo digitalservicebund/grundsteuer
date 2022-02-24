@@ -118,8 +118,6 @@ export const action: ActionFunction = async ({ params, request }) => {
     await request.formData()
   ) as unknown as StepFormData;
 
-  const machine = getMachine({ cookie, params });
-
   // validate
   const errors: Record<string, Array<string>> = {};
   const stepDefinition = getStepDefinition({ currentStateWithoutId });
@@ -135,6 +133,7 @@ export const action: ActionFunction = async ({ params, request }) => {
   cookie.records = setStepData(cookie.records, currentState, fieldValues);
 
   // redirect
+  const machine = getMachine({ cookie, params });
   const nextState = machine.transition(currentStateWithoutId, {
     type: "NEXT",
   });
