@@ -229,12 +229,6 @@ describe("repeatPerson", () => {
       const result = conditions.repeatPerson(inputData);
       expect(result).toEqual(false);
     });
-
-    it("Should return false if default data and second eigentuemer", async () => {
-      const inputData = { ...defaultInputData, currentId: 2 };
-      const result = conditions.repeatPerson(inputData);
-      expect(result).toEqual(false);
-    });
   });
 });
 
