@@ -36,12 +36,12 @@ describe("getFormDataCookie", () => {
     const cookie: CookieData = await getFormDataCookie(request);
 
     expect(Object.keys(cookie).length).toEqual(1);
-    expect(cookie.records.eigentuemer.person[0].adresse.strasse).toEqual(
+    expect(cookie.records.eigentuemer?.person?.[0]?.adresse?.strasse).toEqual(
       "Hauptstraße"
     );
-    expect(cookie.records.eigentuemer.person[0].adresse.hausnummer).toEqual(
-      "42"
-    );
+    expect(
+      cookie.records.eigentuemer?.person?.[0]?.adresse?.hausnummer
+    ).toEqual("42");
   });
 });
 

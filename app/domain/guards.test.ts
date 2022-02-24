@@ -23,7 +23,7 @@ describe("anzahlEigentuemerIsTwo", () => {
 
   it("Should return true if anzahl eigentümer is 2", async () => {
     const inputData = _.cloneDeep(defaults);
-    inputData.eigentuemer.anzahl.anzahl = "2";
+    _.set(inputData, "eigentuemer.anzahl.anzahl", "2");
     const result = conditions.anzahlEigentuemerIsTwo(inputData);
     expect(result).toEqual(true);
   });
@@ -39,7 +39,7 @@ describe("multipleEigentuemer", () => {
     const inputData = _.cloneDeep(defaults);
     const wrongValues = ["1", "0"];
     wrongValues.forEach((wrongValue) => {
-      inputData.eigentuemer.anzahl.anzahl = wrongValue;
+      _.set(inputData, "eigentuemer.anzahl.anzahl", wrongValue);
       const result = conditions.multipleEigentuemer(inputData);
       expect(result).toEqual(false);
     });
@@ -47,9 +47,9 @@ describe("multipleEigentuemer", () => {
 
   it("Should return true if anzahl eigentümer is 2 or more", async () => {
     const inputData = _.cloneDeep(defaults);
-    const correctValues = ["2", "3", "10"];
+    const correctValues = ["2", "3", "5"];
     correctValues.forEach((correctValue) => {
-      inputData.eigentuemer.anzahl.anzahl = correctValue;
+      _.set(inputData, "eigentuemer.anzahl.anzahl", correctValue);
       const result = conditions.multipleEigentuemer(inputData);
       expect(result).toEqual(true);
     });
@@ -83,30 +83,39 @@ describe("hasGesetzlicherVertreter", () => {
 
     it("Should return false if hasVertreter is false", async () => {
       const inputData: StateMachineContext = defaultInputData;
-      inputData.eigentuemer.person[0].gesetzlicherVertreter.hasVertreter =
-        "false";
+      _.set(
+        inputData,
+        "eigentuemer.person.0.gesetzlicherVertreter.hasVertreter",
+        "false"
+      );
       const result = conditions.hasGesetzlicherVertreter(inputData);
       expect(result).toEqual(false);
     });
 
     it("Should return false if hasVertreter is true for different person", async () => {
       const inputData: StateMachineContext = defaultInputData;
-      inputData.eigentuemer.person[0].gesetzlicherVertreter.hasVertreter =
-        "false";
-      inputData.eigentuemer.person[1] = {
-        ...inputData.eigentuemer.person[0],
+      _.set(
+        inputData,
+        "eigentuemer.person.0.gesetzlicherVertreter.hasVertreter",
+        "false"
+      );
+      _.set(inputData, "eigentuemer.person.1", {
+        ...inputData?.eigentuemer?.person?.[0],
         gesetzlicherVertreter: {
           hasVertreter: "true",
         },
-      };
+      });
       const result = conditions.hasGesetzlicherVertreter(inputData);
       expect(result).toEqual(false);
     });
 
     it("Should return true if hasVertreter is true", async () => {
       const inputData: StateMachineContext = defaultInputData;
-      inputData.eigentuemer.person[0].gesetzlicherVertreter.hasVertreter =
-        "true";
+      _.set(
+        inputData,
+        "eigentuemer.person.0.gesetzlicherVertreter.hasVertreter",
+        "true"
+      );
       const result = conditions.hasGesetzlicherVertreter(inputData);
       expect(result).toEqual(true);
     });
@@ -125,37 +134,48 @@ describe("hasGesetzlicherVertreter", () => {
 
     describe("with second eigentuemer set to default", () => {
       beforeEach(() => {
-        defaultInputData.eigentuemer.person[1] = _.cloneDeep(
-          defaultInputData.eigentuemer.person[0]
+        _.set(
+          defaultInputData,
+          "eigentuemer.person.1",
+          _.cloneDeep(defaultInputData?.eigentuemer?.person?.[0])
         );
       });
 
       it("Should return false if hasVertreter is false", async () => {
         const inputData: StateMachineContext = defaultInputData;
-        inputData.eigentuemer.person[1].gesetzlicherVertreter.hasVertreter =
-          "false";
+        _.set(
+          inputData,
+          "eigentuemer.person.1.gesetzlicherVertreter.hasVertreter",
+          "false"
+        );
         const result = conditions.hasGesetzlicherVertreter(inputData);
         expect(result).toEqual(false);
       });
 
       it("Should return false if hasVertreter is true for different person", async () => {
         const inputData: StateMachineContext = defaultInputData;
-        inputData.eigentuemer.person[1].gesetzlicherVertreter.hasVertreter =
-          "false";
-        inputData.eigentuemer.person[0] = {
-          ...inputData.eigentuemer.person[0],
+        _.set(
+          inputData,
+          "eigentuemer.person.1.gesetzlicherVertreter.hasVertreter",
+          "false"
+        );
+        _.set(inputData, "eigentuemer.person.0", {
+          ...inputData?.eigentuemer?.person?.[0],
           gesetzlicherVertreter: {
             hasVertreter: "true",
           },
-        };
+        });
         const result = conditions.hasGesetzlicherVertreter(inputData);
         expect(result).toEqual(false);
       });
 
       it("Should return true if hasVertreter is true", async () => {
         const inputData: StateMachineContext = defaultInputData;
-        inputData.eigentuemer.person[1].gesetzlicherVertreter.hasVertreter =
-          "true";
+        _.set(
+          inputData,
+          "eigentuemer.person.1.gesetzlicherVertreter.hasVertreter",
+          "true"
+        );
         const result = conditions.hasGesetzlicherVertreter(inputData);
         expect(result).toEqual(true);
       });
@@ -181,7 +201,7 @@ describe("repeatPerson", () => {
     let defaultInputData: StateMachineContext;
     beforeEach(() => {
       defaultInputData = _.cloneDeep(defaults);
-      defaultInputData.eigentuemer.anzahl.anzahl = "2";
+      _.set(defaultInputData, "eigentuemer.anzahl.anzahl", "2");
     });
 
     it("Should return true if default data and first eigentuemer", async () => {
@@ -201,7 +221,7 @@ describe("repeatPerson", () => {
     let defaultInputData: StateMachineContext;
     beforeEach(() => {
       defaultInputData = _.cloneDeep(defaults);
-      defaultInputData.eigentuemer.anzahl.anzahl = "1";
+      _.set(defaultInputData, "eigentuemer.anzahl.anzahl", "1");
     });
 
     it("Should return false if default data and first eigentuemer", async () => {
@@ -226,14 +246,14 @@ describe("showGebaeude", () => {
 
   it("Should return false if bebaut is false", async () => {
     const inputData = _.cloneDeep(defaults);
-    inputData.grundstueck.bebaut = "false";
+    _.set(inputData, "grundstueck.bebaut", "false");
     const result = conditions.showGebaeude(inputData);
     expect(result).toEqual(false);
   });
 
   it("Should return true if bebaut is true", async () => {
     const inputData = _.cloneDeep(defaults);
-    inputData.grundstueck.bebaut = "true";
+    _.set(inputData, "grundstueck.bebaut", "true");
     const result = conditions.showGebaeude(inputData);
     expect(result).toEqual(true);
   });

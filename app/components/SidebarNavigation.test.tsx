@@ -1,4 +1,5 @@
 import React from "react";
+import _ from "lodash";
 import { render, screen } from "@testing-library/react";
 import SidebarNavigation from "~/components/SidebarNavigation";
 import { defaults } from "~/domain/model";
@@ -87,7 +88,7 @@ describe("With bebaut data and matching routes indicating to show navigation", (
 
   describe("With bebaut false", () => {
     beforeEach(() => {
-      data.grundstueck.bebaut = "false";
+      _.set(data, "grundstueck.bebaut", "false");
     });
 
     it("should render the expected navigation links, not gebaeude", () => {
@@ -109,7 +110,7 @@ describe("With bebaut data and matching routes indicating to show navigation", (
 
   describe("With bebaut true", () => {
     beforeEach(() => {
-      data.grundstueck.bebaut = "true";
+      _.set(data, "grundstueck.bebaut", "true");
     });
 
     it("should render the expected navigation links, including gebaeude", () => {
