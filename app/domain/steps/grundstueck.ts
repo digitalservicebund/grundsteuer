@@ -1,5 +1,9 @@
 import { StepDefinition } from "~/domain/steps";
 
+export type GrundstueckFields = {
+  bebaut: "true" | "false";
+};
+
 const stepDefinition: StepDefinition = {
   fields: {
     bebaut: {

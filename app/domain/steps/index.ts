@@ -1,17 +1,39 @@
 import _ from "lodash";
 
-import eigentuemerAnzahl from "./eigentuemer/anzahl";
-import eigentuemerPersonAdresse from "./eigentuemer/person/adresse";
-import eigentuemerPersonAnteil from "./eigentuemer/person/anteil";
-import eigentuemerPersonGesetzlicherVertreter from "./eigentuemer/person/gesetzlicherVertreter";
-import eigentuemerPersonName from "./eigentuemer/person/name";
-import eigentuemerPersonSteuerId from "./eigentuemer/person/steuerId";
-import eigentuemerPersonTelefonnummer from "./eigentuemer/person/telefonnummer";
-import eigentuemerPersonVertreterAdresse from "./eigentuemer/person/vertreter/adresse";
-import eigentuemerPersonVertreterName from "./eigentuemer/person/vertreter/name";
-import eigentuemerPersonVertreterTelefonnummer from "./eigentuemer/person/vertreter/telefonnummer";
-import eigentuemerVerheiratet from "./eigentuemer/verheiratet";
-import grundstueck from "./grundstueck";
+import eigentuemerAnzahl, {
+  EigentuemerAnzahlFields,
+} from "./eigentuemer/anzahl";
+import eigentuemerPersonAdresse, {
+  EigentuemerPersonAdresseFields,
+} from "./eigentuemer/person/adresse";
+import eigentuemerPersonAnteil, {
+  EigentuemerPersonAnteilFields,
+} from "./eigentuemer/person/anteil";
+import eigentuemerPersonGesetzlicherVertreter, {
+  EigentuemerPersonGesetzlicherVertreterFields,
+} from "./eigentuemer/person/gesetzlicherVertreter";
+import eigentuemerPersonName, {
+  EigentuemerPersonNameFields,
+} from "./eigentuemer/person/name";
+import eigentuemerPersonSteuerId, {
+  EigentuemerPersonSteuerIdFields,
+} from "./eigentuemer/person/steuerId";
+import eigentuemerPersonTelefonnummer, {
+  EigentuemerPersonTelefonnummerFields,
+} from "./eigentuemer/person/telefonnummer";
+import eigentuemerPersonVertreterAdresse, {
+  EigentuemerPersonVertreterAdresseFields,
+} from "./eigentuemer/person/vertreter/adresse";
+import eigentuemerPersonVertreterName, {
+  EigentuemerPersonVertreterNameFields,
+} from "./eigentuemer/person/vertreter/name";
+import eigentuemerPersonVertreterTelefonnummer, {
+  EigentuemerPersonVertreterTelefonnummerFields,
+} from "./eigentuemer/person/vertreter/telefonnummer";
+import eigentuemerVerheiratet, {
+  EigentuemerVerheiratetFields,
+} from "./eigentuemer/verheiratet";
+import grundstueck, { GrundstueckFields } from "./grundstueck";
 
 const stepDefinitions = {
   eigentuemer: {
@@ -35,6 +57,27 @@ const stepDefinitions = {
 };
 
 export default stepDefinitions;
+
+export type GrundModelNew = {
+  eigentuemer?: {
+    anzahl?: EigentuemerAnzahlFields;
+    person?: {
+      adresse?: EigentuemerPersonAdresseFields;
+      anteil?: EigentuemerPersonAnteilFields;
+      gesetzlicherVertreter?: EigentuemerPersonGesetzlicherVertreterFields;
+      name?: EigentuemerPersonNameFields;
+      steuerId?: EigentuemerPersonSteuerIdFields;
+      telefonnummer?: EigentuemerPersonTelefonnummerFields;
+      vertreter?: {
+        adresse?: EigentuemerPersonVertreterAdresseFields;
+        name?: EigentuemerPersonVertreterNameFields;
+        telefonnummer?: EigentuemerPersonVertreterTelefonnummerFields;
+      };
+    }[];
+    verheiratet?: EigentuemerVerheiratetFields;
+  };
+  grundstueck?: GrundstueckFields;
+};
 
 export type StepDefinitionField = {
   validations: any;

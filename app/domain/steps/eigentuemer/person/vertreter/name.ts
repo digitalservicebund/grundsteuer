@@ -1,1 +1,2 @@
-export { stepDefinition as default } from "~/domain/steps/shared/name";
+export { stepDefinition as default } from "../../../shared/name";
+export type { NameFields as EigentuemerPersonVertreterNameFields } from "../../../shared/name";

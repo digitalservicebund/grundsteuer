@@ -1,5 +1,8 @@
 import _ from "lodash";
 
+import type { GrundModelNew as GrundModel } from "~/domain/steps";
+export type { GrundModelNew as GrundModel } from "~/domain/steps";
+
 export type StepFormDataValue = string | undefined;
 export type StepFormData = Record<string, StepFormDataValue>;
 
@@ -19,13 +22,13 @@ export const getStepData = (data: GrundModel, path: string) => {
   return _.get(data, idToIndex(path));
 };
 
-const modelTemplateWithDefaults = {
+const modelTemplateWithDefaults: GrundModel = {
   eigentuemer: {
     anzahl: {
-      anzahl: "",
+      anzahl: "1",
     },
     verheiratet: {
-      areVerheiratet: "",
+      areVerheiratet: "false",
     },
     person: [
       {
@@ -50,7 +53,7 @@ const modelTemplateWithDefaults = {
           steuerId: "",
         },
         gesetzlicherVertreter: {
-          hasVertreter: "",
+          hasVertreter: "false",
         },
         vertreter: {
           name: {
@@ -79,9 +82,8 @@ const modelTemplateWithDefaults = {
     ],
   },
   grundstueck: {
-    bebaut: "",
+    bebaut: "false",
   },
 };
 
-export type GrundModel = typeof modelTemplateWithDefaults;
-export const defaults: GrundModel = modelTemplateWithDefaults;
+export const defaults = modelTemplateWithDefaults;
