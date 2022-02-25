@@ -4,10 +4,8 @@ export type EigentuemerPersonSteuerIdFields = {
   steuerId: string;
 };
 
-const stepDefinition: StepDefinition = {
+export const eigentuemerPersonSteuerId: StepDefinition = {
   fields: {
     steuerId: { validations: {} },
   },
 };
-
-export default stepDefinition;

@@ -1,53 +1,64 @@
 import _ from "lodash";
 
-import eigentuemerAnzahl, {
+import {
+  eigentuemerAnzahl,
   EigentuemerAnzahlFields,
 } from "./eigentuemer/anzahl";
 export type { EigentuemerAnzahlFields };
 
-import eigentuemerPersonAdresse, {
+import {
+  eigentuemerPersonAdresse,
   EigentuemerPersonAdresseFields,
 } from "./eigentuemer/person/adresse";
 
-import eigentuemerPersonAnteil, {
+import {
+  eigentuemerPersonAnteil,
   EigentuemerPersonAnteilFields,
 } from "./eigentuemer/person/anteil";
 
-import eigentuemerPersonGesetzlicherVertreter, {
+import {
+  eigentuemerPersonGesetzlicherVertreter,
   EigentuemerPersonGesetzlicherVertreterFields,
 } from "./eigentuemer/person/gesetzlicherVertreter";
 export type { EigentuemerPersonGesetzlicherVertreterFields };
 
-import eigentuemerPersonPersoenlicheAngaben, {
+import {
+  eigentuemerPersonPersoenlicheAngaben,
   EigentuemerPersonPersoenlicheAngabenFields,
 } from "./eigentuemer/person/persoenlicheAngaben";
 
-import eigentuemerPersonSteuerId, {
+import {
+  eigentuemerPersonSteuerId,
   EigentuemerPersonSteuerIdFields,
 } from "./eigentuemer/person/steuerId";
 
-import eigentuemerPersonTelefonnummer, {
+import {
+  eigentuemerPersonTelefonnummer,
   EigentuemerPersonTelefonnummerFields,
 } from "./eigentuemer/person/telefonnummer";
 
-import eigentuemerPersonVertreterAdresse, {
+import {
+  eigentuemerPersonVertreterAdresse,
   EigentuemerPersonVertreterAdresseFields,
 } from "./eigentuemer/person/vertreter/adresse";
 
-import eigentuemerPersonVertreterName, {
+import {
+  eigentuemerPersonVertreterName,
   EigentuemerPersonVertreterNameFields,
 } from "./eigentuemer/person/vertreter/name";
 
-import eigentuemerPersonVertreterTelefonnummer, {
+import {
+  eigentuemerPersonVertreterTelefonnummer,
   EigentuemerPersonVertreterTelefonnummerFields,
 } from "./eigentuemer/person/vertreter/telefonnummer";
 
-import eigentuemerVerheiratet, {
+import {
+  eigentuemerVerheiratet,
   EigentuemerVerheiratetFields,
 } from "./eigentuemer/verheiratet";
 
-import grundstueck, { GrundstueckFields } from "./grundstueck";
-import gebauede from "./gebauede";
+import { grundstueck, GrundstueckFields } from "./grundstueck";
+import { gebauede } from "./gebauede";
 export type { GrundstueckFields };
 
 const stepDefinitions = {

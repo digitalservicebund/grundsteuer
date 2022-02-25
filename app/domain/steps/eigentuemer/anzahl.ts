@@ -4,7 +4,7 @@ export type EigentuemerAnzahlFields = {
   anzahl: "1" | "2" | "3" | "4" | "5";
 };
 
-const stepDefinition: StepDefinition = {
+export const eigentuemerAnzahl: StepDefinition = {
   fields: {
     anzahl: {
       type: "select",
@@ -19,5 +19,3 @@ const stepDefinition: StepDefinition = {
     },
   },
 };
-
-export default stepDefinition;

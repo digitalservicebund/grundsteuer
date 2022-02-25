@@ -5,11 +5,9 @@ export type EigentuemerPersonAnteilFields = {
   nenner: string;
 };
 
-const stepDefinition: StepDefinition = {
+export const eigentuemerPersonAnteil: StepDefinition = {
   fields: {
     zaehler: { validations: {} },
     nenner: { validations: {} },
   },
 };
-
-export default stepDefinition;

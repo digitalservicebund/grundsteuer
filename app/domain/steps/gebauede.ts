@@ -1,7 +1,5 @@
 import { StepDefinition } from "~/domain/steps";
 
-const stepDefinition: StepDefinition = {
+export const gebauede: StepDefinition = {
   fields: {},
 };
-
-export default stepDefinition;

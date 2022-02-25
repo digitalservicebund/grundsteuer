@@ -4,7 +4,7 @@ export type EigentuemerVerheiratetFields = {
   areVerheiratet: "true" | "false";
 };
 
-const stepDefinition: StepDefinition = {
+export const eigentuemerVerheiratet: StepDefinition = {
   fields: {
     areVerheiratet: {
       type: "radio",
@@ -13,5 +13,3 @@ const stepDefinition: StepDefinition = {
     },
   },
 };
-
-export default stepDefinition;

@@ -8,11 +8,9 @@ export type EigentuemerPersonPersoenlicheAngabenFields = NameFields & {
   geburtsdatum: string;
 };
 
-const stepDefinition: StepDefinition = {
+export const eigentuemerPersonPersoenlicheAngaben: StepDefinition = {
   fields: {
     ...nameDefinition.fields,
     geburtsdatum: { validations: {} },
   },
 };
-
-export default stepDefinition;
