@@ -16,9 +16,12 @@ describe("Person adresse route", () => {
       );
     });
 
-    it("Previous page should be person name", () => {
+    it("Previous page should be person angaben", () => {
       cy.get("a").contains("Zurück").click();
-      cy.url().should("include", "/formular/eigentuemer/person/1/name");
+      cy.url().should(
+        "include",
+        "/formular/eigentuemer/person/1/persoenlicheAngaben"
+      );
     });
   });
 });

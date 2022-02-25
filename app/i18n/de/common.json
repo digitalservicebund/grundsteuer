@@ -27,8 +27,8 @@
       }
     },
     "person": {
-      "name": {
-        "headline": "Name Person {{id}}",
+      "persoenlicheAngaben": {
+        "headline": "Persoenliche Angaben Person {{id}}",
         "fields": {
           "anrede": { "label": "Anrede" },
           "titel": { "label": "Titel" },

@@ -56,7 +56,7 @@ const stepDefinitions = {
       adresse: eigentuemerPersonAdresse,
       anteil: eigentuemerPersonAnteil,
       gesetzlicherVertreter: eigentuemerPersonGesetzlicherVertreter,
-      name: eigentuemerPersonPersoenlicheAngaben,
+      persoenlicheAngaben: eigentuemerPersonPersoenlicheAngaben,
       steuerId: eigentuemerPersonSteuerId,
       telefonnummer: eigentuemerPersonTelefonnummer,
       vertreter: {
@@ -79,7 +79,7 @@ export type GrundModel = {
       adresse?: EigentuemerPersonAdresseFields;
       anteil?: EigentuemerPersonAnteilFields;
       gesetzlicherVertreter?: EigentuemerPersonGesetzlicherVertreterFields;
-      name?: EigentuemerPersonPersoenlicheAngabenFields;
+      persoenlicheAngaben?: EigentuemerPersonPersoenlicheAngabenFields;
       steuerId?: EigentuemerPersonSteuerIdFields;
       telefonnummer?: EigentuemerPersonTelefonnummerFields;
       vertreter?: {

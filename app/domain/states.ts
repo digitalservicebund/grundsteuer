@@ -37,9 +37,9 @@ export const states = {
         },
         person: {
           id: "person",
-          initial: "name",
+          initial: "persoenlicheAngaben",
           states: {
-            name: {
+            persoenlicheAngaben: {
               on: {
                 NEXT: {
                   target: "adresse",
@@ -51,7 +51,7 @@ export const states = {
                 NEXT: {
                   target: "telefonnummer",
                 },
-                BACK: { target: "name" },
+                BACK: { target: "persoenlicheAngaben" },
               },
             },
             telefonnummer: { on: { NEXT: "steuerId", BACK: "adresse" } },

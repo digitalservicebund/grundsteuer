@@ -5,7 +5,7 @@ import { submitBtnSelector } from "../../happypath.spec";
 describe("Person name route", () => {
   describe("Without data set", () => {
     beforeEach(() => {
-      cy.visit("/formular/eigentuemer/person/1/name");
+      cy.visit("/formular/eigentuemer/person/1/persoenlicheAngaben");
     });
 
     it("Next page should be person adresse", () => {
@@ -24,7 +24,7 @@ describe("Person name route", () => {
       cy.visit("/formular/eigentuemer/anzahl");
       cy.get("#anzahl").select("2");
       cy.get(submitBtnSelector).click();
-      cy.visit("/formular/eigentuemer/person/1/name");
+      cy.visit("/formular/eigentuemer/person/1/persoenlicheAngaben");
     });
 
     it("Next page should be person adresse", () => {

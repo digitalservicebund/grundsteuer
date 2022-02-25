@@ -9,7 +9,7 @@ const inputData = {
       areVerheiratet: "",
     },
     person1: {
-      name: {
+      angaben: {
         anrede: "Frau",
         titel: "Dr.",
         name: "Drew",
@@ -58,7 +58,7 @@ const inputData = {
       },
     },
     person2: {
-      name: {
+      angaben: {
         anrede: "Herr",
         titel: "Buccaneer",
         name: "Threepwood",
@@ -103,13 +103,17 @@ describe("Happy Path", () => {
     cy.get("label[for=areVerheiratet-true]").click();
     cy.get(submitBtnSelector).click();
     // PERSON 1
-    cy.get("#anrede").clear().type(inputData.eigentuemer.person1.name.anrede);
-    cy.get("#titel").clear().type(inputData.eigentuemer.person1.name.titel);
-    cy.get("#name").clear().type(inputData.eigentuemer.person1.name.name);
-    cy.get("#vorname").clear().type(inputData.eigentuemer.person1.name.vorname);
+    cy.get("#anrede")
+      .clear()
+      .type(inputData.eigentuemer.person1.angaben.anrede);
+    cy.get("#titel").clear().type(inputData.eigentuemer.person1.angaben.titel);
+    cy.get("#name").clear().type(inputData.eigentuemer.person1.angaben.name);
+    cy.get("#vorname")
+      .clear()
+      .type(inputData.eigentuemer.person1.angaben.vorname);
     cy.get("#geburtsdatum")
       .clear()
-      .type(inputData.eigentuemer.person1.name.geburtsdatum);
+      .type(inputData.eigentuemer.person1.angaben.geburtsdatum);
     cy.get(submitBtnSelector).click();
     cy.get("#strasse")
       .clear()
@@ -170,13 +174,17 @@ describe("Happy Path", () => {
 
     // PERSON 2
     cy.url().should("include", "/formular/eigentuemer/person/2/");
-    cy.get("#anrede").clear().type(inputData.eigentuemer.person2.name.anrede);
-    cy.get("#titel").clear().type(inputData.eigentuemer.person2.name.titel);
-    cy.get("#name").clear().type(inputData.eigentuemer.person2.name.name);
-    cy.get("#vorname").clear().type(inputData.eigentuemer.person2.name.vorname);
+    cy.get("#anrede")
+      .clear()
+      .type(inputData.eigentuemer.person2.angaben.anrede);
+    cy.get("#titel").clear().type(inputData.eigentuemer.person2.angaben.titel);
+    cy.get("#name").clear().type(inputData.eigentuemer.person2.angaben.name);
+    cy.get("#vorname")
+      .clear()
+      .type(inputData.eigentuemer.person2.angaben.vorname);
     cy.get("#geburtsdatum")
       .clear()
-      .type(inputData.eigentuemer.person2.name.geburtsdatum);
+      .type(inputData.eigentuemer.person2.angaben.geburtsdatum);
     cy.get(submitBtnSelector).click();
     cy.get("#strasse")
       .clear()
@@ -214,16 +222,19 @@ describe("Happy Path", () => {
     cy.contains("Anzahl: " + inputData.eigentuemer.anzahl.anzahl);
     cy.contains("Verheiratet: Ja");
     cy.get("#person-0").contains(
-      "Anrede: " + inputData.eigentuemer.person1.name.anrede
+      "Anrede: " + inputData.eigentuemer.person1.angaben.anrede
     );
     cy.get("#person-0").contains(
-      "Titel: " + inputData.eigentuemer.person1.name.titel
+      "Titel: " + inputData.eigentuemer.person1.angaben.titel
     );
     cy.get("#person-0").contains(
-      "Name: " + inputData.eigentuemer.person1.name.name
+      "Name: " + inputData.eigentuemer.person1.angaben.name
     );
     cy.get("#person-0").contains(
-      "Vorname: " + inputData.eigentuemer.person1.name.vorname
+      "Vorname: " + inputData.eigentuemer.person1.angaben.vorname
+    );
+    cy.get("#person-0").contains(
+      "Geburtsdatum: " + inputData.eigentuemer.person1.angaben.geburtsdatum
     );
     cy.get("#person-0").contains(
       "Straße: " + inputData.eigentuemer.person1.adresse.strasse
@@ -282,16 +293,19 @@ describe("Happy Path", () => {
     );
 
     cy.get("#person-1").contains(
-      "Anrede: " + inputData.eigentuemer.person2.name.anrede
+      "Anrede: " + inputData.eigentuemer.person2.angaben.anrede
     );
     cy.get("#person-1").contains(
-      "Titel: " + inputData.eigentuemer.person2.name.titel
+      "Titel: " + inputData.eigentuemer.person2.angaben.titel
     );
     cy.get("#person-1").contains(
-      "Name: " + inputData.eigentuemer.person2.name.name
+      "Name: " + inputData.eigentuemer.person2.angaben.name
     );
     cy.get("#person-1").contains(
-      "Vorname: " + inputData.eigentuemer.person2.name.vorname
+      "Vorname: " + inputData.eigentuemer.person2.angaben.vorname
+    );
+    cy.get("#person-1").contains(
+      "Geburtsdatum: " + inputData.eigentuemer.person2.angaben.geburtsdatum
     );
     cy.get("#person-1").contains(
       "Straße: " + inputData.eigentuemer.person2.adresse.strasse
