@@ -1,5 +1,4 @@
 import React from "react";
-import _ from "lodash";
 import { render, screen } from "@testing-library/react";
 import SidebarNavigation from "~/components/SidebarNavigation";
 import { grundModelFactory } from "test/factories";
