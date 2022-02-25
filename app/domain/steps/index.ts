@@ -18,9 +18,9 @@ import eigentuemerPersonGesetzlicherVertreter, {
 } from "./eigentuemer/person/gesetzlicherVertreter";
 export type { EigentuemerPersonGesetzlicherVertreterFields };
 
-import eigentuemerPersonName, {
-  EigentuemerPersonNameFields,
-} from "./eigentuemer/person/name";
+import eigentuemerPersonPersoenlicheAngaben, {
+  EigentuemerPersonPersoenlicheAngabenFields,
+} from "./eigentuemer/person/persoenlicheAngaben";
 
 import eigentuemerPersonSteuerId, {
   EigentuemerPersonSteuerIdFields,
@@ -56,7 +56,7 @@ const stepDefinitions = {
       adresse: eigentuemerPersonAdresse,
       anteil: eigentuemerPersonAnteil,
       gesetzlicherVertreter: eigentuemerPersonGesetzlicherVertreter,
-      name: eigentuemerPersonName,
+      name: eigentuemerPersonPersoenlicheAngaben,
       steuerId: eigentuemerPersonSteuerId,
       telefonnummer: eigentuemerPersonTelefonnummer,
       vertreter: {
@@ -79,7 +79,7 @@ export type GrundModel = {
       adresse?: EigentuemerPersonAdresseFields;
       anteil?: EigentuemerPersonAnteilFields;
       gesetzlicherVertreter?: EigentuemerPersonGesetzlicherVertreterFields;
-      name?: EigentuemerPersonNameFields;
+      name?: EigentuemerPersonPersoenlicheAngabenFields;
       steuerId?: EigentuemerPersonSteuerIdFields;
       telefonnummer?: EigentuemerPersonTelefonnummerFields;
       vertreter?: {

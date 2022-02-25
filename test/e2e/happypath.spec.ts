@@ -14,6 +14,7 @@ const inputData = {
         titel: "Dr.",
         name: "Drew",
         vorname: "Nancy",
+        geburtsdatum: "10112000",
       },
       adresse: {
         strasse: "Baker St.",
@@ -62,6 +63,7 @@ const inputData = {
         titel: "Buccaneer",
         name: "Threepwood",
         vorname: "Guybrush",
+        geburtsdatum: "01101990",
       },
       adresse: {
         strasse: "Privet Drive",
@@ -105,6 +107,9 @@ describe("Happy Path", () => {
     cy.get("#titel").clear().type(inputData.eigentuemer.person1.name.titel);
     cy.get("#name").clear().type(inputData.eigentuemer.person1.name.name);
     cy.get("#vorname").clear().type(inputData.eigentuemer.person1.name.vorname);
+    cy.get("#geburtsdatum")
+      .clear()
+      .type(inputData.eigentuemer.person1.name.geburtsdatum);
     cy.get(submitBtnSelector).click();
     cy.get("#strasse")
       .clear()
@@ -169,6 +174,9 @@ describe("Happy Path", () => {
     cy.get("#titel").clear().type(inputData.eigentuemer.person2.name.titel);
     cy.get("#name").clear().type(inputData.eigentuemer.person2.name.name);
     cy.get("#vorname").clear().type(inputData.eigentuemer.person2.name.vorname);
+    cy.get("#geburtsdatum")
+      .clear()
+      .type(inputData.eigentuemer.person2.name.geburtsdatum);
     cy.get(submitBtnSelector).click();
     cy.get("#strasse")
       .clear()

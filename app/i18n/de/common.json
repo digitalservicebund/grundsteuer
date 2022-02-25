@@ -33,7 +33,8 @@
           "anrede": { "label": "Anrede" },
           "titel": { "label": "Titel" },
           "name": { "label": "Name" },
-          "vorname": { "label": "Vorname" }
+          "vorname": { "label": "Vorname" },
+          "geburtsdatum": { "label": "Geburtsdatum" }
         }
       },
       "adresse": {
