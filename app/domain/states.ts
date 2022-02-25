@@ -1,10 +1,11 @@
+import { MachineConfig } from "xstate";
 import { GrundModel } from "./steps";
 
 export interface StateMachineContext extends GrundModel {
   currentId?: number;
 }
 
-export const states = {
+export const states: MachineConfig<any, any, any> = {
   id: "steps",
   initial: "grundstueck",
   states: {
@@ -32,6 +33,10 @@ export const states = {
                 target: "person",
               },
             ],
+            BACK: [
+              { target: "#steps.gebaeude", cond: "showGebaeude" },
+              { target: "#steps.grundstueck" },
+            ],
           },
         },
         verheiratet: {
@@ -53,6 +58,14 @@ export const states = {
                 NEXT: {
                   target: "adresse",
                 },
+                BACK: [
+                  {
+                    target: "anteil",
+                    cond: "currentIdGreaterThanOne",
+
+                    actions: ["decrementCurrentId"],
+                  },
+                ],
               },
             },
             adresse: {
@@ -134,9 +147,31 @@ export const states = {
         NEXT: { target: "zusammenfassung" },
       },
     },
-    zusammenfassung: { type: "final" },
+    zusammenfassung: {
+      type: "final",
+      on: {
+        BACK: [
+          {
+            target: "eigentuemer.person.anteil",
+            cond: "multipleEigentuemer",
+            actions: "setCurrentIdToMaximum",
+          },
+          {
+            target: "eigentuemer.person.vertreter.telefonnummer",
+            cond: "hasGesetzlicherVertreter",
+            actions: "setCurrentIdToMaximum",
+          },
+          {
+            target: "eigentuemer.person.gesetzlicherVertreter",
+            actions: "setCurrentIdToMaximum",
+          },
+        ],
+      },
+    },
   },
 };
+
+export type StateMachineConfig = typeof states;
 
 export const getMachineConfig = (records: StateMachineContext) => {
   return Object.assign({}, states, { context: records });

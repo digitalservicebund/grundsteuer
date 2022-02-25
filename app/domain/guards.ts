@@ -36,6 +36,10 @@ const showGebaeude = (context: StateMachineContext) => {
   return context?.grundstueck?.bebaut === "true";
 };
 
+const currentIdGreaterThanOne = (context: StateMachineContext) => {
+  return Number(context?.currentId) > 1;
+};
+
 export const conditions: Conditions = {
   anzahlEigentuemerIsTwo,
   multipleEigentuemer,
@@ -45,4 +49,5 @@ export const conditions: Conditions = {
     return !hasGesetzlicherVertreter(context) && repeatPerson(context);
   },
   showGebaeude,
+  currentIdGreaterThanOne,
 };
