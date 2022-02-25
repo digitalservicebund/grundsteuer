@@ -6,8 +6,17 @@ export interface StateMachineContext extends GrundModel {
 
 export const states = {
   id: "steps",
-  initial: "eigentuemer",
+  initial: "grundstueck",
   states: {
+    grundstueck: {
+      on: {
+        NEXT: [
+          { target: "gebaeude", cond: "showGebaeude" },
+          { target: "eigentuemer" },
+        ],
+      },
+    },
+    gebaeude: { on: { NEXT: "eigentuemer", BACK: "grundstueck" } },
     eigentuemer: {
       id: "eigentuemer",
       initial: "anzahl",
@@ -122,23 +131,9 @@ export const states = {
         },
       },
       on: {
-        NEXT: { target: "grundstueck" },
+        NEXT: { target: "zusammenfassung" },
       },
     },
-    grundstueck: {
-      on: {
-        NEXT: "gebaeude",
-        BACK: [
-          { target: "eigentuemer.person.anteil", cond: "multipleEigentuemer" },
-          {
-            target: "eigentuemer.person.vertreter.telefonnummer",
-            cond: "hasGesetzlicherVertreter",
-          },
-          { target: "eigentuemer.person.gesetzlicherVertreter" },
-        ],
-      },
-    },
-    gebaeude: { on: { NEXT: "zusammenfassung", BACK: "grundstueck" } },
     zusammenfassung: { type: "final" },
   },
 };

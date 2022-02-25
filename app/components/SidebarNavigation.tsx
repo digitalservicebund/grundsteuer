@@ -53,13 +53,6 @@ export default function SidebarNavigation({
       {showFormNavigation ? (
         <div>
           {getNavigationLink(
-            "/formular/eigentuemer/anzahl",
-            "/formular/eigentuemer",
-            t("nav.eigentuemer"),
-            showFormNavigation
-          )}
-          <br />
-          {getNavigationLink(
             "/formular/grundstueck",
             "/formular/grundstueck",
             t("nav.grundstueck"),
@@ -75,6 +68,13 @@ export default function SidebarNavigation({
                 showFormNavigation
               )}
             </>
+          )}
+          <br />
+          {getNavigationLink(
+            "/formular/eigentuemer/anzahl",
+            "/formular/eigentuemer",
+            t("nav.eigentuemer"),
+            showFormNavigation
           )}
           <br />
           {getNavigationLink(

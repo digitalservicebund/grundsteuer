@@ -17,3 +17,5 @@ describe("Zusammenfassung route", () => {
     cy.get("dt").contains("Straße").next().should("be.empty");
   });
 });
+
+export {};

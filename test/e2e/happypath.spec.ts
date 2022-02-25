@@ -214,11 +214,8 @@ describe("Happy Path", () => {
     cy.get("#nenner").clear().type(inputData.eigentuemer.person2.anteil.nenner);
     cy.get(submitBtnSelector).click();
 
-    // GRUNDSTUECK
-    cy.url().should("include", "/formular/grundstueck");
-
     // ZUSAMMENFASSUNG
-    cy.visit("/formular/zusammenfassung");
+    cy.url().should("include", "/formular/zusammenfassung");
     cy.contains("Anzahl: " + inputData.eigentuemer.anzahl.anzahl);
     cy.contains("Verheiratet: Ja");
     cy.get("#person-0").contains(

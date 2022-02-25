@@ -47,9 +47,12 @@ import eigentuemerVerheiratet, {
 } from "./eigentuemer/verheiratet";
 
 import grundstueck, { GrundstueckFields } from "./grundstueck";
+import gebauede from "./gebauede";
 export type { GrundstueckFields };
 
 const stepDefinitions = {
+  grundstueck: grundstueck,
+  gebaeude: gebauede,
   eigentuemer: {
     anzahl: eigentuemerAnzahl,
     person: {
@@ -67,12 +70,12 @@ const stepDefinitions = {
     },
     verheiratet: eigentuemerVerheiratet,
   },
-  grundstueck: grundstueck,
 };
 
 export default stepDefinitions;
 
 export type GrundModel = {
+  grundstueck?: GrundstueckFields;
   eigentuemer?: {
     anzahl?: EigentuemerAnzahlFields;
     person?: {
@@ -90,7 +93,6 @@ export type GrundModel = {
     }[];
     verheiratet?: EigentuemerVerheiratetFields;
   };
-  grundstueck?: GrundstueckFields;
 };
 
 export type StepDefinitionField = {
