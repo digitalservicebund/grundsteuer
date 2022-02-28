@@ -38,7 +38,7 @@ const getMachine = ({ cookie, params }: any) => {
     machineContext.currentId = parseInt(params.id);
   }
 
-  return createMachine(getMachineConfig(machineContext) as any, {
+  return createMachine(getMachineConfig(machineContext), {
     guards: conditions,
     actions: actions,
   });
