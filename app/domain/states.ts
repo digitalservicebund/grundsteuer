@@ -10,6 +10,7 @@ export const states: MachineConfig<any, any, any> = {
   initial: "grundstueck",
   states: {
     grundstueck: {
+      id: "grundstueck",
       on: {
         NEXT: [
           { target: "gebaeude", cond: "showGebaeude" },
@@ -17,7 +18,48 @@ export const states: MachineConfig<any, any, any> = {
         ],
       },
     },
-    gebaeude: { on: { NEXT: "eigentuemer", BACK: "grundstueck" } },
+    gebaeude: {
+      id: "gebaeude",
+      initial: "ab1949",
+      states: {
+        ab1949: {
+          on: {
+            NEXT: [
+              { target: "baujahr", cond: "bezugsfertigAb1949" },
+              { target: "kernsaniert" },
+            ],
+            BACK: {
+              target: "#grundstueck",
+            },
+          },
+        },
+        baujahr: {
+          on: {
+            NEXT: {
+              target: "kernsaniert",
+            },
+            BACK: {
+              target: "ab1949",
+            },
+          },
+        },
+        kernsaniert: {
+          on: {
+            NEXT: [{ target: "kernsanierungsjahr", cond: "isKernsaniert" }],
+            BACK: [
+              { target: "baujahr", cond: "bezugsfertigAb1949" },
+              { target: "ab1949" },
+            ],
+          },
+        },
+        kernsanierungsjahr: {
+          on: {
+            BACK: [{ target: "kernsaniert" }],
+          },
+        },
+      },
+      on: { NEXT: "eigentuemer", BACK: "grundstueck" },
+    },
     eigentuemer: {
       id: "eigentuemer",
       initial: "anzahl",

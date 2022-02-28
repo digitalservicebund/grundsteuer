@@ -96,8 +96,7 @@ describe("states", () => {
         ],
       },
       {
-        description:
-          "with 3 eigentuemer people (2 with vertreter) and gebaeude",
+        description: "with 3 eigentuemer people (2 with vertreter)",
         context: grundModelFactory
           .eigentuemerAnzahl({ anzahl: "3" })
           .eigentuemerPersonGesetzlicherVertreter(
@@ -112,11 +111,9 @@ describe("states", () => {
             { hasVertreter: "true" },
             { transient: { personIndex: 2 } }
           )
-          .grundstueck({ bebaut: "true" })
           .build(),
         expectedPath: [
           "grundstueck",
-          "gebaeude",
           "eigentuemer.anzahl",
           "eigentuemer.person.1.persoenlicheAngaben",
           "eigentuemer.person.1.adresse",

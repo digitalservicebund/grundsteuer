@@ -1,5 +1,19 @@
 import _ from "lodash";
 
+import { gebaeudeAb1949, GebaeudeAb1949Fields } from "./gebaeude/ab1949";
+
+import { gebaeudeBaujahr, GebaeudeBaujahrFields } from "./gebaeude/baujahr";
+
+import {
+  gebaeudeKernsaniert,
+  GebaeudeKernsaniertFields,
+} from "./gebaeude/kernsaniert";
+
+import {
+  gebaeudeKernsanierungsjahr,
+  GebaeudeKernsanierungsjahrFields,
+} from "./gebaeude/kernsanierungsjahr";
+
 import {
   eigentuemerAnzahl,
   EigentuemerAnzahlFields,
@@ -58,12 +72,17 @@ import {
 } from "./eigentuemer/verheiratet";
 
 import { grundstueck, GrundstueckFields } from "./grundstueck";
-import { gebauede } from "./gebauede";
+
 export type { GrundstueckFields };
 
 const stepDefinitions = {
   grundstueck: grundstueck,
-  gebaeude: gebauede,
+  gebaeude: {
+    ab1949: gebaeudeAb1949,
+    baujahr: gebaeudeBaujahr,
+    kernsaniert: gebaeudeKernsaniert,
+    kernsanierungsjahr: gebaeudeKernsanierungsjahr,
+  },
   eigentuemer: {
     anzahl: eigentuemerAnzahl,
     person: {
@@ -87,6 +106,12 @@ export default stepDefinitions;
 
 export type GrundModel = {
   grundstueck?: GrundstueckFields;
+  gebaeude?: {
+    ab1949?: GebaeudeAb1949Fields;
+    baujahr?: GebaeudeBaujahrFields;
+    kernsaniert?: GebaeudeKernsaniertFields;
+    kernsanierungsjahr?: GebaeudeKernsanierungsjahrFields;
+  };
   eigentuemer?: {
     anzahl?: EigentuemerAnzahlFields;
     person?: {

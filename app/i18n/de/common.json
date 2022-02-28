@@ -5,6 +5,46 @@
     "gebaeude": "Gebäude",
     "zusammenfassung": "Zusammenfassung"
   },
+  "gebaeude": {
+    "ab1949": {
+      "headline": "Wann war das Gebäude bezugsfertig?",
+      "fields": {
+        "isAb1949": {
+          "options": {
+            "false": "Vor 1949 bezugsfertig",
+            "true": "Ab 1949 bezugsfertig"
+          }
+        }
+      }
+    },
+    "baujahr": {
+      "headline": "In welchem Jahr wurde das Gebäude errichtet?",
+      "fields": {
+        "baujahr": {
+          "label": "Baujahr"
+        }
+      }
+    },
+    "kernsaniert": {
+      "headline": "Wurde das Gebäude kernsaniert?",
+      "fields": {
+        "isKernsaniert": {
+          "options": {
+            "false": "Nein, das Haus wurde nicht kernsaniert",
+            "true": "Ja, das Haus wurde kernsaniert"
+          }
+        }
+      }
+    },
+    "kernsanierungsjahr": {
+      "headline": "In welchem Jahr wurde die Kernsanierung durchgeführt?",
+      "fields": {
+        "kernsanierungsjahr": {
+          "label": "Jahr der Kernsanierung"
+        }
+      }
+    }
+  },
   "eigentuemer": {
     "anzahl": {
       "headline": "Wie viele Eigentümer:innen hat das Grundstück?",
@@ -120,8 +160,5 @@
         }
       }
     }
-  },
-  "gebaeude": {
-    "headline": "Gebäude"
   }
 }

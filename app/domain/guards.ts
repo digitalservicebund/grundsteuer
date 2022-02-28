@@ -7,6 +7,14 @@ export type Conditions = Record<
   ConditionPredicate<GrundModel, AnyEventObject> | any
 >;
 
+const bezugsfertigAb1949 = (context: StateMachineContext) => {
+  return context?.gebaeude?.ab1949?.isAb1949 === "true";
+};
+
+const isKernsaniert = (context: StateMachineContext) => {
+  return context?.gebaeude?.kernsaniert?.isKernsaniert === "true";
+};
+
 const anzahlEigentuemerIsTwo = (context: StateMachineContext) => {
   return context?.eigentuemer?.anzahl?.anzahl === "2";
 };
@@ -41,6 +49,8 @@ const currentIdGreaterThanOne = (context: StateMachineContext) => {
 };
 
 export const conditions: Conditions = {
+  bezugsfertigAb1949,
+  isKernsaniert,
   anzahlEigentuemerIsTwo,
   multipleEigentuemer,
   hasGesetzlicherVertreter,
