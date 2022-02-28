@@ -10,10 +10,10 @@ import { actions } from "~/domain/actions";
 import { grundModelFactory } from "test/factories";
 
 const removeTransitions = (
-  states: StateMachineConfig,
+  refStates: StateMachineConfig,
   transitionName: "NEXT" | "BACK"
 ): StateMachineConfig => {
-  return Object.entries({ ...states }).reduce((acc, [k, v]) => {
+  return Object.entries({ ...refStates }).reduce((acc, [k, v]) => {
     if (k === transitionName) {
       return { ...acc, [k]: undefined };
     } else if (Array.isArray(v)) {
@@ -34,9 +34,12 @@ const removeTransitions = (
   }, {});
 };
 
-const getPath = (states: StateMachineConfig, context: StateMachineContext) => {
+const getPath = (
+  refStates: StateMachineConfig,
+  context: StateMachineContext
+) => {
   const machine = createMachine(
-    { ...states, context },
+    { ...refStates, context },
     { guards: conditions, actions }
   );
 
