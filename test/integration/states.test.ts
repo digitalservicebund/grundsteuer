@@ -58,6 +58,14 @@ describe("states", () => {
       "NEXT"
     );
 
+    const defaultEigentuemer = [
+      "eigentuemer.anzahl",
+      "eigentuemer.person.1.persoenlicheAngaben",
+      "eigentuemer.person.1.adresse",
+      "eigentuemer.person.1.telefonnummer",
+      "eigentuemer.person.1.steuerId",
+      "eigentuemer.person.1.gesetzlicherVertreter",
+    ];
     const cases = [
       {
         description: "without context",
@@ -73,6 +81,170 @@ describe("states", () => {
           "zusammenfassung",
         ],
       },
+      {
+        description: "Einfamilienhaus vor 1949 no frills",
+        context: grundModelFactory.grundstueck({ bebaut: "true" }).build(),
+        expectedPath: [
+          "grundstueck",
+          "gebaeude.ab1949",
+          "gebaeude.kernsaniert",
+          "gebaeude.wohnflaeche",
+          "gebaeude.weitereWohnraeume",
+          "gebaeude.garagen",
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
+      {
+        description: "Einfamilienhaus ab 1949 no frills",
+        context: grundModelFactory
+          .grundstueck({ bebaut: "true" })
+          .gebaeudeAb1949()
+          .build(),
+        expectedPath: [
+          "grundstueck",
+          "gebaeude.ab1949",
+          "gebaeude.baujahr",
+          "gebaeude.kernsaniert",
+          "gebaeude.wohnflaeche",
+          "gebaeude.weitereWohnraeume",
+          "gebaeude.garagen",
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
+      {
+        description: "Einfamilienhaus ab 1949 kernsaniert",
+        context: grundModelFactory
+          .grundstueck({ bebaut: "true" })
+          .gebaeudeAb1949()
+          .kernsaniert()
+          .build(),
+        expectedPath: [
+          "grundstueck",
+          "gebaeude.ab1949",
+          "gebaeude.baujahr",
+          "gebaeude.kernsaniert",
+          "gebaeude.kernsanierungsjahr",
+          "gebaeude.wohnflaeche",
+          "gebaeude.weitereWohnraeume",
+          "gebaeude.garagen",
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
+      {
+        description: "Einfamilienhaus vor 1949 kernsaniert",
+        context: grundModelFactory
+          .grundstueck({ bebaut: "true" })
+          .kernsaniert()
+          .build(),
+        expectedPath: [
+          "grundstueck",
+          "gebaeude.ab1949",
+          "gebaeude.kernsaniert",
+          "gebaeude.kernsanierungsjahr",
+          "gebaeude.wohnflaeche",
+          "gebaeude.weitereWohnraeume",
+          "gebaeude.garagen",
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
+      {
+        description:
+          "Einfamilienhaus ab 1949 with weitere wohnraeume and garagen",
+        context: grundModelFactory
+          .grundstueck({ bebaut: "true" })
+          .gebaeudeAb1949()
+          .withWeitereWohnraeume()
+          .withGaragen()
+          .build(),
+        expectedPath: [
+          "grundstueck",
+          "gebaeude.ab1949",
+          "gebaeude.baujahr",
+          "gebaeude.kernsaniert",
+          "gebaeude.wohnflaeche",
+          "gebaeude.weitereWohnraeume",
+          "gebaeude.weitereWohnraeumeFlaeche",
+          "gebaeude.garagen",
+          "gebaeude.garagenAnzahl",
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
+      {
+        description:
+          "Einfamilienhaus ab 1949 kernsaniert with weitere wohnraeume",
+        context: grundModelFactory
+          .grundstueck({ bebaut: "true" })
+          .gebaeudeAb1949()
+          .kernsaniert()
+          .withWeitereWohnraeume()
+          .build(),
+        expectedPath: [
+          "grundstueck",
+          "gebaeude.ab1949",
+          "gebaeude.baujahr",
+          "gebaeude.kernsaniert",
+          "gebaeude.kernsanierungsjahr",
+          "gebaeude.wohnflaeche",
+          "gebaeude.weitereWohnraeume",
+          "gebaeude.weitereWohnraeumeFlaeche",
+          "gebaeude.garagen",
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
+      {
+        description: "Einfamilienhaus ab 1949 kernsaniert with garagen",
+        context: grundModelFactory
+          .grundstueck({ bebaut: "true" })
+          .gebaeudeAb1949()
+          .kernsaniert()
+          .withGaragen()
+          .build(),
+        expectedPath: [
+          "grundstueck",
+          "gebaeude.ab1949",
+          "gebaeude.baujahr",
+          "gebaeude.kernsaniert",
+          "gebaeude.kernsanierungsjahr",
+          "gebaeude.wohnflaeche",
+          "gebaeude.weitereWohnraeume",
+          "gebaeude.garagen",
+          "gebaeude.garagenAnzahl",
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
+      {
+        description:
+          "Einfamilienhaus ab 1949 kernsaniert with weitere wohnraeume and garagen",
+        context: grundModelFactory
+          .grundstueck({ bebaut: "true" })
+          .gebaeudeAb1949()
+          .kernsaniert()
+          .withWeitereWohnraeume()
+          .withGaragen()
+          .build(),
+        expectedPath: [
+          "grundstueck",
+          "gebaeude.ab1949",
+          "gebaeude.baujahr",
+          "gebaeude.kernsaniert",
+          "gebaeude.kernsanierungsjahr",
+          "gebaeude.wohnflaeche",
+          "gebaeude.weitereWohnraeume",
+          "gebaeude.weitereWohnraeumeFlaeche",
+          "gebaeude.garagen",
+          "gebaeude.garagenAnzahl",
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
+      // TODO add cases for zweifamilienhaus
       {
         description: "with 2 eigentuemer people",
         context: grundModelFactory.eigentuemerAnzahl({ anzahl: "2" }).build(),

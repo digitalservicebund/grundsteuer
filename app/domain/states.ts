@@ -45,7 +45,11 @@ export const states: MachineConfig<any, any, any> = {
         },
         kernsaniert: {
           on: {
-            NEXT: [{ target: "kernsanierungsjahr", cond: "isKernsaniert" }],
+            NEXT: [
+              { target: "kernsanierungsjahr", cond: "isKernsaniert" },
+              { target: "wohnflaechen", cond: "zweifamilienhaus" },
+              { target: "wohnflaeche" },
+            ],
             BACK: [
               { target: "baujahr", cond: "bezugsfertigAb1949" },
               { target: "ab1949" },
@@ -54,7 +58,75 @@ export const states: MachineConfig<any, any, any> = {
         },
         kernsanierungsjahr: {
           on: {
+            NEXT: [
+              { target: "wohnflaechen", cond: "zweifamilienhaus" },
+              { target: "wohnflaeche" },
+            ],
             BACK: [{ target: "kernsaniert" }],
+          },
+        },
+        wohnflaeche: {
+          on: {
+            NEXT: {
+              target: "weitereWohnraeume",
+            },
+            BACK: [
+              { target: "kernsanierungsjahr", cond: "isKernsaniert" },
+              { target: "kernsaniert" },
+            ],
+          },
+        },
+        wohnflaechen: {
+          on: {
+            NEXT: {
+              target: "weitereWohnraeume",
+            },
+            BACK: [
+              { target: "kernsanierungsjahr", cond: "isKernsaniert" },
+              { target: "kernsaniert" },
+            ],
+          },
+        },
+        weitereWohnraeume: {
+          on: {
+            NEXT: [
+              {
+                target: "weitereWohnraeumeFlaeche",
+                cond: "hasWeitereWohnraeume",
+              },
+              { target: "garagen" },
+            ],
+            BACK: [
+              { target: "wohnflaechen", cond: "zweifamilienhaus" },
+              { target: "wohnflaeche" },
+            ],
+          },
+        },
+        weitereWohnraeumeFlaeche: {
+          on: {
+            NEXT: { target: "garagen" },
+            BACK: [{ target: "weitereWohnraeume" }],
+          },
+        },
+        garagen: {
+          on: {
+            NEXT: [
+              { target: "garagenAnzahl", cond: "hasGaragen" },
+              { target: "#eigentuemer" },
+            ],
+            BACK: [
+              {
+                target: "weitereWohnraeumeFlaeche",
+                cond: "hasWeitereWohnraeume",
+              },
+              { target: "weitereWohnraeume" },
+            ],
+          },
+        },
+        garagenAnzahl: {
+          on: {
+            NEXT: { target: "#eigentuemer" },
+            BACK: { target: "garagen" },
           },
         },
       },
@@ -76,7 +148,8 @@ export const states: MachineConfig<any, any, any> = {
               },
             ],
             BACK: [
-              { target: "#steps.gebaeude", cond: "showGebaeude" },
+              { target: "#steps.gebaeude.garagenAnzahl", cond: "hasGaragen" },
+              { target: "#steps.gebaeude.garagen", cond: "showGebaeude" },
               { target: "#steps.grundstueck" },
             ],
           },

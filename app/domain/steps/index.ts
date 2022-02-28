@@ -1,77 +1,110 @@
 import _ from "lodash";
 
-import { gebaeudeAb1949, GebaeudeAb1949Fields } from "./gebaeude/ab1949";
+import {
+  gebaeudeAb1949,
+  GebaeudeAb1949Fields,
+} from "~/domain/steps/gebaeude/ab1949";
 
-import { gebaeudeBaujahr, GebaeudeBaujahrFields } from "./gebaeude/baujahr";
+import {
+  gebaeudeBaujahr,
+  GebaeudeBaujahrFields,
+} from "~/domain/steps/gebaeude/baujahr";
 
 import {
   gebaeudeKernsaniert,
   GebaeudeKernsaniertFields,
-} from "./gebaeude/kernsaniert";
+} from "~/domain/steps/gebaeude/kernsaniert";
 
 import {
   gebaeudeKernsanierungsjahr,
   GebaeudeKernsanierungsjahrFields,
-} from "./gebaeude/kernsanierungsjahr";
+} from "~/domain/steps/gebaeude/kernsanierungsjahr";
+
+import {
+  gebaeudeWohnflaeche,
+  GebaeudeWohnflaecheFields,
+} from "~/domain/steps/gebaeude/wohnflaeche";
+import {
+  gebaeudeWohnflaechen,
+  GebaeudeWohnflaechenFields,
+} from "~/domain/steps/gebaeude/wohnflaechen";
+import {
+  GebaeudeWeitereWohnraeumeFields,
+  gebaueWeitereWohnraeume,
+} from "~/domain/steps/gebaeude/weitereWohnraeume";
+import {
+  gebaeudeWeitereWohnraeumeFlaeche,
+  GebaeudeWeitereWohnraeumeFlaecheFields,
+} from "~/domain/steps/gebaeude/weitereWohnraeumeFlaeche";
+import {
+  GebaeudeGaragenFields,
+  gebaueGaragen,
+} from "~/domain/steps/gebaeude/garagen";
 
 import {
   eigentuemerAnzahl,
   EigentuemerAnzahlFields,
-} from "./eigentuemer/anzahl";
+} from "~/domain/steps/eigentuemer/anzahl";
+
 export type { EigentuemerAnzahlFields };
 
 import {
   eigentuemerPersonAdresse,
   EigentuemerPersonAdresseFields,
-} from "./eigentuemer/person/adresse";
+} from "~/domain/steps/eigentuemer/person/adresse";
 
 import {
   eigentuemerPersonAnteil,
   EigentuemerPersonAnteilFields,
-} from "./eigentuemer/person/anteil";
+} from "~/domain/steps/eigentuemer/person/anteil";
 
 import {
   eigentuemerPersonGesetzlicherVertreter,
   EigentuemerPersonGesetzlicherVertreterFields,
-} from "./eigentuemer/person/gesetzlicherVertreter";
+} from "~/domain/steps/eigentuemer/person/gesetzlicherVertreter";
+
 export type { EigentuemerPersonGesetzlicherVertreterFields };
 
 import {
   eigentuemerPersonPersoenlicheAngaben,
   EigentuemerPersonPersoenlicheAngabenFields,
-} from "./eigentuemer/person/persoenlicheAngaben";
+} from "~/domain/steps/eigentuemer/person/persoenlicheAngaben";
 
 import {
   eigentuemerPersonSteuerId,
   EigentuemerPersonSteuerIdFields,
-} from "./eigentuemer/person/steuerId";
+} from "~/domain/steps/eigentuemer/person/steuerId";
 
 import {
   eigentuemerPersonTelefonnummer,
   EigentuemerPersonTelefonnummerFields,
-} from "./eigentuemer/person/telefonnummer";
+} from "~/domain/steps/eigentuemer/person/telefonnummer";
 
 import {
   eigentuemerPersonVertreterAdresse,
   EigentuemerPersonVertreterAdresseFields,
-} from "./eigentuemer/person/vertreter/adresse";
+} from "~/domain/steps/eigentuemer/person/vertreter/adresse";
 
 import {
   eigentuemerPersonVertreterName,
   EigentuemerPersonVertreterNameFields,
-} from "./eigentuemer/person/vertreter/name";
+} from "~/domain/steps/eigentuemer/person/vertreter/name";
 
 import {
   eigentuemerPersonVertreterTelefonnummer,
   EigentuemerPersonVertreterTelefonnummerFields,
-} from "./eigentuemer/person/vertreter/telefonnummer";
+} from "~/domain/steps/eigentuemer/person/vertreter/telefonnummer";
 
 import {
   eigentuemerVerheiratet,
   EigentuemerVerheiratetFields,
-} from "./eigentuemer/verheiratet";
+} from "~/domain/steps/eigentuemer/verheiratet";
 
-import { grundstueck, GrundstueckFields } from "./grundstueck";
+import { grundstueck, GrundstueckFields } from "~/domain/steps/grundstueck";
+import {
+  gebaeudeGaragenAnzahl,
+  GebaeudeGaragenAnzahlFields,
+} from "~/domain/steps/gebaeude/garagenAnzahl";
 
 export type { GrundstueckFields };
 
@@ -80,8 +113,14 @@ const stepDefinitions = {
   gebaeude: {
     ab1949: gebaeudeAb1949,
     baujahr: gebaeudeBaujahr,
+    garagen: gebaueGaragen,
+    garagenAnzahl: gebaeudeGaragenAnzahl,
     kernsaniert: gebaeudeKernsaniert,
     kernsanierungsjahr: gebaeudeKernsanierungsjahr,
+    weitereWohnraeume: gebaueWeitereWohnraeume,
+    weitereWohnraeumeFlaeche: gebaeudeWeitereWohnraeumeFlaeche,
+    wohnflaeche: gebaeudeWohnflaeche,
+    wohnflaechen: gebaeudeWohnflaechen,
   },
   eigentuemer: {
     anzahl: eigentuemerAnzahl,
@@ -109,8 +148,14 @@ export type GrundModel = {
   gebaeude?: {
     ab1949?: GebaeudeAb1949Fields;
     baujahr?: GebaeudeBaujahrFields;
+    garagen?: GebaeudeGaragenFields;
+    garagenAnzahl?: GebaeudeGaragenAnzahlFields;
     kernsaniert?: GebaeudeKernsaniertFields;
     kernsanierungsjahr?: GebaeudeKernsanierungsjahrFields;
+    weitereWohnraeume?: GebaeudeWeitereWohnraeumeFields;
+    weitereWohnraeumeFlaeche?: GebaeudeWeitereWohnraeumeFlaecheFields;
+    wohnflaeche?: GebaeudeWohnflaecheFields;
+    wohnflaechen?: GebaeudeWohnflaechenFields;
   };
   eigentuemer?: {
     anzahl?: EigentuemerAnzahlFields;

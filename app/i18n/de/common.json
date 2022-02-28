@@ -43,6 +43,63 @@
           "label": "Jahr der Kernsanierung"
         }
       }
+    },
+    "wohnflaeche": {
+      "headline": "Wie groß ist die Wohnfläche in Ihrem Einfamilienhaus / Eigentumswohnung?",
+      "fields": {
+        "wohnflaeche": {
+          "label": "Wohnfläche in m2"
+        }
+      }
+    },
+    "wohnflaechen": {
+      "headline": "Wie groß sind die Wohnflächen in Ihrem Zweifamilienhaus?",
+      "fields": {
+        "wohnflaeche1": {
+          "label": "Wohnung 1 Wohnfläche in m2"
+        },
+        "wohnflaeche2": {
+          "label": "Wohnung 2 Wohnfläche in m2"
+        }
+      }
+    },
+    "weitereWohnraeume": {
+      "headline": "Haben Sie weitere Wonhräume, z.B. Poolhaus oder ausgebaute Garage?",
+      "fields": {
+        "hasWeitereWohnraeume": {
+          "options": {
+            "false": "Nein, es gehören keine weiteren Wohnräumen zum Gebäude",
+            "true": "Ja, es gibt weitere Wohnräume"
+          }
+        }
+      }
+    },
+    "weitereWohnraeumeFlaeche": {
+      "headline": "Bitte geben Sie die Gesamtfläche der weiteren Wohnräume ein",
+      "fields": {
+        "flaeche": {
+          "label": "Gesamtfläche in m2"
+        }
+      }
+    },
+    "garagen": {
+      "headline": "Gibt es Garagen, die zu Ihrer Wohneinheit gehören?",
+      "fields": {
+        "hasGaragen": {
+          "options": {
+            "false": "Nein, es gehört keine Garage zum Gebäude / Wohneinheit",
+            "true": "Ja, es gehört eine Garage zum Gebäude / Wohneinheit"
+          }
+        }
+      }
+    },
+    "garagenAnzahl": {
+      "headline": "Wieviele Garagen gehören zu Ihrem Gebäude / Wohneinheit",
+      "fields": {
+        "anzahl": {
+          "label": "Bitte Anzahl maneull eingeben"
+        }
+      }
     }
   },
   "eigentuemer": {

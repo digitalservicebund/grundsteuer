@@ -13,6 +13,46 @@ type PersonTransientParams = {
 };
 
 class GrundModelFactory extends Factory<GrundModel> {
+  gebaeudeAb1949() {
+    return this.params({
+      gebaeude: {
+        ab1949: {
+          isAb1949: "true",
+        },
+      },
+    });
+  }
+
+  kernsaniert() {
+    return this.params({
+      gebaeude: {
+        kernsaniert: {
+          isKernsaniert: "true",
+        },
+      },
+    });
+  }
+
+  withWeitereWohnraeume() {
+    return this.params({
+      gebaeude: {
+        weitereWohnraeume: {
+          hasWeitereWohnraeume: "true",
+        },
+      },
+    });
+  }
+
+  withGaragen() {
+    return this.params({
+      gebaeude: {
+        garagen: {
+          hasGaragen: "true",
+        },
+      },
+    });
+  }
+
   eigentuemerAnzahl(fields?: EigentuemerAnzahlFields) {
     return this.params({
       eigentuemer: {
@@ -22,6 +62,7 @@ class GrundModelFactory extends Factory<GrundModel> {
       },
     });
   }
+
   eigentuemerPersonGesetzlicherVertreter(
     fields?: EigentuemerPersonGesetzlicherVertreterFields,
     params?: PersonTransientParams
@@ -40,6 +81,7 @@ class GrundModelFactory extends Factory<GrundModel> {
       },
     });
   }
+
   grundstueck(fields?: GrundstueckFields) {
     return this.params({
       grundstueck: {

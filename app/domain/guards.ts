@@ -13,11 +13,29 @@ const zweifamilienhaus = () => {
 };
 
 const bezugsfertigAb1949 = (context: StateMachineContext) => {
-  return context?.gebaeude?.ab1949?.isAb1949 === "true";
+  return (
+    showGebaeude(context) && context?.gebaeude?.ab1949?.isAb1949 === "true"
+  );
 };
 
 const isKernsaniert = (context: StateMachineContext) => {
-  return context?.gebaeude?.kernsaniert?.isKernsaniert === "true";
+  return (
+    showGebaeude(context) &&
+    context?.gebaeude?.kernsaniert?.isKernsaniert === "true"
+  );
+};
+
+const hasWeitereWohnraeume = (context: StateMachineContext) => {
+  return (
+    showGebaeude(context) &&
+    context?.gebaeude?.weitereWohnraeume?.hasWeitereWohnraeume === "true"
+  );
+};
+
+const hasGaragen = (context: StateMachineContext) => {
+  return (
+    showGebaeude(context) && context?.gebaeude?.garagen?.hasGaragen === "true"
+  );
 };
 
 const anzahlEigentuemerIsTwo = (context: StateMachineContext) => {
@@ -56,6 +74,9 @@ const currentIdGreaterThanOne = (context: StateMachineContext) => {
 export const conditions: Conditions = {
   bezugsfertigAb1949,
   isKernsaniert,
+  zweifamilienhaus,
+  hasWeitereWohnraeume,
+  hasGaragen,
   anzahlEigentuemerIsTwo,
   multipleEigentuemer,
   hasGesetzlicherVertreter,
