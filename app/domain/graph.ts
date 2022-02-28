@@ -15,7 +15,7 @@ export const createGraph = ({
 }: {
   machineContext: StateMachineContext;
 }) => {
-  const machine = createMachine(getMachineConfig(machineContext) as any, {
+  const machine = createMachine(getMachineConfig(machineContext), {
     guards: conditions,
     actions: actions,
   });
@@ -28,7 +28,7 @@ export const createGraph = ({
     const path: string = state.toStrings().at(-1) || "";
     let pathWithId = path;
     if (state.matches("eigentuemer.person")) {
-      const currentId = (state.context as any)?.currentId || 1;
+      const currentId = state.context?.currentId || 1;
       pathWithId = pathWithId.replace(/\.person\./, `.person.${currentId}.`);
     }
     const data = getStepData(machineContext, pathWithId);
