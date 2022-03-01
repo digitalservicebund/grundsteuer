@@ -72,6 +72,17 @@ describe("states", () => {
       "eigentuemer.person.1.steuerId",
       "eigentuemer.person.1.gesetzlicherVertreter",
     ];
+
+    const defaultGrundstueck = [
+      "grundstueck.adresse",
+      "grundstueck.steuernummer",
+      "grundstueck.typ",
+      "grundstueck.gemeinde",
+      "grundstueck.anzahl",
+      "grundstueck.flurstueck.1.angaben",
+      "grundstueck.bodenrichtwert",
+    ];
+
     const cases = [
       {
         description: "without context",
@@ -102,7 +113,7 @@ describe("states", () => {
           .grundstueckTyp({ typ: "einfamilienhaus" })
           .build(),
         expectedPath: [
-          "grundstueck",
+          ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.kernsaniert",
           "gebaeude.wohnflaeche",
@@ -119,7 +130,7 @@ describe("states", () => {
           .gebaeudeAb1949()
           .build(),
         expectedPath: [
-          "grundstueck",
+          ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
@@ -138,7 +149,7 @@ describe("states", () => {
           .kernsaniert()
           .build(),
         expectedPath: [
-          "grundstueck",
+          ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
@@ -157,7 +168,7 @@ describe("states", () => {
           .kernsaniert()
           .build(),
         expectedPath: [
-          "grundstueck",
+          ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.kernsaniert",
           "gebaeude.kernsanierungsjahr",
@@ -178,7 +189,7 @@ describe("states", () => {
           .withGaragen()
           .build(),
         expectedPath: [
-          "grundstueck",
+          ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
@@ -201,7 +212,7 @@ describe("states", () => {
           .withWeitereWohnraeume()
           .build(),
         expectedPath: [
-          "grundstueck",
+          ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
@@ -223,7 +234,7 @@ describe("states", () => {
           .withGaragen()
           .build(),
         expectedPath: [
-          "grundstueck",
+          ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
@@ -247,7 +258,7 @@ describe("states", () => {
           .withGaragen()
           .build(),
         expectedPath: [
-          "grundstueck",
+          ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
@@ -316,11 +327,11 @@ describe("states", () => {
           "grundstueck.adresse",
           "grundstueck.steuernummer",
           "grundstueck.typ",
+          "grundstueck.unbebaut",
           "grundstueck.gemeinde",
           "grundstueck.anzahl",
           "grundstueck.flurstueck.1.angaben",
           "grundstueck.bodenrichtwert",
-          "gebaeude",
           "eigentuemer.anzahl",
           "eigentuemer.person.1.persoenlicheAngaben",
           "eigentuemer.person.1.adresse",
