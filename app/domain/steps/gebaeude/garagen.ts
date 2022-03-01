@@ -4,7 +4,7 @@ export type GebaeudeGaragenFields = {
   hasGaragen: "true" | "false";
 };
 
-export const gebaueGaragen: StepDefinition = {
+export const gebaeudeGaragen: StepDefinition = {
   fields: {
     hasGaragen: {
       type: "radio",

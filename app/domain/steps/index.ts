@@ -30,7 +30,7 @@ import {
 } from "~/domain/steps/gebaeude/wohnflaechen";
 import {
   GebaeudeWeitereWohnraeumeFields,
-  gebaueWeitereWohnraeume,
+  gebaeudeWeitereWohnraeume,
 } from "~/domain/steps/gebaeude/weitereWohnraeume";
 import {
   gebaeudeWeitereWohnraeumeFlaeche,
@@ -38,7 +38,7 @@ import {
 } from "~/domain/steps/gebaeude/weitereWohnraeumeFlaeche";
 import {
   GebaeudeGaragenFields,
-  gebaueGaragen,
+  gebaeudeGaragen,
 } from "~/domain/steps/gebaeude/garagen";
 
 import {
@@ -113,11 +113,11 @@ const stepDefinitions = {
   gebaeude: {
     ab1949: gebaeudeAb1949,
     baujahr: gebaeudeBaujahr,
-    garagen: gebaueGaragen,
+    garagen: gebaeudeGaragen,
     garagenAnzahl: gebaeudeGaragenAnzahl,
     kernsaniert: gebaeudeKernsaniert,
     kernsanierungsjahr: gebaeudeKernsanierungsjahr,
-    weitereWohnraeume: gebaueWeitereWohnraeume,
+    weitereWohnraeume: gebaeudeWeitereWohnraeume,
     weitereWohnraeumeFlaeche: gebaeudeWeitereWohnraeumeFlaeche,
     wohnflaeche: gebaeudeWohnflaeche,
     wohnflaechen: gebaeudeWohnflaechen,
