@@ -1,4 +1,8 @@
 {
+  "common": {
+    "continue": "Speichern & weiter",
+    "back": "Zurück"
+  },
   "nav": {
     "eigentuemer": "Eigentümer:innen",
     "grundstueck": "Grundstück",

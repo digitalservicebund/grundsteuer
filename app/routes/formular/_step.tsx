@@ -72,6 +72,7 @@ type LoaderData = {
         options?: Record<string, string>;
       };
     };
+    common: Record<string, string>;
   };
   backUrl: string | null;
   currentStateWithoutId: string;
@@ -92,11 +93,15 @@ export const loader: LoaderFunction = async ({
   const backUrl = getBackUrl({ machine, currentStateWithoutId });
   const stepDefinition = getStepDefinition({ currentStateWithoutId });
 
+  const tFunction = await i18Next.getFixedT("de", "common");
   return {
     formData: getStepData(cookie.records, currentState),
-    i18n: (await i18Next.getFixedT("de", "common"))(currentStateWithoutId, {
-      id: params?.id ? parseInt(params.id) : undefined,
-    }),
+    i18n: {
+      ...tFunction(currentStateWithoutId, {
+        id: params?.id ? parseInt(params.id) : undefined,
+      }),
+      common: { ...tFunction("common") },
+    },
     backUrl,
     currentStateWithoutId,
     stepDefinition,
@@ -176,8 +181,8 @@ export function Step() {
       {actionData?.errors ? "ERRORS: " + JSON.stringify(actionData.errors) : ""}
       <Form method="post" className="mb-16">
         <StepComponent {...loaderData} {...actionData} />
-        {backUrl ? <Link to={backUrl}>Zurück</Link> : ""}
-        <Button id="nextButton">Weiter</Button>
+        {backUrl ? <Link to={backUrl}>{i18n.common.back}</Link> : ""}
+        <Button id="nextButton">{i18n.common.continue}</Button>
       </Form>
     </div>
   );
