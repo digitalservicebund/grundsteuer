@@ -1,7 +1,6 @@
 import { LoaderFunction, useLoaderData } from "remix";
 import { getFormDataCookie } from "~/cookies";
 import { createGraph } from "~/domain";
-import { Handle } from "~/components/SidebarNavigation";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const cookie = await getFormDataCookie(request);
@@ -11,11 +10,6 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 
   return { graph, data: cookie.records };
-};
-
-// this will activate showing the form navigation in root.tsx
-export const handle: Handle = {
-  showFormNavigation: true,
 };
 
 export default function Zusammenfassung() {

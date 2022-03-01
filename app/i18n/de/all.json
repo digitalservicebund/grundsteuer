@@ -4,9 +4,55 @@
     "back": "Zurück"
   },
   "nav": {
-    "eigentuemer": "Eigentümer:innen",
-    "grundstueck": "Grundstück",
-    "gebaeude": "Gebäude",
+    "headline": {
+      "grundstueck": "Grundstück",
+      "flurstueck": "Flurstück {{number}}",
+      "gebaeude": "Gebäude",
+      "eigentuemer": "Eigentümer:innen",
+      "person": "Eigentümer:in {{number}}",
+      "vertreter": "Gesetzliche:r Vertreter:in"
+    },
+    "grundstueck": {
+      "adresse": "Adresse",
+      "steuernummer": "Steuernummer",
+      "typ": "Grundstücksart",
+      "unbebaut": "wenn unbebaut",
+      "gemeinde": "Innerhalb einer Gemeinde?",
+      "anzahl": "Anzahl Flurstücke",
+      "bodenrichtwert": "Bodenrichtwert",
+      "flurstueck": {
+        "angaben": "Angaben"
+      }
+    },
+    "gebaeude": {
+      "ab1949": "Wann bezugsfertig?",
+      "baujahr": "Baujahr",
+      "kernsaniert": "Kernsanierung",
+      "kernsanierungsjahr": "Jahr der Kernsanierung",
+      "wohnflaeche": "Wohnfläche",
+      "wohnflaechen": "Wohnflächen",
+      "weitereWohnraeume": "weitere Wohnräume",
+      "weitereWohnraeumeFlaeche": "Fläche der weiteren Wohnräume",
+      "garagen": "Garagen?",
+      "garagenAnzahl": "Anzahl Garagen"
+    },
+    "eigentuemer": {
+      "anzahl": "Anzahl",
+      "verheiratet": "Verheiratet?",
+      "person": {
+        "persoenlicheAngaben": "Persönliche Angaben",
+        "adresse": "Adresse",
+        "telefonnummer": "Telefonnummer",
+        "steuerId": "Steuer-ID",
+        "gesetzlicherVertreter": "Gesetzliche:r Vertreter:in?",
+        "anteil": "Anteil",
+        "vertreter": {
+          "name": "Name",
+          "adresse": "Adresse",
+          "telefonnummer": "Telefonnummer"
+        }
+      }
+    },
     "zusammenfassung": "Zusammenfassung"
   },
   "gebaeude": {

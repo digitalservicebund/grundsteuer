@@ -1,6 +1,1 @@
-export {
-  action,
-  loader,
-  handle,
-  Step as default,
-} from "~/routes/formular/_step";
+export { action, loader, Step as default } from "~/routes/formular/_step";

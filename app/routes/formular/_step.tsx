@@ -17,7 +17,6 @@ import { getMachineConfig, StateMachineContext } from "~/domain/states";
 import { conditions } from "~/domain/guards";
 import { validateField } from "~/domain/validation";
 import { actions } from "~/domain/actions";
-import { Handle } from "~/components/SidebarNavigation";
 import stepComponents, { FallbackStepComponent } from "~/components/steps";
 import { getStepDefinition } from "~/domain/steps";
 
@@ -180,11 +179,6 @@ export const action: ActionFunction = async ({ params, request }) => {
   });
 };
 
-// this will activate showing the form navigation in root.tsx
-export const handle: Handle = {
-  showFormNavigation: true,
-};
-
 export type StepComponentFunction = (
   props: LoaderData & ActionData
 ) => JSX.Element;
@@ -202,8 +196,10 @@ export function Step() {
       {actionData?.errors ? "ERRORS: " + JSON.stringify(actionData.errors) : ""}
       <Form method="post" className="mb-16">
         <StepComponent {...loaderData} {...actionData} />
-        {backUrl ? <Link to={backUrl}>{i18n.common.back}</Link> : ""}
-        <Button id="nextButton">{i18n.common.continue}</Button>
+        <div className="flex flex-row-reverse items-center justify-between">
+          <Button id="nextButton">{i18n.common.continue}</Button>
+          {backUrl ? <Link to={backUrl}>{i18n.common.back}</Link> : ""}
+        </div>
       </Form>
     </div>
   );

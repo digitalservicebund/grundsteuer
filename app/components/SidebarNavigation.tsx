@@ -1,98 +1,86 @@
 import React from "react";
-import { conditions } from "~/domain/guards";
+import { Link } from "remix";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
-import { RouteData } from "@remix-run/react/routeData";
-import { GrundModel } from "~/domain/steps";
 
-export type Handle = {
-  showFormNavigation: boolean;
-};
+export function NavigationLink(props: any) {
+  const { path, pathWithId, currentState, data } = props;
+  const { t } = useTranslation("all");
 
-export type MatchingRoute = {
-  id: string;
-  pathname: string;
-  params: import("react-router").Params;
-  data: RouteData;
-  handle: Handle;
-};
+  const isActive = pathWithId === currentState;
 
-function getNavigationLink(
-  href: string,
-  matchingUrl: string,
-  label: string,
-  showFormNavigation: MatchingRoute
-) {
   return (
-    <a
-      href={href}
-      className={classNames({
-        "font-bold": showFormNavigation.pathname.includes(matchingUrl),
-      })}
-    >
-      {label}
-    </a>
+    <div>
+      {data && Object.keys(data).length > 0 ? (
+        <span className="inline-block w-2 h-2 bg-green-500 rounded-full mr-1"></span>
+      ) : (
+        ""
+      )}
+      <Link
+        className={classNames("underline text-blue-900", {
+          "font-bold": isActive,
+        })}
+        to={`/formular/${pathWithId.split(".").join("/")}`}
+      >
+        {t(`nav.${path}`)}
+      </Link>
+    </div>
   );
 }
 
+// TODO: Give more specific name: Form only
 export default function SidebarNavigation({
-  matchingRoutes,
-  data,
+  graph,
+  currentState,
 }: {
-  matchingRoutes: MatchingRoute[];
-  data: GrundModel;
+  graph: any;
+  currentState: string;
 }) {
   const { t } = useTranslation("all");
 
-  const showFormNavigation = matchingRoutes.find(
-    (match) => match.handle?.showFormNavigation
-  );
+  const renderGraph = (graph: any, level: number, currentState: string) => {
+    return (
+      <div
+        key={level}
+        className={classNames({
+          "pl-2": level === 1,
+          "pl-4": level === 2,
+          "pl-6": level === 3,
+        })}
+      >
+        {graph &&
+          Object.entries(graph).map(([k, v]) => {
+            if ((v as any).path) {
+              return (
+                <div key={k}>
+                  <NavigationLink {...v} currentState={currentState} />
+                </div>
+              );
+            } else if (Array.isArray(v)) {
+              return (
+                <div key={k}>
+                  {v
+                    .filter((c) => c)
+                    .map((c, index) => (
+                      <div key={index}>
+                        {t(`nav.headline.${k}`, { number: index + 1 })}{" "}
+                        {renderGraph(c, level + 1, currentState)}
+                      </div>
+                    ))}
+                </div>
+              );
+            } else {
+              return (
+                <div key={k}>
+                  {t(`nav.headline.${k}`)}{" "}
+                  {renderGraph(v, level + 1, currentState)}
+                </div>
+              );
+            }
+          })}
+      </div>
+    );
+  };
 
-  return (
-    <nav>
-      {showFormNavigation ? (
-        <div>
-          {getNavigationLink(
-            "/formular/grundstueck/adresse",
-            "/formular/grundstueck",
-            t("nav.grundstueck"),
-            showFormNavigation
-          )}
-          {conditions.showGebaeude(data) && (
-            <>
-              <br />
-              {getNavigationLink(
-                "/formular/gebaeude/ab1949",
-                "/formular/gebaeude",
-                t("nav.gebaeude"),
-                showFormNavigation
-              )}
-            </>
-          )}
-          <br />
-          {getNavigationLink(
-            "/formular/eigentuemer/anzahl",
-            "/formular/eigentuemer",
-            t("nav.eigentuemer"),
-            showFormNavigation
-          )}
-          <br />
-          {getNavigationLink(
-            "/formular/zusammenfassung",
-            "/formular/zusammenfassung",
-            t("nav.zusammenfassung"),
-            showFormNavigation
-          )}
-        </div>
-      ) : (
-        <div className="h-full p-4 bg-white">
-          <ul>
-            <li>
-              <a href="/">Home</a>
-            </li>
-          </ul>
-        </div>
-      )}
-    </nav>
-  );
+  return <nav>{renderGraph(graph, 0, currentState)}</nav>;
 }
