@@ -62,7 +62,7 @@ export default function SidebarNavigation({
             <>
               <br />
               {getNavigationLink(
-                "/formular/gebaeude",
+                "/formular/gebaeude/ab1949",
                 "/formular/gebaeude",
                 t("nav.gebaeude"),
                 showFormNavigation

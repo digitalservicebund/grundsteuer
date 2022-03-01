@@ -122,7 +122,7 @@ describe("With bebaut data and matching routes indicating to show navigation", (
       ).toHaveAttribute("href", "/formular/zusammenfassung");
       expect(screen.getByText("nav.gebaeude").closest("a")).toHaveAttribute(
         "href",
-        "/formular/gebaeude"
+        "/formular/gebaeude/ab1949"
       );
     });
   });
