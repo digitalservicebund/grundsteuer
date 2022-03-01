@@ -23,13 +23,15 @@ export default function StepRadioField(props: StepRadioFieldProps) {
           value={option.value}
           id={optionId}
         />
-        <label htmlFor={optionId}>{option.label}</label>
+        <label htmlFor={optionId} className="ml-2">
+          {option.label}
+        </label>
       </div>
     );
   };
 
   return (
-    <fieldset>
+    <fieldset className="mb-4">
       <legend>{label}</legend>
       {options.map((option) => {
         const checked = option.value === value;

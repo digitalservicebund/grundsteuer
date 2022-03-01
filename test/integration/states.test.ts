@@ -46,8 +46,11 @@ const getPath = (
   return Object.values(getSimplePaths(machine)).map(({ state }) => {
     let path = state.toStrings().at(-1);
     if (state.matches("eigentuemer.person")) {
-      const currentId = state.context?.currentId || 1;
-      path = path?.replace(/\.person\./, `.person.${currentId}.`);
+      const personId = state.context?.personId || 1;
+      path = path?.replace(/\.person\./, `.person.${personId}.`);
+    } else if (state.matches("grundstueck.flurstueck")) {
+      const flurstueckId = state.context?.flurstueckId || 1;
+      path = path?.replace(/\.flurstueck\./, `.flurstueck.${flurstueckId}.`);
     }
     return path;
   });
@@ -72,9 +75,18 @@ describe("states", () => {
     const cases = [
       {
         description: "without context",
-        context: grundModelFactory.build(),
+        context: grundModelFactory
+          .grundstueckTyp({ typ: "abweichendeEntwicklung" })
+          .build(),
         expectedPath: [
-          "grundstueck",
+          "grundstueck.adresse",
+          "grundstueck.steuernummer",
+          "grundstueck.typ",
+          "grundstueck.unbebaut",
+          "grundstueck.gemeinde",
+          "grundstueck.anzahl",
+          "grundstueck.flurstueck.1.angaben",
+          "grundstueck.bodenrichtwert",
           "eigentuemer.anzahl",
           "eigentuemer.person.1.persoenlicheAngaben",
           "eigentuemer.person.1.adresse",
@@ -250,9 +262,19 @@ describe("states", () => {
       // TODO add cases for zweifamilienhaus
       {
         description: "with 2 eigentuemer people",
-        context: grundModelFactory.eigentuemerAnzahl({ anzahl: "2" }).build(),
+        context: grundModelFactory
+          .grundstueckTyp({ typ: "abweichendeEntwicklung" })
+          .eigentuemerAnzahl({ anzahl: "2" })
+          .build(),
         expectedPath: [
-          "grundstueck",
+          "grundstueck.adresse",
+          "grundstueck.steuernummer",
+          "grundstueck.typ",
+          "grundstueck.unbebaut",
+          "grundstueck.gemeinde",
+          "grundstueck.anzahl",
+          "grundstueck.flurstueck.1.angaben",
+          "grundstueck.bodenrichtwert",
           "eigentuemer.anzahl",
           "eigentuemer.verheiratet",
           "eigentuemer.person.1.persoenlicheAngaben",
@@ -273,6 +295,7 @@ describe("states", () => {
       {
         description: "with 3 eigentuemer people (2 with vertreter)",
         context: grundModelFactory
+          .grundstueckTyp({ typ: "abweichendeEntwicklung" })
           .eigentuemerAnzahl({ anzahl: "3" })
           .eigentuemerPersonGesetzlicherVertreter(
             { hasVertreter: "true" },
@@ -288,7 +311,14 @@ describe("states", () => {
           )
           .build(),
         expectedPath: [
-          "grundstueck",
+          "grundstueck.adresse",
+          "grundstueck.steuernummer",
+          "grundstueck.typ",
+          "grundstueck.gemeinde",
+          "grundstueck.anzahl",
+          "grundstueck.flurstueck.1.angaben",
+          "grundstueck.bodenrichtwert",
+          "gebaeude",
           "eigentuemer.anzahl",
           "eigentuemer.person.1.persoenlicheAngaben",
           "eigentuemer.person.1.adresse",

@@ -34,8 +34,10 @@ const getCurrentStateWithoutId = (currentState: string) => {
 
 const getMachine = ({ cookie, params }: any) => {
   const machineContext = { ...cookie.records } as StateMachineContext;
-  if (params.id) {
-    machineContext.currentId = parseInt(params.id);
+  if (params.personId) {
+    machineContext.personId = parseInt(params.personId);
+  } else if (params.flurstueckId) {
+    machineContext.flurstueckId = parseInt(params.flurstueckId);
   }
 
   return createMachine(getMachineConfig(machineContext), {
@@ -49,14 +51,24 @@ const getBackUrl = ({ machine, currentStateWithoutId }: any) => {
     type: "BACK",
   });
   const dotNotation = backState.toStrings().at(-1);
-  if (dotNotation === currentStateWithoutId) {
+  if (
+    dotNotation === currentStateWithoutId &&
+    currentStateWithoutId !== "grundstueck.flurstueck.angaben"
+  ) {
     return null;
   }
   let backUrl = `/formular/${dotNotation.split(".").join("/")}`;
   if (backState.matches("eigentuemer.person")) {
     backUrl = backUrl.replace(
       "person/",
-      `person/${(backState.context as StateMachineContext).currentId || 1}/`
+      `person/${(backState.context as StateMachineContext).personId || 1}/`
+    );
+  } else if (backState.matches("grundstueck.flurstueck")) {
+    backUrl = backUrl.replace(
+      "flurstueck/",
+      `flurstueck/${
+        (backState.context as StateMachineContext).flurstueckId || 1
+      }/`
     );
   }
   return backUrl;
@@ -126,12 +138,14 @@ export const action: ActionFunction = async ({ params, request }) => {
   // validate
   const errors: Record<string, Array<string>> = {};
   const stepDefinition = getStepDefinition({ currentStateWithoutId });
-  Object.entries(stepDefinition.fields).forEach(
-    ([name, field]: [string, any]) => {
-      const fieldErrorMessages = validateField(name, field, fieldValues);
-      if (fieldErrorMessages.length > 0) errors[name] = fieldErrorMessages;
-    }
-  );
+  if (stepDefinition) {
+    Object.entries(stepDefinition.fields).forEach(
+      ([name, field]: [string, any]) => {
+        const fieldErrorMessages = validateField(name, field, fieldValues);
+        if (fieldErrorMessages.length > 0) errors[name] = fieldErrorMessages;
+      }
+    );
+  }
   if (Object.keys(errors).length >= 1) return { errors } as ActionData;
 
   // store
@@ -150,7 +164,14 @@ export const action: ActionFunction = async ({ params, request }) => {
   if (nextState.matches("eigentuemer.person")) {
     redirectUrl = redirectUrl.replace(
       "person/",
-      `person/${(nextState.context as StateMachineContext).currentId || 1}/`
+      `person/${(nextState.context as StateMachineContext).personId || 1}/`
+    );
+  } else if (nextState.matches("grundstueck.flurstueck")) {
+    redirectUrl = redirectUrl.replace(
+      "flurstueck/",
+      `flurstueck/${
+        (nextState.context as StateMachineContext).flurstueckId || 1
+      }/`
     );
   }
   const responseHeader: Headers = await createResponseHeaders(cookie);

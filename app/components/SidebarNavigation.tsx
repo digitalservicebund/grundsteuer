@@ -53,7 +53,7 @@ export default function SidebarNavigation({
       {showFormNavigation ? (
         <div>
           {getNavigationLink(
-            "/formular/grundstueck",
+            "/formular/grundstueck/adresse",
             "/formular/grundstueck",
             t("nav.grundstueck"),
             showFormNavigation

@@ -211,13 +211,95 @@
     }
   },
   "grundstueck": {
-    "headline": "Grundstück",
-    "fields": {
-      "bebaut": {
-        "label": "Bebaut?",
-        "options": {
-          "true": "bebaut",
-          "false": "unbebaut"
+    "adresse": {
+      "headline": "Wie lautet die Adresse des Grundstücks?",
+      "fields": {
+        "strasse": { "label": "Straße / Lagebezeichnung" },
+        "hausnummer": { "label": "Hausnummer (+Hausnummerzusatz)" },
+        "zusatzangaben": { "label": "Zusatzangaben (Bsp. Hinterhaus)" },
+        "plz": { "label": "PLZ" },
+        "ort": { "label": "Ort" }
+      }
+    },
+    "steuernummer": {
+      "headline": "Wie lautet das Aktenzeichen/ die Steuernummer des Grundstücks?",
+      "fields": {
+        "steuernummer": { "label": "Aktenzeichen/Steuernummer" }
+      }
+    },
+    "typ": {
+      "headline": "Um welche Art Grundstück handelt es sich?",
+      "fields": {
+        "typ": {
+          "label": "Aktenzeichen/Steuernummer",
+          "options": {
+            "einfamilienhaus": "Einfamilienhaus",
+            "zweifamilienhaus": "Zweifamilienhaus",
+            "wohnungseigentum": "Wohnungseigentum",
+            "baureif": "Baureif",
+            "abweichendeEntwicklung": "Abweichende Entwicklung"
+          }
+        }
+      }
+    },
+    "unbebaut": {
+      "headline": "Da abweichende Entwicklung, welcher Zustand trifft auf Ihr Grundstück zu?",
+      "fields": {
+        "zustand": {
+          "label": "Zustand",
+          "options": {
+            "bauerwartungsland": "Bauerwartungsland",
+            "rohbauland": "Rohbauland"
+          }
+        }
+      }
+    },
+    "gemeinde": {
+      "headline": "Liegt das Grundstück innerhalb einer Gemeinde?",
+      "fields": {
+        "innerhalbEinerGemeinde": {
+          "label": "Liegt das Grundstück innerhalb einer Gemeinde?",
+          "options": {
+            "true": "Ja, es liegt innerhalb einer Gemeinde",
+            "false": "Nein, es läuft über mehrere Gemeindegrenzen"
+          }
+        }
+      }
+    },
+    "anzahl": {
+      "headline": "Wie viele Grundstücke stehen im vorliegenden Grundbuchauszug?",
+      "fields": {
+        "anzahl": {
+          "label": "Wie viele Grundstücke stehen im vorliegenden Grundbuchauszug?"
+        }
+      }
+    },
+    "flurstueck": {
+      "angaben": {
+        "headline": "Übertragen Sie die Angaben aus dem Grundbuch zu Grundstück {{id}}:",
+        "fields": {
+          "grundbuchblattnummer": { "label": "Grundbuchblattnummer" },
+          "gemarkung": { "label": "Gemarkung" },
+          "flur": { "label": "Flur" },
+          "flurstueckZaehler": { "label": "Flurstück Zähler" },
+          "flurstueckNenner": { "label": "Flurstück Nenner" },
+          "wirtschaftlicheEinheitZaehler": {
+            "label": "Wirtsch. Einheit Zähler"
+          },
+          "wirtschaftlicheEinheitNenner": {
+            "label": "Wirtsch. Einheit Nenner"
+          },
+          "groesseHa": { "label": "Größe in ha" },
+          "groesseA": { "label": "Größe in a" },
+          "groesseQm": { "label": "Größe in m2" }
+        }
+      }
+    },
+    "bodenrichtwert": {
+      "headline": "Wie lautet der Bodenrichtwert für das Grundstück?",
+      "fields": {
+        "bodenrichtwert": {
+          "label": "Bodenrichtwert in €"
         }
       }
     }

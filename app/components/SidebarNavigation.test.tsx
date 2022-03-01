@@ -61,7 +61,7 @@ describe("With default data", () => {
       );
       expect(screen.getByText("nav.grundstueck").closest("a")).toHaveAttribute(
         "href",
-        "/formular/grundstueck"
+        "/formular/grundstueck/adresse"
       );
       expect(
         screen.getByText("nav.zusammenfassung").closest("a")
@@ -85,7 +85,9 @@ describe("With bebaut data and matching routes indicating to show navigation", (
   ];
 
   describe("With bebaut false", () => {
-    const data = grundModelFactory.grundstueck({ bebaut: "false" }).build();
+    const data = grundModelFactory
+      .grundstueckTyp({ typ: "abweichendeEntwicklung" })
+      .build();
 
     it("should render the expected navigation links, not gebaeude", () => {
       render(<SidebarNavigation matchingRoutes={matchingRoutes} data={data} />);
@@ -95,7 +97,7 @@ describe("With bebaut data and matching routes indicating to show navigation", (
       );
       expect(screen.getByText("nav.grundstueck").closest("a")).toHaveAttribute(
         "href",
-        "/formular/grundstueck"
+        "/formular/grundstueck/adresse"
       );
       expect(
         screen.getByText("nav.zusammenfassung").closest("a")
@@ -105,7 +107,9 @@ describe("With bebaut data and matching routes indicating to show navigation", (
   });
 
   describe("With bebaut true", () => {
-    const data = grundModelFactory.grundstueck({ bebaut: "true" }).build();
+    const data = grundModelFactory
+      .grundstueckTyp({ typ: "einfamilienhaus" })
+      .build();
 
     it("should render the expected navigation links, including gebaeude", () => {
       render(<SidebarNavigation matchingRoutes={matchingRoutes} data={data} />);
@@ -115,7 +119,7 @@ describe("With bebaut data and matching routes indicating to show navigation", (
       );
       expect(screen.getByText("nav.grundstueck").closest("a")).toHaveAttribute(
         "href",
-        "/formular/grundstueck"
+        "/formular/grundstueck/adresse"
       );
       expect(
         screen.getByText("nav.zusammenfassung").closest("a")

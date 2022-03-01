@@ -6,7 +6,7 @@ export default function Index() {
       <h1 className="mb-8 text-4xl font-bold">Welcome to Remix</h1>
 
       <Link
-        to="/formular/grundstueck"
+        to="/formular/grundstueck/adresse"
         className="text-2xl underline text-blue-500"
       >
         Fragebogen

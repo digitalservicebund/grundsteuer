@@ -47,7 +47,7 @@ const multipleEigentuemer = (context: StateMachineContext) => {
 };
 
 const hasGesetzlicherVertreter = (context: StateMachineContext) => {
-  const person = context?.eigentuemer?.person?.[(context?.currentId || 1) - 1];
+  const person = context?.eigentuemer?.person?.[(context?.personId || 1) - 1];
   if (!person) return false;
 
   const gesetzlicherVertreter = person.gesetzlicherVertreter;
@@ -59,16 +59,31 @@ const hasGesetzlicherVertreter = (context: StateMachineContext) => {
 
 const repeatPerson = (context: StateMachineContext) => {
   return (
-    (context?.currentId || 1) < Number(context?.eigentuemer?.anzahl?.anzahl)
+    (context?.personId || 1) < Number(context?.eigentuemer?.anzahl?.anzahl)
+  );
+};
+
+const repeatFlurstueck = (context: StateMachineContext) => {
+  return (
+    (context?.flurstueckId || 1) < Number(context?.grundstueck?.anzahl?.anzahl)
   );
 };
 
 const showGebaeude = (context: StateMachineContext) => {
-  return context?.grundstueck?.bebaut === "true";
+  const typ = context?.grundstueck?.typ?.typ;
+  return typ ? typ !== "abweichendeEntwicklung" : false;
 };
 
-const currentIdGreaterThanOne = (context: StateMachineContext) => {
-  return Number(context?.currentId) > 1;
+const isUnbebaut = (context: StateMachineContext) => {
+  return context?.grundstueck?.typ?.typ === "abweichendeEntwicklung";
+};
+
+const personIdGreaterThanOne = (context: StateMachineContext) => {
+  return Number(context?.personId) > 1;
+};
+
+const flurstueckIdGreaterThanOne = (context: StateMachineContext) => {
+  return Number(context?.flurstueckId) > 1;
 };
 
 export const conditions: Conditions = {
@@ -81,9 +96,12 @@ export const conditions: Conditions = {
   multipleEigentuemer,
   hasGesetzlicherVertreter,
   repeatPerson,
+  repeatFlurstueck,
   hasNotGesetzlicherVertreterAndRepeatPerson: (context: any) => {
     return !hasGesetzlicherVertreter(context) && repeatPerson(context);
   },
   showGebaeude,
-  currentIdGreaterThanOne,
+  isUnbebaut,
+  personIdGreaterThanOne,
+  flurstueckIdGreaterThanOne,
 };

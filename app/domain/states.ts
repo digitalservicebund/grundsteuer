@@ -2,7 +2,8 @@ import { MachineConfig } from "xstate";
 import { GrundModel } from "./steps";
 
 export interface StateMachineContext extends GrundModel {
-  currentId?: number;
+  personId?: number;
+  flurstueckId?: number;
 }
 
 export const states: MachineConfig<any, any, any> = {
@@ -11,11 +12,89 @@ export const states: MachineConfig<any, any, any> = {
   states: {
     grundstueck: {
       id: "grundstueck",
-      on: {
-        NEXT: [
-          { target: "gebaeude", cond: "showGebaeude" },
-          { target: "eigentuemer" },
-        ],
+      initial: "adresse",
+      states: {
+        adresse: {
+          on: {
+            NEXT: [{ target: "steuernummer" }],
+          },
+        },
+        steuernummer: {
+          on: {
+            NEXT: [{ target: "typ" }],
+            BACK: [{ target: "adresse" }],
+          },
+        },
+        typ: {
+          on: {
+            NEXT: [
+              { target: "unbebaut", cond: "isUnbebaut" },
+              { target: "gemeinde" },
+            ],
+            BACK: [{ target: "steuernummer" }],
+          },
+        },
+        unbebaut: {
+          on: {
+            NEXT: [{ target: "gemeinde" }],
+            BACK: [{ target: "typ" }],
+          },
+        },
+        gemeinde: {
+          on: {
+            NEXT: [{ target: "anzahl" }],
+            BACK: [
+              { target: "unbebaut", cond: "isUnbebaut" },
+              { target: "typ" },
+            ],
+          },
+        },
+        anzahl: {
+          on: {
+            NEXT: [{ target: "flurstueck" }],
+            BACK: [{ target: "gemeinde" }],
+          },
+        },
+        flurstueck: {
+          id: "flurstueck",
+          initial: "angaben",
+          states: {
+            angaben: {
+              on: {
+                NEXT: [
+                  {
+                    target: "angaben",
+                    cond: "repeatFlurstueck",
+                    actions: ["incrementFlurstueckId"],
+                  },
+                  { target: "#grundstueck.bodenrichtwert" },
+                ],
+                BACK: [
+                  {
+                    target: "angaben",
+                    cond: "flurstueckIdGreaterThanOne",
+                    actions: ["decrementFlurstueckId"],
+                  },
+                  { target: "#grundstueck.anzahl" },
+                ],
+              },
+            },
+          },
+        },
+        bodenrichtwert: {
+          on: {
+            NEXT: [
+              { target: "#steps.gebaeude", cond: "showGebaeude" },
+              { target: "#steps.eigentuemer" },
+            ],
+            BACK: [
+              {
+                target: "flurstueck",
+                actions: "setFlurstueckIdToMaximum",
+              },
+            ],
+          },
+        },
       },
     },
     gebaeude: {
@@ -29,7 +108,7 @@ export const states: MachineConfig<any, any, any> = {
               { target: "kernsaniert" },
             ],
             BACK: {
-              target: "#grundstueck",
+              target: "#grundstueck.bodenrichtwert",
             },
           },
         },
@@ -150,7 +229,7 @@ export const states: MachineConfig<any, any, any> = {
             BACK: [
               { target: "#steps.gebaeude.garagenAnzahl", cond: "hasGaragen" },
               { target: "#steps.gebaeude.garagen", cond: "showGebaeude" },
-              { target: "#steps.grundstueck" },
+              { target: "#steps.grundstueck.bodenrichtwert" },
             ],
           },
         },
@@ -176,9 +255,9 @@ export const states: MachineConfig<any, any, any> = {
                 BACK: [
                   {
                     target: "anteil",
-                    cond: "currentIdGreaterThanOne",
+                    cond: "personIdGreaterThanOne",
 
-                    actions: ["decrementCurrentId"],
+                    actions: ["decrementPersonId"],
                   },
                 ],
               },
@@ -253,7 +332,7 @@ export const states: MachineConfig<any, any, any> = {
             NEXT: {
               target: "person",
               cond: "repeatPerson",
-              actions: ["incrementCurrentId"],
+              actions: ["incrementPersonId"],
             },
           },
         },
@@ -269,16 +348,16 @@ export const states: MachineConfig<any, any, any> = {
           {
             target: "eigentuemer.person.anteil",
             cond: "multipleEigentuemer",
-            actions: "setCurrentIdToMaximum",
+            actions: "setPersonIdToMaximum",
           },
           {
             target: "eigentuemer.person.vertreter.telefonnummer",
             cond: "hasGesetzlicherVertreter",
-            actions: "setCurrentIdToMaximum",
+            actions: "setPersonIdToMaximum",
           },
           {
             target: "eigentuemer.person.gesetzlicherVertreter",
-            actions: "setCurrentIdToMaximum",
+            actions: "setPersonIdToMaximum",
           },
         ],
       },

@@ -14,7 +14,13 @@ export default function StepTextField(props: StepTextFieldProps) {
       <Label htmlFor={id} className="block">
         {label}
       </Label>
-      <Input type="text" name={name} id={id} defaultValue={value} />
+      <Input
+        type="text"
+        name={name}
+        id={id}
+        defaultValue={value}
+        className="mb-4"
+      />
     </>
   );
 }

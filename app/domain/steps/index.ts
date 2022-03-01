@@ -100,16 +100,69 @@ import {
   EigentuemerVerheiratetFields,
 } from "~/domain/steps/eigentuemer/verheiratet";
 
-import { grundstueck, GrundstueckFields } from "~/domain/steps/grundstueck";
 import {
   gebaeudeGaragenAnzahl,
   GebaeudeGaragenAnzahlFields,
 } from "~/domain/steps/gebaeude/garagenAnzahl";
 
-export type { GrundstueckFields };
+import {
+  grundstueckAdresse,
+  GrundstueckAdresseFields,
+} from "./grundstueck/adresse";
+export type { GrundstueckAdresseFields };
+
+import {
+  grundstueckSteuernummer,
+  GrundstueckSteuernummerFields,
+} from "./grundstueck/steuernummer";
+export type { GrundstueckSteuernummerFields };
+
+import { grundstueckTyp, GrundstueckTypFields } from "./grundstueck/typ";
+export type { GrundstueckTypFields };
+
+import {
+  grundstueckUnbebaut,
+  GrundstueckUnbebautFields,
+} from "./grundstueck/unbebaut";
+export type { GrundstueckUnbebautFields };
+
+import {
+  grundstueckGemeinde,
+  GrundstueckGemeindeFields,
+} from "./grundstueck/gemeinde";
+export type { GrundstueckGemeindeFields };
+
+import {
+  grundstueckAnzahl,
+  GrundstueckAnzahlFields,
+} from "./grundstueck/anzahl";
+export type { GrundstueckAnzahlFields };
+
+import {
+  grundstueckFlurstueckAngaben,
+  GrundstueckFlurstueckAngabenFields,
+} from "./grundstueck/flurstueck/angaben";
+export type { GrundstueckFlurstueckAngabenFields };
+
+import {
+  grundstueckBodenrichtwert,
+  GrundstueckBodenrichtwertFields,
+} from "./grundstueck/bodenrichtwert";
+export type { GrundstueckBodenrichtwertFields };
 
 const stepDefinitions = {
-  grundstueck: grundstueck,
+  grundstueck: {
+    adresse: grundstueckAdresse,
+    steuernummer: grundstueckSteuernummer,
+    typ: grundstueckTyp,
+    unbebaut: grundstueckUnbebaut,
+    gemeinde: grundstueckGemeinde,
+    anzahl: grundstueckAnzahl,
+    bodenrichtwert: grundstueckBodenrichtwert,
+    flurstueck: {
+      angaben: grundstueckFlurstueckAngaben,
+    },
+  },
   gebaeude: {
     ab1949: gebaeudeAb1949,
     baujahr: gebaeudeBaujahr,
@@ -144,7 +197,18 @@ const stepDefinitions = {
 export default stepDefinitions;
 
 export type GrundModel = {
-  grundstueck?: GrundstueckFields;
+  grundstueck?: {
+    adresse?: GrundstueckAdresseFields;
+    steuernummer?: GrundstueckSteuernummerFields;
+    typ?: GrundstueckTypFields;
+    unbebaut?: GrundstueckUnbebautFields;
+    gemeinde?: GrundstueckGemeindeFields;
+    anzahl?: GrundstueckAnzahlFields;
+    bodenrichtwert?: GrundstueckBodenrichtwertFields;
+    flurstueck?: {
+      angaben?: GrundstueckFlurstueckAngabenFields;
+    };
+  };
   gebaeude?: {
     ab1949?: GebaeudeAb1949Fields;
     baujahr?: GebaeudeBaujahrFields;

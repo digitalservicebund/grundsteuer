@@ -124,7 +124,7 @@ describe("hasGesetzlicherVertreter", () => {
           )
           .build();
         const inputData: StateMachineContext = {
-          currentId: 2,
+          personId: 2,
           ...data,
         };
         const result = conditions.hasGesetzlicherVertreter(inputData);
@@ -140,7 +140,7 @@ describe("hasGesetzlicherVertreter", () => {
           )
           .build();
         const inputData: StateMachineContext = {
-          currentId: 2,
+          personId: 2,
           ...data,
         };
         const result = conditions.hasGesetzlicherVertreter(inputData);
@@ -156,7 +156,7 @@ describe("hasGesetzlicherVertreter", () => {
           )
           .build();
         const inputData: StateMachineContext = {
-          currentId: 2,
+          personId: 2,
           ...data,
         };
         const result = conditions.hasGesetzlicherVertreter(inputData);
@@ -185,13 +185,13 @@ describe("repeatPerson", () => {
     });
 
     it("Should return true if default data and first eigentuemer", async () => {
-      const inputData = { ...data, currentId: 1 };
+      const inputData = { ...data, personId: 1 };
       const result = conditions.repeatPerson(inputData);
       expect(result).toEqual(true);
     });
 
     it("Should return false if default data and second eigentuemer", async () => {
-      const inputData = { ...data, currentId: 2 };
+      const inputData = { ...data, personId: 2 };
       const result = conditions.repeatPerson(inputData);
       expect(result).toEqual(false);
     });
@@ -203,7 +203,7 @@ describe("repeatPerson", () => {
         .eigentuemerAnzahl({ anzahl: "1" })
         .eigentuemerPersonGesetzlicherVertreter({ hasVertreter: "false" })
         .build();
-      const inputData = { ...data, currentId: 1 };
+      const inputData = { ...data, personId: 1 };
       const result = conditions.repeatPerson(inputData);
       expect(result).toEqual(false);
     });
@@ -218,14 +218,16 @@ describe("showGebaeude", () => {
 
   it("Should return false if bebaut is false", async () => {
     const inputData = grundModelFactory
-      .grundstueck({ bebaut: "false" })
+      .grundstueckTyp({ typ: "abweichendeEntwicklung" })
       .build();
     const result = conditions.showGebaeude(inputData);
     expect(result).toEqual(false);
   });
 
   it("Should return true if bebaut is true", async () => {
-    const inputData = grundModelFactory.grundstueck({ bebaut: "true" }).build();
+    const inputData = grundModelFactory
+      .grundstueckTyp({ typ: "einfamilienhaus" })
+      .build();
     const result = conditions.showGebaeude(inputData);
     expect(result).toEqual(true);
   });

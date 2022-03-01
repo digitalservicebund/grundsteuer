@@ -3,7 +3,7 @@ import {
   GrundModel,
   EigentuemerAnzahlFields,
   EigentuemerPersonGesetzlicherVertreterFields,
-  GrundstueckFields,
+  GrundstueckTypFields,
 } from "~/domain/steps";
 
 type PersonTransientParams = {
@@ -82,10 +82,12 @@ class GrundModelFactory extends Factory<GrundModel> {
     });
   }
 
-  grundstueck(fields?: GrundstueckFields) {
+  grundstueckTyp(fields?: GrundstueckTypFields) {
     return this.params({
       grundstueck: {
-        bebaut: fields?.bebaut || "false",
+        typ: {
+          typ: fields?.typ,
+        },
       },
     });
   }

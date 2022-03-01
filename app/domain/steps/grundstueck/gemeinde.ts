@@ -1,12 +1,12 @@
 import { StepDefinition } from "~/domain/steps";
 
-export type GrundstueckFields = {
-  bebaut: "true" | "false";
+export type GrundstueckGemeindeFields = {
+  innerhalbEinerGemeinde: "true" | "false";
 };
 
-export const grundstueck: StepDefinition = {
+export const grundstueckGemeinde: StepDefinition = {
   fields: {
-    bebaut: {
+    innerhalbEinerGemeinde: {
       type: "radio",
       validations: {},
       options: [{ value: "true" }, { value: "false" }],
