@@ -98,7 +98,9 @@ describe("states", () => {
       },
       {
         description: "Einfamilienhaus vor 1949 no frills",
-        context: grundModelFactory.grundstueck({ bebaut: "true" }).build(),
+        context: grundModelFactory
+          .grundstueckTyp({ typ: "einfamilienhaus" })
+          .build(),
         expectedPath: [
           "grundstueck",
           "gebaeude.ab1949",
@@ -113,7 +115,7 @@ describe("states", () => {
       {
         description: "Einfamilienhaus ab 1949 no frills",
         context: grundModelFactory
-          .grundstueck({ bebaut: "true" })
+          .grundstueckTyp({ typ: "einfamilienhaus" })
           .gebaeudeAb1949()
           .build(),
         expectedPath: [
@@ -131,7 +133,7 @@ describe("states", () => {
       {
         description: "Einfamilienhaus ab 1949 kernsaniert",
         context: grundModelFactory
-          .grundstueck({ bebaut: "true" })
+          .grundstueckTyp({ typ: "einfamilienhaus" })
           .gebaeudeAb1949()
           .kernsaniert()
           .build(),
@@ -151,7 +153,7 @@ describe("states", () => {
       {
         description: "Einfamilienhaus vor 1949 kernsaniert",
         context: grundModelFactory
-          .grundstueck({ bebaut: "true" })
+          .grundstueckTyp({ typ: "einfamilienhaus" })
           .kernsaniert()
           .build(),
         expectedPath: [
@@ -170,7 +172,7 @@ describe("states", () => {
         description:
           "Einfamilienhaus ab 1949 with weitere wohnraeume and garagen",
         context: grundModelFactory
-          .grundstueck({ bebaut: "true" })
+          .grundstueckTyp({ typ: "einfamilienhaus" })
           .gebaeudeAb1949()
           .withWeitereWohnraeume()
           .withGaragen()
@@ -193,7 +195,7 @@ describe("states", () => {
         description:
           "Einfamilienhaus ab 1949 kernsaniert with weitere wohnraeume",
         context: grundModelFactory
-          .grundstueck({ bebaut: "true" })
+          .grundstueckTyp({ typ: "einfamilienhaus" })
           .gebaeudeAb1949()
           .kernsaniert()
           .withWeitereWohnraeume()
@@ -215,7 +217,7 @@ describe("states", () => {
       {
         description: "Einfamilienhaus ab 1949 kernsaniert with garagen",
         context: grundModelFactory
-          .grundstueck({ bebaut: "true" })
+          .grundstueckTyp({ typ: "einfamilienhaus" })
           .gebaeudeAb1949()
           .kernsaniert()
           .withGaragen()
@@ -238,7 +240,7 @@ describe("states", () => {
         description:
           "Einfamilienhaus ab 1949 kernsaniert with weitere wohnraeume and garagen",
         context: grundModelFactory
-          .grundstueck({ bebaut: "true" })
+          .grundstueckTyp({ typ: "einfamilienhaus" })
           .gebaeudeAb1949()
           .kernsaniert()
           .withWeitereWohnraeume()
