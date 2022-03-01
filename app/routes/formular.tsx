@@ -11,7 +11,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const cookie = await getFormDataCookie(request);
   return json({
     data: cookie.records,
-    i18n: await i18Next.getTranslations(request, ["common"]),
+    i18n: await i18Next.getTranslations(request, ["all"]),
   });
 };
 

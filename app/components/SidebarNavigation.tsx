@@ -42,7 +42,7 @@ export default function SidebarNavigation({
   matchingRoutes: MatchingRoute[];
   data: GrundModel;
 }) {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("all");
 
   const showFormNavigation = matchingRoutes.find(
     (match) => match.handle?.showFormNavigation

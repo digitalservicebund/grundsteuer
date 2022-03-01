@@ -93,7 +93,7 @@ export const loader: LoaderFunction = async ({
   const backUrl = getBackUrl({ machine, currentStateWithoutId });
   const stepDefinition = getStepDefinition({ currentStateWithoutId });
 
-  const tFunction = await i18Next.getFixedT("de", "common");
+  const tFunction = await i18Next.getFixedT("de", "all");
   return {
     formData: getStepData(cookie.records, currentState),
     i18n: {

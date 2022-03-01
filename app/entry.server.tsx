@@ -14,7 +14,7 @@ export default async function handleRequest(
   // should match the configuration in entry.client.tsx
   await i18next.use(initReactI18next).init({
     supportedLngs: ["de"],
-    defaultNS: "common",
+    defaultNS: "all",
     fallbackLng: "de",
     react: { useSuspense: false },
   });
