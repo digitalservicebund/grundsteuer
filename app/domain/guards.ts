@@ -7,9 +7,8 @@ export type Conditions = Record<
   ConditionPredicate<GrundModel, AnyEventObject> | any
 >;
 
-const zweifamilienhaus = () => {
-  // TODO implement in STL-1852
-  return false;
+const zweifamilienhaus = (context: StateMachineContext) => {
+  return context?.grundstueck?.typ?.typ === "zweifamilienhaus";
 };
 
 const bezugsfertigAb1949 = (context: StateMachineContext) => {
