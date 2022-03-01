@@ -64,7 +64,7 @@
       }
     },
     "weitereWohnraeume": {
-      "headline": "Haben Sie weitere Wonhräume, z.B. Poolhaus oder ausgebaute Garage?",
+      "headline": "Haben Sie weitere Wonhräume wie z.B. Poolhaus oder ausgebaute Garage?",
       "fields": {
         "hasWeitereWohnraeume": {
           "options": {
