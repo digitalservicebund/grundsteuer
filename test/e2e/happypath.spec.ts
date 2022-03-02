@@ -53,7 +53,6 @@ const inputData = {
       adresse: {
         strasse: "Baker St.",
         hausnummer: "221b",
-        zusatzangaben: "",
         postfach: "",
         plz: "12345",
         ort: "London",
@@ -77,7 +76,6 @@ const inputData = {
         adresse: {
           strasse: "Vertreterstr.",
           hausnummer: "42",
-          zusatzangaben: "",
           postfach: "",
           plz: "54321",
           ort: "Manchester",
@@ -102,7 +100,6 @@ const inputData = {
       adresse: {
         strasse: "Privet Drive",
         hausnummer: "4",
-        zusatzangaben: "Surrey",
         postfach: "",
         plz: "01234",
         ort: "Little Whinging",
@@ -264,9 +261,6 @@ describe("Happy Path", () => {
     cy.get("#hausnummer")
       .clear()
       .type(inputData.eigentuemer.person2.adresse.hausnummer);
-    cy.get("#zusatzangaben")
-      .clear()
-      .type(inputData.eigentuemer.person2.adresse.zusatzangaben);
     cy.get("#plz").clear().type(inputData.eigentuemer.person2.adresse.plz);
     cy.get("#ort").clear().type(inputData.eigentuemer.person2.adresse.ort);
     cy.get(submitBtnSelector).click();

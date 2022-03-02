@@ -3,7 +3,6 @@ import { StepDefinition } from "~/domain/steps";
 export type AdresseFields = {
   strasse: string;
   hausnummer: string;
-  zusatzangaben: string;
   postfach: string;
   plz: string;
   ort: string;
@@ -35,7 +34,6 @@ export const stepDefinition: StepDefinition = {
         },
       },
     },
-    zusatzangaben: { validations: {} },
     postfach: { validations: {} },
     plz: { validations: {} },
     ort: { validations: {} },

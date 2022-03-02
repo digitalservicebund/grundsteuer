@@ -189,7 +189,6 @@
         "fields": {
           "strasse": { "label": "Straße / Lagebezeichnung" },
           "hausnummer": { "label": "Hausnummer (+Hausnummerzusatz)" },
-          "zusatzangaben": { "label": "Zusatzangaben (bswp. Hinterhaus)" },
           "postfach": { "label": "Postfach" },
           "plz": { "label": "PLZ" },
           "ort": { "label": "Ort" }
@@ -234,7 +233,6 @@
           "fields": {
             "strasse": { "label": "Straße / Lagebezeichnung" },
             "hausnummer": { "label": "Hausnummer (+Hausnummerzusatz)" },
-            "zusatzangaben": { "label": "Zusatzangaben (bswp. Hinterhaus)" },
             "postfach": { "label": "Postfach" },
             "plz": { "label": "PLZ" },
             "ort": { "label": "Ort" }

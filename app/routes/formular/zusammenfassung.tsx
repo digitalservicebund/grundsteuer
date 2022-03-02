@@ -160,7 +160,6 @@ export default function Zusammenfassung() {
 
                       {item("Straße", person.adresse?.strasse)}
                       {item("Hausnummer", person.adresse?.hausnummer)}
-                      {item("Zusatzangaben", person.adresse?.zusatzangaben)}
                       {item("Postfach", person.adresse?.postfach)}
                       {item("PLZ", person.adresse?.plz)}
                       {item("Ort", person.adresse?.ort)}
@@ -191,10 +190,6 @@ export default function Zusammenfassung() {
                             {item(
                               "Hausnummer",
                               person.vertreter.adresse?.hausnummer
-                            )}
-                            {item(
-                              "Zusatzangaben",
-                              person.vertreter.adresse?.zusatzangaben
                             )}
                             {item(
                               "Postfach",
