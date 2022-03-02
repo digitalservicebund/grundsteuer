@@ -1,7 +1,7 @@
 import { StepDefinition } from "~/domain/steps";
 
 export type GebaeudeWeitereWohnraeumeFlaecheFields = {
-  wohnflaeche: string;
+  flaeche: string;
 };
 
 export const gebaeudeWeitereWohnraeumeFlaeche: StepDefinition = {
