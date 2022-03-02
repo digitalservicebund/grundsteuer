@@ -4,6 +4,7 @@ import {
   EigentuemerAnzahlFields,
   EigentuemerPersonGesetzlicherVertreterFields,
   GrundstueckTypFields,
+  GrundstueckAnzahlFields,
 } from "~/domain/steps";
 import { GebaeudeAb1949Fields } from "~/domain/steps/gebaeude/ab1949";
 import { GebaeudeKernsaniertFields } from "~/domain/steps/gebaeude/kernsaniert";
@@ -91,6 +92,16 @@ class GrundModelFactory extends Factory<GrundModel> {
       grundstueck: {
         typ: {
           typ: fields?.typ,
+        },
+      },
+    });
+  }
+
+  flurstueckAnzahl(fields?: GrundstueckAnzahlFields) {
+    return this.params({
+      grundstueck: {
+        anzahl: {
+          anzahl: fields?.anzahl || "1",
         },
       },
     });

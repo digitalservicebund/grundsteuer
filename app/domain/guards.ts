@@ -95,7 +95,9 @@ export const conditions: Conditions = {
   hasGesetzlicherVertreter,
   repeatPerson,
   repeatFlurstueck,
-  hasNotGesetzlicherVertreterAndRepeatPerson: (context: any) => {
+  hasNotGesetzlicherVertreterAndRepeatPerson: (
+    context: StateMachineContext
+  ) => {
     return !hasGesetzlicherVertreter(context) && repeatPerson(context);
   },
   isBebaut,

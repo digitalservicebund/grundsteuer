@@ -485,6 +485,44 @@ describe("repeatPerson", () => {
   });
 });
 
+describe("repeatFlurstueck", () => {
+  describe("flurstueck anzahl and id not set", () => {
+    // TODO I think this should actually throw an error instead of just taking 1 as default?
+    it("Should return false if data undefined", async () => {
+      const result = conditions.repeatFlurstueck(undefined);
+      expect(result).toEqual(false);
+    });
+  });
+
+  describe("multiple flurstuecke", () => {
+    let data: GrundModel;
+    beforeEach(() => {
+      data = grundModelFactory.flurstueckAnzahl({ anzahl: "2" }).build();
+    });
+
+    it("Should return true if default data and first flurstueck", async () => {
+      const inputData = { ...data, flurstueckId: 1 };
+      const result = conditions.repeatFlurstueck(inputData);
+      expect(result).toEqual(true);
+    });
+
+    it("Should return false if default data and second flurstueck", async () => {
+      const inputData = { ...data, flurstueckId: 2 };
+      const result = conditions.repeatFlurstueck(inputData);
+      expect(result).toEqual(false);
+    });
+  });
+
+  describe("single flurstueck", () => {
+    it("Should return false if default data and first flurstueck", async () => {
+      const data = grundModelFactory.flurstueckAnzahl({ anzahl: "1" }).build();
+      const inputData = { ...data, flurstueckId: 1 };
+      const result = conditions.repeatFlurstueck(inputData);
+      expect(result).toEqual(false);
+    });
+  });
+});
+
 describe("isBebaut", () => {
   it("Should return false if data undefined", async () => {
     const result = conditions.isBebaut(undefined);
@@ -596,5 +634,63 @@ describe("isUnbebaut", () => {
       .build();
     const result = conditions.isUnbebaut(inputData);
     expect(result).toEqual(false);
+  });
+});
+
+describe("personIdGreaterThanOne", () => {
+  it("Should return false if data undefined", async () => {
+    const result = conditions.personIdGreaterThanOne(undefined);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false if personId is 1 or less", async () => {
+    const valuesOneOrLess = [1, "1", "0", 0, "-32", -32];
+    valuesOneOrLess.forEach((valueOneOrLess) => {
+      const result = conditions.personIdGreaterThanOne({
+        ...grundModelFactory.build(),
+        personId: valueOneOrLess,
+      });
+      expect(result).toEqual(false);
+    });
+  });
+
+  it("Should return true if personId is greater than 1", async () => {
+    const valuesGreaterThanOne = [2, "2", "1337", 1337];
+    valuesGreaterThanOne.forEach((valueGreaterThanOne) => {
+      const result = conditions.personIdGreaterThanOne({
+        ...grundModelFactory.build(),
+        personId: valueGreaterThanOne,
+      });
+      expect(result).toEqual(true);
+    });
+  });
+});
+
+describe("flurstueckIdGreaterThanOne", () => {
+  it("Should return false if data undefined", async () => {
+    const result = conditions.flurstueckIdGreaterThanOne(undefined);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false if flurstueckId is 1 or less", async () => {
+    const valuesOneOrLess = [1, "1", "0", 0, "-32", -32];
+    valuesOneOrLess.forEach((valueOneOrLess) => {
+      const result = conditions.flurstueckIdGreaterThanOne({
+        ...grundModelFactory.build(),
+        flurstueckId: valueOneOrLess,
+      });
+      expect(result).toEqual(false);
+    });
+  });
+
+  it("Should return true if flurstueckId is greater than 1", async () => {
+    const valuesGreaterThanOne = [2, "2", "1337", 1337];
+    valuesGreaterThanOne.forEach((valueGreaterThanOne) => {
+      const result = conditions.flurstueckIdGreaterThanOne({
+        ...grundModelFactory.build(),
+        flurstueckId: valueGreaterThanOne,
+      });
+      expect(result).toEqual(true);
+    });
   });
 });
