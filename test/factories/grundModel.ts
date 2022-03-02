@@ -5,6 +5,7 @@ import {
   EigentuemerPersonGesetzlicherVertreterFields,
   GrundstueckTypFields,
 } from "~/domain/steps";
+import { GebaeudeAb1949Fields } from "~/domain/steps/gebaeude/ab1949";
 
 type PersonTransientParams = {
   transient: {
@@ -13,11 +14,11 @@ type PersonTransientParams = {
 };
 
 class GrundModelFactory extends Factory<GrundModel> {
-  gebaeudeAb1949() {
+  gebaeudeAb1949(fields?: GebaeudeAb1949Fields) {
     return this.params({
       gebaeude: {
         ab1949: {
-          isAb1949: "true",
+          isAb1949: fields ? fields?.isAb1949 : "true",
         },
       },
     });

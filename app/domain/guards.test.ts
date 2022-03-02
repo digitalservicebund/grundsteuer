@@ -3,6 +3,107 @@ import { StateMachineContext } from "~/domain/states";
 import { grundModelFactory } from "test/factories";
 import { GrundModel } from "./steps";
 
+describe("isZweifamilienhaus", () => {
+  it("Should return false if data is undefined", async () => {
+    const result = conditions.isZweifamilienhaus(undefined);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false if typ is invalid", async () => {
+    const inputData = grundModelFactory
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      .grundstueckTyp({ typ: "INVALID" })
+      .build();
+    const result = conditions.isZweifamilienhaus(inputData);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false if typ is not zweifamilienhaus", async () => {
+    const wrongValues = [
+      "einfamilienhaus",
+      "wohnungseigentum",
+      "baureif",
+      "abweichendeEntwicklung",
+    ];
+    wrongValues.forEach((wrongValue) => {
+      const inputData = grundModelFactory
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        .grundstueckTyp({ typ: wrongValue })
+        .build();
+      const result = conditions.isZweifamilienhaus(inputData);
+      expect(result).toEqual(false);
+    });
+  });
+
+  it("Should return true if typ is zweifamilienhaus", async () => {
+    const inputData = grundModelFactory
+      .grundstueckTyp({ typ: "zweifamilienhaus" })
+      .build();
+    const result = conditions.isZweifamilienhaus(inputData);
+    expect(result).toEqual(true);
+  });
+});
+
+describe("isBezugsfertigAb1949", () => {
+  it("Should return false if data is undefined", async () => {
+    const result = conditions.isBezugsfertigAb1949(undefined);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false if unbebaut", async () => {
+    const unbebautValues = ["baureif", "abweichendeEntwicklung"];
+    unbebautValues.forEach((unbebautValue) => {
+      const inputData = grundModelFactory
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        .grundstueckTyp({ typ: unbebautValue })
+        .build();
+      const result = conditions.isBezugsfertigAb1949(inputData);
+      expect(result).toEqual(false);
+    });
+  });
+
+  describe("Bebaut", () => {
+    it("Should return true if isAb1949 is true", async () => {
+      const bebautValues = [
+        "einfamilienhaus",
+        "zweifamilienhaus",
+        "wohnungseigentum",
+      ];
+      bebautValues.forEach((bebautValue) => {
+        const inputData = grundModelFactory
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          .grundstueckTyp({ typ: bebautValue })
+          .gebaeudeAb1949({ isAb1949: "true" })
+          .build();
+        const result = conditions.isBezugsfertigAb1949(inputData);
+        expect(result).toEqual(true);
+      });
+    });
+
+    it("Should return false if isAb1949 is false", async () => {
+      const bebautValues = [
+        "einfamilienhaus",
+        "zweifamilienhaus",
+        "wohnungseigentum",
+      ];
+      bebautValues.forEach((bebautValue) => {
+        const inputData = grundModelFactory
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          .grundstueckTyp({ typ: bebautValue })
+          .gebaeudeAb1949({ isAb1949: "false" })
+          .build();
+        const result = conditions.isBezugsfertigAb1949(inputData);
+        expect(result).toEqual(false);
+      });
+    });
+  });
+});
+
 describe("anzahlEigentuemerIsTwo", () => {
   it("Should return false if data is undefined", async () => {
     const result = conditions.anzahlEigentuemerIsTwo(undefined);
