@@ -272,7 +272,7 @@ describe("states", () => {
           "zusammenfassung",
         ],
       },
-      // TODO add cases for zweifamilienhaus
+      // TODO add cases for isZweifamilienhaus
       {
         description: "with 2 eigentuemer people",
         context: grundModelFactory

@@ -126,7 +126,7 @@ export const states: MachineConfig<any, any, any> = {
           on: {
             NEXT: [
               { target: "kernsanierungsjahr", cond: "isKernsaniert" },
-              { target: "wohnflaechen", cond: "zweifamilienhaus" },
+              { target: "wohnflaechen", cond: "isZweifamilienhaus" },
               { target: "wohnflaeche" },
             ],
             BACK: [
@@ -138,7 +138,7 @@ export const states: MachineConfig<any, any, any> = {
         kernsanierungsjahr: {
           on: {
             NEXT: [
-              { target: "wohnflaechen", cond: "zweifamilienhaus" },
+              { target: "wohnflaechen", cond: "isZweifamilienhaus" },
               { target: "wohnflaeche" },
             ],
             BACK: [{ target: "kernsaniert" }],
@@ -176,7 +176,7 @@ export const states: MachineConfig<any, any, any> = {
               { target: "garagen" },
             ],
             BACK: [
-              { target: "wohnflaechen", cond: "zweifamilienhaus" },
+              { target: "wohnflaechen", cond: "isZweifamilienhaus" },
               { target: "wohnflaeche" },
             ],
           },

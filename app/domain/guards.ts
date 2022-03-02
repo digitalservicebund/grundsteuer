@@ -7,7 +7,7 @@ export type Conditions = Record<
   ConditionPredicate<GrundModel, AnyEventObject> | any
 >;
 
-const zweifamilienhaus = (context: StateMachineContext) => {
+const isZweifamilienhaus = (context: StateMachineContext) => {
   return context?.grundstueck?.typ?.typ === "zweifamilienhaus";
 };
 
@@ -87,7 +87,7 @@ const flurstueckIdGreaterThanOne = (context: StateMachineContext) => {
 export const conditions: Conditions = {
   bezugsfertigAb1949,
   isKernsaniert,
-  zweifamilienhaus,
+  isZweifamilienhaus,
   hasWeitereWohnraeume,
   hasGaragen,
   anzahlEigentuemerIsTwo,
