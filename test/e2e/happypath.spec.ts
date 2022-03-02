@@ -1,6 +1,40 @@
 /// <reference types="cypress" />
 
 const inputData = {
+  grundsteuck: {
+    typ: {
+      typ: "einfamilienhaus",
+    },
+  },
+  gebaeude: {
+    ab1949: {
+      isAb1949: "true",
+    },
+    baujahr: {
+      baujahr: "1970",
+    },
+    kernsaniert: {
+      isKernsaniert: "true",
+    },
+    kernsanierungsjahr: {
+      kernsanierungsjahr: "2002",
+    },
+    wohnflaeche: {
+      wohnflaeche: "24",
+    },
+    weitereWohnraeume: {
+      hasWeitereWohnraeume: "true",
+    },
+    weitereWohnraeumeFlaeche: {
+      flaeche: "42",
+    },
+    garagen: {
+      hasGaragen: "true",
+    },
+    garagenAnzahl: {
+      anzahlGaragen: "1",
+    },
+  },
   eigentuemer: {
     anzahl: {
       anzahl: "2",
@@ -96,8 +130,46 @@ const inputData = {
 export const submitBtnSelector = "#nextButton";
 
 describe("Happy Path", () => {
-  it("Enter data for two eigentuemer", () => {
-    cy.visit("/formular/eigentuemer/anzahl");
+  it.only("Enter data for two eigentuemer", () => {
+    cy.visit("/formular/grundstueck/typ");
+    cy.get(`label[for=typ-${inputData.grundsteuck.typ.typ}]`).click();
+    cy.get(submitBtnSelector).click();
+
+    cy.visit("/formular/gebaeude/ab1949");
+    cy.get(`label[for=isAb1949-${inputData.gebaeude.ab1949.isAb1949}]`).click();
+    cy.get(submitBtnSelector).click();
+    cy.get("#baujahr").clear().type(inputData.gebaeude.baujahr.baujahr);
+    cy.get(submitBtnSelector).click();
+    cy.get(
+      `label[for=isKernsaniert-${inputData.gebaeude.kernsaniert.isKernsaniert}]`
+    ).click();
+    cy.get(submitBtnSelector).click();
+    cy.get("#kernsanierungsjahr")
+      .clear()
+      .type(inputData.gebaeude.kernsanierungsjahr.kernsanierungsjahr);
+    cy.get(submitBtnSelector).click();
+    cy.get("#wohnflaeche")
+      .clear()
+      .type(inputData.gebaeude.wohnflaeche.wohnflaeche);
+    cy.get(submitBtnSelector).click();
+    cy.get(
+      `label[for=hasWeitereWohnraeume-${inputData.gebaeude.weitereWohnraeume.hasWeitereWohnraeume}]`
+    ).click();
+    cy.get(submitBtnSelector).click();
+    cy.get("#flaeche")
+      .clear()
+      .type(inputData.gebaeude.weitereWohnraeumeFlaeche.flaeche);
+    cy.get(submitBtnSelector).click();
+    cy.get(
+      `label[for=hasGaragen-${inputData.gebaeude.garagen.hasGaragen}]`
+    ).click();
+    cy.get(submitBtnSelector).click();
+    cy.get("#anzahlGaragen")
+      .clear()
+      .type(inputData.gebaeude.garagenAnzahl.anzahlGaragen);
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should("include", "/formular/eigentuemer");
     cy.get("#anzahl").select(inputData.eigentuemer.anzahl.anzahl);
     cy.get(submitBtnSelector).click();
     cy.get("label[for=areVerheiratet-true]").click();
@@ -216,6 +288,21 @@ describe("Happy Path", () => {
 
     // ZUSAMMENFASSUNG
     cy.url().should("include", "/formular/zusammenfassung");
+    cy.contains("Bezugsfertig ab 1949: Ja");
+    cy.contains(`Baujahr: ${inputData.gebaeude.baujahr.baujahr}`);
+    cy.contains("Kernsaniert: Ja");
+    cy.contains(
+      `Jahr der Kernsanierung: ${inputData.gebaeude.kernsanierungsjahr.kernsanierungsjahr}`
+    );
+    cy.contains(`Wohnfläche: ${inputData.gebaeude.wohnflaeche.wohnflaeche} m2`);
+    cy.contains(`Weitere Wohnräume: Ja`);
+    cy.contains(
+      `Gesamtfläche der weiteren Wohnräume: ${inputData.gebaeude.weitereWohnraeumeFlaeche.flaeche} m2`
+    );
+    cy.contains(
+      `Anzahl Garagen: ${inputData.gebaeude.garagenAnzahl.anzahlGaragen}`
+    );
+
     cy.contains("Anzahl: " + inputData.eigentuemer.anzahl.anzahl);
     cy.contains("Verheiratet: Ja");
     cy.get("#person-0").contains(
