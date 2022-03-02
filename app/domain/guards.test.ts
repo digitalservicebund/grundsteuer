@@ -31,9 +31,9 @@ describe("anzahlEigentuemerIsTwo", () => {
   });
 });
 
-describe("multipleEigentuemer", () => {
+describe("hasMultipleEigentuemer", () => {
   it("Should return false if data is undefined", async () => {
-    const result = conditions.multipleEigentuemer(undefined);
+    const result = conditions.hasMultipleEigentuemer(undefined);
     expect(result).toEqual(false);
   });
 
@@ -45,7 +45,7 @@ describe("multipleEigentuemer", () => {
         // @ts-ignore
         .eigentuemerAnzahl({ anzahl: wrongValue })
         .build();
-      const result = conditions.multipleEigentuemer(inputData);
+      const result = conditions.hasMultipleEigentuemer(inputData);
       expect(result).toEqual(false);
     });
   });
@@ -58,7 +58,7 @@ describe("multipleEigentuemer", () => {
         // @ts-ignore
         .eigentuemerAnzahl({ anzahl: correctValue })
         .build();
-      const result = conditions.multipleEigentuemer(inputData);
+      const result = conditions.hasMultipleEigentuemer(inputData);
       expect(result).toEqual(true);
     });
   });

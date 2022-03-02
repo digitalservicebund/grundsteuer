@@ -37,7 +37,7 @@ const anzahlEigentuemerIsTwo = (context: StateMachineContext) => {
   return context?.eigentuemer?.anzahl?.anzahl === "2";
 };
 
-const multipleEigentuemer = (context: StateMachineContext) => {
+const hasMultipleEigentuemer = (context: StateMachineContext) => {
   return Number(context?.eigentuemer?.anzahl?.anzahl) > 1;
 };
 
@@ -91,7 +91,7 @@ export const conditions: Conditions = {
   hasWeitereWohnraeume,
   hasGaragen,
   anzahlEigentuemerIsTwo,
-  multipleEigentuemer,
+  hasMultipleEigentuemer,
   hasGesetzlicherVertreter,
   repeatPerson,
   repeatFlurstueck,

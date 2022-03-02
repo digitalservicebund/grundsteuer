@@ -281,7 +281,7 @@ export const states: MachineConfig<any, any, any> = {
                     target: "vertreter",
                     cond: "hasGesetzlicherVertreter",
                   },
-                  { target: "anteil", cond: "multipleEigentuemer" },
+                  { target: "anteil", cond: "hasMultipleEigentuemer" },
                 ],
                 BACK: { target: "steuerId" },
               },
@@ -308,7 +308,7 @@ export const states: MachineConfig<any, any, any> = {
                 },
               },
               on: {
-                NEXT: { target: "anteil", cond: "multipleEigentuemer" },
+                NEXT: { target: "anteil", cond: "hasMultipleEigentuemer" },
                 BACK: { target: "gesetzlicherVertreter" },
               },
             },
@@ -347,7 +347,7 @@ export const states: MachineConfig<any, any, any> = {
         BACK: [
           {
             target: "eigentuemer.person.anteil",
-            cond: "multipleEigentuemer",
+            cond: "hasMultipleEigentuemer",
             actions: "setPersonIdToMaximum",
           },
           {
