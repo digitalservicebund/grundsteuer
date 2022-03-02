@@ -79,8 +79,9 @@ export default function Zusammenfassung() {
                 data.gebaeude.kernsanierungsjahr?.kernsanierungsjahr
               )}
 
-            {(data.grundstueck?.typ?.typ === "einfamilienhaus" ||
-              data.grundstueck?.typ?.typ === "wohnungseigentum") &&
+            {["einfamilienhaus", "wohnungseigentum"].includes(
+              data.grundstueck?.typ?.typ as string
+            ) &&
               item(
                 "Wohnfläche",
                 data.gebaeude.wohnflaeche?.wohnflaeche,
