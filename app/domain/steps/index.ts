@@ -207,7 +207,7 @@ export type GrundModel = {
     bodenrichtwert?: GrundstueckBodenrichtwertFields;
     flurstueck?: {
       angaben?: GrundstueckFlurstueckAngabenFields;
-    };
+    }[];
   };
   gebaeude?: {
     ab1949?: GebaeudeAb1949Fields;

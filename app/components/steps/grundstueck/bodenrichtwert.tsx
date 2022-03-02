@@ -11,6 +11,7 @@ const Bodenrichtwert: StepComponentFunction = ({
   errors,
 }) => {
   const adresseData = allData?.grundstueck?.adresse;
+  const flurstueckData = allData?.grundstueck?.flurstueck;
   return (
     <div>
       <Default
@@ -25,7 +26,7 @@ const Bodenrichtwert: StepComponentFunction = ({
         }}
       />
       {adresseData && (
-        <div className="bg-gray-100">
+        <div className="bg-gray-100 mb-8">
           <h2 className="font-bold">Adressangaben: </h2>
           <ul>
             <li>
@@ -38,6 +39,27 @@ const Bodenrichtwert: StepComponentFunction = ({
           </ul>
         </div>
       )}
+      {flurstueckData &&
+        flurstueckData.map((flurstueck, index) => {
+          return (
+            <div key={index} className="bg-gray-100 mb-4">
+              <h2 className="font-bold">Grundstück {index + 1}</h2>
+              <ul>
+                <li>
+                  Grundbuchblatt: {flurstueck.angaben?.grundbuchblattnummer}
+                </li>
+                <li>Gemarkung: {flurstueck.angaben?.gemarkung}</li>
+                <li>Flur: {flurstueck.angaben?.flur}</li>
+                <li>
+                  Flurstück Zähler: {flurstueck.angaben?.flurstueckZaehler}
+                </li>
+                <li>
+                  Flurstück Nenner: {flurstueck.angaben?.flurstueckNenner}
+                </li>
+              </ul>
+            </div>
+          );
+        })}
     </div>
   );
 };
