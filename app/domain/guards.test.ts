@@ -210,9 +210,9 @@ describe("repeatPerson", () => {
   });
 });
 
-describe("showGebaeude", () => {
+describe("isBebaut", () => {
   it("Should return false if data undefined", async () => {
-    const result = conditions.showGebaeude(undefined);
+    const result = conditions.isBebaut(undefined);
     expect(result).toEqual(false);
   });
 
@@ -220,7 +220,7 @@ describe("showGebaeude", () => {
     const inputData = grundModelFactory
       .grundstueckTyp({ typ: "abweichendeEntwicklung" })
       .build();
-    const result = conditions.showGebaeude(inputData);
+    const result = conditions.isBebaut(inputData);
     expect(result).toEqual(false);
   });
 
@@ -228,7 +228,7 @@ describe("showGebaeude", () => {
     const inputData = grundModelFactory
       .grundstueckTyp({ typ: "einfamilienhaus" })
       .build();
-    const result = conditions.showGebaeude(inputData);
+    const result = conditions.isBebaut(inputData);
     expect(result).toEqual(true);
   });
 });

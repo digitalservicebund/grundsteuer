@@ -12,29 +12,25 @@ const zweifamilienhaus = (context: StateMachineContext) => {
 };
 
 const bezugsfertigAb1949 = (context: StateMachineContext) => {
-  return (
-    showGebaeude(context) && context?.gebaeude?.ab1949?.isAb1949 === "true"
-  );
+  return isBebaut(context) && context?.gebaeude?.ab1949?.isAb1949 === "true";
 };
 
 const isKernsaniert = (context: StateMachineContext) => {
   return (
-    showGebaeude(context) &&
+    isBebaut(context) &&
     context?.gebaeude?.kernsaniert?.isKernsaniert === "true"
   );
 };
 
 const hasWeitereWohnraeume = (context: StateMachineContext) => {
   return (
-    showGebaeude(context) &&
+    isBebaut(context) &&
     context?.gebaeude?.weitereWohnraeume?.hasWeitereWohnraeume === "true"
   );
 };
 
 const hasGaragen = (context: StateMachineContext) => {
-  return (
-    showGebaeude(context) && context?.gebaeude?.garagen?.hasGaragen === "true"
-  );
+  return isBebaut(context) && context?.gebaeude?.garagen?.hasGaragen === "true";
 };
 
 const anzahlEigentuemerIsTwo = (context: StateMachineContext) => {
@@ -68,7 +64,7 @@ const repeatFlurstueck = (context: StateMachineContext) => {
   );
 };
 
-const showGebaeude = (context: StateMachineContext) => {
+const isBebaut = (context: StateMachineContext) => {
   const typ = context?.grundstueck?.typ?.typ;
   return typ ? typ !== "abweichendeEntwicklung" : false;
 };
@@ -99,7 +95,7 @@ export const conditions: Conditions = {
   hasNotGesetzlicherVertreterAndRepeatPerson: (context: any) => {
     return !hasGesetzlicherVertreter(context) && repeatPerson(context);
   },
-  showGebaeude,
+  isBebaut,
   isUnbebaut,
   personIdGreaterThanOne,
   flurstueckIdGreaterThanOne,

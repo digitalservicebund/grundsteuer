@@ -84,7 +84,7 @@ export const states: MachineConfig<any, any, any> = {
         bodenrichtwert: {
           on: {
             NEXT: [
-              { target: "#steps.gebaeude", cond: "showGebaeude" },
+              { target: "#steps.gebaeude", cond: "isBebaut" },
               { target: "#steps.eigentuemer" },
             ],
             BACK: [
@@ -228,7 +228,7 @@ export const states: MachineConfig<any, any, any> = {
             ],
             BACK: [
               { target: "#steps.gebaeude.garagenAnzahl", cond: "hasGaragen" },
-              { target: "#steps.gebaeude.garagen", cond: "showGebaeude" },
+              { target: "#steps.gebaeude.garagen", cond: "isBebaut" },
               { target: "#steps.grundstueck.bodenrichtwert" },
             ],
           },
