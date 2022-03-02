@@ -104,6 +104,180 @@ describe("isBezugsfertigAb1949", () => {
   });
 });
 
+describe("isKernsaniert", () => {
+  it("Should return false if data is undefined", async () => {
+    const result = conditions.isKernsaniert(undefined);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false if unbebaut", async () => {
+    const unbebautValues = ["baureif", "abweichendeEntwicklung"];
+    unbebautValues.forEach((unbebautValue) => {
+      const inputData = grundModelFactory
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        .grundstueckTyp({ typ: unbebautValue })
+        .build();
+      const result = conditions.isKernsaniert(inputData);
+      expect(result).toEqual(false);
+    });
+  });
+
+  describe("Bebaut", () => {
+    it("Should return true if isKernsaniert is true", async () => {
+      const bebautValues = [
+        "einfamilienhaus",
+        "zweifamilienhaus",
+        "wohnungseigentum",
+      ];
+      bebautValues.forEach((bebautValue) => {
+        const inputData = grundModelFactory
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          .grundstueckTyp({ typ: bebautValue })
+          .kernsaniert({ isKernsaniert: "true" })
+          .build();
+        const result = conditions.isKernsaniert(inputData);
+        expect(result).toEqual(true);
+      });
+    });
+
+    it("Should return false if isAb1949 is false", async () => {
+      const bebautValues = [
+        "einfamilienhaus",
+        "zweifamilienhaus",
+        "wohnungseigentum",
+      ];
+      bebautValues.forEach((bebautValue) => {
+        const inputData = grundModelFactory
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          .grundstueckTyp({ typ: bebautValue })
+          .kernsaniert({ isKernsaniert: "false" })
+          .build();
+        const result = conditions.isKernsaniert(inputData);
+        expect(result).toEqual(false);
+      });
+    });
+  });
+});
+
+describe("hasWeitereWohnraeume", () => {
+  it("Should return false if data is undefined", async () => {
+    const result = conditions.hasWeitereWohnraeume(undefined);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false if unbebaut", async () => {
+    const unbebautValues = ["baureif", "abweichendeEntwicklung"];
+    unbebautValues.forEach((unbebautValue) => {
+      const inputData = grundModelFactory
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        .grundstueckTyp({ typ: unbebautValue })
+        .build();
+      const result = conditions.hasWeitereWohnraeume(inputData);
+      expect(result).toEqual(false);
+    });
+  });
+
+  describe("Bebaut", () => {
+    it("Should return true if hasWeitereWohnraeume is true", async () => {
+      const bebautValues = [
+        "einfamilienhaus",
+        "zweifamilienhaus",
+        "wohnungseigentum",
+      ];
+      bebautValues.forEach((bebautValue) => {
+        const inputData = grundModelFactory
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          .grundstueckTyp({ typ: bebautValue })
+          .withWeitereWohnraeume({ hasWeitereWohnraeume: "true" })
+          .build();
+        const result = conditions.hasWeitereWohnraeume(inputData);
+        expect(result).toEqual(true);
+      });
+    });
+
+    it("Should return false if hasWeitereWohnraeume is false", async () => {
+      const bebautValues = [
+        "einfamilienhaus",
+        "zweifamilienhaus",
+        "wohnungseigentum",
+      ];
+      bebautValues.forEach((bebautValue) => {
+        const inputData = grundModelFactory
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          .grundstueckTyp({ typ: bebautValue })
+          .withWeitereWohnraeume({ hasWeitereWohnraeume: "false" })
+          .build();
+        const result = conditions.hasWeitereWohnraeume(inputData);
+        expect(result).toEqual(false);
+      });
+    });
+  });
+});
+
+describe("hasGaragen", () => {
+  it("Should return false if data is undefined", async () => {
+    const result = conditions.hasGaragen(undefined);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false if unbebaut", async () => {
+    const unbebautValues = ["baureif", "abweichendeEntwicklung"];
+    unbebautValues.forEach((unbebautValue) => {
+      const inputData = grundModelFactory
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        .grundstueckTyp({ typ: unbebautValue })
+        .build();
+      const result = conditions.hasGaragen(inputData);
+      expect(result).toEqual(false);
+    });
+  });
+
+  describe("Bebaut", () => {
+    it("Should return true if hasGaragen is true", async () => {
+      const bebautValues = [
+        "einfamilienhaus",
+        "zweifamilienhaus",
+        "wohnungseigentum",
+      ];
+      bebautValues.forEach((bebautValue) => {
+        const inputData = grundModelFactory
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          .grundstueckTyp({ typ: bebautValue })
+          .withGaragen({ hasGaragen: "true" })
+          .build();
+        const result = conditions.hasGaragen(inputData);
+        expect(result).toEqual(true);
+      });
+    });
+
+    it("Should return false if hasGaragen is false", async () => {
+      const bebautValues = [
+        "einfamilienhaus",
+        "zweifamilienhaus",
+        "wohnungseigentum",
+      ];
+      bebautValues.forEach((bebautValue) => {
+        const inputData = grundModelFactory
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          .grundstueckTyp({ typ: bebautValue })
+          .withGaragen({ hasGaragen: "false" })
+          .build();
+        const result = conditions.hasGaragen(inputData);
+        expect(result).toEqual(false);
+      });
+    });
+  });
+});
+
 describe("anzahlEigentuemerIsTwo", () => {
   it("Should return false if data is undefined", async () => {
     const result = conditions.anzahlEigentuemerIsTwo(undefined);

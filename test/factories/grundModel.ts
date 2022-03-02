@@ -6,6 +6,9 @@ import {
   GrundstueckTypFields,
 } from "~/domain/steps";
 import { GebaeudeAb1949Fields } from "~/domain/steps/gebaeude/ab1949";
+import { GebaeudeKernsaniertFields } from "~/domain/steps/gebaeude/kernsaniert";
+import { GebaeudeWeitereWohnraeumeFields } from "~/domain/steps/gebaeude/weitereWohnraeume";
+import { GebaeudeGaragenFields } from "~/domain/steps/gebaeude/garagen";
 
 type PersonTransientParams = {
   transient: {
@@ -24,31 +27,31 @@ class GrundModelFactory extends Factory<GrundModel> {
     });
   }
 
-  kernsaniert() {
+  kernsaniert(fields?: GebaeudeKernsaniertFields) {
     return this.params({
       gebaeude: {
         kernsaniert: {
-          isKernsaniert: "true",
+          isKernsaniert: fields ? fields?.isKernsaniert : "true",
         },
       },
     });
   }
 
-  withWeitereWohnraeume() {
+  withWeitereWohnraeume(fields?: GebaeudeWeitereWohnraeumeFields) {
     return this.params({
       gebaeude: {
         weitereWohnraeume: {
-          hasWeitereWohnraeume: "true",
+          hasWeitereWohnraeume: fields ? fields?.hasWeitereWohnraeume : "true",
         },
       },
     });
   }
 
-  withGaragen() {
+  withGaragen(fields?: GebaeudeGaragenFields) {
     return this.params({
       gebaeude: {
         garagen: {
-          hasGaragen: "true",
+          hasGaragen: fields ? fields?.hasGaragen : "true",
         },
       },
     });
