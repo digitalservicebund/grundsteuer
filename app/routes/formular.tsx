@@ -7,14 +7,7 @@ import { i18Next } from "~/i18n.server";
 import { getFormDataCookie } from "~/cookies";
 import SidebarNavigation from "~/components/SidebarNavigation";
 import { createGraph } from "~/domain";
-
-// DUPLICATED TODO -> create util folder?
-const getCurrentState = (request: Request) => {
-  return new URL(request.url).pathname
-    .split("/")
-    .filter((e) => e && e !== "formular")
-    .join(".");
-};
+import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const cookie = await getFormDataCookie(request);
@@ -26,7 +19,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return {
     i18n: await i18Next.getTranslations(request, ["all"]),
     graph,
-    currentState: getCurrentState(request),
+    currentState: getCurrentStateFromUrl(request.url),
   };
 };
 
@@ -40,7 +33,7 @@ export default function Formular() {
           <Link to="/">Home</Link>
           <br />
           <br />
-          <SidebarNavigation graph={graph} currentState={currentState} />
+          <SidebarNavigation graph={graph} initialCurrentState={currentState} />
         </div>
       }
       topNavigation={
@@ -48,7 +41,7 @@ export default function Formular() {
           <Link to="/">Home</Link>
           <br />
           <br />
-          <SidebarNavigation graph={graph} currentState={currentState} />
+          <SidebarNavigation graph={graph} initialCurrentState={currentState} />
         </div>
       }
     >

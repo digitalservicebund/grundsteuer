@@ -19,13 +19,7 @@ import { validateField } from "~/domain/validation";
 import { actions } from "~/domain/actions";
 import stepComponents, { FallbackStepComponent } from "~/components/steps";
 import { getStepDefinition } from "~/domain/steps";
-
-const getCurrentState = (request: Request) => {
-  return new URL(request.url).pathname
-    .split("/")
-    .filter((e) => e && e !== "formular")
-    .join(".");
-};
+import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 
 const getCurrentStateWithoutId = (currentState: string) => {
   return currentState.replace(/\.\d+\./g, ".");
@@ -97,7 +91,7 @@ export const loader: LoaderFunction = async ({
   request,
 }): Promise<LoaderData> => {
   const cookie = await getFormDataCookie(request);
-  const currentState = getCurrentState(request);
+  const currentState = getCurrentStateFromUrl(request.url);
   const currentStateWithoutId = getCurrentStateWithoutId(currentState);
 
   const machine = getMachine({ cookie, params });
@@ -127,7 +121,7 @@ export const action: ActionFunction = async ({ params, request }) => {
   const cookie = await getFormDataCookie(request);
   if (!cookie.records) cookie.records = {};
 
-  const currentState = getCurrentState(request);
+  const currentState = getCurrentStateFromUrl(request.url);
   const currentStateWithoutId = getCurrentStateWithoutId(currentState);
 
   const fieldValues = Object.fromEntries(

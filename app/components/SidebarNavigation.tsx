@@ -1,7 +1,8 @@
-import React from "react";
-import { Link } from "remix";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "remix";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
+import { getCurrentStateFromPathname } from "~/util/getCurrentState";
 
 export function NavigationLink(props: any) {
   const { path, pathWithId, currentState, data } = props;
@@ -31,12 +32,19 @@ export function NavigationLink(props: any) {
 // TODO: Give more specific name: Form only
 export default function SidebarNavigation({
   graph,
-  currentState,
+  initialCurrentState,
 }: {
   graph: any;
-  currentState: string;
+  initialCurrentState: string;
 }) {
   const { t } = useTranslation("all");
+  const location = useLocation();
+  const [currentState, setCurrentState] = useState(initialCurrentState);
+
+  useEffect(() => {
+    const newCurrentState = getCurrentStateFromPathname(location.pathname);
+    setCurrentState(newCurrentState);
+  }, [location]);
 
   const renderGraph = (graph: any, level: number, currentState: string) => {
     return (
