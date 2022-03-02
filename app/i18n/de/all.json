@@ -347,6 +347,15 @@
         "bodenrichtwert": {
           "label": "Bodenrichtwert in €"
         }
+      },
+      "specifics": {
+        "adresseHeading": "Adressangaben",
+        "flurstueckHeading": "Grundstück",
+        "grundbuchblatt": "Grundbuchblatt",
+        "gemarkung": "Gemarkung",
+        "flur": "Flur",
+        "flurstueckZaehler": "Flurstück Zähler",
+        "flurstueckNenner": "Flurstück Nenner"
       }
     }
   }

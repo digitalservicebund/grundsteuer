@@ -78,6 +78,7 @@ export type LoaderData = {
         options?: Record<string, string>;
       };
     };
+    specifics: Record<string, string>;
     common: Record<string, string>;
   };
   backUrl: string | null;

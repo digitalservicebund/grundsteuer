@@ -27,7 +27,7 @@ const Bodenrichtwert: StepComponentFunction = ({
       />
       {adresseData && (
         <div className="bg-gray-100 mb-8">
-          <h2 className="font-bold">Adressangaben: </h2>
+          <h2 className="font-bold">{i18n.specifics.adresseHeading}</h2>
           <ul>
             <li>
               {adresseData.strasse} {adresseData.hausnummer}
@@ -43,18 +43,27 @@ const Bodenrichtwert: StepComponentFunction = ({
         flurstueckData.map((flurstueck, index) => {
           return (
             <div key={index} className="bg-gray-100 mb-4">
-              <h2 className="font-bold">Grundstück {index + 1}</h2>
+              <h2 className="font-bold">
+                {i18n.specifics.flurstueckHeading} {index + 1}
+              </h2>
               <ul>
                 <li>
-                  Grundbuchblatt: {flurstueck.angaben?.grundbuchblattnummer}
-                </li>
-                <li>Gemarkung: {flurstueck.angaben?.gemarkung}</li>
-                <li>Flur: {flurstueck.angaben?.flur}</li>
-                <li>
-                  Flurstück Zähler: {flurstueck.angaben?.flurstueckZaehler}
+                  {i18n.specifics.grundbuchblatt}:{" "}
+                  {flurstueck.angaben?.grundbuchblattnummer}
                 </li>
                 <li>
-                  Flurstück Nenner: {flurstueck.angaben?.flurstueckNenner}
+                  {i18n.specifics.gemarkung}: {flurstueck.angaben?.gemarkung}
+                </li>
+                <li>
+                  {i18n.specifics.flur}: {flurstueck.angaben?.flur}
+                </li>
+                <li>
+                  {i18n.specifics.flurstueckZaehler}:{" "}
+                  {flurstueck.angaben?.flurstueckZaehler}
+                </li>
+                <li>
+                  {i18n.specifics.flurstueckNenner}:{" "}
+                  {flurstueck.angaben?.flurstueckNenner}
                 </li>
               </ul>
             </div>
