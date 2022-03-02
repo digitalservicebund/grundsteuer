@@ -104,7 +104,7 @@ export const states: MachineConfig<any, any, any> = {
         ab1949: {
           on: {
             NEXT: [
-              { target: "baujahr", cond: "bezugsfertigAb1949" },
+              { target: "baujahr", cond: "isBezugsfertigAb1949" },
               { target: "kernsaniert" },
             ],
             BACK: {
@@ -130,7 +130,7 @@ export const states: MachineConfig<any, any, any> = {
               { target: "wohnflaeche" },
             ],
             BACK: [
-              { target: "baujahr", cond: "bezugsfertigAb1949" },
+              { target: "baujahr", cond: "isBezugsfertigAb1949" },
               { target: "ab1949" },
             ],
           },

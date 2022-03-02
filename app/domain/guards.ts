@@ -11,7 +11,7 @@ const isZweifamilienhaus = (context: StateMachineContext) => {
   return context?.grundstueck?.typ?.typ === "zweifamilienhaus";
 };
 
-const bezugsfertigAb1949 = (context: StateMachineContext) => {
+const isBezugsfertigAb1949 = (context: StateMachineContext) => {
   return isBebaut(context) && context?.gebaeude?.ab1949?.isAb1949 === "true";
 };
 
@@ -85,7 +85,7 @@ const flurstueckIdGreaterThanOne = (context: StateMachineContext) => {
 };
 
 export const conditions: Conditions = {
-  bezugsfertigAb1949,
+  isBezugsfertigAb1949,
   isKernsaniert,
   isZweifamilienhaus,
   hasWeitereWohnraeume,
