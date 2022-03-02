@@ -1,11 +1,11 @@
 import { StepDefinition } from "~/domain/steps";
 
 export type GebaeudeGaragenAnzahlFields = {
-  anzahl: string;
+  anzahlGaragen: string;
 };
 
 export const gebaeudeGaragenAnzahl: StepDefinition = {
   fields: {
-    anzahl: { validations: {} },
+    anzahlGaragen: { validations: {} },
   },
 };

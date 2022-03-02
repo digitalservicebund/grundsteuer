@@ -146,7 +146,7 @@
     "garagenAnzahl": {
       "headline": "Wieviele Garagen gehören zu Ihrem Gebäude / Wohneinheit",
       "fields": {
-        "anzahl": {
+        "anzahlGaragen": {
           "label": "Bitte Anzahl maneull eingeben"
         }
       }
