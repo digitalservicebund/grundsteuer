@@ -28,7 +28,7 @@
   "dependencies": {
     "@digitalservice4germany/digital-service-library": "^0.0.19",
     "@remix-run/react": "^1.2.3",
-    "@remix-run/serve": "^1.2.2",
+    "@remix-run/serve": "^1.2.3",
     "@tailwindcss/typography": "^0.5.2",
     "@xstate/graph": "^1.4.1",
     "@xstate/inspect": "^0.6.2",
@@ -62,7 +62,7 @@
     "@typescript-eslint/parser": "^5.12.1",
     "concurrently": "^7.0.0",
     "copy-env-cli": "^1.0.0",
-    "cypress": "^9.5.0",
+    "cypress": "^9.5.1",
     "dotenv-safe": "^8.2.0",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.4.0",
