@@ -216,7 +216,17 @@ describe("isBebaut", () => {
     expect(result).toEqual(false);
   });
 
-  it("Should return false if bebaut is false", async () => {
+  it("Should return false if typ is invalid value", async () => {
+    const inputData = grundModelFactory
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      .grundstueckTyp({ typ: "INVALID" })
+      .build();
+    const result = conditions.isBebaut(inputData);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false if typ is abweichendeEntwicklung", async () => {
     const inputData = grundModelFactory
       .grundstueckTyp({ typ: "abweichendeEntwicklung" })
       .build();
@@ -224,11 +234,92 @@ describe("isBebaut", () => {
     expect(result).toEqual(false);
   });
 
-  it("Should return true if bebaut is true", async () => {
+  it("Should return false if typ is baureif", async () => {
+    const inputData = grundModelFactory
+      .grundstueckTyp({ typ: "baureif" })
+      .build();
+    const result = conditions.isBebaut(inputData);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return true if typ is einfamilienhaus", async () => {
     const inputData = grundModelFactory
       .grundstueckTyp({ typ: "einfamilienhaus" })
       .build();
     const result = conditions.isBebaut(inputData);
     expect(result).toEqual(true);
+  });
+
+  it("Should return true if typ is zweifamilienhaus", async () => {
+    const inputData = grundModelFactory
+      .grundstueckTyp({ typ: "zweifamilienhaus" })
+      .build();
+    const result = conditions.isBebaut(inputData);
+    expect(result).toEqual(true);
+  });
+
+  it("Should return true if typ is wohnungseigentum", async () => {
+    const inputData = grundModelFactory
+      .grundstueckTyp({ typ: "wohnungseigentum" })
+      .build();
+    const result = conditions.isBebaut(inputData);
+    expect(result).toEqual(true);
+  });
+});
+
+describe("isUnbebaut", () => {
+  it("Should return false if data undefined", async () => {
+    const result = conditions.isUnbebaut(undefined);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false if typ is invalid value", async () => {
+    const inputData = grundModelFactory
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      .grundstueckTyp({ typ: "INVALID" })
+      .build();
+    const result = conditions.isUnbebaut(inputData);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return true if typ is abweichendeEntwicklung", async () => {
+    const inputData = grundModelFactory
+      .grundstueckTyp({ typ: "abweichendeEntwicklung" })
+      .build();
+    const result = conditions.isUnbebaut(inputData);
+    expect(result).toEqual(true);
+  });
+
+  it("Should return true if typ is baureif", async () => {
+    const inputData = grundModelFactory
+      .grundstueckTyp({ typ: "baureif" })
+      .build();
+    const result = conditions.isUnbebaut(inputData);
+    expect(result).toEqual(true);
+  });
+
+  it("Should return false if typ is einfamilienhaus", async () => {
+    const inputData = grundModelFactory
+      .grundstueckTyp({ typ: "einfamilienhaus" })
+      .build();
+    const result = conditions.isUnbebaut(inputData);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false if typ is zweifamilienhaus", async () => {
+    const inputData = grundModelFactory
+      .grundstueckTyp({ typ: "zweifamilienhaus" })
+      .build();
+    const result = conditions.isUnbebaut(inputData);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false if typ is wohnungseigentum", async () => {
+    const inputData = grundModelFactory
+      .grundstueckTyp({ typ: "wohnungseigentum" })
+      .build();
+    const result = conditions.isUnbebaut(inputData);
+    expect(result).toEqual(false);
   });
 });

@@ -66,11 +66,14 @@ const repeatFlurstueck = (context: StateMachineContext) => {
 
 const isBebaut = (context: StateMachineContext) => {
   const typ = context?.grundstueck?.typ?.typ;
-  return typ ? typ !== "abweichendeEntwicklung" : false;
+  return typ
+    ? ["einfamilienhaus", "zweifamilienhaus", "wohnungseigentum"].includes(typ)
+    : false;
 };
 
 const isUnbebaut = (context: StateMachineContext) => {
-  return context?.grundstueck?.typ?.typ === "abweichendeEntwicklung";
+  const typ = context?.grundstueck?.typ?.typ;
+  return typ ? ["abweichendeEntwicklung", "baureif"].includes(typ) : false;
 };
 
 const personIdGreaterThanOne = (context: StateMachineContext) => {
