@@ -18,7 +18,7 @@ import { conditions } from "~/domain/guards";
 import { validateField } from "~/domain/validation";
 import { actions } from "~/domain/actions";
 import stepComponents, { FallbackStepComponent } from "~/components/steps";
-import { getStepDefinition } from "~/domain/steps";
+import { getStepDefinition, GrundModel } from "~/domain/steps";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 
 const getCurrentStateWithoutId = (currentState: string) => {
@@ -67,8 +67,9 @@ const getBackUrl = ({ machine, currentStateWithoutId }: any) => {
   return backUrl;
 };
 
-type LoaderData = {
+export type LoaderData = {
   formData: Record<string, any>;
+  allData: GrundModel;
   i18n: {
     headline: string;
     fields: {
@@ -101,6 +102,7 @@ export const loader: LoaderFunction = async ({
   const tFunction = await i18Next.getFixedT("de", "all");
   return {
     formData: getStepData(cookie.records, currentState),
+    allData: cookie.records,
     i18n: {
       ...tFunction(currentStateWithoutId, {
         id: params?.id ? parseInt(params.id) : undefined,
