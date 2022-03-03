@@ -52,25 +52,7 @@ const ort = _.sample([
   "St. Leon-Rot",
 ]);
 
-class FlurstueckFactory extends Factory<Flurstueck> {
-  flurstueckAngaben(fields?: Partial<GrundstueckFlurstueckAngabenFields>) {
-    return this.params({
-      angaben: {
-        grundbuchblattnummer: "123",
-        gemarkung: "Schöneberg",
-        flur: "456",
-        flurstueckZaehler: "23",
-        flurstueckNenner: "9876",
-        wirtschaftlicheEinheitZaehler: "1",
-        wirtschaftlicheEinheitNenner: "234",
-        groesseHa: "1",
-        groesseA: "2",
-        groesseQm: "300",
-        ...fields,
-      },
-    });
-  }
-}
+class FlurstueckFactory extends Factory<Flurstueck> {}
 
 class GrundModelFactory extends Factory<GrundModel> {
   grundstueckAdresse(fields?: Partial<GrundstueckAdresseFields>) {
@@ -144,7 +126,7 @@ class GrundModelFactory extends Factory<GrundModel> {
   }
 
   grundstueckFlurstueck(
-    fields?: Partial<Flurstueck>,
+    fields?: Partial<Flurstueck<Partial<GrundstueckFlurstueckAngabenFields>>>[],
     params?: FlurstueckTransientParams
   ) {
     const flurstueckFactory = FlurstueckFactory.define((fields) => ({
@@ -163,12 +145,20 @@ class GrundModelFactory extends Factory<GrundModel> {
       },
     }));
 
+    let flurstueckList: Flurstueck[] = [];
+    if (!fields || fields.length == 0) {
+      flurstueckList = flurstueckFactory.buildList(
+        params?.transient.numFlurstuecke || 1,
+        {}
+      );
+    } else {
+      fields.forEach((field) => {
+        flurstueckList.push(flurstueckFactory.build(field));
+      });
+    }
     return this.params({
       grundstueck: {
-        flurstueck: flurstueckFactory.buildList(
-          params?.transient.numFlurstuecke || 1,
-          fields
-        ),
+        flurstueck: flurstueckList,
       },
     });
   }

@@ -89,7 +89,7 @@ describe("Bodenrichtwert page component", () => {
   describe("With Flurstuecke set", () => {
     beforeEach(async () => {
       defaultInput.allData = grundModelFactory
-        .grundstueckFlurstueck({}, { transient: { numFlurstuecke: 2 } })
+        .grundstueckFlurstueck([], { transient: { numFlurstuecke: 2 } })
         .build();
     });
 

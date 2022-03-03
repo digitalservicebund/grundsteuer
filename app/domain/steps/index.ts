@@ -196,8 +196,8 @@ const stepDefinitions = {
 
 export default stepDefinitions;
 
-export type Flurstueck = {
-  angaben?: GrundstueckFlurstueckAngabenFields;
+export type Flurstueck<T = GrundstueckFlurstueckAngabenFields> = {
+  angaben?: T;
 };
 
 export type GrundModel = {
