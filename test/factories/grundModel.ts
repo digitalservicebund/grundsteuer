@@ -1,10 +1,17 @@
 import { Factory } from "fishery";
+import _ from "lodash";
 import {
   GrundModel,
   EigentuemerAnzahlFields,
   EigentuemerPersonGesetzlicherVertreterFields,
   GrundstueckTypFields,
   GrundstueckAnzahlFields,
+  GrundstueckAdresseFields,
+  GrundstueckSteuernummerFields,
+  GrundstueckGemeindeFields,
+  GrundstueckFlurstueckAngabenFields,
+  GrundstueckBodenrichtwertFields,
+  GrundstueckUnbebautFields,
 } from "~/domain/steps";
 import { GebaeudeAb1949Fields } from "~/domain/steps/gebaeude/ab1949";
 import { GebaeudeKernsaniertFields } from "~/domain/steps/gebaeude/kernsaniert";
@@ -17,8 +24,133 @@ type PersonTransientParams = {
   };
 };
 
+type FlurstueckTransientParams = {
+  transient: {
+    flurstueckIndex: number;
+  };
+};
+
+const strasse = _.sample([
+  "Hauptstraße",
+  "Tal",
+  "P4",
+  "Straße 254",
+  "Bischöflich-Geistlicher-Rat-Josef-Zinnbauer-Straße",
+  "Laehr'scher Jagdweg",
+  "Rue d'Achères",
+]);
+const hausnummer = _.sample(["1", "42", "9999"]);
+const plz = _.sample(["01001", "90329"]);
+const ort = _.sample([
+  "Hausen",
+  "Au",
+  "Hellschen-Heringsand-Unterschaar",
+  "Petershagen/Eggersdorf",
+  "St. Leon-Rot",
+]);
+
 class GrundModelFactory extends Factory<GrundModel> {
-  gebaeudeAb1949(fields?: GebaeudeAb1949Fields) {
+  grundstueckAdresse(fields?: Partial<GrundstueckAdresseFields>) {
+    return this.params({
+      grundstueck: {
+        adresse: {
+          strasse,
+          hausnummer,
+          zusatzangaben: "something",
+          plz,
+          ort,
+          ...fields,
+        },
+      },
+    });
+  }
+
+  grundstueckSteuernummer(fields?: Partial<GrundstueckSteuernummerFields>) {
+    return this.params({
+      grundstueck: {
+        steuernummer: {
+          steuernummer: "1234567890",
+          ...fields,
+        },
+      },
+    });
+  }
+
+  grundstueckTyp(fields?: Partial<GrundstueckTypFields>) {
+    return this.params({
+      grundstueck: {
+        typ: {
+          typ: "einfamilienhaus",
+          ...fields,
+        },
+      },
+    });
+  }
+
+  grundstueckUnbebaut(fields?: Partial<GrundstueckUnbebautFields>) {
+    return this.params({
+      grundstueck: {
+        unbebaut: {
+          zustand: "bauerwartungsland",
+          ...fields,
+        },
+      },
+    });
+  }
+
+  grundstueckGemeinde(fields?: Partial<GrundstueckGemeindeFields>) {
+    return this.params({
+      grundstueck: {
+        gemeinde: {
+          innerhalbEinerGemeinde: "true",
+          ...fields,
+        },
+      },
+    });
+  }
+
+  grundstueckAnzahl(fields?: Partial<GrundstueckAnzahlFields>) {
+    return this.params({
+      grundstueck: {
+        anzahl: {
+          anzahl: "2",
+          ...fields,
+        },
+      },
+    });
+  }
+
+  grundstueckFlurstueckAngaben(
+    fields?: Partial<GrundstueckFlurstueckAngabenFields>,
+    params?: FlurstueckTransientParams
+  ) {
+    return this.params({
+      grundstueck: {
+        flurstueck: {
+          [params?.transient.flurstueckIndex || 0]: {
+            angaben: {
+              grundbuchblattnummer: "123",
+              // TODO missing fields
+              ...fields,
+            },
+          },
+        },
+      },
+    });
+  }
+
+  grundstueckBodenrichtwert(fields?: Partial<GrundstueckBodenrichtwertFields>) {
+    return this.params({
+      grundstueck: {
+        bodenrichtwert: {
+          bodenrichtwert: "200",
+          ...fields,
+        },
+      },
+    });
+  }
+
+  gebaeudeAb1949(fields?: Partial<GebaeudeAb1949Fields>) {
     return this.params({
       gebaeude: {
         ab1949: {
@@ -28,7 +160,7 @@ class GrundModelFactory extends Factory<GrundModel> {
     });
   }
 
-  kernsaniert(fields?: GebaeudeKernsaniertFields) {
+  kernsaniert(fields?: Partial<GebaeudeKernsaniertFields>) {
     return this.params({
       gebaeude: {
         kernsaniert: {
@@ -38,7 +170,7 @@ class GrundModelFactory extends Factory<GrundModel> {
     });
   }
 
-  withWeitereWohnraeume(fields?: GebaeudeWeitereWohnraeumeFields) {
+  withWeitereWohnraeume(fields?: Partial<GebaeudeWeitereWohnraeumeFields>) {
     return this.params({
       gebaeude: {
         weitereWohnraeume: {
@@ -48,7 +180,7 @@ class GrundModelFactory extends Factory<GrundModel> {
     });
   }
 
-  withGaragen(fields?: GebaeudeGaragenFields) {
+  withGaragen(fields?: Partial<GebaeudeGaragenFields>) {
     return this.params({
       gebaeude: {
         garagen: {
@@ -58,7 +190,7 @@ class GrundModelFactory extends Factory<GrundModel> {
     });
   }
 
-  eigentuemerAnzahl(fields?: EigentuemerAnzahlFields) {
+  eigentuemerAnzahl(fields?: Partial<EigentuemerAnzahlFields>) {
     return this.params({
       eigentuemer: {
         anzahl: {
@@ -69,7 +201,7 @@ class GrundModelFactory extends Factory<GrundModel> {
   }
 
   eigentuemerPersonGesetzlicherVertreter(
-    fields?: EigentuemerPersonGesetzlicherVertreterFields,
+    fields?: Partial<EigentuemerPersonGesetzlicherVertreterFields>,
     params?: PersonTransientParams
   ) {
     return this.params({
@@ -87,17 +219,8 @@ class GrundModelFactory extends Factory<GrundModel> {
     });
   }
 
-  grundstueckTyp(fields?: GrundstueckTypFields) {
-    return this.params({
-      grundstueck: {
-        typ: {
-          typ: fields?.typ,
-        },
-      },
-    });
-  }
-
-  flurstueckAnzahl(fields?: GrundstueckAnzahlFields) {
+  // TODO refactor, use grundstueckAnzahl
+  flurstueckAnzahl(fields?: Partial<GrundstueckAnzahlFields>) {
     return this.params({
       grundstueck: {
         anzahl: {
