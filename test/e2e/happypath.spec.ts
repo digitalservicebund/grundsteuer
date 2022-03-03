@@ -1,9 +1,42 @@
 /// <reference types="cypress" />
 
 const inputData = {
-  grundsteuck: {
+  grundstueck: {
+    adresse: {
+      strasse: "Hauptstraße",
+      hausnummer: "24b",
+      zusatzangaben: "2. OG re.",
+      plz: "01001",
+      ort: "Au",
+    },
+    steuernummer: {
+      steuernummer: "1234567890",
+    },
     typ: {
       typ: "einfamilienhaus",
+    },
+    gemeinde: {
+      innerhalbEinerGemeinde: "true",
+    },
+    anzahl: {
+      anzahl: "2",
+    },
+    flurstueck: {
+      angaben: {
+        grundbuchblattnummer: "123",
+        gemarkung: "Schöneberg",
+        flur: "456",
+        flurstueckZaehler: "2345",
+        flurstueckNenner: "9876",
+        wirtschaftlicheEinheitZaehler: "1",
+        wirtschaftlicheEinheitNenner: "234",
+        groesseHa: "1",
+        groesseA: "2",
+        groesseQm: "300",
+      },
+    },
+    bodenrichtwert: {
+      bodenrichtwert: "200",
     },
   },
   gebaeude: {
@@ -120,20 +153,124 @@ const inputData = {
     },
     freitext: "Ich fand die Plattform ganz toll.",
   },
-  grundstueck: {
-    bebaut: "",
-  },
 };
 
 export const submitBtnSelector = "#nextButton";
 
 describe("Happy Path", () => {
-  it.only("Enter data for two eigentuemer", () => {
-    cy.visit("/formular/grundstueck/typ");
-    cy.get(`label[for=typ-${inputData.grundsteuck.typ.typ}]`).click();
+  it("Enter data for two eigentuemer", () => {
+    cy.visit("/");
+    cy.get("[data-testid='start-formular']").click();
+
+    cy.url().should("include", "/formular/grundstueck/adresse");
+    cy.get("#strasse").clear().type(inputData.grundstueck.adresse.strasse);
+    cy.get("#hausnummer")
+      .clear()
+      .type(inputData.grundstueck.adresse.hausnummer);
+    cy.get("#zusatzangaben")
+      .clear()
+      .type(inputData.grundstueck.adresse.zusatzangaben);
+    cy.get("#plz").clear().type(inputData.grundstueck.adresse.plz);
+    cy.get("#ort").clear().type(inputData.grundstueck.adresse.ort);
     cy.get(submitBtnSelector).click();
 
-    cy.visit("/formular/gebaeude/ab1949");
+    cy.url().should("include", "/formular/grundstueck/steuernummer");
+    cy.get("#steuernummer")
+      .clear()
+      .type(inputData.grundstueck.steuernummer.steuernummer);
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should("include", "/formular/grundstueck/typ");
+    cy.get(`label[for=typ-${inputData.grundstueck.typ.typ}]`).click();
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should("include", "/formular/grundstueck/gemeinde");
+    cy.get(
+      `label[for=innerhalbEinerGemeinde-${inputData.grundstueck.gemeinde.innerhalbEinerGemeinde}]`
+    ).click();
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should("include", "/formular/grundstueck/anzahl");
+    cy.get("#anzahl").select(inputData.grundstueck.anzahl.anzahl);
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should("include", "/formular/grundstueck/flurstueck/1/angaben");
+    cy.get("#grundbuchblattnummer")
+      .clear()
+      .type(inputData.grundstueck.flurstueck.angaben.grundbuchblattnummer);
+    cy.get("#gemarkung")
+      .clear()
+      .type(inputData.grundstueck.flurstueck.angaben.gemarkung);
+    cy.get("#flur").clear().type(inputData.grundstueck.flurstueck.angaben.flur);
+    cy.get("#flurstueckZaehler")
+      .clear()
+      .type(inputData.grundstueck.flurstueck.angaben.flurstueckZaehler);
+    cy.get("#flurstueckNenner")
+      .clear()
+      .type(inputData.grundstueck.flurstueck.angaben.flurstueckNenner);
+    cy.get("#wirtschaftlicheEinheitZaehler")
+      .clear()
+      .type(
+        inputData.grundstueck.flurstueck.angaben.wirtschaftlicheEinheitZaehler
+      );
+    cy.get("#wirtschaftlicheEinheitNenner")
+      .clear()
+      .type(
+        inputData.grundstueck.flurstueck.angaben.wirtschaftlicheEinheitNenner
+      );
+    cy.get("#groesseHa")
+      .clear()
+      .type(inputData.grundstueck.flurstueck.angaben.groesseHa);
+    cy.get("#groesseA")
+      .clear()
+      .type(inputData.grundstueck.flurstueck.angaben.groesseA);
+    cy.get("#groesseQm")
+      .clear()
+      .type(inputData.grundstueck.flurstueck.angaben.groesseQm);
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should("include", "/formular/grundstueck/flurstueck/2/angaben");
+    cy.get("#grundbuchblattnummer")
+      .clear()
+      .type(inputData.grundstueck.flurstueck.angaben.grundbuchblattnummer);
+    cy.get("#gemarkung")
+      .clear()
+      .type(inputData.grundstueck.flurstueck.angaben.gemarkung);
+    cy.get("#flur").clear().type(inputData.grundstueck.flurstueck.angaben.flur);
+    cy.get("#flurstueckZaehler")
+      .clear()
+      .type(inputData.grundstueck.flurstueck.angaben.flurstueckZaehler);
+    cy.get("#flurstueckNenner")
+      .clear()
+      .type(inputData.grundstueck.flurstueck.angaben.flurstueckNenner);
+    cy.get("#wirtschaftlicheEinheitZaehler")
+      .clear()
+      .type(
+        inputData.grundstueck.flurstueck.angaben.wirtschaftlicheEinheitZaehler
+      );
+    cy.get("#wirtschaftlicheEinheitNenner")
+      .clear()
+      .type(
+        inputData.grundstueck.flurstueck.angaben.wirtschaftlicheEinheitNenner
+      );
+    cy.get("#groesseHa")
+      .clear()
+      .type(inputData.grundstueck.flurstueck.angaben.groesseHa);
+    cy.get("#groesseA")
+      .clear()
+      .type(inputData.grundstueck.flurstueck.angaben.groesseA);
+    cy.get("#groesseQm")
+      .clear()
+      .type(inputData.grundstueck.flurstueck.angaben.groesseQm);
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should("include", "/formular/grundstueck/bodenrichtwert");
+    cy.get("#bodenrichtwert")
+      .clear()
+      .type(inputData.grundstueck.bodenrichtwert.bodenrichtwert);
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should("include", "/formular/gebaeude/ab1949");
     cy.get(`label[for=isAb1949-${inputData.gebaeude.ab1949.isAb1949}]`).click();
     cy.get(submitBtnSelector).click();
     cy.get("#baujahr").clear().type(inputData.gebaeude.baujahr.baujahr);

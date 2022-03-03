@@ -8,6 +8,7 @@ export default function Index() {
       <Link
         to="/formular/grundstueck/adresse"
         className="text-2xl underline text-blue-500"
+        data-testid="start-formular"
       >
         Fragebogen
       </Link>

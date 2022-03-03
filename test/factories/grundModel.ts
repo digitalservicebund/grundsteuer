@@ -9,7 +9,6 @@ import {
   GrundstueckAdresseFields,
   GrundstueckSteuernummerFields,
   GrundstueckGemeindeFields,
-  // GrundstueckFlurstueckAngabenFields,
   GrundstueckBodenrichtwertFields,
   GrundstueckUnbebautFields,
   GrundstueckFlurstueckAngabenFields,
