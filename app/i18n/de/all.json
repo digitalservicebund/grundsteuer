@@ -258,6 +258,9 @@
       "headline": "Gibt es allgemeine Ergänzungen?",
       "fields": {
         "freitext": ""
+      },
+      "specifics": {
+        "warning": "Achtung, wenn Sie hier etwas eintragen, dann werden Sie ausgesteuert."
       }
     }
   },

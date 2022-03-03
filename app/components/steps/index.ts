@@ -4,6 +4,7 @@ import VertreterAdresse from "./eigentuemer/person/vertreter/adresse";
 import Debug from "./debug";
 import Default from "./default";
 import Bodenrichtwert from "~/components/steps/grundstueck/bodenrichtwert";
+import Freitext from "~/components/steps/eigentuemer/freitext";
 
 export { Default as FallbackStepComponent };
 
@@ -16,6 +17,7 @@ export default {
         adresse: VertreterAdresse,
       },
     },
+    freitext: Freitext,
   },
   grundstueck: {
     bodenrichtwert: Bodenrichtwert,
