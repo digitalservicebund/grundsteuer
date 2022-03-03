@@ -147,6 +147,63 @@ describe("Bodenrichtwert page component", () => {
       }
     });
   });
+
+  describe("With Flurstuecke partly set", () => {
+    beforeEach(async () => {
+      defaultInput.allData = grundModelFactory
+        .grundstueckFlurstueck(
+          [
+            { angaben: { flurstueckNenner: undefined, flur: undefined } },
+            { angaben: undefined },
+          ],
+          { transient: { numFlurstuecke: 2 } }
+        )
+        .build();
+    });
+
+    it("should render only set flurstuecke data", () => {
+      render(<Bodenrichtwert {...defaultInput} />);
+      const flurstueckeArea = screen.getByTestId("grundstueck-flurstuecke");
+      const flurstueckData = (defaultInput.allData as GrundModel).grundstueck
+        ?.flurstueck?.[0].angaben;
+      if (flurstueckData) {
+        expect(
+          within(flurstueckeArea).getAllByText(
+            `Grundbuchblatt: ${flurstueckData.grundbuchblattnummer}`,
+            { exact: false }
+          )
+        ).toHaveLength(1);
+        expect(
+          within(flurstueckeArea).getAllByText(
+            `Gemarkung: ${flurstueckData.gemarkung}`,
+            {
+              exact: false,
+            }
+          )
+        ).toHaveLength(1);
+        expect(
+          within(flurstueckeArea).queryAllByText(`Flur:`, {
+            exact: false,
+          })
+        ).toHaveLength(0);
+        expect(
+          within(flurstueckeArea).getAllByText(
+            `Flurstück Zähler: ${flurstueckData.flurstueckZaehler}`,
+            {
+              exact: false,
+            }
+          )
+        ).toHaveLength(1);
+        expect(
+          within(flurstueckeArea).queryAllByText(`Flurstück Nenner:`, {
+            exact: false,
+          })
+        ).toHaveLength(0);
+      } else {
+        fail("Flurstueck data should be set");
+      }
+    });
+  });
 });
 
 export {};

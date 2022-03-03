@@ -43,6 +43,9 @@ const Bodenrichtwert: StepComponentFunction = ({
       {flurstueckData && (
         <div data-testid="grundstueck-flurstuecke">
           {flurstueckData.map((flurstueck, index) => {
+            if (!flurstueck.angaben) {
+              return;
+            }
             return (
               <div key={index} className="bg-gray-100 mb-4">
                 <h2 className="font-bold">
@@ -51,22 +54,26 @@ const Bodenrichtwert: StepComponentFunction = ({
                 <ul>
                   <li>
                     {i18n.specifics.grundbuchblatt}:{" "}
-                    {flurstueck.angaben?.grundbuchblattnummer}
+                    {flurstueck.angaben.grundbuchblattnummer}
                   </li>
                   <li>
-                    {i18n.specifics.gemarkung}: {flurstueck.angaben?.gemarkung}
+                    {i18n.specifics.gemarkung}: {flurstueck.angaben.gemarkung}
                   </li>
-                  <li>
-                    {i18n.specifics.flur}: {flurstueck.angaben?.flur}
-                  </li>
+                  {flurstueck.angaben.flur && (
+                    <li>
+                      {i18n.specifics.flur}: {flurstueck.angaben.flur}
+                    </li>
+                  )}
                   <li>
                     {i18n.specifics.flurstueckZaehler}:{" "}
-                    {flurstueck.angaben?.flurstueckZaehler}
+                    {flurstueck.angaben.flurstueckZaehler}
                   </li>
-                  <li>
-                    {i18n.specifics.flurstueckNenner}:{" "}
-                    {flurstueck.angaben?.flurstueckNenner}
-                  </li>
+                  {flurstueck.angaben.flurstueckNenner && (
+                    <li>
+                      {i18n.specifics.flurstueckNenner}:{" "}
+                      {flurstueck.angaben.flurstueckNenner}
+                    </li>
+                  )}
                 </ul>
               </div>
             );
