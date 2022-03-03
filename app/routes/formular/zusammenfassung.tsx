@@ -19,31 +19,31 @@ export const loader: LoaderFunction = async ({ request }) => {
   return { graph, data: cookie.records };
 };
 
-const resolveJaNein = (field: string | undefined) => {
-  if (field === "true") {
+const resolveJaNein = (value: string | undefined) => {
+  if (value === "true") {
     return "Ja";
   }
-  if (field === "false") {
+  if (value === "false") {
     return "Nein";
   }
   return "";
 };
 
-const resolveArea = (field: string | undefined) => {
-  if (field) {
-    return `${field} m2`;
+const resolveArea = (value: string | undefined) => {
+  if (value) {
+    return `${value} m2`;
   }
   return "";
 };
 
 const item = (
-  key: string,
-  field: string | undefined,
+  label: string,
+  value: string | undefined,
   resolver?: (field: string | undefined) => string
 ): JSX.Element => {
   return (
     <li>
-      {key}: {resolver ? resolver(field) : field}
+      {label}: {resolver ? resolver(value) : value}
     </li>
   );
 };
