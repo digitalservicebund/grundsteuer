@@ -196,6 +196,10 @@ const stepDefinitions = {
 
 export default stepDefinitions;
 
+export type Flurstueck = {
+  angaben?: GrundstueckFlurstueckAngabenFields;
+};
+
 export type GrundModel = {
   grundstueck?: {
     adresse?: GrundstueckAdresseFields;
@@ -205,9 +209,7 @@ export type GrundModel = {
     gemeinde?: GrundstueckGemeindeFields;
     anzahl?: GrundstueckAnzahlFields;
     bodenrichtwert?: GrundstueckBodenrichtwertFields;
-    flurstueck?: {
-      angaben?: GrundstueckFlurstueckAngabenFields;
-    }[];
+    flurstueck?: Flurstueck[];
   };
   gebaeude?: {
     ab1949?: GebaeudeAb1949Fields;

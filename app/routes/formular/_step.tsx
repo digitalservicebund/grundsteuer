@@ -67,20 +67,22 @@ const getBackUrl = ({ machine, currentStateWithoutId }: any) => {
   return backUrl;
 };
 
+export type I18nObject = {
+  headline: string;
+  fields: {
+    [index: string]: {
+      label: string;
+      options?: Record<string, string>;
+    };
+  };
+  specifics: Record<string, string>;
+  common: Record<string, string>;
+};
+
 export type LoaderData = {
   formData: Record<string, any>;
   allData: GrundModel;
-  i18n: {
-    headline: string;
-    fields: {
-      [index: string]: {
-        label: string;
-        options?: Record<string, string>;
-      };
-    };
-    specifics: Record<string, string>;
-    common: Record<string, string>;
-  };
+  i18n: I18nObject;
   backUrl: string | null;
   currentStateWithoutId: string;
   stepDefinition: {

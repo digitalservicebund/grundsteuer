@@ -12,6 +12,8 @@ import {
   // GrundstueckFlurstueckAngabenFields,
   GrundstueckBodenrichtwertFields,
   GrundstueckUnbebautFields,
+  GrundstueckFlurstueckAngabenFields,
+  Flurstueck,
 } from "~/domain/steps";
 import { GebaeudeAb1949Fields } from "~/domain/steps/gebaeude/ab1949";
 import { GebaeudeKernsaniertFields } from "~/domain/steps/gebaeude/kernsaniert";
@@ -24,11 +26,12 @@ type PersonTransientParams = {
   };
 };
 
-// type FlurstueckTransientParams = {
-//   transient: {
-//     flurstueckIndex: number;
-//   };
-// };
+type FlurstueckTransientParams = {
+  transient: {
+    flurstueckIndex?: number;
+    numFlurstuecke?: number;
+  };
+};
 
 const strasse = _.sample([
   "Hauptstraße",
@@ -48,6 +51,26 @@ const ort = _.sample([
   "Petershagen/Eggersdorf",
   "St. Leon-Rot",
 ]);
+
+class FlurstueckFactory extends Factory<Flurstueck> {
+  flurstueckAngaben(fields?: Partial<GrundstueckFlurstueckAngabenFields>) {
+    return this.params({
+      angaben: {
+        grundbuchblattnummer: "123",
+        gemarkung: "Schöneberg",
+        flur: "456",
+        flurstueckZaehler: "23",
+        flurstueckNenner: "9876",
+        wirtschaftlicheEinheitZaehler: "1",
+        wirtschaftlicheEinheitNenner: "234",
+        groesseHa: "1",
+        groesseA: "2",
+        groesseQm: "300",
+        ...fields,
+      },
+    });
+  }
+}
 
 class GrundModelFactory extends Factory<GrundModel> {
   grundstueckAdresse(fields?: Partial<GrundstueckAdresseFields>) {
@@ -120,24 +143,35 @@ class GrundModelFactory extends Factory<GrundModel> {
     });
   }
 
-  // grundstueckFlurstueckAngaben(
-  //   fields?: Partial<GrundstueckFlurstueckAngabenFields>,
-  //   params?: FlurstueckTransientParams
-  // ) {
-  //   return this.params({
-  //     grundstueck: {
-  //       flurstueck: {
-  //         [params?.transient.flurstueckIndex || 0]: {
-  //           angaben: {
-  //             grundbuchblattnummer: "123",
-  //             // TODO missing fields
-  //             ...fields,
-  //           },
-  //         },
-  //       },
-  //     },
-  //   });
-  // }
+  grundstueckFlurstueck(
+    fields?: Partial<Flurstueck>,
+    params?: FlurstueckTransientParams
+  ) {
+    const flurstueckFactory = FlurstueckFactory.define((fields) => ({
+      angaben: {
+        grundbuchblattnummer: "123",
+        gemarkung: "Schöneberg",
+        flur: "456",
+        flurstueckZaehler: "2345",
+        flurstueckNenner: "9876",
+        wirtschaftlicheEinheitZaehler: "1",
+        wirtschaftlicheEinheitNenner: "234",
+        groesseHa: "1",
+        groesseA: "2",
+        groesseQm: "300",
+        ...fields,
+      },
+    }));
+
+    return this.params({
+      grundstueck: {
+        flurstueck: flurstueckFactory.buildList(
+          params?.transient.numFlurstuecke || 1,
+          fields
+        ),
+      },
+    });
+  }
 
   grundstueckBodenrichtwert(fields?: Partial<GrundstueckBodenrichtwertFields>) {
     return this.params({
