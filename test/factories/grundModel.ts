@@ -9,7 +9,7 @@ import {
   GrundstueckAdresseFields,
   GrundstueckSteuernummerFields,
   GrundstueckGemeindeFields,
-  GrundstueckFlurstueckAngabenFields,
+  // GrundstueckFlurstueckAngabenFields,
   GrundstueckBodenrichtwertFields,
   GrundstueckUnbebautFields,
 } from "~/domain/steps";
@@ -24,11 +24,11 @@ type PersonTransientParams = {
   };
 };
 
-type FlurstueckTransientParams = {
-  transient: {
-    flurstueckIndex: number;
-  };
-};
+// type FlurstueckTransientParams = {
+//   transient: {
+//     flurstueckIndex: number;
+//   };
+// };
 
 const strasse = _.sample([
   "Hauptstraße",
@@ -120,24 +120,24 @@ class GrundModelFactory extends Factory<GrundModel> {
     });
   }
 
-  grundstueckFlurstueckAngaben(
-    fields?: Partial<GrundstueckFlurstueckAngabenFields>,
-    params?: FlurstueckTransientParams
-  ) {
-    return this.params({
-      grundstueck: {
-        flurstueck: {
-          [params?.transient.flurstueckIndex || 0]: {
-            angaben: {
-              grundbuchblattnummer: "123",
-              // TODO missing fields
-              ...fields,
-            },
-          },
-        },
-      },
-    });
-  }
+  // grundstueckFlurstueckAngaben(
+  //   fields?: Partial<GrundstueckFlurstueckAngabenFields>,
+  //   params?: FlurstueckTransientParams
+  // ) {
+  //   return this.params({
+  //     grundstueck: {
+  //       flurstueck: {
+  //         [params?.transient.flurstueckIndex || 0]: {
+  //           angaben: {
+  //             grundbuchblattnummer: "123",
+  //             // TODO missing fields
+  //             ...fields,
+  //           },
+  //         },
+  //       },
+  //     },
+  //   });
+  // }
 
   grundstueckBodenrichtwert(fields?: Partial<GrundstueckBodenrichtwertFields>) {
     return this.params({
