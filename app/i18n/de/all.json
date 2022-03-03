@@ -51,7 +51,8 @@
           "adresse": "Adresse",
           "telefonnummer": "Telefonnummer"
         }
-      }
+      },
+      "freitext": "Ergänzende Angaben"
     },
     "zusammenfassung": "Zusammenfassung"
   },
@@ -251,6 +252,12 @@
           "zaehler": { "label": "Zähler" },
           "nenner": { "label": "Nenner" }
         }
+      }
+    },
+    "freitext": {
+      "headline": "Gibt es allgemeine Ergänzungen?",
+      "fields": {
+        "freitext": ""
       }
     }
   },

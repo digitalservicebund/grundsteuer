@@ -329,11 +329,36 @@ export const states: MachineConfig<any, any, any> = {
               { target: "verheiratet", cond: "anzahlEigentuemerIsTwo" },
               { target: "anzahl" },
             ],
-            NEXT: {
-              target: "person",
-              cond: "repeatPerson",
-              actions: ["incrementPersonId"],
-            },
+            NEXT: [
+              {
+                target: "person",
+                cond: "repeatPerson",
+                actions: ["incrementPersonId"],
+              },
+              {
+                target: "freitext",
+              },
+            ],
+          },
+        },
+        freitext: {
+          on: {
+            BACK: [
+              {
+                target: "person.anteil",
+                cond: "hasMultipleEigentuemer",
+                actions: "setPersonIdToMaximum",
+              },
+              {
+                target: "person.vertreter.telefonnummer",
+                cond: "hasGesetzlicherVertreter",
+                actions: "setPersonIdToMaximum",
+              },
+              {
+                target: "person.gesetzlicherVertreter",
+                actions: "setPersonIdToMaximum",
+              },
+            ],
           },
         },
       },
@@ -344,22 +369,7 @@ export const states: MachineConfig<any, any, any> = {
     zusammenfassung: {
       type: "final",
       on: {
-        BACK: [
-          {
-            target: "eigentuemer.person.anteil",
-            cond: "hasMultipleEigentuemer",
-            actions: "setPersonIdToMaximum",
-          },
-          {
-            target: "eigentuemer.person.vertreter.telefonnummer",
-            cond: "hasGesetzlicherVertreter",
-            actions: "setPersonIdToMaximum",
-          },
-          {
-            target: "eigentuemer.person.gesetzlicherVertreter",
-            actions: "setPersonIdToMaximum",
-          },
-        ],
+        BACK: { target: "eigentuemer.freitext" },
       },
     },
   },

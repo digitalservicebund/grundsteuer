@@ -71,6 +71,7 @@ describe("states", () => {
       "eigentuemer.person.1.telefonnummer",
       "eigentuemer.person.1.steuerId",
       "eigentuemer.person.1.gesetzlicherVertreter",
+      "eigentuemer.freitext",
     ];
 
     const defaultGrundstueck = [
@@ -104,6 +105,7 @@ describe("states", () => {
           "eigentuemer.person.1.telefonnummer",
           "eigentuemer.person.1.steuerId",
           "eigentuemer.person.1.gesetzlicherVertreter",
+          "eigentuemer.freitext",
           "zusammenfassung",
         ],
       },
@@ -302,6 +304,7 @@ describe("states", () => {
           "eigentuemer.person.2.steuerId",
           "eigentuemer.person.2.gesetzlicherVertreter",
           "eigentuemer.person.2.anteil",
+          "eigentuemer.freitext",
           "zusammenfassung",
         ],
       },
@@ -357,6 +360,7 @@ describe("states", () => {
           "eigentuemer.person.3.vertreter.adresse",
           "eigentuemer.person.3.vertreter.telefonnummer",
           "eigentuemer.person.3.anteil",
+          "eigentuemer.freitext",
           "zusammenfassung",
         ],
       },

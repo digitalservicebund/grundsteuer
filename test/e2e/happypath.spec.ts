@@ -118,6 +118,7 @@ const inputData = {
         nenner: "2",
       },
     },
+    freitext: "Ich fand die Plattform ganz toll.",
   },
   grundstueck: {
     bebaut: "",
@@ -278,6 +279,9 @@ describe("Happy Path", () => {
       .clear()
       .type(inputData.eigentuemer.person2.anteil.zaehler);
     cy.get("#nenner").clear().type(inputData.eigentuemer.person2.anteil.nenner);
+    cy.get(submitBtnSelector).click();
+
+    cy.get("#freitext").clear().type(inputData.eigentuemer.freitext);
     cy.get(submitBtnSelector).click();
 
     // ZUSAMMENFASSUNG

@@ -148,6 +148,10 @@ import {
   grundstueckBodenrichtwert,
   GrundstueckBodenrichtwertFields,
 } from "./grundstueck/bodenrichtwert";
+import {
+  eigentuemerFreitext,
+  EigentuemerFreitextFields,
+} from "~/domain/steps/eigentuemer/freitext";
 export type { GrundstueckBodenrichtwertFields };
 
 const stepDefinitions = {
@@ -177,6 +181,7 @@ const stepDefinitions = {
   },
   eigentuemer: {
     anzahl: eigentuemerAnzahl,
+    verheiratet: eigentuemerVerheiratet,
     person: {
       adresse: eigentuemerPersonAdresse,
       anteil: eigentuemerPersonAnteil,
@@ -190,7 +195,7 @@ const stepDefinitions = {
         telefonnummer: eigentuemerPersonVertreterTelefonnummer,
       },
     },
-    verheiratet: eigentuemerVerheiratet,
+    freitext: eigentuemerFreitext,
   },
 };
 
@@ -225,6 +230,7 @@ export type GrundModel = {
   };
   eigentuemer?: {
     anzahl?: EigentuemerAnzahlFields;
+    verheiratet?: EigentuemerVerheiratetFields;
     person?: {
       adresse?: EigentuemerPersonAdresseFields;
       anteil?: EigentuemerPersonAnteilFields;
@@ -238,7 +244,7 @@ export type GrundModel = {
         telefonnummer?: EigentuemerPersonVertreterTelefonnummerFields;
       };
     }[];
-    verheiratet?: EigentuemerVerheiratetFields;
+    freitext?: EigentuemerFreitextFields;
   };
 };
 
