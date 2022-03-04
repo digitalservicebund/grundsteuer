@@ -43,7 +43,7 @@
     "remix": "^1.2.3",
     "remix-i18next": "^2.2.0",
     "tiny-invariant": "^1.2.0",
-    "xstate": "^4.30.2"
+    "xstate": "^4.30.3"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",
