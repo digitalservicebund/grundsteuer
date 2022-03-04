@@ -20,6 +20,9 @@ import { actions } from "~/domain/actions";
 import stepComponents, { FallbackStepComponent } from "~/components/steps";
 import { getStepDefinition, GrundModel } from "~/domain/steps";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
+import { State } from "xstate/lib/State";
+import { StateSchema, Typestate } from "xstate/lib/types";
+import { TypegenDisabled, TypegenMeta } from "xstate/lib/typegenTypes";
 
 const getCurrentStateWithoutId = (currentState: string) => {
   return currentState.replace(/\.\d+\./g, ".");
@@ -67,6 +70,34 @@ const getBackUrl = ({ machine, currentStateWithoutId }: any) => {
   return backUrl;
 };
 
+const getRedirectUrl = (
+  state: State<
+    StateMachineContext,
+    Event,
+    StateSchema,
+    Typestate<StateMachineContext>,
+    any
+  >
+): string => {
+  let redirectUrl = `/formular/${state
+    .toStrings()
+    .at(-1)
+    ?.split(".")
+    .join("/")}`;
+  if (state.matches("eigentuemer.person")) {
+    redirectUrl = redirectUrl.replace(
+      "person/",
+      `person/${state.context.personId || 1}/`
+    );
+  } else if (state.matches("grundstueck.flurstueck")) {
+    redirectUrl = redirectUrl.replace(
+      "flurstueck/",
+      `flurstueck/${state.context.flurstueckId || 1}/`
+    );
+  }
+  return redirectUrl;
+};
+
 export type I18nObject = {
   headline: string;
   fields: {
@@ -93,12 +124,21 @@ export type LoaderData = {
 export const loader: LoaderFunction = async ({
   params,
   request,
-}): Promise<LoaderData> => {
+}): Promise<LoaderData | Response> => {
   const cookie = await getFormDataCookie(request);
   const currentState = getCurrentStateFromUrl(request.url);
   const currentStateWithoutId = getCurrentStateWithoutId(currentState);
 
   const machine = getMachine({ cookie, params });
+  const stateNodeType = machine.getStateNodeByPath(currentStateWithoutId).type;
+  if (stateNodeType == "compound") {
+    const inititalState = machine.transition(currentStateWithoutId, "FAKE");
+    const redirectUrl = getRedirectUrl(inititalState);
+    const responseHeader: Headers = await createResponseHeaders(cookie);
+    return redirect(redirectUrl, {
+      headers: responseHeader,
+    });
+  }
   const backUrl = getBackUrl({ machine, currentStateWithoutId });
   const stepDefinition = getStepDefinition({ currentStateWithoutId });
 
@@ -154,24 +194,7 @@ export const action: ActionFunction = async ({ params, request }) => {
   const nextState = machine.transition(currentStateWithoutId, {
     type: "NEXT",
   });
-  let redirectUrl = `/formular/${nextState
-    .toStrings()
-    .at(-1)
-    ?.split(".")
-    .join("/")}`;
-  if (nextState.matches("eigentuemer.person")) {
-    redirectUrl = redirectUrl.replace(
-      "person/",
-      `person/${(nextState.context as StateMachineContext).personId || 1}/`
-    );
-  } else if (nextState.matches("grundstueck.flurstueck")) {
-    redirectUrl = redirectUrl.replace(
-      "flurstueck/",
-      `flurstueck/${
-        (nextState.context as StateMachineContext).flurstueckId || 1
-      }/`
-    );
-  }
+  const redirectUrl = getRedirectUrl(nextState);
   const responseHeader: Headers = await createResponseHeaders(cookie);
   return redirect(redirectUrl, {
     headers: responseHeader,
