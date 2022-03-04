@@ -1,9 +1,8 @@
-import i18next from "i18next";
+import { createInstance } from "i18next";
 import { renderToString } from "react-dom/server";
-import { initReactI18next } from "react-i18next";
+import { I18nextProvider, initReactI18next } from "react-i18next";
 import type { EntryContext } from "remix";
 import { RemixServer } from "remix";
-import { RemixI18NextProvider } from "remix-i18next";
 
 export default async function handleRequest(
   request: Request,
@@ -12,7 +11,8 @@ export default async function handleRequest(
   remixContext: EntryContext
 ) {
   // should match the configuration in entry.client.tsx
-  await i18next.use(initReactI18next).init({
+  const i18n = createInstance();
+  await i18n.use(initReactI18next).init({
     supportedLngs: ["de"],
     defaultNS: "all",
     fallbackLng: "de",
@@ -20,9 +20,9 @@ export default async function handleRequest(
   });
 
   const markup = renderToString(
-    <RemixI18NextProvider i18n={i18next}>
+    <I18nextProvider i18n={i18n}>
       <RemixServer context={remixContext} url={request.url} />
-    </RemixI18NextProvider>
+    </I18nextProvider>
   );
 
   responseHeaders.set("Content-Type", "text/html");

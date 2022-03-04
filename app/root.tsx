@@ -8,7 +8,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "remix";
-import { useRemixI18Next } from "remix-i18next";
+import { useSetupTranslations } from "remix-i18next";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: "/tailwind.css" }];
@@ -19,7 +19,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function App() {
-  useRemixI18Next("de");
+  useSetupTranslations("de");
 
   return (
     <html lang="de">

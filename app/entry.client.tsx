@@ -1,8 +1,7 @@
 import i18next from "i18next";
 import { hydrate } from "react-dom";
-import { initReactI18next } from "react-i18next";
+import { I18nextProvider, initReactI18next } from "react-i18next";
 import { RemixBrowser } from "remix";
-import { RemixI18NextProvider } from "remix-i18next";
 
 i18next
   .use(initReactI18next)
@@ -14,9 +13,9 @@ i18next
   })
   .then(() => {
     return hydrate(
-      <RemixI18NextProvider i18n={i18next}>
+      <I18nextProvider i18n={i18next}>
         <RemixBrowser />
-      </RemixI18NextProvider>,
+      </I18nextProvider>,
       document
     );
   });
