@@ -156,6 +156,18 @@ import {
   eigentuemerEmpfangsvollmacht,
   EigentuemerEmpfangsvollmachtFields,
 } from "~/domain/steps/eigentuemer/empfangsvollmacht";
+import {
+  eigentuemerEmpfangsbevollmaechtigterTelefonnummer,
+  EigentuemerEmpfangsbevollmaechtigterTelefonnummerFields,
+} from "~/domain/steps/eigentuemer/empfangsbevollmaechtigter/telefonnummer";
+import {
+  eigentuemerEmpfangsbevollmaechtigterName,
+  EigentuemerEmpfangsbevollmaechtigterNameFields,
+} from "~/domain/steps/eigentuemer/empfangsbevollmaechtigter/name";
+import {
+  eigentuemerEmpfangsbevollmaechtigterAdresse,
+  EigentuemerEmpfangsbevollmaechtigterAdresseFields,
+} from "~/domain/steps/eigentuemer/empfangsbevollmaechtigter/adresse";
 export type { GrundstueckBodenrichtwertFields };
 
 const stepDefinitions = {
@@ -200,6 +212,11 @@ const stepDefinitions = {
       },
     },
     empfangsvollmacht: eigentuemerEmpfangsvollmacht,
+    empfangsbevollmaechtigter: {
+      name: eigentuemerEmpfangsbevollmaechtigterName,
+      adresse: eigentuemerEmpfangsbevollmaechtigterAdresse,
+      telefonnummer: eigentuemerEmpfangsbevollmaechtigterTelefonnummer,
+    },
     freitext: eigentuemerFreitext,
   },
 };
@@ -250,6 +267,11 @@ export type GrundModel = {
       };
     }[];
     empfangsvollmacht?: EigentuemerEmpfangsvollmachtFields;
+    empfangsbevollmaechtigter?: {
+      name?: EigentuemerEmpfangsbevollmaechtigterNameFields;
+      adresse?: EigentuemerEmpfangsbevollmaechtigterAdresseFields;
+      telefonnummer?: EigentuemerEmpfangsbevollmaechtigterTelefonnummerFields;
+    };
     freitext?: EigentuemerFreitextFields;
   };
 };

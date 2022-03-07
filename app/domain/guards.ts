@@ -58,6 +58,12 @@ const repeatPerson = (context: StateMachineContext) => {
   );
 };
 
+const hasEmpfangsbevollmaechtigter = (context: StateMachineContext) => {
+  return (
+    context?.eigentuemer?.empfangsvollmacht?.hasEmpfangsvollmacht == "true"
+  );
+};
+
 const repeatFlurstueck = (context: StateMachineContext) => {
   return (
     (context?.flurstueckId || 1) < Number(context?.grundstueck?.anzahl?.anzahl)
@@ -93,6 +99,7 @@ export const conditions: Conditions = {
   hasMultipleEigentuemer,
   hasGesetzlicherVertreter,
   repeatPerson,
+  hasEmpfangsbevollmaechtigter,
   repeatFlurstueck,
   hasNotGesetzlicherVertreterAndRepeatPerson: (
     context: StateMachineContext

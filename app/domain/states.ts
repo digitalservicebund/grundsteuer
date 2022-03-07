@@ -365,7 +365,39 @@ export const states: MachineConfig<any, any, any> = {
                 actions: "setPersonIdToMaximum",
               },
             ],
+            NEXT: [
+              {
+                target: "empfangsbevollmaechtigter",
+                cond: "hasEmpfangsbevollmaechtigter",
+              },
+              { target: "freitext" },
+            ],
+          },
+        },
+        empfangsbevollmaechtigter: {
+          id: "empfangsbevollmaechtigter",
+          initial: "name",
+          states: {
+            name: {
+              on: {
+                NEXT: { target: "adresse" },
+              },
+            },
+            adresse: {
+              on: {
+                NEXT: { target: "telefonnummer" },
+                BACK: { target: "name" },
+              },
+            },
+            telefonnummer: {
+              on: {
+                BACK: { target: "adresse" },
+              },
+            },
+          },
+          on: {
             NEXT: { target: "freitext" },
+            BACK: { target: "empfangsvollmacht" },
           },
         },
         freitext: {

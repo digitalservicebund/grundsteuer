@@ -485,6 +485,32 @@ describe("repeatPerson", () => {
   });
 });
 
+describe("hasEmpfangsbevollmaechtigter", () => {
+  it("Should return false if data undefined", async () => {
+    const result = conditions.hasEmpfangsbevollmaechtigter(undefined);
+    expect(result).toEqual(false);
+  });
+
+  const cases = [
+    { hasEmpfangsvollmacht: "INVALID", expectedValue: false },
+    { hasEmpfangsvollmacht: "true", expectedValue: true },
+    { hasEmpfangsvollmacht: "false", expectedValue: false },
+  ];
+
+  test.each(cases)(
+    "Should return $expectedValue if hasEmpfangsvollmacht is hasEmpfangsvollmacht",
+    ({ hasEmpfangsvollmacht, expectedValue }) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const inputData = grundModelFactory
+        .eigentuemerEmpfangsvollmacht({ hasEmpfangsvollmacht })
+        .build();
+      const result = conditions.hasEmpfangsbevollmaechtigter(inputData);
+      expect(result).toEqual(expectedValue);
+    }
+  );
+});
+
 describe("repeatFlurstueck", () => {
   describe("flurstueck anzahl and id not set", () => {
     // TODO I think this should actually throw an error instead of just taking 1 as default?

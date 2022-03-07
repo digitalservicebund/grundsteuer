@@ -53,6 +53,11 @@
         }
       },
       "empfangsvollmacht": "Empfangsbevollmächtigte Person",
+      "empfangsbevollmaechtigter": {
+        "name": "Name",
+        "adresse": "Adresse",
+        "telefonnummer": "Telefonnummer"
+      },
       "freitext": "Ergänzende Angaben"
     },
     "zusammenfassung": "Zusammenfassung"
@@ -263,6 +268,33 @@
             "true": "Ja, ich möchte eine empfangsbevollmächtigte Person angeben",
             "false": "Nein, ich möchte keine empfangsbevollmächtigte Person angeben"
           }
+        }
+      }
+    },
+    "empfangsbevollmaechtigter": {
+      "name": {
+        "headline": "Stammdaten empfangsbevollmächtigte Person",
+        "fields": {
+          "anrede": { "label": "Anrede" },
+          "titel": { "label": "Titel" },
+          "name": { "label": "Name" },
+          "vorname": { "label": "Vorname" }
+        }
+      },
+      "adresse": {
+        "headline": "Adresse empfangsbevollmächtigte Person",
+        "fields": {
+          "strasse": { "label": "Straße / Lagebezeichnung" },
+          "hausnummer": { "label": "Hausnummer (+Hausnummerzusatz)" },
+          "postfach": { "label": "Postfach" },
+          "plz": { "label": "PLZ" },
+          "ort": { "label": "Ort" }
+        }
+      },
+      "telefonnummer": {
+        "headline": "Telefonnummer empfangsbevollmächtigte Person",
+        "fields": {
+          "telefonnummer": { "label": "Telefonnummer" }
         }
       }
     },

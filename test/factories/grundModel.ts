@@ -18,6 +18,7 @@ import { GebaeudeAb1949Fields } from "~/domain/steps/gebaeude/ab1949";
 import { GebaeudeKernsaniertFields } from "~/domain/steps/gebaeude/kernsaniert";
 import { GebaeudeWeitereWohnraeumeFields } from "~/domain/steps/gebaeude/weitereWohnraeume";
 import { GebaeudeGaragenFields } from "~/domain/steps/gebaeude/garagen";
+import { EigentuemerEmpfangsvollmachtFields } from "~/domain/steps/eigentuemer/empfangsvollmacht";
 
 type PersonTransientParams = {
   transient: {
@@ -239,6 +240,21 @@ class GrundModelFactory extends Factory<GrundModel> {
               hasVertreter: fields?.hasVertreter || "false",
             },
           },
+        },
+      },
+    });
+  }
+
+  eigentuemerEmpfangsvollmacht(
+    fields?: Partial<EigentuemerEmpfangsvollmachtFields>,
+    params?: PersonTransientParams
+  ) {
+    return this.params({
+      eigentuemer: {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        empfangsvollmacht: {
+          hasEmpfangsvollmacht: fields?.hasEmpfangsvollmacht || "false",
         },
       },
     });
