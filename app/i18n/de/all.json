@@ -365,7 +365,9 @@
         "gemarkung": "Gemarkung",
         "flur": "Flur",
         "flurstueckZaehler": "Flurstück Zähler",
-        "flurstueckNenner": "Flurstück Nenner"
+        "flurstueckNenner": "Flurstück Nenner",
+        "wirtschaftlicheEinheitZaehler": "wirtschaftl. Einheit Zähler",
+        "wirtschaftlicheEinheitNenner": "wirtschaftl. Einheit Nenner"
       }
     }
   }

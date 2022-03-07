@@ -69,14 +69,28 @@ const Bodenrichtwert: StepComponentFunction = ({
                       {i18n.specifics.flur}: {flurstueck.angaben.flur}
                     </li>
                   )}
-                  <li>
-                    {i18n.specifics.flurstueckZaehler}:{" "}
-                    {flurstueck.angaben.flurstueckZaehler}
-                  </li>
+                  {flurstueck.angaben.flurstueckZaehler && (
+                    <li>
+                      {i18n.specifics.flurstueckZaehler}:{" "}
+                      {flurstueck.angaben.flurstueckZaehler}
+                    </li>
+                  )}
                   {flurstueck.angaben.flurstueckNenner && (
                     <li>
                       {i18n.specifics.flurstueckNenner}:{" "}
                       {flurstueck.angaben.flurstueckNenner}
+                    </li>
+                  )}
+                  {flurstueck.angaben.wirtschaftlicheEinheitZaehler && (
+                    <li>
+                      {i18n.specifics.wirtschaftlicheEinheitZaehler}:{" "}
+                      {flurstueck.angaben.wirtschaftlicheEinheitZaehler}
+                    </li>
+                  )}
+                  {flurstueck.angaben.wirtschaftlicheEinheitNenner && (
+                    <li>
+                      {i18n.specifics.wirtschaftlicheEinheitNenner}:{" "}
+                      {flurstueck.angaben.wirtschaftlicheEinheitNenner}
                     </li>
                   )}
                 </ul>
