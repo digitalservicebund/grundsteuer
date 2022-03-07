@@ -148,7 +148,7 @@ export const loader: LoaderFunction = async ({
     allData: cookie.records,
     i18n: {
       ...tFunction(currentStateWithoutId, {
-        id: params?.id ? parseInt(params.id) : undefined,
+        id: params?.personId || params?.flurstueckId,
       }),
       common: { ...tFunction("common") },
     },
