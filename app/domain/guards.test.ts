@@ -142,7 +142,7 @@ describe("isKernsaniert", () => {
       });
     });
 
-    it("Should return false if isAb1949 is false", async () => {
+    it("Should return false if isKernsaniert is false", async () => {
       const bebautValues = [
         "einfamilienhaus",
         "zweifamilienhaus",
