@@ -1,33 +1,39 @@
 import React from "react";
 import { StepComponentFunction } from "~/routes/formular/_step";
-import Default from "~/components/steps/default";
+import { StepFormFields } from "~/components";
 
 const Bodenrichtwert: StepComponentFunction = ({
   stepDefinition,
   formData,
   allData,
   i18n,
-  backUrl,
-  currentStateWithoutId,
-  errors,
 }) => {
   const adresseData = allData?.grundstueck?.adresse;
   const flurstueckData = allData?.grundstueck?.flurstueck;
   return (
     <div>
-      <Default
-        {...{
-          stepDefinition,
-          formData,
-          allData,
-          i18n,
-          backUrl,
-          currentStateWithoutId,
-          errors,
-        }}
-      />
+      <div className="mb-16">
+        <p className="mb-2">{i18n.specifics.explanation}</p>
+        <a
+          href="https://www.bodenrichtwerte-boris.de/"
+          target="_blank"
+          rel="noopener"
+          className="underline"
+        >
+          www.bodenrichtwerte-boris.de
+        </a>
+      </div>
+
+      <div className="mb-8">
+        <StepFormFields {...{ stepDefinition, formData, i18n }} />
+      </div>
+
+      {(adresseData || flurstueckData) && (
+        <p className="mb-4">{i18n.specifics.listHeading}</p>
+      )}
+
       {adresseData && (
-        <div data-testid="grundstueck-adresse" className="bg-gray-100 mb-8">
+        <div data-testid="grundstueck-adresse" className="bg-gray-100 p-4 mb-8">
           <h2 className="font-bold">{i18n.specifics.adresseHeading}</h2>
           <ul>
             <li>
@@ -47,7 +53,7 @@ const Bodenrichtwert: StepComponentFunction = ({
               return;
             }
             return (
-              <div key={index} className="bg-gray-100 mb-4">
+              <div key={index} className="bg-gray-100 p-4 mb-4">
                 <h2 className="font-bold">
                   {i18n.specifics.flurstueckHeading} {index + 1}
                 </h2>

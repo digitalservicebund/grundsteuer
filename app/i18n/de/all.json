@@ -350,13 +350,15 @@
       }
     },
     "bodenrichtwert": {
-      "headline": "Wie lautet der Bodenrichtwert für das Grundstück?",
+      "headline": "Suchen Sie den Bodenrichtwert:",
       "fields": {
         "bodenrichtwert": {
           "label": "Bodenrichtwert in €"
         }
       },
       "specifics": {
+        "explanation": "Fügen Sie nun den Bodenrichtwert hinzu. Den zum Grundstück zugehörigen Bodenrichtwert für Ihre Flurstücke können Sie unter dem folgenden Link (Bodenrichtwerte Deutschland) nach Eingabe der Adresse finden:",
+        "listHeading": "Übersicht Ihrer Angaben:",
         "adresseHeading": "Adressangaben",
         "flurstueckHeading": "Grundstück",
         "grundbuchblatt": "Grundbuchblatt",
