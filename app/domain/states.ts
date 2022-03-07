@@ -402,7 +402,13 @@ export const states: MachineConfig<any, any, any> = {
         },
         freitext: {
           on: {
-            BACK: { target: "empfangsvollmacht" },
+            BACK: [
+              {
+                target: "empfangsbevollmaechtigter.telefonnummer",
+                cond: "hasEmpfangsbevollmaechtigter",
+              },
+              { target: "empfangsvollmacht" },
+            ],
           },
         },
       },

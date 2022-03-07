@@ -407,6 +407,27 @@ describe("states", () => {
           "zusammenfassung",
         ],
       },
+      {
+        description: "With Empfangsbevollmaechtigter",
+        context: grundModelFactory
+          .eigentuemerEmpfangsvollmacht({ hasEmpfangsvollmacht: "true" })
+          .build(),
+        expectedPath: [
+          ...defaultGrundstueck,
+          "eigentuemer.anzahl",
+          "eigentuemer.person.1.persoenlicheAngaben",
+          "eigentuemer.person.1.adresse",
+          "eigentuemer.person.1.telefonnummer",
+          "eigentuemer.person.1.steuerId",
+          "eigentuemer.person.1.gesetzlicherVertreter",
+          "eigentuemer.empfangsvollmacht",
+          "eigentuemer.empfangsbevollmaechtigter.name",
+          "eigentuemer.empfangsbevollmaechtigter.adresse",
+          "eigentuemer.empfangsbevollmaechtigter.telefonnummer",
+          "eigentuemer.freitext",
+          "zusammenfassung",
+        ],
+      },
     ];
 
     test.each(cases)(
