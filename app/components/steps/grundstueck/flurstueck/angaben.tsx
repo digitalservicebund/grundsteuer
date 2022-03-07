@@ -5,10 +5,11 @@ const GrundstueckFlurstueckAngaben: StepComponentFunction = ({
   stepDefinition,
   formData,
   i18n,
+  currentState,
 }) => {
   return (
     <div>
-      <StepFormFields {...{ stepDefinition, formData, i18n }} />
+      <StepFormFields {...{ stepDefinition, formData, i18n, currentState }} />
     </div>
   );
 };

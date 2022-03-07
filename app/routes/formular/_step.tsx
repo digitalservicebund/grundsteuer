@@ -115,6 +115,7 @@ export type LoaderData = {
   i18n: I18nObject;
   backUrl: string | null;
   currentStateWithoutId: string;
+  currentState?: string;
   stepDefinition: {
     fields: Record<string, any>;
   };
@@ -153,6 +154,7 @@ export const loader: LoaderFunction = async ({
     },
     backUrl,
     currentStateWithoutId,
+    currentState,
     stepDefinition,
   };
 };
