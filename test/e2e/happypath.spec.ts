@@ -253,6 +253,7 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/flurstueck/2/angaben");
+    cy.wait(500);
     cy.get("#grundbuchblattnummer")
       .clear()
       .type(inputData.grundstueck.flurstueck.angaben.grundbuchblattnummer);
