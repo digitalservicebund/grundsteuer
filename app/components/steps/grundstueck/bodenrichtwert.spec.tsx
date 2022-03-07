@@ -88,6 +88,7 @@ describe("Bodenrichtwert page component", () => {
   describe("With Flurstuecke set", () => {
     beforeEach(async () => {
       defaultInput.allData = grundModelFactory
+        .grundstueckAnzahl({ anzahl: "2" })
         .grundstueckFlurstueck([], { transient: { numFlurstuecke: 2 } })
         .build();
     });
@@ -150,6 +151,7 @@ describe("Bodenrichtwert page component", () => {
   describe("With Flurstuecke partly set", () => {
     beforeEach(async () => {
       defaultInput.allData = grundModelFactory
+        .grundstueckAnzahl({ anzahl: "2" })
         .grundstueckFlurstueck(
           [
             { angaben: { flurstueckNenner: undefined, flur: undefined } },
@@ -201,6 +203,21 @@ describe("Bodenrichtwert page component", () => {
       } else {
         fail("Flurstueck data should be set");
       }
+    });
+  });
+
+  describe("With Flurstuecke > Anzahl", () => {
+    beforeEach(async () => {
+      defaultInput.allData = grundModelFactory
+        .grundstueckAnzahl({ anzahl: "2" })
+        .grundstueckFlurstueck([], { transient: { numFlurstuecke: 4 } })
+        .build();
+    });
+
+    it("should render only 2 Flurstuecke", () => {
+      render(<Bodenrichtwert {...defaultInput} />);
+      const flurstueckeArea = screen.getByTestId("grundstueck-flurstuecke");
+      expect(flurstueckeArea.children.length).toEqual(2);
     });
   });
 });
