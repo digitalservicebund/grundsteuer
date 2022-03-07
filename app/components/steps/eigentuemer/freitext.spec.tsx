@@ -1,4 +1,3 @@
-import React from "react";
 import { grundstueckBodenrichtwert } from "~/domain/steps/grundstueck/bodenrichtwert";
 import { I18nObject } from "~/routes/formular/_step";
 import { getI18nObject } from "test/factories/i18n";

@@ -1,4 +1,3 @@
-import React from "react";
 import { StepFormField } from "~/components";
 
 export type StepFormFieldsProps = {

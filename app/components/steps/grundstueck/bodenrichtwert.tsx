@@ -1,4 +1,3 @@
-import React from "react";
 import { StepComponentFunction } from "~/routes/formular/_step";
 import { StepFormFields } from "~/components";
 

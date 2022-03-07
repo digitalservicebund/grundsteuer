@@ -1,4 +1,3 @@
-import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import Bodenrichtwert from "~/components/steps/grundstueck/bodenrichtwert";
 import { grundstueckBodenrichtwert } from "~/domain/steps/grundstueck/bodenrichtwert";
