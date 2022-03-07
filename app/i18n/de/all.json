@@ -285,7 +285,7 @@
       "headline": "Um welche Art Grundstück handelt es sich?",
       "fields": {
         "typ": {
-          "label": "Aktenzeichen/Steuernummer",
+          "label": "Grundstücksart",
           "options": {
             "einfamilienhaus": "Einfamilienhaus",
             "zweifamilienhaus": "Zweifamilienhaus",
