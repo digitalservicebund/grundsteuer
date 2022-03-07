@@ -84,7 +84,7 @@ class GrundModelFactory extends Factory<GrundModel> {
     return this.params({
       grundstueck: {
         typ: {
-          typ: "einfamilienhaus",
+          typ: fields ? fields.typ : undefined,
           ...fields,
         },
       },

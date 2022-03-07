@@ -289,7 +289,31 @@ describe("states", () => {
           "zusammenfassung",
         ],
       },
-      // TODO add cases for isZweifamilienhaus
+      {
+        description:
+          "Zweifamilienhaus ab 1949 kernsaniert with weitere wohnraeume and garagen",
+        context: grundModelFactory
+          .grundstueckTyp({ typ: "zweifamilienhaus" })
+          .gebaeudeAb1949()
+          .kernsaniert()
+          .withWeitereWohnraeume()
+          .withGaragen()
+          .build(),
+        expectedPath: [
+          ...defaultGrundstueck,
+          "gebaeude.ab1949",
+          "gebaeude.baujahr",
+          "gebaeude.kernsaniert",
+          "gebaeude.kernsanierungsjahr",
+          "gebaeude.wohnflaechen",
+          "gebaeude.weitereWohnraeume",
+          "gebaeude.weitereWohnraeumeFlaeche",
+          "gebaeude.garagen",
+          "gebaeude.garagenAnzahl",
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
       {
         description: "with 2 eigentuemer people",
         context: grundModelFactory
