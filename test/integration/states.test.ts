@@ -87,14 +87,11 @@ describe("states", () => {
     const cases = [
       {
         description: "without context",
-        context: grundModelFactory
-          .grundstueckTyp({ typ: "abweichendeEntwicklung" })
-          .build(),
+        context: grundModelFactory.build(),
         expectedPath: [
           "grundstueck.adresse",
           "grundstueck.steuernummer",
           "grundstueck.typ",
-          "grundstueck.unbebaut",
           "grundstueck.gemeinde",
           "grundstueck.anzahl",
           "grundstueck.flurstueck.1.angaben",
@@ -106,6 +103,24 @@ describe("states", () => {
           "eigentuemer.person.1.steuerId",
           "eigentuemer.person.1.gesetzlicherVertreter",
           "eigentuemer.freitext",
+          "zusammenfassung",
+        ],
+      },
+      {
+        description: "abweichende Entwicklung",
+        context: grundModelFactory
+          .grundstueckTyp({ typ: "abweichendeEntwicklung" })
+          .build(),
+        expectedPath: [
+          "grundstueck.adresse",
+          "grundstueck.steuernummer",
+          "grundstueck.typ",
+          "grundstueck.abweichendeEntwicklung",
+          "grundstueck.gemeinde",
+          "grundstueck.anzahl",
+          "grundstueck.flurstueck.1.angaben",
+          "grundstueck.bodenrichtwert",
+          ...defaultEigentuemer,
           "zusammenfassung",
         ],
       },
@@ -285,7 +300,7 @@ describe("states", () => {
           "grundstueck.adresse",
           "grundstueck.steuernummer",
           "grundstueck.typ",
-          "grundstueck.unbebaut",
+          "grundstueck.abweichendeEntwicklung",
           "grundstueck.gemeinde",
           "grundstueck.anzahl",
           "grundstueck.flurstueck.1.angaben",
@@ -330,7 +345,7 @@ describe("states", () => {
           "grundstueck.adresse",
           "grundstueck.steuernummer",
           "grundstueck.typ",
-          "grundstueck.unbebaut",
+          "grundstueck.abweichendeEntwicklung",
           "grundstueck.gemeinde",
           "grundstueck.anzahl",
           "grundstueck.flurstueck.1.angaben",

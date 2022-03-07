@@ -121,10 +121,10 @@ import { grundstueckTyp, GrundstueckTypFields } from "./grundstueck/typ";
 export type { GrundstueckTypFields };
 
 import {
-  grundstueckUnbebaut,
-  GrundstueckUnbebautFields,
-} from "./grundstueck/unbebaut";
-export type { GrundstueckUnbebautFields };
+  grundstueckAbweichendeEntwicklung,
+  GrundstueckAbweichendeEntwicklungFields,
+} from "./grundstueck/abweichendeEntwicklung";
+export type { GrundstueckAbweichendeEntwicklungFields };
 
 import {
   grundstueckGemeinde,
@@ -159,7 +159,7 @@ const stepDefinitions = {
     adresse: grundstueckAdresse,
     steuernummer: grundstueckSteuernummer,
     typ: grundstueckTyp,
-    unbebaut: grundstueckUnbebaut,
+    abweichendeEntwicklung: grundstueckAbweichendeEntwicklung,
     gemeinde: grundstueckGemeinde,
     anzahl: grundstueckAnzahl,
     bodenrichtwert: grundstueckBodenrichtwert,
@@ -210,7 +210,7 @@ export type GrundModel = {
     adresse?: GrundstueckAdresseFields;
     steuernummer?: GrundstueckSteuernummerFields;
     typ?: GrundstueckTypFields;
-    unbebaut?: GrundstueckUnbebautFields;
+    abweichendeEntwicklung?: GrundstueckAbweichendeEntwicklungFields;
     gemeinde?: GrundstueckGemeindeFields;
     anzahl?: GrundstueckAnzahlFields;
     bodenrichtwert?: GrundstueckBodenrichtwertFields;

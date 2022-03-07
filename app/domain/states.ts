@@ -28,13 +28,16 @@ export const states: MachineConfig<any, any, any> = {
         typ: {
           on: {
             NEXT: [
-              { target: "unbebaut", cond: "isUnbebaut" },
+              {
+                target: "abweichendeEntwicklung",
+                cond: "isAbweichendeEntwicklung",
+              },
               { target: "gemeinde" },
             ],
             BACK: [{ target: "steuernummer" }],
           },
         },
-        unbebaut: {
+        abweichendeEntwicklung: {
           on: {
             NEXT: [{ target: "gemeinde" }],
             BACK: [{ target: "typ" }],
@@ -44,7 +47,10 @@ export const states: MachineConfig<any, any, any> = {
           on: {
             NEXT: [{ target: "anzahl" }],
             BACK: [
-              { target: "unbebaut", cond: "isUnbebaut" },
+              {
+                target: "abweichendeEntwicklung",
+                cond: "isAbweichendeEntwicklung",
+              },
               { target: "typ" },
             ],
           },

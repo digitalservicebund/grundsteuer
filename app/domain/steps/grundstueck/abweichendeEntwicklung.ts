@@ -1,10 +1,10 @@
 import { StepDefinition } from "~/domain/steps";
 
-export type GrundstueckUnbebautFields = {
+export type GrundstueckAbweichendeEntwicklungFields = {
   zustand: "bauerwartungsland" | "rohbauland";
 };
 
-export const grundstueckUnbebaut: StepDefinition = {
+export const grundstueckAbweichendeEntwicklung: StepDefinition = {
   fields: {
     zustand: {
       type: "radio",

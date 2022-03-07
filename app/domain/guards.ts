@@ -71,9 +71,8 @@ const isBebaut = (context: StateMachineContext) => {
     : false;
 };
 
-const isUnbebaut = (context: StateMachineContext) => {
-  const typ = context?.grundstueck?.typ?.typ;
-  return typ ? ["abweichendeEntwicklung", "baureif"].includes(typ) : false;
+const isAbweichendeEntwicklung = (context: StateMachineContext) => {
+  return context?.grundstueck?.typ?.typ === "abweichendeEntwicklung";
 };
 
 const personIdGreaterThanOne = (context: StateMachineContext) => {
@@ -101,7 +100,7 @@ export const conditions: Conditions = {
     return !hasGesetzlicherVertreter(context) && repeatPerson(context);
   },
   isBebaut,
-  isUnbebaut,
+  isAbweichendeEntwicklung,
   personIdGreaterThanOne,
   flurstueckIdGreaterThanOne,
 };

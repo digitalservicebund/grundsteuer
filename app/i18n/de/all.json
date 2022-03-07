@@ -16,7 +16,7 @@
       "adresse": "Adresse",
       "steuernummer": "Steuernummer",
       "typ": "Grundstücksart",
-      "unbebaut": "wenn unbebaut",
+      "abweichendeEntwicklung": "abweichende Entwicklung",
       "gemeinde": "Innerhalb einer Gemeinde?",
       "anzahl": "Anzahl Flurstücke",
       "bodenrichtwert": "Bodenrichtwert",
@@ -296,7 +296,7 @@
         }
       }
     },
-    "unbebaut": {
+    "abweichendeEntwicklung": {
       "headline": "Da abweichende Entwicklung, welcher Zustand trifft auf Ihr Grundstück zu?",
       "fields": {
         "zustand": {

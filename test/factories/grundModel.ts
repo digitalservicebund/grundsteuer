@@ -10,7 +10,7 @@ import {
   GrundstueckSteuernummerFields,
   GrundstueckGemeindeFields,
   GrundstueckBodenrichtwertFields,
-  GrundstueckUnbebautFields,
+  GrundstueckAbweichendeEntwicklungFields,
   GrundstueckFlurstueckAngabenFields,
   Flurstueck,
 } from "~/domain/steps";
@@ -91,10 +91,12 @@ class GrundModelFactory extends Factory<GrundModel> {
     });
   }
 
-  grundstueckUnbebaut(fields?: Partial<GrundstueckUnbebautFields>) {
+  grundstueckAbweichendeEntwicklung(
+    fields?: Partial<GrundstueckAbweichendeEntwicklungFields>
+  ) {
     return this.params({
       grundstueck: {
-        unbebaut: {
+        abweichendeEntwicklung: {
           zustand: "bauerwartungsland",
           ...fields,
         },
