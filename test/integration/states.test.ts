@@ -71,6 +71,7 @@ describe("states", () => {
       "eigentuemer.person.1.telefonnummer",
       "eigentuemer.person.1.steuerId",
       "eigentuemer.person.1.gesetzlicherVertreter",
+      "eigentuemer.empfangsvollmacht",
       "eigentuemer.freitext",
     ];
 
@@ -102,6 +103,7 @@ describe("states", () => {
           "eigentuemer.person.1.telefonnummer",
           "eigentuemer.person.1.steuerId",
           "eigentuemer.person.1.gesetzlicherVertreter",
+          "eigentuemer.empfangsvollmacht",
           "eigentuemer.freitext",
           "zusammenfassung",
         ],
@@ -343,6 +345,7 @@ describe("states", () => {
           "eigentuemer.person.2.steuerId",
           "eigentuemer.person.2.gesetzlicherVertreter",
           "eigentuemer.person.2.anteil",
+          "eigentuemer.empfangsvollmacht",
           "eigentuemer.freitext",
           "zusammenfassung",
         ],
@@ -399,6 +402,7 @@ describe("states", () => {
           "eigentuemer.person.3.vertreter.adresse",
           "eigentuemer.person.3.vertreter.telefonnummer",
           "eigentuemer.person.3.anteil",
+          "eigentuemer.empfangsvollmacht",
           "eigentuemer.freitext",
           "zusammenfassung",
         ],

@@ -342,12 +342,12 @@ export const states: MachineConfig<any, any, any> = {
                 actions: ["incrementPersonId"],
               },
               {
-                target: "freitext",
+                target: "empfangsvollmacht",
               },
             ],
           },
         },
-        freitext: {
+        empfangsvollmacht: {
           on: {
             BACK: [
               {
@@ -365,6 +365,12 @@ export const states: MachineConfig<any, any, any> = {
                 actions: "setPersonIdToMaximum",
               },
             ],
+            NEXT: { target: "freitext" },
+          },
+        },
+        freitext: {
+          on: {
+            BACK: { target: "empfangsvollmacht" },
           },
         },
       },

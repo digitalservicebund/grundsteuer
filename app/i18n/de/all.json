@@ -52,6 +52,7 @@
           "telefonnummer": "Telefonnummer"
         }
       },
+      "empfangsvollmacht": "Empfangsbevollmächtigte Person",
       "freitext": "Ergänzende Angaben"
     },
     "zusammenfassung": "Zusammenfassung"
@@ -251,6 +252,17 @@
         "fields": {
           "zaehler": { "label": "Zähler" },
           "nenner": { "label": "Nenner" }
+        }
+      }
+    },
+    "empfangsvollmacht": {
+      "headline": "Soll es eine empfangsberechtigte Person geben, an die die Bescheide zugestellt werden sollen? ",
+      "fields": {
+        "hasEmpfangsvollmacht": {
+          "options": {
+            "true": "Ja, ich möchte eine empfangsbevollmächtigte Person angeben",
+            "false": "Nein, ich möchte keine empfangsbevollmächtigte Person angeben"
+          }
         }
       }
     },

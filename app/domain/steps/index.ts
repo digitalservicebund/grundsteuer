@@ -152,6 +152,10 @@ import {
   eigentuemerFreitext,
   EigentuemerFreitextFields,
 } from "~/domain/steps/eigentuemer/freitext";
+import {
+  eigentuemerEmpfangsvollmacht,
+  EigentuemerEmpfangsvollmachtFields,
+} from "~/domain/steps/eigentuemer/empfangsvollmacht";
 export type { GrundstueckBodenrichtwertFields };
 
 const stepDefinitions = {
@@ -195,6 +199,7 @@ const stepDefinitions = {
         telefonnummer: eigentuemerPersonVertreterTelefonnummer,
       },
     },
+    empfangsvollmacht: eigentuemerEmpfangsvollmacht,
     freitext: eigentuemerFreitext,
   },
 };
@@ -244,6 +249,7 @@ export type GrundModel = {
         telefonnummer?: EigentuemerPersonVertreterTelefonnummerFields;
       };
     }[];
+    empfangsvollmacht?: EigentuemerEmpfangsvollmachtFields;
     freitext?: EigentuemerFreitextFields;
   };
 };
