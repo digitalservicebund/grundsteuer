@@ -151,6 +151,23 @@ const inputData = {
         nenner: "2",
       },
     },
+    empfangsbevollmaechtigter: {
+      name: {
+        anrede: "Frau",
+        name: "Organa",
+        vorname: "Leia",
+      },
+      adresse: {
+        strasse: "Skywalkerstr.",
+        hausnummer: "35",
+        postfach: "",
+        plz: "34567",
+        ort: "Alderaan",
+      },
+      telefonnummer: {
+        telefonnummer: "456-789",
+      },
+    },
     freitext: "Ich fand die Plattform ganz toll.",
   },
 };
@@ -418,6 +435,38 @@ describe("Happy Path", () => {
     cy.get("#nenner").clear().type(inputData.eigentuemer.person2.anteil.nenner);
     cy.get(submitBtnSelector).click();
 
+    cy.get("#hasEmpfangsvollmacht-true").click();
+    cy.get(submitBtnSelector).click();
+    cy.get("#anrede")
+      .clear()
+      .type(inputData.eigentuemer.empfangsbevollmaechtigter.name.anrede);
+    cy.get("#name")
+      .clear()
+      .type(inputData.eigentuemer.empfangsbevollmaechtigter.name.name);
+    cy.get("#vorname")
+      .clear()
+      .type(inputData.eigentuemer.empfangsbevollmaechtigter.name.vorname);
+    cy.get(submitBtnSelector).click();
+    cy.get("#strasse")
+      .clear()
+      .type(inputData.eigentuemer.empfangsbevollmaechtigter.adresse.strasse);
+    cy.get("#hausnummer")
+      .clear()
+      .type(inputData.eigentuemer.empfangsbevollmaechtigter.adresse.hausnummer);
+    cy.get("#plz")
+      .clear()
+      .type(inputData.eigentuemer.empfangsbevollmaechtigter.adresse.plz);
+    cy.get("#ort")
+      .clear()
+      .type(inputData.eigentuemer.empfangsbevollmaechtigter.adresse.ort);
+    cy.get(submitBtnSelector).click();
+    cy.get("#telefonnummer")
+      .clear()
+      .type(
+        inputData.eigentuemer.empfangsbevollmaechtigter.telefonnummer
+          .telefonnummer
+      );
+    cy.get(submitBtnSelector).click();
     cy.get("#freitext").clear().type(inputData.eigentuemer.freitext);
     cy.get(submitBtnSelector).click();
 

@@ -500,9 +500,9 @@ describe("hasEmpfangsbevollmaechtigter", () => {
   test.each(cases)(
     "Should return $expectedValue if hasEmpfangsvollmacht is hasEmpfangsvollmacht",
     ({ hasEmpfangsvollmacht, expectedValue }) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       const inputData = grundModelFactory
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         .eigentuemerEmpfangsvollmacht({ hasEmpfangsvollmacht })
         .build();
       const result = conditions.hasEmpfangsbevollmaechtigter(inputData);
