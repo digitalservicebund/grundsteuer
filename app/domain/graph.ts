@@ -24,8 +24,7 @@ export const createGraph = ({
   const paths = Object.values(getShortestPaths(machine));
 
   const list = paths.map((v) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { path, pathWithId } = getPathsFromState(v.state as any);
+    const { path, pathWithId } = getPathsFromState({ state: v.state });
     const data = getStepData(machineContext, pathWithId);
     return { path, pathWithId, data };
   });
