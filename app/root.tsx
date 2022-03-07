@@ -9,9 +9,10 @@ import {
   ScrollRestoration,
 } from "remix";
 import { useSetupTranslations } from "remix-i18next";
+import styles from "public/tailwind.css";
 
 export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: "/tailwind.css" }];
+  return [{ rel: "stylesheet", href: styles }];
 };
 
 export const meta: MetaFunction = () => {
