@@ -266,10 +266,9 @@ describe("Happy Path", () => {
       "have.value",
       inputData.grundstueck.flurstueck.angaben.groesseA
     );
-    cy.get("#groesseQm").should(
-      "have.value",
-      inputData.grundstueck.flurstueck.angaben.groesseQm
-    );
+    cy.get("#groesseQm")
+      .clear()
+      .type(inputData.grundstueck.flurstueck.angaben.groesseQm);
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/bodenrichtwert");
