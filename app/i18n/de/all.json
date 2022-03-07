@@ -101,6 +101,25 @@
         }
       }
     },
+    "abbruchverpflichtung": {
+      "headline": "Liegt eine Abbruchverpflichtung vor?",
+      "fields": {
+        "hasAbbruchverpflichtung": {
+          "options": {
+            "false": "Nein, es liegt keine Abbruchverpflichtung vor",
+            "true": "Ja, es liegt eine Abbruchverpflichtung vor"
+          }
+        }
+      }
+    },
+    "abbruchverpflichtungsjahr": {
+      "headline": "Für welches Jahr ist die Abbruchverpflichtung ausgestellt?",
+      "fields": {
+        "abbruchverpflichtungsjahr": {
+          "label": "Jahr der Abbruchverpflichtung"
+        }
+      }
+    },
     "wohnflaeche": {
       "headline": "Wie groß ist die Wohnfläche in Ihrem Einfamilienhaus / Eigentumswohnung?",
       "fields": {

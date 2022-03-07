@@ -132,8 +132,7 @@ export const states: MachineConfig<any, any, any> = {
           on: {
             NEXT: [
               { target: "kernsanierungsjahr", cond: "isKernsaniert" },
-              { target: "wohnflaechen", cond: "isZweifamilienhaus" },
-              { target: "wohnflaeche" },
+              { target: "abbruchverpflichtung" },
             ],
             BACK: [
               { target: "baujahr", cond: "isBezugsfertigAb1949" },
@@ -143,11 +142,33 @@ export const states: MachineConfig<any, any, any> = {
         },
         kernsanierungsjahr: {
           on: {
+            NEXT: [{ target: "abbruchverpflichtung" }],
+            BACK: [{ target: "kernsaniert" }],
+          },
+        },
+        abbruchverpflichtung: {
+          on: {
+            NEXT: [
+              {
+                target: "abbruchverpflichtungsjahr",
+                cond: "hasAbbruchverpflichtung",
+              },
+              { target: "wohnflaechen", cond: "isZweifamilienhaus" },
+              { target: "wohnflaeche" },
+            ],
+            BACK: [
+              { target: "kernsanierungsjahr", cond: "isKernsaniert" },
+              { target: "kernsaniert" },
+            ],
+          },
+        },
+        abbruchverpflichtungsjahr: {
+          on: {
             NEXT: [
               { target: "wohnflaechen", cond: "isZweifamilienhaus" },
               { target: "wohnflaeche" },
             ],
-            BACK: [{ target: "kernsaniert" }],
+            BACK: [{ target: "abbruchverpflichtung" }],
           },
         },
         wohnflaeche: {
@@ -156,8 +177,11 @@ export const states: MachineConfig<any, any, any> = {
               target: "weitereWohnraeume",
             },
             BACK: [
-              { target: "kernsanierungsjahr", cond: "isKernsaniert" },
-              { target: "kernsaniert" },
+              {
+                target: "abbruchverpflichtungsjahr",
+                cond: "hasAbbruchverpflichtung",
+              },
+              { target: "abbruchverpflichtung" },
             ],
           },
         },
@@ -167,8 +191,11 @@ export const states: MachineConfig<any, any, any> = {
               target: "weitereWohnraeume",
             },
             BACK: [
-              { target: "kernsanierungsjahr", cond: "isKernsaniert" },
-              { target: "kernsaniert" },
+              {
+                target: "abbruchverpflichtungsjahr",
+                cond: "hasAbbruchverpflichtung",
+              },
+              { target: "abbruchverpflichtung" },
             ],
           },
         },

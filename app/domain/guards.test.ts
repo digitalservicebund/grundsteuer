@@ -162,6 +162,64 @@ describe("isKernsaniert", () => {
   });
 });
 
+describe("hasAbbruchverpflichtung", () => {
+  it("Should return false if data is undefined", async () => {
+    const result = conditions.hasAbbruchverpflichtung(undefined);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false if unbebaut", async () => {
+    const unbebautValues = ["baureif", "abweichendeEntwicklung"];
+    unbebautValues.forEach((unbebautValue) => {
+      const inputData = grundModelFactory
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        .grundstueckTyp({ typ: unbebautValue })
+        .build();
+      const result = conditions.hasAbbruchverpflichtung(inputData);
+      expect(result).toEqual(false);
+    });
+  });
+
+  describe("Bebaut", () => {
+    it("Should return true if hasAbbruchverpflichtung is true", async () => {
+      const bebautValues = [
+        "einfamilienhaus",
+        "zweifamilienhaus",
+        "wohnungseigentum",
+      ];
+      bebautValues.forEach((bebautValue) => {
+        const inputData = grundModelFactory
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          .grundstueckTyp({ typ: bebautValue })
+          .hasAbbruchverpflichtung()
+          .build();
+        const result = conditions.hasAbbruchverpflichtung(inputData);
+        expect(result).toEqual(true);
+      });
+    });
+
+    it("Should return false if hasAbbruchverpflichtung is false", async () => {
+      const bebautValues = [
+        "einfamilienhaus",
+        "zweifamilienhaus",
+        "wohnungseigentum",
+      ];
+      bebautValues.forEach((bebautValue) => {
+        const inputData = grundModelFactory
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          .grundstueckTyp({ typ: bebautValue })
+          .hasAbbruchverpflichtung("false")
+          .build();
+        const result = conditions.hasAbbruchverpflichtung(inputData);
+        expect(result).toEqual(false);
+      });
+    });
+  });
+});
+
 describe("hasWeitereWohnraeume", () => {
   it("Should return false if data is undefined", async () => {
     const result = conditions.hasWeitereWohnraeume(undefined);

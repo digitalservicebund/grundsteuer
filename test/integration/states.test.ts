@@ -135,6 +135,7 @@ describe("states", () => {
           ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.kernsaniert",
+          "gebaeude.abbruchverpflichtung",
           "gebaeude.wohnflaeche",
           "gebaeude.weitereWohnraeume",
           "gebaeude.garagen",
@@ -153,6 +154,7 @@ describe("states", () => {
           "gebaeude.ab1949",
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
+          "gebaeude.abbruchverpflichtung",
           "gebaeude.wohnflaeche",
           "gebaeude.weitereWohnraeume",
           "gebaeude.garagen",
@@ -173,6 +175,7 @@ describe("states", () => {
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
           "gebaeude.kernsanierungsjahr",
+          "gebaeude.abbruchverpflichtung",
           "gebaeude.wohnflaeche",
           "gebaeude.weitereWohnraeume",
           "gebaeude.garagen",
@@ -191,6 +194,7 @@ describe("states", () => {
           "gebaeude.ab1949",
           "gebaeude.kernsaniert",
           "gebaeude.kernsanierungsjahr",
+          "gebaeude.abbruchverpflichtung",
           "gebaeude.wohnflaeche",
           "gebaeude.weitereWohnraeume",
           "gebaeude.garagen",
@@ -212,6 +216,7 @@ describe("states", () => {
           "gebaeude.ab1949",
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
+          "gebaeude.abbruchverpflichtung",
           "gebaeude.wohnflaeche",
           "gebaeude.weitereWohnraeume",
           "gebaeude.weitereWohnraeumeFlaeche",
@@ -236,6 +241,7 @@ describe("states", () => {
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
           "gebaeude.kernsanierungsjahr",
+          "gebaeude.abbruchverpflichtung",
           "gebaeude.wohnflaeche",
           "gebaeude.weitereWohnraeume",
           "gebaeude.weitereWohnraeumeFlaeche",
@@ -258,6 +264,7 @@ describe("states", () => {
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
           "gebaeude.kernsanierungsjahr",
+          "gebaeude.abbruchverpflichtung",
           "gebaeude.wohnflaeche",
           "gebaeude.weitereWohnraeume",
           "gebaeude.garagen",
@@ -282,6 +289,63 @@ describe("states", () => {
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
           "gebaeude.kernsanierungsjahr",
+          "gebaeude.abbruchverpflichtung",
+          "gebaeude.wohnflaeche",
+          "gebaeude.weitereWohnraeume",
+          "gebaeude.weitereWohnraeumeFlaeche",
+          "gebaeude.garagen",
+          "gebaeude.garagenAnzahl",
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
+      {
+        description:
+          "Einfamilienhaus ab 1949 kernsaniert with weitere wohnraeume, abbruchverpflichtung and garagen",
+        context: grundModelFactory
+          .grundstueckTyp({ typ: "einfamilienhaus" })
+          .gebaeudeAb1949()
+          .kernsaniert()
+          .hasAbbruchverpflichtung()
+          .withWeitereWohnraeume()
+          .withGaragen()
+          .build(),
+        expectedPath: [
+          ...defaultGrundstueck,
+          "gebaeude.ab1949",
+          "gebaeude.baujahr",
+          "gebaeude.kernsaniert",
+          "gebaeude.kernsanierungsjahr",
+          "gebaeude.abbruchverpflichtung",
+          "gebaeude.abbruchverpflichtungsjahr",
+          "gebaeude.wohnflaeche",
+          "gebaeude.weitereWohnraeume",
+          "gebaeude.weitereWohnraeumeFlaeche",
+          "gebaeude.garagen",
+          "gebaeude.garagenAnzahl",
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
+      {
+        description:
+          "Wohnungseigentum ab 1949 kernsaniert with weitere wohnraeume, abbruchverpflichtung and garagen",
+        context: grundModelFactory
+          .grundstueckTyp({ typ: "wohnungseigentum" })
+          .gebaeudeAb1949()
+          .kernsaniert()
+          .hasAbbruchverpflichtung()
+          .withWeitereWohnraeume()
+          .withGaragen()
+          .build(),
+        expectedPath: [
+          ...defaultGrundstueck,
+          "gebaeude.ab1949",
+          "gebaeude.baujahr",
+          "gebaeude.kernsaniert",
+          "gebaeude.kernsanierungsjahr",
+          "gebaeude.abbruchverpflichtung",
+          "gebaeude.abbruchverpflichtungsjahr",
           "gebaeude.wohnflaeche",
           "gebaeude.weitereWohnraeume",
           "gebaeude.weitereWohnraeumeFlaeche",
@@ -307,6 +371,7 @@ describe("states", () => {
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
           "gebaeude.kernsanierungsjahr",
+          "gebaeude.abbruchverpflichtung",
           "gebaeude.wohnflaechen",
           "gebaeude.weitereWohnraeume",
           "gebaeude.weitereWohnraeumeFlaeche",

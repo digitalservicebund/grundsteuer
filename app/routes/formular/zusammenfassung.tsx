@@ -79,6 +79,20 @@ export default function Zusammenfassung() {
                 data.gebaeude.kernsanierungsjahr?.kernsanierungsjahr
               )}
 
+            {item(
+              "Abbruchverpflichtung liegt vor",
+              data.gebaeude.abbruchverpflichtung?.hasAbbruchverpflichtung,
+              resolveJaNein
+            )}
+
+            {data.gebaeude.abbruchverpflichtung?.hasAbbruchverpflichtung ===
+              "true" &&
+              item(
+                "Jahr der Abbruchverpflichtung",
+                data.gebaeude.abbruchverpflichtungsjahr
+                  ?.abbruchverpflichtungsjahr
+              )}
+
             {["einfamilienhaus", "wohnungseigentum"].includes(
               data.grundstueck?.typ?.typ as string
             ) &&

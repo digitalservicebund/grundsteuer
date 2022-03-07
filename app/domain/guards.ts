@@ -22,6 +22,13 @@ const isKernsaniert = (context: StateMachineContext) => {
   );
 };
 
+const hasAbbruchverpflichtung = (context: StateMachineContext) => {
+  return (
+    isBebaut(context) &&
+    context.gebaeude?.abbruchverpflichtung?.hasAbbruchverpflichtung === "true"
+  );
+};
+
 const hasWeitereWohnraeume = (context: StateMachineContext) => {
   return (
     isBebaut(context) &&
@@ -92,6 +99,7 @@ const flurstueckIdGreaterThanOne = (context: StateMachineContext) => {
 export const conditions: Conditions = {
   isBezugsfertigAb1949,
   isKernsaniert,
+  hasAbbruchverpflichtung,
   isZweifamilienhaus,
   hasWeitereWohnraeume,
   hasGaragen,

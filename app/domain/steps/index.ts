@@ -168,6 +168,14 @@ import {
   eigentuemerEmpfangsbevollmaechtigterAdresse,
   EigentuemerEmpfangsbevollmaechtigterAdresseFields,
 } from "~/domain/steps/eigentuemer/empfangsbevollmaechtigter/adresse";
+import {
+  gebaeudeAbbruchverpflichtung,
+  GebaeudeAbbruchverpflichtungFields,
+} from "~/domain/steps/gebaeude/abbruchverpflichtung";
+import {
+  GebaeudeAbbruchverpflichtungsjahrFields,
+  gebaeudeAbbruchverpflichtungsjahrjahr,
+} from "~/domain/steps/gebaeude/abbruchverpflichtungsjahr";
 export type { GrundstueckBodenrichtwertFields };
 
 const stepDefinitions = {
@@ -185,6 +193,8 @@ const stepDefinitions = {
   },
   gebaeude: {
     ab1949: gebaeudeAb1949,
+    abbruchverpflichtung: gebaeudeAbbruchverpflichtung,
+    abbruchverpflichtungsjahr: gebaeudeAbbruchverpflichtungsjahrjahr,
     baujahr: gebaeudeBaujahr,
     garagen: gebaeudeGaragen,
     garagenAnzahl: gebaeudeGaragenAnzahl,
@@ -240,6 +250,8 @@ export type GrundModel = {
   };
   gebaeude?: {
     ab1949?: GebaeudeAb1949Fields;
+    abbruchverpflichtung?: GebaeudeAbbruchverpflichtungFields;
+    abbruchverpflichtungsjahr?: GebaeudeAbbruchverpflichtungsjahrFields;
     baujahr?: GebaeudeBaujahrFields;
     garagen?: GebaeudeGaragenFields;
     garagenAnzahl?: GebaeudeGaragenAnzahlFields;

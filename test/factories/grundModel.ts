@@ -196,6 +196,16 @@ class GrundModelFactory extends Factory<GrundModel> {
     });
   }
 
+  hasAbbruchverpflichtung(flag?: "true" | "false") {
+    return this.params({
+      gebaeude: {
+        abbruchverpflichtung: {
+          hasAbbruchverpflichtung: flag ? flag : "true",
+        },
+      },
+    });
+  }
+
   withWeitereWohnraeume(fields?: Partial<GebaeudeWeitereWohnraeumeFields>) {
     return this.params({
       gebaeude: {

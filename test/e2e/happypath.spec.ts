@@ -52,6 +52,12 @@ const inputData = {
     kernsanierungsjahr: {
       kernsanierungsjahr: "2002",
     },
+    abbruchverpflichtung: {
+      hasAbbruchverpflichtung: "true",
+    },
+    abbruchverpflichtungsjahr: {
+      abbruchverpflichtungsjahr: "2010",
+    },
     wohnflaeche: {
       wohnflaeche: "24",
     },
@@ -300,6 +306,16 @@ describe("Happy Path", () => {
       .clear()
       .type(inputData.gebaeude.kernsanierungsjahr.kernsanierungsjahr);
     cy.get(submitBtnSelector).click();
+    cy.get(
+      `label[for=hasAbbruchverpflichtung-${inputData.gebaeude.abbruchverpflichtung.hasAbbruchverpflichtung}]`
+    ).click();
+    cy.get(submitBtnSelector).click();
+    cy.get("#abbruchverpflichtungsjahr")
+      .clear()
+      .type(
+        inputData.gebaeude.abbruchverpflichtungsjahr.abbruchverpflichtungsjahr
+      );
+    cy.get(submitBtnSelector).click();
     cy.get("#wohnflaeche")
       .clear()
       .type(inputData.gebaeude.wohnflaeche.wohnflaeche);
@@ -477,6 +493,10 @@ describe("Happy Path", () => {
     cy.contains("Kernsaniert: Ja");
     cy.contains(
       `Jahr der Kernsanierung: ${inputData.gebaeude.kernsanierungsjahr.kernsanierungsjahr}`
+    );
+    cy.contains("Abbruchverpflichtung liegt vor: Ja");
+    cy.contains(
+      `Jahr der Abbruchverpflichtung: ${inputData.gebaeude.abbruchverpflichtungsjahr.abbruchverpflichtungsjahr}`
     );
     cy.contains(`Wohnfläche: ${inputData.gebaeude.wohnflaeche.wohnflaeche} m2`);
     cy.contains(`Weitere Wohnräume: Ja`);
