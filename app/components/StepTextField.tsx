@@ -2,12 +2,13 @@ import { Label, Input } from "@digitalservice4germany/digital-service-library";
 
 export type StepTextFieldProps = {
   name: string;
-  value: string | undefined;
   label: string;
+  value?: string;
+  defaultValue?: string;
 };
 
 export default function StepTextField(props: StepTextFieldProps) {
-  const { name, label, value } = props;
+  const { name, label, value, defaultValue } = props;
   const id = name;
   return (
     <>
@@ -18,7 +19,7 @@ export default function StepTextField(props: StepTextFieldProps) {
         type="text"
         name={name}
         id={id}
-        defaultValue={value}
+        defaultValue={value || defaultValue}
         className="mb-4"
       />
     </>

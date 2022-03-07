@@ -2,13 +2,14 @@ import { ConfigStepFieldOptionsItem } from "~/domain";
 
 export type StepRadioFieldProps = {
   name: string;
-  value: string | undefined;
   label: string;
   options: { value: string; label: string }[];
+  value?: string;
+  defaultValue?: string;
 };
 
 export default function StepRadioField(props: StepRadioFieldProps) {
-  const { name, label, value, options } = props;
+  const { name, label, options, value, defaultValue } = props;
 
   const renderRadioFieldOption = (
     option: ConfigStepFieldOptionsItem & { name: string; checked: boolean }
@@ -34,7 +35,9 @@ export default function StepRadioField(props: StepRadioFieldProps) {
     <fieldset className="mb-4">
       <legend>{label}</legend>
       {options.map((option) => {
-        const checked = option.value === value;
+        const checked = value
+          ? option.value === value
+          : option.value === defaultValue;
 
         return renderRadioFieldOption({
           name,

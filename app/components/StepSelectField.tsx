@@ -3,13 +3,14 @@ import { ConfigStepFieldOptionsItem } from "~/domain";
 
 export type StepSelectFieldProps = {
   name: string;
-  value: string | undefined;
   label: string;
   options: { value: string; label: string }[];
+  value?: string;
+  defaultValue?: string;
 };
 
 export default function StepSelectField(props: StepSelectFieldProps) {
-  const { name, label, value, options } = props;
+  const { name, label, options, value, defaultValue } = props;
   const id = name;
 
   const renderSelectFieldOption = (option: ConfigStepFieldOptionsItem) => {
@@ -25,7 +26,7 @@ export default function StepSelectField(props: StepSelectFieldProps) {
       <Label htmlFor={id} className="block">
         {label}
       </Label>
-      <select name={name} id={id} defaultValue={value}>
+      <select name={name} id={id} defaultValue={value || defaultValue}>
         {options.map(renderSelectFieldOption)}
       </select>
     </>
