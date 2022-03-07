@@ -5,6 +5,7 @@ import { getStepData } from "~/domain/model";
 import { conditions } from "~/domain/guards";
 import { actions } from "~/domain/actions";
 import { getMachineConfig, StateMachineContext } from "~/domain/states";
+import { getPathsFromState } from "~/util/getPathsFromState";
 
 /*
  * create a graph representation "hash"/"object" of the current state
@@ -23,24 +24,10 @@ export const createGraph = ({
   const paths = Object.values(getShortestPaths(machine));
 
   const list = paths.map((v) => {
-    const state = v.state;
-    const stateNode = state.configuration[0];
-    const path: string = state.toStrings().at(-1) || "";
-    let pathWithId = path;
-    if (state.matches("eigentuemer.person")) {
-      const personId = state.context?.personId || 1;
-      pathWithId = pathWithId.replace(/\.person\./, `.person.${personId}.`);
-    } else if (state.matches("grundstueck.flurstueck")) {
-      const flurstueckId = state.context?.flurstueckId || 1;
-      pathWithId = pathWithId.replace(
-        /\.flurstueck\./,
-        `.flurstueck.${flurstueckId}.`
-      );
-    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { path, pathWithId } = getPathsFromState(v.state as any);
     const data = getStepData(machineContext, pathWithId);
-    const meta = JSON.stringify(stateNode.meta?.stepDefinition, null, 2);
-
-    return { path, pathWithId, data, meta };
+    return { path, pathWithId, data };
   });
 
   return list.reduce((acc, item) => {

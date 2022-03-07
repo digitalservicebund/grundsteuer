@@ -8,6 +8,7 @@ import {
 import { conditions } from "~/domain/guards";
 import { actions } from "~/domain/actions";
 import { grundModelFactory } from "test/factories";
+import { getPathsFromState } from "~/util/getPathsFromState";
 
 const removeTransitions = (
   refStates: StateMachineConfig,
@@ -43,17 +44,9 @@ const getPath = (
     { guards: conditions, actions }
   );
 
-  return Object.values(getSimplePaths(machine)).map(({ state }) => {
-    let path = state.toStrings().at(-1);
-    if (state.matches("eigentuemer.person")) {
-      const personId = state.context?.personId || 1;
-      path = path?.replace(/\.person\./, `.person.${personId}.`);
-    } else if (state.matches("grundstueck.flurstueck")) {
-      const flurstueckId = state.context?.flurstueckId || 1;
-      path = path?.replace(/\.flurstueck\./, `.flurstueck.${flurstueckId}.`);
-    }
-    return path;
-  });
+  return Object.values(getSimplePaths(machine)).map(
+    ({ state }) => getPathsFromState({ state }).pathWithId
+  );
 };
 
 describe("states", () => {
