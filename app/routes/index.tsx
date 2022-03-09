@@ -3,7 +3,9 @@ import { Link } from "remix";
 export default function Index() {
   return (
     <div className="bg-beige-100 h-full p-4">
-      <h1 className="mb-8 text-4xl font-bold">Welcome to Remix</h1>
+      <h1 className="mb-8 text-4xl font-bold">
+        Grundsteuererklärung für Privateigentum
+      </h1>
 
       <Link
         to="/formular/grundstueck/adresse"
