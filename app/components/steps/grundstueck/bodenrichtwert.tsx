@@ -51,7 +51,7 @@ const Bodenrichtwert: StepComponentFunction = ({
           {flurstueckData
             .slice(0, Number(flurstueckAnzahl || 1))
             .map((flurstueck, index) => {
-              if (!flurstueck?.angaben) {
+              if (!flurstueck?.angaben || !flurstueck?.flur) {
                 return;
               }
               return (
@@ -67,33 +67,33 @@ const Bodenrichtwert: StepComponentFunction = ({
                     <li>
                       {i18n.specifics.gemarkung}: {flurstueck.angaben.gemarkung}
                     </li>
-                    {flurstueck.angaben.flur && (
+                    {flurstueck.flur.flur && (
                       <li>
-                        {i18n.specifics.flur}: {flurstueck.angaben.flur}
+                        {i18n.specifics.flur}: {flurstueck.flur.flur}
                       </li>
                     )}
-                    {flurstueck.angaben.flurstueckZaehler && (
+                    {flurstueck.flur.flurstueckZaehler && (
                       <li>
                         {i18n.specifics.flurstueckZaehler}:{" "}
-                        {flurstueck.angaben.flurstueckZaehler}
+                        {flurstueck.flur.flurstueckZaehler}
                       </li>
                     )}
-                    {flurstueck.angaben.flurstueckNenner && (
+                    {flurstueck.flur.flurstueckNenner && (
                       <li>
                         {i18n.specifics.flurstueckNenner}:{" "}
-                        {flurstueck.angaben.flurstueckNenner}
+                        {flurstueck.flur.flurstueckNenner}
                       </li>
                     )}
-                    {flurstueck.angaben.wirtschaftlicheEinheitZaehler && (
+                    {flurstueck.flur.wirtschaftlicheEinheitZaehler && (
                       <li>
                         {i18n.specifics.wirtschaftlicheEinheitZaehler}:{" "}
-                        {flurstueck.angaben.wirtschaftlicheEinheitZaehler}
+                        {flurstueck.flur.wirtschaftlicheEinheitZaehler}
                       </li>
                     )}
-                    {flurstueck.angaben.wirtschaftlicheEinheitNenner && (
+                    {flurstueck.flur.wirtschaftlicheEinheitNenner && (
                       <li>
                         {i18n.specifics.wirtschaftlicheEinheitNenner}:{" "}
-                        {flurstueck.angaben.wirtschaftlicheEinheitNenner}
+                        {flurstueck.flur.wirtschaftlicheEinheitNenner}
                       </li>
                     )}
                   </ul>

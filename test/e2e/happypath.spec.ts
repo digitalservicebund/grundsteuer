@@ -25,11 +25,15 @@ const inputData = {
       angaben: {
         grundbuchblattnummer: "123",
         gemarkung: "Schöneberg",
+      },
+      flur: {
         flur: "456",
         flurstueckZaehler: "2345",
         flurstueckNenner: "9876",
         wirtschaftlicheEinheitZaehler: "1",
         wirtschaftlicheEinheitNenner: "234",
+      },
+      groesse: {
         groesseHa: "1",
         groesseA: "2",
         groesseQm: "300",
@@ -224,68 +228,75 @@ describe("Happy Path", () => {
     cy.get("#gemarkung")
       .clear()
       .type(inputData.grundstueck.flurstueck.angaben.gemarkung);
-    cy.get("#flur").clear().type(inputData.grundstueck.flurstueck.angaben.flur);
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should("include", "/formular/grundstueck/flurstueck/1/flur");
+    cy.get("#flur").clear().type(inputData.grundstueck.flurstueck.flur.flur);
     cy.get("#flurstueckZaehler")
       .clear()
-      .type(inputData.grundstueck.flurstueck.angaben.flurstueckZaehler);
+      .type(inputData.grundstueck.flurstueck.flur.flurstueckZaehler);
     cy.get("#flurstueckNenner")
       .clear()
-      .type(inputData.grundstueck.flurstueck.angaben.flurstueckNenner);
+      .type(inputData.grundstueck.flurstueck.flur.flurstueckNenner);
     cy.get("#wirtschaftlicheEinheitZaehler")
       .clear()
       .type(
-        inputData.grundstueck.flurstueck.angaben.wirtschaftlicheEinheitZaehler
+        inputData.grundstueck.flurstueck.flur.wirtschaftlicheEinheitZaehler
       );
     cy.get("#wirtschaftlicheEinheitNenner")
       .clear()
-      .type(
-        inputData.grundstueck.flurstueck.angaben.wirtschaftlicheEinheitNenner
-      );
+      .type(inputData.grundstueck.flurstueck.flur.wirtschaftlicheEinheitNenner);
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should("include", "/formular/grundstueck/flurstueck/1/groesse");
     cy.get("#groesseHa")
       .clear()
-      .type(inputData.grundstueck.flurstueck.angaben.groesseHa);
+      .type(inputData.grundstueck.flurstueck.groesse.groesseHa);
     cy.get("#groesseA")
       .clear()
-      .type(inputData.grundstueck.flurstueck.angaben.groesseA);
+      .type(inputData.grundstueck.flurstueck.groesse.groesseA);
     cy.get("#groesseQm")
       .clear()
-      .type(inputData.grundstueck.flurstueck.angaben.groesseQm);
+      .type(inputData.grundstueck.flurstueck.groesse.groesseQm);
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/flurstueck/2/angaben");
-    cy.wait(500);
     cy.get("#grundbuchblattnummer")
       .clear()
       .type(inputData.grundstueck.flurstueck.angaben.grundbuchblattnummer);
     cy.get("#gemarkung")
       .clear()
       .type(inputData.grundstueck.flurstueck.angaben.gemarkung);
-    cy.get("#flur").clear().type(inputData.grundstueck.flurstueck.angaben.flur);
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should("include", "/formular/grundstueck/flurstueck/2/flur");
+    cy.get("#flur").clear().type(inputData.grundstueck.flurstueck.flur.flur);
     cy.get("#flurstueckZaehler")
       .clear()
-      .type(inputData.grundstueck.flurstueck.angaben.flurstueckZaehler);
+      .type(inputData.grundstueck.flurstueck.flur.flurstueckZaehler);
     cy.get("#flurstueckNenner")
       .clear()
-      .type(inputData.grundstueck.flurstueck.angaben.flurstueckNenner);
+      .type(inputData.grundstueck.flurstueck.flur.flurstueckNenner);
     cy.get("#wirtschaftlicheEinheitZaehler")
       .clear()
       .type(
-        inputData.grundstueck.flurstueck.angaben.wirtschaftlicheEinheitZaehler
+        inputData.grundstueck.flurstueck.flur.wirtschaftlicheEinheitZaehler
       );
     cy.get("#wirtschaftlicheEinheitNenner")
       .clear()
-      .type(
-        inputData.grundstueck.flurstueck.angaben.wirtschaftlicheEinheitNenner
-      );
+      .type(inputData.grundstueck.flurstueck.flur.wirtschaftlicheEinheitNenner);
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should("include", "/formular/grundstueck/flurstueck/2/groesse");
     cy.get("#groesseHa")
       .clear()
-      .type(inputData.grundstueck.flurstueck.angaben.groesseHa);
+      .type(inputData.grundstueck.flurstueck.groesse.groesseHa);
     cy.get("#groesseA")
       .clear()
-      .type(inputData.grundstueck.flurstueck.angaben.groesseA);
+      .type(inputData.grundstueck.flurstueck.groesse.groesseA);
     cy.get("#groesseQm")
       .clear()
-      .type(inputData.grundstueck.flurstueck.angaben.groesseQm);
+      .type(inputData.grundstueck.flurstueck.groesse.groesseQm);
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/bodenrichtwert");

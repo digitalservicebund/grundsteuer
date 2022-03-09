@@ -145,6 +145,18 @@ import {
 export type { GrundstueckFlurstueckAngabenFields };
 
 import {
+  grundstueckFlurstueckFlur,
+  GrundstueckFlurstueckFlurFields,
+} from "./grundstueck/flurstueck/flur";
+export type { GrundstueckFlurstueckFlurFields };
+
+import {
+  grundstueckFlurstueckGroesse,
+  GrundstueckFlurstueckGroesseFields,
+} from "./grundstueck/flurstueck/groesse";
+export type { GrundstueckFlurstueckGroesseFields };
+
+import {
   grundstueckBodenrichtwert,
   GrundstueckBodenrichtwertFields,
 } from "./grundstueck/bodenrichtwert";
@@ -189,6 +201,8 @@ const stepDefinitions = {
     bodenrichtwert: grundstueckBodenrichtwert,
     flurstueck: {
       angaben: grundstueckFlurstueckAngaben,
+      flur: grundstueckFlurstueckFlur,
+      groesse: grundstueckFlurstueckGroesse,
     },
   },
   gebaeude: {
@@ -233,8 +247,10 @@ const stepDefinitions = {
 
 export default stepDefinitions;
 
-export type Flurstueck<T = GrundstueckFlurstueckAngabenFields> = {
-  angaben?: T;
+export type Flurstueck = {
+  angaben?: GrundstueckFlurstueckAngabenFields;
+  flur?: GrundstueckFlurstueckFlurFields;
+  groesse?: GrundstueckFlurstueckGroesseFields;
 };
 
 export type GrundModel = {

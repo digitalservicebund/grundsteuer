@@ -22,7 +22,9 @@
       "anzahl": "Anzahl Flurstücke",
       "bodenrichtwert": "Bodenrichtwert",
       "flurstueck": {
-        "angaben": "Angaben"
+        "angaben": "Angaben",
+        "flur": "Flur",
+        "groesse": "Größe"
       }
     },
     "gebaeude": {
@@ -407,7 +409,12 @@
         "headline": "Übertragen Sie die Angaben aus dem Grundbuch zu Grundstück {{id}}:",
         "fields": {
           "grundbuchblattnummer": { "label": "Grundbuchblattnummer" },
-          "gemarkung": { "label": "Gemarkung" },
+          "gemarkung": { "label": "Gemarkung" }
+        }
+      },
+      "flur": {
+        "headline": "Übertragen Sie die Angaben aus dem Grundbuch zu Grundstück {{id}}:",
+        "fields": {
           "flur": { "label": "Flur" },
           "flurstueckZaehler": { "label": "Flurstück Zähler" },
           "flurstueckNenner": { "label": "Flurstück Nenner" },
@@ -416,7 +423,12 @@
           },
           "wirtschaftlicheEinheitNenner": {
             "label": "Wirtsch. Einheit Nenner"
-          },
+          }
+       }
+      },
+      "groesse": {
+        "headline": "Übertragen Sie die Angaben aus dem Grundbuch zu Grundstück {{id}}:",
+        "fields": {
           "groesseHa": { "label": "Größe in ha" },
           "groesseA": { "label": "Größe in a" },
           "groesseQm": { "label": "Größe in m2" }

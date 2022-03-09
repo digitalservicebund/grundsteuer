@@ -3,7 +3,7 @@ import Bodenrichtwert from "~/components/steps/grundstueck/bodenrichtwert";
 import { grundstueckBodenrichtwert } from "~/domain/steps/grundstueck/bodenrichtwert";
 import { getI18nObject } from "test/factories/i18n";
 import { I18nObject } from "~/routes/formular/_step";
-import { grundModelFactory } from "test/factories";
+import { grundModelFactory, flurstueckFactory } from "test/factories";
 import { GrundModel } from "~/domain/steps";
 
 describe("Bodenrichtwert page component", () => {
@@ -89,7 +89,7 @@ describe("Bodenrichtwert page component", () => {
     beforeEach(async () => {
       defaultInput.allData = grundModelFactory
         .grundstueckAnzahl({ anzahl: "2" })
-        .grundstueckFlurstueck([], { transient: { numFlurstuecke: 2 } })
+        .grundstueckFlurstueck({ count: 2 })
         .build();
     });
 
@@ -106,6 +106,8 @@ describe("Bodenrichtwert page component", () => {
       // Both flurstuecke have the same data -> expect everything twice
       const flurstueckData = (defaultInput.allData as GrundModel).grundstueck
         ?.flurstueck?.[0].angaben;
+      const flurstueckFlurData = (defaultInput.allData as GrundModel)
+        .grundstueck?.flurstueck?.[0].flur;
       if (flurstueckData) {
         expect(
           within(flurstueckeArea).getAllByText(
@@ -122,13 +124,8 @@ describe("Bodenrichtwert page component", () => {
           )
         ).toHaveLength(2);
         expect(
-          within(flurstueckeArea).getAllByText(`Flur: ${flurstueckData.flur}`, {
-            exact: false,
-          })
-        ).toHaveLength(2);
-        expect(
           within(flurstueckeArea).getAllByText(
-            `Flurstück Zähler: ${flurstueckData.flurstueckZaehler}`,
+            `Flur: ${flurstueckFlurData?.flur}`,
             {
               exact: false,
             }
@@ -136,7 +133,15 @@ describe("Bodenrichtwert page component", () => {
         ).toHaveLength(2);
         expect(
           within(flurstueckeArea).getAllByText(
-            `Flurstück Nenner: ${flurstueckData.flurstueckNenner}`,
+            `Flurstück Zähler: ${flurstueckFlurData?.flurstueckZaehler}`,
+            {
+              exact: false,
+            }
+          )
+        ).toHaveLength(2);
+        expect(
+          within(flurstueckeArea).getAllByText(
+            `Flurstück Nenner: ${flurstueckFlurData?.flurstueckNenner}`,
             {
               exact: false,
             }
@@ -150,15 +155,13 @@ describe("Bodenrichtwert page component", () => {
 
   describe("With Flurstuecke partly set", () => {
     beforeEach(async () => {
+      const flurstueckList = [
+        flurstueckFactory.angaben().flur().build(),
+        flurstueckFactory.build(),
+      ];
       defaultInput.allData = grundModelFactory
         .grundstueckAnzahl({ anzahl: "2" })
-        .grundstueckFlurstueck(
-          [
-            { angaben: { flurstueckNenner: undefined, flur: undefined } },
-            { angaben: undefined },
-          ],
-          { transient: { numFlurstuecke: 2 } }
-        )
+        .grundstueckFlurstueck({ list: flurstueckList })
         .build();
     });
 
@@ -167,7 +170,10 @@ describe("Bodenrichtwert page component", () => {
       const flurstueckeArea = screen.getByTestId("grundstueck-flurstuecke");
       const flurstueckData = (defaultInput.allData as GrundModel).grundstueck
         ?.flurstueck?.[0].angaben;
-      if (flurstueckData) {
+      const flurstueckFlurData = (defaultInput.allData as GrundModel)
+        .grundstueck?.flurstueck?.[0].flur;
+
+      if (flurstueckData && flurstueckFlurData) {
         expect(
           within(flurstueckeArea).getAllByText(
             `Grundbuchblatt: ${flurstueckData.grundbuchblattnummer}`,
@@ -186,10 +192,10 @@ describe("Bodenrichtwert page component", () => {
           within(flurstueckeArea).queryAllByText(`Flur:`, {
             exact: false,
           })
-        ).toHaveLength(0);
+        ).toHaveLength(1);
         expect(
           within(flurstueckeArea).getAllByText(
-            `Flurstück Zähler: ${flurstueckData.flurstueckZaehler}`,
+            `Flurstück Zähler: ${flurstueckFlurData?.flurstueckZaehler}`,
             {
               exact: false,
             }
@@ -199,7 +205,7 @@ describe("Bodenrichtwert page component", () => {
           within(flurstueckeArea).queryAllByText(`Flurstück Nenner:`, {
             exact: false,
           })
-        ).toHaveLength(0);
+        ).toHaveLength(1);
       } else {
         fail("Flurstueck data should be set");
       }
@@ -210,7 +216,7 @@ describe("Bodenrichtwert page component", () => {
     beforeEach(async () => {
       defaultInput.allData = grundModelFactory
         .grundstueckAnzahl({ anzahl: "2" })
-        .grundstueckFlurstueck([], { transient: { numFlurstuecke: 4 } })
+        .grundstueckFlurstueck({ count: 4 })
         .build();
     });
 

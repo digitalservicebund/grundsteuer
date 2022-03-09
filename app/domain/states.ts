@@ -67,6 +67,25 @@ export const states: MachineConfig<any, any, any> = {
           states: {
             angaben: {
               on: {
+                NEXT: [{ target: "flur" }],
+                BACK: [
+                  {
+                    target: "groesse",
+                    cond: "flurstueckIdGreaterThanOne",
+                    actions: ["decrementFlurstueckId"],
+                  },
+                  { target: "#grundstueck.anzahl" },
+                ],
+              },
+            },
+            flur: {
+              on: {
+                NEXT: [{ target: "groesse" }],
+                BACK: [{ target: "angaben" }],
+              },
+            },
+            groesse: {
+              on: {
                 NEXT: [
                   {
                     target: "angaben",
@@ -75,14 +94,7 @@ export const states: MachineConfig<any, any, any> = {
                   },
                   { target: "#grundstueck.bodenrichtwert" },
                 ],
-                BACK: [
-                  {
-                    target: "angaben",
-                    cond: "flurstueckIdGreaterThanOne",
-                    actions: ["decrementFlurstueckId"],
-                  },
-                  { target: "#grundstueck.anzahl" },
-                ],
+                BACK: [{ target: "flur" }],
               },
             },
           },
@@ -95,7 +107,7 @@ export const states: MachineConfig<any, any, any> = {
             ],
             BACK: [
               {
-                target: "flurstueck",
+                target: "#flurstueck.groesse",
                 actions: "setFlurstueckIdToMaximum",
               },
             ],

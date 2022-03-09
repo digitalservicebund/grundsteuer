@@ -11,7 +11,6 @@ import {
   GrundstueckGemeindeFields,
   GrundstueckBodenrichtwertFields,
   GrundstueckAbweichendeEntwicklungFields,
-  GrundstueckFlurstueckAngabenFields,
   Flurstueck,
 } from "~/domain/steps";
 import { GebaeudeAb1949Fields } from "~/domain/steps/gebaeude/ab1949";
@@ -19,17 +18,11 @@ import { GebaeudeKernsaniertFields } from "~/domain/steps/gebaeude/kernsaniert";
 import { GebaeudeWeitereWohnraeumeFields } from "~/domain/steps/gebaeude/weitereWohnraeume";
 import { GebaeudeGaragenFields } from "~/domain/steps/gebaeude/garagen";
 import { EigentuemerEmpfangsvollmachtFields } from "~/domain/steps/eigentuemer/empfangsvollmacht";
+import { flurstueckFactory } from "./flurstueck";
 
 type PersonTransientParams = {
   transient: {
     personIndex: number;
-  };
-};
-
-type FlurstueckTransientParams = {
-  transient: {
-    flurstueckIndex?: number;
-    numFlurstuecke?: number;
   };
 };
 
@@ -51,8 +44,6 @@ const ort = _.sample([
   "Petershagen/Eggersdorf",
   "St. Leon-Rot",
 ]);
-
-class FlurstueckFactory extends Factory<Flurstueck> {}
 
 class GrundModelFactory extends Factory<GrundModel> {
   grundstueckAdresse(fields?: Partial<GrundstueckAdresseFields>) {
@@ -85,7 +76,7 @@ class GrundModelFactory extends Factory<GrundModel> {
     return this.params({
       grundstueck: {
         typ: {
-          typ: fields ? fields.typ : undefined,
+          typ: fields ? fields.typ : "einfamilienhaus",
           ...fields,
         },
       },
@@ -127,37 +118,21 @@ class GrundModelFactory extends Factory<GrundModel> {
     });
   }
 
-  grundstueckFlurstueck(
-    fields?: Partial<Flurstueck<Partial<GrundstueckFlurstueckAngabenFields>>>[],
-    params?: FlurstueckTransientParams
-  ) {
-    const flurstueckFactory = FlurstueckFactory.define((fields) => ({
-      angaben: {
-        grundbuchblattnummer: "123",
-        gemarkung: "Schöneberg",
-        flur: "456",
-        flurstueckZaehler: "2345",
-        flurstueckNenner: "9876",
-        wirtschaftlicheEinheitZaehler: "1",
-        wirtschaftlicheEinheitNenner: "234",
-        groesseHa: "1",
-        groesseA: "2",
-        groesseQm: "300",
-        ...fields,
-      },
-    }));
+  grundstueckFlurstueck({
+    list,
+    count,
+  }: {
+    list?: Flurstueck[];
+    count?: number;
+  }) {
+    const flurstueckList =
+      list ||
+      flurstueckFactory
+        .angaben()
+        .flur()
+        .groesse()
+        .buildList(count || 1);
 
-    let flurstueckList: Flurstueck[] = [];
-    if (!fields || fields.length == 0) {
-      flurstueckList = flurstueckFactory.buildList(
-        params?.transient.numFlurstuecke || 1,
-        {}
-      );
-    } else {
-      fields.forEach((field) => {
-        flurstueckList.push(flurstueckFactory.build(field));
-      });
-    }
     return this.params({
       grundstueck: {
         flurstueck: flurstueckList,

@@ -75,7 +75,18 @@ describe("states", () => {
       "grundstueck.gemeinde",
       "grundstueck.anzahl",
       "grundstueck.flurstueck.1.angaben",
+      "grundstueck.flurstueck.1.flur",
+      "grundstueck.flurstueck.1.groesse",
       "grundstueck.bodenrichtwert",
+    ];
+
+    const defaultGebaeude = [
+      "gebaeude.ab1949",
+      "gebaeude.kernsaniert",
+      "gebaeude.abbruchverpflichtung",
+      "gebaeude.wohnflaeche",
+      "gebaeude.weitereWohnraeume",
+      "gebaeude.garagen",
     ];
 
     const cases = [
@@ -83,13 +94,7 @@ describe("states", () => {
         description: "without context",
         context: grundModelFactory.build(),
         expectedPath: [
-          "grundstueck.adresse",
-          "grundstueck.steuernummer",
-          "grundstueck.typ",
-          "grundstueck.gemeinde",
-          "grundstueck.anzahl",
-          "grundstueck.flurstueck.1.angaben",
-          "grundstueck.bodenrichtwert",
+          ...defaultGrundstueck,
           "eigentuemer.anzahl",
           "eigentuemer.person.1.persoenlicheAngaben",
           "eigentuemer.person.1.adresse",
@@ -114,6 +119,8 @@ describe("states", () => {
           "grundstueck.gemeinde",
           "grundstueck.anzahl",
           "grundstueck.flurstueck.1.angaben",
+          "grundstueck.flurstueck.1.flur",
+          "grundstueck.flurstueck.1.groesse",
           "grundstueck.bodenrichtwert",
           ...defaultEigentuemer,
           "zusammenfassung",
@@ -126,12 +133,7 @@ describe("states", () => {
           .build(),
         expectedPath: [
           ...defaultGrundstueck,
-          "gebaeude.ab1949",
-          "gebaeude.kernsaniert",
-          "gebaeude.abbruchverpflichtung",
-          "gebaeude.wohnflaeche",
-          "gebaeude.weitereWohnraeume",
-          "gebaeude.garagen",
+          ...defaultGebaeude,
           ...defaultEigentuemer,
           "zusammenfassung",
         ],
@@ -376,19 +378,9 @@ describe("states", () => {
       },
       {
         description: "with 2 eigentuemer people",
-        context: grundModelFactory
-          .grundstueckTyp({ typ: "abweichendeEntwicklung" })
-          .eigentuemerAnzahl({ anzahl: "2" })
-          .build(),
+        context: grundModelFactory.eigentuemerAnzahl({ anzahl: "2" }).build(),
         expectedPath: [
-          "grundstueck.adresse",
-          "grundstueck.steuernummer",
-          "grundstueck.typ",
-          "grundstueck.abweichendeEntwicklung",
-          "grundstueck.gemeinde",
-          "grundstueck.anzahl",
-          "grundstueck.flurstueck.1.angaben",
-          "grundstueck.bodenrichtwert",
+          ...defaultGrundstueck,
           "eigentuemer.anzahl",
           "eigentuemer.verheiratet",
           "eigentuemer.person.1.persoenlicheAngaben",
@@ -411,7 +403,7 @@ describe("states", () => {
       {
         description: "with 3 eigentuemer people (2 with vertreter)",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "abweichendeEntwicklung" })
+          .grundstueckTyp()
           .eigentuemerAnzahl({ anzahl: "3" })
           .eigentuemerPersonGesetzlicherVertreter(
             { hasVertreter: "true" },
@@ -427,14 +419,8 @@ describe("states", () => {
           )
           .build(),
         expectedPath: [
-          "grundstueck.adresse",
-          "grundstueck.steuernummer",
-          "grundstueck.typ",
-          "grundstueck.abweichendeEntwicklung",
-          "grundstueck.gemeinde",
-          "grundstueck.anzahl",
-          "grundstueck.flurstueck.1.angaben",
-          "grundstueck.bodenrichtwert",
+          ...defaultGrundstueck,
+          ...defaultGebaeude,
           "eigentuemer.anzahl",
           "eigentuemer.person.1.persoenlicheAngaben",
           "eigentuemer.person.1.adresse",
@@ -468,10 +454,12 @@ describe("states", () => {
       {
         description: "With Empfangsbevollmaechtigter",
         context: grundModelFactory
+          .grundstueckTyp()
           .eigentuemerEmpfangsvollmacht({ hasEmpfangsvollmacht: "true" })
           .build(),
         expectedPath: [
           ...defaultGrundstueck,
+          ...defaultGebaeude,
           "eigentuemer.anzahl",
           "eigentuemer.person.1.persoenlicheAngaben",
           "eigentuemer.person.1.adresse",
