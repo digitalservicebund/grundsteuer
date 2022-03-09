@@ -10,7 +10,8 @@
       "gebaeude": "Gebäude",
       "eigentuemer": "Eigentümer:innen",
       "person": "Eigentümer:in {{number}}",
-      "vertreter": "Gesetzliche:r Vertreter:in"
+      "vertreter": "Gesetzliche:r Vertreter:in",
+      "empfangsbevollmaechtigter": "Empfangsbevollmächtigte:r"
     },
     "grundstueck": {
       "adresse": "Adresse",
@@ -52,7 +53,7 @@
           "telefonnummer": "Telefonnummer"
         }
       },
-      "empfangsvollmacht": "Empfangsbevollmächtigte Person",
+      "empfangsvollmacht": "Empfangsvollmacht",
       "empfangsbevollmaechtigter": {
         "name": "Name",
         "adresse": "Adresse",

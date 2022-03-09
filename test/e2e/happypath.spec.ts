@@ -622,5 +622,35 @@ describe("Happy Path", () => {
     cy.get("#person-1").contains(
       "Anteil Nenner: " + inputData.eigentuemer.person2.anteil.nenner
     );
+
+    cy.contains("Empfangsvollmacht: Ja");
+    cy.get("#empfangsbevollmaechtigter").contains(
+      "Anrede: " + inputData.eigentuemer.empfangsbevollmaechtigter.name.anrede
+    );
+    cy.get("#empfangsbevollmaechtigter").contains(
+      "Name: " + inputData.eigentuemer.empfangsbevollmaechtigter.name.name
+    );
+    cy.get("#empfangsbevollmaechtigter").contains(
+      "Vorname: " + inputData.eigentuemer.empfangsbevollmaechtigter.name.vorname
+    );
+    cy.get("#empfangsbevollmaechtigter").contains(
+      "Straße: " +
+        inputData.eigentuemer.empfangsbevollmaechtigter.adresse.strasse
+    );
+    cy.get("#empfangsbevollmaechtigter").contains(
+      "Hausnummer: " +
+        inputData.eigentuemer.empfangsbevollmaechtigter.adresse.hausnummer
+    );
+    cy.get("#empfangsbevollmaechtigter").contains(
+      "PLZ: " + inputData.eigentuemer.empfangsbevollmaechtigter.adresse.plz
+    );
+    cy.get("#empfangsbevollmaechtigter").contains(
+      "Ort: " + inputData.eigentuemer.empfangsbevollmaechtigter.adresse.ort
+    );
+    cy.get("#empfangsbevollmaechtigter").contains(
+      "Telefonnummer: " +
+        inputData.eigentuemer.empfangsbevollmaechtigter.telefonnummer
+          .telefonnummer
+    );
   });
 });

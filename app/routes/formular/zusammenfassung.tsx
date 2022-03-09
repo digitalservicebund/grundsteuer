@@ -231,6 +231,66 @@ export default function Zusammenfassung() {
               })}
             </>
           )}
+          <ul>
+            {item(
+              "Empfangsvollmacht",
+              data.eigentuemer.empfangsvollmacht?.hasEmpfangsvollmacht,
+              resolveJaNein
+            )}
+            {data.eigentuemer.empfangsbevollmaechtigter && (
+              <div
+                className="bg-gray-300 mx-4"
+                id={"empfangsbevollmaechtigter"}
+              >
+                <h5 className="font-bold">Empfangsbevollmächtigte Person</h5>
+                <ul>
+                  {item(
+                    "Anrede",
+                    data.eigentuemer.empfangsbevollmaechtigter.name?.anrede
+                  )}
+                  {item(
+                    "Titel",
+                    data.eigentuemer.empfangsbevollmaechtigter.name?.titel
+                  )}
+                  {item(
+                    "Name",
+                    data.eigentuemer.empfangsbevollmaechtigter.name?.name
+                  )}
+                  {item(
+                    "Vorname",
+                    data.eigentuemer.empfangsbevollmaechtigter.name?.vorname
+                  )}
+
+                  {item(
+                    "Straße",
+                    data.eigentuemer.empfangsbevollmaechtigter.adresse?.strasse
+                  )}
+                  {item(
+                    "Hausnummer",
+                    data.eigentuemer.empfangsbevollmaechtigter.adresse
+                      ?.hausnummer
+                  )}
+                  {item(
+                    "Postfach",
+                    data.eigentuemer.empfangsbevollmaechtigter.adresse?.postfach
+                  )}
+                  {item(
+                    "PLZ",
+                    data.eigentuemer.empfangsbevollmaechtigter.adresse?.plz
+                  )}
+                  {item(
+                    "Ort",
+                    data.eigentuemer.empfangsbevollmaechtigter.adresse?.ort
+                  )}
+                  {item(
+                    "Telefonnummer",
+                    data.eigentuemer.empfangsbevollmaechtigter.telefonnummer
+                      ?.telefonnummer
+                  )}
+                </ul>
+              </div>
+            )}
+          </ul>
         </>
       )}
       <pre className="max-w-screen-md overflow-hidden">
