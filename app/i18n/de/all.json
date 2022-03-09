@@ -424,7 +424,7 @@
           "wirtschaftlicheEinheitNenner": {
             "label": "Wirtsch. Einheit Nenner"
           }
-       }
+        }
       },
       "groesse": {
         "headline": "Übertragen Sie die Angaben aus dem Grundbuch zu Grundstück {{id}}:",
