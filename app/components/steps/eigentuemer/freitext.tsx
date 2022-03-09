@@ -12,7 +12,7 @@ const Freitext: StepComponentFunction = ({
 }) => {
   return (
     <div>
-      {i18n.specifics.congratulations}
+      <div>{i18n.specifics.congratulations}</div>
       <Default
         {...{
           stepDefinition,
@@ -24,7 +24,7 @@ const Freitext: StepComponentFunction = ({
           errors,
         }}
       />
-      {i18n.specifics.warning}
+      <div>{i18n.specifics.warning}</div>
     </div>
   );
 };
