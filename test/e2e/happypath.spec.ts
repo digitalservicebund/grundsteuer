@@ -83,7 +83,7 @@ const inputData = {
     },
     person1: {
       angaben: {
-        anrede: "Frau",
+        anrede: "frau",
         titel: "Dr.",
         name: "Drew",
         vorname: "Nancy",
@@ -107,7 +107,7 @@ const inputData = {
       },
       vertreter: {
         name: {
-          anrede: "Herr",
+          anrede: "herr",
           titel: "Prof Dr",
           name: "Mustermann",
           vorname: "Max",
@@ -130,7 +130,7 @@ const inputData = {
     },
     person2: {
       angaben: {
-        anrede: "Herr",
+        anrede: "no_anrede",
         titel: "Buccaneer",
         name: "Threepwood",
         vorname: "Guybrush",
@@ -159,7 +159,7 @@ const inputData = {
     },
     empfangsbevollmaechtigter: {
       name: {
-        anrede: "Frau",
+        anrede: "frau",
         name: "Organa",
         vorname: "Leia",
       },
@@ -344,9 +344,7 @@ describe("Happy Path", () => {
     cy.get("label[for=areVerheiratet-true]").click();
     cy.get(submitBtnSelector).click();
     // PERSON 1
-    cy.get("#anrede")
-      .clear()
-      .type(inputData.eigentuemer.person1.angaben.anrede);
+    cy.get("#anrede").select(inputData.eigentuemer.person1.angaben.anrede);
     cy.get("#titel").clear().type(inputData.eigentuemer.person1.angaben.titel);
     cy.get("#name").clear().type(inputData.eigentuemer.person1.angaben.name);
     cy.get("#vorname")
@@ -375,9 +373,9 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
     cy.get("#hasVertreter-true").click();
     cy.get(submitBtnSelector).click();
-    cy.get("#anrede")
-      .clear()
-      .type(inputData.eigentuemer.person1.vertreter.name.anrede);
+    cy.get("#anrede").select(
+      inputData.eigentuemer.person1.vertreter.name.anrede
+    );
     cy.get("#titel")
       .clear()
       .type(inputData.eigentuemer.person1.vertreter.name.titel);
@@ -415,9 +413,7 @@ describe("Happy Path", () => {
 
     // PERSON 2
     cy.url().should("include", "/formular/eigentuemer/person/2/");
-    cy.get("#anrede")
-      .clear()
-      .type(inputData.eigentuemer.person2.angaben.anrede);
+    cy.get("#anrede").select(inputData.eigentuemer.person2.angaben.anrede);
     cy.get("#titel").clear().type(inputData.eigentuemer.person2.angaben.titel);
     cy.get("#name").clear().type(inputData.eigentuemer.person2.angaben.name);
     cy.get("#vorname")
@@ -454,9 +450,9 @@ describe("Happy Path", () => {
 
     cy.get("#hasEmpfangsvollmacht-true").click();
     cy.get(submitBtnSelector).click();
-    cy.get("#anrede")
-      .clear()
-      .type(inputData.eigentuemer.empfangsbevollmaechtigter.name.anrede);
+    cy.get("#anrede").select(
+      inputData.eigentuemer.empfangsbevollmaechtigter.name.anrede
+    );
     cy.get("#name")
       .clear()
       .type(inputData.eigentuemer.empfangsbevollmaechtigter.name.name);
@@ -510,9 +506,7 @@ describe("Happy Path", () => {
 
     cy.contains("Anzahl: " + inputData.eigentuemer.anzahl.anzahl);
     cy.contains("Verheiratet: Ja");
-    cy.get("#person-0").contains(
-      "Anrede: " + inputData.eigentuemer.person1.angaben.anrede
-    );
+    cy.get("#person-0").contains("Anrede: Frau");
     cy.get("#person-0").contains(
       "Titel: " + inputData.eigentuemer.person1.angaben.titel
     );
@@ -545,9 +539,7 @@ describe("Happy Path", () => {
       "Steuer-ID: " + inputData.eigentuemer.person1.steuerId.steuerId
     );
     cy.get("#person-0").contains("Gesetzlicher Vertreter: Ja");
-    cy.get("#person-0-vertreter").contains(
-      "Anrede: " + inputData.eigentuemer.person1.vertreter.name.anrede
-    );
+    cy.get("#person-0-vertreter").contains("Anrede: Herr");
     cy.get("#person-0-vertreter").contains(
       "Titel: " + inputData.eigentuemer.person1.vertreter.name.titel
     );
@@ -581,9 +573,7 @@ describe("Happy Path", () => {
       "Anteil Nenner: " + inputData.eigentuemer.person1.anteil.nenner
     );
 
-    cy.get("#person-1").contains(
-      "Anrede: " + inputData.eigentuemer.person2.angaben.anrede
-    );
+    cy.get("#person-1").contains("Anrede: Keine");
     cy.get("#person-1").contains(
       "Titel: " + inputData.eigentuemer.person2.angaben.titel
     );
@@ -624,9 +614,7 @@ describe("Happy Path", () => {
     );
 
     cy.contains("Empfangsvollmacht: Ja");
-    cy.get("#empfangsbevollmaechtigter").contains(
-      "Anrede: " + inputData.eigentuemer.empfangsbevollmaechtigter.name.anrede
-    );
+    cy.get("#empfangsbevollmaechtigter").contains("Anrede: Frau");
     cy.get("#empfangsbevollmaechtigter").contains(
       "Name: " + inputData.eigentuemer.empfangsbevollmaechtigter.name.name
     );

@@ -204,7 +204,14 @@
       "persoenlicheAngaben": {
         "headline": "Persoenliche Angaben Person {{id}}",
         "fields": {
-          "anrede": { "label": "Anrede" },
+          "anrede": {
+            "label": "Anrede",
+            "options": {
+              "no_anrede": "Keine",
+              "frau": "Frau",
+              "herr": "Herr"
+            }
+          },
           "titel": { "label": "Titel" },
           "name": { "label": "Name" },
           "vorname": { "label": "Vorname" },

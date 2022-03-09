@@ -29,6 +29,19 @@ const resolveJaNein = (value: string | undefined) => {
   return "";
 };
 
+const resolveAnrede = (value: string | undefined) => {
+  if (value === "no_anrede") {
+    return "Keine";
+  }
+  if (value === "frau") {
+    return "Frau";
+  }
+  if (value === "herr") {
+    return "Herr";
+  }
+  return "";
+};
+
 const resolveArea = (value: string | undefined) => {
   if (value) {
     return `${value} m2`;
@@ -164,7 +177,11 @@ export default function Zusammenfassung() {
                   >
                     <h4 className="font-bold">Person {index + 1}</h4>
                     <ul>
-                      {item("Anrede", person.persoenlicheAngaben?.anrede)}
+                      {item(
+                        "Anrede",
+                        person.persoenlicheAngaben?.anrede,
+                        resolveAnrede
+                      )}
                       {item("Titel", person.persoenlicheAngaben?.titel)}
                       {item("Name", person.persoenlicheAngaben?.name)}
                       {item("Vorname", person.persoenlicheAngaben?.vorname)}
@@ -196,7 +213,11 @@ export default function Zusammenfassung() {
                         >
                           <h5 className="font-bold">Gesetzlicher Vertreter</h5>
                           <ul>
-                            {item("Anrede", person.vertreter.name?.anrede)}
+                            {item(
+                              "Anrede",
+                              person.vertreter.name?.anrede,
+                              resolveAnrede
+                            )}
                             {item("Titel", person.vertreter.name?.titel)}
                             {item("Name", person.vertreter.name?.name)}
                             {item("Vorname", person.vertreter.name?.vorname)}
@@ -246,7 +267,8 @@ export default function Zusammenfassung() {
                 <ul>
                   {item(
                     "Anrede",
-                    data.eigentuemer.empfangsbevollmaechtigter.name?.anrede
+                    data.eigentuemer.empfangsbevollmaechtigter.name?.anrede,
+                    resolveAnrede
                   )}
                   {item(
                     "Titel",
