@@ -10,70 +10,37 @@ const GrundstueckFlurstueckFlur: StepComponentFunction = ({
 }) => {
   const fieldDefinitions =
     stepDefinition.fields as GrundstueckFlurstueckFlurFields;
-  const flurFieldName = "flur";
-  const flurstueckZaehlerName = "flurstueckZaehler";
-  const flurstueckNennerName = "flurstueckNenner";
-  const anteilZaehlerName = "wirtschaftlicheEinheitZaehler";
-  const anteilNennerName = "wirtschaftlicheEinheitNenner";
+
+  const fieldNames = Object.keys(fieldDefinitions);
+  const fieldProps = fieldNames.map((fieldName) => {
+    return {
+      name: fieldName,
+      value: formData?.[fieldName],
+      i18n: i18n.fields[fieldName],
+      definition:
+        fieldDefinitions[fieldName as keyof GrundstueckFlurstueckFlurFields],
+    };
+  });
   return (
     <div>
-      <StepFormField
-        {...{
-          name: flurFieldName,
-          value: formData?.[flurFieldName],
-          i18n: i18n.fields[flurFieldName],
-          definition: fieldDefinitions.flur,
-        }}
-      />
+      <StepFormField {...fieldProps[0]} />
       <fieldset className="flex-row">
-        <StepFormField
-          {...{
-            name: flurstueckZaehlerName,
-            value: formData?.[flurstueckZaehlerName],
-            i18n: i18n.fields[flurstueckZaehlerName],
-            definition: fieldDefinitions.flurstueckZaehler,
-            className: "inline-block",
-          }}
-        />
+        <StepFormField {...fieldProps[1]} />
         <img
           className="inline-block px-10 h-40 mb-4"
           alt="Schrägstrich"
           src={slashIcon}
         />
-        <StepFormField
-          {...{
-            name: flurstueckNennerName,
-            value: formData?.[flurstueckNennerName],
-            i18n: i18n.fields[flurstueckNennerName],
-            definition: fieldDefinitions.flurstueckNenner,
-            className: "inline-block",
-          }}
-        />
+        <StepFormField {...fieldProps[2]} />
       </fieldset>
       <fieldset className="flex-row">
-        <StepFormField
-          {...{
-            name: anteilZaehlerName,
-            value: formData?.[anteilZaehlerName],
-            i18n: i18n.fields[anteilZaehlerName],
-            definition: fieldDefinitions.wirtschaftlicheEinheitZaehler,
-            className: "inline-block",
-          }}
-        />
+        <StepFormField {...fieldProps[3]} />
         <img
           className="inline-block px-10 h-40 mb-4"
           alt="Schrägstrich"
           src={slashIcon}
         />
-        <StepFormField
-          {...{
-            name: anteilNennerName,
-            value: formData?.[anteilNennerName],
-            i18n: i18n.fields[anteilNennerName],
-            definition: fieldDefinitions.wirtschaftlicheEinheitNenner,
-            className: "inline-block",
-          }}
-        />
+        <StepFormField {...fieldProps[4]} />
       </fieldset>
     </div>
   );
