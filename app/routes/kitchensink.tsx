@@ -1,6 +1,6 @@
 export default function KitchenSink() {
   return (
-    <div>
+    <div className="text-orange-500">
       <p className="font-sans">
         font-sans <strong>bold</strong>{" "}
         <em>
