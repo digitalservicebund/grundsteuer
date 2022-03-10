@@ -17,12 +17,13 @@ export type StepFormFieldProps = {
     type?: string;
     defaultValue?: string;
     options?: { value: string }[];
+    placeholder?: string;
   };
 };
 
 const StepFormField = (props: StepFormFieldProps) => {
   const { name, value, i18n, definition } = props;
-  const { type, options, defaultValue } = definition;
+  const { type, options, defaultValue, placeholder } = definition;
 
   const commonProps = {
     name,
@@ -51,7 +52,10 @@ const StepFormField = (props: StepFormFieldProps) => {
     return <StepRadioField {...radioProps} />;
   }
 
-  const textProps: StepTextFieldProps = commonProps;
+  const textProps: StepTextFieldProps = {
+    ...commonProps,
+    placeholder,
+  };
   return <StepTextField {...textProps} />;
 };
 
