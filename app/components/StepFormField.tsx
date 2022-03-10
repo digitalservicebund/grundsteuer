@@ -19,10 +19,11 @@ export type StepFormFieldProps = {
     defaultValue?: string;
     options?: { value: string }[];
   };
+  className?: string;
 };
 
 const StepFormField = (props: StepFormFieldProps) => {
-  const { name, value, i18n, definition } = props;
+  const { name, value, i18n, definition, className } = props;
   const { type, options, defaultValue } = definition;
 
   const commonProps = {
@@ -31,6 +32,7 @@ const StepFormField = (props: StepFormFieldProps) => {
     label: i18n.label,
     key: name,
     defaultValue,
+    className,
   };
 
   if (type && ["radio", "select"].includes(type) && options) {

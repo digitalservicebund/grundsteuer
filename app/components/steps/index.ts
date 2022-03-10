@@ -6,6 +6,7 @@ import Default from "./default";
 import Bodenrichtwert from "~/components/steps/grundstueck/bodenrichtwert";
 import Freitext from "~/components/steps/eigentuemer/freitext";
 import GrundstueckFlurstueckAngaben from "./grundstueck/flurstueck/angaben";
+import GrundstueckFlurstueckFlur from "~/components/steps/grundstueck/flurstueck/flur";
 
 export { Default as FallbackStepComponent };
 
@@ -24,6 +25,7 @@ export default {
     bodenrichtwert: Bodenrichtwert,
     flurstueck: {
       angaben: GrundstueckFlurstueckAngaben,
+      flur: GrundstueckFlurstueckFlur,
     },
   },
   gebaeude: Debug,
