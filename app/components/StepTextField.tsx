@@ -6,14 +6,13 @@ export type StepTextFieldProps = {
   value?: string;
   defaultValue?: string;
   placeholder?: string;
-  className?: string;
 };
 
 export default function StepTextField(props: StepTextFieldProps) {
-  const { name, label, value, defaultValue, placeholder, className } = props;
+  const { name, label, value, defaultValue, placeholder } = props;
   const id = name;
   return (
-    <div className={className}>
+    <>
       <Label htmlFor={id} className="block">
         {label}
       </Label>
@@ -25,6 +24,6 @@ export default function StepTextField(props: StepTextFieldProps) {
         className="mb-4"
         placeholder={placeholder}
       />
-    </div>
+    </>
   );
 }

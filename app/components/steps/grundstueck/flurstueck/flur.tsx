@@ -10,7 +10,6 @@ const GrundstueckFlurstueckFlur: StepComponentFunction = ({
 }) => {
   const fieldDefinitions =
     stepDefinition.fields as GrundstueckFlurstueckFlurFields;
-
   const fieldNames = Object.keys(fieldDefinitions);
   const fieldProps = fieldNames.map((fieldName) => {
     return {
@@ -21,26 +20,35 @@ const GrundstueckFlurstueckFlur: StepComponentFunction = ({
         fieldDefinitions[fieldName as keyof GrundstueckFlurstueckFlurFields],
     };
   });
+
   return (
     <div>
       <StepFormField {...fieldProps[0]} />
       <fieldset className="flex-row">
-        <StepFormField {...fieldProps[1]} />
+        <div className="inline-block">
+          <StepFormField {...fieldProps[1]} />
+        </div>
         <img
           className="inline-block px-10 h-40 mb-4"
           alt="Schrägstrich"
           src={slashIcon}
         />
-        <StepFormField {...fieldProps[2]} />
+        <div className="inline-block">
+          <StepFormField {...fieldProps[2]} />
+        </div>
       </fieldset>
       <fieldset className="flex-row">
-        <StepFormField {...fieldProps[3]} />
+        <div className="inline-block">
+          <StepFormField {...fieldProps[3]} />
+        </div>
         <img
           className="inline-block px-10 h-40 mb-4"
           alt="Schrägstrich"
           src={slashIcon}
         />
-        <StepFormField {...fieldProps[4]} />
+        <div className="inline-block">
+          <StepFormField {...fieldProps[4]} />
+        </div>
       </fieldset>
     </div>
   );
