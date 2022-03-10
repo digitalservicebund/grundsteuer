@@ -12,7 +12,23 @@ import { useSetupTranslations } from "remix-i18next";
 import styles from "public/tailwind.css";
 
 export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: styles }];
+  return [
+    {
+      rel: "preload",
+      as: "font",
+      href: "/fonts/BundesSansWeb-Regular.woff2",
+      type: "font/woff2",
+      crossOrigin: "anonymous",
+    },
+    {
+      rel: "preload",
+      as: "font",
+      href: "/fonts/BundesSansWeb-Bold.woff2",
+      type: "font/woff2",
+      crossOrigin: "anonymous",
+    },
+    { rel: "stylesheet", href: styles },
+  ];
 };
 
 export const meta: MetaFunction = () => {
