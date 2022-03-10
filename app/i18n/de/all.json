@@ -241,7 +241,7 @@
       "steuerId": {
         "headline": "Steuer-ID Person {{id}}",
         "fields": {
-          "steuerId": { "label": "Steuer-ID" }
+          "steuerId": { "label": "Steuer-ID", "placeholder": "99 999 999 999" }
         }
       },
       "gesetzlicherVertreter": {

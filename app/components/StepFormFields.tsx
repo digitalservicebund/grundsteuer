@@ -10,6 +10,7 @@ export type StepFormFieldsProps = {
       [index: string]: {
         label: string;
         options?: Record<string, string>;
+        placeholder?: string;
       };
     };
   };

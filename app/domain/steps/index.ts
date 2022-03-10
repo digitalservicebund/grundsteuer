@@ -311,7 +311,6 @@ export type StepDefinitionField = {
 export type StepDefinitionFieldWithOptions = StepDefinitionField & {
   type: "radio" | "select";
   options: { value: string }[];
-  placeholder: string;
 };
 
 export type StepDefinition = {

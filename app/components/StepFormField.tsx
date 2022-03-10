@@ -12,18 +12,18 @@ export type StepFormFieldProps = {
   i18n: {
     label: string;
     options?: Record<string, string>;
+    placeholder?: string;
   };
   definition: {
     type?: string;
     defaultValue?: string;
     options?: { value: string }[];
-    placeholder?: string;
   };
 };
 
 const StepFormField = (props: StepFormFieldProps) => {
   const { name, value, i18n, definition } = props;
-  const { type, options, defaultValue, placeholder } = definition;
+  const { type, options, defaultValue } = definition;
 
   const commonProps = {
     name,
@@ -54,7 +54,7 @@ const StepFormField = (props: StepFormFieldProps) => {
 
   const textProps: StepTextFieldProps = {
     ...commonProps,
-    placeholder,
+    placeholder: i18n.placeholder,
   };
   return <StepTextField {...textProps} />;
 };
