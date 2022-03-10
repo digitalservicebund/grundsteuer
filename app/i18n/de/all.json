@@ -102,7 +102,8 @@
       "headline": "In welchem Jahr wurde die Kernsanierung durchgeführt?",
       "fields": {
         "kernsanierungsjahr": {
-          "label": "Jahr der Kernsanierung"
+          "label": "Jahr der Kernsanierung",
+          "placeholder": "YYYY"
         }
       }
     },
@@ -121,7 +122,8 @@
       "headline": "Für welches Jahr ist die Abbruchverpflichtung ausgestellt?",
       "fields": {
         "abbruchverpflichtungsjahr": {
-          "label": "Jahr der Abbruchverpflichtung"
+          "label": "Jahr der Abbruchverpflichtung",
+          "placeholder": "YYYY"
         }
       }
     },
