@@ -1,8 +1,20 @@
 {
   "footer": {
-    "privacyProtection": "Datenschutzerklärung",
+    "dataProtection": "Datenschutzerklärung",
     "imprint": "Impressum",
     "digitalservice": "Digital Service"
+  },
+  "homepage": {
+    "banner": "Willkommen! Alle Funktionen werden Anfang Juli 2022 freigeschaltet.",
+    "kicker": "Grundsteuerreform",
+    "headline": "Grundsteuererklärung für Privateigentum.",
+    "tagline": "Schnell. Unkompliziert. Kostenlos."
+  },
+  "imprint": {
+    "headline": "Impressum"
+  },
+  "dataProtection": {
+    "headline": "Datenschutzerklärung"
   },
   "common": {
     "continue": "Speichern & weiter",
