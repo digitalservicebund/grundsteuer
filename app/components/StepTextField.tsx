@@ -35,15 +35,20 @@ export default function StepTextField(props: StepTextFieldProps) {
 
   if (help) {
     return (
-      <details onToggle={() => setHelpExpanded(!helpExpanded)}>
+      <details
+        onToggle={() => setHelpExpanded(!helpExpanded)}
+        data-testid="help-details"
+      >
         <summary
           className="list-none"
           role="button"
+          tabIndex={0}
           aria-expanded={helpExpanded}
+          data-testid="help-summary"
         >
           <div className="flex-row">
             {labelComponent}
-            <QuestionMark className="inline-block float-right" />
+            <QuestionMark className="inline-block float-right" role="img" />
           </div>
           {inputComponent}
         </summary>
