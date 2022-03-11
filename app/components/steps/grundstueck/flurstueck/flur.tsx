@@ -37,6 +37,7 @@ const GrundstueckFlurstueckFlur: StepComponentFunction = ({
           <StepFormField {...fieldProps[2]} />
         </div>
       </fieldset>
+      <h2 className="font-bold my-8">{i18n.specifics.subHeadingAnteil}</h2>
       <fieldset className="flex-row">
         <div className="inline-block">
           <StepFormField {...fieldProps[3]} />

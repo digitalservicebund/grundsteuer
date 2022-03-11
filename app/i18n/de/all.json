@@ -438,6 +438,9 @@
           "wirtschaftlicheEinheitNenner": {
             "label": "Wirtsch. Einheit Nenner"
           }
+        },
+        "specifics": {
+          "subHeadingAnteil": "Bei Wohnungeigentum und Garagen bitte angeben:"
         }
       },
       "groesse": {
