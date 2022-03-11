@@ -237,7 +237,10 @@
       "telefonnummer": {
         "headline": "Telefonnummer Person {{id}}",
         "fields": {
-          "telefonnummer": { "label": "Telefonnummer" }
+          "telefonnummer": {
+            "label": "Telefonnummer",
+            "help": "Das Finanzamt benötigt die Telefonnummer für eventuelle Rückfragen."
+          }
         }
       },
       "steuerId": {
@@ -281,7 +284,10 @@
         "telefonnummer": {
           "headline": "Gesetzlicher Vertreter Person {{id}} - Telefonnummer",
           "fields": {
-            "telefonnummer": { "label": "Telefonnummer" }
+            "telefonnummer": {
+              "label": "Telefonnummer",
+              "help": "Das Finanzamt benötigt die Telefonnummer für eventuelle Rückfragen."
+            }
           }
         }
       },
@@ -327,7 +333,10 @@
       "telefonnummer": {
         "headline": "Telefonnummer empfangsbevollmächtigte Person",
         "fields": {
-          "telefonnummer": { "label": "Telefonnummer" }
+          "telefonnummer": {
+            "label": "Telefonnummer",
+            "help": "Das Finanzamt benötigt die Telefonnummer für eventuelle Rückfragen."
+          }
         }
       }
     },
