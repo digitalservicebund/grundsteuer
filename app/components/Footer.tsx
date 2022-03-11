@@ -14,7 +14,7 @@ export default function Footer() {
                 to="/datenschutz"
                 className="text-black text-18 leading-26 hover:underline focus:underline"
               >
-                {t("footer.test")}
+                {t("footer.privacyProtection")}
               </Link>
             </li>
             <li className="md:inline-block">
@@ -22,7 +22,7 @@ export default function Footer() {
                 to="/impressum"
                 className="text-black text-18 leading-26 hover:underline"
               >
-                Impressum
+                {t("footer.imprint")}
               </Link>
             </li>
           </ul>
@@ -33,7 +33,7 @@ export default function Footer() {
           target="_blank"
           className="absolute right-16 bottom-0 md:right-32 lg:right-64"
         >
-          <img src={digitalserviceLogoImage} />
+          <img src={digitalserviceLogoImage} alt={t("footer.digitalservice")} />
         </a>
       </div>
     </footer>

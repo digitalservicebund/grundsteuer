@@ -1,7 +1,8 @@
 {
   "footer": {
-    "datenschutz": "Datenschutzerklärung",
-    "test": "TEST"
+    "privacyProtection": "Datenschutzerklärung",
+    "imprint": "Impressum",
+    "digitalservice": "Digital Service"
   },
   "common": {
     "continue": "Speichern & weiter",
