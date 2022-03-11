@@ -1,6 +1,7 @@
 import { Label, Input } from "@digitalservice4germany/digital-service-library";
 import classNames from "classnames";
 import questionMark from "../../public/icons/questionMark.svg";
+import { useState } from "react";
 
 export type StepTextFieldProps = {
   name: string;
@@ -14,6 +15,7 @@ export type StepTextFieldProps = {
 export default function StepTextField(props: StepTextFieldProps) {
   const { name, label, value, defaultValue, placeholder, help } = props;
   const id = name;
+  const [helpExpanded, setHelpExpanded] = useState(false);
 
   const labelComponent = (
     <Label htmlFor={id} className={classNames({ block: !help })}>
@@ -33,8 +35,12 @@ export default function StepTextField(props: StepTextFieldProps) {
 
   if (help) {
     return (
-      <details>
-        <summary className="list-none">
+      <details onToggle={() => setHelpExpanded(!helpExpanded)}>
+        <summary
+          className="list-none"
+          role="button"
+          aria-expanded={helpExpanded}
+        >
           <div className="flex-row">
             {labelComponent}
             <img
