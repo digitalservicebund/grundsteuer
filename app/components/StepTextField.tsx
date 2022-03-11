@@ -1,6 +1,6 @@
 import { Label, Input } from "@digitalservice4germany/digital-service-library";
 import classNames from "classnames";
-import questionMark from "../../public/icons/questionMark.svg";
+// import questionMark from "../../public/icons/questionMark.svg";
 import { useState } from "react";
 
 export type StepTextFieldProps = {
@@ -43,11 +43,12 @@ export default function StepTextField(props: StepTextFieldProps) {
         >
           <div className="flex-row">
             {labelComponent}
-            <img
+            <p className="inline-block float-right">?</p>
+            {/*<img
               src={questionMark}
               alt="Fragezeichen"
               className="inline-block float-right"
-            />
+            />*/}
           </div>
           {inputComponent}
         </summary>
