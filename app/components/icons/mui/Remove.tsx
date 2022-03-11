@@ -1,7 +1,7 @@
 import * as React from "react";
 import { SVGProps } from "react";
 
-const SvgRemove = (props: SVGProps<SVGSVGElement>) => (
+const Remove = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     height="1em"
@@ -14,4 +14,4 @@ const SvgRemove = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export default SvgRemove;
+export default Remove;
