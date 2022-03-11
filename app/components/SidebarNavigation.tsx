@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "remix";
 import classNames from "classnames";
-import { useTranslation } from "react-i18next";
+import { TFunction, useTranslation } from "react-i18next";
 import { getCurrentStateFromPathname } from "~/util/getCurrentState";
 
 export function NavigationLink(props: any) {
@@ -29,6 +29,55 @@ export function NavigationLink(props: any) {
   );
 }
 
+const renderGraph = (
+  graph: any,
+  level: number,
+  currentState: string,
+  t: TFunction<"all", undefined>
+) => {
+  return (
+    <div
+      key={level}
+      className={classNames({
+        "pl-2": level === 1,
+        "pl-4": level === 2,
+        "pl-6": level === 3,
+      })}
+    >
+      {graph &&
+        Object.entries(graph).map(([k, v]) => {
+          if ((v as any).path) {
+            return (
+              <div key={k}>
+                <NavigationLink {...v} currentState={currentState} />
+              </div>
+            );
+          } else if (Array.isArray(v)) {
+            return (
+              <div key={k}>
+                {v
+                  .filter((c) => c)
+                  .map((c, index) => (
+                    <div key={index}>
+                      {t(`nav.headline.${k}`, { number: index + 1 })}{" "}
+                      {renderGraph(c, level + 1, currentState, t)}
+                    </div>
+                  ))}
+              </div>
+            );
+          } else {
+            return (
+              <div key={k}>
+                {t(`nav.headline.${k}`)}{" "}
+                {renderGraph(v, level + 1, currentState, t)}
+              </div>
+            );
+          }
+        })}
+    </div>
+  );
+};
+
 // TODO: Give more specific name: Form only
 export default function SidebarNavigation({
   graph,
@@ -46,49 +95,5 @@ export default function SidebarNavigation({
     setCurrentState(newCurrentState);
   }, [location]);
 
-  const renderGraph = (graph: any, level: number, currentState: string) => {
-    return (
-      <div
-        key={level}
-        className={classNames({
-          "pl-2": level === 1,
-          "pl-4": level === 2,
-          "pl-6": level === 3,
-        })}
-      >
-        {graph &&
-          Object.entries(graph).map(([k, v]) => {
-            if ((v as any).path) {
-              return (
-                <div key={k}>
-                  <NavigationLink {...v} currentState={currentState} />
-                </div>
-              );
-            } else if (Array.isArray(v)) {
-              return (
-                <div key={k}>
-                  {v
-                    .filter((c) => c)
-                    .map((c, index) => (
-                      <div key={index}>
-                        {t(`nav.headline.${k}`, { number: index + 1 })}{" "}
-                        {renderGraph(c, level + 1, currentState)}
-                      </div>
-                    ))}
-                </div>
-              );
-            } else {
-              return (
-                <div key={k}>
-                  {t(`nav.headline.${k}`)}{" "}
-                  {renderGraph(v, level + 1, currentState)}
-                </div>
-              );
-            }
-          })}
-      </div>
-    );
-  };
-
-  return <nav>{renderGraph(graph, 0, currentState)}</nav>;
+  return <nav>{renderGraph(graph, 0, currentState, t)}</nav>;
 }
