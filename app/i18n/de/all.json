@@ -73,8 +73,12 @@
       "fields": {
         "isAb1949": {
           "options": {
-            "false": "Vor 1949 bezugsfertig",
-            "true": "Ab 1949 bezugsfertig"
+            "false": {
+              "label": "Vor 1949 bezugsfertig"
+            },
+            "true": {
+              "label": "Ab 1949 bezugsfertig"
+            }
           }
         }
       }
@@ -92,8 +96,12 @@
       "fields": {
         "isKernsaniert": {
           "options": {
-            "false": "Nein, das Haus wurde nicht kernsaniert",
-            "true": "Ja, das Haus wurde kernsaniert"
+            "false": {
+              "label": "Nein, das Haus wurde nicht kernsaniert"
+            },
+            "true": {
+              "label": "Ja, das Haus wurde kernsaniert"
+            }
           }
         }
       }
@@ -112,8 +120,12 @@
       "fields": {
         "hasAbbruchverpflichtung": {
           "options": {
-            "false": "Nein, es liegt keine Abbruchverpflichtung vor",
-            "true": "Ja, es liegt eine Abbruchverpflichtung vor"
+            "false": {
+              "label": "Nein, es liegt keine Abbruchverpflichtung vor"
+            },
+            "true": {
+              "label": "Ja, es liegt eine Abbruchverpflichtung vor"
+            }
           }
         }
       }
@@ -151,8 +163,12 @@
       "fields": {
         "hasWeitereWohnraeume": {
           "options": {
-            "false": "Nein, es gehören keine weiteren Wohnräumen zum Gebäude",
-            "true": "Ja, es gibt weitere Wohnräume"
+            "false": {
+              "label": "Nein, es gehören keine weiteren Wohnräumen zum Gebäude"
+            },
+            "true": {
+              "label": "Ja, es gibt weitere Wohnräume"
+            }
           }
         }
       }
@@ -170,8 +186,12 @@
       "fields": {
         "hasGaragen": {
           "options": {
-            "false": "Nein, es gehört keine Garage zum Gebäude / Wohneinheit",
-            "true": "Ja, es gehört eine Garage zum Gebäude / Wohneinheit"
+            "false": {
+              "label": "Nein, es gehört keine Garage zum Gebäude / Wohneinheit"
+            },
+            "true": {
+              "label": "Ja, es gehört eine Garage zum Gebäude / Wohneinheit"
+            }
           }
         }
       }
@@ -200,8 +220,12 @@
         "areVerheiratet": {
           "label": "Sind die Eigentümer verheiratet?",
           "options": {
-            "true": "Ja, die Eigentümer:innen sind verheiratet",
-            "false": "Nein, die Eigentümer:innen sind nicht verheiratet"
+            "true": {
+              "label": "Ja, die Eigentümer:innen sind verheiratet"
+            },
+            "false": {
+              "label": "Nein, die Eigentümer:innen sind nicht verheiratet"
+            }
           }
         }
       }
@@ -213,25 +237,49 @@
           "anrede": {
             "label": "Anrede",
             "options": {
-              "no_anrede": "Keine",
-              "frau": "Frau",
-              "herr": "Herr"
+              "no_anrede": {
+                "label": "Keine"
+              },
+              "frau": {
+                "label": "Frau"
+              },
+              "herr": {
+                "label": "Herr"
+              }
             }
           },
-          "titel": { "label": "Titel" },
-          "name": { "label": "Name" },
-          "vorname": { "label": "Vorname" },
-          "geburtsdatum": { "label": "Geburtsdatum" }
+          "titel": {
+            "label": "Titel"
+          },
+          "name": {
+            "label": "Name"
+          },
+          "vorname": {
+            "label": "Vorname"
+          },
+          "geburtsdatum": {
+            "label": "Geburtsdatum"
+          }
         }
       },
       "adresse": {
         "headline": "Adresse Person {{id}}",
         "fields": {
-          "strasse": { "label": "Straße / Lagebezeichnung" },
-          "hausnummer": { "label": "Hausnummer (+Hausnummerzusatz)" },
-          "postfach": { "label": "Postfach" },
-          "plz": { "label": "PLZ" },
-          "ort": { "label": "Ort" }
+          "strasse": {
+            "label": "Straße / Lagebezeichnung"
+          },
+          "hausnummer": {
+            "label": "Hausnummer (+Hausnummerzusatz)"
+          },
+          "postfach": {
+            "label": "Postfach"
+          },
+          "plz": {
+            "label": "PLZ"
+          },
+          "ort": {
+            "label": "Ort"
+          }
         }
       },
       "telefonnummer": {
@@ -246,7 +294,10 @@
       "steuerId": {
         "headline": "Steuer-ID Person {{id}}",
         "fields": {
-          "steuerId": { "label": "Steuer-ID", "placeholder": "99 999 999 999" }
+          "steuerId": {
+            "label": "Steuer-ID",
+            "placeholder": "99 999 999 999"
+          }
         }
       },
       "gesetzlicherVertreter": {
@@ -255,8 +306,12 @@
           "hasVertreter": {
             "label": "Möchten Sie einen gesetzlichen Vertreter angeben?",
             "options": {
-              "true": "Ja, ich möchte einen ges. Vetreter angeben",
-              "false": "Nein, ich möchte keinen ges. Vetreter angeben"
+              "true": {
+                "label": "Ja, ich möchte einen ges. Vetreter angeben"
+              },
+              "false": {
+                "label": "Nein, ich möchte keinen ges. Vetreter angeben"
+              }
             }
           }
         }
@@ -265,20 +320,38 @@
         "name": {
           "headline": "Gesetzlicher Vertreter Person {{id}} - Name",
           "fields": {
-            "anrede": { "label": "Anrede" },
-            "titel": { "label": "Titel" },
-            "name": { "label": "Name" },
-            "vorname": { "label": "Vorname" }
+            "anrede": {
+              "label": "Anrede"
+            },
+            "titel": {
+              "label": "Titel"
+            },
+            "name": {
+              "label": "Name"
+            },
+            "vorname": {
+              "label": "Vorname"
+            }
           }
         },
         "adresse": {
           "headline": "Gesetzlicher Vertreter Person {{id}} - Adresse",
           "fields": {
-            "strasse": { "label": "Straße / Lagebezeichnung" },
-            "hausnummer": { "label": "Hausnummer (+Hausnummerzusatz)" },
-            "postfach": { "label": "Postfach" },
-            "plz": { "label": "PLZ" },
-            "ort": { "label": "Ort" }
+            "strasse": {
+              "label": "Straße / Lagebezeichnung"
+            },
+            "hausnummer": {
+              "label": "Hausnummer (+Hausnummerzusatz)"
+            },
+            "postfach": {
+              "label": "Postfach"
+            },
+            "plz": {
+              "label": "PLZ"
+            },
+            "ort": {
+              "label": "Ort"
+            }
           }
         },
         "telefonnummer": {
@@ -294,8 +367,12 @@
       "anteil": {
         "headline": "Wie hoch ist der Anteil am Gründstück von Person {{id}}?",
         "fields": {
-          "zaehler": { "label": "Zähler" },
-          "nenner": { "label": "Nenner" }
+          "zaehler": {
+            "label": "Zähler"
+          },
+          "nenner": {
+            "label": "Nenner"
+          }
         }
       }
     },
@@ -304,8 +381,12 @@
       "fields": {
         "hasEmpfangsvollmacht": {
           "options": {
-            "true": "Ja, ich möchte eine empfangsbevollmächtigte Person angeben",
-            "false": "Nein, ich möchte keine empfangsbevollmächtigte Person angeben"
+            "true": {
+              "label": "Ja, ich möchte eine empfangsbevollmächtigte Person angeben"
+            },
+            "false": {
+              "label": "Nein, ich möchte keine empfangsbevollmächtigte Person angeben"
+            }
           }
         }
       }
@@ -314,20 +395,38 @@
       "name": {
         "headline": "Stammdaten empfangsbevollmächtigte Person",
         "fields": {
-          "anrede": { "label": "Anrede" },
-          "titel": { "label": "Titel" },
-          "name": { "label": "Name" },
-          "vorname": { "label": "Vorname" }
+          "anrede": {
+            "label": "Anrede"
+          },
+          "titel": {
+            "label": "Titel"
+          },
+          "name": {
+            "label": "Name"
+          },
+          "vorname": {
+            "label": "Vorname"
+          }
         }
       },
       "adresse": {
         "headline": "Adresse empfangsbevollmächtigte Person",
         "fields": {
-          "strasse": { "label": "Straße / Lagebezeichnung" },
-          "hausnummer": { "label": "Hausnummer (+Hausnummerzusatz)" },
-          "postfach": { "label": "Postfach" },
-          "plz": { "label": "PLZ" },
-          "ort": { "label": "Ort" }
+          "strasse": {
+            "label": "Straße / Lagebezeichnung"
+          },
+          "hausnummer": {
+            "label": "Hausnummer (+Hausnummerzusatz)"
+          },
+          "postfach": {
+            "label": "Postfach"
+          },
+          "plz": {
+            "label": "PLZ"
+          },
+          "ort": {
+            "label": "Ort"
+          }
         }
       },
       "telefonnummer": {
@@ -355,20 +454,30 @@
     "adresse": {
       "headline": "Wie lautet die Adresse des Grundstücks?",
       "fields": {
-        "strasse": { "label": "Straße / Lagebezeichnung" },
-        "hausnummer": { "label": "Hausnummer (+Hausnummerzusatz)" },
+        "strasse": {
+          "label": "Straße / Lagebezeichnung"
+        },
+        "hausnummer": {
+          "label": "Hausnummer (+Hausnummerzusatz)"
+        },
         "zusatzangaben": {
           "label": "Zusatzangaben (Bsp. Hinterhaus)",
           "help": "Zum Beispiel: Hinterhaus, 2. Hinterhof, Wohnungs- oder Teileigentumsnummer"
         },
-        "plz": { "label": "PLZ" },
-        "ort": { "label": "Ort" }
+        "plz": {
+          "label": "PLZ"
+        },
+        "ort": {
+          "label": "Ort"
+        }
       }
     },
     "steuernummer": {
       "headline": "Wie lautet das Aktenzeichen/ die Steuernummer des Grundstücks?",
       "fields": {
-        "steuernummer": { "label": "Aktenzeichen/Steuernummer" }
+        "steuernummer": {
+          "label": "Aktenzeichen/Steuernummer"
+        }
       }
     },
     "typ": {
@@ -377,11 +486,21 @@
         "typ": {
           "label": "Grundstücksart",
           "options": {
-            "einfamilienhaus": "Einfamilienhaus",
-            "zweifamilienhaus": "Zweifamilienhaus",
-            "wohnungseigentum": "Wohnungseigentum",
-            "baureif": "Baureif",
-            "abweichendeEntwicklung": "Abweichende Entwicklung"
+            "einfamilienhaus": {
+              "label": "Einfamilienhaus"
+            },
+            "zweifamilienhaus": {
+              "label": "Zweifamilienhaus"
+            },
+            "wohnungseigentum": {
+              "label": "Wohnungseigentum"
+            },
+            "baureif": {
+              "label": "Baureif"
+            },
+            "abweichendeEntwicklung": {
+              "label": "Abweichende Entwicklung"
+            }
           }
         }
       }
@@ -392,8 +511,13 @@
         "zustand": {
           "label": "Zustand",
           "options": {
-            "bauerwartungsland": "Bauerwartungsland",
-            "rohbauland": "Rohbauland"
+            "bauerwartungsland": {
+              "label": "Bauerwartungsland",
+              "help": "Bauerwartungsland sind Flächen, die planungsrechtlich noch nicht bebaut werden können, bei denen aber damit zu rechnen ist, dass dies in absehbarer Zeit so sein wird. "
+            },
+            "rohbauland": {
+              "label": "Rohbauland"
+            }
           }
         }
       }
@@ -404,8 +528,12 @@
         "innerhalbEinerGemeinde": {
           "label": "Liegt das Grundstück innerhalb einer Gemeinde?",
           "options": {
-            "true": "Ja, es liegt innerhalb einer Gemeinde",
-            "false": "Nein, es läuft über mehrere Gemeindegrenzen"
+            "true": {
+              "label": "Ja, es liegt innerhalb einer Gemeinde"
+            },
+            "false": {
+              "label": "Nein, es läuft über mehrere Gemeindegrenzen"
+            }
           }
         }
       }
@@ -422,16 +550,26 @@
       "angaben": {
         "headline": "Übertragen Sie die Angaben aus dem Grundbuch zu Grundstück {{id}}:",
         "fields": {
-          "grundbuchblattnummer": { "label": "Grundbuchblattnummer" },
-          "gemarkung": { "label": "Gemarkung" }
+          "grundbuchblattnummer": {
+            "label": "Grundbuchblattnummer"
+          },
+          "gemarkung": {
+            "label": "Gemarkung"
+          }
         }
       },
       "flur": {
         "headline": "Übertragen Sie die Angaben aus dem Grundbuch zu Grundstück {{id}}:",
         "fields": {
-          "flur": { "label": "Flur" },
-          "flurstueckZaehler": { "label": "Flurstück Zähler" },
-          "flurstueckNenner": { "label": "Flurstück Nenner" },
+          "flur": {
+            "label": "Flur"
+          },
+          "flurstueckZaehler": {
+            "label": "Flurstück Zähler"
+          },
+          "flurstueckNenner": {
+            "label": "Flurstück Nenner"
+          },
           "wirtschaftlicheEinheitZaehler": {
             "label": "Wirtsch. Einheit Zähler"
           },
@@ -446,9 +584,15 @@
       "groesse": {
         "headline": "Übertragen Sie die Angaben aus dem Grundbuch zu Grundstück {{id}}:",
         "fields": {
-          "groesseHa": { "label": "Größe in ha" },
-          "groesseA": { "label": "Größe in a" },
-          "groesseQm": { "label": "Größe in m2" }
+          "groesseHa": {
+            "label": "Größe in ha"
+          },
+          "groesseA": {
+            "label": "Größe in a"
+          },
+          "groesseQm": {
+            "label": "Größe in m2"
+          }
         }
       }
     },

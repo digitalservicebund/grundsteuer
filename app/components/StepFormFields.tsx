@@ -1,4 +1,5 @@
 import { StepFormField } from "~/components";
+import { I18nObjectField } from "~/routes/formular/_step";
 
 export type StepFormFieldsProps = {
   stepDefinition?: {
@@ -7,11 +8,7 @@ export type StepFormFieldsProps = {
   formData?: any;
   i18n: {
     fields: {
-      [index: string]: {
-        label: string;
-        options?: Record<string, string>;
-        placeholder?: string;
-      };
+      [index: string]: I18nObjectField;
     };
   };
   currentState?: string;

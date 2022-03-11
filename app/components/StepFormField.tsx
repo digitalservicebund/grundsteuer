@@ -5,16 +5,12 @@ import StepRadioField, {
 import StepSelectField, {
   StepSelectFieldProps,
 } from "~/components/StepSelectField";
+import { I18nObjectField } from "~/routes/formular/_step";
 
 export type StepFormFieldProps = {
   name: string;
   value?: string;
-  i18n: {
-    label: string;
-    options?: Record<string, string>;
-    placeholder?: string;
-    help?: string;
-  };
+  i18n: I18nObjectField;
   definition: {
     type?: string;
     defaultValue?: string;
@@ -34,23 +30,33 @@ const StepFormField = (props: StepFormFieldProps) => {
     defaultValue,
   };
 
-  if (type && ["radio", "select"].includes(type) && options) {
-    const optionsWithLabels = options.map((option) => {
-      return { ...option, label: i18n.options?.[option.value] || option.value };
-    });
-
-    if (type === "select") {
-      const selectProps: StepSelectFieldProps = {
-        ...commonProps,
-        options: optionsWithLabels,
+  if (type === "radio" && options) {
+    const optionsWithLabelsAndHelp = options.map((option) => {
+      return {
+        ...option,
+        label: i18n.options?.[option.value].label || option.value,
+        help: i18n.options?.[option.value]?.help,
       };
-      return <StepSelectField {...selectProps} />;
-    }
+    });
     const radioProps: StepRadioFieldProps = {
+      ...commonProps,
+      options: optionsWithLabelsAndHelp,
+    };
+    return <StepRadioField {...radioProps} />;
+  }
+
+  if (type === "select" && options) {
+    const optionsWithLabels = options.map((option) => {
+      return {
+        ...option,
+        label: i18n.options?.[option.value].label || option.value,
+      };
+    });
+    const selectProps: StepSelectFieldProps = {
       ...commonProps,
       options: optionsWithLabels,
     };
-    return <StepRadioField {...radioProps} />;
+    return <StepSelectField {...selectProps} />;
   }
 
   const textProps: StepTextFieldProps = {

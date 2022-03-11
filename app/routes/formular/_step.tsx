@@ -97,13 +97,22 @@ const getRedirectUrl = (
   return redirectUrl;
 };
 
+export type I18nObjectField = {
+  label: string;
+  options?: {
+    [index: string]: {
+      label: string;
+      help?: string;
+    };
+  };
+  placeholder?: string;
+  help?: string;
+};
+
 export type I18nObject = {
   headline: string;
   fields: {
-    [index: string]: {
-      label: string;
-      options?: Record<string, string>;
-    };
+    [index: string]: I18nObjectField;
   };
   specifics: Record<string, string>;
   common: Record<string, string>;
