@@ -3,7 +3,6 @@ import {
   Footer,
   Layout,
 } from "@digitalservice4germany/digital-service-library";
-import { i18Next } from "~/i18n.server";
 import { getFormDataCookie } from "~/cookies";
 import SidebarNavigation from "~/components/SidebarNavigation";
 import { createGraph } from "~/domain";
@@ -17,7 +16,6 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 
   return {
-    i18n: await i18Next.getTranslations(request, ["all"]),
     graph,
     currentState: getCurrentStateFromUrl(request.url),
   };

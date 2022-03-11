@@ -2,12 +2,14 @@ import {
   Links,
   LinksFunction,
   LiveReload,
+  LoaderFunction,
   Meta,
   MetaFunction,
   Outlet,
   Scripts,
   ScrollRestoration,
 } from "remix";
+import { i18Next } from "~/i18n.server";
 import { useSetupTranslations } from "remix-i18next";
 import styles from "public/tailwind.css";
 
@@ -33,6 +35,12 @@ export const links: LinksFunction = () => {
 
 export const meta: MetaFunction = () => {
   return { title: "Grundsteuererklärung für Privateigentum" };
+};
+
+export const loader: LoaderFunction = async ({ request }) => {
+  return {
+    i18n: await i18Next.getTranslations(request, ["all"]),
+  };
 };
 
 export default function App() {
