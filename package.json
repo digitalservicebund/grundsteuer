@@ -17,7 +17,7 @@
     "style:check": "npm run format:check && npm run lint:check",
     "style:fix": "npm run format:fix && npm run lint:fix",
     "check": "npm install && npm run build && npm run style:check && npm test",
-    "pre-commit": "npm install && npm run build && lint-staged",
+    "pre-commit": "npm install && npm run build && npm run test && lint-staged",
     "postinstall": "remix setup node",
     "start": "cross-env NODE_ENV=production remix-serve build",
     "prepare": "is-ci || husky install",
