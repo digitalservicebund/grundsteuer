@@ -1,3 +1,5 @@
+import { Footer } from "~/components";
+
 import CloseIcon from "~/components/icons/mui/Close";
 import AddIcon from "~/components/icons/mui/Add";
 import RemoveIcon from "~/components/icons/mui/Remove";
@@ -30,6 +32,8 @@ export default function KitchenSink() {
       <AddIcon className="w-24 h-24 fill-blue-500" />
       <RemoveIcon className="w-24 h-24 fill-black" />
       <FileCopyIcon className="w-36 h-36 fill-blue-800" />
+
+      <Footer />
     </div>
   );
 }

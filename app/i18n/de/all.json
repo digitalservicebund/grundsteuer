@@ -1,4 +1,8 @@
 {
+  "footer": {
+    "datenschutz": "Datenschutzerklärung",
+    "test": "TEST"
+  },
   "common": {
     "continue": "Speichern & weiter",
     "back": "Zurück"
