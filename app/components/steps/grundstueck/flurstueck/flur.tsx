@@ -2,6 +2,7 @@ import type { StepComponentFunction } from "~/routes/formular/_step";
 import { StepFormField } from "~/components";
 import { GrundstueckFlurstueckFlurFields } from "~/domain/steps";
 import slashIcon from "../../../../../public/icons/slash.svg";
+import Slash from "~/components/icons/mui/Slash";
 
 const GrundstueckFlurstueckFlur: StepComponentFunction = ({
   stepDefinition,
@@ -28,11 +29,7 @@ const GrundstueckFlurstueckFlur: StepComponentFunction = ({
         <div className="inline-block">
           <StepFormField {...fieldProps[1]} />
         </div>
-        <img
-          className="inline-block px-10 h-40 mb-4"
-          alt="Schrägstrich"
-          src={slashIcon}
-        />
+        <Slash className="inline-block mx-10 h-32 mb-4" role="img" />
         <div className="inline-block">
           <StepFormField {...fieldProps[2]} />
         </div>
@@ -42,11 +39,7 @@ const GrundstueckFlurstueckFlur: StepComponentFunction = ({
         <div className="inline-block">
           <StepFormField {...fieldProps[3]} />
         </div>
-        <img
-          className="inline-block px-10 h-40 mb-4"
-          alt="Schrägstrich"
-          src={slashIcon}
-        />
+        <Slash className="inline-block mx-10 h-32 mb-4" role="img" />
         <div className="inline-block">
           <StepFormField {...fieldProps[4]} />
         </div>
