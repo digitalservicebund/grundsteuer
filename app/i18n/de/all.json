@@ -221,7 +221,8 @@
           "label": "Sind die Eigentümer verheiratet?",
           "options": {
             "true": {
-              "label": "Ja, die Eigentümer:innen sind verheiratet"
+              "label": "Ja, die Eigentümer:innen sind verheiratet",
+              "help": "Bei in einem Haushalt lebenden Ehepaaren wird nur ein Steuerbescheid ein die gemeinsame Adresse versendet. Steuerlich hat das keine Auswirkungen."
             },
             "false": {
               "label": "Nein, die Eigentümer:innen sind nicht verheiratet"
