@@ -1,5 +1,6 @@
 import { ConfigStepFieldOptionsItem } from "~/domain";
 import { useState } from "react";
+import QuestionMark from "~/components/icons/mui/QuestionMark";
 
 export type StepRadioFieldProps = {
   name: string;
@@ -46,7 +47,7 @@ const StepRadioFieldOption = (
           >
             {inputComponent}
             {labelComponent}
-            <p className="float-right">?</p>
+            <QuestionMark className="inline-block float-right" />
           </summary>
           <div className="bg-blue-100 p-16 mb-4">
             <p>{option.help}</p>
