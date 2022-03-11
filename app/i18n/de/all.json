@@ -348,7 +348,10 @@
       "fields": {
         "strasse": { "label": "Straße / Lagebezeichnung" },
         "hausnummer": { "label": "Hausnummer (+Hausnummerzusatz)" },
-        "zusatzangaben": { "label": "Zusatzangaben (Bsp. Hinterhaus)" },
+        "zusatzangaben": {
+          "label": "Zusatzangaben (Bsp. Hinterhaus)",
+          "help": "Zum Beispiel: Hinterhaus, 2. Hinterhof, Wohnungs- oder Teileigentumsnummer"
+        },
         "plz": { "label": "PLZ" },
         "ort": { "label": "Ort" }
       }

@@ -13,6 +13,7 @@ export type StepFormFieldProps = {
     label: string;
     options?: Record<string, string>;
     placeholder?: string;
+    help?: string;
   };
   definition: {
     type?: string;
@@ -55,6 +56,7 @@ const StepFormField = (props: StepFormFieldProps) => {
   const textProps: StepTextFieldProps = {
     ...commonProps,
     placeholder: i18n.placeholder,
+    help: i18n.help,
   };
   return <StepTextField {...textProps} />;
 };
