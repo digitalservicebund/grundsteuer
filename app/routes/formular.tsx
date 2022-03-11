@@ -1,10 +1,7 @@
 import { LoaderFunction, Outlet, Link, useLoaderData } from "remix";
-import {
-  Footer,
-  Layout,
-} from "@digitalservice4germany/digital-service-library";
+import { Layout } from "@digitalservice4germany/digital-service-library";
 import { getFormDataCookie } from "~/cookies";
-import SidebarNavigation from "~/components/SidebarNavigation";
+import { Footer, SidebarNavigation } from "~/components";
 import { createGraph } from "~/domain";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 
@@ -25,7 +22,7 @@ export default function Formular() {
   const { graph, currentState } = useLoaderData();
   return (
     <Layout
-      footer={<Footer> Footer </Footer>}
+      footer={<Footer />}
       sidebarNavigation={
         <div className="p-2">
           <Link to="/">Home</Link>

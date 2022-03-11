@@ -5,7 +5,7 @@ import digitalserviceLogoImage from "~/assets/images/digitalservice-logo.svg";
 export default function Footer() {
   const { t } = useTranslation("all");
   return (
-    <footer className="bg-gray-600">
+    <footer className="flex-shrink-0 bg-gray-600">
       <div className="relative max-w-screen-2xl mx-auto">
         <div className="max-w-screen-xl mx-auto pb-80 pt-32 px-16 md:pb-12 md:px-32 md:pt-12 lg:px-64">
           <ul>
