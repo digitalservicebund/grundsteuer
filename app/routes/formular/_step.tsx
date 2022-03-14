@@ -223,22 +223,27 @@ export function Step() {
     _.get(stepComponents, currentStateWithoutId) || FallbackStepComponent;
 
   return (
-    <div className="p-8">
-      <h1 className="mb-8 font-bold text-4xl">{i18n.headline}</h1>
-      {actionData?.errors ? "ERRORS: " + JSON.stringify(actionData.errors) : ""}
-      <Form method="post" className="mb-16" key={currentState}>
-        <StepComponent {...loaderData} {...actionData} />
-        <div className="flex flex-row-reverse items-center justify-between">
-          <Button id="nextButton">{i18n.common.continue}</Button>
-          {backUrl ? (
-            <Button to={backUrl} look="tertiary">
-              {i18n.common.back}
-            </Button>
-          ) : (
-            ""
-          )}
-        </div>
-      </Form>
+    <div className="flex flex-col md:flex-row flex-grow h-full">
+      <div className="pt-32 max-w-screen-md mx-auto">
+        <h1 className="mb-8 font-bold text-4xl">{i18n.headline}</h1>
+        {actionData?.errors
+          ? "ERRORS: " + JSON.stringify(actionData.errors)
+          : ""}
+        <Form method="post" className="mb-16" key={currentState}>
+          <StepComponent {...loaderData} {...actionData} />
+          <div className="flex flex-row-reverse items-center justify-between">
+            <Button id="nextButton">{i18n.common.continue}</Button>
+            {backUrl ? (
+              <Button to={backUrl} look="tertiary">
+                {i18n.common.back}
+              </Button>
+            ) : (
+              ""
+            )}
+          </div>
+        </Form>
+      </div>
+      <div className="md:w-1/4 bg-blue-400 h-full pt-32">HELP</div>
     </div>
   );
 }

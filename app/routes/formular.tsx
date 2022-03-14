@@ -40,7 +40,7 @@ export default function Formular() {
         </div>
       }
     >
-      <div className="max-w-screen-md mx-auto p-16">
+      <div className="md:pl-16 h-full">
         <Outlet />
       </div>
     </Layout>
