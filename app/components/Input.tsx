@@ -8,11 +8,12 @@ export interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
   tiny?: boolean;
 }
 
-const Input = (props: InputProps) => {
+const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const { small, tiny, className } = props;
   return (
     <input
       {...props}
+      ref={ref}
       className={classNames(
         "block w-full",
         "bg-white text-black",
@@ -29,6 +30,6 @@ const Input = (props: InputProps) => {
       )}
     />
   );
-};
+});
 
 export default Input;
