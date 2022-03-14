@@ -68,7 +68,7 @@ function Button(props: any) {
   );
 
   const textClassName = classNames(
-    "min-w-0 break-word",
+    "w-full min-w-0 break-word",
     size === "large" ? "py-6" : "py-1"
   );
 

@@ -122,6 +122,7 @@ module.exports = {
       bold: 700,
     },
     fontSize: {
+      10: "0.625rem",
       14: "0.875rem",
       16: "1rem",
       18: "1.125rem",
@@ -131,6 +132,7 @@ module.exports = {
       64: "4rem",
     },
     lineHeight: {
+      13: "0.8125rem",
       18: "1.125rem",
       20: "1.25rem",
       22: "1.375rem",
