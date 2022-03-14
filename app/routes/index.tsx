@@ -28,7 +28,6 @@ export default function Index() {
               <Button
                 size="medium"
                 to="/formular/grundstueck/adresse"
-                data-testid="start-formular"
               >
                 {t("homepage.buttonStart")}
               </Button>
@@ -39,7 +38,6 @@ export default function Index() {
               </Button>
               <Button
                 to="/formular/grundstueck/adresse"
-                data-testid="start-formular"
               >
                 {t("homepage.buttonStart")}
               </Button>

@@ -186,10 +186,7 @@ export const submitBtnSelector = "#nextButton";
 
 describe("Happy Path", () => {
   it("Enter data for two eigentuemer", () => {
-    cy.visit("/");
-    cy.get("[data-testid='start-formular']").click();
-
-    cy.url().should("include", "/formular/grundstueck/adresse");
+    cy.visit("/formular/grundstueck/adresse");
     cy.get("#strasse").clear().type(inputData.grundstueck.adresse.strasse);
     cy.get("#hausnummer")
       .clear()
