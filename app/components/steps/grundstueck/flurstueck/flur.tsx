@@ -1,7 +1,6 @@
 import type { StepComponentFunction } from "~/routes/formular/_step";
 import { StepFormField } from "~/components";
 import { GrundstueckFlurstueckFlurFields } from "~/domain/steps";
-import slashIcon from "../../../../../public/icons/slash.svg";
 import Slash from "~/components/icons/mui/Slash";
 
 const GrundstueckFlurstueckFlur: StepComponentFunction = ({
