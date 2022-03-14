@@ -11,6 +11,6 @@ type MaskedInputProps = StepTextFieldProps & {
 };
 
 export default function MaskedInput(props: MaskedInputProps) {
-  const { mask } = props;
-  return <InputWithMixin {...props} mask={mask} />;
+  const { mask, name } = props;
+  return <InputWithMixin {...{ ...props, id: name }} mask={mask} />;
 }

@@ -546,9 +546,7 @@ describe("Happy Path", () => {
       "Telefonnummer: " +
         inputData.eigentuemer.person1.telefonnummer.telefonnummer
     );
-    cy.get("#person-0").contains(
-      "Steuer-ID: " + inputData.eigentuemer.person1.steuerId.steuerId
-    );
+    cy.get("#person-0").contains("Steuer-ID: 04 452 397 687");
     cy.get("#person-0").contains("Gesetzlicher Vertreter: Ja");
     cy.get("#person-0-vertreter").contains("Anrede: Herr");
     cy.get("#person-0-vertreter").contains(
@@ -613,9 +611,7 @@ describe("Happy Path", () => {
       "Telefonnummer: " +
         inputData.eigentuemer.person2.telefonnummer.telefonnummer
     );
-    cy.get("#person-1").contains(
-      "Steuer-ID: " + inputData.eigentuemer.person2.steuerId.steuerId
-    );
+    cy.get("#person-1").contains("Steuer-ID: 02 293 417 683");
     cy.get("#person-1").contains("Gesetzlicher Vertreter: Nein");
     cy.get("#person-1").contains(
       "Anteil Zähler: " + inputData.eigentuemer.person2.anteil.zaehler
