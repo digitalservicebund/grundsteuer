@@ -31,6 +31,20 @@ module.exports = {
         800: "#717a88",
         900: "#4e596a",
       },
+      darkGrey: {
+        50: "#f6f7f8",
+        100: "#EDEEF0",
+        200: "#DCDEE1",
+        300: "#cacdd2",
+        400: "#b8bdc3",
+        500: "#a6acb5",
+        700: "#838b97",
+        800: "#717a88",
+        900: "#606a79",
+        1000: "#4e596a",
+      },
+      dustyGrey: "#424C5A",
+      lightGray: "#dce0e0",
       green: {
         100: "#e8f7f0",
         200: "#ccebdd",
@@ -76,6 +90,7 @@ module.exports = {
         800: "#dac23c",
         900: "#c3a91e",
       },
+      darkGreen: "#01854A",
     },
     fontFamily: {
       sans: [

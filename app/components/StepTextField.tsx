@@ -1,7 +1,8 @@
-import { Label, Input } from "@digitalservice4germany/digital-service-library";
+import { Label } from "@digitalservice4germany/digital-service-library";
 import classNames from "classnames";
 import { useState } from "react";
 import QuestionMark from "~/components/icons/mui/QuestionMark";
+import Input from "~/components/Input";
 
 export type StepTextFieldProps = {
   name: string;
