@@ -6,6 +6,6 @@ export type EigentuemerPersonSteuerIdFields = {
 
 export const eigentuemerPersonSteuerId: StepDefinition = {
   fields: {
-    steuerId: { validations: {} },
+    steuerId: { validations: {}, type: "steuerId" },
   },
 };

@@ -309,7 +309,7 @@ export type StepDefinitionField = {
 };
 
 export type StepDefinitionFieldWithOptions = StepDefinitionField & {
-  type: "radio" | "select";
+  type: "radio" | "select" | "steuerId";
   options: { value: string }[];
 };
 

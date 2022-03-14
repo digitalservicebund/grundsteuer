@@ -6,6 +6,7 @@ import StepSelectField, {
   StepSelectFieldProps,
 } from "~/components/StepSelectField";
 import { I18nObjectField } from "~/routes/formular/_step";
+import SteuerIdField from "~/components/fields/SteuerIdField";
 
 export type StepFormFieldProps = {
   name: string;
@@ -64,6 +65,10 @@ const StepFormField = (props: StepFormFieldProps) => {
     placeholder: i18n.placeholder,
     help: i18n.help,
   };
+
+  if (type === "steuerId") {
+    return <SteuerIdField {...textProps} />;
+  }
   return <StepTextField {...textProps} />;
 };
 
