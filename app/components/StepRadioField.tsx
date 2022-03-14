@@ -38,16 +38,18 @@ const StepRadioFieldOption = (
 
   if (option.help) {
     return (
-      <div>
+      <div key={option.value} data-testid={`option-${option.value}`}>
         <details onToggle={() => setHelpExpanded(!helpExpanded)}>
           <summary
             className="list-none"
             role="button"
             aria-expanded={helpExpanded}
+            tabIndex={0}
+            data-testid="help-summary"
           >
             {inputComponent}
             {labelComponent}
-            <QuestionMark className="inline-block float-right" />
+            <QuestionMark className="inline-block float-right" role="img" />
           </summary>
           <div className="bg-blue-100 p-16 mb-4">
             <p>{option.help}</p>
@@ -57,7 +59,7 @@ const StepRadioFieldOption = (
     );
   } else {
     return (
-      <div key={option.value}>
+      <div key={option.value} data-testid={`option-${option.value}`}>
         {inputComponent}
         {labelComponent}
       </div>

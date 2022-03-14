@@ -42,8 +42,8 @@ export default function StepTextField(props: StepTextFieldProps) {
         <summary
           className="list-none"
           role="button"
-          tabIndex={0}
           aria-expanded={helpExpanded}
+          tabIndex={0}
           data-testid="help-summary"
         >
           <div className="flex-row">

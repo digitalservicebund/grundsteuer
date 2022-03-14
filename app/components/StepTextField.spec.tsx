@@ -1,7 +1,6 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import StepTextField from "~/components/StepTextField";
 import userEvent from "@testing-library/user-event";
-import { wait } from "@testing-library/user-event/dist/utils";
 
 describe("StepTextField component", () => {
   const defaultProps = {
