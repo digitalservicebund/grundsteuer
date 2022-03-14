@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Link } from "remix";
-import { ContentContainer, SimplePageLayout } from "~/components";
+import { Button, ContentContainer, SimplePageLayout } from "~/components";
 
 export default function Index() {
   const { t } = useTranslation("all");
@@ -26,13 +25,9 @@ export default function Index() {
           </div>
         </h1>
 
-        <Link
-          to="/formular/grundstueck/adresse"
-          className="text-32 underline text-blue-800"
-          data-testid="start-formular"
-        >
+        <Button to="/formular/grundstueck/adresse" data-testid="start-formular">
           Fragebogen
-        </Link>
+        </Button>
       </SimplePageLayout>
     </>
   );

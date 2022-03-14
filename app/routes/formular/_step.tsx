@@ -9,7 +9,7 @@ import {
 } from "remix";
 import { createMachine } from "xstate";
 import _ from "lodash";
-import { Button } from "@digitalservice4germany/digital-service-library";
+import { Button } from "~/components";
 import { getFormDataCookie, createResponseHeaders } from "~/cookies";
 import { i18Next } from "~/i18n.server";
 import { getStepData, setStepData, StepFormData } from "~/domain/model";
@@ -218,7 +218,7 @@ export type StepComponentFunction = (
 export function Step() {
   const loaderData = useLoaderData();
   const actionData = useActionData() as ActionData;
-  const { i18n, backUrl, currentStateWithoutId } = loaderData;
+  const { i18n, backUrl, currentStateWithoutId, currentState } = loaderData;
   const StepComponent =
     _.get(stepComponents, currentStateWithoutId) || FallbackStepComponent;
 
@@ -226,11 +226,17 @@ export function Step() {
     <div className="p-8">
       <h1 className="mb-8 font-bold text-4xl">{i18n.headline}</h1>
       {actionData?.errors ? "ERRORS: " + JSON.stringify(actionData.errors) : ""}
-      <Form method="post" className="mb-16">
+      <Form method="post" className="mb-16" key={currentState}>
         <StepComponent {...loaderData} {...actionData} />
         <div className="flex flex-row-reverse items-center justify-between">
           <Button id="nextButton">{i18n.common.continue}</Button>
-          {backUrl ? <Link to={backUrl}>{i18n.common.back}</Link> : ""}
+          {backUrl ? (
+            <Button to={backUrl} look="tertiary">
+              {i18n.common.back}
+            </Button>
+          ) : (
+            ""
+          )}
         </div>
       </Form>
     </div>
