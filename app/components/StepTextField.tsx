@@ -52,7 +52,7 @@ export default function StepTextField(props: StepTextFieldProps) {
           </div>
           {inputComponent}
         </summary>
-        <div className="bg-blue-100 p-16 mb-4">
+        <div className="bg-blue-200 p-16 mb-4">
           <p>{help}</p>
         </div>
       </details>
