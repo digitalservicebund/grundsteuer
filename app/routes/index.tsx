@@ -25,10 +25,7 @@ export default function Index() {
               >
                 {t("homepage.buttonCheck")}
               </Button>
-              <Button
-                size="medium"
-                to="/formular/grundstueck/adresse"
-              >
+              <Button size="medium" to="/formular/grundstueck/adresse">
                 {t("homepage.buttonStart")}
               </Button>
             </div>
@@ -36,9 +33,7 @@ export default function Index() {
               <Button look="tertiary" disabled className="mr-24">
                 {t("homepage.buttonCheck")}
               </Button>
-              <Button
-                to="/formular/grundstueck/adresse"
-              >
+              <Button to="/formular/grundstueck/adresse">
                 {t("homepage.buttonStart")}
               </Button>
             </div>
