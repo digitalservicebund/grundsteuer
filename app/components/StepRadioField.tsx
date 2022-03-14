@@ -49,7 +49,11 @@ const StepRadioFieldOption = (
           >
             {inputComponent}
             {labelComponent}
-            <QuestionMark className="inline-block float-right" role="img" />
+            <QuestionMark
+              className="inline-block float-right"
+              role="img"
+              aria-label="Hinweis"
+            />
           </summary>
           <div className="bg-blue-200 p-16 mb-4">
             <p>{option.help}</p>

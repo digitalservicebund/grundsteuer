@@ -48,7 +48,11 @@ export default function StepTextField(props: StepTextFieldProps) {
         >
           <div className="flex-row">
             {labelComponent}
-            <QuestionMark className="inline-block float-right" role="img" />
+            <QuestionMark
+              className="inline-block float-right"
+              role="img"
+              aria-label="Hinweis"
+            />
           </div>
           {inputComponent}
         </summary>
