@@ -215,7 +215,7 @@ export const states: MachineConfig<any, any, any> = {
           on: {
             NEXT: [
               {
-                target: "weitereWohnraeumeFlaeche",
+                target: "weitereWohnraeumeDetails",
                 cond: "hasWeitereWohnraeume",
               },
               { target: "garagen" },
@@ -226,7 +226,7 @@ export const states: MachineConfig<any, any, any> = {
             ],
           },
         },
-        weitereWohnraeumeFlaeche: {
+        weitereWohnraeumeDetails: {
           on: {
             NEXT: { target: "garagen" },
             BACK: [{ target: "weitereWohnraeume" }],
@@ -240,7 +240,7 @@ export const states: MachineConfig<any, any, any> = {
             ],
             BACK: [
               {
-                target: "weitereWohnraeumeFlaeche",
+                target: "weitereWohnraeumeDetails",
                 cond: "hasWeitereWohnraeume",
               },
               { target: "weitereWohnraeume" },

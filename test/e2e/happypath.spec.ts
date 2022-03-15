@@ -68,7 +68,7 @@ const inputData = {
     weitereWohnraeume: {
       hasWeitereWohnraeume: "true",
     },
-    weitereWohnraeumeFlaeche: {
+    weitereWohnraeumeDetails: {
       anzahl: "2",
       flaeche: "42",
     },
@@ -336,10 +336,10 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
     cy.get("#anzahl")
       .clear()
-      .type(inputData.gebaeude.weitereWohnraeumeFlaeche.anzahl);
+      .type(inputData.gebaeude.weitereWohnraeumeDetails.anzahl);
     cy.get("#flaeche")
       .clear()
-      .type(inputData.gebaeude.weitereWohnraeumeFlaeche.flaeche);
+      .type(inputData.gebaeude.weitereWohnraeumeDetails.flaeche);
     cy.get(submitBtnSelector).click();
     cy.get(
       `label[for=hasGaragen-${inputData.gebaeude.garagen.hasGaragen}]`
@@ -510,10 +510,10 @@ describe("Happy Path", () => {
     cy.contains(`Wohnfläche: ${inputData.gebaeude.wohnflaeche.wohnflaeche} m2`);
     cy.contains(`Weitere Wohnräume: Ja`);
     cy.contains(
-      `Anzahl der weiteren Wohnräume: ${inputData.gebaeude.weitereWohnraeumeFlaeche.anzahl}`
+      `Anzahl der weiteren Wohnräume: ${inputData.gebaeude.weitereWohnraeumeDetails.anzahl}`
     );
     cy.contains(
-      `Gesamtfläche der weiteren Wohnräume: ${inputData.gebaeude.weitereWohnraeumeFlaeche.flaeche} m2`
+      `Gesamtfläche der weiteren Wohnräume: ${inputData.gebaeude.weitereWohnraeumeDetails.flaeche} m2`
     );
     cy.contains(
       `Anzahl Garagen: ${inputData.gebaeude.garagenAnzahl.anzahlGaragen}`

@@ -58,7 +58,7 @@
       "wohnflaeche": "Wohnfläche",
       "wohnflaechen": "Wohnflächen",
       "weitereWohnraeume": "weitere Wohnräume",
-      "weitereWohnraeumeFlaeche": "Fläche der weiteren Wohnräume",
+      "weitereWohnraeumeDetails": "Fläche der weiteren Wohnräume",
       "garagen": "Garagen?",
       "garagenAnzahl": "Anzahl Garagen"
     },
@@ -194,7 +194,7 @@
         }
       }
     },
-    "weitereWohnraeumeFlaeche": {
+    "weitereWohnraeumeDetails": {
       "headline": "Bitte geben Sie die Anzahl und Gesamtfläche der weiteren Wohnräume ein",
       "fields": {
         "anzahl": {

@@ -137,13 +137,13 @@ export default function Zusammenfassung() {
             {data.gebaeude.weitereWohnraeume?.hasWeitereWohnraeume === "true" &&
               item(
                 "Anzahl der weiteren Wohnräume",
-                data.gebaeude.weitereWohnraeumeFlaeche?.anzahl
+                data.gebaeude.weitereWohnraeumeDetails?.anzahl
               )}
 
             {data.gebaeude.weitereWohnraeume?.hasWeitereWohnraeume === "true" &&
               item(
                 "Gesamtfläche der weiteren Wohnräume",
-                data.gebaeude.weitereWohnraeumeFlaeche?.flaeche,
+                data.gebaeude.weitereWohnraeumeDetails?.flaeche,
                 resolveArea
               )}
 

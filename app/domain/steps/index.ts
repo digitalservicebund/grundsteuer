@@ -33,9 +33,9 @@ import {
   gebaeudeWeitereWohnraeume,
 } from "~/domain/steps/gebaeude/weitereWohnraeume";
 import {
-  gebaeudeWeitereWohnraeumeFlaeche,
-  GebaeudeWeitereWohnraeumeFlaecheFields,
-} from "~/domain/steps/gebaeude/weitereWohnraeumeFlaeche";
+  gebaeudeWeitereWohnraeumeDetails,
+  GebaeudeWeitereWohnraeumeDetailsFields,
+} from "~/domain/steps/gebaeude/weitereWohnraeumeDetails";
 import {
   GebaeudeGaragenFields,
   gebaeudeGaragen,
@@ -215,7 +215,7 @@ const stepDefinitions = {
     kernsaniert: gebaeudeKernsaniert,
     kernsanierungsjahr: gebaeudeKernsanierungsjahr,
     weitereWohnraeume: gebaeudeWeitereWohnraeume,
-    weitereWohnraeumeFlaeche: gebaeudeWeitereWohnraeumeFlaeche,
+    weitereWohnraeumeDetails: gebaeudeWeitereWohnraeumeDetails,
     wohnflaeche: gebaeudeWohnflaeche,
     wohnflaechen: gebaeudeWohnflaechen,
   },
@@ -274,7 +274,7 @@ export type GrundModel = {
     kernsaniert?: GebaeudeKernsaniertFields;
     kernsanierungsjahr?: GebaeudeKernsanierungsjahrFields;
     weitereWohnraeume?: GebaeudeWeitereWohnraeumeFields;
-    weitereWohnraeumeFlaeche?: GebaeudeWeitereWohnraeumeFlaecheFields;
+    weitereWohnraeumeDetails?: GebaeudeWeitereWohnraeumeDetailsFields;
     wohnflaeche?: GebaeudeWohnflaecheFields;
     wohnflaechen?: GebaeudeWohnflaechenFields;
   };

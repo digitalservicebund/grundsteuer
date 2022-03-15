@@ -1,11 +1,11 @@
 import { StepDefinition } from "~/domain/steps";
 
-export type GebaeudeWeitereWohnraeumeFlaecheFields = {
+export type GebaeudeWeitereWohnraeumeDetailsFields = {
   anzahl: string;
   flaeche: string;
 };
 
-export const gebaeudeWeitereWohnraeumeFlaeche: StepDefinition = {
+export const gebaeudeWeitereWohnraeumeDetails: StepDefinition = {
   fields: {
     anzahl: { validations: {} },
     flaeche: { validations: {} },
