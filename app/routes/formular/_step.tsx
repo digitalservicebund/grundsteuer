@@ -17,7 +17,10 @@ import { getMachineConfig, StateMachineContext } from "~/domain/states";
 import { conditions } from "~/domain/guards";
 import { validateField } from "~/domain/validation";
 import { actions } from "~/domain/actions";
-import stepComponents, { FallbackStepComponent } from "~/components/steps";
+import stepComponents, {
+  FallbackStepComponent,
+  helpComponents,
+} from "~/components/steps";
 import { getStepDefinition, GrundModel } from "~/domain/steps";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 import { State } from "xstate/lib/State";
@@ -115,6 +118,7 @@ export type I18nObject = {
     [index: string]: I18nObjectField;
   };
   specifics: Record<string, string>;
+  help: Record<string, string>;
   common: Record<string, string>;
 };
 
@@ -215,12 +219,18 @@ export type StepComponentFunction = (
   props: LoaderData & ActionData
 ) => JSX.Element;
 
+export type HelpComponentFunction = (
+  props: LoaderData & ActionData
+) => JSX.Element;
+
 export function Step() {
   const loaderData = useLoaderData();
   const actionData = useActionData() as ActionData;
   const { i18n, backUrl, currentStateWithoutId, currentState } = loaderData;
   const StepComponent =
     _.get(stepComponents, currentStateWithoutId) || FallbackStepComponent;
+  const HelpComponent =
+    _.get(helpComponents, currentStateWithoutId) || undefined;
 
   return (
     <div className="flex flex-col md:flex-row flex-grow h-full">
@@ -243,7 +253,11 @@ export function Step() {
           </div>
         </Form>
       </div>
-      <div className="md:w-1/4 bg-blue-400 h-full pt-32">HELP</div>
+      {HelpComponent && (
+        <div className="md:w-1/4 bg-blue-400 h-full p-16 pt-32">
+          <HelpComponent {...loaderData} {...actionData} />
+        </div>
+      )}
     </div>
   );
 }

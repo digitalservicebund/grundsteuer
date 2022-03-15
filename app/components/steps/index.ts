@@ -7,6 +7,7 @@ import Bodenrichtwert from "~/components/steps/grundstueck/bodenrichtwert";
 import Freitext from "~/components/steps/eigentuemer/freitext";
 import GrundstueckFlurstueckAngaben from "./grundstueck/flurstueck/angaben";
 import GrundstueckFlurstueckFlur from "~/components/steps/grundstueck/flurstueck/flur";
+import { SteuernummerHelp } from "~/components/steps/grundstueck/steuernummer";
 
 export { Default as FallbackStepComponent };
 
@@ -29,4 +30,10 @@ export default {
     },
   },
   gebaeude: Debug,
+};
+
+export const helpComponents = {
+  grundstueck: {
+    steuernummer: SteuernummerHelp,
+  },
 };

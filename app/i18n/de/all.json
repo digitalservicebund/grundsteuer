@@ -503,6 +503,10 @@
         "steuernummer": {
           "label": "Aktenzeichen/Steuernummer"
         }
+      },
+      "help": {
+        "heading": "Wo finde ich das Aktenzeichen?",
+        "paragraph": "Sie finden das Aktenzeichen (oder in den Ländern Berlin, Bremen und Schleswig-Holstein die Steuernummer) auf Ihrem letzten Bescheid zur Feststellung des Einheitswerts oder der Festsetzung des Grundsteuermessbetrags. Auch auf dem Grundsteuerbescheid oder sonstigen Bescheiden der Gemeinde können Sie das Aktenzeichen (oder die Steuernummer) finden. Ggf. wurde Ihnen das aktuelle Aktenzeichen (oder die Steuernummer) auch mit einem Informationsschreiben mitgeteilt."
       }
     },
     "typ": {
