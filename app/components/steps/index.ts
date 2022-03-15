@@ -8,6 +8,7 @@ import Freitext from "~/components/steps/eigentuemer/freitext";
 import GrundstueckFlurstueckAngaben from "./grundstueck/flurstueck/angaben";
 import GrundstueckFlurstueckFlur from "~/components/steps/grundstueck/flurstueck/flur";
 import { SteuernummerHelp } from "~/components/steps/grundstueck/steuernummer";
+import { AbweichendeEntwicklungHelp } from "~/components/steps/grundstueck/abweichendeEntwicklung";
 
 export { Default as FallbackStepComponent };
 
@@ -35,5 +36,6 @@ export default {
 export const helpComponents = {
   grundstueck: {
     steuernummer: SteuernummerHelp,
+    abweichendeEntwicklung: AbweichendeEntwicklungHelp,
   },
 };

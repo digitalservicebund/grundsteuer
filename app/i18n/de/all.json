@@ -549,6 +549,12 @@
             }
           }
         }
+      },
+      "help": {
+        "heading": "Bauerwartungsland oder Rohbauland",
+        "paragraph1": "Handelt es sich bei dem unbebauten Grundstück um Bauerwartungsland oder Rohbauland?",
+        "paragraph2": "<bold>Bauerwartungsland</bold> sind Flächen, die planungsrechtlich noch nicht bebaut werden können, bei denen aber damit zu rechnen ist, dass dies in absehbarer Zeit so sein wird.",
+        "paragraph3": "<bold>Rohbauland</bold> sind Flächen, die für eine Bebauung bestimmt sind, aber deren Erschließung noch nicht gesichert ist oder die nach Lage, Form oder Größe für eine Bebauung unzureichend sind. Im Regelfall handelt es sich hierbei um größere, unerschlossene Grundstücksflächen, die kein land- und forstwirtschaftliches Vermögen mehr sind, selbst wenn sie noch so genutzt werden."
       }
     },
     "gemeinde": {
