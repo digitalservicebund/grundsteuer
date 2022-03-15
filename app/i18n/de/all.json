@@ -591,6 +591,10 @@
           "gemarkung": {
             "label": "Gemarkung"
           }
+        },
+        "help": {
+          "paragraph1": "Nehmen Sie sich jetzt Ihren Grundbuchauszug zur Hand und geben Sie Stück für Stück alle gefragten Daten ein.",
+          "paragraph2": "Sie finden die Nummer des Grundbuchblatts auf der ersten Seite ihrer Grundbuchunterlagen sowie auf allen Folgeseiten im oberen Bereich über der Tabelle."
         }
       },
       "flur": {

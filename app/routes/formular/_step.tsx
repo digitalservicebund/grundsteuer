@@ -254,7 +254,7 @@ export function Step() {
         </Form>
       </div>
       {HelpComponent && (
-        <div className="md:w-1/4 bg-blue-400 h-full p-16 pt-32">
+        <div className="md:w-1/4 bg-blue-400 h-full px-16 py-32">
           <HelpComponent {...loaderData} {...actionData} />
         </div>
       )}

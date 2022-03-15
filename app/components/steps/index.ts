@@ -5,7 +5,9 @@ import Debug from "./debug";
 import Default from "./default";
 import Bodenrichtwert from "~/components/steps/grundstueck/bodenrichtwert";
 import Freitext from "~/components/steps/eigentuemer/freitext";
-import GrundstueckFlurstueckAngaben from "./grundstueck/flurstueck/angaben";
+import GrundstueckFlurstueckAngaben, {
+  GrundstueckFlurstueckAngabenHelp,
+} from "./grundstueck/flurstueck/angaben";
 import GrundstueckFlurstueckFlur from "~/components/steps/grundstueck/flurstueck/flur";
 import { SteuernummerHelp } from "~/components/steps/grundstueck/steuernummer";
 import { AbweichendeEntwicklungHelp } from "~/components/steps/grundstueck/abweichendeEntwicklung";
@@ -37,5 +39,8 @@ export const helpComponents = {
   grundstueck: {
     steuernummer: SteuernummerHelp,
     abweichendeEntwicklung: AbweichendeEntwicklungHelp,
+    flurstueck: {
+      angaben: GrundstueckFlurstueckAngabenHelp,
+    },
   },
 };
