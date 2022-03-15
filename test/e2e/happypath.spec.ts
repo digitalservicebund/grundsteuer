@@ -69,6 +69,7 @@ const inputData = {
       hasWeitereWohnraeume: "true",
     },
     weitereWohnraeumeFlaeche: {
+      anzahl: "2",
       flaeche: "42",
     },
     garagen: {
@@ -333,6 +334,9 @@ describe("Happy Path", () => {
       `label[for=hasWeitereWohnraeume-${inputData.gebaeude.weitereWohnraeume.hasWeitereWohnraeume}]`
     ).click();
     cy.get(submitBtnSelector).click();
+    cy.get("#anzahl")
+      .clear()
+      .type(inputData.gebaeude.weitereWohnraeumeFlaeche.anzahl);
     cy.get("#flaeche")
       .clear()
       .type(inputData.gebaeude.weitereWohnraeumeFlaeche.flaeche);
@@ -505,6 +509,9 @@ describe("Happy Path", () => {
     );
     cy.contains(`Wohnfläche: ${inputData.gebaeude.wohnflaeche.wohnflaeche} m2`);
     cy.contains(`Weitere Wohnräume: Ja`);
+    cy.contains(
+      `Anzahl der weiteren Wohnräume: ${inputData.gebaeude.weitereWohnraeumeFlaeche.anzahl}`
+    );
     cy.contains(
       `Gesamtfläche der weiteren Wohnräume: ${inputData.gebaeude.weitereWohnraeumeFlaeche.flaeche} m2`
     );

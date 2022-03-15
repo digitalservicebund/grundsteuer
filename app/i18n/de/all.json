@@ -195,8 +195,11 @@
       }
     },
     "weitereWohnraeumeFlaeche": {
-      "headline": "Bitte geben Sie die Gesamtfläche der weiteren Wohnräume ein",
+      "headline": "Bitte geben Sie die Anzahl und Gesamtfläche der weiteren Wohnräume ein",
       "fields": {
+        "anzahl": {
+          "label": "Anzahl"
+        },
         "flaeche": {
           "label": "Gesamtfläche in m2"
         }
