@@ -70,6 +70,14 @@ export default function Index() {
         <div className="mb-64 md:mb-80 lg:mb-96">
           <HomepageFeatures />
         </div>
+
+        <div className="mb-64 md:max-w-screen-sm md:mb-32 lg:max-w-screen-md">
+          <h3 className="text-32 leading-40 mb-16">
+            {t("homepage.about.headline")}
+          </h3>
+          <p className="mb-24">{t("homepage.about.text1")}</p>
+          <p className="font-bold">{t("homepage.about.text2")}</p>
+        </div>
       </SimplePageLayout>
     </>
   );
