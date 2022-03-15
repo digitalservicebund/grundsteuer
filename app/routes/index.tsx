@@ -2,10 +2,12 @@ import { useTranslation } from "react-i18next";
 import {
   Button,
   ContentContainer,
+  FaqAccordion,
   HomepageFeatures,
   SimplePageLayout,
 } from "~/components";
 import bmfLogoImage from "~/assets/images/bmf-logo.png";
+import germanyMapImage from "~/assets/images/germany-map.svg";
 
 export default function Index() {
   const { t } = useTranslation("all");
@@ -77,6 +79,50 @@ export default function Index() {
           </h3>
           <p className="mb-24">{t("homepage.about.text1")}</p>
           <p className="font-bold">{t("homepage.about.text2")}</p>
+        </div>
+
+        <div
+          className="mb-64 md:mb-24 flex flex-col md:flex-row"
+          id="teilnehmende-bundeslaender"
+        >
+          <div className="mb-32 md:mb-0 lg:pt-64">
+            <h3 className="text-32 leading-40 mb-16">
+              {t("homepage.states.headline")}
+            </h3>
+            <p className="mb-24">{t("homepage.states.text")}</p>
+            <div className="font-bold md:flex">
+              <ul className="list-disc pl-24">
+                <li>Berlin</li>
+                <li>Brandenburg</li>
+                <li>Bremen</li>
+                <li>Mecklenburg-Vorpommern</li>
+                <li>Nordrhein-Westfalen</li>
+                <li>Rheinland-Pfalz</li>
+              </ul>
+              <ul className="list-disc pl-24 md:ml-24">
+                <li>Saarland</li>
+                <li>Sachsen</li>
+                <li>Sachsen-Anhalt</li>
+                <li>Schleswig-Holstein</li>
+                <li>Thüringen</li>
+              </ul>
+            </div>
+          </div>
+          <img
+            src={germanyMapImage}
+            alt={t("homepage.states.mapAlt")}
+            aria-describedby="teilnehmende-bundeslaender"
+            className="mx-auto md:ml-48 lg:ml-112 xl:ml-176"
+          />
+        </div>
+
+        <div className="mb-64 md:mb-32" id="faq">
+          <h3 className="text-32 leading-40 mb-16 md:mb-32">
+            {t("homepage.faq.headline")}
+          </h3>
+          <div className="xl:pr-96">
+            <FaqAccordion />
+          </div>
         </div>
       </SimplePageLayout>
     </>
