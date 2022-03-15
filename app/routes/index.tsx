@@ -1,5 +1,10 @@
 import { useTranslation } from "react-i18next";
-import { Button, ContentContainer, SimplePageLayout } from "~/components";
+import {
+  Button,
+  ContentContainer,
+  HomepageFeatures,
+  SimplePageLayout,
+} from "~/components";
 import bmfLogoImage from "~/assets/images/bmf-logo.png";
 
 export default function Index() {
@@ -50,7 +55,7 @@ export default function Index() {
           </div>
         </div>
 
-        <h1 className="mb-64 md:mb-96 lg:mb-64">
+        <h1 className="mb-64 md:mb-96 xl:mb-80">
           <div className="text-16 leading-26 mb-16 md:text-20 md:leading-20 md:mb-24 lg:mb-32">
             {t("homepage.kicker")}
           </div>
@@ -61,6 +66,10 @@ export default function Index() {
             {t("homepage.tagline")}
           </div>
         </h1>
+
+        <div className="mb-64 md:mb-80 lg:mb-96">
+          <HomepageFeatures />
+        </div>
       </SimplePageLayout>
     </>
   );

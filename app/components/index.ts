@@ -1,6 +1,7 @@
 export { default as Button } from "./Button";
 export { default as ContentContainer } from "./ContentContainer";
 export { default as Footer } from "./Footer";
+export { default as HomepageFeatures } from "./HomepageFeatures";
 export { default as SidebarNavigation } from "./SidebarNavigation";
 export { default as SimplePageLayout } from "./SimplePageLayout";
 export { default as StepFormField } from "./StepFormField";

@@ -12,7 +12,26 @@
     "bmfLogoAlt": "Bundesministerium der Finanzen",
     "kicker": "Grundsteuerreform",
     "headline": "Grundsteuererklärung für Privateigentum.",
-    "tagline": "Schnell. Unkompliziert. Kostenlos."
+    "tagline": "Schnell. Unkompliziert. Kostenlos.",
+    "features": {
+      "1": {
+        "headline": "Wann kann ich die Feststellungserklärung abgeben?",
+        "text": "Ab <strong>Anfang Juli 2022</strong> können Sie mit unserem Online-Service „Grundsteuererklärung für Privateigentum“ Ihre Erklärung digital abgeben."
+      },
+      "2": {
+        "headline": "Wie kann ich mich vorbereiten?",
+        "text1": "Für die Grundsteuererklärung ist der <strong>Grundbuchauszug</strong> als Ausfüllhilfe zwingend notwendig. Halten Sie diesen bereit oder beantragen Sie eine neue Kopie in Ihrem Grundbuchamt.",
+        "text2": "Weitere Unterlagen wie der Einheitswertbescheid, der Kaufvertrag und Bauunterlagen können das Ausfüllen erleichtern. "
+      },
+      "3": {
+        "headline": "Wer kann die Feststellungserklärung abgeben?",
+        "text1": "„Grundsteuererklärung für Privateigentum“ ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben:",
+        "listItem1": "Ein- oder Zweifamilienhaus",
+        "listItem2": "Eigentumswohnung",
+        "listItem3": "unbebautes Grundstück",
+        "text2": "Seltene Fälle wie Erbengemeinschaften oder Steuerbegünstigungen decken wir nicht ab."
+      }
+    }
   },
   "imprint": {
     "headline": "Impressum"
