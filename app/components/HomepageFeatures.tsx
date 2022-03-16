@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import feature1Image from "~/assets/images/feature1.svg";
 import feature2Image from "~/assets/images/feature2.svg";
 import feature3Image from "~/assets/images/feature3.svg";
@@ -31,18 +31,21 @@ export default function HomepageFeatures() {
         headline={t("homepage.features.1.headline")}
         image={feature1Image}
       >
-        <p
-          dangerouslySetInnerHTML={{ __html: t("homepage.features.1.text") }}
-        />
+        <p>
+          <Trans components={{ bold: <strong /> }}>
+            {t("homepage.features.1.text")}
+          </Trans>
+        </p>
       </HomepageFeature>
       <HomepageFeature
         headline={t("homepage.features.2.headline")}
         image={feature2Image}
       >
-        <p
-          dangerouslySetInnerHTML={{ __html: t("homepage.features.2.text1") }}
-          className="mb-24"
-        />
+        <p className="mb-24">
+          <Trans components={{ bold: <strong /> }}>
+            {t("homepage.features.2.text1")}
+          </Trans>
+        </p>
         <p>{t("homepage.features.2.text2")}</p>
       </HomepageFeature>
       <HomepageFeature
