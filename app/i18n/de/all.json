@@ -49,6 +49,12 @@
   "imprint": {
     "headline": "Impressum"
   },
+  "404": {
+    "backButton": "Zur Startseite",
+    "headline": "Seite konnte nicht gefunden werden.",
+    "text": "Es tut uns leid. Diese Seite scheint es nicht zu geben. Sie wurde vielleicht entfernt, im Namen geändert oder ist auf andere Weise nicht erreichbar.",
+    "smallprint": "Wenn Sie die URL direkt eingegeben haben, überprüfen Sie die Schreibweise. Unsere URL‘s sehen so aus <nowrap><bold>grundsteuer-fuer-privateigentum.de/lorem</bold>.</nowrap>"
+  },
   "dataProtection": {
     "headline": "Datenschutzerklärung"
   },
