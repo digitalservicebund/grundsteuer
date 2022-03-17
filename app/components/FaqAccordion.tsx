@@ -258,7 +258,7 @@ export default function FaqAccordion() {
               </Accordion.Trigger>
             </Accordion.Header>
             <Accordion.Content className="overflow-hidden accordion-content">
-              <div className="text-18 leading-24 p-24 pr-48 md:pr-64 md:pb-64">
+              <div className="text-18 p-24 pr-48 md:pr-64 md:pb-64">
                 {item.content}
               </div>
             </Accordion.Content>

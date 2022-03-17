@@ -2,7 +2,9 @@
   "footer": {
     "dataProtection": "Datenschutzerklärung",
     "imprint": "Impressum",
-    "digitalservice": "Digital Service"
+    "copyright": "© DigitalService",
+    "digitalservice": "Logo des DigitalService",
+    "bmf": "Logo des Bundesministeriums der Finanzen"
   },
   "homepage": {
     "banner": "Willkommen! Alle Funktionen werden Anfang Juli 2022 freigeschaltet.",

@@ -13,7 +13,7 @@ export default function Index() {
   const { t } = useTranslation("all");
   return (
     <>
-      <div className="flex-shrink-0 bg-yellow-200 border-l-[9px] border-l-yellow-500 py-16 lg:py-28">
+      <div className="flex-shrink-0 bg-yellow-300 border-l-[9px] border-l-yellow-500 py-16 lg:py-28">
         <ContentContainer>
           <div className="text-20 leading-26 lg:text-32 lg:leading-40">
             {t("homepage.banner")}
