@@ -45,7 +45,7 @@
     "remix": "^1.2.3",
     "remix-i18next": "^3.0.0",
     "tiny-invariant": "^1.2.0",
-    "xstate": "^4.30.5"
+    "xstate": "^4.30.6"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.2.3",
