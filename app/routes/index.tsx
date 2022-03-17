@@ -13,7 +13,7 @@ export default function Index() {
   const { t } = useTranslation("all");
   return (
     <>
-      <div className="flex-shrink-0 bg-yellow-200 border-l-[9px] border-l-yellow-500 py-16">
+      <div className="flex-shrink-0 bg-yellow-200 border-l-[9px] border-l-yellow-500 py-16 lg:py-28">
         <ContentContainer>
           <div className="text-20 leading-26 lg:text-32 lg:leading-40">
             {t("homepage.banner")}
@@ -32,7 +32,7 @@ export default function Index() {
               >
                 {t("homepage.buttonCheck")}
               </Button>
-              <Button size="medium" to="/formular/grundstueck/adresse">
+              <Button size="medium" disabled>
                 {t("homepage.buttonStart")}
               </Button>
             </div>
@@ -40,9 +40,7 @@ export default function Index() {
               <Button look="tertiary" disabled className="mr-24">
                 {t("homepage.buttonCheck")}
               </Button>
-              <Button to="/formular/grundstueck/adresse">
-                {t("homepage.buttonStart")}
-              </Button>
+              <Button disabled>{t("homepage.buttonStart")}</Button>
             </div>
           </div>
           <div>

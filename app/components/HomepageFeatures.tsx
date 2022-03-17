@@ -15,7 +15,7 @@ function HomepageFeature(props: HomepageFeatureProps) {
   return (
     <div className="flex flex-col">
       <img src={image} alt="" role="presentation" />
-      <div className="flex-grow bg-blue-200 p-32 rounded-b-md border-t-gray-800 border-t-4">
+      <div className="flex-grow bg-blue-300 p-32 rounded-b-md border-t-gray-800 border-t-4">
         <h3 className="text-20 leading-26 mb-24">{headline}</h3>
         {children}
       </div>
@@ -26,7 +26,7 @@ function HomepageFeature(props: HomepageFeatureProps) {
 export default function HomepageFeatures() {
   const { t } = useTranslation("all");
   return (
-    <div className="grid grid-cols-1 md:auto-rows-fr gap-x-24 gap-y-32 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 md:auto-rows-fr gap-x-24 gap-y-48 md:grid-cols-2 lg:grid-cols-3">
       <HomepageFeature
         headline={t("homepage.features.1.headline")}
         image={feature1Image}
