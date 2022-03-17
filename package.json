@@ -45,7 +45,7 @@
     "remix": "^1.2.3",
     "remix-i18next": "^3.0.0",
     "tiny-invariant": "^1.2.0",
-    "xstate": "^4.30.5"
+    "xstate": "^4.30.6"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.2.3",
@@ -54,7 +54,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.4.1",
-    "@types/lodash": "^4.14.179",
+    "@types/lodash": "^4.14.180",
     "@types/lru-cache": "^7.4.0",
     "@types/react": "^17.0.40",
     "@types/react-dom": "^17.0.13",
@@ -64,7 +64,7 @@
     "copy-env-cli": "^1.0.0",
     "cypress": "^9.5.1",
     "dotenv-safe": "^8.2.0",
-    "eslint": "^8.10.0",
+    "eslint": "^8.11.0",
     "eslint-config-prettier": "^8.5.0",
     "fishery": "^2.2.2",
     "husky": "^7.0.4",
