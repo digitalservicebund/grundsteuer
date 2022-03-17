@@ -1,12 +1,18 @@
 import { HelpComponentFunction } from "~/routes/formular/_step";
-import SteuernummerGrundbuch from "~/components/icons/help/SteuernummerGrundbuch";
+import steuernummerGrundbuch from "~/assets/images/steuernummer-grundbuch-small.png";
+import { useTranslation } from "react-i18next";
 
 export const SteuernummerHelp: HelpComponentFunction = ({ i18n }) => {
+  const { t } = useTranslation("all");
   return (
     <>
       <h2 className="font-bold mb-8">{i18n.help.heading}</h2>
       <p className="mb-8">{i18n.help.paragraph}</p>
-      <SteuernummerGrundbuch className="w-full h-auto" />
+      <img
+        src={steuernummerGrundbuch}
+        alt={t("alt.steuernummerGrundbuch")}
+        className="w-full h-auto"
+      />
     </>
   );
 };

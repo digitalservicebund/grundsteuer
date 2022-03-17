@@ -58,6 +58,11 @@
   "dataProtection": {
     "headline": "Datenschutzerklärung"
   },
+  "alt": {
+    "angabenGrundbuchTitle": "Grundbuchauszug Titelseite",
+    "angabenGrundbuchPage": "Grundbuchauszug Bestandsverzeichnis",
+    "steuernummerGrundbuch": "Grundbuchauszug Steuernummer"
+  },
   "common": {
     "continue": "Speichern & weiter",
     "back": "Zurück"
