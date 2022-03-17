@@ -64,7 +64,7 @@
     "copy-env-cli": "^1.0.0",
     "cypress": "^9.5.1",
     "dotenv-safe": "^8.2.0",
-    "eslint": "^8.10.0",
+    "eslint": "^8.11.0",
     "eslint-config-prettier": "^8.5.0",
     "fishery": "^2.2.2",
     "husky": "^7.0.4",
