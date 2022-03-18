@@ -43,7 +43,12 @@ function Button(props: any) {
     "button";
 
   const buttonClassName = classNames(
-    "inline-flex items-center max-w-full font-bold disabled:cursor-not-allowed focus:outline focus:outline-4 focus:outline-offset-4 focus:outline-blue-800",
+    "button rounded-none inline-flex items-center max-w-full font-bold disabled:cursor-not-allowed",
+    // "focus:" styles are for browsers without support for "focus-visible:" (Safari)
+    "focus:outline focus:outline-4 focus:outline-offset-4 focus:outline-blue-800",
+    // in supported browsers the "focus:" styles above are disabled (see tailwind.css)
+    // and the following styles are applied instead
+    "focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-blue-800",
     {
       "px-24": !iconOnly,
       "px-14": iconOnly && size === "large",

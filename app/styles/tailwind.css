@@ -91,10 +91,10 @@
 @layer components {
   /* accordion */
   [data-state="open"] .accordion-open-icon {
-    display: none;
+    @apply hidden;
   }
   [data-state="closed"] .accordion-close-icon {
-    display: none;
+    @apply hidden;
   }
   .accordion-content[data-state="open"] {
     @apply animate-open-accordion-content;
@@ -104,5 +104,10 @@
   }
   .accordion-header[data-state="open"] {
     @apply bg-blue-200;
+  }
+
+  /* button */
+  .button:focus:not(:focus-visible) {
+    @apply outline-none;
   }
 }
