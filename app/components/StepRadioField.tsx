@@ -1,6 +1,6 @@
 import { ConfigStepFieldOptionsItem } from "~/domain";
-import { useState } from "react";
 import QuestionMark from "~/components/icons/mui/QuestionMark";
+import Details from "~/components/Details";
 
 export type StepRadioFieldProps = {
   name: string;
@@ -19,7 +19,6 @@ const StepRadioFieldOption = (
   }
 ) => {
   const optionId = `${option.name}-${option.value}`;
-  const [helpExpanded, setHelpExpanded] = useState(false);
 
   const inputComponent = (
     <input
@@ -39,26 +38,20 @@ const StepRadioFieldOption = (
   if (option.help) {
     return (
       <div key={option.value} data-testid={`option-${option.value}`}>
-        <details onToggle={() => setHelpExpanded(!helpExpanded)}>
-          <summary
-            className="list-none"
-            role="button"
-            aria-expanded={helpExpanded}
-            tabIndex={0}
-            data-testid="help-summary"
-          >
-            {inputComponent}
-            {labelComponent}
-            <QuestionMark
-              className="inline-block float-right"
-              role="img"
-              aria-label="Hinweis"
-            />
-          </summary>
-          <div className="bg-blue-200 p-16 mb-4">
-            <p>{option.help}</p>
-          </div>
-        </details>
+        <Details
+          summaryContent={
+            <>
+              {inputComponent}
+              {labelComponent}
+              <QuestionMark
+                className="inline-block float-right"
+                role="img"
+                aria-label="Hinweis"
+              />
+            </>
+          }
+          detailsContent={<p>{option.help}</p>}
+        />
       </div>
     );
   } else {
