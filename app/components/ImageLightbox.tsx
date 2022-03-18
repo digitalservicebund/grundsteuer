@@ -24,8 +24,13 @@ export const ImageLightbox = ({
           type="button"
           onClick={() => setHelpOpen(true)}
           className="pr-32 pb-32 bottom-0 right-0 absolute"
+          data-testid="enlarge-button"
         >
-          <img src={enlargeIcon} alt={"Vergrößern"} />
+          <img
+            src={enlargeIcon}
+            alt={"Vergrößern"}
+            data-testid="enlarge-icon"
+          />
         </button>
       </div>
 
