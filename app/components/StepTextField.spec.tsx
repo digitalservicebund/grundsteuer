@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import StepTextField from "~/components/StepTextField";
 import userEvent from "@testing-library/user-event";
+import MaskedInput from "~/components/MaskedInput";
 
 describe("StepTextField component", () => {
   const defaultProps = {
@@ -28,6 +29,13 @@ describe("StepTextField component", () => {
       <StepTextField {...{ ...defaultProps, placeholder: "PLACEHOLDER" }} />
     );
     expect(screen.queryByPlaceholderText("PLACEHOLDER")).toBeInTheDocument();
+  });
+
+  it("should store the typed text as value", () => {
+    const inputValue = "TypingValue";
+    render(<StepTextField {...defaultProps} />);
+    userEvent.type(screen.getByRole("textbox"), inputValue);
+    expect(screen.getByRole("textbox")).toHaveValue(inputValue);
   });
 
   describe("With help set", () => {

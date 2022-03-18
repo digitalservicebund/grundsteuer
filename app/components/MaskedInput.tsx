@@ -1,16 +1,29 @@
 import { IMaskMixin } from "react-imask";
-import Input from "~/components/Input";
-import { StepTextFieldProps } from "~/components/StepTextField";
+import StepTextField, { StepTextFieldProps } from "~/components/StepTextField";
+import invariant from "tiny-invariant";
+import { ReactElement } from "react-imask/dist/mixin";
 
-const InputWithMixin = IMaskMixin(({ inputRef, ...props }) => (
-  <Input {...{ ...props, ref: inputRef }} />
-));
+const InputWithMixin = IMaskMixin<
+  IMask.AnyMaskedOptions,
+  false,
+  string,
+  ReactElement
+>(({ inputRef, ...props }) => {
+  const { name, value, defaultValue, ...rest } = props;
+  invariant(typeof name == "string");
+  invariant(typeof value == "string" || typeof value == "undefined");
+  invariant(
+    typeof defaultValue == "string" || typeof defaultValue == "undefined"
+  );
+  return (
+    <StepTextField {...{ ...rest, name, value, defaultValue, ref: inputRef }} />
+  );
+});
 
-type MaskedInputProps = StepTextFieldProps & {
+export type MaskedInputProps = StepTextFieldProps & {
   mask: string;
 };
 
 export default function MaskedInput(props: MaskedInputProps) {
-  const { mask, name } = props;
-  return <InputWithMixin {...{ ...props, id: name }} mask={mask} />;
+  return <InputWithMixin {...props} />;
 }
