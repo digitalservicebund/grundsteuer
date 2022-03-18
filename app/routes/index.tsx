@@ -8,6 +8,7 @@ import {
 } from "~/components";
 import bmfLogoImage from "~/assets/images/bmf-logo.png";
 import germanyMapImage from "~/assets/images/germany-map.svg";
+import HomepageSharing from "~/components/HomepageSharing";
 
 export default function Index() {
   const { t } = useTranslation("all");
@@ -114,13 +115,20 @@ export default function Index() {
           />
         </div>
 
-        <div className="mb-64 md:mb-32" id="faq">
+        <div className="mb-64" id="faq">
           <h3 className="text-32 leading-40 mb-16 md:mb-32">
             {t("homepage.faq.headline")}
           </h3>
           <div className="xl:pr-96">
             <FaqAccordion />
           </div>
+        </div>
+
+        <div className="mb-64 md:mb-32">
+          <h3 className="text-32 leading-40 mb-16 md:mb-32">
+            {t("homepage.sharing.headline")}
+          </h3>
+          <HomepageSharing />
         </div>
       </SimplePageLayout>
     </>
