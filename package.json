@@ -40,6 +40,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-i18next": "^11.16.1",
+    "react-images-viewer": "^1.7.1",
     "react-imask": "^6.4.2",
     "remix": "^1.2.3",
     "remix-i18next": "^3.0.0",
