@@ -2,6 +2,7 @@
 // @ts-ignore
 import ImgsViewer from "react-images-viewer";
 import { useState } from "react";
+import enlargeIcon from "~/assets/images/enlarge-icon.svg";
 
 type ImageLightboxProps = {
   thumbnail: string;
@@ -18,7 +19,19 @@ export const ImageLightbox = ({
   return (
     <>
       <button type="button" onClick={() => setHelpOpen(true)}>
-        <img src={thumbnail} alt={altText} className="w-full h-auto" />
+        <div className="relative">
+          <img
+            src={thumbnail}
+            alt={altText}
+            className="w-full h-auto relative"
+          />
+          <img
+            src={enlargeIcon}
+            alt={"Vergrößern"}
+            className="pr-32 pb-32 bottom-0 right-0 absolute"
+          />
+        </div>
+
         <ImgsViewer
           imgs={[{ src: image, caption: altText, alt: altText }]}
           isOpen={helpOpen}
