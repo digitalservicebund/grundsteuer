@@ -18,15 +18,19 @@ describe("ImageLightbox component", () => {
     StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
   });
 
-  it("should render thumbnail and enlarge icon", () => {
+  it("should render thumbnail for mobile + bigger and enlarge icon", () => {
     render(<ImageLightbox {...defaultProps} />);
-    expect(screen.getAllByRole("img")).toHaveLength(2);
+    expect(screen.getAllByRole("img")).toHaveLength(3);
     expect(screen.getAllByRole("img")[0]).toHaveAttribute(
       "src",
       defaultProps.thumbnail
     );
     expect(screen.getAllByRole("img")[1]).toEqual(
       screen.getByTestId("enlarge-icon")
+    );
+    expect(screen.getAllByRole("img")[2]).toHaveAttribute(
+      "src",
+      defaultProps.thumbnail
     );
   });
 
@@ -41,7 +45,7 @@ describe("ImageLightbox component", () => {
   it("should open lightbox on click", () => {
     render(<ImageLightbox {...defaultProps} />);
     screen.getByTestId("enlarge-button").click();
-    expect(screen.getAllByRole("img")).toHaveLength(3);
+    expect(screen.getAllByRole("img")).toHaveLength(4);
     expect(screen.getAllByRole("img")[0]).toHaveAttribute(
       "src",
       defaultProps.thumbnail
@@ -50,6 +54,10 @@ describe("ImageLightbox component", () => {
       screen.getByTestId("enlarge-icon")
     );
     expect(screen.getAllByRole("img")[2]).toHaveAttribute(
+      "src",
+      defaultProps.thumbnail
+    );
+    expect(screen.getAllByRole("img")[3]).toHaveAttribute(
       "src",
       defaultProps.image
     );
