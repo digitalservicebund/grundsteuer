@@ -234,7 +234,7 @@ export function Step() {
 
   return (
     <div className="flex flex-col md:flex-row flex-grow h-full">
-      <div className="pt-32 max-w-screen-md mx-auto">
+      <div className="pt-32 max-w-screen-md mx-auto w-1/2">
         <h1 className="mb-8 font-bold text-4xl">{i18n.headline}</h1>
         {actionData?.errors
           ? "ERRORS: " + JSON.stringify(actionData.errors)
