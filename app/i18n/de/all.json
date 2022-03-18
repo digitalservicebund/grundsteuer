@@ -179,7 +179,7 @@
       "fields": {
         "kernsanierungsjahr": {
           "label": "Jahr der Kernsanierung",
-          "placeholder": "YYYY"
+          "placeholder": "JJJJ"
         }
       }
     },
@@ -203,7 +203,7 @@
       "fields": {
         "abbruchverpflichtungsjahr": {
           "label": "Jahr der Abbruchverpflichtung",
-          "placeholder": "YYYY"
+          "placeholder": "JJJJ"
         }
       }
     },
