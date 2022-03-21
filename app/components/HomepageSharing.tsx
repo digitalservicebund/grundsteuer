@@ -2,7 +2,7 @@ import womanImage from "~/assets/images/woman.svg";
 import CopyToClipboard from "./CopyToClipboard";
 
 export default function HomepageSharing() {
-  const contentToCopy = "https://www.grundsteuerfuerprivateigentum.de";
+  const contentToCopy = "www.grundsteuererklärung-für-privateigentum.de";
   const contentToDisplay = contentToCopy.replace("https://", "");
 
   return (

@@ -50,9 +50,8 @@ export default function FaqAccordion() {
             <li>
               Eigentum einer juristischen Person (Firma oder Unternehmen);
             </li>
-            <li>Grundstücke mit Gebäuden mit mehr als 2 Wohnungen;</li>
+            <li>Grundstücke mit Gebäuden mit mehr als zwei Wohnungen;</li>
             <li>Betriebe der Land- und Forstwirtschaft;</li>
-            <li>Grundstücke mit 2 und mehr Bodenrichtwerten;</li>
             <li>Erbengemeinschaften;</li>
             <li>
               steuerbefreites oder -begünstigtes Eigentum (z.B. Denkmalschutz);
@@ -84,7 +83,7 @@ export default function FaqAccordion() {
           <p className="mb-24">
             „Grundsteuererklärung für Privateigentum“ ist für Menschen nutzbar,
             die in Bundesländern wohnen, die sich für das sogenannte
-            „Bundesmodell“ entschieden haben. Das sind folgende Bundesländer:
+            „Bundesmodell“ entschieden haben. Das sind folgende 11 Bundesländer:
             Berlin, Brandenburg, Bremen, Mecklenburg-Vorpommern,
             Nordrhein-Westfalen, Rheinland-Pfalz, Saarland, Sachsen,
             Sachsen-Anhalt, Schleswig-Holstein, Thüringen.
@@ -93,7 +92,7 @@ export default function FaqAccordion() {
           <p>
             Für Eigentümer:innen aus Baden-Württemberg, Bayern, Bremen, Hamburg,
             Niedersachsen ist „Grundsteuererklärung für Privateigentum“ leider{" "}
-            <strong>nicht</strong> geeignet. Sie müssen ELSTER nutzen.
+            <strong>nicht</strong> geeignet. Für diese Länder gibt es ELSTER.
           </p>
         </>
       ),
@@ -224,7 +223,7 @@ export default function FaqAccordion() {
               notwendig.
             </li>
             <li>
-              Folgende Unterlagen sind nicht zwingend notwendig, können aber das
+              Folgende Unterlagen sind nicht äußerst hilfreich, können aber das
               Ausfüllen erleichtern: der <strong>Einheitswertbescheid</strong>,
               der <strong>Kaufvertrag</strong>, die{" "}
               <strong>Bauunterlagen</strong>.

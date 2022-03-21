@@ -9,7 +9,7 @@
   "homepage": {
     "banner": "Willkommen! Alle Funktionen werden Anfang Juli 2022 freigeschaltet.",
     "buttonCheck": "Kann ich teilnehmen?",
-    "buttonStart": "Feststellungserklärung abgeben",
+    "buttonStart": "Grundsteuererklärung abgeben",
     "bmfLogoTopline": "Im Auftrag des",
     "bmfLogoAlt": "Bundesministerium der Finanzen",
     "kicker": "Grundsteuerreform",
@@ -17,16 +17,16 @@
     "tagline": "Schnell. Unkompliziert. Kostenlos.",
     "features": {
       "1": {
-        "headline": "Wann kann ich die Feststellungserklärung abgeben?",
+        "headline": "Wann kann ich die Grundsteuererklärung abgeben?",
         "text": "Ab <bold>Anfang Juli 2022</bold> können Sie mit unserem Online-Service „Grundsteuererklärung für Privateigentum“ Ihre Erklärung digital abgeben."
       },
       "2": {
         "headline": "Wie kann ich mich vorbereiten?",
-        "text1": "Für die Grundsteuererklärung ist der <bold>Grundbuchauszug</bold> als Ausfüllhilfe zwingend notwendig. Halten Sie diesen bereit oder beantragen Sie eine neue Kopie in Ihrem Grundbuchamt.",
-        "text2": "Weitere Unterlagen wie der Einheitswertbescheid, der Kaufvertrag und Bauunterlagen können das Ausfüllen erleichtern. "
+        "text1": "Für die Grundsteuererklärung ist der <bold>Grundbuchauszug</bold> als Ausfüllhilfe äußerst hilfreich. Halten Sie diesen bereit oder beantragen Sie eine neue Kopie in Ihrem Grundbuchamt.",
+        "text2": "Weitere Unterlagen wie das Informationsschreiben Ihrer Landesfinanzverwaltung, der Einheitswertbescheid, der Kaufvertrag oder die Bauunterlagen können das Ausfüllen erleichtern."
       },
       "3": {
-        "headline": "Wer kann die Feststellungserklärung abgeben?",
+        "headline": "Wer kann die Grundsteuererklärung abgeben?",
         "text1": "„Grundsteuererklärung für Privateigentum“ ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben:",
         "listItem1": "Ein- oder Zweifamilienhaus",
         "listItem2": "Eigentumswohnung",
@@ -37,11 +37,11 @@
     "about": {
       "headline": "Worum geht es?",
       "text1": "„Grundsteuererklärung für Privateigentum“ – ein Online-Service im Auftrag des Bundesfinanzministerium – ist auf Standardfälle von Privatbesitzer:innen zugeschnitten und dadurch deutlich vereinfacht im Vergleich zu ELSTER. Das Ziel ist die Abgabe der Grundsteuererklärung für Eigentümer:innen so stressfrei wie möglich zu machen.",
-      "text2": "Mit unserem Service können private Eigentümer:innen von Ein- und Zweifamilienhäusern, Eigentumswohnungen und unbebauten Grundstücken ihre Grundsteuererklärung einfach und kostenlos online abgeben! Wir decken 11 Bundesländer ab."
+      "text2": "Mit unserem Service können private Eigentümer:innen von Ein- und Zweifamilienhäusern, Eigentumswohnungen und unbebauten Grundstücken ihre Grundsteuererklärung einfach und kostenlos online abgeben!"
     },
     "states": {
       "headline": "Teilnehmende Bundesländer",
-      "text": "„Grundsteuererklärung für Privateigentum“ ist für Bundesländer entwickelt, die am Bundesmodell teilnehmen. Das sind folgende Bundesländer:",
+      "text": "„Grundsteuererklärung für Privateigentum“ ist für Bundesländer entwickelt, die am Bundesmodell teilnehmen. Das sind folgende 11 Bundesländer:",
       "mapAlt": "Landkarte Deutschlands, in der die teilnehmenden Bundesländer hervorgehoben sind."
     },
     "faq": {
