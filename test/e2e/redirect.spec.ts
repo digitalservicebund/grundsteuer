@@ -28,6 +28,11 @@ describe("Redirect to initial step when accessing super state url", () => {
   });
 
   it("should redirect to ab1949 on call to gebaeude", () => {
+    // Match precondition
+    cy.visit("/formular/grundstueck/typ");
+    cy.get(`label[for=typ-einfamilienhaus]`).click();
+    cy.get("#nextButton").click();
+
     cy.visit("/formular/gebaeude");
     cy.url().should("include", "/formular/gebaeude/ab1949");
   });
