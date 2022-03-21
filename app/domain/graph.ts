@@ -6,6 +6,17 @@ import { conditions } from "~/domain/guards";
 import { actions } from "~/domain/actions";
 import { getMachineConfig, StateMachineContext } from "~/domain/states";
 import { getPathsFromState } from "~/util/getPathsFromState";
+import { GrundModel } from "~/domain/steps";
+
+type GraphChildElement = {
+  path: string;
+  pathWithId: string;
+  data: Partial<GrundModel>;
+};
+
+type Graph = {
+  [index: string]: Graph | GraphChildElement | Graph[];
+};
 
 /*
  * create a graph representation "hash"/"object" of the current state
@@ -15,7 +26,7 @@ export const createGraph = ({
   machineContext,
 }: {
   machineContext: StateMachineContext;
-}) => {
+}): Graph => {
   const machine = createMachine(getMachineConfig(machineContext), {
     guards: conditions,
     actions: actions,
@@ -32,4 +43,22 @@ export const createGraph = ({
   return list.reduce((acc, item) => {
     return _.set(acc, item.pathWithId, item);
   }, {});
+};
+
+export const getReachablePaths = ({
+  graph,
+  initialPaths,
+}: {
+  graph: Graph;
+  initialPaths: Array<string>;
+}): Array<string> => {
+  let paths = initialPaths;
+  Object.values(graph).forEach((v) => {
+    if ((v as GraphChildElement).pathWithId) {
+      paths.push((v as GraphChildElement).pathWithId);
+    } else {
+      paths = getReachablePaths({ graph: v as Graph, initialPaths: paths });
+    }
+  });
+  return paths;
 };

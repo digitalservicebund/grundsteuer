@@ -3,7 +3,6 @@ import {
   Form,
   LoaderFunction,
   redirect,
-  Link,
   useActionData,
   useLoaderData,
 } from "remix";
@@ -25,10 +24,9 @@ import { getStepDefinition, GrundModel } from "~/domain/steps";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 import { State } from "xstate/lib/State";
 import { StateSchema, Typestate } from "xstate/lib/types";
-import Details from "~/components/Details";
-import QuestionMark from "~/components/icons/mui/QuestionMark";
 import React from "react";
 import { StepHeadline } from "~/components/StepHeadline";
+import { createGraph, getReachablePaths } from "~/domain";
 
 const getCurrentStateWithoutId = (currentState: string) => {
   return currentState.replace(/\.\d+\./g, ".");
@@ -149,11 +147,25 @@ export const loader: LoaderFunction = async ({
 
   const machine = getMachine({ cookie, params });
   const stateNodeType = machine.getStateNodeByPath(currentStateWithoutId).type;
+  // redirect to first fitting child node
   if (stateNodeType == "compound") {
     const inititalState = machine.transition(currentStateWithoutId, "FAKE");
     const redirectUrl = getRedirectUrl(inititalState);
     const responseHeader: Headers = await createResponseHeaders(cookie);
     return redirect(redirectUrl, {
+      headers: responseHeader,
+    });
+  }
+  // redirect in case the step is not enabled
+  const graph = createGraph({
+    machineContext: cookie.records,
+  });
+  console.log(graph);
+  const reachablePaths = getReachablePaths({ graph, initialPaths: [] });
+  console.log(reachablePaths);
+  if (!reachablePaths.includes(currentState)) {
+    const responseHeader: Headers = await createResponseHeaders(cookie);
+    return redirect("/formular/grundstueck", {
       headers: responseHeader,
     });
   }
