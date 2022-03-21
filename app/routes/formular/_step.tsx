@@ -118,7 +118,7 @@ export type I18nObjectField = {
 
 export type I18nObject = {
   headline: string;
-  headlineHelp: string;
+  headlineHelp?: string;
   fields: {
     [index: string]: I18nObjectField;
   };
