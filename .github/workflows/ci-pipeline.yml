@@ -90,28 +90,22 @@ jobs:
     needs: [build-push-image]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    env:
-      DEPLOYMENT_NAME: web
-      KUBECONFIG_PATH: /tmp/kubeconfig
-      NAMESPACE: ${{ secrets.NAMESPACE_STAGING }}
     steps:
-      - name: Install kubectl
-        run: |
-          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-          curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-          echo "$(<kubectl.sha256) kubectl" | sha256sum --check
-          chmod +x kubectl
-          mkdir -p ~/.local/bin/kubectl
-          mv ./kubectl ~/.local/bin/kubectl
-          export PATH="~/.local/bin/kubectl:$PATH"
+      - name: Check out infra repo
+        uses: actions/checkout@v3
+        with:
+          repository: digitalservice4germany/grundsteuer-infra
+          token: ${{ secrets.DEPLOY_PAT }}
 
-      - name: Set kubeconfig
-        env:
-          KUBECONFIG_B64: ${{ secrets.CI_KUBECONFIG_B64 }}
+      - name: Update image tag for staging
         run: |
-          echo $KUBECONFIG_B64 | base64 --decode > $KUBECONFIG_PATH
+          cd manifests/overlays/staging
+          kustomize edit set image ghcr.io/digitalservice4germany/grundsteuer=${{ github.sha }}
 
-      - name: Restart deployment
-        run: |
-          kubectl rollout restart deployment/$DEPLOYMENT_NAME --namespace $NAMESPACE --kubeconfig $KUBECONFIG_PATH
-          kubectl rollout status deployment/$DEPLOYMENT_NAME --namespace $NAMESPACE --kubeconfig $KUBECONFIG_PATH
+      - name: Commit and push
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: "manifests/overlays/staging/kustomization.yaml"
+          message: "Update staging image to ${{ github.sha }}"
+          pathspec_error_handling: exitImmediately
+          push: true
