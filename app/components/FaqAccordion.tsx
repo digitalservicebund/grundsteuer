@@ -219,14 +219,13 @@ export default function FaqAccordion() {
               Suchen Sie in Ihren Unterlagen Ihren{" "}
               <strong>Grundbuchauszug</strong> heraus. Falls sie ihn nicht
               haben, beantragen Sie ihn in Ihrem Grundbuchamt. Der
-              Grundbuchauszug ist für die Grundsteuererklärung zwingend
-              notwendig.
+              Grundbuchauszug ist für die Grundsteuererklärung äußerst
+              hilfreich.
             </li>
             <li>
-              Folgende Unterlagen sind nicht äußerst hilfreich, können aber das
-              Ausfüllen erleichtern: der <strong>Einheitswertbescheid</strong>,
-              der <strong>Kaufvertrag</strong>, die{" "}
-              <strong>Bauunterlagen</strong>.
+              Folgende Unterlagen können das Ausfüllen erleichtern: der{" "}
+              <strong>Einheitswertbescheid</strong>, der{" "}
+              <strong>Kaufvertrag</strong>, die <strong>Bauunterlagen</strong>.
             </li>
           </ul>
         </>
