@@ -14,7 +14,7 @@ type GraphChildElement = {
   data: Partial<GrundModel>;
 };
 
-type Graph = {
+export type Graph = {
   [index: string]: Graph | GraphChildElement | Graph[];
 };
 
