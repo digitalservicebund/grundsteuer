@@ -1,0 +1,35 @@
+name: Production Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      imageTag:
+        description: "Image tag to deploy"
+        required: true
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out infra repo
+        uses: actions/checkout@v3
+        with:
+          repository: digitalservice4germany/grundsteuer-infra
+          token: ${{ secrets.DEPLOY_PAT }}
+
+      - name: Update image tag for production
+        run: |
+          cd manifests/overlays/production
+          kustomize edit set image ghcr.io/digitalservice4germany/grundsteuer=${{ github.sha }}
+
+      - name: Commit and push
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: "manifests/overlays/production/kustomization.yaml"
+          message: "Update production image to ${{ github.sha }}"
+          pathspec_error_handling: exitImmediately
+          push: true
