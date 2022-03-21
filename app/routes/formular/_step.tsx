@@ -25,6 +25,10 @@ import { getStepDefinition, GrundModel } from "~/domain/steps";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 import { State } from "xstate/lib/State";
 import { StateSchema, Typestate } from "xstate/lib/types";
+import Details from "~/components/Details";
+import QuestionMark from "~/components/icons/mui/QuestionMark";
+import React from "react";
+import { StepHeadline } from "~/components/StepHeadline";
 
 const getCurrentStateWithoutId = (currentState: string) => {
   return currentState.replace(/\.\d+\./g, ".");
@@ -114,6 +118,7 @@ export type I18nObjectField = {
 
 export type I18nObject = {
   headline: string;
+  headlineHelp: string;
   fields: {
     [index: string]: I18nObjectField;
   };
@@ -235,7 +240,7 @@ export function Step() {
   return (
     <div className="flex flex-col md:flex-row flex-grow h-full">
       <div className="pt-32 max-w-screen-md mx-auto w-1/2">
-        <h1 className="mb-8 font-bold text-4xl">{i18n.headline}</h1>
+        <StepHeadline i18n={i18n} />
         {actionData?.errors
           ? "ERRORS: " + JSON.stringify(actionData.errors)
           : ""}

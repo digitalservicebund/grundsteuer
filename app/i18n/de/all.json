@@ -377,6 +377,7 @@
       },
       "gesetzlicherVertreter": {
         "headline": "Gesetzlicher Vertreter Person {{id}}",
+        "headlineHelp": "Gesetzliche Vertretung bedeutet....",
         "fields": {
           "hasVertreter": {
             "label": "Möchten Sie einen gesetzlichen Vertreter angeben?",
