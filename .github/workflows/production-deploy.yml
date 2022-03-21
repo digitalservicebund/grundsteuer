@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       imageTag:
-        description: "Image tag to deploy"
+        description: "Image tag to deploy (see https://github.com/digitalservice4germany/grundsteuer/pkgs/container/grundsteuer/versions)"
         required: true
 
 env:
