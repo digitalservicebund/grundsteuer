@@ -38,4 +38,16 @@ describe("Redirect to initial step when accessing super state url", () => {
   });
 });
 
+describe("Redirect to formular start step when accessing non-reachable page", () => {
+  it("should redirect to formular start on call to gebaeude", () => {
+    cy.visit("/formular/gebaeude");
+    cy.url().should("include", "/formular/grundstueck/adresse");
+  });
+
+  it("should redirect to formular start on call to second flurstueck", () => {
+    cy.visit("/formular/grundstueck/flurstueck/2/angaben");
+    cy.url().should("include", "/formular/grundstueck/adresse");
+  });
+});
+
 export {};
