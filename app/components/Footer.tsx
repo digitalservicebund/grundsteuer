@@ -40,7 +40,7 @@ export default function Footer() {
               <li className="mb-8 md:mb-0 mr-14 md:mr-32 inline-block">
                 <Link
                   to="/impressum"
-                  className="text-blue-800 uppercase text-14 leading-18 font-bold underline"
+                  className="text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
                 >
                   {t("footer.imprint")}
                 </Link>
@@ -48,7 +48,7 @@ export default function Footer() {
               <li className="mb-8 md:mb-0 inline-block">
                 <Link
                   to="/datenschutz"
-                  className="text-blue-800 uppercase text-14 leading-18 font-bold underline"
+                  className="text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
                 >
                   {t("footer.dataProtection")}
                 </Link>
