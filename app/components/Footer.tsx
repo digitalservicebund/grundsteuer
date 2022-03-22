@@ -40,21 +40,18 @@ export default function Footer() {
               <li className="mb-8 md:mb-0 mr-14 md:mr-32 inline-block">
                 <Link
                   to="/impressum"
-                  className="text-blue-800 text-14 leading-18 font-bold underline"
+                  className="text-blue-800 uppercase text-14 leading-18 font-bold underline"
                 >
                   {t("footer.imprint")}
                 </Link>
               </li>
-              <li className="mb-8 md:mb-0 mr-14 md:mr-32 inline-block">
+              <li className="mb-8 md:mb-0 inline-block">
                 <Link
                   to="/datenschutz"
-                  className="text-blue-800 text-14 leading-18 font-bold underline"
+                  className="text-blue-800 uppercase text-14 leading-18 font-bold underline"
                 >
                   {t("footer.dataProtection")}
                 </Link>
-              </li>
-              <li className="inline-block text-14 leading-18 font-bold">
-                {t("footer.copyright")}
               </li>
             </ul>
           </div>
