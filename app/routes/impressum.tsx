@@ -53,8 +53,8 @@ export default function Imprint() {
         <h3>Kontakt</h3>
         <p>
           E-Mail:{" "}
-          <a href="mailto:kontakt@steuerlotse-rente.de">
-            kontakt@steuerlotse-rente.de
+          <a href="mailto:kontakt@grundsteuererklärung-für-privateigentum.de">
+            kontakt@grundsteuererklärung-für-privateigentum.de
           </a>
         </p>
         <h3>Informationspflichten gemäß Art. 14 ODR-VO, § 36 VSBG</h3>

@@ -225,7 +225,12 @@ export default function FaqAccordion() {
             <li>
               Folgende Unterlagen können das Ausfüllen erleichtern: der{" "}
               <strong>Einheitswertbescheid</strong>, der{" "}
-              <strong>Kaufvertrag</strong>, die <strong>Bauunterlagen</strong>.
+              <strong>Kaufvertrag</strong>, die <strong>Bauunterlagen</strong>,
+              das{" "}
+              <strong>
+                Informationsschreiben Ihrer Landesfinanzverwaltung
+              </strong>
+              .
             </li>
           </ul>
         </>
