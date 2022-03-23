@@ -4,6 +4,7 @@ export { default as FaqAccordion } from "./FaqAccordion";
 export { default as Footer } from "./Footer";
 export { default as HomepageFeatures } from "./HomepageFeatures";
 export { default as HomepageSharing } from "./HomepageSharing";
+export { default as Input } from "./Input";
 export { default as SidebarNavigation } from "./SidebarNavigation";
 export { default as SimplePageLayout } from "./SimplePageLayout";
 export { default as StepFormField } from "./StepFormField";
