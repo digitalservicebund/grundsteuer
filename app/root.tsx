@@ -8,6 +8,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "remix";
 import { i18Next } from "~/i18n.server";
 import { useSetupTranslations } from "remix-i18next";
@@ -40,10 +41,12 @@ export const meta: MetaFunction = () => {
 export const loader: LoaderFunction = async ({ request }) => {
   return {
     i18n: await i18Next.getTranslations(request, ["all"]),
+    env: process.env.APP_ENV,
   };
 };
 
 export default function App() {
+  const { env } = useLoaderData();
   useSetupTranslations("de");
 
   return (
@@ -54,8 +57,18 @@ export default function App() {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
+        {env !== "local" && env !== "staging" && (
+          <script
+            defer
+            data-domain="grundsteuererklaerung-fuer-privateigentum.de"
+            src="https://plausible.io/js/plausible.js"
+          ></script>
+        )}
       </head>
-      <body className="flex flex-col min-h-screen bg-gray-100 text-black leading-default">
+      <body
+        data-env={env}
+        className="flex flex-col min-h-screen bg-gray-100 text-black leading-default"
+      >
         <Outlet />
         <ScrollRestoration />
         <Scripts />
