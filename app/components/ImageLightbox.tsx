@@ -48,6 +48,7 @@ export const ImageLightbox = ({
         onClose={() => {
           setHelpOpen(false);
         }}
+        backdropCloseable={true}
         showImgCount={false}
         showThumbnails={false}
         theme={{
