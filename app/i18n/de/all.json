@@ -484,7 +484,10 @@
         "nameParagraph1": "Wenn Sie den Namen Ihrer Bruchteilsgemeinschaft nicht kennen, hat sie wahrscheinlich noch keinen. In diesem Fall setzen wir den Namen für Sie nach folgendem Schema zusammen:",
         "nameParagraph2": "<italic>Bruchteilsgemeinschaft” + [Adresse des Grundstücks]</italic>",
         "addressHeadline": "Welche Adresse wird für die Bruchteilsgemeinschaft eingetragen?",
-        "addressParagraph1": "Normalerweise wird hier die Adresse von Eigentümer:in 1 eingetragen. Wenn Sie aber z. B. ein Büro haben, in dem Sie die Bruchteilsgemeinschaft verwalten, können Sie auch diese Büroadresse angeben."
+        "addressParagraph1": "Normalerweise wird hier die Adresse von Eigentümer:in 1 eingetragen. Wenn Sie aber z. B. ein Büro haben, in dem Sie die Bruchteilsgemeinschaft verwalten, können Sie auch diese Büroadresse angeben.",
+        "noNameDisclaimer": "Sie haben die Adresse des Grundstücks noch nicht angegeben. Bitte vervollständigen Sie die Angaben, bevor Sie weitermachen.",
+        "noAddressDisclaimer": "Sie haben die Adressdaten von Eigentümer:in 1 noch nicht angegeben. Bitte vervollständigen Sie die Angaben, bevor Sie weitermachen.",
+        "noNameAndAddressDisclaimer": "Sie haben die Adresse des Grundstücks und die Adressdaten von Eigentümer:in 1 noch nicht angegeben. Bitte vervollständigen Sie die Angaben, bevor Sie weitermachen."
       }
     },
     "empfangsvollmacht": {
