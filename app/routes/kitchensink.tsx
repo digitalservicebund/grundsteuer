@@ -18,9 +18,17 @@ export default function KitchenSink() {
           to="/kitchensink/buttons"
           look="tertiary"
           size="small"
-          className="my-16"
+          className="mr-16"
         >
           Buttons
+        </Button>
+        <Button
+          to="/kitchensink/form"
+          look="tertiary"
+          size="small"
+          className="mr-16 my-16"
+        >
+          Form
         </Button>
       </ContentContainer>
       <hr className="border-b border-b-gray-800 mb-32" />

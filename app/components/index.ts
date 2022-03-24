@@ -2,6 +2,7 @@ export { default as Button } from "./Button";
 export { default as ContentContainer } from "./ContentContainer";
 export { default as FaqAccordion } from "./FaqAccordion";
 export { default as Footer } from "./Footer";
+export { default as FormGroup } from "./FormGroup";
 export { default as HomepageFeatures } from "./HomepageFeatures";
 export { default as HomepageSharing } from "./HomepageSharing";
 export { default as Input } from "./Input";

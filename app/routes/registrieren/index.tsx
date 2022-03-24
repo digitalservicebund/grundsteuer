@@ -1,51 +1,58 @@
-import {
-  ActionFunction,
-  Form,
-  LoaderFunction,
-  redirect,
-  useActionData,
-  useLoaderData,
-} from "remix";
+import { ActionFunction, Form, redirect, useActionData } from "remix";
+import { useTranslation } from "react-i18next";
 import invariant from "tiny-invariant";
-import { Button, Input } from "~/components";
-import { validateEmail } from "~/domain/validation";
+import {
+  validateEmail,
+  validateRequired,
+  validateMinLength,
+  validateMaxLength,
+} from "~/domain/validation";
 import { createUser, userExists } from "~/domain/user";
-
-export const loader: LoaderFunction = () => {
-  return {
-    fromLoader: true,
-  };
-};
+import { Button, FormGroup, Input, SimplePageLayout } from "~/components";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
 
   const email = formData.get("email");
+  const emailRepeated = formData.get("emailRepeated");
   const password = formData.get("password");
+  const passwordRepeated = formData.get("passwordRepeated");
+
   invariant(
     typeof email === "string",
     "expected formData to include email field of type string"
   );
   invariant(
+    typeof emailRepeated === "string",
+    "expected formData to include emailRepeated field of type string"
+  );
+  invariant(
     typeof password === "string",
     "expected formData to include password field of type string"
   );
+  invariant(
+    typeof passwordRepeated === "string",
+    "expected formData to include passwordRepeated field of type string"
+  );
 
   const errors = {
-    // valid email
     email:
-      validateEmail(email, {
-        msg: "E-Mail hat kein gültiges Format.",
-      }) ||
-      ((await userExists(email)) && "E-Mail existiert schon."),
-    emailRepeated: false,
-    password: false,
-    passwordRepeated: false,
+      (!validateRequired(email) && "errors.required") ||
+      (!validateEmail(email) && "errors.email.wrongFormat") ||
+      (!(await userExists(email)) && "errors.email.alreadyExists"),
+
+    emailRepeated:
+      email.trim().toLowerCase() !== emailRepeated.trim().toLowerCase() &&
+      "errors.email.notMatching",
+
+    password:
+      (!validateRequired(email) && "errors.required") ||
+      (!validateMinLength(password, 8) && "errors.password.tooShort") ||
+      (!validateMaxLength(password, 64) && "errors.password.tooLong"),
+
+    passwordRepeated:
+      password !== passwordRepeated && "errors.password.notMatching",
   };
-  // valid password
-  // repeated-password matchs
-  // repeated-email matches
-  // email does not exist
 
   const errorsExist =
     errors.email ||
@@ -53,40 +60,70 @@ export const action: ActionFunction = async ({ request }) => {
     errors.password ||
     errors.passwordRepeated;
 
-  console.log({ errorsExist });
-
   if (!errorsExist) {
     await createUser(email, password);
-
     return redirect("/registrieren/erfolgreich");
   }
 
+  const filteredErrors = Object.entries(errors).reduce((acc, [k, v]) => {
+    return v ? { ...acc, [k]: v } : acc;
+  }, {});
+
   return {
-    fromAction: true,
-    formData,
-    errors,
+    errors: filteredErrors,
   };
 };
 
 export default function Registrieren() {
-  const loaderData = useLoaderData();
+  const { t } = useTranslation("all");
   const actionData = useActionData();
+  const errors = actionData?.errors;
+
   return (
-    <div>
-      Registrieren
-      {JSON.stringify({ loaderData })}
-      {JSON.stringify({ actionData })}
-      <Form method="post">
-        <label htmlFor="email">E-Mail-Adresse</label>
-        <Input type="email" name="email" />
-        <label htmlFor="password">Passwort</label>
-        <Input type="password" name="password" />
-        <label htmlFor="email-repeated">E-Mail-Adresse wiederholen</label>
-        <Input type="email" name="email-repeated" />
-        <label htmlFor="password-repeated">Passwort wiederholen</label>
-        <Input type="password" name="password-repeated" />
+    <SimplePageLayout>
+      <h1 className="text-32 leading-40 mb-64">
+        Erstellen Sie jetzt ein Konto für Ihre Grundsteuererklärung
+      </h1>
+
+      <Form method="post" noValidate>
+        <FormGroup>
+          <Input
+            type="email"
+            name="email"
+            labelText="E-Mail-Adresse"
+            errorMessage={t(errors?.email)}
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <Input
+            type="password"
+            name="password"
+            labelText="Passwort"
+            errorMessage={t(errors?.password)}
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <Input
+            type="email"
+            name="emailRepeated"
+            labelText="E-Mail-Adresse wiederholen"
+            errorMessage={t(errors?.emailRepeated)}
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <Input
+            type="password"
+            name="passwordRepeated"
+            labelText="Passwort wiederholen"
+            errorMessage={t(errors?.passwordRepeated)}
+          />
+        </FormGroup>
+
         <Button>Konto anlegen</Button>
       </Form>
-    </div>
+    </SimplePageLayout>
   );
 }
