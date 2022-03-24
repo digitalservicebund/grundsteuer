@@ -105,6 +105,9 @@
   .accordion-header[data-state="open"] {
     @apply bg-blue-200;
   }
+  .accordion-header > button:focus:not(:focus-visible) {
+    @apply outline-none;
+  }
 
   /* button */
   .button:focus:not(:focus-visible) {

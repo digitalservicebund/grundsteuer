@@ -243,16 +243,16 @@ export default function FaqAccordion() {
       <Accordion.Root
         type="single"
         collapsible
-        className="bg-white border-b-2 border-b-gray-900"
+        className="bg-white border-b-2 border-b-blue-800"
       >
         {items.map((item, index) => (
           <Accordion.Item
             value={`faq-${index + 1}`}
             key={index}
-            className="border-t-2 border-t-gray-900"
+            className="border-t-2 border-t-blue-800"
           >
             <Accordion.Header className="accordion-header">
-              <Accordion.Trigger className="w-full p-24 flex items-center justify-between hover:bg-blue-200 focus:bg-blue-200 focus:outline focus:outline-4 focus:outline-blue-800">
+              <Accordion.Trigger className="w-full p-24 flex items-center justify-between hover:bg-blue-200 focus:bg-blue-200 focus:outline focus:outline-4 focus:outline-blue-800 focus-visible:outline focus-visible:outline-4 focus-visible:outline-blue-800">
                 <div className="pr-10 font-bold text-blue-800 text-left text-16 leading-22 md:text-18 md:leading-24">
                   {item.header}
                 </div>
