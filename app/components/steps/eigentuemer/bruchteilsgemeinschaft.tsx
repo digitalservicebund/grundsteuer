@@ -1,6 +1,5 @@
 import { StepComponentFunction } from "~/routes/formular/_step";
 import { StepFormFields } from "~/components";
-import invariant from "tiny-invariant";
 import { Trans } from "react-i18next";
 
 const constructBruchteilsgemeinschaftName = (
@@ -39,7 +38,12 @@ const Bruchteilsgemeinschaft: StepComponentFunction = ({
           <p>
             <Trans
               components={{
-                grundstueckAdresseLink: <a href="#" className="underline" />,
+                grundstueckAdresseLink: (
+                  <a
+                    href="/formular/grundstueck/adresse"
+                    className="underline"
+                  />
+                ),
               }}
             >
               {i18n.specifics.nameMissing}
@@ -63,7 +67,12 @@ const Bruchteilsgemeinschaft: StepComponentFunction = ({
           <p>
             <Trans
               components={{
-                eigentuemerAdresseLink: <a href="#" className="underline" />,
+                eigentuemerAdresseLink: (
+                  <a
+                    href="/formular/eigentuemer/person/1/adresse"
+                    className="underline"
+                  />
+                ),
               }}
             >
               {i18n.specifics.adresseMissing}
