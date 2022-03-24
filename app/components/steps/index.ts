@@ -11,7 +11,9 @@ import GrundstueckFlurstueckAngaben, {
 import GrundstueckFlurstueckFlur from "~/components/steps/grundstueck/flurstueck/flur";
 import { SteuernummerHelp } from "~/components/steps/grundstueck/steuernummer";
 import { AbweichendeEntwicklungHelp } from "~/components/steps/grundstueck/abweichendeEntwicklung";
-import Bruchteilsgemeinschaft from "~/components/steps/eigentuemer/bruchteilsgemeinschaft";
+import Bruchteilsgemeinschaft, {
+  BruchteilsgemeinschaftHelp,
+} from "~/components/steps/eigentuemer/bruchteilsgemeinschaft";
 
 export { Default as FallbackStepComponent };
 
@@ -44,5 +46,8 @@ export const helpComponents = {
     flurstueck: {
       angaben: GrundstueckFlurstueckAngabenHelp,
     },
+  },
+  eigentuemer: {
+    bruchteilsgemeinschaft: BruchteilsgemeinschaftHelp,
   },
 };

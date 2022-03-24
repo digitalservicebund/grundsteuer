@@ -473,6 +473,18 @@
         "nameMissing": "Bitte geben Sie die Adresse des Grundstücks an. Gehe zu -> Link zu <grundstueckAdresseLink>Grundstück Adresse</grundstueckAdresseLink>",
         "adresseHeading": "Adresse der Bruchteilsgemeinschaft",
         "adresseMissing": "Bitte füllen Sie die Adresse von Eigentümer:in 1 aus. Gehe zu -> Link zu <eigentuemerAdresseLink>Eigentümer:in 1</eigentuemerAdresseLink>"
+      },
+      "help": {
+        "whatHeadline": "Was ist eine Bruchteilsgemeinschaft?",
+        "whatParagraph1": "Als <bold>Bruchteilsgemeinschaft</bold> werden rechtlich folgende Personengruppen bezeichnet: ",
+        "whatListItem1": "<bold>Zwei nicht verheiratete Personen</bold> oder",
+        "whatListItem2": "<bold>Mehr als zwei Personen, die zusammen eine Immobilie besitzen</bold>",
+        "whatParagraph2": "Beispiel: Wenn ein unverheiratetes Paar eine Eigentumswohnung besitzt, sind sie eine <bold>Bruchteilsgemeinschaft</bold>. Jeder und jede Miteigentümer:in verfügt dabei über einen Anteil am Grundstück.",
+        "nameHeadline": "Wie lautet der Name meiner Bruchteilsgemeinschaft?",
+        "nameParagraph1": "Wenn Sie den Namen Ihrer Bruchteilsgemeinschaft nicht kennen, hat sie wahrscheinlich noch keinen. In diesem Fall setzen wir den Namen für Sie nach folgendem Schema zusammen:",
+        "nameParagraph2": "<italic>Bruchteilsgemeinschaft” + [Adresse des Grundstücks]</italic>",
+        "addressHeadline": "Welche Adresse wird für die Bruchteilsgemeinschaft eingetragen?",
+        "addressParagraph1": "Normalerweise wird hier die Adresse von Eigentümer:in 1 eingetragen. Wenn Sie aber z. B. ein Büro haben, in dem Sie die Bruchteilsgemeinschaft verwalten, können Sie auch diese Büroadresse angeben."
       }
     },
     "empfangsvollmacht": {

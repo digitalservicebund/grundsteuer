@@ -1,8 +1,16 @@
-import { StepComponentFunction } from "~/routes/formular/_step";
+import {
+  HelpComponentFunction,
+  StepComponentFunction,
+} from "~/routes/formular/_step";
 import { StepFormFields } from "~/components";
-import { Trans } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import Person from "~/components/icons/mui/Person";
 import House from "~/components/icons/mui/House";
+import { ImageLightbox } from "~/components/ImageLightbox";
+import angabenGrundbuchTitle from "~/assets/images/angaben-grundbuch-title-small.png";
+import angabenGrundbuchTitleMedium from "~/assets/images/angaben-grundbuch-title-medium.png";
+import angabenGrundbuchPage from "~/assets/images/angaben-grundbuch-page-small.png";
+import angabenGrundbuchPageMedium from "~/assets/images/angaben-grundbuch-page-medium.png";
 
 const constructBruchteilsgemeinschaftName = (
   strasse: string,
@@ -98,3 +106,42 @@ const Bruchteilsgemeinschaft: StepComponentFunction = ({
 };
 
 export default Bruchteilsgemeinschaft;
+
+export const BruchteilsgemeinschaftHelp: HelpComponentFunction = ({ i18n }) => {
+  return (
+    <>
+      <h2 className="mb-8 font-bold text-18">{i18n.help.whatHeadline}</h2>
+      <p>
+        <Trans components={{ bold: <strong /> }}>
+          {i18n.help.whatParagraph1}
+        </Trans>
+      </p>
+      <ul className="mb-16 list-disc pl-24">
+        <li>
+          <Trans components={{ bold: <strong /> }}>
+            {i18n.help.whatListItem1}
+          </Trans>
+        </li>
+        <li>
+          <Trans components={{ bold: <strong /> }}>
+            {i18n.help.whatListItem2}
+          </Trans>
+        </li>
+      </ul>
+      <p className="mb-32">
+        <Trans components={{ bold: <strong /> }}>
+          {i18n.help.whatParagraph2}
+        </Trans>
+      </p>
+
+      <h2 className="mb-8 font-bold text-18">{i18n.help.nameHeadline}</h2>
+      <p className="mb-8">{i18n.help.nameParagraph1}</p>
+      <p className="mb-32">
+        <Trans components={{ italic: <i /> }}>{i18n.help.nameParagraph2}</Trans>
+      </p>
+
+      <h2 className="mb-8 font-bold text-18">{i18n.help.addressHeadline}</h2>
+      <p>{i18n.help.addressParagraph1}</p>
+    </>
+  );
+};
