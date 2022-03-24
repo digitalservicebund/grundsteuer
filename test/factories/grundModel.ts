@@ -20,6 +20,7 @@ import { GebaeudeGaragenFields } from "~/domain/steps/gebaeude/garagen";
 import { EigentuemerVerheiratetFields } from "~/domain/steps/eigentuemer/verheiratet";
 import { EigentuemerEmpfangsvollmachtFields } from "~/domain/steps/eigentuemer/empfangsvollmacht";
 import { flurstueckFactory } from "./flurstueck";
+import { EigentuemerPersonAdresseFields } from "~/domain/steps/eigentuemer/person/adresse";
 
 type PersonTransientParams = {
   transient: {
@@ -217,6 +218,23 @@ class GrundModelFactory extends Factory<GrundModel> {
       eigentuemer: {
         verheiratet: {
           areVerheiratet: fields?.areVerheiratet,
+        },
+      },
+    });
+  }
+
+  eigentuemerPersonAdresse(
+    fields?: Partial<EigentuemerPersonAdresseFields>,
+    params?: PersonTransientParams
+  ) {
+    return this.params({
+      eigentuemer: {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        person: {
+          [params?.transient.personIndex || 0]: {
+            adresse: fields,
+          },
         },
       },
     });
