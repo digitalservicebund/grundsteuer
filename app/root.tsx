@@ -57,7 +57,7 @@ export default function App() {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
-        {env !== "local" && env !== "staging" && (
+        {env === "production" && (
           <script
             defer
             data-domain="grundsteuererklaerung-fuer-privateigentum.de"
@@ -65,10 +65,7 @@ export default function App() {
           ></script>
         )}
       </head>
-      <body
-        data-env={env}
-        className="flex flex-col min-h-screen bg-gray-100 text-black leading-default"
-      >
+      <body className="flex flex-col min-h-screen bg-gray-100 text-black leading-default">
         <Outlet />
         <ScrollRestoration />
         <Scripts />
