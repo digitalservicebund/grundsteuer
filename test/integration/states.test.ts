@@ -446,13 +446,14 @@ describe("states", () => {
           "eigentuemer.person.3.vertreter.adresse",
           "eigentuemer.person.3.vertreter.telefonnummer",
           "eigentuemer.person.3.anteil",
+          "eigentuemer.bruchteilsgemeinschaft",
           "eigentuemer.empfangsvollmacht",
           "eigentuemer.freitext",
           "zusammenfassung",
         ],
       },
       {
-        description: "With Empfangsbevollmaechtigter",
+        description: "with empfangsbevollmaechtigter",
         context: grundModelFactory
           .grundstueckTyp()
           .eigentuemerEmpfangsvollmacht({ hasEmpfangsvollmacht: "true" })

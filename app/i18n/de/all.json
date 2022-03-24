@@ -127,6 +127,7 @@
           "telefonnummer": "Telefonnummer"
         }
       },
+      "bruchteilsgemeinschaft": "Bruchteilsgemeinschaft",
       "empfangsvollmacht": "Empfangsvollmacht",
       "empfangsbevollmaechtigter": {
         "name": "Name",
@@ -447,6 +448,21 @@
           },
           "nenner": {
             "label": "Nenner"
+          }
+        }
+      }
+    },
+    "bruchteilsgemeinschaft": {
+      "headline": "Sie sind eine sogenannte Bruchteilsgemeinschaft. Bitte überprüfen Sie die Angaben.",
+      "fields": {
+        "predefinedData": {
+          "options": {
+            "true": {
+              "label": "Ich möchte den Vorschlag übernehmen"
+            },
+            "false": {
+              "label": "Ich möchte die Angaben ändern"
+            }
           }
         }
       }

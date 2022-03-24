@@ -336,6 +336,36 @@ describe("hasGaragen", () => {
   });
 });
 
+describe("isBruchteilsgemeinschaft", () => {
+  it("Should return false if data is undefined", async () => {
+    const result = conditions.isBruchteilsgemeinschaft(undefined);
+    expect(result).toEqual(false);
+  });
+
+  const cases = [
+    { anzahl: "1", areVerheiratet: undefined, expectedValue: false },
+    { anzahl: 1, areVerheiratet: undefined, expectedValue: false },
+    { anzahl: "2", areVerheiratet: undefined, expectedValue: false },
+    { anzahl: "2", areVerheiratet: "true", expectedValue: false },
+    { anzahl: "2", areVerheiratet: "false", expectedValue: true },
+    { anzahl: "3", areVerheiratet: undefined, expectedValue: true },
+  ];
+
+  test.each(cases)(
+    "Should return $expectedValue if anzahl is $anzahl and verheiratet is $areVerheiratet",
+    ({ anzahl, areVerheiratet, expectedValue }) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const inputData = grundModelFactory
+        .eigentuemerAnzahl({ anzahl })
+        .eigentuemerVerheiratet({ areVerheiratet })
+        .build();
+      const result = conditions.isBruchteilsgemeinschaft(inputData);
+      expect(result).toEqual(expectedValue);
+    }
+  );
+});
+
 describe("anzahlEigentuemerIsTwo", () => {
   it("Should return false if data is undefined", async () => {
     const result = conditions.anzahlEigentuemerIsTwo(undefined);

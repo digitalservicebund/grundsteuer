@@ -381,14 +381,41 @@ export const states: MachineConfig<any, any, any> = {
                 actions: ["incrementPersonId"],
               },
               {
-                target: "empfangsvollmacht",
+                target: "bruchteilsgemeinschaft",
+                cond: "isBruchteilsgemeinschaft",
+              },
+              { target: "empfangsvollmacht" },
+            ],
+          },
+        },
+        bruchteilsgemeinschaft: {
+          on: {
+            BACK: [
+              {
+                target: "person.anteil",
+                cond: "hasMultipleEigentuemer",
+                actions: "setPersonIdToMaximum",
+              },
+              {
+                target: "person.vertreter.telefonnummer",
+                cond: "hasGesetzlicherVertreter",
+                actions: "setPersonIdToMaximum",
+              },
+              {
+                target: "person.gesetzlicherVertreter",
+                actions: "setPersonIdToMaximum",
               },
             ],
+            NEXT: { target: "empfangsvollmacht" },
           },
         },
         empfangsvollmacht: {
           on: {
             BACK: [
+              {
+                target: "bruchteilsgemeinschaft",
+                cond: "isBruchteilsgemeinschaft",
+              },
               {
                 target: "person.anteil",
                 cond: "hasMultipleEigentuemer",

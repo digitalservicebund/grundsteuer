@@ -44,6 +44,13 @@ const anzahlEigentuemerIsTwo = (context: StateMachineContext) => {
   return context?.eigentuemer?.anzahl?.anzahl === "2";
 };
 
+const isBruchteilsgemeinschaft = (context: StateMachineContext) => {
+  return (
+    Number(context?.eigentuemer?.anzahl?.anzahl) > 2 ||
+    context?.eigentuemer?.verheiratet?.areVerheiratet == "false"
+  );
+};
+
 const hasMultipleEigentuemer = (context: StateMachineContext) => {
   return Number(context?.eigentuemer?.anzahl?.anzahl) > 1;
 };
@@ -104,6 +111,7 @@ export const conditions: Conditions = {
   hasWeitereWohnraeume,
   hasGaragen,
   anzahlEigentuemerIsTwo,
+  isBruchteilsgemeinschaft,
   hasMultipleEigentuemer,
   hasGesetzlicherVertreter,
   repeatPerson,

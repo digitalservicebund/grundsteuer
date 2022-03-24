@@ -17,6 +17,7 @@ import { GebaeudeAb1949Fields } from "~/domain/steps/gebaeude/ab1949";
 import { GebaeudeKernsaniertFields } from "~/domain/steps/gebaeude/kernsaniert";
 import { GebaeudeWeitereWohnraeumeFields } from "~/domain/steps/gebaeude/weitereWohnraeume";
 import { GebaeudeGaragenFields } from "~/domain/steps/gebaeude/garagen";
+import { EigentuemerVerheiratetFields } from "~/domain/steps/eigentuemer/verheiratet";
 import { EigentuemerEmpfangsvollmachtFields } from "~/domain/steps/eigentuemer/empfangsvollmacht";
 import { flurstueckFactory } from "./flurstueck";
 
@@ -206,6 +207,16 @@ class GrundModelFactory extends Factory<GrundModel> {
       eigentuemer: {
         anzahl: {
           anzahl: fields?.anzahl || "1",
+        },
+      },
+    });
+  }
+
+  eigentuemerVerheiratet(fields?: Partial<EigentuemerVerheiratetFields>) {
+    return this.params({
+      eigentuemer: {
+        verheiratet: {
+          areVerheiratet: fields?.areVerheiratet,
         },
       },
     });

@@ -165,6 +165,10 @@ import {
   EigentuemerFreitextFields,
 } from "~/domain/steps/eigentuemer/freitext";
 import {
+  eigentuemerBruchteilsgemeinschaft,
+  EigentuemerBruchteilsgemeinschaftFields,
+} from "~/domain/steps/eigentuemer/bruchteilsgemeinschaft";
+import {
   eigentuemerEmpfangsvollmacht,
   EigentuemerEmpfangsvollmachtFields,
 } from "~/domain/steps/eigentuemer/empfangsvollmacht";
@@ -235,6 +239,7 @@ const stepDefinitions = {
         telefonnummer: eigentuemerPersonVertreterTelefonnummer,
       },
     },
+    bruchteilsgemeinschaft: eigentuemerBruchteilsgemeinschaft,
     empfangsvollmacht: eigentuemerEmpfangsvollmacht,
     empfangsbevollmaechtigter: {
       name: eigentuemerEmpfangsbevollmaechtigterName,
@@ -294,6 +299,7 @@ export type GrundModel = {
         telefonnummer?: EigentuemerPersonVertreterTelefonnummerFields;
       };
     }[];
+    bruchteilsgemeinschaft?: EigentuemerBruchteilsgemeinschaftFields;
     empfangsvollmacht?: EigentuemerEmpfangsvollmachtFields;
     empfangsbevollmaechtigter?: {
       name?: EigentuemerEmpfangsbevollmaechtigterNameFields;
