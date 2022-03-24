@@ -465,6 +465,14 @@
             }
           }
         }
+      },
+      "specifics": {
+        "explanation": "Auf Basis Ihrer Angaben haben wir ermittelt, dass es sich in Ihrem Fall um eine Bruchteilsgemeinschaft handelt. Wir haben unten einen Vorschlag für den Namen und die Adresse gemacht, den Sie übernehmen oder ändern können.",
+        "subheading": "Angaben zur Bruchteilsgemeinschaft",
+        "nameHeading": "Name der Bruchteilsgemeinschaft",
+        "nameMissing": "Bitte geben Sie die Adresse des Grundstücks an. Gehe zu -> Link zu <grundstueckAdresseLink>Grundstück Adresse</grundstueckAdresseLink>",
+        "adresseHeading": "Adresse der Bruchteilsgemeinschaft",
+        "adresseMissing": "Bitte füllen Sie die Adresse von Eigentümer:in 1 aus. Gehe zu -> Link zu <eigentuemerAdresseLink>Eigentümer:in 1</eigentuemerAdresseLink>"
       }
     },
     "empfangsvollmacht": {
