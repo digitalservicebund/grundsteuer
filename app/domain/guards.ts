@@ -51,6 +51,12 @@ const isBruchteilsgemeinschaft = (context: StateMachineContext) => {
   );
 };
 
+const customBruchteilsgemeinschaftData = (context: StateMachineContext) => {
+  return (
+    context?.eigentuemer?.bruchteilsgemeinschaft?.predefinedData == "false"
+  );
+};
+
 const hasMultipleEigentuemer = (context: StateMachineContext) => {
   return Number(context?.eigentuemer?.anzahl?.anzahl) > 1;
 };
@@ -112,6 +118,7 @@ export const conditions: Conditions = {
   hasGaragen,
   anzahlEigentuemerIsTwo,
   isBruchteilsgemeinschaft,
+  customBruchteilsgemeinschaftData,
   hasMultipleEigentuemer,
   hasGesetzlicherVertreter,
   repeatPerson,

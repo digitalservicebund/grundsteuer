@@ -192,6 +192,10 @@ import {
   GebaeudeAbbruchverpflichtungsjahrFields,
   gebaeudeAbbruchverpflichtungsjahrjahr,
 } from "~/domain/steps/gebaeude/abbruchverpflichtungsjahr";
+import {
+  eigentuemerBruchteilsgemeinschaftAngaben,
+  EigentuemerBruchteilsgemeinschaftAngabenFields,
+} from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
 export type { GrundstueckBodenrichtwertFields };
 
 const stepDefinitions = {
@@ -240,6 +244,9 @@ const stepDefinitions = {
       },
     },
     bruchteilsgemeinschaft: eigentuemerBruchteilsgemeinschaft,
+    bruchteilsgemeinschaftangaben: {
+      angaben: eigentuemerBruchteilsgemeinschaftAngaben,
+    },
     empfangsvollmacht: eigentuemerEmpfangsvollmacht,
     empfangsbevollmaechtigter: {
       name: eigentuemerEmpfangsbevollmaechtigterName,
@@ -300,6 +307,9 @@ export type GrundModel = {
       };
     }[];
     bruchteilsgemeinschaft?: EigentuemerBruchteilsgemeinschaftFields;
+    bruchteilsgemeinschaftangaben?: {
+      angaben?: EigentuemerBruchteilsgemeinschaftAngabenFields;
+    };
     empfangsvollmacht?: EigentuemerEmpfangsvollmachtFields;
     empfangsbevollmaechtigter?: {
       name?: EigentuemerEmpfangsbevollmaechtigterNameFields;

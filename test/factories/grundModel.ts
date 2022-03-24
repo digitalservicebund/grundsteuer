@@ -21,6 +21,7 @@ import { EigentuemerVerheiratetFields } from "~/domain/steps/eigentuemer/verheir
 import { EigentuemerEmpfangsvollmachtFields } from "~/domain/steps/eigentuemer/empfangsvollmacht";
 import { flurstueckFactory } from "./flurstueck";
 import { EigentuemerPersonAdresseFields } from "~/domain/steps/eigentuemer/person/adresse";
+import { EigentuemerBruchteilsgemeinschaftFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaft";
 
 type PersonTransientParams = {
   transient: {
@@ -259,9 +260,22 @@ class GrundModelFactory extends Factory<GrundModel> {
     });
   }
 
+  eigentuemerBruchteilsgemeinschaft(
+    fields?: Partial<EigentuemerBruchteilsgemeinschaftFields>
+  ) {
+    return this.params({
+      eigentuemer: {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        bruchteilsgemeinschaft: {
+          predefinedData: fields?.predefinedData,
+        },
+      },
+    });
+  }
+
   eigentuemerEmpfangsvollmacht(
-    fields?: Partial<EigentuemerEmpfangsvollmachtFields>,
-    params?: PersonTransientParams
+    fields?: Partial<EigentuemerEmpfangsvollmachtFields>
   ) {
     return this.params({
       eigentuemer: {

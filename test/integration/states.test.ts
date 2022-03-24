@@ -453,6 +453,42 @@ describe("states", () => {
         ],
       },
       {
+        description: "with bruchteilsgemeinschaft angaben",
+        context: grundModelFactory
+          .grundstueckTyp()
+          .eigentuemerAnzahl({ anzahl: "3" })
+          .eigentuemerBruchteilsgemeinschaft({ predefinedData: "false" })
+          .build(),
+        expectedPath: [
+          ...defaultGrundstueck,
+          ...defaultGebaeude,
+          "eigentuemer.anzahl",
+          "eigentuemer.person.1.persoenlicheAngaben",
+          "eigentuemer.person.1.adresse",
+          "eigentuemer.person.1.telefonnummer",
+          "eigentuemer.person.1.steuerId",
+          "eigentuemer.person.1.gesetzlicherVertreter",
+          "eigentuemer.person.1.anteil",
+          "eigentuemer.person.2.persoenlicheAngaben",
+          "eigentuemer.person.2.adresse",
+          "eigentuemer.person.2.telefonnummer",
+          "eigentuemer.person.2.steuerId",
+          "eigentuemer.person.2.gesetzlicherVertreter",
+          "eigentuemer.person.2.anteil",
+          "eigentuemer.person.3.persoenlicheAngaben",
+          "eigentuemer.person.3.adresse",
+          "eigentuemer.person.3.telefonnummer",
+          "eigentuemer.person.3.steuerId",
+          "eigentuemer.person.3.gesetzlicherVertreter",
+          "eigentuemer.person.3.anteil",
+          "eigentuemer.bruchteilsgemeinschaft",
+          "eigentuemer.bruchteilsgemeinschaftangaben.angaben",
+          "eigentuemer.empfangsvollmacht",
+          "eigentuemer.freitext",
+          "zusammenfassung",
+        ],
+      },
+      {
         description: "with empfangsbevollmaechtigter",
         context: grundModelFactory
           .grundstueckTyp()

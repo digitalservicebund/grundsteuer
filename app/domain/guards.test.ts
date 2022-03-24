@@ -368,6 +368,32 @@ describe("isBruchteilsgemeinschaft", () => {
   );
 });
 
+describe("customBruchteilsgemeinschaftData", () => {
+  it("Should return false if data is undefined", async () => {
+    const result = conditions.customBruchteilsgemeinschaftData(undefined);
+    expect(result).toEqual(false);
+  });
+
+  const cases = [
+    { predefinedData: "true", expectedValue: false },
+    { predefinedData: undefined, expectedValue: false },
+    { predefinedData: "false", expectedValue: true },
+  ];
+
+  test.each(cases)(
+    "Should return $expectedValue if predefinedData is $predefinedData",
+    ({ predefinedData, expectedValue }) => {
+      const inputData = grundModelFactory
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        .eigentuemerBruchteilsgemeinschaft({ predefinedData })
+        .build();
+      const result = conditions.customBruchteilsgemeinschaftData(inputData);
+      expect(result).toEqual(expectedValue);
+    }
+  );
+});
+
 describe("anzahlEigentuemerIsTwo", () => {
   it("Should return false if data is undefined", async () => {
     const result = conditions.anzahlEigentuemerIsTwo(undefined);

@@ -503,6 +503,31 @@
         "noNameAndAddressDisclaimer": "Sie haben die Adresse des Grundstücks und die Adressdaten von Eigentümer:in 1 noch nicht angegeben. Bitte vervollständigen Sie die Angaben, bevor Sie weitermachen."
       }
     },
+    "bruchteilsgemeinschaftangaben": {
+      "angaben": {
+        "headline": "Wie lauten die Angaben Ihrer Bruchteilsgemeinschaft?",
+        "fields": {
+          "name": {
+            "label": ""
+          },
+          "strasse": {
+            "label": "Straße"
+          },
+          "hausnummer": {
+            "label": "Hausnummer (+Hausnummerzusatz)"
+          },
+          "postfach": {
+            "label": "Postfach (falls vorhanden)"
+          },
+          "plz": {
+            "label": "Postleitzahl"
+          },
+          "ort": {
+            "label": "Ort"
+          }
+        }
+      }
+    },
     "empfangsvollmacht": {
       "headline": "Soll es eine empfangsberechtigte Person geben, an die die Bescheide zugestellt werden sollen? ",
       "fields": {

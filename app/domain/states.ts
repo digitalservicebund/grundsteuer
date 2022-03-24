@@ -406,12 +406,34 @@ export const states: MachineConfig<any, any, any> = {
                 actions: "setPersonIdToMaximum",
               },
             ],
+            NEXT: [
+              {
+                target: "bruchteilsgemeinschaftangaben.angaben",
+                cond: "customBruchteilsgemeinschaftData",
+              },
+              { target: "empfangsvollmacht" },
+            ],
+          },
+        },
+        bruchteilsgemeinschaftangaben: {
+          states: {
+            angaben: {},
+          },
+          on: {
+            BACK: {
+              target: "bruchteilsgemeinschaft",
+              actions: "setPersonIdToMaximum",
+            },
             NEXT: { target: "empfangsvollmacht" },
           },
         },
         empfangsvollmacht: {
           on: {
             BACK: [
+              {
+                target: "bruchteilsgemeinschaftangaben.angaben",
+                cond: "customBruchteilsgemeinschaftData",
+              },
               {
                 target: "bruchteilsgemeinschaft",
                 cond: "isBruchteilsgemeinschaft",
