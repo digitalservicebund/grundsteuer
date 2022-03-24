@@ -14,6 +14,7 @@ import { i18Next } from "~/i18n.server";
 import { useSetupTranslations } from "remix-i18next";
 import { pageTitle } from "~/util/pageTitle";
 import styles from "public/tailwind.css";
+import ogImage from "~/assets/images/og-image.png";
 
 export const links: LinksFunction = () => {
   return [
@@ -36,11 +37,22 @@ export const links: LinksFunction = () => {
 };
 
 export const meta: MetaFunction = () => {
+  const title = pageTitle(null);
+  const description =
+    "Mit dem Online-Service, entwickelt im Auftrag des Bundesfinanzministeriums, können Privateigentümer:innen von Einfamilienhäusern, Zweifamilienhäusern, Eigentumswohnungen und unbebauten Grundstücken ihre Grundsteuererklärung einfach und kostenlos abgeben.";
   return {
-    title: pageTitle(null),
-    description:
-      "Mit dem Online-Service, entwickelt im Auftrag des Bundesfinanzministerium, können Privateigentümer:innen von Einfamilienhäusern, Zweifamilienhäusern, Eigentumswohnungen und unbebauten Grundstücken ihre Grundsteuererklärung einfach und kostenlos abgeben.",
+    title,
+    description,
     viewport: "width=device-width,initial-scale=1",
+    "og:image": `https://www.grundsteuererklaerung-fuer-privateigentum.de${ogImage}`,
+    "og:image:width": "1200",
+    "og:image:height": "630",
+    "og:site_name":
+      "Grundsteuererklärung für Privateigentum. Schnell. Unkompliziert. Kostenlos.",
+    "twitter:title": title,
+    "twitter:description": description,
+    "twitter:card": "summary_large_image",
+    "twitter:site": "@DigitalServ4Ger",
   };
 };
 
