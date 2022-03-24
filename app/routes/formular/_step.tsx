@@ -14,7 +14,7 @@ import { i18Next } from "~/i18n.server";
 import { getStepData, setStepData, StepFormData } from "~/domain/model";
 import { getMachineConfig, StateMachineContext } from "~/domain/states";
 import { conditions } from "~/domain/guards";
-import { validateField } from "~/domain/validation";
+import { getErrorMessage } from "~/domain/validation";
 import { actions } from "~/domain/actions";
 import stepComponents, {
   FallbackStepComponent,
@@ -24,9 +24,9 @@ import { getStepDefinition, GrundModel } from "~/domain/steps";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 import { State } from "xstate/lib/State";
 import { StateSchema, Typestate } from "xstate/lib/types";
-import React from "react";
 import { StepHeadline } from "~/components/StepHeadline";
 import { createGraph, getReachablePaths } from "~/domain";
+import invariant from "tiny-invariant";
 
 const getCurrentStateWithoutId = (currentState: string) => {
   return currentState.replace(/\.\d+\./g, ".");
@@ -190,7 +190,7 @@ export const loader: LoaderFunction = async ({
 };
 
 type ActionData = {
-  errors: Record<string, Array<string>>;
+  errors: Record<string, string>;
 };
 
 export const action: ActionFunction = async ({ params, request }) => {
@@ -205,17 +205,24 @@ export const action: ActionFunction = async ({ params, request }) => {
   ) as unknown as StepFormData;
 
   // validate
-  const errors: Record<string, Array<string>> = {};
+  const errors: Record<string, string | undefined> = {};
   const stepDefinition = getStepDefinition({ currentStateWithoutId });
   if (stepDefinition) {
     Object.entries(stepDefinition.fields).forEach(
       ([name, field]: [string, any]) => {
-        const fieldErrorMessages = validateField(name, field, fieldValues);
-        if (fieldErrorMessages.length > 0) errors[name] = fieldErrorMessages;
+        const value = fieldValues[name];
+        invariant(typeof value === "string");
+        const errorMessage = getErrorMessage(
+          value,
+          field.validations,
+          fieldValues
+        );
+        console.log({errorMessage});
+        if (errorMessage) errors[name] = errorMessage;
       }
     );
   }
-  if (Object.keys(errors).length >= 1) return { errors } as ActionData;
+  if (Object.keys(errors).length > 0) return { errors } as ActionData;
 
   // store
   cookie.records = setStepData(cookie.records, currentState, fieldValues);

@@ -1,120 +1,98 @@
 import invariant from "tiny-invariant";
-import { ConfigStepField } from "~/domain/config";
-import { StepFormData, StepFormDataValue } from "~/domain/model";
+import { StepFormData } from "~/domain/model";
 
 const VALID_EMAIL =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-export interface EmailValidation {
+type ValidateEmailFunction = (value: string) => boolean;
+export const validateEmail: ValidateEmailFunction = (value) =>
+  VALID_EMAIL.test(value.trim());
+
+type ValidateMinLengthFunction = (value: string, minLength: number) => boolean;
+export const validateMinLength: ValidateMinLengthFunction = (
+  value,
+  minLength
+) => value.trim().length >= minLength;
+
+type ValidateMaxLengthFunction = (value: string, maxLength: number) => boolean;
+export const validateMaxLength: ValidateMaxLengthFunction = (
+  value,
+  maxLength
+) => value.trim().length <= maxLength;
+
+type ValidateRequiredFunction = (value: string) => boolean;
+export const validateRequired: ValidateRequiredFunction = (value) =>
+  value.trim().length > 0;
+
+type ValidateRequiredIfFunction = (
+  value: string,
+  dependentValue: string
+) => boolean;
+export const validateRequiredIf: ValidateRequiredIfFunction = (
+  value,
+  dependentValue
+) => (validateRequired(dependentValue) ? validateRequired(value) : true);
+
+interface DefaultValidation {
   msg: string;
 }
 
-export interface RequiredValidation {
-  msg: string;
+interface MinLengthValidation extends DefaultValidation {
+  minLength: number;
 }
 
-export interface MaxLengthValidation {
-  msg: string;
-  param: number;
+interface MaxLengthValidation extends DefaultValidation {
+  maxLength: number;
 }
 
-export interface RequiredIfValidation {
-  msg: string;
+interface RequiredIfValidation extends DefaultValidation {
   dependentField: string;
 }
 
 export type Validation =
-  | EmailValidation
-  | RequiredValidation
+  | DefaultValidation
   | RequiredIfValidation
-  | MaxLengthValidation;
+  | MaxLengthValidation
+  | MinLengthValidation;
 
-type ValidatorFunction = (
-  fieldValue: StepFormDataValue | FormDataEntryValue,
-  validationConfig: Validation,
-  formData?: StepFormData
-) => string | undefined;
+type ValidationConfig = Record<string, Validation>;
 
-export function validateField(
-  name: string,
-  field: ConfigStepField,
+export const getErrorMessage = (
+  value: string,
+  validationConfig: ValidationConfig,
   formData: StepFormData
-) {
-  return Object.keys(field.validations).reduce(
-    (previousErrorMessages: string[], validationKey: string) => {
-      const validatorFunction: ValidatorFunction =
-        validatorFunctions[validationKey];
-      invariant(formData[name] != null);
-      const errorMessage = validatorFunction(
-        formData[name],
-        field.validations[validationKey],
-        formData
-      );
-      if (errorMessage) {
-        return [...previousErrorMessages, errorMessage];
-      }
-      return previousErrorMessages;
-    },
-    []
-  );
-}
-
-export const validateEmail: ValidatorFunction = (
-  fieldValue,
-  validationConfig
 ) => {
-  invariant(
-    typeof fieldValue === "string",
-    "expected field value to be of type string"
-  );
+  const { email, maxLength, minLength, required, requiredIf } =
+    validationConfig;
 
-  if (!fieldValue.match(VALID_EMAIL)) {
-    return validationConfig.msg;
+  if (required && !validateRequired(value)) {
+    return required.msg;
   }
-};
 
-export const validateMaxLength: ValidatorFunction = (
-  fieldValue,
-  validationConfig
-) => {
-  invariant(
-    typeof fieldValue === "string",
-    "expected field value to be of type string"
-  );
+  if (requiredIf) {
+    const dependentValue =
+      formData[(requiredIf as RequiredIfValidation).dependentField];
+    invariant(typeof dependentValue === "string");
+    if (!validateRequiredIf(value, dependentValue)) {
+      return requiredIf.msg;
+    }
+  }
+
+  if (email && !validateEmail(value)) {
+    return email.msg;
+  }
+
   if (
-    fieldValue &&
-    fieldValue.length > (validationConfig as MaxLengthValidation).param
+    minLength &&
+    !validateMinLength(value, (minLength as MinLengthValidation).minLength)
   ) {
-    return validationConfig.msg;
+    return minLength.msg;
   }
-};
 
-export const validateRequired: ValidatorFunction = (
-  fieldValue,
-  validationConfig
-) => {
-  if (!fieldValue) {
-    return validationConfig.msg;
+  if (
+    maxLength &&
+    !validateMaxLength(value, (maxLength as MaxLengthValidation).maxLength)
+  ) {
+    return maxLength.msg;
   }
-};
-
-export const validateRequiredIf: ValidatorFunction = (
-  fieldValue,
-  validationConfig,
-  formData
-) => {
-  invariant(formData, "expected formData to be present");
-  const dependentFieldValue =
-    formData[(validationConfig as RequiredIfValidation).dependentField];
-
-  if (dependentFieldValue && !fieldValue) {
-    return validationConfig.msg;
-  }
-};
-
-const validatorFunctions: Record<string, ValidatorFunction> = {
-  email: validateEmail,
-  maxLength: validateMaxLength,
-  required: validateRequired,
-  requiredIf: validateRequiredIf,
 };

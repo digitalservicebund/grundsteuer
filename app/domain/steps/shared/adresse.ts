@@ -17,7 +17,7 @@ export const stepDefinition: StepDefinition = {
           msg: "musst du eingeben",
         },
         maxLength: {
-          param: 200,
+          maxLength: 200,
           msg: "zu lang",
         },
       },
@@ -29,7 +29,7 @@ export const stepDefinition: StepDefinition = {
           msg: "musst du eingeben",
         },
         maxLength: {
-          param: 12,
+          maxLength: 12,
           msg: "zu lang",
         },
       },
