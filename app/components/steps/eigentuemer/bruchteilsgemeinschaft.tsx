@@ -1,6 +1,8 @@
 import { StepComponentFunction } from "~/routes/formular/_step";
 import { StepFormFields } from "~/components";
 import { Trans } from "react-i18next";
+import Person from "~/components/icons/mui/Person";
+import House from "~/components/icons/mui/House";
 
 const constructBruchteilsgemeinschaftName = (
   strasse: string,
@@ -24,8 +26,12 @@ const Bruchteilsgemeinschaft: StepComponentFunction = ({
       <h2 className="text-20">{i18n.specifics.subheading}</h2>
 
       <div className="bg-gray-300 p-16 mb-8">
-        ICON
-        <h3 className="font-bold">{i18n.specifics.nameHeading}</h3>
+        <div className="mb-8">
+          <Person height="25px" width="25px" className="inline-block mr-8" />
+          <h3 className="font-bold inline-block">
+            {i18n.specifics.nameHeading}
+          </h3>
+        </div>
         {grundstueckAdresseData && (
           <p>
             {constructBruchteilsgemeinschaftName(
@@ -52,8 +58,12 @@ const Bruchteilsgemeinschaft: StepComponentFunction = ({
         )}
       </div>
       <div className="bg-gray-300 p-16 mb-32">
-        ICON
-        <h3 className="font-bold">{i18n.specifics.adresseHeading}</h3>
+        <div className="mb-8">
+          <House height="25px" width="25px" className="inline-block mr-8" />
+          <h3 className="font-bold inline-block">
+            {i18n.specifics.adresseHeading}
+          </h3>
+        </div>
         {eigentuemer1AdresseData && (
           <p>
             {eigentuemer1AdresseData.strasse}{" "}
