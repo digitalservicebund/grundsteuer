@@ -1,12 +1,17 @@
 import { useTranslation } from "react-i18next";
 import { BmfLogo, Button, SimplePageLayout } from "~/components";
-import CloseIcon from "~/components/icons/mui/Close";
+import ArrowBackIcon from "~/components/icons/mui/ArrowBack";
 
 export default function Imprint() {
   const { t } = useTranslation("all");
   return (
     <SimplePageLayout>
-      <Button to="/" look="secondary" icon={<CloseIcon />} className="mb-32">
+      <Button
+        to="/"
+        look="secondary"
+        icon={<ArrowBackIcon />}
+        className="mb-32"
+      >
         {t("imprint.backButton")}
       </Button>
 
