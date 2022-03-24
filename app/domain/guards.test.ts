@@ -354,10 +354,12 @@ describe("isBruchteilsgemeinschaft", () => {
   test.each(cases)(
     "Should return $expectedValue if anzahl is $anzahl and verheiratet is $areVerheiratet",
     ({ anzahl, areVerheiratet, expectedValue }) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       const inputData = grundModelFactory
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         .eigentuemerAnzahl({ anzahl })
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         .eigentuemerVerheiratet({ areVerheiratet })
         .build();
       const result = conditions.isBruchteilsgemeinschaft(inputData);
