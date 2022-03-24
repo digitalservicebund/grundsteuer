@@ -39,7 +39,7 @@ export const action: ActionFunction = async ({ request }) => {
     email:
       (!validateRequired(email) && "errors.required") ||
       (!validateEmail(email) && "errors.email.wrongFormat") ||
-      (!(await userExists(email)) && "errors.email.alreadyExists"),
+      ((await userExists(email)) && "errors.email.alreadyExists"),
 
     emailRepeated:
       email.trim().toLowerCase() !== emailRepeated.trim().toLowerCase() &&

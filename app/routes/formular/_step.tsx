@@ -217,7 +217,6 @@ export const action: ActionFunction = async ({ params, request }) => {
           field.validations,
           fieldValues
         );
-        console.log({errorMessage});
         if (errorMessage) errors[name] = errorMessage;
       }
     );
