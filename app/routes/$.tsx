@@ -1,7 +1,8 @@
 import { Trans, useTranslation } from "react-i18next";
 import { Button, SimplePageLayout } from "~/components";
-import { LoaderFunction } from "remix";
-import CloseIcon from "~/components/icons/mui/Close";
+import { LoaderFunction, MetaFunction } from "remix";
+import ArrowBackIcon from "~/components/icons/mui/ArrowBack";
+import { pageTitle } from "~/util/pageTitle";
 import illustrationImage from "~/assets/images/404.svg";
 
 export const loader: LoaderFunction = () => {
@@ -9,6 +10,10 @@ export const loader: LoaderFunction = () => {
   // is a workaround for:
   // https://github.com/sergiodxa/remix-i18next/issues/33
   throw new Response("Page missing", { status: 404 });
+};
+
+export const meta: MetaFunction = () => {
+  return { title: pageTitle("Fehler 404") };
 };
 
 export default function CatchAllRoute() {
@@ -22,7 +27,7 @@ export function CatchBoundary() {
       <Button
         to="/"
         look="secondary"
-        icon={<CloseIcon />}
+        icon={<ArrowBackIcon />}
         className="mb-64 md:mb-80"
       >
         {t("404.backButton")}

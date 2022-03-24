@@ -1,4 +1,10 @@
+import { MetaFunction } from "remix";
 import { Button } from "~/components";
+import { pageTitle } from "~/util/pageTitle";
+
+export const meta: MetaFunction = () => {
+  return { title: pageTitle("Registrierung erfolgreich") };
+};
 
 export default function RegistrierenErfolgreich() {
   return (

@@ -2,6 +2,7 @@ import {
   ActionFunction,
   Form,
   LoaderFunction,
+  MetaFunction,
   redirect,
   useActionData,
   useLoaderData,
@@ -27,6 +28,7 @@ import { StateSchema, Typestate } from "xstate/lib/types";
 import { StepHeadline } from "~/components/StepHeadline";
 import { createGraph, getReachablePaths } from "~/domain";
 import invariant from "tiny-invariant";
+import { pageTitle } from "~/util/pageTitle";
 
 const getCurrentStateWithoutId = (currentState: string) => {
   return currentState.replace(/\.\d+\./g, ".");
@@ -160,9 +162,9 @@ export const loader: LoaderFunction = async ({
   const graph = createGraph({
     machineContext: cookie.records,
   });
-  console.log(graph);
+  // console.log(graph);
   const reachablePaths = getReachablePaths({ graph, initialPaths: [] });
-  console.log(reachablePaths);
+  // console.log(reachablePaths);
   if (!reachablePaths.includes(currentState)) {
     const responseHeader: Headers = await createResponseHeaders(cookie);
     return redirect("/formular/grundstueck", {
@@ -236,6 +238,10 @@ export const action: ActionFunction = async ({ params, request }) => {
   return redirect(redirectUrl, {
     headers: responseHeader,
   });
+};
+
+export const meta: MetaFunction = ({ data }) => {
+  return { title: pageTitle(data?.i18n?.headline) };
 };
 
 export type StepComponentFunction = (

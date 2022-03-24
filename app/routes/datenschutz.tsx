@@ -1,8 +1,14 @@
 import { useTranslation } from "react-i18next";
+import { MetaFunction } from "remix";
 import { BmfLogo, Button, SimplePageLayout } from "~/components";
 import ArrowBackIcon from "~/components/icons/mui/ArrowBack";
+import { pageTitle } from "~/util/pageTitle";
 
-export default function Imprint() {
+export const meta: MetaFunction = () => {
+  return { title: pageTitle("Datenschutzerklärung") };
+};
+
+export default function Datenschutz() {
   const { t } = useTranslation("all");
   return (
     <SimplePageLayout>

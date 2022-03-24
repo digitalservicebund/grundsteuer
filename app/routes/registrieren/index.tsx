@@ -1,4 +1,10 @@
-import { ActionFunction, Form, redirect, useActionData } from "remix";
+import {
+  ActionFunction,
+  Form,
+  MetaFunction,
+  redirect,
+  useActionData,
+} from "remix";
 import { useTranslation } from "react-i18next";
 import invariant from "tiny-invariant";
 import {
@@ -9,6 +15,7 @@ import {
 } from "~/domain/validation";
 import { createUser, userExists } from "~/domain/user";
 import { Button, FormGroup, Input, SimplePageLayout } from "~/components";
+import { pageTitle } from "~/util/pageTitle";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -72,6 +79,10 @@ export const action: ActionFunction = async ({ request }) => {
   return {
     errors: filteredErrors,
   };
+};
+
+export const meta: MetaFunction = () => {
+  return { title: pageTitle("Registrieren") };
 };
 
 export default function Registrieren() {

@@ -1,5 +1,10 @@
-import { Outlet } from "remix";
+import { MetaFunction, Outlet } from "remix";
 import { Button, ContentContainer } from "~/components";
+import { pageTitle } from "~/util/pageTitle";
+
+export const meta: MetaFunction = () => {
+  return { title: pageTitle("Kitchen Sink"), robots: "noindex" };
+};
 
 export default function KitchenSink() {
   return (

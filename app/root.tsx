@@ -12,6 +12,7 @@ import {
 } from "remix";
 import { i18Next } from "~/i18n.server";
 import { useSetupTranslations } from "remix-i18next";
+import { pageTitle } from "~/util/pageTitle";
 import styles from "public/tailwind.css";
 
 export const links: LinksFunction = () => {
@@ -35,7 +36,12 @@ export const links: LinksFunction = () => {
 };
 
 export const meta: MetaFunction = () => {
-  return { title: "Grundsteuererklärung für Privateigentum" };
+  return {
+    title: pageTitle(null),
+    description:
+      "Mit dem Online-Service, entwickelt im Auftrag des Bundesfinanzministerium, können Privateigentümer:innen von Einfamilienhäusern, Zweifamilienhäusern, Eigentumswohnungen und unbebauten Grundstücken ihre Grundsteuererklärung einfach und kostenlos abgeben.",
+    viewport: "width=device-width,initial-scale=1",
+  };
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -53,8 +59,6 @@ export default function App() {
     <html lang="de">
       <head>
         <meta charSet="utf-8" />
-        <title>Grundsteuererklärung für Privateigentum</title>
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
         {env === "production" && (

@@ -1,8 +1,9 @@
-import { LoaderFunction, useLoaderData } from "remix";
+import { LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import { getFormDataCookie } from "~/cookies";
 import { createGraph } from "~/domain";
 import { GrundModel } from "~/domain/steps";
 import { StateMachineContext } from "~/domain/states";
+import { pageTitle } from "~/util/pageTitle";
 
 type LoaderData = {
   graph: StateMachineContext;
@@ -59,6 +60,10 @@ const item = (
       {label}: {resolver ? resolver(value) : value}
     </li>
   );
+};
+
+export const meta: MetaFunction = () => {
+  return { title: pageTitle("Zusammenfassung Ihrer Eingaben") };
 };
 
 export default function Zusammenfassung() {
