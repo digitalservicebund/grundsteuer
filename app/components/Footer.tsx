@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "remix";
-import { ContentContainer } from "~/components";
-import bmfLogoImage from "~/assets/images/bmf-logo.png";
+import bmfLogoImage from "~/assets/images/bmf-logo.svg";
 import digitalserviceLogoImage from "~/assets/images/digitalservice-logo.svg";
 
 export default function Footer() {
@@ -19,7 +18,7 @@ export default function Footer() {
               <img
                 src={bmfLogoImage}
                 alt={t("footer.bmf")}
-                className="w-[152px]"
+                className="w-[132px]"
               />
             </a>
             <a

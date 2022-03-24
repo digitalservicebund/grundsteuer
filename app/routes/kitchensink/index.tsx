@@ -6,7 +6,7 @@ import RemoveIcon from "~/components/icons/mui/Remove";
 import FileCopyIcon from "~/components/icons/mui/FileCopy";
 
 import digitalserviceLogoImage from "~/assets/images/digitalservice-logo.svg";
-import bmfLogoImage from "~/assets/images/bmf-logo.png";
+import bmfLogoImage from "~/assets/images/bmf-logo.svg";
 
 export default function KitchenSinkIndex() {
   return (

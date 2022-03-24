@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { Button, SimplePageLayout } from "~/components";
+import { BmfLogo, Button, SimplePageLayout } from "~/components";
 import CloseIcon from "~/components/icons/mui/Close";
-import bmfLogoImage from "~/assets/images/bmf-logo.png";
 
 export default function Imprint() {
   const { t } = useTranslation("all");
@@ -12,14 +11,7 @@ export default function Imprint() {
       </Button>
 
       <div className="mb-32 md:mb-64">
-        <div className="ml-8 text-10 leading-13 md:ml-0 md:text-16 md:leading-26 lg:mt-16">
-          {t("homepage.bmfLogoTopline")}
-        </div>
-        <img
-          src={bmfLogoImage}
-          alt={t("homepage.bmfLogoAlt")}
-          className="relative -left-16 w-[192px] md:-left-24 md:w-[218px] lg:-left-36 lg:w-[298px]"
-        />
+        <BmfLogo />
       </div>
 
       <h1 className="text-32 leading-40 mb-32 max-w-screen-sm md:text-64 md:leading-68 md:mb-48">

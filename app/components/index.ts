@@ -1,3 +1,4 @@
+export { default as BmfLogo } from "./BmfLogo";
 export { default as Button } from "./Button";
 export { default as ContentContainer } from "./ContentContainer";
 export { default as FaqAccordion } from "./FaqAccordion";

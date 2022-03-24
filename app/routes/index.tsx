@@ -1,12 +1,12 @@
 import { useTranslation } from "react-i18next";
 import {
+  BmfLogo,
   Button,
   ContentContainer,
   FaqAccordion,
   HomepageFeatures,
   SimplePageLayout,
 } from "~/components";
-import bmfLogoImage from "~/assets/images/bmf-logo.png";
 import germanyMapImage from "~/assets/images/germany-map.svg";
 import HomepageSharing from "~/components/HomepageSharing";
 
@@ -45,14 +45,7 @@ export default function Index() {
             </div>
           </div>
           <div>
-            <div className="ml-8 text-10 leading-13 md:ml-0 md:text-16 md:leading-26 lg:mt-16">
-              {t("homepage.bmfLogoTopline")}
-            </div>
-            <img
-              src={bmfLogoImage}
-              alt={t("homepage.bmfLogoAlt")}
-              className="relative -left-16 w-[192px] md:-left-24 md:w-[218px] lg:-left-36 lg:w-[298px]"
-            />
+            <BmfLogo />
           </div>
         </div>
 
