@@ -2,7 +2,7 @@ import { ConfigStepFieldOptionsItem } from "~/domain";
 import QuestionMark from "~/components/icons/mui/QuestionMark";
 import Details from "~/components/Details";
 
-export type StepRadioFieldProps = {
+export type RadioGroupProps = {
   name: string;
   label: string;
   options: { value: string; label: string; help?: string }[];
@@ -10,7 +10,7 @@ export type StepRadioFieldProps = {
   defaultValue?: string;
 };
 
-const StepRadioFieldOption = (
+const RadioGroupOption = (
   option: ConfigStepFieldOptionsItem & {
     name: string;
     checked: boolean;
@@ -64,7 +64,7 @@ const StepRadioFieldOption = (
   }
 };
 
-export default function StepRadioField(props: StepRadioFieldProps) {
+export default function RadioGroup(props: RadioGroupProps) {
   const { name, label, options, value, defaultValue } = props;
 
   return (
@@ -76,7 +76,7 @@ export default function StepRadioField(props: StepRadioFieldProps) {
           : option.value === defaultValue;
 
         return (
-          <StepRadioFieldOption
+          <RadioGroupOption
             {...{
               name,
               checked,

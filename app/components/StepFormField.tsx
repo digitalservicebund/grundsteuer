@@ -1,6 +1,4 @@
-import StepRadioField, {
-  StepRadioFieldProps,
-} from "~/components/StepRadioField";
+import RadioGroup, { RadioGroupProps } from "./RadioGroup";
 import Input, { InputProps } from "./Input";
 import Select, { SelectProps } from "./Select";
 import { I18nObjectField } from "~/routes/formular/_step";
@@ -36,11 +34,11 @@ const StepFormField = (props: StepFormFieldProps) => {
         help: i18n.options?.[option.value]?.help,
       };
     });
-    const radioProps: StepRadioFieldProps = {
+    const radioProps: RadioGroupProps = {
       ...commonProps,
       options: optionsWithLabelsAndHelp,
     };
-    return <StepRadioField {...radioProps} />;
+    return <RadioGroup {...radioProps} />;
   }
 
   if (type === "select" && options) {

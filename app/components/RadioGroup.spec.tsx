@@ -1,8 +1,8 @@
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import StepRadioField from "~/components/StepRadioField";
+import RadioGroup from "~/components/RadioGroup";
 
-describe("StepRadioField component", () => {
+describe("RadioGroup component", () => {
   const defaultProps = {
     name: "input",
     label: "Input Label",
@@ -19,18 +19,18 @@ describe("StepRadioField component", () => {
   };
 
   it("should render label", () => {
-    render(<StepRadioField {...defaultProps} />);
+    render(<RadioGroup {...defaultProps} />);
     expect(screen.getByText("Input Label")).toBeInTheDocument();
   });
 
   it("should render all options", () => {
-    render(<StepRadioField {...defaultProps} />);
+    render(<RadioGroup {...defaultProps} />);
     expect(screen.getByLabelText("Option 1")).toBeInTheDocument();
     expect(screen.getByLabelText("Option 2")).toBeInTheDocument();
   });
 
   it("should not include help icon", () => {
-    render(<StepRadioField {...defaultProps} />);
+    render(<RadioGroup {...defaultProps} />);
     expect(screen.queryByRole("img")).not.toBeInTheDocument();
   });
 
@@ -53,32 +53,32 @@ describe("StepRadioField component", () => {
     };
 
     it("should render help icons", () => {
-      render(<StepRadioField {...defaultProps} />);
+      render(<RadioGroup {...defaultProps} />);
       expect(screen.getAllByRole("img")).toHaveLength(2);
     });
 
     it("should not display help text by default", () => {
-      render(<StepRadioField {...defaultProps} />);
+      render(<RadioGroup {...defaultProps} />);
       expect(screen.queryByText("Help 1")).not.toBeVisible();
       expect(screen.queryByText("Help 2")).not.toBeVisible();
     });
 
     it("should not be expanded by default", () => {
-      render(<StepRadioField {...defaultProps} />);
+      render(<RadioGroup {...defaultProps} />);
       screen.getAllByTestId("help-summary").forEach((summary) => {
         expect(summary).toHaveAttribute("aria-expanded", "false");
       });
     });
 
     it("should display the correct help text on icon click", () => {
-      render(<StepRadioField {...defaultProps} />);
+      render(<RadioGroup {...defaultProps} />);
       userEvent.click(within(screen.getByTestId("option-1")).getByRole("img"));
       expect(screen.queryByText("Help 1")).toBeVisible();
       expect(screen.queryByText("Help 2")).not.toBeVisible();
     });
 
     it("should expand according to icon clicks", async () => {
-      render(<StepRadioField {...defaultProps} />);
+      render(<RadioGroup {...defaultProps} />);
       userEvent.click(within(screen.getByTestId("option-1")).getByRole("img"));
       await waitFor(() => {
         expect(
@@ -100,7 +100,7 @@ describe("StepRadioField component", () => {
     });
 
     it("should focus first summary on tab", () => {
-      render(<StepRadioField {...defaultProps} />);
+      render(<RadioGroup {...defaultProps} />);
       userEvent.tab();
       expect(
         within(screen.getByTestId("option-1")).getByTestId("help-summary")
