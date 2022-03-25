@@ -1,6 +1,6 @@
 import { ConfigStepFieldOptionsItem } from "~/domain";
+import Details from "../Details";
 import QuestionMark from "~/components/icons/mui/QuestionMark";
-import Details from "~/components/Details";
 
 export type RadioGroupProps = {
   name: string;

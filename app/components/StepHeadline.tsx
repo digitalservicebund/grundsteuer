@@ -1,5 +1,4 @@
-import React from "react";
-import Details from "~/components/Details";
+import { Details } from "~/components";
 import QuestionMark from "~/components/icons/mui/QuestionMark";
 import { I18nObject } from "~/routes/formular/_step";
 

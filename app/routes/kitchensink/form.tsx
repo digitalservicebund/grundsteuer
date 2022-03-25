@@ -1,5 +1,10 @@
-import { ContentContainer, FormGroup, Input, Select } from "~/components";
-import MaskedInput from "~/components/MaskedInput";
+import {
+  ContentContainer,
+  FormGroup,
+  Input,
+  MaskedInput,
+  Select,
+} from "~/components";
 
 export default function KitchenSinkForm() {
   return (

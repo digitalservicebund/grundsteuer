@@ -1,4 +1,4 @@
-import { StepFormField } from "~/components";
+import StepFormField from "./StepFormField";
 import { I18nObjectField } from "~/routes/formular/_step";
 
 export type StepFormFieldsProps = {

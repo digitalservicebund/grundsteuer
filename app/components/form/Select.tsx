@@ -1,9 +1,9 @@
-import Label from "./Label";
-import { ConfigStepFieldOptionsItem } from "~/domain";
-import Details from "~/components/Details";
-import QuestionMark from "~/components/icons/mui/QuestionMark";
 import classNames from "classnames";
+import { ConfigStepFieldOptionsItem } from "~/domain";
+import Details from "../Details";
 import FieldError from "./FieldError";
+import Label from "./Label";
+import QuestionMark from "~/components/icons/mui/QuestionMark";
 
 export type SelectProps = {
   name: string;

@@ -1,9 +1,9 @@
 import RadioGroup, { RadioGroupProps } from "./RadioGroup";
 import Input, { InputProps } from "./Input";
 import Select, { SelectProps } from "./Select";
+import SteuerIdField from "./SteuerIdField";
+import Checkbox, { CheckboxProps } from "./Checkbox";
 import { I18nObjectField } from "~/routes/formular/_step";
-import SteuerIdField from "~/components/fields/SteuerIdField";
-import Checkbox, { CheckboxProps } from "~/components/fields/Checkbox";
 
 export type StepFormFieldProps = {
   name: string;

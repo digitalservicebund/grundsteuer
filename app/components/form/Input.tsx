@@ -1,9 +1,9 @@
 import React from "react";
 import classNames from "classnames";
 import Label from "./Label";
-import Details from "./Details";
-import QuestionMark from "./icons/mui/QuestionMark";
+import Details from "../Details";
 import FieldError from "./FieldError";
+import QuestionMark from "~/components/icons/mui/QuestionMark";
 
 export interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
   name: string;
