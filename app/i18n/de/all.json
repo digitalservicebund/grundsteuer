@@ -524,7 +524,7 @@
             "label": "Ort"
           }
         },
-        "specifics":{
+        "specifics": {
           "subHeadingName": "Name der Bruchteilsgemeinschaft",
           "subHeadingAdresse": "Adresse der Bruchteilsgemeinschaft"
         }
