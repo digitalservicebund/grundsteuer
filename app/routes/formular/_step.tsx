@@ -212,8 +212,11 @@ export const action: ActionFunction = async ({ params, request }) => {
   if (stepDefinition) {
     Object.entries(stepDefinition.fields).forEach(
       ([name, field]: [string, any]) => {
-        const value = fieldValues[name];
-        invariant(typeof value === "string");
+        let value = fieldValues[name];
+        // unchecked checkbox
+        if (typeof value == "undefined") {
+          value = "";
+        }
         const errorMessage = getErrorMessage(
           value,
           field.validations,

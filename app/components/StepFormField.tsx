@@ -3,6 +3,7 @@ import Input, { InputProps } from "./Input";
 import Select, { SelectProps } from "./Select";
 import { I18nObjectField } from "~/routes/formular/_step";
 import SteuerIdField from "~/components/fields/SteuerIdField";
+import Checkbox, { CheckboxProps } from "~/components/fields/Checkbox";
 
 export type StepFormFieldProps = {
   name: string;
@@ -54,6 +55,15 @@ const StepFormField = (props: StepFormFieldProps) => {
       help: i18n.help,
     };
     return <Select {...selectProps} />;
+  }
+
+  if (type === "checkbox") {
+    const checkboxProps: CheckboxProps = {
+      ...commonProps,
+      help: i18n.help,
+    };
+
+    return <Checkbox {...checkboxProps} />;
   }
 
   const textProps: InputProps = {

@@ -21,9 +21,12 @@ describe("Bodenrichtwert page component", () => {
     defaultInput.i18n = await getI18nObject("grundstueck.bodenrichtwert");
   });
 
-  it("should render input field", () => {
+  it("should render input fields", () => {
     render(<Bodenrichtwert {...defaultInput} />);
     expect(screen.getByLabelText("Bodenrichtwert in €")).toBeInTheDocument();
+    expect(
+      screen.getByLabelText("Mein Grundstück hat zwei Bodenrichtwerte")
+    ).toBeInTheDocument();
   });
 
   describe("With no data", () => {

@@ -801,6 +801,10 @@
       "fields": {
         "bodenrichtwert": {
           "label": "Bodenrichtwert in €"
+        },
+        "twoBodenrichtwerte": {
+          "label": "Mein Grundstück hat zwei Bodenrichtwerte",
+          "help": "Sie werden ausgesteuert."
         }
       },
       "specifics": {
