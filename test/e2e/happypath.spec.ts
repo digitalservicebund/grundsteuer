@@ -180,8 +180,8 @@ const inputData = {
         telefonnummer: "456-789",
       },
     },
-    freitext: "Ich fand die Plattform ganz toll.",
   },
+  freitext: "Ich fand die Plattform ganz toll.",
 };
 
 export const submitBtnSelector = "#nextButton";
@@ -494,11 +494,12 @@ describe("Happy Path", () => {
           .telefonnummer
       );
     cy.get(submitBtnSelector).click();
-    cy.get("#freitext").clear().type(inputData.eigentuemer.freitext);
-    cy.get(submitBtnSelector).click();
 
     // ZUSAMMENFASSUNG
     cy.url().should("include", "/formular/zusammenfassung");
+
+    cy.get("#freitext").clear().type(inputData.freitext);
+
     cy.contains("Bezugsfertig ab 1949: Ja");
     cy.contains(`Baujahr: ${inputData.gebaeude.baujahr.baujahr}`);
     cy.contains("Kernsaniert: Ja");

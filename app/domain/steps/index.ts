@@ -161,10 +161,6 @@ import {
   GrundstueckBodenrichtwertFields,
 } from "./grundstueck/bodenrichtwert";
 import {
-  eigentuemerFreitext,
-  EigentuemerFreitextFields,
-} from "~/domain/steps/eigentuemer/freitext";
-import {
   eigentuemerBruchteilsgemeinschaft,
   EigentuemerBruchteilsgemeinschaftFields,
 } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaft";
@@ -196,6 +192,10 @@ import {
   eigentuemerBruchteilsgemeinschaftAngaben,
   EigentuemerBruchteilsgemeinschaftAngabenFields,
 } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
+import {
+  zusammenfassung,
+  ZusammenfassungFields,
+} from "~/domain/steps/zusammenfassung";
 export type { GrundstueckBodenrichtwertFields };
 
 const stepDefinitions = {
@@ -253,8 +253,8 @@ const stepDefinitions = {
       adresse: eigentuemerEmpfangsbevollmaechtigterAdresse,
       telefonnummer: eigentuemerEmpfangsbevollmaechtigterTelefonnummer,
     },
-    freitext: eigentuemerFreitext,
   },
+  zusammenfassung: zusammenfassung,
 };
 
 export default stepDefinitions;
@@ -316,8 +316,8 @@ export type GrundModel = {
       adresse?: EigentuemerEmpfangsbevollmaechtigterAdresseFields;
       telefonnummer?: EigentuemerEmpfangsbevollmaechtigterTelefonnummerFields;
     };
-    freitext?: EigentuemerFreitextFields;
   };
+  zusammenfassung?: ZusammenfassungFields;
 };
 
 export type StepDefinitionField = {

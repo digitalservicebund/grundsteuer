@@ -458,7 +458,6 @@ export const states: MachineConfig<any, any, any> = {
                 target: "empfangsbevollmaechtigter",
                 cond: "hasEmpfangsbevollmaechtigter",
               },
-              { target: "freitext" },
             ],
           },
         },
@@ -484,19 +483,7 @@ export const states: MachineConfig<any, any, any> = {
             },
           },
           on: {
-            NEXT: { target: "freitext" },
             BACK: { target: "empfangsvollmacht" },
-          },
-        },
-        freitext: {
-          on: {
-            BACK: [
-              {
-                target: "empfangsbevollmaechtigter.telefonnummer",
-                cond: "hasEmpfangsbevollmaechtigter",
-              },
-              { target: "empfangsvollmacht" },
-            ],
           },
         },
       },
@@ -507,7 +494,15 @@ export const states: MachineConfig<any, any, any> = {
     zusammenfassung: {
       type: "final",
       on: {
-        BACK: { target: "eigentuemer.freitext" },
+        BACK: [
+          {
+            target: "eigentuemer.empfangsbevollmaechtigter.telefonnummer",
+            cond: "hasEmpfangsbevollmaechtigter",
+          },
+          {
+            target: "eigentuemer.empfangsvollmacht",
+          },
+        ],
       },
     },
   },

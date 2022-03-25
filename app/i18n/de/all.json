@@ -148,8 +148,7 @@
         "name": "Name",
         "adresse": "Adresse",
         "telefonnummer": "Telefonnummer"
-      },
-      "freitext": "Ergänzende Angaben"
+      }
     },
     "zusammenfassung": "Zusammenfassung"
   },
@@ -596,16 +595,6 @@
           }
         }
       }
-    },
-    "freitext": {
-      "headline": "Gibt es allgemeine Ergänzungen?",
-      "fields": {
-        "freitext": ""
-      },
-      "specifics": {
-        "congratulations": "Herzlichen Glückwunsch — Sie sind am Ende des Formulars angekommen.",
-        "warning": "Achtung, wenn Sie hier etwas eintragen, dann werden Sie ausgesteuert."
-      }
     }
   },
   "grundstueck": {
@@ -826,6 +815,14 @@
         "flurstueckNenner": "Flurstück Nenner",
         "wirtschaftlicheEinheitZaehler": "wirtschaftl. Einheit Zähler",
         "wirtschaftlicheEinheitNenner": "wirtschaftl. Einheit Nenner"
+      }
+    }
+  },
+  "zusammenfassung": {
+    "fields": {
+      "freitext": {
+        "label": "Gibt es noch etwas, das Sie der Finanzverwaltung mitteilen wollen? (Optional)",
+        "help": "Wenn Sie hier Angaben ergänzen, wird Ihre Erklärung von den Mitarbeitenden des Finanzamts bearbeitet und nicht maschinell. Machen Sie diese Eintragung nur, wenn über die Angaben im Formular hinaus weitere oder abweichende Angaben oder Sachverhalte berücksichtigt werden sollen."
       }
     }
   }

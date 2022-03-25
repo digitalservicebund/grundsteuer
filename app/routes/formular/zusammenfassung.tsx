@@ -4,10 +4,20 @@ import { createGraph } from "~/domain";
 import { GrundModel } from "~/domain/steps";
 import { StateMachineContext } from "~/domain/states";
 import { pageTitle } from "~/util/pageTitle";
+import { i18Next } from "~/i18n.server";
+import { getStepData } from "~/domain/model";
+import { zusammenfassung } from "~/domain/steps/zusammenfassung";
+import { I18nObject } from "~/routes/formular/_step";
+import { SimplePageLayout, StepFormFields } from "~/components";
 
 type LoaderData = {
   graph: StateMachineContext;
-  data: GrundModel;
+  formData: Record<string, any>;
+  allData: GrundModel;
+  i18n: I18nObject;
+  stepDefinition: {
+    fields: Record<string, any>;
+  };
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -17,7 +27,17 @@ export const loader: LoaderFunction = async ({ request }) => {
     machineContext: cookie.records,
   });
 
-  return { graph, data: cookie.records };
+  const tFunction = await i18Next.getFixedT("de", "all");
+  return {
+    graph,
+    formData: getStepData(cookie.records, "zusammenfassung"),
+    allData: cookie.records,
+    i18n: {
+      ...(tFunction("zusammenfassung") as I18nObject),
+      common: { ...(tFunction("common") as I18nObject) },
+    },
+    stepDefinition: zusammenfassung,
+  };
 };
 
 const resolveJaNein = (value: string | undefined) => {
@@ -67,118 +87,121 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Zusammenfassung() {
-  const { graph, data } = useLoaderData<LoaderData>();
+  const { graph, formData, allData, i18n, stepDefinition } =
+    useLoaderData<LoaderData>();
 
   return (
-    <div className="bg-beige-100 h-full p-4">
+    <SimplePageLayout>
       <h1 className="mb-8 font-bold text-4xl">Zusammenfassung</h1>
-      {data?.gebaeude && (
+      {allData?.gebaeude && (
         <>
           <h2 className="font-bold text-2xl mb-3">Gebäude</h2>
           <ul>
             {item(
               "Bezugsfertig ab 1949",
-              data.gebaeude.ab1949?.isAb1949,
+              allData.gebaeude.ab1949?.isAb1949,
               resolveJaNein
             )}
 
-            {data.gebaeude.ab1949?.isAb1949 === "true" &&
-              item("Baujahr", data.gebaeude.baujahr?.baujahr)}
+            {allData.gebaeude.ab1949?.isAb1949 === "true" &&
+              item("Baujahr", allData.gebaeude.baujahr?.baujahr)}
 
             {item(
               "Kernsaniert",
-              data.gebaeude.kernsaniert?.isKernsaniert,
+              allData.gebaeude.kernsaniert?.isKernsaniert,
               resolveJaNein
             )}
 
-            {data.gebaeude.kernsaniert?.isKernsaniert === "true" &&
+            {allData.gebaeude.kernsaniert?.isKernsaniert === "true" &&
               item(
                 "Jahr der Kernsanierung",
-                data.gebaeude.kernsanierungsjahr?.kernsanierungsjahr
+                allData.gebaeude.kernsanierungsjahr?.kernsanierungsjahr
               )}
 
             {item(
               "Abbruchverpflichtung liegt vor",
-              data.gebaeude.abbruchverpflichtung?.hasAbbruchverpflichtung,
+              allData.gebaeude.abbruchverpflichtung?.hasAbbruchverpflichtung,
               resolveJaNein
             )}
 
-            {data.gebaeude.abbruchverpflichtung?.hasAbbruchverpflichtung ===
+            {allData.gebaeude.abbruchverpflichtung?.hasAbbruchverpflichtung ===
               "true" &&
               item(
                 "Jahr der Abbruchverpflichtung",
-                data.gebaeude.abbruchverpflichtungsjahr
+                allData.gebaeude.abbruchverpflichtungsjahr
                   ?.abbruchverpflichtungsjahr
               )}
 
             {["einfamilienhaus", "wohnungseigentum"].includes(
-              data.grundstueck?.typ?.typ as string
+              allData.grundstueck?.typ?.typ as string
             ) &&
               item(
                 "Wohnfläche",
-                data.gebaeude.wohnflaeche?.wohnflaeche,
+                allData.gebaeude.wohnflaeche?.wohnflaeche,
                 resolveArea
               )}
 
-            {data.grundstueck?.typ?.typ === "zweifamilienhaus" &&
+            {allData.grundstueck?.typ?.typ === "zweifamilienhaus" &&
               item(
                 "Wohnung 1 Wohnfläche",
-                data.gebaeude.wohnflaechen?.wohnflaeche1,
+                allData.gebaeude.wohnflaechen?.wohnflaeche1,
                 resolveArea
               )}
-            {data.grundstueck?.typ?.typ === "zweifamilienhaus" &&
+            {allData.grundstueck?.typ?.typ === "zweifamilienhaus" &&
               item(
                 "Wohnung 2 Wohnfläche",
-                data.gebaeude.wohnflaechen?.wohnflaeche2,
+                allData.gebaeude.wohnflaechen?.wohnflaeche2,
                 resolveArea
               )}
 
             {item(
               "Weitere Wohnräume",
-              data.gebaeude.weitereWohnraeume?.hasWeitereWohnraeume,
+              allData.gebaeude.weitereWohnraeume?.hasWeitereWohnraeume,
               resolveJaNein
             )}
 
-            {data.gebaeude.weitereWohnraeume?.hasWeitereWohnraeume === "true" &&
+            {allData.gebaeude.weitereWohnraeume?.hasWeitereWohnraeume ===
+              "true" &&
               item(
                 "Anzahl der weiteren Wohnräume",
-                data.gebaeude.weitereWohnraeumeDetails?.anzahl
+                allData.gebaeude.weitereWohnraeumeDetails?.anzahl
               )}
 
-            {data.gebaeude.weitereWohnraeume?.hasWeitereWohnraeume === "true" &&
+            {allData.gebaeude.weitereWohnraeume?.hasWeitereWohnraeume ===
+              "true" &&
               item(
                 "Gesamtfläche der weiteren Wohnräume",
-                data.gebaeude.weitereWohnraeumeDetails?.flaeche,
+                allData.gebaeude.weitereWohnraeumeDetails?.flaeche,
                 resolveArea
               )}
 
-            {data.gebaeude.garagen?.hasGaragen === "true"
+            {allData.gebaeude.garagen?.hasGaragen === "true"
               ? item(
                   "Anzahl Garagen",
-                  data.gebaeude.garagenAnzahl?.anzahlGaragen
+                  allData.gebaeude.garagenAnzahl?.anzahlGaragen
                 )
               : item("Anzahl Garagen", "0")}
           </ul>
         </>
       )}
-      {data?.eigentuemer && (
+      {allData?.eigentuemer && (
         <>
           <h2 className="font-bold text-2xl mb-3">Eigentümer:innen</h2>
           <ul>
-            {item("Anzahl", data.eigentuemer.anzahl?.anzahl)}
+            {item("Anzahl", allData.eigentuemer.anzahl?.anzahl)}
 
-            {data.eigentuemer.verheiratet?.areVerheiratet &&
+            {allData.eigentuemer.verheiratet?.areVerheiratet &&
               item(
                 "Verheiratet",
-                data.eigentuemer.verheiratet.areVerheiratet,
+                allData.eigentuemer.verheiratet.areVerheiratet,
                 resolveJaNein
               )}
           </ul>
-          {data.eigentuemer.person && (
+          {allData.eigentuemer.person && (
             <>
               <h3 className="font-bold text-xl mb-1">Personen</h3>
 
-              {data.eigentuemer.person.map((person: any, index: number) => {
+              {allData.eigentuemer.person.map((person: any, index: number) => {
                 const personKey = "person-" + index;
                 return (
                   <div
@@ -266,10 +289,10 @@ export default function Zusammenfassung() {
           <ul>
             {item(
               "Empfangsvollmacht",
-              data.eigentuemer.empfangsvollmacht?.hasEmpfangsvollmacht,
+              allData.eigentuemer.empfangsvollmacht?.hasEmpfangsvollmacht,
               resolveJaNein
             )}
-            {data.eigentuemer.empfangsbevollmaechtigter && (
+            {allData.eigentuemer.empfangsbevollmaechtigter && (
               <div
                 className="bg-gray-300 mx-4"
                 id={"empfangsbevollmaechtigter"}
@@ -278,46 +301,48 @@ export default function Zusammenfassung() {
                 <ul>
                   {item(
                     "Anrede",
-                    data.eigentuemer.empfangsbevollmaechtigter.name?.anrede,
+                    allData.eigentuemer.empfangsbevollmaechtigter.name?.anrede,
                     resolveAnrede
                   )}
                   {item(
                     "Titel",
-                    data.eigentuemer.empfangsbevollmaechtigter.name?.titel
+                    allData.eigentuemer.empfangsbevollmaechtigter.name?.titel
                   )}
                   {item(
                     "Name",
-                    data.eigentuemer.empfangsbevollmaechtigter.name?.name
+                    allData.eigentuemer.empfangsbevollmaechtigter.name?.name
                   )}
                   {item(
                     "Vorname",
-                    data.eigentuemer.empfangsbevollmaechtigter.name?.vorname
+                    allData.eigentuemer.empfangsbevollmaechtigter.name?.vorname
                   )}
 
                   {item(
                     "Straße",
-                    data.eigentuemer.empfangsbevollmaechtigter.adresse?.strasse
+                    allData.eigentuemer.empfangsbevollmaechtigter.adresse
+                      ?.strasse
                   )}
                   {item(
                     "Hausnummer",
-                    data.eigentuemer.empfangsbevollmaechtigter.adresse
+                    allData.eigentuemer.empfangsbevollmaechtigter.adresse
                       ?.hausnummer
                   )}
                   {item(
                     "Postfach",
-                    data.eigentuemer.empfangsbevollmaechtigter.adresse?.postfach
+                    allData.eigentuemer.empfangsbevollmaechtigter.adresse
+                      ?.postfach
                   )}
                   {item(
                     "PLZ",
-                    data.eigentuemer.empfangsbevollmaechtigter.adresse?.plz
+                    allData.eigentuemer.empfangsbevollmaechtigter.adresse?.plz
                   )}
                   {item(
                     "Ort",
-                    data.eigentuemer.empfangsbevollmaechtigter.adresse?.ort
+                    allData.eigentuemer.empfangsbevollmaechtigter.adresse?.ort
                   )}
                   {item(
                     "Telefonnummer",
-                    data.eigentuemer.empfangsbevollmaechtigter.telefonnummer
+                    allData.eigentuemer.empfangsbevollmaechtigter.telefonnummer
                       ?.telefonnummer
                   )}
                 </ul>
@@ -326,9 +351,16 @@ export default function Zusammenfassung() {
           </ul>
         </>
       )}
-      <pre className="max-w-screen-md overflow-hidden">
-        {JSON.stringify({ graph }, null, 2)}
-      </pre>
-    </div>
+      <div className="mt-32">
+        <StepFormFields
+          {...{
+            stepDefinition,
+            formData,
+            i18n,
+            currentState: "zusammenfassung",
+          }}
+        />
+      </div>
+    </SimplePageLayout>
   );
 }
