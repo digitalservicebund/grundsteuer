@@ -1,20 +1,22 @@
-import { Label } from "@digitalservice4germany/digital-service-library";
+import Label from "./Label";
 import { ConfigStepFieldOptionsItem } from "~/domain";
 import Details from "~/components/Details";
 import QuestionMark from "~/components/icons/mui/QuestionMark";
-import React from "react";
+import classNames from "classnames";
+import FieldError from "./FieldError";
 
-export type StepSelectFieldProps = {
+export type SelectProps = {
   name: string;
   label: string;
   options: { value: string; label: string }[];
   help?: string;
   value?: string;
   defaultValue?: string;
+  error?: string;
 };
 
-export default function StepSelectField(props: StepSelectFieldProps) {
-  const { name, label, options, help, value, defaultValue } = props;
+export default function Select(props: SelectProps) {
+  const { name, label, options, help, value, defaultValue, error } = props;
   const id = name;
 
   const renderSelectFieldOption = (option: ConfigStepFieldOptionsItem) => {
@@ -25,19 +27,33 @@ export default function StepSelectField(props: StepSelectFieldProps) {
     );
   };
 
-  const labelComponent = (
-    <Label htmlFor={id} className="block">
-      {label}
-    </Label>
-  );
+  const labelComponent = <Label id={id}>{label}</Label>;
   const fieldComponent = (
-    <select name={name} id={id} defaultValue={value || defaultValue}>
+    <select
+      name={name}
+      id={id}
+      defaultValue={value || defaultValue}
+      className={classNames(
+        "block w-full",
+        "bg-white text-black",
+        "border-2 border-blue-800",
+        "hover:outline hover:outline-4 hover:outline-blue-800 hover:outline-offset-[-4px]",
+        "focus:outline focus:outline-4 focus:outline-blue-800 focus:outline-offset-[-4px]",
+        "disabled:!text-gray-600 disabled:!border-gray-600 disabled:!outline-none",
+        "px-24 min-h-[4rem] text-18 leading-24",
+        {
+          "border-red-800 bg-red-200": error,
+        }
+      )}
+    >
       <option disabled selected>
         -
       </option>
       {options.map(renderSelectFieldOption)}
     </select>
   );
+
+  const errorComponent = error && <FieldError>{error}</FieldError>;
 
   if (help) {
     return (
@@ -54,6 +70,7 @@ export default function StepSelectField(props: StepSelectFieldProps) {
           }
           detailsContent={<p>{help}</p>}
         />
+        {errorComponent}
       </>
     );
   } else {
@@ -61,6 +78,7 @@ export default function StepSelectField(props: StepSelectFieldProps) {
       <>
         {labelComponent}
         {fieldComponent}
+        {errorComponent}
       </>
     );
   }

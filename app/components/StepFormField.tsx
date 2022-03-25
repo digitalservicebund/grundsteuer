@@ -1,12 +1,10 @@
 import StepRadioField, {
   StepRadioFieldProps,
 } from "~/components/StepRadioField";
-import StepSelectField, {
-  StepSelectFieldProps,
-} from "~/components/StepSelectField";
+import Input, { InputProps } from "./Input";
+import Select, { SelectProps } from "./Select";
 import { I18nObjectField } from "~/routes/formular/_step";
 import SteuerIdField from "~/components/fields/SteuerIdField";
-import Input, { InputProps } from "./Input";
 
 export type StepFormFieldProps = {
   name: string;
@@ -52,12 +50,12 @@ const StepFormField = (props: StepFormFieldProps) => {
         label: i18n.options?.[option.value].label || option.value,
       };
     });
-    const selectProps: StepSelectFieldProps = {
+    const selectProps: SelectProps = {
       ...commonProps,
       options: optionsWithLabels,
       help: i18n.help,
     };
-    return <StepSelectField {...selectProps} />;
+    return <Select {...selectProps} />;
   }
 
   const textProps: InputProps = {

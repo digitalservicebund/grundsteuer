@@ -1,4 +1,4 @@
-import { ContentContainer, FormGroup, Input } from "~/components";
+import { ContentContainer, FormGroup, Input, Select } from "~/components";
 import MaskedInput from "~/components/MaskedInput";
 
 export default function KitchenSinkForm() {
@@ -8,19 +8,24 @@ export default function KitchenSinkForm() {
         <Input
           name="email"
           type="email"
-          label="E-Mail-Adresse"
+          label="Input type email"
           placeholder="user@example.com"
           help="Hilfetext…"
         />
       </FormGroup>
       <FormGroup>
-        <Input name="email1" type="email" label="E-Mail-Adresse" disabled />
+        <Input
+          name="emailDisabled"
+          type="email"
+          label="Disabled Input"
+          disabled
+        />
       </FormGroup>
       <FormGroup>
         <Input
-          name="email2"
+          name="emailError"
           type="email"
-          label="E-Mail-Adresse"
+          label="Input with error message"
           help="Hilfetext…"
           error="Fehler!"
         />
@@ -28,10 +33,32 @@ export default function KitchenSinkForm() {
       <FormGroup>
         <MaskedInput
           mask={"00 000 000 000"}
-          name="steuernr"
-          label="Steuer Nr."
+          name="maskedInput"
+          label="MaskedInput"
           help="Hilfetext…"
-          error="Fehler!"
+        />
+      </FormGroup>
+      <FormGroup>
+        <Select
+          name="select"
+          label="Select"
+          options={[
+            { value: "1", label: "eins" },
+            { value: "2", label: "zwei" },
+          ]}
+          help="Hilfetext…"
+        />
+      </FormGroup>
+      <FormGroup>
+        <Select
+          name="selectError"
+          label="Select with error"
+          defaultValue="1"
+          options={[
+            { value: "1", label: "eins" },
+            { value: "2", label: "zwei" },
+          ]}
+          error="Fehler !"
         />
       </FormGroup>
     </ContentContainer>

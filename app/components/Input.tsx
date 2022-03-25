@@ -3,6 +3,7 @@ import classNames from "classnames";
 import Label from "./Label";
 import Details from "./Details";
 import QuestionMark from "./icons/mui/QuestionMark";
+import FieldError from "./FieldError";
 
 export interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
   name: string;
@@ -45,9 +46,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     />
   );
 
-  const errorComponent = error && (
-    <div className="text-red-800 mt-8">{error}</div>
-  );
+  const errorComponent = error && <FieldError>{error}</FieldError>;
 
   if (help) {
     return (
