@@ -27,6 +27,9 @@ export default function StepSelectField(props: StepSelectFieldProps) {
         {label}
       </Label>
       <select name={name} id={id} defaultValue={value || defaultValue}>
+        <option disabled selected>
+          -
+        </option>
         {options.map(renderSelectFieldOption)}
       </select>
     </>

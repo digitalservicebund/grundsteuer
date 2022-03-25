@@ -627,6 +627,44 @@
         },
         "ort": {
           "label": "Ort"
+        },
+        "bundesland": {
+          "label": "Bundesland",
+          "options": {
+            "BE": {
+              "label": "Berlin"
+            },
+            "BB": {
+              "label": "Brandenburg"
+            },
+            "HB": {
+              "label": "Bremen"
+            },
+            "MV": {
+              "label": "Mecklenburg-Vorpommern"
+            },
+            "NW": {
+              "label": "Nordrhein-Westfalen"
+            },
+            "RP": {
+              "label": "Rheinland-Pfalz"
+            },
+            "SL": {
+              "label": "Saarland"
+            },
+            "SN": {
+              "label": "Sachsen"
+            },
+            "ST": {
+              "label": "Sachsen-Anhalt"
+            },
+            "SH": {
+              "label": "Schleswig-Holstein"
+            },
+            "TH": {
+              "label": "Thüringen"
+            }
+          }
         }
       }
     },

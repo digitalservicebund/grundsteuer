@@ -8,6 +8,7 @@ const inputData = {
       zusatzangaben: "2. OG re.",
       plz: "01001",
       ort: "Au",
+      bundesland: "BE",
     },
     steuernummer: {
       steuernummer: "1234567890",
@@ -197,6 +198,7 @@ describe("Happy Path", () => {
       .type(inputData.grundstueck.adresse.zusatzangaben);
     cy.get("#plz").clear().type(inputData.grundstueck.adresse.plz);
     cy.get("#ort").clear().type(inputData.grundstueck.adresse.ort);
+    cy.get("#bundesland").select(inputData.grundstueck.adresse.bundesland);
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/steuernummer");
