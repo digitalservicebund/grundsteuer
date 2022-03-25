@@ -5,7 +5,7 @@
   "license": "",
   "sideEffects": false,
   "scripts": {
-    "build": "npm run build:css && tsc --noEmit && cross-env NODE_ENV=production remix build",
+    "build": "npm run build:css && cross-env NODE_ENV=production remix build",
     "build:css": "tailwindcss -i ./app/styles/tailwind.css -o ./public/tailwind.css",
     "clean": "rm -rf build public/build app/tailwind.css",
     "dev": "concurrently \"npm run dev:css\" \"copy-env-cli && cross-env NODE_ENV=development node -r dotenv-safe/config node_modules/.bin/remix dev\"",
@@ -50,7 +50,8 @@
     "xstate": "^4.30.6"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.2.3",
+    "@remix-run/dev": "^1.3.3",
+    "@remix-run/eslint-config": "^1.3.3",
     "@testing-library/dom": "^8.11.3",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
