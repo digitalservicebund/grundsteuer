@@ -1,7 +1,7 @@
 import { IMaskMixin } from "react-imask";
-import StepTextField, { StepTextFieldProps } from "~/components/StepTextField";
 import invariant from "tiny-invariant";
 import { ReactElement } from "react-imask/dist/mixin";
+import Input, { InputProps } from "./Input";
 
 const InputWithMixin = IMaskMixin<
   IMask.AnyMaskedOptions,
@@ -16,11 +16,13 @@ const InputWithMixin = IMaskMixin<
     typeof defaultValue == "string" || typeof defaultValue == "undefined"
   );
   return (
-    <StepTextField {...{ ...rest, name, value, defaultValue, ref: inputRef }} />
+    <Input
+      {...{ ...rest, name, defaultValue: value || defaultValue, ref: inputRef }}
+    />
   );
 });
 
-export type MaskedInputProps = StepTextFieldProps & {
+export type MaskedInputProps = InputProps & {
   mask: string;
 };
 

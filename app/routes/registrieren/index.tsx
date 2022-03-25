@@ -101,8 +101,8 @@ export default function Registrieren() {
           <Input
             type="email"
             name="email"
-            labelText="E-Mail-Adresse"
-            errorMessage={t(errors?.email)}
+            label="E-Mail-Adresse"
+            error={t(errors?.email)}
           />
         </FormGroup>
 
@@ -110,8 +110,8 @@ export default function Registrieren() {
           <Input
             type="password"
             name="password"
-            labelText="Passwort"
-            errorMessage={t(errors?.password)}
+            label="Passwort"
+            error={t(errors?.password)}
           />
         </FormGroup>
 
@@ -119,8 +119,8 @@ export default function Registrieren() {
           <Input
             type="email"
             name="emailRepeated"
-            labelText="E-Mail-Adresse wiederholen"
-            errorMessage={t(errors?.emailRepeated)}
+            label="E-Mail-Adresse wiederholen"
+            error={t(errors?.emailRepeated)}
           />
         </FormGroup>
 
@@ -128,8 +128,8 @@ export default function Registrieren() {
           <Input
             type="password"
             name="passwordRepeated"
-            labelText="Passwort wiederholen"
-            errorMessage={t(errors?.passwordRepeated)}
+            label="Passwort wiederholen"
+            error={t(errors?.passwordRepeated)}
           />
         </FormGroup>
 

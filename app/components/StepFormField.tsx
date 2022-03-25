@@ -1,4 +1,3 @@
-import StepTextField, { StepTextFieldProps } from "~/components/StepTextField";
 import StepRadioField, {
   StepRadioFieldProps,
 } from "~/components/StepRadioField";
@@ -7,6 +6,7 @@ import StepSelectField, {
 } from "~/components/StepSelectField";
 import { I18nObjectField } from "~/routes/formular/_step";
 import SteuerIdField from "~/components/fields/SteuerIdField";
+import Input, { InputProps } from "./Input";
 
 export type StepFormFieldProps = {
   name: string;
@@ -25,10 +25,9 @@ const StepFormField = (props: StepFormFieldProps) => {
 
   const commonProps = {
     name,
-    value,
     label: i18n.label,
     key: name,
-    defaultValue,
+    defaultValue: value || defaultValue,
   };
 
   if (type === "radio" && options) {
@@ -60,7 +59,7 @@ const StepFormField = (props: StepFormFieldProps) => {
     return <StepSelectField {...selectProps} />;
   }
 
-  const textProps: StepTextFieldProps = {
+  const textProps: InputProps = {
     ...commonProps,
     placeholder: i18n.placeholder,
     help: i18n.help,
@@ -69,7 +68,7 @@ const StepFormField = (props: StepFormFieldProps) => {
   if (type === "steuerId") {
     return <SteuerIdField {...textProps} />;
   }
-  return <StepTextField {...textProps} />;
+  return <Input {...textProps} />;
 };
 
 export default StepFormField;
