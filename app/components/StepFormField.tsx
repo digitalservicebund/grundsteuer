@@ -55,6 +55,7 @@ const StepFormField = (props: StepFormFieldProps) => {
     const selectProps: StepSelectFieldProps = {
       ...commonProps,
       options: optionsWithLabels,
+      help: i18n.help,
     };
     return <StepSelectField {...selectProps} />;
   }

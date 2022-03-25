@@ -630,6 +630,7 @@
         },
         "bundesland": {
           "label": "Bundesland",
+          "help": "Wenn Sie Ihr Bundesland nicht in der Auswahl finden, können Sie unseren Online-Service leider nicht nutzen. Geben Sie Ihre Grundsteuererklärung in diesem Fall bitte über ELSTER ab.",
           "options": {
             "BE": {
               "label": "Berlin"
