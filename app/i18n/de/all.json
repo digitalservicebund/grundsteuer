@@ -92,7 +92,8 @@
       "eigentuemer": "Eigentümer:innen",
       "person": "Eigentümer:in {{number}}",
       "vertreter": "Gesetzliche:r Vertreter:in",
-      "empfangsbevollmaechtigter": "Empfangsbevollmächtigte:r"
+      "empfangsbevollmaechtigter": "Empfangsbevollmächtigte:r",
+      "bruchteilsgemeinschaftangaben": "Angaben"
     },
     "grundstueck": {
       "adresse": "Adresse",
@@ -139,6 +140,9 @@
         }
       },
       "bruchteilsgemeinschaft": "Bruchteilsgemeinschaft",
+      "bruchteilsgemeinschaftangaben": {
+        "angaben": "Angaben ändern"
+      },
       "empfangsvollmacht": "Empfangsvollmacht",
       "empfangsbevollmaechtigter": {
         "name": "Name",
