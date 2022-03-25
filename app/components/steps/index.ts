@@ -14,6 +14,7 @@ import { AbweichendeEntwicklungHelp } from "~/components/steps/grundstueck/abwei
 import Bruchteilsgemeinschaft, {
   BruchteilsgemeinschaftHelp,
 } from "~/components/steps/eigentuemer/bruchteilsgemeinschaft";
+import EigentuemerBruchteilsgemeinschaftAngaben from "~/components/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
 
 export { Default as FallbackStepComponent };
 
@@ -27,6 +28,9 @@ export default {
       },
     },
     bruchteilsgemeinschaft: Bruchteilsgemeinschaft,
+    bruchteilsgemeinschaftangaben: {
+      angaben: EigentuemerBruchteilsgemeinschaftAngaben,
+    },
     freitext: Freitext,
   },
   grundstueck: {
