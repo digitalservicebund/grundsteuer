@@ -326,7 +326,7 @@ export type StepDefinitionField = {
 
 export type StepDefinitionFieldWithOptions = StepDefinitionField & {
   type: "radio" | "select" | "checkbox" | "steuerId";
-  options: { value: string }[];
+  options: { value: string; defaultOption?: boolean }[];
 };
 
 export type StepDefinition = {

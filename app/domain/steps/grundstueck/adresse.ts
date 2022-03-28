@@ -34,6 +34,7 @@ export const grundstueckAdresse: StepDefinition = {
     bundesland: {
       type: "select",
       options: [
+        { value: "default", defaultOption: true },
         { value: "BE" },
         { value: "BB" },
         { value: "HB" },

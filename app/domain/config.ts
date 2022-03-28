@@ -10,6 +10,7 @@ export type ConfigStepFieldText = ConfigStepFieldCommon;
 
 export interface ConfigStepFieldOptionsItem {
   value: string;
+  defaultOption?: boolean;
   label?: string;
 }
 

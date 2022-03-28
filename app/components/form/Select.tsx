@@ -8,7 +8,7 @@ import QuestionMark from "~/components/icons/mui/QuestionMark";
 export type SelectProps = {
   name: string;
   label: string;
-  options: { value: string; label: string }[];
+  options: ConfigStepFieldOptionsItem[];
   help?: string;
   value?: string;
   defaultValue?: string;
@@ -21,7 +21,12 @@ export default function Select(props: SelectProps) {
 
   const renderSelectFieldOption = (option: ConfigStepFieldOptionsItem) => {
     return (
-      <option value={option.value} key={option.value}>
+      <option
+        value={option.value}
+        key={option.value}
+        disabled={option.defaultOption}
+        selected={option.defaultOption}
+      >
         {option.label}
       </option>
     );
@@ -46,9 +51,6 @@ export default function Select(props: SelectProps) {
         }
       )}
     >
-      <option disabled selected>
-        -
-      </option>
       {options.map(renderSelectFieldOption)}
     </select>
   );
