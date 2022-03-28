@@ -31,7 +31,7 @@ Cypress.Commands.add("login", () => {
     cy.visit("/anmelden");
     cy.get("[name=email]").type("user@example.com");
     cy.get("[name=password]").type("something");
-    cy.get("[data-testid='submit'").click();
+    cy.get("[data-testid=submit").click();
     cy.url().should("contain", "/formular");
   });
 });
