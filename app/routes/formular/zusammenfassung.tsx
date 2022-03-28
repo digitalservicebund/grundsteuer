@@ -75,11 +75,16 @@ const item = (
   value: string | undefined,
   resolver?: (field: string | undefined) => string
 ): JSX.Element => {
-  return (
-    <li>
-      {label}: {resolver ? resolver(value) : value}
-    </li>
-  );
+  const displayValue = resolver ? resolver(value) : value;
+  if (displayValue) {
+    return (
+      <li>
+        {label}: {displayValue}
+      </li>
+    );
+  } else {
+    return <></>;
+  }
 };
 
 export const meta: MetaFunction = () => {
@@ -93,6 +98,24 @@ export default function Zusammenfassung() {
   return (
     <div className="pt-32 max-w-screen-md mx-auto w-1/2">
       <h1 className="mb-8 font-bold text-4xl">Zusammenfassung</h1>
+      {allData?.grundstueck && (
+        <>
+          <h2 className="font-bold text-2xl mb-3">Grundstück</h2>
+          <ul>
+            {item(
+              "Bodenrichtwert",
+              allData.grundstueck.bodenrichtwert?.bodenrichtwert
+            )}
+            {item(
+              "Zwei Bodenrichtwerte",
+              allData.grundstueck.bodenrichtwert?.twoBodenrichtwerte
+                ? "true"
+                : undefined,
+              resolveJaNein
+            )}
+          </ul>
+        </>
+      )}
       {allData?.gebaeude && (
         <>
           <h2 className="font-bold text-2xl mb-3">Gebäude</h2>
