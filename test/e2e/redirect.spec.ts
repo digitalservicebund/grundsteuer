@@ -14,9 +14,9 @@ describe("Redirect to initial step when accessing super state url", () => {
     );
   });
 
-  it("should redirect to adresse on call to grundstueck", () => {
+  it("should redirect to uebersicht on call to grundstueck", () => {
     cy.visit("/formular/grundstueck");
-    cy.url().should("include", "/formular/grundstueck/adresse");
+    cy.url().should("include", "/formular/grundstueck/uebersicht");
   });
 
   it("should redirect to angaben of flurstueck 1 on call to eigentuemer/person", () => {
@@ -41,12 +41,12 @@ describe("Redirect to initial step when accessing super state url", () => {
 describe("Redirect to formular start step when accessing non-reachable page", () => {
   it("should redirect to formular start on call to gebaeude", () => {
     cy.visit("/formular/gebaeude");
-    cy.url().should("include", "/formular/grundstueck/adresse");
+    cy.url().should("include", "/formular/grundstueck/uebersicht");
   });
 
   it("should redirect to formular start on call to second flurstueck", () => {
     cy.visit("/formular/grundstueck/flurstueck/2/angaben");
-    cy.url().should("include", "/formular/grundstueck/adresse");
+    cy.url().should("include", "/formular/grundstueck/uebersicht");
   });
 });
 

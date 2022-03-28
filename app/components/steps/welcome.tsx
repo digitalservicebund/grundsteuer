@@ -1,6 +1,6 @@
 import { StepComponentFunction } from "~/routes/formular/_step";
 
-const Welcome: StepComponentFunction = ({ i18n }) => {
+const Welcome: StepComponentFunction = () => {
   return (
     <>
       <p className="mb-32">

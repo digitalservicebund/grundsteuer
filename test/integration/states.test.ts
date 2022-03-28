@@ -67,6 +67,7 @@ describe("states", () => {
     ];
 
     const defaultGrundstueck = [
+      "grundstueck.uebersicht",
       "grundstueck.adresse",
       "grundstueck.steuernummer",
       "grundstueck.typ",
@@ -110,6 +111,7 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "welcome",
+          "grundstueck.uebersicht",
           "grundstueck.adresse",
           "grundstueck.steuernummer",
           "grundstueck.typ",

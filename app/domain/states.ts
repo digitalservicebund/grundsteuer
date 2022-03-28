@@ -17,10 +17,16 @@ export const states: MachineConfig<any, any, any> = {
     },
     grundstueck: {
       id: "grundstueck",
-      initial: "adresse",
+      initial: "uebersicht",
       states: {
+        uebersicht: {
+          on: {
+            NEXT: [{ target: "adresse" }],
+          },
+        },
         adresse: {
           on: {
+            BACK: [{ target: "uebersicht" }],
             NEXT: [{ target: "steuernummer" }],
           },
         },

@@ -15,6 +15,7 @@ import Bruchteilsgemeinschaft, {
 } from "~/components/steps/eigentuemer/bruchteilsgemeinschaft";
 import EigentuemerBruchteilsgemeinschaftAngaben from "~/components/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
 import Welcome from "~/components/steps/welcome";
+import GrundstueckUebersicht from "~/components/steps/grundstueck/uebersicht";
 
 export { Default as FallbackStepComponent };
 
@@ -34,6 +35,7 @@ export default {
     },
   },
   grundstueck: {
+    uebersicht: GrundstueckUebersicht,
     bodenrichtwert: Bodenrichtwert,
     flurstueck: {
       angaben: GrundstueckFlurstueckAngaben,

@@ -97,6 +97,7 @@
     },
     "welcome": "Willkommen",
     "grundstueck": {
+      "uebersicht": "Übersicht",
       "adresse": "Adresse",
       "steuernummer": "Steuernummer",
       "typ": "Grundstücksart",
@@ -585,6 +586,10 @@
     }
   },
   "grundstueck": {
+    "uebersicht": {
+      "headline": "Grundstück",
+      "nextButtonLabel": "Los geht's"
+    },
     "adresse": {
       "headline": "Wie lautet die Adresse des Grundstücks?",
       "fields": {

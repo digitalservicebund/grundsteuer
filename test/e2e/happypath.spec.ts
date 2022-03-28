@@ -180,7 +180,13 @@ export const submitBtnSelector = "#nextButton";
 
 describe("Happy Path", () => {
   it("Enter data for two eigentuemer", () => {
-    cy.visit("/formular/grundstueck/adresse");
+    cy.visit("/formular/welcome");
+    cy.get(submitBtnSelector).click();
+    cy.get("h1").contains("Grundstück", { timeout: 5000 });
+    cy.get(submitBtnSelector).click();
+    cy.get("h1").contains("Wie lautet die Adresse des Grundstücks?", {
+      timeout: 5000,
+    });
     cy.get("#strasse").clear().type(inputData.grundstueck.adresse.strasse);
     cy.get("#hausnummer")
       .clear()
