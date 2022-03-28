@@ -303,7 +303,9 @@ describe("Happy Path", () => {
       .type(inputData.grundstueck.bodenrichtwert.bodenrichtwert);
     cy.get(submitBtnSelector).click();
 
-    cy.url().should("include", "/formular/gebaeude/ab1949");
+    cy.url().should("include", "/formular/gebaeude/uebersicht");
+    cy.get("h1").contains("Gebäude", { timeout: 5000 });
+    cy.get(submitBtnSelector).click();
     cy.get(`label[for=isAb1949-${inputData.gebaeude.ab1949.isAb1949}]`).click();
     cy.get(submitBtnSelector).click();
     cy.get("#baujahr").clear().type(inputData.gebaeude.baujahr.baujahr);

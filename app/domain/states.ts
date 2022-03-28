@@ -131,8 +131,13 @@ export const states: MachineConfig<any, any, any> = {
     },
     gebaeude: {
       id: "gebaeude",
-      initial: "ab1949",
+      initial: "uebersicht",
       states: {
+        uebersicht: {
+          on: {
+            NEXT: { target: "ab1949" },
+          },
+        },
         ab1949: {
           on: {
             NEXT: [
@@ -140,7 +145,7 @@ export const states: MachineConfig<any, any, any> = {
               { target: "kernsaniert" },
             ],
             BACK: {
-              target: "#grundstueck.bodenrichtwert",
+              target: "uebersicht",
             },
           },
         },
@@ -268,7 +273,7 @@ export const states: MachineConfig<any, any, any> = {
           },
         },
       },
-      on: { NEXT: "eigentuemer", BACK: "grundstueck" },
+      on: { NEXT: "eigentuemer", BACK: "grundstueck.bodenrichtwert" },
     },
     eigentuemer: {
       id: "eigentuemer",

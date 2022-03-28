@@ -80,6 +80,7 @@ describe("states", () => {
     ];
 
     const defaultGebaeude = [
+      "gebaeude.uebersicht",
       "gebaeude.ab1949",
       "gebaeude.kernsaniert",
       "gebaeude.abbruchverpflichtung",
@@ -148,6 +149,7 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           ...defaultGrundstueck,
+          "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
@@ -169,6 +171,7 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           ...defaultGrundstueck,
+          "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
@@ -190,6 +193,7 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           ...defaultGrundstueck,
+          "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.kernsaniert",
           "gebaeude.kernsanierungsjahr",
@@ -213,6 +217,7 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           ...defaultGrundstueck,
+          "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
@@ -238,6 +243,7 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           ...defaultGrundstueck,
+          "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
@@ -262,6 +268,7 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           ...defaultGrundstueck,
+          "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
@@ -288,6 +295,7 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           ...defaultGrundstueck,
+          "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
@@ -316,6 +324,7 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           ...defaultGrundstueck,
+          "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
@@ -345,6 +354,7 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           ...defaultGrundstueck,
+          "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",
@@ -373,6 +383,7 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           ...defaultGrundstueck,
+          "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",
           "gebaeude.kernsaniert",

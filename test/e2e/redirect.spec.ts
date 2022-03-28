@@ -34,7 +34,7 @@ describe("Redirect to initial step when accessing super state url", () => {
     cy.get("#nextButton").click();
 
     cy.visit("/formular/gebaeude");
-    cy.url().should("include", "/formular/gebaeude/ab1949");
+    cy.url().should("include", "/formular/gebaeude/uebersicht");
   });
 });
 

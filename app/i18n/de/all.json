@@ -112,6 +112,7 @@
       }
     },
     "gebaeude": {
+      "uebersicht": "Übersicht",
       "ab1949": "Wann bezugsfertig?",
       "baujahr": "Baujahr",
       "kernsaniert": "Kernsanierung",
@@ -156,6 +157,10 @@
     "nextButtonLabel": "Verstanden"
   },
   "gebaeude": {
+    "uebersicht": {
+      "headline": "Gebäude",
+      "nextButtonLabel": "Los geht's"
+    },
     "ab1949": {
       "headline": "Wann war das Gebäude bezugsfertig?",
       "fields": {
