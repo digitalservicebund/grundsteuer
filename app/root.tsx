@@ -63,6 +63,22 @@ export const loader: LoaderFunction = async ({ request }) => {
   };
 };
 
+export function ErrorBoundary() {
+  return (
+    <html>
+      <head>
+        <title>Oh nein!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <h1>Da ist etwas schiefgelaufen :(</h1>
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+
 export default function App() {
   const loaderData = useLoaderData();
   useSetupTranslations("de");
