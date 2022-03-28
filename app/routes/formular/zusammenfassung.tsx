@@ -8,7 +8,7 @@ import { i18Next } from "~/i18n.server";
 import { getStepData } from "~/domain/model";
 import { zusammenfassung } from "~/domain/steps/zusammenfassung";
 import { I18nObject } from "~/routes/formular/_step";
-import { SimplePageLayout, StepFormFields } from "~/components";
+import { StepFormFields } from "~/components";
 
 type LoaderData = {
   graph: StateMachineContext;
@@ -91,7 +91,7 @@ export default function Zusammenfassung() {
     useLoaderData<LoaderData>();
 
   return (
-    <SimplePageLayout>
+    <div className="pt-32 max-w-screen-md mx-auto w-1/2">
       <h1 className="mb-8 font-bold text-4xl">Zusammenfassung</h1>
       {allData?.gebaeude && (
         <>
@@ -361,6 +361,6 @@ export default function Zusammenfassung() {
           }}
         />
       </div>
-    </SimplePageLayout>
+    </div>
   );
 }
