@@ -4,13 +4,13 @@ import { getFormDataCookie } from "~/cookies";
 import { Footer, SidebarNavigation, LogoutButton } from "~/components";
 import { createGraph } from "~/domain";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
-import { authenticator } from "~/auth.server";
+// import { authenticator } from "~/auth.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const user = await authenticator.isAuthenticated(request, {
-    failureRedirect: "/anmelden",
-  });
-  console.log({ user });
+  // const user = await authenticator.isAuthenticated(request, {
+  //   failureRedirect: "/anmelden",
+  // });
+  // console.log({ user });
 
   const cookie = await getFormDataCookie(request);
 
