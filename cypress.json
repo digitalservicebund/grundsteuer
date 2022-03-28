@@ -4,5 +4,6 @@
   "testFiles": "**/*.spec.ts",
   "pluginsFile": false,
   "supportFile": "cypress/support",
-  "video": false
+  "video": false,
+  "experimentalSessionSupport": true
 }

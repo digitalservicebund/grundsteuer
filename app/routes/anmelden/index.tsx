@@ -94,7 +94,7 @@ export default function Anmelden() {
             error={t(errors?.password)}
           />
         </FormGroup>
-        <Button>Anmelden</Button>
+        <Button data-testid="submit">Anmelden</Button>
       </Form>
     </SimplePageLayout>
   );

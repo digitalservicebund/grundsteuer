@@ -1,6 +1,10 @@
-/// <reference types="cypress" />
+/// <reference types="../../cypress/support" />
 // @ts-check
 describe("Redirect to initial step when accessing super state url", () => {
+  beforeEach(() => {
+    cy.login();
+  });
+
   it("should redirect to anzahl on call to eigentuemer", () => {
     cy.visit("/formular/eigentuemer");
     cy.url().should("include", "/formular/eigentuemer/anzahl");
@@ -39,6 +43,10 @@ describe("Redirect to initial step when accessing super state url", () => {
 });
 
 describe("Redirect to formular start step when accessing non-reachable page", () => {
+  beforeEach(() => {
+    cy.login();
+  });
+
   it("should redirect to formular start on call to gebaeude", () => {
     cy.visit("/formular/gebaeude");
     cy.url().should("include", "/formular/welcome");

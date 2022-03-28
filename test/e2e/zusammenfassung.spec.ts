@@ -1,6 +1,10 @@
-/// <reference types="cypress" />
+/// <reference types="../../cypress/support" />
 // @ts-check
 describe("Zusammenfassung route", () => {
+  beforeEach(() => {
+    cy.login();
+  });
+
   it("should display the title", () => {
     // uses baseUrl defined in cypress.json configuration
     cy.visit("/formular/zusammenfassung");

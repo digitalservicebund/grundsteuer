@@ -1,4 +1,4 @@
-/// <reference types="cypress" />
+/// <reference types="../../cypress/support" />
 
 const inputData = {
   grundstueck: {
@@ -180,6 +180,7 @@ export const submitBtnSelector = "#nextButton";
 
 describe("Happy Path", () => {
   it("Enter data for two eigentuemer", () => {
+    cy.login();
     cy.visit("/formular/welcome");
     cy.get(submitBtnSelector).click();
     cy.get("h1").contains("Grundstück", { timeout: 5000 });
