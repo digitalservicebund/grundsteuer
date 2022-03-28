@@ -33,3 +33,11 @@ jobs:
           message: "Update production image to ${{ github.event.inputs.imageTag }}"
           pathspec_error_handling: exitImmediately
           push: true
+
+      - name: Report Deployment
+        uses: satak/webrequest-action@v1.2.3
+        with:
+          url: ${{ secrets.METRICS_DEPLOYMENT_WEBHOOK_URL }}
+          method: POST
+          payload: '{"project": "grundsteuer", "version_identifier": "${{ github.sha }}", "environment": "production", "link": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"}'
+          headers: '{"Authorization": "Token ${{ secrets.METRICS_WEBHOOK_TOKEN }}"}'
