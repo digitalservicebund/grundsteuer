@@ -42,18 +42,20 @@ export const action: ActionFunction = async ({ request }) => {
     "expected formData to include passwordRepeated field of type string"
   );
 
+  const normalizedEmail = email.trim().toLowerCase();
+  const normalizedEmailRepeated = emailRepeated.trim().toLowerCase();
+
   const errors = {
     email:
-      (!validateRequired(email) && "errors.required") ||
-      (!validateEmail(email) && "errors.email.wrongFormat") ||
-      ((await userExists(email)) && "errors.email.alreadyExists"),
+      (!validateRequired(normalizedEmail) && "errors.required") ||
+      (!validateEmail(normalizedEmail) && "errors.email.wrongFormat") ||
+      ((await userExists(normalizedEmail)) && "errors.email.alreadyExists"),
 
     emailRepeated:
-      email.trim().toLowerCase() !== emailRepeated.trim().toLowerCase() &&
-      "errors.email.notMatching",
+      normalizedEmail !== normalizedEmailRepeated && "errors.email.notMatching",
 
     password:
-      (!validateRequired(email) && "errors.required") ||
+      (!validateRequired(normalizedEmail) && "errors.required") ||
       (!validateMinLength(password, 8) && "errors.password.tooShort") ||
       (!validateMaxLength(password, 64) && "errors.password.tooLong"),
 
@@ -68,7 +70,7 @@ export const action: ActionFunction = async ({ request }) => {
     errors.passwordRepeated;
 
   if (!errorsExist) {
-    await createUser(email, password);
+    await createUser(normalizedEmail, password);
     return redirect("/registrieren/erfolgreich");
   }
 

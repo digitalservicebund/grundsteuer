@@ -9,7 +9,7 @@ import {
 describe("validateEmail", () => {
   const cases = [
     { value: "user@example.com", valid: true },
-    { value: "  user@example.com  ", valid: true },
+    { value: "  user@example.com  ", valid: false },
     { value: "user@example", valid: false },
     { value: "user", valid: false },
     { value: "", valid: false },

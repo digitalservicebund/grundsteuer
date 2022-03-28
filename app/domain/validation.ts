@@ -1,12 +1,10 @@
 import invariant from "tiny-invariant";
 import { StepFormData } from "~/domain/model";
-
-const VALID_EMAIL =
-  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+import validator from "validator";
 
 type ValidateEmailFunction = (value: string) => boolean;
 export const validateEmail: ValidateEmailFunction = (value) =>
-  VALID_EMAIL.test(value.trim());
+  validator.isEmail(value);
 
 type ValidateMinLengthFunction = (value: string, minLength: number) => boolean;
 export const validateMinLength: ValidateMinLengthFunction = (

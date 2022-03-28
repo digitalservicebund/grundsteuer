@@ -50,6 +50,7 @@
     "remix-auth-form": "^1.1.1",
     "remix-i18next": "^3.0.0",
     "tiny-invariant": "^1.2.0",
+    "validator": "^13.7.0",
     "xstate": "^4.30.6"
   },
   "devDependencies": {
@@ -64,6 +65,7 @@
     "@types/lru-cache": "^7.4.0",
     "@types/react": "^17.0.40",
     "@types/react-dom": "^17.0.13",
+    "@types/validator": "^13.7.2",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
     "concurrently": "^7.0.0",
