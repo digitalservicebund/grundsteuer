@@ -168,7 +168,7 @@ export const loader: LoaderFunction = async ({
   // console.log(reachablePaths);
   if (!reachablePaths.includes(currentState)) {
     const responseHeader: Headers = await createResponseHeaders(cookie);
-    return redirect("/formular/grundstueck", {
+    return redirect("/formular/welcome", {
       headers: responseHeader,
     });
   }
