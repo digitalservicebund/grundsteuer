@@ -10,6 +10,7 @@ export { default as HomepageFeatures } from "./HomepageFeatures";
 export { default as HomepageSharing } from "./HomepageSharing";
 export { default as Input } from "./form/Input";
 export { default as Label } from "./form/Label";
+export { default as LogoutButton } from "./LogoutButton";
 export { default as MaskedInput } from "./form/MaskedInput";
 export { default as RadioGroup } from "./form/RadioGroup";
 export { default as Select } from "./form/Select";

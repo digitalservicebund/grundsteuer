@@ -1,7 +1,7 @@
 import { LoaderFunction, Outlet, Link, useLoaderData } from "remix";
 import { Layout } from "@digitalservice4germany/digital-service-library";
 import { getFormDataCookie } from "~/cookies";
-import { Footer, SidebarNavigation } from "~/components";
+import { Footer, SidebarNavigation, LogoutButton } from "~/components";
 import { createGraph } from "~/domain";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 import { authenticator } from "~/auth.server";
@@ -32,6 +32,7 @@ export default function Formular() {
       sidebarNavigation={
         <div className="p-2">
           <Link to="/">Home</Link>
+          <LogoutButton />
           <br />
           <br />
           <SidebarNavigation graph={graph} initialCurrentState={currentState} />
@@ -40,6 +41,7 @@ export default function Formular() {
       topNavigation={
         <div className="p-4 bg-blue-100">
           <Link to="/">Home</Link>
+          <LogoutButton />
           <br />
           <br />
           <SidebarNavigation graph={graph} initialCurrentState={currentState} />

@@ -64,7 +64,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function App() {
-  const { env } = useLoaderData();
+  const loaderData = useLoaderData();
   useSetupTranslations("de");
 
   return (
@@ -73,7 +73,7 @@ export default function App() {
         <meta charSet="utf-8" />
         <Meta />
         <Links />
-        {env === "production" && (
+        {loaderData?.env === "production" && (
           <script
             defer
             data-domain="grundsteuererklaerung-fuer-privateigentum.de"
