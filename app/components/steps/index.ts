@@ -14,10 +14,12 @@ import Bruchteilsgemeinschaft, {
   BruchteilsgemeinschaftHelp,
 } from "~/components/steps/eigentuemer/bruchteilsgemeinschaft";
 import EigentuemerBruchteilsgemeinschaftAngaben from "~/components/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
+import Welcome from "~/components/steps/welcome";
 
 export { Default as FallbackStepComponent };
 
 export default {
+  welcome: Welcome,
   eigentuemer: {
     person: {
       adresse: Adresse,

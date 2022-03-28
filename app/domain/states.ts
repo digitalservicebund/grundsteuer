@@ -8,8 +8,13 @@ export interface StateMachineContext extends GrundModel {
 
 export const states: MachineConfig<any, any, any> = {
   id: "steps",
-  initial: "grundstueck",
+  initial: "welcome",
   states: {
+    welcome: {
+      on: {
+        NEXT: [{ target: "grundstueck" }],
+      },
+    },
     grundstueck: {
       id: "grundstueck",
       initial: "adresse",
@@ -113,6 +118,9 @@ export const states: MachineConfig<any, any, any> = {
             ],
           },
         },
+      },
+      on: {
+        BACK: { target: "welcome" },
       },
     },
     gebaeude: {

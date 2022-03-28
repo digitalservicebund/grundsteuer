@@ -95,6 +95,7 @@
       "empfangsbevollmaechtigter": "Empfangsbevollmächtigte:r",
       "bruchteilsgemeinschaftangaben": "Angaben"
     },
+    "welcome": "Willkommen",
     "grundstueck": {
       "adresse": "Adresse",
       "steuernummer": "Steuernummer",
@@ -148,6 +149,9 @@
       }
     },
     "zusammenfassung": "Zusammenfassung"
+  },
+  "welcome": {
+    "headline": "Herzlich willkommen bei Ihrer Grundsteuererklärung für Privateigentum!"
   },
   "gebaeude": {
     "ab1949": {

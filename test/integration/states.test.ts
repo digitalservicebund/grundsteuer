@@ -92,6 +92,7 @@ describe("states", () => {
         description: "without context",
         context: grundModelFactory.build(),
         expectedPath: [
+          "welcome",
           ...defaultGrundstueck,
           "eigentuemer.anzahl",
           "eigentuemer.person.1.persoenlicheAngaben",
@@ -108,6 +109,7 @@ describe("states", () => {
           .grundstueckTyp({ typ: "abweichendeEntwicklung" })
           .build(),
         expectedPath: [
+          "welcome",
           "grundstueck.adresse",
           "grundstueck.steuernummer",
           "grundstueck.typ",
@@ -128,6 +130,7 @@ describe("states", () => {
           .grundstueckTyp({ typ: "einfamilienhaus" })
           .build(),
         expectedPath: [
+          "welcome",
           ...defaultGrundstueck,
           ...defaultGebaeude,
           ...defaultEigentuemer,
@@ -141,6 +144,7 @@ describe("states", () => {
           .gebaeudeAb1949()
           .build(),
         expectedPath: [
+          "welcome",
           ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.baujahr",
@@ -161,6 +165,7 @@ describe("states", () => {
           .kernsaniert()
           .build(),
         expectedPath: [
+          "welcome",
           ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.baujahr",
@@ -181,6 +186,7 @@ describe("states", () => {
           .kernsaniert()
           .build(),
         expectedPath: [
+          "welcome",
           ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.kernsaniert",
@@ -203,6 +209,7 @@ describe("states", () => {
           .withGaragen()
           .build(),
         expectedPath: [
+          "welcome",
           ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.baujahr",
@@ -227,6 +234,7 @@ describe("states", () => {
           .withWeitereWohnraeume()
           .build(),
         expectedPath: [
+          "welcome",
           ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.baujahr",
@@ -250,6 +258,7 @@ describe("states", () => {
           .withGaragen()
           .build(),
         expectedPath: [
+          "welcome",
           ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.baujahr",
@@ -275,6 +284,7 @@ describe("states", () => {
           .withGaragen()
           .build(),
         expectedPath: [
+          "welcome",
           ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.baujahr",
@@ -302,6 +312,7 @@ describe("states", () => {
           .withGaragen()
           .build(),
         expectedPath: [
+          "welcome",
           ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.baujahr",
@@ -330,6 +341,7 @@ describe("states", () => {
           .withGaragen()
           .build(),
         expectedPath: [
+          "welcome",
           ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.baujahr",
@@ -357,6 +369,7 @@ describe("states", () => {
           .withGaragen()
           .build(),
         expectedPath: [
+          "welcome",
           ...defaultGrundstueck,
           "gebaeude.ab1949",
           "gebaeude.baujahr",
@@ -376,6 +389,7 @@ describe("states", () => {
         description: "with 2 eigentuemer people",
         context: grundModelFactory.eigentuemerAnzahl({ anzahl: "2" }).build(),
         expectedPath: [
+          "welcome",
           ...defaultGrundstueck,
           "eigentuemer.anzahl",
           "eigentuemer.verheiratet",
@@ -412,6 +426,7 @@ describe("states", () => {
           )
           .build(),
         expectedPath: [
+          "welcome",
           ...defaultGrundstueck,
           ...defaultGebaeude,
           "eigentuemer.anzahl",
@@ -447,6 +462,7 @@ describe("states", () => {
           .eigentuemerBruchteilsgemeinschaft({ predefinedData: "false" })
           .build(),
         expectedPath: [
+          "welcome",
           ...defaultGrundstueck,
           ...defaultGebaeude,
           "eigentuemer.anzahl",
@@ -478,6 +494,7 @@ describe("states", () => {
           .eigentuemerEmpfangsvollmacht({ hasEmpfangsvollmacht: "true" })
           .build(),
         expectedPath: [
+          "welcome",
           ...defaultGrundstueck,
           ...defaultGebaeude,
           "eigentuemer.anzahl",
