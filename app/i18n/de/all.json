@@ -129,14 +129,12 @@
       "person": {
         "persoenlicheAngaben": "Persönliche Angaben",
         "adresse": "Adresse",
-        "telefonnummer": "Telefonnummer",
         "steuerId": "Steuer-ID",
         "gesetzlicherVertreter": "Gesetzliche:r Vertreter:in?",
         "anteil": "Anteil",
         "vertreter": {
           "name": "Name",
-          "adresse": "Adresse",
-          "telefonnummer": "Telefonnummer"
+          "adresse": "Adresse"
         }
       },
       "bruchteilsgemeinschaft": "Bruchteilsgemeinschaft",
@@ -146,8 +144,7 @@
       "empfangsvollmacht": "Empfangsvollmacht",
       "empfangsbevollmaechtigter": {
         "name": "Name",
-        "adresse": "Adresse",
-        "telefonnummer": "Telefonnummer"
+        "adresse": "Adresse"
       }
     },
     "zusammenfassung": "Zusammenfassung"
@@ -368,12 +365,7 @@
           },
           "ort": {
             "label": "Ort"
-          }
-        }
-      },
-      "telefonnummer": {
-        "headline": "Telefonnummer Person {{id}}",
-        "fields": {
+          },
           "telefonnummer": {
             "label": "Telefonnummer",
             "help": "Das Finanzamt benötigt die Telefonnummer für eventuelle Rückfragen."
@@ -441,12 +433,7 @@
             },
             "ort": {
               "label": "Ort"
-            }
-          }
-        },
-        "telefonnummer": {
-          "headline": "Gesetzlicher Vertreter Person {{id}} - Telefonnummer",
-          "fields": {
+            },
             "telefonnummer": {
               "label": "Telefonnummer",
               "help": "Das Finanzamt benötigt die Telefonnummer für eventuelle Rückfragen."
@@ -583,12 +570,7 @@
           },
           "ort": {
             "label": "Ort"
-          }
-        }
-      },
-      "telefonnummer": {
-        "headline": "Telefonnummer empfangsbevollmächtigte Person",
-        "fields": {
+          },
           "telefonnummer": {
             "label": "Telefonnummer",
             "help": "Das Finanzamt benötigt die Telefonnummer für eventuelle Rückfragen."

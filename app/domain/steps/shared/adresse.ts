@@ -6,6 +6,7 @@ export type AdresseFields = {
   postfach: string;
   plz: string;
   ort: string;
+  telefonnummer: string;
 };
 
 export const stepDefinition: StepDefinition = {
@@ -37,5 +38,6 @@ export const stepDefinition: StepDefinition = {
     postfach: { validations: {} },
     plz: { validations: {} },
     ort: { validations: {} },
+    telefonnummer: { validations: {} },
   },
 };

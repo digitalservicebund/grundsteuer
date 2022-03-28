@@ -252,10 +252,7 @@ export default function Zusammenfassung() {
                       {item("Postfach", person.adresse?.postfach)}
                       {item("PLZ", person.adresse?.plz)}
                       {item("Ort", person.adresse?.ort)}
-                      {item(
-                        "Telefonnummer",
-                        person.telefonnummer?.telefonnummer
-                      )}
+                      {item("Telefonnummer", person.adresse?.telefonnummer)}
                       {item("Steuer-ID", person.steuerId?.steuerId)}
                       {item(
                         "Gesetzlicher Vertreter",
@@ -292,7 +289,7 @@ export default function Zusammenfassung() {
                             {item("Ort", person.vertreter.adresse?.ort)}
                             {item(
                               "Telefonnummer",
-                              person.vertreter.telefonnummer?.telefonnummer
+                              person.vertreter.adresse?.telefonnummer
                             )}
                           </ul>
                         </div>
@@ -365,7 +362,7 @@ export default function Zusammenfassung() {
                   )}
                   {item(
                     "Telefonnummer",
-                    allData.eigentuemer.empfangsbevollmaechtigter.telefonnummer
+                    allData.eigentuemer.empfangsbevollmaechtigter.adresse
                       ?.telefonnummer
                   )}
                 </ul>

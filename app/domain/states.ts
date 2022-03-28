@@ -310,14 +310,13 @@ export const states: MachineConfig<any, any, any> = {
             adresse: {
               on: {
                 NEXT: {
-                  target: "telefonnummer",
+                  target: "steuerId",
                 },
                 BACK: { target: "persoenlicheAngaben" },
               },
             },
-            telefonnummer: { on: { NEXT: "steuerId", BACK: "adresse" } },
             steuerId: {
-              on: { NEXT: "gesetzlicherVertreter", BACK: "telefonnummer" },
+              on: { NEXT: "gesetzlicherVertreter", BACK: "adresse" },
             },
             gesetzlicherVertreter: {
               on: {
@@ -342,13 +341,7 @@ export const states: MachineConfig<any, any, any> = {
                 },
                 adresse: {
                   on: {
-                    NEXT: { target: "telefonnummer" },
                     BACK: { target: "name" },
-                  },
-                },
-                telefonnummer: {
-                  on: {
-                    BACK: { target: "adresse" },
                   },
                 },
               },
@@ -361,7 +354,7 @@ export const states: MachineConfig<any, any, any> = {
               on: {
                 BACK: [
                   {
-                    target: "vertreter.telefonnummer",
+                    target: "vertreter.adresse",
                     cond: "hasGesetzlicherVertreter",
                   },
                   { target: "gesetzlicherVertreter" },
@@ -397,7 +390,7 @@ export const states: MachineConfig<any, any, any> = {
                 actions: "setPersonIdToMaximum",
               },
               {
-                target: "person.vertreter.telefonnummer",
+                target: "person.vertreter.adresse",
                 cond: "hasGesetzlicherVertreter",
                 actions: "setPersonIdToMaximum",
               },
@@ -444,7 +437,7 @@ export const states: MachineConfig<any, any, any> = {
                 actions: "setPersonIdToMaximum",
               },
               {
-                target: "person.vertreter.telefonnummer",
+                target: "person.vertreter.adresse",
                 cond: "hasGesetzlicherVertreter",
                 actions: "setPersonIdToMaximum",
               },
@@ -472,13 +465,7 @@ export const states: MachineConfig<any, any, any> = {
             },
             adresse: {
               on: {
-                NEXT: { target: "telefonnummer" },
                 BACK: { target: "name" },
-              },
-            },
-            telefonnummer: {
-              on: {
-                BACK: { target: "adresse" },
               },
             },
           },
@@ -496,7 +483,7 @@ export const states: MachineConfig<any, any, any> = {
       on: {
         BACK: [
           {
-            target: "eigentuemer.empfangsbevollmaechtigter.telefonnummer",
+            target: "eigentuemer.empfangsbevollmaechtigter.adresse",
             cond: "hasEmpfangsbevollmaechtigter",
           },
           {

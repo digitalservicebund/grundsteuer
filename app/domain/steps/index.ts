@@ -76,11 +76,6 @@ import {
 } from "~/domain/steps/eigentuemer/person/steuerId";
 
 import {
-  eigentuemerPersonTelefonnummer,
-  EigentuemerPersonTelefonnummerFields,
-} from "~/domain/steps/eigentuemer/person/telefonnummer";
-
-import {
   eigentuemerPersonVertreterAdresse,
   EigentuemerPersonVertreterAdresseFields,
 } from "~/domain/steps/eigentuemer/person/vertreter/adresse";
@@ -89,11 +84,6 @@ import {
   eigentuemerPersonVertreterName,
   EigentuemerPersonVertreterNameFields,
 } from "~/domain/steps/eigentuemer/person/vertreter/name";
-
-import {
-  eigentuemerPersonVertreterTelefonnummer,
-  EigentuemerPersonVertreterTelefonnummerFields,
-} from "~/domain/steps/eigentuemer/person/vertreter/telefonnummer";
 
 import {
   eigentuemerVerheiratet,
@@ -169,10 +159,6 @@ import {
   EigentuemerEmpfangsvollmachtFields,
 } from "~/domain/steps/eigentuemer/empfangsvollmacht";
 import {
-  eigentuemerEmpfangsbevollmaechtigterTelefonnummer,
-  EigentuemerEmpfangsbevollmaechtigterTelefonnummerFields,
-} from "~/domain/steps/eigentuemer/empfangsbevollmaechtigter/telefonnummer";
-import {
   eigentuemerEmpfangsbevollmaechtigterName,
   EigentuemerEmpfangsbevollmaechtigterNameFields,
 } from "~/domain/steps/eigentuemer/empfangsbevollmaechtigter/name";
@@ -236,11 +222,9 @@ const stepDefinitions = {
       gesetzlicherVertreter: eigentuemerPersonGesetzlicherVertreter,
       persoenlicheAngaben: eigentuemerPersonPersoenlicheAngaben,
       steuerId: eigentuemerPersonSteuerId,
-      telefonnummer: eigentuemerPersonTelefonnummer,
       vertreter: {
         adresse: eigentuemerPersonVertreterAdresse,
         name: eigentuemerPersonVertreterName,
-        telefonnummer: eigentuemerPersonVertreterTelefonnummer,
       },
     },
     bruchteilsgemeinschaft: eigentuemerBruchteilsgemeinschaft,
@@ -251,7 +235,6 @@ const stepDefinitions = {
     empfangsbevollmaechtigter: {
       name: eigentuemerEmpfangsbevollmaechtigterName,
       adresse: eigentuemerEmpfangsbevollmaechtigterAdresse,
-      telefonnummer: eigentuemerEmpfangsbevollmaechtigterTelefonnummer,
     },
   },
   zusammenfassung: zusammenfassung,
@@ -299,11 +282,9 @@ export type GrundModel = {
       gesetzlicherVertreter?: EigentuemerPersonGesetzlicherVertreterFields;
       persoenlicheAngaben?: EigentuemerPersonPersoenlicheAngabenFields;
       steuerId?: EigentuemerPersonSteuerIdFields;
-      telefonnummer?: EigentuemerPersonTelefonnummerFields;
       vertreter?: {
         adresse?: EigentuemerPersonVertreterAdresseFields;
         name?: EigentuemerPersonVertreterNameFields;
-        telefonnummer?: EigentuemerPersonVertreterTelefonnummerFields;
       };
     }[];
     bruchteilsgemeinschaft?: EigentuemerBruchteilsgemeinschaftFields;
@@ -314,7 +295,6 @@ export type GrundModel = {
     empfangsbevollmaechtigter?: {
       name?: EigentuemerEmpfangsbevollmaechtigterNameFields;
       adresse?: EigentuemerEmpfangsbevollmaechtigterAdresseFields;
-      telefonnummer?: EigentuemerEmpfangsbevollmaechtigterTelefonnummerFields;
     };
   };
   zusammenfassung?: ZusammenfassungFields;

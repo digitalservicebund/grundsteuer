@@ -101,8 +101,6 @@ const inputData = {
         postfach: "",
         plz: "12345",
         ort: "London",
-      },
-      telefonnummer: {
         telefonnummer: "555-2368",
       },
       steuerId: {
@@ -124,8 +122,6 @@ const inputData = {
           postfach: "",
           plz: "54321",
           ort: "Manchester",
-        },
-        telefonnummer: {
           telefonnummer: "123-321",
         },
       },
@@ -148,8 +144,6 @@ const inputData = {
         postfach: "",
         plz: "01234",
         ort: "Little Whinging",
-      },
-      telefonnummer: {
         telefonnummer: "089-32168",
       },
       steuerId: {
@@ -175,8 +169,6 @@ const inputData = {
         postfach: "",
         plz: "34567",
         ort: "Alderaan",
-      },
-      telefonnummer: {
         telefonnummer: "456-789",
       },
     },
@@ -376,10 +368,9 @@ describe("Happy Path", () => {
       .type(inputData.eigentuemer.person1.adresse.hausnummer);
     cy.get("#plz").clear().type(inputData.eigentuemer.person1.adresse.plz);
     cy.get("#ort").clear().type(inputData.eigentuemer.person1.adresse.ort);
-    cy.get(submitBtnSelector).click();
     cy.get("#telefonnummer")
       .clear()
-      .type(inputData.eigentuemer.person1.telefonnummer.telefonnummer);
+      .type(inputData.eigentuemer.person1.adresse.telefonnummer);
     cy.get(submitBtnSelector).click();
     cy.get("#steuerId")
       .clear()
@@ -412,12 +403,9 @@ describe("Happy Path", () => {
     cy.get("#ort")
       .clear()
       .type(inputData.eigentuemer.person1.vertreter.adresse.ort);
-    cy.get(submitBtnSelector).click();
     cy.get("#telefonnummer")
       .clear()
-      .type(
-        inputData.eigentuemer.person1.vertreter.telefonnummer.telefonnummer
-      );
+      .type(inputData.eigentuemer.person1.vertreter.adresse.telefonnummer);
     cy.get(submitBtnSelector).click();
     cy.get("#zaehler")
       .clear()
@@ -445,10 +433,9 @@ describe("Happy Path", () => {
       .type(inputData.eigentuemer.person2.adresse.hausnummer);
     cy.get("#plz").clear().type(inputData.eigentuemer.person2.adresse.plz);
     cy.get("#ort").clear().type(inputData.eigentuemer.person2.adresse.ort);
-    cy.get(submitBtnSelector).click();
     cy.get("#telefonnummer")
       .clear()
-      .type(inputData.eigentuemer.person2.telefonnummer.telefonnummer);
+      .type(inputData.eigentuemer.person2.adresse.telefonnummer);
     cy.get(submitBtnSelector).click();
     cy.get("#steuerId")
       .clear()
@@ -486,12 +473,10 @@ describe("Happy Path", () => {
     cy.get("#ort")
       .clear()
       .type(inputData.eigentuemer.empfangsbevollmaechtigter.adresse.ort);
-    cy.get(submitBtnSelector).click();
     cy.get("#telefonnummer")
       .clear()
       .type(
-        inputData.eigentuemer.empfangsbevollmaechtigter.telefonnummer
-          .telefonnummer
+        inputData.eigentuemer.empfangsbevollmaechtigter.adresse.telefonnummer
       );
     cy.get(submitBtnSelector).click();
 
@@ -550,8 +535,7 @@ describe("Happy Path", () => {
       "Ort: " + inputData.eigentuemer.person1.adresse.ort
     );
     cy.get("#person-0").contains(
-      "Telefonnummer: " +
-        inputData.eigentuemer.person1.telefonnummer.telefonnummer
+      "Telefonnummer: " + inputData.eigentuemer.person1.adresse.telefonnummer
     );
     cy.get("#person-0").contains("Steuer-ID: 04 452 397 687");
     cy.get("#person-0").contains("Gesetzlicher Vertreter: Ja");
@@ -580,7 +564,7 @@ describe("Happy Path", () => {
     );
     cy.get("#person-0-vertreter").contains(
       "Telefonnummer: " +
-        inputData.eigentuemer.person1.vertreter.telefonnummer.telefonnummer
+        inputData.eigentuemer.person1.vertreter.adresse.telefonnummer
     );
     cy.get("#person-0").contains(
       "Anteil Zähler: " + inputData.eigentuemer.person1.anteil.zaehler
@@ -615,8 +599,7 @@ describe("Happy Path", () => {
       "Ort: " + inputData.eigentuemer.person2.adresse.ort
     );
     cy.get("#person-1").contains(
-      "Telefonnummer: " +
-        inputData.eigentuemer.person2.telefonnummer.telefonnummer
+      "Telefonnummer: " + inputData.eigentuemer.person2.adresse.telefonnummer
     );
     cy.get("#person-1").contains("Steuer-ID: 02 293 417 683");
     cy.get("#person-1").contains("Gesetzlicher Vertreter: Nein");
@@ -651,8 +634,7 @@ describe("Happy Path", () => {
     );
     cy.get("#empfangsbevollmaechtigter").contains(
       "Telefonnummer: " +
-        inputData.eigentuemer.empfangsbevollmaechtigter.telefonnummer
-          .telefonnummer
+        inputData.eigentuemer.empfangsbevollmaechtigter.adresse.telefonnummer
     );
   });
 });
