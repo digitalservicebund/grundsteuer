@@ -345,6 +345,7 @@ describe("isBruchteilsgemeinschaft", () => {
   const cases = [
     { anzahl: "1", areVerheiratet: undefined, expectedValue: false },
     { anzahl: 1, areVerheiratet: undefined, expectedValue: false },
+    { anzahl: "1", areVerheiratet: "true", expectedValue: false },
     { anzahl: "2", areVerheiratet: undefined, expectedValue: false },
     { anzahl: "2", areVerheiratet: "true", expectedValue: false },
     { anzahl: "2", areVerheiratet: "false", expectedValue: true },

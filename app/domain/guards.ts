@@ -47,7 +47,8 @@ const anzahlEigentuemerIsTwo = (context: StateMachineContext) => {
 const isBruchteilsgemeinschaft = (context: StateMachineContext) => {
   return (
     Number(context?.eigentuemer?.anzahl?.anzahl) > 2 ||
-    context?.eigentuemer?.verheiratet?.areVerheiratet == "false"
+    (Number(context?.eigentuemer?.anzahl?.anzahl) == 2 &&
+      context?.eigentuemer?.verheiratet?.areVerheiratet == "false")
   );
 };
 
