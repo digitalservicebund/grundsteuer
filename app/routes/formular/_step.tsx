@@ -124,6 +124,7 @@ export type I18nObject = {
   };
   specifics: Record<string, string>;
   help: Record<string, string>;
+  nextButtonLabel: string;
   common: Record<string, string>;
 };
 
@@ -274,7 +275,11 @@ export function Step() {
         <Form method="post" className="mb-16" key={currentState}>
           <StepComponent {...loaderData} {...actionData} />
           <div className="flex flex-row-reverse items-center justify-between">
-            <Button id="nextButton">{i18n.common.continue}</Button>
+            <Button id="nextButton">
+              {i18n.nextButtonLabel
+                ? i18n.nextButtonLabel
+                : i18n.common.continue}
+            </Button>
             {backUrl ? (
               <Button to={backUrl} look="tertiary">
                 {i18n.common.back}

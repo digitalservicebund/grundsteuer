@@ -8,6 +8,7 @@ describe("StepHeadline component", () => {
     fields: {},
     specifics: {},
     help: {},
+    nextButtonLabel: "next",
     common: {},
   };
 

@@ -151,7 +151,8 @@
     "zusammenfassung": "Zusammenfassung"
   },
   "welcome": {
-    "headline": "Herzlich willkommen bei Ihrer Grundsteuererklärung für Privateigentum!"
+    "headline": "Herzlich willkommen bei Ihrer Grundsteuererklärung für Privateigentum!",
+    "nextButtonLabel": "Verstanden"
   },
   "gebaeude": {
     "ab1949": {
