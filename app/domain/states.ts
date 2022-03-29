@@ -423,7 +423,7 @@ export const states: MachineConfig<any, any, any> = {
                 target: "bruchteilsgemeinschaftangaben.angaben",
                 cond: "customBruchteilsgemeinschaftData",
               },
-              { target: "empfangsvollmacht" },
+              { target: "empfangsbevollmaechtigter.name" },
             ],
           },
         },
@@ -434,22 +434,13 @@ export const states: MachineConfig<any, any, any> = {
           on: {
             BACK: {
               target: "bruchteilsgemeinschaft",
-              actions: "setPersonIdToMaximum",
             },
-            NEXT: { target: "empfangsvollmacht" },
+            NEXT: { target: "empfangsbevollmaechtigter.name" },
           },
         },
         empfangsvollmacht: {
           on: {
             BACK: [
-              {
-                target: "bruchteilsgemeinschaftangaben.angaben",
-                cond: "customBruchteilsgemeinschaftData",
-              },
-              {
-                target: "bruchteilsgemeinschaft",
-                cond: "isBruchteilsgemeinschaft",
-              },
               {
                 target: "person.anteil",
                 cond: "hasMultipleEigentuemer",
@@ -489,7 +480,17 @@ export const states: MachineConfig<any, any, any> = {
             },
           },
           on: {
-            BACK: { target: "empfangsvollmacht" },
+            BACK: [
+              {
+                target: "bruchteilsgemeinschaftangaben.angaben",
+                cond: "customBruchteilsgemeinschaftData",
+              },
+              {
+                target: "bruchteilsgemeinschaft",
+                cond: "isBruchteilsgemeinschaft",
+              },
+              { target: "empfangsvollmacht" },
+            ],
           },
         },
       },
@@ -504,6 +505,10 @@ export const states: MachineConfig<any, any, any> = {
           {
             target: "eigentuemer.empfangsbevollmaechtigter.adresse",
             cond: "hasEmpfangsbevollmaechtigter",
+          },
+          {
+            target: "eigentuemer.empfangsbevollmaechtigter.adresse",
+            cond: "isBruchteilsgemeinschaft",
           },
           {
             target: "eigentuemer.empfangsvollmacht",
