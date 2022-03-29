@@ -133,9 +133,8 @@ export default function Datenschutz() {
 
         <p>
           Für den Betrieb unseres Dienstes nutzen wir als Auftragsverarbeiter
-          den Dienstleister SysEleven GmbH, Boxhagener Straße 80, 10245 Berlin.
-          Ihre Daten werden ausschließlich in einem sicheren Rechenzentrum in
-          Berlin gespeichert.
+          den Dienstleister T-Systems International GmbH, Hahnstraße 43d, 60528
+          Frankfurt am Main.
         </p>
 
         <h3>Werden Webanalyse-Dienste oder Cookies eingesetzt?</h3>
