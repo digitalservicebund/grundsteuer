@@ -1,21 +1,41 @@
-import _ from "lodash";
 import { StepDefinition } from "~/domain/steps";
-import {
-  AdresseFields,
-  stepDefinition as adresseStepDefinition,
-} from "~/domain/steps/shared/adresse";
+import { AdresseFields } from "~/domain/steps/shared/adresse";
 
 export type EigentuemerBruchteilsgemeinschaftAngabenFields = AdresseFields & {
   name: string;
 };
 
-export const eigentuemerBruchteilsgemeinschaftAngaben: StepDefinition = _.merge(
-  {
-    fields: {
-      name: {
-        validations: {},
+export const eigentuemerBruchteilsgemeinschaftAngaben: StepDefinition = {
+  fields: {
+    name: {
+      validations: {},
+    },
+    strasse: {
+      validations: {
+        requiredIf: {
+          dependentField: "hausnummer",
+          msg: "musst du eingeben",
+        },
+        maxLength: {
+          maxLength: 200,
+          msg: "zu lang",
+        },
       },
     },
+    hausnummer: {
+      validations: {
+        requiredIf: {
+          dependentField: "strasse",
+          msg: "musst du eingeben",
+        },
+        maxLength: {
+          maxLength: 12,
+          msg: "zu lang",
+        },
+      },
+    },
+    postfach: { validations: {} },
+    plz: { validations: {} },
+    ort: { validations: {} },
   },
-  adresseStepDefinition
-);
+};
