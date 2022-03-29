@@ -819,7 +819,7 @@
         },
         "twoBodenrichtwerte": {
           "label": "Mein Grundstück hat zwei Bodenrichtwerte",
-          "help": "Sie werden ausgesteuert."
+          "help": "Wenn Ihr Grundstück zwei Bodenrichtwerte hat, setzen Sie hier bitte ein Häkchen und tragen den Bodenrichtwert des größeren Teils Ihres Grundstücks ein. Weil es sich um einen seltenen Fall handelt, wird Ihr Finanzamt Kontakt mit Ihnen aufnehmen."
         }
       },
       "specifics": {

@@ -3,7 +3,9 @@ import Anteil from "./eigentuemer/person/anteil";
 import VertreterAdresse from "./eigentuemer/person/vertreter/adresse";
 import Debug from "./debug";
 import Default from "./default";
-import Bodenrichtwert from "~/components/steps/grundstueck/bodenrichtwert";
+import Bodenrichtwert, {
+  BodenrichtwertHelp,
+} from "~/components/steps/grundstueck/bodenrichtwert";
 import GrundstueckFlurstueckAngaben, {
   GrundstueckFlurstueckAngabenHelp,
 } from "./grundstueck/flurstueck/angaben";
@@ -60,6 +62,7 @@ export const helpComponents = {
     flurstueck: {
       angaben: GrundstueckFlurstueckAngabenHelp,
     },
+    bodenrichtwert: BodenrichtwertHelp,
   },
   eigentuemer: {
     bruchteilsgemeinschaft: BruchteilsgemeinschaftHelp,
