@@ -40,7 +40,17 @@ jobs:
       - name: Run tests
         run: npm test
 
+      - name: Set up test db
+        run: docker-compose -f ./docker-compose-test.yml -p grundsteuer-test up -d
+
+      - name: Migrate test db
+        env:
+          DATABASE_URL: postgresql://prisma:prisma@localhost:5433/tests
+        run: npx prisma migrate deploy
+
       - name: Run E2E tests
+        env:
+          DATABASE_URL: postgresql://prisma:prisma@localhost:5433/tests
         run: npm run test:e2e
 
   build-push-image:

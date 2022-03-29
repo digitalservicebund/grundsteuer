@@ -2,11 +2,11 @@
 !app
 !package.json
 !package-lock.json
+!prisma
 !public
 !remix.config.js
 !tailwind.config.js
 !remix.env.d.ts
 !tsconfig.json
 !.env.example
-!test
 /public/build/
