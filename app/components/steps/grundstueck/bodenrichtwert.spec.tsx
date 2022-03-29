@@ -1,10 +1,13 @@
 import { render, screen, within } from "@testing-library/react";
-import Bodenrichtwert from "~/components/steps/grundstueck/bodenrichtwert";
+import Bodenrichtwert, {
+  BodenrichtwertHelp,
+} from "~/components/steps/grundstueck/bodenrichtwert";
 import { grundstueckBodenrichtwert } from "~/domain/steps/grundstueck/bodenrichtwert";
 import { getI18nObject } from "test/factories/i18n";
 import { I18nObject } from "~/routes/formular/_step";
 import { grundModelFactory, flurstueckFactory } from "test/factories";
 import { GrundModel } from "~/domain/steps";
+import { validateEmail } from "~/domain/validation";
 
 describe("Bodenrichtwert page component", () => {
   const defaultInput = {
@@ -228,6 +231,59 @@ describe("Bodenrichtwert page component", () => {
       const flurstueckeArea = screen.getByTestId("grundstueck-flurstuecke");
       expect(flurstueckeArea.children.length).toEqual(2);
     });
+  });
+});
+
+describe("Bodenrichtwert help component", () => {
+  describe("show correct help for bundesland", () => {
+    const defaultInput = {
+      stepDefinition: grundstueckBodenrichtwert,
+      formData: {},
+      allData: {},
+      i18n: {} as I18nObject,
+      backUrl: "back/url",
+      currentStateWithoutId: "current/state",
+      errors: {},
+    };
+
+    it("Should show default help if no data set", () => {
+      render(<BodenrichtwertHelp {...defaultInput} />);
+      expect(
+        screen.queryByText(
+          "wählen Sie bitte das Bundesland unter Grundstücksadresse",
+          { exact: false }
+        )
+      ).toBeInTheDocument();
+    });
+
+    const cases = [
+      { bundesland: "BE", expectedText: "Berlin" },
+      { bundesland: "BB", expectedText: "Brandenburg" },
+      { bundesland: "HB", expectedText: "Bremen" },
+      { bundesland: "MV", expectedText: "Mecklenburg-Vorpommern" },
+      { bundesland: "NW", expectedText: "Nordrhein-Westfahlen" },
+      { bundesland: "RP", expectedText: "Rheinland-Pfalz" },
+      { bundesland: "SH", expectedText: "Schleswig-Holstein" },
+      { bundesland: "SL", expectedText: "Saarland" },
+      { bundesland: "SN", expectedText: "Sachsen" },
+      { bundesland: "ST", expectedText: "Sachsen-Anhalt" },
+      { bundesland: "TH", expectedText: "Thüringen" },
+    ];
+
+    test.each(cases)(
+      "Should display $expectedText if bundesland is '$bundesland'",
+      ({ bundesland, expectedText }) => {
+        defaultInput.allData = grundModelFactory
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          .grundstueckAdresse({ bundesland: bundesland })
+          .build();
+        render(<BodenrichtwertHelp {...defaultInput} />);
+        expect(
+          screen.queryByText("Bodenrichtwert " + expectedText, { exact: false })
+        ).toBeInTheDocument();
+      }
+    );
   });
 });
 
