@@ -17,6 +17,7 @@ import EigentuemerBruchteilsgemeinschaftAngaben from "~/components/steps/eigentu
 import Welcome from "~/components/steps/welcome";
 import GrundstueckUebersicht from "~/components/steps/grundstueck/uebersicht";
 import GebaeudeUebersicht from "~/components/steps/gebaeude/uebersicht";
+import { EmpfangsbevollmaechtigterNameHelp } from "~/components/steps/eigentuemer/empfangsbevollmaechtigter/name";
 
 export { Default as FallbackStepComponent };
 
@@ -58,5 +59,8 @@ export const helpComponents = {
   },
   eigentuemer: {
     bruchteilsgemeinschaft: BruchteilsgemeinschaftHelp,
+    empfangsbevollmaechtigter: {
+      name: EmpfangsbevollmaechtigterNameHelp,
+    },
   },
 };

@@ -562,6 +562,12 @@
           "vorname": {
             "label": "Vorname"
           }
+        },
+        "help": {
+          "heading": "Muss ich unbedingt eine empfangsbevollmächtigte Person angeben?",
+          "p1": "Ja, jede Bruchteilsgemeinschaft muss eine empfangsbevollmächtigte Person angeben. Diese Person bekommt den Grundsteuerwertbescheid stellvertretend für die Gemeinschaft.",
+          "p2": "Beispiel: Das Grundstück hat 5 Eigentümer:innen. Der Grundsteuerwertbescheid wird aber von der Finanzverwaltung nicht fünf Mal verschickt, sondern nur einmal. Sie legen hier fest, wer den  Grundsteuerwertbescheid empfangen soll. Das bedeutet jedoch nicht, dass diese Person allein handeln darf (z. B. Einspruch einlegen oder Zahlungen entgegennehmen).",
+          "p3": "Rechtliche Grundlage für diese Regelung ist <underline>§183 der Abgabenordnung</underline>."
         }
       },
       "adresse": {
