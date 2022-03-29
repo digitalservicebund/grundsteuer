@@ -65,6 +65,7 @@ describe("states", () => {
       "eigentuemer.person.1.steuerId",
       "eigentuemer.person.1.gesetzlicherVertreter",
       "eigentuemer.empfangsvollmacht",
+      "eigentuemer.abschluss",
     ];
 
     const defaultGrundstueck = [
@@ -104,6 +105,7 @@ describe("states", () => {
           "eigentuemer.person.1.steuerId",
           "eigentuemer.person.1.gesetzlicherVertreter",
           "eigentuemer.empfangsvollmacht",
+          "eigentuemer.abschluss",
           "zusammenfassung",
         ],
       },
@@ -420,6 +422,7 @@ describe("states", () => {
           "eigentuemer.person.2.gesetzlicherVertreter",
           "eigentuemer.person.2.anteil",
           "eigentuemer.empfangsvollmacht",
+          "eigentuemer.abschluss",
           "zusammenfassung",
         ],
       },
@@ -469,6 +472,7 @@ describe("states", () => {
           "eigentuemer.bruchteilsgemeinschaft",
           "eigentuemer.empfangsbevollmaechtigter.name",
           "eigentuemer.empfangsbevollmaechtigter.adresse",
+          "eigentuemer.abschluss",
           "zusammenfassung",
         ],
       },
@@ -504,6 +508,7 @@ describe("states", () => {
           "eigentuemer.bruchteilsgemeinschaftangaben.angaben",
           "eigentuemer.empfangsbevollmaechtigter.name",
           "eigentuemer.empfangsbevollmaechtigter.adresse",
+          "eigentuemer.abschluss",
           "zusammenfassung",
         ],
       },
@@ -526,6 +531,7 @@ describe("states", () => {
           "eigentuemer.empfangsvollmacht",
           "eigentuemer.empfangsbevollmaechtigter.name",
           "eigentuemer.empfangsbevollmaechtigter.adresse",
+          "eigentuemer.abschluss",
           "zusammenfassung",
         ],
       },

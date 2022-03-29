@@ -467,6 +467,7 @@ export const states: MachineConfig<any, any, any> = {
                 target: "empfangsbevollmaechtigter",
                 cond: "hasEmpfangsbevollmaechtigter",
               },
+              { target: "abschluss" },
             ],
           },
         },
@@ -497,6 +498,24 @@ export const states: MachineConfig<any, any, any> = {
               },
               { target: "empfangsvollmacht" },
             ],
+            NEXT: "abschluss",
+          },
+        },
+        abschluss: {
+          on: {
+            BACK: [
+              {
+                target: "empfangsbevollmaechtigter.adresse",
+                cond: "hasEmpfangsbevollmaechtigter",
+              },
+              {
+                target: "empfangsbevollmaechtigter.adresse",
+                cond: "isBruchteilsgemeinschaft",
+              },
+              {
+                target: "empfangsvollmacht",
+              },
+            ],
           },
         },
       },
@@ -507,19 +526,7 @@ export const states: MachineConfig<any, any, any> = {
     zusammenfassung: {
       type: "final",
       on: {
-        BACK: [
-          {
-            target: "eigentuemer.empfangsbevollmaechtigter.adresse",
-            cond: "hasEmpfangsbevollmaechtigter",
-          },
-          {
-            target: "eigentuemer.empfangsbevollmaechtigter.adresse",
-            cond: "isBruchteilsgemeinschaft",
-          },
-          {
-            target: "eigentuemer.empfangsvollmacht",
-          },
-        ],
+        BACK: { target: "eigentuemer.abschluss" },
       },
     },
   },

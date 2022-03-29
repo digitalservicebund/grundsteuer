@@ -490,6 +490,8 @@ describe("Happy Path", () => {
         inputData.eigentuemer.empfangsbevollmaechtigter.adresse.telefonnummer
       );
     cy.get(submitBtnSelector).click();
+    cy.get("h1").contains("fast fertig", { timeout: 5000 });
+    cy.get(submitBtnSelector).click();
 
     // ZUSAMMENFASSUNG
     cy.url().should("include", "/formular/zusammenfassung");

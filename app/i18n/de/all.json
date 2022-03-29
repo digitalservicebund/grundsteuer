@@ -149,7 +149,8 @@
       "empfangsbevollmaechtigter": {
         "name": "Name",
         "adresse": "Adresse"
-      }
+      },
+      "abschluss": "Abschluss"
     },
     "zusammenfassung": "Zusammenfassung"
   },
@@ -599,6 +600,9 @@
           }
         }
       }
+    },
+    "abschluss": {
+      "headline": "Super, Sie sind fast fertig!"
     }
   },
   "grundstueck": {
