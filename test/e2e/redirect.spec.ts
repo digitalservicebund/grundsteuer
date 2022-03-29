@@ -5,9 +5,9 @@ describe("Redirect to initial step when accessing super state url", () => {
     cy.login();
   });
 
-  it("should redirect to anzahl on call to eigentuemer", () => {
+  it("should redirect to uebersicht on call to eigentuemer", () => {
     cy.visit("/formular/eigentuemer");
-    cy.url().should("include", "/formular/eigentuemer/anzahl");
+    cy.url().should("include", "/formular/eigentuemer/uebersicht");
   });
 
   it("should redirect to persoenlicheAngaben of person 1 on call to eigentuemer/person", () => {

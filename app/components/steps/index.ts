@@ -18,12 +18,14 @@ import Welcome from "~/components/steps/welcome";
 import GrundstueckUebersicht from "~/components/steps/grundstueck/uebersicht";
 import GebaeudeUebersicht from "~/components/steps/gebaeude/uebersicht";
 import { EmpfangsbevollmaechtigterNameHelp } from "~/components/steps/eigentuemer/empfangsbevollmaechtigter/name";
+import EigentuemerUebersicht from "~/components/steps/eigentuemer/uebersicht";
 
 export { Default as FallbackStepComponent };
 
 export default {
   welcome: Welcome,
   eigentuemer: {
+    uebersicht: EigentuemerUebersicht,
     person: {
       adresse: Adresse,
       anteil: Anteil,

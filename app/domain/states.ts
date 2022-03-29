@@ -277,8 +277,18 @@ export const states: MachineConfig<any, any, any> = {
     },
     eigentuemer: {
       id: "eigentuemer",
-      initial: "anzahl",
+      initial: "uebersicht",
       states: {
+        uebersicht: {
+          on: {
+            NEXT: { target: "anzahl" },
+            BACK: [
+              { target: "#steps.gebaeude.garagenAnzahl", cond: "hasGaragen" },
+              { target: "#steps.gebaeude.garagen", cond: "isBebaut" },
+              { target: "#steps.grundstueck.bodenrichtwert" },
+            ],
+          },
+        },
         anzahl: {
           on: {
             NEXT: [
@@ -290,11 +300,7 @@ export const states: MachineConfig<any, any, any> = {
                 target: "person",
               },
             ],
-            BACK: [
-              { target: "#steps.gebaeude.garagenAnzahl", cond: "hasGaragen" },
-              { target: "#steps.gebaeude.garagen", cond: "isBebaut" },
-              { target: "#steps.grundstueck.bodenrichtwert" },
-            ],
+            BACK: { target: "uebersicht" },
           },
         },
         verheiratet: {

@@ -58,6 +58,7 @@ describe("states", () => {
     );
 
     const defaultEigentuemer = [
+      "eigentuemer.uebersicht",
       "eigentuemer.anzahl",
       "eigentuemer.person.1.persoenlicheAngaben",
       "eigentuemer.person.1.adresse",
@@ -96,6 +97,7 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           ...defaultGrundstueck,
+          "eigentuemer.uebersicht",
           "eigentuemer.anzahl",
           "eigentuemer.person.1.persoenlicheAngaben",
           "eigentuemer.person.1.adresse",
@@ -404,6 +406,7 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           ...defaultGrundstueck,
+          "eigentuemer.uebersicht",
           "eigentuemer.anzahl",
           "eigentuemer.verheiratet",
           "eigentuemer.person.1.persoenlicheAngaben",
@@ -442,6 +445,7 @@ describe("states", () => {
           "welcome",
           ...defaultGrundstueck,
           ...defaultGebaeude,
+          "eigentuemer.uebersicht",
           "eigentuemer.anzahl",
           "eigentuemer.person.1.persoenlicheAngaben",
           "eigentuemer.person.1.adresse",
@@ -479,6 +483,7 @@ describe("states", () => {
           "welcome",
           ...defaultGrundstueck,
           ...defaultGebaeude,
+          "eigentuemer.uebersicht",
           "eigentuemer.anzahl",
           "eigentuemer.person.1.persoenlicheAngaben",
           "eigentuemer.person.1.adresse",
@@ -512,6 +517,7 @@ describe("states", () => {
           "welcome",
           ...defaultGrundstueck,
           ...defaultGebaeude,
+          "eigentuemer.uebersicht",
           "eigentuemer.anzahl",
           "eigentuemer.person.1.persoenlicheAngaben",
           "eigentuemer.person.1.adresse",

@@ -127,6 +127,7 @@
       "garagenAnzahl": "Anzahl Garagen"
     },
     "eigentuemer": {
+      "uebersicht": "Übersicht",
       "anzahl": "Anzahl",
       "verheiratet": "Verheiratet?",
       "person": {
@@ -302,6 +303,10 @@
     }
   },
   "eigentuemer": {
+    "uebersicht": {
+      "headline": "Eigentümer:innen",
+      "nextButtonLabel": "Los geht's"
+    },
     "anzahl": {
       "headline": "Wie viele Eigentümer:innen hat das Grundstück?",
       "fields": {

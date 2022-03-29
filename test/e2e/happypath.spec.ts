@@ -354,6 +354,8 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/eigentuemer");
+    cy.get("h1").contains("Eigentümer:innen", { timeout: 5000 });
+    cy.get(submitBtnSelector).click();
     cy.get("#anzahl").select(inputData.eigentuemer.anzahl.anzahl);
     cy.get(submitBtnSelector).click();
     cy.get("label[for=areVerheiratet-true]").click();
