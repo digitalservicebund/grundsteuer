@@ -43,7 +43,7 @@ export const links: LinksFunction = () => {
 export const meta: MetaFunction = () => {
   const title = pageTitle(null);
   const description =
-    "Mit dem Online-Service, entwickelt im Auftrag des Bundesfinanzministeriums, können Privateigentümer:innen von Einfamilienhäusern, Zweifamilienhäusern, Eigentumswohnungen und unbebauten Grundstücken ihre Grundsteuererklärung einfach und kostenlos abgeben.";
+    "Mit dem Online-Service, entwickelt im Auftrag des Bundesfinanzministeriums, können Privateigentümer:innen ihre Grundsteuererklärung einfach und kostenlos abgeben.";
   return {
     title,
     description,
