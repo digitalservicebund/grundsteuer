@@ -207,6 +207,7 @@ export const action: ActionFunction = async ({ params, request }) => {
   // validate
   const errors: Record<string, string | undefined> = {};
   const stepDefinition = getStepDefinition({ currentStateWithoutId });
+  const tFunction = await i18Next.getFixedT("de", "all");
   if (stepDefinition) {
     Object.entries(stepDefinition.fields).forEach(
       ([name, field]: [string, any]) => {
@@ -215,11 +216,14 @@ export const action: ActionFunction = async ({ params, request }) => {
         if (typeof value == "undefined") {
           value = "";
         }
+
+        const i18n = { ...(tFunction("errors") as object) };
         const errorMessage = getErrorMessage(
           value,
           field.validations,
           fieldValues,
-          cookie.records
+          cookie.records,
+          i18n
         );
         if (errorMessage) errors[name] = errorMessage;
       }

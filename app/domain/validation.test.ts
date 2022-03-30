@@ -2,11 +2,11 @@ import {
   validateEmail,
   validateMaxLength,
   validateMinLength,
+  validateOnlyDecimal,
   validateRequired,
   validateRequiredIf,
   validateRequiredIfCondition,
 } from "./validation";
-import { Condition, conditions } from "~/domain/guards";
 import { GrundModel } from "~/domain/steps";
 
 describe("validateEmail", () => {
@@ -22,6 +22,27 @@ describe("validateEmail", () => {
     "Should return $valid if value is '$value'",
     ({ value, valid }) => {
       expect(validateEmail(value)).toBe(valid);
+    }
+  );
+});
+
+describe("validateOnlyDecimal", () => {
+  const cases = [
+    { value: "1", valid: true },
+    { value: "  1  ", valid: true },
+    { value: "01", valid: true },
+    { value: "", valid: true },
+    { value: undefined, valid: true },
+    { value: "1e", valid: false },
+    { value: "text", valid: false },
+  ];
+
+  test.each(cases)(
+    "Should return $valid if value is '$value'",
+    ({ value, valid }) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      expect(validateOnlyDecimal(value)).toBe(valid);
     }
   );
 });

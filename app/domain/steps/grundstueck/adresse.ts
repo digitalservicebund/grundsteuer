@@ -1,4 +1,5 @@
 import { StepDefinition } from "~/domain/steps";
+import { conditions } from "~/domain/guards";
 
 export type GrundstueckAdresseFields = {
   strasse: string;
@@ -23,10 +24,29 @@ export type GrundstueckAdresseFields = {
 export const grundstueckAdresse: StepDefinition = {
   fields: {
     strasse: {
-      validations: {},
+      validations: {
+        requiredIf: {
+          dependentField: "hausnummer",
+          msg: "Muss ausgefüllt werden, wenn Hausnummer gegeben ist",
+        },
+        requiredIfCondition: {
+          condition: conditions.isBebaut,
+          msg: "Muss ausgefüllt werden, wenn Grundstück bebaut ist",
+        },
+        maxLength: {
+          maxLength: 25,
+          msg: "Darf maximal 25 Zeichen lang sein",
+        },
+      },
     },
     hausnummer: {
-      validations: {},
+      validations: {
+        onlyDecimal: {},
+        maxLength: {
+          maxLength: 4,
+          msg: "Darf maximal 4 Zeichen lang sein",
+        },
+      },
     },
     zusatzangaben: { validations: {} },
     plz: { validations: {} },

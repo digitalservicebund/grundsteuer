@@ -1,13 +1,16 @@
 import invariant from "tiny-invariant";
 import { StepFormData } from "~/domain/model";
 import validator from "validator";
-import { valueToNode } from "@babel/types";
-import { Condition, conditions } from "~/domain/guards";
+import { Condition } from "~/domain/guards";
 import { GrundModel } from "~/domain/steps";
 
 type ValidateEmailFunction = (value: string) => boolean;
 export const validateEmail: ValidateEmailFunction = (value) =>
   validator.isEmail(value);
+
+type ValidateOnlyDecimalFunction = (value: string) => boolean;
+export const validateOnlyDecimal: ValidateOnlyDecimalFunction = (value) =>
+  !value || validator.isInt(value.trim(), { allow_leading_zeroes: true });
 
 type ValidateMinLengthFunction = (value: string, minLength: number) => boolean;
 export const validateMinLength: ValidateMinLengthFunction = (
@@ -78,10 +81,12 @@ export const getErrorMessage = (
   value: string,
   validationConfig: ValidationConfig,
   formData: StepFormData,
-  allData: GrundModel
-) => {
+  allData: GrundModel,
+  i18n: Record<string, Record<string, string> | string>
+): string | undefined => {
   const {
     email,
+    onlyDecimal,
     maxLength,
     minLength,
     required,
@@ -115,6 +120,10 @@ export const getErrorMessage = (
 
   if (email && !validateEmail(value)) {
     return email.msg;
+  }
+
+  if (onlyDecimal && !validateOnlyDecimal(value)) {
+    return onlyDecimal.msg || (i18n.onlyDecimal as string);
   }
 
   if (
