@@ -36,25 +36,19 @@ export default function Footer() {
             </a>
           </div>
 
-          <div className="pb-16">
-            <ul>
-              <li className="mb-8 md:mb-0 mr-14 md:mr-32 inline-block">
-                <Link
-                  to="/impressum"
-                  className="text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
-                >
-                  {t("footer.imprint")}
-                </Link>
-              </li>
-              <li className="mb-8 md:mb-0 inline-block">
-                <Link
-                  to="/datenschutz"
-                  className="text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
-                >
-                  {t("footer.dataProtection")}
-                </Link>
-              </li>
-            </ul>
+          <div className="flex pb-16">
+            <Link
+              to="/impressum"
+              className="mr-14 md:mr-32 block py-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
+            >
+              {t("footer.imprint")}
+            </Link>
+            <Link
+              to="/datenschutz"
+              className="block py-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
+            >
+              {t("footer.dataProtection")}
+            </Link>
           </div>
         </div>
       </div>
