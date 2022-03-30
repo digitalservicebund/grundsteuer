@@ -78,8 +78,7 @@ const renderGraph = (
   );
 };
 
-// TODO: Give more specific name: Form only
-export default function SidebarNavigation({
+export default function FormSidebarNavigation({
   graph,
   initialCurrentState,
 }: {
