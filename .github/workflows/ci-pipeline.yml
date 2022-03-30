@@ -117,6 +117,7 @@ jobs:
         run: |
           cd manifests/overlays/staging
           kustomize edit set image ghcr.io/digitalservice4germany/grundsteuer:${{ github.sha }}
+          kustomize edit set image ghcr.io/digitalservice4germany/grundsteuer-migrate:${{ github.sha }}
 
       - name: Commit and push
         uses: EndBug/add-and-commit@v9
