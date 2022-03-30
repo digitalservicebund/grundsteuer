@@ -23,12 +23,9 @@ describe("Redirect to initial step when accessing super state url", () => {
     cy.url().should("include", "/formular/grundstueck/uebersicht");
   });
 
-  it("should redirect to angaben of flurstueck 1 on call to eigentuemer/person", () => {
-    cy.visit("/formular/eigentuemer/person");
-    cy.url().should(
-      "include",
-      "/formular/eigentuemer/person/1/persoenlicheAngaben"
-    );
+  it("should redirect to angaben of flurstueck 1 on call to grundstueck/flurstueck", () => {
+    cy.visit("/formular/grundstueck/flurstueck");
+    cy.url().should("include", "/formular/grundstueck/flurstueck/1/angaben");
   });
 
   it("should redirect to ab1949 on call to gebaeude", () => {
