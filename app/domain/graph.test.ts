@@ -38,7 +38,7 @@ describe("getReachablePaths", () => {
     });
 
     describe("with multiple children", function () {
-      const graph: Graph = {
+      const graphMultipleChildren: Graph = {
         parent: {
           page1: {
             path: "path1",
@@ -53,13 +53,16 @@ describe("getReachablePaths", () => {
         },
       };
       it("Should return correct paths", async () => {
-        const result = getReachablePaths({ graph, initialPaths: [] });
+        const result = getReachablePaths({
+          graph: graphMultipleChildren,
+          initialPaths: [],
+        });
         expect(result).toEqual(["path1.1", "path2.1"]);
       });
     });
 
     describe("with list", function () {
-      const graph: Graph = {
+      const graphWithList: Graph = {
         parent: {
           list: [
             {
@@ -80,7 +83,10 @@ describe("getReachablePaths", () => {
         },
       };
       it("Should return correct paths", async () => {
-        const result = getReachablePaths({ graph, initialPaths: [] });
+        const result = getReachablePaths({
+          graph: graphWithList,
+          initialPaths: [],
+        });
         expect(result).toEqual(["path1.1", "path2.1"]);
       });
     });
