@@ -41,9 +41,8 @@ export const grundstueckAdresse: StepDefinition = {
     },
     hausnummer: {
       validations: {
-        onlyDecimal: {},
         maxLength: {
-          maxLength: 4,
+          maxLength: 14,
           msg: "Darf maximal 4 Zeichen lang sein",
         },
       },
