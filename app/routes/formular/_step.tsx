@@ -162,9 +162,7 @@ export const loader: LoaderFunction = async ({
   const graph = createGraph({
     machineContext: cookie.records,
   });
-  // console.log(graph);
   const reachablePaths = getReachablePaths({ graph, initialPaths: [] });
-  // console.log(reachablePaths);
   if (!reachablePaths.includes(currentState)) {
     const responseHeader: Headers = await createResponseHeaders(cookie);
     return redirect("/formular/welcome", {
