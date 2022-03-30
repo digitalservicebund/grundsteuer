@@ -761,6 +761,8 @@ describe("personIdGreaterThanOne", () => {
     valuesOneOrLess.forEach((valueOneOrLess) => {
       const result = conditions.personIdGreaterThanOne({
         ...grundModelFactory.build(),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         personId: valueOneOrLess,
       });
       expect(result).toEqual(false);
@@ -772,6 +774,8 @@ describe("personIdGreaterThanOne", () => {
     valuesGreaterThanOne.forEach((valueGreaterThanOne) => {
       const result = conditions.personIdGreaterThanOne({
         ...grundModelFactory.build(),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         personId: valueGreaterThanOne,
       });
       expect(result).toEqual(true);
@@ -790,6 +794,8 @@ describe("flurstueckIdGreaterThanOne", () => {
     valuesOneOrLess.forEach((valueOneOrLess) => {
       const result = conditions.flurstueckIdGreaterThanOne({
         ...grundModelFactory.build(),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         flurstueckId: valueOneOrLess,
       });
       expect(result).toEqual(false);
@@ -801,6 +807,8 @@ describe("flurstueckIdGreaterThanOne", () => {
     valuesGreaterThanOne.forEach((valueGreaterThanOne) => {
       const result = conditions.flurstueckIdGreaterThanOne({
         ...grundModelFactory.build(),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         flurstueckId: valueGreaterThanOne,
       });
       expect(result).toEqual(true);
