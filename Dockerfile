@@ -4,7 +4,7 @@ FROM node:16 as build
 WORKDIR /src
 # Required files are whitelisted in dockerignore
 COPY . ./
-RUN npm set-script prepare "" && npm ci && npm run build && npm run db:generate-client && npm prune --production
+RUN npm set-script prepare "" && npm ci && npm run build && npm prune --production
 
 FROM node:16-alpine
 USER node
