@@ -44,9 +44,43 @@ export const grundstueckAdresse: StepDefinition = {
         hausnummer: {},
       },
     },
-    zusatzangaben: { validations: {} },
-    plz: { validations: {} },
-    ort: { validations: {} },
+    zusatzangaben: {
+      validations: {
+        maxLength: {
+          maxLength: 25,
+          msg: "Darf maximal 25 Zeichen lang sein",
+        },
+      },
+    },
+    plz: {
+      validations: {
+        requiredIfCondition: {
+          condition: conditions.isBebaut,
+          msg: "Muss ausgefüllt werden, wenn Grundstück bebaut ist",
+        },
+        onlyDecimal: {},
+        minLength: {
+          minLength: 5,
+          msg: "Muss genau 5 Zeichen lang sein",
+        },
+        maxLength: {
+          maxLength: 5,
+          msg: "Muss genau 5 Zeichen lang sein",
+        },
+      },
+    },
+    ort: {
+      validations: {
+        requiredIfCondition: {
+          condition: conditions.isBebaut,
+          msg: "Muss ausgefüllt werden, wenn Grundstück bebaut ist",
+        },
+        maxLength: {
+          maxLength: 25,
+          msg: "Darf maximal 25 Zeichen lang sein",
+        },
+      },
+    },
     bundesland: {
       type: "select",
       options: [
@@ -63,7 +97,11 @@ export const grundstueckAdresse: StepDefinition = {
         { value: "SH" },
         { value: "TH" },
       ],
-      validations: {},
+      validations: {
+        required: {
+          msg: "Dies ist ein Pflichtfeld",
+        },
+      },
     },
   },
 };
