@@ -46,7 +46,7 @@ jobs:
       - name: Migrate test db
         env:
           DATABASE_URL: postgresql://prisma:prisma@localhost:5433/tests
-        run: npx prisma migrate deploy
+        run: npx prisma migrate deploy && npx prisma db seed
 
       - name: Run E2E tests
         env:
