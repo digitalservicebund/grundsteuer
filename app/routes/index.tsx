@@ -66,9 +66,9 @@ export default function Index() {
         </div>
 
         <div className="mb-64 md:max-w-screen-sm md:mb-32 lg:max-w-screen-md">
-          <h3 className="text-32 leading-40 mb-16">
+          <h2 className="text-32 leading-40 mb-16">
             {t("homepage.about.headline")}
-          </h3>
+          </h2>
           <p className="mb-24">{t("homepage.about.text1")}</p>
           <p className="font-bold">{t("homepage.about.text2")}</p>
         </div>
@@ -78,9 +78,9 @@ export default function Index() {
           id="teilnehmende-bundeslaender"
         >
           <div className="mb-32 md:mb-0 lg:pt-64">
-            <h3 className="text-32 leading-40 mb-16">
+            <h2 className="text-32 leading-40 mb-16">
               {t("homepage.states.headline")}
-            </h3>
+            </h2>
             <p className="mb-24">{t("homepage.states.text")}</p>
             <div className="font-bold md:flex">
               <ul className="list-disc pl-24">
@@ -111,18 +111,18 @@ export default function Index() {
         </div>
 
         <div className="mb-64" id="faq">
-          <h3 className="text-32 leading-40 mb-16 md:mb-32">
+          <h2 className="text-32 leading-40 mb-16 md:mb-32">
             {t("homepage.faq.headline")}
-          </h3>
+          </h2>
           <div className="xl:pr-96">
             <FaqAccordion />
           </div>
         </div>
 
         <div className="mb-64 md:mb-32">
-          <h3 className="text-32 leading-40 mb-16 md:mb-32">
+          <h2 className="text-32 leading-40 mb-16 md:mb-32">
             {t("homepage.sharing.headline")}
-          </h3>
+          </h2>
           <HomepageSharing />
         </div>
       </SimplePageLayout>
