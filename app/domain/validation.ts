@@ -1,6 +1,9 @@
 import invariant from "tiny-invariant";
 import { StepFormData } from "~/domain/model";
 import validator from "validator";
+import { valueToNode } from "@babel/types";
+import { Condition, conditions } from "~/domain/guards";
+import { GrundModel } from "~/domain/steps";
 
 type ValidateEmailFunction = (value: string) => boolean;
 export const validateEmail: ValidateEmailFunction = (value) =>
@@ -31,6 +34,17 @@ export const validateRequiredIf: ValidateRequiredIfFunction = (
   dependentValue
 ) => (validateRequired(dependentValue) ? validateRequired(value) : true);
 
+type ValidateRequiredIfCondition = (
+  value: string,
+  condition: Condition,
+  allData: GrundModel
+) => boolean;
+export const validateRequiredIfCondition: ValidateRequiredIfCondition = (
+  value,
+  condition,
+  allData
+) => (condition(allData) ? validateRequired(value) : true);
+
 interface DefaultValidation {
   msg: string;
 }
@@ -47,9 +61,14 @@ interface RequiredIfValidation extends DefaultValidation {
   dependentField: string;
 }
 
+interface RequiredIfConditionValidation extends DefaultValidation {
+  condition: Condition;
+}
+
 export type Validation =
   | DefaultValidation
   | RequiredIfValidation
+  | RequiredIfConditionValidation
   | MaxLengthValidation
   | MinLengthValidation;
 
@@ -58,10 +77,17 @@ type ValidationConfig = Record<string, Validation>;
 export const getErrorMessage = (
   value: string,
   validationConfig: ValidationConfig,
-  formData: StepFormData
+  formData: StepFormData,
+  allData: GrundModel
 ) => {
-  const { email, maxLength, minLength, required, requiredIf } =
-    validationConfig;
+  const {
+    email,
+    maxLength,
+    minLength,
+    required,
+    requiredIf,
+    requiredIfCondition,
+  } = validationConfig;
 
   if (required && !validateRequired(value)) {
     return required.msg;
@@ -74,6 +100,17 @@ export const getErrorMessage = (
     if (!validateRequiredIf(value, dependentValue)) {
       return requiredIf.msg;
     }
+  }
+
+  if (
+    requiredIfCondition &&
+    !validateRequiredIfCondition(
+      value,
+      (requiredIfCondition as RequiredIfConditionValidation).condition,
+      allData
+    )
+  ) {
+    return requiredIfCondition.msg;
   }
 
   if (email && !validateEmail(value)) {

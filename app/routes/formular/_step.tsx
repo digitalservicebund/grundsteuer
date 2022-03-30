@@ -218,7 +218,8 @@ export const action: ActionFunction = async ({ params, request }) => {
         const errorMessage = getErrorMessage(
           value,
           field.validations,
-          fieldValues
+          fieldValues,
+          cookie.records
         );
         if (errorMessage) errors[name] = errorMessage;
       }

@@ -4,7 +4,10 @@ import {
   validateMinLength,
   validateRequired,
   validateRequiredIf,
+  validateRequiredIfCondition,
 } from "./validation";
+import { Condition, conditions } from "~/domain/guards";
+import { GrundModel } from "~/domain/steps";
 
 describe("validateEmail", () => {
   const cases = [
@@ -81,6 +84,36 @@ describe("validateRequiredIf", () => {
     "Should return $valid if value is '$value' and dependentValue is '$dependentValue'",
     ({ value, dependentValue, valid }) => {
       expect(validateRequiredIf(value, dependentValue)).toBe(valid);
+    }
+  );
+});
+
+describe("validateRequiredIfCondition", () => {
+  const falseCondition = jest.fn(() => false);
+  const trueCondition = jest.fn(() => true);
+
+  const cases = [
+    { value: "", condition: falseCondition, valid: true },
+    { value: "xx", condition: falseCondition, valid: true },
+    { value: "", condition: trueCondition, valid: false },
+    { value: "xx", condition: trueCondition, valid: true },
+  ];
+
+  test.each(cases)(
+    "Should return $valid if value is '$value' and condition is '$condition'",
+    ({ value, condition, valid }) => {
+      const allData: GrundModel = {
+        grundstueck: { typ: { typ: "einfamilienhaus" } },
+      };
+      condition.mockClear();
+
+      expect(validateRequiredIfCondition(value, condition, allData)).toBe(
+        valid
+      );
+
+      expect(condition.mock.calls.length).toBe(1);
+      expect(condition.mock.calls[0].length).toBe(1); // one argument
+      expect((condition.mock.calls[0] as Array<object>)[0]).toEqual(allData); // correct argument
     }
   );
 });
