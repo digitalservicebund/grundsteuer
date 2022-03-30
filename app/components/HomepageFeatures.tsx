@@ -14,7 +14,14 @@ function HomepageFeature(props: HomepageFeatureProps) {
   const { children, headline, image } = props;
   return (
     <div className="flex flex-col">
-      <img src={image} alt="" role="presentation" />
+      <img
+        src={image}
+        alt=""
+        role="presentation"
+        className="w-full"
+        width={312}
+        height={182}
+      />
       <div className="flex-grow bg-blue-300 p-32 rounded-b-md border-t-gray-800 border-t-4">
         <h3 className="text-20 leading-26 mb-24">{headline}</h3>
         {children}

@@ -10,6 +10,8 @@ export default function BmfLogo() {
         src={bmfLogoImage}
         alt="Logo des Bundesministeriums der Finanzen"
         className="relative -left-16 w-[160px] md:-left-24 md:w-[200px] lg:-left-36 lg:w-[250px]"
+        width={168}
+        height={104}
       />
     </>
   );

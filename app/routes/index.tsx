@@ -105,6 +105,8 @@ export default function Index() {
             alt={t("homepage.states.mapAlt")}
             aria-describedby="teilnehmende-bundeslaender"
             className="mx-auto md:ml-48 lg:ml-112 xl:ml-176"
+            width={255}
+            height={391}
           />
         </div>
 

@@ -22,6 +22,8 @@ export default function HomepageSharing() {
             alt=""
             role="presentation"
             className="relative w-[154px] md:w-auto"
+            width={238}
+            height={227}
           />
           <div className="ml-20 pb-64 hidden md:block">
             <CopyToClipboard {...{ contentToCopy, contentToDisplay }} />

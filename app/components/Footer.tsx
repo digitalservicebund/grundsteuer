@@ -19,6 +19,8 @@ export default function Footer() {
                 src={bmfLogoImage}
                 alt={t("footer.bmf")}
                 className="w-[132px]"
+                width={168}
+                height={104}
               />
             </a>
             <a
