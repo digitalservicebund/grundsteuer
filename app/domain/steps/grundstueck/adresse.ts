@@ -41,10 +41,7 @@ export const grundstueckAdresse: StepDefinition = {
     },
     hausnummer: {
       validations: {
-        maxLength: {
-          maxLength: 14,
-          msg: "Darf maximal 4 Zeichen lang sein",
-        },
+        hausnummer: {},
       },
     },
     zusatzangaben: { validations: {} },

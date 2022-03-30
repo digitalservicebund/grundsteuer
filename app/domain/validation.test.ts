@@ -1,5 +1,6 @@
 import {
   validateEmail,
+  validateHausnummer,
   validateMaxLength,
   validateMinLength,
   validateOnlyDecimal,
@@ -135,6 +136,29 @@ describe("validateRequiredIfCondition", () => {
       expect(condition.mock.calls.length).toBe(1);
       expect(condition.mock.calls[0].length).toBe(1); // one argument
       expect((condition.mock.calls[0] as Array<object>)[0]).toEqual(allData); // correct argument
+    }
+  );
+});
+
+describe("validateHausnummer", () => {
+  const cases = [
+    { value: "", valid: true },
+    { value: "42", valid: true },
+    { value: "0", valid: true },
+    { value: "04", valid: true },
+    { value: "123456", valid: true },
+    { value: "1b", valid: true },
+    { value: "1234abcdefghij", valid: true },
+    { value: "1234abcdefghijk", valid: false }, // too long
+    { value: "123abcdefghijk", valid: false }, // too few numbers
+    { value: "0123abcdefghij", valid: true },
+    { value: "haus", valid: false }, // starts with letter
+  ];
+
+  test.each(cases)(
+    "Should return $valid if value is '$value'",
+    ({ value, valid }) => {
+      expect(validateHausnummer(value)).toBe(valid);
     }
   );
 });

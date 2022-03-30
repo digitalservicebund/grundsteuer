@@ -79,6 +79,7 @@
       "notMatching": "Bitte geben Sie zur Kontrolle die E-Mail-Adresse genau so ein, wie im obigen Feld."
     },
     "onlyDecimal": "Darf nur Ziffern beinhalten",
+    "hausnummer": "Die Hausnummer muss mit Ziffern beginnen und darf nicht länger als 14 Zeichen sein",
     "password": {
       "notMatching": "Passwörter stimmen nicht überein.",
       "tooShort": "Das Passwort ist zu kurz. Geben Sie bitte mindestens 8 Zeichen ein.",

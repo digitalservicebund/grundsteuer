@@ -4,12 +4,12 @@ import validator from "validator";
 import { Condition } from "~/domain/guards";
 import { GrundModel } from "~/domain/steps";
 
-type ValidateEmailFunction = (value: string) => boolean;
-export const validateEmail: ValidateEmailFunction = (value) =>
+type ValidateFunctionDefault = (value: string) => boolean;
+
+export const validateEmail: ValidateFunctionDefault = (value) =>
   validator.isEmail(value);
 
-type ValidateOnlyDecimalFunction = (value: string) => boolean;
-export const validateOnlyDecimal: ValidateOnlyDecimalFunction = (value) =>
+export const validateOnlyDecimal: ValidateFunctionDefault = (value) =>
   !value || validator.isInt(value.trim(), { allow_leading_zeroes: true });
 
 type ValidateMinLengthFunction = (value: string, minLength: number) => boolean;
@@ -24,8 +24,7 @@ export const validateMaxLength: ValidateMaxLengthFunction = (
   maxLength
 ) => value.trim().length <= maxLength;
 
-type ValidateRequiredFunction = (value: string) => boolean;
-export const validateRequired: ValidateRequiredFunction = (value) =>
+export const validateRequired: ValidateFunctionDefault = (value) =>
   value.trim().length > 0;
 
 type ValidateRequiredIfFunction = (
@@ -47,6 +46,20 @@ export const validateRequiredIfCondition: ValidateRequiredIfCondition = (
   condition,
   allData
 ) => (condition(allData) ? validateRequired(value) : true);
+
+export const validateHausnummer: ValidateFunctionDefault = (value) => {
+  if (!value) return true;
+  if (value.length > 14) return false; // hausnummer + hausnummerzusatz
+  if (!validator.isInt(value[0])) return false; // start with number
+  // if value (minus first number) is too long to fit into hausnummerzusatz:
+  // make sure it also starts with the correct count of numbers
+  if (
+    value.length > 11 &&
+    !validator.isDecimal(value.slice(0, value.length - 10))
+  )
+    return false;
+  return true;
+};
 
 interface DefaultValidation {
   msg: string;
@@ -92,6 +105,7 @@ export const getErrorMessage = (
     required,
     requiredIf,
     requiredIfCondition,
+    hausnummer,
   } = validationConfig;
 
   if (required && !validateRequired(value)) {
@@ -116,6 +130,10 @@ export const getErrorMessage = (
     )
   ) {
     return requiredIfCondition.msg;
+  }
+
+  if (hausnummer && !validateHausnummer(value)) {
+    return hausnummer.msg || (i18n.hausnummer as string);
   }
 
   if (email && !validateEmail(value)) {
