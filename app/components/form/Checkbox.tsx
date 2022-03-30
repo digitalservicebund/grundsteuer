@@ -11,7 +11,7 @@ export type CheckboxProps = {
 };
 
 export default function Checkbox(props: CheckboxProps) {
-  const { name, label, help, defaultValue, value } = props;
+  const { name, label, help, defaultValue } = props;
 
   const inputComponent = (
     <input

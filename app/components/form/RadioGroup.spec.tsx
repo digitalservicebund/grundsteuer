@@ -35,7 +35,7 @@ describe("RadioGroup component", () => {
   });
 
   describe("With help set", () => {
-    const defaultProps = {
+    const defaultPropsWithHelp = {
       name: "input",
       label: "Input Label",
       options: [
@@ -53,32 +53,32 @@ describe("RadioGroup component", () => {
     };
 
     it("should render help icons", () => {
-      render(<RadioGroup {...defaultProps} />);
+      render(<RadioGroup {...defaultPropsWithHelp} />);
       expect(screen.getAllByRole("img")).toHaveLength(2);
     });
 
     it("should not display help text by default", () => {
-      render(<RadioGroup {...defaultProps} />);
+      render(<RadioGroup {...defaultPropsWithHelp} />);
       expect(screen.queryByText("Help 1")).not.toBeVisible();
       expect(screen.queryByText("Help 2")).not.toBeVisible();
     });
 
     it("should not be expanded by default", () => {
-      render(<RadioGroup {...defaultProps} />);
+      render(<RadioGroup {...defaultPropsWithHelp} />);
       screen.getAllByTestId("help-summary").forEach((summary) => {
         expect(summary).toHaveAttribute("aria-expanded", "false");
       });
     });
 
     it("should display the correct help text on icon click", () => {
-      render(<RadioGroup {...defaultProps} />);
+      render(<RadioGroup {...defaultPropsWithHelp} />);
       userEvent.click(within(screen.getByTestId("option-1")).getByRole("img"));
       expect(screen.queryByText("Help 1")).toBeVisible();
       expect(screen.queryByText("Help 2")).not.toBeVisible();
     });
 
     it("should expand according to icon clicks", async () => {
-      render(<RadioGroup {...defaultProps} />);
+      render(<RadioGroup {...defaultPropsWithHelp} />);
       userEvent.click(within(screen.getByTestId("option-1")).getByRole("img"));
       await waitFor(() => {
         expect(
@@ -100,7 +100,7 @@ describe("RadioGroup component", () => {
     });
 
     it("should focus first summary on tab", () => {
-      render(<RadioGroup {...defaultProps} />);
+      render(<RadioGroup {...defaultPropsWithHelp} />);
       userEvent.tab();
       expect(
         within(screen.getByTestId("option-1")).getByTestId("help-summary")

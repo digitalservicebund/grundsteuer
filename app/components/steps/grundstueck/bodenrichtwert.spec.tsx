@@ -7,7 +7,6 @@ import { getI18nObject } from "test/factories/i18n";
 import { I18nObject } from "~/routes/formular/_step";
 import { grundModelFactory, flurstueckFactory } from "test/factories";
 import { GrundModel } from "~/domain/steps";
-import { validateEmail } from "~/domain/validation";
 
 describe("Bodenrichtwert page component", () => {
   const defaultInput = {

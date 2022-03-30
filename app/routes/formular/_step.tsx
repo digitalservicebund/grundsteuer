@@ -27,7 +27,6 @@ import { State } from "xstate/lib/State";
 import { StateSchema, Typestate } from "xstate/lib/types";
 import { StepHeadline } from "~/components/StepHeadline";
 import { createGraph, getReachablePaths } from "~/domain";
-import invariant from "tiny-invariant";
 import { pageTitle } from "~/util/pageTitle";
 
 const getCurrentStateWithoutId = (currentState: string) => {
