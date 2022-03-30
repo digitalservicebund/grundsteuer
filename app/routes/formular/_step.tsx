@@ -271,9 +271,6 @@ export function Step() {
     <div className="flex flex-col md:flex-row flex-grow h-full">
       <div className="pt-32 max-w-screen-md mx-auto w-1/2">
         <StepHeadline i18n={i18n} />
-        {actionData?.errors
-          ? "ERRORS: " + JSON.stringify(actionData.errors)
-          : ""}
         <Form method="post" className="mb-16" key={currentState}>
           <StepComponent {...loaderData} {...actionData} />
           <div className="flex flex-row-reverse items-center justify-between">

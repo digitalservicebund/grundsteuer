@@ -19,6 +19,7 @@ const Bruchteilsgemeinschaft: StepComponentFunction = ({
   formData,
   allData,
   i18n,
+  errors,
 }) => {
   const grundstueckAdresseData = allData?.grundstueck?.adresse;
   const eigentuemer1AdresseData = allData?.eigentuemer?.person?.[0]?.adresse;
@@ -94,7 +95,7 @@ const Bruchteilsgemeinschaft: StepComponentFunction = ({
         )}
       </div>
       <div className="mb-8">
-        <StepFormFields {...{ stepDefinition, formData, i18n }} />
+        <StepFormFields {...{ stepDefinition, formData, i18n, errors }} />
       </div>
     </div>
   );

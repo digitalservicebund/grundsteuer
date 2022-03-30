@@ -9,6 +9,7 @@ const Bodenrichtwert: StepComponentFunction = ({
   formData,
   allData,
   i18n,
+  errors,
 }) => {
   const adresseData = allData?.grundstueck?.adresse;
   const flurstueckData = allData?.grundstueck?.flurstueck;
@@ -28,7 +29,7 @@ const Bodenrichtwert: StepComponentFunction = ({
       </div>
 
       <div className="mb-8">
-        <StepFormFields {...{ stepDefinition, formData, i18n }} />
+        <StepFormFields {...{ stepDefinition, formData, i18n, errors }} />
       </div>
 
       {(adresseData || flurstueckData) && (

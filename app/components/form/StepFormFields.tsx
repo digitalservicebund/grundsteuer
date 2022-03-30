@@ -12,10 +12,11 @@ export type StepFormFieldsProps = {
     };
   };
   currentState?: string;
+  errors: Record<string, string>;
 };
 
 const StepFormFields = (props: StepFormFieldsProps) => {
-  const { stepDefinition, formData, i18n, currentState } = props;
+  const { stepDefinition, formData, i18n, currentState, errors } = props;
   return (
     <>
       {stepDefinition &&
@@ -27,6 +28,7 @@ const StepFormFields = (props: StepFormFieldsProps) => {
               i18n: i18n.fields[name],
               value: formData?.[name],
               key: `${currentState}${name}`,
+              error: errors?.[name],
             }}
           />
         ))}

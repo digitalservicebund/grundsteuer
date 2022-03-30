@@ -1,6 +1,8 @@
 import { ConfigStepFieldOptionsItem } from "~/domain";
 import Details from "../Details";
 import QuestionMark from "~/components/icons/mui/QuestionMark";
+import FieldError from "./FieldError";
+import React from "react";
 
 export type RadioGroupProps = {
   name: string;
@@ -8,6 +10,7 @@ export type RadioGroupProps = {
   options: { value: string; label: string; help?: string }[];
   value?: string;
   defaultValue?: string;
+  error?: string;
 };
 
 const RadioGroupOption = (
@@ -65,7 +68,9 @@ const RadioGroupOption = (
 };
 
 export default function RadioGroup(props: RadioGroupProps) {
-  const { name, label, options, value, defaultValue } = props;
+  const { name, label, options, value, defaultValue, error } = props;
+
+  const errorComponent = error && <FieldError>{error}</FieldError>;
 
   return (
     <fieldset className="mb-4">
@@ -88,6 +93,7 @@ export default function RadioGroup(props: RadioGroupProps) {
           />
         );
       })}
+      {errorComponent}
     </fieldset>
   );
 }

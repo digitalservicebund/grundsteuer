@@ -1,6 +1,8 @@
 import QuestionMark from "~/components/icons/mui/QuestionMark";
 import Details from "~/components/Details";
 import classNames from "classnames";
+import FieldError from "./FieldError";
+import React from "react";
 
 export type CheckboxProps = {
   name: string;
@@ -8,10 +10,11 @@ export type CheckboxProps = {
   help?: string;
   value?: string;
   defaultValue?: string;
+  error?: string;
 };
 
 export default function Checkbox(props: CheckboxProps) {
-  const { name, label, help, defaultValue } = props;
+  const { name, label, help, defaultValue, error } = props;
 
   const inputComponent = (
     <input
@@ -37,6 +40,8 @@ export default function Checkbox(props: CheckboxProps) {
     </label>
   );
 
+  const errorComponent = error && <FieldError>{error}</FieldError>;
+
   if (help) {
     return (
       <div>
@@ -54,6 +59,7 @@ export default function Checkbox(props: CheckboxProps) {
           }
           detailsContent={<p>{help}</p>}
         />
+        {errorComponent}
       </div>
     );
   } else {
@@ -61,6 +67,7 @@ export default function Checkbox(props: CheckboxProps) {
       <div>
         {inputComponent}
         {labelComponent}
+        {errorComponent}
       </div>
     );
   }

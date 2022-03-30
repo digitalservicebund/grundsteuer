@@ -7,6 +7,7 @@ const GrundstueckFlurstueckFlur: StepComponentFunction = ({
   stepDefinition,
   formData,
   i18n,
+  errors,
 }) => {
   const fieldDefinitions =
     stepDefinition.fields as GrundstueckFlurstueckFlurFields;
@@ -18,6 +19,7 @@ const GrundstueckFlurstueckFlur: StepComponentFunction = ({
       i18n: i18n.fields[fieldName],
       definition:
         fieldDefinitions[fieldName as keyof GrundstueckFlurstueckFlurFields],
+      error: errors?.[fieldName],
     };
   });
 
