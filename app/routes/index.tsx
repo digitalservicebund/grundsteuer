@@ -1,3 +1,4 @@
+import { LoaderFunction, useLoaderData } from "remix";
 import { useTranslation } from "react-i18next";
 import {
   BmfLogo,
@@ -10,8 +11,21 @@ import {
 import germanyMapImage from "~/assets/images/germany-map.svg";
 import HomepageSharing from "~/components/HomepageSharing";
 
+export const loader: LoaderFunction = async () => {
+  return {
+    env: process.env.APP_ENV,
+  };
+};
+
 export default function Index() {
   const { t } = useTranslation("all");
+  const loaderData = useLoaderData();
+
+  // buttons in production are temporarily disabled until full launch
+  // (implementation note: cannot pass props "disabled" and "to" at the same time)
+  const startButtonProps =
+    loaderData?.env === "production" ? { disabled: true } : { to: "/anmelden" };
+
   return (
     <>
       <div className="flex-shrink-0 bg-yellow-300 border-l-[9px] border-l-yellow-500 py-16 lg:py-28">
@@ -33,7 +47,7 @@ export default function Index() {
               >
                 {t("homepage.buttonCheck")}
               </Button>
-              <Button size="medium" disabled>
+              <Button size="medium" {...startButtonProps}>
                 {t("homepage.buttonStart")}
               </Button>
             </div>
@@ -41,7 +55,7 @@ export default function Index() {
               <Button look="tertiary" disabled className="mr-24">
                 {t("homepage.buttonCheck")}
               </Button>
-              <Button disabled>{t("homepage.buttonStart")}</Button>
+              <Button {...startButtonProps}>{t("homepage.buttonStart")}</Button>
             </div>
           </div>
           <div>
