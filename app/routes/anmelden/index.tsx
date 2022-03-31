@@ -1,18 +1,29 @@
-import { Form, ActionFunction, LoaderFunction, useActionData } from "remix";
+import {
+  Form,
+  ActionFunction,
+  LoaderFunction,
+  useActionData,
+  MetaFunction,
+} from "remix";
 import { AuthorizationError } from "remix-auth";
 import { authenticator } from "~/auth.server";
 import { Button, FormGroup, Input, SimplePageLayout } from "~/components";
+import { pageTitle } from "~/util/pageTitle";
+
+export const meta: MetaFunction = () => {
+  return { title: pageTitle("Anmelden") };
+};
 
 export const loader: LoaderFunction = async ({ request }) => {
   return await authenticator.isAuthenticated(request, {
-    successRedirect: "/formular",
+    successRedirect: "/formular/welcome",
   });
 };
 
 export const action: ActionFunction = async ({ request }) => {
   try {
     return await authenticator.authenticate("user-pass", request, {
-      successRedirect: "/formular",
+      successRedirect: "/formular/welcome",
       throwOnError: true,
     });
   } catch (error) {
@@ -30,30 +41,35 @@ export default function Anmelden() {
 
   return (
     <SimplePageLayout>
+      <h1 className="text-32 mb-32">
+        Herzlich willkommen!
+        <br />
+        Bitte melden Sie sich an.
+      </h1>
       {actionData?.error && (
         <div className="bg-red-200 border-2 border-red-800 p-16 mb-32">
           E-Mail-Adresse und/oder Passwort falsch.
         </div>
       )}
-      <Form method="post" noValidate>
-        <FormGroup>
-          <Input
-            type="email"
-            name="email"
-            label="E-Mail-Adresse"
-            help="Für erfolgreiches Anmelden: user@example.com (Passwort egal)"
-          />
-        </FormGroup>
-        <FormGroup>
-          <Input
-            type="password"
-            name="password"
-            autoComplete="current-password"
-            label="Passwort"
-          />
-        </FormGroup>
-        <Button data-testid="submit">Anmelden</Button>
-      </Form>
+      <div className="mb-64">
+        <Form method="post" noValidate>
+          <FormGroup>
+            <Input type="email" name="email" label="E-Mail-Adresse" />
+          </FormGroup>
+          <FormGroup>
+            <Input
+              type="password"
+              name="password"
+              label="Passwort"
+              autoComplete="current-password"
+            />
+          </FormGroup>
+          <Button data-testid="submit">Einloggen</Button>
+        </Form>
+      </div>
+
+      <h2 className="text-32 mb-32">Noch nicht registriert?</h2>
+      <Button to="/registrieren">Konto erstellen</Button>
     </SimplePageLayout>
   );
 }

@@ -1,5 +1,5 @@
 import { MetaFunction } from "remix";
-import { Button } from "~/components";
+import { Button, SimplePageLayout } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 
 export const meta: MetaFunction = () => {
@@ -8,18 +8,19 @@ export const meta: MetaFunction = () => {
 
 export default function AbmeldenErfolgreich() {
   return (
-    <div>
-      <h1 className="text-32">Erfolgreich abgemeldet.</h1>
+    <SimplePageLayout>
+      <h1 className="text-32">Sie haben sich erfolgreich abgemeldet.</h1>
 
-      <p className="mb-24">Sie können das Fenster jetzt schließen.</p>
+      <p className="mb-64">
+        Ihre Daten sind gespeichert.
+        <br />
+        Bitte melden Sie sich nächstes Mal wieder von diesem Gerät und Browser
+        an, um zum aktuellen Stand zurückzukehren.
+      </p>
 
       <Button to="/" className="mr-32">
         Zur Startseite
       </Button>
-
-      <Button look="tertiary" to="/anmelden">
-        Erneut anmelden
-      </Button>
-    </div>
+    </SimplePageLayout>
   );
 }

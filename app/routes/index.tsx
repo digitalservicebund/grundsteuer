@@ -24,7 +24,9 @@ export default function Index() {
   // buttons in production are temporarily disabled until full launch
   // (implementation note: cannot pass props "disabled" and "to" at the same time)
   const startButtonProps =
-    loaderData?.env === "production" ? { disabled: true } : { to: "/anmelden" };
+    loaderData?.env === "production"
+      ? { disabled: true }
+      : { to: "/formular/welcome" };
 
   return (
     <>
