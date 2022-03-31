@@ -815,3 +815,43 @@ describe("flurstueckIdGreaterThanOne", () => {
     });
   });
 });
+
+describe("bundeslandIsNW", () => {
+  it("Should return false if data undefined", async () => {
+    const result = conditions.bundeslandIsNW(undefined);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false if bundesland is not NW", async () => {
+    const valuesNonNW = [
+      "BE",
+      "BB",
+      "HB",
+      "MV",
+      "RP",
+      "SL",
+      "SN",
+      "ST",
+      "SH",
+      "TH",
+      undefined,
+    ];
+    valuesNonNW.forEach((valueNonNW) => {
+      const result = conditions.bundeslandIsNW({
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        ...grundModelFactory
+          .grundstueckAdresse({ bundesland: valueNonNW })
+          .build(),
+      });
+      expect(result).toEqual(false);
+    });
+  });
+
+  it("Should return true if bundesland is NW", async () => {
+    const result = conditions.bundeslandIsNW({
+      ...grundModelFactory.grundstueckAdresse({ bundesland: "NW" }).build(),
+    });
+    expect(result).toEqual(true);
+  });
+});

@@ -106,6 +106,10 @@ const flurstueckIdGreaterThanOne: Condition = (context) => {
   return Number(context?.flurstueckId) > 1;
 };
 
+const bundeslandIsNW: Condition = (context) => {
+  return context?.grundstueck?.adresse?.bundesland == "NW";
+};
+
 export const conditions: Conditions = {
   isBezugsfertigAb1949,
   isKernsaniert,
@@ -128,4 +132,5 @@ export const conditions: Conditions = {
   isAbweichendeEntwicklung,
   personIdGreaterThanOne,
   flurstueckIdGreaterThanOne,
+  bundeslandIsNW,
 };

@@ -1,4 +1,5 @@
 import { StepDefinition } from "~/domain/steps";
+import { conditions } from "~/domain/guards";
 
 export type GrundstueckFlurstueckAngabenFields = {
   grundbuchblattnummer: string;
@@ -8,10 +9,21 @@ export type GrundstueckFlurstueckAngabenFields = {
 export const grundstueckFlurstueckAngaben: StepDefinition = {
   fields: {
     grundbuchblattnummer: {
-      validations: {},
+      validations: {
+        grundbuchblattnummer: {},
+        requiredIfCondition: {
+          condition: conditions.bundeslandIsNW,
+          msg: "Für Grundstücke in Nordrhein-Westfahlen muss immer ein Grundbuchblatt angegeben werden.",
+        },
+      },
     },
     gemarkung: {
-      validations: {},
+      validations: {
+        maxLength: {
+          maxLength: 25,
+        },
+        required: {},
+      },
     },
   },
 };

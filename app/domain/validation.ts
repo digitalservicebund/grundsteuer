@@ -61,6 +61,17 @@ export const validateHausnummer: ValidateFunctionDefault = (value) => {
   return true;
 };
 
+export const validateGrundbuchblattnummer: ValidateFunctionDefault = (
+  value
+) => {
+  if (!value) return true;
+  if (value.length > 6) return false;
+  if (!validator.isInt(value[0])) return false; // start with number
+  if (value.length > 1 && !validator.isInt(value.slice(0, value.length - 1)))
+    return false; // only last char may not be number
+  return true;
+};
+
 interface DefaultValidation {
   msg: string;
 }
@@ -106,6 +117,7 @@ export const getErrorMessage = (
     requiredIf,
     requiredIfCondition,
     hausnummer,
+    grundbuchblattnummer,
   } = validationConfig;
 
   if (required && !validateRequired(value)) {
@@ -134,6 +146,10 @@ export const getErrorMessage = (
 
   if (hausnummer && !validateHausnummer(value)) {
     return hausnummer.msg || (i18n.hausnummer as string);
+  }
+
+  if (grundbuchblattnummer && !validateGrundbuchblattnummer(value)) {
+    return grundbuchblattnummer.msg || (i18n.grundbuchblattnummer as string);
   }
 
   if (email && !validateEmail(value)) {
