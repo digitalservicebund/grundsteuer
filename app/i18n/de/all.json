@@ -755,7 +755,12 @@
       "headline": "Wie viele Grundstücke stehen im vorliegenden Grundbuchauszug?",
       "fields": {
         "anzahl": {
-          "label": "Wie viele Grundstücke stehen im vorliegenden Grundbuchauszug?"
+          "label": "Wie viele Grundstücke stehen im vorliegenden Grundbuchauszug?",
+          "options": {
+            "default": {
+              "label": "Bitte auswählen"
+            }
+          }
         }
       }
     },

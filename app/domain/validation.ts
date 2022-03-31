@@ -109,7 +109,7 @@ export const getErrorMessage = (
   } = validationConfig;
 
   if (required && !validateRequired(value)) {
-    return required.msg;
+    return required.msg || (i18n.required as string);
   }
 
   if (requiredIf) {

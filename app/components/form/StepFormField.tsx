@@ -48,7 +48,7 @@ const StepFormField = (props: StepFormFieldProps) => {
     const optionsWithLabels = options.map((option) => {
       return {
         ...option,
-        label: i18n.options?.[option.value].label || option.value,
+        label: i18n.options?.[option.value]?.label || option.value,
       };
     });
     const selectProps: SelectProps = {

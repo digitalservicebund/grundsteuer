@@ -8,7 +8,9 @@ export type GrundstueckBodenrichtwertFields = {
 export const grundstueckBodenrichtwert: StepDefinition = {
   fields: {
     bodenrichtwert: {
-      validations: {},
+      validations: {
+        required: {},
+      },
     },
     twoBodenrichtwerte: {
       type: "checkbox",

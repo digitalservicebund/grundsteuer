@@ -7,7 +7,9 @@ export type GrundstueckSteuernummerFields = {
 export const grundstueckSteuernummer: StepDefinition = {
   fields: {
     steuernummer: {
-      validations: {},
+      validations: {
+        required: {},
+      },
     },
   },
 };

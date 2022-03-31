@@ -13,7 +13,9 @@ export const grundstueckTyp: StepDefinition = {
   fields: {
     typ: {
       type: "radio",
-      validations: {},
+      validations: {
+        required: {},
+      },
       options: [
         { value: "einfamilienhaus" },
         { value: "zweifamilienhaus" },

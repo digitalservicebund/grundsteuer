@@ -8,8 +8,11 @@ export const grundstueckAnzahl: StepDefinition = {
   fields: {
     anzahl: {
       type: "select",
-      validations: {},
+      validations: {
+        required: {},
+      },
       options: [
+        { value: "default", defaultOption: true },
         { value: "1" },
         { value: "2" },
         { value: "3" },

@@ -8,7 +8,9 @@ export const grundstueckGemeinde: StepDefinition = {
   fields: {
     innerhalbEinerGemeinde: {
       type: "radio",
-      validations: {},
+      validations: {
+        required: {},
+      },
       options: [{ value: "true" }, { value: "false" }],
     },
   },

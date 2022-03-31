@@ -98,9 +98,7 @@ export const grundstueckAdresse: StepDefinition = {
         { value: "TH" },
       ],
       validations: {
-        required: {
-          msg: "Dies ist ein Pflichtfeld",
-        },
+        required: {},
       },
     },
   },
