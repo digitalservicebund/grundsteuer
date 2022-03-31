@@ -25,10 +25,6 @@ export const grundstueckAdresse: StepDefinition = {
   fields: {
     strasse: {
       validations: {
-        requiredIf: {
-          dependentField: "hausnummer",
-          msg: "Muss ausgefüllt werden, wenn Hausnummer gegeben ist",
-        },
         requiredIfCondition: {
           condition: conditions.isBebaut,
           msg: "Muss ausgefüllt werden, wenn Grundstück bebaut ist",
