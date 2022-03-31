@@ -53,18 +53,18 @@ describe("/registrieren", () => {
     cy.get("form button").click();
     cy.contains("E-Mail-Adresse genau so ein");
   });
-});
 
-it("incorrectly repeated password", () => {
-  const email = "bar@bar.com";
-  const password = "87654321";
-  cy.visit("/registrieren");
-  cy.get("[name=email]").type(email);
-  cy.get("[name=emailRepeated]").type(email);
-  cy.get("[name=password]").type(password);
-  cy.get("[name=passwordRepeated]").type("12345678");
-  cy.get("form button").click();
-  cy.contains("stimmen nicht");
+  it("incorrectly repeated password", () => {
+    const email = "bar@bar.com";
+    const password = "87654321";
+    cy.visit("/registrieren");
+    cy.get("[name=email]").type(email);
+    cy.get("[name=emailRepeated]").type(email);
+    cy.get("[name=password]").type(password);
+    cy.get("[name=passwordRepeated]").type("12345678");
+    cy.get("form button").click();
+    cy.contains("stimmen nicht");
+  });
 });
 
 export {};
