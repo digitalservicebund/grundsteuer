@@ -5,6 +5,11 @@ describe("Redirect to initial step when accessing super state url", () => {
     cy.login();
   });
 
+  it("should redirect to /formular/welcome on call to /formular", () => {
+    cy.visit("/formular");
+    cy.url().should("include", "/formular/welcome");
+  });
+
   it("should redirect to uebersicht on call to eigentuemer", () => {
     cy.visit("/formular/eigentuemer");
     cy.url().should("include", "/formular/eigentuemer/uebersicht");
