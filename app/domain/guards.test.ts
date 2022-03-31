@@ -838,9 +838,9 @@ describe("bundeslandIsNW", () => {
     ];
     valuesNonNW.forEach((valueNonNW) => {
       const result = conditions.bundeslandIsNW({
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         ...grundModelFactory
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           .grundstueckAdresse({ bundesland: valueNonNW })
           .build(),
       });

@@ -26,21 +26,27 @@ const GrundstueckFlurstueckFlur: StepComponentFunction = ({
   return (
     <div>
       <StepFormField {...fieldProps[0]} />
-      <fieldset className="flex-row">
+      <fieldset className="flex-row flex items-baseline">
         <div className="inline-block">
           <StepFormField {...fieldProps[1]} />
         </div>
-        <Slash className="inline-block mx-10 h-32 mb-4" role="img" />
+        <Slash
+          className="inline-block mx-10 h-32 mb-4 self-center"
+          role="img"
+        />
         <div className="inline-block">
           <StepFormField {...fieldProps[2]} />
         </div>
       </fieldset>
       <h2 className="font-bold my-8">{i18n.specifics.subHeadingAnteil}</h2>
-      <fieldset className="flex-row">
+      <fieldset className="flex-row flex items-baseline">
         <div className="inline-block">
           <StepFormField {...fieldProps[3]} />
         </div>
-        <Slash className="inline-block mx-10 h-32 mb-4" role="img" />
+        <Slash
+          className="inline-block mx-10 h-32 mb-4 self-center"
+          role="img"
+        />
         <div className="inline-block">
           <StepFormField {...fieldProps[4]} />
         </div>
