@@ -50,7 +50,9 @@ jobs:
 
       - name: Run E2E tests
         env:
+          APP_ENV: gha
           DATABASE_URL: postgresql://prisma:prisma@localhost:5433/tests
+          SESSION_COOKIE_SECRET: thisaintnosecret
         run: npm run test:e2e
 
   build-push-image:

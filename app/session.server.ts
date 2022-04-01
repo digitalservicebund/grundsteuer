@@ -7,7 +7,7 @@ export const sessionStorage = createCookieSessionStorage({
     httpOnly: true,
     sameSite: "strict",
     secure: ["staging", "production"].includes(process.env.APP_ENV as string),
-    secrets: ["s3cr3t"], // TODO: replace this with an actual secret
+    secrets: [process.env.SESSION_COOKIE_SECRET as string],
   },
 });
 
