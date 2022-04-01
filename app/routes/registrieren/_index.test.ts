@@ -2,7 +2,13 @@ import { mockActionArgs } from "testUtil/mockActionArgs";
 import { userExists } from "~/domain/user";
 import { action } from "./index";
 
-jest.mock("~/domain/user");
+jest.mock("~/domain/user", () => {
+  return {
+    __esModule: true,
+    userExists: jest.fn(),
+    createUser: jest.fn(),
+  };
+});
 
 const mockUserExists = userExists as jest.MockedFunction<typeof userExists>;
 
