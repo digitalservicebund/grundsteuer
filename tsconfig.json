@@ -13,7 +13,8 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["app/*"],
-      "test/*": ["test/*"]
+      "test/*": ["test/*"],
+      "testUtil/*": ["private/jest/util/*"]
     },
 
     // Remix takes care of building everything in `remix build`.
