@@ -206,6 +206,8 @@ export const validateEmail: ValidateFunctionDefault = (value) =>
 export const validateOnlyDecimal: ValidateFunctionDefault = (value) =>
   !value || validator.isInt(value.trim(), { allow_leading_zeroes: true });
 
+export const validateNoZero: ValidateFunctionDefault = (value) => value != "0";
+
 type ValidateMinLengthFunction = (value: string, minLength: number) => boolean;
 export const validateMinLength: ValidateMinLengthFunction = (
   value,
@@ -308,6 +310,7 @@ export const getErrorMessage = (
   const {
     email,
     onlyDecimal,
+    noZero,
     maxLength,
     minLength,
     required,
@@ -359,6 +362,10 @@ export const getErrorMessage = (
 
   if (onlyDecimal && !validateOnlyDecimal(value)) {
     return onlyDecimal.msg || (i18n.onlyDecimal as string);
+  }
+
+  if (noZero && !validateNoZero(value)) {
+    return noZero.msg || (i18n.noZero as string);
   }
 
   if (

@@ -21,6 +21,7 @@ export const grundstueckFlurstueckAngaben: StepDefinition = {
       validations: {
         maxLength: {
           maxLength: 25,
+          msg: "Die Angabe darf maximal 25 Zeichen lang sein",
         },
         required: {},
       },

@@ -80,6 +80,7 @@
       "notMatching": "Bitte geben Sie zur Kontrolle die E-Mail-Adresse genau so ein, wie im obigen Feld."
     },
     "onlyDecimal": "Darf nur Ziffern beinhalten",
+    "noZero": "Darf nicht Null sein",
     "hausnummer": "Die Hausnummer muss mit Ziffern beginnen und darf nicht länger als 14 Zeichen sein",
     "grundbuchblattnummer": "Die Grundbuchblattnummer muss mit Ziffern beginnen und darf nicht länger als 6 Zeichen sein",
     "password": {

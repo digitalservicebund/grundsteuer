@@ -50,6 +50,7 @@ export const grundstueckFlurstueckFlur: StepDefinition = {
           msg: "Die Angabe darf höchstens 7 Ziffern lang sein",
         },
         onlyDecimal: {},
+        noZero: {},
       },
     },
   },

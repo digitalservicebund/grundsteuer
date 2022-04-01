@@ -4,6 +4,7 @@ import {
   validateHausnummer,
   validateMaxLength,
   validateMinLength,
+  validateNoZero,
   validateOnlyDecimal,
   validateRequired,
   validateRequiredIf,
@@ -45,6 +46,28 @@ describe("validateOnlyDecimal", () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       expect(validateOnlyDecimal(value)).toBe(valid);
+    }
+  );
+});
+
+describe("validateNoZero", () => {
+  const cases = [
+    { value: "0", valid: false },
+    { value: 0, valid: false },
+    { value: " 1  ", valid: true },
+    { value: "01", valid: true },
+    { value: "", valid: true },
+    { value: undefined, valid: true },
+    { value: "1e", valid: true },
+    { value: "text", valid: true },
+  ];
+
+  test.each(cases)(
+    "Should return $valid if value is '$value'",
+    ({ value, valid }) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      expect(validateNoZero(value)).toBe(valid);
     }
   );
 });
