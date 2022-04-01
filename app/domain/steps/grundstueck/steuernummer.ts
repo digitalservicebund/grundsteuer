@@ -9,6 +9,11 @@ export const grundstueckSteuernummer: StepDefinition = {
     steuernummer: {
       validations: {
         required: {},
+        onlyDecimal: {},
+        maxLength: {
+          maxLength: 17,
+          msg: "Steuernummern/Aktenzeichen sind höchstens 17 Ziffern lang",
+        },
       },
     },
   },
