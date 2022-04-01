@@ -8,7 +8,9 @@ export const gebaeudeAb1949: StepDefinition = {
   fields: {
     isAb1949: {
       type: "radio",
-      validations: {},
+      validations: {
+        required: {},
+      },
       options: [{ value: "true" }, { value: "false" }],
     },
   },

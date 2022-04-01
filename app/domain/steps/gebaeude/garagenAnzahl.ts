@@ -6,6 +6,10 @@ export type GebaeudeGaragenAnzahlFields = {
 
 export const gebaeudeGaragenAnzahl: StepDefinition = {
   fields: {
-    anzahlGaragen: { validations: {} },
+    anzahlGaragen: {
+      validations: {
+        required: {},
+      },
+    },
   },
 };

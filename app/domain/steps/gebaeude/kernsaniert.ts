@@ -8,7 +8,9 @@ export const gebaeudeKernsaniert: StepDefinition = {
   fields: {
     isKernsaniert: {
       type: "radio",
-      validations: {},
+      validations: {
+        required: {},
+      },
       options: [{ value: "true" }, { value: "false" }],
     },
   },

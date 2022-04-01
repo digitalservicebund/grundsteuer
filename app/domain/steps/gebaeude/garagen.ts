@@ -8,7 +8,9 @@ export const gebaeudeGaragen: StepDefinition = {
   fields: {
     hasGaragen: {
       type: "radio",
-      validations: {},
+      validations: {
+        required: {},
+      },
       options: [{ value: "true" }, { value: "false" }],
     },
   },

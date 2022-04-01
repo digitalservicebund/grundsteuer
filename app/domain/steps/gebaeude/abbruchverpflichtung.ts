@@ -8,7 +8,9 @@ export const gebaeudeAbbruchverpflichtung: StepDefinition = {
   fields: {
     hasAbbruchverpflichtung: {
       type: "radio",
-      validations: {},
+      validations: {
+        required: {},
+      },
       options: [{ value: "true" }, { value: "false" }],
     },
   },

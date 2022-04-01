@@ -8,7 +8,9 @@ export const gebaeudeWeitereWohnraeume: StepDefinition = {
   fields: {
     hasWeitereWohnraeume: {
       type: "radio",
-      validations: {},
+      validations: {
+        required: {},
+      },
       options: [{ value: "true" }, { value: "false" }],
     },
   },
