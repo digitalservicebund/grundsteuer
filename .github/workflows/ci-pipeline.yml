@@ -53,6 +53,7 @@ jobs:
           APP_ENV: gha
           DATABASE_URL: postgresql://prisma:prisma@localhost:5433/tests
           SESSION_COOKIE_SECRET: thisaintnosecret
+          FORM_COOKIE_SECRET: thisalsoaintnosecret
         run: npm run test:e2e
 
   build-push-image:
