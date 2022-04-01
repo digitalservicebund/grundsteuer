@@ -8,7 +8,7 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "scripts": {
-    "build": "npm run build:css && cross-env NODE_ENV=production remix build",
+    "build": "npm run build:css && tsc --noEmit && cross-env NODE_ENV=production remix build",
     "build:css": "tailwindcss -i ./app/styles/tailwind.css -o ./public/tailwind.css",
     "clean": "rm -rf build public/build app/tailwind.css",
     "db:migrate": "prisma migrate deploy",
