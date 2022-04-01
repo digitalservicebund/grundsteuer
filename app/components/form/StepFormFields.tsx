@@ -12,7 +12,7 @@ export type StepFormFieldsProps = {
     };
   };
   currentState?: string;
-  errors: Record<string, string>;
+  errors?: Record<string, string>;
 };
 
 const StepFormFields = (props: StepFormFieldsProps) => {

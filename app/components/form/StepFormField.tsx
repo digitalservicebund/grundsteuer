@@ -14,7 +14,7 @@ export type StepFormFieldProps = {
     defaultValue?: string;
     options?: { value: string }[];
   };
-  error: string;
+  error?: string;
 };
 
 const StepFormField = (props: StepFormFieldProps) => {
