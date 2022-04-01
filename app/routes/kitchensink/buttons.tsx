@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, ContentContainer } from "~/components";
 import CloseIcon from "~/components/icons/mui/Close";
 
