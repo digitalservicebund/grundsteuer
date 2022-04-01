@@ -1,8 +1,6 @@
 import { LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import { getFormDataCookie } from "~/cookies";
-import { createGraph } from "~/domain";
 import { GrundModel } from "~/domain/steps";
-import { StateMachineContext } from "~/domain/states";
 import { pageTitle } from "~/util/pageTitle";
 import { i18Next } from "~/i18n.server";
 import { getStepData } from "~/domain/model";
@@ -11,7 +9,6 @@ import { I18nObject } from "~/routes/formular/_step";
 import { StepFormFields } from "~/components";
 
 type LoaderData = {
-  graph: StateMachineContext;
   formData: Record<string, any>;
   allData: GrundModel;
   i18n: I18nObject;
@@ -23,13 +20,8 @@ type LoaderData = {
 export const loader: LoaderFunction = async ({ request }) => {
   const cookie = await getFormDataCookie(request);
 
-  const graph = createGraph({
-    machineContext: cookie.records,
-  });
-
   const tFunction = await i18Next.getFixedT("de", "all");
   return {
-    graph,
     formData: getStepData(cookie.records, "zusammenfassung"),
     allData: cookie.records,
     i18n: {
@@ -92,7 +84,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Zusammenfassung() {
-  const { graph, formData, allData, i18n, stepDefinition } =
+  const { formData, allData, i18n, stepDefinition } =
     useLoaderData<LoaderData>();
 
   return (
