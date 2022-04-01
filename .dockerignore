@@ -9,4 +9,6 @@
 !remix.env.d.ts
 !tsconfig.json
 !.env.example
+**/*.spec.*
+**/*.test.*
 /public/build/
