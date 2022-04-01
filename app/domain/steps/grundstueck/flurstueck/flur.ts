@@ -40,6 +40,12 @@ export const grundstueckFlurstueckFlur: StepDefinition = {
     wirtschaftlicheEinheitZaehler: {
       validations: {
         required: {},
+        float: {},
+        maxLengthFloat: {
+          preComma: 6,
+          postComma: 4,
+          msg: "Muss aus bis zu 6 Vorkommastellen und 4 Nachkommastellen bestehen.",
+        },
       },
     },
     wirtschaftlicheEinheitNenner: {

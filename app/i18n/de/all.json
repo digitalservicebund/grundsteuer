@@ -81,6 +81,7 @@
     },
     "onlyDecimal": "Darf nur Ziffern beinhalten",
     "noZero": "Darf nicht Null sein",
+    "float": "Die Angabe muss eine Zahl sein, die durch Komma getrennt sein kann",
     "hausnummer": "Die Hausnummer muss mit Ziffern beginnen und darf nicht länger als 14 Zeichen sein",
     "grundbuchblattnummer": "Die Grundbuchblattnummer muss mit Ziffern beginnen und darf nicht länger als 6 Zeichen sein",
     "password": {

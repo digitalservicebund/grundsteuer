@@ -208,6 +208,26 @@ export const validateOnlyDecimal: ValidateFunctionDefault = (value) =>
 
 export const validateNoZero: ValidateFunctionDefault = (value) => value != "0";
 
+export const validateFloat: ValidateFunctionDefault = (value) =>
+  !value || validator.isFloat(value.trim(), { locale: "de-DE" });
+
+type ValidateMaxLengthFloatFunction = (
+  value: string,
+  preComma: number,
+  postComma: number
+) => boolean;
+export const validateMaxLengthFloat: ValidateMaxLengthFloatFunction = (
+  value,
+  preComma,
+  postComma
+) => {
+  if (!value) return true;
+  const split_values = value.trim().split(",");
+  return (
+    split_values[0].length <= preComma &&
+    (!split_values[1] || split_values[1].length <= postComma)
+  );
+};
 type ValidateMinLengthFunction = (value: string, minLength: number) => boolean;
 export const validateMinLength: ValidateMinLengthFunction = (
   value,
@@ -275,6 +295,11 @@ interface DefaultValidation {
   msg: string;
 }
 
+interface MinLengthFloatValidation extends DefaultValidation {
+  preComma: number;
+  postComma: number;
+}
+
 interface MinLengthValidation extends DefaultValidation {
   minLength: number;
 }
@@ -311,6 +336,8 @@ export const getErrorMessage = (
     email,
     onlyDecimal,
     noZero,
+    float,
+    maxLengthFloat,
     maxLength,
     minLength,
     required,
@@ -366,6 +393,21 @@ export const getErrorMessage = (
 
   if (noZero && !validateNoZero(value)) {
     return noZero.msg || (i18n.noZero as string);
+  }
+
+  if (float && !validateFloat(value)) {
+    return float.msg || (i18n.float as string);
+  }
+
+  if (
+    maxLengthFloat &&
+    !validateMaxLengthFloat(
+      value,
+      (maxLengthFloat as MinLengthFloatValidation).preComma,
+      (maxLengthFloat as MinLengthFloatValidation).postComma
+    )
+  ) {
+    return maxLengthFloat.msg;
   }
 
   if (

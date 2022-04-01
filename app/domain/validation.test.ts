@@ -1,8 +1,10 @@
 import {
   validateEmail,
+  validateFloat,
   validateGrundbuchblattnummer,
   validateHausnummer,
   validateMaxLength,
+  validateMaxLengthFloat,
   validateMinLength,
   validateNoZero,
   validateOnlyDecimal,
@@ -38,6 +40,8 @@ describe("validateOnlyDecimal", () => {
     { value: undefined, valid: true },
     { value: "1e", valid: false },
     { value: "text", valid: false },
+    { value: "0,9", valid: false },
+    { value: "0.9", valid: false },
   ];
 
   test.each(cases)(
@@ -68,6 +72,54 @@ describe("validateNoZero", () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       expect(validateNoZero(value)).toBe(valid);
+    }
+  );
+});
+
+describe("validateFloat", () => {
+  const cases = [
+    { value: "0", valid: true },
+    { value: " 1  ", valid: true },
+    { value: "01", valid: true },
+    { value: "", valid: true },
+    { value: undefined, valid: true },
+    { value: "1e", valid: false },
+    { value: "text", valid: false },
+    { value: "0,9", valid: true },
+    { value: "0.9", valid: false },
+    { value: "1234,9876", valid: true },
+  ];
+
+  test.each(cases)(
+    "Should return $valid if value is '$value'",
+    ({ value, valid }) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      expect(validateFloat(value)).toBe(valid);
+    }
+  );
+});
+
+describe("validateMaxLengthFloat", () => {
+  const cases = [
+    { value: "0", preComma: 1, postComma: 2, valid: true },
+    { value: "2", preComma: 1, postComma: 2, valid: true },
+    { value: "1,12", preComma: 1, postComma: 2, valid: true },
+    { value: "12", preComma: 1, postComma: 2, valid: false },
+    { value: "1,123", preComma: 1, postComma: 2, valid: false },
+    { value: "12,123", preComma: 1, postComma: 2, valid: false },
+    { value: "12,123", preComma: 2, postComma: 3, valid: true },
+    { value: "1,12", preComma: 2, postComma: 3, valid: true },
+    { value: "", preComma: 1, postComma: 2, valid: true },
+    { value: undefined, preComma: 1, postComma: 2, valid: true },
+  ];
+
+  test.each(cases)(
+    "Should return $valid if value is '$value', preComma is $preComma, postComma is $postComma",
+    ({ value, valid, preComma, postComma }) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      expect(validateMaxLengthFloat(value, preComma, postComma)).toBe(valid);
     }
   );
 });
