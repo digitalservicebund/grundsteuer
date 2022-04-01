@@ -4,11 +4,12 @@ import { FormStrategy } from "remix-auth-form";
 import { db } from "~/db/db.server";
 import bcrypt from "bcryptjs";
 
-type User = {
+export type SessionUser = {
   email: string;
+  id: string;
 };
 
-export const authenticator = new Authenticator<User>(sessionStorage);
+export const authenticator = new Authenticator<SessionUser>(sessionStorage);
 
 const login = async (email: string, password: string) => {
   const user = await db.user.findUnique({
@@ -17,6 +18,7 @@ const login = async (email: string, password: string) => {
   if (user && bcrypt.compareSync(password, user.password)) {
     return {
       email: user.email,
+      id: user.id,
     };
   }
 

@@ -3,15 +3,18 @@ import { useState, useEffect } from "react";
 import { createMachine } from "xstate";
 import { inspect } from "@xstate/inspect";
 import { useMachine } from "@xstate/react";
-import { getFormDataCookie } from "~/cookies";
+import { getStoredFormData } from "~/formDataStorage.server";
 import { getMachineConfig } from "~/domain/states";
 import { conditions as guards } from "~/domain/guards";
 import { actions } from "~/domain/actions";
+import { authenticator } from "~/auth.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const cookie = await getFormDataCookie(request);
-  const context = cookie.records;
-  const machineConfig = getMachineConfig(context);
+  const user = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/anmelden",
+  });
+  const storedFormData = await getStoredFormData({ request, user });
+  const machineConfig = getMachineConfig(storedFormData);
   return { machineConfig };
 };
 

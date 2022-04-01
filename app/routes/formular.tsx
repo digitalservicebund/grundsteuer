@@ -1,6 +1,6 @@
 import { LoaderFunction, Outlet, Link, useLoaderData } from "remix";
 import { Layout } from "@digitalservice4germany/digital-service-library";
-import { getFormDataCookie } from "~/cookies";
+import { getStoredFormData } from "~/formDataStorage.server";
 import { Footer, FormSidebarNavigation, LogoutButton } from "~/components";
 import { createGraph } from "~/domain";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
@@ -10,12 +10,10 @@ export const loader: LoaderFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
-  console.log({ user });
-
-  const cookie = await getFormDataCookie(request);
+  const storedFormData = await getStoredFormData({ request, user });
 
   const graph = createGraph({
-    machineContext: cookie.records,
+    machineContext: storedFormData,
   });
 
   return {

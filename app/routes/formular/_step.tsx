@@ -10,7 +10,10 @@ import {
 import { createMachine } from "xstate";
 import _ from "lodash";
 import { Button } from "~/components";
-import { getFormDataCookie, createResponseHeaders } from "~/cookies";
+import {
+  getStoredFormData,
+  commitFormDataToStorage,
+} from "~/formDataStorage.server";
 import { i18Next } from "~/i18n.server";
 import { getStepData, setStepData, StepFormData } from "~/domain/model";
 import { getMachineConfig, StateMachineContext } from "~/domain/states";
@@ -28,13 +31,15 @@ import { StateSchema, Typestate } from "xstate/lib/types";
 import { StepHeadline } from "~/components/StepHeadline";
 import { createGraph, getReachablePaths } from "~/domain";
 import { pageTitle } from "~/util/pageTitle";
+import { authenticator } from "~/auth.server";
+import { getSession } from "~/session.server";
 
 const getCurrentStateWithoutId = (currentState: string) => {
   return currentState.replace(/\.\d+\./g, ".");
 };
 
-const getMachine = ({ cookie, params }: any) => {
-  const machineContext = { ...cookie.records } as StateMachineContext;
+const getMachine = ({ formData, params }: any) => {
+  const machineContext = { ...formData } as StateMachineContext;
   if (params.personId) {
     machineContext.personId = parseInt(params.personId);
   } else if (params.flurstueckId) {
@@ -143,30 +148,41 @@ export const loader: LoaderFunction = async ({
   params,
   request,
 }): Promise<LoaderData | Response> => {
-  const cookie = await getFormDataCookie(request);
+  const session = await getSession(request.headers.get("Cookie"));
+  const user = session.get("user");
+  const storedFormData = await getStoredFormData({ request, user });
+
   const currentState = getCurrentStateFromUrl(request.url);
   const currentStateWithoutId = getCurrentStateWithoutId(currentState);
 
-  const machine = getMachine({ cookie, params });
+  const machine = getMachine({ formData: storedFormData, params });
   const stateNodeType = machine.getStateNodeByPath(currentStateWithoutId).type;
   // redirect to first fitting child node
   if (stateNodeType == "compound") {
     const inititalState = machine.transition(currentStateWithoutId, "FAKE");
     const redirectUrl = getRedirectUrl(inititalState);
-    const responseHeader: Headers = await createResponseHeaders(cookie);
     return redirect(redirectUrl, {
-      headers: responseHeader,
+      headers: {
+        "Set-Cookie": await commitFormDataToStorage({
+          data: storedFormData,
+          user,
+        }),
+      },
     });
   }
   // redirect in case the step is not enabled
   const graph = createGraph({
-    machineContext: cookie.records,
+    machineContext: storedFormData,
   });
   const reachablePaths = getReachablePaths({ graph, initialPaths: [] });
   if (!reachablePaths.includes(currentState)) {
-    const responseHeader: Headers = await createResponseHeaders(cookie);
     return redirect("/formular/welcome", {
-      headers: responseHeader,
+      headers: {
+        "Set-Cookie": await commitFormDataToStorage({
+          data: storedFormData,
+          user,
+        }),
+      },
     });
   }
   const backUrl = getBackUrl({ machine, currentStateWithoutId });
@@ -174,8 +190,8 @@ export const loader: LoaderFunction = async ({
 
   const tFunction = await i18Next.getFixedT("de", "all");
   return {
-    formData: getStepData(cookie.records, currentState),
-    allData: cookie.records,
+    formData: getStepData(storedFormData, currentState),
+    allData: storedFormData,
     i18n: {
       ...tFunction(currentStateWithoutId, {
         id: params?.personId || params?.flurstueckId,
@@ -194,8 +210,10 @@ type ActionData = {
 };
 
 export const action: ActionFunction = async ({ params, request }) => {
-  const cookie = await getFormDataCookie(request);
-  if (!cookie.records) cookie.records = {};
+  const user = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/anmelden",
+  });
+  const storedFormData = await getStoredFormData({ request, user });
 
   const currentState = getCurrentStateFromUrl(request.url);
   const currentStateWithoutId = getCurrentStateWithoutId(currentState);
@@ -222,7 +240,7 @@ export const action: ActionFunction = async ({ params, request }) => {
           value,
           field.validations,
           fieldValues,
-          cookie.records,
+          storedFormData,
           i18n
         );
         if (errorMessage) errors[name] = errorMessage;
@@ -232,17 +250,25 @@ export const action: ActionFunction = async ({ params, request }) => {
   if (Object.keys(errors).length > 0) return { errors } as ActionData;
 
   // store
-  cookie.records = setStepData(cookie.records, currentState, fieldValues);
+  const formDataToBeStored = setStepData(
+    storedFormData,
+    currentState,
+    fieldValues
+  );
 
   // redirect
-  const machine = getMachine({ cookie, params });
+  const machine = getMachine({ formData: formDataToBeStored, params });
   const nextState = machine.transition(currentStateWithoutId, {
     type: "NEXT",
   });
   const redirectUrl = getRedirectUrl(nextState);
-  const responseHeader: Headers = await createResponseHeaders(cookie);
   return redirect(redirectUrl, {
-    headers: responseHeader,
+    headers: {
+      "Set-Cookie": await commitFormDataToStorage({
+        data: formDataToBeStored,
+        user,
+      }),
+    },
   });
 };
 

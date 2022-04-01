@@ -534,6 +534,6 @@ export const states: MachineConfig<any, any, any> = {
 
 export type StateMachineConfig = typeof states;
 
-export const getMachineConfig = (records: StateMachineContext) => {
-  return Object.assign({}, states, { context: records });
+export const getMachineConfig = (formData: StateMachineContext) => {
+  return Object.assign({}, states, { context: formData });
 };

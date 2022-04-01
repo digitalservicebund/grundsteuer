@@ -1,5 +1,5 @@
 import { LoaderFunction, MetaFunction, useLoaderData } from "remix";
-import { getFormDataCookie } from "~/cookies";
+import { getStoredFormData } from "~/formDataStorage.server";
 import { GrundModel } from "~/domain/steps";
 import { pageTitle } from "~/util/pageTitle";
 import { i18Next } from "~/i18n.server";
@@ -7,6 +7,7 @@ import { getStepData } from "~/domain/model";
 import { zusammenfassung } from "~/domain/steps/zusammenfassung";
 import { I18nObject } from "~/routes/formular/_step";
 import { StepFormFields } from "~/components";
+import { getSession } from "~/session.server";
 
 type LoaderData = {
   formData: Record<string, any>;
@@ -18,12 +19,14 @@ type LoaderData = {
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const cookie = await getFormDataCookie(request);
+  const session = await getSession(request.headers.get("Cookie"));
+  const user = session.get("user");
+  const storedFormData = await getStoredFormData({ request, user });
 
   const tFunction = await i18Next.getFixedT("de", "all");
   return {
-    formData: getStepData(cookie.records, "zusammenfassung"),
-    allData: cookie.records,
+    formData: getStepData(storedFormData, "zusammenfassung"),
+    allData: storedFormData,
     i18n: {
       ...(tFunction("zusammenfassung") as I18nObject),
       common: { ...(tFunction("common") as I18nObject) },
