@@ -67,10 +67,7 @@ export const grundstueckAdresse: StepDefinition = {
     },
     ort: {
       validations: {
-        requiredIfCondition: {
-          condition: conditions.isBebaut,
-          msg: "Muss ausgefüllt werden, wenn Grundstück bebaut ist",
-        },
+        required: {},
         maxLength: {
           maxLength: 25,
           msg: "Darf maximal 25 Zeichen lang sein",

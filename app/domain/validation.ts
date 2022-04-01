@@ -16,7 +16,10 @@ type ValidateMinLengthFunction = (value: string, minLength: number) => boolean;
 export const validateMinLength: ValidateMinLengthFunction = (
   value,
   minLength
-) => value.trim().length >= minLength;
+) => {
+  if (!value) return true;
+  return value.trim().length >= minLength;
+};
 
 type ValidateMaxLengthFunction = (value: string, maxLength: number) => boolean;
 export const validateMaxLength: ValidateMaxLengthFunction = (
