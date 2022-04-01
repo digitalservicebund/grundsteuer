@@ -10,6 +10,12 @@ export const grundstueckBodenrichtwert: StepDefinition = {
     bodenrichtwert: {
       validations: {
         required: {},
+        float: {},
+        maxLengthFloat: {
+          preComma: 6,
+          postComma: 2,
+          msg: "Muss aus bis zu 6 Vorkommastellen und 2 Nachkommastellen bestehen.",
+        },
       },
     },
     twoBodenrichtwerte: {
