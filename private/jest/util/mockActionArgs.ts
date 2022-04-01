@@ -13,13 +13,11 @@ export const mockActionArgs: MockActionArgsFunction = ({ formData }) => {
   });
   if (formData) {
     request.formData = () =>
-      new Promise((resolve) =>
-        resolve({
-          get: function (name) {
-            return formData[name];
-          },
-        } as FormData)
-      );
+      Promise.resolve({
+        get: function (name) {
+          return formData[name];
+        },
+      } as FormData);
   }
   return { request, context: null, params: {} };
 };
