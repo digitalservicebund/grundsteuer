@@ -34,6 +34,8 @@ export default function Machine() {
   }, []);
 
   if (initialized) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     const machine = createMachine(machineConfig, { guards, actions });
     return <StateMachineInstance machine={machine} />;
   } else {
