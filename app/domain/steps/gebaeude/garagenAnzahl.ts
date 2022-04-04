@@ -9,6 +9,12 @@ export const gebaeudeGaragenAnzahl: StepDefinition = {
     anzahlGaragen: {
       validations: {
         required: {},
+        onlyDecimal: {},
+        noZero: {},
+        maxLength: {
+          maxLength: 4,
+          msg: "Die Zahl darf höchstens 4 Ziffern beinhalten",
+        },
       },
     },
   },
