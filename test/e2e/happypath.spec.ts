@@ -93,7 +93,7 @@ const inputData = {
         titel: "Dr.",
         name: "Drew",
         vorname: "Nancy",
-        geburtsdatum: "10112000",
+        geburtsdatum: "10.11.2000",
       },
       adresse: {
         strasse: "Baker St.",
@@ -136,7 +136,7 @@ const inputData = {
         titel: "Buccaneer",
         name: "Threepwood",
         vorname: "Guybrush",
-        geburtsdatum: "01101990",
+        geburtsdatum: "01.10.1990",
       },
       adresse: {
         strasse: "Privet Drive",
