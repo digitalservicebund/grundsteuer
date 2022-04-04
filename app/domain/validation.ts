@@ -350,12 +350,7 @@ export const validateDateInPast: ValidateFunctionDefault = (value) => {
   if (!value || !validateIsDate(value)) return true;
   const splitDate = value.split(".");
   return (
-    new Date(+splitDate[2], +splitDate[1] - 1, +splitDate[0]).setHours(
-      0,
-      0,
-      0,
-      0
-    ) < Date.now()
+    Date.UTC(+splitDate[2], +splitDate[1] - 1, +splitDate[0]) <= Date.now()
   );
 };
 
