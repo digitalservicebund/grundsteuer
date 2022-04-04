@@ -7,7 +7,25 @@ export type GebaeudeWohnflaechenFields = {
 
 export const gebaeudeWohnflaechen: StepDefinition = {
   fields: {
-    wohnflaeche1: { validations: {} },
-    wohnflaeche2: { validations: {} },
+    wohnflaeche1: {
+      validations: {
+        required: {},
+        onlyDecimal: {},
+        maxLength: {
+          maxLength: 6,
+          msg: "Die Zahl darf nur bis zu 6 Ziffern beinhalten",
+        },
+      },
+    },
+    wohnflaeche2: {
+      validations: {
+        required: {},
+        onlyDecimal: {},
+        maxLength: {
+          maxLength: 6,
+          msg: "Die Zahl darf nur bis zu 6 Ziffern beinhalten",
+        },
+      },
+    },
   },
 };
