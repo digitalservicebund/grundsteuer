@@ -300,13 +300,22 @@ export const validateYearInFuture: ValidateFunctionDefault = (value) => {
   );
 };
 
-export const validateYearInPast: ValidateFunctionDefault = (value) => {
+type ValidateYearInPast = (
+  value: string,
+  excludingCurrentYear?: boolean
+) => boolean;
+export const validateYearInPast: ValidateYearInPast = (
+  value,
+  excludingCurrentYear
+) => {
   if (!validateOnlyDecimal(value)) return true;
   if (value.length != 4) return true;
-  return (
-    new Date(+value, 0, 1).getTime() <=
-    new Date(Date.now()).setHours(0, 0, 0, 0)
-  );
+
+  if (excludingCurrentYear) {
+    return +value < new Date(Date.now()).getFullYear();
+  } else {
+    return +value <= new Date(Date.now()).getFullYear();
+  }
 };
 
 interface DefaultValidation {
@@ -324,6 +333,10 @@ interface MinLengthValidation extends DefaultValidation {
 
 interface MaxLengthValidation extends DefaultValidation {
   maxLength: number;
+}
+
+interface YearInPastValidation extends DefaultValidation {
+  excludingCurrentYear?: boolean;
 }
 
 interface RequiredIfValidation extends DefaultValidation {
@@ -448,7 +461,13 @@ export const getErrorMessage = (
     return yearInFuture.msg || (i18n.yearInFuture as string);
   }
 
-  if (yearInPast && !validateYearInPast(value)) {
+  if (
+    yearInPast &&
+    !validateYearInPast(
+      value,
+      (yearInPast as YearInPastValidation).excludingCurrentYear
+    )
+  ) {
     return yearInPast.msg || (i18n.yearInPast as string);
   }
 };

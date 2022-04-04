@@ -290,20 +290,69 @@ describe("validateYearInFuture", () => {
 
 describe("validateYearInPast", () => {
   const cases = [
-    { value: "", currentDate: Date.UTC(2022, 0, 1), valid: true },
-    { value: "2021", currentDate: Date.UTC(2022, 0, 1), valid: true },
-    { value: "2022", currentDate: Date.UTC(2022, 0, 1), valid: true },
-    { value: "2023", currentDate: Date.UTC(2022, 0, 1), valid: false },
-    { value: "2022", currentDate: Date.UTC(2022, 11, 31), valid: true },
+    {
+      value: "",
+      currentDate: Date.UTC(2022, 0, 1),
+      excludingCurrentYear: undefined,
+      valid: true,
+    },
+    {
+      value: "2021",
+      currentDate: Date.UTC(2022, 0, 1),
+      excludingCurrentYear: undefined,
+      valid: true,
+    },
+    {
+      value: "2022",
+      currentDate: Date.UTC(2022, 0, 1),
+      excludingCurrentYear: undefined,
+      valid: true,
+    },
+    {
+      value: "2022",
+      currentDate: Date.UTC(2022, 11, 31),
+      excludingCurrentYear: undefined,
+      valid: true,
+    },
+    {
+      value: "2023",
+      currentDate: Date.UTC(2022, 0, 1),
+      excludingCurrentYear: undefined,
+      valid: false,
+    },
+    {
+      value: "2022",
+      currentDate: Date.UTC(2022, 0, 1),
+      excludingCurrentYear: false,
+      valid: true,
+    },
+    {
+      value: "2022",
+      currentDate: Date.UTC(2022, 11, 31),
+      excludingCurrentYear: false,
+      valid: true,
+    },
+    {
+      value: "2022",
+      currentDate: Date.UTC(2022, 0, 1),
+      excludingCurrentYear: true,
+      valid: false,
+    },
+    {
+      value: "2022",
+      currentDate: Date.UTC(2022, 11, 31),
+      excludingCurrentYear: true,
+      valid: false,
+    },
   ];
 
   test.each(cases)(
-    "Should return $valid if value is '$value' and current date is $currentDate",
-    ({ value, currentDate, valid }) => {
+    "Should return $valid if value is '$value', current date is '$currentDate' and exclude current year '$excludingCurrentYear",
+    ({ value, currentDate, excludingCurrentYear, valid }) => {
       const actualNowImplementation = Date.now;
       try {
         Date.now = jest.fn(() => new Date(currentDate).valueOf());
-        expect(validateYearInPast(value)).toBe(valid);
+        expect(validateYearInPast(value, excludingCurrentYear)).toBe(valid);
       } finally {
         Date.now = actualNowImplementation;
       }
