@@ -22,6 +22,7 @@ import { EigentuemerEmpfangsvollmachtFields } from "~/domain/steps/eigentuemer/e
 import { flurstueckFactory } from "./flurstueck";
 import { EigentuemerPersonAdresseFields } from "~/domain/steps/eigentuemer/person/adresse";
 import { EigentuemerBruchteilsgemeinschaftFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaft";
+import { GebaeudeBaujahrFields } from "~/domain/steps/gebaeude/baujahr";
 
 type PersonTransientParams = {
   transient: {
@@ -159,6 +160,16 @@ class GrundModelFactory extends Factory<GrundModel> {
       gebaeude: {
         ab1949: {
           isAb1949: fields ? fields?.isAb1949 : "true",
+        },
+      },
+    });
+  }
+
+  gebaeudeBaujahr(fields?: Partial<GebaeudeBaujahrFields>) {
+    return this.params({
+      gebaeude: {
+        baujahr: {
+          baujahr: fields?.baujahr,
         },
       },
     });
