@@ -266,6 +266,16 @@ export const validateRequiredIfCondition: ValidateRequiredIfCondition = (
   allData
 ) => (condition(allData) ? validateRequired(value) : true);
 
+type ValidateYearAfterBaujahr = (value: string, allData: GrundModel) => boolean;
+export const validateYearAfterBaujahr: ValidateYearAfterBaujahr = (
+  value,
+  allData
+) => {
+  const baujahr = allData.gebaeude?.baujahr?.baujahr;
+  if (!value || !baujahr) return true;
+  return +value >= +baujahr;
+};
+
 export const validateHausnummer: ValidateFunctionDefault = (value) => {
   if (!value) return true;
   if (value.length > 14) return false; // hausnummer + hausnummerzusatz
@@ -374,6 +384,7 @@ export const getErrorMessage = (
     required,
     requiredIf,
     requiredIfCondition,
+    yearAfterBaujahr,
     hausnummer,
     grundbuchblattnummer,
     yearInFuture,
@@ -406,6 +417,10 @@ export const getErrorMessage = (
     )
   ) {
     return requiredIfCondition.msg;
+  }
+
+  if (yearAfterBaujahr && !validateYearAfterBaujahr(value, allData)) {
+    return yearAfterBaujahr.msg || (i18n.yearAfterBaujahr as string);
   }
 
   if (hausnummer && !validateHausnummer(value)) {

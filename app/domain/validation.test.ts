@@ -11,10 +11,12 @@ import {
   validateRequired,
   validateRequiredIf,
   validateRequiredIfCondition,
+  validateYearAfterBaujahr,
   validateYearInFuture,
   validateYearInPast,
 } from "./validation";
 import { GrundModel } from "~/domain/steps";
+import { grundModelFactory } from "test/factories";
 
 describe("validateEmail", () => {
   const cases = [
@@ -214,6 +216,26 @@ describe("validateRequiredIfCondition", () => {
       expect(condition.mock.calls.length).toBe(1);
       expect(condition.mock.calls[0].length).toBe(1); // one argument
       expect((condition.mock.calls[0] as Array<object>)[0]).toEqual(allData); // correct argument
+    }
+  );
+});
+
+describe("validateYearAfterBaujahr", () => {
+  const cases = [
+    { value: "", baujahr: undefined, valid: true },
+    { value: "", baujahr: "2021", valid: true },
+    { value: "2022", baujahr: "2021", valid: true },
+    { value: "2022", baujahr: "2022", valid: true },
+    { value: "2022", baujahr: "2023", valid: false },
+  ];
+
+  test.each(cases)(
+    "Should return $valid if value is '$value' and baujahr is '$baujahr'",
+    ({ value, baujahr, valid }) => {
+      const allData = grundModelFactory
+        .gebaeudeBaujahr({ baujahr: baujahr })
+        .build();
+      expect(validateYearAfterBaujahr(value, allData)).toBe(valid);
     }
   );
 });
