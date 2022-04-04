@@ -43,25 +43,30 @@ describe("validateEmail", () => {
 
 describe("validateOnlyDecimal", () => {
   const cases = [
-    { value: "1", valid: true },
-    { value: "0", valid: true },
-    { value: "  1  ", valid: true },
-    { value: "01", valid: true },
-    { value: "", valid: true },
-    { value: undefined, valid: true },
-    { value: "1e", valid: false },
-    { value: "text", valid: false },
-    { value: "0,9", valid: false },
-    { value: "0.9", valid: false },
-    { value: "-1", valid: false },
+    { value: "1", exceptions: undefined, valid: true },
+    { value: "0", exceptions: undefined, valid: true },
+    { value: "  1  ", exceptions: undefined, valid: true },
+    { value: "01", exceptions: undefined, valid: true },
+    { value: "", exceptions: undefined, valid: true },
+    { value: undefined, exceptions: undefined, valid: true },
+    { value: "1e", exceptions: undefined, valid: false },
+    { value: "text", exceptions: undefined, valid: false },
+    { value: "0,9", exceptions: undefined, valid: false },
+    { value: "0.9", exceptions: undefined, valid: false },
+    { value: "-1", exceptions: undefined, valid: false },
+    { value: "1 2", exceptions: undefined, valid: false },
+    { value: "1 2", exceptions: [" "], valid: true },
+    { value: "1  2", exceptions: [" "], valid: true },
+    { value: "1\\2", exceptions: [" "], valid: false },
+    { value: "1\\2", exceptions: [" ", "\\"], valid: true },
   ];
 
   test.each(cases)(
-    "Should return $valid if value is '$value'",
-    ({ value, valid }) => {
+    "Should return $valid if value is '$value' and exceptions $exceptions",
+    ({ value, exceptions, valid }) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      expect(validateOnlyDecimal(value)).toBe(valid);
+      expect(validateOnlyDecimal(value, exceptions)).toBe(valid);
     }
   );
 });
@@ -158,32 +163,42 @@ describe("validateMaxLengthFloat", () => {
 
 describe("validateMaxLength", () => {
   const cases = [
-    { value: "", maxLength: 1, valid: true },
-    { value: "a", maxLength: 1, valid: true },
-    { value: "  aa  ", maxLength: 2, valid: true },
-    { value: "aa", maxLength: 1, valid: false },
+    { value: "", maxLength: 1, exceptions: undefined, valid: true },
+    { value: "a", maxLength: 1, exceptions: undefined, valid: true },
+    { value: "  aa  ", maxLength: 2, exceptions: undefined, valid: true },
+    { value: "aa", maxLength: 1, exceptions: undefined, valid: false },
+    { value: "a a", maxLength: 2, exceptions: undefined, valid: false },
+    { value: "a a", maxLength: 2, exceptions: [" "], valid: true },
+    { value: "a  a", maxLength: 2, exceptions: [" "], valid: true },
+    { value: "a \\a", maxLength: 2, exceptions: [" "], valid: false },
+    { value: "a \\a", maxLength: 2, exceptions: [" ", "\\"], valid: true },
   ];
 
   test.each(cases)(
     "Should return $valid if maxLength is $maxLength and value is '$value'",
-    ({ value, valid, maxLength }) => {
-      expect(validateMaxLength(value, maxLength)).toBe(valid);
+    ({ value, maxLength, exceptions, valid }) => {
+      expect(validateMaxLength(value, maxLength, exceptions)).toBe(valid);
     }
   );
 });
 
 describe("validateMinLength", () => {
   const cases = [
-    { value: "a", minLength: 1, valid: true },
-    { value: "aa", minLength: 1, valid: true },
-    { value: "  ", minLength: 1, valid: false },
-    { value: "a", minLength: 2, valid: false },
+    { value: "a", minLength: 1, exceptions: undefined, valid: true },
+    { value: "aa", minLength: 1, exceptions: undefined, valid: true },
+    { value: "  ", minLength: 1, exceptions: undefined, valid: false },
+    { value: "a", minLength: 2, exceptions: undefined, valid: false },
+    { value: "abc", minLength: 3, exceptions: undefined, valid: true },
+    { value: "a b", minLength: 3, exceptions: [" "], valid: false },
+    { value: "a  b", minLength: 3, exceptions: [" "], valid: false },
+    { value: "a \\b", minLength: 3, exceptions: [" ", "\\"], valid: false },
+    { value: "a \\bc", minLength: 3, exceptions: [" ", "\\"], valid: true },
   ];
 
   test.each(cases)(
     "Should return $valid if minLength is $minLength and value is '$value'",
-    ({ value, valid, minLength }) => {
-      expect(validateMinLength(value, minLength)).toBe(valid);
+    ({ value, minLength, exceptions, valid }) => {
+      expect(validateMinLength(value, minLength, exceptions)).toBe(valid);
     }
   );
 });

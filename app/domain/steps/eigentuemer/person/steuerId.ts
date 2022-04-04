@@ -9,17 +9,19 @@ export const eigentuemerPersonSteuerId: StepDefinition = {
     steuerId: {
       validations: {
         required: {},
-        /*
-        onlyDecimal: {},
+        onlyDecimal: {
+          exceptions: [" "],
+        },
         minLength: {
           minLength: 11,
+          exceptions: [" "],
           msg: "Die Steuer-Identifikationsnummer ist genau 11 Ziffern lang",
         },
         maxLength: {
           maxLength: 11,
+          exceptions: [" "],
           msg: "Die Steuer-Identifikationsnummer ist genau 11 Ziffern lang",
         },
-         */
       },
       type: "steuerId",
     },

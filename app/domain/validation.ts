@@ -203,10 +203,24 @@ export const validateElsterChars: ValidateFunctionDefault = (value) =>
 export const validateEmail: ValidateFunctionDefault = (value) =>
   validator.isEmail(value);
 
-export const validateOnlyDecimal: ValidateFunctionDefault = (value) =>
-  !value ||
-  (validator.isInt(value.trim(), { allow_leading_zeroes: true }) &&
-    +value >= 0);
+type ValidateOnlyDecimalFunction = (
+  value: string,
+  exceptions?: Array<string>
+) => boolean;
+export const validateOnlyDecimal: ValidateOnlyDecimalFunction = (
+  value,
+  exceptions
+) => {
+  if (!value) return true;
+  let valueWithoutExceptions = value;
+  exceptions?.forEach(
+    (exception) =>
+      (valueWithoutExceptions = valueWithoutExceptions
+        .split(exception)
+        .join(""))
+  );
+  return new RegExp("^[0-9]*$").test(valueWithoutExceptions.trim());
+};
 
 export const validateIsDate: ValidateFunctionDefault = (value) =>
   !value ||
@@ -238,20 +252,47 @@ export const validateMaxLengthFloat: ValidateMaxLengthFloatFunction = (
     (!split_values[1] || split_values[1].length <= postComma)
   );
 };
-type ValidateMinLengthFunction = (value: string, minLength: number) => boolean;
+type ValidateMinLengthFunction = (
+  value: string,
+  minLength: number,
+  exceptions?: string[]
+) => boolean;
 export const validateMinLength: ValidateMinLengthFunction = (
   value,
-  minLength
+  minLength,
+  exceptions
 ) => {
   if (!value) return true;
-  return value.trim().length >= minLength;
+  let valueWithoutExceptions = value;
+  exceptions?.forEach(
+    (exception) =>
+      (valueWithoutExceptions = valueWithoutExceptions
+        .split(exception)
+        .join(""))
+  );
+  return valueWithoutExceptions.trim().length >= minLength;
 };
 
-type ValidateMaxLengthFunction = (value: string, maxLength: number) => boolean;
+type ValidateMaxLengthFunction = (
+  value: string,
+  maxLength: number,
+  exceptions?: string[]
+) => boolean;
 export const validateMaxLength: ValidateMaxLengthFunction = (
   value,
-  maxLength
-) => value.trim().length <= maxLength;
+  maxLength,
+  exceptions
+) => {
+  if (!value) return true;
+  let valueWithoutExceptions = value;
+  exceptions?.forEach(
+    (exception) =>
+      (valueWithoutExceptions = valueWithoutExceptions
+        .split(exception)
+        .join(""))
+  );
+  return valueWithoutExceptions.trim().length <= maxLength;
+};
 
 export const validateRequired: ValidateFunctionDefault = (value) =>
   value.trim().length > 0;
@@ -368,6 +409,10 @@ interface DefaultValidation {
   msg: string;
 }
 
+interface OnlyDecimalValidation extends DefaultValidation {
+  exceptions: string[];
+}
+
 interface MinLengthFloatValidation extends DefaultValidation {
   preComma: number;
   postComma: number;
@@ -375,10 +420,12 @@ interface MinLengthFloatValidation extends DefaultValidation {
 
 interface MinLengthValidation extends DefaultValidation {
   minLength: number;
+  exceptions?: string[];
 }
 
 interface MaxLengthValidation extends DefaultValidation {
   maxLength: number;
+  exceptions?: string[];
 }
 
 interface MinValueValidation extends DefaultValidation {
@@ -508,7 +555,13 @@ export const getErrorMessage = (
     return email.msg;
   }
 
-  if (onlyDecimal && !validateOnlyDecimal(value)) {
+  if (
+    onlyDecimal &&
+    !validateOnlyDecimal(
+      value,
+      (onlyDecimal as OnlyDecimalValidation).exceptions
+    )
+  ) {
     return onlyDecimal.msg || (i18n.onlyDecimal as string);
   }
 
@@ -537,14 +590,22 @@ export const getErrorMessage = (
 
   if (
     minLength &&
-    !validateMinLength(value, (minLength as MinLengthValidation).minLength)
+    !validateMinLength(
+      value,
+      (minLength as MinLengthValidation).minLength,
+      (minLength as MinLengthValidation).exceptions
+    )
   ) {
     return minLength.msg;
   }
 
   if (
     maxLength &&
-    !validateMaxLength(value, (maxLength as MaxLengthValidation).maxLength)
+    !validateMaxLength(
+      value,
+      (maxLength as MaxLengthValidation).maxLength,
+      (maxLength as MaxLengthValidation).exceptions
+    )
   ) {
     return maxLength.msg;
   }
