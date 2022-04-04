@@ -11,11 +11,36 @@ export const stepDefinition: StepDefinition = {
   fields: {
     anrede: {
       type: "select",
-      validations: {},
+      validations: {
+        required: {},
+      },
       options: [{ value: "no_anrede" }, { value: "frau" }, { value: "herr" }],
     },
-    titel: { validations: {} },
-    name: { validations: {} },
-    vorname: { validations: {} },
+    titel: {
+      validations: {
+        maxLength: {
+          maxLength: 15,
+          msg: "Die Angabe darf maximal 15 Zeichen lang sein",
+        },
+      },
+    },
+    name: {
+      validations: {
+        required: {},
+        maxLength: {
+          maxLength: 25,
+          msg: "Die Angabe darf maximal 25 Zeichen lang sein",
+        },
+      },
+    },
+    vorname: {
+      validations: {
+        required: {},
+        maxLength: {
+          maxLength: 25,
+          msg: "Die Angabe darf maximal 25 Zeichen lang sein",
+        },
+      },
+    },
   },
 };
