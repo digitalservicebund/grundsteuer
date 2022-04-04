@@ -6,6 +6,7 @@ import {
   validateMaxLength,
   validateMaxLengthFloat,
   validateMinLength,
+  validateMinValue,
   validateNoZero,
   validateOnlyDecimal,
   validateRequired,
@@ -158,6 +159,25 @@ describe("validateMinLength", () => {
     "Should return $valid if minLength is $minLength and value is '$value'",
     ({ value, valid, minLength }) => {
       expect(validateMinLength(value, minLength)).toBe(valid);
+    }
+  );
+});
+
+describe("validateMinValue", () => {
+  const cases = [
+    { value: "", minValue: 2, valid: true },
+    { value: "a", minValue: 2, valid: true },
+    { value: "-1", minValue: 2, valid: true },
+    { value: "2", minValue: 2, valid: true },
+    { value: "3", minValue: 2, valid: true },
+    { value: "1", minValue: 2, valid: false },
+    { value: "1", minValue: 1, valid: true },
+  ];
+
+  test.each(cases)(
+    "Should return $valid if minValue is minValue and value is '$value'",
+    ({ value, valid, minValue }) => {
+      expect(validateMinValue(value, minValue)).toBe(valid);
     }
   );
 });

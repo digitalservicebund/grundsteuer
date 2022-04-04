@@ -18,7 +18,10 @@ export const gebaeudeKernsanierungsjahr: StepDefinition = {
           maxLength: 4,
           msg: "Die Jahreszahl muss aus genau vier Ziffern bestehen",
         },
-        yearInPast: {},
+        yearInPast: {
+          excludingCurrentYear: true,
+          msg: "Das Jahr muss vor dem Veranlagungszeitraum liegen - also vor 2022 kernsaniert worden sein",
+        },
         yearAfterBaujahr: {},
       },
     },

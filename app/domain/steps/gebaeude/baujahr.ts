@@ -22,6 +22,10 @@ export const gebaeudeBaujahr: StepDefinition = {
           excludingCurrentYear: true,
           msg: "Das Baujahr muss vor dem Veranlagungszeitraum liegen - also vor 2022 gebaut worden sein",
         },
+        minValue: {
+          minValue: 1950,
+          msg: "Wenn das Baujahr vor 1949 liegt, tragen Sie das in der vorherigen Seite entsprechend ein",
+        },
       },
     },
   },

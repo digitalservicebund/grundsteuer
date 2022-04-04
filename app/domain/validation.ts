@@ -303,6 +303,10 @@ export const validateGrundbuchblattnummer: ValidateFunctionDefault = (
   return true;
 };
 
+type ValidateMinValueFunction = (value: string, minValue: number) => boolean;
+export const validateMinValue: ValidateMinValueFunction = (value, minValue) =>
+  !value || !validateOnlyDecimal(value) || +value >= minValue;
+
 export const validateYearInFuture: ValidateFunctionDefault = (value) => {
   if (!validateOnlyDecimal(value)) return true;
   if (value.length != 4) return true;
@@ -347,6 +351,10 @@ interface MaxLengthValidation extends DefaultValidation {
   maxLength: number;
 }
 
+interface MinValueValidation extends DefaultValidation {
+  minValue: number;
+}
+
 interface YearInPastValidation extends DefaultValidation {
   excludingCurrentYear?: boolean;
 }
@@ -383,6 +391,7 @@ export const getErrorMessage = (
     maxLengthFloat,
     maxLength,
     minLength,
+    minValue,
     required,
     requiredIf,
     requiredIfCondition,
@@ -472,6 +481,13 @@ export const getErrorMessage = (
     !validateMaxLength(value, (maxLength as MaxLengthValidation).maxLength)
   ) {
     return maxLength.msg;
+  }
+
+  if (
+    minValue &&
+    !validateMinValue(value, (minValue as MinValueValidation).minValue)
+  ) {
+    return minValue.msg;
   }
 
   if (yearInFuture && !validateYearInFuture(value)) {
