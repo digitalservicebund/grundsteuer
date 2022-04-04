@@ -28,6 +28,16 @@ If no `.env` exists in project root, `npm run dev` will create one by copying `.
 defined in `.env.example` that are missing in your local `.env`, the app will fail on startup
 with an error message indicating the missing keys.
 
+#### E2E/integration tests
+
+The E2E tests require a working database connection, meaning that the environment variable `DATABASE_URL` must be set to
+a connection string for a live PostgreSQL server. Since the tests assume a fresh database seeded with test data, it is
+best to use an ephemeral database used exclusively for this purpose.
+
+Assuming the Docker daemon is running, you can execute `run-e2e-tests-locally.sh` to fire up and seed such an ephemeral
+instance in form of a Docker container. The script then runs the test against it and destroys the container once
+it's finished executing or is terminated.
+
 #### Style (Linting & Formatting)
 
 We use [ESLint](https://eslint.org/docs/user-guide/getting-started) to find problems in our code
