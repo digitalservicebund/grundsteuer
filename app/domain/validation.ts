@@ -291,6 +291,24 @@ export const validateGrundbuchblattnummer: ValidateFunctionDefault = (
   return true;
 };
 
+export const validateYearInFuture: ValidateFunctionDefault = (value) => {
+  if (!validateOnlyDecimal(value)) return true;
+  if (value.length != 4) return true;
+  return (
+    new Date(+value, 11, 31).getTime() >=
+    new Date(Date.now()).setHours(0, 0, 0, 0)
+  );
+};
+
+export const validateYearInPast: ValidateFunctionDefault = (value) => {
+  if (!validateOnlyDecimal(value)) return true;
+  if (value.length != 4) return true;
+  return (
+    new Date(+value, 0, 1).getTime() <=
+    new Date(Date.now()).setHours(0, 0, 0, 0)
+  );
+};
+
 interface DefaultValidation {
   msg: string;
 }
@@ -345,6 +363,8 @@ export const getErrorMessage = (
     requiredIfCondition,
     hausnummer,
     grundbuchblattnummer,
+    yearInFuture,
+    yearInPast,
   } = validationConfig;
 
   if (!validateElsterChars(value)) {
@@ -422,5 +442,13 @@ export const getErrorMessage = (
     !validateMaxLength(value, (maxLength as MaxLengthValidation).maxLength)
   ) {
     return maxLength.msg;
+  }
+
+  if (yearInFuture && !validateYearInFuture(value)) {
+    return yearInFuture.msg || (i18n.yearInFuture as string);
+  }
+
+  if (yearInPast && !validateYearInPast(value)) {
+    return yearInPast.msg || (i18n.yearInPast as string);
   }
 };

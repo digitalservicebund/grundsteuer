@@ -6,6 +6,20 @@ export type GebaeudeAbbruchverpflichtungsjahrFields = {
 
 export const gebaeudeAbbruchverpflichtungsjahrjahr: StepDefinition = {
   fields: {
-    abbruchverpflichtungsjahr: { validations: {} },
+    abbruchverpflichtungsjahr: {
+      validations: {
+        required: {},
+        onlyDecimal: {},
+        minLength: {
+          minLength: 4,
+          msg: "Die Jahreszahl muss aus genau vier Ziffern bestehen",
+        },
+        maxLength: {
+          maxLength: 4,
+          msg: "Die Jahreszahl muss aus genau vier Ziffern bestehen",
+        },
+        yearInFuture: {},
+      },
+    },
   },
 };

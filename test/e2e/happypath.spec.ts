@@ -61,7 +61,7 @@ const inputData = {
       hasAbbruchverpflichtung: "true",
     },
     abbruchverpflichtungsjahr: {
-      abbruchverpflichtungsjahr: "2010",
+      abbruchverpflichtungsjahr: "2030",
     },
     wohnflaeche: {
       wohnflaeche: "24",

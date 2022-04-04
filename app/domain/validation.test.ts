@@ -11,6 +11,8 @@ import {
   validateRequired,
   validateRequiredIf,
   validateRequiredIfCondition,
+  validateYearInFuture,
+  validateYearInPast,
 } from "./validation";
 import { GrundModel } from "~/domain/steps";
 
@@ -259,6 +261,52 @@ describe("validateGrundbuchblattnummer", () => {
     "Should return $valid if value is '$value'",
     ({ value, valid }) => {
       expect(validateGrundbuchblattnummer(value)).toBe(valid);
+    }
+  );
+});
+
+describe("validateYearInFuture", () => {
+  const cases = [
+    { value: "", currentDate: Date.UTC(2022, 0, 1), valid: true },
+    { value: "2023", currentDate: Date.UTC(2022, 0, 1), valid: true },
+    { value: "2022", currentDate: Date.UTC(2022, 0, 1), valid: true },
+    { value: "2021", currentDate: Date.UTC(2022, 0, 1), valid: false },
+    { value: "2022", currentDate: Date.UTC(2022, 11, 31), valid: true },
+  ];
+
+  test.each(cases)(
+    "Should return $valid if value is '$value' and current date is $currentDate",
+    ({ value, currentDate, valid }) => {
+      const actualNowImplementation = Date.now;
+      try {
+        Date.now = jest.fn(() => new Date(currentDate).valueOf());
+        expect(validateYearInFuture(value)).toBe(valid);
+      } finally {
+        Date.now = actualNowImplementation;
+      }
+    }
+  );
+});
+
+describe("validateYearInPast", () => {
+  const cases = [
+    { value: "", currentDate: Date.UTC(2022, 0, 1), valid: true },
+    { value: "2021", currentDate: Date.UTC(2022, 0, 1), valid: true },
+    { value: "2022", currentDate: Date.UTC(2022, 0, 1), valid: true },
+    { value: "2023", currentDate: Date.UTC(2022, 0, 1), valid: false },
+    { value: "2022", currentDate: Date.UTC(2022, 11, 31), valid: true },
+  ];
+
+  test.each(cases)(
+    "Should return $valid if value is '$value' and current date is $currentDate",
+    ({ value, currentDate, valid }) => {
+      const actualNowImplementation = Date.now;
+      try {
+        Date.now = jest.fn(() => new Date(currentDate).valueOf());
+        expect(validateYearInPast(value)).toBe(valid);
+      } finally {
+        Date.now = actualNowImplementation;
+      }
     }
   );
 });
