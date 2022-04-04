@@ -204,7 +204,9 @@ export const validateEmail: ValidateFunctionDefault = (value) =>
   validator.isEmail(value);
 
 export const validateOnlyDecimal: ValidateFunctionDefault = (value) =>
-  !value || validator.isInt(value.trim(), { allow_leading_zeroes: true });
+  !value ||
+  (validator.isInt(value.trim(), { allow_leading_zeroes: true }) &&
+    +value >= 0);
 
 export const validateNoZero: ValidateFunctionDefault = (value) => value != "0";
 

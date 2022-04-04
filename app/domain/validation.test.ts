@@ -38,6 +38,7 @@ describe("validateEmail", () => {
 describe("validateOnlyDecimal", () => {
   const cases = [
     { value: "1", valid: true },
+    { value: "0", valid: true },
     { value: "  1  ", valid: true },
     { value: "01", valid: true },
     { value: "", valid: true },
@@ -46,6 +47,7 @@ describe("validateOnlyDecimal", () => {
     { value: "text", valid: false },
     { value: "0,9", valid: false },
     { value: "0.9", valid: false },
+    { value: "-1", valid: false },
   ];
 
   test.each(cases)(
