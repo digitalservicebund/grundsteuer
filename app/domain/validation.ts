@@ -276,6 +276,16 @@ export const validateRequiredIfCondition: ValidateRequiredIfCondition = (
   allData
 ) => (condition(allData) ? validateRequired(value) : true);
 
+export const validateForbiddenIf: ValidateDependentFunction = (
+  value,
+  dependentValue
+) => (dependentValue.trim() ? !value.trim() : true);
+
+export const validateEitherOr: ValidateDependentFunction = (
+  value,
+  dependentValue
+) => (dependentValue.trim() ? !value.trim() : !!value.trim());
+
 type ValidateYearAfterBaujahr = (value: string, allData: GrundModel) => boolean;
 export const validateYearAfterBaujahr: ValidateYearAfterBaujahr = (
   value,
@@ -416,6 +426,8 @@ export const getErrorMessage = (
     required,
     requiredIf,
     requiredIfCondition,
+    forbiddenIf,
+    eitherOr,
     yearAfterBaujahr,
     biggerThan,
     hausnummer,
@@ -451,6 +463,24 @@ export const getErrorMessage = (
     )
   ) {
     return requiredIfCondition.msg;
+  }
+
+  if (forbiddenIf) {
+    const dependentValue =
+      formData[(forbiddenIf as DependentValidation).dependentField];
+    invariant(typeof dependentValue === "string");
+    if (!validateForbiddenIf(value, dependentValue)) {
+      return forbiddenIf.msg;
+    }
+  }
+
+  if (eitherOr) {
+    const dependentValue =
+      formData[(eitherOr as DependentValidation).dependentField];
+    invariant(typeof dependentValue === "string");
+    if (!validateEitherOr(value, dependentValue)) {
+      return eitherOr.msg;
+    }
   }
 
   if (yearAfterBaujahr && !validateYearAfterBaujahr(value, allData)) {

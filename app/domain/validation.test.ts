@@ -1,8 +1,10 @@
 import {
   validateBiggerThan,
   validateDateInPast,
+  validateEitherOr,
   validateEmail,
   validateFloat,
+  validateForbiddenIf,
   validateGrundbuchblattnummer,
   validateHausnummer,
   validateIsDate,
@@ -261,6 +263,44 @@ describe("validateRequiredIfCondition", () => {
       expect(condition.mock.calls.length).toBe(1);
       expect(condition.mock.calls[0].length).toBe(1); // one argument
       expect((condition.mock.calls[0] as Array<object>)[0]).toEqual(allData); // correct argument
+    }
+  );
+});
+
+describe("validateEitherOr", () => {
+  const cases = [
+    { value: "", dependentValue: "", valid: false },
+    { value: "a", dependentValue: "", valid: true },
+    { value: "", dependentValue: "a", valid: true },
+    { value: "a", dependentValue: "a", valid: false },
+    { value: " ", dependentValue: " ", valid: false },
+    { value: "a", dependentValue: " ", valid: true },
+    { value: " ", dependentValue: "a", valid: true },
+  ];
+
+  test.each(cases)(
+    "Should return $valid if value is '$value' and dependentValue is '$dependentValue'",
+    ({ value, dependentValue, valid }) => {
+      expect(validateEitherOr(value, dependentValue)).toBe(valid);
+    }
+  );
+});
+
+describe("validateForbiddenIf", () => {
+  const cases = [
+    { value: "", dependentValue: "", valid: true },
+    { value: "a", dependentValue: "", valid: true },
+    { value: "", dependentValue: "a", valid: true },
+    { value: "a", dependentValue: "a", valid: false },
+    { value: " ", dependentValue: " ", valid: true },
+    { value: "a", dependentValue: " ", valid: true },
+    { value: " ", dependentValue: "a", valid: true },
+  ];
+
+  test.each(cases)(
+    "Should return $valid if value is '$value' and dependentValue is '$dependentValue'",
+    ({ value, dependentValue, valid }) => {
+      expect(validateForbiddenIf(value, dependentValue)).toBe(valid);
     }
   );
 });
