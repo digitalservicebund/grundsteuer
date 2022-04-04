@@ -10,6 +10,10 @@ export const grundstueckSteuernummer: StepDefinition = {
       validations: {
         required: {},
         onlyDecimal: {},
+        minLength: {
+          maxLength: 10,
+          msg: "Steuernummern/Aktenzeichen sind mindestens 10 Ziffern lang",
+        },
         maxLength: {
           maxLength: 17,
           msg: "Steuernummern/Aktenzeichen sind höchstens 17 Ziffern lang",
