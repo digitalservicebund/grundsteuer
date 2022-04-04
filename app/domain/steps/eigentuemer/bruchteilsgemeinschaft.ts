@@ -9,7 +9,9 @@ export const eigentuemerBruchteilsgemeinschaft: StepDefinition = {
     predefinedData: {
       type: "radio",
       options: [{ value: "true" }, { value: "false" }],
-      validations: {},
+      validations: {
+        required: {},
+      },
     },
   },
 };

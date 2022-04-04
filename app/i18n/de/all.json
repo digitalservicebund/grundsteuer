@@ -80,6 +80,7 @@
       "notMatching": "Bitte geben Sie zur Kontrolle die E-Mail-Adresse genau so ein, wie im obigen Feld."
     },
     "onlyDecimal": "Darf nur Ziffern beinhalten",
+    "isDate": "Kein valides Datenformat. Benötigtes Format: TT.MM.JJJJ",
     "noZero": "Darf nicht Null sein",
     "float": "Die Angabe muss eine Zahl sein, die durch Komma getrennt sein kann",
     "yearAfterBaujahr": "Das Jahr muss nach dem Baujahr des Gebäudes liegen",
@@ -87,6 +88,7 @@
     "grundbuchblattnummer": "Die Grundbuchblattnummer muss mit Ziffern beginnen und darf nicht länger als 6 Zeichen sein",
     "yearInFuture": "Das Jahr muss in der Zukunft liegen",
     "yearInPast": "Das Jahr muss in der Vergangenheit liegen",
+    "dateInPast": "Das Datum muss in der Vergangenheit liegen",
     "password": {
       "notMatching": "Passwörter stimmen nicht überein.",
       "tooShort": "Das Passwort ist zu kurz. Geben Sie bitte mindestens 8 Zeichen ein.",

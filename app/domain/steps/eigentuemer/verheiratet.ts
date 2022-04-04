@@ -8,7 +8,9 @@ export const eigentuemerVerheiratet: StepDefinition = {
   fields: {
     areVerheiratet: {
       type: "radio",
-      validations: {},
+      validations: {
+        required: {},
+      },
       options: [{ value: "true" }, { value: "false" }],
     },
   },

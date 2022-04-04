@@ -208,6 +208,14 @@ export const validateOnlyDecimal: ValidateFunctionDefault = (value) =>
   (validator.isInt(value.trim(), { allow_leading_zeroes: true }) &&
     +value >= 0);
 
+export const validateIsDate: ValidateFunctionDefault = (value) =>
+  !value ||
+  validator.isDate(value.trim(), {
+    format: "DD.MM.YYYY",
+    strictMode: true,
+    delimiters: ["."],
+  });
+
 export const validateNoZero: ValidateFunctionDefault = (value) => value != "0";
 
 export const validateFloat: ValidateFunctionDefault = (value) =>
@@ -248,11 +256,11 @@ export const validateMaxLength: ValidateMaxLengthFunction = (
 export const validateRequired: ValidateFunctionDefault = (value) =>
   value.trim().length > 0;
 
-type ValidateRequiredIfFunction = (
+type ValidateDependentFunction = (
   value: string,
   dependentValue: string
 ) => boolean;
-export const validateRequiredIf: ValidateRequiredIfFunction = (
+export const validateRequiredIf: ValidateDependentFunction = (
   value,
   dependentValue
 ) => (validateRequired(dependentValue) ? validateRequired(value) : true);
@@ -278,18 +286,22 @@ export const validateYearAfterBaujahr: ValidateYearAfterBaujahr = (
   return +value >= +baujahr;
 };
 
+export const validateBiggerThan: ValidateDependentFunction = (
+  value,
+  dependentValue
+) => {
+  return !value || !dependentValue || +value > +dependentValue;
+};
+
 export const validateHausnummer: ValidateFunctionDefault = (value) => {
   if (!value) return true;
   if (value.length > 14) return false; // hausnummer + hausnummerzusatz
   if (!validator.isInt(value[0])) return false; // start with number
   // if value (minus first number) is too long to fit into hausnummerzusatz:
   // make sure it also starts with the correct count of numbers
-  if (
-    value.length > 11 &&
-    !validator.isDecimal(value.slice(0, value.length - 10))
-  )
-    return false;
-  return true;
+  return !(
+    value.length > 11 && !validator.isDecimal(value.slice(0, value.length - 10))
+  );
 };
 
 export const validateGrundbuchblattnummer: ValidateFunctionDefault = (
@@ -334,6 +346,19 @@ export const validateYearInPast: ValidateYearInPast = (
   }
 };
 
+export const validateDateInPast: ValidateFunctionDefault = (value) => {
+  if (!value || !validateIsDate(value)) return true;
+  const splitDate = value.split(".");
+  return (
+    new Date(+splitDate[2], +splitDate[1] - 1, +splitDate[0]).setHours(
+      0,
+      0,
+      0,
+      0
+    ) < Date.now()
+  );
+};
+
 interface DefaultValidation {
   msg: string;
 }
@@ -359,7 +384,7 @@ interface YearInPastValidation extends DefaultValidation {
   excludingCurrentYear?: boolean;
 }
 
-interface RequiredIfValidation extends DefaultValidation {
+interface DependentValidation extends DefaultValidation {
   dependentField: string;
 }
 
@@ -369,7 +394,7 @@ interface RequiredIfConditionValidation extends DefaultValidation {
 
 export type Validation =
   | DefaultValidation
-  | RequiredIfValidation
+  | DependentValidation
   | RequiredIfConditionValidation
   | MaxLengthValidation
   | MinLengthValidation;
@@ -386,6 +411,7 @@ export const getErrorMessage = (
   const {
     email,
     onlyDecimal,
+    isDate,
     noZero,
     float,
     maxLengthFloat,
@@ -396,10 +422,12 @@ export const getErrorMessage = (
     requiredIf,
     requiredIfCondition,
     yearAfterBaujahr,
+    biggerThan,
     hausnummer,
     grundbuchblattnummer,
     yearInFuture,
     yearInPast,
+    dateInPast,
   } = validationConfig;
 
   if (!validateElsterChars(value)) {
@@ -412,7 +440,7 @@ export const getErrorMessage = (
 
   if (requiredIf) {
     const dependentValue =
-      formData[(requiredIf as RequiredIfValidation).dependentField];
+      formData[(requiredIf as DependentValidation).dependentField];
     invariant(typeof dependentValue === "string");
     if (!validateRequiredIf(value, dependentValue)) {
       return requiredIf.msg;
@@ -434,6 +462,15 @@ export const getErrorMessage = (
     return yearAfterBaujahr.msg || (i18n.yearAfterBaujahr as string);
   }
 
+  if (biggerThan) {
+    const dependentValue =
+      formData[(biggerThan as DependentValidation).dependentField];
+    invariant(typeof dependentValue === "string");
+    if (!validateBiggerThan(value, dependentValue)) {
+      return biggerThan.msg;
+    }
+  }
+
   if (hausnummer && !validateHausnummer(value)) {
     return hausnummer.msg || (i18n.hausnummer as string);
   }
@@ -448,6 +485,10 @@ export const getErrorMessage = (
 
   if (onlyDecimal && !validateOnlyDecimal(value)) {
     return onlyDecimal.msg || (i18n.onlyDecimal as string);
+  }
+
+  if (isDate && !validateIsDate(value)) {
+    return isDate.msg || (i18n.isDate as string);
   }
 
   if (noZero && !validateNoZero(value)) {
@@ -502,5 +543,9 @@ export const getErrorMessage = (
     )
   ) {
     return yearInPast.msg || (i18n.yearInPast as string);
+  }
+
+  if (dateInPast && !validateDateInPast(value)) {
+    return dateInPast.msg || (i18n.dateInPast as string);
   }
 };

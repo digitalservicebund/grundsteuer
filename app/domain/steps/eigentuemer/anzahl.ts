@@ -8,7 +8,9 @@ export const eigentuemerAnzahl: StepDefinition = {
   fields: {
     anzahl: {
       type: "select",
-      validations: {},
+      validations: {
+        required: {},
+      },
       options: [
         { value: "1" },
         { value: "2" },
