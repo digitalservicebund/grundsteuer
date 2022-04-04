@@ -12,7 +12,7 @@ import _ from "lodash";
 import { Button } from "~/components";
 import {
   getStoredFormData,
-  commitFormDataToStorage,
+  addFormDataCookiesToHeaders,
 } from "~/formDataStorage.server";
 import { i18Next } from "~/i18n.server";
 import { getStepData, setStepData, StepFormData } from "~/domain/model";
@@ -161,14 +161,7 @@ export const loader: LoaderFunction = async ({
   if (stateNodeType == "compound") {
     const inititalState = machine.transition(currentStateWithoutId, "FAKE");
     const redirectUrl = getRedirectUrl(inititalState);
-    return redirect(redirectUrl, {
-      headers: {
-        "Set-Cookie": await commitFormDataToStorage({
-          data: storedFormData,
-          user,
-        }),
-      },
-    });
+    return redirect(redirectUrl);
   }
   // redirect in case the step is not enabled
   const graph = createGraph({
@@ -176,14 +169,7 @@ export const loader: LoaderFunction = async ({
   });
   const reachablePaths = getReachablePaths({ graph, initialPaths: [] });
   if (!reachablePaths.includes(currentState)) {
-    return redirect("/formular/welcome", {
-      headers: {
-        "Set-Cookie": await commitFormDataToStorage({
-          data: storedFormData,
-          user,
-        }),
-      },
-    });
+    return redirect("/formular/welcome");
   }
   const backUrl = getBackUrl({ machine, currentStateWithoutId });
   const stepDefinition = getStepDefinition({ currentStateWithoutId });
@@ -262,13 +248,16 @@ export const action: ActionFunction = async ({ params, request }) => {
     type: "NEXT",
   });
   const redirectUrl = getRedirectUrl(nextState);
+
+  const headers = new Headers();
+  await addFormDataCookiesToHeaders({
+    headers,
+    data: formDataToBeStored,
+    user,
+  });
+
   return redirect(redirectUrl, {
-    headers: {
-      "Set-Cookie": await commitFormDataToStorage({
-        data: formDataToBeStored,
-        user,
-      }),
-    },
+    headers,
   });
 };
 
