@@ -37,7 +37,7 @@ It's probably a good idea to setup ESLint and Prettier in your editor (it might 
 
 To be on the safe side ESLint and Prettier are also run on all staged files before a commit. Automatically, so you can't forget it.
 
-Additionally you can always run ESLint and Prettier manually via npm tasks:
+Additionally ,you can always run ESLint and Prettier manually via npm tasks:
 
 Check style:
 
@@ -78,9 +78,8 @@ Make sure to deploy the output of `remix build`
 
 ### Docker Tooling
 
-There are 2 docker files, the standard Dockerfile is intended for production images and the dev.Dockerfile can be used
-for local development in combination with docker-compose where the app directory is mounted into the container for hot
-reload capabilities.
+The Dockerfile is intended for production images. A Docker Compose file, `docker-compose-test.yml`, is
+provided to minimize local setup required for running E2E tests.
 
 #### Production Flow
 
@@ -90,11 +89,3 @@ docker run --rm -it -p 3000:3000 grundsteuer
 ```
 
 This builds and starts your app in production mode.
-
-#### Development Flow
-
-```sh
-docker-compose up
-```
-
-This starts your app in development mode, rebuilding assets on file changes.
