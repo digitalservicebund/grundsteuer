@@ -1,6 +1,3 @@
-import Adresse from "./eigentuemer/person/adresse";
-import Anteil from "./eigentuemer/person/anteil";
-import VertreterAdresse from "./eigentuemer/person/vertreter/adresse";
 import Default from "./default";
 import Bodenrichtwert, {
   BodenrichtwertHelp,
@@ -28,13 +25,6 @@ export default {
   welcome: Welcome,
   eigentuemer: {
     uebersicht: EigentuemerUebersicht,
-    person: {
-      adresse: Adresse,
-      anteil: Anteil,
-      vertreter: {
-        adresse: VertreterAdresse,
-      },
-    },
     bruchteilsgemeinschaft: Bruchteilsgemeinschaft,
     bruchteilsgemeinschaftangaben: {
       angaben: EigentuemerBruchteilsgemeinschaftAngaben,
