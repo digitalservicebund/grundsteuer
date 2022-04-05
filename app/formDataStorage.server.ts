@@ -1,5 +1,4 @@
 import createDebugMessages from "debug";
-import { stringify as zipsonStringify, parse as zipsonParse } from "zipson";
 import { Cookie, createCookie } from "remix";
 import invariant from "tiny-invariant";
 import { GrundModel } from "~/domain/steps";
@@ -79,16 +78,12 @@ export const getStoredFormData: GetStoredFormDataFunction = async ({
 
   const cookiesCombined = cookies.join("");
   try {
-    const parsedContent = zipsonParse(cookiesCombined);
+    const parsedContent = JSON.parse(cookiesCombined);
     if (parsedContent?.userId === user.id && parsedContent?.data) {
       return parsedContent.data;
     }
     return {};
   } catch (error) {
-    // Catching very broad all Errors as zipson throws no
-    // more specific Errors.
-    // Error might be caused by corrupted data, maybe because
-    // a single cookie (a slice) was deleted in the browser.
     return {};
   }
 };
@@ -120,8 +115,7 @@ export const addFormDataCookiesToHeaders: AddFormDataCookiesToHeadersFunction =
       data,
     };
 
-    // zipson is a JSON aware compressor
-    const stringifiedAndCompressedData = zipsonStringify(cookieData);
+    const stringifiedAndCompressedData = JSON.stringify(cookieData);
 
     // Does the data fit into one cookie or do we have to slice it
     // and store it across serveral cookies?

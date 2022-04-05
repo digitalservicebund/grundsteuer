@@ -5,7 +5,6 @@ import {
 } from "~/formDataStorage.server";
 import { SessionUser } from "./auth.server";
 import { GrundModel } from "./domain/steps";
-import { stringify as zipsonStringify } from "zipson";
 
 const user = { id: "12345678-12345678" } as SessionUser;
 
@@ -61,7 +60,7 @@ describe("getStoredFormData", () => {
   describe("authoritive cookie for given user is present", () => {
     describe("user id inside cookie matches given user id", () => {
       it("returns stored data", async () => {
-        const data = zipsonStringify({
+        const data = JSON.stringify({
           userId: user.id,
           data: { sensitiveData: true },
         });
@@ -83,7 +82,7 @@ describe("getStoredFormData", () => {
 
       describe("multiple cookies", () => {
         it("returns stored data", async () => {
-          const data = zipsonStringify({
+          const data = JSON.stringify({
             userId: user.id,
             data: { sensitiveData: true },
           });
@@ -113,7 +112,7 @@ describe("getStoredFormData", () => {
 
         describe("a single cookie is missing", () => {
           it("returns empty object", async () => {
-            const data = zipsonStringify({
+            const data = JSON.stringify({
               userId: user.id,
               data: { sensitiveData: "splitted" },
             });
@@ -140,7 +139,7 @@ describe("getStoredFormData", () => {
 
         describe("a left-over cookie is present", () => {
           it("ignores left-over cookie and returns stored data", async () => {
-            const data = zipsonStringify({
+            const data = JSON.stringify({
               userId: user.id,
               data: { sensitiveData: true },
             });
@@ -175,7 +174,7 @@ describe("getStoredFormData", () => {
 
     describe("user id inside cookie does not match given user id", () => {
       it("returns empty object", async () => {
-        const data = zipsonStringify({
+        const data = JSON.stringify({
           userId: "99999999",
           data: { sensitiveData: true },
         });
