@@ -7,7 +7,11 @@ export type ZusammenfassungFields = {
 export const zusammenfassung: StepDefinition = {
   fields: {
     freitext: {
-      validations: {},
+      validations: {
+        // reserve some chars for possible two-Bodenrichtwert disclaimer
+        maxLength: 900,
+        msg: "Die Angabe darf höchstens 900 Zeichen lang sein",
+      },
     },
   },
 };
