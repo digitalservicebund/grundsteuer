@@ -70,7 +70,6 @@ export const stepDefinition: StepDefinition = {
     },
     telefonnummer: {
       validations: {
-        // TODO required for empfangsvollmacht
         maxLength: {
           maxLength: 16,
           msg: "Die Angabe darf maximal 16 Zeichen beinhalten",
