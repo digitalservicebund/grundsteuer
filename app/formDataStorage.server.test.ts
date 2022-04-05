@@ -2,13 +2,24 @@ import {
   getStoredFormData,
   addFormDataCookiesToHeaders,
   createFormDataCookie,
+  createFormDataCookieName,
 } from "~/formDataStorage.server";
 import { SessionUser } from "./auth.server";
 import { GrundModel } from "./domain/steps";
 
-const user = { id: "12345678-12345678" } as SessionUser;
+const user = { id: "64914671-b3bb-4525-9494-ed44b55cc7e0" } as SessionUser;
 
 process.env.FORM_COOKIE_SECRET = "secret";
+
+describe("createFormDataCookieName", () => {
+  it("returns correct cookie name", async () => {
+    const name = createFormDataCookieName({
+      userId: user.id,
+      index: 0,
+    });
+    expect(name).toEqual("form_data_0_63fb3253359ff6846283186985aa18c4");
+  });
+});
 
 describe("getStoredFormData", () => {
   describe("no cookie present", () => {

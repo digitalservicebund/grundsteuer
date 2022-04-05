@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import createDebugMessages from "debug";
 import { Cookie, createCookie } from "remix";
 import invariant from "tiny-invariant";
@@ -6,15 +7,21 @@ import { SessionUser } from "./auth.server";
 
 const debug = createDebugMessages("formDataStorage");
 
-const createFormDataCookieName = ({
-  userId,
-  index,
-}: {
+type CreateFormDataCookieNameFunction = (options: {
   userId: string;
   index: number;
+}) => string;
+
+export const createFormDataCookieName: CreateFormDataCookieNameFunction = ({
+  userId,
+  index,
 }) => {
-  const name = `form_data_${index}_${userId.slice(0, 8)}`;
-  return name;
+  const cookieSuffix = crypto
+    .createHash("sha256")
+    .update(userId)
+    .digest("hex")
+    .slice(0, 32);
+  return `form_data_${index}_${cookieSuffix}`;
 };
 
 type CreateFormDataCookieFunction = (options: {
