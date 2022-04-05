@@ -6,6 +6,7 @@ const EigentuemerBruchteilsgemeinschaftAngaben: StepComponentFunction = ({
   stepDefinition,
   formData,
   i18n,
+  errors,
 }) => {
   const fieldDefinitions =
     stepDefinition.fields as EigentuemerBruchteilsgemeinschaftAngabenFields;
@@ -19,6 +20,7 @@ const EigentuemerBruchteilsgemeinschaftAngaben: StepComponentFunction = ({
         fieldDefinitions[
           fieldName as keyof EigentuemerBruchteilsgemeinschaftAngabenFields
         ],
+      error: errors?.[fieldName],
     };
   });
 
