@@ -11,6 +11,7 @@ export const gebaeudeWohnflaechen: StepDefinition = {
       validations: {
         required: {},
         onlyDecimal: {},
+        noZero: {},
         maxLength: {
           maxLength: 6,
           msg: "Die Zahl darf nur bis zu 6 Ziffern beinhalten",
@@ -21,6 +22,7 @@ export const gebaeudeWohnflaechen: StepDefinition = {
       validations: {
         required: {},
         onlyDecimal: {},
+        noZero: {},
         maxLength: {
           maxLength: 6,
           msg: "Die Zahl darf nur bis zu 6 Ziffern beinhalten",
