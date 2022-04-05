@@ -4,6 +4,7 @@ import {
   LoaderFunction,
   useActionData,
   MetaFunction,
+  useLoaderData,
 } from "remix";
 import { AuthorizationError } from "remix-auth";
 import { authenticator } from "~/auth.server";
@@ -15,9 +16,16 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  return await authenticator.isAuthenticated(request, {
+  await authenticator.isAuthenticated(request, {
     successRedirect: "/formular/welcome",
   });
+
+  const url = new URL(request.url);
+  const registered = url.searchParams.get("registered");
+
+  return {
+    userIsComingfromSuccessfulRegistration: registered && registered === "1",
+  };
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -37,6 +45,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Anmelden() {
+  const loaderData = useLoaderData();
   const actionData = useActionData();
 
   return (
@@ -68,8 +77,12 @@ export default function Anmelden() {
         </Form>
       </div>
 
-      <h2 className="text-32 mb-32">Noch nicht registriert?</h2>
-      <Button to="/registrieren">Konto erstellen</Button>
+      {!loaderData?.userIsComingfromSuccessfulRegistration && (
+        <div>
+          <h2 className="text-32 mb-32">Noch nicht registriert?</h2>
+          <Button to="/registrieren">Konto erstellen</Button>
+        </div>
+      )}
     </SimplePageLayout>
   );
 }

@@ -13,7 +13,7 @@ export default function RegistrierenErfolgreich() {
 
       <p className="mb-32">Sie haben ein Konto erstellt.</p>
 
-      <Button to="/anmelden">Weiter zum Anmelden</Button>
+      <Button to="/anmelden?registered=1">Weiter zum Anmelden</Button>
     </SimplePageLayout>
   );
 }
