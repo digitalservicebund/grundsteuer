@@ -8,8 +8,23 @@ export type GrundstueckFlurstueckGroesseFields = {
 
 export const grundstueckFlurstueckGroesse: StepDefinition = {
   fields: {
-    groesseHa: { validations: {} },
-    groesseA: { validations: {} },
-    groesseQm: { validations: {} },
+    groesseHa: {
+      validations: {
+        onlyDecimal: {},
+        flurstueckGroesse: {},
+      },
+    },
+    groesseA: {
+      validations: {
+        onlyDecimal: {},
+        flurstueckGroesse: {},
+      },
+    },
+    groesseQm: {
+      validations: {
+        onlyDecimal: {},
+        flurstueckGroesse: {},
+      },
+    },
   },
 };

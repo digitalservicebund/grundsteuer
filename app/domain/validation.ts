@@ -2,7 +2,7 @@ import invariant from "tiny-invariant";
 import { StepFormData } from "~/domain/model";
 import validator from "validator";
 import { Condition } from "~/domain/guards";
-import { GrundModel } from "~/domain/steps";
+import { GrundModel, GrundstueckFlurstueckGroesseFields } from "~/domain/steps";
 
 type ValidateFunctionDefault = (value: string) => boolean;
 
@@ -366,6 +366,26 @@ export const validateGrundbuchblattnummer: ValidateFunctionDefault = (
   return true;
 };
 
+type ValidateFlurstueckGroesseFunction = (
+  valueHa: string,
+  valueA: string,
+  valueQm: string
+) => boolean;
+export const validateFlurstueckGroesse: ValidateFlurstueckGroesseFunction = (
+  valueHa,
+  valueA,
+  valueQm
+) => {
+  const isZeroOrEmpty = (value: string) => {
+    return new RegExp("^[0 ]*$").test(value);
+  };
+  if ([valueHa, valueA, valueQm].every((value) => isZeroOrEmpty(value)))
+    return false;
+  return (
+    valueHa.trim().length + valueA.trim().length + valueQm.trim().length <= 15
+  );
+};
+
 type ValidateMinValueFunction = (value: string, minValue: number) => boolean;
 export const validateMinValue: ValidateMinValueFunction = (value, minValue) =>
   !value || !validateOnlyDecimal(value) || +value >= minValue;
@@ -479,6 +499,7 @@ export const getErrorMessage = (
     biggerThan,
     hausnummer,
     grundbuchblattnummer,
+    flurstueckGroesse,
     yearInFuture,
     yearInPast,
     dateInPast,
@@ -549,6 +570,19 @@ export const getErrorMessage = (
 
   if (grundbuchblattnummer && !validateGrundbuchblattnummer(value)) {
     return grundbuchblattnummer.msg || (i18n.grundbuchblattnummer as string);
+  }
+
+  if (flurstueckGroesse) {
+    const values = formData as GrundstueckFlurstueckGroesseFields;
+    if (
+      !validateFlurstueckGroesse(
+        values.groesseHa,
+        values.groesseA,
+        values.groesseQm
+      )
+    ) {
+      return i18n.flurstueckGroesse as string;
+    }
   }
 
   if (email && !validateEmail(value)) {

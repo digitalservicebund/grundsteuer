@@ -86,6 +86,7 @@
     "yearAfterBaujahr": "Das Jahr muss nach dem Baujahr des Gebäudes liegen",
     "hausnummer": "Die Hausnummer muss mit Ziffern beginnen und darf nicht länger als 14 Zeichen sein",
     "grundbuchblattnummer": "Die Grundbuchblattnummer muss mit Ziffern beginnen und darf nicht länger als 6 Zeichen sein",
+    "flurstueckGroesse": "Es muss mindestens ein Wert angegeben werden. Die Länge darf insgesamt 15 Ziffern nicht überschreiten.",
     "yearInFuture": "Das Jahr muss in der Zukunft liegen",
     "yearInPast": "Das Jahr muss in der Vergangenheit liegen",
     "dateInPast": "Das Datum muss in der Vergangenheit liegen",
