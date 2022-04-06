@@ -426,7 +426,7 @@ export const validateDateInPast: ValidateFunctionDefault = (value) => {
 };
 
 interface DefaultValidation {
-  msg: string;
+  msg?: string;
 }
 
 interface OnlyDecimalValidation extends DefaultValidation {
@@ -467,11 +467,15 @@ interface RequiredIfConditionValidation extends DefaultValidation {
 export type Validation =
   | DefaultValidation
   | DependentValidation
+  | OnlyDecimalValidation
   | RequiredIfConditionValidation
   | MaxLengthValidation
-  | MinLengthValidation;
+  | MinLengthValidation
+  | MinLengthFloatValidation
+  | MinValueValidation
+  | YearInPastValidation;
 
-type ValidationConfig = Record<string, Validation>;
+export type ValidationConfig = Record<string, Validation>;
 
 export const getErrorMessage = (
   value: string,

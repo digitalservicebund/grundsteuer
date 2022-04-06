@@ -182,6 +182,7 @@ import {
   zusammenfassung,
   ZusammenfassungFields,
 } from "~/domain/steps/zusammenfassung";
+import { ValidationConfig } from "~/domain/validation";
 export type { GrundstueckBodenrichtwertFields };
 
 const stepDefinitions = {
@@ -301,7 +302,7 @@ export type GrundModel = {
 };
 
 export type StepDefinitionField = {
-  validations: any;
+  validations: ValidationConfig;
 };
 
 export type StepDefinitionFieldWithOptions = StepDefinitionField & {

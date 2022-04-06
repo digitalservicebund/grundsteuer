@@ -67,12 +67,10 @@ export const eigentuemerBruchteilsgemeinschaftAngaben: StepDefinition = {
     },
     ort: {
       validations: {
-        validations: {
-          required: {},
-          maxLength: {
-            maxLength: 25,
-            msg: "Die Angabe darf maximal 25 Zeichen beinhalten",
-          },
+        required: {},
+        maxLength: {
+          maxLength: 25,
+          msg: "Die Angabe darf maximal 25 Zeichen beinhalten",
         },
       },
     },
