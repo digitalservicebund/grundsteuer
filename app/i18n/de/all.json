@@ -352,7 +352,7 @@
             "label": "Anrede",
             "options": {
               "no_anrede": {
-                "label": "Keine"
+                "label": "Keine Angabe"
               },
               "frau": {
                 "label": "Frau"
@@ -431,7 +431,18 @@
           "headline": "Gesetzlicher Vertreter Person {{id}} - Name",
           "fields": {
             "anrede": {
-              "label": "Anrede"
+              "label": "Anrede",
+              "options": {
+                "no_anrede": {
+                  "label": "Keine Angabe"
+                },
+                "frau": {
+                  "label": "Frau"
+                },
+                "herr": {
+                  "label": "Herr"
+                }
+              }
             },
             "titel": {
               "label": "Titel"
@@ -568,7 +579,18 @@
         "headline": "Stammdaten empfangsbevollmächtigte Person",
         "fields": {
           "anrede": {
-            "label": "Anrede"
+            "label": "Anrede",
+            "options": {
+              "no_anrede": {
+                "label": "Keine Angabe"
+              },
+              "frau": {
+                "label": "Frau"
+              },
+              "herr": {
+                "label": "Herr"
+              }
+            }
           },
           "titel": {
             "label": "Titel"
