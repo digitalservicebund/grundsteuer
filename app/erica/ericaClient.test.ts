@@ -20,6 +20,10 @@ describe("postToErica", () => {
       process.env.ERICA_URL = "localhost:8000";
     });
 
+    afterEach(() => {
+      mockFetchReturn201.mockClear();
+    });
+
     it("should return location if receives a 201 from endpoint", async () => {
       jest.spyOn(global, "fetch").mockImplementation(mockFetchReturn201);
       const result = await postToErica("someEndpoint", {});
@@ -32,7 +36,7 @@ describe("postToErica", () => {
         .mockImplementation(mockFetchReturn201);
       const actualDataToSend = { name: "Batman", friend: "Robin" };
       await postToErica("someEndpoint", actualDataToSend);
-      expect(fetchMock.mock.calls[0][1]?.body).toEqual(
+      expect(mockFetchReturn201.mock.calls[0][1]?.body).toEqual(
         JSON.stringify(actualDataToSend)
       );
     });
