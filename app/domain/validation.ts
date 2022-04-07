@@ -481,7 +481,7 @@ interface DefaultValidation {
 }
 
 interface OnlyDecimalValidation extends DefaultValidation {
-  exceptions: string[];
+  exceptions?: string[];
 }
 
 interface MinLengthFloatValidation extends DefaultValidation {
@@ -576,6 +576,7 @@ export const getErrorMessage = (
     const preComma = (validation as MinLengthFloatValidation).preComma;
     const postComma = (validation as MinLengthFloatValidation).postComma;
     const condition = (validation as RequiredIfConditionValidation).condition;
+    const exceptions = (validation as OnlyDecimalValidation).exceptions;
     const valueHa = (formData as GrundstueckFlurstueckGroesseFields).groesseHa;
     const valueA = (formData as GrundstueckFlurstueckGroesseFields).groesseA;
     const valueQm = (formData as GrundstueckFlurstueckGroesseFields).groesseQm;
@@ -586,6 +587,7 @@ export const getErrorMessage = (
         value,
         dependentValue,
         condition,
+        exceptions,
         allData,
         maxLength,
         minLength,
