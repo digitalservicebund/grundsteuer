@@ -1,13 +1,20 @@
-import { LoaderFunction, MetaFunction, useLoaderData } from "remix";
+import {
+  Form,
+  LoaderFunction,
+  MetaFunction,
+  useActionData,
+  useLoaderData,
+} from "remix";
 import { getStoredFormData } from "~/formDataStorage.server";
 import { GrundModel } from "~/domain/steps";
 import { pageTitle } from "~/util/pageTitle";
 import { i18Next } from "~/i18n.server";
 import { filterDataForReachablePaths, getStepData } from "~/domain/model";
 import { zusammenfassung } from "~/domain/steps/zusammenfassung";
-import { I18nObject } from "~/routes/formular/_step";
-import { StepFormFields } from "~/components";
+import { ActionData, I18nObject } from "~/routes/formular/_step";
+import { Button, StepFormFields } from "~/components";
 import { getSession } from "~/session.server";
+export { action } from "~/routes/formular/_step";
 
 type LoaderData = {
   formData: Record<string, any>;
@@ -90,6 +97,7 @@ export const meta: MetaFunction = () => {
 export default function Zusammenfassung() {
   const { formData, allData, i18n, stepDefinition } =
     useLoaderData<LoaderData>();
+  const actionData = useActionData() as ActionData;
 
   return (
     <div className="pt-32 max-w-screen-md mx-auto w-1/2">
@@ -355,14 +363,18 @@ export default function Zusammenfassung() {
         </>
       )}
       <div className="mt-32">
-        <StepFormFields
-          {...{
-            stepDefinition,
-            formData,
-            i18n,
-            currentState: "zusammenfassung",
-          }}
-        />
+        <Form method="post" className="mb-16">
+          <StepFormFields
+            {...{
+              stepDefinition,
+              formData,
+              i18n,
+              currentState: "zusammenfassung",
+              errors: actionData?.errors,
+            }}
+          />
+          <Button id="nextButton">Erklärung abschicken</Button>
+        </Form>
       </div>
     </div>
   );

@@ -191,7 +191,7 @@ export const loader: LoaderFunction = async ({
   };
 };
 
-type ActionData = {
+export type ActionData = {
   errors: Record<string, string>;
 };
 
