@@ -8,4 +8,5 @@ module.exports = {
   serverBuildPath: "build/index.js",
   devServerPort: 8002,
   ignoredRouteFiles: ["**/*.test.ts", "**/*.test.tsx", "**/_*.tsx"],
+  server: "./server.js",
 };
