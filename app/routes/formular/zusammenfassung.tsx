@@ -3,7 +3,7 @@ import { getStoredFormData } from "~/formDataStorage.server";
 import { GrundModel } from "~/domain/steps";
 import { pageTitle } from "~/util/pageTitle";
 import { i18Next } from "~/i18n.server";
-import { getStepData } from "~/domain/model";
+import { filterDataForReachablePaths, getStepData } from "~/domain/model";
 import { zusammenfassung } from "~/domain/steps/zusammenfassung";
 import { I18nObject } from "~/routes/formular/_step";
 import { StepFormFields } from "~/components";
@@ -22,11 +22,12 @@ export const loader: LoaderFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
   const user = session.get("user");
   const storedFormData = await getStoredFormData({ request, user });
+  const filteredData = filterDataForReachablePaths(storedFormData);
 
   const tFunction = await i18Next.getFixedT("de", "all");
   return {
     formData: getStepData(storedFormData, "zusammenfassung"),
-    allData: storedFormData,
+    allData: filteredData,
     i18n: {
       ...(tFunction("zusammenfassung") as I18nObject),
       common: { ...(tFunction("common") as I18nObject) },
@@ -130,11 +131,10 @@ export default function Zusammenfassung() {
               resolveJaNein
             )}
 
-            {allData.gebaeude.kernsaniert?.isKernsaniert === "true" &&
-              item(
-                "Jahr der Kernsanierung",
-                allData.gebaeude.kernsanierungsjahr?.kernsanierungsjahr
-              )}
+            {item(
+              "Jahr der Kernsanierung",
+              allData.gebaeude.kernsanierungsjahr?.kernsanierungsjahr
+            )}
 
             {item(
               "Abbruchverpflichtung liegt vor",
@@ -142,35 +142,28 @@ export default function Zusammenfassung() {
               resolveJaNein
             )}
 
-            {allData.gebaeude.abbruchverpflichtung?.hasAbbruchverpflichtung ===
-              "true" &&
-              item(
-                "Jahr der Abbruchverpflichtung",
-                allData.gebaeude.abbruchverpflichtungsjahr
-                  ?.abbruchverpflichtungsjahr
-              )}
+            {item(
+              "Jahr der Abbruchverpflichtung",
+              allData.gebaeude.abbruchverpflichtungsjahr
+                ?.abbruchverpflichtungsjahr
+            )}
 
-            {["einfamilienhaus", "wohnungseigentum"].includes(
-              allData.grundstueck?.typ?.typ as string
-            ) &&
-              item(
-                "Wohnfläche",
-                allData.gebaeude.wohnflaeche?.wohnflaeche,
-                resolveArea
-              )}
+            {item(
+              "Wohnfläche",
+              allData.gebaeude.wohnflaeche?.wohnflaeche,
+              resolveArea
+            )}
 
-            {allData.grundstueck?.typ?.typ === "zweifamilienhaus" &&
-              item(
-                "Wohnung 1 Wohnfläche",
-                allData.gebaeude.wohnflaechen?.wohnflaeche1,
-                resolveArea
-              )}
-            {allData.grundstueck?.typ?.typ === "zweifamilienhaus" &&
-              item(
-                "Wohnung 2 Wohnfläche",
-                allData.gebaeude.wohnflaechen?.wohnflaeche2,
-                resolveArea
-              )}
+            {item(
+              "Wohnung 1 Wohnfläche",
+              allData.gebaeude.wohnflaechen?.wohnflaeche1,
+              resolveArea
+            )}
+            {item(
+              "Wohnung 2 Wohnfläche",
+              allData.gebaeude.wohnflaechen?.wohnflaeche2,
+              resolveArea
+            )}
 
             {item(
               "Weitere Wohnräume",
@@ -178,22 +171,18 @@ export default function Zusammenfassung() {
               resolveJaNein
             )}
 
-            {allData.gebaeude.weitereWohnraeume?.hasWeitereWohnraeume ===
-              "true" &&
-              item(
-                "Anzahl der weiteren Wohnräume",
-                allData.gebaeude.weitereWohnraeumeDetails?.anzahl
-              )}
+            {item(
+              "Anzahl der weiteren Wohnräume",
+              allData.gebaeude.weitereWohnraeumeDetails?.anzahl
+            )}
 
-            {allData.gebaeude.weitereWohnraeume?.hasWeitereWohnraeume ===
-              "true" &&
-              item(
-                "Gesamtfläche der weiteren Wohnräume",
-                allData.gebaeude.weitereWohnraeumeDetails?.flaeche,
-                resolveArea
-              )}
+            {item(
+              "Gesamtfläche der weiteren Wohnräume",
+              allData.gebaeude.weitereWohnraeumeDetails?.flaeche,
+              resolveArea
+            )}
 
-            {allData.gebaeude.garagen?.hasGaragen === "true"
+            {allData.gebaeude.garagenAnzahl?.anzahlGaragen
               ? item(
                   "Anzahl Garagen",
                   allData.gebaeude.garagenAnzahl?.anzahlGaragen
@@ -208,12 +197,11 @@ export default function Zusammenfassung() {
           <ul>
             {item("Anzahl", allData.eigentuemer.anzahl?.anzahl)}
 
-            {allData.eigentuemer.verheiratet?.areVerheiratet &&
-              item(
-                "Verheiratet",
-                allData.eigentuemer.verheiratet.areVerheiratet,
-                resolveJaNein
-              )}
+            {item(
+              "Verheiratet",
+              allData?.eigentuemer?.verheiratet?.areVerheiratet,
+              resolveJaNein
+            )}
           </ul>
           {allData.eigentuemer.person && (
             <>
