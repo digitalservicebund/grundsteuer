@@ -7,12 +7,12 @@ type ericaRequestDto = {
 
 const postToErica = async (endpoint: string, dataToSend: object) => {
   invariant(
-    typeof process.env.ERICA_URL === "string",
+    process.env.ERICA_URL !== undefined,
     "environment variable ERICA_URL is not set"
   );
 
   invariant(
-    typeof process.env.ERICA_CLIENT_IDENTIFIER === "string",
+    process.env.ERICA_CLIENT_IDENTIFIER !== undefined,
     "environment variable ERICA_CLIENT_IDENTIFIER is not set"
   );
 
@@ -21,7 +21,7 @@ const postToErica = async (endpoint: string, dataToSend: object) => {
     payload: dataToSend,
   };
 
-  const response = await fetch(`process.env.ERICA_URL/${endpoint}`, {
+  const response = await fetch(`${process.env.ERICA_URL}/${endpoint}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -34,4 +34,25 @@ const postToErica = async (endpoint: string, dataToSend: object) => {
   }
 };
 
-export { postToErica };
+type ericaResponseDto = {
+  processStatus: "Processing" | "Success" | "Failure";
+  result: object | null;
+  errorCode: string | null;
+  errorMessage: string | null;
+};
+
+const getFromErica = async (endpoint: string) => {
+  invariant(
+    process.env.ERICA_URL !== undefined,
+    "environment variable ERICA_URL is not set"
+  );
+
+  const response = await fetch(`${process.env.ERICA_URL}/${endpoint}`);
+
+  if (response.status == 200) {
+    const ericaResponse: ericaResponseDto = await response.json();
+    return ericaResponse;
+  }
+};
+
+export { postToErica, getFromErica };
