@@ -266,10 +266,10 @@ export const validateMaxLengthFloat: ValidateMaxLengthFloatFunction = ({
   postComma,
 }) => {
   if (!value) return true;
-  const split_values = value.trim().split(",");
+  const splitValues = value.trim().split(",");
   return (
-    split_values[0].length <= preComma &&
-    (!split_values[1] || split_values[1].length <= postComma)
+    splitValues[0].length <= preComma &&
+    (!splitValues[1] || splitValues[1].length <= postComma)
   );
 };
 
