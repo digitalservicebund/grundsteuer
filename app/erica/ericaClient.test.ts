@@ -9,15 +9,22 @@ const mockFetchReturn201 = jest.fn(() =>
 ) as jest.Mock;
 
 describe("postToErica", () => {
-  describe("with no ERICA_URL in env", () => {
-    it("should fail", async () => {
+  describe("with no env variables set", () => {
+    it("should fail if only ERICA_CLIENT_IDENTIFIER is set", async () => {
+      process.env.ERICA_CLIENT_IDENTIFIER = "grundsteuerApp";
+      await expect(postToErica("someEndpoint", {})).rejects.toThrow();
+    });
+
+    it("should fail if only ERICA_URL is set", async () => {
+      process.env.ERICA_URL = "localhost:8000";
       await expect(postToErica("someEndpoint", {})).rejects.toThrow();
     });
   });
 
-  describe("with no ERICA_URL in env", () => {
+  describe("with necessary env variables set", () => {
     beforeEach(() => {
       process.env.ERICA_URL = "localhost:8000";
+      process.env.ERICA_CLIENT_IDENTIFIER = "grundsteuerApp";
     });
 
     afterEach(() => {
@@ -30,14 +37,17 @@ describe("postToErica", () => {
       expect(result).toEqual("createdLocation");
     });
 
-    it("should send data as JSON string to endpoint", async () => {
+    it("should send correctly constructed data as JSON string to endpoint", async () => {
       const fetchMock = jest
         .spyOn(global, "fetch")
         .mockImplementation(mockFetchReturn201);
       const actualDataToSend = { name: "Batman", friend: "Robin" };
       await postToErica("someEndpoint", actualDataToSend);
       expect(mockFetchReturn201.mock.calls[0][1]?.body).toEqual(
-        JSON.stringify(actualDataToSend)
+        JSON.stringify({
+          clientIdentifier: process.env.ERICA_CLIENT_IDENTIFIER,
+          payload: actualDataToSend,
+        })
       );
     });
   });
