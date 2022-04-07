@@ -219,7 +219,7 @@ export const validateOnlyDecimal: ValidateOnlyDecimalFunction = (
         .split(exception)
         .join(""))
   );
-  return new RegExp("^[0-9]*$").test(valueWithoutExceptions.trim());
+  return /^\d*$/.test(valueWithoutExceptions.trim());
 };
 
 export const validateIsDate: ValidateFunctionDefault = (value) =>
@@ -252,6 +252,12 @@ export const validateMaxLengthFloat: ValidateMaxLengthFloatFunction = (
     (!split_values[1] || split_values[1].length <= postComma)
   );
 };
+
+const removeAllExceptions = (value: string, exceptions?: string[]) => {
+  exceptions?.forEach((exception) => (value = value.split(exception).join("")));
+  return value;
+};
+
 type ValidateMinLengthFunction = (
   value: string,
   minLength: number,
@@ -263,13 +269,7 @@ export const validateMinLength: ValidateMinLengthFunction = (
   exceptions
 ) => {
   if (!value) return true;
-  let valueWithoutExceptions = value;
-  exceptions?.forEach(
-    (exception) =>
-      (valueWithoutExceptions = valueWithoutExceptions
-        .split(exception)
-        .join(""))
-  );
+  const valueWithoutExceptions = removeAllExceptions(value, exceptions);
   return valueWithoutExceptions.trim().length >= minLength;
 };
 
@@ -284,13 +284,7 @@ export const validateMaxLength: ValidateMaxLengthFunction = (
   exceptions
 ) => {
   if (!value) return true;
-  let valueWithoutExceptions = value;
-  exceptions?.forEach(
-    (exception) =>
-      (valueWithoutExceptions = valueWithoutExceptions
-        .split(exception)
-        .join(""))
-  );
+  const valueWithoutExceptions = removeAllExceptions(value, exceptions);
   return valueWithoutExceptions.trim().length <= maxLength;
 };
 
@@ -377,7 +371,7 @@ export const validateFlurstueckGroesse: ValidateFlurstueckGroesseFunction = (
   valueQm
 ) => {
   const isZeroOrEmpty = (value: string) => {
-    return new RegExp("^[0 ]*$").test(value);
+    return /^[0 ]*$/.test(value);
   };
   if ([valueHa, valueA, valueQm].every((value) => isZeroOrEmpty(value)))
     return false;
