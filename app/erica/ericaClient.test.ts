@@ -11,7 +11,7 @@ const mockFetchReturn201 = jest.fn(() =>
 describe("postToErica", () => {
   describe("with no ERICA_URL in env", () => {
     it("should fail", async () => {
-      await expect(postToErica("someEndpoint")).rejects.toThrow();
+      await expect(postToErica("someEndpoint", {})).rejects.toThrow();
     });
   });
 
@@ -22,8 +22,19 @@ describe("postToErica", () => {
 
     it("should return location if receives a 201 from endpoint", async () => {
       jest.spyOn(global, "fetch").mockImplementation(mockFetchReturn201);
-      const result = await postToErica("someEndpoint");
+      const result = await postToErica("someEndpoint", {});
       expect(result).toEqual("createdLocation");
+    });
+
+    it("should send data as JSON string to endpoint", async () => {
+      const fetchMock = jest
+        .spyOn(global, "fetch")
+        .mockImplementation(mockFetchReturn201);
+      const actualDataToSend = { name: "Batman", friend: "Robin" };
+      await postToErica("someEndpoint", actualDataToSend);
+      expect(fetchMock.mock.calls[0][1]?.body).toEqual(
+        JSON.stringify(actualDataToSend)
+      );
     });
   });
 });
