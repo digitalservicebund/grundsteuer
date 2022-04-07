@@ -1,10 +1,9 @@
-import invariant from "tiny-invariant";
 import { StepFormData } from "~/domain/model";
 import validator from "validator";
 import { Condition } from "~/domain/guards";
 import { GrundModel, GrundstueckFlurstueckGroesseFields } from "~/domain/steps";
 
-type ValidateFunctionDefault = (value: string) => boolean;
+type ValidateFunctionDefault = ({ value }: { value: string }) => boolean;
 
 const SUPPORTED_CHARS = [
   "\n",
@@ -197,20 +196,36 @@ const SUPPORTED_CHARS = [
   "€",
 ];
 
-export const validateElsterChars: ValidateFunctionDefault = (value) =>
+type ValidateFunction =
+  | ValidateFunctionDefault
+  | ValidateOnlyDecimalFunction
+  | ValidateDependentFunction
+  | ValidateRequiredIfConditionFunction
+  | ValidateMaxLengthFunction
+  | ValidateMinLengthFunction
+  | ValidateMaxLengthFloatFunction
+  | ValidateFlurstueckGroesseFunction
+  | ValidateMinValueFunction
+  | ValidateYearAfterBaujahrFunction
+  | ValidateYearInPast;
+
+export const validateElsterChars: ValidateFunctionDefault = ({ value }) =>
   Array.from(value).every((char) => SUPPORTED_CHARS.includes(char));
 
-export const validateEmail: ValidateFunctionDefault = (value) =>
+export const validateEmail: ValidateFunctionDefault = ({ value }) =>
   validator.isEmail(value);
 
-type ValidateOnlyDecimalFunction = (
-  value: string,
-  exceptions?: Array<string>
-) => boolean;
-export const validateOnlyDecimal: ValidateOnlyDecimalFunction = (
+type ValidateOnlyDecimalFunction = ({
   value,
-  exceptions
-) => {
+  exceptions,
+}: {
+  value: string;
+  exceptions?: Array<string>;
+}) => boolean;
+export const validateOnlyDecimal: ValidateOnlyDecimalFunction = ({
+  value,
+  exceptions,
+}) => {
   if (!value) return true;
   let valueWithoutExceptions = value;
   exceptions?.forEach(
@@ -222,7 +237,7 @@ export const validateOnlyDecimal: ValidateOnlyDecimalFunction = (
   return /^\d*$/.test(valueWithoutExceptions.trim());
 };
 
-export const validateIsDate: ValidateFunctionDefault = (value) =>
+export const validateIsDate: ValidateFunctionDefault = ({ value }) =>
   !value ||
   validator.isDate(value.trim(), {
     format: "DD.MM.YYYY",
@@ -230,21 +245,26 @@ export const validateIsDate: ValidateFunctionDefault = (value) =>
     delimiters: ["."],
   });
 
-export const validateNoZero: ValidateFunctionDefault = (value) => value != "0";
+export const validateNoZero: ValidateFunctionDefault = ({ value }) =>
+  value != "0";
 
-export const validateFloat: ValidateFunctionDefault = (value) =>
+export const validateFloat: ValidateFunctionDefault = ({ value }) =>
   !value || validator.isFloat(value.trim(), { locale: "de-DE" });
 
-type ValidateMaxLengthFloatFunction = (
-  value: string,
-  preComma: number,
-  postComma: number
-) => boolean;
-export const validateMaxLengthFloat: ValidateMaxLengthFloatFunction = (
+type ValidateMaxLengthFloatFunction = ({
   value,
   preComma,
-  postComma
-) => {
+  postComma,
+}: {
+  value: string;
+  preComma: number;
+  postComma: number;
+}) => boolean;
+export const validateMaxLengthFloat: ValidateMaxLengthFloatFunction = ({
+  value,
+  preComma,
+  postComma,
+}) => {
   if (!value) return true;
   const split_values = value.trim().split(",");
   return (
@@ -258,87 +278,109 @@ const removeAllExceptions = (value: string, exceptions?: string[]) => {
   return value;
 };
 
-type ValidateMinLengthFunction = (
-  value: string,
-  minLength: number,
-  exceptions?: string[]
-) => boolean;
-export const validateMinLength: ValidateMinLengthFunction = (
+type ValidateMinLengthFunction = ({
   value,
   minLength,
-  exceptions
-) => {
+  exceptions,
+}: {
+  value: string;
+  minLength: number;
+  exceptions?: string[];
+}) => boolean;
+export const validateMinLength: ValidateMinLengthFunction = ({
+  value,
+  minLength,
+  exceptions,
+}) => {
   if (!value) return true;
   const valueWithoutExceptions = removeAllExceptions(value, exceptions);
   return valueWithoutExceptions.trim().length >= minLength;
 };
 
-type ValidateMaxLengthFunction = (
-  value: string,
-  maxLength: number,
-  exceptions?: string[]
-) => boolean;
-export const validateMaxLength: ValidateMaxLengthFunction = (
+type ValidateMaxLengthFunction = ({
   value,
   maxLength,
-  exceptions
-) => {
+  exceptions,
+}: {
+  value: string;
+  maxLength: number;
+  exceptions?: string[];
+}) => boolean;
+export const validateMaxLength: ValidateMaxLengthFunction = ({
+  value,
+  maxLength,
+  exceptions,
+}) => {
   if (!value) return true;
   const valueWithoutExceptions = removeAllExceptions(value, exceptions);
   return valueWithoutExceptions.trim().length <= maxLength;
 };
 
-export const validateRequired: ValidateFunctionDefault = (value) =>
+export const validateRequired: ValidateFunctionDefault = ({ value }) =>
   value.trim().length > 0;
 
-type ValidateDependentFunction = (
-  value: string,
-  dependentValue: string
-) => boolean;
-export const validateRequiredIf: ValidateDependentFunction = (
+type ValidateDependentFunction = ({
   value,
-  dependentValue
-) => (validateRequired(dependentValue) ? validateRequired(value) : true);
+  dependentValue,
+}: {
+  value: string;
+  dependentValue: string;
+}) => boolean;
+export const validateRequiredIf: ValidateDependentFunction = ({
+  value,
+  dependentValue,
+}) =>
+  validateRequired({ value: dependentValue })
+    ? validateRequired({ value })
+    : true;
 
-type ValidateRequiredIfCondition = (
-  value: string,
-  condition: Condition,
-  allData: GrundModel
-) => boolean;
-export const validateRequiredIfCondition: ValidateRequiredIfCondition = (
+type ValidateRequiredIfConditionFunction = ({
   value,
   condition,
-  allData
-) => (condition(allData) ? validateRequired(value) : true);
+  allData,
+}: {
+  value: string;
+  condition: Condition;
+  allData: GrundModel;
+}) => boolean;
+export const validateRequiredIfCondition: ValidateRequiredIfConditionFunction =
+  ({ value, condition, allData }) =>
+    condition(allData) ? validateRequired({ value }) : true;
 
-export const validateForbiddenIf: ValidateDependentFunction = (
+export const validateForbiddenIf: ValidateDependentFunction = ({
   value,
-  dependentValue
-) => (dependentValue.trim() ? !value.trim() : true);
+  dependentValue,
+}) => (dependentValue.trim() ? !value.trim() : true);
 
-export const validateEitherOr: ValidateDependentFunction = (
+export const validateEitherOr: ValidateDependentFunction = ({
   value,
-  dependentValue
-) => (dependentValue.trim() ? !value.trim() : !!value.trim());
+  dependentValue,
+}) => (dependentValue.trim() ? !value.trim() : !!value.trim());
 
-type ValidateYearAfterBaujahr = (value: string, allData: GrundModel) => boolean;
-export const validateYearAfterBaujahr: ValidateYearAfterBaujahr = (
+type ValidateYearAfterBaujahrFunction = ({
   value,
-  allData
-) => {
+  allData,
+}: {
+  value: string;
+  allData: GrundModel;
+}) => boolean;
+export const validateYearAfterBaujahr: ValidateYearAfterBaujahrFunction = ({
+  value,
+  allData,
+}) => {
   const baujahr = allData.gebaeude?.baujahr?.baujahr;
   if (!value || !baujahr) return true;
   return +value >= +baujahr;
 };
 
-export const validateBiggerThan: ValidateDependentFunction = (
+export const validateBiggerThan: ValidateDependentFunction = ({
   value,
-  dependentValue
-) => {
+  dependentValue,
+}) => {
   return !value || !dependentValue || +value > +dependentValue;
 };
 
-export const validateHausnummer: ValidateFunctionDefault = (value) => {
+export const validateHausnummer: ValidateFunctionDefault = ({ value }) => {
   if (!value) return true;
   if (value.length > 14) return false; // hausnummer + hausnummerzusatz
   if (!validator.isInt(value[0])) return false; // start with number
@@ -349,9 +391,9 @@ export const validateHausnummer: ValidateFunctionDefault = (value) => {
   );
 };
 
-export const validateGrundbuchblattnummer: ValidateFunctionDefault = (
-  value
-) => {
+export const validateGrundbuchblattnummer: ValidateFunctionDefault = ({
+  value,
+}) => {
   if (!value) return true;
   if (value.length > 6) return false;
   if (!validator.isInt(value[0])) return false; // start with number
@@ -360,16 +402,20 @@ export const validateGrundbuchblattnummer: ValidateFunctionDefault = (
   return true;
 };
 
-type ValidateFlurstueckGroesseFunction = (
-  valueHa: string,
-  valueA: string,
-  valueQm: string
-) => boolean;
-export const validateFlurstueckGroesse: ValidateFlurstueckGroesseFunction = (
+type ValidateFlurstueckGroesseFunction = ({
   valueHa,
   valueA,
-  valueQm
-) => {
+  valueQm,
+}: {
+  valueHa: string;
+  valueA: string;
+  valueQm: string;
+}) => boolean;
+export const validateFlurstueckGroesse: ValidateFlurstueckGroesseFunction = ({
+  valueHa,
+  valueA,
+  valueQm,
+}) => {
   const isZeroOrEmpty = (value: string) => {
     return /^[0 ]*$/.test(value);
   };
@@ -380,12 +426,20 @@ export const validateFlurstueckGroesse: ValidateFlurstueckGroesseFunction = (
   );
 };
 
-type ValidateMinValueFunction = (value: string, minValue: number) => boolean;
-export const validateMinValue: ValidateMinValueFunction = (value, minValue) =>
-  !value || !validateOnlyDecimal(value) || +value >= minValue;
+type ValidateMinValueFunction = ({
+  value,
+  minValue,
+}: {
+  value: string;
+  minValue: number;
+}) => boolean;
+export const validateMinValue: ValidateMinValueFunction = ({
+  value,
+  minValue,
+}) => !value || !validateOnlyDecimal({ value }) || +value >= minValue;
 
-export const validateYearInFuture: ValidateFunctionDefault = (value) => {
-  if (!validateOnlyDecimal(value)) return true;
+export const validateYearInFuture: ValidateFunctionDefault = ({ value }) => {
+  if (!validateOnlyDecimal({ value })) return true;
   if (value.length != 4) return true;
   return (
     new Date(+value, 11, 31).getTime() >=
@@ -393,15 +447,18 @@ export const validateYearInFuture: ValidateFunctionDefault = (value) => {
   );
 };
 
-type ValidateYearInPast = (
-  value: string,
-  excludingCurrentYear?: boolean
-) => boolean;
-export const validateYearInPast: ValidateYearInPast = (
+type ValidateYearInPast = ({
   value,
-  excludingCurrentYear
-) => {
-  if (!validateOnlyDecimal(value)) return true;
+  excludingCurrentYear,
+}: {
+  value: string;
+  excludingCurrentYear?: boolean;
+}) => boolean;
+export const validateYearInPast: ValidateYearInPast = ({
+  value,
+  excludingCurrentYear,
+}) => {
+  if (!validateOnlyDecimal({ value })) return true;
   if (value.length != 4) return true;
 
   if (excludingCurrentYear) {
@@ -411,8 +468,8 @@ export const validateYearInPast: ValidateYearInPast = (
   }
 };
 
-export const validateDateInPast: ValidateFunctionDefault = (value) => {
-  if (!value || !validateIsDate(value)) return true;
+export const validateDateInPast: ValidateFunctionDefault = ({ value }) => {
+  if (!value || !validateIsDate({ value })) return true;
   const splitDate = value.split(".");
   return (
     Date.UTC(+splitDate[2], +splitDate[1] - 1, +splitDate[0]) <= Date.now()
@@ -478,192 +535,69 @@ export const getErrorMessage = (
   allData: GrundModel,
   i18n: Record<string, Record<string, string> | string>
 ): string | undefined => {
-  const {
-    email,
-    onlyDecimal,
-    isDate,
-    noZero,
-    float,
-    maxLengthFloat,
-    maxLength,
-    minLength,
-    minValue,
-    required,
-    requiredIf,
-    requiredIfCondition,
-    forbiddenIf,
-    eitherOr,
-    yearAfterBaujahr,
-    biggerThan,
-    hausnummer,
-    grundbuchblattnummer,
-    flurstueckGroesse,
-    yearInFuture,
-    yearInPast,
-    dateInPast,
-  } = validationConfig;
+  const validatorMapping: Record<string, ValidateFunction> = {
+    required: validateRequired,
+    requiredIf: validateRequiredIf,
+    requiredIfCondition: validateRequiredIfCondition,
+    email: validateEmail,
+    onlyDecimal: validateOnlyDecimal,
+    isDate: validateIsDate,
+    noZero: validateNoZero,
+    float: validateFloat,
+    maxLengthFloat: validateMaxLengthFloat,
+    maxLength: validateMaxLength,
+    minLength: validateMinLength,
+    minValue: validateMinValue,
+    forbiddenIf: validateForbiddenIf,
+    eitherOr: validateEitherOr,
+    yearAfterBaujahr: validateYearAfterBaujahr,
+    biggerThan: validateBiggerThan,
+    hausnummer: validateHausnummer,
+    grundbuchblattnummer: validateGrundbuchblattnummer,
+    flurstueckGroesse: validateFlurstueckGroesse,
+    yearInFuture: validateYearInFuture,
+    yearInPast: validateYearInPast,
+    dateInPast: validateDateInPast,
+  };
 
-  if (!validateElsterChars(value)) {
+  if (!validateElsterChars({ value })) {
     return i18n.elsterChars as string;
   }
 
-  if (required && !validateRequired(value)) {
-    return required.msg || (i18n.required as string);
-  }
+  for (const [key, validation] of Object.entries(validationConfig)) {
+    const validateFunction = validatorMapping[key];
 
-  if (requiredIf) {
-    const dependentValue =
-      formData[(requiredIf as DependentValidation).dependentField];
-    invariant(typeof dependentValue === "string");
-    if (!validateRequiredIf(value, dependentValue)) {
-      return requiredIf.msg;
-    }
-  }
+    const dependentValue = formData[
+      (validation as DependentValidation).dependentField
+    ] as string;
+    const maxLength = (validation as MaxLengthValidation).maxLength;
+    const minLength = (validation as MinLengthValidation).minLength;
+    const minValue = (validation as MinValueValidation).minValue;
+    const preComma = (validation as MinLengthFloatValidation).preComma;
+    const postComma = (validation as MinLengthFloatValidation).postComma;
+    const condition = (validation as RequiredIfConditionValidation).condition;
+    const valueHa = (formData as GrundstueckFlurstueckGroesseFields).groesseHa;
+    const valueA = (formData as GrundstueckFlurstueckGroesseFields).groesseA;
+    const valueQm = (formData as GrundstueckFlurstueckGroesseFields).groesseQm;
 
-  if (
-    requiredIfCondition &&
-    !validateRequiredIfCondition(
-      value,
-      (requiredIfCondition as RequiredIfConditionValidation).condition,
-      allData
-    )
-  ) {
-    return requiredIfCondition.msg;
-  }
-
-  if (forbiddenIf) {
-    const dependentValue =
-      formData[(forbiddenIf as DependentValidation).dependentField];
-    invariant(typeof dependentValue === "string");
-    if (!validateForbiddenIf(value, dependentValue)) {
-      return forbiddenIf.msg;
-    }
-  }
-
-  if (eitherOr) {
-    const dependentValue =
-      formData[(eitherOr as DependentValidation).dependentField];
-    invariant(typeof dependentValue === "string");
-    if (!validateEitherOr(value, dependentValue)) {
-      return eitherOr.msg;
-    }
-  }
-
-  if (yearAfterBaujahr && !validateYearAfterBaujahr(value, allData)) {
-    return yearAfterBaujahr.msg || (i18n.yearAfterBaujahr as string);
-  }
-
-  if (biggerThan) {
-    const dependentValue =
-      formData[(biggerThan as DependentValidation).dependentField];
-    invariant(typeof dependentValue === "string");
-    if (!validateBiggerThan(value, dependentValue)) {
-      return biggerThan.msg;
-    }
-  }
-
-  if (hausnummer && !validateHausnummer(value)) {
-    return hausnummer.msg || (i18n.hausnummer as string);
-  }
-
-  if (grundbuchblattnummer && !validateGrundbuchblattnummer(value)) {
-    return grundbuchblattnummer.msg || (i18n.grundbuchblattnummer as string);
-  }
-
-  if (flurstueckGroesse) {
-    const values = formData as GrundstueckFlurstueckGroesseFields;
     if (
-      !validateFlurstueckGroesse(
-        values.groesseHa,
-        values.groesseA,
-        values.groesseQm
-      )
+      validateFunction &&
+      !validateFunction({
+        value,
+        dependentValue,
+        condition,
+        allData,
+        maxLength,
+        minLength,
+        minValue,
+        preComma,
+        postComma,
+        valueHa,
+        valueA,
+        valueQm,
+      })
     ) {
-      return i18n.flurstueckGroesse as string;
+      return validation.msg || (i18n[key] as string);
     }
-  }
-
-  if (email && !validateEmail(value)) {
-    return email.msg;
-  }
-
-  if (
-    onlyDecimal &&
-    !validateOnlyDecimal(
-      value,
-      (onlyDecimal as OnlyDecimalValidation).exceptions
-    )
-  ) {
-    return onlyDecimal.msg || (i18n.onlyDecimal as string);
-  }
-
-  if (isDate && !validateIsDate(value)) {
-    return isDate.msg || (i18n.isDate as string);
-  }
-
-  if (noZero && !validateNoZero(value)) {
-    return noZero.msg || (i18n.noZero as string);
-  }
-
-  if (float && !validateFloat(value)) {
-    return float.msg || (i18n.float as string);
-  }
-
-  if (
-    maxLengthFloat &&
-    !validateMaxLengthFloat(
-      value,
-      (maxLengthFloat as MinLengthFloatValidation).preComma,
-      (maxLengthFloat as MinLengthFloatValidation).postComma
-    )
-  ) {
-    return maxLengthFloat.msg;
-  }
-
-  if (
-    minLength &&
-    !validateMinLength(
-      value,
-      (minLength as MinLengthValidation).minLength,
-      (minLength as MinLengthValidation).exceptions
-    )
-  ) {
-    return minLength.msg;
-  }
-
-  if (
-    maxLength &&
-    !validateMaxLength(
-      value,
-      (maxLength as MaxLengthValidation).maxLength,
-      (maxLength as MaxLengthValidation).exceptions
-    )
-  ) {
-    return maxLength.msg;
-  }
-
-  if (
-    minValue &&
-    !validateMinValue(value, (minValue as MinValueValidation).minValue)
-  ) {
-    return minValue.msg;
-  }
-
-  if (yearInFuture && !validateYearInFuture(value)) {
-    return yearInFuture.msg || (i18n.yearInFuture as string);
-  }
-
-  if (
-    yearInPast &&
-    !validateYearInPast(
-      value,
-      (yearInPast as YearInPastValidation).excludingCurrentYear
-    )
-  ) {
-    return yearInPast.msg || (i18n.yearInPast as string);
-  }
-
-  if (dateInPast && !validateDateInPast(value)) {
-    return dateInPast.msg || (i18n.dateInPast as string);
   }
 };

@@ -37,7 +37,7 @@ describe("validateEmail", () => {
   test.each(cases)(
     "Should return $valid if value is '$value'",
     ({ value, valid }) => {
-      expect(validateEmail(value)).toBe(valid);
+      expect(validateEmail({ value })).toBe(valid);
     }
   );
 });
@@ -67,7 +67,7 @@ describe("validateOnlyDecimal", () => {
     ({ value, exceptions, valid }) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      expect(validateOnlyDecimal(value, exceptions)).toBe(valid);
+      expect(validateOnlyDecimal({ value, exceptions })).toBe(valid);
     }
   );
 });
@@ -87,7 +87,7 @@ describe("validateIsDate", () => {
   test.each(cases)(
     "Should return $valid if value is '$value'",
     ({ value, valid }) => {
-      expect(validateIsDate(value)).toBe(valid);
+      expect(validateIsDate({ value })).toBe(valid);
     }
   );
 });
@@ -109,7 +109,7 @@ describe("validateNoZero", () => {
     ({ value, valid }) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      expect(validateNoZero(value)).toBe(valid);
+      expect(validateNoZero({ value })).toBe(valid);
     }
   );
 });
@@ -133,7 +133,7 @@ describe("validateFloat", () => {
     ({ value, valid }) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      expect(validateFloat(value)).toBe(valid);
+      expect(validateFloat({ value })).toBe(valid);
     }
   );
 });
@@ -157,7 +157,9 @@ describe("validateMaxLengthFloat", () => {
     ({ value, valid, preComma, postComma }) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      expect(validateMaxLengthFloat(value, preComma, postComma)).toBe(valid);
+      expect(validateMaxLengthFloat({ value, preComma, postComma })).toBe(
+        valid
+      );
     }
   );
 });
@@ -178,7 +180,7 @@ describe("validateMaxLength", () => {
   test.each(cases)(
     "Should return $valid if maxLength is $maxLength and value is '$value'",
     ({ value, maxLength, exceptions, valid }) => {
-      expect(validateMaxLength(value, maxLength, exceptions)).toBe(valid);
+      expect(validateMaxLength({ value, maxLength, exceptions })).toBe(valid);
     }
   );
 });
@@ -199,7 +201,7 @@ describe("validateMinLength", () => {
   test.each(cases)(
     "Should return $valid if minLength is $minLength and value is '$value'",
     ({ value, minLength, exceptions, valid }) => {
-      expect(validateMinLength(value, minLength, exceptions)).toBe(valid);
+      expect(validateMinLength({ value, minLength, exceptions })).toBe(valid);
     }
   );
 });
@@ -218,7 +220,7 @@ describe("validateMinValue", () => {
   test.each(cases)(
     "Should return $valid if minValue is minValue and value is '$value'",
     ({ value, valid, minValue }) => {
-      expect(validateMinValue(value, minValue)).toBe(valid);
+      expect(validateMinValue({ value, minValue })).toBe(valid);
     }
   );
 });
@@ -233,7 +235,7 @@ describe("validateRequired", () => {
   test.each(cases)(
     "Should return $valid if value is '$value'",
     ({ value, valid }) => {
-      expect(validateRequired(value)).toBe(valid);
+      expect(validateRequired({ value })).toBe(valid);
     }
   );
 });
@@ -248,7 +250,7 @@ describe("validateRequiredIf", () => {
   test.each(cases)(
     "Should return $valid if value is '$value' and dependentValue is '$dependentValue'",
     ({ value, dependentValue, valid }) => {
-      expect(validateRequiredIf(value, dependentValue)).toBe(valid);
+      expect(validateRequiredIf({ value, dependentValue })).toBe(valid);
     }
   );
 });
@@ -272,7 +274,7 @@ describe("validateRequiredIfCondition", () => {
       };
       condition.mockClear();
 
-      expect(validateRequiredIfCondition(value, condition, allData)).toBe(
+      expect(validateRequiredIfCondition({ value, condition, allData })).toBe(
         valid
       );
 
@@ -297,7 +299,7 @@ describe("validateEitherOr", () => {
   test.each(cases)(
     "Should return $valid if value is '$value' and dependentValue is '$dependentValue'",
     ({ value, dependentValue, valid }) => {
-      expect(validateEitherOr(value, dependentValue)).toBe(valid);
+      expect(validateEitherOr({ value, dependentValue })).toBe(valid);
     }
   );
 });
@@ -316,7 +318,7 @@ describe("validateForbiddenIf", () => {
   test.each(cases)(
     "Should return $valid if value is '$value' and dependentValue is '$dependentValue'",
     ({ value, dependentValue, valid }) => {
-      expect(validateForbiddenIf(value, dependentValue)).toBe(valid);
+      expect(validateForbiddenIf({ value, dependentValue })).toBe(valid);
     }
   );
 });
@@ -336,7 +338,7 @@ describe("validateYearAfterBaujahr", () => {
       const allData = grundModelFactory
         .gebaeudeBaujahr({ baujahr: baujahr })
         .build();
-      expect(validateYearAfterBaujahr(value, allData)).toBe(valid);
+      expect(validateYearAfterBaujahr({ value, allData })).toBe(valid);
     }
   );
 });
@@ -355,7 +357,7 @@ describe("validateRequiredIfvalidateBiggerThan", () => {
   test.each(cases)(
     "Should return $valid if value is '$value' and dependentValue is '$dependentValue'",
     ({ value, dependentValue, valid }) => {
-      expect(validateBiggerThan(value, dependentValue)).toBe(valid);
+      expect(validateBiggerThan({ value, dependentValue })).toBe(valid);
     }
   );
 });
@@ -378,7 +380,7 @@ describe("validateHausnummer", () => {
   test.each(cases)(
     "Should return $valid if value is '$value'",
     ({ value, valid }) => {
-      expect(validateHausnummer(value)).toBe(valid);
+      expect(validateHausnummer({ value })).toBe(valid);
     }
   );
 });
@@ -402,7 +404,7 @@ describe("validateGrundbuchblattnummer", () => {
   test.each(cases)(
     "Should return $valid if value is '$value'",
     ({ value, valid }) => {
-      expect(validateGrundbuchblattnummer(value)).toBe(valid);
+      expect(validateGrundbuchblattnummer({ value })).toBe(valid);
     }
   );
 });
@@ -432,7 +434,9 @@ describe("validateFlurstueckGroesse", () => {
   test.each(cases)(
     "Should return $valid if values are '$valueHa', '$valueA', and '$valueQm'",
     ({ valueHa, valueA, valueQm, valid }) => {
-      expect(validateFlurstueckGroesse(valueHa, valueA, valueQm)).toBe(valid);
+      expect(validateFlurstueckGroesse({ valueHa, valueA, valueQm })).toBe(
+        valid
+      );
     }
   );
 });
@@ -452,7 +456,7 @@ describe("validateYearInFuture", () => {
       const actualNowImplementation = Date.now;
       try {
         Date.now = jest.fn(() => new Date(currentDate).valueOf());
-        expect(validateYearInFuture(value)).toBe(valid);
+        expect(validateYearInFuture({ value })).toBe(valid);
       } finally {
         Date.now = actualNowImplementation;
       }
@@ -524,7 +528,7 @@ describe("validateYearInPast", () => {
       const actualNowImplementation = Date.now;
       try {
         Date.now = jest.fn(() => new Date(currentDate).valueOf());
-        expect(validateYearInPast(value, excludingCurrentYear)).toBe(valid);
+        expect(validateYearInPast({ value, excludingCurrentYear })).toBe(valid);
       } finally {
         Date.now = actualNowImplementation;
       }
@@ -572,7 +576,7 @@ describe("validateDateInPast", () => {
       const actualNowImplementation = Date.now;
       try {
         Date.now = jest.fn(() => new Date(currentDate).valueOf());
-        expect(validateDateInPast(value)).toBe(valid);
+        expect(validateDateInPast({ value })).toBe(valid);
       } finally {
         Date.now = actualNowImplementation;
       }

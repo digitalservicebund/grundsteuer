@@ -47,17 +47,20 @@ export const action: ActionFunction = async ({ request }) => {
 
   const errors = {
     email:
-      (!validateRequired(normalizedEmail) && "errors.required") ||
-      (!validateEmail(normalizedEmail) && "errors.email.wrongFormat") ||
+      (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
+      (!validateEmail({ value: normalizedEmail }) &&
+        "errors.email.wrongFormat") ||
       ((await userExists(normalizedEmail)) && "errors.email.alreadyExists"),
 
     emailRepeated:
       normalizedEmail !== normalizedEmailRepeated && "errors.email.notMatching",
 
     password:
-      (!validateRequired(normalizedEmail) && "errors.required") ||
-      (!validateMinLength(password, 8) && "errors.password.tooShort") ||
-      (!validateMaxLength(password, 64) && "errors.password.tooLong"),
+      (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
+      (!validateMinLength({ value: password, minLength: 8 }) &&
+        "errors.password.tooShort") ||
+      (!validateMaxLength({ value: password, maxLength: 64 }) &&
+        "errors.password.tooLong"),
 
     passwordRepeated:
       password !== passwordRepeated && "errors.password.notMatching",
