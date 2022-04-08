@@ -12,10 +12,18 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(uuid())
-  email         String   @unique
+  id            String          @id @default(uuid())
+  email         String          @unique
   password      String
-  identified    Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  fscRequestId  String?
+  identified    Boolean         @default(false)
+  createdAt     DateTime        @default(now())
+  fscRequest    FscRequest[]
+}
+
+model FscRequest {
+  id            String      @id @default(uuid())
+  requestId     String
+  createdAt     DateTime    @default(now())
+  userId        String
+  User          User  @relation(fields: [userId], references: [id])
 }
