@@ -90,7 +90,7 @@ export default function FaqAccordion() {
           </p>
 
           <p>
-            Für Eigentümer:innen aus Baden-Württemberg, Bayern, Bremen, Hamburg,
+            Für Eigentümer:innen aus Baden-Württemberg, Bayern, Hessen, Hamburg,
             Niedersachsen ist „Grundsteuererklärung für Privateigentum“ leider{" "}
             <strong>nicht</strong> geeignet. Für diese Länder gibt es ELSTER.
           </p>
@@ -142,7 +142,7 @@ export default function FaqAccordion() {
             mehrere Grundstücke in den Bundesmodell-Ländern haben, können Sie
             „Grundsteuererklärung für Privateigentum“ nutzen, indem Sie die
             Erklärungen nacheinander abgeben. Wenn eins von Ihren Grundstücken
-            in Baden-Württemberg, Bayern, Bremen, Hamburg oder Niedersachsen
+            in Baden-Württemberg, Bayern, Hessen, Hamburg oder Niedersachsen
             liegt, müssen Sie die Erklärung für dieses Grundstück über ELSTER
             abgeben.
           </p>
