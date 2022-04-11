@@ -1,4 +1,5 @@
 import invariant from "tiny-invariant";
+import { ericaResponseDto } from "~/erica/utils";
 
 type ericaRequestDto = {
   clientIdentifier: string;
@@ -44,13 +45,6 @@ const postToErica = async (endpoint: string, dataToSend: object) => {
   }
 };
 
-type ericaResponseDto = {
-  processStatus: "Processing" | "Success" | "Failure";
-  result: object | null;
-  errorCode: string | null;
-  errorMessage: string | null;
-};
-
 const getFromErica = async (endpoint: string) => {
   invariant(
     process.env.ERICA_URL !== undefined,
@@ -65,5 +59,4 @@ const getFromErica = async (endpoint: string) => {
   }
 };
 
-export type { ericaResponseDto };
 export { postToErica, getFromErica };
