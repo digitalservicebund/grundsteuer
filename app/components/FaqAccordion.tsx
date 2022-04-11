@@ -1,6 +1,4 @@
-import * as Accordion from "@radix-ui/react-accordion";
-import RemoveIcon from "~/components/icons/mui/Remove";
-import AddIcon from "~/components/icons/mui/Add";
+import Accordion from "~/components/Accordion";
 
 export default function FaqAccordion() {
   const items = [
@@ -237,36 +235,5 @@ export default function FaqAccordion() {
     },
   ];
 
-  return (
-    <div className="">
-      <Accordion.Root
-        type="single"
-        collapsible
-        className="bg-white border-b-2 border-b-blue-800"
-      >
-        {items.map((item, index) => (
-          <Accordion.Item
-            value={`faq-${index + 1}`}
-            key={index}
-            className="border-t-2 border-t-blue-800"
-          >
-            <Accordion.Header className="accordion-header">
-              <Accordion.Trigger className="w-full p-24 flex items-center justify-between hover:bg-blue-200 focus:bg-blue-200 focus:outline focus:outline-4 focus:outline-blue-800 focus-visible:outline focus-visible:outline-4 focus-visible:outline-blue-800">
-                <div className="pr-10 font-bold text-blue-800 text-left text-16 leading-22 md:text-18 md:leading-24">
-                  {item.header}
-                </div>
-                <AddIcon className="w-24 h-24 flex-shrink-0 fill-blue-800 accordion-open-icon" />
-                <RemoveIcon className="w-24 h-24 flex-shrink-0 fill-blue-800 accordion-close-icon" />
-              </Accordion.Trigger>
-            </Accordion.Header>
-            <Accordion.Content className="overflow-hidden accordion-content">
-              <div className="text-18 p-24 pr-48 md:pr-64 md:pb-64">
-                {item.content}
-              </div>
-            </Accordion.Content>
-          </Accordion.Item>
-        ))}
-      </Accordion.Root>
-    </div>
-  );
+  return <Accordion {...{ items, boldAppearance: true }} />;
 }
