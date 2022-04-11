@@ -1,9 +1,11 @@
 import { db } from "~/db/db.server";
 import bcrypt from "bcryptjs";
+import { FscRequest, User as PrismaUser } from "@prisma/client";
+
+export type User = PrismaUser & { fscRequest: FscRequest[] };
 
 export const createUser = async (email: string, password: string) => {
   const hash = bcrypt.hashSync(password, 10);
-
   try {
     await db.user.create({
       data: {
@@ -18,13 +20,36 @@ export const createUser = async (email: string, password: string) => {
 };
 
 export const userExists = async (email: string) => {
-  try {
-    const user = await db.user.findFirst({
-      where: { email: email },
-    });
-    return !!user;
-  } catch (e) {
-    console.error(e);
-    throw new Error("Internal server error.");
+  const user = await db.user.findFirst({
+    where: { email: email },
+  });
+  return !!user;
+};
+
+export const findUserByEmail = async (email: string): Promise<User | null> => {
+  return db.user.findUnique({
+    where: {
+      email: email,
+    },
+    include: {
+      fscRequest: true,
+    },
+  });
+};
+
+export const saveFscRequest = async (email: string, requestId: string) => {
+  const user = await findUserByEmail(email);
+  if (!user) {
+    throw new Error("User not found.");
   }
+  if (user.fscRequest.length > 0) {
+    throw new Error("An FSC request has already been stored for the user.");
+  }
+
+  await db.fscRequest.create({
+    data: {
+      requestId: requestId,
+      User: { connect: { email: email } },
+    },
+  });
 };
