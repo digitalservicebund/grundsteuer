@@ -1,7 +1,7 @@
 import { Authenticator } from "remix-auth";
 import { sessionStorage } from "./session.server";
 import { FormStrategy } from "remix-auth-form";
-import { db } from "~/db/db.server";
+import { db } from "~/db.server";
 import bcrypt from "bcryptjs";
 
 export type SessionUser = {

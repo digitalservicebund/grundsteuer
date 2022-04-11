@@ -1,4 +1,4 @@
-import { db } from "~/db/db.server";
+import { db } from "~/db.server";
 import bcrypt from "bcryptjs";
 import { FscRequest, User as PrismaUser } from "@prisma/client";
 

@@ -1,5 +1,5 @@
 import cron from "node-cron";
-import { db } from "~/db/db.server";
+import { db } from "~/db.server";
 
 const scheduleFscCleanup = (cronExpression: string) => {
   console.info(
