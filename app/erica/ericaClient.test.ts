@@ -65,6 +65,27 @@ describe("postToErica", () => {
         })
       );
     });
+
+    it("should throw an error if receives a 422 from endpoint", async () => {
+      jest.spyOn(global, "fetch").mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({
+            status: 422,
+          })
+        ) as jest.Mock
+      );
+      await expect(postToErica("someEndpoint", {})).rejects.toThrow();
+    });
+    it("should throw an error if receives a 500 from endpoint", async () => {
+      jest.spyOn(global, "fetch").mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({
+            status: 500,
+          })
+        ) as jest.Mock
+      );
+      await expect(postToErica("someEndpoint", {})).rejects.toThrow();
+    });
   });
 });
 

@@ -29,8 +29,18 @@ const postToErica = async (endpoint: string, dataToSend: object) => {
     body: JSON.stringify(ericaRequestData),
   });
 
-  if (response.status == 201) {
+  if (
+    response.status == 201 &&
+    response.headers.get("location") &&
+    response.headers.get("location") !== "null"
+  ) {
     return response.headers.get("location");
+  } else if (response.status == 201) {
+    throw Error("Erica responded without location parameter");
+  } else if (response.status == 422) {
+    throw Error("Erica responded with error for wrong format");
+  } else {
+    throw Error(`Erica responded with ${response.status}`);
   }
 };
 
@@ -55,4 +65,5 @@ const getFromErica = async (endpoint: string) => {
   }
 };
 
+export type { ericaResponseDto };
 export { postToErica, getFromErica };
