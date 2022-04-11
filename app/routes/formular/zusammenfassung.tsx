@@ -73,6 +73,52 @@ const resolveArea = (value: string | undefined) => {
   return "";
 };
 
+const resolveGrundstueckTyp = (value: string | undefined) => {
+  switch (value) {
+    case "einfamilienhaus":
+      return "Einfamilienhaus";
+    case "zweifamilienhaus":
+      return "Zweifamilienhaus";
+    case "wohnungseigentum":
+      return "Wohnungseigentum";
+    case "baureif":
+      return "Baureif";
+    case "abweichendeEntwicklung":
+      return "Abweichende Entwicklung";
+    default:
+      return "";
+  }
+};
+
+const resolveBundesland = (value: string | undefined) => {
+  switch (value) {
+    case "BE":
+      return "Berlin";
+    case "BB":
+      return "Brandenburg";
+    case "HB":
+      return "Bremen";
+    case "MV":
+      return "Mecklenburg-Vorpommern";
+    case "NW":
+      return "Nordrhein-Westfalen";
+    case "RP":
+      return "Rheinland-Pfalz";
+    case "SL":
+      return "Saarland";
+    case "SN":
+      return "Sachsen";
+    case "ST":
+      return "Sachsen-Anhalt";
+    case "SH":
+      return "Schleswig-Holstein";
+    case "TH":
+      return "Thüringen";
+    default:
+      return "";
+  }
+};
+
 const item = (
   label: string,
   value: string | undefined,
@@ -107,6 +153,79 @@ export default function Zusammenfassung() {
           <h2 className="font-bold text-2xl mb-3">Grundstück</h2>
           <ul>
             {item(
+              "Grundstücksart",
+              allData.grundstueck.typ?.typ,
+              resolveGrundstueckTyp
+            )}
+            {item("Straße", allData.grundstueck.adresse?.strasse)}
+            {item("Hausnummer", allData.grundstueck.adresse?.hausnummer)}
+            {item("Zusatzangaben", allData.grundstueck.adresse?.zusatzangaben)}
+            {item("PLZ", allData.grundstueck.adresse?.plz)}
+            {item("Ort", allData.grundstueck.adresse?.ort)}
+            {item(
+              "Bundesland",
+              allData.grundstueck.adresse?.bundesland,
+              resolveBundesland
+            )}
+            {item(
+              "Steuernummer/Aktenzeichen",
+              allData.grundstueck.steuernummer?.steuernummer
+            )}
+            {item(
+              "Abweichende Entwicklung",
+              allData.grundstueck.abweichendeEntwicklung?.zustand
+            )}
+            {item(
+              "Innerhalb einer Gemeinde",
+              allData.grundstueck.gemeinde?.innerhalbEinerGemeinde,
+              resolveJaNein
+            )}
+            {item("Anzahl Flurstücke", allData.grundstueck.anzahl?.anzahl)}
+            {allData.grundstueck.flurstueck && (
+              <>
+                <h3 className="font-bold text-xl mb-1">Flurstücke</h3>
+                {allData.grundstueck.flurstueck?.map((flurstueck, index) => {
+                  const flurstueckKey = "flurstueck-" + index;
+                  return (
+                    <div
+                      className="bg-gray-100 mb-3"
+                      key={flurstueckKey}
+                      id={flurstueckKey}
+                    >
+                      <h4 className="font-bold">Flurstück {index + 1}</h4>
+                      <ul>
+                        {item(
+                          "Grundbuchblattnummer",
+                          flurstueck.angaben?.grundbuchblattnummer
+                        )}
+                        {item("Gemarkung", flurstueck.angaben?.gemarkung)}
+                        {item("Flur", flurstueck.flur?.flur)}
+                        {item(
+                          "Flurstück Zähler",
+                          flurstueck.flur?.flurstueckZaehler
+                        )}
+                        {item(
+                          "Flurstück Nenner",
+                          flurstueck.flur?.flurstueckNenner
+                        )}
+                        {item(
+                          "Wirtsch. Einheit Zähler",
+                          flurstueck.flur?.wirtschaftlicheEinheitZaehler
+                        )}
+                        {item(
+                          "Wirtsch. Einheit Nenner",
+                          flurstueck.flur?.wirtschaftlicheEinheitNenner
+                        )}
+                        {item("Größe ha", flurstueck.groesse?.groesseHa)}
+                        {item("Größe a", flurstueck.groesse?.groesseA)}
+                        {item("Größe m²", flurstueck.groesse?.groesseQm)}
+                      </ul>
+                    </div>
+                  );
+                })}
+              </>
+            )}
+            {item(
               "Bodenrichtwert",
               allData.grundstueck.bodenrichtwert?.bodenrichtwert
             )}
@@ -129,39 +248,31 @@ export default function Zusammenfassung() {
               allData.gebaeude.ab1949?.isAb1949,
               resolveJaNein
             )}
-
-            {allData.gebaeude.ab1949?.isAb1949 === "true" &&
-              item("Baujahr", allData.gebaeude.baujahr?.baujahr)}
-
+            {item("Baujahr", allData.gebaeude.baujahr?.baujahr)}
             {item(
               "Kernsaniert",
               allData.gebaeude.kernsaniert?.isKernsaniert,
               resolveJaNein
             )}
-
             {item(
               "Jahr der Kernsanierung",
               allData.gebaeude.kernsanierungsjahr?.kernsanierungsjahr
             )}
-
             {item(
               "Abbruchverpflichtung liegt vor",
               allData.gebaeude.abbruchverpflichtung?.hasAbbruchverpflichtung,
               resolveJaNein
             )}
-
             {item(
               "Jahr der Abbruchverpflichtung",
               allData.gebaeude.abbruchverpflichtungsjahr
                 ?.abbruchverpflichtungsjahr
             )}
-
             {item(
               "Wohnfläche",
               allData.gebaeude.wohnflaeche?.wohnflaeche,
               resolveArea
             )}
-
             {item(
               "Wohnung 1 Wohnfläche",
               allData.gebaeude.wohnflaechen?.wohnflaeche1,
@@ -172,25 +283,21 @@ export default function Zusammenfassung() {
               allData.gebaeude.wohnflaechen?.wohnflaeche2,
               resolveArea
             )}
-
             {item(
               "Weitere Wohnräume",
               allData.gebaeude.weitereWohnraeume?.hasWeitereWohnraeume,
               resolveJaNein
             )}
-
             {item(
               "Anzahl der weiteren Wohnräume",
               allData.gebaeude.weitereWohnraeumeDetails?.anzahl
             )}
-
             {item(
               "Gesamtfläche der weiteren Wohnräume",
               allData.gebaeude.weitereWohnraeumeDetails?.flaeche,
               resolveArea
             )}
-
-            {allData.gebaeude.garagenAnzahl?.anzahlGaragen
+            {allData.gebaeude.garagen?.hasGaragen == "true"
               ? item(
                   "Anzahl Garagen",
                   allData.gebaeude.garagenAnzahl?.anzahlGaragen
@@ -204,7 +311,6 @@ export default function Zusammenfassung() {
           <h2 className="font-bold text-2xl mb-3">Eigentümer:innen</h2>
           <ul>
             {item("Anzahl", allData.eigentuemer.anzahl?.anzahl)}
-
             {item(
               "Verheiratet",
               allData?.eigentuemer?.verheiratet?.areVerheiratet,
@@ -215,7 +321,7 @@ export default function Zusammenfassung() {
             <>
               <h3 className="font-bold text-xl mb-1">Personen</h3>
 
-              {allData.eigentuemer.person.map((person: any, index: number) => {
+              {allData.eigentuemer.person.map((person, index) => {
                 const personKey = "person-" + index;
                 return (
                   <div
@@ -297,6 +403,53 @@ export default function Zusammenfassung() {
               })}
             </>
           )}
+          <ul>
+            {item(
+              "Bruchteilsgemeinschaft Angaben übernehmen",
+              allData.eigentuemer.bruchteilsgemeinschaft?.predefinedData,
+              resolveJaNein
+            )}
+            {allData.eigentuemer.bruchteilsgemeinschaftangaben && (
+              <div
+                className="bg-gray-300 mx-4"
+                id={"empfangsbevollmaechtigter"}
+              >
+                <h5 className="font-bold">Bruchteilsgemeinschaft Angaben</h5>
+                <ul>
+                  {item(
+                    "Name",
+                    allData.eigentuemer.bruchteilsgemeinschaftangaben?.angaben
+                      ?.name
+                  )}
+                  {item(
+                    "Straße",
+                    allData.eigentuemer.bruchteilsgemeinschaftangaben?.angaben
+                      ?.strasse
+                  )}
+                  {item(
+                    "Hausnummer",
+                    allData.eigentuemer.bruchteilsgemeinschaftangaben?.angaben
+                      ?.hausnummer
+                  )}
+                  {item(
+                    "Postfach",
+                    allData.eigentuemer.bruchteilsgemeinschaftangaben?.angaben
+                      ?.postfach
+                  )}
+                  {item(
+                    "PLZ",
+                    allData.eigentuemer.bruchteilsgemeinschaftangaben?.angaben
+                      ?.plz
+                  )}
+                  {item(
+                    "Ort",
+                    allData.eigentuemer.bruchteilsgemeinschaftangaben?.angaben
+                      ?.ort
+                  )}
+                </ul>
+              </div>
+            )}
+          </ul>
           <ul>
             {item(
               "Empfangsvollmacht",
