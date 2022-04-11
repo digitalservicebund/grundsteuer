@@ -1,12 +1,10 @@
-import {
-  createDateStringForErica,
-  extractResultFromEricaResponse,
-  isEricaRequestProcessed,
-} from "~/erica/utils";
+import { ericaUtils } from "~/erica/utils";
 
 describe("createDateStringForErica", () => {
   it("should return correct format", () => {
-    expect(createDateStringForErica("01.10.2021")).toEqual("2021-10-01");
+    expect(ericaUtils.createDateStringForErica("01.10.2021")).toEqual(
+      "2021-10-01"
+    );
   });
 });
 
@@ -17,7 +15,7 @@ describe("extractResultFromEricaResponse", () => {
       taxIdNumber: "007",
       elsterRequestId: "r2-d2",
     };
-    const result = extractResultFromEricaResponse({
+    const result = ericaUtils.extractResultFromEricaResponse({
       processStatus: "Success",
       result: expectedResult,
       errorCode: null,
@@ -27,7 +25,7 @@ describe("extractResultFromEricaResponse", () => {
   });
 
   it("should return error information if status is Failure", () => {
-    const result = extractResultFromEricaResponse({
+    const result = ericaUtils.extractResultFromEricaResponse({
       processStatus: "Failure",
       result: null,
       errorCode: "someErrorOccurred",
@@ -43,7 +41,7 @@ describe("extractResultFromEricaResponse", () => {
 describe("isEricaRequestProcessed", () => {
   it("should return true if status is Success", () => {
     expect(
-      isEricaRequestProcessed({
+      ericaUtils.isEricaRequestProcessed({
         processStatus: "Success",
         result: null,
         errorCode: null,
@@ -54,7 +52,7 @@ describe("isEricaRequestProcessed", () => {
 
   it("should return true if status is Failure", () => {
     expect(
-      isEricaRequestProcessed({
+      ericaUtils.isEricaRequestProcessed({
         processStatus: "Success",
         result: null,
         errorCode: null,
@@ -65,7 +63,7 @@ describe("isEricaRequestProcessed", () => {
 
   it("should return false if status is Processing", () => {
     expect(
-      isEricaRequestProcessed({
+      ericaUtils.isEricaRequestProcessed({
         processStatus: "Processing",
         result: null,
         errorCode: null,

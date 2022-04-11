@@ -1,9 +1,5 @@
 import { getFromErica, postToErica } from "~/erica/ericaClient";
-import {
-  createDateStringForErica,
-  ericaResponseDto,
-  extractResultFromEricaResponse,
-} from "~/erica/utils";
+import { ericaUtils, ericaResponseDto } from "~/erica/utils";
 import invariant from "tiny-invariant";
 
 const createPayloadForNewFreischaltCode = (
@@ -12,11 +8,11 @@ const createPayloadForNewFreischaltCode = (
 ) => {
   return {
     taxIdNumber: taxIdNumber,
-    dateOfBirth: createDateStringForErica(dateOfBirth),
+    dateOfBirth: ericaUtils.createDateStringForErica(dateOfBirth),
   };
 };
 
-const requestNewFreischaltCode = async (
+export const requestNewFreischaltCode = async (
   taxIdNumber: string,
   dateOfBirth: string
 ) => {
@@ -25,21 +21,15 @@ const requestNewFreischaltCode = async (
   return result?.split("/").reverse()[0];
 };
 
-const checkNewFreischaltCodeRequest = async (requestId: string) => {
+export const checkNewFreischaltCodeRequest = async (requestId: string) => {
   return getFromErica(`v2/fsc/request/${requestId}`);
 };
 
-const extractAntragsId = (requestData: ericaResponseDto): string => {
-  const result = extractResultFromEricaResponse(requestData);
+export const extractAntragsId = (requestData: ericaResponseDto): string => {
+  const result = ericaUtils.extractResultFromEricaResponse(requestData);
   invariant(
     "elsterRequestId" in result,
     "Extracted result from erica response has no ELSTER AntragsId"
   );
   return result.elsterRequestId;
-};
-
-export {
-  requestNewFreischaltCode,
-  checkNewFreischaltCodeRequest,
-  extractAntragsId,
 };

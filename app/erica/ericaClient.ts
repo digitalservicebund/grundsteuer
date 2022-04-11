@@ -6,14 +6,14 @@ type ericaRequestDto = {
   payload: object;
 };
 
-const postToErica = async (endpoint: string, dataToSend: object) => {
+export const postToErica = async (endpoint: string, dataToSend: object) => {
   invariant(
-    process.env.ERICA_URL !== undefined,
+    typeof process.env.ERICA_URL !== "undefined",
     "environment variable ERICA_URL is not set"
   );
 
   invariant(
-    process.env.ERICA_CLIENT_IDENTIFIER !== undefined,
+    typeof process.env.ERICA_CLIENT_IDENTIFIER !== "undefined",
     "environment variable ERICA_CLIENT_IDENTIFIER is not set"
   );
 
@@ -45,7 +45,7 @@ const postToErica = async (endpoint: string, dataToSend: object) => {
   }
 };
 
-const getFromErica = async (endpoint: string) => {
+export const getFromErica = async (endpoint: string) => {
   invariant(
     process.env.ERICA_URL !== undefined,
     "environment variable ERICA_URL is not set"
@@ -58,5 +58,3 @@ const getFromErica = async (endpoint: string) => {
     return ericaResponse;
   }
 };
-
-export { postToErica, getFromErica };

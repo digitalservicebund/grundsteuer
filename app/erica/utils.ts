@@ -20,7 +20,6 @@ const createDateStringForErica = (dateStringInGermanDateFormat: string) => {
   const splitDate = dateStringInGermanDateFormat.split(".");
   return `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`;
 };
-
 const extractResultFromEricaResponse = (
   ericaResponse: ericaResponseDto
 ): ericaFreischaltcodeRequestResponseData | ericaErrorResponseData | object => {
@@ -45,7 +44,7 @@ export type {
   ericaFreischaltcodeRequestResponseData,
   ericaErrorResponseData,
 };
-export {
+export const ericaUtils = {
   createDateStringForErica,
   isEricaRequestProcessed,
   extractResultFromEricaResponse,
