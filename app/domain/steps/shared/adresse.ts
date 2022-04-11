@@ -70,6 +70,10 @@ export const stepDefinition: StepDefinition = {
     },
     telefonnummer: {
       validations: {
+        onlyDecimal: {
+          exceptions: ["+", "(", ")", " ", "-", ".", "/", "\\"],
+          msg: "Eine Telefonnummer darf nur aus Ziffern und bestimmten Sonderzeichen bestehen.",
+        },
         maxLength: {
           maxLength: 16,
           msg: "Die Angabe darf maximal 16 Zeichen beinhalten",
