@@ -14,6 +14,7 @@ export { default as LogoutButton } from "./LogoutButton";
 export { default as MaskedInput } from "./form/MaskedInput";
 export { default as RadioGroup } from "./form/RadioGroup";
 export { default as Select } from "./form/Select";
+export { default as Spinner } from "./Spinner";
 export { default as FormSidebarNavigation } from "./FormSidebarNavigation";
 export { default as SimplePageLayout } from "./SimplePageLayout";
 export { default as StepFormField } from "./form/StepFormField";
