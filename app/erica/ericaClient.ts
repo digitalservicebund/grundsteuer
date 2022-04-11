@@ -1,5 +1,5 @@
 import invariant from "tiny-invariant";
-import { ericaResponseDto } from "~/erica/utils";
+import { EricaResponse } from "~/erica/utils";
 
 type ericaRequestDto = {
   clientIdentifier: string;
@@ -54,7 +54,7 @@ export const getFromErica = async (endpoint: string) => {
   const response = await fetch(`${process.env.ERICA_URL}/${endpoint}`);
 
   if (response.status == 200) {
-    const ericaResponse: ericaResponseDto = await response.json();
+    const ericaResponse: EricaResponse = await response.json();
     return ericaResponse;
   }
 };

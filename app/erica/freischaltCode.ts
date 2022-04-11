@@ -1,5 +1,5 @@
 import { getFromErica, postToErica } from "~/erica/ericaClient";
-import { ericaUtils, ericaResponseDto } from "~/erica/utils";
+import { ericaUtils, EricaResponse } from "~/erica/utils";
 import invariant from "tiny-invariant";
 
 const createPayloadForNewFreischaltCode = (
@@ -25,7 +25,7 @@ export const checkNewFreischaltCodeRequest = async (requestId: string) => {
   return getFromErica(`v2/fsc/request/${requestId}`);
 };
 
-export const extractAntragsId = (ericaResponse: ericaResponseDto): string => {
+export const extractAntragsId = (ericaResponse: EricaResponse): string => {
   const result = ericaUtils.extractResultFromEricaResponse(ericaResponse);
   invariant(
     !("errorCode" in result),

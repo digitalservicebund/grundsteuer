@@ -1,17 +1,17 @@
-type ericaResponseDto = {
+type EricaResponse = {
   processStatus: "Processing" | "Success" | "Failure";
-  result: ericaFreischaltcodeRequestResponseData | null;
+  result: EricaFreischaltcodeRequestResponseData | null;
   errorCode: string | null;
   errorMessage: string | null;
 };
 
-type ericaFreischaltcodeRequestResponseData = {
+type EricaFreischaltcodeRequestResponseData = {
   transferTicket: string;
   taxIdNumber: string;
   elsterRequestId: string;
 };
 
-type ericaErrorResponseData = {
+type EricaErrorResponseData = {
   errorCode: string;
   errorMessage: string;
 };
@@ -21,8 +21,8 @@ const createDateStringForErica = (dateStringInGermanDateFormat: string) => {
   return `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`;
 };
 const extractResultFromEricaResponse = (
-  ericaResponse: ericaResponseDto
-): ericaFreischaltcodeRequestResponseData | ericaErrorResponseData | object => {
+  ericaResponse: EricaResponse
+): EricaFreischaltcodeRequestResponseData | EricaErrorResponseData | object => {
   if (ericaResponse.processStatus === "Success") {
     return ericaResponse.result ? ericaResponse.result : {};
   }
@@ -33,16 +33,16 @@ const extractResultFromEricaResponse = (
   };
 };
 
-const isEricaRequestProcessed = (ericaResponse: ericaResponseDto) => {
+const isEricaRequestProcessed = (ericaResponse: EricaResponse) => {
   return (
     ericaResponse.processStatus === "Success" ||
     ericaResponse.processStatus === "Failure"
   );
 };
 export type {
-  ericaResponseDto,
-  ericaFreischaltcodeRequestResponseData,
-  ericaErrorResponseData,
+  EricaResponse,
+  EricaFreischaltcodeRequestResponseData,
+  EricaErrorResponseData,
 };
 export const ericaUtils = {
   createDateStringForErica,

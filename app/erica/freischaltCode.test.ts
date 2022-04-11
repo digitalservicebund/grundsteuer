@@ -3,7 +3,7 @@ import {
   extractAntragsId,
   requestNewFreischaltCode,
 } from "~/erica/freischaltCode";
-import { ericaResponseDto } from "~/erica/utils";
+import { EricaResponse } from "~/erica/utils";
 
 describe("requestNewFreischaltCode", () => {
   it("should return requestId from postToEricaResponse", async () => {
@@ -46,7 +46,7 @@ describe("requestNewFreischaltCode", () => {
 describe("extractAntragsId", () => {
   it("should return AntragsId if successfull ericaFreischaltCodeResponse", () => {
     const expectedAntragsId = "123456789";
-    const ericaResponseData: ericaResponseDto = {
+    const ericaResponseData: EricaResponse = {
       processStatus: "Success",
       result: {
         transferTicket: "t1r2a3n4s5f6e7r",
