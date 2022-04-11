@@ -1,5 +1,9 @@
 import * as ericaClientModule from "./ericaClient";
-import { requestNewFreischaltCode } from "~/erica/freischaltCode";
+import {
+  extractAntragsId,
+  requestNewFreischaltCode,
+} from "~/erica/freischaltCode";
+import { ericaResponseDto } from "~/erica/utils";
 
 describe("requestNewFreischaltCode", () => {
   it("should return requestId from postToEricaResponse", async () => {
@@ -36,5 +40,25 @@ describe("requestNewFreischaltCode", () => {
     });
 
     mockPostEricaRepsone.mockClear();
+  });
+});
+
+describe("extractAntragsId", () => {
+  it("should return AntragsId if successfull ericaFreischaltCodeResponse", () => {
+    const expectedAntragsId = "123456789";
+    const ericaResponseData: ericaResponseDto = {
+      processStatus: "Success",
+      result: {
+        transferTicket: "t1r2a3n4s5f6e7r",
+        taxIdNumber: "007",
+        elsterRequestId: expectedAntragsId,
+      },
+      errorCode: null,
+      errorMessage: null,
+    };
+
+    const foundAntragsID = extractAntragsId(ericaResponseData);
+
+    expect(foundAntragsID).toEqual(expectedAntragsId);
   });
 });

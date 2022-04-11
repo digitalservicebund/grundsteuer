@@ -12,7 +12,11 @@ describe("createDateStringForErica", () => {
 
 describe("extractResultFromEricaResponse", () => {
   it("should return object of requestType if status is Success", () => {
-    const expectedResult = { requestId: "1234" };
+    const expectedResult = {
+      transferTicket: "C3PO",
+      taxIdNumber: "007",
+      elsterRequestId: "r2-d2",
+    };
     const result = extractResultFromEricaResponse({
       processStatus: "Success",
       result: expectedResult,

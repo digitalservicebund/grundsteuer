@@ -21,13 +21,16 @@ const createDateStringForErica = (dateStringInGermanDateFormat: string) => {
   return `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`;
 };
 
-const extractResultFromEricaResponse = (ericaResponse: ericaResponseDto) => {
+const extractResultFromEricaResponse = (
+  ericaResponse: ericaResponseDto
+): ericaFreischaltcodeRequestResponseData | ericaErrorResponseData | object => {
   if (ericaResponse.processStatus === "Success") {
-    return ericaResponse.result;
+    return ericaResponse.result ? ericaResponse.result : {};
   }
   return {
-    errorCode: ericaResponse.errorCode,
-    errorMessage: ericaResponse.errorMessage,
+    errorCode: ericaResponse.errorCode !== null ? ericaResponse.errorCode : "",
+    errorMessage:
+      ericaResponse.errorMessage !== null ? ericaResponse.errorMessage : "",
   };
 };
 
