@@ -117,9 +117,8 @@ export default function FaqAccordion() {
         <>
           <p>
             Ja, das dürfen Sie. „Grundsteuererklärung für Privateigentum“ ist
-            ein vereinfachtes und nutzer:innenfreundliches Formular, das die
-            Daten direkt an ELSTER über die offizielle Schnittstelle
-            übermittelt.
+            ein vereinfachtes und nutzerfreundliches Formular, das die Daten
+            direkt an ELSTER über die offizielle Schnittstelle übermittelt.
           </p>
         </>
       ),
