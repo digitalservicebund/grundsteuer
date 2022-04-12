@@ -17,13 +17,8 @@ model User {
   password      String
   identified    Boolean         @default(false)
   createdAt     DateTime        @default(now())
-  fscRequest    FscRequest[]
-}
-
-model FscRequest {
-  id            String      @id @default(uuid())
-  requestId     String
-  createdAt     DateTime    @default(now())
-  userId        String      @unique
-  User          User        @relation(fields: [userId], references: [id])
+  requestedAt   DateTime        @default(now())
+  ericaRequestId  String?
+  fscAntragsId String?
+  state String                  @default("initial")
 }
