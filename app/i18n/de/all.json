@@ -881,7 +881,21 @@
       "freitext": {
         "label": "Gibt es noch etwas, das Sie der Finanzverwaltung mitteilen wollen? (Optional)",
         "help": "Wenn Sie hier Angaben ergänzen, wird Ihre Erklärung von den Mitarbeitenden des Finanzamts bearbeitet und nicht maschinell. Machen Sie diese Eintragung nur, wenn über die Angaben im Formular hinaus weitere oder abweichende Angaben oder Sachverhalte berücksichtigt werden sollen."
+      },
+      "confirmCompleteCorrect": {
+        "label": "Hiermit bestätige ich, dass die Angaben überprüft wurden und dass sie vollständig und richtig sind."
+      },
+      "confirmDataPrivacy": {
+        "label": "Ich habe die Datenschutzerklärung inklusive der Allgemeinen Informationen zur Umsetzung der datenschutzrechtlichen Vorgaben der Artikel 12 bis 14 der Datenschutz-Grundverordnung in der Steuerverwaltung zur Kenntnis genommen und akzeptiere diese."
+      },
+      "confirmTermsOfUse": {
+        "label": "Ich habe die Nutzungsbedingungen gelesen und stimme ihnen zu."
       }
+    },
+    "specifics": {
+      "confirmationHeading": "Bestätigung und Versand an Ihre Finanzverwaltung",
+      "confirmationText": "Die Erklärung ist eine Erklärung zur Feststellung des Grundsteuerwerts im Sinne des § 228 Abs. 1 Satz 1 des Bewertungsgesetzes (BewG). Die mit der Feststellungserklärung angeforderten Daten werden aufgrund der §§ 149, 150 und 181 Absatz 2 AO sowie § 228 BewG erhoben. Die Angabe der Telefonnummer ist freiwillig. Informationen über die Verarbeitung personenbezogener Daten in der Steuerverwaltung und über Ihre Rechte nach der Datenschutz-Grundverordnung sowie über Ihre Ansprechpartner in Datenschutzfragen entnehmen Sie bitte dem allgemeinen Informationsschreiben der Finanzverwaltung. Dieses Informationsschreiben finden Sie unter www.finanzamt.de (unter der Rubrik „Datenschutz\") oder erhalten Sie bei Ihrem Finanzamt.",
+      "submitbutton": "Festtellungserklärung abgeben"
     }
   }
 }

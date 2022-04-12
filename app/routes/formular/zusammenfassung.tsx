@@ -6,16 +6,19 @@ import {
   useLoaderData,
 } from "remix";
 import { getStoredFormData } from "~/formDataStorage.server";
-import { GrundModel } from "~/domain/steps";
+import { GrundModel, GrundstueckFlurstueckFlurFields } from "~/domain/steps";
 import { pageTitle } from "~/util/pageTitle";
 import { i18Next } from "~/i18n.server";
 import { filterDataForReachablePaths, getStepData } from "~/domain/model";
-import { zusammenfassung } from "~/domain/steps/zusammenfassung";
+import {
+  zusammenfassung,
+  ZusammenfassungFields,
+} from "~/domain/steps/zusammenfassung";
 import { ActionData, I18nObject } from "~/routes/formular/_step";
-import { Button, StepFormFields } from "~/components";
-import { getSession } from "~/session.server";
+import { Button, StepFormField, StepFormFields } from "~/components";
 import Accordion, { AccordionItem } from "~/components/Accordion";
 import { authenticator } from "~/auth.server";
+import { getFieldProps } from "~/util/getFieldProps";
 export { action } from "~/routes/formular/_step";
 
 type LoaderData = {
@@ -551,22 +554,29 @@ export default function Zusammenfassung() {
     return i !== undefined;
   }) as AccordionItem[];
 
+  const fieldProps = getFieldProps(
+    stepDefinition,
+    formData,
+    i18n,
+    actionData?.errors
+  );
+
   return (
     <div className="pt-32 max-w-screen-md mx-auto w-1/2">
       <h1 className="mb-8 font-bold text-4xl">Zusammenfassung</h1>
       <Accordion items={accordionItems} />
       <div className="mt-32">
         <Form method="post" className="mb-16">
-          <StepFormFields
-            {...{
-              stepDefinition,
-              formData,
-              i18n,
-              currentState: "zusammenfassung",
-              errors: actionData?.errors,
-            }}
-          />
-          <Button id="nextButton">Erklärung abschicken</Button>
+          <StepFormField {...fieldProps[0]} />
+          <StepFormField {...fieldProps[1]} />
+
+          <h2 className="font-bold text-20 mb-8">
+            {i18n.specifics.confirmationHeading}
+          </h2>
+          <p className="mb-32">{i18n.specifics.confirmationText}</p>
+          <StepFormField {...fieldProps[2]} />
+          <StepFormField {...fieldProps[3]} />
+          <Button id="nextButton">{i18n.specifics.submitbutton}</Button>
         </Form>
       </div>
     </div>

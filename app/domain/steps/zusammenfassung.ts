@@ -15,5 +15,23 @@ export const zusammenfassung: StepDefinition = {
         },
       },
     },
+    confirmCompleteCorrect: {
+      type: "confirmation",
+      validations: {
+        required: {},
+      },
+    },
+    confirmDataPrivacy: {
+      type: "confirmation",
+      validations: {
+        required: {},
+      },
+    },
+    confirmTermsOfUse: {
+      type: "confirmation",
+      validations: {
+        required: {},
+      },
+    },
   },
 };

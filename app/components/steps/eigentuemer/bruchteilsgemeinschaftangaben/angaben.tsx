@@ -1,6 +1,7 @@
 import type { StepComponentFunction } from "~/routes/formular/_step";
 import { StepFormField } from "~/components";
 import { EigentuemerBruchteilsgemeinschaftAngabenFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
+import { getFieldProps } from "~/util/getFieldProps";
 
 const EigentuemerBruchteilsgemeinschaftAngaben: StepComponentFunction = ({
   stepDefinition,
@@ -8,21 +9,7 @@ const EigentuemerBruchteilsgemeinschaftAngaben: StepComponentFunction = ({
   i18n,
   errors,
 }) => {
-  const fieldDefinitions =
-    stepDefinition.fields as EigentuemerBruchteilsgemeinschaftAngabenFields;
-  const fieldNames = Object.keys(fieldDefinitions);
-  const fieldProps = fieldNames.map((fieldName) => {
-    return {
-      name: fieldName,
-      value: formData?.[fieldName],
-      i18n: i18n.fields[fieldName],
-      definition:
-        fieldDefinitions[
-          fieldName as keyof EigentuemerBruchteilsgemeinschaftAngabenFields
-        ],
-      error: errors?.[fieldName],
-    };
-  });
+  const fieldProps = getFieldProps(stepDefinition, formData, i18n, errors);
 
   return (
     <div>
