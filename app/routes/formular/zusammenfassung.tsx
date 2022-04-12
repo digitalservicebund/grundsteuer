@@ -6,28 +6,27 @@ import {
   useLoaderData,
 } from "remix";
 import { getStoredFormData } from "~/formDataStorage.server";
-import { GrundModel, GrundstueckFlurstueckFlurFields } from "~/domain/steps";
+import { GrundModel, StepDefinition } from "~/domain/steps";
 import { pageTitle } from "~/util/pageTitle";
 import { i18Next } from "~/i18n.server";
-import { filterDataForReachablePaths, getStepData } from "~/domain/model";
 import {
-  zusammenfassung,
-  ZusammenfassungFields,
-} from "~/domain/steps/zusammenfassung";
+  filterDataForReachablePaths,
+  getStepData,
+  StepFormData,
+} from "~/domain/model";
+import { zusammenfassung } from "~/domain/steps/zusammenfassung";
 import { ActionData, I18nObject } from "~/routes/formular/_step";
-import { Button, StepFormField, StepFormFields } from "~/components";
+import { Button, StepFormField } from "~/components";
 import Accordion, { AccordionItem } from "~/components/Accordion";
 import { authenticator } from "~/auth.server";
 import { getFieldProps } from "~/util/getFieldProps";
 export { action } from "~/routes/formular/_step";
 
 type LoaderData = {
-  formData: Record<string, any>;
+  formData: StepFormData;
   allData: GrundModel;
   i18n: I18nObject;
-  stepDefinition: {
-    fields: Record<string, any>;
-  };
+  stepDefinition: StepDefinition;
 };
 
 export const loader: LoaderFunction = async ({ request }) => {

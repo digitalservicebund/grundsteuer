@@ -24,7 +24,13 @@ import stepComponents, {
   FallbackStepComponent,
   helpComponents,
 } from "~/components/steps";
-import { getStepDefinition, GrundModel } from "~/domain/steps";
+import {
+  getStepDefinition,
+  GrundModel,
+  StepDefinition,
+  StepDefinitionField,
+  StepDefinitionFieldWithOptions,
+} from "~/domain/steps";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 import { State } from "xstate/lib/State";
 import { StateSchema, Typestate } from "xstate/lib/types";
@@ -33,12 +39,19 @@ import { createGraph, getReachablePaths } from "~/domain";
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
 import { getSession } from "~/session.server";
+import { Params } from "react-router";
 
 const getCurrentStateWithoutId = (currentState: string) => {
   return currentState.replace(/\.\d+\./g, ".");
 };
 
-const getMachine = ({ formData, params }: any) => {
+const getMachine = ({
+  formData,
+  params,
+}: {
+  formData: GrundModel;
+  params: Params;
+}) => {
   const machineContext = { ...formData } as StateMachineContext;
   if (params.personId) {
     machineContext.personId = parseInt(params.personId);
@@ -52,7 +65,13 @@ const getMachine = ({ formData, params }: any) => {
   });
 };
 
-const getBackUrl = ({ machine, currentStateWithoutId }: any) => {
+const getBackUrl = ({
+  machine,
+  currentStateWithoutId,
+}: {
+  machine: any;
+  currentStateWithoutId: string;
+}) => {
   const backState = machine.transition(currentStateWithoutId, {
     type: "BACK",
   });
@@ -133,15 +152,13 @@ export type I18nObject = {
 };
 
 export type LoaderData = {
-  formData: Record<string, any>;
+  formData: StepFormData;
   allData: GrundModel;
   i18n: I18nObject;
   backUrl: string | null;
   currentStateWithoutId: string;
   currentState?: string;
-  stepDefinition: {
-    fields: Record<string, any>;
-  };
+  stepDefinition: StepDefinition;
 };
 
 export const loader: LoaderFunction = async ({
@@ -214,7 +231,10 @@ export const action: ActionFunction = async ({ params, request }) => {
   const tFunction = await i18Next.getFixedT("de", "all");
   if (stepDefinition) {
     Object.entries(stepDefinition.fields).forEach(
-      ([name, field]: [string, any]) => {
+      ([name, field]: [
+        string,
+        StepDefinitionField | StepDefinitionFieldWithOptions
+      ]) => {
         let value = fieldValues[name];
         // unchecked checkbox
         if (typeof value == "undefined") {
