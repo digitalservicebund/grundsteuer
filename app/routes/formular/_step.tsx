@@ -208,6 +208,41 @@ export const loader: LoaderFunction = async ({
   };
 };
 
+export const validateStepFormData = async (
+  currentStateWithoutId: string,
+  stepFormData: StepFormData,
+  storedFormData: GrundModel
+) => {
+  const errors: Record<string, string | undefined> = {};
+  const stepDefinition = getStepDefinition({ currentStateWithoutId });
+  const tFunction = await i18Next.getFixedT("de", "all");
+  if (stepDefinition) {
+    Object.entries(stepDefinition.fields).forEach(
+      ([name, field]: [
+        string,
+        StepDefinitionField | StepDefinitionFieldWithOptions
+      ]) => {
+        let value = stepFormData[name];
+        // unchecked checkbox
+        if (typeof value == "undefined") {
+          value = "";
+        }
+
+        const i18n = { ...(tFunction("errors") as object) };
+        const errorMessage = getErrorMessage(
+          value,
+          field.validations,
+          stepFormData,
+          storedFormData,
+          i18n
+        );
+        if (errorMessage) errors[name] = errorMessage;
+      }
+    );
+  }
+  return errors;
+};
+
 export type ActionData = {
   errors: Record<string, string>;
 };
@@ -221,45 +256,22 @@ export const action: ActionFunction = async ({ params, request }) => {
   const currentState = getCurrentStateFromUrl(request.url);
   const currentStateWithoutId = getCurrentStateWithoutId(currentState);
 
-  const fieldValues = Object.fromEntries(
+  // validate
+  const stepFormData = Object.fromEntries(
     await request.formData()
   ) as unknown as StepFormData;
-
-  // validate
-  const errors: Record<string, string | undefined> = {};
-  const stepDefinition = getStepDefinition({ currentStateWithoutId });
-  const tFunction = await i18Next.getFixedT("de", "all");
-  if (stepDefinition) {
-    Object.entries(stepDefinition.fields).forEach(
-      ([name, field]: [
-        string,
-        StepDefinitionField | StepDefinitionFieldWithOptions
-      ]) => {
-        let value = fieldValues[name];
-        // unchecked checkbox
-        if (typeof value == "undefined") {
-          value = "";
-        }
-
-        const i18n = { ...(tFunction("errors") as object) };
-        const errorMessage = getErrorMessage(
-          value,
-          field.validations,
-          fieldValues,
-          storedFormData,
-          i18n
-        );
-        if (errorMessage) errors[name] = errorMessage;
-      }
-    );
-  }
+  const errors = await validateStepFormData(
+    currentStateWithoutId,
+    stepFormData,
+    storedFormData
+  );
   if (Object.keys(errors).length > 0) return { errors } as ActionData;
 
   // store
   const formDataToBeStored = setStepData(
     storedFormData,
     currentState,
-    fieldValues
+    stepFormData
   );
 
   // redirect
