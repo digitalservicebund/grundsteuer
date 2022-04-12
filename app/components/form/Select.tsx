@@ -4,6 +4,7 @@ import Details from "../Details";
 import FieldError from "./FieldError";
 import Label from "./Label";
 import QuestionMark from "~/components/icons/mui/QuestionMark";
+import { FormGroup } from "~/components";
 
 export type SelectProps = {
   name: string;
@@ -59,7 +60,7 @@ export default function Select(props: SelectProps) {
 
   if (help) {
     return (
-      <>
+      <FormGroup>
         <Details
           summaryContent={
             <>
@@ -73,15 +74,15 @@ export default function Select(props: SelectProps) {
           detailsContent={<p>{help}</p>}
         />
         {errorComponent}
-      </>
+      </FormGroup>
     );
   } else {
     return (
-      <>
+      <FormGroup>
         {labelComponent}
         {fieldComponent}
         {errorComponent}
-      </>
+      </FormGroup>
     );
   }
 }

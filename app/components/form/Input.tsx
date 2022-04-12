@@ -4,6 +4,7 @@ import Label from "./Label";
 import Details from "../Details";
 import FieldError from "./FieldError";
 import QuestionMark from "~/components/icons/mui/QuestionMark";
+import { FormGroup } from "~/components";
 
 export interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
   name: string;
@@ -50,7 +51,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 
   if (help) {
     return (
-      <>
+      <FormGroup>
         <Details
           summaryContent={
             <>
@@ -64,15 +65,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
           detailsContent={<p>{help}</p>}
         />
         {errorComponent}
-      </>
+      </FormGroup>
     );
   } else {
     return (
-      <>
+      <FormGroup>
         {labelComponent}
         {inputComponent}
         {errorComponent}
-      </>
+      </FormGroup>
     );
   }
 });

@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import FieldError from "./FieldError";
 import React from "react";
+import { FormGroup } from "~/components";
 
 export type ConfirmationProps = {
   name: string;
@@ -43,10 +44,12 @@ export default function Confirmation(props: ConfirmationProps) {
 
   const errorComponent = error && <FieldError>{error}</FieldError>;
   return (
-    <div className="bg-gray-400 p-16">
-      {inputComponent}
-      {labelComponent}
-      {errorComponent}
-    </div>
+    <FormGroup>
+      <div className="bg-gray-400 p-16">
+        {inputComponent}
+        {labelComponent}
+        {errorComponent}
+      </div>
+    </FormGroup>
   );
 }
