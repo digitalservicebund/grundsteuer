@@ -37,7 +37,7 @@ describe("Cron jobs", () => {
       });
     });
     afterAll(async () => {
-      db.user.deleteMany({
+      await db.user.deleteMany({
         where: { email: { in: ["one@foo.com", "two@foo.com"] } },
       });
     });
