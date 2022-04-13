@@ -35,7 +35,7 @@ import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 import { State } from "xstate/lib/State";
 import { StateSchema, Typestate } from "xstate/lib/types";
 import { StepHeadline } from "~/components/StepHeadline";
-import { createGraph, getReachablePaths } from "~/domain";
+import { getReachablePathsFromData } from "~/domain";
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
 import { getSession } from "~/session.server";
@@ -181,10 +181,7 @@ export const loader: LoaderFunction = async ({
     return redirect(redirectUrl);
   }
   // redirect in case the step is not enabled
-  const graph = createGraph({
-    machineContext: storedFormData,
-  });
-  const reachablePaths = getReachablePaths({ graph, initialPaths: [] });
+  const reachablePaths = getReachablePathsFromData(storedFormData);
   if (!reachablePaths.includes(currentState)) {
     return redirect("/formular/welcome");
   }

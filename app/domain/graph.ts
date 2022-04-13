@@ -45,6 +45,13 @@ export const createGraph = ({
   }, {});
 };
 
+export const getReachablePathsFromData = (data: GrundModel) => {
+  const graph = createGraph({
+    machineContext: data,
+  });
+  return getReachablePaths({ graph, initialPaths: [] });
+};
+
 export const getReachablePaths = ({
   graph,
   initialPaths,

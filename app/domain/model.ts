@@ -1,12 +1,15 @@
 import _ from "lodash";
 import type { GrundModel } from "~/domain/steps";
-import { createGraph, getReachablePaths } from "~/domain/graph";
+import { getReachablePathsFromData } from "~/domain/graph";
 
 export type StepFormDataValue = string | undefined;
 export type StepFormData = Record<string, StepFormDataValue>;
 
-const idToIndex = (path: string) => {
-  return path.split(".").map((s) => (s.match(/^\d+$/) ? parseInt(s) - 1 : s));
+export const idToIndex = (path: string) => {
+  return path
+    .split(".")
+    .map((s) => (s.match(/^\d+$/) ? parseInt(s) - 1 : s))
+    .join(".");
 };
 
 export const setStepData = (
@@ -26,10 +29,7 @@ export const filterDataForReachablePaths = (
 ): GrundModel => {
   const filteredData = {};
 
-  const graph = createGraph({
-    machineContext: completeData,
-  });
-  const reachablePaths = getReachablePaths({ graph, initialPaths: [] });
+  const reachablePaths = getReachablePathsFromData(completeData);
   reachablePaths.forEach((path) => {
     const pathData = _.get(completeData, idToIndex(path));
     if (pathData) {
