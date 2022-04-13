@@ -42,13 +42,16 @@ describe("user", () => {
 
   describe("createUser", () => {
     it("should succeed on new email", async () => {
-      await createUser("new@foo.com", "123");
+      const email = "new@foo.com";
+      const before = await db.user.findMany({ where: { email: email } });
+      expect(before.length).toEqual(0);
 
-      const result = await db.user.findMany({
-        where: { email: "new@foo.com" },
+      await createUser(email, "123");
+      const after = await db.user.findMany({
+        where: { email: email },
       });
 
-      expect(result.length).toEqual(1);
+      expect(after.length).toEqual(1);
     });
 
     it("should fail on existing email", async () => {
