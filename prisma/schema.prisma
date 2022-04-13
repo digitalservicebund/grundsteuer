@@ -24,6 +24,6 @@ model FscRequest {
   id            String      @id @default(uuid())
   requestId     String
   createdAt     DateTime    @default(now())
-  userId        String
-  User          User  @relation(fields: [userId], references: [id])
+  userId        String      @unique
+  User          User        @relation(fields: [userId], references: [id])
 }

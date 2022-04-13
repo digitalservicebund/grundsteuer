@@ -97,6 +97,12 @@ describe("user", () => {
         await saveFscRequest("existing_with_fsc_request@foo.com", "bar");
       }).rejects.toThrow();
     });
+
+    it("should fail on unknown user", async () => {
+      await expect(async () => {
+        await saveFscRequest("unknown@foo.com", "bar");
+      }).rejects.toThrow("not found");
+    });
   });
 });
 

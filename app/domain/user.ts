@@ -37,9 +37,6 @@ export const saveFscRequest = async (email: string, requestId: string) => {
   if (!user) {
     throw new Error("User not found.");
   }
-  if (user.fscRequest.length > 0) {
-    throw new Error("An FSC request has already been stored for the user.");
-  }
 
   await db.fscRequest.create({
     data: {
