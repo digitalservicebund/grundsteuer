@@ -1,27 +1,39 @@
 import {
+  ActionFunction,
   Form,
   LoaderFunction,
   MetaFunction,
+  redirect,
   useActionData,
   useLoaderData,
 } from "remix";
-import { getStoredFormData } from "~/formDataStorage.server";
-import { GrundModel, StepDefinition } from "~/domain/steps";
+import {
+  addFormDataCookiesToHeaders,
+  getStoredFormData,
+} from "~/formDataStorage.server";
+import stepDefinitions, { GrundModel, StepDefinition } from "~/domain/steps";
 import { pageTitle } from "~/util/pageTitle";
 import { i18Next } from "~/i18n.server";
 import {
   filterDataForReachablePaths,
   getStepData,
+  idToIndex,
+  setStepData,
   StepFormData,
 } from "~/domain/model";
 import { zusammenfassung } from "~/domain/steps/zusammenfassung";
-import { ActionData, I18nObject } from "~/routes/formular/_step";
+import {
+  getCurrentStateWithoutId,
+  I18nObject,
+  validateStepFormData,
+} from "~/routes/formular/_step";
 import { Button, StepFormField } from "~/components";
 import Accordion, { AccordionItem } from "~/components/Accordion";
 import { authenticator } from "~/auth.server";
 import { getFieldProps } from "~/util/getFieldProps";
-export { action } from "~/routes/formular/_step";
 import Edit from "~/components/icons/mui/Edit";
+import { getReachablePathsFromData } from "~/domain";
+import _ from "lodash";
 
 type LoaderData = {
   formData: StepFormData;
@@ -47,6 +59,80 @@ export const loader: LoaderFunction = async ({ request }) => {
     },
     stepDefinition: zusammenfassung,
   };
+};
+
+const validateAllStepsData = async (storedFormData: GrundModel) => {
+  const generalErrors = {};
+  const reachablePaths = getReachablePathsFromData(storedFormData);
+  for (const stepPath of reachablePaths) {
+    const stepFormData = getStepData(storedFormData, stepPath);
+    const stepDefinition = _.get(
+      stepDefinitions,
+      getCurrentStateWithoutId(stepPath)
+    );
+    if (!stepDefinition) continue; // no validations necessary
+
+    let fieldErrors: Record<string, string | undefined> = {};
+    if (stepFormData) {
+      fieldErrors = await validateStepFormData(
+        stepPath,
+        stepFormData,
+        storedFormData
+      );
+    } else {
+      Object.keys(stepDefinition.fields).forEach(
+        (field) => (fieldErrors[field] = "Bitte ergänzen")
+      );
+    }
+    if (fieldErrors) _.set(generalErrors, idToIndex(stepPath), fieldErrors);
+  }
+  return generalErrors;
+};
+
+export type ActionData = {
+  errors: Record<string, string>;
+  generalErrors: Record<string, string>;
+};
+
+export const action: ActionFunction = async ({ request }) => {
+  const user = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/anmelden",
+  });
+  const storedFormData = await getStoredFormData({ request, user });
+
+  // validate this step's data
+  const zusammenfassungFormData = Object.fromEntries(
+    await request.formData()
+  ) as unknown as StepFormData;
+  const errors = await validateStepFormData(
+    "zusammenfassung",
+    zusammenfassungFormData,
+    storedFormData
+  );
+  if (Object.keys(errors).length > 0) return { errors } as ActionData;
+
+  // validate all steps' data
+  const generalErrors = await validateAllStepsData(storedFormData);
+  if (Object.keys(generalErrors).length > 0)
+    return { generalErrors } as ActionData;
+
+  // store
+  const formDataToBeStored = setStepData(
+    storedFormData,
+    "zusammenfassung",
+    zusammenfassungFormData
+  );
+  const headers = new Headers();
+  await addFormDataCookiesToHeaders({
+    headers,
+    data: formDataToBeStored,
+    user,
+  });
+
+  // TODO redirect to different page
+  return redirect("formular/zusammenfassung", {
+    headers,
+  });
 };
 
 const resolveJaNein = (value: string | undefined) => {
@@ -151,18 +237,21 @@ export default function Zusammenfassung() {
     explicitValue?: string
   ): JSX.Element => {
     let value = getStepData(allData, path);
+    const error = getStepData(actionData?.generalErrors, path);
     if (explicitValue) value = explicitValue;
 
     const displayValue = resolver ? resolver(value) : value;
     const editUrl = pathToUrl(path);
 
-    if (displayValue) {
+    if (displayValue || error) {
       return (
         <li>
           <div className="mb-16 flex flex-row justify-between items-center">
             <dl>
               <dt className="font-bold text-gray-800 block">{label}</dt>
-              <dd className="font-bold block">{displayValue}</dd>
+              <dd className="font-bold block">
+                {error ? error : displayValue}
+              </dd>
             </dl>
             <a
               href={editUrl}
@@ -254,7 +343,7 @@ export default function Zusammenfassung() {
                               "Flurstück Nenner",
                               `grundstueck.flurstueck.${
                                 index + 1
-                              }.flur.flurstueck`
+                              }.flur.flurstueckNenner`
                             )}
                             {item(
                               "Wirtsch. Einheit Zähler",

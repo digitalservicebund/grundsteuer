@@ -41,7 +41,7 @@ import { authenticator } from "~/auth.server";
 import { getSession } from "~/session.server";
 import { Params } from "react-router";
 
-const getCurrentStateWithoutId = (currentState: string) => {
+export const getCurrentStateWithoutId = (currentState: string) => {
   return currentState.replace(/\.\d+\./g, ".");
 };
 
