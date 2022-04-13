@@ -9,7 +9,7 @@ const scheduleFscCleanup = (cronExpression: string) => {
   cron.schedule(cronExpression, async () => deleteExpiredFscs());
 };
 
-const deleteExpiredFscs = async () => {
+export const deleteExpiredFscs = async () => {
   const now = new Date();
   const ninetyDaysAgo = new Date(now.setDate(now.getDate() - 90));
   const queryResult = await db.fscRequest.deleteMany({

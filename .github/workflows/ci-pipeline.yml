@@ -37,7 +37,7 @@ jobs:
       - name: Lint
         run: npm run lint:check
 
-      - name: Run tests
+      - name: Run unit tests
         run: npm test
 
       - name: Set up test db
@@ -47,6 +47,11 @@ jobs:
         env:
           DATABASE_URL: postgresql://prisma:prisma@localhost:5433/tests
         run: npx prisma migrate deploy && npx prisma db seed
+
+      - name: Run integration tests
+        env:
+          DATABASE_URL: postgresql://prisma:prisma@localhost:5433/tests
+        run: npm run test:integration
 
       - name: Run E2E tests
         env:

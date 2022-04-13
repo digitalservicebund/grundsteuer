@@ -27,11 +27,12 @@
     "postinstall": "remix setup node",
     "prepare": "is-ci || husky install",
     "start": "cross-env NODE_ENV=production node ./build/index.js",
-    "test": "jest",
+    "test": "jest --testPathPattern=/app/",
+    "test:e2e": "start-server-and-test start http://localhost:3000 cypress",
+    "test:integration": "jest --testPathPattern=/test/integration/",
     "cypress": "cypress run --browser chrome --headless",
     "docker:up": "docker-compose -f ./docker-compose-test.yml -p grundsteuer-test up -d",
-    "docker:down": "docker-compose -f ./docker-compose-test.yml -p grundsteuer-test down",
-    "test:e2e": "start-server-and-test start http://localhost:3000 cypress"
+    "docker:down": "docker-compose -f ./docker-compose-test.yml -p grundsteuer-test down"
   },
   "dependencies": {
     "@digitalservice4germany/digital-service-library": "^0.0.19",
