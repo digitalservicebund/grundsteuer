@@ -37,6 +37,9 @@ describe("Cron jobs", () => {
       });
     });
     afterAll(async () => {
+      await db.fscRequest.deleteMany({
+        where: { requestId: { in: ["over90daysold", "under90daysold"] } },
+      });
       await db.user.deleteMany({
         where: { email: { in: ["one@foo.com", "two@foo.com"] } },
       });
