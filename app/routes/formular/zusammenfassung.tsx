@@ -11,31 +11,28 @@ import {
   addFormDataCookiesToHeaders,
   getStoredFormData,
 } from "~/formDataStorage.server";
-import stepDefinitions, { GrundModel, StepDefinition } from "~/domain/steps";
+import { GrundModel, StepDefinition } from "~/domain/steps";
 import { pageTitle } from "~/util/pageTitle";
 import { i18Next } from "~/i18n.server";
 import {
   filterDataForReachablePaths,
   getStepData,
-  idToIndex,
   setStepData,
   StepFormData,
 } from "~/domain/model";
 import { zusammenfassung } from "~/domain/steps/zusammenfassung";
-import {
-  getCurrentStateWithoutId,
-  I18nObject,
-  validateStepFormData,
-} from "~/routes/formular/_step";
+import { I18nObject } from "~/routes/formular/_step";
 import { Button, StepFormField } from "~/components";
 import Accordion, { AccordionItem } from "~/components/Accordion";
 import { authenticator } from "~/auth.server";
 import { getFieldProps } from "~/util/getFieldProps";
 import Edit from "~/components/icons/mui/Edit";
-import { getReachablePathsFromData } from "~/domain";
-import _ from "lodash";
 import Unfinished from "~/components/icons/mui/Unfinished";
 import Finished from "~/components/icons/mui/Finished";
+import {
+  validateAllStepsData,
+  validateStepFormData,
+} from "~/domain/validation";
 
 type LoaderData = {
   formData: StepFormData;
@@ -61,35 +58,6 @@ export const loader: LoaderFunction = async ({ request }) => {
     },
     stepDefinition: zusammenfassung,
   };
-};
-
-const validateAllStepsData = async (storedFormData: GrundModel) => {
-  const generalErrors = {};
-  const reachablePaths = getReachablePathsFromData(storedFormData);
-  for (const stepPath of reachablePaths) {
-    const stepFormData = getStepData(storedFormData, stepPath);
-    const stepDefinition = _.get(
-      stepDefinitions,
-      getCurrentStateWithoutId(stepPath)
-    );
-    if (!stepDefinition) continue; // no validations necessary
-
-    let fieldErrors: Record<string, string | undefined> = {};
-    if (stepFormData) {
-      fieldErrors = await validateStepFormData(
-        stepPath,
-        stepFormData,
-        storedFormData
-      );
-    } else {
-      Object.keys(stepDefinition.fields).forEach(
-        (field) => (fieldErrors[field] = "Bitte ergänzen")
-      );
-    }
-    if (Object.keys(fieldErrors).length !== 0)
-      _.set(generalErrors, idToIndex(stepPath), fieldErrors);
-  }
-  return generalErrors;
 };
 
 export type ActionData = {

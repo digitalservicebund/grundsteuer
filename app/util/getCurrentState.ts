@@ -8,3 +8,7 @@ export const getCurrentStateFromPathname = (pathname: string) => {
     .filter((e) => e && e !== "formular")
     .join(".");
 };
+
+export const getCurrentStateWithoutId = (currentState: string) => {
+  return currentState.replace(/\.\d+\./g, ".");
+};

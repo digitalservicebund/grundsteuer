@@ -1,7 +1,17 @@
-import { StepFormData } from "~/domain/model";
+import { getStepData, idToIndex, StepFormData } from "~/domain/model";
 import validator from "validator";
 import { Condition } from "~/domain/guards";
-import { GrundModel, GrundstueckFlurstueckGroesseFields } from "~/domain/steps";
+import stepDefinitions, {
+  getStepDefinition,
+  GrundModel,
+  GrundstueckFlurstueckGroesseFields,
+  StepDefinitionField,
+  StepDefinitionFieldWithOptions,
+} from "~/domain/steps";
+import { getReachablePathsFromData } from "~/domain/graph";
+import _ from "lodash";
+import { i18Next } from "~/i18n.server";
+import { getCurrentStateWithoutId } from "~/util/getCurrentState";
 
 type ValidateFunctionDefault = ({ value }: { value: string }) => boolean;
 
@@ -602,4 +612,68 @@ export const getErrorMessage = (
       return validation.msg || (i18n[key] as string);
     }
   }
+};
+
+export const validateStepFormData = async (
+  currentStateWithoutId: string,
+  stepFormData: StepFormData,
+  storedFormData: GrundModel
+) => {
+  const errors: Record<string, string | undefined> = {};
+  const stepDefinition = getStepDefinition({ currentStateWithoutId });
+  const tFunction = await i18Next.getFixedT("de", "all");
+  if (stepDefinition) {
+    Object.entries(stepDefinition.fields).forEach(
+      ([name, field]: [
+        string,
+        StepDefinitionField | StepDefinitionFieldWithOptions
+      ]) => {
+        let value = stepFormData[name];
+        // unchecked checkbox
+        if (typeof value == "undefined") {
+          value = "";
+        }
+
+        const i18n = { ...(tFunction("errors") as object) };
+        const errorMessage = getErrorMessage(
+          value,
+          field.validations,
+          stepFormData,
+          storedFormData,
+          i18n
+        );
+        if (errorMessage) errors[name] = errorMessage;
+      }
+    );
+  }
+  return errors;
+};
+
+export const validateAllStepsData = async (storedFormData: GrundModel) => {
+  const generalErrors = {};
+  const reachablePaths = getReachablePathsFromData(storedFormData);
+  for (const stepPath of reachablePaths) {
+    const stepFormData = getStepData(storedFormData, stepPath);
+    const stepDefinition = _.get(
+      stepDefinitions,
+      getCurrentStateWithoutId(stepPath)
+    );
+    if (!stepDefinition) continue; // no validations necessary
+
+    let fieldErrors: Record<string, string | undefined> = {};
+    if (stepFormData) {
+      fieldErrors = await validateStepFormData(
+        stepPath,
+        stepFormData,
+        storedFormData
+      );
+    } else {
+      Object.keys(stepDefinition.fields).forEach(
+        (field) => (fieldErrors[field] = "Bitte ergänzen")
+      );
+    }
+    if (Object.keys(fieldErrors).length !== 0)
+      _.set(generalErrors, idToIndex(stepPath), fieldErrors);
+  }
+  return generalErrors;
 };

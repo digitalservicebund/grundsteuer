@@ -18,20 +18,17 @@ import { i18Next } from "~/i18n.server";
 import { getStepData, setStepData, StepFormData } from "~/domain/model";
 import { getMachineConfig, StateMachineContext } from "~/domain/states";
 import { conditions } from "~/domain/guards";
-import { getErrorMessage } from "~/domain/validation";
+import { validateStepFormData } from "~/domain/validation";
 import { actions } from "~/domain/actions";
 import stepComponents, {
   FallbackStepComponent,
   helpComponents,
 } from "~/components/steps";
+import { getStepDefinition, GrundModel, StepDefinition } from "~/domain/steps";
 import {
-  getStepDefinition,
-  GrundModel,
-  StepDefinition,
-  StepDefinitionField,
-  StepDefinitionFieldWithOptions,
-} from "~/domain/steps";
-import { getCurrentStateFromUrl } from "~/util/getCurrentState";
+  getCurrentStateFromUrl,
+  getCurrentStateWithoutId,
+} from "~/util/getCurrentState";
 import { State } from "xstate/lib/State";
 import { StateSchema, Typestate } from "xstate/lib/types";
 import { StepHeadline } from "~/components/StepHeadline";
@@ -40,10 +37,6 @@ import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
 import { getSession } from "~/session.server";
 import { Params } from "react-router";
-
-export const getCurrentStateWithoutId = (currentState: string) => {
-  return currentState.replace(/\.\d+\./g, ".");
-};
 
 const getMachine = ({
   formData,
@@ -203,41 +196,6 @@ export const loader: LoaderFunction = async ({
     currentState,
     stepDefinition,
   };
-};
-
-export const validateStepFormData = async (
-  currentStateWithoutId: string,
-  stepFormData: StepFormData,
-  storedFormData: GrundModel
-) => {
-  const errors: Record<string, string | undefined> = {};
-  const stepDefinition = getStepDefinition({ currentStateWithoutId });
-  const tFunction = await i18Next.getFixedT("de", "all");
-  if (stepDefinition) {
-    Object.entries(stepDefinition.fields).forEach(
-      ([name, field]: [
-        string,
-        StepDefinitionField | StepDefinitionFieldWithOptions
-      ]) => {
-        let value = stepFormData[name];
-        // unchecked checkbox
-        if (typeof value == "undefined") {
-          value = "";
-        }
-
-        const i18n = { ...(tFunction("errors") as object) };
-        const errorMessage = getErrorMessage(
-          value,
-          field.validations,
-          stepFormData,
-          storedFormData,
-          i18n
-        );
-        if (errorMessage) errors[name] = errorMessage;
-      }
-    );
-  }
-  return errors;
 };
 
 export type ActionData = {
