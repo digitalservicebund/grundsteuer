@@ -29,7 +29,7 @@
     "start": "cross-env NODE_ENV=production node ./build/index.js",
     "test": "jest --testPathPattern=/app/",
     "test:e2e": "start-server-and-test start http://localhost:3000 cypress",
-    "test:integration": "jest --testPathPattern=/test/integration/",
+    "test:integration": "jest --testPathPattern=/test/integration/ --runInBand",
     "cypress": "cypress run --browser chrome --headless",
     "docker:up": "docker-compose -f ./docker-compose-test.yml -p grundsteuer-test up -d",
     "docker:down": "docker-compose -f ./docker-compose-test.yml -p grundsteuer-test down"
