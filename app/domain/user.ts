@@ -6,17 +6,12 @@ export type User = PrismaUser & { fscRequest: FscRequest[] };
 
 export const createUser = async (email: string, password: string) => {
   const hash = bcrypt.hashSync(password, 10);
-  try {
-    await db.user.create({
-      data: {
-        email: email,
-        password: hash,
-      },
-    });
-  } catch (e) {
-    console.error(e);
-    throw new Error("Internal server error.");
-  }
+  await db.user.create({
+    data: {
+      email: email,
+      password: hash,
+    },
+  });
 };
 
 export const userExists = async (email: string) => {
