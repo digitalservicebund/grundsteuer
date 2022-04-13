@@ -58,6 +58,13 @@ const resolveJaNein = (value: string | undefined) => {
   return "";
 };
 
+const resolveCheckbox = (value: string | undefined) => {
+  if (value) {
+    return "Ja";
+  }
+  return "";
+};
+
 const resolveAnrede = (value: string | undefined) => {
   if (value === "no_anrede") {
     return "Keine";
@@ -124,26 +131,6 @@ const resolveBundesland = (value: string | undefined) => {
   }
 };
 
-const item = (
-  label: string,
-  value: string | undefined,
-  resolver?: (field: string | undefined) => string
-): JSX.Element => {
-  const displayValue = resolver ? resolver(value) : value;
-  if (displayValue) {
-    return (
-      <li>
-        <dl className="mb-16">
-          <dt className="font-bold text-gray-800 block">{label}</dt>
-          <dd className="font-bold block">{displayValue}</dd>
-        </dl>
-      </li>
-    );
-  } else {
-    return <></>;
-  }
-};
-
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Zusammenfassung Ihrer Eingaben") };
 };
@@ -153,6 +140,31 @@ export default function Zusammenfassung() {
     useLoaderData<LoaderData>();
   const actionData = useActionData() as ActionData;
 
+  const item = (
+    label: string,
+    path: string | undefined,
+    resolver?: (field: string | undefined) => string,
+    explicitValue?: string
+  ): JSX.Element => {
+    let value;
+    if (path) value = getStepData(allData, path);
+    if (explicitValue) value = explicitValue;
+
+    const displayValue = resolver ? resolver(value) : value;
+    if (displayValue) {
+      return (
+        <li>
+          <dl className="mb-16">
+            <dt className="font-bold text-gray-800 block">{label}</dt>
+            <dd className="font-bold block">{displayValue}</dd>
+          </dl>
+        </li>
+      );
+    } else {
+      return <></>;
+    }
+  };
+
   const grundstueckAccordionItem = allData.grundstueck
     ? {
         header: <h2 className="font-bold text-2xl mb-3">Grundstück</h2>,
@@ -161,40 +173,37 @@ export default function Zusammenfassung() {
             <ul>
               {item(
                 "Grundstücksart",
-                allData.grundstueck.typ?.typ,
+                "grundstueck.typ.typ",
                 resolveGrundstueckTyp
               )}
-              {item("Straße", allData.grundstueck.adresse?.strasse)}
-              {item("Hausnummer", allData.grundstueck.adresse?.hausnummer)}
-              {item(
-                "Zusatzangaben",
-                allData.grundstueck.adresse?.zusatzangaben
-              )}
-              {item("PLZ", allData.grundstueck.adresse?.plz)}
-              {item("Ort", allData.grundstueck.adresse?.ort)}
+              {item("Straße", "grundstueck.adresse.strasse")}
+              {item("Hausnummer", "grundstueck.adresse.hausnummer")}
+              {item("Zusatzangaben", "grundstueck.adresse.zusatzangaben")}
+              {item("PLZ", "grundstueck.adresse.plz")}
+              {item("Ort", "grundstueck.adresse.ort")}
               {item(
                 "Bundesland",
-                allData.grundstueck.adresse?.bundesland,
+                "grundstueck.adresse.bundesland",
                 resolveBundesland
               )}
               {item(
                 "Steuernummer/Aktenzeichen",
-                allData.grundstueck.steuernummer?.steuernummer
+                "grundstueck.steuernummer.steuernummer"
               )}
               {item(
                 "Abweichende Entwicklung",
-                allData.grundstueck.abweichendeEntwicklung?.zustand
+                "grundstueck.abweichendeEntwicklung.zustand"
               )}
               {item(
                 "Innerhalb einer Gemeinde",
-                allData.grundstueck.gemeinde?.innerhalbEinerGemeinde,
+                "grundstueck.gemeinde.innerhalbEinerGemeinde",
                 resolveJaNein
               )}
-              {item("Anzahl Flurstücke", allData.grundstueck.anzahl?.anzahl)}
+              {item("Anzahl Flurstücke", "grundstueck.anzahl.anzahl")}
               {allData.grundstueck.flurstueck && (
                 <>
                   <h3 className="font-bold text-xl mb-1">Flurstücke</h3>
-                  {allData.grundstueck.flurstueck?.map((flurstueck, index) => {
+                  {allData.grundstueck.flurstueck.map((flurstueck, index) => {
                     const flurstueckKey = "flurstueck-" + index;
                     return (
                       <div
@@ -206,29 +215,56 @@ export default function Zusammenfassung() {
                         <ul>
                           {item(
                             "Grundbuchblattnummer",
-                            flurstueck.angaben?.grundbuchblattnummer
+                            `grundstueck.flurstueck.${
+                              index + 1
+                            }.angaben.grundbuchblattnummer`
                           )}
-                          {item("Gemarkung", flurstueck.angaben?.gemarkung)}
-                          {item("Flur", flurstueck.flur?.flur)}
+                          {item(
+                            "Gemarkung",
+                            `grundstueck.flurstueck.${
+                              index + 1
+                            }.angaben.gemarkung`
+                          )}
+                          {item(
+                            "Flur",
+                            `grundstueck.flurstueck.${index + 1}.flur.flur`
+                          )}
                           {item(
                             "Flurstück Zähler",
-                            flurstueck.flur?.flurstueckZaehler
+                            `grundstueck.flurstueck.${
+                              index + 1
+                            }.flur.flurstueckZaehler`
                           )}
                           {item(
                             "Flurstück Nenner",
-                            flurstueck.flur?.flurstueckNenner
+                            `grundstueck.flurstueck.${
+                              index + 1
+                            }.flur.flurstueck`
                           )}
                           {item(
                             "Wirtsch. Einheit Zähler",
-                            flurstueck.flur?.wirtschaftlicheEinheitZaehler
+                            `grundstueck.flurstueck.${
+                              index + 1
+                            }.flur.wirtschaftlicheEinheitZaehler`
                           )}
                           {item(
                             "Wirtsch. Einheit Nenner",
-                            flurstueck.flur?.wirtschaftlicheEinheitNenner
+                            `grundstueck.flurstueck.${
+                              index + 1
+                            }.flur.wirtschaftlicheEinheitNenner`
                           )}
-                          {item("Größe ha", flurstueck.groesse?.groesseHa)}
-                          {item("Größe a", flurstueck.groesse?.groesseA)}
-                          {item("Größe m²", flurstueck.groesse?.groesseQm)}
+                          {item(
+                            "Größe ha",
+                            `grundstueck.flurstueck.${index + 1}.flur.groesseHa`
+                          )}
+                          {item(
+                            "Größe a",
+                            `grundstueck.flurstueck.${index + 1}.flur.groesseA`
+                          )}
+                          {item(
+                            "Größe m²",
+                            `grundstueck.flurstueck.${index + 1}.flur.groesseQm`
+                          )}
                         </ul>
                       </div>
                     );
@@ -237,14 +273,12 @@ export default function Zusammenfassung() {
               )}
               {item(
                 "Bodenrichtwert",
-                allData.grundstueck.bodenrichtwert?.bodenrichtwert
+                "grundstueck.bodenrichtwert.bodenrichtwert"
               )}
               {item(
                 "Zwei Bodenrichtwerte",
-                allData.grundstueck.bodenrichtwert?.twoBodenrichtwerte
-                  ? "true"
-                  : undefined,
-                resolveJaNein
+                "grundstueck.bodenrichtwert.twoBodenrichtwerte",
+                resolveCheckbox
               )}
             </ul>
           </div>
@@ -260,64 +294,65 @@ export default function Zusammenfassung() {
             <ul>
               {item(
                 "Bezugsfertig ab 1949",
-                allData.gebaeude.ab1949?.isAb1949,
+                "gebaeude.ab1949.isAb1949",
                 resolveJaNein
               )}
-              {item("Baujahr", allData.gebaeude.baujahr?.baujahr)}
+              {item("Baujahr", "gebaeude.baujahr.baujahr")}
               {item(
                 "Kernsaniert",
-                allData.gebaeude.kernsaniert?.isKernsaniert,
+                "gebaeude.kernsaniert.isKernsaniert",
                 resolveJaNein
               )}
               {item(
                 "Jahr der Kernsanierung",
-                allData.gebaeude.kernsanierungsjahr?.kernsanierungsjahr
+                "gebaeude.kernsanierungsjahr.kernsanierungsjahr"
               )}
               {item(
                 "Abbruchverpflichtung liegt vor",
-                allData.gebaeude.abbruchverpflichtung?.hasAbbruchverpflichtung,
+                "gebaeude.abbruchverpflichtung.hasAbbruchverpflichtung",
                 resolveJaNein
               )}
               {item(
                 "Jahr der Abbruchverpflichtung",
-                allData.gebaeude.abbruchverpflichtungsjahr
-                  ?.abbruchverpflichtungsjahr
+                "gebaeude.abbruchverpflichtungsjahr.abbruchverpflichtungsjahr"
               )}
               {item(
                 "Wohnfläche",
-                allData.gebaeude.wohnflaeche?.wohnflaeche,
+                "gebaeude.wohnflaeche.wohnflaeche",
                 resolveArea
               )}
               {item(
                 "Wohnung 1 Wohnfläche",
-                allData.gebaeude.wohnflaechen?.wohnflaeche1,
+                "gebaeude.wohnflaechen.wohnflaeche1",
                 resolveArea
               )}
               {item(
                 "Wohnung 2 Wohnfläche",
-                allData.gebaeude.wohnflaechen?.wohnflaeche2,
+                "gebaeude.wohnflaechen.wohnflaeche2",
                 resolveArea
               )}
               {item(
                 "Weitere Wohnräume",
-                allData.gebaeude.weitereWohnraeume?.hasWeitereWohnraeume,
+                "gebaeude.weitereWohnraeume.hasWeitereWohnraeume",
                 resolveJaNein
               )}
               {item(
                 "Anzahl der weiteren Wohnräume",
-                allData.gebaeude.weitereWohnraeumeDetails?.anzahl
+                "gebaeude.weitereWohnraeumeDetails.anzahl"
               )}
               {item(
                 "Gesamtfläche der weiteren Wohnräume",
-                allData.gebaeude.weitereWohnraeumeDetails?.flaeche,
+                "gebaeude.weitereWohnraeumeDetails.flaeche",
                 resolveArea
               )}
-              {allData.gebaeude.garagen?.hasGaragen == "true"
-                ? item(
+              {allData.gebaeude?.garagen?.hasGaragen == "true"
+                ? item("Anzahl Garagen", "gebaeude.garagenAnzahl.anzahlGaragen")
+                : item(
                     "Anzahl Garagen",
-                    allData.gebaeude.garagenAnzahl?.anzahlGaragen
-                  )
-                : item("Anzahl Garagen", "0")}
+                    "gebaeude.garagenAnzahl.anzahlGaragen",
+                    undefined,
+                    "0"
+                  )}
             </ul>
           </div>
         ),
@@ -330,10 +365,10 @@ export default function Zusammenfassung() {
         content: (
           <div id="eigentuemer-area">
             <ul>
-              {item("Anzahl", allData.eigentuemer.anzahl?.anzahl)}
+              {item("Anzahl", "eigentuemer.anzahl.anzahl")}
               {item(
                 "Verheiratet",
-                allData?.eigentuemer?.verheiratet?.areVerheiratet,
+                "eigentuemer.verheiratet.areVerheiratet",
                 resolveJaNein
               )}
             </ul>
@@ -353,27 +388,69 @@ export default function Zusammenfassung() {
                       <ul>
                         {item(
                           "Anrede",
-                          person.persoenlicheAngaben?.anrede,
+                          `eigentuemer.person.${
+                            index + 1
+                          }.persoenlicheAngaben.anrede`,
                           resolveAnrede
                         )}
-                        {item("Titel", person.persoenlicheAngaben?.titel)}
-                        {item("Name", person.persoenlicheAngaben?.name)}
-                        {item("Vorname", person.persoenlicheAngaben?.vorname)}
+                        {item(
+                          "Titel",
+                          `eigentuemer.person.${
+                            index + 1
+                          }.persoenlicheAngaben.titel`
+                        )}
+                        {item(
+                          "Name",
+                          `eigentuemer.person.${
+                            index + 1
+                          }.persoenlicheAngaben.name`
+                        )}
+                        {item(
+                          "Vorname",
+                          `eigentuemer.person.${
+                            index + 1
+                          }.persoenlicheAngaben.vorname`
+                        )}
                         {item(
                           "Geburtsdatum",
-                          person.persoenlicheAngaben?.geburtsdatum
+                          `eigentuemer.person.${
+                            index + 1
+                          }.persoenlicheAngaben.geburtsdatum`
                         )}
 
-                        {item("Straße", person.adresse?.strasse)}
-                        {item("Hausnummer", person.adresse?.hausnummer)}
-                        {item("Postfach", person.adresse?.postfach)}
-                        {item("PLZ", person.adresse?.plz)}
-                        {item("Ort", person.adresse?.ort)}
-                        {item("Telefonnummer", person.adresse?.telefonnummer)}
-                        {item("Steuer-ID", person.steuerId?.steuerId)}
+                        {item(
+                          "Straße",
+                          `eigentuemer.person.${index + 1}.adresse.strasse`
+                        )}
+                        {item(
+                          "Hausnummer",
+                          `eigentuemer.person.${index + 1}.adresse.hausnummer`
+                        )}
+                        {item(
+                          "Postfach",
+                          `eigentuemer.person.${index + 1}.adresse.postfach`
+                        )}
+                        {item(
+                          "PLZ",
+                          `eigentuemer.person.${index + 1}.adresse.plz`
+                        )}
+                        {item(
+                          "Ort",
+                          `eigentuemer.person.${index + 1}.adresse.ort`
+                        )}
+                        {item(
+                          "Telefonnummer",
+                          `eigentuemer.person.${
+                            index + 1
+                          }.adresse.telefonnummer`
+                        )}
+                        {item(
+                          "Steuer-ID",
+                          `eigentuemer.person.${index + 1}.steuerId.steuerId`
+                        )}
                         {item(
                           "Gesetzlicher Vertreter",
-                          person.gesetzlicherVertreter?.hasVertreter,
+                          `eigentuemer.person.${index + 1}.hasVertreter`,
                           resolveJaNein
                         )}
 
@@ -388,38 +465,79 @@ export default function Zusammenfassung() {
                             <ul>
                               {item(
                                 "Anrede",
-                                person.vertreter.name?.anrede,
+                                `eigentuemer.person.${
+                                  index + 1
+                                }.vertreter.name.anrede`,
                                 resolveAnrede
                               )}
-                              {item("Titel", person.vertreter.name?.titel)}
-                              {item("Name", person.vertreter.name?.name)}
-                              {item("Vorname", person.vertreter.name?.vorname)}
+                              {item(
+                                "Titel",
+                                `eigentuemer.person.${
+                                  index + 1
+                                }.vertreter.name.titel`
+                              )}
+                              {item(
+                                "Name",
+                                `eigentuemer.person.${
+                                  index + 1
+                                }.vertreter.name.name`
+                              )}
+                              {item(
+                                "Vorname",
+                                `eigentuemer.person.${
+                                  index + 1
+                                }.vertreter.name.vorname`
+                              )}
 
                               {item(
                                 "Straße",
-                                person.vertreter.adresse?.strasse
+                                `eigentuemer.person.${
+                                  index + 1
+                                }.vertreter.adresse.strasse`
                               )}
                               {item(
                                 "Hausnummer",
-                                person.vertreter.adresse?.hausnummer
+                                `eigentuemer.person.${
+                                  index + 1
+                                }.vertreter.adresse.hausnummer`
                               )}
                               {item(
                                 "Postfach",
-                                person.vertreter.adresse?.postfach
+                                `eigentuemer.person.${
+                                  index + 1
+                                }.vertreter.adresse.postfach`
                               )}
-                              {item("PLZ", person.vertreter.adresse?.plz)}
-                              {item("Ort", person.vertreter.adresse?.ort)}
+                              {item(
+                                "PLZ",
+                                `eigentuemer.person.${
+                                  index + 1
+                                }.vertreter.adresse.plz`
+                              )}
+                              {item(
+                                "Ort",
+                                `eigentuemer.person.${
+                                  index + 1
+                                }.vertreter.adresse.ort`
+                              )}
                               {item(
                                 "Telefonnummer",
-                                person.vertreter.adresse?.telefonnummer
+                                `eigentuemer.person.${
+                                  index + 1
+                                }.vertreter.adresse.telefonnummer`
                               )}
                             </ul>
                           </div>
                         )}
                         {person.anteil && (
                           <>
-                            {item("Anteil Zähler", person.anteil.zaehler)}
-                            {item("Anteil Nenner", person.anteil.nenner)}
+                            {item(
+                              "Anteil Zähler",
+                              `eigentuemer.person.${index + 1}.anteil.zaehler`
+                            )}
+                            {item(
+                              "Anteil Nenner",
+                              `eigentuemer.person.${index + 1}.anteil.nenner`
+                            )}
                           </>
                         )}
                       </ul>
@@ -431,45 +549,36 @@ export default function Zusammenfassung() {
             <ul>
               {item(
                 "Bruchteilsgemeinschaft Angaben übernehmen",
-                allData.eigentuemer.bruchteilsgemeinschaft?.predefinedData,
+                "eigentuemer.bruchteilsgemeinschaft.predefinedData",
                 resolveJaNein
               )}
               {allData.eigentuemer.bruchteilsgemeinschaftangaben && (
-                <div
-                  className="bg-gray-300 mx-4"
-                  id={"empfangsbevollmaechtigter"}
-                >
+                <div className="bg-gray-300 mx-4" id={"bruchteilsgemeinschaft"}>
                   <h5 className="font-bold">Bruchteilsgemeinschaft Angaben</h5>
                   <ul>
                     {item(
                       "Name",
-                      allData.eigentuemer.bruchteilsgemeinschaftangaben?.angaben
-                        ?.name
+                      "eigentuemer.bruchteilsgemeinschaftangaben.angaben.name"
                     )}
                     {item(
                       "Straße",
-                      allData.eigentuemer.bruchteilsgemeinschaftangaben?.angaben
-                        ?.strasse
+                      "eigentuemer.bruchteilsgemeinschaftangaben.angaben.strasse"
                     )}
                     {item(
                       "Hausnummer",
-                      allData.eigentuemer.bruchteilsgemeinschaftangaben?.angaben
-                        ?.hausnummer
+                      "eigentuemer.bruchteilsgemeinschaftangaben.angaben.hausnummer"
                     )}
                     {item(
                       "Postfach",
-                      allData.eigentuemer.bruchteilsgemeinschaftangaben?.angaben
-                        ?.postfach
+                      "eigentuemer.bruchteilsgemeinschaftangaben.angaben.postfach"
                     )}
                     {item(
                       "PLZ",
-                      allData.eigentuemer.bruchteilsgemeinschaftangaben?.angaben
-                        ?.plz
+                      "eigentuemer.bruchteilsgemeinschaftangaben.angaben.plz"
                     )}
                     {item(
                       "Ort",
-                      allData.eigentuemer.bruchteilsgemeinschaftangaben?.angaben
-                        ?.ort
+                      "eigentuemer.bruchteilsgemeinschaftangaben.angaben.ort"
                     )}
                   </ul>
                 </div>
@@ -478,7 +587,7 @@ export default function Zusammenfassung() {
             <ul>
               {item(
                 "Empfangsvollmacht",
-                allData.eigentuemer.empfangsvollmacht?.hasEmpfangsvollmacht,
+                "eigentuemer.empfangsvollmacht.hasEmpfangsvollmacht",
                 resolveJaNein
               )}
               {allData.eigentuemer.empfangsbevollmaechtigter && (
@@ -490,51 +599,45 @@ export default function Zusammenfassung() {
                   <ul>
                     {item(
                       "Anrede",
-                      allData.eigentuemer.empfangsbevollmaechtigter.name
-                        ?.anrede,
+                      "eigentuemer.empfangsbevollmaechtigter.name.anrede",
                       resolveAnrede
                     )}
                     {item(
                       "Titel",
-                      allData.eigentuemer.empfangsbevollmaechtigter.name?.titel
+                      "eigentuemer.empfangsbevollmaechtigter.name.titel"
                     )}
                     {item(
                       "Name",
-                      allData.eigentuemer.empfangsbevollmaechtigter.name?.name
+                      "eigentuemer.empfangsbevollmaechtigter.name.name"
                     )}
                     {item(
                       "Vorname",
-                      allData.eigentuemer.empfangsbevollmaechtigter.name
-                        ?.vorname
+                      "eigentuemer.empfangsbevollmaechtigter.name.vorname"
                     )}
 
                     {item(
                       "Straße",
-                      allData.eigentuemer.empfangsbevollmaechtigter.adresse
-                        ?.strasse
+                      "eigentuemer.empfangsbevollmaechtigter.adresse.strasse"
                     )}
                     {item(
                       "Hausnummer",
-                      allData.eigentuemer.empfangsbevollmaechtigter.adresse
-                        ?.hausnummer
+                      "eigentuemer.empfangsbevollmaechtigter.adresse.hausnummer"
                     )}
                     {item(
                       "Postfach",
-                      allData.eigentuemer.empfangsbevollmaechtigter.adresse
-                        ?.postfach
+                      "eigentuemer.empfangsbevollmaechtigter.adresse.postfach"
                     )}
                     {item(
                       "PLZ",
-                      allData.eigentuemer.empfangsbevollmaechtigter.adresse?.plz
+                      "eigentuemer.empfangsbevollmaechtigter.adresse.plz"
                     )}
                     {item(
                       "Ort",
-                      allData.eigentuemer.empfangsbevollmaechtigter.adresse?.ort
+                      "eigentuemer.empfangsbevollmaechtigter.adresse.ort"
                     )}
                     {item(
                       "Telefonnummer",
-                      allData.eigentuemer.empfangsbevollmaechtigter.adresse
-                        ?.telefonnummer
+                      "eigentuemer.empfangsbevollmaechtigter.adresse.telefonnummer"
                     )}
                   </ul>
                 </div>
