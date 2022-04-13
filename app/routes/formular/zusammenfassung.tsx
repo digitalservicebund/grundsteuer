@@ -86,14 +86,15 @@ const validateAllStepsData = async (storedFormData: GrundModel) => {
         (field) => (fieldErrors[field] = "Bitte ergänzen")
       );
     }
-    if (fieldErrors) _.set(generalErrors, idToIndex(stepPath), fieldErrors);
+    if (Object.keys(fieldErrors).length !== 0)
+      _.set(generalErrors, idToIndex(stepPath), fieldErrors);
   }
   return generalErrors;
 };
 
 export type ActionData = {
-  errors: Record<string, string>;
-  generalErrors: Record<string, string>;
+  errors?: Record<string, string>;
+  generalErrors?: Record<string, string>;
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -231,6 +232,8 @@ export default function Zusammenfassung() {
   const { formData, allData, i18n, stepDefinition } =
     useLoaderData<LoaderData>();
   const actionData = useActionData() as ActionData;
+  const errors = actionData?.errors;
+  const generalErrors = actionData?.generalErrors;
 
   const item = (
     label: string,
@@ -239,7 +242,7 @@ export default function Zusammenfassung() {
     explicitValue?: string
   ): JSX.Element => {
     let value = getStepData(allData, path);
-    const error = getStepData(actionData?.generalErrors, path);
+    const error = generalErrors ? getStepData(generalErrors, path) : undefined;
     if (explicitValue) value = explicitValue;
 
     const displayValue = resolver ? resolver(value) : value;
@@ -273,9 +276,26 @@ export default function Zusammenfassung() {
     }
   };
 
+  const sectionHeading = (label: string, dataKey: string) => {
+    const finishedIcon =
+      (generalErrors || errors) &&
+      (generalErrors?.[dataKey] ? (
+        <Unfinished className="mr-16" />
+      ) : (
+        <Finished className="mr-16" />
+      ));
+
+    return (
+      <div className="flex">
+        {finishedIcon}
+        <h2 className="font-bold text-2xl mb-3">{label}</h2>
+      </div>
+    );
+  };
+
   const grundstueckAccordionItem = allData.grundstueck
     ? {
-        header: <h2 className="font-bold text-2xl mb-3">Grundstück</h2>,
+        header: sectionHeading("Grundstück", "grundstueck"),
         content: (
           <div id="grundstueck-area">
             <ul>
@@ -404,7 +424,7 @@ export default function Zusammenfassung() {
 
   const gebaeudeAccordionItem = allData?.gebaeude
     ? {
-        header: <h2 className="font-bold text-2xl mb-3">Gebäude</h2>,
+        header: sectionHeading("Gebäude", "gebaeude"),
         content: (
           <div id="gebaeude-area">
             <ul>
@@ -477,7 +497,7 @@ export default function Zusammenfassung() {
 
   const eigentuemerAccordionItem = allData?.eigentuemer
     ? {
-        header: <h2 className="font-bold text-2xl mb-3">Eigentümer:innen</h2>,
+        header: sectionHeading("Eigentümer:innen", "eigentuemer"),
         content: (
           <div id="eigentuemer-area">
             <ul>
@@ -772,12 +792,7 @@ export default function Zusammenfassung() {
     return i !== undefined;
   }) as AccordionItem[];
 
-  const fieldProps = getFieldProps(
-    stepDefinition,
-    formData,
-    i18n,
-    actionData?.errors
-  );
+  const fieldProps = getFieldProps(stepDefinition, formData, i18n, errors);
 
   return (
     <div className="pt-32 max-w-screen-md mx-auto w-1/2">
