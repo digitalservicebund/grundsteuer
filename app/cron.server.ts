@@ -11,11 +11,11 @@ const scheduleFscCleanup = (cronExpression: string) => {
 
 const deleteExpiredFscs = async () => {
   const now = new Date();
-  const oneYearAgo = new Date(now.setFullYear(now.getFullYear() - 1));
+  const ninetyDaysAgo = new Date(now.setDate(now.getDate() - 90));
   const queryResult = await db.fscRequest.deleteMany({
     where: {
       createdAt: {
-        lte: oneYearAgo,
+        lte: ninetyDaysAgo,
       },
     },
   });
