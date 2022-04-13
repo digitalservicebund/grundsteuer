@@ -217,72 +217,80 @@ export default function Zusammenfassung() {
               {allData.grundstueck.flurstueck && (
                 <>
                   <h3 className="font-bold text-xl mb-1">Flurstücke</h3>
-                  {allData.grundstueck.flurstueck.map((flurstueck, index) => {
-                    const flurstueckKey = "flurstueck-" + index;
-                    return (
-                      <div
-                        className="bg-gray-100 mb-3"
-                        key={flurstueckKey}
-                        id={flurstueckKey}
-                      >
-                        <h4 className="font-bold">Flurstück {index + 1}</h4>
-                        <ul>
-                          {item(
-                            "Grundbuchblattnummer",
-                            `grundstueck.flurstueck.${
-                              index + 1
-                            }.angaben.grundbuchblattnummer`
-                          )}
-                          {item(
-                            "Gemarkung",
-                            `grundstueck.flurstueck.${
-                              index + 1
-                            }.angaben.gemarkung`
-                          )}
-                          {item(
-                            "Flur",
-                            `grundstueck.flurstueck.${index + 1}.flur.flur`
-                          )}
-                          {item(
-                            "Flurstück Zähler",
-                            `grundstueck.flurstueck.${
-                              index + 1
-                            }.flur.flurstueckZaehler`
-                          )}
-                          {item(
-                            "Flurstück Nenner",
-                            `grundstueck.flurstueck.${
-                              index + 1
-                            }.flur.flurstueck`
-                          )}
-                          {item(
-                            "Wirtsch. Einheit Zähler",
-                            `grundstueck.flurstueck.${
-                              index + 1
-                            }.flur.wirtschaftlicheEinheitZaehler`
-                          )}
-                          {item(
-                            "Wirtsch. Einheit Nenner",
-                            `grundstueck.flurstueck.${
-                              index + 1
-                            }.flur.wirtschaftlicheEinheitNenner`
-                          )}
-                          {item(
-                            "Größe ha",
-                            `grundstueck.flurstueck.${index + 1}.flur.groesseHa`
-                          )}
-                          {item(
-                            "Größe a",
-                            `grundstueck.flurstueck.${index + 1}.flur.groesseA`
-                          )}
-                          {item(
-                            "Größe m²",
-                            `grundstueck.flurstueck.${index + 1}.flur.groesseQm`
-                          )}
-                        </ul>
-                      </div>
-                    );
-                  })}
+                  {[...Array(allData.grundstueck.flurstueck.length).keys()].map(
+                    (index) => {
+                      const flurstueckKey = "flurstueck-" + index;
+                      return (
+                        <div
+                          className="bg-gray-100 mb-3"
+                          key={flurstueckKey}
+                          id={flurstueckKey}
+                        >
+                          <h4 className="font-bold">Flurstück {index + 1}</h4>
+                          <ul>
+                            {item(
+                              "Grundbuchblattnummer",
+                              `grundstueck.flurstueck.${
+                                index + 1
+                              }.angaben.grundbuchblattnummer`
+                            )}
+                            {item(
+                              "Gemarkung",
+                              `grundstueck.flurstueck.${
+                                index + 1
+                              }.angaben.gemarkung`
+                            )}
+                            {item(
+                              "Flur",
+                              `grundstueck.flurstueck.${index + 1}.flur.flur`
+                            )}
+                            {item(
+                              "Flurstück Zähler",
+                              `grundstueck.flurstueck.${
+                                index + 1
+                              }.flur.flurstueckZaehler`
+                            )}
+                            {item(
+                              "Flurstück Nenner",
+                              `grundstueck.flurstueck.${
+                                index + 1
+                              }.flur.flurstueck`
+                            )}
+                            {item(
+                              "Wirtsch. Einheit Zähler",
+                              `grundstueck.flurstueck.${
+                                index + 1
+                              }.flur.wirtschaftlicheEinheitZaehler`
+                            )}
+                            {item(
+                              "Wirtsch. Einheit Nenner",
+                              `grundstueck.flurstueck.${
+                                index + 1
+                              }.flur.wirtschaftlicheEinheitNenner`
+                            )}
+                            {item(
+                              "Größe ha",
+                              `grundstueck.flurstueck.${
+                                index + 1
+                              }.flur.groesseHa`
+                            )}
+                            {item(
+                              "Größe a",
+                              `grundstueck.flurstueck.${
+                                index + 1
+                              }.flur.groesseA`
+                            )}
+                            {item(
+                              "Größe m²",
+                              `grundstueck.flurstueck.${
+                                index + 1
+                              }.flur.groesseQm`
+                            )}
+                          </ul>
+                        </div>
+                      );
+                    }
+                  )}
                 </>
               )}
               {item(
