@@ -21,6 +21,7 @@ import Accordion, { AccordionItem } from "~/components/Accordion";
 import { authenticator } from "~/auth.server";
 import { getFieldProps } from "~/util/getFieldProps";
 export { action } from "~/routes/formular/_step";
+import Edit from "~/components/icons/mui/Edit";
 
 type LoaderData = {
   formData: StepFormData;
@@ -131,6 +132,9 @@ const resolveBundesland = (value: string | undefined) => {
   }
 };
 
+const pathToUrl = (path: string) =>
+  `/formular/${path.split(".").slice(0, -1).join("/")}`;
+
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Zusammenfassung Ihrer Eingaben") };
 };
@@ -142,22 +146,32 @@ export default function Zusammenfassung() {
 
   const item = (
     label: string,
-    path: string | undefined,
+    path: string,
     resolver?: (field: string | undefined) => string,
     explicitValue?: string
   ): JSX.Element => {
-    let value;
-    if (path) value = getStepData(allData, path);
+    let value = getStepData(allData, path);
     if (explicitValue) value = explicitValue;
 
     const displayValue = resolver ? resolver(value) : value;
+    const editUrl = pathToUrl(path);
+
     if (displayValue) {
       return (
         <li>
-          <dl className="mb-16">
-            <dt className="font-bold text-gray-800 block">{label}</dt>
-            <dd className="font-bold block">{displayValue}</dd>
-          </dl>
+          <div className="mb-16 flex flex-row justify-between items-center">
+            <dl>
+              <dt className="font-bold text-gray-800 block">{label}</dt>
+              <dd className="font-bold block">{displayValue}</dd>
+            </dl>
+            <a
+              href={editUrl}
+              className="text-gray-900 font-bold flex flex-row items-center"
+            >
+              <Edit className="mr-8" />
+              Ändern
+            </a>
+          </div>
         </li>
       );
     } else {
