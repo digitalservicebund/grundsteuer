@@ -34,6 +34,8 @@ import { getFieldProps } from "~/util/getFieldProps";
 import Edit from "~/components/icons/mui/Edit";
 import { getReachablePathsFromData } from "~/domain";
 import _ from "lodash";
+import Unfinished from "~/components/icons/mui/Unfinished";
+import Finished from "~/components/icons/mui/Finished";
 
 type LoaderData = {
   formData: StepFormData;
@@ -246,20 +248,23 @@ export default function Zusammenfassung() {
     if (displayValue || error) {
       return (
         <li>
-          <div className="mb-16 flex flex-row justify-between items-center">
-            <dl>
-              <dt className="font-bold text-gray-800 block">{label}</dt>
-              <dd className="font-bold block">
-                {error ? error : displayValue}
-              </dd>
-            </dl>
-            <a
-              href={editUrl}
-              className="text-gray-900 font-bold flex flex-row items-center"
-            >
-              <Edit className="mr-8" />
-              Ändern
-            </a>
+          <div className="mb-16 flex flex-row">
+            <div className="mr-16">{error ? <Unfinished /> : <Finished />}</div>
+            <div className="mb-16 flex flex-row w-full justify-between items-center">
+              <dl>
+                <dt className="font-bold text-gray-800 block">{label}</dt>
+                <dd className="font-bold block">
+                  {error ? error : displayValue}
+                </dd>
+              </dl>
+              <a
+                href={editUrl}
+                className="text-gray-900 font-bold flex flex-row items-center"
+              >
+                <Edit className="mr-8" />
+                Ändern
+              </a>
+            </div>
           </div>
         </li>
       );
