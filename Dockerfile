@@ -13,4 +13,4 @@ ENV NODE_ENV=production
 WORKDIR /home/node/src
 COPY --from=build /src ./
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["/bin/sh"]

@@ -6,9 +6,10 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "target": "ES6",
+    "target": "ES2019",
     "strict": true,
     "baseUrl": ".",
     "paths": {
@@ -16,6 +17,7 @@
       "test/*": ["test/*"],
       "testUtil/*": ["private/jest/util/*"]
     },
+    "skipLibCheck": true,
 
     // Remix takes care of building everything in `remix build`.
     "noEmit": true
