@@ -5,6 +5,5 @@ export const loader: LoaderFunction = async () => {
 };
 
 export default function Start() {
-
   return "Success FSC Beantragen";
 }

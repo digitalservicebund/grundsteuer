@@ -4,13 +4,20 @@ import {
   Form,
   json,
   LoaderFunction,
-  redirect, Session,
+  redirect,
+  Session,
   useActionData,
   useFetcher,
   useLoaderData,
 } from "remix";
 import { authenticator } from "~/auth.server";
-import {Button, FormGroup, Input, SimplePageLayout, Spinner} from "~/components";
+import {
+  Button,
+  FormGroup,
+  Input,
+  SimplePageLayout,
+  Spinner,
+} from "~/components";
 import {
   requestNewFreischaltCode,
   retrieveAntragsId,
@@ -20,15 +27,13 @@ import { commitSession, getSession } from "~/session.server";
 import is from "@sindresorhus/is";
 import truthy = is.truthy;
 
-
 const isEricaRequestInProgress = (session: Session) => {
   return truthy(session.get("ericaRequestId"));
-}
+};
 
 const wasEricaRequestSuccessful = (session: Session) => {
   return truthy(session.get("elsterRequestId"));
-}
-
+};
 
 export const loader: LoaderFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
@@ -39,7 +44,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   if (isEricaRequestInProgress(session)) {
     try {
-      const elsterRequestId = await retrieveAntragsId(session.get("ericaRequestId"));
+      const elsterRequestId = await retrieveAntragsId(
+        session.get("ericaRequestId")
+      );
       if (elsterRequestId) {
         session.set("elsterRequestId", elsterRequestId);
         session.unset("ericaRequestId");
@@ -47,21 +54,24 @@ export const loader: LoaderFunction = async ({ request }) => {
     } catch (Error) {
       session.unset("ericaRequestId");
       return redirect("/fsc/beantragenFailure", {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      }});
+        headers: {
+          "Set-Cookie": await commitSession(session),
+        },
+      });
     }
   }
 
-  return json({
-    inProgress: truthy(session.get("ericaRequestId"))
-  }, {
-    headers: {
-      "Set-Cookie": await commitSession(session),
+  return json(
+    {
+      inProgress: truthy(session.get("ericaRequestId")),
     },
-  });
+    {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    }
+  );
 };
-
 
 export const action: ActionFunction = async ({ request }) => {
   await authenticator.isAuthenticated(request, {
@@ -85,11 +95,10 @@ export const action: ActionFunction = async ({ request }) => {
       );
       session.set("ericaRequestId", ericaRequestId);
     }
-
   }
   return json(
     {
-      inProgress: truthy(session.get("ericaRequestId"))
+      inProgress: truthy(session.get("ericaRequestId")),
     },
     {
       headers: {
@@ -115,7 +124,8 @@ export default function Redirect() {
     return () => clearInterval(interval);
   }, []);
 
-  const spinnerElement = actionData?.inProgress || loaderData?.inProgress ? <Spinner /> : null;
+  const spinnerElement =
+    actionData?.inProgress || loaderData?.inProgress ? <Spinner /> : null;
   return (
     <SimplePageLayout>
       {spinnerElement}
