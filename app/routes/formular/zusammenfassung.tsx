@@ -21,7 +21,6 @@ import {
   StepFormData,
 } from "~/domain/model";
 import { zusammenfassung } from "~/domain/steps/zusammenfassung";
-import { I18nObject } from "~/routes/formular/_step";
 import { Button, StepFormField } from "~/components";
 import Accordion, { AccordionItem } from "~/components/Accordion";
 import { authenticator } from "~/auth.server";
@@ -33,6 +32,7 @@ import {
   validateAllStepsData,
   validateStepFormData,
 } from "~/domain/validation";
+import { getStepI18n, I18nObject } from "~/util/getStepI18n";
 
 type LoaderData = {
   formData: StepFormData;
@@ -48,14 +48,10 @@ export const loader: LoaderFunction = async ({ request }) => {
   const storedFormData = await getStoredFormData({ request, user });
   const filteredData = filterDataForReachablePaths(storedFormData);
 
-  const tFunction = await i18Next.getFixedT("de", "all");
   return {
     formData: getStepData(storedFormData, "zusammenfassung"),
     allData: filteredData,
-    i18n: {
-      ...(tFunction("zusammenfassung") as I18nObject),
-      common: { ...(tFunction("common") as I18nObject) },
-    },
+    i18n: await getStepI18n("zusammenfassung"),
     stepDefinition: zusammenfassung,
   };
 };

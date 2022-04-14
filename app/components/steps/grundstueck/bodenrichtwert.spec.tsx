@@ -4,9 +4,9 @@ import Bodenrichtwert, {
 } from "~/components/steps/grundstueck/bodenrichtwert";
 import { grundstueckBodenrichtwert } from "~/domain/steps/grundstueck/bodenrichtwert";
 import { getI18nObject } from "test/factories/i18n";
-import { I18nObject } from "~/routes/formular/_step";
 import { grundModelFactory, flurstueckFactory } from "test/factories";
 import { GrundModel } from "~/domain/steps";
+import { I18nObject } from "~/util/getStepI18n";
 
 describe("Bodenrichtwert page component", () => {
   const defaultInput = {

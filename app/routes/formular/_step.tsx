@@ -11,8 +11,8 @@ import { createMachine } from "xstate";
 import _ from "lodash";
 import { Button } from "~/components";
 import {
-  getStoredFormData,
   addFormDataCookiesToHeaders,
+  getStoredFormData,
 } from "~/formDataStorage.server";
 import { i18Next } from "~/i18n.server";
 import { getStepData, setStepData, StepFormData } from "~/domain/model";
@@ -37,6 +37,7 @@ import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
 import { getSession } from "~/session.server";
 import { Params } from "react-router";
+import { getStepI18n, I18nObject } from "~/util/getStepI18n";
 
 const getMachine = ({
   formData,
@@ -120,30 +121,6 @@ const getRedirectUrl = (
   return redirectUrl;
 };
 
-export type I18nObjectField = {
-  label: string;
-  options?: {
-    [index: string]: {
-      label: string;
-      help?: string;
-    };
-  };
-  placeholder?: string;
-  help?: string;
-};
-
-export type I18nObject = {
-  headline: string;
-  headlineHelp?: string;
-  fields: {
-    [index: string]: I18nObjectField;
-  };
-  specifics: Record<string, string>;
-  help: Record<string, string>;
-  nextButtonLabel: string;
-  common: Record<string, string>;
-};
-
 export type LoaderData = {
   formData: StepFormData;
   allData: GrundModel;
@@ -181,16 +158,12 @@ export const loader: LoaderFunction = async ({
   const backUrl = getBackUrl({ machine, currentStateWithoutId });
   const stepDefinition = getStepDefinition({ currentStateWithoutId });
 
-  const tFunction = await i18Next.getFixedT("de", "all");
   return {
     formData: getStepData(storedFormData, currentState),
     allData: storedFormData,
-    i18n: {
-      ...tFunction(currentStateWithoutId, {
-        id: params?.personId || params?.flurstueckId,
-      }),
-      common: { ...tFunction("common") },
-    },
+    i18n: await getStepI18n(currentStateWithoutId, {
+      id: params?.personId || params?.flurstueckId,
+    }),
     backUrl,
     currentStateWithoutId,
     currentState,
@@ -228,6 +201,12 @@ export const action: ActionFunction = async ({ params, request }) => {
     currentState,
     stepFormData
   );
+  const headers = new Headers();
+  await addFormDataCookiesToHeaders({
+    headers,
+    data: formDataToBeStored,
+    user,
+  });
 
   // redirect
   const machine = getMachine({ formData: formDataToBeStored, params });
@@ -235,13 +214,6 @@ export const action: ActionFunction = async ({ params, request }) => {
     type: "NEXT",
   });
   const redirectUrl = getRedirectUrl(nextState);
-
-  const headers = new Headers();
-  await addFormDataCookiesToHeaders({
-    headers,
-    data: formDataToBeStored,
-    user,
-  });
 
   return redirect(redirectUrl, {
     headers,

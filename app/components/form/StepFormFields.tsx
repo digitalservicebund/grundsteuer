@@ -1,5 +1,5 @@
 import StepFormField from "./StepFormField";
-import { I18nObjectField } from "~/routes/formular/_step";
+import { I18nObjectField } from "~/util/getStepI18n";
 
 export type StepFormFieldsProps = {
   stepDefinition?: {

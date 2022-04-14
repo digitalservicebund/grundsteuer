@@ -1,6 +1,6 @@
 import { ZusammenfassungFields } from "~/domain/steps/zusammenfassung";
 import { StepDefinition } from "~/domain/steps";
-import { I18nObject } from "~/routes/formular/_step";
+import { I18nObject } from "~/util/getStepI18n";
 
 export const getFieldProps = (
   stepDefinition: StepDefinition,

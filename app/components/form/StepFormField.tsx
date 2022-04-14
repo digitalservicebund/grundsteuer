@@ -3,10 +3,10 @@ import Input, { InputProps } from "./Input";
 import Select, { SelectProps } from "./Select";
 import SteuerIdField from "./SteuerIdField";
 import Checkbox, { CheckboxProps } from "./Checkbox";
-import { I18nObjectField } from "~/routes/formular/_step";
 import Confirmation, {
   ConfirmationProps,
 } from "~/components/form/Confirmation";
+import { I18nObjectField } from "~/util/getStepI18n";
 
 export type StepFormFieldProps = {
   name: string;

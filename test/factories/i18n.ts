@@ -1,5 +1,5 @@
 import { i18Next } from "~/i18n.server";
-import { I18nObject } from "~/routes/formular/_step";
+import { I18nObject } from "~/util/getStepI18n";
 
 export async function getI18nObject(
   path: string,

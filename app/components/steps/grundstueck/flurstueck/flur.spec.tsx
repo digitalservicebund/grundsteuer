@@ -1,8 +1,8 @@
 import { render, screen, within } from "@testing-library/react";
 import { getI18nObject } from "test/factories/i18n";
-import { I18nObject } from "~/routes/formular/_step";
 import { grundstueckFlurstueckFlur } from "~/domain/steps/grundstueck/flurstueck/flur";
 import Flur from "~/components/steps/grundstueck/flurstueck/flur";
+import { I18nObject } from "~/util/getStepI18n";
 
 describe("Flur page component", () => {
   const defaultInput = {
