@@ -7,11 +7,12 @@ import bcrypt from "bcryptjs";
 export type SessionUser = {
   email: string;
   id: string;
+  identified: boolean;
 };
 
 export const authenticator = new Authenticator<SessionUser>(sessionStorage);
 
-const login = async (email: string, password: string) => {
+const login = async (email: string, password: string): Promise<SessionUser> => {
   const user = await db.user.findUnique({
     where: { email: email },
   });
@@ -19,6 +20,7 @@ const login = async (email: string, password: string) => {
     return {
       email: user.email,
       id: user.id,
+      identified: user.identified,
     };
   }
 

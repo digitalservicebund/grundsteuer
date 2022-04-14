@@ -35,9 +35,12 @@ type LoaderData = {
   allData: GrundModel;
   i18n: I18nObject;
   stepDefinition: StepDefinition;
+  isIdentified: boolean;
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({
+  request,
+}): Promise<LoaderData> => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
@@ -49,6 +52,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     allData: filteredData,
     i18n: await getStepI18n("zusammenfassung"),
     stepDefinition: zusammenfassung,
+    isIdentified: user.identified,
   };
 };
 
@@ -106,7 +110,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Zusammenfassung() {
-  const { formData, allData, i18n, stepDefinition } =
+  const { formData, allData, i18n, stepDefinition, isIdentified } =
     useLoaderData<LoaderData>();
   const actionData = useActionData();
   const errors = actionData?.errors;
@@ -121,6 +125,20 @@ export default function Zusammenfassung() {
       <div className="mt-32">
         <Form method="post" className="mb-16">
           <StepFormField {...fieldProps[0]} />
+          {!isIdentified && (
+            <div>
+              <h2 className="font-bold text-20 mb-16 underline">
+                {i18n.specifics.fscHeading}
+              </h2>
+              <Button
+                look="tertiary"
+                to="/fsc/beantragen"
+                className="mb-48 text-center"
+              >
+                {i18n.specifics.fscLinkText}
+              </Button>
+            </div>
+          )}
           <StepFormField {...fieldProps[1]} />
 
           <h2 className="font-bold text-20 mb-8">

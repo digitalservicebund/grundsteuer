@@ -123,9 +123,9 @@ export default function ZusammenfassungAccordion({
         <li>
           <div className="mb-16 flex flex-row">
             {error ? (
-              <Unfinished className="mr-16" />
+              <Unfinished className="mr-16 overflow-visible" />
             ) : (
-              <Finished className="mr-16" />
+              <Finished className="mr-16 overflow-visible" />
             )}
             <div className="mb-16 flex flex-row w-full justify-between items-center">
               <dl>
