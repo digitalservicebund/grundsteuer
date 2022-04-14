@@ -78,17 +78,18 @@ export const action: ActionFunction = async ({ request }) => {
   );
   if (Object.keys(errors).length > 0) return { errors } as ActionData;
 
-  // validate all steps' data
-  const generalErrors = await validateAllStepsData(storedFormData);
-  if (Object.keys(generalErrors).length > 0)
-    return { generalErrors } as ActionData;
-
   // store
   const formDataToBeStored = setStepData(
     storedFormData,
     "zusammenfassung",
     zusammenfassungFormData
   );
+
+  // validate all steps' data
+  const generalErrors = await validateAllStepsData(formDataToBeStored);
+  if (Object.keys(generalErrors).length > 0)
+    return { generalErrors } as ActionData;
+
   const headers = new Headers();
   await addFormDataCookiesToHeaders({
     headers,
@@ -96,8 +97,7 @@ export const action: ActionFunction = async ({ request }) => {
     user,
   });
 
-  // TODO redirect to different page
-  return redirect("formular/zusammenfassung", {
+  return redirect("formular/erfolg", {
     headers,
   });
 };
