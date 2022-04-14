@@ -13,7 +13,6 @@ import {
 } from "~/formDataStorage.server";
 import { GrundModel, StepDefinition } from "~/domain/steps";
 import { pageTitle } from "~/util/pageTitle";
-import { i18Next } from "~/i18n.server";
 import {
   filterDataForReachablePaths,
   getStepData,
@@ -33,6 +32,7 @@ import {
   validateStepFormData,
 } from "~/domain/validation";
 import { getStepI18n, I18nObject } from "~/util/getStepI18n";
+import { conditions } from "~/domain/guards";
 
 type LoaderData = {
   formData: StepFormData;
@@ -185,8 +185,8 @@ const resolveBundesland = (value: string | undefined) => {
   }
 };
 
-const pathToUrl = (path: string) =>
-  `/formular/${path.split(".").slice(0, -1).join("/")}`;
+const fieldPathToStepUrl = (fieldPath: string) =>
+  `/formular/${fieldPath.split(".").slice(0, -1).join("/")}`;
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Zusammenfassung Ihrer Eingaben") };
@@ -210,7 +210,7 @@ export default function Zusammenfassung() {
     if (explicitValue) value = explicitValue;
 
     const displayValue = resolver ? resolver(value) : value;
-    const editUrl = pathToUrl(path);
+    const editUrl = fieldPathToStepUrl(path);
 
     if (displayValue || error) {
       return (
@@ -242,7 +242,7 @@ export default function Zusammenfassung() {
 
   const sectionHeading = (label: string, dataKey: string) => {
     const finishedIcon =
-      (generalErrors || errors) &&
+      generalErrors &&
       (generalErrors?.[dataKey] ? (
         <Unfinished className="mr-16" />
       ) : (
@@ -257,504 +257,479 @@ export default function Zusammenfassung() {
     );
   };
 
-  const grundstueckAccordionItem = allData.grundstueck
-    ? {
-        header: sectionHeading("Grundstück", "grundstueck"),
-        content: (
-          <div id="grundstueck-area">
-            <ul>
-              {item(
-                "Grundstücksart",
-                "grundstueck.typ.typ",
-                resolveGrundstueckTyp
-              )}
-              {item("Straße", "grundstueck.adresse.strasse")}
-              {item("Hausnummer", "grundstueck.adresse.hausnummer")}
-              {item("Zusatzangaben", "grundstueck.adresse.zusatzangaben")}
-              {item("PLZ", "grundstueck.adresse.plz")}
-              {item("Ort", "grundstueck.adresse.ort")}
-              {item(
-                "Bundesland",
-                "grundstueck.adresse.bundesland",
-                resolveBundesland
-              )}
-              {item(
-                "Steuernummer/Aktenzeichen",
-                "grundstueck.steuernummer.steuernummer"
-              )}
-              {item(
-                "Abweichende Entwicklung",
-                "grundstueck.abweichendeEntwicklung.zustand"
-              )}
-              {item(
-                "Innerhalb einer Gemeinde",
-                "grundstueck.gemeinde.innerhalbEinerGemeinde",
-                resolveJaNein
-              )}
-              {item("Anzahl Flurstücke", "grundstueck.anzahl.anzahl")}
-              {allData.grundstueck.flurstueck && (
-                <>
-                  <h3 className="font-bold text-xl mb-1">Flurstücke</h3>
-                  {[...Array(allData.grundstueck.flurstueck.length).keys()].map(
-                    (index) => {
-                      const flurstueckKey = "flurstueck-" + index;
-                      return (
-                        <div
-                          className="bg-gray-100 mb-3"
-                          key={flurstueckKey}
-                          id={flurstueckKey}
-                        >
-                          <h4 className="font-bold">Flurstück {index + 1}</h4>
-                          <ul>
-                            {item(
-                              "Grundbuchblattnummer",
-                              `grundstueck.flurstueck.${
-                                index + 1
-                              }.angaben.grundbuchblattnummer`
-                            )}
-                            {item(
-                              "Gemarkung",
-                              `grundstueck.flurstueck.${
-                                index + 1
-                              }.angaben.gemarkung`
-                            )}
-                            {item(
-                              "Flur",
-                              `grundstueck.flurstueck.${index + 1}.flur.flur`
-                            )}
-                            {item(
-                              "Flurstück Zähler",
-                              `grundstueck.flurstueck.${
-                                index + 1
-                              }.flur.flurstueckZaehler`
-                            )}
-                            {item(
-                              "Flurstück Nenner",
-                              `grundstueck.flurstueck.${
-                                index + 1
-                              }.flur.flurstueckNenner`
-                            )}
-                            {item(
-                              "Wirtsch. Einheit Zähler",
-                              `grundstueck.flurstueck.${
-                                index + 1
-                              }.flur.wirtschaftlicheEinheitZaehler`
-                            )}
-                            {item(
-                              "Wirtsch. Einheit Nenner",
-                              `grundstueck.flurstueck.${
-                                index + 1
-                              }.flur.wirtschaftlicheEinheitNenner`
-                            )}
-                            {item(
-                              "Größe ha",
-                              `grundstueck.flurstueck.${
-                                index + 1
-                              }.flur.groesseHa`
-                            )}
-                            {item(
-                              "Größe a",
-                              `grundstueck.flurstueck.${
-                                index + 1
-                              }.flur.groesseA`
-                            )}
-                            {item(
-                              "Größe m²",
-                              `grundstueck.flurstueck.${
-                                index + 1
-                              }.flur.groesseQm`
-                            )}
-                          </ul>
-                        </div>
-                      );
-                    }
-                  )}
-                </>
-              )}
-              {item(
-                "Bodenrichtwert",
-                "grundstueck.bodenrichtwert.bodenrichtwert"
-              )}
-              {item(
-                "Zwei Bodenrichtwerte",
-                "grundstueck.bodenrichtwert.twoBodenrichtwerte",
-                resolveCheckbox
-              )}
-            </ul>
-          </div>
-        ),
-      }
-    : undefined;
-
-  const gebaeudeAccordionItem = allData?.gebaeude
-    ? {
-        header: sectionHeading("Gebäude", "gebaeude"),
-        content: (
-          <div id="gebaeude-area">
-            <ul>
-              {item(
-                "Bezugsfertig ab 1949",
-                "gebaeude.ab1949.isAb1949",
-                resolveJaNein
-              )}
-              {item("Baujahr", "gebaeude.baujahr.baujahr")}
-              {item(
-                "Kernsaniert",
-                "gebaeude.kernsaniert.isKernsaniert",
-                resolveJaNein
-              )}
-              {item(
-                "Jahr der Kernsanierung",
-                "gebaeude.kernsanierungsjahr.kernsanierungsjahr"
-              )}
-              {item(
-                "Abbruchverpflichtung liegt vor",
-                "gebaeude.abbruchverpflichtung.hasAbbruchverpflichtung",
-                resolveJaNein
-              )}
-              {item(
-                "Jahr der Abbruchverpflichtung",
-                "gebaeude.abbruchverpflichtungsjahr.abbruchverpflichtungsjahr"
-              )}
-              {item(
-                "Wohnfläche",
-                "gebaeude.wohnflaeche.wohnflaeche",
-                resolveArea
-              )}
-              {item(
-                "Wohnung 1 Wohnfläche",
-                "gebaeude.wohnflaechen.wohnflaeche1",
-                resolveArea
-              )}
-              {item(
-                "Wohnung 2 Wohnfläche",
-                "gebaeude.wohnflaechen.wohnflaeche2",
-                resolveArea
-              )}
-              {item(
-                "Weitere Wohnräume",
-                "gebaeude.weitereWohnraeume.hasWeitereWohnraeume",
-                resolveJaNein
-              )}
-              {item(
-                "Anzahl der weiteren Wohnräume",
-                "gebaeude.weitereWohnraeumeDetails.anzahl"
-              )}
-              {item(
-                "Gesamtfläche der weiteren Wohnräume",
-                "gebaeude.weitereWohnraeumeDetails.flaeche",
-                resolveArea
-              )}
-              {allData.gebaeude?.garagen?.hasGaragen == "true"
-                ? item("Anzahl Garagen", "gebaeude.garagenAnzahl.anzahlGaragen")
-                : item(
-                    "Anzahl Garagen",
-                    "gebaeude.garagenAnzahl.anzahlGaragen",
-                    undefined,
-                    "0"
-                  )}
-            </ul>
-          </div>
-        ),
-      }
-    : undefined;
-
-  const eigentuemerAccordionItem = allData?.eigentuemer
-    ? {
-        header: sectionHeading("Eigentümer:innen", "eigentuemer"),
-        content: (
-          <div id="eigentuemer-area">
-            <ul>
-              {item("Anzahl", "eigentuemer.anzahl.anzahl")}
-              {item(
-                "Verheiratet",
-                "eigentuemer.verheiratet.areVerheiratet",
-                resolveJaNein
-              )}
-            </ul>
-            {allData.eigentuemer.person && (
-              <>
-                <h3 className="font-bold text-xl mb-1">Personen</h3>
-
-                {allData.eigentuemer.person.map((person, index) => {
-                  const personKey = "person-" + index;
+  const grundstueckAccordionItem = {
+    header: sectionHeading("Grundstück", "grundstueck"),
+    content: allData.grundstueck ? (
+      <div id="grundstueck-area">
+        <ul>
+          {item("Grundstücksart", "grundstueck.typ.typ", resolveGrundstueckTyp)}
+          {item("Straße", "grundstueck.adresse.strasse")}
+          {item("Hausnummer", "grundstueck.adresse.hausnummer")}
+          {item("Zusatzangaben", "grundstueck.adresse.zusatzangaben")}
+          {item("PLZ", "grundstueck.adresse.plz")}
+          {item("Ort", "grundstueck.adresse.ort")}
+          {item(
+            "Bundesland",
+            "grundstueck.adresse.bundesland",
+            resolveBundesland
+          )}
+          {item(
+            "Steuernummer/Aktenzeichen",
+            "grundstueck.steuernummer.steuernummer"
+          )}
+          {item(
+            "Abweichende Entwicklung",
+            "grundstueck.abweichendeEntwicklung.zustand"
+          )}
+          {item(
+            "Innerhalb einer Gemeinde",
+            "grundstueck.gemeinde.innerhalbEinerGemeinde",
+            resolveJaNein
+          )}
+          {item("Anzahl Flurstücke", "grundstueck.anzahl.anzahl")}
+          {allData.grundstueck.flurstueck && (
+            <>
+              <h3 className="font-bold text-xl mb-1">Flurstücke</h3>
+              {[...Array(allData.grundstueck.flurstueck.length).keys()].map(
+                (index) => {
+                  const flurstueckKey = "flurstueck-" + index;
                   return (
                     <div
                       className="bg-gray-100 mb-3"
-                      key={personKey}
-                      id={personKey}
+                      key={flurstueckKey}
+                      id={flurstueckKey}
                     >
-                      <h4 className="font-bold">Person {index + 1}</h4>
+                      <h4 className="font-bold">Flurstück {index + 1}</h4>
                       <ul>
                         {item(
-                          "Anrede",
-                          `eigentuemer.person.${
+                          "Grundbuchblattnummer",
+                          `grundstueck.flurstueck.${
                             index + 1
-                          }.persoenlicheAngaben.anrede`,
-                          resolveAnrede
+                          }.angaben.grundbuchblattnummer`
                         )}
                         {item(
-                          "Titel",
-                          `eigentuemer.person.${
+                          "Gemarkung",
+                          `grundstueck.flurstueck.${
                             index + 1
-                          }.persoenlicheAngaben.titel`
+                          }.angaben.gemarkung`
                         )}
                         {item(
-                          "Name",
-                          `eigentuemer.person.${
+                          "Flur",
+                          `grundstueck.flurstueck.${index + 1}.flur.flur`
+                        )}
+                        {item(
+                          "Flurstück Zähler",
+                          `grundstueck.flurstueck.${
                             index + 1
-                          }.persoenlicheAngaben.name`
+                          }.flur.flurstueckZaehler`
                         )}
                         {item(
-                          "Vorname",
-                          `eigentuemer.person.${
+                          "Flurstück Nenner",
+                          `grundstueck.flurstueck.${
                             index + 1
-                          }.persoenlicheAngaben.vorname`
+                          }.flur.flurstueckNenner`
                         )}
                         {item(
-                          "Geburtsdatum",
-                          `eigentuemer.person.${
+                          "Wirtsch. Einheit Zähler",
+                          `grundstueck.flurstueck.${
                             index + 1
-                          }.persoenlicheAngaben.geburtsdatum`
-                        )}
-
-                        {item(
-                          "Straße",
-                          `eigentuemer.person.${index + 1}.adresse.strasse`
+                          }.flur.wirtschaftlicheEinheitZaehler`
                         )}
                         {item(
-                          "Hausnummer",
-                          `eigentuemer.person.${index + 1}.adresse.hausnummer`
-                        )}
-                        {item(
-                          "Postfach",
-                          `eigentuemer.person.${index + 1}.adresse.postfach`
-                        )}
-                        {item(
-                          "PLZ",
-                          `eigentuemer.person.${index + 1}.adresse.plz`
-                        )}
-                        {item(
-                          "Ort",
-                          `eigentuemer.person.${index + 1}.adresse.ort`
-                        )}
-                        {item(
-                          "Telefonnummer",
-                          `eigentuemer.person.${
+                          "Wirtsch. Einheit Nenner",
+                          `grundstueck.flurstueck.${
                             index + 1
-                          }.adresse.telefonnummer`
+                          }.flur.wirtschaftlicheEinheitNenner`
                         )}
                         {item(
-                          "Steuer-ID",
-                          `eigentuemer.person.${index + 1}.steuerId.steuerId`
+                          "Größe ha",
+                          `grundstueck.flurstueck.${index + 1}.flur.groesseHa`
                         )}
                         {item(
-                          "Gesetzlicher Vertreter",
-                          `eigentuemer.person.${index + 1}.hasVertreter`,
-                          resolveJaNein
+                          "Größe a",
+                          `grundstueck.flurstueck.${index + 1}.flur.groesseA`
                         )}
-
-                        {person.vertreter && (
-                          <div
-                            className="bg-gray-300 mx-4"
-                            id={personKey + "-vertreter"}
-                          >
-                            <h5 className="font-bold">
-                              Gesetzlicher Vertreter
-                            </h5>
-                            <ul>
-                              {item(
-                                "Anrede",
-                                `eigentuemer.person.${
-                                  index + 1
-                                }.vertreter.name.anrede`,
-                                resolveAnrede
-                              )}
-                              {item(
-                                "Titel",
-                                `eigentuemer.person.${
-                                  index + 1
-                                }.vertreter.name.titel`
-                              )}
-                              {item(
-                                "Name",
-                                `eigentuemer.person.${
-                                  index + 1
-                                }.vertreter.name.name`
-                              )}
-                              {item(
-                                "Vorname",
-                                `eigentuemer.person.${
-                                  index + 1
-                                }.vertreter.name.vorname`
-                              )}
-
-                              {item(
-                                "Straße",
-                                `eigentuemer.person.${
-                                  index + 1
-                                }.vertreter.adresse.strasse`
-                              )}
-                              {item(
-                                "Hausnummer",
-                                `eigentuemer.person.${
-                                  index + 1
-                                }.vertreter.adresse.hausnummer`
-                              )}
-                              {item(
-                                "Postfach",
-                                `eigentuemer.person.${
-                                  index + 1
-                                }.vertreter.adresse.postfach`
-                              )}
-                              {item(
-                                "PLZ",
-                                `eigentuemer.person.${
-                                  index + 1
-                                }.vertreter.adresse.plz`
-                              )}
-                              {item(
-                                "Ort",
-                                `eigentuemer.person.${
-                                  index + 1
-                                }.vertreter.adresse.ort`
-                              )}
-                              {item(
-                                "Telefonnummer",
-                                `eigentuemer.person.${
-                                  index + 1
-                                }.vertreter.adresse.telefonnummer`
-                              )}
-                            </ul>
-                          </div>
-                        )}
-                        {person.anteil && (
-                          <>
-                            {item(
-                              "Anteil Zähler",
-                              `eigentuemer.person.${index + 1}.anteil.zaehler`
-                            )}
-                            {item(
-                              "Anteil Nenner",
-                              `eigentuemer.person.${index + 1}.anteil.nenner`
-                            )}
-                          </>
+                        {item(
+                          "Größe m²",
+                          `grundstueck.flurstueck.${index + 1}.flur.groesseQm`
                         )}
                       </ul>
                     </div>
                   );
-                })}
-              </>
+                }
+              )}
+            </>
+          )}
+          {item("Bodenrichtwert", "grundstueck.bodenrichtwert.bodenrichtwert")}
+          {item(
+            "Zwei Bodenrichtwerte",
+            "grundstueck.bodenrichtwert.twoBodenrichtwerte",
+            resolveCheckbox
+          )}
+        </ul>
+      </div>
+    ) : (
+      <>{i18n.specifics.sectionUnfilled}</>
+    ),
+  };
+
+  let gebaeudeAccordionItem;
+  if (conditions.isBebaut(allData)) {
+    gebaeudeAccordionItem = {
+      header: sectionHeading("Gebäude", "gebaeude"),
+      content: allData?.gebaeude ? (
+        <div id="gebaeude-area">
+          <ul>
+            {item(
+              "Bezugsfertig ab 1949",
+              "gebaeude.ab1949.isAb1949",
+              resolveJaNein
             )}
-            <ul>
-              {item(
-                "Bruchteilsgemeinschaft Angaben übernehmen",
-                "eigentuemer.bruchteilsgemeinschaft.predefinedData",
-                resolveJaNein
-              )}
-              {allData.eigentuemer.bruchteilsgemeinschaftangaben && (
-                <div className="bg-gray-300 mx-4" id={"bruchteilsgemeinschaft"}>
-                  <h5 className="font-bold">Bruchteilsgemeinschaft Angaben</h5>
-                  <ul>
-                    {item(
-                      "Name",
-                      "eigentuemer.bruchteilsgemeinschaftangaben.angaben.name"
-                    )}
-                    {item(
-                      "Straße",
-                      "eigentuemer.bruchteilsgemeinschaftangaben.angaben.strasse"
-                    )}
-                    {item(
-                      "Hausnummer",
-                      "eigentuemer.bruchteilsgemeinschaftangaben.angaben.hausnummer"
-                    )}
-                    {item(
-                      "Postfach",
-                      "eigentuemer.bruchteilsgemeinschaftangaben.angaben.postfach"
-                    )}
-                    {item(
-                      "PLZ",
-                      "eigentuemer.bruchteilsgemeinschaftangaben.angaben.plz"
-                    )}
-                    {item(
-                      "Ort",
-                      "eigentuemer.bruchteilsgemeinschaftangaben.angaben.ort"
-                    )}
-                  </ul>
-                </div>
-              )}
-            </ul>
-            <ul>
-              {item(
-                "Empfangsvollmacht",
-                "eigentuemer.empfangsvollmacht.hasEmpfangsvollmacht",
-                resolveJaNein
-              )}
-              {allData.eigentuemer.empfangsbevollmaechtigter && (
+            {item("Baujahr", "gebaeude.baujahr.baujahr")}
+            {item(
+              "Kernsaniert",
+              "gebaeude.kernsaniert.isKernsaniert",
+              resolveJaNein
+            )}
+            {item(
+              "Jahr der Kernsanierung",
+              "gebaeude.kernsanierungsjahr.kernsanierungsjahr"
+            )}
+            {item(
+              "Abbruchverpflichtung liegt vor",
+              "gebaeude.abbruchverpflichtung.hasAbbruchverpflichtung",
+              resolveJaNein
+            )}
+            {item(
+              "Jahr der Abbruchverpflichtung",
+              "gebaeude.abbruchverpflichtungsjahr.abbruchverpflichtungsjahr"
+            )}
+            {item(
+              "Wohnfläche",
+              "gebaeude.wohnflaeche.wohnflaeche",
+              resolveArea
+            )}
+            {item(
+              "Wohnung 1 Wohnfläche",
+              "gebaeude.wohnflaechen.wohnflaeche1",
+              resolveArea
+            )}
+            {item(
+              "Wohnung 2 Wohnfläche",
+              "gebaeude.wohnflaechen.wohnflaeche2",
+              resolveArea
+            )}
+            {item(
+              "Weitere Wohnräume",
+              "gebaeude.weitereWohnraeume.hasWeitereWohnraeume",
+              resolveJaNein
+            )}
+            {item(
+              "Anzahl der weiteren Wohnräume",
+              "gebaeude.weitereWohnraeumeDetails.anzahl"
+            )}
+            {item(
+              "Gesamtfläche der weiteren Wohnräume",
+              "gebaeude.weitereWohnraeumeDetails.flaeche",
+              resolveArea
+            )}
+            {allData.gebaeude?.garagen?.hasGaragen == "true"
+              ? item("Anzahl Garagen", "gebaeude.garagenAnzahl.anzahlGaragen")
+              : item(
+                  "Anzahl Garagen",
+                  "gebaeude.garagenAnzahl.anzahlGaragen",
+                  undefined,
+                  "0"
+                )}
+          </ul>
+        </div>
+      ) : (
+        <>{i18n.specifics.sectionUnfilled}</>
+      ),
+    };
+  } else {
+    gebaeudeAccordionItem = undefined;
+  }
+
+  const eigentuemerAccordionItem = {
+    header: sectionHeading("Eigentümer:innen", "eigentuemer"),
+    content: allData?.eigentuemer ? (
+      <div id="eigentuemer-area">
+        <ul>
+          {item("Anzahl", "eigentuemer.anzahl.anzahl")}
+          {item(
+            "Verheiratet",
+            "eigentuemer.verheiratet.areVerheiratet",
+            resolveJaNein
+          )}
+        </ul>
+        {allData.eigentuemer.person && (
+          <>
+            <h3 className="font-bold text-xl mb-1">Personen</h3>
+
+            {allData.eigentuemer.person.map((person, index) => {
+              const personKey = "person-" + index;
+              return (
                 <div
-                  className="bg-gray-300 mx-4"
-                  id={"empfangsbevollmaechtigter"}
+                  className="bg-gray-100 mb-3"
+                  key={personKey}
+                  id={personKey}
                 >
-                  <h5 className="font-bold">Empfangsbevollmächtigte Person</h5>
+                  <h4 className="font-bold">Person {index + 1}</h4>
                   <ul>
                     {item(
                       "Anrede",
-                      "eigentuemer.empfangsbevollmaechtigter.name.anrede",
+                      `eigentuemer.person.${
+                        index + 1
+                      }.persoenlicheAngaben.anrede`,
                       resolveAnrede
                     )}
                     {item(
                       "Titel",
-                      "eigentuemer.empfangsbevollmaechtigter.name.titel"
+                      `eigentuemer.person.${
+                        index + 1
+                      }.persoenlicheAngaben.titel`
                     )}
                     {item(
                       "Name",
-                      "eigentuemer.empfangsbevollmaechtigter.name.name"
+                      `eigentuemer.person.${index + 1}.persoenlicheAngaben.name`
                     )}
                     {item(
                       "Vorname",
-                      "eigentuemer.empfangsbevollmaechtigter.name.vorname"
+                      `eigentuemer.person.${
+                        index + 1
+                      }.persoenlicheAngaben.vorname`
+                    )}
+                    {item(
+                      "Geburtsdatum",
+                      `eigentuemer.person.${
+                        index + 1
+                      }.persoenlicheAngaben.geburtsdatum`
                     )}
 
                     {item(
                       "Straße",
-                      "eigentuemer.empfangsbevollmaechtigter.adresse.strasse"
+                      `eigentuemer.person.${index + 1}.adresse.strasse`
                     )}
                     {item(
                       "Hausnummer",
-                      "eigentuemer.empfangsbevollmaechtigter.adresse.hausnummer"
+                      `eigentuemer.person.${index + 1}.adresse.hausnummer`
                     )}
                     {item(
                       "Postfach",
-                      "eigentuemer.empfangsbevollmaechtigter.adresse.postfach"
+                      `eigentuemer.person.${index + 1}.adresse.postfach`
                     )}
-                    {item(
-                      "PLZ",
-                      "eigentuemer.empfangsbevollmaechtigter.adresse.plz"
-                    )}
-                    {item(
-                      "Ort",
-                      "eigentuemer.empfangsbevollmaechtigter.adresse.ort"
-                    )}
+                    {item("PLZ", `eigentuemer.person.${index + 1}.adresse.plz`)}
+                    {item("Ort", `eigentuemer.person.${index + 1}.adresse.ort`)}
                     {item(
                       "Telefonnummer",
-                      "eigentuemer.empfangsbevollmaechtigter.adresse.telefonnummer"
+                      `eigentuemer.person.${index + 1}.adresse.telefonnummer`
+                    )}
+                    {item(
+                      "Steuer-ID",
+                      `eigentuemer.person.${index + 1}.steuerId.steuerId`
+                    )}
+                    {item(
+                      "Gesetzlicher Vertreter",
+                      `eigentuemer.person.${index + 1}.hasVertreter`,
+                      resolveJaNein
+                    )}
+
+                    {person.vertreter && (
+                      <div
+                        className="bg-gray-300 mx-4"
+                        id={personKey + "-vertreter"}
+                      >
+                        <h5 className="font-bold">Gesetzlicher Vertreter</h5>
+                        <ul>
+                          {item(
+                            "Anrede",
+                            `eigentuemer.person.${
+                              index + 1
+                            }.vertreter.name.anrede`,
+                            resolveAnrede
+                          )}
+                          {item(
+                            "Titel",
+                            `eigentuemer.person.${
+                              index + 1
+                            }.vertreter.name.titel`
+                          )}
+                          {item(
+                            "Name",
+                            `eigentuemer.person.${
+                              index + 1
+                            }.vertreter.name.name`
+                          )}
+                          {item(
+                            "Vorname",
+                            `eigentuemer.person.${
+                              index + 1
+                            }.vertreter.name.vorname`
+                          )}
+
+                          {item(
+                            "Straße",
+                            `eigentuemer.person.${
+                              index + 1
+                            }.vertreter.adresse.strasse`
+                          )}
+                          {item(
+                            "Hausnummer",
+                            `eigentuemer.person.${
+                              index + 1
+                            }.vertreter.adresse.hausnummer`
+                          )}
+                          {item(
+                            "Postfach",
+                            `eigentuemer.person.${
+                              index + 1
+                            }.vertreter.adresse.postfach`
+                          )}
+                          {item(
+                            "PLZ",
+                            `eigentuemer.person.${
+                              index + 1
+                            }.vertreter.adresse.plz`
+                          )}
+                          {item(
+                            "Ort",
+                            `eigentuemer.person.${
+                              index + 1
+                            }.vertreter.adresse.ort`
+                          )}
+                          {item(
+                            "Telefonnummer",
+                            `eigentuemer.person.${
+                              index + 1
+                            }.vertreter.adresse.telefonnummer`
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                    {person.anteil && (
+                      <>
+                        {item(
+                          "Anteil Zähler",
+                          `eigentuemer.person.${index + 1}.anteil.zaehler`
+                        )}
+                        {item(
+                          "Anteil Nenner",
+                          `eigentuemer.person.${index + 1}.anteil.nenner`
+                        )}
+                      </>
                     )}
                   </ul>
                 </div>
-              )}
-            </ul>
-          </div>
-        ),
-      }
-    : undefined;
+              );
+            })}
+          </>
+        )}
+        <ul>
+          {item(
+            "Bruchteilsgemeinschaft Angaben übernehmen",
+            "eigentuemer.bruchteilsgemeinschaft.predefinedData",
+            resolveJaNein
+          )}
+          {allData.eigentuemer.bruchteilsgemeinschaftangaben && (
+            <div className="bg-gray-300 mx-4" id={"bruchteilsgemeinschaft"}>
+              <h5 className="font-bold">Bruchteilsgemeinschaft Angaben</h5>
+              <ul>
+                {item(
+                  "Name",
+                  "eigentuemer.bruchteilsgemeinschaftangaben.angaben.name"
+                )}
+                {item(
+                  "Straße",
+                  "eigentuemer.bruchteilsgemeinschaftangaben.angaben.strasse"
+                )}
+                {item(
+                  "Hausnummer",
+                  "eigentuemer.bruchteilsgemeinschaftangaben.angaben.hausnummer"
+                )}
+                {item(
+                  "Postfach",
+                  "eigentuemer.bruchteilsgemeinschaftangaben.angaben.postfach"
+                )}
+                {item(
+                  "PLZ",
+                  "eigentuemer.bruchteilsgemeinschaftangaben.angaben.plz"
+                )}
+                {item(
+                  "Ort",
+                  "eigentuemer.bruchteilsgemeinschaftangaben.angaben.ort"
+                )}
+              </ul>
+            </div>
+          )}
+        </ul>
+        <ul>
+          {item(
+            "Empfangsvollmacht",
+            "eigentuemer.empfangsvollmacht.hasEmpfangsvollmacht",
+            resolveJaNein
+          )}
+          {allData.eigentuemer.empfangsbevollmaechtigter && (
+            <div className="bg-gray-300 mx-4" id={"empfangsbevollmaechtigter"}>
+              <h5 className="font-bold">Empfangsbevollmächtigte Person</h5>
+              <ul>
+                {item(
+                  "Anrede",
+                  "eigentuemer.empfangsbevollmaechtigter.name.anrede",
+                  resolveAnrede
+                )}
+                {item(
+                  "Titel",
+                  "eigentuemer.empfangsbevollmaechtigter.name.titel"
+                )}
+                {item(
+                  "Name",
+                  "eigentuemer.empfangsbevollmaechtigter.name.name"
+                )}
+                {item(
+                  "Vorname",
+                  "eigentuemer.empfangsbevollmaechtigter.name.vorname"
+                )}
+
+                {item(
+                  "Straße",
+                  "eigentuemer.empfangsbevollmaechtigter.adresse.strasse"
+                )}
+                {item(
+                  "Hausnummer",
+                  "eigentuemer.empfangsbevollmaechtigter.adresse.hausnummer"
+                )}
+                {item(
+                  "Postfach",
+                  "eigentuemer.empfangsbevollmaechtigter.adresse.postfach"
+                )}
+                {item(
+                  "PLZ",
+                  "eigentuemer.empfangsbevollmaechtigter.adresse.plz"
+                )}
+                {item(
+                  "Ort",
+                  "eigentuemer.empfangsbevollmaechtigter.adresse.ort"
+                )}
+                {item(
+                  "Telefonnummer",
+                  "eigentuemer.empfangsbevollmaechtigter.adresse.telefonnummer"
+                )}
+              </ul>
+            </div>
+          )}
+        </ul>
+      </div>
+    ) : (
+      <>{i18n.specifics.sectionUnfilled}</>
+    ),
+  };
 
   const accordionItems = [
     grundstueckAccordionItem,
     gebaeudeAccordionItem,
     eigentuemerAccordionItem,
-  ].filter((i) => {
-    return i !== undefined;
-  }) as AccordionItem[];
+  ].filter((i) => i !== undefined) as AccordionItem[];
 
   const fieldProps = getFieldProps(stepDefinition, formData, i18n, errors);
 

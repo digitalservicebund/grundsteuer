@@ -14,7 +14,6 @@ import {
   addFormDataCookiesToHeaders,
   getStoredFormData,
 } from "~/formDataStorage.server";
-import { i18Next } from "~/i18n.server";
 import { getStepData, setStepData, StepFormData } from "~/domain/model";
 import { getMachineConfig, StateMachineContext } from "~/domain/states";
 import { conditions } from "~/domain/guards";
