@@ -8,9 +8,6 @@ export type SessionUser = {
   email: string;
   id: string;
   identified: boolean;
-  state: string;
-  ericaRequestId?: string;
-  fscAntragsId?: string;
 };
 
 export const authenticator = new Authenticator<SessionUser>(sessionStorage);
@@ -24,9 +21,6 @@ const login = async (email: string, password: string): Promise<SessionUser> => {
       email: user.email,
       id: user.id,
       identified: user.identified,
-      state: user.state,
-      ericaRequestId: user.ericaRequestId,
-      fscAntragsId: user.fscAntragsId,
     };
   }
 
