@@ -79,7 +79,13 @@ describe("user", () => {
     it("should return null on unknown email", async () => {
       const result = await findUserByEmail("unknown@foo.com");
 
-      expect(result).toBeFalsy();
+      expect(result).toBeNull();
+    });
+
+    it("should return user object on existing email", async () => {
+      const result = await findUserByEmail("existing@foo.com");
+
+      expect(result).toEqual(expect.objectContaining("existing@foo.com"));
     });
   });
 
