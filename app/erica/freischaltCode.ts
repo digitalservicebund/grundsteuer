@@ -25,11 +25,22 @@ export const checkNewFreischaltCodeRequest = async (requestId: string) => {
   return getFromErica(`v2/fsc/request/${requestId}`);
 };
 
-export const extractAntragsId = (requestData: ericaResponseDto): string => {
-  const result = ericaUtils.extractResultFromEricaResponse(requestData);
+export const extractAntragsId = (ericaResponse: ericaResponseDto): string => {
+  const result = ericaUtils.extractResultFromEricaResponse(ericaResponse);
+  invariant(
+    !("errorCode" in result),
+    `Extracted result from erica response includes error {errorCode}`
+  );
   invariant(
     "elsterRequestId" in result,
     "Extracted result from erica response has no ELSTER AntragsId"
   );
   return result.elsterRequestId;
+};
+
+export const retrieveAntragsId = async (ericaRequestId: string) => {
+  const ericaResponse = await checkNewFreischaltCodeRequest(ericaRequestId);
+  if (ericaResponse && ericaUtils.isEricaRequestProcessed(ericaResponse)) {
+    return extractAntragsId(ericaResponse);
+  }
 };
