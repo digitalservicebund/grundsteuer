@@ -12,6 +12,7 @@ import { getReachablePathsFromData } from "~/domain/graph";
 import _ from "lodash";
 import { i18Next } from "~/i18n.server";
 import { getCurrentStateWithoutId } from "~/util/getCurrentState";
+import { GeneralErrors } from "~/routes/formular/zusammenfassung";
 
 type ValidateFunctionDefault = ({ value }: { value: string }) => boolean;
 
@@ -635,8 +636,8 @@ export const validateStepFormData = async (
   currentStateWithoutId: string,
   stepFormData: StepFormData,
   storedFormData: GrundModel
-) => {
-  const errors: Record<string, string | undefined> = {};
+): Promise<Record<string, string>> => {
+  const errors: Record<string, string> = {};
   const stepDefinition = getStepDefinition({ currentStateWithoutId });
   const tFunction = await i18Next.getFixedT("de", "all");
   if (stepDefinition) {
@@ -666,7 +667,9 @@ export const validateStepFormData = async (
   return errors;
 };
 
-export const validateAllStepsData = async (storedFormData: GrundModel) => {
+export const validateAllStepsData = async (
+  storedFormData: GrundModel
+): Promise<GeneralErrors> => {
   const generalErrors = {};
   const reachablePaths = getReachablePathsFromData(storedFormData);
   for (const stepPath of reachablePaths) {

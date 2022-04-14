@@ -52,12 +52,16 @@ export const loader: LoaderFunction = async ({ request }) => {
   };
 };
 
+export type GeneralErrors = Record<string, any>;
+
 export type ActionData = {
   errors?: Record<string, string>;
-  generalErrors?: Record<string, string>;
+  generalErrors?: GeneralErrors;
 };
 
-export const action: ActionFunction = async ({ request }) => {
+export const action: ActionFunction = async ({
+  request,
+}): Promise<ActionData | Response> => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
@@ -72,7 +76,7 @@ export const action: ActionFunction = async ({ request }) => {
     zusammenfassungFormData,
     storedFormData
   );
-  if (Object.keys(errors).length > 0) return { errors } as ActionData;
+  if (Object.keys(errors).length > 0) return { errors };
 
   // store
   const formDataToBeStored = setStepData(
@@ -83,8 +87,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   // validate all steps' data
   const generalErrors = await validateAllStepsData(formDataToBeStored);
-  if (Object.keys(generalErrors).length > 0)
-    return { generalErrors } as ActionData;
+  if (Object.keys(generalErrors).length > 0) return { generalErrors };
 
   const headers = new Headers();
   await addFormDataCookiesToHeaders({
@@ -105,7 +108,7 @@ export const meta: MetaFunction = () => {
 export default function Zusammenfassung() {
   const { formData, allData, i18n, stepDefinition } =
     useLoaderData<LoaderData>();
-  const actionData = useActionData() as ActionData;
+  const actionData = useActionData();
   const errors = actionData?.errors;
   const generalErrors = actionData?.generalErrors;
 

@@ -1,0 +1,220 @@
+import { render, screen, within } from "@testing-library/react";
+import ZusammenfassungAccordion, {
+  ZusammenfassungAccordionProps,
+} from "~/components/form/ZusammenfassungAccordion";
+import { I18nObject } from "~/util/getStepI18n";
+import { grundModelFactory } from "test/factories";
+
+describe("ZusammenfassungAccordion component", () => {
+  const defaultProps: ZusammenfassungAccordionProps = {
+    allData: {},
+    i18n: {
+      specifics: {
+        sectionUnfilled: "sectionUnfilled",
+      },
+    } as unknown as I18nObject,
+    generalErrors: undefined,
+  };
+
+  describe("with no generalErrors set", () => {
+    it("should display eigentuemer and grundstueck areas", () => {
+      render(<ZusammenfassungAccordion {...defaultProps} />);
+
+      expect(screen.getByText("Grundstück")).toBeInTheDocument();
+      expect(screen.getByText("Eigentümer:innen")).toBeInTheDocument();
+      expect(screen.queryByText("Gebäude")).not.toBeInTheDocument();
+    });
+
+    it("should not display section (un)finished icons", () => {
+      render(<ZusammenfassungAccordion {...defaultProps} />);
+
+      expect(
+        screen.queryByRole("img", { name: "Fertig" })
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("img", { name: "Unfertig" })
+      ).not.toBeInTheDocument();
+    });
+
+    describe("with no data", () => {
+      it("should display eigentuemer and grundstueck areas with disclaimer", () => {
+        render(<ZusammenfassungAccordion {...defaultProps} />);
+
+        screen.getByText("Grundstück").click();
+        expect(
+          within(screen.getByTestId("grundstueck-area")).getByText(
+            "sectionUnfilled"
+          )
+        ).toBeInTheDocument();
+        screen.getByText("Eigentümer:innen").click();
+        expect(
+          within(screen.getByTestId("eigentuemer-area")).getByText(
+            "sectionUnfilled"
+          )
+        ).toBeInTheDocument();
+      });
+    });
+
+    describe("with grundstueck partly filled", () => {
+      beforeEach(() => {
+        defaultProps.allData = grundModelFactory
+          .grundstueckTyp({ typ: "baureif" })
+          .build();
+      });
+
+      afterEach(() => {
+        defaultProps.allData = {};
+      });
+
+      it("should display eigentuemer with disclaimer and grundstueck fields", () => {
+        render(<ZusammenfassungAccordion {...defaultProps} />);
+
+        screen.getByText("Grundstück").click();
+        expect(
+          within(screen.getByTestId("grundstueck-area")).queryByText(
+            "sectionUnfilled"
+          )
+        ).not.toBeInTheDocument();
+        expect(
+          within(screen.getByTestId("grundstueck-area")).queryByText(
+            "Grundstücksart"
+          )
+        ).toBeInTheDocument();
+        screen.getByText("Eigentümer:innen").click();
+        expect(
+          within(screen.getByTestId("eigentuemer-area")).getByText(
+            "sectionUnfilled"
+          )
+        ).toBeInTheDocument();
+      });
+
+      it("should display icon next to grundstueck fields", () => {
+        render(<ZusammenfassungAccordion {...defaultProps} />);
+
+        screen.getByText("Grundstück").click();
+        expect(
+          within(screen.getByTestId("grundstueck-area")).getByRole("img", {
+            name: "Fertig",
+          })
+        ).toBeInTheDocument();
+      });
+    });
+
+    describe("with grundstueck typ bebaut", () => {
+      beforeEach(() => {
+        defaultProps.allData = grundModelFactory
+          .grundstueckTyp({ typ: "einfamilienhaus" })
+          .build();
+      });
+
+      afterEach(() => {
+        defaultProps.allData = {};
+      });
+
+      it("should display gebaeude and eigentuemer areas with disclaimer", () => {
+        render(<ZusammenfassungAccordion {...defaultProps} />);
+
+        expect(screen.getByText("Grundstück")).toBeInTheDocument();
+        expect(screen.getByText("Eigentümer:innen")).toBeInTheDocument();
+        expect(screen.queryByText("Gebäude")).toBeInTheDocument();
+
+        screen.getByText("Eigentümer:innen").click();
+        expect(
+          within(screen.getByTestId("eigentuemer-area")).getByText(
+            "sectionUnfilled"
+          )
+        ).toBeInTheDocument();
+        screen.getByText("Gebäude").click();
+        expect(
+          within(screen.getByTestId("gebaeude-area")).getByText(
+            "sectionUnfilled"
+          )
+        ).toBeInTheDocument();
+      });
+    });
+  });
+
+  describe("with generalErrors set", () => {
+    beforeEach(() => {
+      defaultProps.allData = grundModelFactory
+        .grundstueckSteuernummer({ steuernummer: "12345678900" })
+        .build();
+      defaultProps.generalErrors = {
+        grundstueck: {
+          typ: {
+            typ: "error in typ",
+          },
+        },
+      };
+    });
+
+    afterEach(() => {
+      defaultProps.allData = {};
+      defaultProps.generalErrors = undefined;
+    });
+
+    it("should display (un)finished section icons correctly", () => {
+      render(<ZusammenfassungAccordion {...defaultProps} />);
+
+      expect(
+        screen.getByRole("img", { name: "Fertig" }).nextSibling
+      ).toContainHTML("Eigentümer:innen");
+      expect(
+        screen.getByRole("img", { name: "Unfertig" }).nextSibling
+      ).toContainHTML("Grundstück");
+    });
+
+    it("should display (un)finished field icons correctly", () => {
+      render(<ZusammenfassungAccordion {...defaultProps} />);
+
+      screen.getByText("Grundstück").click();
+      expect(
+        within(screen.getByTestId("grundstueck-area")).getByRole("img", {
+          name: "Fertig",
+        }).nextSibling
+      ).toContainHTML("Steuernummer");
+      expect(
+        within(screen.getByTestId("grundstueck-area")).getAllByRole("img", {
+          name: "Unfertig",
+        })
+      ).toHaveLength(1);
+    });
+
+    describe("with no data for field with error", () => {
+      it("should display error", () => {
+        render(<ZusammenfassungAccordion {...defaultProps} />);
+
+        screen.getByText("Grundstück").click();
+        expect(
+          within(screen.getByTestId("grundstueck-area")).getByText(
+            "error in typ"
+          )
+        ).toBeInTheDocument();
+      });
+    });
+
+    describe("with data set for field with error", () => {
+      beforeEach(() => {
+        defaultProps.allData = grundModelFactory
+          .grundstueckSteuernummer({ steuernummer: "12345678900" })
+          .grundstueckTyp({ typ: "einfamilienhaus" })
+          .build();
+      });
+
+      afterEach(() => {
+        defaultProps.allData = {};
+      });
+
+      it("should display error", () => {
+        render(<ZusammenfassungAccordion {...defaultProps} />);
+
+        screen.getByText("Grundstück").click();
+        expect(
+          within(screen.getByTestId("grundstueck-area")).getByText(
+            "error in typ"
+          )
+        ).toBeInTheDocument();
+      });
+    });
+  });
+});

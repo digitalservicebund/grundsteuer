@@ -6,6 +6,7 @@ import { conditions } from "~/domain/guards";
 import Accordion, { AccordionItem } from "~/components/Accordion";
 import { GrundModel } from "~/domain/steps";
 import { I18nObject } from "~/util/getStepI18n";
+import { GeneralErrors } from "~/routes/formular/zusammenfassung";
 
 const resolveJaNein = (value: string | undefined) => {
   if (value === "true") {
@@ -96,7 +97,7 @@ const fieldPathToStepUrl = (fieldPath: string) =>
 export type ZusammenfassungAccordionProps = {
   allData: GrundModel;
   i18n: I18nObject;
-  generalErrors?: Record<string, string>;
+  generalErrors?: GeneralErrors;
 };
 
 export default function ZusammenfassungAccordion({
@@ -121,7 +122,11 @@ export default function ZusammenfassungAccordion({
       return (
         <li>
           <div className="mb-16 flex flex-row">
-            <div className="mr-16">{error ? <Unfinished /> : <Finished />}</div>
+            {error ? (
+              <Unfinished className="mr-16" />
+            ) : (
+              <Finished className="mr-16" />
+            )}
             <div className="mb-16 flex flex-row w-full justify-between items-center">
               <dl>
                 <dt className="font-bold text-gray-800 block">{label}</dt>
@@ -167,13 +172,17 @@ export default function ZusammenfassungAccordion({
     if (!allData.grundstueck) {
       return {
         header,
-        content: <>{i18n.specifics.sectionUnfilled}</>,
+        content: (
+          <div id="grundstueck-area" data-testid="grundstueck-area">
+            {i18n.specifics.sectionUnfilled}
+          </div>
+        ),
       };
     }
     return {
       header,
       content: (
-        <div id="grundstueck-area">
+        <div id="grundstueck-area" data-testid="grundstueck-area">
           <ul>
             {item(
               "Grundstücksart",
@@ -299,13 +308,17 @@ export default function ZusammenfassungAccordion({
     if (!allData?.gebaeude) {
       return {
         header,
-        content: <>{i18n.specifics.sectionUnfilled}</>,
+        content: (
+          <div id="gebaeude-area" data-testid="gebaeude-area">
+            {i18n.specifics.sectionUnfilled}
+          </div>
+        ),
       };
     }
     return {
       header,
       content: (
-        <div id="gebaeude-area">
+        <div id="gebaeude-area" data-testid="gebaeude-area">
           <ul>
             {item(
               "Bezugsfertig ab 1949",
@@ -379,13 +392,17 @@ export default function ZusammenfassungAccordion({
     if (!allData?.eigentuemer) {
       return {
         header,
-        content: <>{i18n.specifics.sectionUnfilled}</>,
+        content: (
+          <div id="eigentuemer-area" data-testid="eigentuemer-area">
+            {i18n.specifics.sectionUnfilled}
+          </div>
+        ),
       };
     }
     return {
       header,
       content: (
-        <div id="eigentuemer-area">
+        <div id="eigentuemer-area" data-testid="eigentuemer-area">
           <ul>
             {item("Anzahl", "eigentuemer.anzahl.anzahl")}
             {item(
