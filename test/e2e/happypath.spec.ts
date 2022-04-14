@@ -37,7 +37,7 @@ const inputData = {
       groesse: {
         groesseHa: "1",
         groesseA: "2",
-        groesseQm: "300",
+        groesseQm: "30",
       },
     },
     bodenrichtwert: {

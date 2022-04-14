@@ -412,6 +412,10 @@ export const validateGrundbuchblattnummer: ValidateFunctionDefault = ({
   return true;
 };
 
+const isZeroOrEmpty = (value: string) => {
+  return /^[0 ]*$/.test(value);
+};
+
 type ValidateFlurstueckGroesseFunction = ({
   valueHa,
   valueA,
@@ -426,15 +430,26 @@ export const validateFlurstueckGroesse: ValidateFlurstueckGroesseFunction = ({
   valueA,
   valueQm,
 }) => {
-  const isZeroOrEmpty = (value: string) => {
-    return /^[0 ]*$/.test(value);
-  };
-  if ([valueHa, valueA, valueQm].every((value) => isZeroOrEmpty(value)))
-    return false;
-  return (
-    valueHa.trim().length + valueA.trim().length + valueQm.trim().length <= 15
-  );
+  if (!isZeroOrEmpty(valueHa)) {
+    return valueA.trim().length <= 2 && valueQm.trim().length <= 2;
+  }
+  if (!isZeroOrEmpty(valueA)) {
+    return valueQm.trim().length <= 2;
+  }
+  return true;
 };
+
+export const validateFlurstueckGroesseLength: ValidateFlurstueckGroesseFunction =
+  ({ valueHa, valueA, valueQm }) => {
+    return (
+      valueHa.trim().length + valueA.trim().length + valueQm.trim().length <= 15
+    );
+  };
+
+export const validateFlurstueckGroesseRequired: ValidateFlurstueckGroesseFunction =
+  ({ valueHa, valueA, valueQm }) => {
+    return ![valueHa, valueA, valueQm].every((value) => isZeroOrEmpty(value));
+  };
 
 type ValidateMinValueFunction = ({
   value,
@@ -565,6 +580,8 @@ export const getErrorMessage = (
     hausnummer: validateHausnummer,
     grundbuchblattnummer: validateGrundbuchblattnummer,
     flurstueckGroesse: validateFlurstueckGroesse,
+    flurstueckGroesseLength: validateFlurstueckGroesseLength,
+    flurstueckGroesseRequired: validateFlurstueckGroesseRequired,
     yearInFuture: validateYearInFuture,
     yearInPast: validateYearInPast,
     dateInPast: validateDateInPast,
