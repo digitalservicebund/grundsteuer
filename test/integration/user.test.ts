@@ -85,7 +85,9 @@ describe("user", () => {
     it("should return user object on existing email", async () => {
       const result = await findUserByEmail("existing@foo.com");
 
-      expect(result).toEqual(expect.objectContaining("existing@foo.com"));
+      expect(result).toEqual(
+        expect.objectContaining({ email: "existing@foo.com" })
+      );
     });
   });
 
