@@ -1,8 +1,8 @@
 import { db } from "~/db.server";
 import bcrypt from "bcryptjs";
-import { FscRequest, User as PrismaUser } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 
-export type User = PrismaUser & { fscRequest: FscRequest[] };
+export type User = Prisma.UserGetPayload<{ include: { fscRequest: true } }>;
 
 export const createUser = async (email: string, password: string) => {
   const hash = bcrypt.hashSync(password, 10);
