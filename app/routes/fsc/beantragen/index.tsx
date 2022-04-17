@@ -39,7 +39,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
 
   if (wasEricaRequestSuccessful(session)) {
-    return redirect("/fsc/beantragenSuccess");
+    return redirect("/fsc/beantragen/erfolgreich");
   }
 
   if (isEricaRequestInProgress(session)) {
@@ -53,7 +53,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       }
     } catch (Error) {
       session.unset("ericaRequestId");
-      return redirect("/fsc/beantragenFailure", {
+      return redirect("/fsc/beantragen/fehler", {
         headers: {
           "Set-Cookie": await commitSession(session),
         },
@@ -80,7 +80,7 @@ export const action: ActionFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
 
   if (wasEricaRequestSuccessful(session)) {
-    return redirect("/fsc/beantragenSuccess");
+    return redirect("/fsc/beantragen/erfolgreich");
   }
 
   if (!isEricaRequestInProgress(session)) {
