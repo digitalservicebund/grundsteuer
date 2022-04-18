@@ -38,6 +38,8 @@ const wasEricaRequestSuccessful = (session: Session) => {
 export const loader: LoaderFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
 
+  let error = false;
+
   if (wasEricaRequestSuccessful(session)) {
     return redirect("/fsc/beantragen/erfolgreich");
   }
@@ -53,17 +55,14 @@ export const loader: LoaderFunction = async ({ request }) => {
       }
     } catch (Error) {
       session.unset("ericaRequestId");
-      return redirect("/fsc/beantragen/fehler", {
-        headers: {
-          "Set-Cookie": await commitSession(session),
-        },
-      });
+      error = true;
     }
   }
 
   return json(
     {
       inProgress: truthy(session.get("ericaRequestId")),
+      error,
     },
     {
       headers: {
@@ -136,6 +135,13 @@ export default function Redirect() {
       <h1 className="text-32 mb-32">
         Beantragen Sie Ihren persönlichen Freischaltcode.
       </h1>
+
+      {loaderData?.error && (
+        <div className="bg-red-200 border-2 border-red-800 p-16 mb-32">
+          Es ist ein Fehler aufgetreten.
+        </div>
+      )}
+
       <Form method="post">
         <FormGroup>
           <Input
