@@ -126,24 +126,33 @@ export default function Redirect() {
 
   const spinnerElement =
     actionData?.inProgress || loaderData?.inProgress ? <Spinner /> : null;
+
   return (
     <SimplePageLayout>
       {spinnerElement}
-      <pre>{JSON.stringify(loaderData, null, 2)}</pre>
-      <pre>{JSON.stringify(actionData, null, 2)}</pre>
+      <pre>{JSON.stringify({ loaderData }, null, 2)}</pre>
+      <pre>{JSON.stringify({ actionData }, null, 2)}</pre>
       <br />
+      <h1 className="text-32 mb-32">
+        Beantragen Sie Ihren persönlichen Freischaltcode.
+      </h1>
       <Form method="post">
         <FormGroup>
-          <Input name="steuerId" label="Steuer-ID" help="kein plan" />
+          <Input
+            name="steuerId"
+            label="Steuer-Identifikationsnummer"
+            help="Ihre Steuer-Identifikationsnummer finden Sie auf Ihren Steuerbescheiden, Lohnsteuerabrechnungen oder anderen Unterlagen, die Sie von Ihrem Finanzamt erhalten haben. Die Steuer-ID ist elfstellig."
+          />
         </FormGroup>
         <FormGroup>
           <Input
             name="geburtsdatum"
-            label="Geburtstagsdatum"
+            label="Geburtsdatum"
+            placeholder="TT.MM.JJJJ"
             error={actionData?.errors?.geburtsdatum}
           />
         </FormGroup>
-        <Button>Senden</Button>
+        <Button>Freischaltcode beantragen</Button>
       </Form>
     </SimplePageLayout>
   );
