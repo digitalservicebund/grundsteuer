@@ -2,11 +2,12 @@ import { SVGProps } from "react";
 
 const Finished = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    width="20"
-    height="20"
+    width="1em"
+    height="1em"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     role="img"
+    viewBox="0 0 20 20"
     aria-label="Fertig"
     {...props}
   >
