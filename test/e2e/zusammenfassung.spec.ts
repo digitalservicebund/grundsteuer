@@ -38,6 +38,40 @@ describe("Zusammenfassung route", () => {
   });
 
   // TODO check FSC display/hide behaviour
+
+  describe("edit behaviour", () => {
+    beforeEach(() => {
+      cy.visit("formular/grundstueck/adresse");
+      cy.get("#ort").type("Berlin");
+      cy.get("#bundesland").select("BE");
+      cy.get("#nextButton").click();
+      cy.url().should("not.include", "formular/grundstueck/adresse");
+      cy.url().should("not.include", "formular/zusammenfassung");
+
+      cy.visit("formular/zusammenfassung");
+      cy.get("button").contains("Grundstück").click();
+      cy.get("a").contains("Ändern").click();
+    });
+
+    it("should link to correct page", () => {
+      cy.url().should("include", "formular/grundstueck/adresse");
+    });
+
+    it("should point back to zusammenfassung", () => {
+      cy.get("#nextButton").click();
+      cy.url().should("include", "formular/zusammenfassung");
+    });
+
+    it("should set correct text on next button", () => {
+      cy.get("#nextButton").contains("Speichern & Zur Prüfseite");
+    });
+
+    it("should execute validations", () => {
+      cy.get("#ort").clear();
+      cy.get("#nextButton").click();
+      cy.url().should("include", "formular/grundstueck/adresse");
+    });
+  });
 });
 
 export {};

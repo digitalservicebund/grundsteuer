@@ -128,6 +128,7 @@ export type LoaderData = {
   currentStateWithoutId: string;
   currentState?: string;
   stepDefinition: StepDefinition;
+  redirectToSummary?: boolean;
 };
 
 export const loader: LoaderFunction = async ({
@@ -154,8 +155,12 @@ export const loader: LoaderFunction = async ({
   if (!reachablePaths.includes(currentState)) {
     return redirect("/formular/welcome");
   }
+
   const backUrl = getBackUrl({ machine, currentStateWithoutId });
   const stepDefinition = getStepDefinition({ currentStateWithoutId });
+  const redirectToSummary = !!new URL(request.url).searchParams.get(
+    "redirectToSummary"
+  );
 
   return {
     formData: getStepData(storedFormData, currentState),
@@ -167,6 +172,7 @@ export const loader: LoaderFunction = async ({
     currentStateWithoutId,
     currentState,
     stepDefinition,
+    redirectToSummary,
   };
 };
 
@@ -208,6 +214,12 @@ export const action: ActionFunction = async ({ params, request }) => {
   });
 
   // redirect
+  if (new URL(request.url).searchParams.get("redirectToSummary")) {
+    return redirect("/formular/zusammenfassung", {
+      headers,
+    });
+  }
+
   const machine = getMachine({ formData: formDataToBeStored, params });
   const nextState = machine.transition(currentStateWithoutId, {
     type: "NEXT",
@@ -234,24 +246,40 @@ export type HelpComponentFunction = (
 export function Step() {
   const loaderData = useLoaderData();
   const actionData = useActionData() as ActionData;
-  const { i18n, backUrl, currentStateWithoutId, currentState } = loaderData;
+  const {
+    i18n,
+    backUrl,
+    currentStateWithoutId,
+    currentState,
+    redirectToSummary,
+  } = loaderData;
   const StepComponent =
     _.get(stepComponents, currentStateWithoutId) || FallbackStepComponent;
   const HelpComponent =
     _.get(helpComponents, currentStateWithoutId) || undefined;
 
+  let nextButtonLabel: string;
+  if (redirectToSummary) {
+    nextButtonLabel = i18n.common.backToSummary;
+  } else {
+    nextButtonLabel = i18n.nextButtonLabel
+      ? i18n.nextButtonLabel
+      : i18n.common.continue;
+  }
+
   return (
     <div className="flex flex-col md:flex-row flex-grow h-full">
       <div className="pt-32 max-w-screen-md mx-auto w-1/2">
         <StepHeadline i18n={i18n} />
-        <Form method="post" className="mb-16" key={currentState}>
+        <Form
+          method="post"
+          className="mb-16"
+          key={currentState}
+          action={redirectToSummary ? "?redirectToSummary=true" : ""}
+        >
           <StepComponent {...loaderData} {...actionData} />
           <div className="flex flex-row-reverse items-center justify-between">
-            <Button id="nextButton">
-              {i18n.nextButtonLabel
-                ? i18n.nextButtonLabel
-                : i18n.common.continue}
-            </Button>
+            <Button id="nextButton">{nextButtonLabel}</Button>
             {backUrl ? (
               <Button to={backUrl} look="tertiary">
                 {i18n.common.back}

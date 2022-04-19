@@ -116,7 +116,7 @@ export default function ZusammenfassungAccordion({
     if (explicitValue) value = explicitValue;
 
     const displayValue = resolver ? resolver(value) : value;
-    const editUrl = fieldPathToStepUrl(path);
+    const editUrl = `${fieldPathToStepUrl(path)}?redirectToSummary=true`;
 
     if (displayValue || error) {
       return (

@@ -69,7 +69,8 @@
   },
   "common": {
     "continue": "Speichern & weiter",
-    "back": "Zurück"
+    "back": "Zurück",
+    "backToSummary": "Speichern & Zur Prüfseite"
   },
   "errors": {
     "elsterChars": "Das Feld enthält ein Zeichen, das nicht unterstützt wird.",
