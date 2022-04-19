@@ -120,7 +120,7 @@ export default function Zusammenfassung() {
 
   return (
     <div className="pt-32 max-w-screen-md mx-auto w-1/2">
-      <h1 className="mb-8 font-bold text-4xl">Zusammenfassung</h1>
+      <h1 className="mb-8 font-bold text-4xl">{i18n.headline}</h1>
       <ZusammenfassungAccordion {...{ allData, i18n, generalErrors }} />
       <div className="mt-32">
         <Form method="post" className="mb-16">

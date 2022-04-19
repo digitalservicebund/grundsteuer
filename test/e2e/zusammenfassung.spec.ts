@@ -6,20 +6,38 @@ describe("Zusammenfassung route", () => {
   });
 
   it("should display the title", () => {
-    // uses baseUrl defined in cypress.json configuration
     cy.visit("/formular/zusammenfassung");
-    // access DOM Nodes via e.g. class, id, data-test-id
-    // & interact with DOM
-    cy.get("h1").contains("Zusammenfassung");
+    cy.get("h1").contains("Bitte prüfen Sie Ihre Angaben");
   });
 
-  it.skip("should display empty fields on no form input", () => {
-    // uses baseUrl defined in cypress.json configuration
+  it("should return errors with unfilled fields", () => {
     cy.visit("/formular/zusammenfassung");
-    // access DOM Nodes via e.g. class, id, data-test-id
-    // & interact with DOM
-    cy.get("dt").contains("Straße").next().should("be.empty");
+    cy.get("#nextButton").click();
+
+    cy.url().should("include", "/formular/zusammenfassung");
+    cy.get("#confirmCompleteCorrect")
+      .parent()
+      .contains("Bitte füllen Sie dieses Feld aus.");
+    cy.get("#confirmDataPrivacy")
+      .parent()
+      .contains("Bitte füllen Sie dieses Feld aus.");
+    cy.get("#confirmTermsOfUse")
+      .parent()
+      .contains("Bitte füllen Sie dieses Feld aus.");
   });
+
+  it("should not return errors with filled fields", () => {
+    cy.visit("/formular/zusammenfassung");
+    cy.get("label[for=confirmCompleteCorrect]").click();
+    cy.get("label[for=confirmDataPrivacy]").click();
+    cy.get("label[for=confirmTermsOfUse]").click();
+    cy.get("#nextButton").click();
+
+    cy.url().should("include", "/formular/zusammenfassung");
+    cy.contains("Bitte füllen Sie dieses Feld aus.").should("not.exist");
+  });
+
+  // TODO check FSC display/hide behaviour
 });
 
 export {};

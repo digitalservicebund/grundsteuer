@@ -879,6 +879,7 @@
     }
   },
   "zusammenfassung": {
+    "headline": "Bitte prüfen Sie Ihre Angaben",
     "fields": {
       "freitext": {
         "label": "Gibt es noch etwas, das Sie der Finanzverwaltung mitteilen wollen? (Optional)",
