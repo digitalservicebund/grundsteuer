@@ -21,19 +21,7 @@ export const states: MachineConfig<any, any, any> = {
       states: {
         uebersicht: {
           on: {
-            NEXT: [{ target: "adresse" }],
-          },
-        },
-        adresse: {
-          on: {
-            BACK: [{ target: "uebersicht" }],
-            NEXT: [{ target: "steuernummer" }],
-          },
-        },
-        steuernummer: {
-          on: {
             NEXT: [{ target: "typ" }],
-            BACK: [{ target: "adresse" }],
           },
         },
         typ: {
@@ -43,20 +31,19 @@ export const states: MachineConfig<any, any, any> = {
                 target: "abweichendeEntwicklung",
                 cond: "isAbweichendeEntwicklung",
               },
-              { target: "gemeinde" },
+              { target: "adresse" },
             ],
-            BACK: [{ target: "steuernummer" }],
+            BACK: [{ target: "uebersicht" }],
           },
         },
         abweichendeEntwicklung: {
           on: {
-            NEXT: [{ target: "gemeinde" }],
+            NEXT: [{ target: "adresse" }],
             BACK: [{ target: "typ" }],
           },
         },
-        gemeinde: {
+        adresse: {
           on: {
-            NEXT: [{ target: "anzahl" }],
             BACK: [
               {
                 target: "abweichendeEntwicklung",
@@ -64,6 +51,19 @@ export const states: MachineConfig<any, any, any> = {
               },
               { target: "typ" },
             ],
+            NEXT: [{ target: "steuernummer" }],
+          },
+        },
+        steuernummer: {
+          on: {
+            NEXT: [{ target: "gemeinde" }],
+            BACK: [{ target: "adresse" }],
+          },
+        },
+        gemeinde: {
+          on: {
+            NEXT: [{ target: "anzahl" }],
+            BACK: [{ target: "steuernummer" }],
           },
         },
         anzahl: {

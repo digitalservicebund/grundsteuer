@@ -38,7 +38,7 @@ describe("Redirect to initial step when accessing super state url", () => {
     cy.visit("/formular/grundstueck/typ");
     cy.get(`label[for=typ-einfamilienhaus]`).click();
     cy.get("#nextButton").click();
-    cy.url().should("include", "/grundstueck/gemeinde");
+    cy.url().should("include", "/grundstueck/adresse");
     cy.visit("/formular/gebaeude");
     cy.url().should("include", "/formular/gebaeude/uebersicht");
   });

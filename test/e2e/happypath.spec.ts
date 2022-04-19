@@ -185,6 +185,11 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
     cy.get("h1").contains("Grundstück", { timeout: 5000 });
     cy.get(submitBtnSelector).click();
+
+    cy.url().should("include", "/formular/grundstueck/typ");
+    cy.get(`label[for=typ-${inputData.grundstueck.typ.typ}]`).click();
+    cy.get(submitBtnSelector).click();
+
     cy.get("h1").contains("Wie lautet die Adresse des Grundstücks?", {
       timeout: 5000,
     });
@@ -204,10 +209,6 @@ describe("Happy Path", () => {
     cy.get("#steuernummer")
       .clear()
       .type(inputData.grundstueck.steuernummer.steuernummer);
-    cy.get(submitBtnSelector).click();
-
-    cy.url().should("include", "/formular/grundstueck/typ");
-    cy.get(`label[for=typ-${inputData.grundstueck.typ.typ}]`).click();
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/gemeinde");
