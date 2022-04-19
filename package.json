@@ -14,7 +14,7 @@
     "build:server": "esbuild --bundle --platform=node --format=cjs ./server.ts --outdir=build",
     "clean": "rm -rf build public/build app/tailwind.css",
     "db:migrate": "prisma migrate deploy",
-    "dev": "copy-env-cli && run-p dev:*",
+    "dev": "copy-env-cli && npm run build:server && run-p dev:*",
     "dev:server": "cross-env NODE_ENV=development node --inspect ./build/server.js",
     "dev:build": "cross-env NODE_ENV=development npm run build:server -- --watch",
     "dev:remix": "cross-env NODE_ENV=development remix watch",
