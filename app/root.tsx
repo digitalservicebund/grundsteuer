@@ -67,7 +67,11 @@ export const loader: LoaderFunction = async ({ request }) => {
   };
 };
 
-export function ErrorBoundary() {
+export function ErrorBoundary({ error }: { error: Error }) {
+  if (typeof document === "undefined") {
+    // log only in server, never in browser
+    console.error(error);
+  }
   return (
     <html>
       <head>
