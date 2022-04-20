@@ -44,7 +44,32 @@ describe("requestNewFreischaltCode", () => {
 });
 
 describe("extractAntragsId", () => {
-  it("should return AntragsId if successfull ericaFreischaltCodeResponse", () => {
+  it("should throw error if errorCode present in ericaFreischaltCodeResponse", () => {
+    const ericaResponseData: EricaResponse = {
+      processStatus: "Failure",
+      result: null,
+      errorCode: "SomeError",
+      errorMessage: "Grundsteuer, we still have a problem here",
+    };
+
+    expect(() => {
+      extractAntragsId(ericaResponseData);
+    }).toThrow();
+  });
+
+  it("should throw error if no  elsterRequestId in result of ericaFreischaltCodeResponse", () => {
+    const ericaResponseData: EricaResponse = {
+      processStatus: "Failure",
+      result: null,
+      errorCode: null,
+      errorMessage: null,
+    };
+
+    expect(() => {
+      extractAntragsId(ericaResponseData);
+    }).toThrow();
+  });
+  it("should return AntragsId if successful ericaFreischaltCodeResponse", () => {
     const expectedAntragsId = "123456789";
     const ericaResponseData: EricaResponse = {
       processStatus: "Success",
