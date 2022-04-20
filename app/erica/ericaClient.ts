@@ -6,19 +6,16 @@ type ericaRequestDto = {
   payload: object;
 };
 
+const ericaClientIdentifier = "grundsteuer";
+
 export const postToErica = async (endpoint: string, dataToSend: object) => {
   invariant(
     typeof process.env.ERICA_URL !== "undefined",
     "environment variable ERICA_URL is not set"
   );
 
-  invariant(
-    typeof process.env.ERICA_CLIENT_IDENTIFIER !== "undefined",
-    "environment variable ERICA_CLIENT_IDENTIFIER is not set"
-  );
-
   const ericaRequestData: ericaRequestDto = {
-    clientIdentifier: process.env.ERICA_CLIENT_IDENTIFIER,
+    clientIdentifier: ericaClientIdentifier,
     payload: dataToSend,
   };
 

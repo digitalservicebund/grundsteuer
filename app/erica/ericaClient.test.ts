@@ -19,13 +19,7 @@ describe("postToErica", () => {
   });
 
   describe("with no env variables set", () => {
-    it("should fail if only ERICA_CLIENT_IDENTIFIER is set", async () => {
-      process.env.ERICA_CLIENT_IDENTIFIER = "grundsteuerApp";
-      await expect(postToErica("someEndpoint", {})).rejects.toThrow();
-    });
-
-    it("should fail if only ERICA_URL is set", async () => {
-      process.env.ERICA_URL = "localhost:8000";
+    it("should fail if only ERICA_URL is not set", async () => {
       await expect(postToErica("someEndpoint", {})).rejects.toThrow();
     });
   });
@@ -33,7 +27,6 @@ describe("postToErica", () => {
   describe("with necessary env variables set", () => {
     beforeEach(() => {
       process.env.ERICA_URL = "localhost:8000";
-      process.env.ERICA_CLIENT_IDENTIFIER = "grundsteuerApp";
     });
 
     afterEach(() => {
@@ -60,7 +53,7 @@ describe("postToErica", () => {
       await postToErica("someEndpoint", actualDataToSend);
       expect(mockFetchReturn201.mock.calls[0][1]?.body).toEqual(
         JSON.stringify({
-          clientIdentifier: process.env.ERICA_CLIENT_IDENTIFIER,
+          clientIdentifier: "grundsteuer",
           payload: actualDataToSend,
         })
       );
