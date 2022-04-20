@@ -239,7 +239,7 @@ export default function FaqAccordion() {
             Weitere offizielle Informationen über die Grundsteuerreform für Ihr
             Bundesland finden Sie unter{" "}
             <a
-              href="http://www.grundsteuerreform.de"
+              href="https://www.grundsteuerreform.de"
               rel="noopener"
               target="_blank"
               className="underline text-blue-800"
@@ -252,7 +252,7 @@ export default function FaqAccordion() {
             Bei Fragen rund um das Thema Grundsteuer unterstützt Sie auch der
             virtuelle Assistent der Steuerverwaltung, den Sie unter{" "}
             <a
-              href="http://www.steuerchatbot.de"
+              href="https://www.steuerchatbot.de"
               rel="noopener"
               target="_blank"
               className="underline text-blue-800"
