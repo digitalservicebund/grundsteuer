@@ -126,7 +126,9 @@ export default function Redirect() {
   }, []);
 
   const spinnerElement =
-    actionData?.inProgress || loaderData?.inProgress ? <Spinner /> : null;
+    (actionData?.inProgress || loaderData?.inProgress) && !loaderData?.error ? (
+      <Spinner />
+    ) : null;
 
   return (
     <SimplePageLayout>
