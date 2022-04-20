@@ -1,12 +1,63 @@
-import { Flurstueck, GrundModel } from "~/domain/steps";
+import {
+  Flurstueck,
+  GrundModel,
+  GrundstueckFlurstueckGroesseFields,
+} from "~/domain/steps";
 import { removeUndefined } from "~/util/removeUndefined";
+import {
+  validateFlurstueckGroesse,
+  validateFlurstueckGroesseLength,
+  validateFlurstueckGroesseRequired,
+} from "~/domain/validation";
+
+export const calculateGroesse = (
+  groesse: GrundstueckFlurstueckGroesseFields
+) => {
+  const convertToAtLeastTwoDigitString = (value: string) => {
+    let numberString = "";
+
+    // get rid of leading zeros and spaces
+    if (value) numberString = "" + Number.parseInt(value);
+
+    if (numberString.length == 0) {
+      numberString = "00";
+    } else if (numberString.length == 1) {
+      numberString = "0" + numberString;
+    }
+    return numberString;
+  };
+
+  if (
+    !validateFlurstueckGroesseRequired({
+      valueHa: groesse.groesseHa,
+      valueA: groesse.groesseA,
+      valueQm: groesse.groesseQm,
+    }) ||
+    !validateFlurstueckGroesse({
+      valueHa: groesse.groesseHa,
+      valueA: groesse.groesseA,
+      valueQm: groesse.groesseQm,
+    })
+  )
+    throw Error("Invalid groesse format");
+
+  return (
+    "" +
+    Number.parseInt(
+      convertToAtLeastTwoDigitString(groesse.groesseHa) +
+        convertToAtLeastTwoDigitString(groesse.groesseA) +
+        convertToAtLeastTwoDigitString(groesse.groesseQm)
+    )
+  );
+};
 
 const transformFlurstueck = (flurstueck: Flurstueck) => {
   return {
     angaben: flurstueck.angaben,
     flur: flurstueck.flur,
-    // TODO calc groesse
-    groesseQm: flurstueck.groesse?.groesseQm,
+    groesseQm: flurstueck.groesse
+      ? calculateGroesse(flurstueck.groesse)
+      : undefined,
   };
 };
 

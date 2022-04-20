@@ -1,5 +1,8 @@
 import { grundModelFactory } from "test/factories";
-import { transforDataToEricaFormat } from "~/erica/transformData";
+import {
+  calculateGroesse,
+  transforDataToEricaFormat,
+} from "~/erica/transformData";
 
 describe("transforDataToEricaFormat", () => {
   describe("no data", function () {
@@ -78,7 +81,7 @@ describe("transforDataToEricaFormat", () => {
             {
               angaben: inputFlurstuecke[1].angaben,
               flur: inputFlurstuecke[1].flur,
-              groesseQm: "45",
+              groesseQm: "12345",
             },
           ],
         },
@@ -122,5 +125,55 @@ describe("transforDataToEricaFormat", () => {
 
       expect(result.grundstueck.flurstueck[0].groesseQm).toEqual("123");
     });
+
+    it("should set groesse correctly if all fields given", () => {
+      defaultFlurstueck.groesse.groesseHa = "1";
+      defaultFlurstueck.groesse.groesseA = "2";
+      defaultFlurstueck.groesse.groesseQm = "3";
+      const inputData = grundModelFactory
+        .grundstueckFlurstueck({ list: [defaultFlurstueck], count: 2 })
+        .build();
+
+      const result = transforDataToEricaFormat(inputData);
+
+      expect(result.grundstueck.flurstueck[0].groesseQm).toEqual("10203");
+    });
   });
+});
+
+describe("calculateGroesse", () => {
+  const cases = [
+    { groesseHa: "", groesseA: "", groesseQm: "123", result: "123" },
+    { groesseHa: "", groesseA: "1", groesseQm: "23", result: "123" },
+    { groesseHa: "", groesseA: "1", groesseQm: "2", result: "102" },
+    { groesseHa: "1", groesseA: "2", groesseQm: "3", result: "10203" },
+    { groesseHa: "", groesseA: "123", groesseQm: "45", result: "12345" },
+    { groesseHa: "", groesseA: "", groesseQm: "05", result: "5" },
+    { groesseHa: "0", groesseA: "0", groesseQm: "5", result: "5" },
+    { groesseHa: "1", groesseA: "", groesseQm: "", result: "10000" },
+  ];
+
+  test.each(cases)(
+    "Should return $result if values are '$groesseHa', '$groesseA', and '$groesseQm'",
+    ({ groesseHa, groesseA, groesseQm, result }) => {
+      expect(calculateGroesse({ groesseHa, groesseA, groesseQm })).toEqual(
+        result
+      );
+    }
+  );
+
+  const errorCases = [
+    { groesseHa: "", groesseA: "", groesseQm: "0" },
+    { groesseHa: "", groesseA: "1", groesseQm: "123" },
+    { groesseHa: "1", groesseA: "", groesseQm: "123" },
+  ];
+
+  test.each(errorCases)(
+    "Should throw error if values are '$groesseHa', '$groesseA', and '$groesseQm'",
+    ({ groesseHa, groesseA, groesseQm }) => {
+      expect(() =>
+        calculateGroesse({ groesseHa, groesseA, groesseQm })
+      ).toThrow();
+    }
+  );
 });
