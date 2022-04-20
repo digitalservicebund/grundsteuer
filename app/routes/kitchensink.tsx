@@ -1,4 +1,5 @@
-import { MetaFunction, Outlet } from "remix";
+import { MetaFunction } from "@remix-run/node";
+import { Outlet } from "@remix-run/react";
 import { Button, ContentContainer } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 

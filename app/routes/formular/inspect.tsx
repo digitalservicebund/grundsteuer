@@ -1,4 +1,5 @@
-import { LoaderFunction, useLoaderData } from "remix";
+import { LoaderFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import { useState, useEffect } from "react";
 import { createMachine } from "xstate";
 import { inspect } from "@xstate/inspect";

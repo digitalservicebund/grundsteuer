@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { MetaFunction } from "remix";
+import { MetaFunction } from "@remix-run/node";
 import { BmfLogo, Button, SimplePageLayout } from "~/components";
 import ArrowBackIcon from "~/components/icons/mui/ArrowBack";
 import { pageTitle } from "~/util/pageTitle";

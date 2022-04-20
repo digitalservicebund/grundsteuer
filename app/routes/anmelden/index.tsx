@@ -1,11 +1,5 @@
-import {
-  Form,
-  ActionFunction,
-  LoaderFunction,
-  useActionData,
-  MetaFunction,
-  useLoaderData,
-} from "remix";
+import { ActionFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
+import { Form, useActionData, useLoaderData } from "@remix-run/react";
 import { AuthorizationError } from "remix-auth";
 import { authenticator } from "~/auth.server";
 import { Button, FormGroup, Input, SimplePageLayout } from "~/components";

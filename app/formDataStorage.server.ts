@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import createDebugMessages from "debug";
-import { Cookie, createCookie } from "remix";
+import { Cookie, createCookie } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { GrundModel } from "~/domain/steps";
 import { SessionUser } from "./auth.server";

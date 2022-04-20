@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Link } from "remix";
+import { Link } from "@remix-run/react";
 import bmfLogoImage from "~/assets/images/bmf-logo.svg";
 import digitalserviceLogoImage from "~/assets/images/digitalservice-logo.svg";
 

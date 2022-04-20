@@ -1,6 +1,6 @@
 import { Trans, useTranslation } from "react-i18next";
 import { Button, SimplePageLayout } from "~/components";
-import { LoaderFunction, MetaFunction } from "remix";
+import { LoaderFunction, MetaFunction } from "@remix-run/node";
 import ArrowBackIcon from "~/components/icons/mui/ArrowBack";
 import { pageTitle } from "~/util/pageTitle";
 import illustrationImage from "~/assets/images/404.svg";

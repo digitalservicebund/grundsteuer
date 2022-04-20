@@ -1,4 +1,5 @@
-import { LoaderFunction, Outlet, Link, useLoaderData } from "remix";
+import { LoaderFunction } from "@remix-run/node";
+import { Link, Outlet, useLoaderData } from "@remix-run/react";
 import { Layout } from "@digitalservice4germany/digital-service-library";
 import { getStoredFormData } from "~/formDataStorage.server";
 import { Footer, FormSidebarNavigation, LogoutButton } from "~/components";

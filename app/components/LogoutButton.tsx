@@ -1,4 +1,4 @@
-import { Form } from "remix";
+import { Form } from "@remix-run/react";
 import { Button } from "~/components";
 import LogoutIcon from "~/components/icons/mui/Logout";
 

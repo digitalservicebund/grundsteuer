@@ -1,10 +1,5 @@
-import {
-  ActionFunction,
-  Form,
-  MetaFunction,
-  redirect,
-  useActionData,
-} from "remix";
+import { ActionFunction, MetaFunction, redirect } from "@remix-run/node";
+import { Form, useActionData } from "@remix-run/react";
 import { useTranslation } from "react-i18next";
 import invariant from "tiny-invariant";
 import {

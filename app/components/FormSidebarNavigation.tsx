@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "remix";
+import { Link, useLocation } from "@remix-run/react";
 import classNames from "classnames";
 import { TFunction, useTranslation } from "react-i18next";
 import { getCurrentStateFromPathname } from "~/util/getCurrentState";

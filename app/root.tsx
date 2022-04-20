@@ -1,15 +1,13 @@
+import { LinksFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import {
   Links,
-  LinksFunction,
   LiveReload,
-  LoaderFunction,
   Meta,
-  MetaFunction,
   Outlet,
   Scripts,
   ScrollRestoration,
   useLoaderData,
-} from "remix";
+} from "@remix-run/react";
 import { i18Next } from "~/i18n.server";
 import { useSetupTranslations } from "remix-i18next";
 import { pageTitle } from "~/util/pageTitle";

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "./Button";
 import RefreshIcon from "./icons/mui/Refresh";
 import LoopIcon from "./icons/mui/Loop";
-import { Form } from "remix";
+import { Form } from "@remix-run/react";
 
 export default function Spinner() {
   const [text, setText] = useState("Ihr Freischaltcode wird beantragt.");

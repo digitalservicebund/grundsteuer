@@ -1,4 +1,4 @@
-import { MetaFunction } from "remix";
+import { MetaFunction } from "@remix-run/node";
 import { pageTitle } from "~/util/pageTitle";
 import { SimplePageLayout } from "~/components";
 

@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Link, LinkProps } from "remix";
+import { Link, LinkProps } from "@remix-run/react";
 import classNames from "classnames";
 
 interface VisualProps {
