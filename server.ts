@@ -5,9 +5,7 @@ import morgan from "morgan";
 import { createRequestHandler } from "@remix-run/express";
 import { jobs } from "~/cron.server";
 import path from "path";
-
-// Fail fast on missing configuration parameters
-dotenv.config();
+import invariant from "tiny-invariant";
 
 const BUILD_DIR = path.join(process.cwd(), "build");
 
@@ -15,9 +13,13 @@ const appMode = process.env.APP_MODE;
 
 // cron mode is intended for running cron jobs only. The app will not serve any HTTP requests in this mode.
 if (appMode === "cron") {
+  invariant(process.env.DATABASE_URL, "DATABASE_URL is not set.");
   // run every hour
   jobs.scheduleFscCleanup("0 * * * *");
 } else {
+  // Fail fast on missing configuration parameters
+  dotenv.config();
+
   const app = express();
 
   app.use(compression());
