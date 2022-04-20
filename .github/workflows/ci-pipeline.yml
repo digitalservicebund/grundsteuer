@@ -60,7 +60,6 @@ jobs:
           SESSION_COOKIE_SECRET: thisaintnosecret
           FORM_COOKIE_SECRET: thisalsoaintnosecret
           ERICA_URL: currentlyunused
-          ERICA_CLIENT_IDENTIFIER: currentlyunused
         run: npm run test:e2e
 
   build-push-image:
