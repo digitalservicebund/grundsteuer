@@ -71,7 +71,7 @@
     "remix-i18next": "^3.0.0",
     "tiny-invariant": "^1.2.0",
     "validator": "^13.7.0",
-    "xstate": "^4.30.6"
+    "xstate": "^4.31.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.4.1",
@@ -90,7 +90,7 @@
     "@types/morgan": "^1.9.3",
     "@types/node": "^17.0.23",
     "@types/node-cron": "^3.0.1",
-    "@types/react": "^18.0.2",
+    "@types/react": "^18.0.5",
     "@types/react-dom": "^18.0.0",
     "@types/validator": "^13.7.2",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
