@@ -118,7 +118,7 @@ export default function Redirect() {
   useEffect(() => {
     const interval = setInterval(() => {
       if (document.visibilityState === "visible") {
-        fetcher.load("/fsc/beantragen");
+        fetcher.load("/fsc/beantragen?index");
       }
     }, 1000);
 
