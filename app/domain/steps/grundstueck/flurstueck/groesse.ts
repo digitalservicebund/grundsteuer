@@ -1,5 +1,4 @@
 import { StepDefinition } from "~/domain/steps";
-import { validateFlurstueckGroesseLength } from "~/domain/validation";
 
 export type GrundstueckFlurstueckGroesseFields = {
   groesseHa: string;
