@@ -2,10 +2,16 @@ import { LoaderFunction } from "@remix-run/node";
 import { Link, Outlet, useLoaderData } from "@remix-run/react";
 import { Layout } from "@digitalservice4germany/digital-service-library";
 import { getStoredFormData } from "~/formDataStorage.server";
-import { Footer, FormSidebarNavigation, LogoutButton } from "~/components";
+import {
+  Button,
+  Footer,
+  FormSidebarNavigation,
+  LogoutButton,
+} from "~/components";
 import { createGraph } from "~/domain";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 import { authenticator } from "~/auth.server";
+import { useState } from "react";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
@@ -25,6 +31,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function Formular() {
   const { graph, currentState } = useLoaderData();
+
+  const [showMobileNavigation, setShowMobileNavigation] = useState(false);
+
   return (
     <Layout
       footer={<Footer />}
@@ -44,16 +53,28 @@ export default function Formular() {
         <div className="p-4 bg-blue-100">
           <Link to="/">Home</Link>
           <LogoutButton />
-          <br />
-          <br />
-          <FormSidebarNavigation
-            graph={graph}
-            initialCurrentState={currentState}
-          />
+          <Button
+            size="small"
+            look="tertiary"
+            onClick={() => setShowMobileNavigation(!showMobileNavigation)}
+          >
+            Toggle Navigation
+          </Button>
+          {showMobileNavigation && (
+            <>
+              <br />
+
+              <br />
+              <FormSidebarNavigation
+                graph={graph}
+                initialCurrentState={currentState}
+              />
+            </>
+          )}
         </div>
       }
     >
-      <div className="md:pl-16 h-full">
+      <div className="h-full md:pl-16">
         <Outlet />
       </div>
     </Layout>
