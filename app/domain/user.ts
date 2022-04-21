@@ -45,3 +45,20 @@ export const saveFscRequest = async (email: string, requestId: string) => {
     },
   });
 };
+
+export const saveEricaRequestIdFscBeantragen = async (
+  email: string,
+  ericaRequestId: string
+) => {
+  return await db.user.update({
+    where: { email: email },
+    data: { ericaRequestIdFscBeantragen: ericaRequestId },
+  });
+};
+
+export const deleteEricaRequestIdFscBeantragen = async (email: string) => {
+  return await db.user.update({
+    where: { email: email },
+    data: { ericaRequestIdFscBeantragen: null },
+  });
+};
