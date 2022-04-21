@@ -12,12 +12,13 @@ datasource db {
 }
 
 model User {
-  id            String          @id @default(uuid())
-  email         String          @unique
-  password      String
-  identified    Boolean         @default(false)
-  createdAt     DateTime        @default(now())
-  fscRequest    FscRequest[]
+  id                            String          @id @default(uuid())
+  email                         String          @unique
+  password                      String
+  identified                    Boolean         @default(false)
+  createdAt                     DateTime        @default(now())
+  fscRequest                    FscRequest[]
+  ericaRequestIdFscBeantragen   String?
 }
 
 model FscRequest {
