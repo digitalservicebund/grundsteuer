@@ -2,10 +2,12 @@
 describe("/beantragen", () => {
   beforeEach(() => {
     cy.login();
+    cy.task("dbRemoveFsc", "foo@bar.com");
   });
 
   afterEach(() => {
     cy.request("GET", "http://localhost:8000/reset");
+    cy.task("dbRemoveFsc", "foo@bar.com");
   });
 
   it("should show spinner if data is correct and mockErica returns no result", () => {
@@ -36,6 +38,12 @@ describe("/beantragen", () => {
     cy.get("form button").click();
     cy.contains("Es ist ein Fehler aufgetreten");
     cy.contains("Ihr Freischaltcode wird beantragt.").should("not.exist");
+  });
+
+  it("should redirect to success page if already successfull", () => {
+    cy.task("addFsc", { userEmail: "foo@bar.com", fscRequestId: "foo" });
+    cy.visit("/fsc/beantragen");
+    cy.url().should("include", "/fsc/beantragen/erfolgreich");
   });
 });
 

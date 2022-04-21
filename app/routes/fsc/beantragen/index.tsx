@@ -12,7 +12,7 @@ import {
   useFetcher,
   useLoaderData,
 } from "@remix-run/react";
-import { authenticator } from "~/auth.server";
+import { authenticator, SessionUser } from "~/auth.server";
 import {
   Button,
   FormGroup,
@@ -28,21 +28,27 @@ import {
 import { commitSession, getSession } from "~/session.server";
 import is from "@sindresorhus/is";
 import truthy = is.truthy;
+import { findUserByEmail, saveFscRequest, User } from "~/domain/user";
 
 const isEricaRequestInProgress = (session: Session) => {
   return truthy(session.get("ericaRequestId"));
 };
 
-const wasEricaRequestSuccessful = (session: Session) => {
-  return truthy(session.get("elsterRequestId"));
+const wasEricaRequestSuccessful = async (user: SessionUser) => {
+  const userData: User | null = await findUserByEmail(user.email);
+  return truthy(userData && userData.fscRequest.length > 0);
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
+  const user = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/anmelden",
+  });
+
   const session = await getSession(request.headers.get("Cookie"));
 
   let error = false;
 
-  if (wasEricaRequestSuccessful(session)) {
+  if (await wasEricaRequestSuccessful(user)) {
     return redirect("/fsc/beantragen/erfolgreich");
   }
 
@@ -52,7 +58,7 @@ export const loader: LoaderFunction = async ({ request }) => {
         session.get("ericaRequestId")
       );
       if (elsterRequestId) {
-        session.set("elsterRequestId", elsterRequestId);
+        await saveFscRequest(user.email, elsterRequestId);
         session.unset("ericaRequestId");
       }
     } catch (Error) {
@@ -75,12 +81,12 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export const action: ActionFunction = async ({ request }) => {
-  await authenticator.isAuthenticated(request, {
+  const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
   const session = await getSession(request.headers.get("Cookie"));
 
-  if (wasEricaRequestSuccessful(session)) {
+  if (await wasEricaRequestSuccessful(user)) {
     return redirect("/fsc/beantragen/erfolgreich");
   }
 
