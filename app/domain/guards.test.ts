@@ -193,14 +193,14 @@ describe("hasAbbruchverpflichtung", () => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           .grundstueckTyp({ typ: bebautValue })
-          .hasAbbruchverpflichtung()
+          .abbruchverpflichtung()
           .build();
         const result = conditions.hasAbbruchverpflichtung(inputData);
         expect(result).toEqual(true);
       });
     });
 
-    it("Should return false if hasAbbruchverpflichtung is false", async () => {
+    it("Should return false if abbruchverpflichtung is false", async () => {
       const bebautValues = [
         "einfamilienhaus",
         "zweifamilienhaus",
@@ -211,7 +211,7 @@ describe("hasAbbruchverpflichtung", () => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           .grundstueckTyp({ typ: bebautValue })
-          .hasAbbruchverpflichtung("false")
+          .abbruchverpflichtung({ hasAbbruchverpflichtung: "false" })
           .build();
         const result = conditions.hasAbbruchverpflichtung(inputData);
         expect(result).toEqual(false);

@@ -93,6 +93,67 @@ describe("transforDataToEricaFormat", () => {
     });
   });
 
+  describe("full gebaeude data", function () {
+    it("should move object keys to correct place", () => {
+      const inputData = grundModelFactory
+        .gebaeudeAb1949({ isAb1949: "true" })
+        .gebaeudeBaujahr({ baujahr: "2000" })
+        .kernsaniert({ isKernsaniert: "true", kernsanierungsjahr: "2001" })
+        .abbruchverpflichtung({
+          hasAbbruchverpflichtung: "true",
+          abbruchverpflichtungsjahr: "2002",
+        })
+        .wohnflaechen({ wohnflaeche: "100" })
+        .withWeitereWohnraeume({
+          hasWeitereWohnraeume: "true",
+          anzahl: "2",
+          flaeche: "200",
+        })
+        .withGaragen({ hasGaragen: "true", anzahlGaragen: "3" })
+        .build();
+      const expectedData = {
+        gebaeude: {
+          ab1949: {
+            isAb1949: "true",
+          },
+          baujahr: {
+            baujahr: "2000",
+          },
+          kernsaniert: {
+            isKernsaniert: "true",
+          },
+          kernsanierungsjahr: {
+            kernsanierungsjahr: "2001",
+          },
+          abbruchverpflichtung: {
+            hasAbbruchverpflichtung: "true",
+          },
+          abbruchverpflichtungsjahr: {
+            abbruchverpflichtungsjahr: "2002",
+          },
+          wohnflaechen: ["100"],
+          weitereWohnraeume: {
+            hasWeitereWohnraeume: "true",
+          },
+          weitereWohnraeumeDetails: {
+            anzahl: "2",
+            flaeche: "200",
+          },
+          garagen: {
+            hasGaragen: "true",
+          },
+          garagenAnzahl: {
+            anzahlGaragen: "3",
+          },
+        },
+      };
+
+      const result = transforDataToEricaFormat(inputData);
+
+      expect(result).toEqual(expectedData);
+    });
+  });
+
   describe("flurstueck groesse", function () {
     const defaultFlurstueck = {
       angaben: {
@@ -137,6 +198,28 @@ describe("transforDataToEricaFormat", () => {
       const result = transforDataToEricaFormat(inputData);
 
       expect(result.grundstueck.flurstueck[0].groesseQm).toEqual("10203");
+    });
+  });
+
+  describe("wohnflaechen", () => {
+    it("should set wohnflaechen correctly if single wohnflaeche given", () => {
+      const inputData = grundModelFactory
+        .wohnflaechen({ wohnflaeche: "10" })
+        .build();
+
+      const result = transforDataToEricaFormat(inputData);
+
+      expect(result.gebaeude.wohnflaechen).toEqual(["10"]);
+    });
+
+    it("should set wohnflaechen correctly if two wohnflaechen given", () => {
+      const inputData = grundModelFactory
+        .wohnflaechen({ wohnflaeche1: "10", wohnflaeche2: "20" })
+        .build();
+
+      const result = transforDataToEricaFormat(inputData);
+
+      expect(result.gebaeude.wohnflaechen).toEqual(["10", "20"]);
     });
   });
 });

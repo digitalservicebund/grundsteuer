@@ -321,7 +321,7 @@ describe("states", () => {
           .grundstueckTyp({ typ: "einfamilienhaus" })
           .gebaeudeAb1949()
           .kernsaniert()
-          .hasAbbruchverpflichtung()
+          .abbruchverpflichtung()
           .withWeitereWohnraeume()
           .withGaragen()
           .build(),
@@ -351,7 +351,7 @@ describe("states", () => {
           .grundstueckTyp({ typ: "wohnungseigentum" })
           .gebaeudeAb1949()
           .kernsaniert()
-          .hasAbbruchverpflichtung()
+          .abbruchverpflichtung()
           .withWeitereWohnraeume()
           .withGaragen()
           .build(),

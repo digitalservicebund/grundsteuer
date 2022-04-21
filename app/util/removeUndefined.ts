@@ -11,7 +11,9 @@ export const removeUndefined = (data: Record<string, any>) => {
         .value();
     }
     if (_.isArray(value)) {
-      const resultingValue = value.map((item) => removeUndefined(item));
+      const resultingValue = value.map((item) =>
+        _.isObject(item) || _.isArray(item) ? removeUndefined(item) : item
+      );
       _.remove(resultingValue, _.isEmpty);
       _.remove(resultingValue, _.isNil);
       data[key] = resultingValue;

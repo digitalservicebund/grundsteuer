@@ -23,6 +23,13 @@ import { flurstueckFactory } from "./flurstueck";
 import { EigentuemerPersonAdresseFields } from "~/domain/steps/eigentuemer/person/adresse";
 import { EigentuemerBruchteilsgemeinschaftFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaft";
 import { GebaeudeBaujahrFields } from "~/domain/steps/gebaeude/baujahr";
+import { GebaeudeKernsanierungsjahrFields } from "~/domain/steps/gebaeude/kernsanierungsjahr";
+import { GebaeudeAbbruchverpflichtungFields } from "~/domain/steps/gebaeude/abbruchverpflichtung";
+import { GebaeudeAbbruchverpflichtungsjahrFields } from "~/domain/steps/gebaeude/abbruchverpflichtungsjahr";
+import { GebaeudeWohnflaecheFields } from "~/domain/steps/gebaeude/wohnflaeche";
+import { GebaeudeWohnflaechenFields } from "~/domain/steps/gebaeude/wohnflaechen";
+import { GebaeudeWeitereWohnraeumeDetailsFields } from "~/domain/steps/gebaeude/weitereWohnraeumeDetails";
+import { GebaeudeGaragenAnzahlFields } from "~/domain/steps/gebaeude/garagenAnzahl";
 
 type PersonTransientParams = {
   transient: {
@@ -175,41 +182,87 @@ class GrundModelFactory extends Factory<GrundModel> {
     });
   }
 
-  kernsaniert(fields?: Partial<GebaeudeKernsaniertFields>) {
+  kernsaniert(
+    fields?: Partial<GebaeudeKernsaniertFields> &
+      Partial<GebaeudeKernsanierungsjahrFields>
+  ) {
     return this.params({
       gebaeude: {
         kernsaniert: {
           isKernsaniert: fields ? fields?.isKernsaniert : "true",
         },
-      },
-    });
-  }
-
-  hasAbbruchverpflichtung(flag?: "true" | "false") {
-    return this.params({
-      gebaeude: {
-        abbruchverpflichtung: {
-          hasAbbruchverpflichtung: flag ? flag : "true",
+        kernsanierungsjahr: {
+          kernsanierungsjahr: fields ? fields?.kernsanierungsjahr : "",
         },
       },
     });
   }
 
-  withWeitereWohnraeume(fields?: Partial<GebaeudeWeitereWohnraeumeFields>) {
+  abbruchverpflichtung(
+    fields?: Partial<GebaeudeAbbruchverpflichtungFields> &
+      Partial<GebaeudeAbbruchverpflichtungsjahrFields>
+  ) {
+    return this.params({
+      gebaeude: {
+        abbruchverpflichtung: {
+          hasAbbruchverpflichtung: fields?.hasAbbruchverpflichtung
+            ? fields?.hasAbbruchverpflichtung
+            : "true",
+        },
+        abbruchverpflichtungsjahr: {
+          abbruchverpflichtungsjahr: fields?.abbruchverpflichtungsjahr
+            ? fields.abbruchverpflichtungsjahr
+            : "",
+        },
+      },
+    });
+  }
+
+  wohnflaechen(
+    fields?: Partial<GebaeudeWohnflaecheFields> &
+      Partial<GebaeudeWohnflaechenFields>
+  ) {
+    return this.params({
+      gebaeude: {
+        wohnflaeche: {
+          wohnflaeche: fields?.wohnflaeche ? fields?.wohnflaeche : "",
+        },
+        wohnflaechen: {
+          wohnflaeche1: fields?.wohnflaeche1 ? fields.wohnflaeche1 : "",
+          wohnflaeche2: fields?.wohnflaeche2 ? fields.wohnflaeche2 : "",
+        },
+      },
+    });
+  }
+
+  withWeitereWohnraeume(
+    fields?: Partial<GebaeudeWeitereWohnraeumeFields> &
+      Partial<GebaeudeWeitereWohnraeumeDetailsFields>
+  ) {
     return this.params({
       gebaeude: {
         weitereWohnraeume: {
           hasWeitereWohnraeume: fields ? fields?.hasWeitereWohnraeume : "true",
         },
+        weitereWohnraeumeDetails: {
+          anzahl: fields ? fields.anzahl : "",
+          flaeche: fields ? fields.flaeche : "",
+        },
       },
     });
   }
 
-  withGaragen(fields?: Partial<GebaeudeGaragenFields>) {
+  withGaragen(
+    fields?: Partial<GebaeudeGaragenFields> &
+      Partial<GebaeudeGaragenAnzahlFields>
+  ) {
     return this.params({
       gebaeude: {
         garagen: {
           hasGaragen: fields ? fields?.hasGaragen : "true",
+        },
+        garagenAnzahl: {
+          anzahlGaragen: fields ? fields.anzahlGaragen : "",
         },
       },
     });

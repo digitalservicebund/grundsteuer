@@ -6,9 +6,11 @@ import {
 import { removeUndefined } from "~/util/removeUndefined";
 import {
   validateFlurstueckGroesse,
-  validateFlurstueckGroesseLength,
   validateFlurstueckGroesseRequired,
 } from "~/domain/validation";
+import { GebaeudeWohnflaecheFields } from "~/domain/steps/gebaeude/wohnflaeche";
+import { GebaeudeWohnflaechenFields } from "~/domain/steps/gebaeude/wohnflaechen";
+import _ from "lodash";
 
 export const calculateGroesse = (
   groesse: GrundstueckFlurstueckGroesseFields
@@ -51,6 +53,17 @@ export const calculateGroesse = (
   );
 };
 
+const calculateWohnflaechen = (
+  wohnflaeche?: GebaeudeWohnflaecheFields,
+  wohnflaechen?: GebaeudeWohnflaechenFields
+) => {
+  return _.compact([
+    wohnflaeche?.wohnflaeche,
+    wohnflaechen?.wohnflaeche1,
+    wohnflaechen?.wohnflaeche2,
+  ]);
+};
+
 const transformFlurstueck = (flurstueck: Flurstueck) => {
   return {
     angaben: flurstueck.angaben,
@@ -73,6 +86,22 @@ export const transforDataToEricaFormat = (inputData: GrundModel) => {
         inputData.grundstueck?.gemeinde?.innerhalbEinerGemeinde,
       bodenrichtwert: inputData.grundstueck?.bodenrichtwert?.bodenrichtwert,
       flurstueck: inputData.grundstueck?.flurstueck?.map(transformFlurstueck),
+    },
+    gebaeude: {
+      ab1949: inputData.gebaeude?.ab1949,
+      baujahr: inputData.gebaeude?.baujahr,
+      kernsaniert: inputData.gebaeude?.kernsaniert,
+      kernsanierungsjahr: inputData.gebaeude?.kernsanierungsjahr,
+      abbruchverpflichtung: inputData.gebaeude?.abbruchverpflichtung,
+      abbruchverpflichtungsjahr: inputData.gebaeude?.abbruchverpflichtungsjahr,
+      wohnflaechen: calculateWohnflaechen(
+        inputData.gebaeude?.wohnflaeche,
+        inputData.gebaeude?.wohnflaechen
+      ),
+      weitereWohnraeume: inputData.gebaeude?.weitereWohnraeume,
+      weitereWohnraeumeDetails: inputData.gebaeude?.weitereWohnraeumeDetails,
+      garagen: inputData.gebaeude?.garagen,
+      garagenAnzahl: inputData.gebaeude?.garagenAnzahl,
     },
     freitext: inputData.zusammenfassung?.freitext,
   };

@@ -46,4 +46,20 @@ describe("removeUndefined", function () {
     });
     expect(result).toEqual(expected);
   });
+
+  it("handles array with strings correctly", () => {
+    const expected = { array: ["100"] };
+    const result = removeUndefined({
+      array: ["100"],
+    });
+    expect(result).toEqual(expected);
+  });
+
+  it("handles array with strings and undefinded correctly", () => {
+    const expected = { array: ["100"] };
+    const result = removeUndefined({
+      array: [undefined, "100"],
+    });
+    expect(result).toEqual(expected);
+  });
 });
