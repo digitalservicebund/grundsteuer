@@ -12,6 +12,7 @@ import {
   GrundstueckBodenrichtwertFields,
   GrundstueckAbweichendeEntwicklungFields,
   Flurstueck,
+  Person,
 } from "~/domain/steps";
 import { GebaeudeAb1949Fields } from "~/domain/steps/gebaeude/ab1949";
 import { GebaeudeKernsaniertFields } from "~/domain/steps/gebaeude/kernsaniert";
@@ -30,6 +31,9 @@ import { GebaeudeWohnflaecheFields } from "~/domain/steps/gebaeude/wohnflaeche";
 import { GebaeudeWohnflaechenFields } from "~/domain/steps/gebaeude/wohnflaechen";
 import { GebaeudeWeitereWohnraeumeDetailsFields } from "~/domain/steps/gebaeude/weitereWohnraeumeDetails";
 import { GebaeudeGaragenAnzahlFields } from "~/domain/steps/gebaeude/garagenAnzahl";
+import { EigentuemerBruchteilsgemeinschaftAngabenFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
+import { EigentuemerEmpfangsbevollmaechtigterNameFields } from "~/domain/steps/eigentuemer/empfangsbevollmaechtigter/name";
+import { EigentuemerEmpfangsbevollmaechtigterAdresseFields } from "~/domain/steps/eigentuemer/empfangsbevollmaechtigter/adresse";
 
 type PersonTransientParams = {
   transient: {
@@ -288,6 +292,14 @@ class GrundModelFactory extends Factory<GrundModel> {
     });
   }
 
+  eigentuemerPerson({ list }: { list?: Person[] }) {
+    return this.params({
+      eigentuemer: {
+        person: list,
+      },
+    });
+  }
+
   eigentuemerPersonAdresse(
     fields?: Partial<EigentuemerPersonAdresseFields>,
     params?: PersonTransientParams
@@ -325,7 +337,8 @@ class GrundModelFactory extends Factory<GrundModel> {
   }
 
   eigentuemerBruchteilsgemeinschaft(
-    fields?: Partial<EigentuemerBruchteilsgemeinschaftFields>
+    fields?: Partial<EigentuemerBruchteilsgemeinschaftFields> &
+      Partial<EigentuemerBruchteilsgemeinschaftAngabenFields>
   ) {
     return this.params({
       eigentuemer: {
@@ -334,12 +347,24 @@ class GrundModelFactory extends Factory<GrundModel> {
         bruchteilsgemeinschaft: {
           predefinedData: fields?.predefinedData,
         },
+        bruchteilsgemeinschaftangaben: {
+          angaben: {
+            name: fields?.name,
+            strasse: fields?.strasse,
+            hausnummer: fields?.hausnummer,
+            postfach: fields?.postfach,
+            plz: fields?.plz,
+            ort: fields?.ort,
+          },
+        },
       },
     });
   }
 
   eigentuemerEmpfangsvollmacht(
-    fields?: Partial<EigentuemerEmpfangsvollmachtFields>
+    fields?: Partial<EigentuemerEmpfangsvollmachtFields> &
+      Partial<EigentuemerEmpfangsbevollmaechtigterNameFields> &
+      Partial<EigentuemerEmpfangsbevollmaechtigterAdresseFields>
   ) {
     return this.params({
       eigentuemer: {
@@ -347,6 +372,22 @@ class GrundModelFactory extends Factory<GrundModel> {
         // @ts-ignore
         empfangsvollmacht: {
           hasEmpfangsvollmacht: fields?.hasEmpfangsvollmacht || "false",
+        },
+        empfangsbevollmaechtigter: {
+          name: {
+            anrede: fields?.anrede,
+            titel: fields?.titel,
+            vorname: fields?.vorname,
+            name: fields?.name,
+          },
+          adresse: {
+            strasse: fields?.strasse,
+            hausnummer: fields?.hausnummer,
+            postfach: fields?.postfach,
+            plz: fields?.plz,
+            ort: fields?.ort,
+            telefonnummer: fields?.telefonnummer,
+          },
         },
       },
     });

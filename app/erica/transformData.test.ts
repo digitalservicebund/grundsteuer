@@ -3,6 +3,7 @@ import {
   calculateGroesse,
   transforDataToEricaFormat,
 } from "~/erica/transformData";
+import { Person } from "~/domain/steps";
 
 describe("transforDataToEricaFormat", () => {
   describe("no data", function () {
@@ -144,6 +145,224 @@ describe("transforDataToEricaFormat", () => {
           },
           garagenAnzahl: {
             anzahlGaragen: "3",
+          },
+        },
+      };
+
+      const result = transforDataToEricaFormat(inputData);
+
+      expect(result).toEqual(expectedData);
+    });
+  });
+
+  describe("full eigentuemer data", () => {
+    it("should move object keys to correct place", () => {
+      const personList: Person[] = [
+        {
+          persoenlicheAngaben: {
+            anrede: "frau",
+            titel: "1 Titel",
+            vorname: "1 Vorname",
+            name: "1 Name",
+            geburtsdatum: "01.01.1111",
+          },
+          adresse: {
+            strasse: "1 Strasse",
+            hausnummer: "1 Hausnummer",
+            postfach: "1 Postfach",
+            plz: "1 PLZ",
+            ort: "1 Ort",
+            telefonnummer: "111111",
+          },
+          steuerId: {
+            steuerId: "1111",
+          },
+          gesetzlicherVertreter: {
+            hasVertreter: "false",
+          },
+          anteil: {
+            zaehler: "1",
+            nenner: "2",
+          },
+        },
+        {
+          persoenlicheAngaben: {
+            anrede: "herr",
+            titel: "2 Titel",
+            vorname: "2 Vorname",
+            name: "2 Name",
+            geburtsdatum: "02.02.2222",
+          },
+          adresse: {
+            strasse: "2 Strasse",
+            hausnummer: "2 Hausnummer",
+            postfach: "2 Postfach",
+            plz: "2 PLZ",
+            ort: "2 Ort",
+            telefonnummer: "222222",
+          },
+          steuerId: {
+            steuerId: "2222",
+          },
+          gesetzlicherVertreter: {
+            hasVertreter: "true",
+          },
+          vertreter: {
+            name: {
+              anrede: "herr",
+              titel: "VERT Titel",
+              vorname: "VERT Vorname",
+              name: "VERT Name",
+            },
+            adresse: {
+              strasse: "VERT Strasse",
+              hausnummer: "VERT Hausnummer",
+              postfach: "VERT Postfach",
+              plz: "VERT PLZ",
+              ort: "VERT Ort",
+              telefonnummer: "333333",
+            },
+          },
+          anteil: {
+            zaehler: "3",
+            nenner: "4",
+          },
+        },
+      ];
+
+      const inputData = grundModelFactory
+        .eigentuemerVerheiratet({ areVerheiratet: "false" })
+        .eigentuemerPerson({
+          list: personList,
+        })
+        .eigentuemerBruchteilsgemeinschaft({
+          predefinedData: "false",
+          name: "BTG Name",
+          strasse: "BTG Strasse",
+          hausnummer: "BTG Hausnummer",
+          postfach: "BTG Postfach",
+          plz: "BTG PLZ",
+          ort: "BTG Ort",
+        })
+        .eigentuemerEmpfangsvollmacht({
+          hasEmpfangsvollmacht: "true",
+          anrede: "no_anrede",
+          titel: "EMP Titel",
+          vorname: "EMP Vorname",
+          name: "EMP Name",
+          strasse: "EMP Strasse",
+          hausnummer: "EMP Hausnummer",
+          postfach: "EMP Postfach",
+          plz: "EMP PLZ",
+          ort: "EMP Ort",
+          telefonnummer: "12345",
+        })
+        .build();
+
+      const expectedData = {
+        eigentuemer: {
+          person: [
+            {
+              persoenlicheAngaben: {
+                anrede: "frau",
+                titel: "1 Titel",
+                vorname: "1 Vorname",
+                name: "1 Name",
+                geburtsdatum: "01.01.1111",
+              },
+              adresse: {
+                strasse: "1 Strasse",
+                hausnummer: "1 Hausnummer",
+                postfach: "1 Postfach",
+                plz: "1 PLZ",
+                ort: "1 Ort",
+              },
+              telefonnummer: {
+                telefonnummer: "111111",
+              },
+              steuerId: {
+                steuerId: "1111",
+              },
+              anteil: {
+                zaehler: "1",
+                nenner: "2",
+              },
+            },
+            {
+              persoenlicheAngaben: {
+                anrede: "herr",
+                titel: "2 Titel",
+                vorname: "2 Vorname",
+                name: "2 Name",
+                geburtsdatum: "02.02.2222",
+              },
+              adresse: {
+                strasse: "2 Strasse",
+                hausnummer: "2 Hausnummer",
+                postfach: "2 Postfach",
+                plz: "2 PLZ",
+                ort: "2 Ort",
+              },
+              telefonnummer: {
+                telefonnummer: "222222",
+              },
+              steuerId: {
+                steuerId: "2222",
+              },
+              vertreter: {
+                name: {
+                  anrede: "herr",
+                  titel: "VERT Titel",
+                  vorname: "VERT Vorname",
+                  name: "VERT Name",
+                },
+                adresse: {
+                  strasse: "VERT Strasse",
+                  hausnummer: "VERT Hausnummer",
+                  postfach: "VERT Postfach",
+                  plz: "VERT PLZ",
+                  ort: "VERT Ort",
+                },
+                telefonnummer: {
+                  telefonnummer: "333333",
+                },
+              },
+              anteil: {
+                zaehler: "3",
+                nenner: "4",
+              },
+            },
+          ],
+          verheiratet: {
+            areVerheiratet: "false",
+          },
+          bruchteilsgemeinschaft: {
+            name: "BTG Name",
+            adresse: {
+              strasse: "BTG Strasse",
+              hausnummer: "BTG Hausnummer",
+              postfach: "BTG Postfach",
+              plz: "BTG PLZ",
+              ort: "BTG Ort",
+            },
+          },
+          empfangsbevollmaechtigter: {
+            name: {
+              anrede: "no_anrede",
+              titel: "EMP Titel",
+              vorname: "EMP Vorname",
+              name: "EMP Name",
+            },
+            adresse: {
+              strasse: "EMP Strasse",
+              hausnummer: "EMP Hausnummer",
+              postfach: "EMP Postfach",
+              plz: "EMP PLZ",
+              ort: "EMP Ort",
+            },
+            telefonnummer: {
+              telefonnummer: "12345",
+            },
           },
         },
       };

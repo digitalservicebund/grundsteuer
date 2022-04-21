@@ -249,6 +249,18 @@ export type Flurstueck = {
   groesse?: GrundstueckFlurstueckGroesseFields;
 };
 
+export type Person = {
+  adresse?: EigentuemerPersonAdresseFields;
+  anteil?: EigentuemerPersonAnteilFields;
+  gesetzlicherVertreter?: EigentuemerPersonGesetzlicherVertreterFields;
+  persoenlicheAngaben?: EigentuemerPersonPersoenlicheAngabenFields;
+  steuerId?: EigentuemerPersonSteuerIdFields;
+  vertreter?: {
+    adresse?: EigentuemerPersonVertreterAdresseFields;
+    name?: EigentuemerPersonVertreterNameFields;
+  };
+};
+
 export type GrundModel = {
   grundstueck?: {
     adresse?: GrundstueckAdresseFields;
@@ -277,17 +289,7 @@ export type GrundModel = {
   eigentuemer?: {
     anzahl?: EigentuemerAnzahlFields;
     verheiratet?: EigentuemerVerheiratetFields;
-    person?: {
-      adresse?: EigentuemerPersonAdresseFields;
-      anteil?: EigentuemerPersonAnteilFields;
-      gesetzlicherVertreter?: EigentuemerPersonGesetzlicherVertreterFields;
-      persoenlicheAngaben?: EigentuemerPersonPersoenlicheAngabenFields;
-      steuerId?: EigentuemerPersonSteuerIdFields;
-      vertreter?: {
-        adresse?: EigentuemerPersonVertreterAdresseFields;
-        name?: EigentuemerPersonVertreterNameFields;
-      };
-    }[];
+    person?: Person[];
     bruchteilsgemeinschaft?: EigentuemerBruchteilsgemeinschaftFields;
     bruchteilsgemeinschaftangaben?: {
       angaben?: EigentuemerBruchteilsgemeinschaftAngabenFields;
