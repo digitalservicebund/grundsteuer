@@ -7,10 +7,6 @@ export const loader: LoaderFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
   const sessionUser = session.get("user");
 
-  if (sessionUser.identified) {
-    return redirect("/formular/welcome");
-  }
-
   const dbUser = await findUserByEmail(sessionUser.email);
   invariant(
     dbUser,
