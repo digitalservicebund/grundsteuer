@@ -3,6 +3,64 @@ import Accordion from "~/components/Accordion";
 export default function FaqAccordion() {
   const items = [
     {
+      header: "Wie kann ich mich auf die Abgabe der Erklärung vorbereiten?",
+      content: (
+        <>
+          <p className="mb-24">
+            Wenn Sie sich vorbereiten wollen, können Sie jetzt schon Folgendes
+            tun:
+          </p>
+          <ul className="list-disc pl-24 mb-24">
+            <li>
+              Suchen Sie in Ihren Unterlagen Ihren{" "}
+              <strong>Grundbuchauszug</strong> heraus. Falls sie ihn nicht
+              haben, können Sie ihn in Ihrem Grundbuchamt beantragen. Der
+              Grundbuchauszug ist für die Grundsteuererklärung äußerst
+              hilfreich.
+            </li>
+            <li>
+              Folgende Unterlagen können das Ausfüllen erleichtern: der letzte{" "}
+              <strong>Einheitswertbescheid</strong>, der{" "}
+              <strong>Kaufvertrag</strong> über das Grundstück, die{" "}
+              <strong>Bauunterlagen</strong> zu dem Gebäude und (soweit
+              vorhanden) das{" "}
+              <strong>
+                Informationsschreiben Ihrer Landesfinanzverwaltung
+              </strong>
+              .
+            </li>
+            <li>
+              Einige Länder bieten sog. Grundsteuerviewer über das Internet an,
+              mit denen Sie relevante Daten zu ihrem Grundstück erfahren können
+              (Grundstücksfläche, Bodenrichtwert usw.). Teilweise bieten diese
+              Seiten Ihnen eine Downloadfunktion mit den erforderlichen Daten zu
+              ihrem Grundstück in einem pdf-Format an.
+            </li>
+          </ul>
+          <p className="mb-24">
+            Für die Abgabe der Erklärung mit „Grundsteuererklärung für
+            Privateigentum“ benötigen Sie nur wenige Angaben, die Sie z. B. mit
+            Hilfe der vorgenannten Unterlagen zur Vorbereitung bereits jetzt
+            heraussuchen können. Sie benötigen insbesondere
+          </p>
+          <ul className="list-disc pl-24">
+            <li>die Größe des Grundstücks,</li>
+            <li>den Bodenrichtwert,</li>
+            <li>die Wohnfläche,</li>
+            <li>das Baujahr des Gebäudes (ab 1949),</li>
+            <li>die Anzahl der Garagen- oder Tiefgaragenstellplätze,</li>
+            <li>
+              falls das Gebäude verbindlich abgerissen werden muss, das Jahr der
+              Abbruchverpflichtung,
+            </li>
+            <li>
+              falls das Gebäude kernsaniert wurde, das Jahr der Kernsanierung.
+            </li>
+          </ul>
+        </>
+      ),
+    },
+    {
       header:
         "Welche Sachverhalte deckt „Grundsteuererklärung für Privateigentum“ ab?",
       content: (
@@ -29,9 +87,8 @@ export default function FaqAccordion() {
             </li>
           </ul>
           <p>
-            Wenn „Grundsteuererklärung für Privateigentum“ live geht, können Sie
-            auf dieser Seite mit Hilfe weniger Fragen überprüfen, ob die Nutzung
-            für Sie infrage kommt.
+            Ab Juli 2022 können Sie auf dieser Seite mit Hilfe weniger Fragen
+            überprüfen, ob die Nutzung für Sie infrage kommt.
           </p>
         </>
       ),
@@ -77,16 +134,15 @@ export default function FaqAccordion() {
             >
               ELSTER
             </a>
-            . Wenn „Grundsteuererklärung für Privateigentum“ live geht, können
-            Sie auf dieser Seite mit Hilfe weniger Fragen überprüfen, ob die
-            Nutzung für Sie infrage kommt.
+            . Ab Juli 2022 können Sie auf dieser Seite mit Hilfe weniger Fragen
+            überprüfen, ob die Nutzung für Sie infrage kommt.
           </p>
         </>
       ),
     },
     {
       header:
-        "Eigentümer:innen von Grundstücken in welchen Bundesländern können „Grundsteuererklärung für Privateigentum“ nutzen?",
+        "In welchem Bundesland muss ein Grundstück liegen, damit es für „Grundsteuererklärung für Privateigentum“ infrage kommt?",
       content: (
         <>
           <p className="mb-24">
@@ -261,64 +317,6 @@ export default function FaqAccordion() {
             </a>{" "}
             erreichen.
           </p>
-        </>
-      ),
-    },
-    {
-      header: "Wie kann ich mich auf die Abgabe der Erklärung vorbereiten?",
-      content: (
-        <>
-          <p className="mb-24">
-            Wenn Sie sich vorbereiten wollen, können Sie jetzt schon Folgendes
-            tun:
-          </p>
-          <ul className="list-disc pl-24 mb-24">
-            <li>
-              Suchen Sie in Ihren Unterlagen Ihren{" "}
-              <strong>Grundbuchauszug</strong> heraus. Falls sie ihn nicht
-              haben, können Sie ihn in Ihrem Grundbuchamt beantragen. Der
-              Grundbuchauszug ist für die Grundsteuererklärung äußerst
-              hilfreich.
-            </li>
-            <li>
-              Folgende Unterlagen können das Ausfüllen erleichtern: der letzte{" "}
-              <strong>Einheitswertbescheid</strong>, der{" "}
-              <strong>Kaufvertrag</strong> über das Grundstück, die{" "}
-              <strong>Bauunterlagen</strong> zu dem Gebäude und (soweit
-              vorhanden) das{" "}
-              <strong>
-                Informationsschreiben Ihrer Landesfinanzverwaltung
-              </strong>
-              .
-            </li>
-            <li>
-              Einige Länder bieten sog. Grundsteuerviewer über das Internet an,
-              mit denen Sie relevante Daten zu ihrem Grundstück erfahren können
-              (Grundstücksfläche, Bodenrichtwert usw.). Teilweise bieten diese
-              Seiten Ihnen eine Downloadfunktion mit den erforderlichen Daten zu
-              ihrem Grundstück in einem pdf-Format an.
-            </li>
-          </ul>
-          <p className="mb-24">
-            Für die Abgabe der Erklärung mit „Grundsteuererklärung für
-            Privateigentum“ benötigen Sie nur wenige Angaben, die Sie z. B. mit
-            Hilfe der vorgenannten Unterlagen zur Vorbereitung bereits jetzt
-            heraussuchen können. Sie benötigen insbesondere
-          </p>
-          <ul className="list-disc pl-24">
-            <li>die Größe des Grundstücks,</li>
-            <li>den Bodenrichtwert,</li>
-            <li>die Wohnfläche,</li>
-            <li>das Baujahr des Gebäudes (ab 1949),</li>
-            <li>die Anzahl der Garagen- oder Tiefgaragenstellplätze,</li>
-            <li>
-              falls das Gebäude verbindlich abgerissen werden muss, das Jahr der
-              Abbruchverpflichtung,
-            </li>
-            <li>
-              falls das Gebäude kernsaniert wurde, das Jahr der Kernsanierung.
-            </li>
-          </ul>
         </>
       ),
     },
