@@ -1,8 +1,12 @@
 import { StepDefinition } from "~/domain/steps";
-import { AdresseFields } from "~/domain/steps/shared/adresse";
 
-export type EigentuemerBruchteilsgemeinschaftAngabenFields = AdresseFields & {
+export type EigentuemerBruchteilsgemeinschaftAngabenFields = {
   name: string;
+  strasse: string;
+  hausnummer: string;
+  postfach: string;
+  plz: string;
+  ort: string;
 };
 
 export const eigentuemerBruchteilsgemeinschaftAngaben: StepDefinition = {
