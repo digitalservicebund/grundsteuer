@@ -12,7 +12,11 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 import { db } from "../../app/db.server";
-import { saveFscRequest } from "../../app/domain/user";
+import {
+  deleteEricaRequestIdFscBeantragen,
+  saveEricaRequestIdFscBeantragen,
+  saveFscRequest,
+} from "../../app/domain/user";
 
 /**
  * @type {Cypress.PluginConfig}
@@ -26,8 +30,18 @@ export default (on, config) => {
       });
     },
 
-    addFsc: async ({ userEmail, fscRequestId }) => {
+    addFscRequestId: async ({ userEmail, fscRequestId }) => {
       await saveFscRequest(userEmail, fscRequestId);
+      return null;
+    },
+
+    addEricaRequestIdFscAntrag: async ({ userEmail, ericaRequestId }) => {
+      await saveEricaRequestIdFscBeantragen(userEmail, ericaRequestId);
+      return null;
+    },
+
+    dbRemoveEricaRequestId: async (userEmail) => {
+      await deleteEricaRequestIdFscBeantragen(userEmail);
       return null;
     },
   });

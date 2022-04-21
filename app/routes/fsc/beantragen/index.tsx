@@ -4,7 +4,6 @@ import {
   json,
   LoaderFunction,
   redirect,
-  Session,
 } from "@remix-run/node";
 import {
   Form,
@@ -12,7 +11,7 @@ import {
   useFetcher,
   useLoaderData,
 } from "@remix-run/react";
-import { authenticator, SessionUser } from "~/auth.server";
+import { authenticator } from "~/auth.server";
 import {
   Button,
   FormGroup,
@@ -28,48 +27,67 @@ import {
 import { commitSession, getSession } from "~/session.server";
 import is from "@sindresorhus/is";
 import truthy = is.truthy;
-import { findUserByEmail, saveFscRequest, User } from "~/domain/user";
+import {
+  deleteEricaRequestIdFscBeantragen,
+  findUserByEmail,
+  saveEricaRequestIdFscBeantragen,
+  saveFscRequest,
+  User,
+} from "~/domain/user";
+import invariant from "tiny-invariant";
 
-const isEricaRequestInProgress = (session: Session) => {
-  return truthy(session.get("ericaRequestId"));
+const isEricaRequestInProgress = async (userData: User) => {
+  return truthy(userData.ericaRequestIdFscBeantragen);
 };
 
-const wasEricaRequestSuccessful = async (user: SessionUser) => {
-  const userData: User | null = await findUserByEmail(user.email);
-  return truthy(userData && userData.fscRequest.length > 0);
+const wasEricaRequestSuccessful = async (userData: User) => {
+  return truthy(userData.fscRequest.length > 0);
+};
+
+const getEricaRequestIdFscBeantragen = async (userData: User) => {
+  invariant(
+    userData.ericaRequestIdFscBeantragen,
+    "ericaRequestIdFscBeantragen is null"
+  );
+  return userData.ericaRequestIdFscBeantragen;
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
+  const userData: User | null = await findUserByEmail(user.email);
+  invariant(
+    userData,
+    "expected a matching user in the database from a user in a cookie session"
+  );
 
   const session = await getSession(request.headers.get("Cookie"));
 
   let error = false;
 
-  if (await wasEricaRequestSuccessful(user)) {
+  if (await wasEricaRequestSuccessful(userData)) {
     return redirect("/fsc/beantragen/erfolgreich");
   }
 
-  if (isEricaRequestInProgress(session)) {
+  if (await isEricaRequestInProgress(userData)) {
     try {
       const elsterRequestId = await retrieveAntragsId(
-        session.get("ericaRequestId")
+        await getEricaRequestIdFscBeantragen(userData)
       );
       if (elsterRequestId) {
         await saveFscRequest(user.email, elsterRequestId);
-        session.unset("ericaRequestId");
+        await deleteEricaRequestIdFscBeantragen(user.email);
       }
     } catch (Error) {
-      session.unset("ericaRequestId");
+      await deleteEricaRequestIdFscBeantragen(user.email);
       error = true;
     }
   }
 
   return json(
     {
-      inProgress: truthy(session.get("ericaRequestId")),
+      inProgress: await isEricaRequestInProgress(userData),
       error,
     },
     {
@@ -84,13 +102,19 @@ export const action: ActionFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
+  const userData: User | null = await findUserByEmail(user.email);
+  invariant(
+    userData,
+    "expected a matching user in the database from a user in a cookie session"
+  );
+
   const session = await getSession(request.headers.get("Cookie"));
 
-  if (await wasEricaRequestSuccessful(user)) {
+  if (await wasEricaRequestSuccessful(userData)) {
     return redirect("/fsc/beantragen/erfolgreich");
   }
 
-  if (!isEricaRequestInProgress(session)) {
+  if (!(await isEricaRequestInProgress(userData))) {
     const formData = await request.formData();
     const steuerId = formData.get("steuerId");
     const geburtsdatum = formData.get("geburtsdatum");
@@ -100,12 +124,13 @@ export const action: ActionFunction = async ({ request }) => {
         steuerId.toString(),
         geburtsdatum?.toString()
       );
-      session.set("ericaRequestId", ericaRequestId);
+
+      await saveEricaRequestIdFscBeantragen(user.email, ericaRequestId);
     }
   }
   return json(
     {
-      inProgress: truthy(session.get("ericaRequestId")),
+      inProgress: await isEricaRequestInProgress(userData),
     },
     {
       headers: {

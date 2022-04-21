@@ -8,6 +8,7 @@ describe("/beantragen", () => {
   afterEach(() => {
     cy.request("GET", "http://localhost:8000/reset");
     cy.task("dbRemoveFsc", "foo@bar.com");
+    cy.task("dbRemoveEricaRequestId", "foo@bar.com");
   });
 
   it("should show spinner if data is correct and mockErica returns no result", () => {
@@ -16,6 +17,15 @@ describe("/beantragen", () => {
     cy.get("[name=steuerId]").type("04531972802");
     cy.get("[name=geburtsdatum]").type("01.08.1291");
     cy.get("form button").click();
+    cy.contains("Ihr Freischaltcode wird beantragt.");
+  });
+
+  it("should show spinner if ericaRequestId already in database", () => {
+    cy.task("addEricaRequestIdFscAntrag", {
+      userEmail: "foo@bar.com",
+      ericaRequestId: "foo",
+    });
+    cy.visit("/fsc/beantragen");
     cy.contains("Ihr Freischaltcode wird beantragt.");
   });
 
@@ -41,7 +51,10 @@ describe("/beantragen", () => {
   });
 
   it("should redirect to success page if already successfull", () => {
-    cy.task("addFsc", { userEmail: "foo@bar.com", fscRequestId: "foo" });
+    cy.task("addFscRequestId", {
+      userEmail: "foo@bar.com",
+      fscRequestId: "foo",
+    });
     cy.visit("/fsc/beantragen");
     cy.url().should("include", "/fsc/beantragen/erfolgreich");
   });

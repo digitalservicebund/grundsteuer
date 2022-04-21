@@ -18,7 +18,11 @@ export const requestNewFreischaltCode = async (
 ) => {
   const payload = createPayloadForNewFreischaltCode(taxIdNumber, dateOfBirth);
   const result = await postToErica("v2/fsc/request", payload);
-  return result?.split("/").reverse()[0];
+  invariant(
+    result,
+    "requestNewFreischaltCode did not return an ericaRequestId"
+  );
+  return result.split("/").reverse()[0];
 };
 
 export const checkNewFreischaltCodeRequest = async (requestId: string) => {
