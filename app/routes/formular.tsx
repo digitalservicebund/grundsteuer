@@ -12,6 +12,7 @@ import { createGraph } from "~/domain";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 import { authenticator } from "~/auth.server";
 import { useState } from "react";
+import DriveFileRenameOutlineIcon from "~/components/icons/mui/DriveFileRenameOutline";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
@@ -26,13 +27,29 @@ export const loader: LoaderFunction = async ({ request }) => {
   return {
     graph,
     currentState: getCurrentStateFromUrl(request.url),
+    userIsIdentified: user.identified,
   };
 };
 
 export default function Formular() {
-  const { graph, currentState } = useLoaderData();
+  const { graph, currentState, userIsIdentified } = useLoaderData();
 
   const [showMobileNavigation, setShowMobileNavigation] = useState(false);
+
+  function FscButton() {
+    if (userIsIdentified) return null;
+
+    return (
+      <Button
+        size="small"
+        look="ghost"
+        to="/fsc"
+        icon={<DriveFileRenameOutlineIcon />}
+      >
+        Freischaltcode
+      </Button>
+    );
+  }
 
   return (
     <Layout
@@ -41,6 +58,7 @@ export default function Formular() {
         <div className="p-2">
           <Link to="/">Home</Link>
           <LogoutButton />
+          <FscButton />
           <br />
           <br />
           <FormSidebarNavigation
@@ -53,6 +71,7 @@ export default function Formular() {
         <div className="p-4 bg-blue-100">
           <Link to="/">Home</Link>
           <LogoutButton />
+          <FscButton />
           <Button
             size="small"
             look="tertiary"
