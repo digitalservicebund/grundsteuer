@@ -25,8 +25,6 @@ import {
 } from "~/erica/freischaltCode";
 
 import { commitSession, getSession } from "~/session.server";
-import is from "@sindresorhus/is";
-import truthy = is.truthy;
 import {
   deleteEricaRequestIdFscBeantragen,
   findUserByEmail,
@@ -37,11 +35,11 @@ import {
 import invariant from "tiny-invariant";
 
 const isEricaRequestInProgress = async (userData: User) => {
-  return truthy(userData.ericaRequestIdFscBeantragen);
+  return Boolean(userData.ericaRequestIdFscBeantragen);
 };
 
 const wasEricaRequestSuccessful = async (userData: User) => {
-  return truthy(userData.fscRequest.length > 0);
+  return Boolean(userData.fscRequest.length > 0);
 };
 
 const getEricaRequestIdFscBeantragen = async (userData: User) => {
