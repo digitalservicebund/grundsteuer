@@ -11,3 +11,10 @@ services:
       POSTGRES_USER: prisma
       POSTGRES_PASSWORD: prisma
       POSTGRES_DB: tests
+
+  erica-mock:
+    image: ghcr.io/digitalservice4germany/erica-mock:latest
+    restart: always
+    container_name: erica-mock
+    ports:
+      - "8000:8000"
