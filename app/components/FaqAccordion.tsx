@@ -24,7 +24,7 @@ export default function FaqAccordion() {
             </li>
             <li>ein nicht verheiratetes Paar ist Eigentümer einer Wohnung;</li>
             <li>
-              ein:e Einzelperson ist Alleineigentümer:in eines unbebauten
+              eine Einzelperson ist Alleineigentümer:in eines unbebauten
               Grundstücks.
             </li>
           </ul>
@@ -43,7 +43,7 @@ export default function FaqAccordion() {
         <>
           <p className="mb-24">
             „Grundsteuererklärung für Privateigentum“ deckt seltenere oder
-            komplexere Sachverhalte ggf. noch nicht ab, zum Beispiel:
+            komplexere Sachverhalte noch nicht ab, zum Beispiel:
           </p>
           <ul className="mb-24 list-disc pl-24">
             <li>
@@ -148,7 +148,7 @@ export default function FaqAccordion() {
       content: (
         <>
           <p>
-            Es kommt darauf an, wo Ihre Grundstücke sich befinden. Wenn Sie
+            Es kommt darauf an, wo sich Ihre Grundstücke befinden. Wenn Sie
             mehrere Grundstücke in den Bundesmodell-Ländern haben, können Sie
             „Grundsteuererklärung für Privateigentum“ nutzen, indem Sie die
             Erklärungen nacheinander abgeben. Wenn eines der Grundstücke in
