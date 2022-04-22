@@ -34,6 +34,7 @@ import { GebaeudeGaragenAnzahlFields } from "~/domain/steps/gebaeude/garagenAnza
 import { EigentuemerBruchteilsgemeinschaftAngabenFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
 import { EigentuemerEmpfangsbevollmaechtigterNameFields } from "~/domain/steps/eigentuemer/empfangsbevollmaechtigter/name";
 import { EigentuemerEmpfangsbevollmaechtigterAdresseFields } from "~/domain/steps/eigentuemer/empfangsbevollmaechtigter/adresse";
+import { ZusammenfassungFields } from "~/domain/steps/zusammenfassung";
 
 type PersonTransientParams = {
   transient: {
@@ -400,6 +401,14 @@ class GrundModelFactory extends Factory<GrundModel> {
         anzahl: {
           anzahl: fields?.anzahl || "1",
         },
+      },
+    });
+  }
+
+  freitext(fields?: Partial<ZusammenfassungFields>) {
+    return this.params({
+      zusammenfassung: {
+        freitext: fields?.freitext,
       },
     });
   }

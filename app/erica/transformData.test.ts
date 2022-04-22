@@ -391,6 +391,54 @@ describe("transforDataToEricaFormat", () => {
     });
   });
 
+  describe("freitext", () => {
+    it("should set freitext as is if one bodenrichtwert and freitext given", () => {
+      const inputData = grundModelFactory
+        .grundstueckBodenrichtwert({ twoBodenrichtwerte: undefined })
+        .freitext({ freitext: "Mehr Angaben" })
+        .build();
+
+      const result = transforDataToEricaFormat(inputData);
+
+      expect(result.freitext).toEqual("Mehr Angaben");
+    });
+
+    it("should not set freitext if one bodenrichtwert and no freitext given", () => {
+      const inputData = grundModelFactory
+        .grundstueckBodenrichtwert({ twoBodenrichtwerte: undefined })
+        .build();
+
+      const result = transforDataToEricaFormat(inputData);
+
+      expect(result.freitext).toEqual(undefined);
+    });
+
+    it("should set freitext with disclaimer if two bodenrichtwerte and freitext given", () => {
+      const inputData = grundModelFactory
+        .grundstueckBodenrichtwert({ twoBodenrichtwerte: true })
+        .freitext({ freitext: "Mehr Angaben" })
+        .build();
+
+      const result = transforDataToEricaFormat(inputData);
+
+      expect(result.freitext).toEqual(
+        "Es existiert ein zweiter Bodenrichtwert für dieses Grundstück. Mehr Angaben"
+      );
+    });
+
+    it("should set only disclaimer if two bodenrichtwerte and freitext not given", () => {
+      const inputData = grundModelFactory
+        .grundstueckBodenrichtwert({ twoBodenrichtwerte: true })
+        .build();
+
+      const result = transforDataToEricaFormat(inputData);
+
+      expect(result.freitext).toEqual(
+        "Es existiert ein zweiter Bodenrichtwert für dieses Grundstück."
+      );
+    });
+  });
+
   describe("flurstueck groesse", function () {
     const defaultFlurstueck = {
       angaben: {

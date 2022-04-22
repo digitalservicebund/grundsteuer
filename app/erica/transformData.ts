@@ -164,6 +164,15 @@ const transformBruchteilsgemeinschaft = (
   }
 };
 
+const transformFreitext = (freitext?: string, twoBodenrichtwerte?: boolean) => {
+  if (twoBodenrichtwerte) {
+    const twoBodenrichtwerteText =
+      "Es existiert ein zweiter Bodenrichtwert für dieses Grundstück.";
+    freitext = twoBodenrichtwerteText + (freitext ? " " + freitext : "");
+  }
+  return freitext;
+};
+
 export const transforDataToEricaFormat = (inputData: GrundModel) => {
   const dataEricaFormat = {
     grundstueck: {
@@ -228,7 +237,10 @@ export const transforDataToEricaFormat = (inputData: GrundModel) => {
         },
       },
     },
-    freitext: inputData.zusammenfassung?.freitext,
+    freitext: transformFreitext(
+      inputData.zusammenfassung?.freitext,
+      inputData.grundstueck?.bodenrichtwert?.twoBodenrichtwerte
+    ),
   };
 
   return removeUndefined(dataEricaFormat);
