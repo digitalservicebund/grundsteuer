@@ -50,7 +50,6 @@ const getEricaRequestIdFscBeantragen = async (userData: User) => {
   return userData.ericaRequestIdFscBeantragen;
 };
 
-
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
@@ -77,9 +76,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       if (typeof elsterRequestIdOrError == "string") {
         await saveFscRequest(user.email, elsterRequestIdOrError);
         await deleteEricaRequestIdFscBeantragen(user.email);
-      } else if (
-          elsterRequestIdOrError?.errorType == "EricaUserInputError"
-      ) {
+      } else if (elsterRequestIdOrError?.errorType == "EricaUserInputError") {
         await deleteEricaRequestIdFscBeantragen(user.email);
         error = true;
       } else {
@@ -87,7 +84,6 @@ export const loader: LoaderFunction = async ({ request }) => {
         throw new Error(elsterRequestIdOrError?.errorType);
       }
     }
-
   }
 
   return json(
@@ -153,9 +149,7 @@ export default function Redirect() {
   const fetcher = useFetcher();
   useEffect(() => {
     const interval = setInterval(() => {
-      if (document.visibilityState === "visible") {
-        fetcher.load("/fsc/beantragen?index");
-      }
+      fetcher.load("/fsc/beantragen?index");
     }, 1000);
 
     return () => clearInterval(interval);

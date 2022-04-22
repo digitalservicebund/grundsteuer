@@ -52,9 +52,7 @@ describe("extractAntragsId", () => {
       errorMessage: "Grundsteuer, we still have a problem here",
     };
     const result = extractAntragsId(ericaResponseData);
-    expect(
-        result
-    ).toEqual({errorType: "GeneralEricaError"});
+    expect(result).toEqual({ errorType: "GeneralEricaError" });
   });
 
   it("should throw EricaUserInputError if some  ERIC_GLOBAL_PRUEF_FEHLER present in ericaFreischaltCodeResponse", () => {
@@ -65,9 +63,7 @@ describe("extractAntragsId", () => {
       errorMessage: "Some kind of validation was incorrect",
     };
     const result = extractAntragsId(ericaResponseData);
-    expect(
-      result
-    ).toEqual({errorType: "EricaUserInputError"});
+    expect(result).toEqual({ errorType: "EricaUserInputError" });
   });
 
   it("should throw EricaUserInputError if some  ERIC_TRANSFER_ERR_XML_NHEADER present in ericaFreischaltCodeResponse", () => {
@@ -78,9 +74,7 @@ describe("extractAntragsId", () => {
       errorMessage: "Some kind of problem with the NHEADER",
     };
     const result = extractAntragsId(ericaResponseData);
-    expect(
-      result
-    ).toEqual({errorType: "EricaUserInputError"});
+    expect(result).toEqual({ errorType: "EricaUserInputError" });
   });
 
   it("should throw error if no elsterRequestId in result of ericaFreischaltCodeResponse", () => {
