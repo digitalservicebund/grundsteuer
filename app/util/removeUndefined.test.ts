@@ -62,4 +62,28 @@ describe("removeUndefined", function () {
     });
     expect(result).toEqual(expected);
   });
+
+  it("does not trim string if flag not set", () => {
+    const expected = { value: " hello " };
+    const result = removeUndefined({ value: " hello " });
+    expect(result).toEqual(expected);
+  });
+
+  it("trims string if flag set", () => {
+    const expected = { value: "hello" };
+    const result = removeUndefined({ value: " hello " }, true);
+    expect(result).toEqual(expected);
+  });
+
+  it("trims nested string if flag set", () => {
+    const expected = { nested: { value: "hello" } };
+    const result = removeUndefined({ nested: { value: " hello " } }, true);
+    expect(result).toEqual(expected);
+  });
+
+  it("trims string in array if flag set", () => {
+    const expected = { array: ["hello"] };
+    const result = removeUndefined({ array: [" hello "] }, true);
+    expect(result).toEqual(expected);
+  });
 });

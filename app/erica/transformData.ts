@@ -67,6 +67,8 @@ export const separateHausnummerAndZusatz = (inputHausnummer?: string) => {
     };
   }
 
+  inputHausnummer = inputHausnummer.trim();
+
   let separatedHausnummer = "";
   let nummerIndex = 0;
   for (nummerIndex; nummerIndex < 4; nummerIndex++) {
@@ -243,5 +245,5 @@ export const transforDataToEricaFormat = (inputData: GrundModel) => {
     ),
   };
 
-  return removeUndefined(dataEricaFormat);
+  return removeUndefined(dataEricaFormat, true);
 };
