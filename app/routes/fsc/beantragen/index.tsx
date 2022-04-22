@@ -50,6 +50,7 @@ const getEricaRequestIdFscBeantragen = async (userData: User) => {
   return userData.ericaRequestIdFscBeantragen;
 };
 
+
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
@@ -69,18 +70,24 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 
   if (await isEricaRequestInProgress(userData)) {
-    try {
-      const elsterRequestId = await retrieveAntragsId(
-        await getEricaRequestIdFscBeantragen(userData)
-      );
-      if (elsterRequestId) {
-        await saveFscRequest(user.email, elsterRequestId);
+    const elsterRequestIdOrError = await retrieveAntragsId(
+      await getEricaRequestIdFscBeantragen(userData)
+    );
+    if (elsterRequestIdOrError) {
+      if (typeof elsterRequestIdOrError == "string") {
+        await saveFscRequest(user.email, elsterRequestIdOrError);
         await deleteEricaRequestIdFscBeantragen(user.email);
+      } else if (
+          elsterRequestIdOrError?.errorType == "EricaUserInputError"
+      ) {
+        await deleteEricaRequestIdFscBeantragen(user.email);
+        error = true;
+      } else {
+        await deleteEricaRequestIdFscBeantragen(user.email);
+        throw new Error(elsterRequestIdOrError?.errorType);
       }
-    } catch (Error) {
-      await deleteEricaRequestIdFscBeantragen(user.email);
-      error = true;
     }
+
   }
 
   return json(

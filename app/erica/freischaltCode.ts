@@ -1,5 +1,5 @@
 import { getFromErica, postToErica } from "~/erica/ericaClient";
-import { ericaUtils, EricaResponse } from "~/erica/utils";
+import { ericaUtils, EricaResponse, EricaError } from "~/erica/utils";
 import invariant from "tiny-invariant";
 
 const createPayloadForNewFreischaltCode = (
@@ -29,12 +29,20 @@ export const checkNewFreischaltCodeRequest = async (requestId: string) => {
   return getFromErica(`v2/fsc/request/${requestId}`);
 };
 
-export const extractAntragsId = (ericaResponse: EricaResponse): string => {
+export const extractAntragsId = (
+  ericaResponse: EricaResponse
+): string | EricaError => {
   const result = ericaUtils.extractResultFromEricaResponse(ericaResponse);
-  invariant(
-    !("errorCode" in result),
-    `Extracted result from erica response includes error {errorCode}`
-  );
+  if ("errorCode" in result && result.errorCode) {
+    if (
+      result.errorCode == "ERIC_GLOBAL_PRUEF_FEHLER" ||
+      result.errorCode == "ERIC_TRANSFER_ERR_XML_NHEADER"
+    ) {
+      return { errorType: "EricaUserInputError" };
+    } else {
+      return { errorType: "GeneralEricaError" };
+    }
+  }
   invariant(
     "elsterRequestId" in result,
     "Extracted result from erica response has no ELSTER AntragsId"

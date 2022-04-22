@@ -16,6 +16,10 @@ type EricaErrorResponseData = {
   errorMessage: string;
 };
 
+type EricaError = {
+  errorType: string;
+};
+
 const createDateStringForErica = (dateStringInGermanDateFormat: string) => {
   const splitDate = dateStringInGermanDateFormat.split(".");
   return `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`;
@@ -43,6 +47,7 @@ export type {
   EricaResponse,
   EricaFreischaltcodeRequestResponseData,
   EricaErrorResponseData,
+  EricaError,
 };
 export const ericaUtils = {
   createDateStringForErica,
