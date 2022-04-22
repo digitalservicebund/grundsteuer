@@ -1,6 +1,7 @@
 import { grundModelFactory } from "test/factories";
 import {
   calculateGroesse,
+  separateHausnummerAndZusatz,
   transforDataToEricaFormat,
 } from "~/erica/transformData";
 import { Person } from "~/domain/steps";
@@ -65,7 +66,7 @@ describe("transforDataToEricaFormat", () => {
         },
         adresse: {
           strasse: "VERT Strasse",
-          hausnummer: "VERT Hausnummer",
+          hausnummer: "3VERT",
           postfach: "VERT Postfach",
           plz: "VERT PLZ",
           ort: "VERT Ort",
@@ -128,7 +129,14 @@ describe("transforDataToEricaFormat", () => {
       ];
       const inputData = grundModelFactory
         .grundstueckTyp({ typ: "einfamilienhaus" })
-        .grundstueckAdresse({ bundesland: "BB" })
+        .grundstueckAdresse({
+          strasse: "GST Strasse",
+          hausnummer: "2GST",
+          zusatzangaben: "GST Zusatzangaben",
+          plz: "GST PLZ",
+          ort: "GST Ort",
+          bundesland: "BB",
+        })
         .grundstueckSteuernummer({ steuernummer: "1234567890" })
         .grundstueckAbweichendeEntwicklung({ zustand: "rohbauland" })
         .grundstueckGemeinde({ innerhalbEinerGemeinde: "true" })
@@ -139,7 +147,12 @@ describe("transforDataToEricaFormat", () => {
         grundstueck: {
           typ: "einfamilienhaus",
           adresse: {
-            ...inputData.grundstueck?.adresse,
+            strasse: "GST Strasse",
+            hausnummer: "2",
+            hausnummerzusatz: "GST",
+            zusatzangaben: "GST Zusatzangaben",
+            plz: "GST PLZ",
+            ort: "GST Ort",
             bundesland: "BB",
           },
           steuernummer: "1234567890",
@@ -239,7 +252,7 @@ describe("transforDataToEricaFormat", () => {
           predefinedData: "false",
           name: "BTG Name",
           strasse: "BTG Strasse",
-          hausnummer: "BTG Hausnummer",
+          hausnummer: "1BTG",
           postfach: "BTG Postfach",
           plz: "BTG PLZ",
           ort: "BTG Ort",
@@ -251,7 +264,7 @@ describe("transforDataToEricaFormat", () => {
           vorname: "EMP Vorname",
           name: "EMP Name",
           strasse: "EMP Strasse",
-          hausnummer: "EMP Hausnummer",
+          hausnummer: "2EMP",
           postfach: "EMP Postfach",
           plz: "EMP PLZ",
           ort: "EMP Ort",
@@ -272,7 +285,8 @@ describe("transforDataToEricaFormat", () => {
               },
               adresse: {
                 strasse: "1 Strasse",
-                hausnummer: "1 Hausnummer",
+                hausnummer: "1",
+                hausnummerzusatz: " Hausnummer",
                 postfach: "1 Postfach",
                 plz: "1 PLZ",
                 ort: "1 Ort",
@@ -298,7 +312,8 @@ describe("transforDataToEricaFormat", () => {
               },
               adresse: {
                 strasse: "2 Strasse",
-                hausnummer: "2 Hausnummer",
+                hausnummer: "2",
+                hausnummerzusatz: " Hausnummer",
                 postfach: "2 Postfach",
                 plz: "2 PLZ",
                 ort: "2 Ort",
@@ -318,7 +333,8 @@ describe("transforDataToEricaFormat", () => {
                 },
                 adresse: {
                   strasse: "VERT Strasse",
-                  hausnummer: "VERT Hausnummer",
+                  hausnummer: "3",
+                  hausnummerzusatz: "VERT",
                   postfach: "VERT Postfach",
                   plz: "VERT PLZ",
                   ort: "VERT Ort",
@@ -340,7 +356,8 @@ describe("transforDataToEricaFormat", () => {
             name: "BTG Name",
             adresse: {
               strasse: "BTG Strasse",
-              hausnummer: "BTG Hausnummer",
+              hausnummer: "1",
+              hausnummerzusatz: "BTG",
               postfach: "BTG Postfach",
               plz: "BTG PLZ",
               ort: "BTG Ort",
@@ -355,7 +372,8 @@ describe("transforDataToEricaFormat", () => {
             },
             adresse: {
               strasse: "EMP Strasse",
-              hausnummer: "EMP Hausnummer",
+              hausnummer: "2",
+              hausnummerzusatz: "EMP",
               postfach: "EMP Postfach",
               plz: "EMP PLZ",
               ort: "EMP Ort",
@@ -449,7 +467,7 @@ describe("transforDataToEricaFormat", () => {
           predefinedData: "true",
           name: "BTG Name",
           strasse: "BTG Strasse",
-          hausnummer: "BTG Hausnummer",
+          hausnummer: "1BTG",
           postfach: "BTG Postfach",
           plz: "BTG PLZ",
           ort: "BTG Ort",
@@ -457,7 +475,7 @@ describe("transforDataToEricaFormat", () => {
         .eigentuemerPerson({ list: twoPersonList })
         .grundstueckAdresse({
           strasse: "GST Strasse",
-          hausnummer: "GST Hausnummer",
+          hausnummer: "2GST",
           zusatzangaben: "GST Zusatzangaben",
           plz: "GST PLZ",
           ort: "GST Ort",
@@ -470,20 +488,21 @@ describe("transforDataToEricaFormat", () => {
         name: "Bruchteilsgem. 1 Strasse 1 Hausnummer",
         adresse: {
           strasse: "GST Strasse",
-          hausnummer: "GST Hausnummer",
+          hausnummer: "2",
+          hausnummerzusatz: "GST",
           plz: "GST PLZ",
           ort: "GST Ort",
         },
       });
     });
 
-    it("should set bruchteilsgeeinschaft correctly if predefined data not chosen", () => {
+    it("should set bruchteilsgemeinschaft correctly if predefined data not chosen", () => {
       const inputData = grundModelFactory
         .eigentuemerBruchteilsgemeinschaft({
           predefinedData: "false",
           name: "BTG Name",
           strasse: "BTG Strasse",
-          hausnummer: "BTG Hausnummer",
+          hausnummer: "1BTG",
           postfach: "BTG Postfach",
           plz: "BTG PLZ",
           ort: "BTG Ort",
@@ -491,7 +510,7 @@ describe("transforDataToEricaFormat", () => {
         .eigentuemerPerson({ list: twoPersonList })
         .grundstueckAdresse({
           strasse: "GST Strasse",
-          hausnummer: "GST Hausnummer",
+          hausnummer: "2GST",
           zusatzangaben: "GST Zusatzangaben",
           plz: "GST PLZ",
           ort: "GST Ort",
@@ -504,7 +523,8 @@ describe("transforDataToEricaFormat", () => {
         name: "BTG Name",
         adresse: {
           strasse: "BTG Strasse",
-          hausnummer: "BTG Hausnummer",
+          hausnummer: "1",
+          hausnummerzusatz: "BTG",
           postfach: "BTG Postfach",
           plz: "BTG PLZ",
           ort: "BTG Ort",
@@ -547,6 +567,28 @@ describe("calculateGroesse", () => {
       expect(() =>
         calculateGroesse({ groesseHa, groesseA, groesseQm })
       ).toThrow();
+    }
+  );
+});
+
+describe("separateHausnummerAndZusatz", () => {
+  const cases = [
+    { input: "1", expectedHausnummer: "1", expectedZusatz: "" },
+    { input: "1c", expectedHausnummer: "1", expectedZusatz: "c" },
+    { input: "01c", expectedHausnummer: "01", expectedZusatz: "c" },
+    { input: "c", expectedHausnummer: "", expectedZusatz: "c" },
+    { input: "12345", expectedHausnummer: "1234", expectedZusatz: "5" },
+    { input: "14-18", expectedHausnummer: "14", expectedZusatz: "-18" },
+    { input: "", expectedHausnummer: undefined, expectedZusatz: undefined },
+  ];
+
+  test.each(cases)(
+    "Should return hausnummer '$expectedHausnummer' and zusatz '$expectedZusatz' if input is '$input'",
+    ({ input, expectedHausnummer, expectedZusatz }) => {
+      expect(separateHausnummerAndZusatz(input)).toEqual({
+        hausnummer: expectedHausnummer,
+        hausnummerzusatz: expectedZusatz,
+      });
     }
   );
 });

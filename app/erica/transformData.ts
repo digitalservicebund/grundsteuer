@@ -58,6 +58,30 @@ export const calculateGroesse = (
   );
 };
 
+// Split up to four numbers (hausnummer) from the rest (hausnummerzusatz)
+export const separateHausnummerAndZusatz = (inputHausnummer?: string) => {
+  if (!inputHausnummer) {
+    return {
+      hausnummer: undefined,
+      hausnummerzusatz: undefined,
+    };
+  }
+
+  let separatedHausnummer = "";
+  let nummerIndex = 0;
+  for (nummerIndex; nummerIndex < 4; nummerIndex++) {
+    const nummerDigit = Number.parseInt(inputHausnummer[nummerIndex]);
+    if (_.isNaN(nummerDigit)) break;
+    separatedHausnummer += "" + nummerDigit;
+  }
+  const separatedZusatz = inputHausnummer.slice(nummerIndex);
+
+  return {
+    hausnummer: separatedHausnummer,
+    hausnummerzusatz: separatedZusatz,
+  };
+};
+
 const calculateWohnflaechen = (
   wohnflaeche?: GebaeudeWohnflaecheFields,
   wohnflaechen?: GebaeudeWohnflaechenFields
@@ -84,7 +108,7 @@ const transformPerson = (person: Person) => {
     persoenlicheAngaben: person.persoenlicheAngaben,
     adresse: {
       strasse: person.adresse?.strasse,
-      hausnummer: person.adresse?.hausnummer,
+      ...separateHausnummerAndZusatz(person.adresse?.hausnummer),
       postfach: person.adresse?.postfach,
       plz: person.adresse?.plz,
       ort: person.adresse?.ort,
@@ -97,7 +121,7 @@ const transformPerson = (person: Person) => {
       name: person.vertreter?.name,
       adresse: {
         strasse: person.vertreter?.adresse?.strasse,
-        hausnummer: person.vertreter?.adresse?.hausnummer,
+        ...separateHausnummerAndZusatz(person.vertreter?.adresse?.hausnummer),
         postfach: person.vertreter?.adresse?.postfach,
         plz: person.vertreter?.adresse?.plz,
         ort: person.vertreter?.adresse?.ort,
@@ -121,7 +145,7 @@ const transformBruchteilsgemeinschaft = (
       name: `Bruchteilsgem. ${eigentuemerAdresse?.strasse} ${eigentuemerAdresse?.hausnummer}`,
       adresse: {
         strasse: grundstueckAdresse?.strasse,
-        hausnummer: grundstueckAdresse?.hausnummer,
+        ...separateHausnummerAndZusatz(grundstueckAdresse?.hausnummer),
         plz: grundstueckAdresse?.plz,
         ort: grundstueckAdresse?.ort,
       },
@@ -131,7 +155,7 @@ const transformBruchteilsgemeinschaft = (
       name: angaben?.name,
       adresse: {
         strasse: angaben?.strasse,
-        hausnummer: angaben?.hausnummer,
+        ...separateHausnummerAndZusatz(angaben?.hausnummer),
         postfach: angaben?.postfach,
         plz: angaben?.plz,
         ort: angaben?.ort,
@@ -147,7 +171,12 @@ export const transforDataToEricaFormat = (inputData: GrundModel) => {
       abweichendeEntwicklung:
         inputData.grundstueck?.abweichendeEntwicklung?.zustand,
       steuernummer: inputData.grundstueck?.steuernummer?.steuernummer,
-      adresse: inputData.grundstueck?.adresse,
+      adresse: {
+        ...inputData.grundstueck?.adresse,
+        ...separateHausnummerAndZusatz(
+          inputData.grundstueck?.adresse?.hausnummer
+        ),
+      },
       innerhalbEinerGemeinde:
         inputData.grundstueck?.gemeinde?.innerhalbEinerGemeinde,
       bodenrichtwert: inputData.grundstueck?.bodenrichtwert?.bodenrichtwert,
@@ -183,9 +212,10 @@ export const transforDataToEricaFormat = (inputData: GrundModel) => {
         adresse: {
           strasse:
             inputData.eigentuemer?.empfangsbevollmaechtigter?.adresse?.strasse,
-          hausnummer:
+          ...separateHausnummerAndZusatz(
             inputData.eigentuemer?.empfangsbevollmaechtigter?.adresse
-              ?.hausnummer,
+              ?.hausnummer
+          ),
           postfach:
             inputData.eigentuemer?.empfangsbevollmaechtigter?.adresse?.postfach,
           plz: inputData.eigentuemer?.empfangsbevollmaechtigter?.adresse?.plz,
