@@ -6,6 +6,79 @@ import {
 import { Person } from "~/domain/steps";
 
 describe("transforDataToEricaFormat", () => {
+  const twoPersonList: Person[] = [
+    {
+      persoenlicheAngaben: {
+        anrede: "frau",
+        titel: "1 Titel",
+        vorname: "1 Vorname",
+        name: "1 Name",
+        geburtsdatum: "01.01.1111",
+      },
+      adresse: {
+        strasse: "1 Strasse",
+        hausnummer: "1 Hausnummer",
+        postfach: "1 Postfach",
+        plz: "1 PLZ",
+        ort: "1 Ort",
+        telefonnummer: "111111",
+      },
+      steuerId: {
+        steuerId: "1111",
+      },
+      gesetzlicherVertreter: {
+        hasVertreter: "false",
+      },
+      anteil: {
+        zaehler: "1",
+        nenner: "2",
+      },
+    },
+    {
+      persoenlicheAngaben: {
+        anrede: "herr",
+        titel: "2 Titel",
+        vorname: "2 Vorname",
+        name: "2 Name",
+        geburtsdatum: "02.02.2222",
+      },
+      adresse: {
+        strasse: "2 Strasse",
+        hausnummer: "2 Hausnummer",
+        postfach: "2 Postfach",
+        plz: "2 PLZ",
+        ort: "2 Ort",
+        telefonnummer: "222222",
+      },
+      steuerId: {
+        steuerId: "2222",
+      },
+      gesetzlicherVertreter: {
+        hasVertreter: "true",
+      },
+      vertreter: {
+        name: {
+          anrede: "herr",
+          titel: "VERT Titel",
+          vorname: "VERT Vorname",
+          name: "VERT Name",
+        },
+        adresse: {
+          strasse: "VERT Strasse",
+          hausnummer: "VERT Hausnummer",
+          postfach: "VERT Postfach",
+          plz: "VERT PLZ",
+          ort: "VERT Ort",
+          telefonnummer: "333333",
+        },
+      },
+      anteil: {
+        zaehler: "3",
+        nenner: "4",
+      },
+    },
+  ];
+
   describe("no data", function () {
     it("should return empty object", () => {
       const result = transforDataToEricaFormat({});
@@ -157,83 +230,10 @@ describe("transforDataToEricaFormat", () => {
 
   describe("full eigentuemer data", () => {
     it("should move object keys to correct place", () => {
-      const personList: Person[] = [
-        {
-          persoenlicheAngaben: {
-            anrede: "frau",
-            titel: "1 Titel",
-            vorname: "1 Vorname",
-            name: "1 Name",
-            geburtsdatum: "01.01.1111",
-          },
-          adresse: {
-            strasse: "1 Strasse",
-            hausnummer: "1 Hausnummer",
-            postfach: "1 Postfach",
-            plz: "1 PLZ",
-            ort: "1 Ort",
-            telefonnummer: "111111",
-          },
-          steuerId: {
-            steuerId: "1111",
-          },
-          gesetzlicherVertreter: {
-            hasVertreter: "false",
-          },
-          anteil: {
-            zaehler: "1",
-            nenner: "2",
-          },
-        },
-        {
-          persoenlicheAngaben: {
-            anrede: "herr",
-            titel: "2 Titel",
-            vorname: "2 Vorname",
-            name: "2 Name",
-            geburtsdatum: "02.02.2222",
-          },
-          adresse: {
-            strasse: "2 Strasse",
-            hausnummer: "2 Hausnummer",
-            postfach: "2 Postfach",
-            plz: "2 PLZ",
-            ort: "2 Ort",
-            telefonnummer: "222222",
-          },
-          steuerId: {
-            steuerId: "2222",
-          },
-          gesetzlicherVertreter: {
-            hasVertreter: "true",
-          },
-          vertreter: {
-            name: {
-              anrede: "herr",
-              titel: "VERT Titel",
-              vorname: "VERT Vorname",
-              name: "VERT Name",
-            },
-            adresse: {
-              strasse: "VERT Strasse",
-              hausnummer: "VERT Hausnummer",
-              postfach: "VERT Postfach",
-              plz: "VERT PLZ",
-              ort: "VERT Ort",
-              telefonnummer: "333333",
-            },
-          },
-          anteil: {
-            zaehler: "3",
-            nenner: "4",
-          },
-        },
-      ];
-
       const inputData = grundModelFactory
         .eigentuemerVerheiratet({ areVerheiratet: "false" })
         .eigentuemerPerson({
-          list: personList,
+          list: twoPersonList,
         })
         .eigentuemerBruchteilsgemeinschaft({
           predefinedData: "false",
@@ -439,6 +439,77 @@ describe("transforDataToEricaFormat", () => {
       const result = transforDataToEricaFormat(inputData);
 
       expect(result.gebaeude.wohnflaechen).toEqual(["10", "20"]);
+    });
+  });
+
+  describe("transformBruchteilsgemeinschaft", () => {
+    it("should set bruchteilsgeeinschaft correctly if predefined data chosen", () => {
+      const inputData = grundModelFactory
+        .eigentuemerBruchteilsgemeinschaft({
+          predefinedData: "true",
+          name: "BTG Name",
+          strasse: "BTG Strasse",
+          hausnummer: "BTG Hausnummer",
+          postfach: "BTG Postfach",
+          plz: "BTG PLZ",
+          ort: "BTG Ort",
+        })
+        .eigentuemerPerson({ list: twoPersonList })
+        .grundstueckAdresse({
+          strasse: "GST Strasse",
+          hausnummer: "GST Hausnummer",
+          zusatzangaben: "GST Zusatzangaben",
+          plz: "GST PLZ",
+          ort: "GST Ort",
+        })
+        .build();
+
+      const result = transforDataToEricaFormat(inputData);
+
+      expect(result.eigentuemer.bruchteilsgemeinschaft).toEqual({
+        name: "Bruchteilsgem. 1 Strasse 1 Hausnummer",
+        adresse: {
+          strasse: "GST Strasse",
+          hausnummer: "GST Hausnummer",
+          plz: "GST PLZ",
+          ort: "GST Ort",
+        },
+      });
+    });
+
+    it("should set bruchteilsgeeinschaft correctly if predefined data not chosen", () => {
+      const inputData = grundModelFactory
+        .eigentuemerBruchteilsgemeinschaft({
+          predefinedData: "false",
+          name: "BTG Name",
+          strasse: "BTG Strasse",
+          hausnummer: "BTG Hausnummer",
+          postfach: "BTG Postfach",
+          plz: "BTG PLZ",
+          ort: "BTG Ort",
+        })
+        .eigentuemerPerson({ list: twoPersonList })
+        .grundstueckAdresse({
+          strasse: "GST Strasse",
+          hausnummer: "GST Hausnummer",
+          zusatzangaben: "GST Zusatzangaben",
+          plz: "GST PLZ",
+          ort: "GST Ort",
+        })
+        .build();
+
+      const result = transforDataToEricaFormat(inputData);
+
+      expect(result.eigentuemer.bruchteilsgemeinschaft).toEqual({
+        name: "BTG Name",
+        adresse: {
+          strasse: "BTG Strasse",
+          hausnummer: "BTG Hausnummer",
+          postfach: "BTG Postfach",
+          plz: "BTG PLZ",
+          ort: "BTG Ort",
+        },
+      });
     });
   });
 });

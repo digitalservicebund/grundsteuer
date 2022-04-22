@@ -1,6 +1,7 @@
 import {
   Flurstueck,
   GrundModel,
+  GrundstueckAdresseFields,
   GrundstueckFlurstueckGroesseFields,
   Person,
 } from "~/domain/steps";
@@ -12,6 +13,9 @@ import {
 import { GebaeudeWohnflaecheFields } from "~/domain/steps/gebaeude/wohnflaeche";
 import { GebaeudeWohnflaechenFields } from "~/domain/steps/gebaeude/wohnflaechen";
 import _ from "lodash";
+import { EigentuemerBruchteilsgemeinschaftFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaft";
+import { EigentuemerBruchteilsgemeinschaftAngabenFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
+import { EigentuemerPersonAdresseFields } from "~/domain/steps/eigentuemer/person/adresse";
 
 export const calculateGroesse = (
   groesse: GrundstueckFlurstueckGroesseFields
@@ -106,6 +110,36 @@ const transformPerson = (person: Person) => {
   };
 };
 
+const transformBruchteilsgemeinschaft = (
+  bruchteilsgemeinschaft?: EigentuemerBruchteilsgemeinschaftFields,
+  angaben?: EigentuemerBruchteilsgemeinschaftAngabenFields,
+  eigentuemerAdresse?: EigentuemerPersonAdresseFields,
+  grundstueckAdresse?: GrundstueckAdresseFields
+) => {
+  if (bruchteilsgemeinschaft?.predefinedData == "true") {
+    return {
+      name: `Bruchteilsgem. ${eigentuemerAdresse?.strasse} ${eigentuemerAdresse?.hausnummer}`,
+      adresse: {
+        strasse: grundstueckAdresse?.strasse,
+        hausnummer: grundstueckAdresse?.hausnummer,
+        plz: grundstueckAdresse?.plz,
+        ort: grundstueckAdresse?.ort,
+      },
+    };
+  } else {
+    return {
+      name: angaben?.name,
+      adresse: {
+        strasse: angaben?.strasse,
+        hausnummer: angaben?.hausnummer,
+        postfach: angaben?.postfach,
+        plz: angaben?.plz,
+        ort: angaben?.ort,
+      },
+    };
+  }
+};
+
 export const transforDataToEricaFormat = (inputData: GrundModel) => {
   const dataEricaFormat = {
     grundstueck: {
@@ -138,25 +172,12 @@ export const transforDataToEricaFormat = (inputData: GrundModel) => {
     eigentuemer: {
       person: inputData.eigentuemer?.person?.map(transformPerson),
       verheiratet: inputData.eigentuemer?.verheiratet,
-      bruchteilsgemeinschaft: {
-        name: inputData.eigentuemer?.bruchteilsgemeinschaftangaben?.angaben
-          ?.name,
-        adresse: {
-          strasse:
-            inputData.eigentuemer?.bruchteilsgemeinschaftangaben?.angaben
-              ?.strasse,
-          hausnummer:
-            inputData.eigentuemer?.bruchteilsgemeinschaftangaben?.angaben
-              ?.hausnummer,
-          postfach:
-            inputData.eigentuemer?.bruchteilsgemeinschaftangaben?.angaben
-              ?.postfach,
-          plz: inputData.eigentuemer?.bruchteilsgemeinschaftangaben?.angaben
-            ?.plz,
-          ort: inputData.eigentuemer?.bruchteilsgemeinschaftangaben?.angaben
-            ?.ort,
-        },
-      },
+      bruchteilsgemeinschaft: transformBruchteilsgemeinschaft(
+        inputData.eigentuemer?.bruchteilsgemeinschaft,
+        inputData.eigentuemer?.bruchteilsgemeinschaftangaben?.angaben,
+        inputData.eigentuemer?.person?.[0].adresse,
+        inputData.grundstueck?.adresse
+      ),
       empfangsbevollmaechtigter: {
         name: inputData.eigentuemer?.empfangsbevollmaechtigter?.name,
         adresse: {
