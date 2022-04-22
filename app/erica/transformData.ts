@@ -84,6 +84,24 @@ export const separateHausnummerAndZusatz = (inputHausnummer?: string) => {
   };
 };
 
+// Add zeros after comma until the length matches postCommaLength
+export const fillPostCommaToLength = (
+  postCommaLength: number,
+  value?: string
+) => {
+  if (!value || value.length == 0 || postCommaLength == 0) return value;
+
+  const splits = value.split(",");
+  if (splits[1] && splits[1].length >= postCommaLength) return value;
+
+  const difference = splits[1]
+    ? postCommaLength - splits[1].length
+    : postCommaLength;
+  return (
+    splits[0] + "," + (splits[1] || "") + Array(difference).fill("0").join("")
+  );
+};
+
 const calculateWohnflaechen = (
   wohnflaeche?: GebaeudeWohnflaecheFields,
   wohnflaechen?: GebaeudeWohnflaechenFields
@@ -98,7 +116,13 @@ const calculateWohnflaechen = (
 const transformFlurstueck = (flurstueck: Flurstueck) => {
   return {
     angaben: flurstueck.angaben,
-    flur: flurstueck.flur,
+    flur: {
+      ...flurstueck.flur,
+      wirtschaftlicheEinheitZaehler: fillPostCommaToLength(
+        4,
+        flurstueck.flur?.wirtschaftlicheEinheitZaehler
+      ),
+    },
     groesseQm: flurstueck.groesse
       ? calculateGroesse(flurstueck.groesse)
       : undefined,
@@ -190,7 +214,10 @@ export const transforDataToEricaFormat = (inputData: GrundModel) => {
       },
       innerhalbEinerGemeinde:
         inputData.grundstueck?.gemeinde?.innerhalbEinerGemeinde,
-      bodenrichtwert: inputData.grundstueck?.bodenrichtwert?.bodenrichtwert,
+      bodenrichtwert: fillPostCommaToLength(
+        2,
+        inputData.grundstueck?.bodenrichtwert?.bodenrichtwert
+      ),
       flurstueck: inputData.grundstueck?.flurstueck?.map(transformFlurstueck),
     },
     gebaeude: {

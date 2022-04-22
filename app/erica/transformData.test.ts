@@ -1,6 +1,7 @@
 import { grundModelFactory } from "test/factories";
 import {
   calculateGroesse,
+  fillPostCommaToLength,
   separateHausnummerAndZusatz,
   transforDataToEricaFormat,
 } from "~/erica/transformData";
@@ -99,7 +100,7 @@ describe("transforDataToEricaFormat", () => {
             flur: "Test1",
             flurstueckZaehler: "23",
             flurstueckNenner: "45",
-            wirtschaftlicheEinheitZaehler: "67",
+            wirtschaftlicheEinheitZaehler: "67,1",
             wirtschaftlicheEinheitNenner: "89",
           },
           groesse: {
@@ -158,16 +159,28 @@ describe("transforDataToEricaFormat", () => {
           steuernummer: "1234567890",
           abweichendeEntwicklung: "rohbauland",
           innerhalbEinerGemeinde: "true",
-          bodenrichtwert: "123",
+          bodenrichtwert: "123,00",
           flurstueck: [
             {
               angaben: inputFlurstuecke[0].angaben,
-              flur: inputFlurstuecke[0].flur,
+              flur: {
+                flur: "Test1",
+                flurstueckZaehler: "23",
+                flurstueckNenner: "45",
+                wirtschaftlicheEinheitZaehler: "67,1000",
+                wirtschaftlicheEinheitNenner: "89",
+              },
               groesseQm: "1234",
             },
             {
               angaben: inputFlurstuecke[1].angaben,
-              flur: inputFlurstuecke[1].flur,
+              flur: {
+                flur: "Test2",
+                flurstueckZaehler: "34",
+                flurstueckNenner: "56",
+                wirtschaftlicheEinheitZaehler: "78,0000",
+                wirtschaftlicheEinheitNenner: "90",
+              },
               groesseQm: "12345",
             },
           ],
@@ -449,7 +462,7 @@ describe("transforDataToEricaFormat", () => {
         flur: "Test1",
         flurstueckZaehler: "23",
         flurstueckNenner: "45",
-        wirtschaftlicheEinheitZaehler: "67",
+        wirtschaftlicheEinheitZaehler: "67,0000",
         wirtschaftlicheEinheitNenner: "89",
       },
       groesse: {
@@ -662,6 +675,26 @@ describe("separateHausnummerAndZusatz", () => {
         hausnummer: expectedHausnummer,
         hausnummerzusatz: expectedZusatz,
       });
+    }
+  );
+});
+
+describe("fillPostCommaToLength", () => {
+  const cases = [
+    { value: undefined, postCommaLength: 1, output: undefined },
+    { value: "", postCommaLength: 1, output: "" },
+    { value: "1", postCommaLength: 0, output: "1" },
+    { value: "1,1", postCommaLength: 0, output: "1,1" },
+    { value: "1", postCommaLength: 1, output: "1,0" },
+    { value: "1,0", postCommaLength: 1, output: "1,0" },
+    { value: "1,12", postCommaLength: 3, output: "1,120" },
+    { value: "1,12", postCommaLength: 1, output: "1,12" },
+  ];
+
+  test.each(cases)(
+    "Should return '$output' if value is '$value' and postCommaLength '$postCommaLength",
+    ({ value, postCommaLength, output }) => {
+      expect(fillPostCommaToLength(postCommaLength, value)).toEqual(output);
     }
   );
 });
