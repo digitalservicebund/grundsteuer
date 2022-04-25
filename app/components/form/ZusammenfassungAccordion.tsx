@@ -383,6 +383,11 @@ export default function ZusammenfassungAccordion({
               "gebaeude.weitereWohnraeumeDetails.flaeche",
               resolveArea
             )}
+            {item(
+              "Grundstück hat Garagen",
+              "gebaeude.garagen.hasGaragen",
+              resolveJaNein
+            )}
             {conditions.hasGaragen
               ? item("Anzahl Garagen", "gebaeude.garagenAnzahl.anzahlGaragen")
               : item(
