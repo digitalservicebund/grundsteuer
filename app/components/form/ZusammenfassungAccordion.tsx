@@ -105,6 +105,17 @@ export default function ZusammenfassungAccordion({
   i18n,
   generalErrors,
 }: ZusammenfassungAccordionProps) {
+  const editLink = (editUrl: string) => {
+    return (
+      <a
+        href={editUrl}
+        className="text-gray-900 font-bold flex flex-row items-center"
+      >
+        <Edit className="mr-8" />
+        Ändern
+      </a>
+    );
+  };
   const item = (
     label: string,
     path: string,
@@ -134,13 +145,7 @@ export default function ZusammenfassungAccordion({
                   {error ? error : displayValue}
                 </dd>
               </dl>
-              <a
-                href={editUrl}
-                className="text-gray-900 font-bold flex flex-row items-center"
-              >
-                <Edit className="mr-8" />
-                Ändern
-              </a>
+              {editLink(editUrl)}
             </div>
           </div>
         </li>
@@ -165,16 +170,25 @@ export default function ZusammenfassungAccordion({
     );
   };
 
+  const unfilledAccordionItemContent = (sectionIdentifier: string) => {
+    return (
+      <div
+        id={`${sectionIdentifier}-area`}
+        data-testid={`${sectionIdentifier}-area`}
+        className="mb-16 flex flex-row w-full justify-between items-center"
+      >
+        {i18n.specifics.sectionUnfilled}
+        {editLink(`${sectionIdentifier}/uebersicht`)}
+      </div>
+    );
+  };
+
   const grundstueckAccordionItem = (): AccordionItem => {
     const header = sectionHeading("Grundstück", "grundstueck");
     if (!allData.grundstueck) {
       return {
         header,
-        content: (
-          <div id="grundstueck-area" data-testid="grundstueck-area">
-            {i18n.specifics.sectionUnfilled}
-          </div>
-        ),
+        content: unfilledAccordionItemContent("grundstueck"),
       };
     }
     return {
@@ -308,11 +322,7 @@ export default function ZusammenfassungAccordion({
     if (!allData?.gebaeude) {
       return {
         header,
-        content: (
-          <div id="gebaeude-area" data-testid="gebaeude-area">
-            {i18n.specifics.sectionUnfilled}
-          </div>
-        ),
+        content: unfilledAccordionItemContent("gebaeude"),
       };
     }
     return {
@@ -392,11 +402,7 @@ export default function ZusammenfassungAccordion({
     if (!allData?.eigentuemer) {
       return {
         header,
-        content: (
-          <div id="eigentuemer-area" data-testid="eigentuemer-area">
-            {i18n.specifics.sectionUnfilled}
-          </div>
-        ),
+        content: unfilledAccordionItemContent("eigentuemer"),
       };
     }
     return {

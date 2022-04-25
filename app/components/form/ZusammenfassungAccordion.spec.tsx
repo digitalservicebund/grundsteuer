@@ -51,6 +51,20 @@ describe("ZusammenfassungAccordion component", () => {
           )
         ).toBeInTheDocument();
       });
+
+      it("should show edit link", () => {
+        render(<ZusammenfassungAccordion {...defaultProps} />);
+
+        screen.getByText("Grundstück").click();
+        expect(
+          within(screen.getByTestId("grundstueck-area")).getByRole("link")
+        ).toBeInTheDocument();
+
+        screen.getByText("Eigentümer:innen").click();
+        expect(
+          within(screen.getByTestId("eigentuemer-area")).getByRole("link")
+        ).toBeInTheDocument();
+      });
     });
 
     describe("with grundstueck partly filled", () => {
