@@ -211,77 +211,79 @@ export default function ZusammenfassungAccordion({
               resolveJaNein
             )}
             {item("Anzahl Flurstücke", "grundstueck.anzahl.anzahl")}
-            {allData.grundstueck.flurstueck && (
+            {allData.grundstueck.anzahl?.anzahl && (
               <>
                 <h3 className="font-bold text-xl mb-1">Flurstücke</h3>
-                {[...Array(allData.grundstueck.flurstueck.length).keys()].map(
-                  (index) => {
-                    const flurstueckKey = "flurstueck-" + index;
-                    return (
-                      <div
-                        className="bg-gray-100 mb-3"
-                        key={flurstueckKey}
-                        id={flurstueckKey}
-                      >
-                        <h4 className="font-bold">Flurstück {index + 1}</h4>
-                        <ul>
-                          {item(
-                            "Grundbuchblattnummer",
-                            `grundstueck.flurstueck.${
-                              index + 1
-                            }.angaben.grundbuchblattnummer`
-                          )}
-                          {item(
-                            "Gemarkung",
-                            `grundstueck.flurstueck.${
-                              index + 1
-                            }.angaben.gemarkung`
-                          )}
-                          {item(
-                            "Flur",
-                            `grundstueck.flurstueck.${index + 1}.flur.flur`
-                          )}
-                          {item(
-                            "Flurstück Zähler",
-                            `grundstueck.flurstueck.${
-                              index + 1
-                            }.flur.flurstueckZaehler`
-                          )}
-                          {item(
-                            "Flurstück Nenner",
-                            `grundstueck.flurstueck.${
-                              index + 1
-                            }.flur.flurstueckNenner`
-                          )}
-                          {item(
-                            "Wirtsch. Einheit Zähler",
-                            `grundstueck.flurstueck.${
-                              index + 1
-                            }.flur.wirtschaftlicheEinheitZaehler`
-                          )}
-                          {item(
-                            "Wirtsch. Einheit Nenner",
-                            `grundstueck.flurstueck.${
-                              index + 1
-                            }.flur.wirtschaftlicheEinheitNenner`
-                          )}
-                          {item(
-                            "Größe ha",
-                            `grundstueck.flurstueck.${index + 1}.flur.groesseHa`
-                          )}
-                          {item(
-                            "Größe a",
-                            `grundstueck.flurstueck.${index + 1}.flur.groesseA`
-                          )}
-                          {item(
-                            "Größe m²",
-                            `grundstueck.flurstueck.${index + 1}.flur.groesseQm`
-                          )}
-                        </ul>
-                      </div>
-                    );
-                  }
-                )}
+                {[
+                  ...Array(
+                    Number.parseInt(allData.grundstueck.anzahl.anzahl)
+                  ).keys(),
+                ].map((index) => {
+                  const flurstueckKey = "flurstueck-" + index;
+                  return (
+                    <div
+                      className="bg-gray-100 mb-3"
+                      key={flurstueckKey}
+                      id={flurstueckKey}
+                    >
+                      <h4 className="font-bold">Flurstück {index + 1}</h4>
+                      <ul>
+                        {item(
+                          "Grundbuchblattnummer",
+                          `grundstueck.flurstueck.${
+                            index + 1
+                          }.angaben.grundbuchblattnummer`
+                        )}
+                        {item(
+                          "Gemarkung",
+                          `grundstueck.flurstueck.${
+                            index + 1
+                          }.angaben.gemarkung`
+                        )}
+                        {item(
+                          "Flur",
+                          `grundstueck.flurstueck.${index + 1}.flur.flur`
+                        )}
+                        {item(
+                          "Flurstück Zähler",
+                          `grundstueck.flurstueck.${
+                            index + 1
+                          }.flur.flurstueckZaehler`
+                        )}
+                        {item(
+                          "Flurstück Nenner",
+                          `grundstueck.flurstueck.${
+                            index + 1
+                          }.flur.flurstueckNenner`
+                        )}
+                        {item(
+                          "Wirtsch. Einheit Zähler",
+                          `grundstueck.flurstueck.${
+                            index + 1
+                          }.flur.wirtschaftlicheEinheitZaehler`
+                        )}
+                        {item(
+                          "Wirtsch. Einheit Nenner",
+                          `grundstueck.flurstueck.${
+                            index + 1
+                          }.flur.wirtschaftlicheEinheitNenner`
+                        )}
+                        {item(
+                          "Größe ha",
+                          `grundstueck.flurstueck.${index + 1}.flur.groesseHa`
+                        )}
+                        {item(
+                          "Größe a",
+                          `grundstueck.flurstueck.${index + 1}.flur.groesseA`
+                        )}
+                        {item(
+                          "Größe m²",
+                          `grundstueck.flurstueck.${index + 1}.flur.groesseQm`
+                        )}
+                      </ul>
+                    </div>
+                  );
+                })}
               </>
             )}
             {item(
@@ -371,7 +373,7 @@ export default function ZusammenfassungAccordion({
               "gebaeude.weitereWohnraeumeDetails.flaeche",
               resolveArea
             )}
-            {allData.gebaeude?.garagen?.hasGaragen == "true"
+            {conditions.hasGaragen
               ? item("Anzahl Garagen", "gebaeude.garagenAnzahl.anzahlGaragen")
               : item(
                   "Anzahl Garagen",
@@ -409,11 +411,14 @@ export default function ZusammenfassungAccordion({
               resolveJaNein
             )}
           </ul>
-          {allData.eigentuemer.person && (
+          {allData.eigentuemer.anzahl?.anzahl && (
             <>
               <h3 className="font-bold text-xl mb-1">Personen</h3>
-
-              {allData.eigentuemer.person.map((person, index) => {
+              {[
+                ...Array(
+                  Number.parseInt(allData.eigentuemer.anzahl.anzahl)
+                ).keys(),
+              ].map((index) => {
                 const personKey = "person-" + index;
                 return (
                   <div
@@ -489,7 +494,10 @@ export default function ZusammenfassungAccordion({
                         resolveJaNein
                       )}
 
-                      {person.vertreter && (
+                      {conditions.hasGesetzlicherVertreter({
+                        ...allData,
+                        personId: index + 1,
+                      }) && (
                         <div
                           className="bg-gray-300 mx-4"
                           id={personKey + "-vertreter"}
@@ -561,17 +569,14 @@ export default function ZusammenfassungAccordion({
                           </ul>
                         </div>
                       )}
-                      {person.anteil && (
-                        <>
-                          {item(
-                            "Anteil Zähler",
-                            `eigentuemer.person.${index + 1}.anteil.zaehler`
-                          )}
-                          {item(
-                            "Anteil Nenner",
-                            `eigentuemer.person.${index + 1}.anteil.nenner`
-                          )}
-                        </>
+
+                      {item(
+                        "Anteil Zähler",
+                        `eigentuemer.person.${index + 1}.anteil.zaehler`
+                      )}
+                      {item(
+                        "Anteil Nenner",
+                        `eigentuemer.person.${index + 1}.anteil.nenner`
                       )}
                     </ul>
                   </div>
@@ -585,7 +590,7 @@ export default function ZusammenfassungAccordion({
               "eigentuemer.bruchteilsgemeinschaft.predefinedData",
               resolveJaNein
             )}
-            {allData.eigentuemer.bruchteilsgemeinschaftangaben && (
+            {conditions.customBruchteilsgemeinschaftData(allData) && (
               <div className="bg-gray-300 mx-4" id={"bruchteilsgemeinschaft"}>
                 <h5 className="font-bold">Bruchteilsgemeinschaft Angaben</h5>
                 <ul>
@@ -623,7 +628,7 @@ export default function ZusammenfassungAccordion({
               "eigentuemer.empfangsvollmacht.hasEmpfangsvollmacht",
               resolveJaNein
             )}
-            {allData.eigentuemer.empfangsbevollmaechtigter && (
+            {conditions.hasEmpfangsbevollmaechtigter(allData) && (
               <div
                 className="bg-gray-300 mx-4"
                 id={"empfangsbevollmaechtigter"}
