@@ -25,12 +25,10 @@ describe("ZusammenfassungAccordion component", () => {
       expect(screen.queryByText("Gebäude")).not.toBeInTheDocument();
     });
 
-    it("should not display section (un)finished icons", () => {
+    it("should display section finished icons", () => {
       render(<ZusammenfassungAccordion {...defaultProps} />);
 
-      expect(
-        screen.queryByRole("img", { name: "Fertig" })
-      ).not.toBeInTheDocument();
+      expect(screen.queryAllByRole("img", { name: "Fertig" })).toHaveLength(2);
       expect(
         screen.queryByRole("img", { name: "Unfertig" })
       ).not.toBeInTheDocument();

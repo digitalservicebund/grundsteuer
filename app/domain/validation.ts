@@ -335,13 +335,13 @@ type ValidateDependentFunction = ({
   dependentValue,
 }: {
   value: string;
-  dependentValue: string;
+  dependentValue?: string;
 }) => boolean;
 export const validateRequiredIf: ValidateDependentFunction = ({
   value,
   dependentValue,
 }) =>
-  validateRequired({ value: dependentValue })
+  !dependentValue || validateRequired({ value: dependentValue })
     ? validateRequired({ value })
     : true;
 
@@ -361,12 +361,12 @@ export const validateRequiredIfCondition: ValidateRequiredIfConditionFunction =
 export const validateForbiddenIf: ValidateDependentFunction = ({
   value,
   dependentValue,
-}) => (dependentValue.trim() ? !value.trim() : true);
+}) => !dependentValue || (dependentValue.trim() ? !value.trim() : true);
 
 export const validateEitherOr: ValidateDependentFunction = ({
   value,
   dependentValue,
-}) => (dependentValue.trim() ? !value.trim() : !!value.trim());
+}) => (dependentValue?.trim() ? !value.trim() : !!value.trim());
 
 type ValidateYearAfterBaujahrFunction = ({
   value,

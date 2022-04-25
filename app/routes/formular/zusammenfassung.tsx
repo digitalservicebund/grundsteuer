@@ -27,6 +27,7 @@ import {
 } from "~/domain/validation";
 import { getStepI18n, I18nObject } from "~/util/getStepI18n";
 import ZusammenfassungAccordion from "~/components/form/ZusammenfassungAccordion";
+import { removeUndefined } from "~/util/removeUndefined";
 
 type LoaderData = {
   formData: StepFormData;
@@ -34,6 +35,7 @@ type LoaderData = {
   i18n: I18nObject;
   stepDefinition: StepDefinition;
   isIdentified: boolean;
+  generalErrors: GeneralErrors;
 };
 
 export const loader: LoaderFunction = async ({
@@ -44,13 +46,18 @@ export const loader: LoaderFunction = async ({
   });
   const storedFormData = await getStoredFormData({ request, user });
   const filteredData = filterDataForReachablePaths(storedFormData);
+  const cleanedData = removeUndefined(filteredData);
+
+  // validate all steps' data
+  const generalErrors = await validateAllStepsData(cleanedData);
 
   return {
     formData: getStepData(storedFormData, "zusammenfassung"),
-    allData: filteredData,
+    allData: cleanedData,
     i18n: await getStepI18n("zusammenfassung"),
     stepDefinition: zusammenfassung,
     isIdentified: user.identified,
+    generalErrors,
   };
 };
 
@@ -108,11 +115,11 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Zusammenfassung() {
-  const { formData, allData, i18n, stepDefinition, isIdentified } =
-    useLoaderData<LoaderData>();
+  const loaderData = useLoaderData<LoaderData>();
+  const { formData, allData, i18n, stepDefinition, isIdentified } = loaderData;
   const actionData = useActionData();
   const errors = actionData?.errors;
-  const generalErrors = actionData?.generalErrors;
+  const generalErrors = loaderData.generalErrors || actionData?.generalErrors;
 
   const fieldProps = getFieldProps(stepDefinition, formData, i18n, errors);
 

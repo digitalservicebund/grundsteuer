@@ -151,13 +151,11 @@ export default function ZusammenfassungAccordion({
   };
 
   const sectionHeading = (label: string, dataKey: string) => {
-    const finishedIcon =
-      generalErrors &&
-      (generalErrors?.[dataKey] ? (
-        <Unfinished className="mr-16" />
-      ) : (
-        <Finished className="mr-16" />
-      ));
+    const finishedIcon = generalErrors?.[dataKey] ? (
+      <Unfinished className="mr-16" />
+    ) : (
+      <Finished className="mr-16" />
+    );
 
     return (
       <div className="flex">

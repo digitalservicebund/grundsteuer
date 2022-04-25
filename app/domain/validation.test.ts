@@ -246,6 +246,8 @@ describe("validateRequiredIf", () => {
   const cases = [
     { value: "", dependentValue: " ", valid: true },
     { value: "a", dependentValue: "", valid: true },
+    { value: "", dependentValue: undefined, valid: false },
+    { value: "a", dependentValue: undefined, valid: true },
     { value: " ", dependentValue: "a", valid: false },
   ];
 
@@ -291,6 +293,8 @@ describe("validateEitherOr", () => {
   const cases = [
     { value: "", dependentValue: "", valid: false },
     { value: "a", dependentValue: "", valid: true },
+    { value: "", dependentValue: undefined, valid: false },
+    { value: "a", dependentValue: undefined, valid: true },
     { value: "", dependentValue: "a", valid: true },
     { value: "a", dependentValue: "a", valid: false },
     { value: " ", dependentValue: " ", valid: false },
@@ -310,6 +314,7 @@ describe("validateForbiddenIf", () => {
   const cases = [
     { value: "", dependentValue: "", valid: true },
     { value: "a", dependentValue: "", valid: true },
+    { value: "a", dependentValue: undefined, valid: true },
     { value: "", dependentValue: "a", valid: true },
     { value: "a", dependentValue: "a", valid: false },
     { value: " ", dependentValue: " ", valid: true },
