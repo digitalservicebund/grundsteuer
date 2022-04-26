@@ -17,7 +17,6 @@ describe("BodenrichtwertInfo component", () => {
     };
 
     const cases = [
-      { bundesland: "default", expectedText: "Deutschland" },
       { bundesland: "BE", expectedText: "Berlin" },
       { bundesland: "BB", expectedText: "Brandenburg" },
       { bundesland: "HB", expectedText: "Bremen" },
@@ -46,6 +45,17 @@ describe("BodenrichtwertInfo component", () => {
         expect(screen.queryByRole("link")).toHaveTextContent(expectedText);
       }
     );
+
+    it("Should display accordion on default page", async () => {
+      defaultInput.allData = grundModelFactory.build();
+
+      render(<BodenrichtwertInfo {...defaultInput} />);
+      expect(
+        screen.queryByText(
+          "Links zu länderspezifischen Bodenrichtwert-Portalen"
+        )
+      ).toBeInTheDocument();
+    });
   });
 });
 

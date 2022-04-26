@@ -857,16 +857,13 @@
       }
     },
     "bodenrichtwertInfo": {
-      "common": {
-        "anleitung": "Eine Schritt für Schritt Anleitung"
-      },
       "default": {
         "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
         "nextButtonLabel": "Weiter",
         "specifics": {
-          "explanation": "Fügen Sie nun den Bodenrichtwert hinzu. Den zum Grundstück zugehörigen Bodenrichtwert für Ihre Flurstücke können Sie unter dem folgenden Link (Bodenrichtwerte Deutschland) nach Eingabe der Adresse finden:",
-          "portalUrl": "https://www.bodenrichtwerte-boris.de/",
-          "portalDesc": "Zum Bodenrichtwert-Portal Deutschland"
+          "explanation": "",
+          "portalUrl": "",
+          "bundesland": ""
         }
       },
       "bb": {
@@ -875,7 +872,7 @@
         "specifics": {
           "explanation": "",
           "portalUrl": "https://informationsportal-grundstuecksdaten.brandenburg.de",
-          "portalDesc": "Zum Bodenrichtwert-Portal Brandenburg"
+          "bundesland": "Brandenburg"
         }
       },
       "be": {
@@ -884,7 +881,7 @@
         "specifics": {
           "explanation": "Klicken sie auf den Link und geben Sie ihre Grundstücksadresse in der externen Seite ein. Auf einer Karte können Sie den Bodenrichtwert ablesen.",
           "portalUrl": "https://fbinter.stadt-berlin.de/boris/",
-          "portalDesc": "Zum Bodenrichtwert-Portal Berlin"
+          "bundesland": "Berlin"
         }
       },
       "hb": {
@@ -893,7 +890,7 @@
         "specifics": {
           "explanation": "",
           "portalUrl": "https://immobilienmarkt.niedersachsen.de/bodenrichtwerte?teilmarkt=Bauland&stichtag=2022-01-01&zoom=7.00",
-          "portalDesc": "Zum Bodenrichtwert-Portal Bremen"
+          "bundesland": "Bremen"
         }
       },
       "mv": {
@@ -902,7 +899,7 @@
         "specifics": {
           "explanation": "",
           "portalUrl": "https://www.geodaten-mv.de/grundsteuerdaten/",
-          "portalDesc": "Zum Bodenrichtwert-Portal Mecklenburg-Vorpommern"
+          "bundesland": "Mecklenburg-Vorpommern"
         }
       },
       "nw": {
@@ -911,7 +908,7 @@
         "specifics": {
           "explanation": "",
           "portalUrl": "https://www.finanzverwaltung.nrw.de/Grundsteuerreform",
-          "portalDesc": "Zum Bodenrichtwert-Portal Nordrhein-Westfahlen"
+          "bundesland": "Nordrhein-Westfahlen"
         }
       },
       "rp": {
@@ -920,14 +917,14 @@
         "specifics": {
           "explanation": "",
           "portalUrl": "https://maps.rlp.de/",
-          "portalDesc": "Zum Bodenrichtwert-Portal Rheinland-Pfalz"
+          "bundesland": "Rheinland-Pfalz"
         }
       },
       "sh": {
         "specifics": {
           "explanation": "",
           "portalUrl": "https://www.schleswig-holstein.de/grundsteuer",
-          "portalDesc": "Zum Bodenrichtwert-Portal Schleswig-Holstein"
+          "bundesland": "Schleswig-Holstein"
         }
       },
       "sl": {
@@ -936,7 +933,7 @@
         "specifics": {
           "explanation": "",
           "portalUrl": "https://geoportal.saarland.de/Grundsteuer/",
-          "portalDesc": "Zum Bodenrichtwert-Portal Saarland"
+          "bundesland": "Saarland"
         }
       },
       "sn": {
@@ -945,7 +942,7 @@
         "specifics": {
           "explanation": "",
           "portalUrl": "https://www.grundsteuer.sachsen.de",
-          "portalDesc": "Zum Bodenrichtwert-Portal Sachsen"
+          "bundesland": "Sachsen"
         }
       },
       "st": {
@@ -954,7 +951,7 @@
         "specifics": {
           "explanation": "",
           "portalUrl": "https://www.grundsteuerdaten.sachsen-anhalt.de/",
-          "portalDesc": "Zum Bodenrichtwert-Portal Sachsen-Anhalt"
+          "bundesland": "Sachsen-Anhalt"
         }
       },
       "th": {
@@ -963,7 +960,7 @@
         "specifics": {
           "explanation": "",
           "portalUrl": "https://thueringenviewer.thueringen.de/thviewer/grundsteuer.html",
-          "portalDesc": "Zum Bodenrichtwert-Portal Thüringen"
+          "bundesland": "Thüringen"
         }
       }
     },
