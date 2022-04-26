@@ -29,7 +29,6 @@ import {
 import { getStepI18n, I18nObject } from "~/util/getStepI18n";
 import ZusammenfassungAccordion from "~/components/form/ZusammenfassungAccordion";
 import { removeUndefined } from "~/util/removeUndefined";
-import { commitSession } from "~/session.server";
 
 type LoaderData = {
   formData: StepFormData;

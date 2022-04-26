@@ -494,6 +494,8 @@ export const validateYearInPast: ValidateYearInPast = ({
   }
 };
 
+// Because of potentially different timezones, the current implementation
+// cannot be reliably used if the input date is not at least 1 day in the past.
 export const validateDateInPast: ValidateFunctionDefault = ({ value }) => {
   if (!value || !validateIsDate({ value })) return true;
   const splitDate = value.split(".");
