@@ -1,7 +1,7 @@
 import Default from "./default";
-import Bodenrichtwert, {
-  BodenrichtwertHelp,
-} from "~/components/steps/grundstueck/bodenrichtwert";
+import BodenrichtwertAnzahl from "~/components/steps/grundstueck/BodenrichtwertAnzahl";
+import BodenrichtwertEingabe from "~/components/steps/grundstueck/BodenrichtwertEingabe";
+import BodenrichtwertInfo from "~/components/steps/grundstueck/BodenrichtwertInfo";
 import GrundstueckFlurstueckAngaben, {
   GrundstueckFlurstueckAngabenHelp,
 } from "./grundstueck/flurstueck/angaben";
@@ -33,7 +33,11 @@ export default {
   },
   grundstueck: {
     uebersicht: GrundstueckUebersicht,
-    bodenrichtwert: Bodenrichtwert,
+    bodenrichtwert: {
+      info: BodenrichtwertInfo,
+      eingabe: BodenrichtwertEingabe,
+      anzahl: BodenrichtwertAnzahl,
+    },
     flurstueck: {
       angaben: GrundstueckFlurstueckAngaben,
       flur: GrundstueckFlurstueckFlur,
@@ -51,7 +55,6 @@ export const helpComponents = {
     flurstueck: {
       angaben: GrundstueckFlurstueckAngabenHelp,
     },
-    bodenrichtwert: BodenrichtwertHelp,
   },
   eigentuemer: {
     bruchteilsgemeinschaft: BruchteilsgemeinschaftHelp,

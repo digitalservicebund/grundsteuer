@@ -35,6 +35,7 @@ import { EigentuemerBruchteilsgemeinschaftAngabenFields } from "~/domain/steps/e
 import { EigentuemerEmpfangsbevollmaechtigterNameFields } from "~/domain/steps/eigentuemer/empfangsbevollmaechtigter/name";
 import { EigentuemerEmpfangsbevollmaechtigterAdresseFields } from "~/domain/steps/eigentuemer/empfangsbevollmaechtigter/adresse";
 import { ZusammenfassungFields } from "~/domain/steps/zusammenfassung";
+import { GrundstueckBodenrichtwertAnzahlFields } from "~/domain/steps/grundstueck/bodenrichtwert/anzahl";
 
 type PersonTransientParams = {
   transient: {
@@ -156,12 +157,21 @@ class GrundModelFactory extends Factory<GrundModel> {
     });
   }
 
-  grundstueckBodenrichtwert(fields?: Partial<GrundstueckBodenrichtwertFields>) {
+  grundstueckBodenrichtwert(
+    eingabeFields?: Partial<GrundstueckBodenrichtwertFields>,
+    anzahlFields?: Partial<GrundstueckBodenrichtwertAnzahlFields>
+  ) {
     return this.params({
       grundstueck: {
         bodenrichtwert: {
-          bodenrichtwert: "200",
-          ...fields,
+          eingabe: {
+            bodenrichtwert: "200",
+            ...eingabeFields,
+          },
+          anzahl: {
+            anzahl: "1",
+            ...anzahlFields,
+          },
         },
       },
     });

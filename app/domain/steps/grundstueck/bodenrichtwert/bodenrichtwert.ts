@@ -2,7 +2,6 @@ import { StepDefinition } from "~/domain/steps";
 
 export type GrundstueckBodenrichtwertFields = {
   bodenrichtwert: string;
-  twoBodenrichtwerte: boolean;
 };
 
 export const grundstueckBodenrichtwert: StepDefinition = {
@@ -17,10 +16,6 @@ export const grundstueckBodenrichtwert: StepDefinition = {
           msg: "Muss aus bis zu 6 Vorkommastellen und 2 Nachkommastellen bestehen.",
         },
       },
-    },
-    twoBodenrichtwerte: {
-      type: "checkbox",
-      validations: {},
     },
   },
 };

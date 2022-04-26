@@ -111,17 +111,39 @@ export const states: MachineConfig<any, any, any> = {
           },
         },
         bodenrichtwert: {
-          on: {
-            NEXT: [
-              { target: "#steps.gebaeude", cond: "isBebaut" },
-              { target: "#steps.eigentuemer" },
-            ],
-            BACK: [
-              {
-                target: "#flurstueck.groesse",
-                actions: "setFlurstueckIdToMaximum",
+          id: "bodenrichtwert",
+          initial: "info",
+          states: {
+            info: {
+              on: {
+                NEXT: [{ target: "eingabe" }],
+                BACK: [
+                  {
+                    target: "#flurstueck.groesse",
+                    actions: "setFlurstueckIdToMaximum",
+                  },
+                ],
               },
-            ],
+            },
+            eingabe: {
+              on: {
+                NEXT: [{ target: "anzahl" }],
+                BACK: [
+                  {
+                    target: "info",
+                  },
+                ],
+              },
+            },
+            anzahl: {
+              on: {
+                NEXT: [
+                  { target: "#steps.gebaeude", cond: "isBebaut" },
+                  { target: "#steps.eigentuemer" },
+                ],
+                BACK: [{ target: "eingabe" }],
+              },
+            },
           },
         },
       },
@@ -273,7 +295,7 @@ export const states: MachineConfig<any, any, any> = {
           },
         },
       },
-      on: { NEXT: "eigentuemer", BACK: "grundstueck.bodenrichtwert" },
+      on: { NEXT: "eigentuemer", BACK: "grundstueck.bodenrichtwert.anzahl" },
     },
     eigentuemer: {
       id: "eigentuemer",
@@ -285,7 +307,7 @@ export const states: MachineConfig<any, any, any> = {
             BACK: [
               { target: "#steps.gebaeude.garagenAnzahl", cond: "hasGaragen" },
               { target: "#steps.gebaeude.garagen", cond: "isBebaut" },
-              { target: "#steps.grundstueck.bodenrichtwert" },
+              { target: "#steps.grundstueck.bodenrichtwert.anzahl" },
             ],
           },
         },

@@ -216,7 +216,7 @@ export const transforDataToEricaFormat = (inputData: GrundModel) => {
         inputData.grundstueck?.gemeinde?.innerhalbEinerGemeinde,
       bodenrichtwert: fillPostCommaToLength(
         2,
-        inputData.grundstueck?.bodenrichtwert?.bodenrichtwert
+        inputData.grundstueck?.bodenrichtwert?.eingabe?.bodenrichtwert
       ),
       flurstueck: inputData.grundstueck?.flurstueck?.map(transformFlurstueck),
     },
@@ -268,7 +268,7 @@ export const transforDataToEricaFormat = (inputData: GrundModel) => {
     },
     freitext: transformFreitext(
       inputData.zusammenfassung?.freitext,
-      inputData.grundstueck?.bodenrichtwert?.twoBodenrichtwerte
+      inputData.grundstueck?.bodenrichtwert?.anzahl?.anzahl === "2"
     ),
   };
 

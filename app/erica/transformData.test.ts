@@ -407,7 +407,7 @@ describe("transforDataToEricaFormat", () => {
   describe("freitext", () => {
     it("should set freitext as is if one bodenrichtwert and freitext given", () => {
       const inputData = grundModelFactory
-        .grundstueckBodenrichtwert({ twoBodenrichtwerte: undefined })
+        .grundstueckBodenrichtwert({ bodenrichtwert: "200" }, { anzahl: "1" })
         .freitext({ freitext: "Mehr Angaben" })
         .build();
 
@@ -418,7 +418,7 @@ describe("transforDataToEricaFormat", () => {
 
     it("should not set freitext if one bodenrichtwert and no freitext given", () => {
       const inputData = grundModelFactory
-        .grundstueckBodenrichtwert({ twoBodenrichtwerte: undefined })
+        .grundstueckBodenrichtwert({ bodenrichtwert: "200" }, { anzahl: "1" })
         .build();
 
       const result = transforDataToEricaFormat(inputData);
@@ -428,7 +428,7 @@ describe("transforDataToEricaFormat", () => {
 
     it("should set freitext with disclaimer if two bodenrichtwerte and freitext given", () => {
       const inputData = grundModelFactory
-        .grundstueckBodenrichtwert({ twoBodenrichtwerte: true })
+        .grundstueckBodenrichtwert({ bodenrichtwert: "200" }, { anzahl: "2" })
         .freitext({ freitext: "Mehr Angaben" })
         .build();
 
@@ -441,7 +441,7 @@ describe("transforDataToEricaFormat", () => {
 
     it("should set only disclaimer if two bodenrichtwerte and freitext not given", () => {
       const inputData = grundModelFactory
-        .grundstueckBodenrichtwert({ twoBodenrichtwerte: true })
+        .grundstueckBodenrichtwert({ bodenrichtwert: "200" }, { anzahl: "2" })
         .build();
 
       const result = transforDataToEricaFormat(inputData);

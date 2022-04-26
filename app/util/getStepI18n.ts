@@ -26,11 +26,20 @@ export type I18nObject = {
 
 export const getStepI18n = async (
   stepI18nKey: string,
-  stepI18nParams?: { id?: string }
+  stepI18nParams?: { id?: string },
+  bundesland = "default"
 ) => {
   const tFunction = await i18Next.getFixedT("de", "all");
-  return {
-    ...tFunction(stepI18nKey, stepI18nParams),
-    common: { ...tFunction("common") },
-  } as I18nObject;
+  if (stepI18nKey.startsWith("grundstueck.bodenrichtwert")) {
+    const bundeslandKey = `${stepI18nKey}.${bundesland.toLowerCase()}`;
+    return {
+      ...tFunction(bundeslandKey, stepI18nParams),
+      common: { ...tFunction("common"), ...tFunction(`${stepI18nKey}.common`) },
+    } as I18nObject;
+  } else {
+    return {
+      ...tFunction(stepI18nKey, stepI18nParams),
+      common: { ...tFunction("common") },
+    } as I18nObject;
+  }
 };

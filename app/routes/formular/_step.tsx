@@ -160,12 +160,18 @@ export const loader: LoaderFunction = async ({
     "redirectToSummary"
   );
 
+  const bundesland = storedFormData.grundstueck?.adresse?.bundesland;
+
   return {
     formData: getStepData(storedFormData, currentState),
     allData: storedFormData,
-    i18n: await getStepI18n(currentStateWithoutId, {
-      id: params?.personId || params?.flurstueckId,
-    }),
+    i18n: await getStepI18n(
+      currentStateWithoutId,
+      {
+        id: params?.personId || params?.flurstueckId,
+      },
+      bundesland ? bundesland : "default"
+    ),
     backUrl,
     currentStateWithoutId,
     currentState,
