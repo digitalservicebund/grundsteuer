@@ -99,51 +99,60 @@ import {
   grundstueckAdresse,
   GrundstueckAdresseFields,
 } from "./grundstueck/adresse";
+
 export type { GrundstueckAdresseFields };
 
 import {
   grundstueckSteuernummer,
   GrundstueckSteuernummerFields,
 } from "./grundstueck/steuernummer";
+
 export type { GrundstueckSteuernummerFields };
 
 import { grundstueckTyp, GrundstueckTypFields } from "./grundstueck/typ";
+
 export type { GrundstueckTypFields };
 
 import {
   grundstueckAbweichendeEntwicklung,
   GrundstueckAbweichendeEntwicklungFields,
 } from "./grundstueck/abweichendeEntwicklung";
+
 export type { GrundstueckAbweichendeEntwicklungFields };
 
 import {
   grundstueckGemeinde,
   GrundstueckGemeindeFields,
 } from "./grundstueck/gemeinde";
+
 export type { GrundstueckGemeindeFields };
 
 import {
   grundstueckAnzahl,
   GrundstueckAnzahlFields,
 } from "./grundstueck/anzahl";
+
 export type { GrundstueckAnzahlFields };
 
 import {
   grundstueckFlurstueckAngaben,
   GrundstueckFlurstueckAngabenFields,
 } from "./grundstueck/flurstueck/angaben";
+
 export type { GrundstueckFlurstueckAngabenFields };
 
 import {
   grundstueckFlurstueckFlur,
   GrundstueckFlurstueckFlurFields,
 } from "./grundstueck/flurstueck/flur";
+
 export type { GrundstueckFlurstueckFlurFields };
 
 import {
   grundstueckFlurstueckGroesse,
   GrundstueckFlurstueckGroesseFields,
 } from "./grundstueck/flurstueck/groesse";
+
 export type { GrundstueckFlurstueckGroesseFields };
 
 import {
@@ -189,6 +198,7 @@ import {
   ZusammenfassungFields,
 } from "~/domain/steps/zusammenfassung";
 import { ValidationConfig } from "~/domain/validation";
+
 export type { GrundstueckBodenrichtwertFields };
 
 const stepDefinitions = {
@@ -199,10 +209,8 @@ const stepDefinitions = {
     abweichendeEntwicklung: grundstueckAbweichendeEntwicklung,
     gemeinde: grundstueckGemeinde,
     anzahl: grundstueckAnzahl,
-    bodenrichtwert: {
-      eingabe: grundstueckBodenrichtwert,
-      anzahl: grundstueckBodenrichtwertAnzahl,
-    },
+    bodenrichtwertEingabe: grundstueckBodenrichtwert,
+    bodenrichtwertAnzahl: grundstueckBodenrichtwertAnzahl,
     flurstueck: {
       angaben: grundstueckFlurstueckAngaben,
       flur: grundstueckFlurstueckFlur,
@@ -278,10 +286,8 @@ export type GrundModel = {
     abweichendeEntwicklung?: GrundstueckAbweichendeEntwicklungFields;
     gemeinde?: GrundstueckGemeindeFields;
     anzahl?: GrundstueckAnzahlFields;
-    bodenrichtwert?: {
-      eingabe?: GrundstueckBodenrichtwertFields;
-      anzahl?: GrundstueckBodenrichtwertAnzahlFields;
-    };
+    bodenrichtwertEingabe?: GrundstueckBodenrichtwertFields;
+    bodenrichtwertAnzahl?: GrundstueckBodenrichtwertAnzahlFields;
     flurstueck?: Flurstueck[];
   };
   gebaeude?: {

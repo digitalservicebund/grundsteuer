@@ -120,11 +120,9 @@
       "abweichendeEntwicklung": "abweichende Entwicklung",
       "gemeinde": "Innerhalb einer Gemeinde?",
       "anzahl": "Anzahl Flurstücke",
-      "bodenrichtwert": {
-        "info": "Allgemeine Information",
-        "eingabe": "Eingabe",
-        "anzahl": "Anzahl"
-      },
+      "bodenrichtwertInfo": "Bodenrichtwert-Info",
+      "bodenrichtwertEingabe": "Bodenrichtwert-Eingabe",
+      "bodenrichtwertAnzahl": "Bodenrichtwert-Anzahl",
       "flurstueck": {
         "angaben": "Angaben",
         "flur": "Flur",
@@ -858,468 +856,466 @@
         }
       }
     },
-    "bodenrichtwert": {
-      "info": {
-        "common": {
-          "anleitung": "Eine Schritt für Schritt Anleitung"
-        },
-        "default": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "nextButtonLabel": "Weiter",
-          "specifics": {
-            "explanation": "Fügen Sie nun den Bodenrichtwert hinzu. Den zum Grundstück zugehörigen Bodenrichtwert für Ihre Flurstücke können Sie unter dem folgenden Link (Bodenrichtwerte Deutschland) nach Eingabe der Adresse finden:",
-            "portalUrl": "https://www.bodenrichtwerte-boris.de/",
-            "portalDesc": "Zum Bodenrichtwert-Portal Deutschland"
-          }
-        },
-        "bb": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "nextButtonLabel": "Weiter",
-          "specifics": {
-            "explanation": "",
-            "portalUrl": "https://informationsportal-grundstuecksdaten.brandenburg.de",
-            "portalDesc": "Zum Bodenrichtwert-Portal Brandenburg"
-          }
-        },
-        "be": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "nextButtonLabel": "Weiter",
-          "specifics": {
-            "explanation": "Klicken sie auf den Link und geben Sie ihre Grundstücksadresse in der externen Seite ein. Auf einer Karte können Sie den Bodenrichtwert ablesen.",
-            "portalUrl": "https://fbinter.stadt-berlin.de/boris/",
-            "portalDesc": "Zum Bodenrichtwert-Portal Berlin"
-          }
-        },
-        "hb": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "nextButtonLabel": "Weiter",
-          "specifics": {
-            "explanation": "",
-            "portalUrl": "https://immobilienmarkt.niedersachsen.de/bodenrichtwerte?teilmarkt=Bauland&stichtag=2022-01-01&zoom=7.00",
-            "portalDesc": "Zum Bodenrichtwert-Portal Bremen"
-          }
-        },
-        "mv": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "nextButtonLabel": "Weiter",
-          "specifics": {
-            "explanation": "",
-            "portalUrl": "https://www.geodaten-mv.de/grundsteuerdaten/",
-            "portalDesc": "Zum Bodenrichtwert-Portal Mecklenburg-Vorpommern"
-          }
-        },
-        "nw": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "nextButtonLabel": "Weiter",
-          "specifics": {
-            "explanation": "",
-            "portalUrl": "https://www.finanzverwaltung.nrw.de/Grundsteuerreform",
-            "portalDesc": "Zum Bodenrichtwert-Portal Nordrhein-Westfahlen"
-          }
-        },
-        "rp": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "nextButtonLabel": "Weiter",
-          "specifics": {
-            "explanation": "",
-            "portalUrl": "https://maps.rlp.de/",
-            "portalDesc": "Zum Bodenrichtwert-Portal Rheinland-Pfalz"
-          }
-        },
-        "sh": {
-          "specifics": {
-            "explanation": "",
-            "portalUrl": "https://www.schleswig-holstein.de/grundsteuer",
-            "portalDesc": "Zum Bodenrichtwert-Portal Schleswig-Holstein"
-          }
-        },
-        "sl": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "nextButtonLabel": "Weiter",
-          "specifics": {
-            "explanation": "",
-            "portalUrl": "https://geoportal.saarland.de/Grundsteuer/",
-            "portalDesc": "Zum Bodenrichtwert-Portal Saarland"
-          }
-        },
-        "sn": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "nextButtonLabel": "Weiter",
-          "specifics": {
-            "explanation": "",
-            "portalUrl": "https://www.grundsteuer.sachsen.de",
-            "portalDesc": "Zum Bodenrichtwert-Portal Sachsen"
-          }
-        },
-        "st": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "nextButtonLabel": "Weiter",
-          "specifics": {
-            "explanation": "",
-            "portalUrl": "https://www.grundsteuerdaten.sachsen-anhalt.de/",
-            "portalDesc": "Zum Bodenrichtwert-Portal Sachsen-Anhalt"
-          }
-        },
-        "th": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "nextButtonLabel": "Weiter",
-          "specifics": {
-            "explanation": "",
-            "portalUrl": "https://thueringenviewer.thueringen.de/thviewer/grundsteuer.html",
-            "portalDesc": "Zum Bodenrichtwert-Portal Thüringen"
-          }
+    "bodenrichtwertInfo": {
+      "common": {
+        "anleitung": "Eine Schritt für Schritt Anleitung"
+      },
+      "default": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "nextButtonLabel": "Weiter",
+        "specifics": {
+          "explanation": "Fügen Sie nun den Bodenrichtwert hinzu. Den zum Grundstück zugehörigen Bodenrichtwert für Ihre Flurstücke können Sie unter dem folgenden Link (Bodenrichtwerte Deutschland) nach Eingabe der Adresse finden:",
+          "portalUrl": "https://www.bodenrichtwerte-boris.de/",
+          "portalDesc": "Zum Bodenrichtwert-Portal Deutschland"
         }
       },
-      "eingabe": {
-        "default": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "bodenrichtwert": {
-              "label": "Bodenrichtwert in €"
-            }
-          },
-          "specifics": {
-            "explanation": ""
-          }
-        },
-        "bb": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "bodenrichtwert": {
-              "label": "Bodenrichtwert in €"
-            }
-          },
-          "specifics": {
-            "explanation": ""
-          }
-        },
-        "be": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "bodenrichtwert": {
-              "label": "Bodenrichtwert in €"
-            }
-          },
-          "specifics": {
-            "explanation": "Übertragen Sie den ermittelten Bodenrichtwert von der externen Seite — die erste unterstrichene rote Zahl — in dieses Feld."
-          }
-        },
-        "hb": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "bodenrichtwert": {
-              "label": "Bodenrichtwert in €"
-            }
-          },
-          "specifics": {
-            "explanation": ""
-          }
-        },
-        "mv": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "bodenrichtwert": {
-              "label": "Bodenrichtwert in €"
-            }
-          },
-          "specifics": {
-            "explanation": ""
-          }
-        },
-        "nw": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "bodenrichtwert": {
-              "label": "Bodenrichtwert in €"
-            }
-          },
-          "specifics": {
-            "explanation": ""
-          }
-        },
-        "rp": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "bodenrichtwert": {
-              "label": "Bodenrichtwert in €"
-            }
-          },
-          "specifics": {
-            "explanation": ""
-          }
-        },
-        "sh": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "bodenrichtwert": {
-              "label": "Bodenrichtwert in €"
-            }
-          },
-          "specifics": {
-            "explanation": ""
-          }
-        },
-        "sl": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "bodenrichtwert": {
-              "label": "Bodenrichtwert in €"
-            }
-          },
-          "specifics": {
-            "explanation": ""
-          }
-        },
-        "sn": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "bodenrichtwert": {
-              "label": "Bodenrichtwert in €"
-            }
-          },
-          "specifics": {
-            "explanation": ""
-          }
-        },
-        "st": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "bodenrichtwert": {
-              "label": "Bodenrichtwert in €"
-            }
-          },
-          "specifics": {
-            "explanation": ""
-          }
-        },
-        "th": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "bodenrichtwert": {
-              "label": "Bodenrichtwert in €"
-            }
-          },
-          "specifics": {
-            "explanation": ""
-          }
+      "bb": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "nextButtonLabel": "Weiter",
+        "specifics": {
+          "explanation": "",
+          "portalUrl": "https://informationsportal-grundstuecksdaten.brandenburg.de",
+          "portalDesc": "Zum Bodenrichtwert-Portal Brandenburg"
         }
       },
-      "anzahl": {
-        "default": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "anzahl": {
-              "options": {
-                "1": {
-                  "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-                },
-                "2": {
-                  "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-                }
-              }
-            }
-          },
-          "specifics": {
-            "explanation": ""
+      "be": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "nextButtonLabel": "Weiter",
+        "specifics": {
+          "explanation": "Klicken sie auf den Link und geben Sie ihre Grundstücksadresse in der externen Seite ein. Auf einer Karte können Sie den Bodenrichtwert ablesen.",
+          "portalUrl": "https://fbinter.stadt-berlin.de/boris/",
+          "portalDesc": "Zum Bodenrichtwert-Portal Berlin"
+        }
+      },
+      "hb": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "nextButtonLabel": "Weiter",
+        "specifics": {
+          "explanation": "",
+          "portalUrl": "https://immobilienmarkt.niedersachsen.de/bodenrichtwerte?teilmarkt=Bauland&stichtag=2022-01-01&zoom=7.00",
+          "portalDesc": "Zum Bodenrichtwert-Portal Bremen"
+        }
+      },
+      "mv": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "nextButtonLabel": "Weiter",
+        "specifics": {
+          "explanation": "",
+          "portalUrl": "https://www.geodaten-mv.de/grundsteuerdaten/",
+          "portalDesc": "Zum Bodenrichtwert-Portal Mecklenburg-Vorpommern"
+        }
+      },
+      "nw": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "nextButtonLabel": "Weiter",
+        "specifics": {
+          "explanation": "",
+          "portalUrl": "https://www.finanzverwaltung.nrw.de/Grundsteuerreform",
+          "portalDesc": "Zum Bodenrichtwert-Portal Nordrhein-Westfahlen"
+        }
+      },
+      "rp": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "nextButtonLabel": "Weiter",
+        "specifics": {
+          "explanation": "",
+          "portalUrl": "https://maps.rlp.de/",
+          "portalDesc": "Zum Bodenrichtwert-Portal Rheinland-Pfalz"
+        }
+      },
+      "sh": {
+        "specifics": {
+          "explanation": "",
+          "portalUrl": "https://www.schleswig-holstein.de/grundsteuer",
+          "portalDesc": "Zum Bodenrichtwert-Portal Schleswig-Holstein"
+        }
+      },
+      "sl": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "nextButtonLabel": "Weiter",
+        "specifics": {
+          "explanation": "",
+          "portalUrl": "https://geoportal.saarland.de/Grundsteuer/",
+          "portalDesc": "Zum Bodenrichtwert-Portal Saarland"
+        }
+      },
+      "sn": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "nextButtonLabel": "Weiter",
+        "specifics": {
+          "explanation": "",
+          "portalUrl": "https://www.grundsteuer.sachsen.de",
+          "portalDesc": "Zum Bodenrichtwert-Portal Sachsen"
+        }
+      },
+      "st": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "nextButtonLabel": "Weiter",
+        "specifics": {
+          "explanation": "",
+          "portalUrl": "https://www.grundsteuerdaten.sachsen-anhalt.de/",
+          "portalDesc": "Zum Bodenrichtwert-Portal Sachsen-Anhalt"
+        }
+      },
+      "th": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "nextButtonLabel": "Weiter",
+        "specifics": {
+          "explanation": "",
+          "portalUrl": "https://thueringenviewer.thueringen.de/thviewer/grundsteuer.html",
+          "portalDesc": "Zum Bodenrichtwert-Portal Thüringen"
+        }
+      }
+    },
+    "bodenrichtwertEingabe": {
+      "default": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "bodenrichtwert": {
+            "label": "Bodenrichtwert in €"
           }
         },
-        "bb": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "anzahl": {
-              "options": {
-                "1": {
-                  "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-                },
-                "2": {
-                  "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-                }
-              }
-            }
-          },
-          "specifics": {
-            "explanation": ""
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "bb": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "bodenrichtwert": {
+            "label": "Bodenrichtwert in €"
           }
         },
-        "be": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "anzahl": {
-              "options": {
-                "1": {
-                  "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-                },
-                "2": {
-                  "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-                }
-              }
-            }
-          },
-          "specifics": {
-            "explanation": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "be": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "bodenrichtwert": {
+            "label": "Bodenrichtwert in €"
           }
         },
-        "hb": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "anzahl": {
-              "options": {
-                "1": {
-                  "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-                },
-                "2": {
-                  "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-                }
-              }
-            }
-          },
-          "specifics": {
-            "explanation": ""
+        "specifics": {
+          "explanation": "Übertragen Sie den ermittelten Bodenrichtwert von der externen Seite — die erste unterstrichene rote Zahl — in dieses Feld."
+        }
+      },
+      "hb": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "bodenrichtwert": {
+            "label": "Bodenrichtwert in €"
           }
         },
-        "mv": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "anzahl": {
-              "options": {
-                "1": {
-                  "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-                },
-                "2": {
-                  "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-                }
-              }
-            }
-          },
-          "specifics": {
-            "explanation": ""
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "mv": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "bodenrichtwert": {
+            "label": "Bodenrichtwert in €"
           }
         },
-        "nw": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "anzahl": {
-              "options": {
-                "1": {
-                  "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-                },
-                "2": {
-                  "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-                }
-              }
-            }
-          },
-          "specifics": {
-            "explanation": ""
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "nw": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "bodenrichtwert": {
+            "label": "Bodenrichtwert in €"
           }
         },
-        "rp": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "anzahl": {
-              "options": {
-                "1": {
-                  "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-                },
-                "2": {
-                  "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-                }
-              }
-            }
-          },
-          "specifics": {
-            "explanation": ""
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "rp": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "bodenrichtwert": {
+            "label": "Bodenrichtwert in €"
           }
         },
-        "sh": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "anzahl": {
-              "options": {
-                "1": {
-                  "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-                },
-                "2": {
-                  "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-                }
-              }
-            }
-          },
-          "specifics": {
-            "explanation": ""
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "sh": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "bodenrichtwert": {
+            "label": "Bodenrichtwert in €"
           }
         },
-        "sl": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "anzahl": {
-              "options": {
-                "1": {
-                  "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-                },
-                "2": {
-                  "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-                }
-              }
-            }
-          },
-          "specifics": {
-            "explanation": ""
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "sl": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "bodenrichtwert": {
+            "label": "Bodenrichtwert in €"
           }
         },
-        "sn": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "anzahl": {
-              "options": {
-                "1": {
-                  "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-                },
-                "2": {
-                  "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-                }
-              }
-            }
-          },
-          "specifics": {
-            "explanation": ""
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "sn": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "bodenrichtwert": {
+            "label": "Bodenrichtwert in €"
           }
         },
-        "st": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "anzahl": {
-              "options": {
-                "1": {
-                  "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-                },
-                "2": {
-                  "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-                }
-              }
-            }
-          },
-          "specifics": {
-            "explanation": ""
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "st": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "bodenrichtwert": {
+            "label": "Bodenrichtwert in €"
           }
         },
-        "th": {
-          "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-          "fields": {
-            "anzahl": {
-              "options": {
-                "1": {
-                  "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-                },
-                "2": {
-                  "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-                }
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "th": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "bodenrichtwert": {
+            "label": "Bodenrichtwert in €"
+          }
+        },
+        "specifics": {
+          "explanation": ""
+        }
+      }
+    },
+    "bodenrichtwertAnzahl": {
+      "default": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "anzahl": {
+            "options": {
+              "1": {
+                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
+              },
+              "2": {
+                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
               }
             }
-          },
-          "specifics": {
-            "explanation": ""
           }
+        },
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "bb": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "anzahl": {
+            "options": {
+              "1": {
+                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
+              },
+              "2": {
+                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
+              }
+            }
+          }
+        },
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "be": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "anzahl": {
+            "options": {
+              "1": {
+                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
+              },
+              "2": {
+                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
+              }
+            }
+          }
+        },
+        "specifics": {
+          "explanation": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
+        }
+      },
+      "hb": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "anzahl": {
+            "options": {
+              "1": {
+                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
+              },
+              "2": {
+                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
+              }
+            }
+          }
+        },
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "mv": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "anzahl": {
+            "options": {
+              "1": {
+                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
+              },
+              "2": {
+                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
+              }
+            }
+          }
+        },
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "nw": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "anzahl": {
+            "options": {
+              "1": {
+                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
+              },
+              "2": {
+                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
+              }
+            }
+          }
+        },
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "rp": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "anzahl": {
+            "options": {
+              "1": {
+                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
+              },
+              "2": {
+                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
+              }
+            }
+          }
+        },
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "sh": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "anzahl": {
+            "options": {
+              "1": {
+                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
+              },
+              "2": {
+                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
+              }
+            }
+          }
+        },
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "sl": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "anzahl": {
+            "options": {
+              "1": {
+                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
+              },
+              "2": {
+                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
+              }
+            }
+          }
+        },
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "sn": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "anzahl": {
+            "options": {
+              "1": {
+                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
+              },
+              "2": {
+                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
+              }
+            }
+          }
+        },
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "st": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "anzahl": {
+            "options": {
+              "1": {
+                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
+              },
+              "2": {
+                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
+              }
+            }
+          }
+        },
+        "specifics": {
+          "explanation": ""
+        }
+      },
+      "th": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "fields": {
+          "anzahl": {
+            "options": {
+              "1": {
+                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
+              },
+              "2": {
+                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
+              }
+            }
+          }
+        },
+        "specifics": {
+          "explanation": ""
         }
       }
     }

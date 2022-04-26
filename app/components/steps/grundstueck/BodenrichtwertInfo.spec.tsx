@@ -35,7 +35,7 @@ describe("BodenrichtwertInfo component", () => {
       "Should display $expectedText if bundesland is '$bundesland'",
       async ({ bundesland, expectedText }) => {
         defaultInput.i18n = await getI18nObject(
-          "grundstueck.bodenrichtwert.info." + bundesland.toLowerCase()
+          "grundstueck.bodenrichtwertInfo." + bundesland.toLowerCase()
         );
         defaultInput.allData = grundModelFactory
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment

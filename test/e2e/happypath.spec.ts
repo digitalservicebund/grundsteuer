@@ -299,15 +299,15 @@ describe("Happy Path", () => {
       .type(inputData.grundstueck.flurstueck.groesse.groesseQm);
     cy.get(submitBtnSelector).click();
 
-    cy.url().should("include", "/formular/grundstueck/bodenrichtwert/info");
+    cy.url().should("include", "/formular/grundstueck/bodenrichtwertInfo");
     cy.get("h1").contains("Bodenrichtwert");
     cy.get(submitBtnSelector).click();
-    cy.url().should("include", "/formular/grundstueck/bodenrichtwert/eingabe");
+    cy.url().should("include", "/formular/grundstueck/bodenrichtwertEingabe");
     cy.get("#bodenrichtwert")
       .clear()
       .type(inputData.grundstueck.bodenrichtwert.bodenrichtwert);
     cy.get(submitBtnSelector).click();
-    cy.url().should("include", "/formular/grundstueck/bodenrichtwert/anzahl");
+    cy.url().should("include", "/formular/grundstueck/bodenrichtwertAnzahl");
     cy.get("label[for=anzahl-1]").click();
     cy.get(submitBtnSelector).click();
 

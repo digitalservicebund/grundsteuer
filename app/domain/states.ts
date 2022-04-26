@@ -103,47 +103,41 @@ export const states: MachineConfig<any, any, any> = {
                     cond: "repeatFlurstueck",
                     actions: ["incrementFlurstueckId"],
                   },
-                  { target: "#grundstueck.bodenrichtwert" },
+                  { target: "#grundstueck.bodenrichtwertInfo" },
                 ],
                 BACK: [{ target: "flur" }],
               },
             },
           },
         },
-        bodenrichtwert: {
-          id: "bodenrichtwert",
-          initial: "info",
-          states: {
-            info: {
-              on: {
-                NEXT: [{ target: "eingabe" }],
-                BACK: [
-                  {
-                    target: "#flurstueck.groesse",
-                    actions: "setFlurstueckIdToMaximum",
-                  },
-                ],
+        bodenrichtwertInfo: {
+          on: {
+            NEXT: [{ target: "bodenrichtwertEingabe" }],
+            BACK: [
+              {
+                target: "#flurstueck.groesse",
+                actions: "setFlurstueckIdToMaximum",
               },
-            },
-            eingabe: {
-              on: {
-                NEXT: [{ target: "anzahl" }],
-                BACK: [
-                  {
-                    target: "info",
-                  },
-                ],
+            ],
+          },
+        },
+        bodenrichtwertEingabe: {
+          on: {
+            NEXT: [{ target: "bodenrichtwertAnzahl" }],
+            BACK: [
+              {
+                target: "bodenrichtwertInfo",
               },
-            },
-            anzahl: {
-              on: {
-                NEXT: [
-                  { target: "#steps.gebaeude", cond: "isBebaut" },
-                  { target: "#steps.eigentuemer" },
-                ],
-                BACK: [{ target: "eingabe" }],
-              },
-            },
+            ],
+          },
+        },
+        bodenrichtwertAnzahl: {
+          on: {
+            NEXT: [
+              { target: "#steps.gebaeude", cond: "isBebaut" },
+              { target: "#steps.eigentuemer" },
+            ],
+            BACK: [{ target: "bodenrichtwertEingabe" }],
           },
         },
       },
@@ -295,7 +289,7 @@ export const states: MachineConfig<any, any, any> = {
           },
         },
       },
-      on: { NEXT: "eigentuemer", BACK: "grundstueck.bodenrichtwert.anzahl" },
+      on: { NEXT: "eigentuemer", BACK: "grundstueck.bodenrichtwertAnzahl" },
     },
     eigentuemer: {
       id: "eigentuemer",
@@ -307,7 +301,7 @@ export const states: MachineConfig<any, any, any> = {
             BACK: [
               { target: "#steps.gebaeude.garagenAnzahl", cond: "hasGaragen" },
               { target: "#steps.gebaeude.garagen", cond: "isBebaut" },
-              { target: "#steps.grundstueck.bodenrichtwert.anzahl" },
+              { target: "#steps.grundstueck.bodenrichtwertAnzahl" },
             ],
           },
         },

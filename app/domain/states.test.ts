@@ -78,9 +78,9 @@ describe("states", () => {
       "grundstueck.flurstueck.1.angaben",
       "grundstueck.flurstueck.1.flur",
       "grundstueck.flurstueck.1.groesse",
-      "grundstueck.bodenrichtwert.info",
-      "grundstueck.bodenrichtwert.eingabe",
-      "grundstueck.bodenrichtwert.anzahl",
+      "grundstueck.bodenrichtwertInfo",
+      "grundstueck.bodenrichtwertEingabe",
+      "grundstueck.bodenrichtwertAnzahl",
     ];
 
     const defaultGebaeude = [
@@ -128,9 +128,9 @@ describe("states", () => {
           "grundstueck.flurstueck.1.angaben",
           "grundstueck.flurstueck.1.flur",
           "grundstueck.flurstueck.1.groesse",
-          "grundstueck.bodenrichtwert.info",
-          "grundstueck.bodenrichtwert.eingabe",
-          "grundstueck.bodenrichtwert.anzahl",
+          "grundstueck.bodenrichtwertInfo",
+          "grundstueck.bodenrichtwertEingabe",
+          "grundstueck.bodenrichtwertAnzahl",
           ...defaultEigentuemer,
           "zusammenfassung",
         ],

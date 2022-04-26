@@ -33,11 +33,10 @@ export default {
   },
   grundstueck: {
     uebersicht: GrundstueckUebersicht,
-    bodenrichtwert: {
-      info: BodenrichtwertInfo,
-      eingabe: BodenrichtwertEingabe,
-      anzahl: BodenrichtwertAnzahl,
-    },
+    bodenrichtwertInfo: BodenrichtwertInfo,
+    bodenrichtwertEingabe: BodenrichtwertEingabe,
+    bodenrichtwertAnzahl: BodenrichtwertAnzahl,
+
     flurstueck: {
       angaben: GrundstueckFlurstueckAngaben,
       flur: GrundstueckFlurstueckFlur,

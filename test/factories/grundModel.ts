@@ -1,17 +1,17 @@
 import { Factory } from "fishery";
 import _ from "lodash";
 import {
-  GrundModel,
   EigentuemerAnzahlFields,
   EigentuemerPersonGesetzlicherVertreterFields,
-  GrundstueckTypFields,
-  GrundstueckAnzahlFields,
-  GrundstueckAdresseFields,
-  GrundstueckSteuernummerFields,
-  GrundstueckGemeindeFields,
-  GrundstueckBodenrichtwertFields,
-  GrundstueckAbweichendeEntwicklungFields,
   Flurstueck,
+  GrundModel,
+  GrundstueckAbweichendeEntwicklungFields,
+  GrundstueckAdresseFields,
+  GrundstueckAnzahlFields,
+  GrundstueckBodenrichtwertFields,
+  GrundstueckGemeindeFields,
+  GrundstueckSteuernummerFields,
+  GrundstueckTypFields,
   Person,
 } from "~/domain/steps";
 import { GebaeudeAb1949Fields } from "~/domain/steps/gebaeude/ab1949";
@@ -163,15 +163,13 @@ class GrundModelFactory extends Factory<GrundModel> {
   ) {
     return this.params({
       grundstueck: {
-        bodenrichtwert: {
-          eingabe: {
-            bodenrichtwert: "200",
-            ...eingabeFields,
-          },
-          anzahl: {
-            anzahl: "1",
-            ...anzahlFields,
-          },
+        bodenrichtwertEingabe: {
+          bodenrichtwert: "200",
+          ...eingabeFields,
+        },
+        bodenrichtwertAnzahl: {
+          anzahl: "1",
+          ...anzahlFields,
         },
       },
     });
