@@ -2,7 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import ZusammenfassungAccordion, {
   ZusammenfassungAccordionProps,
 } from "~/components/form/ZusammenfassungAccordion";
-import { I18nObject } from "~/util/getStepI18n";
+import { I18nObject } from "~/i18n/getStepI18n";
 import { grundModelFactory } from "test/factories";
 
 describe("ZusammenfassungAccordion component", () => {

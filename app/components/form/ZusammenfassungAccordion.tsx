@@ -5,7 +5,7 @@ import Edit from "~/components/icons/mui/Edit";
 import { conditions } from "~/domain/guards";
 import Accordion, { AccordionItem } from "~/components/Accordion";
 import { GrundModel } from "~/domain/steps";
-import { I18nObject } from "~/util/getStepI18n";
+import { I18nObject } from "~/i18n/getStepI18n";
 import { GeneralErrors } from "~/routes/formular/zusammenfassung";
 
 const resolveJaNein = (value: string | undefined) => {

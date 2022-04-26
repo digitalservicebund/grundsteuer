@@ -6,7 +6,7 @@ import Checkbox, { CheckboxProps } from "./Checkbox";
 import Confirmation, {
   ConfirmationProps,
 } from "~/components/form/Confirmation";
-import { I18nObjectField } from "~/util/getStepI18n";
+import { I18nObjectField } from "~/i18n/getStepI18n";
 
 export type StepFormFieldProps = {
   name: string;

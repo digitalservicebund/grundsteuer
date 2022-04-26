@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { StepHeadline } from "~/components/StepHeadline";
-import { I18nObject } from "~/util/getStepI18n";
+import { I18nObject } from "~/i18n/getStepI18n";
 
 describe("StepHeadline component", () => {
   const defaultProps: I18nObject = {

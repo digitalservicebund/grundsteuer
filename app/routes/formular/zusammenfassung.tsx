@@ -26,7 +26,7 @@ import {
   validateAllStepsData,
   validateStepFormData,
 } from "~/domain/validation";
-import { getStepI18n, I18nObject } from "~/util/getStepI18n";
+import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
 import ZusammenfassungAccordion from "~/components/form/ZusammenfassungAccordion";
 import { removeUndefined } from "~/util/removeUndefined";
 

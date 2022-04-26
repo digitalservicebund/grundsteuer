@@ -34,7 +34,7 @@ import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
 import { getSession } from "~/session.server";
 import { Params } from "react-router";
-import { getStepI18n, I18nObject } from "~/util/getStepI18n";
+import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
 
 const getMachine = ({
   formData,

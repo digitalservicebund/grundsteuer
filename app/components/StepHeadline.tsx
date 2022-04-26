@@ -1,6 +1,6 @@
 import { Details } from "~/components";
 import QuestionMark from "~/components/icons/mui/QuestionMark";
-import { I18nObject } from "~/util/getStepI18n";
+import { I18nObject } from "~/i18n/getStepI18n";
 
 export function StepHeadline({ i18n }: { i18n: I18nObject }) {
   return (
