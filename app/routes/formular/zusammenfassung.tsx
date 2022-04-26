@@ -1,5 +1,6 @@
 import {
   ActionFunction,
+  json,
   LoaderFunction,
   MetaFunction,
   redirect,
@@ -28,6 +29,7 @@ import {
 import { getStepI18n, I18nObject } from "~/util/getStepI18n";
 import ZusammenfassungAccordion from "~/components/form/ZusammenfassungAccordion";
 import { removeUndefined } from "~/util/removeUndefined";
+import { commitSession } from "~/session.server";
 
 type LoaderData = {
   formData: StepFormData;
@@ -93,17 +95,18 @@ export const action: ActionFunction = async ({
     "zusammenfassung",
     zusammenfassungFormData
   );
-
-  // validate all steps' data
-  const generalErrors = await validateAllStepsData(formDataToBeStored);
-  if (Object.keys(generalErrors).length > 0) return { generalErrors };
-
   const headers = new Headers();
   await addFormDataCookiesToHeaders({
     headers,
     data: formDataToBeStored,
     user,
   });
+
+  // validate all steps' data
+  const generalErrors = await validateAllStepsData(formDataToBeStored);
+  if (Object.keys(generalErrors).length > 0) {
+    return json({ generalErrors }, { headers });
+  }
 
   return redirect("formular/erfolg", {
     headers,
