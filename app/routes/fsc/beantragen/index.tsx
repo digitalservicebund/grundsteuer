@@ -33,6 +33,8 @@ import {
   User,
 } from "~/domain/user";
 import invariant from "tiny-invariant";
+import validator from "validator";
+import { useTranslation } from "react-i18next";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -99,6 +101,23 @@ export const loader: LoaderFunction = async ({ request }) => {
   );
 };
 
+const validateInputSteuerId = (steuerId: string) =>
+  (validator.isEmpty(steuerId) && "errors.required") ||
+  (validator.isLength(steuerId, { min: 10, max: 10 }) &&
+    "errors.steuerId.maybeSteuernummer") ||
+  (!validator.isLength(steuerId, { min: 11, max: 11 }) &&
+    "errors.steuerId.wrongLength") ||
+  (!validator.isInt(steuerId) && "errors.steuerId.onlyNumbers") ||
+  (!validator.isTaxID(steuerId, "de-DE") && "errors.steuerId.invalid");
+
+const validateInputGeburtsdatum = (geburtsdatum: string) =>
+  (validator.isEmpty(geburtsdatum) && "errors.required") ||
+  (!validator.isDate(geburtsdatum, {
+    format: "DD.MM.YYYY",
+    delimiters: ["."],
+  }) &&
+    "errors.geburtsdatum.wrongFormat");
+
 export const action: ActionFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
@@ -109,41 +128,65 @@ export const action: ActionFunction = async ({ request }) => {
     "expected a matching user in the database from a user in a cookie session"
   );
 
-  const session = await getSession(request.headers.get("Cookie"));
-
   if (await wasEricaRequestSuccessful(userData)) {
     return redirect("/fsc/beantragen/erfolgreich");
   }
 
-  if (!(await isEricaRequestInProgress(userData))) {
-    const formData = await request.formData();
-    const steuerId = formData.get("steuerId");
-    const geburtsdatum = formData.get("geburtsdatum");
+  const ericaRequestIsInProgress = await isEricaRequestInProgress(userData);
 
-    if (steuerId && geburtsdatum) {
-      const ericaRequestId = await requestNewFreischaltCode(
-        steuerId.toString(),
-        geburtsdatum?.toString()
-      );
-
-      await saveEricaRequestIdFscBeantragen(user.email, ericaRequestId);
-    }
+  if (ericaRequestIsInProgress) {
+    return { inProgress: true };
   }
-  return json(
-    {
-      inProgress: await isEricaRequestInProgress(userData),
-    },
-    {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    }
+
+  const formData = await request.formData();
+  const steuerId = formData.get("steuerId");
+  const geburtsdatum = formData.get("geburtsdatum");
+
+  invariant(
+    typeof steuerId === "string",
+    "expected formData to include steuerId field of type string"
   );
+  invariant(
+    typeof geburtsdatum === "string",
+    "expected formData to include geburtsdatum field of type string"
+  );
+
+  const normalizedSteuerId = steuerId.replace(/[\s/]/g, "");
+  const normalizedGeburtsdatum = geburtsdatum.replace(/\s/g, "");
+
+  const errors = {
+    steuerId: validateInputSteuerId(normalizedSteuerId),
+    geburtsdatum: validateInputGeburtsdatum(normalizedGeburtsdatum),
+  };
+
+  const errorsExist = errors.steuerId || errors.geburtsdatum;
+
+  if (errorsExist) {
+    const filteredErrors = Object.entries(errors).reduce((acc, [k, v]) => {
+      return v ? { ...acc, [k]: v } : acc;
+    }, {});
+
+    return json({
+      errors: filteredErrors,
+    });
+  }
+
+  const ericaRequestId = await requestNewFreischaltCode(
+    normalizedSteuerId,
+    normalizedGeburtsdatum
+  );
+  await saveEricaRequestIdFscBeantragen(user.email, ericaRequestId);
+
+  return json({
+    inProgress: true,
+  });
 };
 
-export default function Redirect() {
+export default function FscBeantragen() {
+  const { t } = useTranslation("all");
   const loaderData = useLoaderData();
   const actionData = useActionData();
+  const errors = actionData?.errors;
 
   // We need to fetch data to check the result with Elster
   const fetcher = useFetcher();
@@ -166,12 +209,12 @@ export default function Redirect() {
       <pre>{JSON.stringify({ loaderData }, null, 2)}</pre>
       <pre>{JSON.stringify({ actionData }, null, 2)}</pre>
       <br />
-      <h1 className="text-32 mb-32">
+      <h1 className="mb-32 text-32">
         Beantragen Sie Ihren persönlichen Freischaltcode.
       </h1>
 
       {loaderData?.error && (
-        <div className="bg-red-200 border-2 border-red-800 p-16 mb-32">
+        <div className="p-16 mb-32 bg-red-200 border-2 border-red-800">
           Es ist ein Fehler aufgetreten.
         </div>
       )}
@@ -182,6 +225,7 @@ export default function Redirect() {
             name="steuerId"
             label="Steuer-Identifikationsnummer"
             help="Ihre Steuer-Identifikationsnummer finden Sie auf Ihren Steuerbescheiden, Lohnsteuerabrechnungen oder anderen Unterlagen, die Sie von Ihrem Finanzamt erhalten haben. Die Steuer-ID ist elfstellig."
+            error={t(errors?.steuerId)}
           />
         </FormGroup>
         <FormGroup>
@@ -189,7 +233,7 @@ export default function Redirect() {
             name="geburtsdatum"
             label="Geburtsdatum"
             placeholder="TT.MM.JJJJ"
-            error={actionData?.errors?.geburtsdatum}
+            error={t(errors?.geburtsdatum)}
           />
         </FormGroup>
         <Button>Freischaltcode beantragen</Button>

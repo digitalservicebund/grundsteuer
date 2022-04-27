@@ -97,6 +97,15 @@
       "notMatching": "Passwörter stimmen nicht überein.",
       "tooShort": "Das Passwort ist zu kurz. Geben Sie bitte mindestens 8 Zeichen ein.",
       "tooLong": "Das Passwort ist zu lang. Geben Sie bitte nicht mehr als 64 Zeichen ein."
+    },
+    "steuerId": {
+      "maybeSteuernummer": "Die Steuer-Identifikationsnummer ist genau 11-stellig. Ihre Eingabe ist 10-stellig. Bitte prüfen Sie, ob Sie versehentlich Ihre \"Steuernummer\" (10-stellig) statt Ihrer \"IdNr.\" eigegeben haben.",
+      "wrongLength": "Die Steuer-Identifikationsnummer ist genau 11-stellig. Bitte überprüfen Sie Ihre Eingabe.",
+      "onlyNumbers": "Die Steuer-Identifikationsnummer besteht nur aus Zahlen. Bitte überprüfen Sie Ihre Eingabe.",
+      "invalid": "Die eingegebene Steuer-Identifikationsnummer ist ungültig. Bitte überprüfen Sie Ihre Eingabe."
+    },
+    "geburtsdatum": {
+      "wrongFormat": "Bitte geben Sie Ihr Geburtsdatum im Format TT.MM.JJJJ ein, z.B. 24.12.1975 oder 14.04.2000."
     }
   },
   "nav": {

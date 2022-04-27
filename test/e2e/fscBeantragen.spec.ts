@@ -1,4 +1,7 @@
 /// <reference types="../../cypress/support" />
+
+const validSteuerId = "77 819 250 434";
+
 describe("/beantragen", () => {
   beforeEach(() => {
     cy.request("GET", "http://localhost:8000/reset");
@@ -15,10 +18,23 @@ describe("/beantragen", () => {
   it("should show spinner if data is correct and mockErica returns no result", () => {
     cy.request("GET", "http://localhost:8000/triggerDelayedResponse");
     cy.visit("/fsc/beantragen");
-    cy.get("[name=steuerId]").type("04531972802");
+    cy.get("[name=steuerId]").type(validSteuerId);
     cy.get("[name=geburtsdatum]").type("01.08.1291");
     cy.get("form button").click();
     cy.contains("Ihr Freischaltcode wird beantragt.");
+  });
+
+  it("should show error messages and no spinner if user input is invalid", () => {
+    cy.request("GET", "http://localhost:8000/triggerDelayedResponse");
+    cy.visit("/fsc/beantragen");
+    cy.get("[name=steuerId]").type("invalid");
+    cy.get("[name=geburtsdatum]").type("invalid");
+    cy.get("form button").click();
+    cy.contains("Bitte geben Sie Ihr Geburtsdatum im Format TT.MM.JJJJ ein");
+    cy.contains(
+      "Die Steuer-Identifikationsnummer ist genau 11-stellig. Bitte überprüfen Sie Ihre Eingabe."
+    );
+    cy.contains("Ihr Freischaltcode wird beantragt.").should("not.exist");
   });
 
   it("should show spinner if ericaRequestId already in database", () => {
@@ -34,7 +50,7 @@ describe("/beantragen", () => {
     cy.request("GET", "http://localhost:8000/triggerDirectResponse");
     cy.request("GET", "http://localhost:8000/triggerSuccess");
     cy.visit("/fsc/beantragen");
-    cy.get("[name=steuerId]").type("04531972802");
+    cy.get("[name=steuerId]").type(validSteuerId);
     cy.get("[name=geburtsdatum]").type("01.08.1291");
     cy.get("form button").click();
     cy.url().should("include", "/fsc/beantragen/erfolgreich");
@@ -44,7 +60,7 @@ describe("/beantragen", () => {
     cy.request("GET", "http://localhost:8000/triggerDirectResponse");
     cy.request("GET", "http://localhost:8000/triggerFailure");
     cy.visit("/fsc/beantragen");
-    cy.get("[name=steuerId]").type("04531972802");
+    cy.get("[name=steuerId]").type(validSteuerId);
     cy.get("[name=geburtsdatum]").type("01.08.1291");
     cy.get("form button").click();
     cy.contains("Es ist ein Fehler aufgetreten");
@@ -70,7 +86,7 @@ describe("/beantragen", () => {
     cy.request("GET", "http://localhost:8000/triggerFailure");
     cy.request("GET", "http://localhost:8000/triggerUnexpectedFailure");
     cy.visit("/fsc/beantragen");
-    cy.get("[name=steuerId]").type("04531972802");
+    cy.get("[name=steuerId]").type(validSteuerId);
     cy.get("[name=geburtsdatum]").type("01.08.1291");
     cy.get("form button").click();
     cy.wait("@beantragen").then((intercept) => {
