@@ -12,6 +12,18 @@ import { createUser, userExists } from "~/domain/user";
 import { Button, FormGroup, Input, SimplePageLayout } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 
+const validateInputEmail = async (normalizedEmail: string) =>
+  (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
+  (!validateEmail({ value: normalizedEmail }) && "errors.email.wrongFormat") ||
+  ((await userExists(normalizedEmail)) && "errors.email.alreadyExists");
+
+const validateInputPassword = (normalizedEmail: string, password: string) =>
+  (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
+  (!validateMinLength({ value: password, minLength: 8 }) &&
+    "errors.password.tooShort") ||
+  (!validateMaxLength({ value: password, maxLength: 64 }) &&
+    "errors.password.tooLong");
+
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
 
@@ -41,21 +53,12 @@ export const action: ActionFunction = async ({ request }) => {
   const normalizedEmailRepeated = emailRepeated.trim().toLowerCase();
 
   const errors = {
-    email:
-      (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
-      (!validateEmail({ value: normalizedEmail }) &&
-        "errors.email.wrongFormat") ||
-      ((await userExists(normalizedEmail)) && "errors.email.alreadyExists"),
+    email: await validateInputEmail(normalizedEmail),
 
     emailRepeated:
       normalizedEmail !== normalizedEmailRepeated && "errors.email.notMatching",
 
-    password:
-      (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
-      (!validateMinLength({ value: password, minLength: 8 }) &&
-        "errors.password.tooShort") ||
-      (!validateMaxLength({ value: password, maxLength: 64 }) &&
-        "errors.password.tooLong"),
+    password: validateInputPassword(normalizedEmail, password),
 
     passwordRepeated:
       password !== passwordRepeated && "errors.password.notMatching",
