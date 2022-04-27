@@ -9,7 +9,7 @@ import { createMachine } from "xstate";
 import _ from "lodash";
 import { Button } from "~/components";
 import {
-  addFormDataCookiesToHeaders,
+  createHeadersWithFormDataCookie,
   getStoredFormData,
 } from "~/formDataStorage.server";
 import { getStepData, setStepData, StepFormData } from "~/domain/model";
@@ -210,9 +210,7 @@ export const action: ActionFunction = async ({ params, request }) => {
     currentState,
     stepFormData
   );
-  const headers = new Headers();
-  await addFormDataCookiesToHeaders({
-    headers,
+  const headers = await createHeadersWithFormDataCookie({
     data: formDataToBeStored,
     user,
   });

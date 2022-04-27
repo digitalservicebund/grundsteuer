@@ -1,6 +1,6 @@
 import {
   getStoredFormData,
-  addFormDataCookiesToHeaders,
+  createHeadersWithFormDataCookie,
   createFormDataCookie,
   createFormDataCookieName,
 } from "~/formDataStorage.server";
@@ -208,7 +208,7 @@ describe("getStoredFormData", () => {
   });
 });
 
-describe("addFormDataCookiesToHeaders", () => {
+describe("createHeadersWithFormDataCookie", () => {
   const originalEnv = process.env;
   const data = { sensitiveData: "secret" } as GrundModel;
 
@@ -225,27 +225,23 @@ describe("addFormDataCookiesToHeaders", () => {
   });
 
   it("returns encrypted cookie string", async () => {
-    const headers = new Headers();
-    await addFormDataCookiesToHeaders({ headers, data, user });
-    expect(headers.get("Set-Cookie")).not.toContain("secret");
+    const headers = await createHeadersWithFormDataCookie({ data, user });
+    expect(headers?.get("Set-Cookie")).not.toContain("secret");
   });
 
   it("returns cookie string with flag SameSite=Strict", async () => {
-    const headers = new Headers();
-    await addFormDataCookiesToHeaders({ headers, data, user });
-    expect(headers.get("Set-Cookie")).toContain("SameSite=Strict");
+    const headers = await createHeadersWithFormDataCookie({ data, user });
+    expect(headers?.get("Set-Cookie")).toContain("SameSite=Strict");
   });
 
   it("returns cookie string with flag HttpOnly", async () => {
-    const headers = new Headers();
-    await addFormDataCookiesToHeaders({ headers, data, user });
-    expect(headers.get("Set-Cookie")).toContain("HttpOnly");
+    const headers = await createHeadersWithFormDataCookie({ data, user });
+    expect(headers?.get("Set-Cookie")).toContain("HttpOnly");
   });
 
   it("returns cookie string with flag Secure", async () => {
-    const headers = new Headers();
-    await addFormDataCookiesToHeaders({ headers, data, user });
-    expect(headers.get("Set-Cookie")).toContain("Secure");
+    const headers = await createHeadersWithFormDataCookie({ data, user });
+    expect(headers?.get("Set-Cookie")).toContain("Secure");
   });
 
   describe("with large data", () => {
@@ -255,9 +251,11 @@ describe("addFormDataCookiesToHeaders", () => {
     } as GrundModel;
 
     it("returns cookie string with a second cookie", async () => {
-      const headers = new Headers();
-      await addFormDataCookiesToHeaders({ headers, data: largeData, user });
-      expect(headers.get("Set-Cookie")).toContain("form_data_1_");
+      const headers = await createHeadersWithFormDataCookie({
+        data: largeData,
+        user,
+      });
+      expect(headers?.get("Set-Cookie")).toContain("form_data_1_");
     });
   });
 });

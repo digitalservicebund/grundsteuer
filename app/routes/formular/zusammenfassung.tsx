@@ -7,7 +7,7 @@ import {
 } from "@remix-run/node";
 import { Form, useActionData, useLoaderData } from "@remix-run/react";
 import {
-  addFormDataCookiesToHeaders,
+  createHeadersWithFormDataCookie,
   getStoredFormData,
 } from "~/formDataStorage.server";
 import { GrundModel, StepDefinition } from "~/domain/steps";
@@ -94,9 +94,8 @@ export const action: ActionFunction = async ({
     "zusammenfassung",
     zusammenfassungFormData
   );
-  const headers = new Headers();
-  await addFormDataCookiesToHeaders({
-    headers,
+
+  const headers = await createHeadersWithFormDataCookie({
     data: formDataToBeStored,
     user,
   });

@@ -94,14 +94,13 @@ export const getStoredFormData: GetStoredFormDataFunction = async ({
   }
 };
 
-type AddFormDataCookiesToHeadersFunction = (options: {
-  headers: Headers;
+type CreateHeadersWithFormDataCookie = (options: {
   data: GrundModel;
   user: SessionUser;
-}) => Promise<void>;
+}) => Promise<Headers | undefined>;
 
-export const addFormDataCookiesToHeaders: AddFormDataCookiesToHeadersFunction =
-  async ({ headers, data, user }) => {
+export const createHeadersWithFormDataCookie: CreateHeadersWithFormDataCookie =
+  async ({ data, user }) => {
     // Size limit of one Set-Cookie header
     // (we can set several Set-Cookie headers in one request)
     const MAX_COOKIE_SIZE = 4096;
@@ -146,6 +145,7 @@ export const addFormDataCookiesToHeaders: AddFormDataCookiesToHeadersFunction =
       );
     }
 
+    const headers = new Headers();
     for (let index = 0; index < slicedData.length; index++) {
       const dataSlice = slicedData[index];
       const cookie = createFormDataCookie({ userId: user.id, index });
@@ -172,4 +172,5 @@ export const addFormDataCookiesToHeaders: AddFormDataCookiesToHeadersFunction =
 
       headers.append("Set-Cookie", cookieWithData);
     }
+    return headers;
   };
