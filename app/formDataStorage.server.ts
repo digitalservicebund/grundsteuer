@@ -38,7 +38,7 @@ export const createFormDataCookie: CreateFormDataCookieFunction = ({
     "environment variable FORM_COOKIE_SECRET is not set"
   );
   const name = createFormDataCookieName({ userId, index });
-  const cookie = createCookie(name, {
+  return createCookie(name, {
     path: "/",
     maxAge: 604_800 * 4, // 4 weeks
     httpOnly: true,
@@ -46,7 +46,6 @@ export const createFormDataCookie: CreateFormDataCookieFunction = ({
     secure: !["local", "gha"].includes(process.env.APP_ENV as string),
     secrets: [process.env.FORM_COOKIE_SECRET],
   });
-  return cookie;
 };
 
 type GetStoredFormDataFunction = (options: {
@@ -148,7 +147,7 @@ export const addFormDataCookiesToHeaders: AddFormDataCookiesToHeadersFunction =
     }
 
     for (let index = 0; index < slicedData.length; index++) {
-      const data = slicedData[index];
+      const dataSlice = slicedData[index];
       const cookie = createFormDataCookie({ userId: user.id, index });
 
       // The first (authoritive) cookie gets a "file signature".
@@ -160,7 +159,7 @@ export const addFormDataCookiesToHeaders: AddFormDataCookiesToHeadersFunction =
       // is always (over)written). We don't delete cookies, so it's possible
       // to have stale cookies.
       const cookieWithData = await cookie.serialize(
-        index === 0 ? `${slicesCount}${data}` : data
+        index === 0 ? `${slicesCount}${dataSlice}` : dataSlice
       );
 
       // When our assumptions are right, this should not happen.
