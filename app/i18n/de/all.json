@@ -916,7 +916,7 @@
         "nextButtonLabel": "Weiter",
         "specifics": {
           "explanation": "",
-          "portalUrl": "https://www.finanzverwaltung.nrw.de/Grundsteuerreform",
+          "portalUrl": "https://grundsteuer-geodaten.nrw.de/",
           "bundesland": "Nordrhein-Westfahlen"
         }
       },
@@ -930,9 +930,11 @@
         }
       },
       "sh": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "nextButtonLabel": "Weiter",
         "specifics": {
           "explanation": "",
-          "portalUrl": "https://www.schleswig-holstein.de/grundsteuer",
+          "portalUrl": "https://danord.gdi-sh.de/viewer/resources/apps/bodenrichtwertefuergrundsteuerzweckesh",
           "bundesland": "Schleswig-Holstein"
         }
       },
