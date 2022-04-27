@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@digitalservice4germany/digital-service-library": "^0.0.19",
-    "@prisma/client": "^3.12.0",
+    "@prisma/client": "^3.13.0",
     "@radix-ui/react-accordion": "^0.1.6",
     "@remix-run/express": "^1.4.1",
     "@remix-run/node": "^1.4.1",
@@ -90,7 +90,7 @@
     "@types/morgan": "^1.9.3",
     "@types/node": "^17.0.23",
     "@types/node-cron": "^3.0.1",
-    "@types/react": "^18.0.2",
+    "@types/react": "^18.0.7",
     "@types/react-dom": "^18.0.0",
     "@types/validator": "^13.7.2",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
