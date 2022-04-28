@@ -106,6 +106,11 @@ const transformWirtschaftlicheEinheitZaehler = (value?: string) => {
   return fillPostCommaToLength(4, value)?.replace(",", ".");
 };
 
+const transformDate = (value?: string) => {
+  if (!value) return undefined;
+  return value.split(".").reverse().join("-");
+};
+
 const calculateWohnflaechen = (
   wohnflaeche?: GebaeudeWohnflaecheFields,
   wohnflaechen?: GebaeudeWohnflaechenFields
@@ -134,7 +139,10 @@ const transformFlurstueck = (flurstueck: Flurstueck) => {
 
 const transformPerson = (person: Person) => {
   return {
-    persoenlicheAngaben: person.persoenlicheAngaben,
+    persoenlicheAngaben: {
+      ...person.persoenlicheAngaben,
+      geburtsdatum: transformDate(person.persoenlicheAngaben?.geburtsdatum),
+    },
     adresse: {
       strasse: person.adresse?.strasse,
       ...separateHausnummerAndZusatz(person.adresse?.hausnummer),

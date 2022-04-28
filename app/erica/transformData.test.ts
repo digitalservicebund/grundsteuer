@@ -15,7 +15,7 @@ describe("transforDataToEricaFormat", () => {
         titel: "1 Titel",
         vorname: "1 Vorname",
         name: "1 Name",
-        geburtsdatum: "01.01.1111",
+        geburtsdatum: "31.01.1111",
       },
       adresse: {
         strasse: "1 Strasse",
@@ -294,7 +294,7 @@ describe("transforDataToEricaFormat", () => {
                 titel: "1 Titel",
                 vorname: "1 Vorname",
                 name: "1 Name",
-                geburtsdatum: "01.01.1111",
+                geburtsdatum: "1111-01-31",
               },
               adresse: {
                 strasse: "1 Strasse",
@@ -317,7 +317,7 @@ describe("transforDataToEricaFormat", () => {
                 titel: "2 Titel",
                 vorname: "2 Vorname",
                 name: "2 Name",
-                geburtsdatum: "02.02.2222",
+                geburtsdatum: "2222-02-02",
               },
               adresse: {
                 strasse: "2 Strasse",
