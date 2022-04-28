@@ -7,12 +7,14 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useMatches,
 } from "@remix-run/react";
 import { i18Next } from "~/i18n.server";
 import { useSetupTranslations } from "remix-i18next";
 import { pageTitle } from "~/util/pageTitle";
 import styles from "public/tailwind.css";
 import ogImage from "~/assets/images/og-image.png";
+import { Spinner } from "./components";
 
 export const links: LinksFunction = () => {
   return [
@@ -88,6 +90,12 @@ export function ErrorBoundary({ error }: { error: Error }) {
 export default function App() {
   const loaderData = useLoaderData();
   useSetupTranslations("de");
+  const matches = useMatches();
+
+  const fscBeantragenMatch = matches.filter(
+    (match) => match.id === "routes/fsc/beantragen/index"
+  )[0];
+  const showSpinner = fscBeantragenMatch?.data?.showSpinner;
 
   return (
     <html lang="de">
@@ -103,8 +111,9 @@ export default function App() {
           ></script>
         )}
       </head>
-      <body className="flex flex-col min-h-screen bg-gray-100 text-black leading-default">
+      <body className="flex flex-col min-h-screen text-black bg-gray-100 leading-default">
         <Outlet />
+        {showSpinner && <Spinner />}
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

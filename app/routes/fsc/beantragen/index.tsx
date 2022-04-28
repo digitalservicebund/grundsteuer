@@ -62,10 +62,6 @@ export const loader: LoaderFunction = async ({ request }) => {
     "expected a matching user in the database from a user in a cookie session"
   );
 
-  const session = await getSession(request.headers.get("Cookie"));
-
-  let error = false;
-
   if (await wasEricaRequestSuccessful(userData)) {
     return redirect("/fsc/beantragen/erfolgreich");
   }
@@ -80,7 +76,10 @@ export const loader: LoaderFunction = async ({ request }) => {
         await deleteEricaRequestIdFscBeantragen(user.email);
       } else if (elsterRequestIdOrError?.errorType == "EricaUserInputError") {
         await deleteEricaRequestIdFscBeantragen(user.email);
-        error = true;
+        return {
+          error: true,
+          showSpinner: false,
+        };
       } else {
         await deleteEricaRequestIdFscBeantragen(user.email);
         throw new Error(elsterRequestIdOrError?.errorType);
@@ -88,17 +87,12 @@ export const loader: LoaderFunction = async ({ request }) => {
     }
   }
 
-  return json(
-    {
-      inProgress: await isEricaRequestInProgress(userData),
-      error,
-    },
-    {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    }
-  );
+  const inProgress = await isEricaRequestInProgress(userData);
+
+  return {
+    error: false,
+    showSpinner: inProgress,
+  };
 };
 
 const validateInputSteuerId = (steuerId: string) =>
@@ -135,7 +129,7 @@ export const action: ActionFunction = async ({ request }) => {
   const ericaRequestIsInProgress = await isEricaRequestInProgress(userData);
 
   if (ericaRequestIsInProgress) {
-    return { inProgress: true };
+    return {};
   }
 
   const formData = await request.formData();
@@ -177,9 +171,7 @@ export const action: ActionFunction = async ({ request }) => {
   );
   await saveEricaRequestIdFscBeantragen(user.email, ericaRequestId);
 
-  return json({
-    inProgress: true,
-  });
+  return {};
 };
 
 export default function FscBeantragen() {
@@ -198,17 +190,8 @@ export default function FscBeantragen() {
     return () => clearInterval(interval);
   }, []);
 
-  const spinnerElement =
-    (actionData?.inProgress || loaderData?.inProgress) && !loaderData?.error ? (
-      <Spinner />
-    ) : null;
-
   return (
     <SimplePageLayout>
-      {spinnerElement}
-      <pre>{JSON.stringify({ loaderData }, null, 2)}</pre>
-      <pre>{JSON.stringify({ actionData }, null, 2)}</pre>
-      <br />
       <h1 className="mb-32 text-32">
         Beantragen Sie Ihren persönlichen Freischaltcode.
       </h1>
