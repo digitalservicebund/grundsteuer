@@ -16,6 +16,7 @@ import _ from "lodash";
 import { EigentuemerBruchteilsgemeinschaftFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaft";
 import { EigentuemerBruchteilsgemeinschaftAngabenFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
 import { EigentuemerPersonAdresseFields } from "~/domain/steps/eigentuemer/person/adresse";
+import { EigentuemerPersonAnteilFields } from "~/domain/steps/eigentuemer/person/anteil";
 
 export const calculateGroesse = (
   groesse: GrundstueckFlurstueckGroesseFields
@@ -137,6 +138,10 @@ const transformFlurstueck = (flurstueck: Flurstueck) => {
   };
 };
 
+export const transformAnteil = (anteil?: EigentuemerPersonAnteilFields) => {
+  return !anteil ? { zaehler: "1", nenner: "1" } : anteil;
+};
+
 const transformPerson = (person: Person) => {
   return {
     persoenlicheAngaben: {
@@ -163,7 +168,7 @@ const transformPerson = (person: Person) => {
       },
       telefonnummer: person.vertreter?.adresse?.telefonnummer,
     },
-    anteil: person.anteil,
+    anteil: transformAnteil(person.anteil),
   };
 };
 

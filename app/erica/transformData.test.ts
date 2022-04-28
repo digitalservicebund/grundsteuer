@@ -4,6 +4,7 @@ import {
   fillPostCommaToLength,
   separateHausnummerAndZusatz,
   transforDataToEricaFormat,
+  transformAnteil,
 } from "~/erica/transformData";
 import { Person } from "~/domain/steps";
 
@@ -681,6 +682,27 @@ describe("fillPostCommaToLength", () => {
     "Should return '$output' if value is '$value' and postCommaLength '$postCommaLength",
     ({ value, postCommaLength, output }) => {
       expect(fillPostCommaToLength(postCommaLength, value)).toEqual(output);
+    }
+  );
+});
+
+describe("transformAnteil", () => {
+  const cases = [
+    {
+      anteil: { zaehler: "1", nenner: "2" },
+      output: { zaehler: "1", nenner: "2" },
+    },
+    {
+      anteil: { zaehler: "23", nenner: "45" },
+      output: { zaehler: "23", nenner: "45" },
+    },
+    { anteil: undefined, output: { zaehler: "1", nenner: "1" } },
+  ];
+
+  test.each(cases)(
+    "Should return '$output' if anteil is '$anteil'",
+    ({ anteil, output }) => {
+      expect(transformAnteil(anteil)).toEqual(output);
     }
   );
 });
