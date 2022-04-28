@@ -167,7 +167,7 @@ describe("transforDataToEricaFormat", () => {
                 flur: "Test1",
                 flurstueckZaehler: "23",
                 flurstueckNenner: "45",
-                wirtschaftlicheEinheitZaehler: "67,1000",
+                wirtschaftlicheEinheitZaehler: "67.1000",
                 wirtschaftlicheEinheitNenner: "89",
               },
               groesseQm: "1234",
@@ -178,7 +178,7 @@ describe("transforDataToEricaFormat", () => {
                 flur: "Test2",
                 flurstueckZaehler: "34",
                 flurstueckNenner: "56",
-                wirtschaftlicheEinheitZaehler: "78,0000",
+                wirtschaftlicheEinheitZaehler: "78.0000",
                 wirtschaftlicheEinheitNenner: "90",
               },
               groesseQm: "12345",
@@ -304,12 +304,8 @@ describe("transforDataToEricaFormat", () => {
                 plz: "1 PLZ",
                 ort: "1 Ort",
               },
-              telefonnummer: {
-                telefonnummer: "111111",
-              },
-              steuerId: {
-                steuerId: "1111",
-              },
+              telefonnummer: "111111",
+              steuerId: "1111",
               anteil: {
                 zaehler: "1",
                 nenner: "2",
@@ -331,12 +327,8 @@ describe("transforDataToEricaFormat", () => {
                 plz: "2 PLZ",
                 ort: "2 Ort",
               },
-              telefonnummer: {
-                telefonnummer: "222222",
-              },
-              steuerId: {
-                steuerId: "2222",
-              },
+              telefonnummer: "222222",
+              steuerId: "2222",
               vertreter: {
                 name: {
                   anrede: "herr",
@@ -352,9 +344,7 @@ describe("transforDataToEricaFormat", () => {
                   plz: "VERT PLZ",
                   ort: "VERT Ort",
                 },
-                telefonnummer: {
-                  telefonnummer: "333333",
-                },
+                telefonnummer: "333333",
               },
               anteil: {
                 zaehler: "3",
@@ -362,9 +352,7 @@ describe("transforDataToEricaFormat", () => {
               },
             },
           ],
-          verheiratet: {
-            areVerheiratet: "false",
-          },
+          verheiratet: "false",
           bruchteilsgemeinschaft: {
             name: "BTG Name",
             adresse: {
@@ -391,9 +379,7 @@ describe("transforDataToEricaFormat", () => {
               plz: "EMP PLZ",
               ort: "EMP Ort",
             },
-            telefonnummer: {
-              telefonnummer: "12345",
-            },
+            telefonnummer: "12345",
           },
         },
       };
@@ -462,7 +448,7 @@ describe("transforDataToEricaFormat", () => {
         flur: "Test1",
         flurstueckZaehler: "23",
         flurstueckNenner: "45",
-        wirtschaftlicheEinheitZaehler: "67,0000",
+        wirtschaftlicheEinheitZaehler: "67.0000",
         wirtschaftlicheEinheitNenner: "89",
       },
       groesse: {

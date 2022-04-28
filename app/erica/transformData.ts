@@ -102,6 +102,10 @@ export const fillPostCommaToLength = (
   );
 };
 
+const transformWirtschaftlicheEinheitZaehler = (value?: string) => {
+  return fillPostCommaToLength(4, value)?.replace(",", ".");
+};
+
 const calculateWohnflaechen = (
   wohnflaeche?: GebaeudeWohnflaecheFields,
   wohnflaechen?: GebaeudeWohnflaechenFields
@@ -118,8 +122,7 @@ const transformFlurstueck = (flurstueck: Flurstueck) => {
     angaben: flurstueck.angaben,
     flur: {
       ...flurstueck.flur,
-      wirtschaftlicheEinheitZaehler: fillPostCommaToLength(
-        4,
+      wirtschaftlicheEinheitZaehler: transformWirtschaftlicheEinheitZaehler(
         flurstueck.flur?.wirtschaftlicheEinheitZaehler
       ),
     },
@@ -139,10 +142,8 @@ const transformPerson = (person: Person) => {
       plz: person.adresse?.plz,
       ort: person.adresse?.ort,
     },
-    telefonnummer: {
-      telefonnummer: person.adresse?.telefonnummer,
-    },
-    steuerId: person.steuerId,
+    telefonnummer: person.adresse?.telefonnummer,
+    steuerId: person.steuerId?.steuerId,
     vertreter: {
       name: person.vertreter?.name,
       adresse: {
@@ -152,9 +153,7 @@ const transformPerson = (person: Person) => {
         plz: person.vertreter?.adresse?.plz,
         ort: person.vertreter?.adresse?.ort,
       },
-      telefonnummer: {
-        telefonnummer: person.vertreter?.adresse?.telefonnummer,
-      },
+      telefonnummer: person.vertreter?.adresse?.telefonnummer,
     },
     anteil: person.anteil,
   };
@@ -238,7 +237,7 @@ export const transforDataToEricaFormat = (inputData: GrundModel) => {
     },
     eigentuemer: {
       person: inputData.eigentuemer?.person?.map(transformPerson),
-      verheiratet: inputData.eigentuemer?.verheiratet,
+      verheiratet: inputData.eigentuemer?.verheiratet?.areVerheiratet,
       bruchteilsgemeinschaft: transformBruchteilsgemeinschaft(
         inputData.eigentuemer?.bruchteilsgemeinschaft,
         inputData.eigentuemer?.bruchteilsgemeinschaftangaben?.angaben,
@@ -259,11 +258,9 @@ export const transforDataToEricaFormat = (inputData: GrundModel) => {
           plz: inputData.eigentuemer?.empfangsbevollmaechtigter?.adresse?.plz,
           ort: inputData.eigentuemer?.empfangsbevollmaechtigter?.adresse?.ort,
         },
-        telefonnummer: {
-          telefonnummer:
-            inputData.eigentuemer?.empfangsbevollmaechtigter?.adresse
-              ?.telefonnummer,
-        },
+        telefonnummer:
+          inputData.eigentuemer?.empfangsbevollmaechtigter?.adresse
+            ?.telefonnummer,
       },
     },
     freitext: transformFreitext(
