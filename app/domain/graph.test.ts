@@ -1,4 +1,29 @@
-import { getReachablePaths, Graph } from "~/domain/graph";
+import { createGraph, getReachablePaths, Graph } from "~/domain/graph";
+
+describe("createGraph", () => {
+  describe("with empty data", () => {
+    it("returns an empty object for enabled step", () => {
+      const result = createGraph({ machineContext: {} });
+      expect((result.eigentuemer as Graph).anzahl).toEqual({
+        data: undefined,
+        path: "eigentuemer.anzahl",
+        pathWithId: "eigentuemer.anzahl",
+      });
+    });
+
+    it("returns only steps for person 1", () => {
+      const result = createGraph({ machineContext: {} });
+      expect((result.eigentuemer as Graph).person).toHaveLength(1);
+      expect(
+        (((result.eigentuemer as Graph).person as Graph[])[0] as Graph).adresse
+      ).toEqual({
+        data: undefined,
+        path: "eigentuemer.person.adresse",
+        pathWithId: "eigentuemer.person.1.adresse",
+      });
+    });
+  });
+});
 
 describe("getReachablePaths", () => {
   describe("with simple graph", function () {

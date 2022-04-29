@@ -1,7 +1,7 @@
 import { createMachine } from "xstate";
 import { getShortestPaths } from "@xstate/graph";
 import _ from "lodash";
-import { getStepData } from "~/domain/model";
+import { getStepData, idToIndex } from "~/domain/model";
 import { conditions } from "~/domain/guards";
 import { actions } from "~/domain/actions";
 import { getMachineConfig, StateMachineContext } from "~/domain/states";
@@ -41,7 +41,7 @@ export const createGraph = ({
   });
 
   return list.reduce((acc, item) => {
-    return _.set(acc, item.pathWithId, item);
+    return _.set(acc, idToIndex(item.pathWithId), item);
   }, {});
 };
 

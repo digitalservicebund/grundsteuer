@@ -55,14 +55,12 @@ const renderGraph = (
           } else if (Array.isArray(v)) {
             return (
               <div key={k}>
-                {v
-                  .filter((c) => c)
-                  .map((c, index) => (
-                    <div key={index}>
-                      {t(`nav.headline.${k}`, { number: index + 1 })}{" "}
-                      {renderGraph(c, level + 1, currentState, t)}
-                    </div>
-                  ))}
+                {v.map((c, index) => (
+                  <div key={index}>
+                    {t(`nav.headline.${k}`, { number: index + 1 })}{" "}
+                    {renderGraph(c, level + 1, currentState, t)}
+                  </div>
+                ))}
               </div>
             );
           } else {
