@@ -12,7 +12,7 @@ import {
   useLoaderData,
 } from "@remix-run/react";
 import { authenticator } from "~/auth.server";
-import { Button, FormGroup, Input, SimplePageLayout } from "~/components";
+import { Button, FormGroup, Input } from "~/components";
 import {
   requestNewFreischaltCode,
   retrieveAntragsId,
@@ -28,6 +28,7 @@ import {
 import invariant from "tiny-invariant";
 import validator from "validator";
 import { useTranslation } from "react-i18next";
+import { removeUndefined } from "~/util/removeUndefined";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -149,12 +150,8 @@ export const action: ActionFunction = async ({ request }) => {
   const errorsExist = errors.steuerId || errors.geburtsdatum;
 
   if (errorsExist) {
-    const filteredErrors = Object.entries(errors).reduce((acc, [k, v]) => {
-      return v ? { ...acc, [k]: v } : acc;
-    }, {});
-
     return json({
-      errors: filteredErrors,
+      errors: removeUndefined(errors),
     });
   }
 

@@ -11,6 +11,7 @@ import {
 import { createUser, userExists } from "~/domain/user";
 import { Button, FormGroup, Input, SimplePageLayout } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
+import { removeUndefined } from "~/util/removeUndefined";
 
 const validateInputEmail = async (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -75,12 +76,8 @@ export const action: ActionFunction = async ({ request }) => {
     return redirect("/registrieren/erfolgreich");
   }
 
-  const filteredErrors = Object.entries(errors).reduce((acc, [k, v]) => {
-    return v ? { ...acc, [k]: v } : acc;
-  }, {});
-
   return {
-    errors: filteredErrors,
+    errors: removeUndefined(errors),
   };
 };
 
