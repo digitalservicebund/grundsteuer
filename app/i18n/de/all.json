@@ -99,7 +99,6 @@
       "tooLong": "Das Passwort ist zu lang. Geben Sie bitte nicht mehr als 64 Zeichen ein."
     },
     "steuerId": {
-      "maybeSteuernummer": "Die Steuer-Identifikationsnummer ist genau 11-stellig. Ihre Eingabe ist 10-stellig. Bitte prüfen Sie, ob Sie versehentlich Ihre \"Steuernummer\" (10-stellig) statt Ihrer \"IdNr.\" eigegeben haben.",
       "wrongLength": "Die Steuer-Identifikationsnummer ist genau 11-stellig. Bitte überprüfen Sie Ihre Eingabe.",
       "onlyNumbers": "Die Steuer-Identifikationsnummer besteht nur aus Zahlen. Bitte überprüfen Sie Ihre Eingabe.",
       "invalid": "Die eingegebene Steuer-Identifikationsnummer ist ungültig. Bitte überprüfen Sie Ihre Eingabe."

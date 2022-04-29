@@ -91,8 +91,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 const validateInputSteuerId = (steuerId: string) =>
   (validator.isEmpty(steuerId) && "errors.required") ||
-  (validator.isLength(steuerId, { min: 10, max: 10 }) &&
-    "errors.steuerId.maybeSteuernummer") ||
   (!validator.isLength(steuerId, { min: 11, max: 11 }) &&
     "errors.steuerId.wrongLength") ||
   (!validator.isInt(steuerId) && "errors.steuerId.onlyNumbers") ||
