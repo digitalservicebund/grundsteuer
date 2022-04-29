@@ -42,6 +42,13 @@ describe("user", () => {
     });
   });
 
+  const unsetEricaRequestIdFscBeantragen = () => {
+    db.user.update({
+      where: { email: "existing@foo.com" },
+      data: { ericaRequestIdFscBeantragen: undefined },
+    });
+  };
+
   describe("createUser", () => {
     it("should succeed on new email", async () => {
       const email = "new@foo.com";
@@ -119,19 +126,8 @@ describe("user", () => {
   });
 
   describe("saveEricaRequestIdFscBeantragen", () => {
-    beforeEach(() => {
-      db.user.update({
-        where: { email: "existing@foo.com" },
-        data: { ericaRequestIdFscBeantragen: undefined },
-      });
-    });
-
-    afterEach(() => {
-      db.user.update({
-        where: { email: "existing@foo.com" },
-        data: { ericaRequestIdFscBeantragen: undefined },
-      });
-    });
+    beforeEach(unsetEricaRequestIdFscBeantragen);
+    afterEach(unsetEricaRequestIdFscBeantragen);
 
     it("should store requestId on user", async () => {
       await saveEricaRequestIdFscBeantragen("existing@foo.com", "bar");
@@ -150,19 +146,8 @@ describe("user", () => {
   });
 
   describe("deleteEricaRequestIdFscBeantragen", () => {
-    beforeEach(() => {
-      db.user.update({
-        where: { email: "existing@foo.com" },
-        data: { ericaRequestIdFscBeantragen: null },
-      });
-    });
-
-    afterEach(() => {
-      db.user.update({
-        where: { email: "existing@foo.com" },
-        data: { ericaRequestIdFscBeantragen: null },
-      });
-    });
+    beforeEach(unsetEricaRequestIdFscBeantragen);
+    afterEach(unsetEricaRequestIdFscBeantragen);
 
     it("should keep requestId null if user had no request id prior", async () => {
       await deleteEricaRequestIdFscBeantragen("existing@foo.com");

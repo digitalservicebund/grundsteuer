@@ -36,7 +36,7 @@ describe("/registrieren action", () => {
 
   describe('"fails"', () => {
     test("with errors when user with email already exists", async () => {
-      mockUserExists.mockImplementationOnce(() => new Promise((r) => r(true)));
+      mockUserExists.mockImplementationOnce(() => Promise.resolve(true));
       const args = mockActionArgs({ formData: validFormData });
       const errors = { email: "errors.email.alreadyExists" };
       expect(await action(args)).toEqual({ errors });
