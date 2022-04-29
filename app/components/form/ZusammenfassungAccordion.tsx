@@ -639,7 +639,8 @@ export default function ZusammenfassungAccordion({
               "eigentuemer.empfangsvollmacht.hasEmpfangsvollmacht",
               resolveJaNein
             )}
-            {conditions.hasEmpfangsbevollmaechtigter(allData) && (
+            {(conditions.hasEmpfangsbevollmaechtigter(allData) ||
+              conditions.isBruchteilsgemeinschaft(allData)) && (
               <div
                 className="bg-gray-300 mx-4"
                 id={"empfangsbevollmaechtigter"}
