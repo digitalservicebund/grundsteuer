@@ -53,7 +53,7 @@ describe("isEricaRequestProcessed", () => {
   it("should return true if status is Failure", () => {
     expect(
       ericaUtils.isEricaRequestProcessed({
-        processStatus: "Success",
+        processStatus: "Failure",
         result: null,
         errorCode: null,
         errorMessage: null,

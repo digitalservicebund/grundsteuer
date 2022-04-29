@@ -173,7 +173,7 @@ describe("user", () => {
       expect(user?.ericaRequestIdFscBeantragen).toBeNull();
     });
 
-    it("should delete requestId null if user had request id prior", async () => {
+    it("should delete requestId if user had request id prior", async () => {
       await saveEricaRequestIdFscBeantragen("existing@foo.com", "bar");
       await deleteEricaRequestIdFscBeantragen("existing@foo.com");
 
@@ -185,7 +185,7 @@ describe("user", () => {
 
     it("should fail on unknown user", async () => {
       await expect(async () => {
-        await saveEricaRequestIdFscBeantragen("unknown@foo.com", "bar");
+        await deleteEricaRequestIdFscBeantragen("unknown@foo.com");
       }).rejects.toThrow("not found");
     });
   });
