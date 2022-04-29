@@ -1,10 +1,10 @@
 import { StepDefinition } from "~/domain/steps";
 
-export type GrundstueckBodenrichtwertFields = {
+export type GrundstueckBodenrichtwertEingabeFields = {
   bodenrichtwert: string;
 };
 
-export const grundstueckBodenrichtwert: StepDefinition = {
+export const grundstueckBodenrichtwertEingabe: StepDefinition = {
   fields: {
     bodenrichtwert: {
       validations: {

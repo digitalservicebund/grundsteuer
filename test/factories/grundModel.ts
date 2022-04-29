@@ -8,7 +8,7 @@ import {
   GrundstueckAbweichendeEntwicklungFields,
   GrundstueckAdresseFields,
   GrundstueckAnzahlFields,
-  GrundstueckBodenrichtwertFields,
+  GrundstueckBodenrichtwertEingabeFields,
   GrundstueckGemeindeFields,
   GrundstueckSteuernummerFields,
   GrundstueckTypFields,
@@ -158,7 +158,7 @@ class GrundModelFactory extends Factory<GrundModel> {
   }
 
   grundstueckBodenrichtwert(
-    eingabeFields?: Partial<GrundstueckBodenrichtwertFields>,
+    eingabeFields?: Partial<GrundstueckBodenrichtwertEingabeFields>,
     anzahlFields?: Partial<GrundstueckBodenrichtwertAnzahlFields>
   ) {
     return this.params({

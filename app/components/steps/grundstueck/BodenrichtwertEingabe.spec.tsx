@@ -3,12 +3,12 @@ import { getI18nObject } from "test/factories/i18n";
 import { grundModelFactory } from "test/factories";
 import { I18nObject } from "~/i18n/getStepI18n";
 import BodenrichtwertEingabe from "~/components/steps/grundstueck/BodenrichtwertEingabe";
-import { grundstueckBodenrichtwert } from "~/domain/steps/grundstueck/bodenrichtwert/bodenrichtwert";
+import { grundstueckBodenrichtwertEingabe } from "~/domain/steps/grundstueck/bodenrichtwert/eingabe";
 
 describe("BodenrichtwertEingabe component", () => {
   describe("should render for each bundesland", () => {
     const defaultInput = {
-      stepDefinition: grundstueckBodenrichtwert,
+      stepDefinition: grundstueckBodenrichtwertEingabe,
       formData: {},
       allData: {},
       i18n: {} as I18nObject,

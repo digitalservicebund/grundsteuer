@@ -156,9 +156,9 @@ import {
 export type { GrundstueckFlurstueckGroesseFields };
 
 import {
-  grundstueckBodenrichtwert,
-  GrundstueckBodenrichtwertFields,
-} from "./grundstueck/bodenrichtwert/bodenrichtwert";
+  grundstueckBodenrichtwertEingabe,
+  GrundstueckBodenrichtwertEingabeFields,
+} from "./grundstueck/bodenrichtwert/eingabe";
 
 import {
   grundstueckBodenrichtwertAnzahl,
@@ -199,7 +199,7 @@ import {
 } from "~/domain/steps/zusammenfassung";
 import { ValidationConfig } from "~/domain/validation";
 
-export type { GrundstueckBodenrichtwertFields };
+export type { GrundstueckBodenrichtwertEingabeFields };
 
 const stepDefinitions = {
   grundstueck: {
@@ -209,7 +209,7 @@ const stepDefinitions = {
     abweichendeEntwicklung: grundstueckAbweichendeEntwicklung,
     gemeinde: grundstueckGemeinde,
     anzahl: grundstueckAnzahl,
-    bodenrichtwertEingabe: grundstueckBodenrichtwert,
+    bodenrichtwertEingabe: grundstueckBodenrichtwertEingabe,
     bodenrichtwertAnzahl: grundstueckBodenrichtwertAnzahl,
     flurstueck: {
       angaben: grundstueckFlurstueckAngaben,
@@ -286,7 +286,7 @@ export type GrundModel = {
     abweichendeEntwicklung?: GrundstueckAbweichendeEntwicklungFields;
     gemeinde?: GrundstueckGemeindeFields;
     anzahl?: GrundstueckAnzahlFields;
-    bodenrichtwertEingabe?: GrundstueckBodenrichtwertFields;
+    bodenrichtwertEingabe?: GrundstueckBodenrichtwertEingabeFields;
     bodenrichtwertAnzahl?: GrundstueckBodenrichtwertAnzahlFields;
     flurstueck?: Flurstueck[];
   };
