@@ -12,19 +12,12 @@ import {
   useLoaderData,
 } from "@remix-run/react";
 import { authenticator } from "~/auth.server";
-import {
-  Button,
-  FormGroup,
-  Input,
-  SimplePageLayout,
-  Spinner,
-} from "~/components";
+import { Button, FormGroup, Input, SimplePageLayout } from "~/components";
 import {
   requestNewFreischaltCode,
   retrieveAntragsId,
 } from "~/erica/freischaltCode";
 
-import { commitSession, getSession } from "~/session.server";
 import {
   deleteEricaRequestIdFscBeantragen,
   findUserByEmail,
@@ -191,7 +184,7 @@ export default function FscBeantragen() {
   }, []);
 
   return (
-    <SimplePageLayout>
+    <div>
       <h1 className="mb-32 text-32">
         Beantragen Sie Ihren persönlichen Freischaltcode.
       </h1>
@@ -226,6 +219,6 @@ export default function FscBeantragen() {
           </Button>
         </div>
       </Form>
-    </SimplePageLayout>
+    </div>
   );
 }

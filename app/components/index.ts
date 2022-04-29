@@ -17,6 +17,7 @@ export { default as RadioGroup } from "./form/RadioGroup";
 export { default as Select } from "./form/Select";
 export { default as Spinner } from "./Spinner";
 export { default as FormSidebarNavigation } from "./FormSidebarNavigation";
+export { default as SidebarNavigation } from "./SidebarNavigation";
 export { default as SimplePageLayout } from "./SimplePageLayout";
 export { default as StepFormField } from "./form/StepFormField";
 export { default as StepFormFields } from "./form/StepFormFields";

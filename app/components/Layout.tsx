@@ -26,14 +26,14 @@ const Layout = ({
   topNavigation,
 }: LayoutProps) => {
   return (
-    <div className="flex items-stretch min-h-full">
-      <header className="w-[220px] flex-shrink-0 hidden lg:block ">
-        <div className="h-full h-md:sticky h-md:top-0 h-md:h-screen bg-grey-100">
+    <div className="flex items-stretch min-h-screen">
+      <header className="w-[256px] flex-shrink-0 hidden lg:block">
+        <div className="h-full bg-white border border-red-500">
           {sidebarNavigation}
         </div>
       </header>
       <div className="flex flex-col flex-grow">
-        <header className="flex-shrink-0 lg:hidden bg-grey-100">
+        <header className="flex-shrink-0 bg-white lg:hidden">
           {topNavigation}
         </header>
         <main className="flex-grow">{children}</main>

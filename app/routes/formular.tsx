@@ -5,6 +5,7 @@ import {
   Button,
   Footer,
   FormSidebarNavigation,
+  SidebarNavigation,
   Layout,
   LogoutButton,
 } from "~/components";
@@ -55,8 +56,7 @@ export default function Formular() {
     <Layout
       footer={<Footer />}
       sidebarNavigation={
-        <div className="p-2">
-          <Link to="/">Home</Link>
+        <SidebarNavigation>
           <LogoutButton />
           <FscButton />
           <br />
@@ -65,7 +65,7 @@ export default function Formular() {
             graph={graph}
             initialCurrentState={currentState}
           />
-        </div>
+        </SidebarNavigation>
       }
       topNavigation={
         <div className="p-4 bg-blue-100">
