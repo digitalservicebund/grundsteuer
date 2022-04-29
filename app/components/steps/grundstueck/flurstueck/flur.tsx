@@ -1,6 +1,5 @@
 import type { StepComponentFunction } from "~/routes/formular/_step";
 import { StepFormField } from "~/components";
-import { GrundstueckFlurstueckFlurFields } from "~/domain/steps";
 import Slash from "~/components/icons/mui/Slash";
 import { getFieldProps } from "~/util/getFieldProps";
 

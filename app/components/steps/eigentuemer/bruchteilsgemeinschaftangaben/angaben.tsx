@@ -1,6 +1,5 @@
 import type { StepComponentFunction } from "~/routes/formular/_step";
 import { StepFormField } from "~/components";
-import { EigentuemerBruchteilsgemeinschaftAngabenFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
 import { getFieldProps } from "~/util/getFieldProps";
 
 const EigentuemerBruchteilsgemeinschaftAngaben: StepComponentFunction = ({

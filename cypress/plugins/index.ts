@@ -25,7 +25,7 @@ import {
 export default (on, config) => {
   on("task", {
     dbRemoveFsc: async (userEmail) => {
-      return await db.fscRequest.deleteMany({
+      return db.fscRequest.deleteMany({
         where: { User: { email: userEmail } },
       });
     },
