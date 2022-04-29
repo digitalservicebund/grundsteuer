@@ -32,6 +32,6 @@ Cypress.Commands.add("login", () => {
     cy.get("[name=email]").type("foo@bar.com");
     cy.get("[name=password]").type("12345678");
     cy.get("[data-testid=submit").click();
-    cy.url().should("contain", "/formular");
+    cy.url().should("contain", "/fsc");
   });
 });
