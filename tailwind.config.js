@@ -1,8 +1,5 @@
 module.exports = {
-  content: [
-    "./app/**/*.{ts,tsx}",
-    "./node_modules/@digitalservice4germany/digital-service-library/dist/esm/index.js",
-  ],
+  content: ["./app/**/*.{ts,tsx}"],
   theme: {
     colors: {
       inherit: "inherit",

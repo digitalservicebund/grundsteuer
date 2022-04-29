@@ -1,11 +1,11 @@
 import { LoaderFunction } from "@remix-run/node";
 import { Link, Outlet, useLoaderData } from "@remix-run/react";
-import { Layout } from "@digitalservice4germany/digital-service-library";
 import { getStoredFormData } from "~/formDataStorage.server";
 import {
   Button,
   Footer,
   FormSidebarNavigation,
+  Layout,
   LogoutButton,
 } from "~/components";
 import { createGraph } from "~/domain";
