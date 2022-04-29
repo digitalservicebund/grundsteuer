@@ -25,7 +25,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 export const action: ActionFunction = async ({ request }) => {
   try {
     return await authenticator.authenticate("user-pass", request, {
-      successRedirect: "/formular/welcome",
+      successRedirect: "/fsc",
       throwOnError: true,
     });
   } catch (error) {
@@ -44,13 +44,13 @@ export default function Anmelden() {
 
   return (
     <SimplePageLayout>
-      <h1 className="text-32 mb-32">
+      <h1 className="mb-32 text-32">
         Herzlich willkommen!
         <br />
         Bitte melden Sie sich an.
       </h1>
       {actionData?.error && (
-        <div className="bg-red-200 border-2 border-red-800 p-16 mb-32">
+        <div className="p-16 mb-32 bg-red-200 border-2 border-red-800">
           E-Mail-Adresse und/oder Passwort falsch.
         </div>
       )}
@@ -73,7 +73,7 @@ export default function Anmelden() {
 
       {!loaderData?.userIsComingfromSuccessfulRegistration && (
         <div>
-          <h2 className="text-32 mb-32">Noch nicht registriert?</h2>
+          <h2 className="mb-32 text-32">Noch nicht registriert?</h2>
           <Button to="/registrieren">Konto erstellen</Button>
         </div>
       )}

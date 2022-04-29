@@ -219,7 +219,12 @@ export default function FscBeantragen() {
             error={t(errors?.geburtsdatum)}
           />
         </FormGroup>
-        <Button>Freischaltcode beantragen</Button>
+        <div className="flex flex-row-reverse justify-between items-center">
+          <Button>Freischaltcode beantragen</Button>
+          <Button look="secondary" to="/formular/welcome">
+            Später beantragen
+          </Button>
+        </div>
       </Form>
     </SimplePageLayout>
   );

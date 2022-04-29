@@ -6,7 +6,7 @@ describe("/anmelden", () => {
     cy.get("[name=email]").type("foo@bar.com");
     cy.get("[name=password]").type("12345678");
     cy.get("form button").click();
-    cy.url().should("include", "/formular/welcome");
+    cy.url().should("include", "/fsc/beantragen");
   });
 
   it("should fail on wrong username", () => {
