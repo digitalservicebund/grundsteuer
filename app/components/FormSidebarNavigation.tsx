@@ -12,7 +12,7 @@ export function NavigationLink(props: any) {
 
   return (
     <div>
-      {data && Object.keys(data).length > 0 ? (
+      {data ? (
         <span className="inline-block w-2 h-2 bg-green-500 rounded-full mr-1"></span>
       ) : (
         ""

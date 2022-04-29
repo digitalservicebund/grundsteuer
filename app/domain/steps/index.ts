@@ -279,6 +279,7 @@ export type Person = {
 };
 
 export type GrundModel = {
+  welcome?: object;
   grundstueck?: {
     adresse?: GrundstueckAdresseFields;
     steuernummer?: GrundstueckSteuernummerFields;

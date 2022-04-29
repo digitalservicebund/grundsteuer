@@ -22,6 +22,15 @@ describe("createGraph", () => {
         pathWithId: "eigentuemer.person.1.adresse",
       });
     });
+
+    it("includes steps that have empty data set", () => {
+      const result = createGraph({ machineContext: { welcome: {} } });
+      expect(result.welcome).toEqual({
+        data: {},
+        path: "welcome",
+        pathWithId: "welcome",
+      });
+    });
   });
 });
 
