@@ -41,6 +41,7 @@ const PortalButton = (props: PortalButtonProps) => {
       size="large"
       look={props.border ? "tertiary" : "ghost"}
       href={props.portalUrl}
+      target={"_blank"}
       icon={<PortalIcon />}
       className={props.classNames}
     >
