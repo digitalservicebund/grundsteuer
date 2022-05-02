@@ -28,9 +28,7 @@ const Layout = ({
   return (
     <div className="flex items-stretch min-h-screen">
       <header className="w-[256px] flex-shrink-0 hidden lg:block">
-        <div className="h-full bg-white border border-red-500">
-          {sidebarNavigation}
-        </div>
+        <div className="h-full bg-white">{sidebarNavigation}</div>
       </header>
       <div className="flex flex-col flex-grow">
         <header className="flex-shrink-0 bg-white lg:hidden">

@@ -8,7 +8,7 @@ import { getMachineConfig, StateMachineContext } from "~/domain/states";
 import { getPathsFromState } from "~/util/getPathsFromState";
 import { GrundModel } from "~/domain/steps";
 
-type GraphChildElement = {
+export type GraphChildElement = {
   path: string;
   pathWithId: string;
   data: Partial<GrundModel>;
