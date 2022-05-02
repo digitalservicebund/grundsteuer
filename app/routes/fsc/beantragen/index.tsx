@@ -34,9 +34,12 @@ import {
   User,
 } from "~/domain/user";
 import invariant from "tiny-invariant";
-import validator from "validator";
 import { useTranslation } from "react-i18next";
 import { removeUndefined } from "~/util/removeUndefined";
+import {
+  validateInputGeburtsdatum,
+  validateInputSteuerId,
+} from "~/domain/validation";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -96,21 +99,6 @@ export const loader: LoaderFunction = async ({ request }) => {
     showSpinner: inProgress,
   };
 };
-
-const validateInputSteuerId = (steuerId: string) =>
-  (validator.isEmpty(steuerId) && "errors.required") ||
-  (!validator.isLength(steuerId, { min: 11, max: 11 }) &&
-    "errors.steuerId.wrongLength") ||
-  (!validator.isInt(steuerId) && "errors.steuerId.onlyNumbers") ||
-  (!validator.isTaxID(steuerId, "de-DE") && "errors.steuerId.invalid");
-
-const validateInputGeburtsdatum = (geburtsdatum: string) =>
-  (validator.isEmpty(geburtsdatum) && "errors.required") ||
-  (!validator.isDate(geburtsdatum, {
-    format: "DD.MM.YYYY",
-    delimiters: ["."],
-  }) &&
-    "errors.geburtsdatum.wrongFormat");
 
 export const action: ActionFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {

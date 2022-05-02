@@ -504,6 +504,22 @@ export const validateDateInPast: ValidateFunctionDefault = ({ value }) => {
   );
 };
 
+export const validateInputGeburtsdatum = (geburtsdatum: string) =>
+  (validator.isEmpty(geburtsdatum) && "errors.required") ||
+  (!validator.isDate(geburtsdatum, {
+    format: "DD.MM.YYYY",
+    delimiters: ["."],
+  }) &&
+    "errors.geburtsdatum.wrongFormat");
+
+export const validateInputSteuerId = (steuerId: string) =>
+  (validator.isEmpty(steuerId) && "errors.required") ||
+  (!validator.isLength(steuerId, { min: 11, max: 11 }) &&
+    "errors.steuerId.wrongLength") ||
+  (!validator.isInt(steuerId) && "errors.steuerId.onlyNumbers") ||
+  (!validator.isTaxID(steuerId, "de-DE") &&
+    "errors.steuerId.invalid");
+
 interface DefaultValidation {
   msg?: string;
 }
