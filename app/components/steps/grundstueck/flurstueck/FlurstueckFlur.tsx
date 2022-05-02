@@ -1,5 +1,5 @@
 import type { StepComponentFunction } from "~/routes/formular/_step";
-import { StepFormField } from "~/components";
+import { StepFormField, SubHeadline } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 import InputFraction from "~/components/form/InputFraction";
 
@@ -15,11 +15,13 @@ const FlurstueckFlur: StepComponentFunction = ({
     <div>
       <StepFormField {...fieldProps[0]} />
       <InputFraction
+        className="mb-56"
         zaehler={<StepFormField {...fieldProps[1]} />}
         nenner={<StepFormField {...fieldProps[2]} />}
       />
-      <h2 className="font-bold my-8">{i18n.specifics.subHeadingAnteil}</h2>
+      <SubHeadline>{i18n.specifics.subHeadingAnteil}</SubHeadline>
       <InputFraction
+        className="mb-56"
         zaehler={<StepFormField {...fieldProps[3]} />}
         nenner={<StepFormField {...fieldProps[4]} />}
       />

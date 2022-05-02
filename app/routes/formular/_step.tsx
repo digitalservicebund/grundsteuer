@@ -7,7 +7,7 @@ import {
 import { Form, useActionData, useLoaderData } from "@remix-run/react";
 import { createMachine } from "xstate";
 import _ from "lodash";
-import { Button } from "~/components";
+import { Button, ContentContainer } from "~/components";
 import {
   createHeadersWithFormDataCookie,
   getStoredFormData,
@@ -270,33 +270,31 @@ export function Step() {
   }
 
   return (
-    <div className="flex flex-col md:flex-row flex-grow h-full">
-      <div className="pt-32 max-w-screen-md mx-auto w-1/2">
-        <StepHeadline i18n={i18n} />
-        <Form
-          method="post"
-          className="mb-16"
-          key={currentState}
-          action={redirectToSummary ? "?redirectToSummary=true" : ""}
-        >
-          <StepComponent {...loaderData} {...actionData} />
-          <div className="flex flex-row-reverse items-center justify-between">
-            <Button id="nextButton">{nextButtonLabel}</Button>
-            {backUrl ? (
-              <Button to={backUrl} look="tertiary">
-                {i18n.common.back}
-              </Button>
-            ) : (
-              ""
-            )}
-          </div>
-        </Form>
-      </div>
-      {HelpComponent && (
+    <ContentContainer size="sm">
+      <StepHeadline i18n={i18n} />
+      <Form
+        method="post"
+        className="mb-16"
+        key={currentState}
+        action={redirectToSummary ? "?redirectToSummary=true" : ""}
+      >
+        <StepComponent {...loaderData} {...actionData} />
+        <div className="flex flex-row-reverse items-center justify-between">
+          <Button id="nextButton">{nextButtonLabel}</Button>
+          {backUrl ? (
+            <Button to={backUrl} look="tertiary">
+              {i18n.common.back}
+            </Button>
+          ) : (
+            ""
+          )}
+        </div>
+      </Form>
+      {HelpComponent && false && (
         <div className="md:w-1/4 bg-blue-400 h-full px-16 py-32">
           <HelpComponent {...loaderData} {...actionData} />
         </div>
       )}
-    </div>
+    </ContentContainer>
   );
 }

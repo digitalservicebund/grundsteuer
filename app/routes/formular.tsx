@@ -8,6 +8,7 @@ import {
   SidebarNavigation,
   Layout,
   LogoutButton,
+  Main,
 } from "~/components";
 import { createGraph } from "~/domain";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
@@ -93,9 +94,9 @@ export default function Formular() {
         </div>
       }
     >
-      <div className="h-full md:pl-16">
+      <Main>
         <Outlet />
-      </div>
+      </Main>
     </Layout>
   );
 }

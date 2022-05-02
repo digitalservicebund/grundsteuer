@@ -113,4 +113,9 @@
   .button:focus:not(:focus-visible) {
     @apply outline-none;
   }
+
+  /* form-group */
+  .form-group:last-of-type {
+    @apply mb-64;
+  }
 }

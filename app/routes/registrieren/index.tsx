@@ -141,7 +141,7 @@ export default function Registrieren() {
             />
           </FormGroup>
 
-          <FormGroup isLast>
+          <FormGroup>
             <Input
               type="password"
               name="passwordRepeated"
