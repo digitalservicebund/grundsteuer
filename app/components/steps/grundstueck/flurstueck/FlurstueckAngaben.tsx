@@ -8,7 +8,7 @@ import angabenGrundbuchPageMedium from "~/assets/images/angaben-grundbuch-page-m
 import { useTranslation } from "react-i18next";
 import { ImageLightbox } from "~/components/ImageLightbox";
 
-const GrundstueckFlurstueckAngaben: StepComponentFunction = (props) => {
+const FlurstueckAngaben: StepComponentFunction = (props) => {
   return (
     <div>
       <StepFormFields {...props} />
@@ -16,7 +16,7 @@ const GrundstueckFlurstueckAngaben: StepComponentFunction = (props) => {
   );
 };
 
-export default GrundstueckFlurstueckAngaben;
+export default FlurstueckAngaben;
 
 export const GrundstueckFlurstueckAngabenHelp: HelpComponentFunction = ({
   i18n,

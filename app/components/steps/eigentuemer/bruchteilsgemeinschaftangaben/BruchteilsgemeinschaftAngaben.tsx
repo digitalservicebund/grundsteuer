@@ -2,7 +2,7 @@ import type { StepComponentFunction } from "~/routes/formular/_step";
 import { StepFormField } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 
-const EigentuemerBruchteilsgemeinschaftAngaben: StepComponentFunction = ({
+const BruchteilsgemeinschaftAngaben: StepComponentFunction = ({
   stepDefinition,
   formData,
   i18n,
@@ -32,4 +32,4 @@ const EigentuemerBruchteilsgemeinschaftAngaben: StepComponentFunction = ({
   );
 };
 
-export default EigentuemerBruchteilsgemeinschaftAngaben;
+export default BruchteilsgemeinschaftAngaben;

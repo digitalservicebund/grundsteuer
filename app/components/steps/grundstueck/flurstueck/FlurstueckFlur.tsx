@@ -3,7 +3,7 @@ import { StepFormField } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 import InputFraction from "~/components/form/InputFraction";
 
-const GrundstueckFlurstueckFlur: StepComponentFunction = ({
+const FlurstueckFlur: StepComponentFunction = ({
   stepDefinition,
   formData,
   i18n,
@@ -27,4 +27,4 @@ const GrundstueckFlurstueckFlur: StepComponentFunction = ({
   );
 };
 
-export default GrundstueckFlurstueckFlur;
+export default FlurstueckFlur;
