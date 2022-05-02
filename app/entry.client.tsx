@@ -1,15 +1,24 @@
+import { RemixBrowser } from "@remix-run/react";
 import i18next from "i18next";
+import Backend from "i18next-http-backend";
 import { hydrate } from "react-dom";
 import { I18nextProvider, initReactI18next } from "react-i18next";
-import { RemixBrowser } from "@remix-run/react";
+import { getInitialNamespaces } from "remix-i18next";
 
 i18next
   .use(initReactI18next)
+  .use(Backend)
   .init({
     supportedLngs: ["de"],
     defaultNS: "all",
     fallbackLng: "de",
     react: { useSuspense: false },
+    ns: getInitialNamespaces(),
+    backend: { loadPath: "/locales/de/{{ns}}.json" },
+    detection: {
+      order: ["htmlTag"],
+      caches: [],
+    },
   })
   .then(() => {
     return hydrate(

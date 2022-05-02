@@ -9,8 +9,7 @@ import {
   useLoaderData,
   useMatches,
 } from "@remix-run/react";
-import { i18Next } from "~/i18n.server";
-import { useSetupTranslations } from "remix-i18next";
+import { useChangeLanguage } from "remix-i18next";
 import { pageTitle } from "~/util/pageTitle";
 import styles from "public/tailwind.css";
 import ogImage from "~/assets/images/og-image.png";
@@ -43,7 +42,7 @@ export const links: LinksFunction = () => {
 export const meta: MetaFunction = () => {
   const title = pageTitle(null);
   const description =
-    "Mit dem Online-Service, entwickelt im Auftrag des Bundesfinanzministeriums, können Privateigentümer:innen ihre Grundsteuererklärung einfach und kostenlos abgeben.";
+      "Mit dem Online-Service, entwickelt im Auftrag des Bundesfinanzministeriums, können Privateigentümer:innen ihre Grundsteuererklärung einfach und kostenlos abgeben.";
   return {
     title,
     description,
@@ -52,7 +51,7 @@ export const meta: MetaFunction = () => {
     "og:image:width": "1200",
     "og:image:height": "630",
     "og:site_name":
-      "Grundsteuererklärung für Privateigentum. Schnell. Unkompliziert. Kostenlos.",
+        "Grundsteuererklärung für Privateigentum. Schnell. Unkompliziert. Kostenlos.",
     "twitter:title": title,
     "twitter:description": description,
     "twitter:card": "summary_large_image",
@@ -60,11 +59,14 @@ export const meta: MetaFunction = () => {
   };
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async () => {
   return {
-    i18n: await i18Next.getTranslations(request, ["all"]),
     env: process.env.APP_ENV,
   };
+};
+
+export const handle = {
+  i18n: ["all"],
 };
 
 export function ErrorBoundary({ error }: { error: Error }) {
@@ -73,51 +75,51 @@ export function ErrorBoundary({ error }: { error: Error }) {
     console.error(error);
   }
   return (
-    <html>
+      <html>
       <head>
         <title>Oh nein!</title>
         <Meta />
         <Links />
       </head>
       <body>
-        <h1>Da ist etwas schiefgelaufen :(</h1>
-        <Scripts />
+      <h1>Da ist etwas schiefgelaufen :(</h1>
+      <Scripts />
       </body>
-    </html>
+      </html>
   );
 }
 
 export default function App() {
   const loaderData = useLoaderData();
-  useSetupTranslations("de");
+  useChangeLanguage("de");
   const matches = useMatches();
 
   const fscBeantragenMatch = matches.filter(
-    (match) => match.id === "routes/fsc/beantragen/index"
+      (match) => match.id === "routes/fsc/beantragen/index"
   )[0];
   const showSpinner = fscBeantragenMatch?.data?.showSpinner;
 
   return (
-    <html lang="de">
+      <html lang="de">
       <head>
         <meta charSet="utf-8" />
         <Meta />
         <Links />
         {loaderData?.env === "production" && (
-          <script
-            defer
-            data-domain="grundsteuererklaerung-fuer-privateigentum.de"
-            src="https://plausible.io/js/plausible.js"
-          ></script>
+            <script
+                defer
+                data-domain="grundsteuererklaerung-fuer-privateigentum.de"
+                src="https://plausible.io/js/plausible.js"
+            ></script>
         )}
       </head>
       <body className="flex flex-col min-h-screen text-black bg-gray-100 leading-default">
-        <Outlet />
-        {showSpinner && <Spinner />}
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+      <Outlet />
+      {showSpinner && <Spinner />}
+      <ScrollRestoration />
+      <Scripts />
+      <LiveReload />
       </body>
-    </html>
+      </html>
   );
 }
