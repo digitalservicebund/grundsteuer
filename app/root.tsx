@@ -8,8 +8,7 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
-import { i18Next } from "~/i18n.server";
-import { useSetupTranslations } from "remix-i18next";
+import { useChangeLanguage } from "remix-i18next";
 import { pageTitle } from "~/util/pageTitle";
 import styles from "public/tailwind.css";
 import ogImage from "~/assets/images/og-image.png";
@@ -58,11 +57,14 @@ export const meta: MetaFunction = () => {
   };
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async () => {
   return {
-    i18n: await i18Next.getTranslations(request, ["all"]),
     env: process.env.APP_ENV,
   };
+};
+
+export const handle = {
+  i18n: ["all"],
 };
 
 export function ErrorBoundary({ error }: { error: Error }) {
@@ -87,7 +89,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
 
 export default function App() {
   const loaderData = useLoaderData();
-  useSetupTranslations("de");
+  useChangeLanguage("de");
 
   return (
     <html lang="de">

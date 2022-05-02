@@ -1,9 +1,15 @@
-import { FileSystemBackend, RemixI18Next } from "remix-i18next";
+import Backend from "i18next-fs-backend";
+import { resolve } from "node:path";
+import { RemixI18Next } from "remix-i18next";
 
-const backend = new FileSystemBackend("./app/i18n");
-
-export const i18Next = new RemixI18Next(backend, {
-  fallbackLng: "de",
-  supportedLanguages: ["de"],
-  i18nextOptions: { returnObjects: true },
+export const i18Next = new RemixI18Next({
+  detection: {
+    supportedLanguages: ["de"],
+    fallbackLanguage: "de",
+  },
+  i18next: {
+    backend: { loadPath: resolve("./public/locales/{{lng}}/{{ns}}.json") },
+    returnObjects: true,
+  },
+  backend: Backend,
 });
