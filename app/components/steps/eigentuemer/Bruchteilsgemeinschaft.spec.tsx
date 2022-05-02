@@ -1,7 +1,7 @@
 import { getI18nObject, grundModelFactory } from "test/factories";
 import { render, screen } from "@testing-library/react";
 import { eigentuemerBruchteilsgemeinschaft } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaft";
-import Bruchteilsgemeinschaft from "~/components/steps/eigentuemer/bruchteilsgemeinschaft";
+import Bruchteilsgemeinschaft from "~/components/steps/eigentuemer/Bruchteilsgemeinschaft";
 import { I18nObject } from "~/i18n/getStepI18n";
 
 const missingNameText = "Bitte geben Sie die Adresse des Grundstücks an.";
