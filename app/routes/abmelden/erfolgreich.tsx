@@ -1,5 +1,5 @@
 import { MetaFunction } from "@remix-run/node";
-import { Button, SimplePageLayout } from "~/components";
+import { Button, ContentContainer, Headline, IntroText } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 
 export const meta: MetaFunction = () => {
@@ -8,19 +8,17 @@ export const meta: MetaFunction = () => {
 
 export default function AbmeldenErfolgreich() {
   return (
-    <SimplePageLayout>
-      <h1 className="text-32">Sie haben sich erfolgreich abgemeldet.</h1>
+    <ContentContainer size="sm">
+      <Headline>Sie haben sich erfolgreich abgemeldet.</Headline>
 
-      <p className="mb-64">
+      <IntroText className="mb-80">
         Ihre Daten sind gespeichert.
         <br />
         Bitte melden Sie sich nächstes Mal wieder von diesem Gerät und Browser
         an, um zum aktuellen Stand zurückzukehren.
-      </p>
+      </IntroText>
 
-      <Button to="/" className="mr-32">
-        Zur Startseite
-      </Button>
-    </SimplePageLayout>
+      <Button to="/">Zur Startseite</Button>
+    </ContentContainer>
   );
 }

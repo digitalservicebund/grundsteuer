@@ -12,7 +12,14 @@ import {
   useLoaderData,
 } from "@remix-run/react";
 import { authenticator } from "~/auth.server";
-import { Button, FormGroup, Input } from "~/components";
+import {
+  Button,
+  ContentContainer,
+  FormGroup,
+  Headline,
+  Input,
+  IntroText,
+} from "~/components";
 import {
   requestNewFreischaltCode,
   retrieveAntragsId,
@@ -179,10 +186,15 @@ export default function FscBeantragen() {
   }, []);
 
   return (
-    <div>
-      <h1 className="mb-32 text-32">
-        Beantragen Sie Ihren persönlichen Freischaltcode.
-      </h1>
+    <ContentContainer size="sm">
+      <Headline>Beantragen Sie Ihren persönlichen Freischaltcode.</Headline>
+
+      <IntroText>
+        Nur mit einem Freischaltcode können Sie Ihre Grundsteuererklärung nach
+        Eingabe aller Daten absenden. Mit Eingabe des Codes bestätigen Sie Ihre
+        Identität, das heißt: Wir wissen, dass keine andere Person
+        widerrechtlich die Grundsteuererklärung abgibt.
+      </IntroText>
 
       {loaderData?.error && (
         <div className="p-16 mb-32 bg-red-200 border-2 border-red-800">
@@ -199,12 +211,13 @@ export default function FscBeantragen() {
             error={t(errors?.steuerId)}
           />
         </FormGroup>
-        <FormGroup>
+        <FormGroup isLast>
           <Input
             name="geburtsdatum"
             label="Geburtsdatum"
             placeholder="TT.MM.JJJJ"
             error={t(errors?.geburtsdatum)}
+            className="w-1/2"
           />
         </FormGroup>
         <div className="flex flex-row-reverse justify-between items-center">
@@ -214,6 +227,6 @@ export default function FscBeantragen() {
           </Button>
         </div>
       </Form>
-    </div>
+    </ContentContainer>
   );
 }

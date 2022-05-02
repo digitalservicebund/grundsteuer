@@ -1,10 +1,10 @@
+import classNames from "classnames";
 import { ReactNode } from "react";
 
-type FormGroupProps = {
+export default function FormGroup(props: {
   children: ReactNode;
-};
-
-export default function FormGroup(props: FormGroupProps): JSX.Element {
-  const { children } = props;
-  return <div className="mb-24 md:mb-32">{children}</div>;
+  isLast?: boolean;
+}) {
+  const cssClasses = classNames(props.isLast ? "mb-64" : "mb-24");
+  return <div className={cssClasses}>{props.children}</div>;
 }

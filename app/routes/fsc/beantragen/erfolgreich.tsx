@@ -1,7 +1,6 @@
 import { MetaFunction } from "@remix-run/node";
-import { Button, SimplePageLayout } from "~/components";
+import { Button, ContentContainer, Headline, IntroText } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
-import FinishedIcon from "~/components/icons/mui/Finished";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Freischaltcode erfolgreich beantragt") };
@@ -9,16 +8,15 @@ export const meta: MetaFunction = () => {
 
 export default function FscBeantragenErfolgreich() {
   return (
-    <SimplePageLayout>
-      <FinishedIcon className="w-48 h-48 mb-16" />
-      <h1 className="text-32">Vielen Dank!</h1>
+    <ContentContainer size="sm">
+      <Headline>Vielen Dank</Headline>
 
-      <p className="mb-64">
-        Sie haben Ihren persönlichen Freischaltcode beantragt. Diesen erhalten
-        Sie in den nächsten 14 Tagen per Post.
-      </p>
+      <IntroText className="mb-80">
+        Sie haben ein Konto erstellt und Ihren persönlichen Freischaltcode
+        beantragt. Diesen erhalten Sie in den nächsten 14 Tagen per Post.
+      </IntroText>
 
-      <Button to="/formular/welcome">Zurück zum Formular</Button>
-    </SimplePageLayout>
+      <Button to="/formular/welcome">Weiter zum Formular</Button>
+    </ContentContainer>
   );
 }
