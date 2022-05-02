@@ -1,7 +1,7 @@
 import { LoaderFunction, redirect } from "@remix-run/node";
 import { Outlet } from "@remix-run/react";
 import { authenticator } from "~/auth.server";
-import { Footer, Layout, Main, SidebarNavigation } from "~/components";
+import { UserLayout } from "~/components";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
@@ -17,14 +17,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function Fsc() {
   return (
-    <Layout
-      footer={<Footer />}
-      sidebarNavigation={<SidebarNavigation></SidebarNavigation>}
-      topNavigation={<div></div>}
-    >
-      <Main>
-        <Outlet />
-      </Main>
-    </Layout>
+    <UserLayout>
+      <Outlet />
+    </UserLayout>
   );
 }

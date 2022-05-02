@@ -207,7 +207,6 @@ export default function FscBeantragen() {
           <Input
             name="steuerId"
             label="Steuer-Identifikationsnummer"
-            help="Ihre Steuer-Identifikationsnummer finden Sie auf Ihren Steuerbescheiden, Lohnsteuerabrechnungen oder anderen Unterlagen, die Sie von Ihrem Finanzamt erhalten haben. Die Steuer-ID ist elfstellig."
             error={t(errors?.steuerId)}
           />
         </FormGroup>

@@ -1,5 +1,5 @@
 import { LoaderFunction } from "@remix-run/node";
-import { Button, SimplePageLayout } from "~/components";
+import { Button, ContentContainer } from "~/components";
 
 export const loader: LoaderFunction = async () => {
   return {};
@@ -7,11 +7,11 @@ export const loader: LoaderFunction = async () => {
 
 export default function FscEingeben() {
   return (
-    <SimplePageLayout>
-      <pre>TODO (STL-2042)</pre>
+    <ContentContainer size="sm">
+      <pre className="mb-32">TODO (STL-2042)</pre>
       <Button look="secondary" to="/formular/welcome">
         Später eingeben
       </Button>
-    </SimplePageLayout>
+    </ContentContainer>
   );
 }

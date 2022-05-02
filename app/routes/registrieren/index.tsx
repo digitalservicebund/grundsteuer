@@ -9,7 +9,15 @@ import {
   validateMaxLength,
 } from "~/domain/validation";
 import { createUser, userExists } from "~/domain/user";
-import { Button, FormGroup, Input, SimplePageLayout } from "~/components";
+import {
+  Button,
+  ContentContainer,
+  FormGroup,
+  Headline,
+  Input,
+  IntroText,
+  UserLayout,
+} from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 import { removeUndefined } from "~/util/removeUndefined";
 
@@ -91,50 +99,60 @@ export default function Registrieren() {
   const errors = actionData?.errors;
 
   return (
-    <SimplePageLayout>
-      <h1 className="text-32 leading-40 mb-64">
-        Erstellen Sie jetzt ein Konto für Ihre Grundsteuererklärung
-      </h1>
+    <UserLayout>
+      <ContentContainer size="sm">
+        <Headline>
+          Erstellen Sie jetzt ein Konto für Ihre Grundsteuererklärung.
+        </Headline>
 
-      <Form method="post" noValidate>
-        <FormGroup>
-          <Input
-            type="email"
-            name="email"
-            label="E-Mail-Adresse"
-            error={t(errors?.email)}
-          />
-        </FormGroup>
+        <IntroText>
+          Mit einem Konto können Sie die Bearbeitung Ihrer Grundsteuererklärung
+          unterbrechen und später fortsetzen. Wichtig: Die Weiterbearbeitung ist
+          nur mit dem Gerät und dem Browser möglich, mit denen das Konto
+          erstellt wurde. Der Grund: Ihre Formulardaten werden nur im Cookie in
+          Ihrem Browser gespeichert.
+        </IntroText>
 
-        <FormGroup>
-          <Input
-            type="password"
-            name="password"
-            label="Passwort"
-            error={t(errors?.password)}
-          />
-        </FormGroup>
+        <Form method="post" noValidate>
+          <FormGroup>
+            <Input
+              type="email"
+              name="email"
+              label="E-Mail-Adresse"
+              error={t(errors?.email)}
+            />
+          </FormGroup>
 
-        <FormGroup>
-          <Input
-            type="email"
-            name="emailRepeated"
-            label="E-Mail-Adresse wiederholen"
-            error={t(errors?.emailRepeated)}
-          />
-        </FormGroup>
+          <FormGroup>
+            <Input
+              type="password"
+              name="password"
+              label="Passwort"
+              error={t(errors?.password)}
+            />
+          </FormGroup>
 
-        <FormGroup>
-          <Input
-            type="password"
-            name="passwordRepeated"
-            label="Passwort wiederholen"
-            error={t(errors?.passwordRepeated)}
-          />
-        </FormGroup>
+          <FormGroup>
+            <Input
+              type="email"
+              name="emailRepeated"
+              label="E-Mail-Adresse wiederholen"
+              error={t(errors?.emailRepeated)}
+            />
+          </FormGroup>
 
-        <Button>Konto anlegen</Button>
-      </Form>
-    </SimplePageLayout>
+          <FormGroup isLast>
+            <Input
+              type="password"
+              name="passwordRepeated"
+              label="Passwort wiederholen"
+              error={t(errors?.passwordRepeated)}
+            />
+          </FormGroup>
+
+          <Button>Weiter</Button>
+        </Form>
+      </ContentContainer>
+    </UserLayout>
   );
 }
