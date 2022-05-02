@@ -10,6 +10,7 @@ import {
   validateForbiddenIf,
   validateGrundbuchblattnummer,
   validateHausnummer,
+  validateInputGeburtsdatum,
   validateInputSteuerId,
   validateIsDate,
   validateMaxLength,
@@ -621,6 +622,40 @@ describe("validateDateInPast", () => {
       }
     }
   );
+});
+
+describe("validateInputGeburtsdatum", () => {
+  it("should succeed with German data", () => {
+    expect(validateInputGeburtsdatum("01.01.2001")).toBeFalsy();
+  });
+
+  it("should fail without Geburtsdatum", () => {
+    expect(validateInputGeburtsdatum("")).toEqual("errors.required");
+  });
+
+  it("should fail with incorrect date", () => {
+    expect(validateInputGeburtsdatum("32.01.2001")).toEqual(
+      "errors.geburtsdatum.wrongFormat"
+    );
+  });
+
+  it("should fail with incorrect format", () => {
+    expect(validateInputGeburtsdatum("2001-01-01")).toEqual(
+      "errors.geburtsdatum.wrongFormat"
+    );
+  });
+
+  it("should fail with date in future format", () => {
+    const actualNowImplementation = Date.now;
+    try {
+      Date.now = jest.fn(() => new Date(Date.UTC(2002, 1, 1)).valueOf());
+      expect(validateInputGeburtsdatum("02.01.2002")).toEqual(
+        "errors.geburtsdatum.notInPast"
+      );
+    } finally {
+      Date.now = actualNowImplementation;
+    }
+  });
 });
 
 describe("validateInputSteuerId", () => {

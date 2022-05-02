@@ -104,7 +104,8 @@
       "invalid": "Die eingegebene Steuer-Identifikationsnummer ist ungültig. Bitte überprüfen Sie Ihre Eingabe."
     },
     "geburtsdatum": {
-      "wrongFormat": "Bitte geben Sie Ihr Geburtsdatum im Format TT.MM.JJJJ ein, z.B. 24.12.1975 oder 14.04.2000."
+      "wrongFormat": "Bitte geben Sie Ihr Geburtsdatum im Format TT.MM.JJJJ ein, z.B. 24.12.1975 oder 14.04.2000.",
+      "notInPast": "Ihr Geburtsdatum muss in der Vergangenheit liegen."
     }
   },
   "nav": {

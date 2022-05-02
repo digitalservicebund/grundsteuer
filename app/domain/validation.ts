@@ -510,7 +510,9 @@ export const validateInputGeburtsdatum = (geburtsdatum: string) =>
     format: "DD.MM.YYYY",
     delimiters: ["."],
   }) &&
-    "errors.geburtsdatum.wrongFormat");
+    "errors.geburtsdatum.wrongFormat") ||
+  (!validateDateInPast({ value: geburtsdatum }) &&
+    "errors.geburtsdatum.notInPast");
 
 export const validateInputSteuerId = (steuerId: string) =>
   (validator.isEmpty(steuerId) && "errors.required") ||
