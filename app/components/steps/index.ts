@@ -18,6 +18,7 @@ import GebaeudeUebersicht from "~/components/steps/gebaeude/uebersicht";
 import { EmpfangsbevollmaechtigterNameHelp } from "~/components/steps/eigentuemer/empfangsbevollmaechtigter/name";
 import EigentuemerUebersicht from "~/components/steps/eigentuemer/uebersicht";
 import EigentuemerAbschluss from "~/components/steps/eigentuemer/abschluss";
+import GrundstueckFlurstueckGroesse from "~/components/steps/grundstueck/flurstueck/groesse";
 
 export { Default as FallbackStepComponent };
 
@@ -40,6 +41,7 @@ export default {
     flurstueck: {
       angaben: GrundstueckFlurstueckAngaben,
       flur: GrundstueckFlurstueckFlur,
+      groesse: GrundstueckFlurstueckGroesse,
     },
   },
   gebaeude: {
