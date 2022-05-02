@@ -52,24 +52,23 @@ const renderGraph = (
             return (
               <div key={k}>
                 {v.map((c, index) => (
-                  <>
+                  <div key={index}>
                     <hr className="my-16 bg-gray-400" />
-                    <div key={index} className="pl-16">
+                    <div className="pl-16">
                       <span className={classNames("inline-block italic")}>
                         {t(`nav.headline.${k}`, { number: index + 1 })}{" "}
                       </span>
                       {renderGraph(c, level + 1, currentState, t)}
                     </div>
-                  </>
+                  </div>
                 ))}
               </div>
             );
           } else {
             return (
-              <>
+              <div key={k}>
                 <hr className="my-16 bg-gray-400" />
                 <div
-                  key={k}
                   className={classNames("inline-block", {
                     "pl-16": level != 0,
                   })}
@@ -83,7 +82,7 @@ const renderGraph = (
                   </span>
                   {renderGraph(v, level + 1, currentState, t)}
                 </div>
-              </>
+              </div>
             );
           }
         })}
