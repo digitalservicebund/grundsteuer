@@ -156,7 +156,7 @@ const transformPerson = (person: Person) => {
       ort: person.adresse?.ort,
     },
     telefonnummer: person.adresse?.telefonnummer,
-    steuerId: person.steuerId?.steuerId,
+    steuerId: person.steuerId?.steuerId.split(" ").join(""),
     vertreter: {
       name: person.vertreter?.name,
       adresse: {

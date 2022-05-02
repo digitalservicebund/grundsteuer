@@ -27,7 +27,7 @@ describe("transforDataToEricaFormat", () => {
         telefonnummer: "111111",
       },
       steuerId: {
-        steuerId: "1111",
+        steuerId: "11 111 111 111",
       },
       gesetzlicherVertreter: {
         hasVertreter: "false",
@@ -306,7 +306,7 @@ describe("transforDataToEricaFormat", () => {
                 ort: "1 Ort",
               },
               telefonnummer: "111111",
-              steuerId: "1111",
+              steuerId: "11111111111",
               anteil: {
                 zaehler: "1",
                 nenner: "2",
