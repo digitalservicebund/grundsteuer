@@ -14,7 +14,7 @@ export function NavigationLink(props: any) {
   const isActive = pathWithId === currentState;
 
   return (
-    <div className="pl-16">
+    <div>
       <img
         src={data ? finishedIcon : unfinishedIcon}
         alt={"Erledigt"}
@@ -39,14 +39,7 @@ const renderGraph = (
   t: TFunction<"all", undefined>
 ) => {
   return (
-    <div
-      key={level}
-      className={classNames({
-        "pl-8": level === 1,
-        "pl-16": level === 2,
-        "pl-24": level === 3,
-      })}
-    >
+    <>
       {graph &&
         Object.entries(graph).map(([k, v]) => {
           if ((v as Graph).path) {
@@ -59,33 +52,42 @@ const renderGraph = (
             return (
               <div key={k}>
                 {v.map((c, index) => (
-                  <div key={index}>
+                  <>
                     <hr className="my-16 bg-gray-400" />
-                    <span className={classNames("inline-block italic")}>
-                      {t(`nav.headline.${k}`, { number: index + 1 })}{" "}
-                    </span>
-                    {renderGraph(c, level + 1, currentState, t)}
-                  </div>
+                    <div key={index} className="pl-16">
+                      <span className={classNames("inline-block italic")}>
+                        {t(`nav.headline.${k}`, { number: index + 1 })}{" "}
+                      </span>
+                      {renderGraph(c, level + 1, currentState, t)}
+                    </div>
+                  </>
                 ))}
               </div>
             );
           } else {
             return (
-              <div key={k}>
+              <>
                 <hr className="my-16 bg-gray-400" />
-                <span
+                <div
+                  key={k}
                   className={classNames("inline-block", {
-                    "uppercase font-bold pb-16": level == 0,
+                    "pl-16": level != 0,
                   })}
                 >
-                  {t(`nav.headline.${k}`)}{" "}
-                </span>
-                {renderGraph(v, level + 1, currentState, t)}
-              </div>
+                  <span
+                    className={classNames("inline-block", {
+                      "uppercase font-bold": level == 0,
+                    })}
+                  >
+                    {t(`nav.headline.${k}`)}{" "}
+                  </span>
+                  {renderGraph(v, level + 1, currentState, t)}
+                </div>
+              </>
             );
           }
         })}
-    </div>
+    </>
   );
 };
 
@@ -105,5 +107,5 @@ export default function FormSidebarNavigation({
     setCurrentState(newCurrentState);
   }, [location]);
 
-  return <nav>{renderGraph(graph, 0, currentState, t)}</nav>;
+  return <nav className="pl-16">{renderGraph(graph, 0, currentState, t)}</nav>;
 }
