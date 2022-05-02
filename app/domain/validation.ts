@@ -517,7 +517,8 @@ export const validateInputSteuerId = (steuerId: string) =>
   (!validator.isLength(steuerId, { min: 11, max: 11 }) &&
     "errors.steuerId.wrongLength") ||
   (!validator.isInt(steuerId) && "errors.steuerId.onlyNumbers") ||
-  (!validator.isTaxID(steuerId, "de-DE") &&
+  (steuerId.charAt(0) != "0" &&
+    !validator.isTaxID(steuerId, "de-DE") &&
     "errors.steuerId.invalid");
 
 interface DefaultValidation {

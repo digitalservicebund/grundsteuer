@@ -10,6 +10,7 @@ import {
   validateForbiddenIf,
   validateGrundbuchblattnummer,
   validateHausnummer,
+  validateInputSteuerId,
   validateIsDate,
   validateMaxLength,
   validateMaxLengthFloat,
@@ -620,4 +621,42 @@ describe("validateDateInPast", () => {
       }
     }
   );
+});
+
+describe("validateInputSteuerId", () => {
+  it("should succeed with TestSteuerId", () => {
+    expect(validateInputSteuerId("04452397687")).toBeFalsy();
+  });
+
+  it("should succeed with correct SteuerId", () => {
+    expect(validateInputSteuerId("34285296716")).toBeFalsy();
+  });
+
+  it("should fail with incorrect SteuerId", () => {
+    expect(validateInputSteuerId("34285296719")).toEqual(
+      "errors.steuerId.invalid"
+    );
+  });
+
+  it("should fail without SteuerId", () => {
+    expect(validateInputSteuerId("")).toEqual("errors.required");
+  });
+
+  it("should fail too long SteuerId", () => {
+    expect(validateInputSteuerId("3428529671912")).toEqual(
+      "errors.steuerId.wrongLength"
+    );
+  });
+
+  it("should fail too short SteuerId", () => {
+    expect(validateInputSteuerId("3428529671")).toEqual(
+      "errors.steuerId.wrongLength"
+    );
+  });
+
+  it("should fail with not only digits in SteuerId", () => {
+    expect(validateInputSteuerId("AB285296719")).toEqual(
+      "errors.steuerId.onlyNumbers"
+    );
+  });
 });
