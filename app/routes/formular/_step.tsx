@@ -7,7 +7,7 @@ import {
 import { Form, useActionData, useLoaderData } from "@remix-run/react";
 import { createMachine } from "xstate";
 import _ from "lodash";
-import { Button, ContentContainer } from "~/components";
+import { Button, ButtonContainer, ContentContainer } from "~/components";
 import {
   createHeadersWithFormDataCookie,
   getStoredFormData,
@@ -279,16 +279,18 @@ export function Step() {
         action={redirectToSummary ? "?redirectToSummary=true" : ""}
       >
         <StepComponent {...loaderData} {...actionData} />
-        <div className="flex flex-row-reverse items-center justify-between">
-          <Button id="nextButton">{nextButtonLabel}</Button>
+        <ButtonContainer>
+          <Button id="nextButton" className={backUrl ? "flex-grow" : ""}>
+            {nextButtonLabel}
+          </Button>
           {backUrl ? (
-            <Button to={backUrl} look="tertiary">
+            <Button to={backUrl} look="secondary" className="flex-grow">
               {i18n.common.back}
             </Button>
           ) : (
             ""
           )}
-        </div>
+        </ButtonContainer>
       </Form>
       {HelpComponent && false && (
         <div className="md:w-1/4 bg-blue-400 h-full px-16 py-32">

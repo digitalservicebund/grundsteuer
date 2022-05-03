@@ -68,9 +68,9 @@
     "steuernummerGrundbuch": "Grundbuchauszug Steuernummer"
   },
   "common": {
-    "continue": "Speichern & weiter",
+    "continue": "Übernehmen & Weiter",
     "back": "Zurück",
-    "backToSummary": "Speichern & Zur Prüfseite"
+    "backToSummary": "Übernehmen & Zur Prüfseite"
   },
   "errors": {
     "elsterChars": "Das Feld enthält ein Zeichen, das nicht unterstützt wird.",

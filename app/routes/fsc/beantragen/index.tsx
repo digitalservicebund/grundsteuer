@@ -14,6 +14,7 @@ import {
 import { authenticator } from "~/auth.server";
 import {
   Button,
+  ButtonContainer,
   ContentContainer,
   FormGroup,
   Headline,
@@ -221,12 +222,12 @@ export default function FscBeantragen() {
             />
           </FormGroup>
         </div>
-        <div className="flex flex-row-reverse justify-between items-center">
+        <ButtonContainer forceMultiline>
           <Button>Freischaltcode beantragen</Button>
           <Button look="secondary" to="/formular/welcome">
             Später beantragen
           </Button>
-        </div>
+        </ButtonContainer>
       </Form>
     </ContentContainer>
   );
