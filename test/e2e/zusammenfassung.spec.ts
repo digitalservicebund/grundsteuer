@@ -50,6 +50,7 @@ describe("Zusammenfassung route", () => {
 
       cy.visit("formular/zusammenfassung");
       cy.get("button").contains("Grundstück").click();
+      cy.get("div[data-state=open]").should("exist");
       cy.get("dt").contains("Ort").parent().next().contains("Ändern").click();
     });
 
