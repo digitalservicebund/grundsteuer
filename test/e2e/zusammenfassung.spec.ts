@@ -64,7 +64,7 @@ describe("Zusammenfassung route", () => {
     });
 
     it("should set correct text on next button", () => {
-      cy.get("#nextButton").contains("Speichern & Zur Prüfseite");
+      cy.get("#nextButton").contains("Übernehmen & Zur Prüfseite");
     });
 
     it("should execute validations", () => {
