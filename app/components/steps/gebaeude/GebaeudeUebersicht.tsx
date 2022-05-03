@@ -4,7 +4,7 @@ import UebersichtStep from "~/components/form/UebersichtStep";
 
 const GebaeudeUebersicht: StepComponentFunction = () => {
   return (
-    <UebersichtStep image={<img src={gebaeudeUebersicht} alt="Gebäude" />}>
+    <UebersichtStep image={<img src={gebaeudeUebersicht} alt="" />}>
       <p className="mb-32">
         In diesem Abschnitt geht es um die Immobilie, die Sie im Abschnitt
         “Grundstück” angegeben haben:
