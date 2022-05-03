@@ -3,5 +3,5 @@
   "integrationFolder": "test/e2e",
   "testFiles": "**/*.spec.ts",
   "video": false,
-  "experimentalSessionSupport": true
+  "experimentalSessionAndOrigin": true
 }
