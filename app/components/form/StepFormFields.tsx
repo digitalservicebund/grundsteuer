@@ -22,14 +22,13 @@ const StepFormFields = (props: StepFormFieldsProps) => {
     <>
       {stepDefinition &&
         Object.entries(stepDefinition.fields).map(([name, definition]) => (
-          <FormGroup>
+          <FormGroup key={`${currentState}${name}`}>
             <StepFormField
               {...{
                 name,
                 definition,
                 i18n: i18n.fields[name],
                 value: formData?.[name],
-                key: `${currentState}${name}`,
                 error: errors?.[name],
               }}
             />
