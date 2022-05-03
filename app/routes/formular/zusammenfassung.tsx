@@ -19,7 +19,7 @@ import {
   StepFormData,
 } from "~/domain/model";
 import { zusammenfassung } from "~/domain/steps/zusammenfassung";
-import { Button, StepFormField } from "~/components";
+import { Button, FormGroup, StepFormField } from "~/components";
 import { authenticator } from "~/auth.server";
 import { getFieldProps } from "~/util/getFieldProps";
 import {
@@ -126,14 +126,16 @@ export default function Zusammenfassung() {
 
   return (
     <div className="pt-32 max-w-screen-md mx-auto w-1/2">
-      <h1 className="mb-8 font-bold text-4xl">{i18n.headline}</h1>
+      <h1 className="mb-8 text-4xl font-bold">{i18n.headline}</h1>
       <ZusammenfassungAccordion {...{ allData, i18n, generalErrors }} />
       <div className="mt-32">
         <Form method="post" className="mb-16">
-          <StepFormField {...fieldProps[0]} />
+          <FormGroup>
+            <StepFormField {...fieldProps[0]} />
+          </FormGroup>
           {!isIdentified && (
             <div>
-              <h2 className="font-bold text-20 mb-16 underline">
+              <h2 className="mb-16 font-bold underline text-20">
                 {i18n.specifics.fscHeading}
               </h2>
               <Button
@@ -145,14 +147,20 @@ export default function Zusammenfassung() {
               </Button>
             </div>
           )}
-          <StepFormField {...fieldProps[1]} />
+          <FormGroup>
+            <StepFormField {...fieldProps[1]} />
+          </FormGroup>
 
-          <h2 className="font-bold text-20 mb-8">
+          <h2 className="mb-8 font-bold text-20">
             {i18n.specifics.confirmationHeading}
           </h2>
           <p className="mb-32">{i18n.specifics.confirmationText}</p>
-          <StepFormField {...fieldProps[2]} />
-          <StepFormField {...fieldProps[3]} />
+          <FormGroup>
+            <StepFormField {...fieldProps[2]} />
+          </FormGroup>
+          <FormGroup>
+            <StepFormField {...fieldProps[3]} />
+          </FormGroup>
           <Button id="nextButton">{i18n.specifics.submitbutton}</Button>
         </Form>
       </div>

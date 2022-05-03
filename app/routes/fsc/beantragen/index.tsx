@@ -15,6 +15,7 @@ import { authenticator } from "~/auth.server";
 import {
   Button,
   ContentContainer,
+  FormGroup,
   Headline,
   Input,
   IntroText,
@@ -203,18 +204,22 @@ export default function FscBeantragen() {
 
       <Form method="post">
         <div>
-          <Input
-            name="steuerId"
-            label="Steuer-Identifikationsnummer"
-            error={t(errors?.steuerId)}
-          />
-          <Input
-            name="geburtsdatum"
-            label="Geburtsdatum"
-            placeholder="TT.MM.JJJJ"
-            error={t(errors?.geburtsdatum)}
-            className="w-1/2"
-          />
+          <FormGroup>
+            <Input
+              name="steuerId"
+              label="Steuer-Identifikationsnummer"
+              error={t(errors?.steuerId)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Input
+              name="geburtsdatum"
+              label="Geburtsdatum"
+              placeholder="TT.MM.JJJJ"
+              error={t(errors?.geburtsdatum)}
+              className="w-1/2"
+            />
+          </FormGroup>
         </div>
         <div className="flex flex-row-reverse justify-between items-center">
           <Button>Freischaltcode beantragen</Button>

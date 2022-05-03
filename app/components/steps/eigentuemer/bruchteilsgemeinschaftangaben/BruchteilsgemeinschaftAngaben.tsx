@@ -1,5 +1,5 @@
 import type { StepComponentFunction } from "~/routes/formular/_step";
-import { StepFormField } from "~/components";
+import { FormGroup, StepFormField } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 
 const BruchteilsgemeinschaftAngaben: StepComponentFunction = ({
@@ -13,16 +13,20 @@ const BruchteilsgemeinschaftAngaben: StepComponentFunction = ({
   return (
     <div>
       <div className="mb-32">
-        <h2 className="font-bold mb-16">{i18n.specifics.subHeadingName}</h2>
-        <StepFormField {...fieldProps[0]} />
+        <h2 className="mb-16 font-bold">{i18n.specifics.subHeadingName}</h2>
+        <FormGroup>
+          <StepFormField {...fieldProps[0]} />
+        </FormGroup>
       </div>
       <fieldset className="flex-row mb-32">
-        <h2 className="font-bold mb-16">{i18n.specifics.subHeadingAdresse}</h2>
+        <h2 className="mb-16 font-bold">{i18n.specifics.subHeadingAdresse}</h2>
         {fieldProps.map((fieldProp, idx) => {
           {
             return (
               idx != 0 && (
-                <StepFormField {...{ ...fieldProp, key: fieldProp.name }} />
+                <FormGroup>
+                  <StepFormField {...{ ...fieldProp, key: fieldProp.name }} />
+                </FormGroup>
               )
             );
           }

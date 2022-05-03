@@ -5,6 +5,7 @@ import { authenticator } from "~/auth.server";
 import {
   Button,
   ContentContainer,
+  FormGroup,
   Headline,
   Input,
   SubHeadline,
@@ -65,13 +66,17 @@ export default function Anmelden() {
         <div className="mb-64">
           <Form method="post" noValidate>
             <div>
-              <Input type="email" name="email" label="E-Mail-Adresse" />
-              <Input
-                type="password"
-                name="password"
-                label="Passwort"
-                autoComplete="current-password"
-              />
+              <FormGroup>
+                <Input type="email" name="email" label="E-Mail-Adresse" />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="password"
+                  name="password"
+                  label="Passwort"
+                  autoComplete="current-password"
+                />
+              </FormGroup>
             </div>
             <Button data-testid="submit">Einloggen</Button>
           </Form>

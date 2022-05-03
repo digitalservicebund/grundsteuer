@@ -2,8 +2,6 @@ import QuestionMark from "~/components/icons/mui/QuestionMark";
 import Details from "~/components/Details";
 import classNames from "classnames";
 import FieldError from "./FieldError";
-import React from "react";
-import { FormGroup } from "~/components";
 
 export type CheckboxProps = {
   name: string;
@@ -45,7 +43,7 @@ export default function Checkbox(props: CheckboxProps) {
 
   if (help) {
     return (
-      <FormGroup>
+      <>
         <Details
           summaryContent={
             <div className="position-relative">
@@ -61,15 +59,15 @@ export default function Checkbox(props: CheckboxProps) {
           detailsContent={<p>{help}</p>}
         />
         {errorComponent}
-      </FormGroup>
+      </>
     );
   } else {
     return (
-      <FormGroup>
+      <>
         {inputComponent}
         {labelComponent}
         {errorComponent}
-      </FormGroup>
+      </>
     );
   }
 }
