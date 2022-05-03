@@ -43,7 +43,7 @@ function Button(props: any) {
     "button";
 
   const buttonClassName = classNames(
-    "button rounded-none inline-flex items-center max-w-full font-bold disabled:cursor-not-allowed",
+    "button rounded-none inline-flex items-center max-w-full font-bold text-center disabled:cursor-not-allowed",
     // "focus:" styles are for browsers without support for "focus-visible:" (Safari)
     "focus:outline focus:outline-4 focus:outline-offset-4 focus:outline-blue-800",
     // in supported browsers the "focus:" styles above are disabled (see tailwind.css)
@@ -60,7 +60,7 @@ function Button(props: any) {
       "py-8": size === "small",
       "bg-blue-800 text-white hover:bg-blue-700 active:bg-blue-500 active:text-blue-800":
         look === "primary",
-      "bg-yellow-500 text-blue-800 hover:bg-yellow-700 active:bg-yellow-400":
+      "bg-yellow-500 shadow-[inset_0_0_0_2px_#004b76] text-blue-800 hover:bg-yellow-700 active:bg-yellow-400 focus-visible:shadow-none disabled:shadow-none":
         look === "secondary",
       "disabled:bg-gray-400 disabled:text-gray-600":
         look === "primary" || look === "secondary",
