@@ -10,7 +10,7 @@ export default function FaqAccordion() {
             Wenn Sie sich vorbereiten wollen, können Sie jetzt schon Folgendes
             tun:
           </p>
-          <ul className="list-disc pl-24 mb-24">
+          <ul className="pl-24 mb-24 list-disc">
             <li>
               Suchen Sie in Ihren Unterlagen Ihren{" "}
               <strong>Grundbuchauszug</strong> heraus. Falls sie ihn nicht
@@ -43,7 +43,7 @@ export default function FaqAccordion() {
             Hilfe der vorgenannten Unterlagen zur Vorbereitung bereits jetzt
             heraussuchen können. Sie benötigen insbesondere
           </p>
-          <ul className="list-disc pl-24">
+          <ul className="pl-24 list-disc">
             <li>die Größe des Grundstücks,</li>
             <li>den Bodenrichtwert,</li>
             <li>die Wohnfläche,</li>
@@ -70,7 +70,7 @@ export default function FaqAccordion() {
             <strong>einfache</strong> Sachverhalte von{" "}
             <strong>Privatpersonen</strong> ab, zum Beispiel:
           </p>
-          <ul className="mb-24 list-disc pl-24">
+          <ul className="pl-24 mb-24 list-disc">
             <li>
               Ein Ehepaar ist Eigentümer eines Grundstücks mit einem
               Einfamilienhaus, in dem es selbst wohnt, einem Garagenstellplatz
@@ -102,7 +102,7 @@ export default function FaqAccordion() {
             „Grundsteuererklärung für Privateigentum“ deckt seltenere oder
             komplexere Sachverhalte noch nicht ab, zum Beispiel:
           </p>
-          <ul className="mb-24 list-disc pl-24">
+          <ul className="pl-24 mb-24 list-disc">
             <li>
               Das Grundstück gehört zu einem Betrieb der Land- und
               Forstwirtschaft.
@@ -130,7 +130,7 @@ export default function FaqAccordion() {
               href="https://www.elster.de"
               rel="noopener"
               target="_blank"
-              className="underline text-blue-800"
+              className="text-blue-800 underline"
             >
               ELSTER
             </a>
@@ -191,6 +191,17 @@ export default function FaqAccordion() {
       ),
     },
     {
+      header: "Brauche ich ein ELSTER-Konto?",
+      content: (
+        <>
+          <p>
+            Nein, Sie brauchen kein ELSTER-Konto, um den Service
+            „Grundsteuererklärung für Privateigentum“ nutzen zu können.
+          </p>
+        </>
+      ),
+    },
+    {
       header: "Ist „Grundsteuererklärung für Privateigentum“ kostenlos?",
       content: (
         <>
@@ -225,7 +236,7 @@ export default function FaqAccordion() {
               href="https://digitalservice.bund.de"
               target="_blank"
               rel="noopener"
-              className="underline text-blue-800"
+              className="text-blue-800 underline"
             >
               DigitalService4Germany
             </a>{" "}
@@ -235,7 +246,7 @@ export default function FaqAccordion() {
               href="https://www.bundesfinanzministerium.de"
               target="_blank"
               rel="noopener"
-              className="underline text-blue-800"
+              className="text-blue-800 underline"
             >
               Bundesfinanzministeriums
             </a>{" "}
@@ -244,7 +255,7 @@ export default function FaqAccordion() {
               href="https://www.steuerlotse-rente.de"
               target="_blank"
               rel="noopener"
-              className="underline text-blue-800"
+              className="text-blue-800 underline"
             >
               den Steuerlotsen für Rente und Pension
             </a>{" "}
@@ -264,7 +275,7 @@ export default function FaqAccordion() {
               href="https://bundesfinanzministerium.de/Content/DE/Standardartikel/Themen/Steuern/Steuerarten/Grundsteuer-und-Grunderwerbsteuer/reform-der-grundsteuer.html"
               rel="noopener"
               target="_blank"
-              className="underline text-blue-800"
+              className="text-blue-800 underline"
             >
               Themenseite
             </a>{" "}
@@ -274,7 +285,7 @@ export default function FaqAccordion() {
               href="https://bundesfinanzministerium.de/Web/DE/Themen/Steuern/Steuerarten/Grundsteuer_Grunderwerbsteuer/Grundsteuer_Grunderwerbsteuer.html"
               rel="noopener"
               target="_blank"
-              className="underline text-blue-800"
+              className="text-blue-800 underline"
             >
               Themen {">"} Steuern {">"} Steuerarten {">"} Grundsteuer &
               Grunderwerbsteuer
@@ -285,7 +296,7 @@ export default function FaqAccordion() {
               href="https://bundesfinanzministerium.de/Content/DE/FAQ/2019-06-21-faq-die-neue-grundsteuer.html"
               rel="noopener"
               target="_blank"
-              className="underline text-blue-800"
+              className="text-blue-800 underline"
             >
               Service {">"} FAQ/Glossar {">"} FAQ
             </a>
@@ -298,7 +309,7 @@ export default function FaqAccordion() {
               href="https://www.grundsteuerreform.de"
               rel="noopener"
               target="_blank"
-              className="underline text-blue-800"
+              className="text-blue-800 underline"
             >
               www.grundsteuerreform.de
             </a>
@@ -311,11 +322,33 @@ export default function FaqAccordion() {
               href="https://www.steuerchatbot.de"
               rel="noopener"
               target="_blank"
-              className="underline text-blue-800"
+              className="text-blue-800 underline"
             >
               www.steuerchatbot.de
             </a>{" "}
             erreichen.
+          </p>
+        </>
+      ),
+    },
+    {
+      header:
+        "Warum muss ich die Grundsteuererklärung abgeben, obwohl meine Daten der Finanzverwaltung vorliegen?",
+      content: (
+        <>
+          <p className="mb-24">
+            Es liegen der Finanzverwaltung nicht alle erforderlichen Daten über
+            die Grundstücke und die darauf stehenden Gebäude in elektronisch
+            verarbeitbarer Form vor. Deswegen kann die Finanzverwaltung zum
+            jetzigen Zeitpunkt noch kein vollständig digitalisiertes
+            Verwaltungsverfahren anbieten. Diese Daten müssen daher bei den
+            Eigentümer:innen abgefragt werden.
+          </p>
+          <p>
+            Der nächste Zeitpunkt der Hauptfeststellung ist in 7 Jahren, also im
+            Jahr 2029. Bis dahin soll das Verfahren digitalisiert werden. Das
+            bedeutet, dass die Eigentümer:innen dann keine
+            Hauptfeststellungserklärung mehr abgeben müssen.
           </p>
         </>
       ),
