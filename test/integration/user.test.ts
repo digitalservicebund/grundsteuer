@@ -3,8 +3,10 @@ import bcrypt from "bcryptjs";
 import {
   createUser,
   deleteEricaRequestIdFscBeantragen,
+  deleteEricaRequestIdSenden,
   findUserByEmail,
   saveEricaRequestIdFscBeantragen,
+  saveEricaRequestIdSenden,
   saveFscRequest,
   userExists,
 } from "~/domain/user";
@@ -28,6 +30,11 @@ describe("user", () => {
         },
       },
     });
+    await db.user.delete({
+      where: {
+        email: "new@foo.com",
+      },
+    });
   });
   afterAll(async () => {
     await db.fscRequest.deleteMany({
@@ -36,7 +43,11 @@ describe("user", () => {
     await db.user.deleteMany({
       where: {
         email: {
-          in: ["existing@foo.com", "existing_with_fsc_request@foo.com"],
+          in: [
+            "new@foo.com",
+            "existing@foo.com",
+            "existing_with_fsc_request@foo.com",
+          ],
         },
       },
     });
@@ -171,6 +182,63 @@ describe("user", () => {
     it("should fail on unknown user", async () => {
       await expect(async () => {
         await deleteEricaRequestIdFscBeantragen("unknown@foo.com");
+      }).rejects.toThrow("not found");
+    });
+  });
+
+  const unsetEricaRequestIdSenden = () => {
+    db.user.update({
+      where: { email: "existing@foo.com" },
+      data: { ericaRequestIdSenden: undefined },
+    });
+  };
+
+  describe("saveEricaRequestIdSenden", () => {
+    beforeEach(unsetEricaRequestIdSenden);
+    afterEach(unsetEricaRequestIdSenden);
+
+    it("should store requestId on user", async () => {
+      await saveEricaRequestIdSenden("existing@foo.com", "bar");
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.ericaRequestIdSenden).toEqual("bar");
+    });
+
+    it("should fail on unknown user", async () => {
+      await expect(async () => {
+        await saveEricaRequestIdSenden("unknown@foo.com", "bar");
+      }).rejects.toThrow("not found");
+    });
+  });
+
+  describe("deleteEricaRequestIdSenden", () => {
+    beforeEach(unsetEricaRequestIdSenden);
+    afterEach(unsetEricaRequestIdSenden);
+
+    it("should keep requestId null if user had no request id prior", async () => {
+      await deleteEricaRequestIdSenden("existing@foo.com");
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.ericaRequestIdSenden).toBeNull();
+    });
+
+    it("should delete requestId if user had request id prior", async () => {
+      await saveEricaRequestIdSenden("existing@foo.com", "bar");
+      await deleteEricaRequestIdSenden("existing@foo.com");
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.ericaRequestIdSenden).toBeNull();
+    });
+
+    it("should fail on unknown user", async () => {
+      await expect(async () => {
+        await deleteEricaRequestIdSenden("unknown@foo.com");
       }).rejects.toThrow("not found");
     });
   });
