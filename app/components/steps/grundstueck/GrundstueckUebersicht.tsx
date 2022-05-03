@@ -1,8 +1,12 @@
 import { StepComponentFunction } from "~/routes/formular/_step";
+import UebersichtStep from "~/components/form/UebersichtStep";
+import grundstueckUebersicht from "~/assets/images/grundstueck-uebersicht.svg";
 
 const GrundstueckUebersicht: StepComponentFunction = () => {
   return (
-    <>
+    <UebersichtStep
+      image={<img src={grundstueckUebersicht} alt="Grundstück" />}
+    >
       <p className="mb-32">
         In diesem ersten Abschnitt dreht sich alles um das Grundstück, für das
         Sie die Grundsteuererklärung abgeben möchten.
@@ -17,7 +21,7 @@ const GrundstueckUebersicht: StepComponentFunction = () => {
         <li>Grundbuchblattdaten</li>
         <li>Bodenrichtwert</li>
       </ul>
-    </>
+    </UebersichtStep>
   );
 };
 

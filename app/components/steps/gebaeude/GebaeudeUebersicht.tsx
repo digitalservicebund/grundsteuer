@@ -1,8 +1,10 @@
 import { StepComponentFunction } from "~/routes/formular/_step";
+import gebaeudeUebersicht from "~/assets/images/gebaeude-uebersicht.svg";
+import UebersichtStep from "~/components/form/UebersichtStep";
 
 const GebaeudeUebersicht: StepComponentFunction = () => {
   return (
-    <>
+    <UebersichtStep image={<img src={gebaeudeUebersicht} alt="Gebäude" />}>
       <p className="mb-32">
         In diesem Abschnitt geht es um die Immobilie, die Sie im Abschnitt
         “Grundstück” angegeben haben:
@@ -16,7 +18,7 @@ const GebaeudeUebersicht: StepComponentFunction = () => {
         <li>Weitere Wohnräume</li>
         <li>Garagen</li>
       </ul>
-    </>
+    </UebersichtStep>
   );
 };
 
