@@ -30,11 +30,6 @@ describe("user", () => {
         },
       },
     });
-    await db.user.delete({
-      where: {
-        email: "new@foo.com",
-      },
-    });
   });
   afterAll(async () => {
     await db.fscRequest.deleteMany({
@@ -43,11 +38,7 @@ describe("user", () => {
     await db.user.deleteMany({
       where: {
         email: {
-          in: [
-            "new@foo.com",
-            "existing@foo.com",
-            "existing_with_fsc_request@foo.com",
-          ],
+          in: ["existing@foo.com", "existing_with_fsc_request@foo.com"],
         },
       },
     });
