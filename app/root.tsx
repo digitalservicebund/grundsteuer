@@ -94,10 +94,12 @@ export default function App() {
   useChangeLanguage("de");
   const matches = useMatches();
 
-  const fscBeantragenMatch = matches.filter(
-    (match) => match.id === "routes/fsc/beantragen/index"
+  const spinnerMatch = matches.filter((match) =>
+    ["routes/fsc/beantragen/index", "routes/formular/zusammenfassung"].includes(
+      match.id
+    )
   )[0];
-  const showSpinner = fscBeantragenMatch?.data?.showSpinner;
+  const showSpinner = spinnerMatch?.data?.showSpinner;
 
   return (
     <html lang="de">

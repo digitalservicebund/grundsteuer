@@ -5,7 +5,12 @@ import {
   MetaFunction,
   redirect,
 } from "@remix-run/node";
-import { Form, useActionData, useLoaderData } from "@remix-run/react";
+import {
+  Form,
+  useActionData,
+  useFetcher,
+  useLoaderData,
+} from "@remix-run/react";
 import {
   createHeadersWithFormDataCookie,
   getStoredFormData,
@@ -29,6 +34,16 @@ import {
 import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
 import ZusammenfassungAccordion from "~/components/form/ZusammenfassungAccordion";
 import { removeUndefined } from "~/util/removeUndefined";
+import { retrieveResult, sendNewGrundsteuer } from "~/erica/sendGrundsteuer";
+import { transforDataToEricaFormat } from "~/erica/transformData";
+import {
+  deleteEricaRequestIdSenden,
+  findUserByEmail,
+  saveEricaRequestIdSenden,
+  User,
+} from "~/domain/user";
+import invariant from "tiny-invariant";
+import { useEffect } from "react";
 
 type LoaderData = {
   formData: StepFormData;
@@ -37,20 +52,42 @@ type LoaderData = {
   stepDefinition: StepDefinition;
   isIdentified: boolean;
   generalErrors: GeneralErrors;
+  ericaErrors: string[];
+  showSpinner: boolean;
 };
 
 export const loader: LoaderFunction = async ({
   request,
-}): Promise<LoaderData> => {
+}): Promise<LoaderData | Response> => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
+  const userData: User | null = await findUserByEmail(user.email);
+  invariant(
+    userData,
+    "expected a matching user in the database from a user in a cookie session"
+  );
+
   const storedFormData = await getStoredFormData({ request, user });
   const filteredData = filterDataForReachablePaths(storedFormData);
   const cleanedData = removeUndefined(filteredData);
 
-  // validate all steps' data
   const generalErrors = await validateAllStepsData(cleanedData);
+
+  // Query Erica result
+  let ericaErrors: string[] = [];
+  let ericaRequestId = userData.ericaRequestIdSenden;
+  if (ericaRequestId) {
+    const result = await retrieveResult(ericaRequestId);
+    if (result?.processStatus == "Success") {
+      await deleteEricaRequestIdSenden(user.email);
+      return redirect("/formular/erfolg");
+    } else if (result?.processStatus == "Failure") {
+      await deleteEricaRequestIdSenden(user.email);
+      ericaRequestId = null;
+      ericaErrors = ["Es ist ein Fehler mit Elster aufgetreten."];
+    }
+  }
 
   return {
     formData: getStepData(storedFormData, "zusammenfassung"),
@@ -59,6 +96,8 @@ export const loader: LoaderFunction = async ({
     stepDefinition: zusammenfassung,
     isIdentified: user.identified,
     generalErrors,
+    ericaErrors,
+    showSpinner: !!ericaRequestId,
   };
 };
 
@@ -106,9 +145,14 @@ export const action: ActionFunction = async ({
     return json({ generalErrors }, { headers });
   }
 
-  return redirect("formular/erfolg", {
-    headers,
-  });
+  // Send to Erica
+  const transformedData = transforDataToEricaFormat(
+    filterDataForReachablePaths(formDataToBeStored)
+  );
+  const ericaRequestId = await sendNewGrundsteuer(transformedData);
+  await saveEricaRequestIdSenden(user.email, ericaRequestId);
+
+  return json({}, { headers });
 };
 
 export const meta: MetaFunction = () => {
@@ -117,53 +161,85 @@ export const meta: MetaFunction = () => {
 
 export default function Zusammenfassung() {
   const loaderData = useLoaderData<LoaderData>();
-  const { formData, allData, i18n, stepDefinition, isIdentified } = loaderData;
+  const {
+    formData,
+    allData,
+    i18n,
+    stepDefinition,
+    isIdentified,
+    showSpinner,
+    ericaErrors,
+  } = loaderData;
   const actionData = useActionData();
   const errors = actionData?.errors;
   const generalErrors = loaderData.generalErrors || actionData?.generalErrors;
 
   const fieldProps = getFieldProps(stepDefinition, formData, i18n, errors);
 
-  return (
-    <div className="pt-32 max-w-screen-md mx-auto w-1/2">
-      <h1 className="mb-8 text-4xl font-bold">{i18n.headline}</h1>
-      <ZusammenfassungAccordion {...{ allData, i18n, generalErrors }} />
-      <div className="mt-32">
-        <Form method="post" className="mb-16">
-          <FormGroup>
-            <StepFormField {...fieldProps[0]} />
-          </FormGroup>
-          {!isIdentified && (
-            <div>
-              <h2 className="mb-16 font-bold underline text-20">
-                {i18n.specifics.fscHeading}
-              </h2>
-              <Button
-                look="tertiary"
-                to="/fsc/beantragen"
-                className="mb-48 text-center"
-              >
-                {i18n.specifics.fscLinkText}
-              </Button>
-            </div>
-          )}
-          <FormGroup>
-            <StepFormField {...fieldProps[1]} />
-          </FormGroup>
+  // We need to fetch data to check the result with Elster
+  const fetcher = useFetcher();
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (showSpinner) {
+        fetcher.load("/formular/zusammenfassung");
+      }
+    }, 1000);
 
-          <h2 className="mb-8 font-bold text-20">
-            {i18n.specifics.confirmationHeading}
-          </h2>
-          <p className="mb-32">{i18n.specifics.confirmationText}</p>
-          <FormGroup>
-            <StepFormField {...fieldProps[2]} />
-          </FormGroup>
-          <FormGroup>
-            <StepFormField {...fieldProps[3]} />
-          </FormGroup>
-          <Button id="nextButton">{i18n.specifics.submitbutton}</Button>
-        </Form>
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <>
+      {ericaErrors.map((ericaError, index) => {
+        return (
+          <div
+            key={index}
+            className="bg-red-200 border-l-[16px] border-l-red-900 pl-48 py-16"
+          >
+            {ericaError}
+          </div>
+        );
+      })}
+      <div className="pt-32 max-w-screen-md mx-auto w-1/2">
+        <h1 className="mb-8 text-4xl font-bold">{i18n.headline}</h1>
+        <ZusammenfassungAccordion {...{ allData, i18n, generalErrors }} />
+        <div className="mt-32">
+          <Form method="post" className="mb-16">
+            <FormGroup>
+              <StepFormField {...fieldProps[0]} />
+            </FormGroup>
+            {!isIdentified && (
+              <div>
+                <h2 className="mb-16 font-bold underline text-20">
+                  {i18n.specifics.fscHeading}
+                </h2>
+                <Button
+                  look="tertiary"
+                  to="/fsc/beantragen"
+                  className="mb-48 text-center"
+                >
+                  {i18n.specifics.fscLinkText}
+                </Button>
+              </div>
+            )}
+            <FormGroup>
+              <StepFormField {...fieldProps[1]} />
+            </FormGroup>
+
+            <h2 className="mb-8 font-bold text-20">
+              {i18n.specifics.confirmationHeading}
+            </h2>
+            <p className="mb-32">{i18n.specifics.confirmationText}</p>
+            <FormGroup>
+              <StepFormField {...fieldProps[2]} />
+            </FormGroup>
+            <FormGroup>
+              <StepFormField {...fieldProps[3]} />
+            </FormGroup>
+            <Button id="nextButton">{i18n.specifics.submitbutton}</Button>
+          </Form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
