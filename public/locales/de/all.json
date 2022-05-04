@@ -82,6 +82,7 @@
     },
     "onlyDecimal": "Darf nur Ziffern beinhalten",
     "isDate": "Kein valides Datenformat. Benötigtes Format: TT.MM.JJJJ",
+    "isFreischaltCode": "Bitte geben Sie Ihren Freischaltcode im folgenden Format ein AAAA-AAAA-AAAA.",
     "isSteuerId": "Die eingegebene Steuer-Identifikationsnummer ist ungültig. Bitte überprüfen Sie Ihre Eingabe.",
     "noZero": "Darf nicht Null sein",
     "float": "Die Angabe muss eine Zahl sein, die durch Komma getrennt sein kann",

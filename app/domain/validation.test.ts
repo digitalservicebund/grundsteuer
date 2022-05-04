@@ -1,4 +1,5 @@
 import {
+  getErrorMessageForFreischaltcode,
   getErrorMessageForGeburtsdatum,
   getErrorMessageForSteuerId,
   validateBiggerThan,
@@ -10,6 +11,7 @@ import {
   validateFlurstueckGroesseLength,
   validateFlurstueckGroesseRequired,
   validateForbiddenIf,
+  validateFreischaltCode,
   validateGrundbuchblattnummer,
   validateHausnummer,
   validateIsDate,
@@ -676,6 +678,7 @@ describe("getErrorMessageForSteuerId", () => {
     const tFunction = await i18Next.getFixedT("de", "all");
     i18n = { ...(tFunction("errors") as object) };
   });
+
   it("should succeed with TestSteuerId", async () => {
     expect(await getErrorMessageForSteuerId("04452397687")).toBeFalsy();
   });
@@ -726,5 +729,74 @@ describe("validateSteuerId", () => {
 
   it("should fail with incorrect SteuerId", () => {
     expect(validateSteuerId({ value: "34285296719" })).toBeFalsy();
+  });
+});
+
+describe("getErrorMessageForFreischaltcode", () => {
+  let i18n: Record<string, Record<string, string> | string>;
+
+  beforeAll(async () => {
+    const tFunction = await i18Next.getFixedT("de", "all");
+    i18n = { ...(tFunction("errors") as object) };
+  });
+
+  it("should succeed with correctly formatted FreischaltCode", async () => {
+    expect(
+      await getErrorMessageForFreischaltcode("ABCD-ABCD-ABCD")
+    ).toBeFalsy();
+  });
+
+  it("should fail without FreischaltCode", async () => {
+    expect(await getErrorMessageForFreischaltcode("")).toEqual(
+      i18n["required"] as string
+    );
+  });
+
+  it("should fail with too long FreischaltCode", async () => {
+    expect(await getErrorMessageForFreischaltcode("ABCD-ABCD-ABCDD")).toEqual(
+      i18n["isFreischaltCode"] as string
+    );
+  });
+
+  it("should fail with too short FreischaltCode", async () => {
+    expect(await getErrorMessageForFreischaltcode("ABCD-ABCD-ABC")).toEqual(
+      i18n["isFreischaltCode"] as string
+    );
+  });
+
+  it("should fail with incorrect format", async () => {
+    expect(await getErrorMessageForFreischaltcode("INCORRECT_FORMAT")).toEqual(
+      i18n["isFreischaltCode"] as string
+    );
+  });
+});
+
+describe("validateFreischaltCode", () => {
+  it("should succeed with a freischaltCode in the correct format", () => {
+    expect(validateFreischaltCode({ value: "ABC1-DEF2-3456" })).toBeTruthy();
+  });
+
+  it("should succeed with a freischaltCode with only letters", () => {
+    expect(validateFreischaltCode({ value: "ABCD-DEFG-HIJK" })).toBeTruthy();
+  });
+
+  it("should succeed with a freischaltCode with only digits", () => {
+    expect(validateFreischaltCode({ value: "1234-5678-0123" })).toBeTruthy();
+  });
+
+  it("should fail if no dashes", () => {
+    expect(validateFreischaltCode({ value: "ABC1DEF23456" })).toBeFalsy();
+  });
+
+  it("should fail if lowercase", () => {
+    expect(validateFreischaltCode({ value: "abc1-def2-3456" })).toBeFalsy();
+  });
+
+  it("should fail with incorrect chars", () => {
+    expect(validateFreischaltCode({ value: "ABC!-????-3456" })).toBeFalsy();
+  });
+
+  it("should fail with empty string", () => {
+    expect(validateFreischaltCode({ value: "" })).toBeFalsy();
   });
 });

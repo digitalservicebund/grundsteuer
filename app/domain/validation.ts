@@ -567,6 +567,28 @@ export const getErrorMessageForSteuerId = async (steuerId: string) => {
 export const validateSteuerId: ValidateFunctionDefault = ({ value }) =>
   value.charAt(0) == "0" || validator.isTaxID(value, "de-DE");
 
+export const getErrorMessageForFreischaltcode = async (
+  freischaltCode: string
+) => {
+  const tFunction = await i18Next.getFixedT("de", "all");
+  const i18n: Record<string, Record<string, string> | string> = {
+    ...(tFunction("errors") as object),
+  };
+  return getErrorMessage(
+    freischaltCode,
+    {
+      required: {},
+      isFreischaltCode: {},
+    },
+    {},
+    {},
+    i18n
+  );
+};
+
+export const validateFreischaltCode: ValidateFunctionDefault = ({ value }) =>
+  /^[0-9A-Z]{4}-[0-9A-Z]{4}-[0-9A-Z]{4}$/.test(value);
+
 interface DefaultValidation {
   msg?: string;
 }
@@ -633,6 +655,7 @@ export const getErrorMessage = (
     email: validateEmail,
     onlyDecimal: validateOnlyDecimal,
     isDate: validateIsDate,
+    isFreischaltCode: validateFreischaltCode,
     isSteuerId: validateSteuerId,
     noZero: validateNoZero,
     float: validateFloat,
