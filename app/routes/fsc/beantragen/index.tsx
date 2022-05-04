@@ -20,6 +20,7 @@ import {
   Headline,
   Input,
   IntroText,
+  Spinner,
 } from "~/components";
 import {
   requestNewFreischaltCode,
@@ -215,6 +216,7 @@ export default function FscBeantragen() {
           </Button>
         </ButtonContainer>
       </Form>
+      {loaderData?.showSpinner && <Spinner />}
     </ContentContainer>
   );
 }

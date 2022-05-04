@@ -9,7 +9,7 @@ export default function Footer() {
     <footer className="flex-shrink-0 bg-white">
       <div className="px-16 md:px-32 lg:px-48">
         <div className="md:flex md:justify-between md:items-center pt-16 md:pt-0">
-          <div className="relative -left-16 flex items-center">
+          <div className="flex items-center">
             <a
               href="https://www.bundesfinanzministerium.de"
               rel="noopener"
