@@ -38,9 +38,9 @@ export const extractAntragsId = (
       result.errorCode == "ERIC_GLOBAL_PRUEF_FEHLER" ||
       result.errorCode == "ERIC_TRANSFER_ERR_XML_NHEADER"
     ) {
-      return { errorType: "EricaUserInputError" };
+      return { errorType: "EricaUserInputError", errorMessage: result.errorMessage};
     } else {
-      return { errorType: "GeneralEricaError" };
+      return { errorType: "GeneralEricaError", errorMessage: result.errorMessage };
     }
   }
   invariant(

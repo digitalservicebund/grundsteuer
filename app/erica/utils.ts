@@ -18,6 +18,7 @@ type EricaErrorResponseData = {
 
 type EricaError = {
   errorType: string;
+  errorMessage: string;
 };
 
 const createDateStringForErica = (dateStringInGermanDateFormat: string) => {
