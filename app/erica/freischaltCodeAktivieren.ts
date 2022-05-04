@@ -1,6 +1,6 @@
-import {getFromErica, postToErica} from "~/erica/ericaClient";
+import { getFromErica, postToErica } from "~/erica/ericaClient";
 import invariant from "tiny-invariant";
-import {EricaError, EricaResponse, ericaUtils} from "~/erica/utils";
+import { EricaError, EricaResponse, ericaUtils } from "~/erica/utils";
 
 const createPayloadForActivateFreischaltCode = (
   freischalt_code: string,
@@ -17,12 +17,12 @@ export const activateFreischaltCode = async (
   freischalt_code: string,
   elster_request_id: string
 ) => {
-  const payload = createPayloadForActivateFreischaltCode(freischalt_code, elster_request_id);
-  const result = await postToErica("v2/fsc/activation", payload);
-  invariant(
-    result,
-    "activateFreischaltCode did not return an ericaRequestId"
+  const payload = createPayloadForActivateFreischaltCode(
+    freischalt_code,
+    elster_request_id
   );
+  const result = await postToErica("v2/fsc/activation", payload);
+  invariant(result, "activateFreischaltCode did not return an ericaRequestId");
   return result.split("/").reverse()[0];
 };
 
@@ -45,7 +45,9 @@ export const isFscCorrect = (
 };
 
 export const checkFreischaltcodeActivation = async (ericaRequestId: string) => {
-  const ericaResponse = await checkActivateFreischaltCodeRequest(ericaRequestId);
+  const ericaResponse = await checkActivateFreischaltCodeRequest(
+    ericaRequestId
+  );
   if (ericaResponse && ericaUtils.isEricaRequestProcessed(ericaResponse)) {
     return isFscCorrect(ericaResponse);
   }
