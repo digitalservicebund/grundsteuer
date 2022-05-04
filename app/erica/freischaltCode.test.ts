@@ -45,36 +45,39 @@ describe("requestNewFreischaltCode", () => {
 
 describe("extractAntragsId", () => {
   it("should throw error if some errorCode present in ericaFreischaltCodeResponse", () => {
+    const errorMessage = "Grundsteuer, we still have a problem here";
     const ericaResponseData: EricaResponse = {
       processStatus: "Failure",
       result: null,
       errorCode: "SomeError",
-      errorMessage: "Grundsteuer, we still have a problem here",
+      errorMessage
     };
     const result = extractAntragsId(ericaResponseData);
-    expect(result).toEqual({ errorType: "GeneralEricaError" });
+    expect(result).toEqual({ errorType: "GeneralEricaError", errorMessage});
   });
 
   it("should throw EricaUserInputError if some  ERIC_GLOBAL_PRUEF_FEHLER present in ericaFreischaltCodeResponse", () => {
+    const errorMessage = "Some kind of problem with the NHEADER";
     const ericaResponseData: EricaResponse = {
       processStatus: "Failure",
       result: null,
       errorCode: "ERIC_GLOBAL_PRUEF_FEHLER",
-      errorMessage: "Some kind of validation was incorrect",
+      errorMessage
     };
     const result = extractAntragsId(ericaResponseData);
-    expect(result).toEqual({ errorType: "EricaUserInputError" });
+    expect(result).toEqual({ errorType: "EricaUserInputError", errorMessage});
   });
 
   it("should throw EricaUserInputError if some  ERIC_TRANSFER_ERR_XML_NHEADER present in ericaFreischaltCodeResponse", () => {
+    const errorMessage = "Some kind of problem with the NHEADER";
     const ericaResponseData: EricaResponse = {
       processStatus: "Failure",
       result: null,
       errorCode: "ERIC_TRANSFER_ERR_XML_NHEADER",
-      errorMessage: "Some kind of problem with the NHEADER",
+      errorMessage,
     };
     const result = extractAntragsId(ericaResponseData);
-    expect(result).toEqual({ errorType: "EricaUserInputError" });
+    expect(result).toEqual({ errorType: "EricaUserInputError", errorMessage});
   });
 
   it("should throw error if no elsterRequestId in result of ericaFreischaltCodeResponse", () => {
