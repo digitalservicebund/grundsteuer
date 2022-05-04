@@ -90,8 +90,9 @@ describe("/beantragen", () => {
     cy.get("[name=geburtsdatum]").type("01.08.1291");
     cy.get("form button").click();
     cy.wait("@beantragen").then((intercept) => {
-      expect(intercept.response?.statusCode == 200);
+      expect(intercept.response?.statusCode == 500);
     });
+    cy.contains("Da ist etwas schiefgelaufen");
   });
 });
 
