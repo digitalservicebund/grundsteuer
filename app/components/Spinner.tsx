@@ -4,20 +4,31 @@ import RefreshIcon from "./icons/mui/Refresh";
 import LoopIcon from "./icons/mui/Loop";
 import { Form } from "@remix-run/react";
 
-export default function Spinner() {
-  const [text, setText] = useState("Ihr Freischaltcode wird beantragt.");
+export default function Spinner(props: {
+  initialText?: string;
+  waitingText?: string;
+  longerWaitingText?: string;
+}) {
+  const { initialText, waitingText, longerWaitingText } = props;
+  const [text, setText] = useState(
+    initialText ? initialText : "Ihr Freischaltcode wird beantragt."
+  );
   const [isJavaScriptEnabled, setIsJavaScriptEnabled] = useState(false);
 
   useEffect(() => {
     setIsJavaScriptEnabled(true);
     const timer1 = setTimeout(() => {
       setText(
-        "Das Beantragen dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
+        waitingText
+          ? waitingText
+          : "Das Beantragen dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
       );
     }, 8000);
     const timer2 = setTimeout(() => {
       setText(
-        "Wir beantragen weiter Ihren Freischaltcode. Bitte verlassen Sie diese Seite nicht."
+        longerWaitingText
+          ? longerWaitingText
+          : "Wir beantragen weiter Ihren Freischaltcode. Bitte verlassen Sie diese Seite nicht."
       );
     }, 30000);
     return () => {
