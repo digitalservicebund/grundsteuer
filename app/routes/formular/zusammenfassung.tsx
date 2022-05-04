@@ -44,6 +44,7 @@ import {
 } from "~/domain/user";
 import invariant from "tiny-invariant";
 import { useEffect } from "react";
+import { EricaErrorResponseData, ericaUtils } from "~/erica/utils";
 
 type LoaderData = {
   formData: StepFormData;
@@ -85,7 +86,10 @@ export const loader: LoaderFunction = async ({
     } else if (result?.processStatus == "Failure") {
       await deleteEricaRequestIdSenden(user.email);
       ericaRequestId = null;
-      ericaErrors = ["Es ist ein Fehler mit Elster aufgetreten."];
+
+      const errorObject = ericaUtils.extractResultFromEricaResponse(result);
+      const errorMessage = (errorObject as EricaErrorResponseData).errorMessage;
+      ericaErrors = Array.isArray(errorMessage) ? errorMessage : [errorMessage];
     }
   }
 
@@ -195,7 +199,7 @@ export default function Zusammenfassung() {
         return (
           <div
             key={index}
-            className="bg-red-200 border-l-[16px] border-l-red-900 pl-48 py-16"
+            className="bg-red-200 border-l-[16px] border-l-red-900 pl-48 py-16 mb-8"
           >
             {ericaError}
           </div>

@@ -5,7 +5,7 @@ type EricaResponse = {
   processStatus: "Processing" | "Success" | "Failure";
   result: EricaFreischaltcodeRequestResponseData | null;
   errorCode: string | null;
-  errorMessage: string | null;
+  errorMessage: string[] | string | null;
 };
 
 type EricaFreischaltcodeRequestResponseData = {
