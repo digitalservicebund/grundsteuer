@@ -19,6 +19,7 @@ model User {
   createdAt                     DateTime        @default(now())
   fscRequest                    FscRequest[]
   ericaRequestIdFscBeantragen   String?
+  ericaRequestIdFscAktivieren     String?
   ericaRequestIdSenden          String?
 }
 
