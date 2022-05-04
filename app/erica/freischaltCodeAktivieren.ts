@@ -35,11 +35,20 @@ export const isFscCorrect = (
 ): boolean | EricaError => {
   const result = ericaUtils.extractResultFromEricaResponse(ericaResponse);
   if ("errorCode" in result && result.errorCode) {
-    // TODO Add user input errors
-    return {
-      errorType: "GeneralEricaError",
-      errorMessage: result.errorMessage,
-    };
+    if (
+      result.errorCode == "NO_MATCHING_IDENTIFIER_FOR_UNLOCK_REQUEST" ||
+      result.errorCode == "ELSTER_REQUEST_ID_UNKNOWN"
+    ) {
+      return {
+        errorType: "EricaUserInputError",
+        errorMessage: result.errorMessage,
+      };
+    } else {
+      return {
+        errorType: "GeneralEricaError",
+        errorMessage: result.errorMessage,
+      };
+    }
   }
   return true;
 };

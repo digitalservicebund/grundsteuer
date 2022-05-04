@@ -43,6 +43,31 @@ describe("activateFreischaltCode", () => {
 });
 
 describe("isFscCorrect", () => {
+
+  it("should throw EricaUserInputError if some NO_MATCHING_IDENTIFIER_FOR_UNLOCK_REQUEST present in ericaFreischaltCodeResponse", () => {
+    const errorMessage = "Some kind of problem with the NHEADER";
+    const ericaResponseData: EricaResponse = {
+      processStatus: "Failure",
+      result: null,
+      errorCode: "NO_MATCHING_IDENTIFIER_FOR_UNLOCK_REQUEST",
+      errorMessage,
+    };
+    const result = isFscCorrect(ericaResponseData);
+    expect(result).toEqual({ errorType: "EricaUserInputError", errorMessage });
+  });
+
+  it("should throw EricaUserInputError if some ELSTER_REQUEST_ID_UNKNOWN present in ericaFreischaltCodeResponse", () => {
+    const errorMessage = "Some kind of problem with the NHEADER";
+    const ericaResponseData: EricaResponse = {
+      processStatus: "Failure",
+      result: null,
+      errorCode: "ELSTER_REQUEST_ID_UNKNOWN",
+      errorMessage,
+    };
+    const result = isFscCorrect(ericaResponseData);
+    expect(result).toEqual({ errorType: "EricaUserInputError", errorMessage });
+  });
+
   it("should throw error if some errorCode present in ericaFreischaltCodeResponse", () => {
     const errorMessage = "Grundsteuer, we still have a problem here";
     const ericaResponseData: EricaResponse = {
