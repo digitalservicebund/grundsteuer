@@ -12,7 +12,7 @@ import { getReachablePathsFromData } from "~/domain/graph";
 import _ from "lodash";
 import { i18Next } from "~/i18n.server";
 import { getCurrentStateWithoutId } from "~/util/getCurrentState";
-import { GeneralErrors } from "~/routes/formular/zusammenfassung";
+import { PreviousStepsErrors } from "~/routes/formular/zusammenfassung";
 
 type ValidateFunctionDefault = ({ value }: { value: string }) => boolean;
 
@@ -671,7 +671,7 @@ export const validateStepFormData = async (
 
 export const validateAllStepsData = async (
   storedFormData: GrundModel
-): Promise<GeneralErrors> => {
+): Promise<PreviousStepsErrors> => {
   const generalErrors = {};
   const reachablePaths = getReachablePathsFromData(storedFormData);
   for (const stepPath of reachablePaths) {

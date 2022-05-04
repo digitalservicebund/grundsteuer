@@ -13,10 +13,10 @@ describe("ZusammenfassungAccordion component", () => {
         sectionUnfilled: "sectionUnfilled",
       },
     } as unknown as I18nObject,
-    generalErrors: undefined,
+    errors: undefined,
   };
 
-  describe("with no generalErrors set", () => {
+  describe("with no errors set", () => {
     it("should display eigentuemer and grundstueck areas", () => {
       render(<ZusammenfassungAccordion {...defaultProps} />);
 
@@ -146,12 +146,12 @@ describe("ZusammenfassungAccordion component", () => {
     });
   });
 
-  describe("with generalErrors set", () => {
+  describe("with errors set", () => {
     beforeEach(() => {
       defaultProps.allData = grundModelFactory
         .grundstueckSteuernummer({ steuernummer: "12345678900" })
         .build();
-      defaultProps.generalErrors = {
+      defaultProps.errors = {
         grundstueck: {
           typ: {
             typ: "error in typ",
@@ -162,7 +162,7 @@ describe("ZusammenfassungAccordion component", () => {
 
     afterEach(() => {
       defaultProps.allData = {};
-      defaultProps.generalErrors = undefined;
+      defaultProps.errors = undefined;
     });
 
     it("should display (un)finished section icons correctly", () => {

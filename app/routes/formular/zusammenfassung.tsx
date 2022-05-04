@@ -51,7 +51,7 @@ type LoaderData = {
   i18n: I18nObject;
   stepDefinition: StepDefinition;
   isIdentified: boolean;
-  generalErrors: GeneralErrors;
+  previousStepsErrors: PreviousStepsErrors;
   ericaErrors: string[];
   showSpinner: boolean;
 };
@@ -72,7 +72,7 @@ export const loader: LoaderFunction = async ({
   const filteredData = filterDataForReachablePaths(storedFormData);
   const cleanedData = removeUndefined(filteredData);
 
-  const generalErrors = await validateAllStepsData(cleanedData);
+  const previousStepsErrors = await validateAllStepsData(cleanedData);
 
   // Query Erica result
   let ericaErrors: string[] = [];
@@ -95,17 +95,17 @@ export const loader: LoaderFunction = async ({
     i18n: await getStepI18n("zusammenfassung"),
     stepDefinition: zusammenfassung,
     isIdentified: user.identified,
-    generalErrors,
+    previousStepsErrors,
     ericaErrors,
     showSpinner: !!ericaRequestId,
   };
 };
 
-export type GeneralErrors = Record<string, any>;
+export type PreviousStepsErrors = Record<string, any>;
 
 export type ActionData = {
   errors?: Record<string, string>;
-  generalErrors?: GeneralErrors;
+  previousStepsErrors?: PreviousStepsErrors;
 };
 
 export const action: ActionFunction = async ({
@@ -140,9 +140,9 @@ export const action: ActionFunction = async ({
   });
 
   // validate all steps' data
-  const generalErrors = await validateAllStepsData(formDataToBeStored);
-  if (Object.keys(generalErrors).length > 0) {
-    return json({ generalErrors }, { headers });
+  const previousStepsErrors = await validateAllStepsData(formDataToBeStored);
+  if (Object.keys(previousStepsErrors).length > 0) {
+    return json({ previousStepsErrors: previousStepsErrors }, { headers });
   }
 
   // Send to Erica
@@ -172,7 +172,8 @@ export default function Zusammenfassung() {
   } = loaderData;
   const actionData = useActionData();
   const errors = actionData?.errors;
-  const generalErrors = loaderData.generalErrors || actionData?.generalErrors;
+  const previousStepsErrors =
+    loaderData.previousStepsErrors || actionData?.previousStepsErrors;
 
   const fieldProps = getFieldProps(stepDefinition, formData, i18n, errors);
 
@@ -202,7 +203,9 @@ export default function Zusammenfassung() {
       })}
       <div className="pt-32 max-w-screen-md mx-auto w-1/2">
         <h1 className="mb-8 text-4xl font-bold">{i18n.headline}</h1>
-        <ZusammenfassungAccordion {...{ allData, i18n, generalErrors }} />
+        <ZusammenfassungAccordion
+          {...{ allData, i18n, errors: previousStepsErrors }}
+        />
         <div className="mt-32">
           <Form method="post" className="mb-16">
             <FormGroup>

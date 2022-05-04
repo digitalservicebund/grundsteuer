@@ -6,7 +6,7 @@ import { conditions } from "~/domain/guards";
 import Accordion, { AccordionItem } from "~/components/Accordion";
 import { GrundModel } from "~/domain/steps";
 import { I18nObject } from "~/i18n/getStepI18n";
-import { GeneralErrors } from "~/routes/formular/zusammenfassung";
+import { PreviousStepsErrors } from "~/routes/formular/zusammenfassung";
 
 const resolveJaNein = (value: string | undefined) => {
   if (value === "true") {
@@ -97,13 +97,13 @@ const fieldPathToStepUrl = (fieldPath: string) =>
 export type ZusammenfassungAccordionProps = {
   allData: GrundModel;
   i18n: I18nObject;
-  generalErrors?: GeneralErrors;
+  errors?: PreviousStepsErrors;
 };
 
 export default function ZusammenfassungAccordion({
   allData,
   i18n,
-  generalErrors,
+  errors,
 }: ZusammenfassungAccordionProps) {
   const editLink = (editUrl: string) => {
     return (
@@ -123,7 +123,7 @@ export default function ZusammenfassungAccordion({
     explicitValue?: string
   ): JSX.Element => {
     let value = getStepData(allData, path);
-    const error = generalErrors ? getStepData(generalErrors, path) : undefined;
+    const error = errors ? getStepData(errors, path) : undefined;
     if (explicitValue) value = explicitValue;
 
     const displayValue = resolver ? resolver(value) : value;
@@ -156,7 +156,7 @@ export default function ZusammenfassungAccordion({
   };
 
   const sectionHeading = (label: string, dataKey: string) => {
-    const finishedIcon = generalErrors?.[dataKey] ? (
+    const finishedIcon = errors?.[dataKey] ? (
       <Unfinished className="mr-16" />
     ) : (
       <Finished className="mr-16" />
