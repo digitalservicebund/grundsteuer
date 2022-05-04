@@ -28,14 +28,14 @@ describe("requestNewFreischaltCode", () => {
           Promise.resolve("v2/freischalt_code_request/007")
         ) as jest.Mock
       );
-    const expectedTaxIdNumber = "123456789";
+    const inputTaxIdNumber = "123456789";
     const inputDateOfBirth = "01.10.2019";
     const expectedDateOfBirth = "2019-10-01";
 
-    await requestNewFreischaltCode(expectedTaxIdNumber, inputDateOfBirth);
+    await requestNewFreischaltCode(inputTaxIdNumber, inputDateOfBirth);
 
     expect(mockPostEricaRepsone.mock.calls[0][1]).toEqual({
-      taxIdNumber: expectedTaxIdNumber,
+      taxIdNumber: inputTaxIdNumber,
       dateOfBirth: expectedDateOfBirth,
     });
 
