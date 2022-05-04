@@ -2,12 +2,15 @@ import { db } from "~/db.server";
 import bcrypt from "bcryptjs";
 import {
   createUser,
+  deleteEricaRequestIdFscAktivieren,
   deleteEricaRequestIdFscBeantragen,
   deleteEricaRequestIdSenden,
   findUserByEmail,
+  saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscBeantragen,
   saveEricaRequestIdSenden,
   saveFscRequest,
+  setUserIdentified,
   userExists,
 } from "~/domain/user";
 
@@ -206,6 +209,77 @@ describe("user", () => {
     });
   });
 
+  const unsetEricaRequestIdFscAktivieren = () => {
+    db.user.update({
+      where: { email: "existing@foo.com" },
+      data: { ericaRequestIdFscAktivieren: undefined },
+    });
+  };
+
+  describe("saveEricaRequestIdFscAktivieren", () => {
+    beforeEach(unsetEricaRequestIdFscAktivieren);
+    afterEach(unsetEricaRequestIdFscAktivieren);
+
+    it("should store requestId on user", async () => {
+      await saveEricaRequestIdFscAktivieren("existing@foo.com", "bar");
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.ericaRequestIdFscAktivieren).toEqual("bar");
+    });
+
+    it("should overwrite requestId on user", async () => {
+      await saveEricaRequestIdFscAktivieren(
+        "existing_with_fsc_request_to_overwrite@foo.com",
+        "bar"
+      );
+
+      const user = await findUserByEmail(
+        "existing_with_fsc_request_to_overwrite@foo.com"
+      );
+
+      expect(user).toBeTruthy();
+      expect(user?.ericaRequestIdFscAktivieren).toEqual("bar");
+    });
+
+    it("should fail on unknown user", async () => {
+      await expect(async () => {
+        await saveEricaRequestIdFscAktivieren("unknown@foo.com", "bar");
+      }).rejects.toThrow("not found");
+    });
+  });
+
+  describe("deleteEricaRequestIdFscAktivieren", () => {
+    beforeEach(unsetEricaRequestIdFscAktivieren);
+    afterEach(unsetEricaRequestIdFscAktivieren);
+
+    it("should keep requestId null if user had no request id prior", async () => {
+      await deleteEricaRequestIdFscAktivieren("existing@foo.com");
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.ericaRequestIdFscAktivieren).toBeNull();
+    });
+
+    it("should delete requestId if user had request id prior", async () => {
+      await saveEricaRequestIdFscAktivieren("existing@foo.com", "bar");
+      await deleteEricaRequestIdFscAktivieren("existing@foo.com");
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.ericaRequestIdFscAktivieren).toBeNull();
+    });
+
+    it("should fail on unknown user", async () => {
+      await expect(async () => {
+        await deleteEricaRequestIdFscAktivieren("unknown@foo.com");
+      }).rejects.toThrow("not found");
+    });
+  });
+
   const unsetEricaRequestIdSenden = () => {
     db.user.update({
       where: { email: "existing@foo.com" },
@@ -254,6 +328,42 @@ describe("user", () => {
 
       expect(user).toBeTruthy();
       expect(user?.ericaRequestIdSenden).toBeNull();
+    });
+
+    it("should fail on unknown user", async () => {
+      await expect(async () => {
+        await deleteEricaRequestIdSenden("unknown@foo.com");
+      }).rejects.toThrow("not found");
+    });
+  });
+
+  const unsetEricaRequestIdentified = () => {
+    db.user.update({
+      where: { email: "existing@foo.com" },
+      data: { identified: false },
+    });
+  };
+
+  describe("setUserIdentified", () => {
+    beforeEach(unsetEricaRequestIdentified);
+    afterEach(unsetEricaRequestIdentified);
+
+    it("should set identified attribute to true if true given as value", async () => {
+      await setUserIdentified("existing@foo.com", true);
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.identified).toBeTruthy();
+    });
+
+    it("should set identified attribute to false if false given as value", async () => {
+      await setUserIdentified("existing@foo.com", false);
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.identified).toBeFalsy();
     });
 
     it("should fail on unknown user", async () => {

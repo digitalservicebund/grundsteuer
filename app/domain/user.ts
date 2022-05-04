@@ -63,6 +63,23 @@ export const deleteEricaRequestIdFscBeantragen = async (email: string) => {
   });
 };
 
+export const saveEricaRequestIdFscAktivieren = async (
+  email: string,
+  ericaRequestId: string
+) => {
+  return db.user.update({
+    where: { email: email },
+    data: { ericaRequestIdFscAktivieren: ericaRequestId },
+  });
+};
+
+export const deleteEricaRequestIdFscAktivieren = async (email: string) => {
+  return db.user.update({
+    where: { email: email },
+    data: { ericaRequestIdFscAktivieren: null },
+  });
+};
+
 export const saveEricaRequestIdSenden = async (
   email: string,
   ericaRequestId: string
@@ -77,5 +94,12 @@ export const deleteEricaRequestIdSenden = async (email: string) => {
   return db.user.update({
     where: { email: email },
     data: { ericaRequestIdSenden: null },
+  });
+};
+
+export const setUserIdentified = async (email: string, identified: boolean) => {
+  return db.user.update({
+    where: { email: email },
+    data: { identified: identified },
   });
 };
