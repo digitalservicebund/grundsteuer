@@ -504,24 +504,68 @@ export const validateDateInPast: ValidateFunctionDefault = ({ value }) => {
   );
 };
 
-export const validateInputGeburtsdatum = (geburtsdatum: string) =>
-  (validator.isEmpty(geburtsdatum) && "errors.required") ||
-  (!validator.isDate(geburtsdatum, {
-    format: "DD.MM.YYYY",
-    delimiters: ["."],
-  }) &&
-    "errors.geburtsdatum.wrongFormat") ||
-  (!validateDateInPast({ value: geburtsdatum }) &&
-    "errors.geburtsdatum.notInPast");
+export const getErrorMessageForGeburtsdatum = async (geburtsdatum: string) => {
+  const tFunction = await i18Next.getFixedT("de", "all");
+  const i18n: Record<string, Record<string, string> | string> = {
+    ...(tFunction("errors") as object),
+  };
+  return getErrorMessage(
+    geburtsdatum,
+    {
+      required: {},
+      isDate: {
+        msg: (i18n["geburtsdatum"] as Record<string, string>)[
+          "wrongFormat"
+        ] as string,
+      },
+      dateInPast: {
+        msg: (i18n["geburtsdatum"] as Record<string, string>)[
+          "notInPast"
+        ] as string,
+      },
+    },
+    {},
+    {},
+    i18n
+  );
+};
 
-export const validateInputSteuerId = (steuerId: string) =>
-  (validator.isEmpty(steuerId) && "errors.required") ||
-  (!validator.isLength(steuerId, { min: 11, max: 11 }) &&
-    "errors.steuerId.wrongLength") ||
-  (!validator.isInt(steuerId) && "errors.steuerId.onlyNumbers") ||
-  (steuerId.charAt(0) != "0" &&
-    !validator.isTaxID(steuerId, "de-DE") &&
-    "errors.steuerId.invalid");
+export const getErrorMessageForSteuerId = async (steuerId: string) => {
+  const tFunction = await i18Next.getFixedT("de", "all");
+  const i18n: Record<string, Record<string, string> | string> = {
+    ...(tFunction("errors") as object),
+  };
+  return getErrorMessage(
+    steuerId,
+    {
+      required: {},
+      maxLength: {
+        maxLength: 11,
+        msg: (i18n["steuerId"] as Record<string, string>)[
+          "wrongLength"
+        ] as string,
+      },
+      minLength: {
+        minLength: 11,
+        msg: (i18n["steuerId"] as Record<string, string>)[
+          "wrongLength"
+        ] as string,
+      },
+      onlyDecimal: {
+        msg: (i18n["steuerId"] as Record<string, string>)[
+          "onlyNumbers"
+        ] as string,
+      },
+      isSteuerId: {},
+    },
+    {},
+    {},
+    i18n
+  );
+};
+
+export const validateSteuerId: ValidateFunctionDefault = ({ value }) =>
+  value.charAt(0) == "0" || validator.isTaxID(value, "de-DE");
 
 interface DefaultValidation {
   msg?: string;
@@ -589,6 +633,7 @@ export const getErrorMessage = (
     email: validateEmail,
     onlyDecimal: validateOnlyDecimal,
     isDate: validateIsDate,
+    isSteuerId: validateSteuerId,
     noZero: validateNoZero,
     float: validateFloat,
     maxLengthFloat: validateMaxLengthFloat,

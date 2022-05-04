@@ -1,4 +1,6 @@
 import {
+  getErrorMessageForGeburtsdatum,
+  getErrorMessageForSteuerId,
   validateBiggerThan,
   validateDateInPast,
   validateEitherOr,
@@ -10,8 +12,6 @@ import {
   validateForbiddenIf,
   validateGrundbuchblattnummer,
   validateHausnummer,
-  validateInputGeburtsdatum,
-  validateInputSteuerId,
   validateIsDate,
   validateMaxLength,
   validateMaxLengthFloat,
@@ -22,12 +22,14 @@ import {
   validateRequired,
   validateRequiredIf,
   validateRequiredIfCondition,
+  validateSteuerId,
   validateYearAfterBaujahr,
   validateYearInFuture,
   validateYearInPast,
 } from "./validation";
 import { GrundModel } from "~/domain/steps";
 import { grundModelFactory } from "test/factories";
+import { i18Next } from "~/i18n.server";
 
 describe("validateEmail", () => {
   const cases = [
@@ -624,33 +626,42 @@ describe("validateDateInPast", () => {
   );
 });
 
-describe("validateInputGeburtsdatum", () => {
-  it("should succeed with German data", () => {
-    expect(validateInputGeburtsdatum("01.01.2001")).toBeFalsy();
+describe("getErrorMessageForGeburtsdatum", () => {
+  let i18n: Record<string, Record<string, string> | string>;
+
+  beforeAll(async () => {
+    const tFunction = await i18Next.getFixedT("de", "all");
+    i18n = { ...(tFunction("errors") as object) };
   });
 
-  it("should fail without Geburtsdatum", () => {
-    expect(validateInputGeburtsdatum("")).toEqual("errors.required");
+  it("should succeed with German date", async () => {
+    expect(await getErrorMessageForGeburtsdatum("01.01.2001")).toBeFalsy();
   });
 
-  it("should fail with incorrect date", () => {
-    expect(validateInputGeburtsdatum("32.01.2001")).toEqual(
-      "errors.geburtsdatum.wrongFormat"
+  it("should fail without Geburtsdatum", async () => {
+    expect(await getErrorMessageForGeburtsdatum("")).toEqual(
+      i18n["required"] as string
     );
   });
 
-  it("should fail with incorrect format", () => {
-    expect(validateInputGeburtsdatum("2001-01-01")).toEqual(
-      "errors.geburtsdatum.wrongFormat"
+  it("should fail with incorrect date", async () => {
+    expect(await getErrorMessageForGeburtsdatum("32.01.2001")).toEqual(
+      (i18n["geburtsdatum"] as Record<string, string>)["wrongFormat"]
     );
   });
 
-  it("should fail with date in future format", () => {
+  it("should fail with incorrect format", async () => {
+    expect(await getErrorMessageForGeburtsdatum("2001-01-01")).toEqual(
+      (i18n["geburtsdatum"] as Record<string, string>)["wrongFormat"]
+    );
+  });
+
+  it("should fail with date in future", async () => {
     const actualNowImplementation = Date.now;
     try {
-      Date.now = jest.fn(() => new Date(Date.UTC(2002, 1, 1)).valueOf());
-      expect(validateInputGeburtsdatum("02.01.2002")).toEqual(
-        "errors.geburtsdatum.notInPast"
+      Date.now = jest.fn(() => new Date(Date.UTC(2002, 0, 1)).valueOf());
+      expect(await getErrorMessageForGeburtsdatum("02.01.2002")).toEqual(
+        (i18n["geburtsdatum"] as Record<string, string>)["notInPast"]
       );
     } finally {
       Date.now = actualNowImplementation;
@@ -658,40 +669,62 @@ describe("validateInputGeburtsdatum", () => {
   });
 });
 
-describe("validateInputSteuerId", () => {
+describe("getErrorMessageForSteuerId", () => {
+  let i18n: Record<string, Record<string, string> | string>;
+
+  beforeAll(async () => {
+    const tFunction = await i18Next.getFixedT("de", "all");
+    i18n = { ...(tFunction("errors") as object) };
+  });
+  it("should succeed with TestSteuerId", async () => {
+    expect(await getErrorMessageForSteuerId("04452397687")).toBeFalsy();
+  });
+
+  it("should succeed with correct SteuerId", async () => {
+    expect(await getErrorMessageForSteuerId("34285296716")).toBeFalsy();
+  });
+
+  it("should fail with incorrect SteuerId", async () => {
+    expect(await getErrorMessageForSteuerId("34285296719")).toEqual(
+      i18n["isSteuerId"] as string
+    );
+  });
+
+  it("should fail without SteuerId", async () => {
+    expect(await getErrorMessageForSteuerId("")).toEqual(
+      i18n["required"] as string
+    );
+  });
+
+  it("should fail with too long SteuerId", async () => {
+    expect(await getErrorMessageForSteuerId("3428529671912")).toEqual(
+      (i18n["steuerId"] as Record<string, string>)["wrongLength"]
+    );
+  });
+
+  it("should fail with too short SteuerId", async () => {
+    expect(await getErrorMessageForSteuerId("3428529671")).toEqual(
+      (i18n["steuerId"] as Record<string, string>)["wrongLength"]
+    );
+  });
+
+  it("should fail with not only digits in SteuerId", async () => {
+    expect(await getErrorMessageForSteuerId("AB285296719")).toEqual(
+      (i18n["steuerId"] as Record<string, string>)["onlyNumbers"]
+    );
+  });
+});
+
+describe("validateSteuerId", () => {
   it("should succeed with TestSteuerId", () => {
-    expect(validateInputSteuerId("04452397687")).toBeFalsy();
+    expect(validateSteuerId({ value: "04452397687" })).toBeTruthy();
   });
 
   it("should succeed with correct SteuerId", () => {
-    expect(validateInputSteuerId("34285296716")).toBeFalsy();
+    expect(validateSteuerId({ value: "34285296716" })).toBeTruthy();
   });
 
   it("should fail with incorrect SteuerId", () => {
-    expect(validateInputSteuerId("34285296719")).toEqual(
-      "errors.steuerId.invalid"
-    );
-  });
-
-  it("should fail without SteuerId", () => {
-    expect(validateInputSteuerId("")).toEqual("errors.required");
-  });
-
-  it("should fail too long SteuerId", () => {
-    expect(validateInputSteuerId("3428529671912")).toEqual(
-      "errors.steuerId.wrongLength"
-    );
-  });
-
-  it("should fail too short SteuerId", () => {
-    expect(validateInputSteuerId("3428529671")).toEqual(
-      "errors.steuerId.wrongLength"
-    );
-  });
-
-  it("should fail with not only digits in SteuerId", () => {
-    expect(validateInputSteuerId("AB285296719")).toEqual(
-      "errors.steuerId.onlyNumbers"
-    );
+    expect(validateSteuerId({ value: "34285296719" })).toBeFalsy();
   });
 });

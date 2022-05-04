@@ -34,11 +34,10 @@ import {
   User,
 } from "~/domain/user";
 import invariant from "tiny-invariant";
-import { useTranslation } from "react-i18next";
 import { removeUndefined } from "~/util/removeUndefined";
 import {
-  validateInputGeburtsdatum,
-  validateInputSteuerId,
+  getErrorMessageForGeburtsdatum,
+  getErrorMessageForSteuerId,
 } from "~/domain/validation";
 
 const isEricaRequestInProgress = async (userData: User) => {
@@ -137,8 +136,8 @@ export const action: ActionFunction = async ({ request }) => {
   const normalizedGeburtsdatum = geburtsdatum.replace(/\s/g, "");
 
   const errors = {
-    steuerId: validateInputSteuerId(normalizedSteuerId),
-    geburtsdatum: validateInputGeburtsdatum(normalizedGeburtsdatum),
+    steuerId: await getErrorMessageForSteuerId(normalizedSteuerId),
+    geburtsdatum: await getErrorMessageForGeburtsdatum(normalizedGeburtsdatum),
   };
 
   const errorsExist = errors.steuerId || errors.geburtsdatum;
@@ -159,7 +158,6 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function FscBeantragen() {
-  const { t } = useTranslation("all");
   const loaderData = useLoaderData();
   const actionData = useActionData();
   const errors = actionData?.errors;
@@ -197,7 +195,7 @@ export default function FscBeantragen() {
             <Input
               name="steuerId"
               label="Steuer-Identifikationsnummer"
-              error={t(errors?.steuerId)}
+              error={errors?.steuerId}
             />
           </FormGroup>
           <FormGroup>
@@ -205,7 +203,7 @@ export default function FscBeantragen() {
               name="geburtsdatum"
               label="Geburtsdatum"
               placeholder="TT.MM.JJJJ"
-              error={t(errors?.geburtsdatum)}
+              error={errors?.geburtsdatum}
               className="w-1/2"
             />
           </FormGroup>
