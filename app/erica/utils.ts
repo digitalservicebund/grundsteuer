@@ -1,3 +1,6 @@
+import {validateIsDate} from "~/domain/validation";
+import invariant from "tiny-invariant";
+
 type EricaResponse = {
   processStatus: "Processing" | "Success" | "Failure";
   result: EricaFreischaltcodeRequestResponseData | null;
@@ -22,6 +25,10 @@ type EricaError = {
 };
 
 const createDateStringForErica = (dateStringInGermanDateFormat: string) => {
+  invariant(
+    validateIsDate({value: dateStringInGermanDateFormat}),
+    "date is not in incorrect format"
+  );
   const splitDate = dateStringInGermanDateFormat.split(".");
   return `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`;
 };
