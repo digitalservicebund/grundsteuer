@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   ActionFunction,
   json,
@@ -82,7 +82,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       } else if (elsterRequestIdOrError?.errorType == "EricaUserInputError") {
         await deleteEricaRequestIdFscBeantragen(user.email);
         return {
-          error: true,
+          showError: true,
           showSpinner: false,
         };
       } else {
@@ -95,7 +95,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const inProgress = await isEricaRequestInProgress(userData);
 
   return {
-    error: false,
+    showError: false,
     showSpinner: inProgress,
   };
 };
@@ -162,16 +162,34 @@ export default function FscBeantragen() {
   const loaderData = useLoaderData();
   const actionData = useActionData();
   const errors = actionData?.errors;
-
   // We need to fetch data to check the result with Elster
   const fetcher = useFetcher();
+
+  const [showSpinner, setShowSpinner] = useState(loaderData?.showSpinner);
+  const [showError, setShowError] = useState(loaderData?.showError);
+
+  useEffect(() => {
+    if (fetcher.data) {
+      setShowSpinner(fetcher.data.showSpinner);
+      setShowError(fetcher.data.showError);
+    }
+  }, [fetcher.data]);
+
+  useEffect(() => {
+    if (loaderData) {
+      setShowSpinner(loaderData.showSpinner);
+      setShowError(loaderData.showError);
+    }
+  }, [loaderData]);
+
   useEffect(() => {
     const interval = setInterval(() => {
-      fetcher.load("/fsc/beantragen?index");
-    }, 1000);
-
+      if (showSpinner) {
+        fetcher.load("/fsc/beantragen?index");
+      }
+    }, 2000);
     return () => clearInterval(interval);
-  }, []);
+  }, [fetcher, showSpinner]);
 
   return (
     <ContentContainer size="sm">
@@ -184,7 +202,7 @@ export default function FscBeantragen() {
         widerrechtlich die Grundsteuererklärung abgibt.
       </IntroText>
 
-      {loaderData?.error && (
+      {showError && (
         <div className="p-16 mb-32 bg-red-200 border-2 border-red-800">
           Es ist ein Fehler aufgetreten.
         </div>
@@ -216,7 +234,7 @@ export default function FscBeantragen() {
           </Button>
         </ButtonContainer>
       </Form>
-      {loaderData?.showSpinner && <Spinner />}
+      {showSpinner && <Spinner />}
     </ContentContainer>
   );
 }
