@@ -12,7 +12,7 @@ describe("/beantragen", () => {
   afterEach(() => {
     cy.request("GET", "http://localhost:8000/reset");
     cy.task("dbRemoveFsc", "foo@bar.com");
-    cy.task("dbRemoveEricaRequestId", "foo@bar.com");
+    cy.task("dbRemoveEricaRequestIdBeantragen", "foo@bar.com");
   });
 
   it("should show spinner if data is correct and mockErica returns no result", () => {

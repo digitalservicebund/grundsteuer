@@ -13,9 +13,12 @@
 // the project's config changing)
 import { db } from "../../app/db.server";
 import {
+  deleteEricaRequestIdFscAktivieren,
   deleteEricaRequestIdFscBeantragen,
+  saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscBeantragen,
   saveFscRequest,
+  setUserIdentified,
 } from "../../app/domain/user";
 
 /**
@@ -40,8 +43,23 @@ export default (on, config) => {
       return null;
     },
 
-    dbRemoveEricaRequestId: async (userEmail) => {
+    dbRemoveEricaRequestIdBeantragen: async (userEmail) => {
       await deleteEricaRequestIdFscBeantragen(userEmail);
+      return null;
+    },
+
+    addEricaRequestIdFscAktivieren: async ({ userEmail, ericaRequestId }) => {
+      await saveEricaRequestIdFscAktivieren(userEmail, ericaRequestId);
+      return null;
+    },
+
+    dbRemoveEricaRequestIdAktivieren: async (userEmail) => {
+      await deleteEricaRequestIdFscAktivieren(userEmail);
+      return null;
+    },
+
+    setUserIdentifiedAttribute: async ({ userEmail, identified }) => {
+      await setUserIdentified(userEmail, identified);
       return null;
     },
   });
