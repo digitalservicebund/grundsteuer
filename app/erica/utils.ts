@@ -32,6 +32,7 @@ const createDateStringForErica = (dateStringInGermanDateFormat: string) => {
   const splitDate = dateStringInGermanDateFormat.split(".");
   return `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`;
 };
+
 const extractResultFromEricaResponse = (
   ericaResponse: EricaResponse
 ): EricaFreischaltcodeRequestResponseData | EricaErrorResponseData | object => {
@@ -43,6 +44,13 @@ const extractResultFromEricaResponse = (
     errorMessage:
       ericaResponse.errorMessage !== null ? ericaResponse.errorMessage : "",
   };
+};
+
+const getEricaErrorsFromResponse = (ericaRespons: EricaResponse): string[] => {
+  const result = ericaUtils.extractResultFromEricaResponse(ericaRespons);
+  if (!("errorMessage" in result)) return [];
+  const errorMessage = result.errorMessage;
+  return Array.isArray(errorMessage) ? errorMessage : [errorMessage];
 };
 
 const isEricaRequestProcessed = (ericaResponse: EricaResponse) => {
@@ -61,4 +69,5 @@ export const ericaUtils = {
   createDateStringForErica,
   isEricaRequestProcessed,
   extractResultFromEricaResponse,
+  getEricaErrorsFromResponse,
 };

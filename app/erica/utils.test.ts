@@ -50,6 +50,45 @@ describe("extractResultFromEricaResponse", () => {
   });
 });
 
+describe("getEricaErrorsFromResponse", () => {
+  it("should return empty list if no errorMessage set", () => {
+    const result = ericaUtils.getEricaErrorsFromResponse({
+      processStatus: "Success",
+      result: {
+        transferTicket: "C3PO",
+        taxIdNumber: "007",
+        elsterRequestId: "r2-d2",
+      },
+      errorCode: null,
+      errorMessage: null,
+    });
+    expect(result).toEqual([]);
+  });
+
+  it("should return error information if errors present as string", () => {
+    const result = ericaUtils.getEricaErrorsFromResponse({
+      processStatus: "Failure",
+      result: null,
+      errorCode: "someErrorOccurred",
+      errorMessage: "Grundsteuer, we have a problem.",
+    });
+    expect(result).toEqual(["Grundsteuer, we have a problem."]);
+  });
+
+  it("should return error information if errors present as array", () => {
+    const result = ericaUtils.getEricaErrorsFromResponse({
+      processStatus: "Failure",
+      result: null,
+      errorCode: "someErrorOccurred",
+      errorMessage: ["Grundsteuer, we have a problem.", "Actually, two."],
+    });
+    expect(result).toEqual([
+      "Grundsteuer, we have a problem.",
+      "Actually, two.",
+    ]);
+  });
+});
+
 describe("isEricaRequestProcessed", () => {
   it("should return true if status is Success", () => {
     expect(

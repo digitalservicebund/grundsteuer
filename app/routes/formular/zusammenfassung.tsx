@@ -79,17 +79,14 @@ export const loader: LoaderFunction = async ({
   let ericaErrors: string[] = [];
   let ericaRequestId = userData.ericaRequestIdSenden;
   if (ericaRequestId) {
-    const result = await retrieveResult(ericaRequestId);
-    if (result?.processStatus == "Success") {
+    const ericaResponse = await retrieveResult(ericaRequestId);
+    if (ericaResponse?.processStatus == "Success") {
       await deleteEricaRequestIdSenden(user.email);
       return redirect("/formular/erfolg");
-    } else if (result?.processStatus == "Failure") {
+    } else if (ericaResponse?.processStatus == "Failure") {
       await deleteEricaRequestIdSenden(user.email);
       ericaRequestId = null;
-
-      const errorObject = ericaUtils.extractResultFromEricaResponse(result);
-      const errorMessage = (errorObject as EricaErrorResponseData).errorMessage;
-      ericaErrors = Array.isArray(errorMessage) ? errorMessage : [errorMessage];
+      ericaErrors = ericaUtils.getEricaErrorsFromResponse(ericaResponse);
     }
   }
 
