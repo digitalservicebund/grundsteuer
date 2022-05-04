@@ -4,7 +4,12 @@ import {
   MetaFunction,
   redirect,
 } from "@remix-run/node";
-import { Form, useActionData, useLoaderData } from "@remix-run/react";
+import {
+  Form,
+  useActionData,
+  useLoaderData,
+  useTransition,
+} from "@remix-run/react";
 import { createMachine } from "xstate";
 import _ from "lodash";
 import { Button, ButtonContainer, ContentContainer } from "~/components";
@@ -248,6 +253,8 @@ export type HelpComponentFunction = (
 export function Step() {
   const loaderData = useLoaderData();
   const actionData = useActionData() as ActionData;
+  const transition = useTransition();
+  const isSubmitting = Boolean(transition.submission);
   const {
     i18n,
     backUrl,
@@ -280,7 +287,11 @@ export function Step() {
       >
         <StepComponent {...loaderData} {...actionData} />
         <ButtonContainer>
-          <Button id="nextButton" className={backUrl ? "flex-grow" : ""}>
+          <Button
+            id="nextButton"
+            className={backUrl ? "flex-grow" : ""}
+            disabled={isSubmitting}
+          >
             {nextButtonLabel}
           </Button>
           {backUrl ? (

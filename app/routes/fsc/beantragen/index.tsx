@@ -10,6 +10,7 @@ import {
   useActionData,
   useFetcher,
   useLoaderData,
+  useTransition,
 } from "@remix-run/react";
 import { authenticator } from "~/auth.server";
 import {
@@ -164,6 +165,8 @@ export default function FscBeantragen() {
   const errors = actionData?.errors;
   // We need to fetch data to check the result with Elster
   const fetcher = useFetcher();
+  const transition = useTransition();
+  const isSubmitting = Boolean(transition.submission);
 
   const [showSpinner, setShowSpinner] = useState(loaderData?.showSpinner);
   const [showError, setShowError] = useState(loaderData?.showError);
@@ -228,7 +231,9 @@ export default function FscBeantragen() {
           </FormGroup>
         </div>
         <ButtonContainer forceMultiline>
-          <Button>Freischaltcode beantragen</Button>
+          <Button disabled={isSubmitting || showSpinner}>
+            Freischaltcode beantragen
+          </Button>
           <Button look="secondary" to="/formular/welcome">
             Später beantragen
           </Button>

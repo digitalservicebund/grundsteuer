@@ -1,5 +1,5 @@
 import { ActionFunction, MetaFunction, redirect } from "@remix-run/node";
-import { Form, useActionData } from "@remix-run/react";
+import { Form, useActionData, useTransition } from "@remix-run/react";
 import { useTranslation } from "react-i18next";
 import invariant from "tiny-invariant";
 import {
@@ -97,6 +97,8 @@ export default function Registrieren() {
   const { t } = useTranslation("all");
   const actionData = useActionData();
   const errors = actionData?.errors;
+  const transition = useTransition();
+  const isSubmitting = Boolean(transition.submission);
 
   return (
     <UserLayout>
@@ -150,7 +152,7 @@ export default function Registrieren() {
             />
           </FormGroup>
 
-          <Button>Weiter</Button>
+          <Button disabled={isSubmitting}>Weiter</Button>
         </Form>
       </ContentContainer>
     </UserLayout>

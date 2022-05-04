@@ -1,5 +1,10 @@
 import { ActionFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
-import { Form, useActionData, useLoaderData } from "@remix-run/react";
+import {
+  Form,
+  useActionData,
+  useLoaderData,
+  useTransition,
+} from "@remix-run/react";
 import { AuthorizationError } from "remix-auth";
 import { authenticator } from "~/auth.server";
 import {
@@ -49,6 +54,8 @@ export const action: ActionFunction = async ({ request }) => {
 export default function Anmelden() {
   const loaderData = useLoaderData();
   const actionData = useActionData();
+  const transition = useTransition();
+  const isSubmitting = Boolean(transition.submission);
 
   return (
     <UserLayout>
@@ -78,7 +85,9 @@ export default function Anmelden() {
                 />
               </FormGroup>
             </div>
-            <Button data-testid="submit">Einloggen</Button>
+            <Button data-testid="submit" disabled={isSubmitting}>
+              Einloggen
+            </Button>
           </Form>
         </div>
 
