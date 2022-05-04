@@ -43,7 +43,6 @@ describe("activateFreischaltCode", () => {
 });
 
 describe("isFscCorrect", () => {
-
   it("should throw EricaUserInputError if some NO_MATCHING_IDENTIFIER_FOR_UNLOCK_REQUEST present in ericaFreischaltCodeResponse", () => {
     const errorMessage = "Some kind of problem with the NHEADER";
     const ericaResponseData: EricaResponse = {

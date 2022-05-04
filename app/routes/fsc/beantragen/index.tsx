@@ -26,7 +26,7 @@ import {
 import {
   requestNewFreischaltCode,
   retrieveAntragsId,
-} from "~/erica/freischaltCode";
+} from "~/erica/freischaltCodeBeantragen";
 
 import {
   deleteEricaRequestIdFscBeantragen,
