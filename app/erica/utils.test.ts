@@ -2,11 +2,15 @@ import { ericaUtils } from "~/erica/utils";
 
 describe("createDateStringForErica", () => {
   it("should throw error if incorrect format", () => {
-    expect(() => {ericaUtils.createDateStringForErica("01/10/2021")}).toThrow();
+    expect(() => {
+      ericaUtils.createDateStringForErica("01/10/2021");
+    }).toThrow();
   });
 
   it("should throw error if no date", () => {
-    expect(() => {ericaUtils.createDateStringForErica("NoDate")}).toThrow();
+    expect(() => {
+      ericaUtils.createDateStringForErica("NoDate");
+    }).toThrow();
   });
 
   it("should return correct format", () => {

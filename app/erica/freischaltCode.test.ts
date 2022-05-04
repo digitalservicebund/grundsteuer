@@ -50,10 +50,10 @@ describe("extractAntragsId", () => {
       processStatus: "Failure",
       result: null,
       errorCode: "SomeError",
-      errorMessage
+      errorMessage,
     };
     const result = extractAntragsId(ericaResponseData);
-    expect(result).toEqual({ errorType: "GeneralEricaError", errorMessage});
+    expect(result).toEqual({ errorType: "GeneralEricaError", errorMessage });
   });
 
   it("should throw EricaUserInputError if some  ERIC_GLOBAL_PRUEF_FEHLER present in ericaFreischaltCodeResponse", () => {
@@ -62,10 +62,10 @@ describe("extractAntragsId", () => {
       processStatus: "Failure",
       result: null,
       errorCode: "ERIC_GLOBAL_PRUEF_FEHLER",
-      errorMessage
+      errorMessage,
     };
     const result = extractAntragsId(ericaResponseData);
-    expect(result).toEqual({ errorType: "EricaUserInputError", errorMessage});
+    expect(result).toEqual({ errorType: "EricaUserInputError", errorMessage });
   });
 
   it("should throw EricaUserInputError if some  ERIC_TRANSFER_ERR_XML_NHEADER present in ericaFreischaltCodeResponse", () => {
@@ -77,7 +77,7 @@ describe("extractAntragsId", () => {
       errorMessage,
     };
     const result = extractAntragsId(ericaResponseData);
-    expect(result).toEqual({ errorType: "EricaUserInputError", errorMessage});
+    expect(result).toEqual({ errorType: "EricaUserInputError", errorMessage });
   });
 
   it("should throw error if no elsterRequestId in result of ericaFreischaltCodeResponse", () => {
