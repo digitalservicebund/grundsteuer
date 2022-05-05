@@ -11,7 +11,6 @@ import {
   ContentContainer,
   FormGroup,
   Headline,
-  Input,
   Spinner,
 } from "~/components";
 import {
@@ -36,6 +35,7 @@ import {
 } from "~/domain/user";
 import { authenticator } from "~/auth.server";
 import { useEffect } from "react";
+import FreischaltCodeInput from "~/components/FreischaltCodeInput";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscAktivieren);
@@ -183,7 +183,7 @@ export default function FscEingeben() {
       <Form method="post">
         <div>
           <FormGroup>
-            <Input
+            <FreischaltCodeInput
               name="freischaltCode"
               label="Freischaltcode"
               error={errors?.freischaltCode}
