@@ -27,7 +27,7 @@ describe("/beantragen", () => {
   it("should show error messages and no spinner if user input is invalid", () => {
     cy.request("GET", "http://localhost:8000/triggerDelayedResponse");
     cy.visit("/fsc/beantragen");
-    cy.get("[name=steuerId]").type("invalid");
+    cy.get("[name=steuerId]").type("1");
     cy.get("[name=geburtsdatum]").type("invalid");
     cy.get("form button").click();
     cy.contains("Bitte geben Sie Ihr Geburtsdatum im Format TT.MM.JJJJ ein");

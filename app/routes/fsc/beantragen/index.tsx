@@ -42,6 +42,7 @@ import {
   getErrorMessageForGeburtsdatum,
   getErrorMessageForSteuerId,
 } from "~/domain/validation";
+import SteuerIdField from "~/components/form/SteuerIdField";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -216,7 +217,7 @@ export default function FscBeantragen() {
       <Form method="post">
         <div>
           <FormGroup>
-            <Input
+            <SteuerIdField
               name="steuerId"
               label="Steuer-Identifikationsnummer"
               error={errors?.steuerId}
