@@ -420,6 +420,176 @@ class GrundModelFactory extends Factory<GrundModel> {
       },
     });
   }
+
+  full() {
+    return this.params(
+      this.grundstueckTyp({ typ: "einfamilienhaus" })
+        .grundstueckAdresse({
+          strasse: "GST Strasse",
+          hausnummer: "2GST",
+          zusatzangaben: "GST Zusatzangaben",
+          plz: "12345",
+          ort: "GST Ort",
+          bundesland: "BB",
+        })
+        .grundstueckSteuernummer({ steuernummer: "1234567890" })
+        .grundstueckAbweichendeEntwicklung({ zustand: "rohbauland" })
+        .grundstueckGemeinde({ innerhalbEinerGemeinde: "true" })
+        .grundstueckBodenrichtwert({ bodenrichtwert: "123" })
+        .flurstueckAnzahl({ anzahl: "2" })
+        .grundstueckFlurstueck({
+          list: [
+            {
+              angaben: {
+                grundbuchblattnummer: "1",
+                gemarkung: "2",
+              },
+              flur: {
+                flur: "Test1",
+                flurstueckZaehler: "23",
+                flurstueckNenner: "45",
+                wirtschaftlicheEinheitZaehler: "67,1",
+                wirtschaftlicheEinheitNenner: "89",
+              },
+              groesse: {
+                groesseHa: "",
+                groesseA: "",
+                groesseQm: "1234",
+              },
+            },
+            {
+              angaben: {
+                grundbuchblattnummer: "2",
+                gemarkung: "3",
+              },
+              flur: {
+                flur: "Test2",
+                flurstueckZaehler: "34",
+                flurstueckNenner: "56",
+                wirtschaftlicheEinheitZaehler: "78",
+                wirtschaftlicheEinheitNenner: "90",
+              },
+              groesse: {
+                groesseHa: "",
+                groesseA: "123",
+                groesseQm: "45",
+              },
+            },
+          ],
+          count: 2,
+        })
+        .gebaeudeAb1949({ isAb1949: "true" })
+        .gebaeudeBaujahr({ baujahr: "2000" })
+        .kernsaniert({ isKernsaniert: "true", kernsanierungsjahr: "2001" })
+        .abbruchverpflichtung({
+          hasAbbruchverpflichtung: "true",
+          abbruchverpflichtungsjahr: "2030",
+        })
+        .wohnflaechen({ wohnflaeche: "100" })
+        .withWeitereWohnraeume({
+          hasWeitereWohnraeume: "true",
+          anzahl: "2",
+          flaeche: "200",
+        })
+        .withGaragen({ hasGaragen: "true", anzahlGaragen: "3" })
+        .eigentuemerAnzahl({ anzahl: "2" })
+        .eigentuemerVerheiratet({ areVerheiratet: "false" })
+        .eigentuemerPerson({
+          list: [
+            {
+              persoenlicheAngaben: {
+                anrede: "frau",
+                titel: "1 Titel",
+                vorname: "1 Vorname",
+                name: "1 Name",
+                geburtsdatum: "31.01.1111",
+              },
+              adresse: {
+                strasse: "1 Strasse",
+                hausnummer: "1 Hausnummer",
+                postfach: "1 Postfach",
+                plz: "1 PLZ",
+                ort: "1 Ort",
+                telefonnummer: "111111",
+              },
+              steuerId: {
+                steuerId: "11 111 111 111",
+              },
+              gesetzlicherVertreter: {
+                hasVertreter: "false",
+              },
+              anteil: {
+                zaehler: "1",
+                nenner: "2",
+              },
+            },
+            {
+              persoenlicheAngaben: {
+                anrede: "herr",
+                titel: "2 Titel",
+                vorname: "2 Vorname",
+                name: "2 Name",
+                geburtsdatum: "02.02.2222",
+              },
+              adresse: {
+                strasse: "2 Strasse",
+                hausnummer: "2 Hausnummer",
+                postfach: "2 Postfach",
+                plz: "2 PLZ",
+                ort: "2 Ort",
+                telefonnummer: "222222",
+              },
+              steuerId: {
+                steuerId: "2222",
+              },
+              gesetzlicherVertreter: {
+                hasVertreter: "true",
+              },
+              vertreter: {
+                name: {
+                  anrede: "herr",
+                  titel: "VERT Titel",
+                  vorname: "VERT Vorname",
+                  name: "VERT Name",
+                },
+                adresse: {
+                  strasse: "VERT Strasse",
+                  hausnummer: "3VERT",
+                  postfach: "VERT Postfach",
+                  plz: "VERT PLZ",
+                  ort: "VERT Ort",
+                  telefonnummer: "333333",
+                },
+              },
+              anteil: {
+                zaehler: "3",
+                nenner: "4",
+              },
+            },
+          ],
+        })
+        .eigentuemerBruchteilsgemeinschaft({
+          predefinedData: "false",
+          name: "BTG Name",
+          postfach: "123456",
+          plz: "54321",
+          ort: "BTG Ort",
+        })
+        .eigentuemerEmpfangsvollmacht({
+          hasEmpfangsvollmacht: "true",
+          anrede: "no_anrede",
+          titel: "EMP Titel",
+          vorname: "EMP Vorname",
+          name: "EMP Name",
+          strasse: "EMP Strasse",
+          hausnummer: "2EMP",
+          plz: "24680",
+          ort: "EMP Ort",
+          telefonnummer: "12345",
+        })
+        .build()
+    );
+  }
 }
 
 export const grundModelFactory = GrundModelFactory.define(() => ({}));
