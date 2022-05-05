@@ -116,6 +116,6 @@
 
   /* form-group */
   .form-group:last-of-type {
-    @apply mb-64;
+    @apply mb-80;
   }
 }

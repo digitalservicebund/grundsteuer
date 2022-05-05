@@ -10,6 +10,7 @@ import {
 } from "~/domain/validation";
 import { createUser, userExists } from "~/domain/user";
 import {
+  BreadcrumbNavigation,
   Button,
   ContentContainer,
   FormGroup,
@@ -103,6 +104,7 @@ export default function Registrieren() {
   return (
     <UserLayout>
       <ContentContainer size="sm">
+        <BreadcrumbNavigation />
         <Headline>
           Erstellen Sie jetzt ein Konto für Ihre Grundsteuererklärung.
         </Headline>

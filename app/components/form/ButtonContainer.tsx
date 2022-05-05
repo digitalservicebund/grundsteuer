@@ -12,7 +12,7 @@ export default function ButtonContainer(props: {
     },
     props.className
   );
-  const innerCssClasses = classNames("inline-flex flex-col gap-24", {
+  const innerCssClasses = classNames("inline-flex flex-col-reverse gap-24", {
     "md:flex md:flex-row-reverse md:justify-between": !props.forceMultiline,
   });
   return (

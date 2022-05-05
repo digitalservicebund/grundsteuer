@@ -7,6 +7,7 @@ import {
 import {
   Button,
   ButtonContainer,
+  BreadcrumbNavigation,
   ContentContainer,
   FormGroup,
   Headline,
@@ -170,6 +171,7 @@ export default function FscEingeben() {
 
   return (
     <ContentContainer size="sm">
+      <BreadcrumbNavigation />
       <Headline>Bitte geben Sie Ihren Freischaltcode ein</Headline>
 
       {loaderData?.error && (

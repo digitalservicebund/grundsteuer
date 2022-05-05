@@ -266,7 +266,7 @@
       "headline": "Wie groß ist die Wohnfläche in Ihrem Einfamilienhaus / Eigentumswohnung?",
       "fields": {
         "wohnflaeche": {
-          "label": "Wohnfläche in m2"
+          "label": "Wohnfläche in m²"
         }
       }
     },
@@ -274,10 +274,10 @@
       "headline": "Wie groß sind die Wohnflächen in Ihrem Zweifamilienhaus?",
       "fields": {
         "wohnflaeche1": {
-          "label": "Wohnung 1 Wohnfläche in m2"
+          "label": "Wohnung 1 Wohnfläche in m²"
         },
         "wohnflaeche2": {
-          "label": "Wohnung 2 Wohnfläche in m2"
+          "label": "Wohnung 2 Wohnfläche in m²"
         }
       }
     },
@@ -303,7 +303,7 @@
           "label": "Anzahl"
         },
         "flaeche": {
-          "label": "Gesamtfläche in m2"
+          "label": "Gesamtfläche in m²"
         }
       }
     },
@@ -861,7 +861,7 @@
             "label": "Größe in a"
           },
           "groesseQm": {
-            "label": "Größe in m2"
+            "label": "Größe in m²"
           }
         }
       }

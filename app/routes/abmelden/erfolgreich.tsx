@@ -1,5 +1,6 @@
 import { MetaFunction } from "@remix-run/node";
 import {
+  BreadcrumbNavigation,
   Button,
   ContentContainer,
   Headline,
@@ -16,6 +17,7 @@ export default function AbmeldenErfolgreich() {
   return (
     <UserLayout>
       <ContentContainer size="sm">
+        <BreadcrumbNavigation />
         <Headline>Sie haben sich erfolgreich abgemeldet.</Headline>
 
         <IntroText className="mb-80">

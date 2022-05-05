@@ -1,4 +1,5 @@
 export { default as BmfLogo } from "./BmfLogo";
+export { default as BreadcrumbNavigation } from "./BreadcrumbNavigation";
 export { default as Button } from "./Button";
 export { default as ButtonContainer } from "./form/ButtonContainer";
 export { default as ContentContainer } from "./ContentContainer";

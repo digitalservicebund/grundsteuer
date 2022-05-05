@@ -1,5 +1,6 @@
 import { MetaFunction } from "@remix-run/node";
 import {
+  BreadcrumbNavigation,
   Button,
   ContentContainer,
   Headline,
@@ -16,6 +17,7 @@ export default function RegistrierenErfolgreich() {
   return (
     <UserLayout>
       <ContentContainer size="sm">
+        <BreadcrumbNavigation />
         <Headline>Vielen Dank!</Headline>
         <IntroText>Sie haben ein Konto erstellt.</IntroText>
 

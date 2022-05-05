@@ -12,7 +12,12 @@ import {
 } from "@remix-run/react";
 import { createMachine } from "xstate";
 import _ from "lodash";
-import { Button, ButtonContainer, ContentContainer } from "~/components";
+import {
+  BreadcrumbNavigation,
+  Button,
+  ButtonContainer,
+  ContentContainer,
+} from "~/components";
 import {
   createHeadersWithFormDataCookie,
   getStoredFormData,
@@ -278,6 +283,7 @@ export function Step() {
 
   return (
     <ContentContainer size="sm">
+      <BreadcrumbNavigation />
       <StepHeadline i18n={i18n} />
       <Form
         method="post"

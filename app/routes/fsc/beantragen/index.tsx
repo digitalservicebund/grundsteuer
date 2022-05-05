@@ -14,6 +14,7 @@ import {
 } from "@remix-run/react";
 import { authenticator } from "~/auth.server";
 import {
+  BreadcrumbNavigation,
   Button,
   ButtonContainer,
   ContentContainer,
@@ -196,6 +197,7 @@ export default function FscBeantragen() {
 
   return (
     <ContentContainer size="sm">
+      <BreadcrumbNavigation />
       <Headline>Beantragen Sie Ihren persönlichen Freischaltcode.</Headline>
 
       <IntroText>

@@ -8,6 +8,7 @@ import {
 import { AuthorizationError } from "remix-auth";
 import { authenticator } from "~/auth.server";
 import {
+  BreadcrumbNavigation,
   Button,
   ContentContainer,
   FormGroup,
@@ -60,6 +61,7 @@ export default function Anmelden() {
   return (
     <UserLayout>
       <ContentContainer size="sm">
+        <BreadcrumbNavigation />
         <Headline>
           Herzlich willkommen!
           <br />

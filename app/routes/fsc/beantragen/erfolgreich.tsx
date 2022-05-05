@@ -1,5 +1,11 @@
 import { MetaFunction } from "@remix-run/node";
-import { Button, ContentContainer, Headline, IntroText } from "~/components";
+import {
+  BreadcrumbNavigation,
+  Button,
+  ContentContainer,
+  Headline,
+  IntroText,
+} from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 
 export const meta: MetaFunction = () => {
@@ -9,6 +15,7 @@ export const meta: MetaFunction = () => {
 export default function FscBeantragenErfolgreich() {
   return (
     <ContentContainer size="sm">
+      <BreadcrumbNavigation />
       <Headline>Vielen Dank</Headline>
 
       <IntroText className="mb-80">
