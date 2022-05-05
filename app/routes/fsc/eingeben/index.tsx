@@ -169,47 +169,47 @@ export default function FscEingeben() {
   }, []);
 
   return (
-      <ContentContainer size="sm">
-        <Headline>Bitte geben Sie Ihren Freischaltcode ein</Headline>
+    <ContentContainer size="sm">
+      <Headline>Bitte geben Sie Ihren Freischaltcode ein</Headline>
 
-        {loaderData?.error && (
-            <div className="p-16 mb-32 bg-red-200 border-2 border-red-800">
-              Es ist ein Fehler aufgetreten.
-            </div>
-        )}
+      {loaderData?.error && (
+        <div className="p-16 mb-32 bg-red-200 border-2 border-red-800">
+          Es ist ein Fehler aufgetreten.
+        </div>
+      )}
 
-        <Form method="post">
-          <div>
-            <FormGroup>
-              <Input
-                  name="freischaltCode"
-                  label="Freischaltcode"
-                  error={errors?.freischaltCode}
-              />
-            </FormGroup>
-          </div>
-          <ButtonContainer forceMultiline>
-            <Button>Freischaltcode speichern</Button>
-            <Button look="secondary" to="/formular/welcome">
-              Zurück
-            </Button>
-          </ButtonContainer>
-        </Form>
-        <a href={"/fsc/neuBeantragen"}>
-          Zwei Wochen sind um und Sie haben noch keinen Brief mit dem
-          Freischaltcode erhalten?
-        </a>
-        {loaderData?.showSpinner && (
-            <Spinner
-                initialText={"Ihr Freischaltcode wird überprüft."}
-                waitingText={
-                  "Das Überprüfen dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
-                }
-                longerWaitingText={
-                  "Wir überprüfen weiter Ihren Freischaltcode. Bitte verlassen Sie diese Seite nicht."
-                }
+      <Form method="post">
+        <div>
+          <FormGroup>
+            <Input
+              name="freischaltCode"
+              label="Freischaltcode"
+              error={errors?.freischaltCode}
             />
-        )}
-      </ContentContainer>
+          </FormGroup>
+        </div>
+        <ButtonContainer forceMultiline>
+          <Button>Freischaltcode speichern</Button>
+          <Button look="secondary" to="/formular/welcome">
+            Zurück
+          </Button>
+        </ButtonContainer>
+      </Form>
+      <a href={"/fsc/neuBeantragen"}>
+        Zwei Wochen sind um und Sie haben noch keinen Brief mit dem
+        Freischaltcode erhalten?
+      </a>
+      {loaderData?.showSpinner && (
+        <Spinner
+          initialText={"Ihr Freischaltcode wird überprüft."}
+          waitingText={
+            "Das Überprüfen dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
+          }
+          longerWaitingText={
+            "Wir überprüfen weiter Ihren Freischaltcode. Bitte verlassen Sie diese Seite nicht."
+          }
+        />
+      )}
+    </ContentContainer>
   );
 }
