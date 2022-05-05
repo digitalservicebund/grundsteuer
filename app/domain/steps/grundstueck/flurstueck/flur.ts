@@ -4,8 +4,6 @@ export type GrundstueckFlurstueckFlurFields = {
   flur: string;
   flurstueckZaehler: string;
   flurstueckNenner: string;
-  wirtschaftlicheEinheitZaehler: string;
-  wirtschaftlicheEinheitNenner: string;
 };
 
 export const grundstueckFlurstueckFlur: StepDefinition = {
@@ -35,28 +33,6 @@ export const grundstueckFlurstueckFlur: StepDefinition = {
           maxLength: 4,
           msg: "Die Angabe darf höchstens 4 Zeichen lang sein",
         },
-      },
-    },
-    wirtschaftlicheEinheitZaehler: {
-      validations: {
-        required: {},
-        float: {},
-        maxLengthFloat: {
-          preComma: 6,
-          postComma: 4,
-          msg: "Muss aus bis zu 6 Vorkommastellen und 4 Nachkommastellen bestehen.",
-        },
-      },
-    },
-    wirtschaftlicheEinheitNenner: {
-      validations: {
-        required: {},
-        maxLength: {
-          maxLength: 7,
-          msg: "Die Angabe darf höchstens 7 Ziffern lang sein",
-        },
-        onlyDecimal: {},
-        noZero: {},
       },
     },
   },

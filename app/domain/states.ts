@@ -91,8 +91,23 @@ export const states: MachineConfig<any, any, any> = {
             },
             flur: {
               on: {
-                NEXT: [{ target: "groesse" }],
+                NEXT: [{ target: "miteigentum" }],
                 BACK: [{ target: "angaben" }],
+              },
+            },
+            miteigentum: {
+              on: {
+                NEXT: [
+                  { target: "miteigentumsanteil", cond: "hasMiteigentum" },
+                  { target: "groesse" },
+                ],
+                BACK: [{ target: "flur" }],
+              },
+            },
+            miteigentumsanteil: {
+              on: {
+                NEXT: [{ target: "groesse" }],
+                BACK: [{ target: "miteigentum" }],
               },
             },
             groesse: {
@@ -105,7 +120,10 @@ export const states: MachineConfig<any, any, any> = {
                   },
                   { target: "#grundstueck.bodenrichtwertInfo" },
                 ],
-                BACK: [{ target: "flur" }],
+                BACK: [
+                  { target: "miteigentumsanteil", cond: "hasMiteigentum" },
+                  { target: "miteigentum" },
+                ],
               },
             },
           },

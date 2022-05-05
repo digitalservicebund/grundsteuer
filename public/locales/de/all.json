@@ -134,9 +134,11 @@
       "bodenrichtwertEingabe": "Bodenrichtwert-Eingabe",
       "bodenrichtwertAnzahl": "Bodenrichtwert-Anzahl",
       "flurstueck": {
-        "angaben": "Angaben",
-        "flur": "Flur",
-        "groesse": "Größe"
+        "angaben": "Grundbuchblatt / Gemarkung",
+        "flur": "Flur / Zähler / Nenner",
+        "miteigentum": "Miteigentum Angabe",
+        "miteigentumsanteil": "Miteigentum Zähler/Nenner",
+        "groesse": "Gesamtgröße"
       }
     },
     "gebaeude": {
@@ -829,26 +831,53 @@
         }
       },
       "flur": {
-        "headline": "Übertragen Sie die Angaben aus dem Grundbuch zu Grundstück {{id}}:",
+        "headline": "Wie lauten Flur und Flurstück zu Grundstückseinheit {{id}}?",
         "fields": {
           "flur": {
-            "label": "Flur"
+            "label": "Flur (wenn vorhanden)"
           },
           "flurstueckZaehler": {
-            "label": "Flurstück Zähler"
+            "label": "Zähler"
           },
           "flurstueckNenner": {
-            "label": "Flurstück Nenner"
-          },
-          "wirtschaftlicheEinheitZaehler": {
-            "label": "Wirtsch. Einheit Zähler"
-          },
-          "wirtschaftlicheEinheitNenner": {
-            "label": "Wirtsch. Einheit Nenner"
+            "label": "Nenner"
           }
         },
         "specifics": {
-          "subHeadingAnteil": "Bei Wohnungeigentum und Garagen bitte angeben:"
+          "explanation": "Schauen Sie auf die Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs. In der Tabelle finden Sie die benötigten Nummern.",
+          "flurstueckSubheading": "Flurstück"
+        }
+      },
+      "miteigentum": {
+        "headline": "Haben Sie Miteigentum an der Grundstücksfläche?",
+        "fields": {
+          "hasMiteigentum": {
+            "options": {
+              "true": {
+                "label": "Ja, ich habe Miteigentum am Grundstück"
+              },
+              "false": {
+                "label": "Nein, ich habe kein Miteigentum am Grundstück"
+              }
+            }
+          }
+        },
+        "specifics": {
+          "explanation": "“Miteigentum” trifft auf Sie zu, wenn Sie zum Beispiel eine Eigentumswohnung haben. Dann teilen Sie das Grundstück mit den anderen Eigentümer:innen im Haus. Oder wenn Sie zum Beispiel ein Garagengrundstück mit Nachbar:innen teilen. Normalerweise gehört Ihnen die ganze Grundstückstückseinheit. Sollten Sie Miteigentum am Grundstück haben, ist dies im Grundbuchauszug vermerkt."
+        }
+      },
+      "miteigentumsanteil": {
+        "headline": "Übertragen Sie die Angaben aus dem Grundbuchblatt zum Miteigentumsanteil",
+        "fields": {
+          "wirtschaftlicheEinheitZaehler": {
+            "label": "Zähler"
+          },
+          "wirtschaftlicheEinheitNenner": {
+            "label": "Nenner"
+          }
+        },
+        "specifics": {
+          "explanation": "Auf der Seite “Bestandsverzeichnis” finden Sie die Angaben über Ihren Miteigentumsanteil am Grundstück. Oft sind die Eintragungen etwas verschoben. In den meisten Fällen aber durch das Wort “Miteigentumsanteil” zu erkennen."
         }
       },
       "groesse": {

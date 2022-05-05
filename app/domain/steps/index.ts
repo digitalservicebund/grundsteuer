@@ -198,6 +198,14 @@ import {
   ZusammenfassungFields,
 } from "~/domain/steps/zusammenfassung";
 import { ValidationConfig } from "~/domain/validation";
+import {
+  GrundstueckFlurstueckMiteigentumFields,
+  grundstuecklurstueckMiteigentum,
+} from "~/domain/steps/grundstueck/flurstueck/miteingentum";
+import {
+  grundstueckFlurstueckMiteigentumsanteil,
+  GrundstueckFlurstueckMiteigentumsanteilFields,
+} from "~/domain/steps/grundstueck/flurstueck/miteigentumsanteil";
 
 export type { GrundstueckBodenrichtwertEingabeFields };
 
@@ -214,6 +222,8 @@ const stepDefinitions = {
     flurstueck: {
       angaben: grundstueckFlurstueckAngaben,
       flur: grundstueckFlurstueckFlur,
+      miteigentum: grundstuecklurstueckMiteigentum,
+      miteigentumsanteil: grundstueckFlurstueckMiteigentumsanteil,
       groesse: grundstueckFlurstueckGroesse,
     },
   },
@@ -263,6 +273,8 @@ export default stepDefinitions;
 export type Flurstueck = {
   angaben?: GrundstueckFlurstueckAngabenFields;
   flur?: GrundstueckFlurstueckFlurFields;
+  miteigentum?: GrundstueckFlurstueckMiteigentumFields;
+  miteigentumsanteil?: GrundstueckFlurstueckMiteigentumsanteilFields;
   groesse?: GrundstueckFlurstueckGroesseFields;
 };
 

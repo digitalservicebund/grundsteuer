@@ -31,6 +31,11 @@ const inputData = {
         flur: "456",
         flurstueckZaehler: "2345",
         flurstueckNenner: "9876",
+      },
+      miteigentum: {
+        hasMiteigentum: "true",
+      },
+      miteigentumsanteil: {
         wirtschaftlicheEinheitZaehler: "1",
         wirtschaftlicheEinheitNenner: "234",
       },
@@ -238,14 +243,33 @@ describe("Happy Path", () => {
     cy.get("#flurstueckNenner")
       .clear()
       .type(inputData.grundstueck.flurstueck.flur.flurstueckNenner);
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should(
+      "include",
+      "/formular/grundstueck/flurstueck/1/miteigentum"
+    );
+    cy.get(
+      `label[for=hasMiteigentum-${inputData.grundstueck.flurstueck.miteigentum.hasMiteigentum}]`
+    ).click();
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should(
+      "include",
+      "/formular/grundstueck/flurstueck/1/miteigentumsanteil"
+    );
     cy.get("#wirtschaftlicheEinheitZaehler")
       .clear()
       .type(
-        inputData.grundstueck.flurstueck.flur.wirtschaftlicheEinheitZaehler
+        inputData.grundstueck.flurstueck.miteigentumsanteil
+          .wirtschaftlicheEinheitZaehler
       );
     cy.get("#wirtschaftlicheEinheitNenner")
       .clear()
-      .type(inputData.grundstueck.flurstueck.flur.wirtschaftlicheEinheitNenner);
+      .type(
+        inputData.grundstueck.flurstueck.miteigentumsanteil
+          .wirtschaftlicheEinheitNenner
+      );
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/flurstueck/1/groesse");
@@ -277,14 +301,13 @@ describe("Happy Path", () => {
     cy.get("#flurstueckNenner")
       .clear()
       .type(inputData.grundstueck.flurstueck.flur.flurstueckNenner);
-    cy.get("#wirtschaftlicheEinheitZaehler")
-      .clear()
-      .type(
-        inputData.grundstueck.flurstueck.flur.wirtschaftlicheEinheitZaehler
-      );
-    cy.get("#wirtschaftlicheEinheitNenner")
-      .clear()
-      .type(inputData.grundstueck.flurstueck.flur.wirtschaftlicheEinheitNenner);
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should(
+      "include",
+      "/formular/grundstueck/flurstueck/2/miteigentum"
+    );
+    cy.get(`label[for=hasMiteigentum-false]`).click();
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/flurstueck/2/groesse");

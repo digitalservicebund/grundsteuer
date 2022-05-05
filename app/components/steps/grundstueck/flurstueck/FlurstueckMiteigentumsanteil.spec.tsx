@@ -1,12 +1,12 @@
 import { render, screen, within } from "@testing-library/react";
 import { getI18nObject } from "~/factories/i18n";
-import { grundstueckFlurstueckFlur } from "~/domain/steps/grundstueck/flurstueck/flur";
-import Flur from "~/components/steps/grundstueck/flurstueck/FlurstueckFlur";
 import { I18nObject } from "~/i18n/getStepI18n";
+import { grundstueckFlurstueckMiteigentumsanteil } from "~/domain/steps/grundstueck/flurstueck/miteigentumsanteil";
+import FlurstueckMiteigentumsanteil from "~/components/steps/grundstueck/flurstueck/FlurstueckMiteigentumsanteil";
 
-describe("Flur page component", () => {
+describe("Miteigentumsanteil page component", () => {
   const defaultInput = {
-    stepDefinition: grundstueckFlurstueckFlur,
+    stepDefinition: grundstueckFlurstueckMiteigentumsanteil,
     formData: {},
     allData: {},
     i18n: {} as I18nObject,
@@ -16,18 +16,19 @@ describe("Flur page component", () => {
   };
 
   beforeEach(async () => {
-    defaultInput.i18n = await getI18nObject("grundstueck.flurstueck.flur");
+    defaultInput.i18n = await getI18nObject(
+      "grundstueck.flurstueck.miteigentumsanteil"
+    );
   });
 
   it("should render all input fields", () => {
-    render(<Flur {...defaultInput} />);
-    expect(screen.getByLabelText("Flur (wenn vorhanden)")).toBeInTheDocument();
+    render(<FlurstueckMiteigentumsanteil {...defaultInput} />);
     expect(screen.getByLabelText("Zähler")).toBeInTheDocument();
     expect(screen.getByLabelText("Nenner")).toBeInTheDocument();
   });
 
   it("should render zähler and nenner in a fieldset with an image", () => {
-    render(<Flur {...defaultInput} />);
+    render(<FlurstueckMiteigentumsanteil {...defaultInput} />);
     const fieldsets = screen.getAllByRole("group");
     expect(within(fieldsets[0]).getByLabelText("Zähler")).toBeInTheDocument();
     expect(within(fieldsets[0]).getByRole("img")).toBeInTheDocument();

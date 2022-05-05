@@ -129,8 +129,10 @@ const transformFlurstueck = (flurstueck: Flurstueck) => {
     flur: {
       ...flurstueck.flur,
       wirtschaftlicheEinheitZaehler: transformWirtschaftlicheEinheitZaehler(
-        flurstueck.flur?.wirtschaftlicheEinheitZaehler
+        flurstueck.miteigentumsanteil?.wirtschaftlicheEinheitZaehler
       ),
+      wirtschaftlicheEinheitNenner:
+        flurstueck.miteigentumsanteil?.wirtschaftlicheEinheitNenner,
     },
     groesseQm: flurstueck.groesse
       ? calculateGroesse(flurstueck.groesse)

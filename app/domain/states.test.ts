@@ -7,7 +7,7 @@ import {
 } from "~/domain/states";
 import { conditions } from "~/domain/guards";
 import { actions } from "~/domain/actions";
-import { grundModelFactory } from "~/factories";
+import { flurstueckFactory, grundModelFactory } from "~/factories";
 import { getPathsFromState } from "~/util/getPathsFromState";
 
 const removeTransitions = (
@@ -77,6 +77,7 @@ describe("states", () => {
       "grundstueck.anzahl",
       "grundstueck.flurstueck.1.angaben",
       "grundstueck.flurstueck.1.flur",
+      "grundstueck.flurstueck.1.miteigentum",
       "grundstueck.flurstueck.1.groesse",
       "grundstueck.bodenrichtwertInfo",
       "grundstueck.bodenrichtwertEingabe",
@@ -127,6 +128,37 @@ describe("states", () => {
           "grundstueck.anzahl",
           "grundstueck.flurstueck.1.angaben",
           "grundstueck.flurstueck.1.flur",
+          "grundstueck.flurstueck.1.miteigentum",
+          "grundstueck.flurstueck.1.groesse",
+          "grundstueck.bodenrichtwertInfo",
+          "grundstueck.bodenrichtwertEingabe",
+          "grundstueck.bodenrichtwertAnzahl",
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
+      {
+        description: "Miteigentum",
+        context: grundModelFactory
+          .grundstueckFlurstueck({
+            list: [
+              flurstueckFactory.miteigentum({ hasMiteigentum: "true" }).build(),
+            ],
+            count: 1,
+          })
+          .build(),
+        expectedPath: [
+          "welcome",
+          "grundstueck.uebersicht",
+          "grundstueck.typ",
+          "grundstueck.adresse",
+          "grundstueck.steuernummer",
+          "grundstueck.gemeinde",
+          "grundstueck.anzahl",
+          "grundstueck.flurstueck.1.angaben",
+          "grundstueck.flurstueck.1.flur",
+          "grundstueck.flurstueck.1.miteigentum",
+          "grundstueck.flurstueck.1.miteigentumsanteil",
           "grundstueck.flurstueck.1.groesse",
           "grundstueck.bodenrichtwertInfo",
           "grundstueck.bodenrichtwertEingabe",

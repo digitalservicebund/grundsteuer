@@ -13,24 +13,19 @@ const FlurstueckFlur: StepComponentFunction = ({
 
   return (
     <div>
+      <div className="mb-16">{i18n.specifics.explanation}</div>
       <div>
         <FormGroup>
           <StepFormField {...fieldProps[0]} />
         </FormGroup>
         <FormGroup>
+          <SubHeadline>{i18n.specifics.flurstueckSubheading}</SubHeadline>
           <InputFraction
             zaehler={<StepFormField {...fieldProps[1]} />}
             nenner={<StepFormField {...fieldProps[2]} />}
           />
         </FormGroup>
       </div>
-      <SubHeadline>{i18n.specifics.subHeadingAnteil}</SubHeadline>
-      <FormGroup>
-        <InputFraction
-          zaehler={<StepFormField {...fieldProps[3]} />}
-          nenner={<StepFormField {...fieldProps[4]} />}
-        />
-      </FormGroup>
     </div>
   );
 };

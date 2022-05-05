@@ -1,6 +1,6 @@
 import { conditions } from "~/domain/guards";
 import { StateMachineContext } from "~/domain/states";
-import { grundModelFactory } from "~/factories";
+import { flurstueckFactory, grundModelFactory } from "~/factories";
 import { GrundModel } from "./steps";
 
 describe("isZweifamilienhaus", () => {
@@ -663,6 +663,36 @@ describe("repeatFlurstueck", () => {
       const result = conditions.repeatFlurstueck(inputData);
       expect(result).toEqual(false);
     });
+  });
+});
+
+describe("hasMiteigentum", () => {
+  it("Should return true if true has been selected", () => {
+    const data = flurstueckFactory
+      .miteigentum({ hasMiteigentum: "true" })
+      .build();
+    const inputData = {
+      grundstueck: { flurstueck: [{ ...data }] },
+      flurstueckId: 1,
+    };
+
+    const result = conditions.hasMiteigentum(inputData);
+
+    expect(result).toEqual(true);
+  });
+
+  it("Should return false if false has been selected", () => {
+    const data = flurstueckFactory
+      .miteigentum({ hasMiteigentum: "false" })
+      .build();
+    const inputData = {
+      grundstueck: { flurstueck: [{ ...data }] },
+      flurstueckId: 1,
+    };
+
+    const result = conditions.hasMiteigentum(inputData);
+
+    expect(result).toEqual(false);
   });
 });
 

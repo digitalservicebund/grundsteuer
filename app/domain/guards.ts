@@ -106,6 +106,14 @@ const flurstueckIdGreaterThanOne: Condition = (context) => {
   return Number(context?.flurstueckId) > 1;
 };
 
+const hasMiteigentum: Condition = (context) => {
+  const flurstueck =
+    context?.grundstueck?.flurstueck?.[(context?.flurstueckId || 1) - 1];
+  if (!flurstueck) return false;
+
+  return flurstueck.miteigentum?.hasMiteigentum === "true";
+};
+
 const bundeslandIsNW: Condition = (context) => {
   return context?.grundstueck?.adresse?.bundesland == "NW";
 };
@@ -132,5 +140,6 @@ export const conditions: Conditions = {
   isAbweichendeEntwicklung,
   personIdGreaterThanOne,
   flurstueckIdGreaterThanOne,
+  hasMiteigentum,
   bundeslandIsNW,
 };

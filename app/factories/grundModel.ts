@@ -147,6 +147,8 @@ class GrundModelFactory extends Factory<GrundModel> {
       flurstueckFactory
         .angaben()
         .flur()
+        .miteigentum()
+        .miteigentumsanteil()
         .groesse()
         .buildList(count || 1);
 
@@ -448,6 +450,11 @@ class GrundModelFactory extends Factory<GrundModel> {
                 flur: "Test1",
                 flurstueckZaehler: "23",
                 flurstueckNenner: "45",
+              },
+              miteigentum: {
+                hasMiteigentum: "true",
+              },
+              miteigentumsanteil: {
                 wirtschaftlicheEinheitZaehler: "67,1",
                 wirtschaftlicheEinheitNenner: "89",
               },
@@ -466,6 +473,11 @@ class GrundModelFactory extends Factory<GrundModel> {
                 flur: "Test2",
                 flurstueckZaehler: "34",
                 flurstueckNenner: "56",
+              },
+              miteigentum: {
+                hasMiteigentum: "true",
+              },
+              miteigentumsanteil: {
                 wirtschaftlicheEinheitZaehler: "78",
                 wirtschaftlicheEinheitNenner: "90",
               },

@@ -101,6 +101,11 @@ describe("transforDataToEricaFormat", () => {
             flur: "Test1",
             flurstueckZaehler: "23",
             flurstueckNenner: "45",
+          },
+          miteigentum: {
+            hasMiteigentum: "true" as "true" | "false",
+          },
+          miteigentumsanteil: {
             wirtschaftlicheEinheitZaehler: "67,1",
             wirtschaftlicheEinheitNenner: "89",
           },
@@ -119,6 +124,11 @@ describe("transforDataToEricaFormat", () => {
             flur: "Test2",
             flurstueckZaehler: "34",
             flurstueckNenner: "56",
+          },
+          miteigentum: {
+            hasMiteigentum: "true" as "true" | "false",
+          },
+          miteigentumsanteil: {
             wirtschaftlicheEinheitZaehler: "78",
             wirtschaftlicheEinheitNenner: "90",
           },
