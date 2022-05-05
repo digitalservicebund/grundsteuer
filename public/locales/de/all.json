@@ -350,7 +350,6 @@
       "headline": "Sind die Eigentümer:innen verheiratet?",
       "fields": {
         "areVerheiratet": {
-          "label": "Sind die Eigentümer verheiratet?",
           "options": {
             "true": {
               "label": "Ja, die Eigentümer:innen sind verheiratet",
@@ -433,7 +432,6 @@
         "headlineHelp": "Gesetzliche Vertretung bedeutet....",
         "fields": {
           "hasVertreter": {
-            "label": "Möchten Sie einen gesetzlichen Vertreter angeben?",
             "options": {
               "true": {
                 "label": "Ja, ich möchte einen ges. Vetreter angeben"
@@ -741,7 +739,6 @@
       "headline": "Um welche Art Grundstück handelt es sich?",
       "fields": {
         "typ": {
-          "label": "Grundstücksart",
           "options": {
             "einfamilienhaus": {
               "label": "Einfamilienhaus"
@@ -766,7 +763,6 @@
       "headline": "Da abweichende Entwicklung, welcher Zustand trifft auf Ihr Grundstück zu?",
       "fields": {
         "zustand": {
-          "label": "Zustand",
           "options": {
             "bauerwartungsland": {
               "label": "Bauerwartungsland",
@@ -789,7 +785,6 @@
       "headline": "Liegt das Grundstück innerhalb einer Gemeinde?",
       "fields": {
         "innerhalbEinerGemeinde": {
-          "label": "Liegt das Grundstück innerhalb einer Gemeinde?",
           "options": {
             "true": {
               "label": "Ja, es liegt innerhalb einer Gemeinde"

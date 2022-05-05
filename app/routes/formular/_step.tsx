@@ -280,18 +280,31 @@ export function Step() {
       ? i18n.nextButtonLabel
       : i18n.common.continue;
   }
+  const fields = loaderData.stepDefinition.fields;
+  const headlineIsLegend =
+    Object.keys(fields).length === 1 &&
+    fields[Object.keys(fields)[0]].type === "radio";
 
   return (
     <ContentContainer size="sm">
       <BreadcrumbNavigation />
-      <StepHeadline i18n={i18n} />
       <Form
         method="post"
         className="mb-16"
         key={currentState}
         action={redirectToSummary ? "?redirectToSummary=true" : ""}
       >
-        <StepComponent {...loaderData} {...actionData} />
+        {headlineIsLegend ? (
+          <fieldset>
+            <StepHeadline i18n={i18n} asLegend />
+            <StepComponent {...loaderData} {...actionData} />
+          </fieldset>
+        ) : (
+          <>
+            <StepHeadline i18n={i18n} />
+            <StepComponent {...loaderData} {...actionData} />
+          </>
+        )}
         <ButtonContainer>
           <Button
             id="nextButton"

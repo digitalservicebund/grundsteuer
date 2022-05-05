@@ -3,11 +3,10 @@ import Details from "../Details";
 import QuestionMark from "~/components/icons/mui/QuestionMark";
 import FieldError from "./FieldError";
 import Radio from "./Radio";
-import FormGroup from "./FormGroup";
 
 export type RadioGroupProps = {
   name: string;
-  label: string;
+  label?: string;
   options: { value: string; label: string; help?: string }[];
   value?: string;
   defaultValue?: string;
@@ -63,9 +62,8 @@ export default function RadioGroup(props: RadioGroupProps) {
 
   const errorComponent = error && <FieldError>{error}</FieldError>;
 
-  return (
-    <fieldset className="mb-4">
-      <legend>{label}</legend>
+  const radioGroupComponent = (
+    <>
       {options.map((option, index) => {
         const checked = value
           ? option.value === value
@@ -89,6 +87,17 @@ export default function RadioGroup(props: RadioGroupProps) {
         );
       })}
       {errorComponent}
-    </fieldset>
+    </>
   );
+
+  if (label) {
+    return (
+      <fieldset>
+        <legend>{label}</legend>
+        {radioGroupComponent}
+      </fieldset>
+    );
+  }
+
+  return radioGroupComponent;
 }
