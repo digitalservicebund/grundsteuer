@@ -636,8 +636,8 @@ describe("getErrorMessageForGeburtsdatum", () => {
     i18n = { ...(tFunction("errors") as object) };
   });
 
-  it("should succeed with German date", async () => {
-    expect(await getErrorMessageForGeburtsdatum("01.01.2001")).toBeFalsy();
+  it("should return undefined with correct German date", async () => {
+    expect(await getErrorMessageForGeburtsdatum("01.01.2001")).toBeUndefined();
   });
 
   it("should fail without Geburtsdatum", async () => {
@@ -743,7 +743,7 @@ describe("getErrorMessageForFreischaltcode", () => {
   it("should succeed with correctly formatted FreischaltCode", async () => {
     expect(
       await getErrorMessageForFreischaltcode("ABCD-ABCD-ABCD")
-    ).toBeFalsy();
+    ).toBeUndefined();
   });
 
   it("should fail without FreischaltCode", async () => {

@@ -356,7 +356,7 @@ describe("user", () => {
       const user = await findUserByEmail("existing@foo.com");
 
       expect(user).toBeTruthy();
-      expect(user?.identified).toBeTruthy();
+      expect(user?.identified).toEqual(true);
     });
 
     it("should set identified attribute to false if false given as value", async () => {
@@ -365,7 +365,7 @@ describe("user", () => {
       const user = await findUserByEmail("existing@foo.com");
 
       expect(user).toBeTruthy();
-      expect(user?.identified).toBeFalsy();
+      expect(user?.identified).toEqual(false);
     });
 
     it("should fail on unknown user", async () => {
