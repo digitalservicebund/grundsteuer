@@ -280,8 +280,9 @@ export function Step() {
       ? i18n.nextButtonLabel
       : i18n.common.continue;
   }
-  const fields = loaderData.stepDefinition.fields;
+  const fields = loaderData.stepDefinition?.fields;
   const headlineIsLegend =
+    fields &&
     Object.keys(fields).length === 1 &&
     fields[Object.keys(fields)[0]].type === "radio";
 
