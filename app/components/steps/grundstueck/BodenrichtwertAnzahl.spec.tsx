@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import { getI18nObject } from "~/factories/i18n";
-import { grundModelFactory } from "~/factories";
+import { getI18nObject } from "test/factories/i18n";
+import { grundModelFactory } from "test/factories";
 import { I18nObject } from "~/i18n/getStepI18n";
 import BodenrichtwertAnzahl from "~/components/steps/grundstueck/BodenrichtwertAnzahl";
 import { grundstueckBodenrichtwertAnzahl } from "~/domain/steps/grundstueck/bodenrichtwert/anzahl";

@@ -7,7 +7,7 @@ import {
 } from "~/domain/states";
 import { conditions } from "~/domain/guards";
 import { actions } from "~/domain/actions";
-import { flurstueckFactory, grundModelFactory } from "~/factories";
+import { flurstueckFactory, grundModelFactory } from "test/factories";
 import { getPathsFromState } from "~/util/getPathsFromState";
 
 const removeTransitions = (

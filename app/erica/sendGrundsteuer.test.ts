@@ -1,6 +1,6 @@
 import * as ericaClientModule from "~/erica/ericaClient";
 import { retrieveResult, sendNewGrundsteuer } from "~/erica/sendGrundsteuer";
-import { grundModelFactory } from "~/factories";
+import { grundModelFactory } from "test/factories";
 
 describe("sendNewGrundsteuer", () => {
   it("should return requestId from postToEricaResponse", async () => {

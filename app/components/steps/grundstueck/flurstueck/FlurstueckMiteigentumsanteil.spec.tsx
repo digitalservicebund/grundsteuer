@@ -1,5 +1,5 @@
 import { render, screen, within } from "@testing-library/react";
-import { getI18nObject } from "~/factories/i18n";
+import { getI18nObject } from "test/factories/i18n";
 import { I18nObject } from "~/i18n/getStepI18n";
 import { grundstueckFlurstueckMiteigentumsanteil } from "~/domain/steps/grundstueck/flurstueck/miteigentumsanteil";
 import FlurstueckMiteigentumsanteil from "~/components/steps/grundstueck/flurstueck/FlurstueckMiteigentumsanteil";

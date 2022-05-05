@@ -30,7 +30,7 @@ import {
   validateYearInPast,
 } from "./validation";
 import { GrundModel } from "~/domain/steps";
-import { grundModelFactory } from "~/factories";
+import { grundModelFactory } from "test/factories";
 import { i18Next } from "~/i18n.server";
 
 describe("validateEmail", () => {
