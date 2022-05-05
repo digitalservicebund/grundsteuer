@@ -1,10 +1,16 @@
 import { StepComponentFunction } from "~/routes/formular/_step";
 import IntroText from "../IntroText";
 import SubHeadline from "../SubHeadline";
+import UebersichtStep from "~/components/form/UebersichtStep";
+import welcomeImage from "~/assets/images/uebersicht-willkommen.svg";
+import welcomeImageSmall from "~/assets/images/uebersicht-willkommen-small.svg";
 
-const Welcome: StepComponentFunction = () => {
+const Willkommen: StepComponentFunction = () => {
   return (
-    <>
+    <UebersichtStep
+      image={<img src={welcomeImage} alt="" />}
+      smallImage={<img src={welcomeImageSmall} alt="" />}
+    >
       <IntroText>
         Wir führen Sie mit einfachen Fragen und Hilfestellungen auf jeder Seite
         durch Ihre Erklärung zur Feststellung des Grundsteuerwerts.
@@ -53,8 +59,8 @@ const Welcome: StepComponentFunction = () => {
         </ol>
         <p>Jetzt kann es losgehen!</p>
       </IntroText>
-    </>
+    </UebersichtStep>
   );
 };
 
-export default Welcome;
+export default Willkommen;

@@ -1,10 +1,14 @@
 import { StepComponentFunction } from "~/routes/formular/_step";
 import UebersichtStep from "~/components/form/UebersichtStep";
 import grundstueckUebersicht from "~/assets/images/uebersicht-grundstueck.svg";
+import grundstueckUebersichtSmall from "~/assets/images/uebersicht-grundstueck-small.svg";
 
 const GrundstueckUebersicht: StepComponentFunction = () => {
   return (
-    <UebersichtStep image={<img src={grundstueckUebersicht} alt="" />}>
+    <UebersichtStep
+      image={<img src={grundstueckUebersicht} alt="" />}
+      smallImage={<img src={grundstueckUebersichtSmall} alt="" />}
+    >
       <p className="mb-32">
         In diesem ersten Abschnitt dreht sich alles um das Grundstück, für das
         Sie die Grundsteuererklärung abgeben möchten.

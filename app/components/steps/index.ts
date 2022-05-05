@@ -9,7 +9,7 @@ import { SteuernummerHelp } from "~/components/steps/grundstueck/SteuernummerHel
 import { AbweichendeEntwicklungHelp } from "~/components/steps/grundstueck/AbweichendeEntwicklungHelp";
 import Bruchteilsgemeinschaft from "~/components/steps/eigentuemer/Bruchteilsgemeinschaft";
 import BruchteilsgemeinschaftAngaben from "~/components/steps/eigentuemer/bruchteilsgemeinschaftangaben/BruchteilsgemeinschaftAngaben";
-import Welcome from "~/components/steps/Welcome";
+import Willkommen from "~/components/steps/Willkommen";
 import GrundstueckUebersicht from "~/components/steps/grundstueck/GrundstueckUebersicht";
 import GebaeudeUebersicht from "~/components/steps/gebaeude/GebaeudeUebersicht";
 import { EmpfangsbevollmaechtigterNameHelp } from "~/components/steps/eigentuemer/empfangsbevollmaechtigter/EmpfangsbevollmaechtigterNameHelp";
@@ -20,7 +20,7 @@ import { BruchteilsgemeinschaftHelp } from "~/components/steps/eigentuemer/Bruch
 export { Default as FallbackStepComponent };
 
 export default {
-  welcome: Welcome,
+  welcome: Willkommen,
   eigentuemer: {
     uebersicht: EigentuemerUebersicht,
     bruchteilsgemeinschaft: Bruchteilsgemeinschaft,
