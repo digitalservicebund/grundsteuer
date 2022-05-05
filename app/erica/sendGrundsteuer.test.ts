@@ -1,6 +1,6 @@
 import * as ericaClientModule from "~/erica/ericaClient";
 import { retrieveResult, sendNewGrundsteuer } from "~/erica/sendGrundsteuer";
-import { grundModelFactory } from "test/factories";
+import { grundModelFactory } from "~/factories";
 import { EricaResponse } from "~/erica/utils";
 import { extractAntragsId } from "~/erica/freischaltCode";
 

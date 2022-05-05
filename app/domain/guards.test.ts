@@ -1,6 +1,6 @@
 import { conditions } from "~/domain/guards";
 import { StateMachineContext } from "~/domain/states";
-import { grundModelFactory } from "test/factories";
+import { grundModelFactory } from "~/factories";
 import { GrundModel } from "./steps";
 
 describe("isZweifamilienhaus", () => {

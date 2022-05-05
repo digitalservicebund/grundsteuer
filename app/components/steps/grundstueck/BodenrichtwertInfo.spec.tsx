@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import BodenrichtwertInfo from "~/components/steps/grundstueck/BodenrichtwertInfo";
-import { getI18nObject } from "test/factories/i18n";
-import { grundModelFactory } from "test/factories";
+import { getI18nObject } from "~/factories/i18n";
+import { grundModelFactory } from "~/factories";
 import { I18nObject } from "~/i18n/getStepI18n";
 
 describe("BodenrichtwertInfo component should display link label for each bundesland", () => {

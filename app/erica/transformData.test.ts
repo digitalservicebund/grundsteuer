@@ -1,4 +1,4 @@
-import { grundModelFactory } from "test/factories";
+import { grundModelFactory } from "~/factories";
 import {
   calculateGroesse,
   fillPostCommaToLength,

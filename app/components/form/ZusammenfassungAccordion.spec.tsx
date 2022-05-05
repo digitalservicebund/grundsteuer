@@ -3,7 +3,7 @@ import ZusammenfassungAccordion, {
   ZusammenfassungAccordionProps,
 } from "~/components/form/ZusammenfassungAccordion";
 import { I18nObject } from "~/i18n/getStepI18n";
-import { grundModelFactory } from "test/factories";
+import { grundModelFactory } from "~/factories";
 
 describe("ZusammenfassungAccordion component", () => {
   const defaultProps: ZusammenfassungAccordionProps = {

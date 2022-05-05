@@ -1,5 +1,5 @@
 import { filterDataForReachablePaths } from "~/domain/model";
-import { grundModelFactory } from "test/factories";
+import { grundModelFactory } from "~/factories";
 import SpyInstance = jest.SpyInstance;
 
 describe("filterDataForReachablePaths", () => {

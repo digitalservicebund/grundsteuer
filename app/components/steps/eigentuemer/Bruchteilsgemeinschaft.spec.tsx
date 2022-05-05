@@ -1,4 +1,4 @@
-import { getI18nObject, grundModelFactory } from "test/factories";
+import { getI18nObject, grundModelFactory } from "~/factories";
 import { render, screen } from "@testing-library/react";
 import { eigentuemerBruchteilsgemeinschaft } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaft";
 import Bruchteilsgemeinschaft from "~/components/steps/eigentuemer/Bruchteilsgemeinschaft";
