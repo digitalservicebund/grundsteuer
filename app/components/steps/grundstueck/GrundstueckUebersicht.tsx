@@ -6,8 +6,8 @@ import grundstueckUebersichtSmall from "~/assets/images/uebersicht-grundstueck-s
 const GrundstueckUebersicht: StepComponentFunction = () => {
   return (
     <UebersichtStep
-      image={<img src={grundstueckUebersicht} alt="" />}
-      smallImage={<img src={grundstueckUebersichtSmall} alt="" />}
+      imageSrc={grundstueckUebersicht}
+      smallImageSrc={grundstueckUebersichtSmall}
     >
       <p className="mb-32">
         In diesem ersten Abschnitt dreht sich alles um das Grundstück, für das

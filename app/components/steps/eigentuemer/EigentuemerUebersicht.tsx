@@ -6,8 +6,8 @@ import eigentuemerUebersichtSmall from "~/assets/images/uebersicht-eigentuemer-s
 const EigentuemerUebersicht: StepComponentFunction = () => {
   return (
     <UebersichtStep
-      image={<img src={eigentuemerUebersicht} alt="" />}
-      smallImage={<img src={eigentuemerUebersichtSmall} alt="" />}
+      imageSrc={eigentuemerUebersicht}
+      smallImageSrc={eigentuemerUebersichtSmall}
     >
       <p className="mb-32">
         In diesem Abschnitt dreht sich alles um Sie: die Eigentümer:in (oder

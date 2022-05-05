@@ -7,10 +7,7 @@ import welcomeImageSmall from "~/assets/images/uebersicht-willkommen-small.svg";
 
 const Willkommen: StepComponentFunction = () => {
   return (
-    <UebersichtStep
-      image={<img src={welcomeImage} alt="" />}
-      smallImage={<img src={welcomeImageSmall} alt="" />}
-    >
+    <UebersichtStep imageSrc={welcomeImage} smallImageSrc={welcomeImageSmall}>
       <IntroText>
         Wir führen Sie mit einfachen Fragen und Hilfestellungen auf jeder Seite
         durch Ihre Erklärung zur Feststellung des Grundsteuerwerts.
