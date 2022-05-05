@@ -50,7 +50,7 @@ import {
 } from "~/domain/user";
 import invariant from "tiny-invariant";
 import { useEffect, useState } from "react";
-import { EricaErrorResponseData, ericaUtils } from "~/erica/utils";
+import { ericaUtils } from "~/erica/utils";
 
 type LoaderData = {
   formData: StepFormData;
@@ -237,7 +237,7 @@ export default function Zusammenfassung() {
                 </h2>
                 <Button
                   look="tertiary"
-                  to="/fsc/beantragen"
+                  to="/fsc/"
                   className="mb-48 text-center"
                 >
                   {i18n.specifics.fscLinkText}
