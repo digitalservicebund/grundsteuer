@@ -20,6 +20,7 @@ export { default as Layout } from "./Layout";
 export { default as LogoutButton } from "./LogoutButton";
 export { default as Main } from "./Main";
 export { default as MaskedInput } from "./form/MaskedInput";
+export { default as Radio } from "./form/Radio";
 export { default as RadioGroup } from "./form/RadioGroup";
 export { default as Select } from "./form/Select";
 export { default as SidebarNavigation } from "./SidebarNavigation";

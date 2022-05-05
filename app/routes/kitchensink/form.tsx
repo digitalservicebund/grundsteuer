@@ -6,6 +6,7 @@ import {
   FormGroup,
   Input,
   MaskedInput,
+  Radio,
   Select,
 } from "~/components";
 
@@ -93,6 +94,17 @@ export default function KitchenSinkForm() {
         <Checkbox name="checkbox4" error="Error message">
           with error
         </Checkbox>
+      </FormGroup>
+
+      <FormGroup>
+        <Radio name="radio" value="radio_1">
+          Lorem ipsum 1
+        </Radio>
+      </FormGroup>
+      <FormGroup>
+        <Radio name="radio" value="radio_2">
+          Lorem ipsum 2
+        </Radio>
       </FormGroup>
 
       <ContentContainer size="sm" className="border border-black">

@@ -2,6 +2,8 @@ import { ConfigStepFieldOptionsItem } from "~/domain";
 import Details from "../Details";
 import QuestionMark from "~/components/icons/mui/QuestionMark";
 import FieldError from "./FieldError";
+import Radio from "./Radio";
+import FormGroup from "./FormGroup";
 
 export type RadioGroupProps = {
   name: string;
@@ -17,24 +19,16 @@ const RadioGroupOption = (
     name: string;
     checked: boolean;
     help?: string;
-    key: string;
   }
 ) => {
-  const optionId = `${option.name}-${option.value}`;
-
-  const inputComponent = (
-    <input
+  const radioComponent = (
+    <Radio
       defaultChecked={option.checked}
-      type="radio"
       name={option.name}
       value={option.value}
-      id={optionId}
-    />
-  );
-  const labelComponent = (
-    <label htmlFor={optionId} className="ml-2">
+    >
       {option.label}
-    </label>
+    </Radio>
   );
 
   if (option.help) {
@@ -43,8 +37,7 @@ const RadioGroupOption = (
         <Details
           summaryContent={
             <>
-              {inputComponent}
-              {labelComponent}
+              {radioComponent}
               <QuestionMark
                 className="inline-block float-right"
                 role="img"
@@ -59,8 +52,7 @@ const RadioGroupOption = (
   } else {
     return (
       <div key={option.value} data-testid={`option-${option.value}`}>
-        {inputComponent}
-        {labelComponent}
+        {radioComponent}
       </div>
     );
   }
@@ -74,22 +66,26 @@ export default function RadioGroup(props: RadioGroupProps) {
   return (
     <fieldset className="mb-4">
       <legend>{label}</legend>
-      {options.map((option) => {
+      {options.map((option, index) => {
         const checked = value
           ? option.value === value
           : option.value === defaultValue;
 
         return (
-          <RadioGroupOption
-            {...{
-              name,
-              checked,
-              value: option.value,
-              label: option.label,
-              help: option.help,
-              key: option.value,
-            }}
-          />
+          <div
+            key={option.value}
+            className={index + 1 < options.length ? "mb-24" : ""}
+          >
+            <RadioGroupOption
+              {...{
+                name,
+                checked,
+                value: option.value,
+                label: option.label,
+                help: option.help,
+              }}
+            />
+          </div>
         );
       })}
       {errorComponent}
