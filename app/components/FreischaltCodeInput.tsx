@@ -22,13 +22,15 @@ const InputWithMixin = IMaskMixin<
   );
 });
 
-
 export default function FreischaltCodeInput(props: InputProps) {
-  return <InputWithMixin
-      mask='FFFF-FFFF-FFFF'
+  return (
+    <InputWithMixin
+      mask="FFFF-FFFF-FFFF"
       definitions={{
-        'F': /[0-9A-Z]/
+        F: /[0-9A-Z]/,
       }}
       prepare={(str: string) => str.toUpperCase()}
-      {...props} />;
+      {...props}
+    />
+  );
 }
