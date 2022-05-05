@@ -1,6 +1,6 @@
 import { StepComponentFunction } from "~/routes/formular/_step";
 import UebersichtStep from "~/components/form/UebersichtStep";
-import grundstueckUebersicht from "~/assets/images/grundstueck-uebersicht.svg";
+import grundstueckUebersicht from "~/assets/images/uebersicht-grundstueck.svg";
 
 const GrundstueckUebersicht: StepComponentFunction = () => {
   return (

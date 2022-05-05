@@ -1,6 +1,6 @@
 import { StepComponentFunction } from "~/routes/formular/_step";
 import UebersichtStep from "~/components/form/UebersichtStep";
-import eigentuemerUebersicht from "~/assets/images/eigentuemer-uebersicht.svg";
+import eigentuemerUebersicht from "~/assets/images/uebersicht-eigentuemer.svg";
 
 const EigentuemerUebersicht: StepComponentFunction = () => {
   return (
