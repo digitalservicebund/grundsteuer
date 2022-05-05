@@ -13,6 +13,7 @@ const FlurstueckGroesse: StepComponentFunction = ({
 
   return (
     <div>
+      <div className="mb-16">{i18n.description}</div>
       <FormGroup>
         <InputRow>
           <div>

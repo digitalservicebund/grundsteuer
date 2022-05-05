@@ -9,6 +9,7 @@ const Default: StepComponentFunction = ({
 }) => {
   return (
     <div>
+      {i18n.description && <div className="mb-16">{i18n.description}</div>}
       <StepFormFields {...{ stepDefinition, formData, i18n, errors }} />
     </div>
   );

@@ -15,6 +15,7 @@ export type I18nObjectField = {
 export type I18nObject = {
   headline: string;
   headlineHelp?: string;
+  description?: string;
   fields: {
     [index: string]: I18nObjectField;
   };

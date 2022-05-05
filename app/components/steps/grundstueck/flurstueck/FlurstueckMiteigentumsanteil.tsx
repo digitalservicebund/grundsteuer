@@ -13,7 +13,7 @@ const FlurstueckMiteigentumsanteil: StepComponentFunction = ({
 
   return (
     <div>
-      <div className="mb-16">{i18n.specifics.explanation}</div>
+      <div className="mb-16">{i18n.description}</div>
       <FormGroup>
         <InputFraction
           zaehler={<StepFormField {...fieldProps[0]} />}

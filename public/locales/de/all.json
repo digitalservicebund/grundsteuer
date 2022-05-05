@@ -850,6 +850,7 @@
       },
       "miteigentum": {
         "headline": "Haben Sie Miteigentum an der Grundstücksfläche?",
+        "description": "“Miteigentum” trifft auf Sie zu, wenn Sie zum Beispiel eine Eigentumswohnung haben. Dann teilen Sie das Grundstück mit den anderen Eigentümer:innen im Haus. Oder wenn Sie zum Beispiel ein Garagengrundstück mit Nachbar:innen teilen. Normalerweise gehört Ihnen die ganze Grundstückstückseinheit. Sollten Sie Miteigentum am Grundstück haben, ist dies im Grundbuchauszug vermerkt.",
         "fields": {
           "hasMiteigentum": {
             "options": {
@@ -861,13 +862,11 @@
               }
             }
           }
-        },
-        "specifics": {
-          "explanation": "“Miteigentum” trifft auf Sie zu, wenn Sie zum Beispiel eine Eigentumswohnung haben. Dann teilen Sie das Grundstück mit den anderen Eigentümer:innen im Haus. Oder wenn Sie zum Beispiel ein Garagengrundstück mit Nachbar:innen teilen. Normalerweise gehört Ihnen die ganze Grundstückstückseinheit. Sollten Sie Miteigentum am Grundstück haben, ist dies im Grundbuchauszug vermerkt."
         }
       },
       "miteigentumsanteil": {
         "headline": "Übertragen Sie die Angaben aus dem Grundbuchblatt zum Miteigentumsanteil",
+        "description": "Auf der Seite “Bestandsverzeichnis” finden Sie die Angaben über Ihren Miteigentumsanteil am Grundstück. Oft sind die Eintragungen etwas verschoben. In den meisten Fällen aber durch das Wort “Miteigentumsanteil” zu erkennen.",
         "fields": {
           "wirtschaftlicheEinheitZaehler": {
             "label": "Zähler"
@@ -875,13 +874,11 @@
           "wirtschaftlicheEinheitNenner": {
             "label": "Nenner"
           }
-        },
-        "specifics": {
-          "explanation": "Auf der Seite “Bestandsverzeichnis” finden Sie die Angaben über Ihren Miteigentumsanteil am Grundstück. Oft sind die Eintragungen etwas verschoben. In den meisten Fällen aber durch das Wort “Miteigentumsanteil” zu erkennen."
         }
       },
       "groesse": {
-        "headline": "Übertragen Sie die Angaben aus dem Grundbuch zu Grundstück {{id}}:",
+        "headline": "Tragen Sie die Grundstücksgröße für Grundstückseinheit {{id}} ein",
+        "description": "Auf der Seite “Bestandsverzeichnis” finden Sie den Eintrag über die Größe Ihres Grundstücks. Meistens ist diese in Hektar, Ar und Quadratmeter angegeben. Oft auch nur in Quadratmeter. Übertragen Sie die Zahlen so, wie Sie sie vorfinden.",
         "fields": {
           "groesseHa": {
             "label": "Größe in ha"
@@ -1012,9 +1009,6 @@
           "bodenrichtwert": {
             "label": "Bodenrichtwert in € / m²"
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "bb": {
@@ -1023,20 +1017,15 @@
           "bodenrichtwert": {
             "label": "Bodenrichtwert in € / m²"
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "be": {
         "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "description": "Übertragen Sie den ermittelten Bodenrichtwert von der externen Seite — die erste unterstrichene rote Zahl — in dieses Feld.",
         "fields": {
           "bodenrichtwert": {
             "label": "Bodenrichtwert in € / m²"
           }
-        },
-        "specifics": {
-          "explanation": "Übertragen Sie den ermittelten Bodenrichtwert von der externen Seite — die erste unterstrichene rote Zahl — in dieses Feld."
         }
       },
       "hb": {
@@ -1045,9 +1034,6 @@
           "bodenrichtwert": {
             "label": "Bodenrichtwert in € / m²"
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "mv": {
@@ -1056,9 +1042,6 @@
           "bodenrichtwert": {
             "label": "Bodenrichtwert in € / m²"
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "nw": {
@@ -1067,9 +1050,6 @@
           "bodenrichtwert": {
             "label": "Bodenrichtwert in € / m²"
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "rp": {
@@ -1078,9 +1058,6 @@
           "bodenrichtwert": {
             "label": "Bodenrichtwert in € / m²"
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "sh": {
@@ -1089,9 +1066,6 @@
           "bodenrichtwert": {
             "label": "Bodenrichtwert in € / m²"
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "sl": {
@@ -1100,9 +1074,6 @@
           "bodenrichtwert": {
             "label": "Bodenrichtwert in € / m²"
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "sn": {
@@ -1111,9 +1082,6 @@
           "bodenrichtwert": {
             "label": "Bodenrichtwert in € / m²"
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "st": {
@@ -1122,9 +1090,6 @@
           "bodenrichtwert": {
             "label": "Bodenrichtwert in € / m²"
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "th": {
@@ -1133,9 +1098,6 @@
           "bodenrichtwert": {
             "label": "Bodenrichtwert in € / m²"
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       }
     },
@@ -1153,9 +1115,6 @@
               }
             }
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "bb": {
@@ -1171,13 +1130,11 @@
               }
             }
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "be": {
         "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus.",
         "fields": {
           "anzahl": {
             "options": {
@@ -1189,9 +1146,6 @@
               }
             }
           }
-        },
-        "specifics": {
-          "explanation": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
         }
       },
       "hb": {
@@ -1207,9 +1161,6 @@
               }
             }
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "mv": {
@@ -1225,9 +1176,6 @@
               }
             }
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "nw": {
@@ -1243,9 +1191,6 @@
               }
             }
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "rp": {
@@ -1261,9 +1206,6 @@
               }
             }
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "sh": {
@@ -1279,9 +1221,6 @@
               }
             }
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "sl": {
@@ -1297,9 +1236,6 @@
               }
             }
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "sn": {
@@ -1315,9 +1251,6 @@
               }
             }
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "st": {
@@ -1333,9 +1266,6 @@
               }
             }
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       },
       "th": {
@@ -1351,9 +1281,6 @@
               }
             }
           }
-        },
-        "specifics": {
-          "explanation": ""
         }
       }
     }

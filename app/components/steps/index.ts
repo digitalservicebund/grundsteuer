@@ -1,13 +1,9 @@
 import Default from "~/components/steps/Default";
-import BodenrichtwertAnzahl from "~/components/steps/grundstueck/BodenrichtwertAnzahl";
-import BodenrichtwertEingabe from "~/components/steps/grundstueck/BodenrichtwertEingabe";
 import BodenrichtwertInfo from "~/components/steps/grundstueck/BodenrichtwertInfo";
 import FlurstueckAngaben, {
   GrundstueckFlurstueckAngabenHelp,
 } from "~/components/steps/grundstueck/flurstueck/FlurstueckAngaben";
 import FlurstueckFlur from "~/components/steps/grundstueck/flurstueck/FlurstueckFlur";
-import FlurstueckMiteigentumsanteil from "~/components/steps/grundstueck/flurstueck/FlurstueckMiteigentumsanteil";
-import FlurstueckMiteigentum from "~/components/steps/grundstueck/flurstueck/FlurstueckMiteigentum";
 import FlurstueckGroesse from "~/components/steps/grundstueck/flurstueck/FlurstueckGroesse";
 import { SteuernummerHelp } from "~/components/steps/grundstueck/SteuernummerHelp";
 import { AbweichendeEntwicklungHelp } from "~/components/steps/grundstueck/AbweichendeEntwicklungHelp";
@@ -36,14 +32,9 @@ export default {
   grundstueck: {
     uebersicht: GrundstueckUebersicht,
     bodenrichtwertInfo: BodenrichtwertInfo,
-    bodenrichtwertEingabe: BodenrichtwertEingabe,
-    bodenrichtwertAnzahl: BodenrichtwertAnzahl,
-
     flurstueck: {
       angaben: FlurstueckAngaben,
       flur: FlurstueckFlur,
-      miteigentum: FlurstueckMiteigentum,
-      miteigentumsanteil: FlurstueckMiteigentumsanteil,
       groesse: FlurstueckGroesse,
     },
   },
