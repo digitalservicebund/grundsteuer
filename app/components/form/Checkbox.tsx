@@ -1,19 +1,17 @@
+import classNames from "classnames";
 import QuestionMark from "~/components/icons/mui/QuestionMark";
 import Details from "~/components/Details";
-import classNames from "classnames";
 import FieldError from "./FieldError";
 
-export type CheckboxProps = {
-  name: string;
-  label: string;
+export interface CheckboxProps
+  extends Omit<React.ComponentPropsWithoutRef<"input">, "type"> {
   help?: string;
-  value?: string;
-  defaultValue?: string;
   error?: string;
-};
+}
 
 export default function Checkbox(props: CheckboxProps) {
-  const { name, label, help, defaultValue, error } = props;
+  const { children, name, id, help, defaultValue, error, ...otherProps } =
+    props;
 
   const inputComponent = (
     <input
@@ -21,21 +19,19 @@ export default function Checkbox(props: CheckboxProps) {
       type="checkbox"
       name={name}
       value="true"
-      id={name}
-      className="opacity-0 absolute h-32 w-32 peer"
+      id={id || name}
+      className="checkbox__input"
+      {...otherProps}
     />
   );
   const labelComponent = (
     <label
-      htmlFor={name}
-      className={classNames(
-        "before:content-[''] before:w-32 before:h-32",
-        "before:left-0 before:top-0 before:border-2 before:border-green-900",
-        "before:inline-block before:align-middle before:mr-8",
-        `before:peer-checked:bg-blue-500`
-      )}
+      htmlFor={id || name}
+      className={classNames("checkbox__label text-18 leading-26", {
+        "has-error": error,
+      })}
     >
-      {label}
+      {children}
     </label>
   );
 

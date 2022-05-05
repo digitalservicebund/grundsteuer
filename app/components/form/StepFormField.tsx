@@ -63,12 +63,13 @@ const StepFormField = (props: StepFormFieldProps) => {
   }
 
   if (type === "checkbox") {
+    const { label, ...otherProps } = commonProps;
     const checkboxProps: CheckboxProps = {
-      ...commonProps,
+      ...otherProps,
       help: i18n.help,
     };
 
-    return <Checkbox {...checkboxProps} />;
+    return <Checkbox {...checkboxProps}>{label}</Checkbox>;
   }
 
   if (type === "confirmation") {

@@ -1,6 +1,7 @@
 import {
   Button,
   ButtonContainer,
+  Checkbox,
   ContentContainer,
   FormGroup,
   Input,
@@ -67,6 +68,31 @@ export default function KitchenSinkForm() {
           ]}
           error="Fehler !"
         />
+      </FormGroup>
+
+      <FormGroup>
+        <Checkbox name="checkbox">Lorem ipsum</Checkbox>
+      </FormGroup>
+      <FormGroup>
+        <Checkbox name="checkbox2">
+          Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat nia deserunt mollit anim
+          id est laborum
+        </Checkbox>
+      </FormGroup>
+      <FormGroup>
+        <Checkbox name="checkbox3" disabled>
+          disabled
+        </Checkbox>
+      </FormGroup>
+      <FormGroup>
+        <Checkbox name="checkbox4" error="Error message">
+          with error
+        </Checkbox>
       </FormGroup>
 
       <ContentContainer size="sm" className="border border-black">

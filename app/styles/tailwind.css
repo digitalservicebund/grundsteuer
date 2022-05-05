@@ -118,4 +118,65 @@
   .form-group:last-of-type {
     @apply mb-80;
   }
+
+  /* checkbox */
+  .checkbox__input {
+    @apply sr-only;
+  }
+  .checkbox__label {
+    position: relative;
+    display: inline-block;
+    padding-left: 48px;
+    touch-action: manipulation;
+    cursor: pointer;
+  }
+  .checkbox__label::before,
+  .checkbox__label::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+  }
+  .checkbox__label::before {
+    left: 0;
+    width: 40px;
+    height: 40px;
+    transform: translateY(-50%);
+    box-shadow: inset 0 0 0 2px #004b76;
+  }
+  .checkbox__input:focus + .checkbox__label:not(.has-error)::before {
+    box-shadow: inset 0 0 0 4px #004b76;
+  }
+  .checkbox__input:not(:focus-visible):focus
+    + .checkbox__label:not(.has-error)::before {
+    box-shadow: inset 0 0 0 2px #004b76;
+  }
+  .checkbox__input:focus-visible + .checkbox__label::before {
+    box-shadow: inset 0 0 0 4px #004b76;
+  }
+  .checkbox__input:not(:disabled):hover + .checkbox__label::before {
+    box-shadow: inset 0 0 0 4px #004b76;
+  }
+  .checkbox__input:checked + .checkbox__label::after {
+    left: 19px;
+    width: 17px;
+    height: 7px;
+    transform: rotate(-48deg) translateY(calc(-6px - 50%));
+    border: solid;
+    border-width: 0 0 2px 2px;
+    border-color: #004b76;
+    opacity: 1;
+  }
+  .checkbox__input[disabled] + .checkbox__label::before {
+    box-shadow: inset 0 0 0 2px #b8bdc3;
+  }
+  .checkbox__input[disabled] + .checkbox__label::after {
+    border-color: #b8bdc3;
+  }
+  .checkbox__input[disabled] + .checkbox__label {
+    cursor: default;
+  }
+  .checkbox__label.has-error::before {
+    box-shadow: inset 0 0 0 2px #b0243f;
+  }
 }
