@@ -5,6 +5,7 @@ import FlurstueckAngaben, {
 } from "~/components/steps/grundstueck/flurstueck/FlurstueckAngaben";
 import FlurstueckFlur from "~/components/steps/grundstueck/flurstueck/FlurstueckFlur";
 import FlurstueckGroesse from "~/components/steps/grundstueck/flurstueck/FlurstueckGroesse";
+import FlurstueckMiteigentumsanteil from "~/components/steps/grundstueck/flurstueck/FlurstueckMiteigentumsanteil";
 import { SteuernummerHelp } from "~/components/steps/grundstueck/SteuernummerHelp";
 import { AbweichendeEntwicklungHelp } from "~/components/steps/grundstueck/AbweichendeEntwicklungHelp";
 import Bruchteilsgemeinschaft from "~/components/steps/eigentuemer/Bruchteilsgemeinschaft";
@@ -35,6 +36,7 @@ export default {
     flurstueck: {
       angaben: FlurstueckAngaben,
       flur: FlurstueckFlur,
+      miteigentumsanteil: FlurstueckMiteigentumsanteil,
       groesse: FlurstueckGroesse,
     },
   },
