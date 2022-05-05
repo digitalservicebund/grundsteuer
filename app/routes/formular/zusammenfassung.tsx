@@ -24,7 +24,7 @@ import {
   StepFormData,
 } from "~/domain/model";
 import { zusammenfassung } from "~/domain/steps/zusammenfassung";
-import { Button, FormGroup, StepFormField } from "~/components";
+import { Button, FormGroup, Spinner, StepFormField } from "~/components";
 import { authenticator } from "~/auth.server";
 import { getFieldProps } from "~/util/getFieldProps";
 import {
@@ -43,7 +43,7 @@ import {
   User,
 } from "~/domain/user";
 import invariant from "tiny-invariant";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { EricaErrorResponseData, ericaUtils } from "~/erica/utils";
 
 type LoaderData = {
@@ -162,15 +162,7 @@ export const meta: MetaFunction = () => {
 
 export default function Zusammenfassung() {
   const loaderData = useLoaderData<LoaderData>();
-  const {
-    formData,
-    allData,
-    i18n,
-    stepDefinition,
-    isIdentified,
-    showSpinner,
-    ericaErrors,
-  } = loaderData;
+  const { formData, allData, i18n, stepDefinition, isIdentified } = loaderData;
   const actionData = useActionData();
   const errors = actionData?.errors;
   const previousStepsErrors =
@@ -180,6 +172,23 @@ export default function Zusammenfassung() {
 
   // We need to fetch data to check the result with Elster
   const fetcher = useFetcher();
+  const [showSpinner, setShowSpinner] = useState(loaderData.showSpinner);
+  const [ericaErrors, setEricaErrors] = useState(loaderData.ericaErrors);
+
+  useEffect(() => {
+    if (fetcher.data) {
+      setShowSpinner(fetcher.data.showSpinner);
+      setEricaErrors(fetcher.data.ericaErrors);
+    }
+  }, [fetcher.data]);
+
+  useEffect(() => {
+    if (loaderData) {
+      setShowSpinner(loaderData.showSpinner);
+      setEricaErrors(loaderData.ericaErrors);
+    }
+  }, [loaderData]);
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (showSpinner) {
@@ -188,7 +197,7 @@ export default function Zusammenfassung() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [fetcher, showSpinner, ericaErrors]);
 
   return (
     <>
@@ -244,6 +253,7 @@ export default function Zusammenfassung() {
           </Form>
         </div>
       </div>
+      {showSpinner && <Spinner />}
     </>
   );
 }
