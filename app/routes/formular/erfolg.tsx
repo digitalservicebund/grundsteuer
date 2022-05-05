@@ -1,20 +1,42 @@
-import { MetaFunction } from "@remix-run/node";
+import { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { pageTitle } from "~/util/pageTitle";
 import UebersichtStep from "~/components/form/UebersichtStep";
 import erfolgImage from "~/assets/images/erfolg-phone.svg";
-import {
-  BreadcrumbNavigation,
-  ContentContainer,
-  Headline,
-  SubHeadline,
-} from "~/components";
+import { BreadcrumbNavigation, ContentContainer, Headline } from "~/components";
 import Check from "~/components/icons/mui/Check";
+import invariant from "tiny-invariant";
+import { authenticator } from "~/auth.server";
+import { findUserByEmail, User } from "~/domain/user";
+import { useLoaderData } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erklärung abgeschickt") };
 };
 
+export const loader: LoaderFunction = async ({ request }) => {
+  const user = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/anmelden",
+  });
+  const userData: User | null = await findUserByEmail(user.email);
+  invariant(
+    userData,
+    "expected a matching user in the database from a user in a cookie session"
+  );
+
+  invariant(
+    userData.transferticket,
+    "expected transferticket to be stored in user"
+  );
+  invariant(userData.pdf, "expected pdf to be stored in user");
+
+  return {
+    transferticket: userData.transferticket,
+    pdf: userData.pdf,
+  };
+};
+
 export default function Erfolg() {
+  const { transferticket, pdf } = useLoaderData();
   return (
     <ContentContainer size="sm">
       <BreadcrumbNavigation />
@@ -43,11 +65,14 @@ export default function Erfolg() {
 
         <h2 className="font-bold text-24">Für Ihre Unterlagen</h2>
         <h3 className="text-24">Beweis der Übermittlung an ELSTER</h3>
-        <p className="mb-48">
+        <p className="mb-32">
           Das so gennte Transferticket ist der Beweis, dass Ihre Erklärung an
           ELSTER erfolgreich übermittelt wurde. Bitte bewahren Sie es gut auf.{" "}
           <br />
           {">"} Hinweis: Sie können das Ticket nur jetzt herunterladen.
+        </p>
+        <p className="text-24 font-bold text-blue-800 mb-64">
+          {transferticket}
         </p>
 
         <h3 className="text-24">Ihre Grundsteuererklärung</h3>

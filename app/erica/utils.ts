@@ -3,7 +3,10 @@ import invariant from "tiny-invariant";
 
 type EricaResponse = {
   processStatus: "Processing" | "Success" | "Failure";
-  result: EricaFreischaltcodeRequestResponseData | null;
+  result:
+    | EricaFreischaltcodeRequestResponseData
+    | EricaSendenResponseData
+    | null;
   errorCode: string | null;
   errorMessage: string[] | string | null;
 };
@@ -12,6 +15,11 @@ type EricaFreischaltcodeRequestResponseData = {
   transferTicket: string;
   taxIdNumber: string;
   elsterRequestId: string;
+};
+
+type EricaSendenResponseData = {
+  transfer_ticket: string;
+  pdf: string;
 };
 
 type EricaErrorResponseData = {

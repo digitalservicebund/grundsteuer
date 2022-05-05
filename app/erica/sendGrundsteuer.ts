@@ -1,7 +1,7 @@
 import { getFromErica, postToErica } from "~/erica/ericaClient";
 import invariant from "tiny-invariant";
 import { GrundModel } from "~/domain/steps";
-import { ericaUtils } from "~/erica/utils";
+import { EricaResponse, ericaUtils } from "~/erica/utils";
 
 export const sendNewGrundsteuer = async (data: GrundModel) => {
   const result = await postToErica("v2/grundsteuer", data);
@@ -18,4 +18,28 @@ export const retrieveResult = async (ericaRequestId: string) => {
   if (ericaResponse && ericaUtils.isEricaRequestProcessed(ericaResponse)) {
     return ericaResponse;
   }
+};
+
+export const getPositiveResult = async (ericaResponse: EricaResponse) => {
+  invariant(
+    ericaResponse.processStatus === "Success",
+    "only call for success status"
+  );
+  invariant(
+    ericaResponse.result,
+    "expected result to be present in erica success response"
+  );
+  invariant(
+    "transfer_ticket" in ericaResponse.result,
+    "expected transferticket to be in erica result"
+  );
+  invariant(
+    "pdf" in ericaResponse.result,
+    "expected transferticket to be in erica result"
+  );
+
+  return {
+    transferticket: ericaResponse.result.transfer_ticket,
+    pdf: Buffer.from(ericaResponse.result.pdf),
+  };
 };

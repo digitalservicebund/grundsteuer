@@ -34,12 +34,18 @@ import {
 import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
 import ZusammenfassungAccordion from "~/components/form/ZusammenfassungAccordion";
 import { removeUndefined } from "~/util/removeUndefined";
-import { retrieveResult, sendNewGrundsteuer } from "~/erica/sendGrundsteuer";
+import {
+  getPositiveResult,
+  retrieveResult,
+  sendNewGrundsteuer,
+} from "~/erica/sendGrundsteuer";
 import { transforDataToEricaFormat } from "~/erica/transformData";
 import {
   deleteEricaRequestIdSenden,
   findUserByEmail,
   saveEricaRequestIdSenden,
+  savePdf,
+  saveTransferticket,
   User,
 } from "~/domain/user";
 import invariant from "tiny-invariant";
@@ -82,6 +88,9 @@ export const loader: LoaderFunction = async ({
     const ericaResponse = await retrieveResult(ericaRequestId);
     if (ericaResponse?.processStatus == "Success") {
       await deleteEricaRequestIdSenden(user.email);
+      const { transferticket, pdf } = await getPositiveResult(ericaResponse);
+      await saveTransferticket(user.email, transferticket);
+      await savePdf(user.email, pdf);
       return redirect("/formular/erfolg");
     } else if (ericaResponse?.processStatus == "Failure") {
       await deleteEricaRequestIdSenden(user.email);

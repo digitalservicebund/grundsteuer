@@ -1,5 +1,9 @@
 import * as ericaClientModule from "~/erica/ericaClient";
-import { retrieveResult, sendNewGrundsteuer } from "~/erica/sendGrundsteuer";
+import {
+  getPositiveResult,
+  retrieveResult,
+  sendNewGrundsteuer,
+} from "~/erica/sendGrundsteuer";
 import { grundModelFactory } from "test/factories";
 
 describe("sendNewGrundsteuer", () => {
@@ -99,5 +103,63 @@ describe("retrieveResult", () => {
     expect(result).toEqual(getResult);
 
     mockGetEricaResponsee.mockClear();
+  });
+});
+
+describe("getPositiveResult", () => {
+  it("throws error if status is processing", () => {
+    expect(
+      getPositiveResult({
+        processStatus: "Processing",
+        result: null,
+        errorCode: null,
+        errorMessage: null,
+      })
+    ).rejects.toThrow();
+  });
+
+  it("throws error if status is failure", () => {
+    expect(
+      getPositiveResult({
+        processStatus: "Failure",
+        result: null,
+        errorCode: null,
+        errorMessage: null,
+      })
+    ).rejects.toThrow();
+  });
+
+  it("throws error if transferticket and pdf not set", () => {
+    expect(
+      getPositiveResult({
+        processStatus: "Success",
+        result: {
+          transferTicket: "FSC transfer",
+          taxIdNumber: "",
+          elsterRequestId: "",
+        },
+        errorCode: null,
+        errorMessage: null,
+      })
+    ).rejects.toThrow();
+  });
+
+  it("returns correct data if transferticket and pdf set", async () => {
+    const transferticket = "Senden transfer";
+    const pdfString = "PDF";
+    const result = await getPositiveResult({
+      processStatus: "Success",
+      result: {
+        transfer_ticket: transferticket,
+        pdf: pdfString,
+      },
+      errorCode: null,
+      errorMessage: null,
+    });
+
+    expect(result).toEqual({
+      transferticket: transferticket,
+      pdf: Buffer.from(pdfString),
+    });
   });
 });
