@@ -1,5 +1,5 @@
 import type { StepComponentFunction } from "~/routes/formular/_step";
-import { StepFormFields } from "~/components";
+import { IntroText, StepFormFields } from "~/components";
 
 const Default: StepComponentFunction = ({
   stepDefinition,
@@ -9,7 +9,7 @@ const Default: StepComponentFunction = ({
 }) => {
   return (
     <div>
-      {i18n.description && <div className="mb-16">{i18n.description}</div>}
+      {i18n.description && <IntroText>{i18n.description}</IntroText>}
       <StepFormFields {...{ stepDefinition, formData, i18n, errors }} />
     </div>
   );

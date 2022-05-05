@@ -1,5 +1,5 @@
 import type { StepComponentFunction } from "~/routes/formular/_step";
-import { FormGroup, StepFormField } from "~/components";
+import { FormGroup, IntroText, StepFormField } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 import InputFraction from "~/components/form/InputFraction";
 
@@ -13,7 +13,7 @@ const FlurstueckMiteigentumsanteil: StepComponentFunction = ({
 
   return (
     <div>
-      <div className="mb-16">{i18n.description}</div>
+      <IntroText>{i18n.description}</IntroText>
       <FormGroup>
         <InputFraction
           zaehler={<StepFormField {...fieldProps[0]} />}

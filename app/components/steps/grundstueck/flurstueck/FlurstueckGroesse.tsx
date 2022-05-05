@@ -2,6 +2,7 @@ import type { StepComponentFunction } from "~/routes/formular/_step";
 import { FormGroup, StepFormField } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 import InputRow from "~/components/form/InputRow";
+import IntroText from "~/components/IntroText";
 
 const FlurstueckGroesse: StepComponentFunction = ({
   stepDefinition,
@@ -13,7 +14,7 @@ const FlurstueckGroesse: StepComponentFunction = ({
 
   return (
     <div>
-      <div className="mb-16">{i18n.description}</div>
+      <IntroText>{i18n.description}</IntroText>
       <FormGroup>
         <InputRow>
           <div>
