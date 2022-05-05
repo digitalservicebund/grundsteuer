@@ -10,6 +10,8 @@ import {
   saveEricaRequestIdFscBeantragen,
   saveEricaRequestIdSenden,
   saveFscRequest,
+  savePdf,
+  saveTransferticket,
   setUserIdentified,
   userExists,
 } from "~/domain/user";
@@ -368,7 +370,63 @@ describe("user", () => {
 
     it("should fail on unknown user", async () => {
       await expect(async () => {
-        await deleteEricaRequestIdSenden("unknown@foo.com");
+        await setUserIdentified("unknown@foo.com", true);
+      }).rejects.toThrow("not found");
+    });
+  });
+
+  const unsetTransferticket = () => {
+    db.user.update({
+      where: { email: "existing@foo.com" },
+      data: { transferticket: undefined },
+    });
+  };
+
+  describe("saveTransferticket", () => {
+    beforeEach(unsetTransferticket);
+    afterEach(unsetTransferticket);
+
+    it("should set transferticket attribute to value", async () => {
+      const inputTransferticket = "Transfer complete.";
+      await saveTransferticket("existing@foo.com", inputTransferticket);
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.transferticket).toEqual(inputTransferticket);
+    });
+
+    it("should fail on unknown user", async () => {
+      await expect(async () => {
+        await saveTransferticket("unknown@foo.com", "Received.");
+      }).rejects.toThrow("not found");
+    });
+  });
+
+  const unsetPdf = () => {
+    db.user.update({
+      where: { email: "existing@foo.com" },
+      data: { pdf: undefined },
+    });
+  };
+
+  describe("savePdf", () => {
+    beforeEach(unsetPdf);
+    afterEach(unsetPdf);
+
+    it("should set pdf attribute to value", async () => {
+      const inputPdf = new Buffer("All your data in one (beautiful) pdf.");
+      await savePdf("existing@foo.com", inputPdf);
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.pdf).toEqual(inputPdf);
+    });
+
+    it("should fail on unknown user", async () => {
+      await expect(async () => {
+        await savePdf("unknown@foo.com", new Buffer("PDF"));
       }).rejects.toThrow("not found");
     });
   });

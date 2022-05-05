@@ -103,3 +103,20 @@ export const setUserIdentified = async (email: string, identified: boolean) => {
     data: { identified: identified },
   });
 };
+
+export const saveTransferticket = async (
+  email: string,
+  transferticket: string
+) => {
+  return db.user.update({
+    where: { email: email },
+    data: { transferticket: transferticket },
+  });
+};
+
+export const savePdf = async (email: string, pdf: Buffer) => {
+  return db.user.update({
+    where: { email: email },
+    data: { pdf: pdf },
+  });
+};
