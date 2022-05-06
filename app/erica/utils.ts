@@ -5,6 +5,7 @@ type EricaResponse = {
   processStatus: "Processing" | "Success" | "Failure";
   result:
     | EricaFreischaltcodeRequestResponseData
+    | EricaFreischaltcodeRevocationResponseData
     | EricaSendenResponseData
     | null;
   errorCode: string | null;
@@ -15,6 +16,11 @@ type EricaFreischaltcodeRequestResponseData = {
   transferticket: string;
   taxIdNumber: string;
   elsterRequestId: string;
+};
+
+type EricaFreischaltcodeRevocationResponseData = {
+  transferticket: string;
+  taxIdNumber: string;
 };
 
 type EricaSendenResponseData = {

@@ -66,9 +66,8 @@ describe("isFscRevoked", () => {
     const ericaResponseData: EricaResponse = {
       processStatus: "Success",
       result: {
-        transferTicket: "t1r2a3n4s5f6e7r",
-        taxIdNumber: "007",
-        elsterRequestId: "123456789",
+        transferticket: "t1r2a3n4s5f6e7r",
+        taxIdNumber: "123456789",
       },
       errorCode: null,
       errorMessage: null,
