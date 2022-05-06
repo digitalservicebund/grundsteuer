@@ -18,6 +18,7 @@ import {
   useActionData,
   useFetcher,
   useLoaderData,
+  useTransition,
 } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { getErrorMessageForFreischaltcode } from "~/domain/validation";
@@ -34,7 +35,7 @@ import {
   User,
 } from "~/domain/user";
 import { authenticator } from "~/auth.server";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import FreischaltCodeInput from "~/components/FreischaltCodeInput";
 
 const isEricaRequestInProgress = async (userData: User) => {
@@ -78,7 +79,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       } else if (elsterRequestIdOrError?.errorType == "EricaUserInputError") {
         await deleteEricaRequestIdFscAktivieren(user.email);
         return {
-          error: true,
+          showError: true,
           showSpinner: false,
         };
       } else {
@@ -91,7 +92,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const inProgress = await isEricaRequestInProgress(userData);
 
   return {
-    error: false,
+    showError: false,
     showSpinner: inProgress,
   };
 };
@@ -161,20 +162,41 @@ export default function FscEingeben() {
 
   // We need to fetch data to check the result with Elster
   const fetcher = useFetcher();
+  const transition = useTransition();
+  const isSubmitting = Boolean(transition.submission);
+
+  const [showSpinner, setShowSpinner] = useState(loaderData?.showSpinner);
+  const [showError, setShowError] = useState(loaderData?.showError);
+
+  useEffect(() => {
+    if (fetcher.data) {
+      setShowSpinner(fetcher.data.showSpinner);
+      setShowError(fetcher.data.showError);
+    }
+  }, [fetcher.data]);
+
+  useEffect(() => {
+    if (loaderData) {
+      setShowSpinner(loaderData.showSpinner);
+      setShowError(loaderData.showError);
+    }
+  }, [loaderData]);
+
   useEffect(() => {
     const interval = setInterval(() => {
-      fetcher.load("/fsc/eingeben?index");
-    }, 1000);
-
+      if (showSpinner) {
+        fetcher.load("/fsc/eingeben?index");
+      }
+    }, 2000);
     return () => clearInterval(interval);
-  }, []);
+  }, [fetcher, showSpinner]);
 
   return (
     <ContentContainer size="sm">
       <BreadcrumbNavigation />
       <Headline>Bitte geben Sie Ihren Freischaltcode ein</Headline>
 
-      {loaderData?.error && (
+      {showError && (
         <div className="p-16 mb-32 bg-red-200 border-2 border-red-800">
           Es ist ein Fehler aufgetreten.
         </div>
@@ -191,7 +213,9 @@ export default function FscEingeben() {
           </FormGroup>
         </div>
         <ButtonContainer forceMultiline>
-          <Button>Freischaltcode speichern</Button>
+          <Button disabled={isSubmitting || showSpinner}>
+            Freischaltcode speichern
+          </Button>
           <Button look="secondary" to="/formular/welcome">
             Zurück
           </Button>
@@ -201,7 +225,7 @@ export default function FscEingeben() {
         Zwei Wochen sind um und Sie haben noch keinen Brief mit dem
         Freischaltcode erhalten?
       </a>
-      {loaderData?.showSpinner && (
+      {showSpinner && (
         <Spinner
           initialText={"Ihr Freischaltcode wird überprüft."}
           waitingText={
