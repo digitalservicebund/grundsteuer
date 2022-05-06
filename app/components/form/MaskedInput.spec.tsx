@@ -73,14 +73,14 @@ describe("MaskedInput component", () => {
 
     it("should expand according to icon clicks", async () => {
       render(<MaskedInput {...{ ...defaultProps, help: "HELP TEXT" }} />);
-      userEvent.click(screen.getByRole("img"));
+      await userEvent.click(screen.getByRole("img"));
       await waitFor(() => {
         expect(screen.getByTestId("help-summary")).toHaveAttribute(
           "aria-expanded",
           "true"
         );
       });
-      userEvent.click(screen.getByRole("img"));
+      await userEvent.click(screen.getByRole("img"));
       await waitFor(() => {
         expect(screen.getByTestId("help-summary")).toHaveAttribute(
           "aria-expanded",
@@ -89,9 +89,9 @@ describe("MaskedInput component", () => {
       });
     });
 
-    it("should focus summary on tab", () => {
+    it("should focus summary on tab", async () => {
       render(<MaskedInput {...{ ...defaultProps, help: "HELP TEXT" }} />);
-      userEvent.tab();
+      await userEvent.tab();
       expect(screen.getByTestId("help-summary")).toHaveFocus();
     });
   });
