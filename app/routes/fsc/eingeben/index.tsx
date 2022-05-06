@@ -64,11 +64,13 @@ export const loader: LoaderFunction = async ({ request }) => {
     "expected a matching user in the database from a user in a cookie session"
   );
 
+  const ericaRequestIsInProgress = await isEricaRequestInProgress(userData);
+
   if (await wasEricaRequestSuccessful(userData)) {
     return redirect("/fsc/eingeben/erfolgreich");
   }
 
-  if (await isEricaRequestInProgress(userData)) {
+  if (ericaRequestIsInProgress) {
     const fscActivatedOrError = await checkFreischaltcodeActivation(
       await getEricaRequestIdFscAktivieren(userData)
     );
@@ -89,11 +91,9 @@ export const loader: LoaderFunction = async ({ request }) => {
     }
   }
 
-  const inProgress = await isEricaRequestInProgress(userData);
-
   return {
     showError: false,
-    showSpinner: inProgress,
+    showSpinner: ericaRequestIsInProgress,
   };
 };
 
@@ -116,11 +116,7 @@ export const action: ActionFunction = async ({ request }) => {
     return redirect("/fsc/eingeben/erfolgreich");
   }
 
-  const ericaRequestIsInProgress = await isEricaRequestInProgress(userData);
-
-  if (ericaRequestIsInProgress) {
-    return {};
-  }
+  if (await isEricaRequestInProgress(userData)) return {};
 
   const formData = await request.formData();
   const freischaltCode = formData.get("freischaltCode");
@@ -130,12 +126,8 @@ export const action: ActionFunction = async ({ request }) => {
     "expected formData to include freischaltCode field of type string"
   );
 
-  const normalizedFreischaltCode = freischaltCode.replace(/[\s/]/g, "");
-
   const errors = {
-    freischaltCode: await getErrorMessageForFreischaltcode(
-      normalizedFreischaltCode
-    ),
+    freischaltCode: await getErrorMessageForFreischaltcode(freischaltCode),
   };
 
   const errorsExist = errors.freischaltCode;
@@ -147,7 +139,7 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   const ericaRequestId = await activateFreischaltCode(
-    normalizedFreischaltCode,
+    freischaltCode,
     elsterRequestId
   );
   await saveEricaRequestIdFscAktivieren(user.email, ericaRequestId);

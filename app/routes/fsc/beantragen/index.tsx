@@ -70,11 +70,13 @@ export const loader: LoaderFunction = async ({ request }) => {
     "expected a matching user in the database from a user in a cookie session"
   );
 
+  const ericaRequestInProgress = await isEricaRequestInProgress(userData);
+
   if (await wasEricaRequestSuccessful(userData)) {
     return redirect("/fsc/beantragen/erfolgreich");
   }
 
-  if (await isEricaRequestInProgress(userData)) {
+  if (ericaRequestInProgress) {
     const elsterRequestIdOrError = await retrieveAntragsId(
       await getEricaRequestIdFscBeantragen(userData)
     );
@@ -95,11 +97,9 @@ export const loader: LoaderFunction = async ({ request }) => {
     }
   }
 
-  const inProgress = await isEricaRequestInProgress(userData);
-
   return {
     showError: false,
-    showSpinner: inProgress,
+    showSpinner: ericaRequestInProgress,
   };
 };
 
@@ -117,11 +117,7 @@ export const action: ActionFunction = async ({ request }) => {
     return redirect("/fsc/beantragen/erfolgreich");
   }
 
-  const ericaRequestIsInProgress = await isEricaRequestInProgress(userData);
-
-  if (ericaRequestIsInProgress) {
-    return {};
-  }
+  if (await isEricaRequestInProgress(userData)) return {};
 
   const formData = await request.formData();
   const steuerId = formData.get("steuerId");

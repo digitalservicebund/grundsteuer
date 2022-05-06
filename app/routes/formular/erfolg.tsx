@@ -41,7 +41,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function Erfolg() {
-  const { transferticket, pdf } = useLoaderData();
+  const { transferticket } = useLoaderData();
   return (
     <ContentContainer size="sm">
       <BreadcrumbNavigation />
