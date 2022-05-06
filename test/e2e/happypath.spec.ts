@@ -323,7 +323,7 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/bodenrichtwertInfo");
-    cy.get("h1").contains("Bodenrichtwert");
+    cy.wait(500).get("h1").contains("Bodenrichtwert");
     cy.get(submitBtnSelector).click();
     cy.url().should("include", "/formular/grundstueck/bodenrichtwertEingabe");
     cy.get("#bodenrichtwert")
@@ -384,7 +384,7 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/eigentuemer");
-    cy.get("h1").contains("Eigentümer:innen", { timeout: 5000 });
+    cy.wait(500).get("h1").contains("Eigentümer:innen");
     cy.get(submitBtnSelector).click();
     cy.get("#anzahl").select(inputData.eigentuemer.anzahl.anzahl);
     cy.get(submitBtnSelector).click();
@@ -417,7 +417,7 @@ describe("Happy Path", () => {
       .clear()
       .type(inputData.eigentuemer.person1.steuerId.steuerId);
     cy.get(submitBtnSelector).click();
-    cy.get("#hasVertreter-true").click();
+    cy.get("label[for=hasVertreter-true]").click();
     cy.get(submitBtnSelector).click();
     cy.get("#anrede").select(
       inputData.eigentuemer.person1.vertreter.name.anrede
@@ -482,7 +482,7 @@ describe("Happy Path", () => {
       .clear()
       .type(inputData.eigentuemer.person2.steuerId.steuerId);
     cy.get(submitBtnSelector).click();
-    cy.get("#hasVertreter-false").click();
+    cy.get("label[for=hasVertreter-false]").click();
     cy.get(submitBtnSelector).click();
     cy.get("#zaehler")
       .clear()
@@ -490,7 +490,7 @@ describe("Happy Path", () => {
     cy.get("#nenner").clear().type(inputData.eigentuemer.person2.anteil.nenner);
     cy.get(submitBtnSelector).click();
 
-    cy.get("#hasEmpfangsvollmacht-true").click();
+    cy.get("label[for=hasEmpfangsvollmacht-true]").click();
     cy.get(submitBtnSelector).click();
     cy.get("#anrede").select(
       inputData.eigentuemer.empfangsbevollmaechtigter.name.anrede
@@ -520,7 +520,7 @@ describe("Happy Path", () => {
         inputData.eigentuemer.empfangsbevollmaechtigter.adresse.telefonnummer
       );
     cy.get(submitBtnSelector).click();
-    cy.get("h1").contains("fast fertig", { timeout: 5000 });
+    cy.wait(500).get("h1").contains("fast fertig");
     cy.get(submitBtnSelector).click();
 
     // ZUSAMMENFASSUNG
