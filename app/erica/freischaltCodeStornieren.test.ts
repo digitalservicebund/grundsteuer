@@ -10,7 +10,7 @@ describe("revokeFreischaltCode", () => {
     const mockPostEricaRepsone = jest
       .spyOn(ericaClientModule, "postToErica")
       .mockImplementation(
-        jest.fn(() => Promise.resolve("v2/fsc/revocation")) as jest.Mock
+        jest.fn(() => Promise.resolve("v2/fsc/revocation/007")) as jest.Mock
       );
     const requestId = await revokeFreischaltCode("alopekis");
     expect(requestId).toEqual("007");

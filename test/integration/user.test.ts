@@ -4,10 +4,12 @@ import {
   createUser,
   deleteEricaRequestIdFscAktivieren,
   deleteEricaRequestIdFscBeantragen,
+  deleteEricaRequestIdFscStornieren,
   deleteEricaRequestIdSenden,
   findUserByEmail,
   saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscBeantragen,
+  saveEricaRequestIdFscStornieren,
   saveEricaRequestIdSenden,
   saveFscRequest,
   savePdf,
@@ -278,6 +280,77 @@ describe("user", () => {
     it("should fail on unknown user", async () => {
       await expect(async () => {
         await deleteEricaRequestIdFscAktivieren("unknown@foo.com");
+      }).rejects.toThrow("not found");
+    });
+  });
+
+  const unsetEricaRequestIdFscStornieren = () => {
+    db.user.update({
+      where: { email: "existing@foo.com" },
+      data: { ericaRequestIdFscStornieren: undefined },
+    });
+  };
+
+  describe("saveEricaRequestIdFscStornieren", () => {
+    beforeEach(unsetEricaRequestIdFscStornieren);
+    afterEach(unsetEricaRequestIdFscStornieren);
+
+    it("should store requestId on user", async () => {
+      await saveEricaRequestIdFscStornieren("existing@foo.com", "bar");
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.ericaRequestIdFscStornieren).toEqual("bar");
+    });
+
+    it("should overwrite requestId on user", async () => {
+      await saveEricaRequestIdFscStornieren(
+        "existing_with_fsc_request_to_overwrite@foo.com",
+        "bar"
+      );
+
+      const user = await findUserByEmail(
+        "existing_with_fsc_request_to_overwrite@foo.com"
+      );
+
+      expect(user).toBeTruthy();
+      expect(user?.ericaRequestIdFscStornieren).toEqual("bar");
+    });
+
+    it("should fail on unknown user", async () => {
+      await expect(async () => {
+        await saveEricaRequestIdFscStornieren("unknown@foo.com", "bar");
+      }).rejects.toThrow("not found");
+    });
+  });
+
+  describe("deleteEricaRequestIdFscStornieren", () => {
+    beforeEach(unsetEricaRequestIdFscStornieren);
+    afterEach(unsetEricaRequestIdFscStornieren);
+
+    it("should keep requestId null if user had no request id prior", async () => {
+      await deleteEricaRequestIdFscStornieren("existing@foo.com");
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.ericaRequestIdFscStornieren).toBeNull();
+    });
+
+    it("should delete requestId if user had request id prior", async () => {
+      await saveEricaRequestIdFscStornieren("existing@foo.com", "bar");
+      await deleteEricaRequestIdFscStornieren("existing@foo.com");
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.ericaRequestIdFscStornieren).toBeNull();
+    });
+
+    it("should fail on unknown user", async () => {
+      await expect(async () => {
+        await deleteEricaRequestIdFscStornieren("unknown@foo.com");
       }).rejects.toThrow("not found");
     });
   });
