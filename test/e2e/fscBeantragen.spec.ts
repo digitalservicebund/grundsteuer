@@ -63,7 +63,7 @@ describe("/beantragen", () => {
     cy.get("[name=steuerId]").type(validSteuerId);
     cy.get("[name=geburtsdatum]").type("01.08.1291");
     cy.get("form button").click();
-    cy.contains("Es ist ein Fehler aufgetreten");
+    cy.contains("Mit diesen Daten können wir keinen FSC beantragen");
     cy.contains("Ihr Freischaltcode wird beantragt.").should("not.exist");
   });
 

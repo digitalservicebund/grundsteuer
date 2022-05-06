@@ -206,7 +206,7 @@ export default function FscBeantragen() {
 
       {showError && (
         <div className="p-16 mb-32 bg-red-200 border-2 border-red-800">
-          Es ist ein Fehler aufgetreten.
+          Mit diesen Daten können wir keinen FSC beantragen.
         </div>
       )}
 
