@@ -69,14 +69,14 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 
   if (await isEricaRequestInProgress(userData)) {
-    const elsterRequestIdOrError = await checkFreischaltcodeActivation(
+    const fscActivatedOrError = await checkFreischaltcodeActivation(
       await getEricaRequestIdFscAktivieren(userData)
     );
-    if (elsterRequestIdOrError) {
-      if (typeof elsterRequestIdOrError == "boolean") {
+    if (fscActivatedOrError) {
+      if (typeof fscActivatedOrError == "boolean") {
         await setUserIdentified(user.email, true);
         await deleteEricaRequestIdFscAktivieren(user.email);
-      } else if (elsterRequestIdOrError?.errorType == "EricaUserInputError") {
+      } else if (fscActivatedOrError?.errorType == "EricaUserInputError") {
         await deleteEricaRequestIdFscAktivieren(user.email);
         return {
           showError: true,
@@ -84,7 +84,7 @@ export const loader: LoaderFunction = async ({ request }) => {
         };
       } else {
         await deleteEricaRequestIdFscAktivieren(user.email);
-        throw new Error(elsterRequestIdOrError?.errorType);
+        throw new Error(fscActivatedOrError?.errorType);
       }
     }
   }
