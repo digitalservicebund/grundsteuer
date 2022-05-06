@@ -68,8 +68,8 @@ export default function Erfolg() {
           <li>Ab 2025 zahlen Sie die neue Grundsteuer.</li>
         </ul>
 
-        <h2 className="font-bold text-24">Für Ihre Unterlagen</h2>
-        <h3 className="text-24">Beweis der Übermittlung an ELSTER</h3>
+        <h2 className="font-bold text-24 mb-16">Für Ihre Unterlagen</h2>
+        <h3 className="text-24 mb-16">Beweis der Übermittlung an ELSTER</h3>
         <p className="mb-32">
           Das sogenannte Transferticket ist der Beweis, dass Ihre Erklärung an
           ELSTER erfolgreich übermittelt wurde. Bitte bewahren Sie es gut auf.{" "}
@@ -87,13 +87,22 @@ export default function Erfolg() {
           Transferticket als .txt herunterladen
         </Button>
 
-        <h3 className="text-24">Ihre Grundsteuererklärung</h3>
-        <p>
+        <h3 className="text-24 mb-16">Ihre Grundsteuererklärung</h3>
+        <p className="mb-24">
           Hier finden Sie Ihre Grundsteuererklärung als PDF. Wir haben Ihre
           Angaben für den Versand an ELSTER aufbereitet.
           <br />
           {">"} Hinweis: Sie können das PDF nur jetzt herunterladen.
         </p>
+        <Button
+          href="/download/pdf"
+          download
+          look="primary"
+          iconRight={<Download />}
+          className="mb-64"
+        >
+          Angaben als PDF herunterladen
+        </Button>
       </UebersichtStep>
     </ContentContainer>
   );

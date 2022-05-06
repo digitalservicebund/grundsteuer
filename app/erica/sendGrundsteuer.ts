@@ -40,6 +40,6 @@ export const getPositiveResult = async (ericaResponse: EricaResponse) => {
 
   return {
     transferticket: ericaResponse.result.transfer_ticket,
-    pdf: Buffer.from(ericaResponse.result.pdf),
+    pdf: Buffer.from(ericaResponse.result.pdf, "base64"),
   };
 };

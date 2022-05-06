@@ -159,7 +159,7 @@ describe("getPositiveResult", () => {
 
     expect(result).toEqual({
       transferticket: transferticket,
-      pdf: Buffer.from(pdfString),
+      pdf: Buffer.from(pdfString, "base64"),
     });
   });
 });
