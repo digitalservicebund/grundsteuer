@@ -30,16 +30,16 @@ export const getSuccessResult = async (ericaResponse: EricaResponse) => {
     "expected result to be present in erica success response"
   );
   invariant(
-    "transfer_ticket" in ericaResponse.result,
+    "transferticket" in ericaResponse.result,
     "expected transferticket to be in erica result"
   );
   invariant(
     "pdf" in ericaResponse.result,
-    "expected transferticket to be in erica result"
+    "expected pdf to be in erica result"
   );
 
   return {
-    transferticket: ericaResponse.result.transfer_ticket,
+    transferticket: ericaResponse.result.transferticket,
     pdf: ericaResponse.result.pdf,
   };
 };

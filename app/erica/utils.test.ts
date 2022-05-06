@@ -23,7 +23,7 @@ describe("createDateStringForErica", () => {
 describe("extractResultFromEricaResponse", () => {
   it("should return object of requestType if status is Success", () => {
     const expectedResult = {
-      transferTicket: "C3PO",
+      transferticket: "C3PO",
       taxIdNumber: "007",
       elsterRequestId: "r2-d2",
     };
@@ -55,7 +55,7 @@ describe("getEricaErrorsFromResponse", () => {
     const result = ericaUtils.getEricaErrorsFromResponse({
       processStatus: "Success",
       result: {
-        transferTicket: "C3PO",
+        transferticket: "C3PO",
         taxIdNumber: "007",
         elsterRequestId: "r2-d2",
       },

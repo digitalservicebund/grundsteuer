@@ -12,13 +12,13 @@ type EricaResponse = {
 };
 
 type EricaFreischaltcodeRequestResponseData = {
-  transferTicket: string;
+  transferticket: string;
   taxIdNumber: string;
   elsterRequestId: string;
 };
 
 type EricaSendenResponseData = {
-  transfer_ticket: string;
+  transferticket: string;
   pdf: string;
 };
 

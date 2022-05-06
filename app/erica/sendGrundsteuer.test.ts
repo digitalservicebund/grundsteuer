@@ -134,7 +134,7 @@ describe("getPositiveResult", () => {
       getSuccessResult({
         processStatus: "Success",
         result: {
-          transferTicket: "FSC transfer",
+          transferticket: "FSC transfer",
           taxIdNumber: "",
           elsterRequestId: "",
         },
@@ -150,7 +150,7 @@ describe("getPositiveResult", () => {
     const result = await getSuccessResult({
       processStatus: "Success",
       result: {
-        transfer_ticket: transferticket,
+        transferticket: transferticket,
         pdf: pdfString,
       },
       errorCode: null,
