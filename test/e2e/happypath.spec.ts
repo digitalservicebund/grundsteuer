@@ -188,7 +188,7 @@ describe("Happy Path", () => {
     cy.login();
     cy.visit("/formular/welcome");
     cy.get(submitBtnSelector).click();
-    cy.get("h1").contains("Grundstück", { timeout: 5000 });
+    cy.wait(500).get("h1").contains("Grundstück");
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/typ");
@@ -335,7 +335,7 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/gebaeude/uebersicht");
-    cy.get("h1").contains("Gebäude", { timeout: 5000 });
+    cy.wait(500).get("h1").contains("Gebäude");
     cy.get(submitBtnSelector).click();
     cy.get(`label[for=isAb1949-${inputData.gebaeude.ab1949.isAb1949}]`).click();
     cy.get(submitBtnSelector).click();
