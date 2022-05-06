@@ -20,6 +20,7 @@ model User {
   fscRequest                    FscRequest[]
   ericaRequestIdFscBeantragen   String?
   ericaRequestIdFscAktivieren   String?
+  ericaRequestIdFscStornieren      String?
   ericaRequestIdSenden          String?
   transferticket                String?
   pdf                           Bytes?
