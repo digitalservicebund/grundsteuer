@@ -238,7 +238,17 @@ export default function FscBeantragen() {
           </Button>
         </ButtonContainer>
       </Form>
-      {showSpinner && <Spinner />}
+      {showSpinner && (
+        <Spinner
+          initialText={"Ihr Freischaltcode wird beantragt."}
+          waitingText={
+            "Das Beantragen dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
+          }
+          longerWaitingText={
+            "Wir beantragen weiter Ihren Freischaltcode. Bitte verlassen Sie diese Seite nicht."
+          }
+        />
+      )}
     </ContentContainer>
   );
 }

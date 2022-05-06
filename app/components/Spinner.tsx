@@ -11,7 +11,7 @@ export default function Spinner(props: {
 }) {
   const { initialText, waitingText, longerWaitingText } = props;
   const [text, setText] = useState(
-    initialText ? initialText : "Ihr Freischaltcode wird beantragt."
+    initialText ? initialText : "Anfrage wird verarbetiet."
   );
   const [isJavaScriptEnabled, setIsJavaScriptEnabled] = useState(false);
 
@@ -21,14 +21,14 @@ export default function Spinner(props: {
       setText(
         waitingText
           ? waitingText
-          : "Das Beantragen dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
+          : "Ihre Anfrage dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
       );
     }, 8000);
     const timer2 = setTimeout(() => {
       setText(
         longerWaitingText
           ? longerWaitingText
-          : "Wir beantragen weiter Ihren Freischaltcode. Bitte verlassen Sie diese Seite nicht."
+          : "Wir bearbeiten weiter Ihre Anfrage. Bitte verlassen Sie diese Seite nicht."
       );
     }, 30000);
     return () => {
