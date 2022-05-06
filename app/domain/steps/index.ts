@@ -200,7 +200,7 @@ import {
 import { ValidationConfig } from "~/domain/validation";
 import {
   GrundstueckFlurstueckMiteigentumFields,
-  grundstuecklurstueckMiteigentum,
+  grundstueckFlurstueckMiteigentum,
 } from "~/domain/steps/grundstueck/flurstueck/miteingentum";
 import {
   grundstueckFlurstueckMiteigentumsanteil,
@@ -222,7 +222,7 @@ const stepDefinitions = {
     flurstueck: {
       angaben: grundstueckFlurstueckAngaben,
       flur: grundstueckFlurstueckFlur,
-      miteigentum: grundstuecklurstueckMiteigentum,
+      miteigentum: grundstueckFlurstueckMiteigentum,
       miteigentumsanteil: grundstueckFlurstueckMiteigentumsanteil,
       groesse: grundstueckFlurstueckGroesse,
     },

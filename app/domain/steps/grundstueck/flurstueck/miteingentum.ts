@@ -4,7 +4,7 @@ export type GrundstueckFlurstueckMiteigentumFields = {
   hasMiteigentum: "true" | "false";
 };
 
-export const grundstuecklurstueckMiteigentum: StepDefinition = {
+export const grundstueckFlurstueckMiteigentum: StepDefinition = {
   fields: {
     hasMiteigentum: {
       type: "radio",
