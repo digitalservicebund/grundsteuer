@@ -20,7 +20,7 @@ export const retrieveResult = async (ericaRequestId: string) => {
   }
 };
 
-export const getPositiveResult = async (ericaResponse: EricaResponse) => {
+export const getSuccessResult = async (ericaResponse: EricaResponse) => {
   invariant(
     ericaResponse.processStatus === "Success",
     "only call for success status"
@@ -40,6 +40,6 @@ export const getPositiveResult = async (ericaResponse: EricaResponse) => {
 
   return {
     transferticket: ericaResponse.result.transfer_ticket,
-    pdf: Buffer.from(ericaResponse.result.pdf, "base64"),
+    pdf: ericaResponse.result.pdf,
   };
 };

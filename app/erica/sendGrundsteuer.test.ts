@@ -1,6 +1,6 @@
 import * as ericaClientModule from "~/erica/ericaClient";
 import {
-  getPositiveResult,
+  getSuccessResult,
   retrieveResult,
   sendNewGrundsteuer,
 } from "~/erica/sendGrundsteuer";
@@ -109,7 +109,7 @@ describe("retrieveResult", () => {
 describe("getPositiveResult", () => {
   it("throws error if status is processing", () => {
     expect(
-      getPositiveResult({
+      getSuccessResult({
         processStatus: "Processing",
         result: null,
         errorCode: null,
@@ -120,7 +120,7 @@ describe("getPositiveResult", () => {
 
   it("throws error if status is failure", () => {
     expect(
-      getPositiveResult({
+      getSuccessResult({
         processStatus: "Failure",
         result: null,
         errorCode: null,
@@ -131,7 +131,7 @@ describe("getPositiveResult", () => {
 
   it("throws error if transferticket and pdf not set", () => {
     expect(
-      getPositiveResult({
+      getSuccessResult({
         processStatus: "Success",
         result: {
           transferTicket: "FSC transfer",
@@ -147,7 +147,7 @@ describe("getPositiveResult", () => {
   it("returns correct data if transferticket and pdf set", async () => {
     const transferticket = "Senden transfer";
     const pdfString = "PDF";
-    const result = await getPositiveResult({
+    const result = await getSuccessResult({
       processStatus: "Success",
       result: {
         transfer_ticket: transferticket,
@@ -159,7 +159,7 @@ describe("getPositiveResult", () => {
 
     expect(result).toEqual({
       transferticket: transferticket,
-      pdf: Buffer.from(pdfString, "base64"),
+      pdf: pdfString,
     });
   });
 });

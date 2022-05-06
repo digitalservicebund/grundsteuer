@@ -114,9 +114,10 @@ export const saveTransferticket = async (
   });
 };
 
-export const savePdf = async (email: string, pdf: Buffer) => {
+export const savePdf = async (email: string, pdf: string) => {
+  const pdfBuffer = Buffer.from(pdf, "base64");
   return db.user.update({
     where: { email: email },
-    data: { pdf: pdf },
+    data: { pdf: pdfBuffer },
   });
 };

@@ -35,7 +35,7 @@ import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
 import ZusammenfassungAccordion from "~/components/form/ZusammenfassungAccordion";
 import { removeUndefined } from "~/util/removeUndefined";
 import {
-  getPositiveResult,
+  getSuccessResult,
   retrieveResult,
   sendNewGrundsteuer,
 } from "~/erica/sendGrundsteuer";
@@ -88,7 +88,7 @@ export const loader: LoaderFunction = async ({
     const ericaResponse = await retrieveResult(ericaRequestId);
     if (ericaResponse?.processStatus == "Success") {
       await deleteEricaRequestIdSenden(user.email);
-      const { transferticket, pdf } = await getPositiveResult(ericaResponse);
+      const { transferticket, pdf } = await getSuccessResult(ericaResponse);
       await saveTransferticket(user.email, transferticket);
       await savePdf(user.email, pdf);
       return redirect("/formular/erfolg");

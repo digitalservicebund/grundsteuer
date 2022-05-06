@@ -415,18 +415,18 @@ describe("user", () => {
     afterEach(unsetPdf);
 
     it("should set pdf attribute to value", async () => {
-      const inputPdf = Buffer.from("All your data in one (beautiful) pdf.");
+      const inputPdf = "All your data in one (beautiful) pdf.";
       await savePdf("existing@foo.com", inputPdf);
 
       const user = await findUserByEmail("existing@foo.com");
 
       expect(user).toBeTruthy();
-      expect(user?.pdf).toEqual(inputPdf);
+      expect(user?.pdf).toEqual(Buffer.from(inputPdf, "base64"));
     });
 
     it("should fail on unknown user", async () => {
       await expect(async () => {
-        await savePdf("unknown@foo.com", Buffer.from("PDF"));
+        await savePdf("unknown@foo.com", "PDF");
       }).rejects.toThrow("not found");
     });
   });
