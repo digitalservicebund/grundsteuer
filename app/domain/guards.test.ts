@@ -2,6 +2,7 @@ import { conditions } from "~/domain/guards";
 import { StateMachineContext } from "~/domain/states";
 import { flurstueckFactory, grundModelFactory } from "test/factories";
 import { GrundModel } from "./steps";
+import { GrundstueckFlurstueckMiteigentumFields } from "~/domain/steps/grundstueck/flurstueck/miteingentum";
 
 describe("isZweifamilienhaus", () => {
   it("Should return false if data is undefined", async () => {
@@ -667,33 +668,31 @@ describe("repeatFlurstueck", () => {
 });
 
 describe("hasMiteigentum", () => {
-  it("Should return true if true has been selected", () => {
-    const data = flurstueckFactory
-      .miteigentum({ hasMiteigentum: "true" })
-      .build();
-    const inputData = {
-      grundstueck: { flurstueck: [{ ...data }] },
-      flurstueckId: 1,
-    };
+  const cases = [
+    { input: "true", expectedValue: true },
+    { input: "false", expectedValue: false },
+    { input: "INVALID", expectedValue: false },
+    { input: null, expectedValue: false },
+  ];
 
-    const result = conditions.hasMiteigentum(inputData);
+  test.each(cases)(
+    "Should return $expectedValue if hasMiteigentum is $input",
+    ({ input, expectedValue }) => {
+      const data = flurstueckFactory
+        .miteigentum({
+          hasMiteigentum: input,
+        } as GrundstueckFlurstueckMiteigentumFields)
+        .build();
+      const inputData = {
+        grundstueck: { flurstueck: [{ ...data }] },
+        flurstueckId: 1,
+      };
 
-    expect(result).toEqual(true);
-  });
+      const result = conditions.hasMiteigentum(inputData);
 
-  it("Should return false if false has been selected", () => {
-    const data = flurstueckFactory
-      .miteigentum({ hasMiteigentum: "false" })
-      .build();
-    const inputData = {
-      grundstueck: { flurstueck: [{ ...data }] },
-      flurstueckId: 1,
-    };
-
-    const result = conditions.hasMiteigentum(inputData);
-
-    expect(result).toEqual(false);
-  });
+      expect(result).toEqual(expectedValue);
+    }
+  );
 });
 
 describe("isBebaut", () => {
