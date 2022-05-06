@@ -28,10 +28,10 @@ describe("Input component", () => {
     expect(screen.queryByPlaceholderText("PLACEHOLDER")).toBeInTheDocument();
   });
 
-  it("should store the typed text as value", () => {
+  it("should store the typed text as value", async () => {
     const inputValue = "TypingValue";
     render(<Input {...defaultProps} />);
-    userEvent.type(screen.getByRole("textbox"), inputValue);
+    await userEvent.type(screen.getByRole("textbox"), inputValue);
     expect(screen.getByRole("textbox")).toHaveValue(inputValue);
   });
 
@@ -54,22 +54,22 @@ describe("Input component", () => {
       );
     });
 
-    it("should display help text on icon click", () => {
+    it("should display help text on icon click", async () => {
       render(<Input {...{ ...defaultProps, help: "HELP TEXT" }} />);
-      userEvent.click(screen.getByRole("img"));
+      await userEvent.click(screen.getByRole("img"));
       expect(screen.queryByText("HELP TEXT")).toBeVisible();
     });
 
     it("should expand according to icon clicks", async () => {
       render(<Input {...{ ...defaultProps, help: "HELP TEXT" }} />);
-      userEvent.click(screen.getByRole("img"));
+      await userEvent.click(screen.getByRole("img"));
       await waitFor(() => {
         expect(screen.getByTestId("help-summary")).toHaveAttribute(
           "aria-expanded",
           "true"
         );
       });
-      userEvent.click(screen.getByRole("img"));
+      await userEvent.click(screen.getByRole("img"));
       await waitFor(() => {
         expect(screen.getByTestId("help-summary")).toHaveAttribute(
           "aria-expanded",
@@ -78,9 +78,9 @@ describe("Input component", () => {
       });
     });
 
-    it("should focus summary on tab", () => {
+    it("should focus summary on tab", async () => {
       render(<Input {...{ ...defaultProps, help: "HELP TEXT" }} />);
-      userEvent.tab();
+      await userEvent.tab();
       expect(screen.getByTestId("help-summary")).toHaveFocus();
     });
   });

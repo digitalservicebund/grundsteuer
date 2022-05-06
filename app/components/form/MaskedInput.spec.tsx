@@ -39,9 +39,9 @@ describe("MaskedInput component", () => {
 
   test.each(cases)(
     "Should return $expectedValue if input value is $inputValue",
-    ({ inputValue, expectedValue }) => {
+    async ({ inputValue, expectedValue }) => {
       render(<MaskedInput {...defaultProps} />);
-      userEvent.type(screen.getByRole("textbox"), inputValue);
+      await userEvent.type(screen.getByRole("textbox"), inputValue);
       expect(screen.getByRole("textbox")).toHaveValue(expectedValue);
     }
   );
@@ -65,9 +65,9 @@ describe("MaskedInput component", () => {
       );
     });
 
-    it("should display help text on icon click", () => {
+    it("should display help text on icon click", async () => {
       render(<MaskedInput {...{ ...defaultProps, help: "HELP TEXT" }} />);
-      userEvent.click(screen.getByRole("img"));
+      await userEvent.click(screen.getByRole("img"));
       expect(screen.queryByText("HELP TEXT")).toBeVisible();
     });
 

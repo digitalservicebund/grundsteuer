@@ -70,16 +70,20 @@ describe("RadioGroup component", () => {
       });
     });
 
-    it("should display the correct help text on icon click", () => {
+    it("should display the correct help text on icon click", async () => {
       render(<RadioGroup {...defaultPropsWithHelp} />);
-      userEvent.click(within(screen.getByTestId("option-1")).getByRole("img"));
+      await userEvent.click(
+        within(screen.getByTestId("option-1")).getByRole("img")
+      );
       expect(screen.queryByText("Help 1")).toBeVisible();
       expect(screen.queryByText("Help 2")).not.toBeVisible();
     });
 
     it("should expand according to icon clicks", async () => {
       render(<RadioGroup {...defaultPropsWithHelp} />);
-      userEvent.click(within(screen.getByTestId("option-1")).getByRole("img"));
+      await userEvent.click(
+        within(screen.getByTestId("option-1")).getByRole("img")
+      );
       await waitFor(() => {
         expect(
           within(screen.getByTestId("option-1")).getByTestId("help-summary")
@@ -88,7 +92,9 @@ describe("RadioGroup component", () => {
       expect(
         within(screen.getByTestId("option-2")).getByTestId("help-summary")
       ).toHaveAttribute("aria-expanded", "false");
-      userEvent.click(within(screen.getByTestId("option-1")).getByRole("img"));
+      await userEvent.click(
+        within(screen.getByTestId("option-1")).getByRole("img")
+      );
       await waitFor(() => {
         expect(
           within(screen.getByTestId("option-1")).getByTestId("help-summary")
