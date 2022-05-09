@@ -33,3 +33,9 @@ model FscRequest {
   userId        String      @unique
   User          User        @relation(fields: [userId], references: [id])
 }
+
+model AuditLog {
+  id            String      @id @default(uuid())
+  createdAt     DateTime    @default(now())
+  data          String
+}
