@@ -6,6 +6,8 @@ import {
   deleteEricaRequestIdFscBeantragen,
   deleteEricaRequestIdFscStornieren,
   deleteEricaRequestIdSenden,
+  deletePdf,
+  deleteTransferticket,
   findUserByEmail,
   saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscBeantragen,
@@ -476,6 +478,33 @@ describe("user", () => {
     });
   });
 
+  const setTransferticket = () => {
+    db.user.update({
+      where: { email: "existing@foo.com" },
+      data: { transferticket: "test-transfer" },
+    });
+  };
+
+  describe("deleteTransferticket", () => {
+    beforeEach(setTransferticket);
+    afterEach(unsetTransferticket);
+
+    it("should set transferticket attribute to value", async () => {
+      await deleteTransferticket("existing@foo.com");
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.transferticket).toEqual(null);
+    });
+
+    it("should fail on unknown user", async () => {
+      await expect(async () => {
+        await deleteTransferticket("unknown@foo.com");
+      }).rejects.toThrow("not found");
+    });
+  });
+
   const unsetPdf = () => {
     db.user.update({
       where: { email: "existing@foo.com" },
@@ -500,6 +529,33 @@ describe("user", () => {
     it("should fail on unknown user", async () => {
       await expect(async () => {
         await savePdf("unknown@foo.com", "PDF");
+      }).rejects.toThrow("not found");
+    });
+  });
+
+  const setPdf = () => {
+    db.user.update({
+      where: { email: "existing@foo.com" },
+      data: { pdf: Buffer.from("PDF") },
+    });
+  };
+
+  describe("deletePdf", () => {
+    beforeEach(setPdf);
+    afterEach(unsetPdf);
+
+    it("should set pdf attribute to value", async () => {
+      await deletePdf("existing@foo.com");
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.pdf).toEqual(null);
+    });
+
+    it("should fail on unknown user", async () => {
+      await expect(async () => {
+        await deletePdf("unknown@foo.com");
       }).rejects.toThrow("not found");
     });
   });

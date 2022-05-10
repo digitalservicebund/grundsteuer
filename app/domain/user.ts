@@ -131,10 +131,24 @@ export const saveTransferticket = async (
   });
 };
 
+export const deleteTransferticket = async (email: string) => {
+  return db.user.update({
+    where: { email: email },
+    data: { transferticket: null },
+  });
+};
+
 export const savePdf = async (email: string, pdf: string) => {
   const pdfBuffer = Buffer.from(pdf, "base64");
   return db.user.update({
     where: { email: email },
     data: { pdf: pdfBuffer },
+  });
+};
+
+export const deletePdf = async (email: string) => {
+  return db.user.update({
+    where: { email: email },
+    data: { pdf: null },
   });
 };

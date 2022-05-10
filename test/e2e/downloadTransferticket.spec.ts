@@ -27,9 +27,8 @@ describe("Download transferticket", () => {
     });
 
     afterEach(() => {
-      cy.task("setUserTransferticket", {
+      cy.task("dbRemoveUserTransferticket", {
         userEmail: "foo@bar.com",
-        transferticket: null,
       });
     });
 
