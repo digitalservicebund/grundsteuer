@@ -11,7 +11,7 @@ export default function Spinner(props: {
 }) {
   const { initialText, waitingText, longerWaitingText } = props;
   const [text, setText] = useState(
-    initialText ? initialText : "Anfrage wird verarbetiet."
+    initialText ? initialText : "Anfrage wird verarbeitet."
   );
   const [isJavaScriptEnabled, setIsJavaScriptEnabled] = useState(false);
 

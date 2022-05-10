@@ -18,6 +18,8 @@ import {
   saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscBeantragen,
   saveFscRequest,
+  savePdf,
+  saveTransferticket,
   setUserIdentified,
 } from "../../app/domain/user";
 
@@ -60,6 +62,11 @@ export default (on, config) => {
 
     setUserIdentifiedAttribute: async ({ userEmail, identified }) => {
       await setUserIdentified(userEmail, identified);
+      return null;
+    },
+
+    setUserTransferticket: async ({ userEmail, transferticket }) => {
+      await saveTransferticket(userEmail, transferticket);
       return null;
     },
   });
