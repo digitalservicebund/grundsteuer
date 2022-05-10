@@ -826,7 +826,7 @@
         }
       },
       "flur": {
-        "headline": "Wie lauten Flur und Flurstück zu Grundstückseinheit {{id}}?",
+        "headline": "Wie lauten Flur und Flurstück zu Grundstücksfläche {{id}}?",
         "fields": {
           "flur": {
             "label": "Flur (wenn vorhanden)"
@@ -872,7 +872,7 @@
         }
       },
       "groesse": {
-        "headline": "Tragen Sie die Grundstücksgröße für Grundstückseinheit {{id}} ein",
+        "headline": "Tragen Sie die Grundstücksgröße für Grundstücksfläche {{id}} ein",
         "description": "Auf der Seite “Bestandsverzeichnis” finden Sie den Eintrag über die Größe Ihres Grundstücks. Meistens ist diese in Hektar, Ar und Quadratmeter angegeben. Oft auch nur in Quadratmeter. Übertragen Sie die Zahlen so, wie Sie sie vorfinden.",
         "fields": {
           "groesseHa": {
