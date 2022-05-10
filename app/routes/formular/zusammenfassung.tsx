@@ -104,7 +104,7 @@ export const loader: LoaderFunction = async ({
     allData: cleanedData,
     i18n: await getStepI18n("zusammenfassung"),
     stepDefinition: zusammenfassung,
-    isIdentified: user.identified,
+    isIdentified: userData.identified,
     previousStepsErrors,
     ericaErrors,
     showSpinner: !!ericaRequestId,
@@ -258,7 +258,9 @@ export default function Zusammenfassung() {
             <FormGroup>
               <StepFormField {...fieldProps[3]} />
             </FormGroup>
-            <Button id="nextButton">{i18n.specifics.submitbutton}</Button>
+            <Button id="nextButton" disabled={!isIdentified}>
+              {i18n.specifics.submitbutton}
+            </Button>
           </Form>
         </div>
       </div>

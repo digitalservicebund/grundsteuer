@@ -37,7 +37,54 @@ describe("Zusammenfassung route", () => {
     cy.contains("Bitte füllen Sie dieses Feld aus.").should("not.exist");
   });
 
-  // TODO check FSC display/hide behaviour
+  describe("freischaltcode", () => {
+    beforeEach(() => {
+      cy.visit("/formular/zusammenfassung");
+    });
+
+    describe("not yet identified user", () => {
+      before(() => {
+        cy.task("setUserIdentifiedAttribute", {
+          userEmail: "foo@bar.com",
+          identified: false,
+        });
+      });
+      it("should contain fsc section", () => {
+        cy.contains("Bitte geben Sie den Freischaltcode ein");
+      });
+
+      it("should contain link and go to /fsc page on click", () => {
+        cy.get("a").contains("Zum Bereich Freischaltcode").click();
+        cy.url().should("include", "/fsc");
+      });
+
+      it("should have a disabled submit button", () => {
+        cy.get("form[action='/formular/zusammenfassung'] button").should(
+          "be.disabled"
+        );
+      });
+    });
+
+    describe("identified user", () => {
+      before(() => {
+        cy.task("setUserIdentifiedAttribute", {
+          userEmail: "foo@bar.com",
+          identified: true,
+        });
+      });
+      it("should not contain fsc section", () => {
+        cy.contains("Bitte geben Sie den Freischaltcode ein").should(
+          "not.exist"
+        );
+      });
+
+      it("should have an enabled submit button", () => {
+        cy.get("form[action='/formular/zusammenfassung'] button").should(
+          "not.be.disabled"
+        );
+      });
+    });
+  });
 
   describe("edit behaviour", () => {
     beforeEach(() => {
