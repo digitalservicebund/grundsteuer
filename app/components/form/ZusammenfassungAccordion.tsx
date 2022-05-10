@@ -224,10 +224,10 @@ export default function ZusammenfassungAccordion({
               "grundstueck.gemeinde.innerhalbEinerGemeinde",
               resolveJaNein
             )}
-            {item("Anzahl Flurstücke", "grundstueck.anzahl.anzahl")}
+            {item("Anzahl Grundstücksflächen", "grundstueck.anzahl.anzahl")}
             {allData.grundstueck.anzahl?.anzahl && (
               <>
-                <h3 className="font-bold text-xl mb-1">Flurstücke</h3>
+                <h3 className="font-bold text-xl mb-1">Grundstücksflächen</h3>
                 {[
                   ...Array(
                     Number.parseInt(allData.grundstueck.anzahl.anzahl)
@@ -240,7 +240,9 @@ export default function ZusammenfassungAccordion({
                       key={flurstueckKey}
                       id={flurstueckKey}
                     >
-                      <h4 className="font-bold">Flurstück {index + 1}</h4>
+                      <h4 className="font-bold">
+                        Grundstücksfläche {index + 1}
+                      </h4>
                       <ul>
                         {item(
                           "Grundbuchblattnummer",

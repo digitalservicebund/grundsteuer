@@ -112,7 +112,7 @@
   "nav": {
     "headline": {
       "grundstueck": "Grundstück",
-      "flurstueck": "Flurstück {{number}}",
+      "flurstueck": "Grundstücksfläche {{number}}",
       "bodenrichtwert": "Bodenrichtwert",
       "gebaeude": "Gebäude",
       "eigentuemer": "Eigentümer:innen",
@@ -129,7 +129,7 @@
       "typ": "Grundstücksart",
       "abweichendeEntwicklung": "abweichende Entwicklung",
       "gemeinde": "Innerhalb einer Gemeinde?",
-      "anzahl": "Anzahl Flurstücke",
+      "anzahl": "Anzahl Grundstücksflächen",
       "bodenrichtwertInfo": "Bodenrichtwert-Info",
       "bodenrichtwertEingabe": "Bodenrichtwert-Eingabe",
       "bodenrichtwertAnzahl": "Bodenrichtwert-Anzahl",
@@ -797,10 +797,10 @@
       }
     },
     "anzahl": {
-      "headline": "Wie viele Grundstücke stehen im vorliegenden Grundbuchauszug?",
+      "headline": "Wie viele Grundstücksflächen stehen im vorliegenden Grundbuchauszug?",
       "fields": {
         "anzahl": {
-          "label": "Wie viele Grundstücke stehen im vorliegenden Grundbuchauszug?",
+          "label": "Wie viele Grundstücksflächen stehen im vorliegenden Grundbuchauszug?",
           "options": {
             "default": {
               "label": "Bitte auswählen"
@@ -811,7 +811,7 @@
     },
     "flurstueck": {
       "angaben": {
-        "headline": "Übertragen Sie die Angaben aus dem Grundbuch zu Grundstück {{id}}:",
+        "headline": "Übertragen Sie die Angaben aus dem Grundbuch zu Grundstücksfläche {{id}}:",
         "fields": {
           "grundbuchblattnummer": {
             "label": "Grundbuchblattnummer"
@@ -1300,7 +1300,7 @@
     "specifics": {
       "confirmationHeading": "Bestätigung und Versand an Ihre Finanzverwaltung",
       "confirmationText": "Die Erklärung ist eine Erklärung zur Feststellung des Grundsteuerwerts im Sinne des § 228 Abs. 1 Satz 1 des Bewertungsgesetzes (BewG). Die mit der Feststellungserklärung angeforderten Daten werden aufgrund der §§ 149, 150 und 181 Absatz 2 AO sowie § 228 BewG erhoben. Die Angabe der Telefonnummer ist freiwillig. Informationen über die Verarbeitung personenbezogener Daten in der Steuerverwaltung und über Ihre Rechte nach der Datenschutz-Grundverordnung sowie über Ihre Ansprechpartner in Datenschutzfragen entnehmen Sie bitte dem allgemeinen Informationsschreiben der Finanzverwaltung. Dieses Informationsschreiben finden Sie unter www.finanzamt.de (unter der Rubrik „Datenschutz\") oder erhalten Sie bei Ihrem Finanzamt.",
-      "submitbutton": "Festtellungserklärung abgeben",
+      "submitbutton": "Feststellungserklärung abgeben",
       "sectionUnfilled": "Bitte ergänzen",
       "fscHeading": "Bitte geben Sie den Freischaltcode ein",
       "fscLinkText": "Zum Bereich Freischaltcode"
