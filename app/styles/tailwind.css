@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   /* BundesSans */
   @font-face {
     font-family: "BundesSansWeb";
