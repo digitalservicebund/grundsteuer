@@ -189,6 +189,9 @@ describe("Happy Path", () => {
       userEmail: "foo@bar.com",
       identified: true,
     });
+    cy.request("GET", "http://localhost:8000/reset");
+    cy.request("GET", "http://localhost:8000/triggerSuccess");
+    cy.request("GET", "http://localhost:8000/triggerDirectResponse");
   });
 
   it("Enter data for two eigentuemer", () => {
@@ -725,7 +728,7 @@ describe("Happy Path", () => {
     cy.get("label[for=confirmTermsOfUse]").click();
 
     cy.get(submitBtnSelector).click();
-    cy.contains("erfolgreich versendet", { timeout: 15000 });
+    cy.contains("erfolgreich versendet", { timeout: 20000 });
     cy.contains("et036422myggf53jxax8uy92dmvkete8");
 
     cy.get("a")
