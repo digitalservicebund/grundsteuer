@@ -1,6 +1,12 @@
 /// <reference types="../../cypress/support" />
 // @ts-check
 describe("Zusammenfassung route", () => {
+  before(() => {
+    cy.task("setUserIdentifiedAttribute", {
+      userEmail: "foo@bar.com",
+      identified: true,
+    });
+  });
   beforeEach(() => {
     cy.login();
   });
