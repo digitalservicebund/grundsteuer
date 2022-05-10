@@ -184,6 +184,13 @@ const inputData = {
 export const submitBtnSelector = "#nextButton";
 
 describe("Happy Path", () => {
+  beforeEach(() => {
+    cy.task("setUserIdentifiedAttribute", {
+      userEmail: "foo@bar.com",
+      identified: true,
+    });
+  });
+
   it("Enter data for two eigentuemer", () => {
     cy.login();
     cy.visit("/formular/welcome");
@@ -712,5 +719,25 @@ describe("Happy Path", () => {
         inputData.eigentuemer.empfangsbevollmaechtigter.adresse.telefonnummer
     );
     */
+
+    cy.get("label[for=confirmCompleteCorrect]").click();
+    cy.get("label[for=confirmDataPrivacy]").click();
+    cy.get("label[for=confirmTermsOfUse]").click();
+
+    cy.get(submitBtnSelector).click();
+    cy.contains("erfolgreich versendet", { timeout: 15000 });
+    cy.contains("et036422myggf53jxax8uy92dmvkete8");
+
+    cy.get("a")
+      .contains("Transferticket")
+      .parent() // go back to a element instead of contained div
+      .should("have.attr", "href")
+      .and("include", "download/transferticket");
+
+    cy.get("a")
+      .contains("PDF")
+      .parent() // go back to a element instead of contained div
+      .should("have.attr", "href")
+      .and("include", "download/pdf");
   });
 });
