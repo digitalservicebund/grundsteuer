@@ -3,9 +3,6 @@ import Input, { InputProps } from "./Input";
 import Select, { SelectProps } from "./Select";
 import SteuerIdField from "./SteuerIdField";
 import Checkbox, { CheckboxProps } from "./Checkbox";
-import Confirmation, {
-  ConfirmationProps,
-} from "~/components/form/Confirmation";
 import { I18nObjectField } from "~/i18n/getStepI18n";
 
 export type StepFormFieldProps = {
@@ -70,15 +67,6 @@ const StepFormField = (props: StepFormFieldProps) => {
     };
 
     return <Checkbox {...checkboxProps}>{label}</Checkbox>;
-  }
-
-  if (type === "confirmation") {
-    const confirmationProps: ConfirmationProps = {
-      ...commonProps,
-      help: i18n.help,
-    };
-
-    return <Confirmation {...confirmationProps} />;
   }
 
   const textProps: InputProps = {

@@ -245,7 +245,9 @@ export default function Zusammenfassung() {
               </div>
             )}
             <FormGroup>
-              <StepFormField {...fieldProps[1]} />
+              <div className="bg-gray-400 p-16">
+                <StepFormField {...fieldProps[1]} />
+              </div>
             </FormGroup>
 
             <h2 className="mb-8 font-bold text-20">
@@ -253,10 +255,14 @@ export default function Zusammenfassung() {
             </h2>
             <p className="mb-32">{i18n.specifics.confirmationText}</p>
             <FormGroup>
-              <StepFormField {...fieldProps[2]} />
+              <div className="bg-gray-400 p-16">
+                <StepFormField {...fieldProps[2]} />
+              </div>
             </FormGroup>
             <FormGroup>
-              <StepFormField {...fieldProps[3]} />
+              <div className="bg-gray-400 p-16">
+                <StepFormField {...fieldProps[3]} />
+              </div>
             </FormGroup>
             <Button id="nextButton" disabled={!isIdentified}>
               {i18n.specifics.submitbutton}

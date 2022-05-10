@@ -16,19 +16,19 @@ export const zusammenfassung: StepDefinition = {
       },
     },
     confirmCompleteCorrect: {
-      type: "confirmation",
+      type: "checkbox",
       validations: {
         required: {},
       },
     },
     confirmDataPrivacy: {
-      type: "confirmation",
+      type: "checkbox",
       validations: {
         required: {},
       },
     },
     confirmTermsOfUse: {
-      type: "confirmation",
+      type: "checkbox",
       validations: {
         required: {},
       },
