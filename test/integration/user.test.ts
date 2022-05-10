@@ -8,6 +8,7 @@ import {
   deleteEricaRequestIdSenden,
   deletePdf,
   deleteTransferticket,
+  deleteFscRequest,
   findUserByEmail,
   saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscBeantragen,
@@ -67,13 +68,6 @@ describe("user", () => {
       },
     });
   });
-
-  const unsetEricaRequestIdFscBeantragen = () => {
-    db.user.update({
-      where: { email: "existing@foo.com" },
-      data: { ericaRequestIdFscBeantragen: undefined },
-    });
-  };
 
   describe("createUser", () => {
     it("should succeed on new email", async () => {
@@ -150,6 +144,116 @@ describe("user", () => {
       }).rejects.toThrow("not found");
     });
   });
+
+  describe("deleteFscRequest", () => {
+    beforeEach(async () => {
+      await db.user.create({
+        data: {
+          email: "existing_with_fsc_request_to_delete@foo.com",
+          password: await bcrypt.hash("12345678", 10),
+          fscRequest: {
+            create: {
+              requestId: "labrador",
+            },
+          },
+        },
+      });
+
+      await db.user.create({
+        data: {
+          email: "existing_with_no_fsc_request_to_delete@foo.com",
+          password: await bcrypt.hash("12345678", 10),
+        },
+      });
+    });
+
+    afterEach(async () => {
+      await db.fscRequest.deleteMany({
+        where: { requestId: { in: ["labrador"] } },
+      });
+      await db.user.deleteMany({
+        where: {
+          email: {
+            in: [
+              "existing_with_fsc_request_to_delete@foo.com",
+              "existing_with_no_fsc_request_to_delete@foo.com",
+            ],
+          },
+        },
+      });
+    });
+
+    it("should succeed on user with request", async () => {
+      await deleteFscRequest(
+        "existing_with_fsc_request_to_delete@foo.com",
+        "labrador"
+      );
+
+      const user = await findUserByEmail(
+        "existing_with_fsc_request_to_delete@foo.com"
+      );
+
+      expect(user).toBeTruthy();
+      expect(user?.fscRequest).toBeTruthy();
+      expect(user?.fscRequest.length).toEqual(0);
+    });
+
+    it("should not delete fsc request with different id", async () => {
+      await deleteFscRequest(
+        "existing_with_fsc_request_to_delete@foo.com",
+        "bar"
+      );
+
+      const user = await findUserByEmail(
+        "existing_with_fsc_request_to_delete@foo.com"
+      );
+
+      expect(user).toBeTruthy();
+      expect(user?.fscRequest).toBeTruthy();
+      expect(user?.fscRequest.length).toEqual(1);
+    });
+
+    it("should not delete fsc request for different user with same request id", async () => {
+      await deleteFscRequest(
+        "existing_with_fsc_request_to_delete@foo.com",
+        "foo"
+      );
+
+      const user = await findUserByEmail("existing_with_fsc_request@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.fscRequest).toBeTruthy();
+      expect(user?.fscRequest.length).toEqual(1);
+    });
+
+    it("should succeed on user with no existing request", async () => {
+      await deleteFscRequest(
+        "existing_with_no_fsc_request_to_delete@foo.com",
+        "bar"
+      );
+
+      const user = await findUserByEmail(
+        "existing_with_no_fsc_request_to_delete@foo.com"
+      );
+
+      expect(user).toBeTruthy();
+      expect(user?.fscRequest).toBeTruthy();
+      expect(user?.fscRequest.length).toEqual(0);
+    });
+
+    it("should fail on unknown user", async () => {
+      await expect(async () => {
+        await deleteFscRequest("unknown@foo.com", "bar");
+      }).rejects.toThrow("not found");
+    });
+  });
+
+  const unsetEricaRequestIdFscBeantragen = () => {
+    db.user.update({
+      where: { email: "existing@foo.com" },
+      data: { ericaRequestIdFscBeantragen: undefined },
+    });
+  };
 
   describe("saveEricaRequestIdFscBeantragen", () => {
     beforeEach(unsetEricaRequestIdFscBeantragen);

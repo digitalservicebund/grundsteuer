@@ -46,6 +46,23 @@ export const saveFscRequest = async (email: string, requestId: string) => {
   });
 };
 
+export const deleteFscRequest = async (
+  email: string,
+  requestIdToDelete: string
+) => {
+  const user = await findUserByEmail(email);
+  if (!user) {
+    throw new Error("User not found.");
+  }
+
+  await db.fscRequest.deleteMany({
+    where: {
+      userId: user.id,
+      requestId: requestIdToDelete,
+    },
+  });
+};
+
 export const saveEricaRequestIdFscBeantragen = async (
   email: string,
   ericaRequestId: string
