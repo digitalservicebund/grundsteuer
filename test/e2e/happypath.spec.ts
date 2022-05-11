@@ -458,6 +458,7 @@ describe("Happy Path", () => {
       .clear()
       .type(inputData.eigentuemer.person1.vertreter.adresse.telefonnummer);
     cy.get(submitBtnSelector).click();
+    cy.url().should("include", "/formular/eigentuemer/person/1/anteil");
     cy.get("#zaehler")
       .clear()
       .type(inputData.eigentuemer.person1.anteil.zaehler);
@@ -494,6 +495,7 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
     cy.get("label[for=hasVertreter-false]").click();
     cy.get(submitBtnSelector).click();
+    cy.url().should("include", "/formular/eigentuemer/person/2/anteil");
     cy.get("#zaehler")
       .clear()
       .type(inputData.eigentuemer.person2.anteil.zaehler);
