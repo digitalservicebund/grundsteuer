@@ -17,7 +17,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function Fsc() {
   return (
-    <UserLayout>
+    <UserLayout userIsLoggedIn={true}>
       <Outlet />
     </UserLayout>
   );

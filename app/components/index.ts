@@ -10,6 +10,7 @@ export { default as FieldError } from "./form/FieldError";
 export { default as Footer } from "./Footer";
 export { default as FormGroup } from "./form/FormGroup";
 export { default as FormSidebarNavigation } from "./FormSidebarNavigation";
+export { default as FscButton } from "./FscButton";
 export { default as Headline } from "./Headline";
 export { default as HomepageFeatures } from "./HomepageFeatures";
 export { default as HomepageSharing } from "./HomepageSharing";
