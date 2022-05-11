@@ -75,7 +75,7 @@
     "xstate": "^4.31.0"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.4.1",
+    "@remix-run/dev": "^1.4.3",
     "@remix-run/eslint-config": "^1.4.3",
     "@testing-library/dom": "^8.13.0",
     "@testing-library/jest-dom": "^5.16.4",
@@ -95,7 +95,7 @@
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
     "@types/validator": "^13.7.2",
-    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
     "@typescript-eslint/parser": "^5.21.0",
     "copy-env-cli": "^1.0.0",
     "cypress": "^9.6.0",
