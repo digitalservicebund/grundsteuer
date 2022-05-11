@@ -124,6 +124,9 @@ export const action: ActionFunction = async ({
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
+
+  if (!user.identified) throw new Error("user not identified!");
+
   const storedFormData = await getStoredFormData({ request, user });
 
   // validate this step's data

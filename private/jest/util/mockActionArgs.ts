@@ -12,12 +12,11 @@ export const mockActionArgs: MockActionArgsFunction = ({ formData }) => {
     headers,
   });
   if (formData) {
-    request.formData = () =>
-      Promise.resolve({
-        get: function (name) {
-          return formData[name];
-        },
-      } as FormData);
+    const formDataObject = new FormData();
+    Object.keys(formData).forEach((key) => {
+      formDataObject.append(key, formData[key]);
+    });
+    request.formData = () => Promise.resolve(formDataObject);
   }
   return { request, context: null, params: {} };
 };
