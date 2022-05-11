@@ -7,6 +7,12 @@ describe("Zusammenfassung route", () => {
       identified: true,
     });
   });
+  after(() => {
+    cy.task("setUserIdentifiedAttribute", {
+      userEmail: "foo@bar.com",
+      identified: false,
+    });
+  });
   beforeEach(() => {
     cy.login();
   });
