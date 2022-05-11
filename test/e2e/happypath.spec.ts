@@ -530,7 +530,7 @@ describe("Happy Path", () => {
         inputData.eigentuemer.empfangsbevollmaechtigter.adresse.telefonnummer
       );
     cy.get(submitBtnSelector).click();
-    cy.wait(1000).get("h1").contains("fast fertig");
+    cy.wait(1500).get("h1").contains("fast fertig");
     cy.get(submitBtnSelector).click();
 
     // ZUSAMMENFASSUNG
