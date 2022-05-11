@@ -1,11 +1,16 @@
 import * as crypto from "crypto";
 import { Buffer } from "buffer";
+import invariant from "tiny-invariant";
 
 /*
  * The decryption functions in this file serve only as as PoC for audit log decrytion performed
  * by the auditor externally. They are not intended for invokation by the app in production as the app
  * will not have access to the private key.
  */
+
+enum Version {
+  AES_128_GCM_RSA_4096 = "01",
+}
 
 const ALGORITHM = "aes-128-gcm";
 const INPUT_ENCODING = "utf-8";
@@ -99,7 +104,9 @@ export const encryptData = (data: string, publicKey: Buffer) => {
     symKey.toString(OUTPUT_ENCODING)
   );
 
-  return [encryptedSymKey, encryptedData].join(ASYM_SEPARATOR);
+  return [Version.AES_128_GCM_RSA_4096, encryptedSymKey, encryptedData].join(
+    ASYM_SEPARATOR
+  );
 };
 
 /**
@@ -110,7 +117,13 @@ export const encryptData = (data: string, publicKey: Buffer) => {
  * @return {string} plaintext data
  */
 export const decryptData = (encryptedBlock: string, privateKey: Buffer) => {
-  const [encryptedSymKey, encryptedData] = encryptedBlock.split(ASYM_SEPARATOR);
+  const [version, encryptedSymKey, encryptedData] =
+    encryptedBlock.split(ASYM_SEPARATOR);
+
+  invariant(
+    version === Version.AES_128_GCM_RSA_4096,
+    "Invalid encryption scheme version."
+  );
 
   const symKey = Buffer.from(
     decryptWithPrivateKey(privateKey, encryptedSymKey),

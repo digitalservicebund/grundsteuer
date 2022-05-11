@@ -91,4 +91,12 @@ describe("encryptData", () => {
     const decrypted = decryptData(encrypted, PRIVATE_KEY);
     expect(decrypted).toEqual(plaintext);
   });
+
+  it("should prepend encryption scheme version", () => {
+    const plaintext = "super secret message";
+
+    const encrypted = encryptData(plaintext, PUBLIC_KEY);
+
+    expect(encrypted.slice(0, 2)).toEqual("01");
+  });
 });
