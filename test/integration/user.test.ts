@@ -128,8 +128,7 @@ describe("user", () => {
 
       expect(user).toBeTruthy();
       expect(user?.fscRequest).toBeTruthy();
-      expect(user?.fscRequest.length).toEqual(1);
-      expect(user?.fscRequest[0].requestId).toEqual("bar");
+      expect(user?.fscRequest?.requestId).toEqual("bar");
     });
 
     it("should fail on user with existing request", async () => {

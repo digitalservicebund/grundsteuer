@@ -49,7 +49,7 @@ const isEricaRequestInProgress = async (userData: User) => {
 };
 
 const wasEricaRequestSuccessful = async (userData: User) => {
-  return Boolean(userData.fscRequest.length > 0);
+  return Boolean(userData.fscRequest);
 };
 
 const getEricaRequestIdFscBeantragen = async (userData: User) => {
