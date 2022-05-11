@@ -1,5 +1,5 @@
-import { mockDeep } from 'jest-mock-extended';
-import { PrismaClient as OriginalPrismaClient } from '@prisma/client';
+import { mockDeep } from "jest-mock-extended";
+import { PrismaClient as OriginalPrismaClient } from "@prisma/client";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const i18n = require("i18next");
@@ -14,10 +14,10 @@ i18n.use(initReactI18next).init(() => ({
 }));
 
 // Mock out Prisma Client for tests
-jest.mock('@prisma/client', () => ({
+jest.mock("@prisma/client", () => ({
   PrismaClient: function () {
-    return  mockDeep<OriginalPrismaClient>();
-  }
+    return mockDeep<OriginalPrismaClient>();
+  },
 }));
 
 // Add globals to be able to access Request/Response etc. in the tests
