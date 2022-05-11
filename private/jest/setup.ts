@@ -13,12 +13,14 @@ i18n.use(initReactI18next).init(() => ({
   i18nextOptions: { returnObjects: true },
 }));
 
-// Mock out Prisma Client for tests
-jest.mock("@prisma/client", () => ({
-  PrismaClient: function () {
-    return mockDeep<OriginalPrismaClient>();
-  },
-}));
+if (!process.env.INTEGRATION_TEST) {
+  // Mock out Prisma Client for tests
+  jest.mock("@prisma/client", () => ({
+    PrismaClient: function () {
+      return mockDeep<OriginalPrismaClient>();
+    },
+  }));
+}
 
 // Add globals to be able to access Request/Response etc. in the tests
 installGlobals();
