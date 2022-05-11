@@ -33,7 +33,7 @@ describe("/eingeben", () => {
     cy.request("GET", "http://localhost:8000/triggerSuccess");
     cy.visit("/fsc/eingeben");
     cy.get("[name=freischaltCode]").type(validFreischaltCode);
-    cy.get("form button").click();
+    cy.get("form[action='/fsc/eingeben?index'] button").click();
     cy.url().should("include", "/fsc/eingeben/erfolgreich");
   });
 
@@ -41,7 +41,7 @@ describe("/eingeben", () => {
     cy.request("GET", "http://localhost:8000/triggerDelayedResponse");
     cy.visit("/fsc/eingeben");
     cy.get("[name=freischaltCode]").type(validFreischaltCode);
-    cy.get("form button").click();
+    cy.get("form[action='/fsc/eingeben?index'] button").click();
     cy.contains("Ihr Freischaltcode wird überprüft.");
   });
 
@@ -49,7 +49,7 @@ describe("/eingeben", () => {
     cy.request("GET", "http://localhost:8000/triggerDelayedResponse");
     cy.visit("/fsc/eingeben");
     cy.get("[name=freischaltCode]").type("invalid");
-    cy.get("form button").click();
+    cy.get("form[action='/fsc/eingeben?index'] button").click();
     cy.contains(
       "Bitte geben Sie Ihren Freischaltcode im folgenden Format ein AAAA-AAAA-AAAA."
     );
@@ -70,7 +70,7 @@ describe("/eingeben", () => {
     cy.request("GET", "http://localhost:8000/triggerFailure");
     cy.visit("/fsc/eingeben");
     cy.get("[name=freischaltCode]").type(validFreischaltCode);
-    cy.get("form button").click();
+    cy.get("form[action='/fsc/eingeben?index'] button").click();
     cy.contains("Mit diesen Daten können wir den FSC nicht aktivieren");
     cy.contains("Ihr Freischaltcode wird überprüft.").should("not.exist");
   });
@@ -95,7 +95,7 @@ describe("/eingeben", () => {
     cy.request("GET", "http://localhost:8000/triggerUnexpectedFailure");
     cy.visit("/fsc/eingeben");
     cy.get("[name=freischaltCode]").type(validFreischaltCode);
-    cy.get("form button").click();
+    cy.get("form[action='/fsc/eingeben?index'] button").click();
     cy.wait("@eingeben").then((intercept) => {
       expect(intercept.response?.statusCode == 500);
     });

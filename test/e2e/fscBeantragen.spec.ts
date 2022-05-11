@@ -20,7 +20,7 @@ describe("/beantragen", () => {
     cy.visit("/fsc/beantragen");
     cy.get("[name=steuerId]").type(validSteuerId);
     cy.get("[name=geburtsdatum]").type("01.08.1291");
-    cy.get("form button").click();
+    cy.get("form[action='/fsc/beantragen?index'] button").click();
     cy.contains("Ihr Freischaltcode wird beantragt.");
   });
 
@@ -29,7 +29,7 @@ describe("/beantragen", () => {
     cy.visit("/fsc/beantragen");
     cy.get("[name=steuerId]").type("1");
     cy.get("[name=geburtsdatum]").type("invalid");
-    cy.get("form button").click();
+    cy.get("form[action='/fsc/beantragen?index'] button").click();
     cy.contains("Bitte geben Sie Ihr Geburtsdatum im Format TT.MM.JJJJ ein");
     cy.contains(
       "Die Steuer-Identifikationsnummer ist genau 11-stellig. Bitte überprüfen Sie Ihre Eingabe."
@@ -52,7 +52,7 @@ describe("/beantragen", () => {
     cy.visit("/fsc/beantragen");
     cy.get("[name=steuerId]").type(validSteuerId);
     cy.get("[name=geburtsdatum]").type("01.08.1291");
-    cy.get("form button").click();
+    cy.get("form[action='/fsc/beantragen?index'] button").click();
     cy.url().should("include", "/fsc/beantragen/erfolgreich");
   });
 
@@ -62,7 +62,7 @@ describe("/beantragen", () => {
     cy.visit("/fsc/beantragen");
     cy.get("[name=steuerId]").type(validSteuerId);
     cy.get("[name=geburtsdatum]").type("01.08.1291");
-    cy.get("form button").click();
+    cy.get("form[action='/fsc/beantragen?index'] button").click();
     cy.contains("Mit diesen Daten können wir keinen FSC beantragen");
     cy.contains("Ihr Freischaltcode wird beantragt.").should("not.exist");
   });
@@ -88,7 +88,7 @@ describe("/beantragen", () => {
     cy.visit("/fsc/beantragen");
     cy.get("[name=steuerId]").type(validSteuerId);
     cy.get("[name=geburtsdatum]").type("01.08.1291");
-    cy.get("form button").click();
+    cy.get("form[action='/fsc/beantragen?index'] button").click();
     cy.wait("@beantragen").then((intercept) => {
       expect(intercept.response?.statusCode == 500);
     });
