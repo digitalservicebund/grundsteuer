@@ -35,6 +35,7 @@ import {
   User,
 } from "~/domain/user";
 import { authenticator } from "~/auth.server";
+import { commitSession, getSession } from "~/session.server";
 import { useEffect, useState } from "react";
 import FreischaltCodeInput from "~/components/FreischaltCodeInput";
 
@@ -58,6 +59,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
+  const session = await getSession(request.headers.get("Cookie"));
   const userData: User | null = await findUserByEmail(user.email);
   invariant(
     userData,
@@ -77,6 +79,10 @@ export const loader: LoaderFunction = async ({ request }) => {
     if (fscActivatedOrError) {
       if (typeof fscActivatedOrError == "boolean") {
         await setUserIdentified(user.email, true);
+        session.set(
+          "user",
+          Object.assign(session.get("user"), { identified: true })
+        );
         await deleteEricaRequestIdFscAktivieren(user.email);
       } else if (fscActivatedOrError?.errorType == "EricaUserInputError") {
         await deleteEricaRequestIdFscAktivieren(user.email);
@@ -91,10 +97,17 @@ export const loader: LoaderFunction = async ({ request }) => {
     }
   }
 
-  return {
-    showError: false,
-    showSpinner: ericaRequestIsInProgress,
-  };
+  return json(
+    {
+      showError: false,
+      showSpinner: ericaRequestIsInProgress,
+    },
+    {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    }
+  );
 };
 
 export const action: ActionFunction = async ({ request }) => {
