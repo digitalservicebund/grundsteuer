@@ -1,6 +1,7 @@
 import RadioGroup, { RadioGroupProps } from "./RadioGroup";
 import Input, { InputProps } from "./Input";
 import Select, { SelectProps } from "./Select";
+import Textarea, { TextareaProps } from "./Textarea";
 import SteuerIdField from "./SteuerIdField";
 import Checkbox, { CheckboxProps } from "./Checkbox";
 import { I18nObjectField } from "~/i18n/getStepI18n";
@@ -69,6 +70,15 @@ const StepFormField = (props: StepFormFieldProps) => {
     return <Checkbox {...checkboxProps}>{label}</Checkbox>;
   }
 
+  if (type === "textarea") {
+    const textareaProps: TextareaProps = {
+      ...commonProps,
+      placeholder: i18n.placeholder,
+    };
+
+    return <Textarea {...textareaProps} />;
+  }
+
   const textProps: InputProps = {
     ...commonProps,
     placeholder: i18n.placeholder,
@@ -78,6 +88,7 @@ const StepFormField = (props: StepFormFieldProps) => {
   if (type === "steuerId") {
     return <SteuerIdField {...textProps} />;
   }
+
   return <Input {...textProps} />;
 };
 

@@ -30,4 +30,5 @@ export { default as Spinner } from "./Spinner";
 export { default as StepFormField } from "./form/StepFormField";
 export { default as StepFormFields } from "./form/StepFormFields";
 export { default as SubHeadline } from "./SubHeadline";
+export { default as Textarea } from "./form/Textarea";
 export { default as UserLayout } from "./UserLayout";

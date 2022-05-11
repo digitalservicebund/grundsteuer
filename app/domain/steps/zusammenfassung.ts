@@ -7,6 +7,7 @@ export type ZusammenfassungFields = {
 export const zusammenfassung: StepDefinition = {
   fields: {
     freitext: {
+      type: "textarea",
       validations: {
         maxLength: {
           // reserve some chars for possible two-Bodenrichtwert disclaimer
