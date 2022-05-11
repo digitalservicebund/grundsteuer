@@ -7,60 +7,52 @@ import { Buffer } from "buffer";
  * will not have access to the private key.
  */
 
-const ALGORITHM = "aes-128-cbc";
-const HMAC_ALGORITHM = "sha256";
+const ALGORITHM = "aes-128-gcm";
 const INPUT_ENCODING = "utf-8";
 const OUTPUT_ENCODING = "hex";
 const CIPHER_BLOCK_SIZE = 16;
+const AUTH_TAG_LENGTH = 16;
 const SYM_SEPARATOR = ":";
 const ASYM_SEPARATOR = "|";
 
 /**
  * Encrypts the given plaintext using AES.
  *
- * @param key random key, must be 32 bytes
+ * @param key random key, must be 16 bytes
  * @param plaintext the text to encrypt
- * @return {string} colon-separated iv, encrypted text and HMAC, each encoded in OUTPUT_ENCODING
+ * @return {string} colon-separated iv, encrypted text and authentication tag, each encoded in OUTPUT_ENCODING
  */
 export const encryptSym = (key: Buffer, plaintext: string) => {
   const iv = crypto.randomBytes(CIPHER_BLOCK_SIZE);
-  const encKey = key.slice(0, CIPHER_BLOCK_SIZE);
-  const macKey = key.slice(CIPHER_BLOCK_SIZE);
 
-  const cipher = crypto.createCipheriv(ALGORITHM, encKey, iv);
+  const cipher = crypto.createCipheriv(ALGORITHM, key, iv, {
+    authTagLength: AUTH_TAG_LENGTH,
+  });
   let encryptedText = cipher.update(plaintext, INPUT_ENCODING, OUTPUT_ENCODING);
   encryptedText += cipher.final(OUTPUT_ENCODING);
-  const ivAndEncryptedText = [iv.toString(OUTPUT_ENCODING), encryptedText].join(
-    SYM_SEPARATOR
-  );
 
-  const hmac = crypto.createHmac(HMAC_ALGORITHM, macKey);
-  hmac.update(ivAndEncryptedText, INPUT_ENCODING);
-
-  return [ivAndEncryptedText, hmac.digest(OUTPUT_ENCODING)].join(SYM_SEPARATOR);
+  return [
+    iv.toString(OUTPUT_ENCODING),
+    encryptedText,
+    cipher.getAuthTag().toString(OUTPUT_ENCODING),
+  ].join(SYM_SEPARATOR);
 };
 
 /**
  * Decrypts an encrypted text using AES.
  *
- * @param key 32 bytes, musst be the same key used to encrypt
- * @param ciphertext iv, encrypted text and HMAC, each encoded in OUTPUT_ENCODING
+ * @param key 16 bytes, musst be the same key used to encrypt
+ * @param ciphertext iv, encrypted text and authentication tag, each encoded in OUTPUT_ENCODING
  * @return {string} the decrypted plaintext
  */
 export const decryptSym = (key: Buffer, ciphertext: string) => {
   const [encodedIv, encryptedText, authTag] = ciphertext.split(SYM_SEPARATOR);
   const iv = Buffer.from(encodedIv, OUTPUT_ENCODING);
-  const encKey = key.slice(0, 16);
-  const macKey = key.slice(16);
 
-  const hmac = crypto.createHmac(HMAC_ALGORITHM, macKey);
-  hmac.update([encodedIv, encryptedText].join(SYM_SEPARATOR), INPUT_ENCODING);
-
-  if (!authTag || hmac.digest(OUTPUT_ENCODING) !== authTag) {
-    throw new Error("Message authentication failed.");
-  }
-
-  const decipher = crypto.createDecipheriv(ALGORITHM, encKey, iv);
+  const decipher = crypto.createDecipheriv(ALGORITHM, key, iv, {
+    authTagLength: AUTH_TAG_LENGTH,
+  });
+  decipher.setAuthTag(Buffer.from(authTag, OUTPUT_ENCODING));
   let plaintext = decipher.update(
     encryptedText,
     OUTPUT_ENCODING,
@@ -100,7 +92,7 @@ export const decryptWithPrivateKey = (
  * @return {string} hex-encoded encrypted symmetric key + ASYM_SEPARATOR + hex-encoded encrypted data
  */
 export const encryptData = (data: string, publicKey: Buffer) => {
-  const symKey = crypto.randomBytes(CIPHER_BLOCK_SIZE * 2);
+  const symKey = crypto.randomBytes(CIPHER_BLOCK_SIZE);
   const encryptedData = encryptSym(symKey, data);
   const encryptedSymKey = encryptWithPublicKey(
     publicKey,
