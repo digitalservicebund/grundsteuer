@@ -111,7 +111,9 @@ export const loader: LoaderFunction = async ({
   };
 };
 
-export type PreviousStepsErrors = Record<string, any>;
+export type PreviousStepsErrors = {
+  [key: string]: PreviousStepsErrors | string;
+};
 
 export type ActionData = {
   errors?: Record<string, string>;
