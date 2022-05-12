@@ -1,6 +1,6 @@
 import { Buffer } from "buffer";
 import fs from "fs";
-import { AuditLog, AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
+import { AuditLogData, AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import { decryptData } from "~/audit/crypto";
 import { db } from "~/db.server";
 
@@ -10,7 +10,7 @@ const PRIVATE_KEY = Buffer.from(
 
 describe("auditLog", () => {
   it("should encrypt audit log data correctly.", async () => {
-    const data: AuditLog = {
+    const data: AuditLogData = {
       eventName: AuditLogEvent.FSC_BEANTRAGT,
       timestamp: Date.now(),
       ipAddress: "127.0.0.1",

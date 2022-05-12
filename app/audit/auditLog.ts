@@ -6,7 +6,7 @@ export enum AuditLogEvent {
   FSC_BEANTRAGT = "unlock_code_request_sent",
 }
 
-export interface AuditLog {
+export interface AuditLogData {
   eventName: AuditLogEvent;
   timestamp: number;
   ipAddress: string;
@@ -27,7 +27,7 @@ export interface ConfirmationData {
 // implement specific types for each event
 export type EventData = FscBeantragtData | ConfirmationData;
 
-export const saveAuditLog = async (data: AuditLog) => {
+export const saveAuditLog = async (data: AuditLogData) => {
   await db.auditLog.create({
     data: {
       data: encryptAuditLogData(data),
@@ -35,7 +35,7 @@ export const saveAuditLog = async (data: AuditLog) => {
   });
 };
 
-export const encryptAuditLogData = (data: AuditLog) => {
+export const encryptAuditLogData = (data: AuditLogData) => {
   invariant(
     process.env.AUDIT_PUBLIC_KEY,
     "Environemnt variable AUDIT_PUBLIC_KEY is not set."
