@@ -193,8 +193,7 @@ describe("user", () => {
       );
 
       expect(user).toBeTruthy();
-      expect(user?.fscRequest).toBeTruthy();
-      expect(user?.fscRequest.length).toEqual(0);
+      expect(user?.fscRequest).toBeFalsy();
     });
 
     it("should not delete fsc request with different id", async () => {
@@ -209,7 +208,6 @@ describe("user", () => {
 
       expect(user).toBeTruthy();
       expect(user?.fscRequest).toBeTruthy();
-      expect(user?.fscRequest.length).toEqual(1);
     });
 
     it("should not delete fsc request for different user with same request id", async () => {
@@ -222,7 +220,6 @@ describe("user", () => {
 
       expect(user).toBeTruthy();
       expect(user?.fscRequest).toBeTruthy();
-      expect(user?.fscRequest.length).toEqual(1);
     });
 
     it("should succeed on user with no existing request", async () => {
@@ -236,8 +233,7 @@ describe("user", () => {
       );
 
       expect(user).toBeTruthy();
-      expect(user?.fscRequest).toBeTruthy();
-      expect(user?.fscRequest.length).toEqual(0);
+      expect(user?.fscRequest).toBeFalsy();
     });
 
     it("should fail on unknown user", async () => {
