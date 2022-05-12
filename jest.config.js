@@ -7,7 +7,10 @@ module.exports = {
     "testUtil/(.*)": "<rootDir>/private/jest/util/$1",
   },
   testPathIgnorePatterns: ["<rootDir>/test/e2e"],
-  setupFiles: ["<rootDir>/private/jest/setup.ts"],
+  setupFiles: [
+    "<rootDir>/private/jest/setup.ts",
+    "<rootDir>/private/jest/setEnvVars.js",
+  ],
   setupFilesAfterEnv: ["<rootDir>/private/jest/setupAfterEnv.js"],
   transform: {
     "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
