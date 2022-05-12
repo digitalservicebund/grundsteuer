@@ -15,6 +15,7 @@ import { db } from "../../app/db.server";
 import {
   deleteEricaRequestIdFscAktivieren,
   deleteEricaRequestIdFscBeantragen,
+  deleteEricaRequestIdFscStornieren,
   deletePdf,
   deleteTransferticket,
   saveEricaRequestIdFscAktivieren,
@@ -42,23 +43,20 @@ export default (on, config) => {
       return null;
     },
 
+    dbRemoveAllEricaRequestIds: async (userEmail) => {
+      await deleteEricaRequestIdFscBeantragen(userEmail);
+      await deleteEricaRequestIdFscAktivieren(userEmail);
+      await deleteEricaRequestIdFscStornieren(userEmail);
+      return null;
+    },
+
     addEricaRequestIdFscAntrag: async ({ userEmail, ericaRequestId }) => {
       await saveEricaRequestIdFscBeantragen(userEmail, ericaRequestId);
       return null;
     },
 
-    dbRemoveEricaRequestIdBeantragen: async (userEmail) => {
-      await deleteEricaRequestIdFscBeantragen(userEmail);
-      return null;
-    },
-
     addEricaRequestIdFscAktivieren: async ({ userEmail, ericaRequestId }) => {
       await saveEricaRequestIdFscAktivieren(userEmail, ericaRequestId);
-      return null;
-    },
-
-    dbRemoveEricaRequestIdAktivieren: async (userEmail) => {
-      await deleteEricaRequestIdFscAktivieren(userEmail);
       return null;
     },
 

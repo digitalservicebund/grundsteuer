@@ -6,7 +6,7 @@ describe("/eingeben", () => {
   beforeEach(() => {
     cy.request("GET", "http://localhost:8000/reset");
     cy.task("dbRemoveFsc", "foo@bar.com");
-    cy.task("dbRemoveEricaRequestIdAktivieren", "foo@bar.com");
+    cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
     cy.task("setUserIdentifiedAttribute", {
       userEmail: "foo@bar.com",
       identified: false,
@@ -21,7 +21,7 @@ describe("/eingeben", () => {
   afterEach(() => {
     cy.request("GET", "http://localhost:8000/reset");
     cy.task("dbRemoveFsc", "foo@bar.com");
-    cy.task("dbRemoveEricaRequestIdAktivieren", "foo@bar.com");
+    cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
     cy.task("setUserIdentifiedAttribute", {
       userEmail: "foo@bar.com",
       identified: false,

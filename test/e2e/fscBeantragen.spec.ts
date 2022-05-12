@@ -6,13 +6,14 @@ describe("/beantragen", () => {
   beforeEach(() => {
     cy.request("GET", "http://localhost:8000/reset");
     cy.task("dbRemoveFsc", "foo@bar.com");
+    cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
     cy.login();
   });
 
   afterEach(() => {
     cy.request("GET", "http://localhost:8000/reset");
     cy.task("dbRemoveFsc", "foo@bar.com");
-    cy.task("dbRemoveEricaRequestIdBeantragen", "foo@bar.com");
+    cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
   });
 
   it("should show spinner if data is correct and mockErica returns no result", () => {

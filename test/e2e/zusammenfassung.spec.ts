@@ -22,31 +22,39 @@ describe("Zusammenfassung route", () => {
     cy.get("h1").contains("Bitte prüfen Sie Ihre Angaben");
   });
 
-  it("should return errors with unfilled fields", () => {
-    cy.visit("/formular/zusammenfassung");
-    cy.get("#nextButton").click();
+  describe("identified user", () => {
+    before(() => {
+      cy.task("setUserIdentifiedAttribute", {
+        userEmail: "foo@bar.com",
+        identified: true,
+      });
+    });
+    it("should return errors with unfilled fields", () => {
+      cy.visit("/formular/zusammenfassung");
+      cy.get("#nextButton").click();
 
-    cy.url().should("include", "/formular/zusammenfassung");
-    cy.get("#confirmCompleteCorrect")
-      .parent()
-      .contains("Bitte füllen Sie dieses Feld aus.");
-    cy.get("#confirmDataPrivacy")
-      .parent()
-      .contains("Bitte füllen Sie dieses Feld aus.");
-    cy.get("#confirmTermsOfUse")
-      .parent()
-      .contains("Bitte füllen Sie dieses Feld aus.");
-  });
+      cy.url().should("include", "/formular/zusammenfassung");
+      cy.get("#confirmCompleteCorrect")
+        .parent()
+        .contains("Bitte füllen Sie dieses Feld aus.");
+      cy.get("#confirmDataPrivacy")
+        .parent()
+        .contains("Bitte füllen Sie dieses Feld aus.");
+      cy.get("#confirmTermsOfUse")
+        .parent()
+        .contains("Bitte füllen Sie dieses Feld aus.");
+    });
 
-  it("should not return errors with filled fields", () => {
-    cy.visit("/formular/zusammenfassung");
-    cy.get("label[for=confirmCompleteCorrect]").click();
-    cy.get("label[for=confirmDataPrivacy]").click();
-    cy.get("label[for=confirmTermsOfUse]").click();
-    cy.get("#nextButton").click();
+    it("should not return errors with filled fields", () => {
+      cy.visit("/formular/zusammenfassung");
+      cy.get("label[for=confirmCompleteCorrect]").click();
+      cy.get("label[for=confirmDataPrivacy]").click();
+      cy.get("label[for=confirmTermsOfUse]").click();
+      cy.get("#nextButton").click();
 
-    cy.url().should("include", "/formular/zusammenfassung");
-    cy.contains("Bitte füllen Sie dieses Feld aus.").should("not.exist");
+      cy.url().should("include", "/formular/zusammenfassung");
+      cy.contains("Bitte füllen Sie dieses Feld aus.").should("not.exist");
+    });
   });
 
   describe("freischaltcode", () => {
