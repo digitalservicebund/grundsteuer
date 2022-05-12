@@ -11,10 +11,10 @@ import * as fs from "fs";
 import { Buffer } from "buffer";
 
 const PUBLIC_KEY = Buffer.from(
-  fs.readFileSync("test/resources/public.pem", { encoding: "utf-8" })
+  fs.readFileSync("test/resources/audit/public.pem", { encoding: "utf-8" })
 );
 const PRIVATE_KEY = Buffer.from(
-  fs.readFileSync("test/resources/key.pem", { encoding: "utf-8" })
+  fs.readFileSync("test/resources/audit/private.pem", { encoding: "utf-8" })
 );
 
 describe("symmetric encprytion", () => {
