@@ -24,6 +24,8 @@ const InputWithMixin = IMaskMixin<
 
 export type MaskedInputProps = InputProps & {
   mask: string;
+  definitions?: Record<string, RegExp>;
+  prepare?: (arg0: string) => string;
 };
 
 export default function MaskedInput(props: MaskedInputProps) {
