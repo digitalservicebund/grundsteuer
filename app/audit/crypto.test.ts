@@ -81,8 +81,9 @@ describe("asymmetric encryption", () => {
     const plaintext = "super secret message";
 
     const ciphertext = encryptWithPublicKey(PUBLIC_KEY, plaintext);
-    const decrypted = decryptWithPrivateKey(PRIVATE_KEY, ciphertext);
+    expect(ciphertext).not.toEqual(plaintext);
 
+    const decrypted = decryptWithPrivateKey(PRIVATE_KEY, ciphertext);
     expect(decrypted).toEqual(plaintext);
   });
 
