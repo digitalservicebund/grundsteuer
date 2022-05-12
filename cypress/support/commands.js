@@ -27,11 +27,9 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.Commands.add("login", () => {
-  cy.session("loggedInUser", () => {
-    cy.visit("/anmelden");
-    cy.get("[name=email]").type("foo@bar.com");
-    cy.get("[name=password]").type("12345678");
-    cy.get("[data-testid=submit").click();
-    cy.url().should("contain", "/fsc");
-  });
+  cy.visit("/anmelden");
+  cy.get("[name=email]").type("foo@bar.com");
+  cy.get("[name=password]").type("12345678");
+  cy.get("[data-testid=submit").click();
+  cy.url().should("contain", "/fsc");
 });
