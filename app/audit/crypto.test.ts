@@ -30,20 +30,49 @@ describe("symmetric encprytion", () => {
     expect(deciphered).toEqual(message);
   });
 
-  it("should fail if hmac is tampered with", () => {
+  it("should fail if iv is tampered with", () => {
     const key = crypto.randomBytes(16);
     const message = "burn after reading";
 
     const ciphertext = encryptSym(key, message);
-    expect(ciphertext).not.toEqual(message);
-
-    const first5Chars = ciphertext.slice(0, 5);
-    const tamperedCiphertext = "vwxyz" + ciphertext.slice(5);
+    const [iv, encryptedData, authTag] = ciphertext.split(":");
+    const tamperedIv = iv.slice(0, -5) + "a".repeat(5);
+    const tamperedCiphertext = [tamperedIv, encryptedData, authTag].join(":");
 
     expect(() => decryptSym(key, tamperedCiphertext)).toThrow();
 
-    const repairedCiphertext = first5Chars + tamperedCiphertext.slice(5);
-    expect(decryptSym(key, repairedCiphertext)).toEqual(message);
+    const reconstructedCiphertext = [iv, encryptedData, authTag].join(":");
+    expect(decryptSym(key, reconstructedCiphertext)).toEqual(message);
+  });
+
+  it("should fail if authTag is tampered with", () => {
+    const key = crypto.randomBytes(16);
+    const message = "burn after reading";
+
+    const ciphertext = encryptSym(key, message);
+    const [iv, encryptedData, authTag] = ciphertext.split(":");
+    const tamperedAuthTag = authTag.slice(0, -5) + "a".repeat(5);
+    const tamperedCiphertext = [iv, encryptedData, tamperedAuthTag].join(":");
+
+    expect(() => decryptSym(key, tamperedCiphertext)).toThrow();
+
+    const reconstructedCiphertext = [iv, encryptedData, authTag].join(":");
+    expect(decryptSym(key, reconstructedCiphertext)).toEqual(message);
+  });
+
+  it("should fail if encryptedData is tampered with", () => {
+    const key = crypto.randomBytes(16);
+    const message = "burn after reading";
+
+    const ciphertext = encryptSym(key, message);
+    const [iv, encryptedData, authTag] = ciphertext.split(":");
+    const tamperedEcnryptedData = encryptedData.slice(0, -5) + "a".repeat(5);
+    const tamperedCiphertext = [iv, tamperedEcnryptedData, authTag].join(":");
+
+    expect(() => decryptSym(key, tamperedCiphertext)).toThrow();
+
+    const reconstructedCiphertext = [iv, encryptedData, authTag].join(":");
+    expect(decryptSym(key, reconstructedCiphertext)).toEqual(message);
   });
 });
 
