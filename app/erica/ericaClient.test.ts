@@ -109,6 +109,13 @@ describe("getFromErica", () => {
   });
 
   describe("without ERICA_URL set in env", () => {
+    beforeEach(() => {
+      process.env.ERICA_URL = undefined;
+    });
+
+    afterEach(() => {
+      process.env = env;
+    });
     it("should fail", async () => {
       await expect(getFromErica("someEndpoint")).rejects.toThrow();
     });

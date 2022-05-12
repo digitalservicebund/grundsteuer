@@ -18,3 +18,10 @@ module.exports = {
   },
   preset: "ts-jest",
 };
+process.env = Object.assign(process.env, {
+  APP_ENV: "local",
+  DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/grundsteuer",
+  SESSION_COOKIE_SECRET: "s3cr3t",
+  FORM_COOKIE_SECRET: "s3cr3t",
+  ERICA_URL: "http://localhost:8000",
+});
