@@ -7,6 +7,7 @@ type EricaResponse = {
     | EricaFreischaltcodeRequestResponseData
     | EricaFreischaltcodeRevocationResponseData
     | EricaSendenResponseData
+    | EricaValidationErrorResponseData
     | null;
   errorCode: string | null;
   errorMessage: string[] | string | null;
@@ -28,9 +29,16 @@ type EricaSendenResponseData = {
   pdf: string;
 };
 
+type EricaValidationErrorResponseData = {
+  validationErrors: string[];
+};
+
 type EricaErrorResponseData = {
   errorCode: string;
   errorMessage: string;
+  result?: {
+    validationErrors?: string[];
+  };
 };
 
 type EricaError = {
@@ -57,14 +65,17 @@ const extractResultFromEricaResponse = (
     errorCode: ericaResponse.errorCode !== null ? ericaResponse.errorCode : "",
     errorMessage:
       ericaResponse.errorMessage !== null ? ericaResponse.errorMessage : "",
+    result: ericaResponse.result !== null ? ericaResponse.result : undefined,
   };
 };
 
 const getEricaErrorsFromResponse = (ericaRespons: EricaResponse): string[] => {
   const result = ericaUtils.extractResultFromEricaResponse(ericaRespons);
   if (!("errorMessage" in result)) return [];
-  const errorMessage = result.errorMessage;
-  return Array.isArray(errorMessage) ? errorMessage : [errorMessage];
+  if (!result.result || !("validationErrors" in result.result))
+    return [result.errorMessage];
+  const validationErrors = result.result.validationErrors;
+  return validationErrors ? validationErrors : [result.errorMessage];
 };
 
 const isEricaRequestProcessed = (ericaResponse: EricaResponse) => {

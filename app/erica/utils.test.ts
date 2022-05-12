@@ -75,12 +75,14 @@ describe("getEricaErrorsFromResponse", () => {
     expect(result).toEqual(["Grundsteuer, we have a problem."]);
   });
 
-  it("should return error information if errors present as array", () => {
+  it("should return error information if validation errors given", () => {
     const result = ericaUtils.getEricaErrorsFromResponse({
       processStatus: "Failure",
-      result: null,
+      result: {
+        validationErrors: ["Grundsteuer, we have a problem.", "Actually, two."],
+      },
       errorCode: "someErrorOccurred",
-      errorMessage: ["Grundsteuer, we have a problem.", "Actually, two."],
+      errorMessage: "some Error",
     });
     expect(result).toEqual([
       "Grundsteuer, we have a problem.",
