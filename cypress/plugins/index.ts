@@ -50,6 +50,16 @@ export default (on, config) => {
       return null;
     },
 
+    dbResetUser: async (userEmail) => {
+      await deleteEricaRequestIdFscBeantragen(userEmail);
+      await deleteEricaRequestIdFscAktivieren(userEmail);
+      await deleteEricaRequestIdFscStornieren(userEmail);
+      await setUserIdentified(userEmail, false);
+      await deletePdf(userEmail);
+      await deleteTransferticket(userEmail);
+      return null;
+    },
+
     addEricaRequestIdFscAntrag: async ({ userEmail, ericaRequestId }) => {
       await saveEricaRequestIdFscBeantragen(userEmail, ericaRequestId);
       return null;

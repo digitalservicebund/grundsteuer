@@ -2,6 +2,9 @@
 // @ts-check
 
 describe("Download transferticket", () => {
+  before(() => {
+    cy.task("dbResetUser", "foo@bar.com");
+  });
   it("should redirect to /anmelden when trying to access being logged out", () => {
     cy.visit("/download/transferticket");
     cy.url().should("include", "/anmelden");

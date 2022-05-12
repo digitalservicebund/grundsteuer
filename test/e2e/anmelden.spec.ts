@@ -1,6 +1,9 @@
 /// <reference types="cypress" />
 // @ts-check
 describe("/anmelden", () => {
+  before(() => {
+    cy.task("dbResetUser", "foo@bar.com");
+  });
   it("simple success path", () => {
     cy.visit("/anmelden");
     cy.get("[name=email]").type("foo@bar.com");
