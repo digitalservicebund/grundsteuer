@@ -55,6 +55,19 @@ describe("Zusammenfassung route", () => {
       cy.url().should("include", "/formular/zusammenfassung");
       cy.contains("Bitte füllen Sie dieses Feld aus.").should("not.exist");
     });
+
+    it("should show previous form errors with no data set", () => {
+      cy.visit("/formular/zusammenfassung");
+      cy.get("label[for=confirmCompleteCorrect]").click();
+      cy.get("label[for=confirmDataPrivacy]").click();
+      cy.get("label[for=confirmTermsOfUse]").click();
+      cy.get("#nextButton").click();
+
+      cy.url().should("include", "/formular/zusammenfassung");
+      cy.contains(
+        "Es sind Fehler im Formular aufgetreten, bitte überprüfen Sie Ihre Angaben."
+      ).should("exist");
+    });
   });
 
   describe("freischaltcode", () => {

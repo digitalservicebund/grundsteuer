@@ -1303,7 +1303,8 @@
       "submitbutton": "Feststellungserklärung abgeben",
       "sectionUnfilled": "Bitte ergänzen",
       "fscHeading": "Bitte geben Sie den Freischaltcode ein",
-      "fscLinkText": "Zum Bereich Freischaltcode"
+      "fscLinkText": "Zum Bereich Freischaltcode",
+      "errorsInPreviousSteps": "Es sind Fehler im Formular aufgetreten, bitte überprüfen Sie Ihre Angaben."
     }
   }
 }

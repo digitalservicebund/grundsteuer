@@ -47,6 +47,7 @@ import {
 import invariant from "tiny-invariant";
 import { useEffect, useState } from "react";
 import { ericaUtils } from "~/erica/utils";
+import ErrorBar from "~/components/ErrorBar";
 
 type LoaderData = {
   formData: StepFormData;
@@ -217,15 +218,11 @@ export default function Zusammenfassung() {
 
   return (
     <>
+      {actionData?.previousStepsErrors && (
+        <ErrorBar>{i18n.specifics.errorsInPreviousSteps}</ErrorBar>
+      )}
       {ericaErrors.map((ericaError, index) => {
-        return (
-          <div
-            key={index}
-            className="bg-red-200 border-l-[16px] border-l-red-900 pl-48 py-16 mb-8"
-          >
-            {ericaError}
-          </div>
-        );
+        return <ErrorBar key={index}>{ericaError}</ErrorBar>;
       })}
       <div className="pt-32 max-w-screen-md mx-auto w-1/2">
         <h1 className="mb-8 text-4xl font-bold">{i18n.headline}</h1>
