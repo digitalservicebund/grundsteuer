@@ -1,21 +1,7 @@
 import { mockActionArgs } from "testUtil/mockActionArgs";
-import { authenticator } from "~/auth.server";
+import { mockIsAuthenticated } from "test/mocks/authenticationMocks";
 import { sessionUserFactory } from "test/factories";
 import { action, getEricaErrorMessagesFromResponse } from "./zusammenfassung";
-
-jest.mock("~/auth.server", () => {
-  return {
-    __esModule: true,
-    authenticator: {
-      isAuthenticated: jest.fn(),
-    },
-  };
-});
-
-const mockIsAuthenticated =
-  authenticator.isAuthenticated as jest.MockedFunction<
-    typeof authenticator.isAuthenticated
-  >;
 
 describe("/zusammenfassung action", () => {
   describe("with an unidentified user", () => {

@@ -4,24 +4,12 @@ import bcrypt from "bcryptjs";
 import * as freischaltCodeAktivierenModule from "~/erica/freischaltCodeAktivieren";
 import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStornieren";
 import * as userModule from "~/domain/user";
-import { authenticator } from "~/auth.server";
 import { sessionUserFactory } from "test/factories";
-
-jest.mock("~/auth.server", () => {
-  return {
-    __esModule: true,
-    authenticator: {
-      isAuthenticated: jest.fn(),
-    },
-  };
-});
-
-const getAuthenticatedSession = async (userMail: string) => {
-  const session = await getSession();
-  session.set("user", { email: userMail, id: 1 });
-
-  return session;
-};
+import {
+  getAuthenticatedSession,
+  mockIsAuthenticated,
+} from "test/mocks/authenticationMocks";
+import { getMockedFunction } from "test/mocks/mockHelper";
 
 const getLoaderArgsWithAuthenticatedSession = async () => ({
   request: new Request("/fsc/eingeben", {
@@ -34,18 +22,6 @@ const getLoaderArgsWithAuthenticatedSession = async () => ({
   params: {},
   context: {},
 });
-
-const mockIsAuthenticated =
-  authenticator.isAuthenticated as jest.MockedFunction<
-    typeof authenticator.isAuthenticated
-  >;
-
-const getMockedFunction = (module: any, method: string, returnValue: any) =>
-  jest
-    .spyOn(module, method)
-    .mockImplementation(
-      jest.fn(() => Promise.resolve(returnValue)) as jest.Mock
-    );
 
 describe("Loader", () => {
   beforeAll(() => {
