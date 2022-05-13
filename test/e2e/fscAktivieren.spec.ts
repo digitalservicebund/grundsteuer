@@ -69,7 +69,9 @@ describe("/eingeben", () => {
     cy.visit("/fsc/eingeben");
     cy.get("[name=freischaltCode]").type(validFreischaltCode);
     cy.get("form[action='/fsc/eingeben?index'] button").click();
-    cy.contains("Mit diesen Daten können wir den FSC nicht aktivieren");
+    cy.contains(
+      "Der eingegebene Freischaltcode ist nicht gültig. Sie haben insgesamt 5 Versuche. Danach müssen Sie einen neuen Freischaltcode beantragen."
+    );
     cy.contains("Ihr Freischaltcode wird überprüft.").should("not.exist");
   });
 
