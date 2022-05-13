@@ -1,6 +1,6 @@
 import * as ericaClientModule from "~/erica/ericaClient";
 import {
-  getSuccessResult,
+  getSendenResult,
   retrieveResult,
   sendNewGrundsteuer,
 } from "~/erica/sendGrundsteuer";
@@ -71,9 +71,13 @@ describe("retrieveResult", () => {
     mockGetEricaResponsee.mockClear();
   });
 
-  it("should return result if status is success", async () => {
+  it("should return pdf and transferticket if status is success", async () => {
     const getResult = {
       processStatus: "Success",
+      result: {
+        pdf: "PDF",
+        transferticket: "Transferticket",
+      },
     };
     const mockGetEricaResponsee = jest
       .spyOn(ericaClientModule, "getFromErica")
@@ -83,14 +87,22 @@ describe("retrieveResult", () => {
 
     const result = await retrieveResult("007");
 
-    expect(result).toEqual(getResult);
+    expect(result).toEqual({
+      pdf: "PDF",
+      transferticket: "Transferticket",
+    });
 
     mockGetEricaResponsee.mockClear();
   });
 
-  it("should return result if status is failure", async () => {
+  it("should return error code, message and validation errors if status is failure", async () => {
     const getResult = {
       processStatus: "Failure",
+      errorCode: "ErrorCode",
+      errorMessage: "Message for youhu",
+      result: {
+        validationErrors: ["Error 1", "Error 2"],
+      },
     };
     const mockGetEricaResponsee = jest
       .spyOn(ericaClientModule, "getFromErica")
@@ -100,44 +112,22 @@ describe("retrieveResult", () => {
 
     const result = await retrieveResult("007");
 
-    expect(result).toEqual(getResult);
+    expect(result).toEqual({
+      errorType: "ErrorCode",
+      errorMessage: "Message for youhu",
+      validationErrors: ["Error 1", "Error 2"],
+    });
 
     mockGetEricaResponsee.mockClear();
   });
 });
 
-describe("getPositiveResult", () => {
-  it("throws error if status is processing", () => {
-    expect(
-      getSuccessResult({
-        processStatus: "Processing",
-        result: null,
-        errorCode: null,
-        errorMessage: null,
-      })
-    ).rejects.toThrow();
-  });
-
-  it("throws error if status is failure", () => {
-    expect(
-      getSuccessResult({
-        processStatus: "Failure",
-        result: null,
-        errorCode: null,
-        errorMessage: null,
-      })
-    ).rejects.toThrow();
-  });
-
+describe("getSendenResult", () => {
   it("throws error if transferticket and pdf not set", () => {
     expect(
-      getSuccessResult({
+      getSendenResult({
         processStatus: "Success",
-        result: {
-          transferticket: "FSC transfer",
-          taxIdNumber: "",
-          elsterRequestId: "",
-        },
+        result: null,
         errorCode: null,
         errorMessage: null,
       })
@@ -147,7 +137,7 @@ describe("getPositiveResult", () => {
   it("returns correct data if transferticket and pdf set", async () => {
     const transferticket = "Senden transfer";
     const pdfString = "PDF";
-    const result = await getSuccessResult({
+    const result = await getSendenResult({
       processStatus: "Success",
       result: {
         transferticket: transferticket,
@@ -160,6 +150,23 @@ describe("getPositiveResult", () => {
     expect(result).toEqual({
       transferticket: transferticket,
       pdf: pdfString,
+    });
+  });
+
+  it("returns correct data if error returned", async () => {
+    const result = await getSendenResult({
+      processStatus: "Failure",
+      result: {
+        validationErrors: ["Error 1", "Error 2"],
+      },
+      errorCode: "Code",
+      errorMessage: "Message",
+    });
+
+    expect(result).toEqual({
+      errorType: "Code",
+      errorMessage: "Message",
+      validationErrors: ["Error 1", "Error 2"],
     });
   });
 });

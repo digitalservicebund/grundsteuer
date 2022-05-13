@@ -44,6 +44,7 @@ type EricaErrorResponseData = {
 type EricaError = {
   errorType: string;
   errorMessage: string;
+  validationErrors?: string[];
 };
 
 const createDateStringForErica = (dateStringInGermanDateFormat: string) => {
@@ -57,7 +58,11 @@ const createDateStringForErica = (dateStringInGermanDateFormat: string) => {
 
 const extractResultFromEricaResponse = (
   ericaResponse: EricaResponse
-): EricaFreischaltcodeRequestResponseData | EricaErrorResponseData | object => {
+):
+  | EricaFreischaltcodeRequestResponseData
+  | EricaSendenResponseData
+  | EricaErrorResponseData
+  | object => {
   if (ericaResponse.processStatus === "Success") {
     return ericaResponse.result ? ericaResponse.result : {};
   }
@@ -69,13 +74,10 @@ const extractResultFromEricaResponse = (
   };
 };
 
-const getEricaErrorsFromResponse = (ericaRespons: EricaResponse): string[] => {
-  const result = ericaUtils.extractResultFromEricaResponse(ericaRespons);
-  if (!("errorMessage" in result)) return [];
-  if (!result.result || !("validationErrors" in result.result))
-    return [result.errorMessage];
-  const validationErrors = result.result.validationErrors;
-  return validationErrors ? validationErrors : [result.errorMessage];
+const getEricaErrorsFromResponse = (errorResponse: EricaError): string[] => {
+  return errorResponse.validationErrors
+    ? errorResponse.validationErrors
+    : [errorResponse.errorMessage];
 };
 
 const isEricaRequestProcessed = (ericaResponse: EricaResponse) => {
@@ -87,6 +89,7 @@ const isEricaRequestProcessed = (ericaResponse: EricaResponse) => {
 export type {
   EricaResponse,
   EricaFreischaltcodeRequestResponseData,
+  EricaSendenResponseData,
   EricaErrorResponseData,
   EricaError,
 };

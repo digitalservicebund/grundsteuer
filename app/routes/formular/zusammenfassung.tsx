@@ -34,11 +34,7 @@ import {
 import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
 import ZusammenfassungAccordion from "~/components/form/ZusammenfassungAccordion";
 import { removeUndefined } from "~/util/removeUndefined";
-import {
-  getSuccessResult,
-  retrieveResult,
-  sendNewGrundsteuer,
-} from "~/erica/sendGrundsteuer";
+import { retrieveResult, sendNewGrundsteuer } from "~/erica/sendGrundsteuer";
 import { transforDataToEricaFormat } from "~/erica/transformData";
 import {
   deleteEricaRequestIdSenden,
@@ -85,17 +81,23 @@ export const loader: LoaderFunction = async ({
   let ericaErrors: string[] = [];
   let ericaRequestId = userData.ericaRequestIdSenden;
   if (ericaRequestId) {
-    const ericaResponse = await retrieveResult(ericaRequestId);
-    if (ericaResponse?.processStatus == "Success") {
-      await deleteEricaRequestIdSenden(user.email);
-      const { transferticket, pdf } = await getSuccessResult(ericaResponse);
-      await saveTransferticket(user.email, transferticket);
-      await savePdf(user.email, pdf);
-      return redirect("/formular/erfolg");
-    } else if (ericaResponse?.processStatus == "Failure") {
-      await deleteEricaRequestIdSenden(user.email);
-      ericaRequestId = null;
-      ericaErrors = ericaUtils.getEricaErrorsFromResponse(ericaResponse);
+    const successResponseOrErrors = await retrieveResult(ericaRequestId);
+    if (successResponseOrErrors) {
+      if ("pdf" in successResponseOrErrors) {
+        await deleteEricaRequestIdSenden(user.email);
+        await saveTransferticket(
+          user.email,
+          successResponseOrErrors.transferticket
+        );
+        await savePdf(user.email, successResponseOrErrors.pdf);
+        return redirect("/formular/erfolg");
+      } else {
+        await deleteEricaRequestIdSenden(user.email);
+        ericaRequestId = null;
+        ericaErrors = ericaUtils.getEricaErrorsFromResponse(
+          successResponseOrErrors
+        );
+      }
     }
   }
 
