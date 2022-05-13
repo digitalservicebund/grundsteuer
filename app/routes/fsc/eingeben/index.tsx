@@ -29,8 +29,11 @@ import {
 } from "~/erica/freischaltCodeAktivieren";
 import {
   deleteEricaRequestIdFscAktivieren,
+  deleteEricaRequestIdFscStornieren,
+  deleteFscRequest,
   findUserByEmail,
   saveEricaRequestIdFscAktivieren,
+  saveEricaRequestIdFscStornieren,
   setUserIdentified,
   User,
 } from "~/domain/user";
@@ -38,13 +41,28 @@ import { authenticator } from "~/auth.server";
 import { commitSession, getSession } from "~/session.server";
 import { useEffect, useState } from "react";
 import FreischaltCodeInput from "~/components/FreischaltCodeInput";
+import {
+  checkFreischaltcodeRevocation,
+  revokeFreischaltCode,
+} from "~/erica/freischaltCodeStornieren";
 
 const isEricaRequestInProgress = async (userData: User) => {
+  return (
+    Boolean(userData.ericaRequestIdFscAktivieren) ||
+    Boolean(userData.ericaRequestIdFscStornieren)
+  );
+};
+
+const isEricaActivationRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscAktivieren);
 };
 
+const isEricaRevocationRequestInProgress = async (userData: User) => {
+  return Boolean(userData.ericaRequestIdFscStornieren);
+};
+
 const wasEricaRequestSuccessful = async (userData: User) => {
-  return userData.identified;
+  return userData.identified && !userData.ericaRequestIdFscStornieren;
 };
 
 const getEricaRequestIdFscAktivieren = async (userData: User) => {
@@ -53,6 +71,14 @@ const getEricaRequestIdFscAktivieren = async (userData: User) => {
     "ericaRequestIdFscAktivieren is null"
   );
   return userData.ericaRequestIdFscAktivieren;
+};
+
+const getEricaRequestIdFscStornieren = async (userData: User) => {
+  invariant(
+    userData.ericaRequestIdFscStornieren,
+    "ericaRequestIdFscStornieren is null"
+  );
+  return userData.ericaRequestIdFscStornieren;
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -66,13 +92,16 @@ export const loader: LoaderFunction = async ({ request }) => {
     "expected a matching user in the database from a user in a cookie session"
   );
 
-  const ericaRequestIsInProgress = await isEricaRequestInProgress(userData);
+  const ericaActivationRequestIsInProgress =
+    await isEricaActivationRequestInProgress(userData);
+  const ericaRevocationRequestIsInProgress =
+    await isEricaRevocationRequestInProgress(userData);
 
   if (await wasEricaRequestSuccessful(userData)) {
     return redirect("/fsc/eingeben/erfolgreich");
   }
 
-  if (ericaRequestIsInProgress) {
+  if (ericaActivationRequestIsInProgress) {
     const fscActivatedOrError = await checkFreischaltcodeActivation(
       await getEricaRequestIdFscAktivieren(userData)
     );
@@ -84,6 +113,12 @@ export const loader: LoaderFunction = async ({ request }) => {
           Object.assign(session.get("user"), { identified: true })
         );
         await deleteEricaRequestIdFscAktivieren(user.email);
+        if (userData.fscRequest) {
+          const ericaRequestId = await revokeFreischaltCode(
+            userData.fscRequest?.requestId
+          );
+          saveEricaRequestIdFscStornieren(user.email, ericaRequestId);
+        }
       } else if (fscActivatedOrError?.errorType == "EricaUserInputError") {
         await deleteEricaRequestIdFscAktivieren(user.email);
         return {
@@ -97,10 +132,28 @@ export const loader: LoaderFunction = async ({ request }) => {
     }
   }
 
+  if (ericaRevocationRequestIsInProgress) {
+    const fscRevocatedOrError = await checkFreischaltcodeRevocation(
+      await getEricaRequestIdFscStornieren(userData)
+    );
+    if (fscRevocatedOrError) {
+      if (typeof fscRevocatedOrError == "boolean") {
+        if (userData.fscRequest)
+          await deleteFscRequest(user.email, userData.fscRequest.requestId);
+        await deleteEricaRequestIdFscStornieren(user.email);
+      } else {
+        // We only try to revocate. If it does not succeed, we do not want to show an error to the user
+        await deleteEricaRequestIdFscStornieren(user.email);
+      }
+    }
+  }
+
   return json(
     {
       showError: false,
-      showSpinner: ericaRequestIsInProgress,
+      showSpinner:
+        ericaActivationRequestIsInProgress ||
+        ericaRevocationRequestIsInProgress,
     },
     {
       headers: {
@@ -120,7 +173,7 @@ export const action: ActionFunction = async ({ request }) => {
     "expected a matching user in the database from a user in a cookie session"
   );
   invariant(userData.fscRequest, "expected an fscRequest in database for user");
-  const elsterRequestId = userData.fscRequest.requestId;
+  const elsterRequestId = userData.fscRequest?.requestId;
 
   if (await wasEricaRequestSuccessful(userData)) {
     return redirect("/fsc/eingeben/erfolgreich");
@@ -189,7 +242,7 @@ export default function FscEingeben() {
       if (showSpinner) {
         fetcher.load("/fsc/eingeben?index");
       }
-    }, 2000);
+    }, 1000);
     return () => clearInterval(interval);
   }, [fetcher, showSpinner]);
 
