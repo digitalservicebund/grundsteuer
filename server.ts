@@ -1,6 +1,6 @@
 import compression from "compression";
 import dotenv from "dotenv-safe";
-import express from "express";
+import express, { Request } from "express";
 import morgan from "morgan";
 import { createRequestHandler } from "@remix-run/express";
 import { jobs } from "~/cron.server";
@@ -39,6 +39,10 @@ if (appMode === "cron") {
 
   app.use(morgan("tiny"));
 
+  const getLoadContext = (req: Request) => ({
+    clientIp: req.headers["x-real-ip"] || req.socket?.remoteAddress,
+  });
+
   app.all(
     "*",
     process.env.NODE_ENV === "development"
@@ -47,11 +51,13 @@ if (appMode === "cron") {
 
           return createRequestHandler({
             build: require(BUILD_DIR),
+            getLoadContext,
             mode: process.env.NODE_ENV,
           })(req, res, next);
         }
       : createRequestHandler({
           build: require(BUILD_DIR),
+          getLoadContext,
           mode: process.env.NODE_ENV,
         })
   );
