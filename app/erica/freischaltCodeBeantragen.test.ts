@@ -4,6 +4,7 @@ import {
   requestNewFreischaltCode,
 } from "~/erica/freischaltCodeBeantragen";
 import { EricaResponse } from "~/erica/utils";
+import { isFscCorrect } from "~/erica/freischaltCodeAktivieren";
 
 describe("requestNewFreischaltCode", () => {
   it("should return requestId from postToEricaResponse", async () => {
@@ -42,7 +43,31 @@ describe("requestNewFreischaltCode", () => {
 });
 
 describe("extractAntragsId", () => {
-  it("should throw error if some errorCode present in ericaFreischaltCodeResponse", () => {
+  const cases = [
+    { errorCode: "ALREADY_OPEN_UNLOCK_CODE_REQUEST" },
+    { errorCode: "ERIC_TRANSFER_ERR_XML_NHEADER" },
+    { errorCode: "ERIC_GLOBAL_PRUEF_FEHLER" },
+  ];
+
+  test.each(cases)(
+    "Should return EricaUserInputError if $errorCode present in ericaFreischaltCodeResponse",
+    async ({ errorCode }) => {
+      const errorMessage = "Some kind of problem with the NHEADER";
+      const ericaResponseData: EricaResponse = {
+        processStatus: "Failure",
+        result: null,
+        errorCode: errorCode,
+        errorMessage,
+      };
+      const result = extractAntragsId(ericaResponseData);
+      expect(result).toEqual({
+        errorType: "EricaUserInputError",
+        errorMessage,
+      });
+    }
+  );
+
+  it("should return error if some errorCode present in ericaFreischaltCodeResponse", () => {
     const errorMessage = "Grundsteuer, we still have a problem here";
     const ericaResponseData: EricaResponse = {
       processStatus: "Failure",
@@ -52,18 +77,6 @@ describe("extractAntragsId", () => {
     };
     const result = extractAntragsId(ericaResponseData);
     expect(result).toEqual({ errorType: "GeneralEricaError", errorMessage });
-  });
-
-  it("should throw EricaUserInputError if ERIC_GLOBAL_PRUEF_FEHLER present in ericaFreischaltCodeResponse", () => {
-    const errorMessage = "Some kind of problem with the NHEADER";
-    const ericaResponseData: EricaResponse = {
-      processStatus: "Failure",
-      result: null,
-      errorCode: "ERIC_GLOBAL_PRUEF_FEHLER",
-      errorMessage,
-    };
-    const result = extractAntragsId(ericaResponseData);
-    expect(result).toEqual({ errorType: "EricaUserInputError", errorMessage });
   });
 
   it("should throw EricaUserInputError if ERIC_TRANSFER_ERR_XML_NHEADER present in ericaFreischaltCodeResponse", () => {

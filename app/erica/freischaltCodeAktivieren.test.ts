@@ -4,6 +4,9 @@ import {
   isFscCorrect,
 } from "~/erica/freischaltCodeAktivieren";
 import { EricaResponse } from "~/erica/utils";
+import { render, screen } from "@testing-library/react";
+import MaskedInput from "../components/form/MaskedInput";
+import userEvent from "@testing-library/user-event";
 
 describe("activateFreischaltCode", () => {
   it("should return requestId from postToEricaResponse", async () => {
@@ -43,19 +46,31 @@ describe("activateFreischaltCode", () => {
 });
 
 describe("isFscCorrect", () => {
-  it("should throw EricaUserInputError if some ELSTER_REQUEST_ID_UNKNOWN present in ericaFreischaltCodeResponse", () => {
-    const errorMessage = "Some kind of problem with the NHEADER";
-    const ericaResponseData: EricaResponse = {
-      processStatus: "Failure",
-      result: null,
-      errorCode: "ELSTER_REQUEST_ID_UNKNOWN",
-      errorMessage,
-    };
-    const result = isFscCorrect(ericaResponseData);
-    expect(result).toEqual({ errorType: "EricaUserInputError", errorMessage });
-  });
+  const cases = [
+    { errorCode: "ELSTER_REQUEST_ID_UNKNOWN" },
+    { errorCode: "ERIC_TRANSFER_ERR_XML_NHEADER" },
+    { errorCode: "ERIC_GLOBAL_PRUEF_FEHLER" },
+  ];
 
-  it("should throw error if some errorCode present in ericaFreischaltCodeResponse", () => {
+  test.each(cases)(
+    "Should return EricaUserInputError if $errorCode present in ericaFreischaltCodeResponse",
+    async ({ errorCode }) => {
+      const errorMessage = "Some kind of problem with the NHEADER";
+      const ericaResponseData: EricaResponse = {
+        processStatus: "Failure",
+        result: null,
+        errorCode: errorCode,
+        errorMessage,
+      };
+      const result = isFscCorrect(ericaResponseData);
+      expect(result).toEqual({
+        errorType: "EricaUserInputError",
+        errorMessage,
+      });
+    }
+  );
+
+  it("should return error if some errorCode present in ericaFreischaltCodeResponse", () => {
     const errorMessage = "Grundsteuer, we still have a problem here";
     const ericaResponseData: EricaResponse = {
       processStatus: "Failure",

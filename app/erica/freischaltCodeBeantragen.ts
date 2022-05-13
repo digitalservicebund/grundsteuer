@@ -35,8 +35,11 @@ export const extractAntragsId = (
   const result = ericaUtils.extractResultFromEricaResponse(ericaResponse);
   if ("errorCode" in result && result.errorCode) {
     if (
-      result.errorCode == "ERIC_GLOBAL_PRUEF_FEHLER" ||
-      result.errorCode == "ERIC_TRANSFER_ERR_XML_NHEADER"
+      [
+        "ERIC_GLOBAL_PRUEF_FEHLER",
+        "ERIC_TRANSFER_ERR_XML_NHEADER",
+        "ALREADY_OPEN_UNLOCK_CODE_REQUEST",
+      ].includes(result.errorCode)
     ) {
       return {
         errorType: "EricaUserInputError",

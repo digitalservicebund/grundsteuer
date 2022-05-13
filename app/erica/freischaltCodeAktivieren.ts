@@ -35,7 +35,13 @@ export const isFscCorrect = (
 ): boolean | EricaError => {
   const result = ericaUtils.extractResultFromEricaResponse(ericaResponse);
   if ("errorCode" in result && result.errorCode) {
-    if (result.errorCode == "ELSTER_REQUEST_ID_UNKNOWN") {
+    if (
+      [
+        "ELSTER_REQUEST_ID_UNKNOWN",
+        "ERIC_TRANSFER_ERR_XML_NHEADER",
+        "ERIC_GLOBAL_PRUEF_FEHLER",
+      ].includes(result.errorCode)
+    ) {
       return {
         errorType: "EricaUserInputError",
         errorMessage: result.errorMessage,
