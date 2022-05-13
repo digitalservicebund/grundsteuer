@@ -46,7 +46,7 @@ import {
 } from "~/domain/user";
 import invariant from "tiny-invariant";
 import { useEffect, useState } from "react";
-import { ericaUtils } from "~/erica/utils";
+import { EricaError } from "~/erica/utils";
 import ErrorBar from "~/components/ErrorBar";
 
 type LoaderData = {
@@ -58,6 +58,32 @@ type LoaderData = {
   previousStepsErrors: PreviousStepsErrors;
   ericaErrors: string[];
   showSpinner: boolean;
+};
+
+export const getEricaErrorMessagesFromResponse = (
+  errorResponse: EricaError
+): string[] => {
+  if (errorResponse.errorType == "ERIC_GLOBAL_PRUEF_FEHLER") {
+    const validationErrorMessage =
+      "Es sind Validierungsfehler bei Elster aufgetreten. Bitte prüfen Sie Ihre Angaben.";
+    return errorResponse.validationErrors
+      ? [validationErrorMessage, ...errorResponse.validationErrors]
+      : [validationErrorMessage];
+  }
+  if (
+    [
+      "ERIC_GLOBAL_BUFANR_UNBEKANNT",
+      "INVALID_BUFA_NUMBER",
+      "INVALID_TAX_NUMBER",
+      "ERIC_GLOBAL_STEUERNUMMER_UNGUELTIG",
+      "ERIC_GLOBAL_EWAZ_UNGUELTIG",
+    ].includes(errorResponse.errorType)
+  ) {
+    const steuernummerInvalidMessage =
+      "Es scheint ein Problem mit Ihrer angegebenen Steuernummer/Aktenzeichen gegeben zu haben. Bitte prüfen Sie Ihre Angaben.";
+    return [steuernummerInvalidMessage];
+  }
+  throw Error("Unexpected Error: " + errorResponse.errorType);
 };
 
 export const loader: LoaderFunction = async ({
@@ -95,7 +121,7 @@ export const loader: LoaderFunction = async ({
       } else {
         await deleteEricaRequestIdSenden(user.email);
         ericaRequestId = null;
-        ericaErrors = ericaUtils.getEricaErrorsFromResponse(
+        ericaErrors = getEricaErrorMessagesFromResponse(
           successResponseOrErrors
         );
       }

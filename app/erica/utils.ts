@@ -74,12 +74,6 @@ const extractResultFromEricaResponse = (
   };
 };
 
-const getEricaErrorsFromResponse = (errorResponse: EricaError): string[] => {
-  return errorResponse.validationErrors
-    ? errorResponse.validationErrors
-    : [errorResponse.errorMessage];
-};
-
 const isEricaRequestProcessed = (ericaResponse: EricaResponse) => {
   return (
     ericaResponse.processStatus === "Success" ||
@@ -97,5 +91,4 @@ export const ericaUtils = {
   createDateStringForErica,
   isEricaRequestProcessed,
   extractResultFromEricaResponse,
-  getEricaErrorsFromResponse,
 };

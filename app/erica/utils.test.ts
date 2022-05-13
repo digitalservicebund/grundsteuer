@@ -50,29 +50,6 @@ describe("extractResultFromEricaResponse", () => {
   });
 });
 
-describe("getEricaErrorsFromResponse", () => {
-  it("should return error information if error present as string", () => {
-    const result = ericaUtils.getEricaErrorsFromResponse({
-      errorType: "SomeError",
-      errorMessage: "Grundsteuer, we have a problem.",
-      validationErrors: undefined,
-    });
-    expect(result).toEqual(["Grundsteuer, we have a problem."]);
-  });
-
-  it("should return error information if validation errors given", () => {
-    const result = ericaUtils.getEricaErrorsFromResponse({
-      errorType: "SomeError",
-      errorMessage: "some Error",
-      validationErrors: ["Grundsteuer, we have a problem.", "Actually, two."],
-    });
-    expect(result).toEqual([
-      "Grundsteuer, we have a problem.",
-      "Actually, two.",
-    ]);
-  });
-});
-
 describe("isEricaRequestProcessed", () => {
   it("should return true if status is Success", () => {
     expect(
