@@ -50,9 +50,7 @@ describe("/eingeben", () => {
     cy.visit("/fsc/eingeben");
     cy.get("[name=freischaltCode]").type("invalid");
     cy.get("form[action='/fsc/eingeben?index'] button").click();
-    cy.contains(
-      "Bitte geben Sie Ihren Freischaltcode im folgenden Format ein AAAA-AAAA-AAAA."
-    );
+    cy.contains("Ihre Eingabe war nicht richtig");
     cy.contains("Ihr Freischaltcode wird überprüft.").should("not.exist");
   });
 
