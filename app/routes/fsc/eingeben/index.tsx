@@ -263,6 +263,7 @@ export default function FscEingeben() {
             <FreischaltCodeInput
               name="freischaltCode"
               label="Freischaltcode"
+              placeholder="XXXX-XXXX-XXXX"
               error={errors?.freischaltCode}
             />
           </FormGroup>
