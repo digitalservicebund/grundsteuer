@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import invariant from "tiny-invariant";
 import {
   validateEmail,
-  validateRequired,
-  validateMinLength,
   validateMaxLength,
+  validateMinLength,
+  validateRequired,
 } from "~/domain/validation";
 import { createUser, userExists } from "~/domain/user";
 import {
@@ -21,6 +21,7 @@ import {
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 import { removeUndefined } from "~/util/removeUndefined";
+import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 
 const validateInputEmail = async (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -34,7 +35,8 @@ const validateInputPassword = (normalizedEmail: string, password: string) =>
   (!validateMaxLength({ value: password, maxLength: 64 }) &&
     "errors.password.tooLong");
 
-export const action: ActionFunction = async ({ request }) => {
+export const action: ActionFunction = async ({ request, context }) => {
+  const { clientIp } = context;
   const formData = await request.formData();
 
   const email = formData.get("email");
@@ -82,6 +84,12 @@ export const action: ActionFunction = async ({ request }) => {
 
   if (!errorsExist) {
     await createUser(normalizedEmail, password);
+    await saveAuditLog({
+      eventName: AuditLogEvent.USER_REGISTERED,
+      timestamp: Date.now(),
+      ipAddress: clientIp,
+      username: normalizedEmail,
+    });
     return redirect("/registrieren/erfolgreich");
   }
 

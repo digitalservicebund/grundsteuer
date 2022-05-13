@@ -22,12 +22,12 @@ const validFormData = {
 describe("/registrieren action", () => {
   describe('"succeeds"', () => {
     test("and redirects", async () => {
-      const args = mockActionArgs({ formData: validFormData });
+      const args = mockActionArgs({ formData: validFormData, context: {} });
       expect((await action(args)).status).toBe(302);
     });
 
     test("and redirects to /registrieren/erfolgreich", async () => {
-      const args = mockActionArgs({ formData: validFormData });
+      const args = mockActionArgs({ formData: validFormData, context: {} });
       expect((await action(args)).headers.get("Location")).toBe(
         "/registrieren/erfolgreich"
       );
@@ -37,7 +37,7 @@ describe("/registrieren action", () => {
   describe('"fails"', () => {
     test("with errors when user with email already exists", async () => {
       mockUserExists.mockImplementationOnce(() => Promise.resolve(true));
-      const args = mockActionArgs({ formData: validFormData });
+      const args = mockActionArgs({ formData: validFormData, context: {} });
       const errors = { email: "errors.email.alreadyExists" };
       expect(await action(args)).toEqual({ errors });
     });
@@ -101,7 +101,7 @@ describe("/registrieren action", () => {
     test.each(cases)(
       "with errors when $description",
       async ({ formData, errors }) => {
-        const args = mockActionArgs({ formData });
+        const args = mockActionArgs({ formData, context: {} });
         expect(await action(args)).toEqual({ errors });
       }
     );

@@ -12,7 +12,7 @@ const PRIVATE_KEY = Buffer.from(
 describe("auditLog", () => {
   it("should encrypt audit log data correctly.", async () => {
     const data: AuditLogData = {
-      eventName: AuditLogEvent.FSC_BEANTRAGT,
+      eventName: AuditLogEvent.FSC_REQUESTED,
       timestamp: Date.now(),
       ipAddress: "127.0.0.1",
       username: "foo@bar.com",

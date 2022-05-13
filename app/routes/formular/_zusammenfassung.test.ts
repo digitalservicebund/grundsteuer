@@ -26,7 +26,7 @@ describe("/zusammenfassung action", () => {
     });
 
     test("throws an error", async () => {
-      const args = mockActionArgs({ formData: {} });
+      const args = mockActionArgs({ formData: {}, context: {} });
       await expect(action(args)).rejects.toThrowError("user not identified!");
     });
   });
@@ -39,7 +39,7 @@ describe("/zusammenfassung action", () => {
     });
 
     test("does not throw an error", async () => {
-      const args = mockActionArgs({ formData: {} });
+      const args = mockActionArgs({ formData: {}, context: {} });
       expect(await action(args)).toMatchObject({ errors: {} });
     });
   });

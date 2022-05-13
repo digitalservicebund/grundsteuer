@@ -3,7 +3,8 @@ import { encryptData } from "~/audit/crypto";
 import invariant from "tiny-invariant";
 
 export enum AuditLogEvent {
-  FSC_BEANTRAGT = "unlock_code_request_sent",
+  FSC_REQUESTED = "unlock_code_request_sent",
+  USER_REGISTERED = "user_registered",
 }
 
 export interface AuditLogData {
@@ -11,7 +12,7 @@ export interface AuditLogData {
   timestamp: number;
   ipAddress: string;
   username: string;
-  eventData: EventData;
+  eventData?: EventData;
 }
 
 export interface FscBeantragtData {

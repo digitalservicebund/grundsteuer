@@ -2,6 +2,7 @@ import { DataFunctionArgs } from "@remix-run/server-runtime";
 
 type MockActionArgsFunction = (options: {
   formData?: Record<string, string>;
+  context: { clientIp?: string };
 }) => DataFunctionArgs;
 
 export const mockActionArgs: MockActionArgsFunction = ({ formData }) => {
@@ -18,5 +19,5 @@ export const mockActionArgs: MockActionArgsFunction = ({ formData }) => {
     });
     request.formData = () => Promise.resolve(formDataObject);
   }
-  return { request, context: null, params: {} };
+  return { request, context: { clientIp: "" }, params: {} };
 };
