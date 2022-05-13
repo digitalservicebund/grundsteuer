@@ -4,9 +4,6 @@ import {
   isFscCorrect,
 } from "~/erica/freischaltCodeAktivieren";
 import { EricaResponse } from "~/erica/utils";
-import { render, screen } from "@testing-library/react";
-import MaskedInput from "../components/form/MaskedInput";
-import userEvent from "@testing-library/user-event";
 
 describe("activateFreischaltCode", () => {
   it("should return requestId from postToEricaResponse", async () => {

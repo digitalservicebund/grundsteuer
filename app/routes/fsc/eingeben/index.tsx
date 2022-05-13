@@ -117,7 +117,7 @@ export const loader: LoaderFunction = async ({ request }) => {
           const ericaRequestId = await revokeFreischaltCode(
             userData.fscRequest?.requestId
           );
-          saveEricaRequestIdFscStornieren(user.email, ericaRequestId);
+          await saveEricaRequestIdFscStornieren(user.email, ericaRequestId);
         }
       } else if (fscActivatedOrError?.errorType == "EricaUserInputError") {
         await deleteEricaRequestIdFscAktivieren(user.email);
