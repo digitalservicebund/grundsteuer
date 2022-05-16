@@ -7,21 +7,12 @@ import * as userModule from "~/domain/user";
 import { sessionUserFactory } from "test/factories";
 import {
   getAuthenticatedSession,
+  getLoaderArgsWithAuthenticatedSession,
   mockIsAuthenticated,
 } from "test/mocks/authenticationMocks";
 import { getMockedFunction } from "test/mocks/mockHelper";
 
-const getLoaderArgsWithAuthenticatedSession = async () => ({
-  request: new Request("/fsc/eingeben", {
-    headers: {
-      cookie: await commitSession(
-        await getAuthenticatedSession("existing_user@foo.com")
-      ),
-    },
-  }),
-  params: {},
-  context: {},
-});
+process.env.FORM_COOKIE_SECRET = "secret";
 
 describe("Loader", () => {
   beforeAll(() => {
@@ -65,7 +56,10 @@ describe("Loader", () => {
 
     it("should be inProgress if erica sends activation success", async () => {
       const response = await loader(
-        await getLoaderArgsWithAuthenticatedSession()
+        await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/eingeben",
+          "existing_user@foo.com"
+        )
       );
       const jsonResponse = await response.json();
 
@@ -114,7 +108,10 @@ describe("Loader", () => {
 
     it("should set identified in session if erica sends activation success", async () => {
       const response = await loader(
-        await getLoaderArgsWithAuthenticatedSession()
+        await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/eingeben",
+          "existing_user@foo.com"
+        )
       );
 
       const session = await getSession(response.headers.get("Set-Cookie"));
@@ -152,7 +149,12 @@ describe("Loader", () => {
 
       expect(spyOnSetUserIdentified).not.toHaveBeenCalled();
 
-      await loader(await getLoaderArgsWithAuthenticatedSession());
+      await loader(
+        await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/eingeben",
+          "existing_user@foo.com"
+        )
+      );
 
       expect(spyOnSetUserIdentified).not.toHaveBeenCalled();
       expect(spyOnDeleteEricaRequestIdFscStornieren).toHaveBeenCalledWith(
@@ -183,7 +185,12 @@ describe("Loader", () => {
       );
       const spyOnDeleteFscRequest = jest.spyOn(userModule, "deleteFscRequest");
 
-      await loader(await getLoaderArgsWithAuthenticatedSession());
+      await loader(
+        await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/eingeben",
+          "existing_user@foo.com"
+        )
+      );
 
       expect(spyOnSetUserIdentified).not.toHaveBeenCalled();
       expect(spyOnDeleteEricaRequestIdFscStornieren).toHaveBeenCalledWith(

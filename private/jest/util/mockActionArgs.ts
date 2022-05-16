@@ -14,8 +14,8 @@ export const mockActionArgs: MockActionArgsFunction = ({ formData }) => {
   });
   if (formData) {
     const formDataObject = new FormData();
-    Object.keys(formData).forEach((key) => {
-      formDataObject.append(key, formData[key]);
+    Object.entries(formData).forEach(([key, value]) => {
+      formDataObject.append(key, value);
     });
     request.formData = () => Promise.resolve(formDataObject);
   }
