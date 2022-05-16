@@ -249,4 +249,16 @@
   .radio__input[disabled] + .radio__label {
     cursor: default;
   }
+
+  /* select */
+  .select {
+    appearance: none;
+    background-position: right 16px center;
+    background-repeat: no-repeat;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path d="M1.41 0.294983L6 4.87498L10.59 0.294983L12 1.70498L6 7.70498L0 1.70498L1.41 0.294983Z" fill="black"/></svg>');
+    line-height: 60px;
+  }
+  .select::-ms-expand {
+    display: none;
+  }
 }
