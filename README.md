@@ -12,7 +12,7 @@ On first install:
 
 ```
 npm install
-npx prisma generate
+npx prisma migrate dev
 ```
 
 To start the app:
