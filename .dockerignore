@@ -1,5 +1,7 @@
 *
 !app
+!audit-decrypt.server.ts
+!audit-export.server.ts
 !build
 !package.json
 !package-lock.json
