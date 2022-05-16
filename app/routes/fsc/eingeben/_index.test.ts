@@ -80,18 +80,12 @@ describe("Loader", () => {
         "saveEricaRequestIdFscStornieren"
       );
 
-      const request = new Request("/fsc/eingeben", {
-        headers: {
-          cookie: await commitSession(
-            await getAuthenticatedSession("existing_user@foo.com")
-          ),
-        },
-      });
-      await loader({
-        request: request,
-        params: {},
-        context: {},
-      });
+      await loader(
+        await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/eingeben",
+          "existing_user@foo.com"
+        )
+      );
 
       expect(spyOnSetUserIdentified).toHaveBeenCalledWith(
         "existing_user@foo.com",
