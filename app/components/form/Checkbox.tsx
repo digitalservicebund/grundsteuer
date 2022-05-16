@@ -35,7 +35,11 @@ export default function Checkbox(props: CheckboxProps) {
     </label>
   );
 
-  const errorComponent = error && <FieldError>{error}</FieldError>;
+  const errorComponent = error && (
+    <div className="pl-48">
+      <FieldError>{error}</FieldError>
+    </div>
+  );
 
   if (help) {
     return (

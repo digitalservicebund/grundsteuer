@@ -147,13 +147,12 @@
     content: "";
     display: block;
     position: absolute;
-    top: 50%;
+    top: 0;
   }
   .checkbox__label::before {
     left: 0;
     width: 40px;
     height: 40px;
-    transform: translateY(-50%);
     box-shadow: inset 0 0 0 2px #004b76;
   }
   .checkbox__input:focus + .checkbox__label:not(.has-error)::before {
@@ -170,10 +169,11 @@
     box-shadow: inset 0 0 0 4px #004b76;
   }
   .checkbox__input:checked + .checkbox__label::after {
+    top: 20px;
     left: 19px;
     width: 17px;
     height: 7px;
-    transform: rotate(-48deg) translateY(calc(-6px - 50%));
+    transform: rotate(-48deg) translateY(-8px);
     border: solid;
     border-width: 0 0 2px 2px;
     border-color: #004b76;
