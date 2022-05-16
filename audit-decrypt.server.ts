@@ -14,7 +14,11 @@ interface ReadableLog {
   eventData?: EventData;
 }
 
-async function decryptLogs(pathToKey: string, pathToInput: string) {
+async function decryptLogs(
+  pathToKey: string,
+  pathToInput: string,
+  username: "all" | string
+) {
   const privateKey = Buffer.from(
     fs.readFileSync(pathToKey, { encoding: "utf-8" })
   );
@@ -31,10 +35,11 @@ async function decryptLogs(pathToKey: string, pathToInput: string) {
     const decryptedLog = JSON.parse(
       decryptData(line, privateKey)
     ) as AuditLogData;
-    readableLogs.push({
-      ...decryptedLog,
-      timestamp: new Date(decryptedLog.timestamp).toISOString(),
-    });
+    if (username === "all" || username === decryptedLog.username)
+      readableLogs.push({
+        ...decryptedLog,
+        timestamp: new Date(decryptedLog.timestamp).toISOString(),
+      });
   }
 
   fs.writeFileSync(OUTPUT_FILE, JSON.stringify(readableLogs));
@@ -42,7 +47,10 @@ async function decryptLogs(pathToKey: string, pathToInput: string) {
 
 function usage() {
   console.log(
-    "Usage: npm run audit:decrypt /path/to/key.pem /another/path/to/encrypted-logs"
+    "Usage: npm run audit:decrypt path-to-private-key path-to-encrypted-logs [username]"
+  );
+  console.log(
+    "Example: npm run audit:decrypt /path/to/key.pem /another/path/to/encrypted-logs user@example.com"
   );
 }
 
@@ -51,7 +59,7 @@ function main() {
   if (args.length < 2) {
     usage();
   } else {
-    decryptLogs(args[0], args[1]);
+    decryptLogs(args[0], args[1], args[2] || "all");
   }
 }
 
