@@ -8,11 +8,18 @@ This is the code repository of Grundsteuer by [DigitalService4Germany](https://d
 
 ### Development
 
+Before first install create db:
+
+```
+docker-compose up -d
+```
+
 On first install:
 
 ```
 npm install
 npx prisma generate
+npx prisma migrate dev
 ```
 
 To start the app:
