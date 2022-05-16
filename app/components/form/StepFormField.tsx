@@ -14,13 +14,14 @@ export type StepFormFieldProps = {
     type?: string;
     defaultValue?: string;
     options?: { value: string }[];
+    htmlAttributes?: Record<string, string | number | boolean>;
   };
   error?: string;
 };
 
 const StepFormField = (props: StepFormFieldProps) => {
   const { name, value, i18n, definition, error } = props;
-  const { type, options, defaultValue } = definition;
+  const { type, options, defaultValue, htmlAttributes } = definition;
 
   const commonProps = {
     name,
@@ -28,6 +29,7 @@ const StepFormField = (props: StepFormFieldProps) => {
     key: name,
     defaultValue: value || defaultValue,
     error,
+    ...htmlAttributes,
   };
 
   if (type === "radio" && options) {

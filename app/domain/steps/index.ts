@@ -336,6 +336,7 @@ export type GrundModel = {
 
 export type StepDefinitionField = {
   validations: ValidationConfig;
+  htmlAttributes?: Record<string, string | number | boolean>;
 };
 
 export type StepDefinitionFieldWithOptions = StepDefinitionField & {

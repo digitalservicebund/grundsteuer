@@ -15,6 +15,9 @@ export const zusammenfassung: StepDefinition = {
           msg: "Die Angabe darf höchstens 900 Zeichen lang sein",
         },
       },
+      htmlAttributes: {
+        maxLength: 900,
+      },
     },
     confirmCompleteCorrect: {
       type: "checkbox",
