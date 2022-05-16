@@ -79,6 +79,7 @@ export default function Erfolg() {
         <p className="text-24 font-bold text-blue-800 mb-8">{transferticket}</p>
         <Button
           href="/download/transferticket"
+          target={"_blank"}
           download
           look="primary"
           iconRight={<Download />}
@@ -96,6 +97,7 @@ export default function Erfolg() {
         </p>
         <Button
           href="/download/pdf"
+          target={"_blank"}
           download
           look="primary"
           iconRight={<Download />}
