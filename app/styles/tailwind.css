@@ -119,6 +119,11 @@
     @apply outline-none;
   }
 
+  /* button-container */
+  .button-container > * {
+    @apply flex-grow;
+  }
+
   /* form-group */
   .form-group:last-of-type {
     @apply mb-80;

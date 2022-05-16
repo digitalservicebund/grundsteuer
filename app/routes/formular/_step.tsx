@@ -309,13 +309,13 @@ export function Step() {
         <ButtonContainer>
           <Button
             id="nextButton"
-            className={backUrl ? "flex-grow" : ""}
+            className={backUrl ? "" : "flex-grow-0"}
             disabled={isSubmitting}
           >
             {nextButtonLabel}
           </Button>
           {backUrl ? (
-            <Button to={backUrl} look="secondary" className="flex-grow">
+            <Button to={backUrl} look="secondary">
               {i18n.common.back}
             </Button>
           ) : (

@@ -269,7 +269,7 @@ export default function FscEingeben() {
             />
           </FormGroup>
         </div>
-        <ButtonContainer forceMultiline>
+        <ButtonContainer>
           <Button disabled={isSubmitting || showSpinner}>
             Freischaltcode speichern
           </Button>

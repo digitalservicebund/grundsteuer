@@ -230,7 +230,7 @@ export default function FscBeantragen() {
             />
           </FormGroup>
         </div>
-        <ButtonContainer forceMultiline>
+        <ButtonContainer>
           <Button disabled={isSubmitting || showSpinner}>
             Freischaltcode beantragen
           </Button>

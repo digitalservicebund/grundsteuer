@@ -108,17 +108,7 @@ export default function KitchenSinkForm() {
       </FormGroup>
 
       <ContentContainer size="sm" className="border border-black">
-        <ButtonContainer className="mb-32 border border-red-500">
-          <Button>Übernehmen & Weiter</Button>
-          <Button look="secondary">Zurück</Button>
-        </ButtonContainer>
         <ButtonContainer className="mb-32 border border-green-500">
-          <Button className="flex-grow">Übernehmen & Weiter</Button>
-          <Button className="flex-grow" look="secondary">
-            Zurück
-          </Button>
-        </ButtonContainer>
-        <ButtonContainer forceMultiline className="border border-red-500">
           <Button>Übernehmen & Weiter</Button>
           <Button look="secondary">Zurück</Button>
         </ButtonContainer>
