@@ -42,7 +42,7 @@ async function decryptLogs(
       });
   }
 
-  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(readableLogs));
+  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(readableLogs, null, 2));
 }
 
 function usage() {
