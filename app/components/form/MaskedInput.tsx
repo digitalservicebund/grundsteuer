@@ -29,5 +29,9 @@ export type MaskedInputProps = InputProps & {
 };
 
 export default function MaskedInput(props: MaskedInputProps) {
-  return <InputWithMixin {...props} />;
+  const { mask, ...rest } = props;
+  if (mask === "Date") {
+    return <InputWithMixin mask={Date} {...rest} />;
+  }
+  return <InputWithMixin mask={mask} {...rest} />;
 }

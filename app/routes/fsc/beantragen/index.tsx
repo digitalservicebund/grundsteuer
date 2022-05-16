@@ -20,7 +20,7 @@ import {
   ContentContainer,
   FormGroup,
   Headline,
-  Input,
+  MaskedInput,
   IntroText,
   Spinner,
 } from "~/components";
@@ -220,7 +220,8 @@ export default function FscBeantragen() {
             />
           </FormGroup>
           <FormGroup>
-            <Input
+            <MaskedInput
+              mask="Date"
               name="geburtsdatum"
               label="Geburtsdatum"
               placeholder="TT.MM.JJJJ"
