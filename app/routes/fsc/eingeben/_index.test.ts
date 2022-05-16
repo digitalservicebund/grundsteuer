@@ -1,12 +1,11 @@
 import { loader } from "~/routes/fsc/eingeben/index";
-import { commitSession, getSession } from "~/session.server";
+import { getSession } from "~/session.server";
 import bcrypt from "bcryptjs";
 import * as freischaltCodeAktivierenModule from "~/erica/freischaltCodeAktivieren";
 import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStornieren";
 import * as userModule from "~/domain/user";
 import { sessionUserFactory } from "test/factories";
 import {
-  getAuthenticatedSession,
   getLoaderArgsWithAuthenticatedSession,
   mockIsAuthenticated,
 } from "test/mocks/authenticationMocks";

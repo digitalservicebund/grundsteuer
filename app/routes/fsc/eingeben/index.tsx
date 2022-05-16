@@ -173,7 +173,7 @@ export const action: ActionFunction = async ({ request }) => {
     "expected a matching user in the database from a user in a cookie session"
   );
   invariant(userData.fscRequest, "expected an fscRequest in database for user");
-  const elsterRequestId = userData.fscRequest?.requestId;
+  const elsterRequestId = userData.fscRequest.requestId;
 
   if (await wasEricaRequestSuccessful(userData)) {
     return redirect("/fsc/eingeben/erfolgreich");

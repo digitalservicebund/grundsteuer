@@ -4,7 +4,6 @@ import {
   requestNewFreischaltCode,
 } from "~/erica/freischaltCodeBeantragen";
 import { EricaResponse } from "~/erica/utils";
-import { isFscCorrect } from "~/erica/freischaltCodeAktivieren";
 
 describe("requestNewFreischaltCode", () => {
   it("should return requestId from postToEricaResponse", async () => {
