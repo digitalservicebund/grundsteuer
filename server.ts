@@ -1,6 +1,7 @@
 import compression from "compression";
 import dotenv from "dotenv-safe";
 import express, { Request } from "express";
+import helmet from "helmet";
 import morgan from "morgan";
 import { createRequestHandler } from "@remix-run/express";
 import { jobs } from "~/cron.server";
@@ -22,10 +23,15 @@ if (appMode === "cron") {
 
   const app = express();
 
-  app.use(compression());
+  app.use(
+    helmet({
+      // CSP not yet fully usable with Remix? https://github.com/remix-run/remix/issues/183
+      contentSecurityPolicy: false,
+      ieNoOpen: false, // no need to support IE8
+    })
+  );
 
-  // http://expressjs.com/en/advanced/best-practice-security.html#at-a-minimum-disable-x-powered-by-header
-  app.disable("x-powered-by");
+  app.use(compression());
 
   // Remix fingerprints its assets so we can cache forever.
   app.use(

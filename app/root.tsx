@@ -102,6 +102,7 @@ export default function App() {
             defer
             data-domain="grundsteuererklaerung-fuer-privateigentum.de"
             src="https://plausible.io/js/plausible.js"
+            crossOrigin="anonymous"
           ></script>
         )}
       </head>
