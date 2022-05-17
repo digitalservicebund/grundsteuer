@@ -216,6 +216,7 @@ export default function FscBeantragen() {
             <SteuerIdField
               name="steuerId"
               label="Steuer-Identifikationsnummer"
+              placeholder="99 999 999 999"
               error={errors?.steuerId}
             />
           </FormGroup>
