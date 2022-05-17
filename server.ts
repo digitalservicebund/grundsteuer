@@ -23,10 +23,18 @@ if (appMode === "cron") {
 
   const app = express();
 
+  // Set security-related http headers
   app.use(
     helmet({
-      // CSP not yet fully usable with Remix? https://github.com/remix-run/remix/issues/183
-      contentSecurityPolicy: false,
+      contentSecurityPolicy: {
+        directives: {
+          // unfortunately we have to allow unsafe inline scripts, as otherwise Remix does not work;
+          // issue is tracked here: https://github.com/remix-run/remix/issues/183
+          scriptSrc: ["'self'", "plausible.io", "'unsafe-inline'"],
+          // allow connections from WebSocket for development tooling
+          connectSrc: [process.env.APP_ENV === "local" ? "*" : "none"],
+        },
+      },
       ieNoOpen: false, // no need to support IE8
     })
   );
