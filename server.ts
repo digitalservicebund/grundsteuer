@@ -32,7 +32,10 @@ if (appMode === "cron") {
           // issue is tracked here: https://github.com/remix-run/remix/issues/183
           scriptSrc: ["'self'", "plausible.io", "'unsafe-inline'"],
           // allow connections from WebSocket for development tooling
-          connectSrc: [process.env.APP_ENV === "local" ? "*" : "'self'"],
+          connectSrc:
+            process.env.APP_ENV === "local"
+              ? ["*"]
+              : ["'self'", "plausible.io"],
         },
       },
       referrerPolicy: {
