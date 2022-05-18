@@ -3,8 +3,15 @@ import { useLoaderData } from "@remix-run/react";
 
 type SystemStatus = { db: string; env: string };
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ context }) => {
+  const { clientIp, xForwardedFor, expressFunction, remoteAddr } = context;
   const dbStatus = await pingDb();
+
+  console.log("X-Forwarded-For: " + xForwardedFor);
+  console.log("x-real-ip: " + clientIp);
+  console.log("Express function: " + expressFunction);
+  console.log("remote adress: " + remoteAddr);
+
   return { db: dbStatus, env: process.env.APP_ENV };
 };
 
