@@ -60,8 +60,10 @@ if (appMode === "cron") {
 
   app.use(morgan("tiny"));
 
+  app.set("trust proxy", true);
+
   const getLoadContext = (req: Request) => ({
-    clientIp: req.headers["x-real-ip"] || req.socket?.remoteAddress,
+    clientIp: req.ip,
   });
 
   app.all(
