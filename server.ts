@@ -41,7 +41,7 @@ if (appMode === "cron") {
       },
     })
   );
-  app.use((req, res, next) => {
+  app.use((_req, res, next) => {
     res.setHeader("Permissions-Policy", "clipboard-write=(self)");
     next();
   });
