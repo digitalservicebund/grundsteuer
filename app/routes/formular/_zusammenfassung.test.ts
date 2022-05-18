@@ -8,13 +8,16 @@ import {
   action,
   getEricaErrorMessagesFromResponse,
   loader,
+  saveConfirmationAuditLogs,
 } from "./zusammenfassung";
 import { getMockedFunction } from "test/mocks/mockHelper";
 import * as userModule from "~/domain/user";
+import * as auditLogModule from "~/audit/auditLog";
 import * as validationModule from "~/domain/validation";
 import bcrypt from "bcryptjs";
 import _ from "lodash";
 import * as sendGrundsteuerModule from "~/erica/sendGrundsteuer";
+import { AuditLogEvent } from "~/audit/auditLog";
 
 process.env.FORM_COOKIE_SECRET = "secret";
 
@@ -33,6 +36,10 @@ describe("/zusammenfassung loader", () => {
         })
       )
     );
+  });
+
+  afterAll(async () => {
+    jest.restoreAllMocks();
   });
 
   it("should return default values for correct data", async () => {
@@ -80,7 +87,6 @@ describe("/zusammenfassung loader", () => {
 
   describe("Erica Request in Progress", () => {
     beforeEach(async () => {
-      jest.clearAllMocks();
       getMockedFunction(userModule, "findUserByEmail", {
         email: "existing_user@foo.com",
         ericaRequestIdSenden: "foo",
@@ -213,28 +219,72 @@ describe("/zusammenfassung loader", () => {
 
 describe("/zusammenfassung action", () => {
   describe("with an unidentified user", () => {
-    beforeAll(() => {
+    beforeAll(async () => {
       mockIsAuthenticated.mockImplementation(() =>
         Promise.resolve(sessionUserFactory.build())
       );
     });
 
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
     test("throws an error", async () => {
-      const args = mockActionArgs({ formData: {}, context: {} });
+      const args = await mockActionArgs({ formData: {}, context: {} });
       await expect(action(args)).rejects.toThrowError("user not identified!");
     });
   });
 
   describe("with an identified user", () => {
-    beforeAll(() => {
+    beforeAll(async () => {
       mockIsAuthenticated.mockImplementation(() =>
-        Promise.resolve(sessionUserFactory.build({ identified: true }))
+        Promise.resolve(sessionUserFactory.build({ identified: true, id: "1" }))
       );
     });
 
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
     test("does not throw an error", async () => {
-      const args = mockActionArgs({ formData: {}, context: {} });
+      const args = await mockActionArgs({ formData: {}, context: {} });
       expect(await action(args)).toMatchObject({ errors: {} });
+    });
+
+    test("does not save confirmation audit logs when fields not filled", async () => {
+      const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
+      const args = await mockActionArgs({
+        formData: {},
+        context: {},
+        allData: grundModelFactory.full().build(),
+      });
+
+      await action(args);
+
+      expect(spyOnSaveAuditLog).toHaveBeenCalledTimes(0);
+    });
+
+    test("saves confirmation audit logs when filled correctly", async () => {
+      getMockedFunction(
+        sendGrundsteuerModule,
+        "sendNewGrundsteuer",
+        "ericaRequestId"
+      );
+      const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
+      const args = await mockActionArgs({
+        formData: {
+          confirmCompleteCorrect: "true",
+          confirmDataPrivacy: "true",
+          confirmTermsOfUse: "true",
+        },
+        context: {},
+        userEmail: "user@example.com",
+        allData: grundModelFactory.full().build(),
+      });
+
+      await action(args);
+
+      expect(spyOnSaveAuditLog).toHaveBeenCalledTimes(3);
     });
   });
 });
@@ -279,5 +329,90 @@ describe("getEricaErrorMessagesFromResponse", () => {
         errorMessage: "some Error",
       });
     }).rejects.toThrow("Unexpected Error");
+  });
+});
+
+describe("saveConfirmationAuditLogs", () => {
+  it("Throws error if confirmCompleteCorrect not set", async () => {
+    await expect(async () => {
+      await saveConfirmationAuditLogs("IP", "usermail@bar.com", {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        zusammenfassung: {
+          confirmDataPrivacy: "true",
+          confirmTermsOfUse: "true",
+        },
+      });
+    }).rejects.toThrow();
+  });
+
+  it("Throws error if confirmDataPrivacy not set", async () => {
+    await expect(async () => {
+      await saveConfirmationAuditLogs("IP", "usermail@bar.com", {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        zusammenfassung: {
+          confirmCompleteCorrect: "true",
+          confirmTermsOfUse: "true",
+        },
+      });
+    }).rejects.toThrow();
+  });
+
+  it("Throws error if confirmTermsOfUse not set", async () => {
+    await expect(async () => {
+      await saveConfirmationAuditLogs("IP", "usermail@bar.com", {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        zusammenfassung: {
+          confirmCompleteCorrect: "true",
+          confirmDataPrivacy: "true",
+        },
+      });
+    }).rejects.toThrow();
+  });
+
+  it("Calls saveAuditLog with correct parameters", async () => {
+    const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
+    const ip = "IP";
+    const mail = "usermail@bar.com";
+    const value = "true";
+    const time = 1652856662;
+
+    const actualNowImplementation = Date.now;
+    try {
+      Date.now = jest.fn(() => time);
+      await saveConfirmationAuditLogs(ip, mail, {
+        zusammenfassung: {
+          confirmCompleteCorrect: value,
+          confirmDataPrivacy: value,
+          confirmTermsOfUse: value,
+        },
+      });
+    } finally {
+      Date.now = actualNowImplementation;
+    }
+
+    const standardParams = {
+      timestamp: time,
+      ipAddress: ip,
+      username: mail,
+      eventData: {
+        value: value,
+      },
+    };
+    expect(spyOnSaveAuditLog).toHaveBeenCalledTimes(3);
+    expect(spyOnSaveAuditLog).toHaveBeenNthCalledWith(1, {
+      ...standardParams,
+      eventName: AuditLogEvent.CONFIRMED_COMPLETE_CORRECT,
+    });
+    expect(spyOnSaveAuditLog).toHaveBeenNthCalledWith(2, {
+      ...standardParams,
+      eventName: AuditLogEvent.CONFIRMED_DATA_PRIVACY,
+    });
+    expect(spyOnSaveAuditLog).toHaveBeenNthCalledWith(3, {
+      ...standardParams,
+      eventName: AuditLogEvent.CONFIRMED_TERMS_OF_USE,
+    });
   });
 });

@@ -1,7 +1,10 @@
 import { StepDefinition } from "~/domain/steps";
 
 export type ZusammenfassungFields = {
-  freitext: string;
+  freitext?: string;
+  confirmCompleteCorrect: string;
+  confirmDataPrivacy: string;
+  confirmTermsOfUse: string;
 };
 
 export const zusammenfassung: StepDefinition = {

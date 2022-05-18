@@ -5,6 +5,9 @@ import invariant from "tiny-invariant";
 export enum AuditLogEvent {
   FSC_REQUESTED = "unlock_code_request_sent",
   USER_REGISTERED = "user_registered",
+  CONFIRMED_COMPLETE_CORRECT = "confirmed_data_complete_correct",
+  CONFIRMED_DATA_PRIVACY = "confirmed_data_privacy",
+  CONFIRMED_TERMS_OF_USE = "confirmed_terms_of_use",
 }
 
 export interface AuditLogData {
@@ -21,7 +24,6 @@ export interface FscBeantragtData {
 }
 
 export interface ConfirmationData {
-  label: string;
   value: string;
 }
 

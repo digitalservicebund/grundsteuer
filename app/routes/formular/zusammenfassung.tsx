@@ -48,6 +48,7 @@ import invariant from "tiny-invariant";
 import { useEffect, useState } from "react";
 import { EricaError } from "~/erica/utils";
 import ErrorBar from "~/components/ErrorBar";
+import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 
 type LoaderData = {
   formData: StepFormData;
@@ -84,6 +85,53 @@ export const getEricaErrorMessagesFromResponse = (
     return [steuernummerInvalidMessage];
   }
   throw Error("Unexpected Error: " + errorResponse.errorType);
+};
+
+export const saveConfirmationAuditLogs = async (
+  clientIp: string,
+  email: string,
+  data: GrundModel
+) => {
+  invariant(
+    data.zusammenfassung?.confirmCompleteCorrect == "true",
+    "confirmCompleteCorrect should be checked"
+  );
+  invariant(
+    data.zusammenfassung?.confirmDataPrivacy == "true",
+    "confirmDataPrivacy should be checked"
+  );
+  invariant(
+    data.zusammenfassung?.confirmTermsOfUse == "true",
+    "confirmTermsOfUse should be checked"
+  );
+
+  await saveAuditLog({
+    eventName: AuditLogEvent.CONFIRMED_COMPLETE_CORRECT,
+    timestamp: Date.now(),
+    ipAddress: clientIp,
+    username: email,
+    eventData: {
+      value: data.zusammenfassung.confirmCompleteCorrect,
+    },
+  });
+  await saveAuditLog({
+    eventName: AuditLogEvent.CONFIRMED_DATA_PRIVACY,
+    timestamp: Date.now(),
+    ipAddress: clientIp,
+    username: email,
+    eventData: {
+      value: data.zusammenfassung.confirmDataPrivacy,
+    },
+  });
+  await saveAuditLog({
+    eventName: AuditLogEvent.CONFIRMED_TERMS_OF_USE,
+    timestamp: Date.now(),
+    ipAddress: clientIp,
+    username: email,
+    eventData: {
+      value: data.zusammenfassung.confirmTermsOfUse,
+    },
+  });
 };
 
 export const loader: LoaderFunction = async ({
@@ -151,7 +199,9 @@ export type ActionData = {
 
 export const action: ActionFunction = async ({
   request,
+  context,
 }): Promise<ActionData | Response> => {
+  const { clientIp } = context;
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
@@ -188,6 +238,8 @@ export const action: ActionFunction = async ({
   if (Object.keys(previousStepsErrors).length > 0) {
     return json({ previousStepsErrors: previousStepsErrors }, { headers });
   }
+
+  await saveConfirmationAuditLogs(clientIp, user.email, formDataToBeStored);
 
   // Send to Erica
   const transformedData = transforDataToEricaFormat(
