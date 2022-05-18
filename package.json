@@ -98,7 +98,7 @@
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
     "@types/validator": "^13.7.2",
-    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.21.0",
     "copy-env-cli": "^1.0.0",
     "cypress": "^9.6.0",
