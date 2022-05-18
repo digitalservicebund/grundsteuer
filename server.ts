@@ -54,10 +54,7 @@ if (appMode === "cron") {
   app.use(morgan("tiny"));
 
   const getLoadContext = (req: Request) => ({
-    clientIp: req.headers["x-real-ip"],
-    xForwarderFor: req.headers["X-Forwarded-For"],
-    expressFunction: req.ip,
-    remoteAddr: req.socket?.remoteAddress,
+    clientIp: req.headers["x-real-ip"] || req.socket?.remoteAddress,
   });
 
   app.all(
