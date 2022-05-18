@@ -28,8 +28,8 @@ const validateInputEmail = async (normalizedEmail: string) =>
   (!validateEmail({ value: normalizedEmail }) && "errors.email.wrongFormat") ||
   ((await userExists(normalizedEmail)) && "errors.email.alreadyExists");
 
-const validateInputPassword = (normalizedEmail: string, password: string) =>
-  (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
+const validateInputPassword = (password: string) =>
+  (!validateRequired({ value: password }) && "errors.required") ||
   (!validateMinLength({ value: password, minLength: 8 }) &&
     "errors.password.tooShort") ||
   (!validateMaxLength({ value: password, maxLength: 64 }) &&
@@ -70,7 +70,7 @@ export const action: ActionFunction = async ({ request, context }) => {
     emailRepeated:
       normalizedEmail !== normalizedEmailRepeated && "errors.email.notMatching",
 
-    password: validateInputPassword(normalizedEmail, password),
+    password: validateInputPassword(password),
 
     passwordRepeated:
       password !== passwordRepeated && "errors.password.notMatching",
