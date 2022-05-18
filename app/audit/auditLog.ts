@@ -26,12 +26,19 @@ export interface FscBeantragtData {
   steuerId: string;
 }
 
+export interface TransferticketData {
+  transferticket: string;
+}
+
 export interface ConfirmationData {
   value: string;
 }
 
 // implement specific types for each event
-export type EventData = FscBeantragtData | ConfirmationData;
+export type EventData =
+  | FscBeantragtData
+  | TransferticketData
+  | ConfirmationData;
 
 export const saveAuditLog = async (data: AuditLogData) => {
   await db.auditLog.create({

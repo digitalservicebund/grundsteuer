@@ -1,5 +1,10 @@
 import { getFromErica, postToErica } from "~/erica/ericaClient";
-import { ericaUtils, EricaResponse, EricaError } from "~/erica/utils";
+import {
+  ericaUtils,
+  EricaResponse,
+  EricaError,
+  EricaFreischaltcodeRequestResponseData,
+} from "~/erica/utils";
 import invariant from "tiny-invariant";
 
 const createPayloadForNewFreischaltCode = (
@@ -31,7 +36,7 @@ export const checkNewFreischaltCodeRequest = async (requestId: string) => {
 
 export const extractAntragsId = (
   ericaResponse: EricaResponse
-): string | EricaError => {
+): EricaFreischaltcodeRequestResponseData | EricaError => {
   const result = ericaUtils.extractResultFromEricaResponse(ericaResponse);
   if ("errorCode" in result && result.errorCode) {
     if (
@@ -56,7 +61,19 @@ export const extractAntragsId = (
     "elsterRequestId" in result,
     "Extracted result from erica response has no ELSTER AntragsId"
   );
-  return result.elsterRequestId;
+  invariant(
+    "transferticket" in result,
+    "expected transferticket to be in erica result"
+  );
+  invariant(
+    "taxIdNumber" in result,
+    "expected taxIdNumber to be in erica result"
+  );
+  return {
+    elsterRequestId: result.elsterRequestId,
+    transferticket: result.transferticket,
+    taxIdNumber: result.taxIdNumber,
+  };
 };
 
 export const retrieveAntragsId = async (ericaRequestId: string) => {

@@ -136,7 +136,9 @@ export const saveConfirmationAuditLogs = async (
 
 export const loader: LoaderFunction = async ({
   request,
+  context,
 }): Promise<LoaderData | Response> => {
+  const { clientIp } = context;
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
@@ -165,6 +167,13 @@ export const loader: LoaderFunction = async ({
           successResponseOrErrors.transferticket
         );
         await savePdf(user.email, successResponseOrErrors.pdf);
+        await saveAuditLog({
+          eventName: AuditLogEvent.TAX_DECLARATION_SENT,
+          timestamp: Date.now(),
+          ipAddress: clientIp,
+          username: userData.email,
+          eventData: { transferticket: successResponseOrErrors.transferticket },
+        });
         return redirect("/formular/erfolg");
       } else {
         await deleteEricaRequestIdSenden(user.email);

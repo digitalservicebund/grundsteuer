@@ -79,20 +79,26 @@ describe("isFscCorrect", () => {
     expect(result).toEqual({ errorType: "GeneralEricaError", errorMessage });
   });
 
-  it("should return true if successful ericaFreischaltCodeActivateResponse", () => {
+  it("should return correct result if successful ericaFreischaltCodeActivateResponse", () => {
+    const expectedTransferticket = "t1r2a3n4s5f6e7r";
+    const expectedTaxIdNumber = "123456789";
+    const ericaResult = {
+      transferticket: expectedTransferticket,
+      taxIdNumber: expectedTaxIdNumber,
+      elsterRequestId: "007",
+    };
     const ericaResponseData: EricaResponse = {
       processStatus: "Success",
-      result: {
-        transferticket: "t1r2a3n4s5f6e7r",
-        taxIdNumber: "007",
-        elsterRequestId: "123456789",
-      },
+      result: ericaResult,
       errorCode: null,
       errorMessage: null,
     };
 
     const result = isFscCorrect(ericaResponseData);
 
-    expect(result).toBeTruthy();
+    expect(result).toEqual({
+      transferticket: expectedTransferticket,
+      taxIdNumber: expectedTaxIdNumber,
+    });
   });
 });

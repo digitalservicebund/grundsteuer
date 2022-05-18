@@ -5,7 +5,7 @@ type EricaResponse = {
   processStatus: "Processing" | "Success" | "Failure";
   result:
     | EricaFreischaltcodeRequestResponseData
-    | EricaFreischaltcodeRevocationResponseData
+    | EricaFreischaltcodeResponseData
     | EricaSendenResponseData
     | EricaValidationErrorResponseData
     | null;
@@ -19,7 +19,7 @@ type EricaFreischaltcodeRequestResponseData = {
   elsterRequestId: string;
 };
 
-type EricaFreischaltcodeRevocationResponseData = {
+type EricaFreischaltcodeResponseData = {
   transferticket: string;
   taxIdNumber: string;
 };
@@ -62,6 +62,7 @@ const extractResultFromEricaResponse = (
   | EricaFreischaltcodeRequestResponseData
   | EricaSendenResponseData
   | EricaErrorResponseData
+  | EricaFreischaltcodeResponseData
   | object => {
   if (ericaResponse.processStatus === "Success") {
     return ericaResponse.result ? ericaResponse.result : {};
@@ -85,6 +86,7 @@ export type {
   EricaFreischaltcodeRequestResponseData,
   EricaSendenResponseData,
   EricaErrorResponseData,
+  EricaFreischaltcodeResponseData,
   EricaError,
 };
 export const ericaUtils = {
