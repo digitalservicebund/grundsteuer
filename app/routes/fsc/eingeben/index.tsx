@@ -48,8 +48,8 @@ import {
 
 const isEricaRequestInProgress = async (userData: User) => {
   return (
-    Boolean(userData.ericaRequestIdFscAktivieren) ||
-    Boolean(userData.ericaRequestIdFscStornieren)
+    (await isEricaActivationRequestInProgress(userData)) ||
+    (await isEricaRevocationRequestInProgress(userData))
   );
 };
 
@@ -62,7 +62,9 @@ const isEricaRevocationRequestInProgress = async (userData: User) => {
 };
 
 const wasEricaRequestSuccessful = async (userData: User) => {
-  return userData.identified && !userData.ericaRequestIdFscStornieren;
+  return (
+    userData.identified && !(await isEricaRevocationRequestInProgress(userData))
+  );
 };
 
 const getEricaRequestIdFscAktivieren = async (userData: User) => {
@@ -113,12 +115,11 @@ export const loader: LoaderFunction = async ({ request }) => {
           Object.assign(session.get("user"), { identified: true })
         );
         await deleteEricaRequestIdFscAktivieren(user.email);
-        if (userData.fscRequest) {
-          const ericaRequestId = await revokeFreischaltCode(
-            userData.fscRequest?.requestId
-          );
-          await saveEricaRequestIdFscStornieren(user.email, ericaRequestId);
-        }
+        invariant(userData.fscRequest, "expected fscRequest to be present");
+        const ericaRequestId = await revokeFreischaltCode(
+          userData.fscRequest?.requestId
+        );
+        await saveEricaRequestIdFscStornieren(user.email, ericaRequestId);
       } else if (fscActivatedOrError?.errorType == "EricaUserInputError") {
         await deleteEricaRequestIdFscAktivieren(user.email);
         return {
@@ -138,8 +139,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     );
     if (fscRevocatedOrError) {
       if (typeof fscRevocatedOrError == "boolean") {
-        if (userData.fscRequest)
-          await deleteFscRequest(user.email, userData.fscRequest.requestId);
+        invariant(userData.fscRequest, "expected fscRequest to be present");
+        await deleteFscRequest(user.email, userData.fscRequest.requestId);
         await deleteEricaRequestIdFscStornieren(user.email);
       } else {
         // We only try to revocate. If it does not succeed, we do not want to show an error to the user
