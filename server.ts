@@ -35,9 +35,16 @@ if (appMode === "cron") {
           connectSrc: [process.env.APP_ENV === "local" ? "*" : "'self'"],
         },
       },
-      ieNoOpen: false, // no need to support IE8
+      referrerPolicy: {
+        // keep referrer for "internal" traffic to facilitate plausible tracking
+        policy: "same-origin",
+      },
     })
   );
+  app.use((req, res, next) => {
+    res.setHeader("Permissions-Policy", "clipboard-write=(self)");
+    next();
+  });
 
   app.use(compression());
 
