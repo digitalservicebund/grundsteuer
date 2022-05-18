@@ -45,10 +45,17 @@ export default function Footer() {
             </Link>
             <Link
               to="/datenschutz"
-              className="block py-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
+              className="mr-14 md:mr-32 block py-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
             >
               {t("footer.dataProtection")}
             </Link>
+            <a
+              href="https://digitalservice.bund.de/presse"
+              target="_blank"
+              className="block py-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
+            >
+              {t("footer.press")}
+            </a>
           </div>
         </div>
       </div>
