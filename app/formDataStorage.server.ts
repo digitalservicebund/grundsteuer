@@ -4,6 +4,7 @@ import { Cookie, createCookie } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { GrundModel } from "~/domain/steps";
 import { SessionUser } from "./auth.server";
+import { useSecureCookie } from "~/util/useSecureCookie";
 
 const debug = createDebugMessages("formDataStorage");
 
@@ -21,7 +22,9 @@ export const createFormDataCookieName: CreateFormDataCookieNameFunction = ({
     .update(userId)
     .digest("hex")
     .slice(0, 32);
-  return `form_data_${index}_${cookieSuffix}`;
+  return `${
+    useSecureCookie ? "__Host-" : ""
+  }form_data_${index}_${cookieSuffix}`;
 };
 
 type CreateFormDataCookieFunction = (options: {
@@ -43,7 +46,7 @@ export const createFormDataCookie: CreateFormDataCookieFunction = ({
     maxAge: 604_800 * 4, // 4 weeks
     httpOnly: true,
     sameSite: "strict",
-    secure: !["local", "gha"].includes(process.env.APP_ENV as string),
+    secure: useSecureCookie,
     secrets: [process.env.FORM_COOKIE_SECRET],
   });
 };

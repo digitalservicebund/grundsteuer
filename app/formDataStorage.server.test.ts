@@ -7,6 +7,13 @@ import {
 import { SessionUser } from "./auth.server";
 import { GrundModel } from "./domain/steps";
 
+jest.mock("~/util/useSecureCookie", () => {
+  return {
+    __esModule: true,
+    useSecureCookie: true,
+  };
+});
+
 const user = { id: "64914671-b3bb-4525-9494-ed44b55cc7e0" } as SessionUser;
 
 process.env.FORM_COOKIE_SECRET = "secret";
@@ -17,7 +24,7 @@ describe("createFormDataCookieName", () => {
       userId: user.id,
       index: 0,
     });
-    expect(name).toEqual("form_data_0_63fb3253359ff6846283186985aa18c4");
+    expect(name).toEqual("__Host-form_data_0_63fb3253359ff6846283186985aa18c4");
   });
 });
 
