@@ -4,9 +4,11 @@ import CloseIcon from "~/components/icons/mui/Close";
 import AddIcon from "~/components/icons/mui/Add";
 import RemoveIcon from "~/components/icons/mui/Remove";
 import FileCopyIcon from "~/components/icons/mui/FileCopy";
+import cardImage from "~/assets/images/lohnsteuerbescheinigung_idnr.svg";
 
 import digitalserviceLogoImage from "~/assets/images/digitalservice-logo.svg";
 import bmfLogoImage from "~/assets/images/bmf-logo.svg";
+import EnumeratedCard from "~/components/EnumeratedCard";
 
 export default function KitchenSinkIndex() {
   return (
@@ -35,7 +37,15 @@ export default function KitchenSinkIndex() {
       <CloseIcon className="w-24 h-24 fill-current" />
       <AddIcon className="w-24 h-24 fill-blue-500" />
       <RemoveIcon className="w-24 h-24 fill-black" />
-      <FileCopyIcon className="w-36 h-36 fill-blue-800" />
+      <FileCopyIcon className="w-36 h-36 fill-blue-800 mb-32" />
+
+      <EnumeratedCard
+        image={cardImage}
+        imageAltText="Lohnsteuerbescheinigung"
+        number="1"
+        heading="Sie geben die Daten ein"
+        text="Geben Sie Ihre Steuer-Identifikationsnummer und Ihr Geburtsdatum ein. Ihre Steuer-ID finden Sie zum Beispiel auf Ihren Steuerbescheiden, Lohnsteuerabrechnungen oder anderen Unterlagen vom Finanzamt. "
+      />
 
       <Footer />
     </ContentContainer>
