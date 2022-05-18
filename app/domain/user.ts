@@ -22,9 +22,10 @@ export const userExists = async (email: string) => {
 };
 
 export const findUserByEmail = async (email: string): Promise<User | null> => {
+  const normalizedEmail = email.trim().toLowerCase();
   return db.user.findUnique({
     where: {
-      email: email,
+      email: normalizedEmail,
     },
     include: {
       fscRequest: true,

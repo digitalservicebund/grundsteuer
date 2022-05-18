@@ -118,6 +118,14 @@ describe("user", () => {
         expect.objectContaining({ email: "existing@foo.com" })
       );
     });
+
+    it("should return user object on existing email not lowercases", async () => {
+      const result = await findUserByEmail("eXisTiNG@foO.cOm");
+
+      expect(result).toEqual(
+        expect.objectContaining({ email: "existing@foo.com" })
+      );
+    });
   });
 
   describe("saveFscRequest", () => {
