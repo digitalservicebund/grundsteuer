@@ -1,16 +1,11 @@
 import { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
-type SystemStatus = { db: string; env: string };
+type SystemStatus = { env: string };
 
 export const loader: LoaderFunction = async () => {
-  const dbStatus = await pingDb();
-  return { db: dbStatus, env: process.env.APP_ENV };
+  return { env: process.env.APP_ENV };
 };
-
-export async function pingDb() {
-  return "down";
-}
 
 export default function Health() {
   const status = useLoaderData<SystemStatus>();
@@ -19,9 +14,6 @@ export default function Health() {
       <h1 className="text-xl">System Status</h1>
       <p>
         Env: <span className="font-bold">{status.env}</span>
-      </p>
-      <p>
-        Database: <span className="font-bold">{status.db}</span>
       </p>
     </div>
   );
