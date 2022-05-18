@@ -160,6 +160,18 @@ describe("user", () => {
 
       await db.user.create({
         data: {
+          email: "different_user@foo.com",
+          password: await bcrypt.hash("12345678", 10),
+          fscRequest: {
+            create: {
+              requestId: "terrier",
+            },
+          },
+        },
+      });
+
+      await db.user.create({
+        data: {
           email: "existing_with_no_fsc_request_to_delete@foo.com",
           password: await bcrypt.hash("12345678", 10),
         },
@@ -176,6 +188,7 @@ describe("user", () => {
             in: [
               "existing_with_fsc_request_to_delete@foo.com",
               "existing_with_no_fsc_request_to_delete@foo.com",
+              "different_user@foo.com",
             ],
           },
         },
@@ -211,10 +224,7 @@ describe("user", () => {
     });
 
     it("should not delete fsc request for different user with same request id", async () => {
-      await deleteFscRequest(
-        "existing_with_fsc_request_to_delete@foo.com",
-        "foo"
-      );
+      await deleteFscRequest("different_user@foo.com", "labrador");
 
       const user = await findUserByEmail("existing_with_fsc_request@foo.com");
 
