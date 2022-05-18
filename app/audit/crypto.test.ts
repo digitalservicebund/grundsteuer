@@ -129,4 +129,13 @@ describe("encryptData", () => {
 
     expect(encrypted.slice(0, 2)).toEqual("01");
   });
+
+  it("should not generate identical ciphertext on identical input", () => {
+    const plaintext = "boo!";
+
+    const encryptedDataFirstTime = encryptData(plaintext, PUBLIC_KEY);
+    const encryptedDataSecondTime = encryptData(plaintext, PUBLIC_KEY);
+
+    expect(encryptedDataFirstTime).not.toEqual(encryptedDataSecondTime);
+  });
 });
