@@ -22,7 +22,7 @@ export interface AuditLogData {
 }
 
 export interface FscBeantragtData {
-  transferTicket: string;
+  transferticket: string;
   steuerId: string;
 }
 

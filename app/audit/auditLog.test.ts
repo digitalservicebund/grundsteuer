@@ -19,7 +19,7 @@ describe("auditLog", () => {
       ipAddress: "127.0.0.1",
       username: "foo@bar.com",
       eventData: {
-        transferTicket: "foo",
+        transferticket: "foo",
         steuerId: "bar",
       },
     };
