@@ -1,14 +1,32 @@
 import { DataFunctionArgs } from "@remix-run/server-runtime";
+import { setCookieHeaderWithSessionAndData } from "test/mocks/authenticationMocks";
+import { GrundModel } from "~/domain/steps";
+
+process.env.FORM_COOKIE_SECRET = "secret";
 
 type MockActionArgsFunction = (options: {
+  route?: string;
   formData?: Record<string, string>;
   context: { clientIp?: string };
-}) => DataFunctionArgs;
+  userEmail?: string;
+  allData?: GrundModel;
+}) => Promise<DataFunctionArgs>;
 
-export const mockActionArgs: MockActionArgsFunction = ({ formData }) => {
-  const headers = new Headers();
+export const mockActionArgs: MockActionArgsFunction = async ({
+  route,
+  formData,
+  context,
+  userEmail,
+  allData,
+}) => {
+  let headers = new Headers();
   headers.append("content-type", "application/x-www-form-urlencoded");
-  const request = new Request("/", {
+  headers = await setCookieHeaderWithSessionAndData(
+    userEmail || "",
+    allData || {},
+    headers
+  );
+  const request = new Request(route || "/", {
     method: "POST",
     headers,
   });
@@ -19,5 +37,5 @@ export const mockActionArgs: MockActionArgsFunction = ({ formData }) => {
     });
     request.formData = () => Promise.resolve(formDataObject);
   }
-  return { request, context: { clientIp: "" }, params: {} };
+  return { request, context: { clientIp: context.clientIp || "" }, params: {} };
 };

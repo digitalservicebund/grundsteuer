@@ -24,36 +24,52 @@ export const mockIsAuthenticated =
     typeof authenticator.isAuthenticated
   >;
 
+export const setCookieHeaderWithSessionAndData = async (
+  userEmail: string,
+  formData: GrundModel,
+  headers: Headers
+) => {
+  const authenticatedSessionCookie = await commitSession(
+    await getAuthenticatedSession(userEmail)
+  );
+
+  const dataHeaders = (await createHeadersWithFormDataCookie({
+    user: { email: userEmail, id: "1", identified: true },
+    data: formData,
+  })) as Headers;
+
+  // Move from Set-Cookie to Cookie header
+  const dataCookieHeader = (dataHeaders.get("Set-Cookie") || "").replace(
+    ", ",
+    "; "
+  );
+  dataHeaders.delete("Set-Cookie");
+  const fullCookieHeader = [authenticatedSessionCookie, dataCookieHeader].join(
+    "; "
+  );
+
+  headers.set("Cookie", fullCookieHeader);
+  return headers;
+};
+
 export const getLoaderArgsWithAuthenticatedSession = async (
   requestUrl: string,
   userEmail: string,
   formData?: GrundModel
 ) => {
-  const authenticatedSessionCookie = await commitSession(
-    await getAuthenticatedSession(userEmail)
-  );
-  const headers = new Headers();
+  let headers = new Headers();
 
   if (!formData) {
+    const authenticatedSessionCookie = await commitSession(
+      await getAuthenticatedSession(userEmail)
+    );
     headers.set("Cookie", authenticatedSessionCookie);
   } else {
-    const dataHeaders = (await createHeadersWithFormDataCookie({
-      user: { email: userEmail, id: "1", identified: true },
-      data: formData,
-    })) as Headers;
-
-    // Move from Set-Cookie to Cookie header
-    const dataCookieHeader = (dataHeaders.get("Set-Cookie") || "").replace(
-      ", ",
-      "; "
+    headers = await setCookieHeaderWithSessionAndData(
+      userEmail,
+      formData,
+      headers
     );
-    dataHeaders.delete("Set-Cookie");
-    const fullCookieHeader = [
-      authenticatedSessionCookie,
-      dataCookieHeader,
-    ].join("; ");
-
-    headers.set("Cookie", fullCookieHeader);
   }
 
   return {
