@@ -1,6 +1,8 @@
 import { mockActionArgs } from "testUtil/mockActionArgs";
 import { userExists } from "~/domain/user";
 import { action } from "./index";
+import * as auditLogModule from "~/audit/auditLog";
+import { AuditLogEvent } from "~/audit/auditLog";
 
 jest.mock("~/domain/user", () => {
   return {
@@ -21,6 +23,35 @@ const validFormData = {
 
 describe("/registrieren action", () => {
   describe('"succeeds"', () => {
+    afterEach(async () => {
+      jest.restoreAllMocks();
+    });
+
+    test("and saves audit log", async () => {
+      const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
+      const args = await mockActionArgs({
+        formData: validFormData,
+        context: { clientIp: "123" },
+      });
+      const timestamp = Date.now();
+      const actualNowImplementation = Date.now;
+
+      try {
+        Date.now = jest.fn(() => timestamp);
+
+        await action(args);
+
+        expect(spyOnSaveAuditLog).toHaveBeenNthCalledWith(1, {
+          eventName: AuditLogEvent.USER_REGISTERED,
+          timestamp: timestamp,
+          ipAddress: "123",
+          username: "user@example.com",
+        });
+      } finally {
+        Date.now = actualNowImplementation;
+      }
+    });
+
     test("and redirects", async () => {
       const args = await mockActionArgs({
         formData: validFormData,
