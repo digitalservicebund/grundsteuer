@@ -1,5 +1,4 @@
-import { Details, Headline } from "~/components";
-import QuestionMark from "~/components/icons/mui/QuestionMark";
+import { Headline, IntroText } from "~/components";
 import { I18nObject } from "~/i18n/getStepI18n";
 
 export function StepHeadline({
@@ -11,24 +10,8 @@ export function StepHeadline({
 }) {
   return (
     <>
-      {i18n.headlineHelp && (
-        <Details
-          summaryContent={
-            <Headline asLegend={asLegend}>
-              {i18n.headline}
-              <QuestionMark
-                className="inline-block float-right"
-                role="img"
-                aria-label="Hinweis"
-              />
-            </Headline>
-          }
-          detailsContent={<p>{i18n.headlineHelp}</p>}
-        />
-      )}
-      {!i18n.headlineHelp && (
-        <Headline asLegend={asLegend}>{i18n.headline}</Headline>
-      )}
+      <Headline asLegend={asLegend}>{i18n.headline}</Headline>
+      {i18n.description && <IntroText>{i18n.description}</IntroText>}
     </>
   );
 }

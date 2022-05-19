@@ -17,19 +17,14 @@ describe("StepHeadline component", () => {
     expect(screen.getByText("HEADLINE")).toBeInTheDocument();
   });
 
-  describe("With headline help set", () => {
+  describe("With description set", () => {
     beforeEach(() => {
-      defaultProps.headlineHelp = "HELP TEXT";
+      defaultProps.description = "Describing the step";
     });
 
-    it("should render headline help", () => {
+    it("should render description", () => {
       render(<StepHeadline i18n={defaultProps} />);
-      expect(screen.getByText("HELP TEXT")).toBeInTheDocument();
-    });
-
-    it("should not make headline help visible by default", () => {
-      render(<StepHeadline i18n={defaultProps} />);
-      expect(screen.getByText("HELP TEXT")).not.toBeVisible();
+      expect(screen.getByText("Describing the step")).toBeInTheDocument();
     });
   });
 });
