@@ -1,8 +1,8 @@
 import { Authenticator } from "remix-auth";
 import { sessionStorage } from "./session.server";
 import { FormStrategy } from "remix-auth-form";
-import { db } from "~/db.server";
 import bcrypt from "bcryptjs";
+import { findUserByEmail } from "~/domain/user";
 
 export type SessionUser = {
   email: string;
@@ -13,9 +13,7 @@ export type SessionUser = {
 export const authenticator = new Authenticator<SessionUser>(sessionStorage);
 
 const login = async (email: string, password: string): Promise<SessionUser> => {
-  const user = await db.user.findUnique({
-    where: { email: email },
-  });
+  const user = await findUserByEmail(email);
   if (user && (await bcrypt.compare(password, user.password))) {
     return {
       email: user.email,

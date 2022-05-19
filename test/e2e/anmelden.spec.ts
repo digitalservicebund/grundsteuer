@@ -4,9 +4,18 @@ describe("/anmelden", () => {
   before(() => {
     cy.task("dbResetUser", "foo@bar.com");
   });
+
   it("simple success path", () => {
     cy.visit("/anmelden");
     cy.get("[name=email]").type("foo@bar.com");
+    cy.get("[name=password]").type("12345678");
+    cy.get("form button").click();
+    cy.url().should("include", "/fsc/beantragen");
+  });
+
+  it("should succeed with not lowercase mail", () => {
+    cy.visit("/anmelden");
+    cy.get("[name=email]").type("fOO@bAr.coM");
     cy.get("[name=password]").type("12345678");
     cy.get("form button").click();
     cy.url().should("include", "/fsc/beantragen");

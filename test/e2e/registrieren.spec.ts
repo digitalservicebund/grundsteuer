@@ -30,8 +30,20 @@ describe("/registrieren", () => {
     cy.contains("Passwort ist zu kurz");
   });
 
-  it("existing user", () => {
+  it("should fail for existing user", () => {
     const email = "foo@bar.com";
+    const password = "87654321";
+    cy.visit("/registrieren");
+    cy.get("[name=email]").type(email);
+    cy.get("[name=emailRepeated]").type(email);
+    cy.get("[name=password]").type(password);
+    cy.get("[name=passwordRepeated]").type(password);
+    cy.get("form button").click();
+    cy.contains("Es existiert bereits");
+  });
+
+  it("should fail for existing user with capitalized mail", () => {
+    const email = "fOO@bAr.cOm";
     const password = "87654321";
     cy.visit("/registrieren");
     cy.get("[name=email]").type(email);
