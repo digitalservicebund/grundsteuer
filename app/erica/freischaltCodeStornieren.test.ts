@@ -62,20 +62,19 @@ describe("isFscRevoked", () => {
     expect(result).toEqual({ errorType: "GeneralEricaError", errorMessage });
   });
 
-  it("should return correct result if successful ericaFreischaltCodeActivateResponse", () => {
-    const ericaResult = {
-      transferticket: "t1r2a3n4s5f6e7r",
-      taxIdNumber: "123456789",
-    };
+  it("should return true if successful ericaFreischaltCodeActivateResponse", () => {
     const ericaResponseData: EricaResponse = {
       processStatus: "Success",
-      result: ericaResult,
+      result: {
+        transferticket: "t1r2a3n4s5f6e7r",
+        taxIdNumber: "123456789",
+      },
       errorCode: null,
       errorMessage: null,
     };
 
     const result = isFscRevoked(ericaResponseData);
 
-    expect(result).toEqual(ericaResult);
+    expect(result).toBeTruthy();
   });
 });

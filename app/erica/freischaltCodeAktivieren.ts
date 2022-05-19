@@ -1,11 +1,6 @@
 import { getFromErica, postToErica } from "~/erica/ericaClient";
 import invariant from "tiny-invariant";
-import {
-  EricaError,
-  EricaFreischaltcodeResponseData,
-  EricaResponse,
-  ericaUtils,
-} from "~/erica/utils";
+import { EricaError, EricaResponse, ericaUtils } from "~/erica/utils";
 
 const createPayloadForActivateFreischaltCode = (
   freischalt_code: string,
@@ -37,7 +32,7 @@ export const checkActivateFreischaltCodeRequest = async (requestId: string) => {
 
 export const isFscCorrect = (
   ericaResponse: EricaResponse
-): EricaFreischaltcodeResponseData | EricaError => {
+): boolean | EricaError => {
   const result = ericaUtils.extractResultFromEricaResponse(ericaResponse);
   if ("errorCode" in result && result.errorCode) {
     if (
@@ -58,18 +53,7 @@ export const isFscCorrect = (
       };
     }
   }
-  invariant(
-    "transferticket" in result,
-    "expected transferticket to be in erica result"
-  );
-  invariant(
-    "taxIdNumber" in result,
-    "expected taxIdNumber to be in erica result"
-  );
-  return {
-    transferticket: result.transferticket,
-    taxIdNumber: result.taxIdNumber,
-  };
+  return true;
 };
 
 export const checkFreischaltcodeActivation = async (ericaRequestId: string) => {

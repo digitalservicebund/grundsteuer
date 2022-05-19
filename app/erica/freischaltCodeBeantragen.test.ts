@@ -103,20 +103,20 @@ describe("extractAntragsId", () => {
   });
 
   it("should return AntragsId if successful ericaFreischaltCodeResponse", () => {
-    const ericaResult = {
-      transferticket: "t1r2a3n4s5f6e7r",
-      taxIdNumber: "007",
-      elsterRequestId: "123456789",
-    };
+    const expectedAntragsId = "123456789";
     const ericaResponseData: EricaResponse = {
       processStatus: "Success",
-      result: ericaResult,
+      result: {
+        transferticket: "t1r2a3n4s5f6e7r",
+        taxIdNumber: "007",
+        elsterRequestId: expectedAntragsId,
+      },
       errorCode: null,
       errorMessage: null,
     };
 
     const foundAntragsID = extractAntragsId(ericaResponseData);
 
-    expect(foundAntragsID).toEqual(ericaResult);
+    expect(foundAntragsID).toEqual(expectedAntragsId);
   });
 });
