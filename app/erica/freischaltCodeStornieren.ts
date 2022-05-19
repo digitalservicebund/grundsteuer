@@ -1,6 +1,11 @@
 import { getFromErica, postToErica } from "~/erica/ericaClient";
 import invariant from "tiny-invariant";
-import { EricaError, EricaResponse, ericaUtils } from "~/erica/utils";
+import {
+  EricaError,
+  EricaFreischaltcodeStornierenResponseData,
+  EricaResponse,
+  ericaUtils,
+} from "~/erica/utils";
 
 const createPayloadForRevokeFreischaltCode = (elster_request_id: string) => {
   return {
@@ -22,7 +27,7 @@ export const checkRevokeFreischaltCodeRequest = async (requestId: string) => {
 
 export const isFscRevoked = (
   ericaResponse: EricaResponse
-): boolean | EricaError => {
+): EricaFreischaltcodeStornierenResponseData | EricaError => {
   const result = ericaUtils.extractResultFromEricaResponse(ericaResponse);
   if ("errorCode" in result && result.errorCode) {
     if (result.errorCode == "ELSTER_REQUEST_ID_UNKNOWN") {
@@ -37,7 +42,18 @@ export const isFscRevoked = (
       };
     }
   }
-  return true;
+  invariant(
+    "transferticket" in result,
+    "expected transferticket to be in erica result"
+  );
+  invariant(
+    "elsterRequestId" in result,
+    "expected elsterRequestId to be in erica result"
+  );
+  return {
+    transferticket: result.transferticket,
+    elsterRequestId: result.elsterRequestId,
+  };
 };
 
 export const checkFreischaltcodeRevocation = async (ericaRequestId: string) => {

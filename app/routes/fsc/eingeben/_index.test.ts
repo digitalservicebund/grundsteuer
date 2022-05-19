@@ -4,16 +4,21 @@ import bcrypt from "bcryptjs";
 import * as freischaltCodeAktivierenModule from "~/erica/freischaltCodeAktivieren";
 import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStornieren";
 import * as userModule from "~/domain/user";
+import * as auditLogModule from "~/audit/auditLog";
 import { sessionUserFactory } from "test/factories";
 import {
   getLoaderArgsWithAuthenticatedSession,
   mockIsAuthenticated,
 } from "test/mocks/authenticationMocks";
 import { getMockedFunction } from "test/mocks/mockHelper";
+import { AuditLogEvent } from "~/audit/auditLog";
 
 process.env.FORM_COOKIE_SECRET = "secret";
 
 describe("Loader", () => {
+  const expectedTransferticket = "foo12345";
+  const expectedTaxIdNumber = "007";
+
   beforeAll(() => {
     mockIsAuthenticated.mockImplementation(() =>
       Promise.resolve(
@@ -30,7 +35,10 @@ describe("Loader", () => {
     getMockedFunction(
       freischaltCodeAktivierenModule,
       "checkFreischaltcodeActivation",
-      true
+      {
+        transferticket: expectedTransferticket,
+        taxIdNumber: expectedTaxIdNumber,
+      }
     );
     getMockedFunction(
       freischaltCodeStornierenModule,
@@ -49,7 +57,7 @@ describe("Loader", () => {
         email: "existing_user@foo.com",
         ericaRequestIdFscAktivieren: "foo",
         password: await bcrypt.hash("12345678", 10),
-        fscRequest: [{ requestId: "foo" }],
+        fscRequest: { requestId: "foo" },
       });
     });
 
@@ -111,6 +119,76 @@ describe("Loader", () => {
 
       expect(session.get("user").identified).toBe(true);
     });
+
+    it("should save audit log if erica sends activation success", async () => {
+      const timestamp = 1652887920227;
+      const expectedClientIp = "123.007";
+      const args = await getLoaderArgsWithAuthenticatedSession(
+        "/fsc/eingeben",
+        "existing_user@foo.com"
+      );
+      args.context = { clientIp: expectedClientIp };
+
+      const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
+      const actualNowImplementation = Date.now;
+
+      try {
+        Date.now = jest.fn(() => timestamp);
+
+        await loader(args);
+
+        expect(spyOnSaveAuditLog).toHaveBeenCalledWith({
+          eventName: AuditLogEvent.FSC_ACTIVATED,
+          timestamp: Date.now(),
+          ipAddress: expectedClientIp,
+          username: "existing_user@foo.com",
+          eventData: {
+            transferticket: expectedTransferticket,
+          },
+        });
+      } finally {
+        Date.now = actualNowImplementation;
+      }
+    });
+
+    it("should not save audit log if erica activation sends unexpected error", async () => {
+      getMockedFunction(
+        freischaltCodeAktivierenModule,
+        "checkFreischaltcodeActivation",
+        {
+          errorType: "GeneralEricaError",
+          errorMessage: "We found some problem",
+        }
+      );
+      const args = await getLoaderArgsWithAuthenticatedSession(
+        "/fsc/eingeben",
+        "existing_user@foo.com"
+      );
+      const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
+      try {
+        await loader(args);
+      } catch {
+        expect(spyOnSaveAuditLog).not.toHaveBeenCalled();
+      }
+    });
+
+    it("should not save audit log if erica activation sends expected error", async () => {
+      getMockedFunction(
+        freischaltCodeAktivierenModule,
+        "checkFreischaltcodeActivation",
+        {
+          errorType: "EricaUserInputError",
+          errorMessage: "ELSTER_REQUEST_ID_UNKNOWN",
+        }
+      );
+      const args = await getLoaderArgsWithAuthenticatedSession(
+        "/fsc/eingeben",
+        "existing_user@foo.com"
+      );
+      const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
+      await loader(args);
+      expect(spyOnSaveAuditLog).not.toHaveBeenCalled();
+    });
   });
 
   describe("with identified user", () => {
@@ -124,11 +202,14 @@ describe("Loader", () => {
       });
     });
 
-    it("should delete fscRequestId if identified and erica sends revocation success", async () => {
+    it("should delete fscRequestId if erica sends revocation success", async () => {
       getMockedFunction(
         freischaltCodeStornierenModule,
         "checkFreischaltcodeRevocation",
-        true
+        {
+          transferticket: expectedTransferticket,
+          taxIdNumber: expectedTaxIdNumber,
+        }
       );
       const spyOnSetUserIdentified = jest.spyOn(
         userModule,
@@ -139,8 +220,6 @@ describe("Loader", () => {
         "deleteEricaRequestIdFscStornieren"
       );
       const spyOnDeleteFscRequest = jest.spyOn(userModule, "deleteFscRequest");
-
-      expect(spyOnSetUserIdentified).not.toHaveBeenCalled();
 
       await loader(
         await getLoaderArgsWithAuthenticatedSession(
@@ -159,7 +238,83 @@ describe("Loader", () => {
       );
     });
 
-    it("should not delete fscRequestId if identified and erica sends revocation failure", async () => {
+    it("should save audit log if erica sends revocation success", async () => {
+      getMockedFunction(
+        freischaltCodeStornierenModule,
+        "checkFreischaltcodeRevocation",
+        {
+          transferticket: expectedTransferticket,
+          taxIdNumber: expectedTaxIdNumber,
+        }
+      );
+
+      const timestamp = 1652887920227;
+      const expectedClientIp = "123.007";
+      const args = await getLoaderArgsWithAuthenticatedSession(
+        "/fsc/eingeben",
+        "existing_user@foo.com"
+      );
+      args.context = { clientIp: expectedClientIp };
+
+      const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
+      const actualNowImplementation = Date.now;
+
+      try {
+        Date.now = jest.fn(() => timestamp);
+
+        await loader(args);
+
+        expect(spyOnSaveAuditLog).toHaveBeenCalledWith({
+          eventName: AuditLogEvent.FSC_REVOCATED,
+          timestamp: Date.now(),
+          ipAddress: expectedClientIp,
+          username: "existing_user@foo.com",
+          eventData: {
+            transferticket: expectedTransferticket,
+          },
+        });
+      } finally {
+        Date.now = actualNowImplementation;
+      }
+    });
+
+    it("should not save audit log if erica revocation sends expected error", async () => {
+      getMockedFunction(
+        freischaltCodeStornierenModule,
+        "checkFreischaltcodeRevocation",
+        {
+          errorType: "EricaUserInputError",
+          errorMessage: "ELSTER_REQUEST_ID_UNKNOWN",
+        }
+      );
+      const args = await getLoaderArgsWithAuthenticatedSession(
+        "/fsc/eingeben",
+        "existing_user@foo.com"
+      );
+      const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
+      await loader(args);
+      expect(spyOnSaveAuditLog).not.toHaveBeenCalled();
+    });
+
+    it("should not save audit log if erica revocation sends unexpected error", async () => {
+      getMockedFunction(
+        freischaltCodeStornierenModule,
+        "checkFreischaltcodeRevocation",
+        {
+          errorType: "GeneralEricaError",
+          errorMessage: "We found some problem",
+        }
+      );
+      const args = await getLoaderArgsWithAuthenticatedSession(
+        "/fsc/eingeben",
+        "existing_user@foo.com"
+      );
+      const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
+      await loader(args);
+      expect(spyOnSaveAuditLog).not.toHaveBeenCalled();
+    });
+
+    it("should not delete fscRequestId if erica sends revocation failure", async () => {
       getMockedFunction(
         freischaltCodeStornierenModule,
         "checkFreischaltcodeRevocation",

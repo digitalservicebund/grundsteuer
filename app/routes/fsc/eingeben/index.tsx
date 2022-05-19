@@ -46,11 +46,12 @@ import {
   revokeFreischaltCode,
 } from "~/erica/freischaltCodeStornieren";
 import ErrorBar from "~/components/ErrorBar";
+import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return (
-    Boolean(userData.ericaRequestIdFscAktivieren) ||
-    Boolean(userData.ericaRequestIdFscStornieren)
+    (await isEricaActivationRequestInProgress(userData)) ||
+    (await isEricaRevocationRequestInProgress(userData))
   );
 };
 
@@ -63,7 +64,9 @@ const isEricaRevocationRequestInProgress = async (userData: User) => {
 };
 
 const wasEricaRequestSuccessful = async (userData: User) => {
-  return userData.identified && !userData.ericaRequestIdFscStornieren;
+  return (
+    userData.identified && !(await isEricaRevocationRequestInProgress(userData))
+  );
 };
 
 const getEricaRequestIdFscAktivieren = async (userData: User) => {
@@ -82,7 +85,8 @@ const getEricaRequestIdFscStornieren = async (userData: User) => {
   return userData.ericaRequestIdFscStornieren;
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request, context }) => {
+  const { clientIp } = context;
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
@@ -107,19 +111,28 @@ export const loader: LoaderFunction = async ({ request }) => {
       await getEricaRequestIdFscAktivieren(userData)
     );
     if (fscActivatedOrError) {
-      if (typeof fscActivatedOrError == "boolean") {
+      if ("transferticket" in fscActivatedOrError) {
         await setUserIdentified(user.email, true);
         session.set(
           "user",
           Object.assign(session.get("user"), { identified: true })
         );
         await deleteEricaRequestIdFscAktivieren(user.email);
-        if (userData.fscRequest) {
-          const ericaRequestId = await revokeFreischaltCode(
-            userData.fscRequest?.requestId
-          );
-          await saveEricaRequestIdFscStornieren(user.email, ericaRequestId);
-        }
+        await saveAuditLog({
+          eventName: AuditLogEvent.FSC_ACTIVATED,
+          timestamp: Date.now(),
+          ipAddress: clientIp,
+          username: userData.email,
+          eventData: {
+            transferticket: fscActivatedOrError.transferticket,
+          },
+        });
+
+        invariant(userData.fscRequest, "expected fscRequest to be present");
+        const ericaRequestId = await revokeFreischaltCode(
+          userData.fscRequest?.requestId
+        );
+        await saveEricaRequestIdFscStornieren(user.email, ericaRequestId);
       } else if (fscActivatedOrError?.errorType == "EricaUserInputError") {
         await deleteEricaRequestIdFscAktivieren(user.email);
         return {
@@ -138,10 +151,19 @@ export const loader: LoaderFunction = async ({ request }) => {
       await getEricaRequestIdFscStornieren(userData)
     );
     if (fscRevocatedOrError) {
-      if (typeof fscRevocatedOrError == "boolean") {
-        if (userData.fscRequest)
-          await deleteFscRequest(user.email, userData.fscRequest.requestId);
+      if ("transferticket" in fscRevocatedOrError) {
+        invariant(userData.fscRequest, "expected fscRequest to be present");
+        await deleteFscRequest(user.email, userData.fscRequest.requestId);
         await deleteEricaRequestIdFscStornieren(user.email);
+        await saveAuditLog({
+          eventName: AuditLogEvent.FSC_REVOCATED,
+          timestamp: Date.now(),
+          ipAddress: clientIp,
+          username: userData.email,
+          eventData: {
+            transferticket: fscRevocatedOrError.transferticket,
+          },
+        });
       } else {
         // We only try to revocate. If it does not succeed, we do not want to show an error to the user
         await deleteEricaRequestIdFscStornieren(user.email);

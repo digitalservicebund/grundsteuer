@@ -43,6 +43,7 @@ import {
   getErrorMessageForSteuerId,
 } from "~/domain/validation";
 import SteuerIdField from "~/components/form/SteuerIdField";
+import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import EnumeratedCard from "~/components/EnumeratedCard";
 import lohnsteuerbescheinigungImage from "~/assets/images/lohnsteuerbescheinigung_idnr.svg";
 import fscLetterImage from "~/assets/images/fsc-letter.svg";
@@ -65,7 +66,8 @@ const getEricaRequestIdFscBeantragen = async (userData: User) => {
   return userData.ericaRequestIdFscBeantragen;
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request, context }) => {
+  const { clientIp } = context;
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
@@ -82,14 +84,29 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 
   if (ericaRequestInProgress) {
-    const elsterRequestIdOrError = await retrieveAntragsId(
+    const elsterRequestResultOrError = await retrieveAntragsId(
       await getEricaRequestIdFscBeantragen(userData)
     );
-    if (elsterRequestIdOrError) {
-      if (typeof elsterRequestIdOrError == "string") {
-        await saveFscRequest(user.email, elsterRequestIdOrError);
+    if (elsterRequestResultOrError) {
+      if ("elsterRequestId" in elsterRequestResultOrError) {
+        await saveAuditLog({
+          eventName: AuditLogEvent.FSC_REQUESTED,
+          timestamp: Date.now(),
+          ipAddress: clientIp,
+          username: userData.email,
+          eventData: {
+            transferticket: elsterRequestResultOrError.transferticket,
+            steuerId: elsterRequestResultOrError.taxIdNumber,
+          },
+        });
+        await saveFscRequest(
+          user.email,
+          elsterRequestResultOrError.elsterRequestId
+        );
         await deleteEricaRequestIdFscBeantragen(user.email);
-      } else if (elsterRequestIdOrError?.errorType == "EricaUserInputError") {
+      } else if (
+        elsterRequestResultOrError?.errorType == "EricaUserInputError"
+      ) {
         await deleteEricaRequestIdFscBeantragen(user.email);
         return {
           showError: true,
@@ -97,7 +114,7 @@ export const loader: LoaderFunction = async ({ request }) => {
         };
       } else {
         await deleteEricaRequestIdFscBeantragen(user.email);
-        throw new Error(elsterRequestIdOrError?.errorType);
+        throw new Error(elsterRequestResultOrError?.errorType);
       }
     }
   }
