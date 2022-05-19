@@ -19,7 +19,7 @@ describe("Zusammenfassung route", () => {
 
   it("should display the title", () => {
     cy.visit("/formular/zusammenfassung");
-    cy.get("h1").contains("Bitte prüfen Sie Ihre Angaben");
+    cy.get("h1").contains("Bitte überprüfen Sie Ihre Angaben vor dem Versand");
   });
 
   describe("identified user", () => {

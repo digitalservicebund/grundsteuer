@@ -24,7 +24,13 @@ import {
   StepFormData,
 } from "~/domain/model";
 import { zusammenfassung } from "~/domain/steps/zusammenfassung";
-import { Button, FormGroup, Spinner, StepFormField } from "~/components";
+import {
+  Button,
+  FormGroup,
+  Headline,
+  Spinner,
+  StepFormField,
+} from "~/components";
 import { authenticator } from "~/auth.server";
 import { getFieldProps } from "~/util/getFieldProps";
 import {
@@ -49,6 +55,7 @@ import { useEffect, useState } from "react";
 import { EricaError } from "~/erica/utils";
 import ErrorBar from "~/components/ErrorBar";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
+import Send from "~/components/icons/mui/Send";
 
 type LoaderData = {
   formData: StepFormData;
@@ -312,20 +319,20 @@ export default function Zusammenfassung() {
         return <ErrorBar key={index}>{ericaError}</ErrorBar>;
       })}
       <div className="pt-32 max-w-screen-md mx-auto w-1/2">
-        <h1 className="mb-8 text-4xl font-bold">{i18n.headline}</h1>
+        <Headline>{i18n.headline}</Headline>
         <ZusammenfassungAccordion
-          {...{ allData, i18n, errors: previousStepsErrors }}
+          {...{
+            allData,
+            i18n,
+            errors: previousStepsErrors,
+            zusammenfassungFieldProps: fieldProps[0],
+          }}
         />
-        <div className="mt-32">
+        <div className="mt-80">
           <Form method="post" className="mb-16">
-            <FormGroup>
-              <StepFormField {...fieldProps[0]} />
-            </FormGroup>
             {!isIdentified && (
               <div>
-                <h2 className="mb-16 font-bold underline text-20">
-                  {i18n.specifics.fscHeading}
-                </h2>
+                <h2 className="mb-24 text-24">{i18n.specifics.fscHeading}</h2>
                 <Button
                   look="tertiary"
                   to="/fsc/"
@@ -335,27 +342,25 @@ export default function Zusammenfassung() {
                 </Button>
               </div>
             )}
-            <FormGroup>
-              <div className="bg-gray-400 p-16">
-                <StepFormField {...fieldProps[1]} />
-              </div>
-            </FormGroup>
 
-            <h2 className="mb-8 font-bold text-20">
+            <h2 className="mb-24 text-24">
               {i18n.specifics.confirmationHeading}
             </h2>
             <p className="mb-32">{i18n.specifics.confirmationText}</p>
-            <FormGroup>
-              <div className="bg-gray-400 p-16">
-                <StepFormField {...fieldProps[2]} />
-              </div>
-            </FormGroup>
-            <FormGroup>
-              <div className="bg-gray-400 p-16">
-                <StepFormField {...fieldProps[3]} />
-              </div>
-            </FormGroup>
-            <Button id="nextButton" disabled={!isIdentified}>
+            <div className="bg-white p-16 mb-16">
+              <StepFormField {...fieldProps[1]} />
+            </div>
+            <div className="bg-white p-16 mb-16">
+              <StepFormField {...fieldProps[2]} />
+            </div>
+            <div className="bg-white p-16 mb-80">
+              <StepFormField {...fieldProps[3]} />
+            </div>
+            <Button
+              id="nextButton"
+              disabled={!isIdentified}
+              iconRight={<Send className="h-[10px]" />}
+            >
               {i18n.specifics.submitbutton}
             </Button>
           </Form>
