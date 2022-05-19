@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import classNames from "classnames";
 
 export default function EnumeratedCard(props: {
   image: string;
@@ -6,9 +7,10 @@ export default function EnumeratedCard(props: {
   number: string;
   heading: ReactNode | string;
   text: ReactNode | string;
+  className?: string;
 }) {
   return (
-    <div className="py-24 px-32 enumerate-card">
+    <div className={classNames("py-24 px-32 enumerate-card", props.className)}>
       <img
         src={props.image}
         alt={props.imageAltText}

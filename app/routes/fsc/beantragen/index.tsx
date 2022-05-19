@@ -44,6 +44,10 @@ import {
 } from "~/domain/validation";
 import SteuerIdField from "~/components/form/SteuerIdField";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
+import EnumeratedCard from "~/components/EnumeratedCard";
+import lohnsteuerbescheinigungImage from "~/assets/images/lohnsteuerbescheinigung_idnr.svg";
+import fscLetterImage from "~/assets/images/fsc-letter.svg";
+import fscInputImage from "~/assets/images/fsc-input.svg";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -210,64 +214,90 @@ export default function FscBeantragen() {
   }, [fetcher, showSpinner]);
 
   return (
-    <ContentContainer size="sm">
-      <BreadcrumbNavigation />
-      <Headline>Beantragen Sie Ihren persönlichen Freischaltcode.</Headline>
+    <div className="lg:pr-[10%]">
+      <ContentContainer size="sm" className="mb-80">
+        <BreadcrumbNavigation />
+        <Headline>Beantragen Sie Ihren persönlichen Freischaltcode.</Headline>
 
-      <IntroText>
-        Nur mit einem Freischaltcode können Sie Ihre Grundsteuererklärung nach
-        Eingabe aller Daten absenden. Mit Eingabe des Codes bestätigen Sie Ihre
-        Identität, das heißt: Wir wissen, dass keine andere Person
-        widerrechtlich die Grundsteuererklärung abgibt.
-      </IntroText>
+        <IntroText>
+          Nur mit einem Freischaltcode können Sie Ihre Grundsteuererklärung nach
+          Eingabe aller Daten absenden. Mit Eingabe des Codes bestätigen Sie
+          Ihre Identität, das heißt: Wir wissen, dass keine andere Person
+          widerrechtlich die Grundsteuererklärung abgibt.
+        </IntroText>
 
-      {showError && (
-        <div className="p-16 mb-32 bg-red-200 border-2 border-red-800">
-          Mit diesen Daten können wir keinen FSC beantragen.
-        </div>
-      )}
+        {showError && (
+          <div className="p-16 mb-32 bg-red-200 border-2 border-red-800">
+            Mit diesen Daten können wir keinen FSC beantragen.
+          </div>
+        )}
 
-      <Form method="post">
-        <div>
-          <FormGroup>
-            <SteuerIdField
-              name="steuerId"
-              label="Steuer-Identifikationsnummer"
-              placeholder="99 999 999 999"
-              error={errors?.steuerId}
-            />
-          </FormGroup>
-          <FormGroup>
-            <MaskedInput
-              mask="Date"
-              name="geburtsdatum"
-              label="Geburtsdatum"
-              placeholder="TT.MM.JJJJ"
-              error={errors?.geburtsdatum}
-              className="w-1/2"
-            />
-          </FormGroup>
-        </div>
-        <ButtonContainer>
-          <Button disabled={isSubmitting || showSpinner}>
-            Freischaltcode beantragen
-          </Button>
-          <Button look="secondary" to="/formular/welcome">
-            Später beantragen
-          </Button>
-        </ButtonContainer>
-      </Form>
-      {showSpinner && (
-        <Spinner
-          initialText={"Ihr Freischaltcode wird beantragt."}
-          waitingText={
-            "Das Beantragen dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
-          }
-          longerWaitingText={
-            "Wir beantragen weiter Ihren Freischaltcode. Bitte verlassen Sie diese Seite nicht."
-          }
-        />
-      )}
-    </ContentContainer>
+        <Form method="post">
+          <div>
+            <FormGroup>
+              <SteuerIdField
+                name="steuerId"
+                label="Steuer-Identifikationsnummer"
+                placeholder="99 999 999 999"
+                error={errors?.steuerId}
+              />
+            </FormGroup>
+            <FormGroup>
+              <MaskedInput
+                mask="Date"
+                name="geburtsdatum"
+                label="Geburtsdatum"
+                placeholder="TT.MM.JJJJ"
+                error={errors?.geburtsdatum}
+                className="w-1/2"
+              />
+            </FormGroup>
+          </div>
+          <ButtonContainer>
+            <Button disabled={isSubmitting || showSpinner}>
+              Freischaltcode beantragen
+            </Button>
+            <Button look="secondary" to="/formular/welcome">
+              Später beantragen
+            </Button>
+          </ButtonContainer>
+        </Form>
+        {showSpinner && (
+          <Spinner
+            initialText={"Ihr Freischaltcode wird beantragt."}
+            waitingText={
+              "Das Beantragen dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
+            }
+            longerWaitingText={
+              "Wir beantragen weiter Ihren Freischaltcode. Bitte verlassen Sie diese Seite nicht."
+            }
+          />
+        )}
+      </ContentContainer>
+      <h2 className="text-24 mb-24">Wie beantrage ich den Freischaltcode?</h2>
+      <EnumeratedCard
+        image={lohnsteuerbescheinigungImage}
+        imageAltText="Lohnsteuerbescheinigung"
+        number="1"
+        heading="Sie geben die Daten ein"
+        text="Geben Sie Ihre Steuer-Identifikationsnummer und Ihr Geburtsdatum ein. Ihre Steuer-ID finden Sie zum Beispiel auf Ihren Steuerbescheiden, Lohnsteuerabrechnungen oder anderen Unterlagen vom Finanzamt."
+        className="mb-24"
+      />
+      <EnumeratedCard
+        image={fscLetterImage}
+        imageAltText="Brief mit Freischaltcode"
+        number="2"
+        heading="Sie bekommen einen Brief vom Finanzamt"
+        text="Der Freischaltcode wird von Ihrem technischen Finanzamt als Brief an Ihre Meldeadresse versendet. Dies dauert in der Regel 7 bis 14 Tage. Sie können aber schon vor dem Erhalt des Codes Ihre Grundsteuererklärung ausfüllen."
+        className="mb-24"
+      />
+      <EnumeratedCard
+        image={fscInputImage}
+        imageAltText="Freischaltcode Eingabe"
+        number="3"
+        heading="Sie geben den Freischaltcode ein"
+        text="Sobald Sie den Brief mit dem Freischaltcode erhalten haben, können Sie ihn hier hinterlegen und sind damit identifizeirt. Die Erklärung schicken Sie dann ab, wenn Sie sich bereit fühlen."
+      />
+    </div>
   );
 }
