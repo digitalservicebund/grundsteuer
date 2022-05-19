@@ -24,13 +24,7 @@ import {
   StepFormData,
 } from "~/domain/model";
 import { zusammenfassung } from "~/domain/steps/zusammenfassung";
-import {
-  Button,
-  FormGroup,
-  Headline,
-  Spinner,
-  StepFormField,
-} from "~/components";
+import { Button, Headline, Spinner, StepFormField } from "~/components";
 import { authenticator } from "~/auth.server";
 import { getFieldProps } from "~/util/getFieldProps";
 import {
@@ -56,6 +50,7 @@ import { EricaError } from "~/erica/utils";
 import ErrorBar from "~/components/ErrorBar";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import Send from "~/components/icons/mui/Send";
+import Attention from "~/components/icons/mui/Attention";
 
 type LoaderData = {
   formData: StepFormData;
@@ -328,22 +323,29 @@ export default function Zusammenfassung() {
             zusammenfassungFieldProps: fieldProps[0],
           }}
         />
-        <div className="mt-80">
+        <div className="">
           <Form method="post" className="mb-16">
             {!isIdentified && (
-              <div>
-                <h2 className="mb-24 text-24">{i18n.specifics.fscHeading}</h2>
-                <Button
-                  look="tertiary"
-                  to="/fsc/"
-                  className="mb-48 text-center"
-                >
-                  {i18n.specifics.fscLinkText}
-                </Button>
+              <div className="bg-yellow-200 mt-32 p-32 flex flex-row">
+                <div className="rounded-placeholder bg-yellow-400 mr-8">
+                  <Attention className="min-w-[22px]" />
+                </div>
+
+                <div className="flex flex-col">
+                  <h2 className="mb-8 text-18">{i18n.specifics.fscHeading}</h2>
+                  <p className="mb-24">{i18n.specifics.fscExplanation}</p>
+                  <Button
+                    look="tertiary"
+                    to="/fsc/"
+                    className="text-center w-fit"
+                  >
+                    {i18n.specifics.fscLinkText}
+                  </Button>
+                </div>
               </div>
             )}
 
-            <h2 className="mb-24 text-24">
+            <h2 className="mb-24 mt-80 text-24">
               {i18n.specifics.confirmationHeading}
             </h2>
             <p className="mb-32">{i18n.specifics.confirmationText}</p>

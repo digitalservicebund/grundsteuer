@@ -91,6 +91,10 @@
     src: url("/fonts/BundesSansCondWeb.woff2") format("woff2"),
       url("/fonts/BundesSansCondWeb.woff") format("woff");
   }
+
+  .w-fit {
+    width: fit-content;
+  }
 }
 
 @layer components {
@@ -260,6 +264,23 @@
   }
   .select::-ms-expand {
     display: none;
+  }
+
+  /* rounded-placeholder */
+  .rounded-placeholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 50%;
   }
 
   /* enumerate icon */
