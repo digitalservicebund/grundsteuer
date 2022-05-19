@@ -180,7 +180,14 @@ export const loader: LoaderFunction = async ({ request, context }) => {
   }
 
   if (ericaActivationRequestIsInProgress) {
-    await handleFscActivationProgress(userData, session, clientIp);
+    const fscActivationData = await handleFscActivationProgress(
+      userData,
+      session,
+      clientIp
+    );
+    if (fscActivationData) {
+      return fscActivationData;
+    }
   }
 
   if (ericaRevocationRequestIsInProgress) {
