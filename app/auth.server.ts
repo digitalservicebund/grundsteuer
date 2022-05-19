@@ -16,7 +16,7 @@ const login = async (email: string, password: string): Promise<SessionUser> => {
   const user = await db.user.findUnique({
     where: { email: email },
   });
-  if (user && bcrypt.compareSync(password, user.password)) {
+  if (user && (await bcrypt.compare(password, user.password))) {
     return {
       email: user.email,
       id: user.id,
