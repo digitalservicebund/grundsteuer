@@ -69,6 +69,21 @@ describe("/registrieren action", () => {
         "/registrieren/erfolgreich"
       );
     });
+
+    test("with capitalized email", async () => {
+      const args = await mockActionArgs({
+        formData: {
+          email: "USER@example.Com",
+          emailRepeated: "user@example.com",
+          password: "12345678",
+          passwordRepeated: "12345678",
+        },
+        context: {},
+      });
+      expect((await action(args)).headers.get("Location")).toBe(
+        "/registrieren/erfolgreich"
+      );
+    });
   });
 
   describe('"fails"', () => {
