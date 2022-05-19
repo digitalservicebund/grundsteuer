@@ -188,7 +188,7 @@ describe("user", () => {
 
     afterEach(async () => {
       await db.fscRequest.deleteMany({
-        where: { requestId: { in: ["labrador"] } },
+        where: { requestId: { in: ["labrador", "terrier"] } },
       });
       await db.user.deleteMany({
         where: {
