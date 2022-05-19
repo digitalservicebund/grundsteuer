@@ -10,6 +10,7 @@ import digitalserviceLogoImage from "~/assets/images/digitalservice-logo.svg";
 import bmfLogoImage from "~/assets/images/bmf-logo.svg";
 import EnumeratedCard from "~/components/EnumeratedCard";
 import ErrorBar from "~/components/ErrorBar";
+import ErrorBarStandard from "~/components/ErrorBarStandard";
 
 export default function KitchenSinkIndex() {
   return (
@@ -52,7 +53,7 @@ export default function KitchenSinkIndex() {
       <ErrorBar heading="Fehler" className="mb-8">
         Es ist ein Fehler aufgetreten.
       </ErrorBar>
-      <ErrorBar className="mb-24">Es ist ein Fehler aufgetreten.</ErrorBar>
+      <ErrorBarStandard />
 
       <Footer />
     </ContentContainer>

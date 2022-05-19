@@ -45,6 +45,8 @@ import { authenticator } from "~/auth.server";
 import { getSession } from "~/session.server";
 import { Params } from "react-router";
 import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
+import ErrorBar from "~/components/ErrorBar";
+import ErrorBarStandard from "~/components/ErrorBarStandard";
 
 const getMachine = ({
   formData,
@@ -298,11 +300,13 @@ export function Step() {
         {headlineIsLegend ? (
           <fieldset>
             <StepHeadline i18n={i18n} asLegend />
+            {actionData?.errors && <ErrorBarStandard />}
             <StepComponent {...loaderData} {...actionData} />
           </fieldset>
         ) : (
           <>
             <StepHeadline i18n={i18n} />
+            {actionData?.errors && <ErrorBarStandard />}
             <StepComponent {...loaderData} {...actionData} />
           </>
         )}
