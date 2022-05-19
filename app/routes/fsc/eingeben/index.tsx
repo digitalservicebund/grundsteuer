@@ -156,7 +156,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
         await deleteFscRequest(user.email, userData.fscRequest.requestId);
         await deleteEricaRequestIdFscStornieren(user.email);
         await saveAuditLog({
-          eventName: AuditLogEvent.FSC_REVOCATED,
+          eventName: AuditLogEvent.FSC_REVOKED,
           timestamp: Date.now(),
           ipAddress: clientIp,
           username: userData.email,

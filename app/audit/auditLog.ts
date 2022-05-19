@@ -4,9 +4,9 @@ import invariant from "tiny-invariant";
 
 export enum AuditLogEvent {
   USER_REGISTERED = "user_registered",
-  FSC_REQUESTED = "unlock_code_request_sent",
-  FSC_ACTIVATED = "unlock_code_activation_sent",
-  FSC_REVOCATED = "unlock_code_activation_sent",
+  FSC_REQUESTED = "fsc_requested",
+  FSC_ACTIVATED = "fsc_activated",
+  FSC_REVOKED = "fsc_revoked",
   TAX_DECLARATION_SENT = "tax_declaration_submitted",
   CONFIRMED_COMPLETE_CORRECT = "confirmed_data_complete_correct",
   CONFIRMED_DATA_PRIVACY = "confirmed_data_privacy",

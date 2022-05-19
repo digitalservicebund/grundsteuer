@@ -265,7 +265,7 @@ describe("Loader", () => {
         await loader(args);
 
         expect(spyOnSaveAuditLog).toHaveBeenCalledWith({
-          eventName: AuditLogEvent.FSC_REVOCATED,
+          eventName: AuditLogEvent.FSC_REVOKED,
           timestamp: Date.now(),
           ipAddress: expectedClientIp,
           username: "existing_user@foo.com",
