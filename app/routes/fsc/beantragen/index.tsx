@@ -47,6 +47,7 @@ import EnumeratedCard from "~/components/EnumeratedCard";
 import lohnsteuerbescheinigungImage from "~/assets/images/lohnsteuerbescheinigung_idnr.svg";
 import fscLetterImage from "~/assets/images/fsc-letter.svg";
 import fscInputImage from "~/assets/images/fsc-input.svg";
+import ErrorBar from "~/components/ErrorBar";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -210,9 +211,9 @@ export default function FscBeantragen() {
         </IntroText>
 
         {showError && (
-          <div className="p-16 mb-32 bg-red-200 border-2 border-red-800">
+          <ErrorBar className="mb-32">
             Mit diesen Daten können wir keinen FSC beantragen.
-          </div>
+          </ErrorBar>
         )}
 
         <Form method="post">

@@ -22,6 +22,7 @@ import {
 import { pageTitle } from "~/util/pageTitle";
 import { removeUndefined } from "~/util/removeUndefined";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
+import ErrorBarStandard from "~/components/ErrorBarStandard";
 
 const validateInputEmail = async (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -124,6 +125,8 @@ export default function Registrieren() {
           erstellt wurde. Der Grund: Ihre Formulardaten werden nur im Cookie in
           Ihrem Browser gespeichert.
         </IntroText>
+
+        {errors && <ErrorBarStandard />}
 
         <Form method="post" noValidate>
           <FormGroup>

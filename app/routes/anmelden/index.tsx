@@ -18,6 +18,7 @@ import {
   UserLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
+import ErrorBar from "~/components/ErrorBar";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Anmelden") };
@@ -68,9 +69,9 @@ export default function Anmelden() {
           Bitte melden Sie sich an.
         </Headline>
         {actionData?.error && (
-          <div className="p-16 mb-32 bg-red-200 border-2 border-red-800">
+          <ErrorBar className="mb-32">
             E-Mail-Adresse und/oder Passwort falsch.
-          </div>
+          </ErrorBar>
         )}
         <div className="mb-64">
           <Form method="post" noValidate>
