@@ -3,6 +3,7 @@ import {
   json,
   LoaderFunction,
   redirect,
+  Session,
 } from "@remix-run/node";
 import {
   Button,
@@ -50,8 +51,8 @@ import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return (
-    (await isEricaActivationRequestInProgress(userData)) ||
-    (await isEricaRevocationRequestInProgress(userData))
+    isEricaActivationRequestInProgress(userData) ||
+    isEricaRevocationRequestInProgress(userData)
   );
 };
 
@@ -77,12 +78,84 @@ const getEricaRequestIdFscAktivieren = async (userData: User) => {
   return userData.ericaRequestIdFscAktivieren;
 };
 
+const handleFscActivationProgress = async (
+  userData: User,
+  session: Session,
+  clientIp: string
+) => {
+  const fscActivatedOrError = await checkFreischaltcodeActivation(
+    await getEricaRequestIdFscAktivieren(userData)
+  );
+  if (fscActivatedOrError) {
+    if ("transferticket" in fscActivatedOrError) {
+      await setUserIdentified(userData.email, true);
+      session.set(
+        "user",
+        Object.assign(session.get("user"), { identified: true })
+      );
+      await deleteEricaRequestIdFscAktivieren(userData.email);
+      await saveAuditLog({
+        eventName: AuditLogEvent.FSC_ACTIVATED,
+        timestamp: Date.now(),
+        ipAddress: clientIp,
+        username: userData.email,
+        eventData: {
+          transferticket: fscActivatedOrError.transferticket,
+        },
+      });
+
+      invariant(userData.fscRequest, "expected fscRequest to be present");
+      const ericaRequestId = await revokeFreischaltCode(
+        userData.fscRequest?.requestId
+      );
+      await saveEricaRequestIdFscStornieren(userData.email, ericaRequestId);
+    } else if (fscActivatedOrError?.errorType == "EricaUserInputError") {
+      await deleteEricaRequestIdFscAktivieren(userData.email);
+      return {
+        showError: true,
+        showSpinner: false,
+      };
+    } else {
+      await deleteEricaRequestIdFscAktivieren(userData.email);
+      throw new Error(fscActivatedOrError?.errorType);
+    }
+  }
+};
+
 const getEricaRequestIdFscStornieren = async (userData: User) => {
   invariant(
     userData.ericaRequestIdFscStornieren,
     "ericaRequestIdFscStornieren is null"
   );
   return userData.ericaRequestIdFscStornieren;
+};
+
+const handleFscRevocationInProgress = async (
+  userData: User,
+  clientIp: string
+) => {
+  const fscRevocatedOrError = await checkFreischaltcodeRevocation(
+    await getEricaRequestIdFscStornieren(userData)
+  );
+  if (fscRevocatedOrError) {
+    if ("transferticket" in fscRevocatedOrError) {
+      invariant(userData.fscRequest, "expected fscRequest to be present");
+      await deleteFscRequest(userData.email, userData.fscRequest.requestId);
+      await deleteEricaRequestIdFscStornieren(userData.email);
+      await saveAuditLog({
+        eventName: AuditLogEvent.FSC_REVOKED,
+        timestamp: Date.now(),
+        ipAddress: clientIp,
+        username: userData.email,
+        eventData: {
+          transferticket: fscRevocatedOrError.transferticket,
+        },
+      });
+    } else {
+      // We only try to revocate. If it does not succeed, we do not want to show an error to the user
+      await deleteEricaRequestIdFscStornieren(userData.email);
+    }
+  }
 };
 
 export const loader: LoaderFunction = async ({ request, context }) => {
@@ -107,68 +180,11 @@ export const loader: LoaderFunction = async ({ request, context }) => {
   }
 
   if (ericaActivationRequestIsInProgress) {
-    const fscActivatedOrError = await checkFreischaltcodeActivation(
-      await getEricaRequestIdFscAktivieren(userData)
-    );
-    if (fscActivatedOrError) {
-      if ("transferticket" in fscActivatedOrError) {
-        await setUserIdentified(user.email, true);
-        session.set(
-          "user",
-          Object.assign(session.get("user"), { identified: true })
-        );
-        await deleteEricaRequestIdFscAktivieren(user.email);
-        await saveAuditLog({
-          eventName: AuditLogEvent.FSC_ACTIVATED,
-          timestamp: Date.now(),
-          ipAddress: clientIp,
-          username: userData.email,
-          eventData: {
-            transferticket: fscActivatedOrError.transferticket,
-          },
-        });
-
-        invariant(userData.fscRequest, "expected fscRequest to be present");
-        const ericaRequestId = await revokeFreischaltCode(
-          userData.fscRequest?.requestId
-        );
-        await saveEricaRequestIdFscStornieren(user.email, ericaRequestId);
-      } else if (fscActivatedOrError?.errorType == "EricaUserInputError") {
-        await deleteEricaRequestIdFscAktivieren(user.email);
-        return {
-          showError: true,
-          showSpinner: false,
-        };
-      } else {
-        await deleteEricaRequestIdFscAktivieren(user.email);
-        throw new Error(fscActivatedOrError?.errorType);
-      }
-    }
+    await handleFscActivationProgress(userData, session, clientIp);
   }
 
   if (ericaRevocationRequestIsInProgress) {
-    const fscRevocatedOrError = await checkFreischaltcodeRevocation(
-      await getEricaRequestIdFscStornieren(userData)
-    );
-    if (fscRevocatedOrError) {
-      if ("transferticket" in fscRevocatedOrError) {
-        invariant(userData.fscRequest, "expected fscRequest to be present");
-        await deleteFscRequest(user.email, userData.fscRequest.requestId);
-        await deleteEricaRequestIdFscStornieren(user.email);
-        await saveAuditLog({
-          eventName: AuditLogEvent.FSC_REVOKED,
-          timestamp: Date.now(),
-          ipAddress: clientIp,
-          username: userData.email,
-          eventData: {
-            transferticket: fscRevocatedOrError.transferticket,
-          },
-        });
-      } else {
-        // We only try to revocate. If it does not succeed, we do not want to show an error to the user
-        await deleteEricaRequestIdFscStornieren(user.email);
-      }
-    }
+    await handleFscRevocationInProgress(userData, clientIp);
   }
 
   return json(
