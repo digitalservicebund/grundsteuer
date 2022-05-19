@@ -9,6 +9,7 @@ import cardImage from "~/assets/images/lohnsteuerbescheinigung_idnr.svg";
 import digitalserviceLogoImage from "~/assets/images/digitalservice-logo.svg";
 import bmfLogoImage from "~/assets/images/bmf-logo.svg";
 import EnumeratedCard from "~/components/EnumeratedCard";
+import ErrorBar from "~/components/ErrorBar";
 
 export default function KitchenSinkIndex() {
   return (
@@ -45,7 +46,13 @@ export default function KitchenSinkIndex() {
         number="1"
         heading="Sie geben die Daten ein"
         text="Geben Sie Ihre Steuer-Identifikationsnummer und Ihr Geburtsdatum ein. Ihre Steuer-ID finden Sie zum Beispiel auf Ihren Steuerbescheiden, Lohnsteuerabrechnungen oder anderen Unterlagen vom Finanzamt. "
+        className="mb-24"
       />
+
+      <ErrorBar heading="Fehler" className="mb-8">
+        Es ist ein Fehler aufgetreten.
+      </ErrorBar>
+      <ErrorBar className="mb-24">Es ist ein Fehler aufgetreten.</ErrorBar>
 
       <Footer />
     </ContentContainer>
