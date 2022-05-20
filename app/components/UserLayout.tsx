@@ -1,5 +1,12 @@
 import { ReactNode } from "react";
-import { Footer, Layout, Main, SidebarNavigation } from "~/components";
+import {
+  Footer,
+  Layout,
+  Main,
+  SidebarNavigation,
+  TopNavigation,
+  NavigationActions,
+} from "~/components";
 
 export default function UserLayout(props: {
   children: ReactNode;
@@ -11,11 +18,24 @@ export default function UserLayout(props: {
       footer={<Footer />}
       sidebarNavigation={
         <SidebarNavigation
-          userIsLoggedIn={props.userIsLoggedIn}
-          userIsIdentified={props.userIsIdentified}
+          actions={
+            <NavigationActions
+              userIsIdentified={props.userIsIdentified}
+              userIsLoggedIn={props.userIsLoggedIn}
+            />
+          }
         />
       }
-      topNavigation={<div></div>}
+      topNavigation={
+        <TopNavigation
+          actions={
+            <NavigationActions
+              userIsIdentified={props.userIsIdentified}
+              userIsLoggedIn={props.userIsLoggedIn}
+            />
+          }
+        />
+      }
     >
       <Main>{props.children}</Main>
     </Layout>

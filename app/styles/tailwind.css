@@ -283,6 +283,19 @@
     border-radius: 50%;
   }
 
+  /* top-navigation */
+  #top-navigation:checked ~ * .top-navigation__menu-button {
+    @apply bg-gray-200;
+  }
+
+  #top-navigation:checked ~ * .top-navigation__menu-icon {
+    @apply hidden;
+  }
+
+  #top-navigation:checked ~ * .top-navigation__close-icon {
+    @apply block;
+  }
+
   /* enumerate icon */
   .enumerate-icon {
     background: #004b76;

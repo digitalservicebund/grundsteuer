@@ -1,19 +1,18 @@
 import { LoaderFunction } from "@remix-run/node";
-import { Link, Outlet, useLoaderData } from "@remix-run/react";
+import { Outlet, useLoaderData } from "@remix-run/react";
 import { getStoredFormData } from "~/formDataStorage.server";
 import {
-  Button,
   Footer,
   FormSidebarNavigation,
   SidebarNavigation,
   Layout,
-  LogoutButton,
   Main,
+  NavigationActions,
+  TopNavigation,
 } from "~/components";
 import { createGraph } from "~/domain";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 import { authenticator } from "~/auth.server";
-import { useState } from "react";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
@@ -35,15 +34,17 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function Formular() {
   const { graph, currentState, userIsIdentified } = useLoaderData();
 
-  const [showMobileNavigation, setShowMobileNavigation] = useState(false);
-
   return (
     <Layout
       footer={<Footer />}
       sidebarNavigation={
         <SidebarNavigation
-          userIsIdentified={userIsIdentified}
-          userIsLoggedIn={true}
+          actions={
+            <NavigationActions
+              userIsIdentified={userIsIdentified}
+              userIsLoggedIn={true}
+            />
+          }
         >
           <FormSidebarNavigation
             graph={graph}
@@ -52,27 +53,19 @@ export default function Formular() {
         </SidebarNavigation>
       }
       topNavigation={
-        <div className="p-4 bg-blue-100">
-          <Link to="/">Home</Link>
-          <LogoutButton />
-          <Button
-            size="small"
-            look="tertiary"
-            onClick={() => setShowMobileNavigation(!showMobileNavigation)}
-          >
-            Toggle Navigation
-          </Button>
-          {showMobileNavigation && (
-            <>
-              <br />
-              <br />
-              <FormSidebarNavigation
-                graph={graph}
-                initialCurrentState={currentState}
-              />
-            </>
-          )}
-        </div>
+        <TopNavigation
+          actions={
+            <NavigationActions
+              userIsIdentified={userIsIdentified}
+              userIsLoggedIn={true}
+            />
+          }
+        >
+          <FormSidebarNavigation
+            graph={graph}
+            initialCurrentState={currentState}
+          />
+        </TopNavigation>
       }
     >
       <Main>
