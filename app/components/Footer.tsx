@@ -36,7 +36,7 @@ export default function Footer() {
             </a>
           </div>
 
-          <div className="flex pb-16">
+          <div className="flex flex-wrap pb-16">
             <Link
               to="/impressum"
               className="mr-14 md:mr-32 block py-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
