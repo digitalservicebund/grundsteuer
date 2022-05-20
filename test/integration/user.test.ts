@@ -29,17 +29,7 @@ describe("user", () => {
         password: await bcrypt.hash("12345678", 10),
       },
     });
-    await db.user.create({
-      data: {
-        email: "existing_with_fsc_request_to_overwrite@foo.com",
-        password: await bcrypt.hash("12345678", 10),
-        fscRequest: {
-          create: {
-            requestId: "foo",
-          },
-        },
-      },
-    });
+
     await db.user.create({
       data: {
         email: "existing_with_fsc_request@foo.com",
@@ -59,11 +49,7 @@ describe("user", () => {
     await db.user.deleteMany({
       where: {
         email: {
-          in: [
-            "existing@foo.com",
-            "existing_with_fsc_request@foo.com",
-            "existing_with_fsc_request_to_overwrite@foo.com",
-          ],
+          in: ["existing@foo.com", "existing_with_fsc_request@foo.com"],
         },
       },
     });
@@ -238,6 +224,11 @@ describe("user", () => {
 
       expect(user).toBeTruthy();
       expect(user?.fscRequest).toBeTruthy();
+
+      const secondUser = await findUserByEmail("different_user@foo.com");
+
+      expect(secondUser).toBeTruthy();
+      expect(secondUser?.fscRequest).toBeTruthy();
     });
 
     it("should succeed on user with no existing request", async () => {
@@ -282,14 +273,9 @@ describe("user", () => {
     });
 
     it("should overwrite requestId on user", async () => {
-      await saveEricaRequestIdFscBeantragen(
-        "existing_with_fsc_request_to_overwrite@foo.com",
-        "bar"
-      );
+      await saveEricaRequestIdFscBeantragen("existing@foo.com", "bar");
 
-      const user = await findUserByEmail(
-        "existing_with_fsc_request_to_overwrite@foo.com"
-      );
+      const user = await findUserByEmail("existing@foo.com");
 
       expect(user).toBeTruthy();
       expect(user?.ericaRequestIdFscBeantragen).toEqual("bar");
@@ -353,14 +339,9 @@ describe("user", () => {
     });
 
     it("should overwrite requestId on user", async () => {
-      await saveEricaRequestIdFscAktivieren(
-        "existing_with_fsc_request_to_overwrite@foo.com",
-        "bar"
-      );
+      await saveEricaRequestIdFscAktivieren("existing@foo.com", "bar");
 
-      const user = await findUserByEmail(
-        "existing_with_fsc_request_to_overwrite@foo.com"
-      );
+      const user = await findUserByEmail("existing@foo.com");
 
       expect(user).toBeTruthy();
       expect(user?.ericaRequestIdFscAktivieren).toEqual("bar");
@@ -424,14 +405,9 @@ describe("user", () => {
     });
 
     it("should overwrite requestId on user", async () => {
-      await saveEricaRequestIdFscStornieren(
-        "existing_with_fsc_request_to_overwrite@foo.com",
-        "bar"
-      );
+      await saveEricaRequestIdFscStornieren("existing@foo.com", "bar");
 
-      const user = await findUserByEmail(
-        "existing_with_fsc_request_to_overwrite@foo.com"
-      );
+      const user = await findUserByEmail("existing@foo.com");
 
       expect(user).toBeTruthy();
       expect(user?.ericaRequestIdFscStornieren).toEqual("bar");
