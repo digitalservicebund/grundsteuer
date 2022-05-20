@@ -4,12 +4,22 @@ import Finished from "~/components/icons/mui/Finished";
 import Edit from "~/components/icons/mui/Edit";
 import { conditions } from "~/domain/guards";
 import Accordion, { AccordionItem } from "~/components/Accordion";
-import { GrundModel, GrundstueckAdresseFields } from "~/domain/steps";
+import {
+  GrundModel,
+  GrundstueckAdresseFields,
+  GrundstueckFlurstueckFlurFields,
+  GrundstueckFlurstueckGroesseFields,
+} from "~/domain/steps";
 import { I18nObject } from "~/i18n/getStepI18n";
 import { PreviousStepsErrors } from "~/routes/formular/zusammenfassung";
 import House from "~/components/icons/mui/House";
 import { ReactNode } from "react";
 import Person from "~/components/icons/mui/Person";
+import classNames from "classnames";
+import _ from "lodash";
+import invariant from "tiny-invariant";
+import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/grundstueck/flurstueck/miteigentumsanteil";
+import { calculateGroesse } from "~/erica/transformData";
 
 const resolveJaNein = (value: string | undefined) => {
   if (value === "true") {
@@ -69,6 +79,40 @@ const resolveAbweichendeEntwicklung = (value: string | undefined) => {
   }
 };
 
+const resolveMiteigentum: FieldResolver = (value) => {
+  switch (value) {
+    case "true":
+      return "Teil der Grundstückseinheit";
+    case "false":
+      return "Gesamte Grundstückseinheit";
+    default:
+      return "";
+  }
+};
+
+const resolveMiteigentumFraction: StepResolver = (value) => {
+  if (!value) return <></>;
+  invariant(
+    "wirtschaftlicheEinheitZaehler" in value,
+    "Only use for miteigentumsanteil fields"
+  );
+  return (
+    value.wirtschaftlicheEinheitZaehler +
+    " / " +
+    value.wirtschaftlicheEinheitNenner
+  );
+};
+
+const resolveFlurstueckGroesse: StepResolver = (value) => {
+  if (!value) return <></>;
+  invariant("groesseQm" in value, "Only use for groesse fields");
+  return calculateGroesse({
+    groesseHa: value.groesseHa || "",
+    groesseA: value.groesseA || "",
+    groesseQm: value.groesseQm || "",
+  });
+};
+
 const resolveBundesland = (value: string | undefined) => {
   switch (value) {
     case "BE":
@@ -98,10 +142,9 @@ const resolveBundesland = (value: string | undefined) => {
   }
 };
 
-const resolveAdresse: StepResolver = (
-  value: GrundstueckAdresseFields | undefined
-) => {
+const resolveAdresse: StepResolver = (value) => {
   if (!value) return <></>;
+  invariant("strasse" in value, "Only use for grundstueck fields");
   return (
     <div className="flex flex-col">
       <div>
@@ -127,8 +170,14 @@ const resolveBodenrichtwertAnzahl: FieldResolver = (value) => {
   }
 };
 
-const fieldPathToStepUrl = (fieldPath: string) =>
-  `/formular/${fieldPath.split(".").slice(0, -1).join("/")}`;
+const resolveFlurstueckFraction: StepResolver = (value) => {
+  if (!value) return <></>;
+  invariant("flurstueckZaehler" in value, "Only use for flur fields");
+  return (
+    value.flurstueckZaehler +
+    (value.flurstueckNenner ? " / " + value.flurstueckNenner : "")
+  );
+};
 
 const EnumerationFields = ({
   id,
@@ -163,7 +212,14 @@ export type ZusammenfassungAccordionProps = {
 };
 
 type FieldResolver = (field: string | undefined) => string;
-type StepResolver = (field: GrundstueckAdresseFields | undefined) => ReactNode;
+type StepResolver = (
+  field:
+    | GrundstueckAdresseFields
+    | GrundstueckFlurstueckFlurFields
+    | GrundstueckFlurstueckMiteigentumsanteilFields
+    | GrundstueckFlurstueckGroesseFields
+    | undefined
+) => ReactNode;
 
 export default function ZusammenfassungAccordion({
   allData,
@@ -181,19 +237,69 @@ export default function ZusammenfassungAccordion({
       </a>
     );
   };
+
+  type ItemProps = {
+    label: string;
+    path: string;
+    resolver?: FieldResolver | StepResolver;
+    explicitValue?: string;
+  };
+
+  const stepItem = (
+    pathToStep: string,
+    fieldItems: ItemProps[],
+    isFirst?: boolean
+  ): JSX.Element => {
+    const editUrl = `${pathToStep}?redirectToSummary=true`;
+
+    const fieldNodes = fieldItems.map((fieldItem, index) => {
+      const completeFieldPath =
+        pathToStep + (fieldItem.path ? "." + fieldItem.path : "");
+      let value = getStepData(allData, completeFieldPath);
+      const error = errors ? getStepData(errors, completeFieldPath) : undefined;
+      if (fieldItem.explicitValue) value = fieldItem.explicitValue;
+      const displayValue = fieldItem.resolver
+        ? fieldItem.resolver(value)
+        : value;
+
+      if (!displayValue && !error) return undefined;
+      return (
+        <li className={classNames({ "mb-16": index != fieldItems.length - 1 })}>
+          <dl>
+            <dt className="font-bold block uppercase text-10 mb-4">
+              {fieldItem.label}
+            </dt>
+            <dd className="block">{error ? error : displayValue}</dd>
+          </dl>
+        </li>
+      );
+    });
+    if (_.compact(fieldNodes).length == 0) return <></>;
+
+    return (
+      <li>
+        {!isFirst && <hr className="my-16" />}
+        <div className="mb-16 flex flex-row">
+          <div className="flex flex-row w-full justify-between items-start">
+            <ul>{fieldNodes}</ul>
+            {editLink(editUrl)}
+          </div>
+        </div>
+      </li>
+    );
+  };
+
   const item = (
     label: string,
     path: string,
     resolver?: FieldResolver | StepResolver,
-    explicitValue?: string,
-    isLast?: boolean
+    explicitValue?: string
   ): JSX.Element => {
     let value = getStepData(allData, path);
     const error = errors ? getStepData(errors, path) : undefined;
     if (explicitValue) value = explicitValue;
 
     const displayValue = resolver ? resolver(value) : value;
-    const editUrl = `${fieldPathToStepUrl(path)}?redirectToSummary=true`;
 
     if (displayValue || error) {
       return (
@@ -206,10 +312,8 @@ export default function ZusammenfassungAccordion({
                 </dt>
                 <dd className="block">{error ? error : displayValue}</dd>
               </dl>
-              {editLink(editUrl)}
             </div>
           </div>
-          {!isLast && <hr className="my-16" />}
         </li>
       );
     } else {
@@ -258,30 +362,50 @@ export default function ZusammenfassungAccordion({
       content: (
         <div id="grundstueck-area" data-testid="grundstueck-area">
           <ul>
-            {item(
-              "Art des Grundstücks",
-              "grundstueck.typ.typ",
-              resolveGrundstueckTyp
+            {stepItem(
+              "grundstueck.typ",
+              [
+                {
+                  label: "Art des Grundstücks",
+                  path: "typ",
+                  resolver: resolveGrundstueckTyp,
+                },
+              ],
+              true
             )}
-            {item("Adresse", "grundstueck.adresse", resolveAdresse)}
-            {item(
-              "Steuernummer/Aktenzeichen",
-              "grundstueck.steuernummer.steuernummer"
-            )}
-            {item(
-              "Abweichende Entwicklung",
-              "grundstueck.abweichendeEntwicklung.zustand",
-              resolveAbweichendeEntwicklung
-            )}
-            {item(
-              "Innerhalb einer Gemeinde",
-              "grundstueck.gemeinde.innerhalbEinerGemeinde",
-              resolveJaNein
-            )}
-            {item(
-              "Anzahl der Grundstückseinheiten",
-              "grundstueck.anzahl.anzahl"
-            )}
+            {stepItem("grundstueck.adresse", [
+              {
+                label: "Adresse",
+                path: "",
+                resolver: resolveAdresse,
+              },
+            ])}
+            {stepItem("grundstueck.steuernummer", [
+              {
+                label: "Steuernummer/Aktenzeichen",
+                path: "steuernummer",
+              },
+            ])}
+            {stepItem("grundstueck.abweichendeEntwicklung", [
+              {
+                label: "Abweichende Entwicklung",
+                path: "zustand",
+                resolver: resolveAbweichendeEntwicklung,
+              },
+            ])}
+            {stepItem("grundstueck.gemeinde", [
+              {
+                label: "Innerhalb einer Gemeinde",
+                path: "innerhalbEinerGemeinde",
+                resolver: resolveJaNein,
+              },
+            ])}
+            {stepItem("grundstueck.anzahl", [
+              {
+                label: "Anzahl der Grundstückseinheiten",
+                path: "anzahl",
+              },
+            ])}
             {allData.grundstueck.anzahl?.anzahl && (
               <>
                 {[
@@ -298,70 +422,78 @@ export default function ZusammenfassungAccordion({
                       key={flurstueckKey}
                       id={flurstueckKey}
                     >
-                      {item(
-                        "Grundbuchblattnummer",
+                      {stepItem(
+                        `grundstueck.flurstueck.${index + 1}.angaben`,
+                        [
+                          {
+                            label: "Grundbuchblattnummer",
+                            path: "grundbuchblattnummer",
+                          },
+                          {
+                            label: "Gemarkung",
+                            path: "gemarkung",
+                          },
+                        ],
+                        true
+                      )}
+                      {stepItem(`grundstueck.flurstueck.${index + 1}.flur`, [
+                        {
+                          label: "Flur",
+                          path: "flur",
+                        },
+                        {
+                          label: "Flurstück",
+                          path: "",
+                          resolver: resolveFlurstueckFraction,
+                        },
+                      ])}
+                      {stepItem(
+                        `grundstueck.flurstueck.${index + 1}.miteigentum`,
+                        [
+                          {
+                            label: "Auswahl Miteigentum",
+                            path: "hasMiteigentum",
+                            resolver: resolveMiteigentum,
+                          },
+                        ]
+                      )}
+                      {stepItem(
                         `grundstueck.flurstueck.${
                           index + 1
-                        }.angaben.grundbuchblattnummer`
+                        }.miteigentumsanteil`,
+                        [
+                          {
+                            label: "Miteigentumsanteil",
+                            path: "",
+                            resolver: resolveMiteigentumFraction,
+                          },
+                        ]
                       )}
-                      {item(
-                        "Gemarkung",
-                        `grundstueck.flurstueck.${index + 1}.angaben.gemarkung`
-                      )}
-                      {item(
-                        "Flur",
-                        `grundstueck.flurstueck.${index + 1}.flur.flur`
-                      )}
-                      {item(
-                        "Flurstück Zähler",
-                        `grundstueck.flurstueck.${
-                          index + 1
-                        }.flur.flurstueckZaehler`
-                      )}
-                      {item(
-                        "Flurstück Nenner",
-                        `grundstueck.flurstueck.${
-                          index + 1
-                        }.flur.flurstueckNenner`
-                      )}
-                      {item(
-                        "Wirtsch. Einheit Zähler",
-                        `grundstueck.flurstueck.${
-                          index + 1
-                        }.flur.wirtschaftlicheEinheitZaehler`
-                      )}
-                      {item(
-                        "Wirtsch. Einheit Nenner",
-                        `grundstueck.flurstueck.${
-                          index + 1
-                        }.flur.wirtschaftlicheEinheitNenner`
-                      )}
-                      {item(
-                        "Größe ha",
-                        `grundstueck.flurstueck.${index + 1}.flur.groesseHa`
-                      )}
-                      {item(
-                        "Größe a",
-                        `grundstueck.flurstueck.${index + 1}.flur.groesseA`
-                      )}
-                      {item(
-                        "Größe m²",
-                        `grundstueck.flurstueck.${index + 1}.flur.groesseQm`
-                      )}
+                      {stepItem(`grundstueck.flurstueck.${index + 1}.groesse`, [
+                        {
+                          label: "Gesamtgröße",
+                          path: "",
+                          resolver: resolveFlurstueckGroesse,
+                        },
+                      ])}
                     </EnumerationFields>
                   );
                 })}
               </>
             )}
-            {item(
-              "Bodenrichtwert in Euro",
-              "grundstueck.bodenrichtwertEingabe.bodenrichtwert"
-            )}
-            {item(
-              "Anzahl Bodenrichtwert",
-              "grundstueck.bodenrichtwertAnzahl.anzahl",
-              resolveBodenrichtwertAnzahl
-            )}
+            {stepItem("grundstueck.bodenrichtwertEingabe", [
+              {
+                label: "Bodenrichtwert in Euro",
+                path: "bodenrichtwert",
+              },
+            ])}
+            {stepItem("grundstueck.bodenrichtwertAnzahl", [
+              {
+                label: "Anzahl Bodenrichtwert",
+                path: "anzahl",
+                resolver: resolveBodenrichtwertAnzahl,
+              },
+            ])}
           </ul>
         </div>
       ),
