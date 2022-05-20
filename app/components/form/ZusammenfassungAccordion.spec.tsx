@@ -89,7 +89,7 @@ describe("ZusammenfassungAccordion component", () => {
         ).not.toBeInTheDocument();
         expect(
           within(screen.getByTestId("grundstueck-area")).queryByText(
-            "Grundstücksart"
+            "Art des Grundstücks"
           )
         ).toBeInTheDocument();
         screen.getByText("Eigentümer:innen").click();

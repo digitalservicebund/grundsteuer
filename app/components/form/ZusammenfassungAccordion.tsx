@@ -4,7 +4,7 @@ import Finished from "~/components/icons/mui/Finished";
 import Edit from "~/components/icons/mui/Edit";
 import { conditions } from "~/domain/guards";
 import Accordion, { AccordionItem } from "~/components/Accordion";
-import { GrundModel } from "~/domain/steps";
+import { GrundModel, GrundstueckAdresseFields } from "~/domain/steps";
 import { I18nObject } from "~/i18n/getStepI18n";
 import { PreviousStepsErrors } from "~/routes/formular/zusammenfassung";
 import House from "~/components/icons/mui/House";
@@ -17,13 +17,6 @@ const resolveJaNein = (value: string | undefined) => {
   }
   if (value === "false") {
     return "Nein";
-  }
-  return "";
-};
-
-const resolveCheckbox = (value: string | undefined) => {
-  if (value) {
-    return "Ja";
   }
   return "";
 };
@@ -65,6 +58,17 @@ const resolveGrundstueckTyp = (value: string | undefined) => {
   }
 };
 
+const resolveAbweichendeEntwicklung = (value: string | undefined) => {
+  switch (value) {
+    case "rohbauland":
+      return "Rohbauland";
+    case "bauerwartungsland":
+      return "Bauerwartungsland";
+    default:
+      return "";
+  }
+};
+
 const resolveBundesland = (value: string | undefined) => {
   switch (value) {
     case "BE":
@@ -89,6 +93,35 @@ const resolveBundesland = (value: string | undefined) => {
       return "Schleswig-Holstein";
     case "TH":
       return "Thüringen";
+    default:
+      return "";
+  }
+};
+
+const resolveAdresse: StepResolver = (
+  value: GrundstueckAdresseFields | undefined
+) => {
+  if (!value) return <></>;
+  return (
+    <div className="flex flex-col">
+      <div>
+        {value.strasse} {value.hausnummer}
+      </div>
+      <div>{value.zusatzangaben}</div>
+      <div>
+        {value.plz} {value.ort}
+      </div>
+      <div>{resolveBundesland(value.bundesland)}</div>
+    </div>
+  );
+};
+
+const resolveBodenrichtwertAnzahl: FieldResolver = (value) => {
+  switch (value) {
+    case "1":
+      return "Ein Bodenrichtwert";
+    case "2":
+      return "Zwei Bodenrichtwerte";
     default:
       return "";
   }
@@ -129,6 +162,9 @@ export type ZusammenfassungAccordionProps = {
   errors?: PreviousStepsErrors;
 };
 
+type FieldResolver = (field: string | undefined) => string;
+type StepResolver = (field: GrundstueckAdresseFields | undefined) => ReactNode;
+
 export default function ZusammenfassungAccordion({
   allData,
   i18n,
@@ -148,7 +184,7 @@ export default function ZusammenfassungAccordion({
   const item = (
     label: string,
     path: string,
-    resolver?: (field: string | undefined) => string,
+    resolver?: FieldResolver | StepResolver,
     explicitValue?: string,
     isLast?: boolean
   ): JSX.Element => {
@@ -163,7 +199,7 @@ export default function ZusammenfassungAccordion({
       return (
         <li>
           <div className="mb-16 flex flex-row">
-            <div className="flex flex-row w-full justify-between items-center">
+            <div className="flex flex-row w-full justify-between items-start">
               <dl>
                 <dt className="font-bold block uppercase text-10 mb-4">
                   {label}
@@ -223,34 +259,29 @@ export default function ZusammenfassungAccordion({
         <div id="grundstueck-area" data-testid="grundstueck-area">
           <ul>
             {item(
-              "Grundstücksart",
+              "Art des Grundstücks",
               "grundstueck.typ.typ",
               resolveGrundstueckTyp
             )}
-            {item("Straße", "grundstueck.adresse.strasse")}
-            {item("Hausnummer", "grundstueck.adresse.hausnummer")}
-            {item("Zusatzangaben", "grundstueck.adresse.zusatzangaben")}
-            {item("PLZ", "grundstueck.adresse.plz")}
-            {item("Ort", "grundstueck.adresse.ort")}
-            {item(
-              "Bundesland",
-              "grundstueck.adresse.bundesland",
-              resolveBundesland
-            )}
+            {item("Adresse", "grundstueck.adresse", resolveAdresse)}
             {item(
               "Steuernummer/Aktenzeichen",
               "grundstueck.steuernummer.steuernummer"
             )}
             {item(
               "Abweichende Entwicklung",
-              "grundstueck.abweichendeEntwicklung.zustand"
+              "grundstueck.abweichendeEntwicklung.zustand",
+              resolveAbweichendeEntwicklung
             )}
             {item(
               "Innerhalb einer Gemeinde",
               "grundstueck.gemeinde.innerhalbEinerGemeinde",
               resolveJaNein
             )}
-            {item("Anzahl Grundstücksflächen", "grundstueck.anzahl.anzahl")}
+            {item(
+              "Anzahl der Grundstückseinheiten",
+              "grundstueck.anzahl.anzahl"
+            )}
             {allData.grundstueck.anzahl?.anzahl && (
               <>
                 {[
@@ -323,13 +354,13 @@ export default function ZusammenfassungAccordion({
               </>
             )}
             {item(
-              "Bodenrichtwert",
-              "grundstueck.bodenrichtwert.bodenrichtwert"
+              "Bodenrichtwert in Euro",
+              "grundstueck.bodenrichtwertEingabe.bodenrichtwert"
             )}
             {item(
-              "Zwei Bodenrichtwerte",
-              "grundstueck.bodenrichtwert.twoBodenrichtwerte",
-              resolveCheckbox
+              "Anzahl Bodenrichtwert",
+              "grundstueck.bodenrichtwertAnzahl.anzahl",
+              resolveBodenrichtwertAnzahl
             )}
           </ul>
         </div>
