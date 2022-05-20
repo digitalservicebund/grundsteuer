@@ -83,7 +83,7 @@ describe("Zusammenfassung route", () => {
         });
       });
       it("should contain fsc section", () => {
-        cy.contains("Bitte geben Sie den Freischaltcode ein");
+        cy.contains("Sie haben noch keinen Freischaltcode eingegeben.");
       });
 
       it("should contain link and go to /fsc page on click", () => {
