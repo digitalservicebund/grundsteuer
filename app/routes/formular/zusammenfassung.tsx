@@ -51,6 +51,8 @@ import ErrorBar from "~/components/ErrorBar";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import Send from "~/components/icons/mui/Send";
 import Attention from "~/components/icons/mui/Attention";
+import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
+import { getSession } from "~/session.server";
 
 type LoaderData = {
   formData: StepFormData;
@@ -213,6 +215,9 @@ export const action: ActionFunction = async ({
   context,
 }): Promise<ActionData | Response> => {
   const { clientIp } = context;
+  const session = await getSession(request.headers.get("Cookie"));
+  await verifyCsrfToken(request, session);
+
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
@@ -325,6 +330,7 @@ export default function Zusammenfassung() {
         />
         <div className="">
           <Form method="post" className="mb-16">
+            <CsrfToken />
             {!isIdentified && (
               <div className="bg-yellow-200 mt-32 p-32 flex flex-row">
                 <div className="rounded-placeholder bg-yellow-400 mr-8">

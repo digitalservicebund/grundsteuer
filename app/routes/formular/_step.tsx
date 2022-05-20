@@ -45,8 +45,8 @@ import { authenticator } from "~/auth.server";
 import { getSession } from "~/session.server";
 import { Params } from "react-router";
 import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
-import ErrorBar from "~/components/ErrorBar";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
+import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
 
 const getMachine = ({
   formData,
@@ -200,6 +200,9 @@ export const action: ActionFunction = async ({ params, request }) => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
+  const session = await getSession(request.headers.get("Cookie"));
+  await verifyCsrfToken(request, session);
+
   const storedFormData = await getStoredFormData({ request, user });
 
   const currentState = getCurrentStateFromUrl(request.url);
@@ -297,6 +300,7 @@ export function Step() {
         key={currentState}
         action={redirectToSummary ? "?redirectToSummary=true" : ""}
       >
+        <CsrfToken />
         {headlineIsLegend ? (
           <fieldset>
             <StepHeadline i18n={i18n} asLegend />

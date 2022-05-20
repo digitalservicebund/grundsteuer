@@ -23,6 +23,8 @@ import { pageTitle } from "~/util/pageTitle";
 import { removeUndefined } from "~/util/removeUndefined";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
+import { getSession } from "~/session.server";
+import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
 
 const validateInputEmail = async (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -38,6 +40,9 @@ const validateInputPassword = (password: string) =>
 
 export const action: ActionFunction = async ({ request, context }) => {
   const { clientIp } = context;
+  const session = await getSession(request.headers.get("Cookie"));
+  await verifyCsrfToken(request, session);
+
   const formData = await request.formData();
 
   const email = formData.get("email");
@@ -129,6 +134,7 @@ export default function Registrieren() {
         {errors && <ErrorBarStandard />}
 
         <Form method="post" noValidate>
+          <CsrfToken />
           <FormGroup>
             <Input
               type="email"

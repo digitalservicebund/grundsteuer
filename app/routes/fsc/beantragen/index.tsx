@@ -49,6 +49,8 @@ import lohnsteuerbescheinigungImage from "~/assets/images/lohnsteuerbescheinigun
 import fscLetterImage from "~/assets/images/fsc-letter.svg";
 import fscInputImage from "~/assets/images/fsc-input.svg";
 import ErrorBar from "~/components/ErrorBar";
+import { getSession } from "~/session.server";
+import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -126,6 +128,8 @@ export const loader: LoaderFunction = async ({ request, context }) => {
 };
 
 export const action: ActionFunction = async ({ request }) => {
+  const session = await getSession(request.headers.get("Cookie"));
+  await verifyCsrfToken(request, session);
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
@@ -234,6 +238,7 @@ export default function FscBeantragen() {
         )}
 
         <Form method="post">
+          <CsrfToken />
           <div>
             <FormGroup>
               <SteuerIdField

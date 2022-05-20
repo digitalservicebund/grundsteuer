@@ -1,4 +1,9 @@
-import { LinksFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
+import {
+  json,
+  LinksFunction,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -12,6 +17,8 @@ import { useChangeLanguage } from "remix-i18next";
 import { pageTitle } from "~/util/pageTitle";
 import styles from "public/tailwind.css";
 import ogImage from "~/assets/images/og-image.png";
+import { commitSession, getSession } from "~/session.server";
+import { createCsrfToken, CsrfTokenProvider } from "~/util/csrf";
 
 export const links: LinksFunction = () => {
   return [
@@ -57,10 +64,19 @@ export const meta: MetaFunction = () => {
   };
 };
 
-export const loader: LoaderFunction = async () => {
-  return {
-    env: process.env.APP_ENV,
-  };
+interface LoaderData {
+  env: string;
+  csrf: string;
+}
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const session = await getSession(request.headers.get("Cookie"));
+  const token = createCsrfToken(session);
+
+  return json<LoaderData>(
+    { csrf: token, env: process.env.APP_ENV as string },
+    { headers: { "Set-Cookie": await commitSession(session) } }
+  );
 };
 
 export const handle = {
@@ -88,7 +104,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
 }
 
 export default function App() {
-  const loaderData = useLoaderData();
+  const { csrf, env } = useLoaderData();
   useChangeLanguage("de");
 
   return (
@@ -97,7 +113,7 @@ export default function App() {
         <meta charSet="utf-8" />
         <Meta />
         <Links />
-        {loaderData?.env === "production" && (
+        {env === "production" && (
           <script
             defer
             data-domain="grundsteuererklaerung-fuer-privateigentum.de"
@@ -107,10 +123,12 @@ export default function App() {
         )}
       </head>
       <body className="flex flex-col min-h-screen text-black bg-gray-100 leading-default">
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <CsrfTokenProvider token={csrf}>
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </CsrfTokenProvider>
       </body>
     </html>
   );

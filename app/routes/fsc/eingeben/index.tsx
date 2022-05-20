@@ -48,6 +48,7 @@ import {
 } from "~/erica/freischaltCodeStornieren";
 import ErrorBar from "~/components/ErrorBar";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
+import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return (
@@ -210,6 +211,8 @@ export const loader: LoaderFunction = async ({ request, context }) => {
 };
 
 export const action: ActionFunction = async ({ request }) => {
+  const session = await getSession(request.headers.get("Cookie"));
+  await verifyCsrfToken(request, session);
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
@@ -305,6 +308,7 @@ export default function FscEingeben() {
       )}
 
       <Form method="post">
+        <CsrfToken />
         <div>
           <FormGroup>
             <FreischaltCodeInput

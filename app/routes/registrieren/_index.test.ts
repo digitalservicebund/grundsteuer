@@ -3,6 +3,8 @@ import { userExists } from "~/domain/user";
 import { action } from "./index";
 import * as auditLogModule from "~/audit/auditLog";
 import { AuditLogEvent } from "~/audit/auditLog";
+import * as csrfModule from "~/util/csrf";
+import { verifyCsrfToken } from "~/util/csrf";
 
 jest.mock("~/domain/user", () => {
   return {
@@ -22,11 +24,16 @@ const validFormData = {
 };
 
 describe("/registrieren action", () => {
-  describe('"succeeds"', () => {
-    afterEach(async () => {
-      jest.restoreAllMocks();
-    });
+  beforeEach(async () => {
+    const csrfMock = jest.spyOn(csrfModule, "verifyCsrfToken");
+    csrfMock.mockImplementation(() => Promise.resolve());
+  });
 
+  afterEach(async () => {
+    jest.restoreAllMocks();
+  });
+
+  describe('"succeeds"', () => {
     test("and saves audit log", async () => {
       const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
       const args = await mockActionArgs({

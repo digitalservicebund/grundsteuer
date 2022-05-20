@@ -19,6 +19,8 @@ import {
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 import ErrorBar from "~/components/ErrorBar";
+import { getSession } from "~/session.server";
+import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Anmelden") };
@@ -38,6 +40,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export const action: ActionFunction = async ({ request }) => {
+  const session = await getSession(request.headers.get("Cookie"));
+  await verifyCsrfToken(request, session);
   try {
     return await authenticator.authenticate("user-pass", request, {
       successRedirect: "/fsc",
@@ -75,6 +79,7 @@ export default function Anmelden() {
         )}
         <div className="mb-64">
           <Form method="post" noValidate>
+            <CsrfToken />
             <div>
               <FormGroup>
                 <Input type="email" name="email" label="E-Mail-Adresse" />

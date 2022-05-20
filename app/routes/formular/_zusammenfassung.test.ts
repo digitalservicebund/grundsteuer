@@ -17,6 +17,7 @@ import * as validationModule from "~/domain/validation";
 import bcrypt from "bcryptjs";
 import _ from "lodash";
 import * as sendGrundsteuerModule from "~/erica/sendGrundsteuer";
+import * as csrfModule from "~/util/csrf";
 import { AuditLogEvent } from "~/audit/auditLog";
 
 process.env.FORM_COOKIE_SECRET = "secret";
@@ -223,6 +224,8 @@ describe("/zusammenfassung action", () => {
       mockIsAuthenticated.mockImplementation(() =>
         Promise.resolve(sessionUserFactory.build())
       );
+      const csrfMock = jest.spyOn(csrfModule, "verifyCsrfToken");
+      csrfMock.mockImplementation(() => Promise.resolve());
     });
 
     afterAll(() => {
@@ -240,6 +243,8 @@ describe("/zusammenfassung action", () => {
       mockIsAuthenticated.mockImplementation(() =>
         Promise.resolve(sessionUserFactory.build({ identified: true, id: "1" }))
       );
+      const csrfMock = jest.spyOn(csrfModule, "verifyCsrfToken");
+      csrfMock.mockImplementation(() => Promise.resolve());
     });
 
     afterAll(() => {
