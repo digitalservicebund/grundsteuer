@@ -44,13 +44,6 @@ const resolveAnrede = (value: string | undefined) => {
   return "";
 };
 
-const resolveArea = (value: string | undefined) => {
-  if (value) {
-    return `${value} m2`;
-  }
-  return "";
-};
-
 const resolveGrundstueckTyp = (value: string | undefined) => {
   switch (value) {
     case "einfamilienhaus":
@@ -177,6 +170,61 @@ const resolveFlurstueckFraction: StepResolver = (value) => {
     value.flurstueckZaehler +
     (value.flurstueckNenner ? " / " + value.flurstueckNenner : "")
   );
+};
+
+const resolveGebaudeAb1949: FieldResolver = (value) => {
+  switch (value) {
+    case "true":
+      return "Nach 1949";
+    case "false":
+      return "Vor 1949";
+    default:
+      return "";
+  }
+};
+
+const resolveKernsanierung: FieldResolver = (value) => {
+  switch (value) {
+    case "true":
+      return "Gebäude wurde kernsaniert";
+    case "false":
+      return "Gebäude wurde nicht kernsaniert";
+    default:
+      return "";
+  }
+};
+
+const resolveAbbruch: FieldResolver = (value) => {
+  switch (value) {
+    case "true":
+      return "Es liegt eine Abbruchverpflichtung vor";
+    case "false":
+      return "Es liegt keine Abbruchverpflichtung vor";
+    default:
+      return "";
+  }
+};
+
+const resolveWeitereWohnraeume: FieldResolver = (value) => {
+  switch (value) {
+    case "true":
+      return "Es existieren weitere Wohnräume auf diesem Grundstück";
+    case "false":
+      return "Es existieren keine weiteren Wohnräume auf diesem Grundstück";
+    default:
+      return "";
+  }
+};
+
+const resolveGaragen: FieldResolver = (value) => {
+  switch (value) {
+    case "true":
+      return "Es gibt eine oder mehrere Garagen";
+    case "false":
+      return "Es gibt keine Garagen";
+    default:
+      return "";
+  }
 };
 
 const EnumerationFields = ({
@@ -515,72 +563,95 @@ export default function ZusammenfassungAccordion({
       content: (
         <div id="gebaeude-area" data-testid="gebaeude-area">
           <ul>
-            {item(
-              "Bezugsfertig ab 1949",
-              "gebaeude.ab1949.isAb1949",
-              resolveJaNein
+            {stepItem(
+              "gebaeude.ab1949",
+              [
+                {
+                  label: "Auswahl Baujahr Gebäude",
+                  path: "isAb1949",
+                  resolver: resolveGebaudeAb1949,
+                },
+              ],
+              true
             )}
-            {item("Baujahr", "gebaeude.baujahr.baujahr")}
-            {item(
-              "Kernsaniert",
-              "gebaeude.kernsaniert.isKernsaniert",
-              resolveJaNein
-            )}
-            {item(
-              "Jahr der Kernsanierung",
-              "gebaeude.kernsanierungsjahr.kernsanierungsjahr"
-            )}
-            {item(
-              "Abbruchverpflichtung liegt vor",
-              "gebaeude.abbruchverpflichtung.hasAbbruchverpflichtung",
-              resolveJaNein
-            )}
-            {item(
-              "Jahr der Abbruchverpflichtung",
-              "gebaeude.abbruchverpflichtungsjahr.abbruchverpflichtungsjahr"
-            )}
-            {item(
-              "Wohnfläche",
-              "gebaeude.wohnflaeche.wohnflaeche",
-              resolveArea
-            )}
-            {item(
-              "Wohnung 1 Wohnfläche",
-              "gebaeude.wohnflaechen.wohnflaeche1",
-              resolveArea
-            )}
-            {item(
-              "Wohnung 2 Wohnfläche",
-              "gebaeude.wohnflaechen.wohnflaeche2",
-              resolveArea
-            )}
-            {item(
-              "Weitere Wohnräume",
-              "gebaeude.weitereWohnraeume.hasWeitereWohnraeume",
-              resolveJaNein
-            )}
-            {item(
-              "Anzahl der weiteren Wohnräume",
-              "gebaeude.weitereWohnraeumeDetails.anzahl"
-            )}
-            {item(
-              "Gesamtfläche der weiteren Wohnräume",
-              "gebaeude.weitereWohnraeumeDetails.flaeche",
-              resolveArea
-            )}
-            {item(
-              "Grundstück hat Garagen",
-              "gebaeude.garagen.hasGaragen",
-              resolveJaNein
-            )}
-            {conditions.hasGaragen
-              ? item("Anzahl Garagen", "gebaeude.garagenAnzahl.anzahlGaragen")
-              : item(
-                  "Anzahl Garagen",
-                  "gebaeude.garagenAnzahl.anzahlGaragen",
-                  undefined,
-                  "0"
-                )}
+            {stepItem("gebaeude.baujahr", [
+              {
+                label: "Baujahr Gebäude",
+                path: "baujahr",
+              },
+            ])}
+            {stepItem("gebaeude.kernsaniert", [
+              {
+                label: "Auswahl Kernsanierung",
+                path: "isKernsaniert",
+                resolver: resolveKernsanierung,
+              },
+            ])}
+            {stepItem("gebaeude.kernsanierungsjahr", [
+              {
+                label: "Jahr der Kernsanierung",
+                path: "kernsanierungsjahr",
+              },
+            ])}
+            {stepItem("gebaeude.abbruchverpflichtung", [
+              {
+                label: "Auswahl Abbruchverpflichtung",
+                path: "hasAbbruchverpflichtung",
+                resolver: resolveAbbruch,
+              },
+            ])}
+            {stepItem("gebaeude.abbruchverpflichtungsjahr", [
+              {
+                label: "Jahr der Abbruchverpflichtung",
+                path: "abbruchverpflichtungsjahr",
+              },
+            ])}
+            {stepItem("gebaeude.wohnflaeche", [
+              {
+                label: "Gesamtwohnfläche in Quaratmetern",
+                path: "wohnflaeche",
+              },
+            ])}
+            {stepItem("gebaeude.wohnflaechen", [
+              {
+                label: "Wohnung 1 Gesamtfäche in Quaratmetern",
+                path: "wohnflaeche1",
+              },
+              {
+                label: "Wohnung 2 Gesamtfäche in Quaratmetern",
+                path: "wohnflaeche2",
+              },
+            ])}
+            {stepItem("gebaeude.weitereWohnraeume", [
+              {
+                label: "Auswahl weitere Wohnräume",
+                path: "hasWeitereWohnraeume",
+                resolver: resolveWeitereWohnraeume,
+              },
+            ])}
+            {stepItem("gebaeude.weitereWohnraeumeDetails", [
+              {
+                label: "Anzahl weitere Wohnflächen",
+                path: "anzahl",
+              },
+              {
+                label: "Gesamtgröße weiterer Wohnflächen in Quadratmetern",
+                path: "flaeche",
+              },
+            ])}
+            {stepItem("gebaeude.garagen", [
+              {
+                label: "Auswahl Garagen",
+                path: "hasGaragen",
+                resolver: resolveGaragen,
+              },
+            ])}
+            {stepItem("gebaeude.garagenAnzahl", [
+              {
+                label: "Anzahl Garagen",
+                path: "anzahlGaragen",
+              },
+            ])}
           </ul>
         </div>
       ),
