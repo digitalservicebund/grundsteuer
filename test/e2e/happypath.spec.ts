@@ -541,7 +541,7 @@ describe("Happy Path", () => {
     //cy.get("#freitext").clear().type(inputData.freitext);
 
     // unpack accordion items
-    cy.wait(500).get("button").contains("Grundstück").click();
+    cy.wait(1500).get("button").contains("Grundstück").click();
     cy.get("#grundstueck-area")
       .contains("Grundstücksart")
       .next()
@@ -730,7 +730,7 @@ describe("Happy Path", () => {
     cy.get("label[for=confirmTermsOfUse]").click();
 
     cy.get(submitBtnSelector).click();
-    cy.contains("erfolgreich versendet", { timeout: 20000 });
+    cy.contains("erfolgreich versendet", { timeout: 2000 });
     cy.contains("et036422myggf53jxax8uy92dmvkete8");
 
     cy.get("a")
