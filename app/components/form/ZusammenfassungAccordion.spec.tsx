@@ -99,17 +99,6 @@ describe("ZusammenfassungAccordion component", () => {
           )
         ).toBeInTheDocument();
       });
-
-      it("should display icon next to grundstueck fields", () => {
-        render(<ZusammenfassungAccordion {...defaultProps} />);
-
-        screen.getByText("Grundstück").click();
-        expect(
-          within(screen.getByTestId("grundstueck-area")).getByRole("img", {
-            name: "Fertig",
-          })
-        ).toBeInTheDocument();
-      });
     });
 
     describe("with grundstueck typ bebaut", () => {
@@ -174,22 +163,6 @@ describe("ZusammenfassungAccordion component", () => {
       expect(
         screen.getByRole("img", { name: "Unfertig" }).nextSibling
       ).toContainHTML("Grundstück");
-    });
-
-    it("should display (un)finished field icons correctly", () => {
-      render(<ZusammenfassungAccordion {...defaultProps} />);
-
-      screen.getByText("Grundstück").click();
-      expect(
-        within(screen.getByTestId("grundstueck-area")).getByRole("img", {
-          name: "Fertig",
-        }).nextSibling
-      ).toContainHTML("Steuernummer");
-      expect(
-        within(screen.getByTestId("grundstueck-area")).getAllByRole("img", {
-          name: "Unfertig",
-        })
-      ).toHaveLength(1);
     });
 
     describe("with no data for field with error", () => {

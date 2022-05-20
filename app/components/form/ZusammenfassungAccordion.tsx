@@ -109,9 +109,9 @@ export default function ZusammenfassungAccordion({
     return (
       <a
         href={editUrl}
-        className="text-gray-900 font-bold flex flex-row items-center"
+        className="text-14 font-bold underline flex flex-row items-center"
       >
-        <Edit className="mr-8" />
+        <Edit className="mr-10" />
         Ändern
       </a>
     );
@@ -120,7 +120,8 @@ export default function ZusammenfassungAccordion({
     label: string,
     path: string,
     resolver?: (field: string | undefined) => string,
-    explicitValue?: string
+    explicitValue?: string,
+    isLast?: boolean
   ): JSX.Element => {
     let value = getStepData(allData, path);
     const error = errors ? getStepData(errors, path) : undefined;
@@ -133,21 +134,17 @@ export default function ZusammenfassungAccordion({
       return (
         <li>
           <div className="mb-16 flex flex-row">
-            {error ? (
-              <Unfinished className="mr-16 overflow-visible" />
-            ) : (
-              <Finished className="mr-16 overflow-visible" />
-            )}
-            <div className="mb-16 flex flex-row w-full justify-between items-center">
+            <div className="flex flex-row w-full justify-between items-center">
               <dl>
-                <dt className="font-bold text-gray-800 block">{label}</dt>
-                <dd className="font-bold block">
-                  {error ? error : displayValue}
-                </dd>
+                <dt className="font-bold block uppercase text-10 mb-4">
+                  {label}
+                </dt>
+                <dd className="block">{error ? error : displayValue}</dd>
               </dl>
               {editLink(editUrl)}
             </div>
           </div>
+          {!isLast && <hr className="my-16" />}
         </li>
       );
     } else {

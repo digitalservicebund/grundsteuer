@@ -45,8 +45,8 @@ export default function Accordion({
             </BasicAccordion.Header>
             <BasicAccordion.Content className="overflow-hidden accordion-content">
               <div
-                className={classNames("p-24 pr-48 md:pr-64 md:pb-64", {
-                  "text-18": boldAppearance,
+                className={classNames("p-24 pr-24 md:pb-64", {
+                  "pr-48 md:pr-64 text-18": boldAppearance,
                 })}
               >
                 {item.content}
