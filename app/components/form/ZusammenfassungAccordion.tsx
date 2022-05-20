@@ -20,6 +20,9 @@ import _ from "lodash";
 import invariant from "tiny-invariant";
 import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/grundstueck/flurstueck/miteigentumsanteil";
 import { calculateGroesse } from "~/erica/transformData";
+import { EigentuemerPersonPersoenlicheAngabenFields } from "~/domain/steps/eigentuemer/person/persoenlicheAngaben";
+import { EigentuemerPersonAdresseFields } from "~/domain/steps/eigentuemer/person/adresse";
+import { EigentuemerPersonAnteilFields } from "~/domain/steps/eigentuemer/person/anteil";
 
 const resolveJaNein = (value: string | undefined) => {
   if (value === "true") {
@@ -33,7 +36,7 @@ const resolveJaNein = (value: string | undefined) => {
 
 const resolveAnrede = (value: string | undefined) => {
   if (value === "no_anrede") {
-    return "Keine";
+    return "Keine Anrede";
   }
   if (value === "frau") {
     return "Frau";
@@ -84,7 +87,7 @@ const resolveMiteigentum: FieldResolver = (value) => {
 };
 
 const resolveMiteigentumFraction: StepResolver = (value) => {
-  if (!value) return <></>;
+  if (!value) return undefined;
   invariant(
     "wirtschaftlicheEinheitZaehler" in value,
     "Only use for miteigentumsanteil fields"
@@ -97,7 +100,7 @@ const resolveMiteigentumFraction: StepResolver = (value) => {
 };
 
 const resolveFlurstueckGroesse: StepResolver = (value) => {
-  if (!value) return <></>;
+  if (!value) return undefined;
   invariant("groesseQm" in value, "Only use for groesse fields");
   return calculateGroesse({
     groesseHa: value.groesseHa || "",
@@ -136,18 +139,19 @@ const resolveBundesland = (value: string | undefined) => {
 };
 
 const resolveAdresse: StepResolver = (value) => {
-  if (!value) return <></>;
+  if (!value) return undefined;
   invariant("strasse" in value, "Only use for grundstueck fields");
   return (
     <div className="flex flex-col">
       <div>
         {value.strasse} {value.hausnummer}
       </div>
-      <div>{value.zusatzangaben}</div>
+      <div>{"postfach" in value && value.postfach}</div>
+      <div>{"zusatzangaben" in value && value.zusatzangaben}</div>
       <div>
         {value.plz} {value.ort}
       </div>
-      <div>{resolveBundesland(value.bundesland)}</div>
+      <div>{"bundesland" in value && resolveBundesland(value.bundesland)}</div>
     </div>
   );
 };
@@ -164,7 +168,7 @@ const resolveBodenrichtwertAnzahl: FieldResolver = (value) => {
 };
 
 const resolveFlurstueckFraction: StepResolver = (value) => {
-  if (!value) return <></>;
+  if (!value) return undefined;
   invariant("flurstueckZaehler" in value, "Only use for flur fields");
   return (
     value.flurstueckZaehler +
@@ -227,6 +231,47 @@ const resolveGaragen: FieldResolver = (value) => {
   }
 };
 
+const resolveVerheiratet: FieldResolver = (value) => {
+  switch (value) {
+    case "true":
+      return "Verheiratet / In eingetragener Lebenspartnerschaft";
+    case "false":
+      return "Nicht verheiratet / in eingetragener Lebenspartnerschaft";
+    default:
+      return "";
+  }
+};
+
+const resolvePersoenlicheAngaben: StepResolver = (value) => {
+  if (!value) return undefined;
+  invariant("anrede" in value, "Only use for persoenlicheAngaben fields");
+  return (
+    <div className="flex flex-col">
+      <div>{resolveAnrede(value.anrede)}</div>
+      <div>
+        {value.titel} {value.vorname} {value.name}
+      </div>
+    </div>
+  );
+};
+
+const resolveGesetzlicherVertreter: FieldResolver = (value) => {
+  switch (value) {
+    case "true":
+      return "Hat gesetzliche:n Vertreter:in";
+    case "false":
+      return "Kein:e gesetzliche:r Vertreter:in";
+    default:
+      return "";
+  }
+};
+
+const resolveAnteilFraction: StepResolver = (value) => {
+  if (!value) return undefined;
+  invariant("zaehler" in value, "Only use for flur fields");
+  return value.zaehler + " / " + value.nenner;
+};
+
 const EnumerationFields = ({
   id,
   index,
@@ -266,6 +311,9 @@ type StepResolver = (
     | GrundstueckFlurstueckFlurFields
     | GrundstueckFlurstueckMiteigentumsanteilFields
     | GrundstueckFlurstueckGroesseFields
+    | EigentuemerPersonPersoenlicheAngabenFields
+    | EigentuemerPersonAdresseFields
+    | EigentuemerPersonAnteilFields
     | undefined
 ) => ReactNode;
 
@@ -304,7 +352,11 @@ export default function ZusammenfassungAccordion({
       const completeFieldPath =
         pathToStep + (fieldItem.path ? "." + fieldItem.path : "");
       let value = getStepData(allData, completeFieldPath);
-      const error = errors ? getStepData(errors, completeFieldPath) : undefined;
+      let error = errors && getStepData(errors, completeFieldPath);
+      if (_.isObject(error)) {
+        // in case fieldItem.path is empty
+        error = Object.values(error)[0];
+      }
       if (fieldItem.explicitValue) value = fieldItem.explicitValue;
       const displayValue = fieldItem.resolver
         ? fieldItem.resolver(value)
@@ -671,12 +723,23 @@ export default function ZusammenfassungAccordion({
       content: (
         <div id="eigentuemer-area" data-testid="eigentuemer-area">
           <ul>
-            {item("Anzahl", "eigentuemer.anzahl.anzahl")}
-            {item(
-              "Verheiratet",
-              "eigentuemer.verheiratet.areVerheiratet",
-              resolveJaNein
+            {stepItem(
+              "eigentuemer.anzahl",
+              [
+                {
+                  label: "Anzahl Eigentümer:innen",
+                  path: "anzahl",
+                },
+              ],
+              true
             )}
+            {stepItem("eigentuemer.verheiratet", [
+              {
+                label: "Beziehungsstatus",
+                path: "areVerheiratet",
+                resolver: resolveVerheiratet,
+              },
+            ])}
           </ul>
           {allData.eigentuemer.anzahl?.anzahl && (
             <>
@@ -694,62 +757,47 @@ export default function ZusammenfassungAccordion({
                     key={personKey}
                     id={personKey}
                   >
-                    {item(
-                      "Anrede",
-                      `eigentuemer.person.${
-                        index + 1
-                      }.persoenlicheAngaben.anrede`,
-                      resolveAnrede
+                    {stepItem(
+                      `eigentuemer.person.${index + 1}.persoenlicheAngaben`,
+                      [
+                        {
+                          label: "Persönliche Angaben",
+                          path: "",
+                          resolver: resolvePersoenlicheAngaben,
+                        },
+                        {
+                          label: "Geburstadatum",
+                          path: "geburtsdatum",
+                        },
+                      ],
+                      true
                     )}
-                    {item(
-                      "Titel",
-                      `eigentuemer.person.${
-                        index + 1
-                      }.persoenlicheAngaben.titel`
-                    )}
-                    {item(
-                      "Name",
-                      `eigentuemer.person.${index + 1}.persoenlicheAngaben.name`
-                    )}
-                    {item(
-                      "Vorname",
-                      `eigentuemer.person.${
-                        index + 1
-                      }.persoenlicheAngaben.vorname`
-                    )}
-                    {item(
-                      "Geburtsdatum",
-                      `eigentuemer.person.${
-                        index + 1
-                      }.persoenlicheAngaben.geburtsdatum`
-                    )}
-
-                    {item(
-                      "Straße",
-                      `eigentuemer.person.${index + 1}.adresse.strasse`
-                    )}
-                    {item(
-                      "Hausnummer",
-                      `eigentuemer.person.${index + 1}.adresse.hausnummer`
-                    )}
-                    {item(
-                      "Postfach",
-                      `eigentuemer.person.${index + 1}.adresse.postfach`
-                    )}
-                    {item("PLZ", `eigentuemer.person.${index + 1}.adresse.plz`)}
-                    {item("Ort", `eigentuemer.person.${index + 1}.adresse.ort`)}
-                    {item(
-                      "Telefonnummer",
-                      `eigentuemer.person.${index + 1}.adresse.telefonnummer`
-                    )}
-                    {item(
-                      "Steuer-ID",
-                      `eigentuemer.person.${index + 1}.steuerId.steuerId`
-                    )}
-                    {item(
-                      "Gesetzlicher Vertreter",
-                      `eigentuemer.person.${index + 1}.hasVertreter`,
-                      resolveJaNein
+                    {stepItem(`eigentuemer.person.${index + 1}.adresse`, [
+                      {
+                        label: "Postadresse",
+                        path: "",
+                        resolver: resolveAdresse,
+                      },
+                      {
+                        label: "Telefonnummer",
+                        path: "telefonnummer",
+                      },
+                    ])}
+                    {stepItem(`eigentuemer.person.${index + 1}.steuerId`, [
+                      {
+                        label: "Steueridentifikationsnummer",
+                        path: "steuerId",
+                      },
+                    ])}
+                    {stepItem(
+                      `eigentuemer.person.${index + 1}.gesetzlicherVertreter`,
+                      [
+                        {
+                          label: "Auswahl gesetzliche:r Vertreter:in",
+                          path: "hasVertreter",
+                          resolver: resolveGesetzlicherVertreter,
+                        },
+                      ]
                     )}
 
                     {conditions.hasGesetzlicherVertreter({
@@ -758,80 +806,41 @@ export default function ZusammenfassungAccordion({
                     }) && (
                       <div className="ml-64" id={personKey + "-vertreter"}>
                         <ul>
-                          {item(
-                            "Anrede",
-                            `eigentuemer.person.${
-                              index + 1
-                            }.vertreter.name.anrede`,
-                            resolveAnrede
+                          {stepItem(
+                            `eigentuemer.person.${index + 1}.vertreter.name`,
+                            [
+                              {
+                                label:
+                                  "Persönliche Angaben Gesetzliche:r Vertreter:in",
+                                path: "",
+                                resolver: resolvePersoenlicheAngaben,
+                              },
+                            ]
                           )}
-                          {item(
-                            "Titel",
-                            `eigentuemer.person.${
-                              index + 1
-                            }.vertreter.name.titel`
-                          )}
-                          {item(
-                            "Name",
-                            `eigentuemer.person.${
-                              index + 1
-                            }.vertreter.name.name`
-                          )}
-                          {item(
-                            "Vorname",
-                            `eigentuemer.person.${
-                              index + 1
-                            }.vertreter.name.vorname`
-                          )}
-
-                          {item(
-                            "Straße",
-                            `eigentuemer.person.${
-                              index + 1
-                            }.vertreter.adresse.strasse`
-                          )}
-                          {item(
-                            "Hausnummer",
-                            `eigentuemer.person.${
-                              index + 1
-                            }.vertreter.adresse.hausnummer`
-                          )}
-                          {item(
-                            "Postfach",
-                            `eigentuemer.person.${
-                              index + 1
-                            }.vertreter.adresse.postfach`
-                          )}
-                          {item(
-                            "PLZ",
-                            `eigentuemer.person.${
-                              index + 1
-                            }.vertreter.adresse.plz`
-                          )}
-                          {item(
-                            "Ort",
-                            `eigentuemer.person.${
-                              index + 1
-                            }.vertreter.adresse.ort`
-                          )}
-                          {item(
-                            "Telefonnummer",
-                            `eigentuemer.person.${
-                              index + 1
-                            }.vertreter.adresse.telefonnummer`
+                          {stepItem(
+                            `eigentuemer.person.${index + 1}.vertreter.adresse`,
+                            [
+                              {
+                                label: "Adresse Gesetzliche:r Vertreter:in",
+                                path: "",
+                                resolver: resolveAdresse,
+                              },
+                              {
+                                label: "Telefonnummer",
+                                path: "telefonnummer",
+                              },
+                            ]
                           )}
                         </ul>
                       </div>
                     )}
-
-                    {item(
-                      "Anteil Zähler",
-                      `eigentuemer.person.${index + 1}.anteil.zaehler`
-                    )}
-                    {item(
-                      "Anteil Nenner",
-                      `eigentuemer.person.${index + 1}.anteil.nenner`
-                    )}
+                    {stepItem(`eigentuemer.person.${index + 1}.anteil`, [
+                      {
+                        label: "Anteil am Eigentum",
+                        path: "",
+                        resolver: resolveAnteilFraction,
+                      },
+                    ])}
                   </EnumerationFields>
                 );
               })}
