@@ -69,7 +69,7 @@
     "react-i18next": "^11.16.9",
     "react-images-viewer": "^1.7.1",
     "react-imask": "^6.4.2",
-    "remix-auth": "^3.2.1",
+    "remix-auth": "^3.2.2",
     "remix-auth-form": "^1.1.1",
     "remix-i18next": "^4.0.0",
     "tiny-invariant": "^1.2.0",
