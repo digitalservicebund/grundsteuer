@@ -5,7 +5,7 @@ describe("Logout", () => {
     cy.login();
     cy.visit("/formular/welcome");
     cy.url().should("include", "/formular/welcome");
-    cy.get("[data-testid=logout-button]:visible").click();
+    cy.get("[data-testid=logout-button]").first().click({ force: true });
     cy.url().should("include", "/abmelden/erfolgreich");
   });
 
@@ -13,7 +13,7 @@ describe("Logout", () => {
     cy.login();
     cy.visit("/formular/welcome");
     cy.url().should("include", "/formular/welcome");
-    cy.get("[data-testid=logout-button]:visible").click();
+    cy.get("[data-testid=logout-button]").first().click({ force: true });
     cy.url().should("include", "/abmelden/erfolgreich");
     cy.visit("/formular/welcome");
     cy.url().should("include", "/anmelden");
