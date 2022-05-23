@@ -24,7 +24,13 @@ import {
   StepFormData,
 } from "~/domain/model";
 import { zusammenfassung } from "~/domain/steps/zusammenfassung";
-import { Button, Headline, Spinner, StepFormField } from "~/components";
+import {
+  Button,
+  ContentContainer,
+  Headline,
+  Spinner,
+  StepFormField,
+} from "~/components";
 import { authenticator } from "~/auth.server";
 import { getFieldProps } from "~/util/getFieldProps";
 import {
@@ -314,7 +320,7 @@ export default function Zusammenfassung() {
 
   return (
     <>
-      <div className="pt-32 max-w-screen-md mx-auto w-1/2">
+      <ContentContainer size="md">
         <Headline>{i18n.headline}</Headline>
         {actionData?.previousStepsErrors && (
           <ErrorBar className="mb-32">
@@ -418,7 +424,7 @@ export default function Zusammenfassung() {
             {i18n.specifics.submitbutton}
           </Button>
         </Form>
-      </div>
+      </ContentContainer>
       {showSpinner && <Spinner />}
     </>
   );

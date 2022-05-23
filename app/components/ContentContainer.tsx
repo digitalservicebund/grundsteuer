@@ -9,6 +9,7 @@ export default function ContentContainer(props: {
   const cssClasses = classNames(
     {
       "sm:max-w-[412px]": props.size === "sm",
+      "sm:max-w-[630px]": props.size === "md",
       "max-w-screen-xl mx-auto px-16 md:px-32 lg:px-64": !props.size,
     },
     props.className
