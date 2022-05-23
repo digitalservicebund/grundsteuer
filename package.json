@@ -79,7 +79,7 @@
     "xstate": "^4.31.0"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.4.3",
+    "@remix-run/dev": "^1.5.1",
     "@remix-run/eslint-config": "^1.4.3",
     "@testing-library/dom": "^8.13.0",
     "@testing-library/jest-dom": "^5.16.4",
@@ -105,7 +105,7 @@
     "copy-env-cli": "^1.0.0",
     "cypress": "^9.6.0",
     "esbuild": "^0.14.36",
-    "eslint": "^8.14.0",
+    "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
     "fishery": "^2.2.2",
     "husky": "^8.0.1",
