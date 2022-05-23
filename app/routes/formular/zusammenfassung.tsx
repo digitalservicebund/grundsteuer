@@ -329,96 +329,95 @@ export default function Zusammenfassung() {
           );
         })}
         {actionData?.errors && <ErrorBarStandard />}
-        <ZusammenfassungAccordion
-          {...{
-            allData,
-            i18n,
-            errors: previousStepsErrors,
-            freitextFieldProps: fieldProps[0],
-          }}
-        />
-        <div className="">
-          <Form method="post" className="mb-16">
-            <CsrfToken />
-            {!isIdentified && (
-              <div className="bg-yellow-200 mt-32 p-32 flex flex-row">
-                <div className="rounded-placeholder bg-yellow-400 mr-8">
-                  <Attention className="min-w-[22px]" />
-                </div>
 
-                <div className="flex flex-col">
-                  <h2 className="mb-8 text-18">{i18n.specifics.fscHeading}</h2>
-                  <p className="mb-24">{i18n.specifics.fscExplanation}</p>
-                  <Button
-                    look="tertiary"
-                    to="/fsc/"
-                    className="text-center w-fit"
-                  >
-                    {i18n.specifics.fscLinkText}
-                  </Button>
-                </div>
+        <Form method="post" className="mb-16">
+          <CsrfToken />
+          <ZusammenfassungAccordion
+            {...{
+              allData,
+              i18n,
+              errors: previousStepsErrors,
+              freitextFieldProps: fieldProps[0],
+            }}
+          />
+          {!isIdentified && (
+            <div className="bg-yellow-200 mt-32 p-32 flex flex-row">
+              <div className="rounded-placeholder bg-yellow-400 mr-8">
+                <Attention className="min-w-[22px]" />
               </div>
-            )}
 
-            <h2 className="mb-24 mt-80 text-24">
-              {i18n.specifics.confirmationHeading}
-            </h2>
-            <p className="mb-32">{i18n.specifics.confirmationText}</p>
-            <div className="bg-white p-16 mb-16">
-              <StepFormField {...fieldProps[1]}>
-                {i18n.fields.confirmCompleteCorrect.label}
-              </StepFormField>
-            </div>
-            <div className="bg-white p-16 mb-16">
-              <StepFormField {...{ ...fieldProps[2] }}>
-                <Trans
-                  components={{
-                    dataPrivacyLink: (
-                      <a
-                        href="/datenschutz"
-                        target="_blank"
-                        className="font-bold underline"
-                      />
-                    ),
-                    bmfDataPrivacyLink: (
-                      <a
-                        href="https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Weitere_Steuerthemen/Abgabenordnung/2020-07-01-Korrektur-Allgemeine-Informationen-Datenschutz-Grundverordnung-Steuerverwaltung-anlage-1.pdf?__blob=publicationFile&v=3"
-                        target="_blank"
-                        className="font-bold underline"
-                      />
-                    ),
-                  }}
+              <div className="flex flex-col">
+                <h2 className="mb-8 text-18">{i18n.specifics.fscHeading}</h2>
+                <p className="mb-24">{i18n.specifics.fscExplanation}</p>
+                <Button
+                  look="tertiary"
+                  to="/fsc/"
+                  className="text-center w-fit"
                 >
-                  {i18n.fields.confirmDataPrivacy.label}
-                </Trans>
-              </StepFormField>
+                  {i18n.specifics.fscLinkText}
+                </Button>
+              </div>
             </div>
-            <div className="bg-white p-16 mb-80">
-              <StepFormField {...fieldProps[3]}>
-                <Trans
-                  components={{
-                    termsOfUseLink: (
-                      <a
-                        href="/nutzungsbedingungen"
-                        target="_blank"
-                        className="font-bold underline"
-                      />
-                    ),
-                  }}
-                >
-                  {i18n.fields.confirmTermsOfUse.label}
-                </Trans>
-              </StepFormField>
-            </div>
-            <Button
-              id="nextButton"
-              disabled={!isIdentified}
-              iconRight={<Send className="h-[10px]" />}
-            >
-              {i18n.specifics.submitbutton}
-            </Button>
-          </Form>
-        </div>
+          )}
+
+          <h2 className="mb-24 mt-80 text-24">
+            {i18n.specifics.confirmationHeading}
+          </h2>
+          <p className="mb-32">{i18n.specifics.confirmationText}</p>
+          <div className="bg-white p-16 mb-16">
+            <StepFormField {...fieldProps[1]}>
+              {i18n.fields.confirmCompleteCorrect.label}
+            </StepFormField>
+          </div>
+          <div className="bg-white p-16 mb-16">
+            <StepFormField {...{ ...fieldProps[2] }}>
+              <Trans
+                components={{
+                  dataPrivacyLink: (
+                    <a
+                      href="/datenschutz"
+                      target="_blank"
+                      className="font-bold underline"
+                    />
+                  ),
+                  bmfDataPrivacyLink: (
+                    <a
+                      href="https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Weitere_Steuerthemen/Abgabenordnung/2020-07-01-Korrektur-Allgemeine-Informationen-Datenschutz-Grundverordnung-Steuerverwaltung-anlage-1.pdf?__blob=publicationFile&v=3"
+                      target="_blank"
+                      className="font-bold underline"
+                    />
+                  ),
+                }}
+              >
+                {i18n.fields.confirmDataPrivacy.label}
+              </Trans>
+            </StepFormField>
+          </div>
+          <div className="bg-white p-16 mb-80">
+            <StepFormField {...fieldProps[3]}>
+              <Trans
+                components={{
+                  termsOfUseLink: (
+                    <a
+                      href="/nutzungsbedingungen"
+                      target="_blank"
+                      className="font-bold underline"
+                    />
+                  ),
+                }}
+              >
+                {i18n.fields.confirmTermsOfUse.label}
+              </Trans>
+            </StepFormField>
+          </div>
+          <Button
+            id="nextButton"
+            disabled={!isIdentified}
+            iconRight={<Send className="h-[10px]" />}
+          >
+            {i18n.specifics.submitbutton}
+          </Button>
+        </Form>
       </div>
       {showSpinner && <Spinner />}
     </>
