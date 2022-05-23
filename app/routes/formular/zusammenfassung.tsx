@@ -24,13 +24,7 @@ import {
   StepFormData,
 } from "~/domain/model";
 import { zusammenfassung } from "~/domain/steps/zusammenfassung";
-import {
-  Button,
-  Checkbox,
-  Headline,
-  Spinner,
-  StepFormField,
-} from "~/components";
+import { Button, Checkbox, Headline, Spinner } from "~/components";
 import { authenticator } from "~/auth.server";
 import { getFieldProps } from "~/util/getFieldProps";
 import {
@@ -60,6 +54,7 @@ import Attention from "~/components/icons/mui/Attention";
 import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { getSession } from "~/session.server";
 import { Trans } from "react-i18next";
+import ErrorBarStandard from "~/components/ErrorBarStandard";
 
 type LoaderData = {
   formData: StepFormData;
@@ -319,14 +314,21 @@ export default function Zusammenfassung() {
 
   return (
     <>
-      {actionData?.previousStepsErrors && (
-        <ErrorBar>{i18n.specifics.errorsInPreviousSteps}</ErrorBar>
-      )}
-      {ericaErrors.map((ericaError, index) => {
-        return <ErrorBar key={index}>{ericaError}</ErrorBar>;
-      })}
       <div className="pt-32 max-w-screen-md mx-auto w-1/2">
         <Headline>{i18n.headline}</Headline>
+        {actionData?.previousStepsErrors && (
+          <ErrorBar className="mb-32">
+            {i18n.specifics.errorsInPreviousSteps}
+          </ErrorBar>
+        )}
+        {ericaErrors.map((ericaError, index) => {
+          return (
+            <ErrorBar key={index} className="mb-32">
+              {ericaError}
+            </ErrorBar>
+          );
+        })}
+        {actionData?.errors && <ErrorBarStandard />}
         <ZusammenfassungAccordion
           {...{
             allData,

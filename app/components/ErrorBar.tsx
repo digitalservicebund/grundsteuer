@@ -10,7 +10,7 @@ export default function ErrorBar(props: {
   return (
     <div
       className={classNames(
-        "bg-red-200 border-l-[16px] border-l-red-900 pl-16 py-16 mb-8 flex flex-row",
+        "bg-red-200 border-l-[8px] border-l-red-900 pl-16 py-16 mb-8 flex flex-row",
         props.className
       )}
     >

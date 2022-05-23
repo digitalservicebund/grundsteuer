@@ -26,6 +26,7 @@ import { EigentuemerPersonAnteilFields } from "~/domain/steps/eigentuemer/person
 import { StepFormField } from "~/components";
 import { StepFormFieldProps } from "~/components/form/StepFormField";
 import Paragraph from "~/components/icons/mui/Paragraph";
+import ExclamationMarkFilled from "~/components/icons/mui/ExclamationMarkFilled";
 
 const resolveJaNein = (value: string | undefined) => {
   if (value === "true") {
@@ -369,9 +370,15 @@ export default function ZusammenfassungAccordion({
 
       if (!displayValue && !error) return undefined;
       return (
-        <li className={classNames({ "mb-16": index != fieldItems.length - 1 })}>
+        <li
+          className={classNames({
+            "mb-16": index != fieldItems.length - 1,
+            "text-red-800": error,
+          })}
+        >
           <dl>
-            <dt className="font-bold block uppercase text-10 mb-4">
+            <dt className="flex flex-row items-center font-bold block uppercase text-10 mb-4">
+              {error && <ExclamationMarkFilled className="mr-10" />}
               {fieldItem.label}
             </dt>
             <dd className="block">{error ? error : displayValue}</dd>
