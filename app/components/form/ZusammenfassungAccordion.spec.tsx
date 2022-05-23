@@ -14,9 +14,24 @@ describe("ZusammenfassungAccordion component", () => {
       },
     } as unknown as I18nObject,
     errors: undefined,
+    freitextFieldProps: {
+      name: "freitext",
+      i18n: {
+        label: "Freitext",
+      },
+      definition: {},
+    },
   };
 
   describe("with no errors set", () => {
+    it("should display freitext field", () => {
+      render(<ZusammenfassungAccordion {...defaultProps} />);
+
+      expect(screen.getByText("Ergänzende Angaben")).toBeInTheDocument();
+      screen.getByText("Ergänzende Angaben").click();
+      expect(screen.getByRole("textbox")).toBeInTheDocument();
+    });
+
     it("should display eigentuemer and grundstueck areas", () => {
       render(<ZusammenfassungAccordion {...defaultProps} />);
 

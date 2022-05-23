@@ -332,7 +332,7 @@ export default function Zusammenfassung() {
             allData,
             i18n,
             errors: previousStepsErrors,
-            zusammenfassungFieldProps: fieldProps[0],
+            freitextFieldProps: fieldProps[0],
           }}
         />
         <div className="">

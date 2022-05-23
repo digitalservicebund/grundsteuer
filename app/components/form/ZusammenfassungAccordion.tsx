@@ -23,6 +23,9 @@ import { calculateGroesse } from "~/erica/transformData";
 import { EigentuemerPersonPersoenlicheAngabenFields } from "~/domain/steps/eigentuemer/person/persoenlicheAngaben";
 import { EigentuemerPersonAdresseFields } from "~/domain/steps/eigentuemer/person/adresse";
 import { EigentuemerPersonAnteilFields } from "~/domain/steps/eigentuemer/person/anteil";
+import { StepFormField } from "~/components";
+import { StepFormFieldProps } from "~/components/form/StepFormField";
+import Paragraph from "~/components/icons/mui/Paragraph";
 
 const resolveJaNein = (value: string | undefined) => {
   if (value === "true") {
@@ -302,6 +305,7 @@ export type ZusammenfassungAccordionProps = {
   allData: GrundModel;
   i18n: I18nObject;
   errors?: PreviousStepsErrors;
+  freitextFieldProps: StepFormFieldProps;
 };
 
 type FieldResolver = (field: string | undefined) => string;
@@ -321,6 +325,7 @@ export default function ZusammenfassungAccordion({
   allData,
   i18n,
   errors,
+  freitextFieldProps,
 }: ZusammenfassungAccordionProps) {
   const editLink = (editUrl: string) => {
     return (
@@ -949,10 +954,23 @@ export default function ZusammenfassungAccordion({
     };
   };
 
+  const freitextAccordionItem = (): AccordionItem => {
+    return {
+      header: (
+        <div className="flex items-center">
+          <Paragraph className="mr-16" />
+          <h2 className="font-bold text-2xl mb-3">Ergänzende Angaben</h2>
+        </div>
+      ),
+      content: <StepFormField {...freitextFieldProps} />,
+    };
+  };
+
   const accordionItems = [
     grundstueckAccordionItem(),
     gebaeudeAccordionItem(),
     eigentuemerAccordionItem(),
+    freitextAccordionItem(),
   ].filter((i) => i !== undefined) as AccordionItem[];
 
   return <Accordion items={accordionItems} />;

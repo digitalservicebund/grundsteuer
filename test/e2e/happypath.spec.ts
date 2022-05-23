@@ -544,7 +544,8 @@ describe("Happy Path", () => {
     // ZUSAMMENFASSUNG
     cy.url().should("include", "/formular/zusammenfassung");
 
-    //cy.get("#freitext").clear().type(inputData.freitext);
+    cy.wait(1500).get("button").contains("Ergänzende Angaben").click();
+    cy.get("#freitext").clear().type(inputData.freitext);
 
     // unpack accordion items
     cy.wait(2500).get("button").contains("Grundstück").click();
