@@ -11,8 +11,10 @@ describe("/fsc", () => {
 
   describe("logged-in user", () => {
     beforeEach(() => {
-      cy.task("dbRemoveFsc", "foo@bar.com");
-      cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
+      cy.task("setUserIdentifiedAttribute", {
+        userEmail: "foo@bar.com",
+        identified: false,
+      });
       cy.login();
     });
 
@@ -24,11 +26,11 @@ describe("/fsc", () => {
 
   describe("identified user", () => {
     beforeEach(() => {
-      cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
-      cy.visit("/anmelden");
-      cy.get("[name=email]").type("identified-user@example.com");
-      cy.get("[name=password]").type("12345678");
-      cy.get("[data-testid=submit").click();
+      cy.task("setUserIdentifiedAttribute", {
+        userEmail: "foo@bar.com",
+        identified: true,
+      });
+      cy.login();
     });
 
     it("should redirect to /formular", () => {
