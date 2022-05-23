@@ -9,6 +9,10 @@ import {
   Radio,
   Select,
 } from "~/components";
+import RadioButtonBild from "~/components/form/RadioButtonBild";
+import unbebautImage from "~/assets/images/icon_unbebaut.svg";
+import baureifImage from "~/assets/images/icon_baureif.svg";
+import RadioWithImageGroup from "~/components/form/RadioWithImageGroup";
 
 export default function KitchenSinkForm() {
   return (
@@ -102,9 +106,44 @@ export default function KitchenSinkForm() {
         </Radio>
       </FormGroup>
       <FormGroup>
-        <Radio name="radio" value="radio_2">
+        <Radio
+          name="radio"
+          value="radio_2"
+          error="Sie müssen dieses Feld auswählen"
+        >
           Lorem ipsum 2
         </Radio>
+      </FormGroup>
+      <FormGroup>
+        <RadioButtonBild
+          name="radio-button-bild"
+          value="radio_bild_1"
+          image={unbebautImage}
+          imageAltText="Bild mit Haus"
+        >
+          Radio button with image
+        </RadioButtonBild>
+      </FormGroup>
+
+      <FormGroup>
+        <RadioWithImageGroup
+          name="radio-selection"
+          options={[
+            {
+              value: "First Radio button with image",
+              label: "First radio button label",
+              image: unbebautImage,
+              imageAltText: "Bild mit Haus",
+            },
+            {
+              value: "Second Radio button with image",
+              label:
+                "Second radio button label with a lot more text: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+              image: baureifImage,
+              imageAltText: "Bild mit Haus",
+            },
+          ]}
+        />
       </FormGroup>
 
       <ContentContainer size="sm" className="border border-black">
