@@ -130,11 +130,9 @@ describe("Zusammenfassung route", () => {
 
       cy.visit("formular/zusammenfassung");
       cy.get("button").contains("Grundstück").wait(100).click();
-      cy.get("dt").contains("Ort").parent().next().contains("Ändern").click();
-    });
-
-    it("should link to correct page", () => {
-      cy.url().should("include", "formular/grundstueck/adresse");
+      cy.get(
+        'a[href="formular/grundstueck/adresse?redirectToSummary=true"]'
+      ).click();
     });
 
     it("should point back to zusammenfassung", () => {

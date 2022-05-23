@@ -91,7 +91,7 @@ const resolveMiteigentum: FieldResolver = (value) => {
 };
 
 const resolveMiteigentumFraction: StepResolver = (value) => {
-  if (!value) return undefined;
+  if (!value || Object.keys(value).length == 0) return undefined;
   invariant(
     "wirtschaftlicheEinheitZaehler" in value,
     "Only use for miteigentumsanteil fields"
@@ -104,7 +104,7 @@ const resolveMiteigentumFraction: StepResolver = (value) => {
 };
 
 const resolveFlurstueckGroesse: StepResolver = (value) => {
-  if (!value) return undefined;
+  if (!value || Object.keys(value).length == 0) return undefined;
   invariant("groesseQm" in value, "Only use for groesse fields");
   return calculateGroesse({
     groesseHa: value.groesseHa || "",
@@ -143,8 +143,8 @@ const resolveBundesland = (value: string | undefined) => {
 };
 
 const resolveAdresse: StepResolver = (value) => {
-  if (!value) return undefined;
-  invariant("strasse" in value, "Only use for grundstueck fields");
+  if (!value || Object.keys(value).length == 0) return undefined;
+  invariant("ort" in value, "Only use for grundstueck fields");
   return (
     <div className="flex flex-col">
       <div>
@@ -172,7 +172,7 @@ const resolveBodenrichtwertAnzahl: FieldResolver = (value) => {
 };
 
 const resolveFlurstueckFraction: StepResolver = (value) => {
-  if (!value) return undefined;
+  if (!value || Object.keys(value).length == 0) return undefined;
   invariant("flurstueckZaehler" in value, "Only use for flur fields");
   return (
     value.flurstueckZaehler +
@@ -247,7 +247,7 @@ const resolveVerheiratet: FieldResolver = (value) => {
 };
 
 const resolvePersoenlicheAngaben: StepResolver = (value) => {
-  if (!value) return undefined;
+  if (!value || Object.keys(value).length == 0) return undefined;
   invariant("anrede" in value, "Only use for persoenlicheAngaben fields");
   return (
     <div className="flex flex-col">
@@ -271,9 +271,13 @@ const resolveGesetzlicherVertreter: FieldResolver = (value) => {
 };
 
 const resolveAnteilFraction: StepResolver = (value) => {
-  if (!value) return undefined;
+  if (!value || Object.keys(value).length == 0) return undefined;
   invariant("zaehler" in value, "Only use for flur fields");
   return value.zaehler + " / " + value.nenner;
+};
+
+const pathToStepUrl = (path: string): string => {
+  return `formular/${path.split(".").join("/")}`;
 };
 
 const EnumerationFields = ({
@@ -352,7 +356,7 @@ export default function ZusammenfassungAccordion({
     fieldItems: ItemProps[],
     isFirst?: boolean
   ): JSX.Element => {
-    const editUrl = `${pathToStep}?redirectToSummary=true`;
+    const editUrl = `${pathToStepUrl(pathToStep)}?redirectToSummary=true`;
 
     const fieldNodes = fieldItems.map((fieldItem, index) => {
       const completeFieldPath =
