@@ -5,6 +5,7 @@ import Textarea, { TextareaProps } from "./Textarea";
 import SteuerIdField from "./SteuerIdField";
 import Checkbox, { CheckboxProps } from "./Checkbox";
 import { I18nObjectField } from "~/i18n/getStepI18n";
+import { ReactNode } from "react";
 
 export type StepFormFieldProps = {
   name: string;
@@ -17,10 +18,11 @@ export type StepFormFieldProps = {
     htmlAttributes?: Record<string, string | number | boolean>;
   };
   error?: string;
+  children?: ReactNode;
 };
 
 const StepFormField = (props: StepFormFieldProps) => {
-  const { name, value, i18n, definition, error } = props;
+  const { name, value, i18n, definition, error, children } = props;
   const { type, options, defaultValue, htmlAttributes } = definition;
 
   const commonProps = {
@@ -69,7 +71,7 @@ const StepFormField = (props: StepFormFieldProps) => {
       help: i18n.help,
     };
 
-    return <Checkbox {...checkboxProps}>{label}</Checkbox>;
+    return <Checkbox {...checkboxProps}>{children || label}</Checkbox>;
   }
 
   if (type === "textarea") {

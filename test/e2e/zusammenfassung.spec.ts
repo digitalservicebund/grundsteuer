@@ -47,9 +47,9 @@ describe("Zusammenfassung route", () => {
 
     it("should not return errors with filled fields", () => {
       cy.visit("/formular/zusammenfassung");
-      cy.get("label[for=confirmCompleteCorrect]").click();
-      cy.get("label[for=confirmDataPrivacy]").click();
-      cy.get("label[for=confirmTermsOfUse]").click();
+      cy.get("label[for=confirmCompleteCorrect]").click("left");
+      cy.get("label[for=confirmDataPrivacy]").click("left");
+      cy.get("label[for=confirmTermsOfUse]").click("left");
       cy.get("#nextButton").click();
 
       cy.url().should("include", "/formular/zusammenfassung");
@@ -58,9 +58,9 @@ describe("Zusammenfassung route", () => {
 
     it("should show previous form errors with no data set", () => {
       cy.visit("/formular/zusammenfassung");
-      cy.get("label[for=confirmCompleteCorrect]").click();
-      cy.get("label[for=confirmDataPrivacy]").click();
-      cy.get("label[for=confirmTermsOfUse]").click();
+      cy.get("label[for=confirmCompleteCorrect]").click("left");
+      cy.get("label[for=confirmDataPrivacy]").click("left");
+      cy.get("label[for=confirmTermsOfUse]").click("left");
       cy.get("#nextButton").click();
 
       cy.url().should("include", "/formular/zusammenfassung");

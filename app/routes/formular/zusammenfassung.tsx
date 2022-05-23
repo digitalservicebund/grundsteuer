@@ -24,7 +24,7 @@ import {
   StepFormData,
 } from "~/domain/model";
 import { zusammenfassung } from "~/domain/steps/zusammenfassung";
-import { Button, Checkbox, Headline, Spinner } from "~/components";
+import { Button, Headline, Spinner, StepFormField } from "~/components";
 import { authenticator } from "~/auth.server";
 import { getFieldProps } from "~/util/getFieldProps";
 import {
@@ -365,12 +365,12 @@ export default function Zusammenfassung() {
             </h2>
             <p className="mb-32">{i18n.specifics.confirmationText}</p>
             <div className="bg-white p-16 mb-16">
-              <Checkbox {...fieldProps[1]}>
+              <StepFormField {...fieldProps[1]}>
                 {i18n.fields.confirmCompleteCorrect.label}
-              </Checkbox>
+              </StepFormField>
             </div>
             <div className="bg-white p-16 mb-16">
-              <Checkbox {...fieldProps[2]}>
+              <StepFormField {...{ ...fieldProps[2] }}>
                 <Trans
                   components={{
                     dataPrivacyLink: (
@@ -391,10 +391,10 @@ export default function Zusammenfassung() {
                 >
                   {i18n.fields.confirmDataPrivacy.label}
                 </Trans>
-              </Checkbox>
+              </StepFormField>
             </div>
             <div className="bg-white p-16 mb-80">
-              <Checkbox {...fieldProps[3]}>
+              <StepFormField {...fieldProps[3]}>
                 <Trans
                   components={{
                     termsOfUseLink: (
@@ -408,7 +408,7 @@ export default function Zusammenfassung() {
                 >
                   {i18n.fields.confirmTermsOfUse.label}
                 </Trans>
-              </Checkbox>
+              </StepFormField>
             </div>
             <Button
               id="nextButton"

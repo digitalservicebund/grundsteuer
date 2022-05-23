@@ -732,9 +732,9 @@ describe("Happy Path", () => {
     );
     */
 
-    cy.get("label[for=confirmCompleteCorrect]").click();
-    cy.get("label[for=confirmDataPrivacy]").click();
-    cy.get("label[for=confirmTermsOfUse]").click();
+    cy.get("label[for=confirmCompleteCorrect]").click("left");
+    cy.get("label[for=confirmDataPrivacy]").click("left");
+    cy.get("label[for=confirmTermsOfUse]").click("left");
 
     clickSubmitButton(cy);
     cy.wait(1000).contains("erfolgreich versendet", { timeout: 2000 });
