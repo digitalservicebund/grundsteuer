@@ -31,7 +31,7 @@
     "pre-commit": "npm install && run-s build test && lint-staged",
     "prepare": "is-ci || husky install",
     "start": "cross-env NODE_ENV=production node ./build/server.js",
-    "test": "jest --testPathPattern=/app/",
+    "test": "cross-env NODE_OPTIONS=--no-warnings jest --testPathPattern=/app/",
     "test:e2e": "start-server-and-test start http://localhost:3000 cypress",
     "test:integration": "cross-env INTEGRATION_TEST=1 jest --testPathPattern=/test/integration/ --runInBand",
     "cypress": "cypress run --browser chrome --headless",

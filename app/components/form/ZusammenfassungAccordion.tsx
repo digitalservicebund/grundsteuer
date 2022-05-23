@@ -375,6 +375,7 @@ export default function ZusammenfassungAccordion({
       if (!displayValue && !error) return undefined;
       return (
         <li
+          key={index}
           className={classNames({
             "mb-16": index != fieldItems.length - 1,
             "text-red-800": error,

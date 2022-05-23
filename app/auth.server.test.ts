@@ -72,7 +72,6 @@ describe("authenticator.isAuthenticated", () => {
           throwOnError: true,
         })
         .catch((response) => {
-          console.log(response);
           expect(response.status).toEqual(302);
           expect(response.headers.get("Location")).toEqual("/redirectionUrl");
         });
@@ -90,7 +89,6 @@ describe("authenticator.isAuthenticated", () => {
           throwOnError: true,
         })
         .catch((response) => {
-          console.log(response);
           expect(response.status).toEqual(302);
           expect(response.headers.get("Location")).toEqual("/redirectionUrl");
         });
