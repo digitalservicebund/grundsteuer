@@ -287,7 +287,7 @@ export default function FscBeantragen() {
         number="1"
         heading="Sie geben die Daten ein"
         text="Geben Sie Ihre Steuer-Identifikationsnummer und Ihr Geburtsdatum ein. Ihre Steuer-ID finden Sie zum Beispiel auf Ihren Steuerbescheiden, Lohnsteuerabrechnungen oder anderen Unterlagen vom Finanzamt."
-        className="mb-24"
+        className="mb-16"
       />
       <EnumeratedCard
         image={fscLetterImage}
@@ -295,7 +295,7 @@ export default function FscBeantragen() {
         number="2"
         heading="Sie bekommen einen Brief vom Finanzamt"
         text="Der Freischaltcode wird von Ihrem technischen Finanzamt als Brief an Ihre Meldeadresse versendet. Dies dauert in der Regel 7 bis 14 Tage. Sie können aber schon vor dem Erhalt des Codes Ihre Grundsteuererklärung ausfüllen."
-        className="mb-24"
+        className="mb-16"
       />
       <EnumeratedCard
         image={fscInputImage}

@@ -18,11 +18,11 @@ export const meta: MetaFunction = () => {
 export default function FscBeantragenErfolgreich() {
   return (
     <ContentContainer size="sm">
+      <BreadcrumbNavigation />
       <UebersichtStep
         imageSrc={erfolgImageMedium}
         smallImageSrc={erfolgImageSmall}
       >
-        <BreadcrumbNavigation />
         <Headline>Vielen Dank</Headline>
 
         <IntroText className="mb-80">
