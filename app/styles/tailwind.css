@@ -162,7 +162,8 @@
   .checkbox__input:focus + .checkbox__label:not(.has-error)::before {
     box-shadow: inset 0 0 0 4px #004b76;
   }
-  .checkbox__input:not(:focus-visible):focus + .checkbox__label:not(.has-error)::before {
+  .checkbox__input:not(:focus-visible):focus
+    + .checkbox__label:not(.has-error)::before {
     box-shadow: inset 0 0 0 2px #004b76;
   }
   .checkbox__input:focus-visible + .checkbox__label::before {
