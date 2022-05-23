@@ -1,5 +1,9 @@
-import { Button, FscButton, LogoutButton } from "~/components";
+import { useEffect, useState } from "react";
+import { useLocation } from "@remix-run/react";
+import { Button, LogoutButton } from "~/components";
 import EmailOutlinedIcon from "~/components/icons/mui/EmailOutlined";
+import DriveFileRenameOutlineIcon from "~/components/icons/mui/DriveFileRenameOutline";
+import NavigationLink from "./NavigationLink";
 
 export default function NavigationActions(props: {
   userIsIdentified?: boolean;
@@ -7,19 +11,37 @@ export default function NavigationActions(props: {
 }) {
   if (!props.userIsLoggedIn) return null;
 
+  const location = useLocation();
+  const [currentLocation, setCurrentLocation] = useState(location.pathname);
+
+  useEffect(() => {
+    setCurrentLocation(location.pathname);
+  }, [location]);
+
   return (
-    <div>
+    <div className="px-8 mb-32">
       <LogoutButton />
-      {!props.userIsIdentified && <FscButton />}
-      <Button
+
+      {!props.userIsIdentified && (
+        <NavigationLink
+          to="/fsc"
+          icon={
+            <DriveFileRenameOutlineIcon className="w-24 h-24 fill-blue-800" />
+          }
+          isAllCaps
+          isActive={!!currentLocation.match(/\/fsc\//)}
+        >
+          Freischaltcode
+        </NavigationLink>
+      )}
+      <NavigationLink
         to="/formular/zusammenfassung"
-        look="ghost"
-        size="small"
-        icon={<EmailOutlinedIcon />}
+        icon={<EmailOutlinedIcon className="w-24 h-24 fill-blue-800" />}
+        isAllCaps
+        isActive={!!currentLocation.match(/\/formular\/zusammenfassung/)}
       >
         Prüfen & Versenden
-      </Button>
-      <br />
+      </NavigationLink>
     </div>
   );
 }

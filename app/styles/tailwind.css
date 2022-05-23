@@ -123,6 +123,10 @@
     @apply outline-none;
   }
 
+  .navigation-link:focus:not(:focus-visible) {
+    @apply shadow-none;
+  }
+
   /* button-container */
   .button-container > * {
     @apply flex-grow;
@@ -293,7 +297,7 @@
 
   /* top-navigation */
   #top-navigation:checked ~ * .top-navigation__menu-button {
-    @apply bg-gray-200;
+    @apply bg-blue-200;
   }
 
   #top-navigation:checked ~ * .top-navigation__menu-icon {
