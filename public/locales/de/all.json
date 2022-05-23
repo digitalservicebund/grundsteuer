@@ -63,6 +63,10 @@
     "headline": "Datenschutzerklärung",
     "backButton": "Zur Startseite"
   },
+  "termsOfUse": {
+    "headline": "Nutzungsbedingungen",
+    "backButton": "Zur Startseite"
+  },
   "alt": {
     "angabenGrundbuchTitle": "Grundbuchauszug Titelseite",
     "angabenGrundbuchPage": "Grundbuchauszug Bestandsverzeichnis",
@@ -1292,15 +1296,15 @@
         "label": "Hiermit bestätige ich, dass die Angaben überprüft wurden und dass sie vollständig und richtig sind."
       },
       "confirmDataPrivacy": {
-        "label": "Ich habe die Datenschutzerklärung inklusive der Allgemeinen Informationen zur Umsetzung der datenschutzrechtlichen Vorgaben der Artikel 12 bis 14 der Datenschutz-Grundverordnung in der Steuerverwaltung zur Kenntnis genommen und akzeptiere diese."
+        "label": "Ich habe die <dataPrivacyLink>Datenschutzerklärung</dataPrivacyLink> inklusive der <bmfDataPrivacyLink>Allgemeinen Informationen zur Umsetzung der datenschutzrechtlichen Vorgaben der Artikel 12 bis 14 der Datenschutz-Grundverordnung in der Steuerverwaltung</bmfDataPrivacyLink> zur Kenntnis genommen und akzeptiere diese."
       },
       "confirmTermsOfUse": {
-        "label": "Ich habe die Nutzungsbedingungen gelesen und stimme ihnen zu."
+        "label": "Ich habe die <termsOfUseLink>Nutzungsbedingungen</termsOfUseLink> gelesen und stimme ihnen zu."
       }
     },
     "specifics": {
       "confirmationHeading": "Bestätigung und Versand an Ihre Finanzverwaltung",
-      "confirmationText": "Die Erklärung ist eine Erklärung zur Feststellung des Grundsteuerwerts im Sinne des § 228 Abs. 1 Satz 1 des Bewertungsgesetzes (BewG). Die mit der Feststellungserklärung angeforderten Daten werden aufgrund der §§ 149, 150 und 181 Absatz 2 AO sowie § 228 BewG erhoben. Die Angabe der Telefonnummer ist freiwillig. Informationen über die Verarbeitung personenbezogener Daten in der Steuerverwaltung und über Ihre Rechte nach der Datenschutz-Grundverordnung sowie über Ihre Ansprechpartner in Datenschutzfragen entnehmen Sie bitte dem allgemeinen Informationsschreiben der Finanzverwaltung. Dieses Informationsschreiben finden Sie unter www.finanzamt.de (unter der Rubrik „Datenschutz\") oder erhalten Sie bei Ihrem Finanzamt.",
+      "confirmationText": "Die Erklärung ist eine Erklärung zur Feststellung des Grundsteuerwerts im Sinne des § 228 Abs. 1 Satz 1 des Bewertungsgesetzes (BewG). Die mit der Feststellungserklärung angeforderten Daten werden aufgrund der §§ 149, 150 und 181 Absatz 2 AO sowie § 228 BewG erhoben. Die Angabe der Telefonnummer ist freiwillig.",
       "submitbutton": "Feststellungserklärung abschicken",
       "sectionUnfilled": "Bitte ergänzen",
       "fscHeading": "Sie haben noch keinen Freischaltcode eingegeben.",

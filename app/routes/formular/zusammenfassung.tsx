@@ -24,7 +24,13 @@ import {
   StepFormData,
 } from "~/domain/model";
 import { zusammenfassung } from "~/domain/steps/zusammenfassung";
-import { Button, Headline, Spinner, StepFormField } from "~/components";
+import {
+  Button,
+  Checkbox,
+  Headline,
+  Spinner,
+  StepFormField,
+} from "~/components";
 import { authenticator } from "~/auth.server";
 import { getFieldProps } from "~/util/getFieldProps";
 import {
@@ -53,6 +59,7 @@ import Send from "~/components/icons/mui/Send";
 import Attention from "~/components/icons/mui/Attention";
 import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { getSession } from "~/session.server";
+import { Trans } from "react-i18next";
 
 type LoaderData = {
   formData: StepFormData;
@@ -356,13 +363,50 @@ export default function Zusammenfassung() {
             </h2>
             <p className="mb-32">{i18n.specifics.confirmationText}</p>
             <div className="bg-white p-16 mb-16">
-              <StepFormField {...fieldProps[1]} />
+              <Checkbox {...fieldProps[1]}>
+                {i18n.fields.confirmCompleteCorrect.label}
+              </Checkbox>
             </div>
             <div className="bg-white p-16 mb-16">
-              <StepFormField {...fieldProps[2]} />
+              <Checkbox {...fieldProps[2]}>
+                <Trans
+                  components={{
+                    dataPrivacyLink: (
+                      <a
+                        href="/datenschutz"
+                        target="_blank"
+                        className="font-bold underline"
+                      />
+                    ),
+                    bmfDataPrivacyLink: (
+                      <a
+                        href="https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Weitere_Steuerthemen/Abgabenordnung/2020-07-01-Korrektur-Allgemeine-Informationen-Datenschutz-Grundverordnung-Steuerverwaltung-anlage-1.pdf?__blob=publicationFile&v=3"
+                        target="_blank"
+                        className="font-bold underline"
+                      />
+                    ),
+                  }}
+                >
+                  {i18n.fields.confirmDataPrivacy.label}
+                </Trans>
+              </Checkbox>
             </div>
             <div className="bg-white p-16 mb-80">
-              <StepFormField {...fieldProps[3]} />
+              <Checkbox {...fieldProps[3]}>
+                <Trans
+                  components={{
+                    termsOfUseLink: (
+                      <a
+                        href="/nutzungsbedingungen"
+                        target="_blank"
+                        className="font-bold underline"
+                      />
+                    ),
+                  }}
+                >
+                  {i18n.fields.confirmTermsOfUse.label}
+                </Trans>
+              </Checkbox>
             </div>
             <Button
               id="nextButton"
