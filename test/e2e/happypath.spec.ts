@@ -183,10 +183,6 @@ const inputData = {
 
 export const submitBtnSelector = "#nextButton";
 
-const clickSubmitButton = (cy: any) => {
-  cy.wait(50).get(submitBtnSelector).click().wait(500);
-};
-
 describe("Happy Path", () => {
   beforeEach(() => {
     cy.task("setUserIdentifiedAttribute", {
@@ -201,19 +197,17 @@ describe("Happy Path", () => {
   it("Enter data for two eigentuemer", () => {
     cy.login();
     cy.visit("/formular/welcome");
-    clickSubmitButton(cy);
-    cy.wait(1000).get("h1").contains("Grundstück");
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
+    cy.wait(500).get("h1").contains("Grundstück");
+    cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/typ");
     cy.get(`label[for=typ-${inputData.grundstueck.typ.typ}]`).click();
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
-    cy.wait(1000)
-      .get("h1")
-      .contains("Wie lautet die Adresse des Grundstücks?", {
-        timeout: 5000,
-      });
+    cy.get("h1").contains("Wie lautet die Adresse des Grundstücks?", {
+      timeout: 5000,
+    });
     cy.get("#strasse").clear().type(inputData.grundstueck.adresse.strasse);
     cy.get("#hausnummer")
       .clear()
@@ -224,23 +218,23 @@ describe("Happy Path", () => {
     cy.get("#plz").clear().type(inputData.grundstueck.adresse.plz);
     cy.get("#ort").clear().type(inputData.grundstueck.adresse.ort);
     cy.get("#bundesland").select(inputData.grundstueck.adresse.bundesland);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/steuernummer");
     cy.get("#steuernummer")
       .clear()
       .type(inputData.grundstueck.steuernummer.steuernummer);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/gemeinde");
     cy.get(
       `label[for=innerhalbEinerGemeinde-${inputData.grundstueck.gemeinde.innerhalbEinerGemeinde}]`
     ).click();
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/anzahl");
     cy.get("#anzahl").select(inputData.grundstueck.anzahl.anzahl);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/flurstueck/1/angaben");
     cy.get("#grundbuchblattnummer")
@@ -249,7 +243,7 @@ describe("Happy Path", () => {
     cy.get("#gemarkung")
       .clear()
       .type(inputData.grundstueck.flurstueck.angaben.gemarkung);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/flurstueck/1/flur");
     cy.get("#flur").clear().type(inputData.grundstueck.flurstueck.flur.flur);
@@ -259,7 +253,7 @@ describe("Happy Path", () => {
     cy.get("#flurstueckNenner")
       .clear()
       .type(inputData.grundstueck.flurstueck.flur.flurstueckNenner);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     cy.url().should(
       "include",
@@ -268,7 +262,7 @@ describe("Happy Path", () => {
     cy.get(
       `label[for=hasMiteigentum-${inputData.grundstueck.flurstueck.miteigentum.hasMiteigentum}]`
     ).click();
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     cy.url().should(
       "include",
@@ -286,7 +280,7 @@ describe("Happy Path", () => {
         inputData.grundstueck.flurstueck.miteigentumsanteil
           .wirtschaftlicheEinheitNenner
       );
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/flurstueck/1/groesse");
     cy.get("#groesseHa")
@@ -298,7 +292,7 @@ describe("Happy Path", () => {
     cy.get("#groesseQm")
       .clear()
       .type(inputData.grundstueck.flurstueck.groesse.groesseQm);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/flurstueck/2/angaben");
     cy.get("#grundbuchblattnummer")
@@ -307,7 +301,7 @@ describe("Happy Path", () => {
     cy.get("#gemarkung")
       .clear()
       .type(inputData.grundstueck.flurstueck.angaben.gemarkung);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/flurstueck/2/flur");
     cy.get("#flur").clear().type(inputData.grundstueck.flurstueck.flur.flur);
@@ -317,14 +311,14 @@ describe("Happy Path", () => {
     cy.get("#flurstueckNenner")
       .clear()
       .type(inputData.grundstueck.flurstueck.flur.flurstueckNenner);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     cy.url().should(
       "include",
       "/formular/grundstueck/flurstueck/2/miteigentum"
     );
     cy.get(`label[for=hasMiteigentum-false]`).click();
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/flurstueck/2/groesse");
     cy.get("#groesseHa")
@@ -336,76 +330,76 @@ describe("Happy Path", () => {
     cy.get("#groesseQm")
       .clear()
       .type(inputData.grundstueck.flurstueck.groesse.groesseQm);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/bodenrichtwertInfo");
-    cy.wait(1000).get("h1").contains("Bodenrichtwert");
-    clickSubmitButton(cy);
+    cy.wait(500).get("h1").contains("Bodenrichtwert");
+    cy.get(submitBtnSelector).click();
     cy.url().should("include", "/formular/grundstueck/bodenrichtwertEingabe");
     cy.get("#bodenrichtwert")
       .clear()
       .type(inputData.grundstueck.bodenrichtwert.bodenrichtwert);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.url().should("include", "/formular/grundstueck/bodenrichtwertAnzahl");
     cy.get("label[for=anzahl-1]").click();
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/gebaeude/uebersicht");
-    cy.wait(1000).get("h1").contains("Gebäude");
-    clickSubmitButton(cy);
+    cy.wait(500).get("h1").contains("Gebäude");
+    cy.get(submitBtnSelector).click();
     cy.get(`label[for=isAb1949-${inputData.gebaeude.ab1949.isAb1949}]`).click();
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get("#baujahr").clear().type(inputData.gebaeude.baujahr.baujahr);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get(
       `label[for=isKernsaniert-${inputData.gebaeude.kernsaniert.isKernsaniert}]`
     ).click();
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get("#kernsanierungsjahr")
       .clear()
       .type(inputData.gebaeude.kernsanierungsjahr.kernsanierungsjahr);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get(
       `label[for=hasAbbruchverpflichtung-${inputData.gebaeude.abbruchverpflichtung.hasAbbruchverpflichtung}]`
     ).click();
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get("#abbruchverpflichtungsjahr")
       .clear()
       .type(
         inputData.gebaeude.abbruchverpflichtungsjahr.abbruchverpflichtungsjahr
       );
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get("#wohnflaeche")
       .clear()
       .type(inputData.gebaeude.wohnflaeche.wohnflaeche);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get(
       `label[for=hasWeitereWohnraeume-${inputData.gebaeude.weitereWohnraeume.hasWeitereWohnraeume}]`
     ).click();
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get("#anzahl")
       .clear()
       .type(inputData.gebaeude.weitereWohnraeumeDetails.anzahl);
     cy.get("#flaeche")
       .clear()
       .type(inputData.gebaeude.weitereWohnraeumeDetails.flaeche);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get(
       `label[for=hasGaragen-${inputData.gebaeude.garagen.hasGaragen}]`
     ).click();
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get("#anzahlGaragen")
       .clear()
       .type(inputData.gebaeude.garagenAnzahl.anzahlGaragen);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/eigentuemer");
-    cy.wait(1000).get("h1").contains("Eigentümer:innen");
-    clickSubmitButton(cy);
+    cy.wait(500).get("h1").contains("Eigentümer:innen");
+    cy.get(submitBtnSelector).click();
     cy.get("#anzahl").select(inputData.eigentuemer.anzahl.anzahl);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get("label[for=areVerheiratet-true]").click();
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     // PERSON 1
     cy.get("#anrede").select(inputData.eigentuemer.person1.angaben.anrede);
     cy.get("#titel").clear().type(inputData.eigentuemer.person1.angaben.titel);
@@ -416,7 +410,7 @@ describe("Happy Path", () => {
     cy.get("#geburtsdatum")
       .clear()
       .type(inputData.eigentuemer.person1.angaben.geburtsdatum);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get("#strasse")
       .clear()
       .type(inputData.eigentuemer.person1.adresse.strasse);
@@ -428,13 +422,13 @@ describe("Happy Path", () => {
     cy.get("#telefonnummer")
       .clear()
       .type(inputData.eigentuemer.person1.adresse.telefonnummer);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get("#steuerId")
       .clear()
       .type(inputData.eigentuemer.person1.steuerId.steuerId);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get("label[for=hasVertreter-true]").click();
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get("#anrede").select(
       inputData.eigentuemer.person1.vertreter.name.anrede
     );
@@ -447,7 +441,7 @@ describe("Happy Path", () => {
     cy.get("#vorname")
       .clear()
       .type(inputData.eigentuemer.person1.vertreter.name.vorname);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get("#strasse")
       .clear()
       .type(inputData.eigentuemer.person1.vertreter.adresse.strasse);
@@ -463,13 +457,13 @@ describe("Happy Path", () => {
     cy.get("#telefonnummer")
       .clear()
       .type(inputData.eigentuemer.person1.vertreter.adresse.telefonnummer);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.url().should("include", "/formular/eigentuemer/person/1/anteil");
     cy.get("#zaehler")
       .clear()
       .type(inputData.eigentuemer.person1.anteil.zaehler);
     cy.get("#nenner").clear().type(inputData.eigentuemer.person1.anteil.nenner);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     // PERSON 2
     cy.url().should("include", "/formular/eigentuemer/person/2/");
@@ -482,7 +476,7 @@ describe("Happy Path", () => {
     cy.get("#geburtsdatum")
       .clear()
       .type(inputData.eigentuemer.person2.angaben.geburtsdatum);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get("#strasse")
       .clear()
       .type(inputData.eigentuemer.person2.adresse.strasse);
@@ -494,22 +488,22 @@ describe("Happy Path", () => {
     cy.get("#telefonnummer")
       .clear()
       .type(inputData.eigentuemer.person2.adresse.telefonnummer);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get("#steuerId")
       .clear()
       .type(inputData.eigentuemer.person2.steuerId.steuerId);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get("label[for=hasVertreter-false]").click();
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.url().should("include", "/formular/eigentuemer/person/2/anteil");
     cy.get("#zaehler")
       .clear()
       .type(inputData.eigentuemer.person2.anteil.zaehler);
     cy.get("#nenner").clear().type(inputData.eigentuemer.person2.anteil.nenner);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     cy.get("label[for=hasEmpfangsvollmacht-true]").click();
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get("#anrede").select(
       inputData.eigentuemer.empfangsbevollmaechtigter.name.anrede
     );
@@ -519,7 +513,7 @@ describe("Happy Path", () => {
     cy.get("#vorname")
       .clear()
       .type(inputData.eigentuemer.empfangsbevollmaechtigter.name.vorname);
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.get("#strasse")
       .clear()
       .type(inputData.eigentuemer.empfangsbevollmaechtigter.adresse.strasse);
@@ -537,9 +531,9 @@ describe("Happy Path", () => {
       .type(
         inputData.eigentuemer.empfangsbevollmaechtigter.adresse.telefonnummer
       );
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
     cy.wait(1500).get("h1").contains("fast fertig");
-    clickSubmitButton(cy);
+    cy.get(submitBtnSelector).click();
 
     // ZUSAMMENFASSUNG
     cy.url().should("include", "/formular/zusammenfassung");
@@ -548,7 +542,7 @@ describe("Happy Path", () => {
     cy.get("#freitext").clear().type(inputData.freitext);
 
     // unpack accordion items
-    cy.wait(2500).get("button").contains("Grundstück").click();
+    cy.wait(1500).get("button").contains("Grundstück").click();
     cy.get("#grundstueck-area")
       .contains("Art des Grundstücks")
       .next()
@@ -736,8 +730,8 @@ describe("Happy Path", () => {
     cy.get("label[for=confirmDataPrivacy]").click("left");
     cy.get("label[for=confirmTermsOfUse]").click("left");
 
-    clickSubmitButton(cy);
-    cy.wait(1000).contains("erfolgreich versendet", { timeout: 2000 });
+    cy.get(submitBtnSelector).click();
+    cy.contains("erfolgreich versendet", { timeout: 2000 });
     cy.contains("et036422myggf53jxax8uy92dmvkete8");
 
     cy.get("a")
