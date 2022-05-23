@@ -742,19 +742,19 @@
         "typ": {
           "options": {
             "einfamilienhaus": {
-              "label": "Einfamilienhaus"
+              "label": "Grundstück mit Einfamilienhaus"
             },
             "zweifamilienhaus": {
-              "label": "Zweifamilienhaus"
+              "label": "Grundstück mit Zweifamilienhaus"
             },
             "wohnungseigentum": {
-              "label": "Wohnungseigentum"
+              "label": "Eigentumswohnung"
             },
             "baureif": {
-              "label": "Baureif"
+              "label": "Unbebautes baureifes Land"
             },
             "abweichendeEntwicklung": {
-              "label": "Abweichende Entwicklung"
+              "label": "Unbebautes Grundstück in einem abweichenden Entwicklungszustand"
             }
           }
         }

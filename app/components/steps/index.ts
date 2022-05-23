@@ -17,6 +17,8 @@ import { EmpfangsbevollmaechtigterNameHelp } from "~/components/steps/eigentueme
 import EigentuemerUebersicht from "~/components/steps/eigentuemer/EigentuemerUebersicht";
 import EigentuemerAbschluss from "~/components/steps/eigentuemer/EigentuemerAbschluss";
 import { BruchteilsgemeinschaftHelp } from "~/components/steps/eigentuemer/BruchteilsgemeinschaftHelp";
+import GrundstueckTyp from "~/components/steps/grundstueck/GrundstueckTyp";
+import BodenrichtwertAnzahl from "~/components/steps/grundstueck/BodenrichtwertAnzahl";
 
 export { Default as FallbackStepComponent };
 
@@ -32,7 +34,9 @@ export default {
   },
   grundstueck: {
     uebersicht: GrundstueckUebersicht,
+    typ: GrundstueckTyp,
     bodenrichtwertInfo: BodenrichtwertInfo,
+    bodenrichtwertAnzahl: BodenrichtwertAnzahl,
     flurstueck: {
       angaben: FlurstueckAngaben,
       flur: FlurstueckFlur,

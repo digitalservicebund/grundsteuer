@@ -3,6 +3,12 @@ import Details from "../Details";
 import QuestionMark from "~/components/icons/mui/QuestionMark";
 import FieldError from "./FieldError";
 import RadioButtonBild from "~/components/form/RadioButtonBild";
+import {
+  StepDefinitionField,
+  StepDefinitionFieldWithOptions,
+} from "~/domain/steps";
+import { I18nObjectField } from "~/i18n/getStepI18n";
+import invariant from "tiny-invariant";
 
 export type RadioWithImageGroupProps = {
   name: string;
@@ -113,3 +119,47 @@ export default function RadioWithImageGroup(props: RadioWithImageGroupProps) {
 
   return radioGroupComponent;
 }
+export const extractRadioWithImageGroupProps = (
+  fieldProps: {
+    name: string;
+    definition: StepDefinitionField;
+    error: string | undefined;
+    value: any;
+    i18n: I18nObjectField;
+  },
+  imagesAndAltTexts: { image: string; imageAltText: string }[]
+) => {
+  const commonProps = {
+    name: fieldProps.name,
+    label: fieldProps.i18n.label,
+    key: fieldProps.name,
+    defaultValue: fieldProps.value,
+    error: fieldProps.error,
+    ...fieldProps.definition.htmlAttributes,
+  };
+
+  const options = (fieldProps.definition as StepDefinitionFieldWithOptions)
+    .options;
+  const optionsWithImages = [];
+
+  invariant(
+    options.length <= imagesAndAltTexts.length,
+    "Expected at least on image per option to exist"
+  );
+  for (let i = 0; i < options.length; ++i) {
+    const option = options[i];
+    const image = imagesAndAltTexts[i];
+    optionsWithImages.push({ ...option, ...image });
+  }
+  const optionsWithLabelsAndHelp = optionsWithImages.map((option) => {
+    return {
+      ...option,
+      label: fieldProps.i18n.options?.[option.value].label || option.value,
+      help: fieldProps.i18n.options?.[option.value]?.help,
+    };
+  });
+  return {
+    ...commonProps,
+    options: optionsWithLabelsAndHelp,
+  };
+};
