@@ -19,7 +19,7 @@ describe("Zusammenfassung route", () => {
 
   it("should display the title", () => {
     cy.visit("/formular/zusammenfassung");
-    cy.get("h1").contains("Bitte überprüfen Sie Ihre Angaben vor dem Versand");
+    cy.contains("h1", "Bitte überprüfen Sie Ihre Angaben vor dem Versand");
   });
 
   describe("identified user", () => {
@@ -87,7 +87,7 @@ describe("Zusammenfassung route", () => {
       });
 
       it("should contain link and go to /fsc page on click", () => {
-        cy.get("a").contains("Zum Bereich Freischaltcode").click();
+        cy.contains("a", "Zum Bereich Freischaltcode").click();
         cy.url().should("include", "/fsc");
       });
 
@@ -129,7 +129,7 @@ describe("Zusammenfassung route", () => {
       cy.url().should("not.include", "formular/zusammenfassung");
 
       cy.visit("formular/zusammenfassung");
-      cy.get("button").contains("Grundstück").wait(100).click();
+      cy.contains("button", "Grundstück").wait(100).click();
       cy.get(
         'a[href="formular/grundstueck/adresse?redirectToSummary=true"]'
       ).click();
@@ -141,7 +141,7 @@ describe("Zusammenfassung route", () => {
     });
 
     it("should set correct text on next button", () => {
-      cy.get("#nextButton").contains("Übernehmen & Zur Prüfseite");
+      cy.contains("#nextButton", "Übernehmen & Zur Prüfseite");
     });
 
     it("should execute validations", () => {

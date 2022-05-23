@@ -198,16 +198,14 @@ describe("Happy Path", () => {
     cy.login();
     cy.visit("/formular/welcome");
     cy.get(submitBtnSelector).click();
-    cy.wait(500).get("h1").contains("Grundstück");
+    cy.contains("h1", "Grundstück");
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/typ");
     cy.get(`label[for=typ-${inputData.grundstueck.typ.typ}]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.get("h1").contains("Wie lautet die Adresse des Grundstücks?", {
-      timeout: 5000,
-    });
+    cy.contains("h1", "Wie lautet die Adresse des Grundstücks?");
     cy.get("#strasse").clear().type(inputData.grundstueck.adresse.strasse);
     cy.get("#hausnummer")
       .clear()
@@ -333,7 +331,7 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/bodenrichtwertInfo");
-    cy.wait(500).get("h1").contains("Bodenrichtwert");
+    cy.contains("h1", "Bodenrichtwert");
     cy.get(submitBtnSelector).click();
     cy.url().should("include", "/formular/grundstueck/bodenrichtwertEingabe");
     cy.get("#bodenrichtwert")
@@ -345,7 +343,7 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/gebaeude/uebersicht");
-    cy.wait(500).get("h1").contains("Gebäude");
+    cy.contains("h1", "Gebäude");
     cy.get(submitBtnSelector).click();
     cy.get(`label[for=isAb1949-${inputData.gebaeude.ab1949.isAb1949}]`).click();
     cy.get(submitBtnSelector).click();
@@ -394,7 +392,7 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/eigentuemer");
-    cy.wait(500).get("h1").contains("Eigentümer:innen");
+    cy.contains("h1", "Eigentümer:innen");
     cy.get(submitBtnSelector).click();
     cy.get("#anzahl").select(inputData.eigentuemer.anzahl.anzahl);
     cy.get(submitBtnSelector).click();
@@ -532,23 +530,21 @@ describe("Happy Path", () => {
         inputData.eigentuemer.empfangsbevollmaechtigter.adresse.telefonnummer
       );
     cy.get(submitBtnSelector).click();
-    cy.wait(1500).get("h1").contains("fast fertig");
+    cy.contains("h1", "fast fertig");
     cy.get(submitBtnSelector).click();
 
     // ZUSAMMENFASSUNG
     cy.url().should("include", "/formular/zusammenfassung");
 
-    cy.wait(1500).get("button").contains("Ergänzende Angaben").click();
+    cy.contains("button", "Ergänzende Angaben").click();
     cy.get("#freitext").clear().type(inputData.freitext);
 
     // unpack accordion items
-    cy.wait(1500).get("button").contains("Grundstück").click();
-    cy.get("#grundstueck-area")
-      .contains("Art des Grundstücks")
-      .next()
-      .contains("Einfamilienhaus");
+    cy.contains("button", "Grundstück").click();
+    cy.contains("#grundstueck-area dt", "Art des Grundstücks");
+    cy.contains("#grundstueck-area dd", "Einfamilienhaus");
 
-    cy.get("button").contains("Gebäude").click();
+    cy.contains("button", "Gebäude").click();
     /*
     cy.get("#gebaeude-area")
       .contains("Bezugsfertig ab 1949")
@@ -582,11 +578,9 @@ describe("Happy Path", () => {
     );
     */
 
-    cy.get("button").contains("Eigentümer:innen").click();
-    cy.get("#eigentuemer-area")
-      .contains("Anzahl")
-      .next()
-      .contains(inputData.eigentuemer.anzahl.anzahl);
+    cy.contains("button", "Eigentümer:innen").click();
+    cy.contains("#eigentuemer-area dt", "Anzahl");
+    cy.contains("#eigentuemer-area dd", inputData.eigentuemer.anzahl.anzahl);
     /*
     cy.get("#eigentuemer-area").contains("Verheiratet").next().contains("Ja");
     cy.get("#person-0").contains("Anrede").next().contains("Frau");
@@ -731,18 +725,14 @@ describe("Happy Path", () => {
     cy.get("label[for=confirmTermsOfUse]").click("left");
 
     cy.get(submitBtnSelector).click();
-    cy.contains("erfolgreich versendet", { timeout: 2000 });
+    cy.contains("erfolgreich versendet", { timeout: 5000 });
     cy.contains("et036422myggf53jxax8uy92dmvkete8");
 
-    cy.get("a")
-      .contains("Transferticket")
-      .parent() // go back to a element instead of contained div
+    cy.contains("a", "Transferticket")
       .should("have.attr", "href")
       .and("include", "download/transferticket");
 
-    cy.get("a")
-      .contains("PDF")
-      .parent() // go back to a element instead of contained div
+    cy.contains("a", "PDF")
       .should("have.attr", "href")
       .and("include", "download/pdf");
   });
