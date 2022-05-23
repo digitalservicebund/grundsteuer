@@ -118,7 +118,9 @@ const handleFscActivationProgress = async (
       };
     } else {
       await deleteEricaRequestIdFscAktivieren(userData.email);
-      throw new Error(fscActivatedOrError?.errorType);
+      throw new Error(
+        `${fscActivatedOrError?.errorType}: ${fscActivatedOrError?.errorMessage}`
+      );
     }
   }
 };

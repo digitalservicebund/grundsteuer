@@ -116,7 +116,9 @@ export const loader: LoaderFunction = async ({ request, context }) => {
         };
       } else {
         await deleteEricaRequestIdFscBeantragen(user.email);
-        throw new Error(elsterRequestResultOrError?.errorType);
+        throw new Error(
+          `${elsterRequestResultOrError?.errorType}: ${elsterRequestResultOrError?.errorMessage}`
+        );
       }
     }
   }
