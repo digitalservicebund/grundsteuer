@@ -545,180 +545,28 @@ describe("Happy Path", () => {
     cy.contains("#grundstueck-area dd", "Einfamilienhaus");
 
     cy.contains("button", "Gebäude").click();
-    /*
     cy.get("#gebaeude-area")
-      .contains("Bezugsfertig ab 1949")
+      .contains("Auswahl Baujahr Gebäude")
       .next()
-      .contains("Ja");
-    cy.get("#gebaeude-area")
-      .contains("Baujahr")
-      .next()
-      .contains(inputData.gebaeude.baujahr.baujahr);
-    cy.get("#gebaeude-area").contains("Kernsaniert").next().contains("Ja");
-    cy.get("#gebaeude-area")
-      .contains("Jahr der Kernsanierung")
-      .next()
-      .contains(inputData.gebaeude.kernsanierungsjahr.kernsanierungsjahr);
-
-    /*
-    cy.contains("Abbruchverpflichtung liegt vor: Ja");
-    cy.contains(
-      `Jahr der Abbruchverpflichtung: ${inputData.gebaeude.abbruchverpflichtungsjahr.abbruchverpflichtungsjahr}`
-    );
-    cy.contains(`Wohnfläche: ${inputData.gebaeude.wohnflaeche.wohnflaeche} m2`);
-    cy.contains(`Weitere Wohnräume: Ja`);
-    cy.contains(
-      `Anzahl der weiteren Wohnräume: ${inputData.gebaeude.weitereWohnraeumeDetails.anzahl}`
-    );
-    cy.contains(
-      `Gesamtfläche der weiteren Wohnräume: ${inputData.gebaeude.weitereWohnraeumeDetails.flaeche} m2`
-    );
-    cy.contains(
-      `Anzahl Garagen: ${inputData.gebaeude.garagenAnzahl.anzahlGaragen}`
-    );
-    */
+      .contains("Nach 1949");
 
     cy.contains("button", "Eigentümer:innen").click();
-    cy.contains("#eigentuemer-area dt", "Anzahl");
-    cy.contains("#eigentuemer-area dd", inputData.eigentuemer.anzahl.anzahl);
-    /*
-    cy.get("#eigentuemer-area").contains("Verheiratet").next().contains("Ja");
-    cy.get("#person-0").contains("Anrede").next().contains("Frau");
-    /*
-    cy.get("#person-0").contains(
-      "Titel: " + inputData.eigentuemer.person1.angaben.titel
-    );
-    cy.get("#person-0").contains(
-      "Name: " + inputData.eigentuemer.person1.angaben.name
-    );
-    cy.get("#person-0").contains(
-      "Vorname: " + inputData.eigentuemer.person1.angaben.vorname
-    );
-    cy.get("#person-0").contains(
-      "Geburtsdatum: " + inputData.eigentuemer.person1.angaben.geburtsdatum
-    );
-    cy.get("#person-0").contains(
-      "Straße: " + inputData.eigentuemer.person1.adresse.strasse
-    );
-    cy.get("#person-0").contains(
-      "Hausnummer: " + inputData.eigentuemer.person1.adresse.hausnummer
-    );
-    cy.get("#person-0").contains(
-      "PLZ: " + inputData.eigentuemer.person1.adresse.plz
-    );
-    cy.get("#person-0").contains(
-      "Ort: " + inputData.eigentuemer.person1.adresse.ort
-    );
-    cy.get("#person-0").contains(
-      "Telefonnummer: " + inputData.eigentuemer.person1.adresse.telefonnummer
-    );
-    cy.get("#person-0").contains("Steuer-ID: 04 452 397 687");
-    cy.get("#person-0").contains("Gesetzlicher Vertreter: Ja");
-    cy.get("#person-0-vertreter").contains("Anrede: Herr");
-    cy.get("#person-0-vertreter").contains(
-      "Titel: " + inputData.eigentuemer.person1.vertreter.name.titel
-    );
-    cy.get("#person-0-vertreter").contains(
-      "Name: " + inputData.eigentuemer.person1.vertreter.name.name
-    );
-    cy.get("#person-0-vertreter").contains(
-      "Vorname: " + inputData.eigentuemer.person1.vertreter.name.vorname
-    );
-    cy.get("#person-0-vertreter").contains(
-      "Straße: " + inputData.eigentuemer.person1.vertreter.adresse.strasse
-    );
-    cy.get("#person-0-vertreter").contains(
-      "Hausnummer: " +
-        inputData.eigentuemer.person1.vertreter.adresse.hausnummer
-    );
-    cy.get("#person-0-vertreter").contains(
-      "PLZ: " + inputData.eigentuemer.person1.vertreter.adresse.plz
-    );
-    cy.get("#person-0-vertreter").contains(
-      "Ort: " + inputData.eigentuemer.person1.vertreter.adresse.ort
-    );
-    cy.get("#person-0-vertreter").contains(
-      "Telefonnummer: " +
-        inputData.eigentuemer.person1.vertreter.adresse.telefonnummer
-    );
-    cy.get("#person-0").contains(
-      "Anteil Zähler: " + inputData.eigentuemer.person1.anteil.zaehler
-    );
-    cy.get("#person-0").contains(
-      "Anteil Nenner: " + inputData.eigentuemer.person1.anteil.nenner
-    );
-
-    cy.get("#person-1").contains("Anrede: Keine");
-    cy.get("#person-1").contains(
-      "Titel: " + inputData.eigentuemer.person2.angaben.titel
-    );
-    cy.get("#person-1").contains(
-      "Name: " + inputData.eigentuemer.person2.angaben.name
-    );
-    cy.get("#person-1").contains(
-      "Vorname: " + inputData.eigentuemer.person2.angaben.vorname
-    );
-    cy.get("#person-1").contains(
-      "Geburtsdatum: " + inputData.eigentuemer.person2.angaben.geburtsdatum
-    );
-    cy.get("#person-1").contains(
-      "Straße: " + inputData.eigentuemer.person2.adresse.strasse
-    );
-    cy.get("#person-1").contains(
-      "Hausnummer: " + inputData.eigentuemer.person2.adresse.hausnummer
-    );
-    cy.get("#person-1").contains(
-      "PLZ: " + inputData.eigentuemer.person2.adresse.plz
-    );
-    cy.get("#person-1").contains(
-      "Ort: " + inputData.eigentuemer.person2.adresse.ort
-    );
-    cy.get("#person-1").contains(
-      "Telefonnummer: " + inputData.eigentuemer.person2.adresse.telefonnummer
-    );
-    cy.get("#person-1").contains("Steuer-ID: 02 293 417 683");
-    cy.get("#person-1").contains("Gesetzlicher Vertreter: Nein");
-    cy.get("#person-1").contains(
-      "Anteil Zähler: " + inputData.eigentuemer.person2.anteil.zaehler
-    );
-    cy.get("#person-1").contains(
-      "Anteil Nenner: " + inputData.eigentuemer.person2.anteil.nenner
-    );
-
-    cy.get("#eigentuemer-area")
-      .contains("Empfangsvollmacht")
+    cy.contains("#eigentuemer-area", "Anzahl")
       .next()
-      .contains("Ja");
-    cy.get("#empfangsbevollmaechtigter")
-      .contains("Anrede")
-      .next()
-      .contains("Frau");
-    /*
-    cy.get("#empfangsbevollmaechtigter").contains(
-      "Name: " + inputData.eigentuemer.empfangsbevollmaechtigter.name.name
+      .contains(inputData.eigentuemer.anzahl.anzahl);
+    cy.contains("#person-0", "Frau");
+    cy.contains(
+      "#person-0-vertreter",
+      inputData.eigentuemer.person1.vertreter.name.name
     );
-    cy.get("#empfangsbevollmaechtigter").contains(
-      "Vorname: " + inputData.eigentuemer.empfangsbevollmaechtigter.name.vorname
+    cy.contains(
+      "#person-1",
+      inputData.eigentuemer.person2.angaben.geburtsdatum
     );
-    cy.get("#empfangsbevollmaechtigter").contains(
-      "Straße: " +
-        inputData.eigentuemer.empfangsbevollmaechtigter.adresse.strasse
+    cy.contains(
+      "#empfangsbevollmaechtigter",
+      inputData.eigentuemer.empfangsbevollmaechtigter.adresse.strasse
     );
-    cy.get("#empfangsbevollmaechtigter").contains(
-      "Hausnummer: " +
-        inputData.eigentuemer.empfangsbevollmaechtigter.adresse.hausnummer
-    );
-    cy.get("#empfangsbevollmaechtigter").contains(
-      "PLZ: " + inputData.eigentuemer.empfangsbevollmaechtigter.adresse.plz
-    );
-    cy.get("#empfangsbevollmaechtigter").contains(
-      "Ort: " + inputData.eigentuemer.empfangsbevollmaechtigter.adresse.ort
-    );
-    cy.get("#empfangsbevollmaechtigter").contains(
-      "Telefonnummer: " +
-        inputData.eigentuemer.empfangsbevollmaechtigter.adresse.telefonnummer
-    );
-    */
 
     cy.get("label[for=confirmCompleteCorrect]").click("left");
     cy.get("label[for=confirmDataPrivacy]").click("left");
