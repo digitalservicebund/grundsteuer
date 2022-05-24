@@ -46,13 +46,8 @@ export const isFscRevoked = (
     "transferticket" in result,
     "expected transferticket to be in erica result"
   );
-  invariant(
-    "elsterRequestId" in result,
-    "expected elsterRequestId to be in erica result"
-  );
   return {
     transferticket: result.transferticket,
-    elsterRequestId: result.elsterRequestId,
   };
 };
 

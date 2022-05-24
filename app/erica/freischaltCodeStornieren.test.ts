@@ -65,7 +65,7 @@ describe("isFscRevoked", () => {
   it("should return correct result if successful ericaFreischaltCodeActivateResponse", () => {
     const ericaResult = {
       transferticket: "t1r2a3n4s5f6e7r",
-      elsterRequestId: "007",
+      taxIdNumber: "007",
     };
     const ericaResponseData: EricaResponse = {
       processStatus: "Success",
@@ -76,6 +76,8 @@ describe("isFscRevoked", () => {
 
     const result = isFscRevoked(ericaResponseData);
 
-    expect(result).toEqual(ericaResult);
+    expect(result).toEqual({
+      transferticket: "t1r2a3n4s5f6e7r",
+    });
   });
 });

@@ -27,7 +27,6 @@ type EricaFreischaltcodeAktivierenResponseData = {
 
 type EricaFreischaltcodeStornierenResponseData = {
   transferticket: string;
-  elsterRequestId: string;
 };
 
 type EricaSendenResponseData = {
