@@ -28,16 +28,6 @@ import { StepFormFieldProps } from "~/components/form/StepFormField";
 import Paragraph from "~/components/icons/mui/Paragraph";
 import ExclamationMarkFilled from "~/components/icons/mui/ExclamationMarkFilled";
 
-const resolveJaNein = (value: string | undefined) => {
-  if (value === "true") {
-    return "Ja";
-  }
-  if (value === "false") {
-    return "Nein";
-  }
-  return "";
-};
-
 const resolveAnrede = (value: string | undefined) => {
   if (value === "no_anrede") {
     return "Keine Anrede";
@@ -74,6 +64,17 @@ const resolveAbweichendeEntwicklung = (value: string | undefined) => {
       return "Rohbauland";
     case "bauerwartungsland":
       return "Bauerwartungsland";
+    default:
+      return "";
+  }
+};
+
+const resolveGemeinde: FieldResolver = (value) => {
+  switch (value) {
+    case "true":
+      return "Liegt innerhalb einer Gemeinde";
+    case "false":
+      return "Läuft über Gemeindegrenzen";
     default:
       return "";
   }
@@ -155,7 +156,6 @@ const resolveAdresse: StepResolver = (value) => {
       <div>
         {value.plz} {value.ort}
       </div>
-      <div>{"bundesland" in value && resolveBundesland(value.bundesland)}</div>
     </div>
   );
 };
@@ -276,6 +276,28 @@ const resolveAnteilFraction: StepResolver = (value) => {
   return value.zaehler + " / " + value.nenner;
 };
 
+const resolveBruchteilsgemeinschaft: FieldResolver = (value) => {
+  switch (value) {
+    case "true":
+      return "Vorgeschlagene Angaben übernehmen";
+    case "false":
+      return "Eigene Angaben machen";
+    default:
+      return "";
+  }
+};
+
+const resolveEmpfangsvollmacht: FieldResolver = (value) => {
+  switch (value) {
+    case "true":
+      return "Hat empfangsbevollmächtigte Person";
+    case "false":
+      return "Hat keine empfangsbevollmächtigte Person";
+    default:
+      return "";
+  }
+};
+
 const pathToStepUrl = (path: string): string => {
   return `formular/${path.split(".").join("/")}`;
 };
@@ -302,6 +324,20 @@ const EnumerationFields = ({
         </h3>
       </div>
       <ul className="ml-64">{children}</ul>
+    </div>
+  );
+};
+
+const IndentedFields = ({
+  id,
+  children,
+}: {
+  id: string;
+  children: ReactNode;
+}) => {
+  return (
+    <div className="ml-64" id={id}>
+      {children}
     </div>
   );
 };
@@ -395,7 +431,7 @@ export default function ZusammenfassungAccordion({
 
     return (
       <li>
-        {!isFirst && <hr className="my-16" />}
+        {!isFirst && <hr className="my-16 border-gray-400" />}
         <div className="mb-16 flex flex-row">
           <div className="flex flex-row w-full justify-between items-start">
             <ul>{fieldNodes}</ul>
@@ -404,38 +440,6 @@ export default function ZusammenfassungAccordion({
         </div>
       </li>
     );
-  };
-
-  const item = (
-    label: string,
-    path: string,
-    resolver?: FieldResolver | StepResolver,
-    explicitValue?: string
-  ): JSX.Element => {
-    let value = getStepData(allData, path);
-    const error = errors ? getStepData(errors, path) : undefined;
-    if (explicitValue) value = explicitValue;
-
-    const displayValue = resolver ? resolver(value) : value;
-
-    if (displayValue || error) {
-      return (
-        <li>
-          <div className="mb-16 flex flex-row">
-            <div className="flex flex-row w-full justify-between items-start">
-              <dl>
-                <dt className="font-bold block uppercase text-10 mb-4">
-                  {label}
-                </dt>
-                <dd className="block">{error ? error : displayValue}</dd>
-              </dl>
-            </div>
-          </div>
-        </li>
-      );
-    } else {
-      return <></>;
-    }
   };
 
   const sectionHeading = (label: string, dataKey: string) => {
@@ -490,6 +494,20 @@ export default function ZusammenfassungAccordion({
               ],
               true
             )}
+            {stepItem("grundstueck.abweichendeEntwicklung", [
+              {
+                label: "Zustand Abweichende Entwicklung",
+                path: "zustand",
+                resolver: resolveAbweichendeEntwicklung,
+              },
+            ])}
+            {stepItem("grundstueck.adresse", [
+              {
+                label: "Bundesland",
+                path: "bundesland",
+                resolver: resolveBundesland,
+              },
+            ])}
             {stepItem("grundstueck.adresse", [
               {
                 label: "Adresse",
@@ -499,22 +517,15 @@ export default function ZusammenfassungAccordion({
             ])}
             {stepItem("grundstueck.steuernummer", [
               {
-                label: "Steuernummer/Aktenzeichen",
+                label: "Steuernummer / Aktenzeichen",
                 path: "steuernummer",
-              },
-            ])}
-            {stepItem("grundstueck.abweichendeEntwicklung", [
-              {
-                label: "Abweichende Entwicklung",
-                path: "zustand",
-                resolver: resolveAbweichendeEntwicklung,
               },
             ])}
             {stepItem("grundstueck.gemeinde", [
               {
-                label: "Innerhalb einer Gemeinde",
+                label: "Gemeindezugehörigkeit",
                 path: "innerhalbEinerGemeinde",
-                resolver: resolveJaNein,
+                resolver: resolveGemeinde,
               },
             ])}
             {stepItem("grundstueck.anzahl", [
@@ -543,7 +554,7 @@ export default function ZusammenfassungAccordion({
                         `grundstueck.flurstueck.${index + 1}.angaben`,
                         [
                           {
-                            label: "Grundbuchblattnummer",
+                            label: "Nummer Grundbuchblatt",
                             path: "grundbuchblattnummer",
                           },
                           {
@@ -588,7 +599,7 @@ export default function ZusammenfassungAccordion({
                       )}
                       {stepItem(`grundstueck.flurstueck.${index + 1}.groesse`, [
                         {
-                          label: "Gesamtgröße",
+                          label: "Gesamtgrösße in Quadratmetern",
                           path: "",
                           resolver: resolveFlurstueckGroesse,
                         },
@@ -636,7 +647,7 @@ export default function ZusammenfassungAccordion({
               "gebaeude.ab1949",
               [
                 {
-                  label: "Auswahl Baujahr Gebäude",
+                  label: "Auswahl Baujahr",
                   path: "isAb1949",
                   resolver: resolveGebaudeAb1949,
                 },
@@ -645,7 +656,7 @@ export default function ZusammenfassungAccordion({
             )}
             {stepItem("gebaeude.baujahr", [
               {
-                label: "Baujahr Gebäude",
+                label: "Baujahr",
                 path: "baujahr",
               },
             ])}
@@ -700,11 +711,11 @@ export default function ZusammenfassungAccordion({
             ])}
             {stepItem("gebaeude.weitereWohnraeumeDetails", [
               {
-                label: "Anzahl weitere Wohnflächen",
+                label: "Auswahl Anzahl weitere Wohnflächen",
                 path: "anzahl",
               },
               {
-                label: "Gesamtgröße weiterer Wohnflächen in Quadratmetern",
+                label: "Gesamtgröße in Quadratmetern",
                 path: "flaeche",
               },
             ])}
@@ -783,7 +794,7 @@ export default function ZusammenfassungAccordion({
                           resolver: resolvePersoenlicheAngaben,
                         },
                         {
-                          label: "Geburstadatum",
+                          label: "Geburtsdatum",
                           path: "geburtsdatum",
                         },
                       ],
@@ -821,7 +832,7 @@ export default function ZusammenfassungAccordion({
                       ...allData,
                       personId: index + 1,
                     }) && (
-                      <div className="ml-64" id={personKey + "-vertreter"}>
+                      <IndentedFields id={personKey + "-vertreter"}>
                         <ul>
                           {stepItem(
                             `eigentuemer.person.${index + 1}.vertreter.name`,
@@ -849,7 +860,7 @@ export default function ZusammenfassungAccordion({
                             ]
                           )}
                         </ul>
-                      </div>
+                      </IndentedFields>
                     )}
                     {stepItem(`eigentuemer.person.${index + 1}.anteil`, [
                       {
@@ -864,101 +875,67 @@ export default function ZusammenfassungAccordion({
             </>
           )}
           <ul>
-            {item(
-              "Bruchteilsgemeinschaft Angaben übernehmen",
-              "eigentuemer.bruchteilsgemeinschaft.predefinedData",
-              resolveJaNein
-            )}
+            {stepItem("eigentuemer.bruchteilsgemeinschaft", [
+              {
+                label: "Auswahl Bruchteilsgemeinschaft",
+                path: "predefinedData",
+                resolver: resolveBruchteilsgemeinschaft,
+              },
+            ])}
             {conditions.customBruchteilsgemeinschaftData(allData) && (
-              <div className="bg-gray-300 mx-4" id={"bruchteilsgemeinschaft"}>
-                <h5 className="font-bold">Bruchteilsgemeinschaft Angaben</h5>
+              <IndentedFields id={"bruchteilsgemeinschaft"}>
                 <ul>
-                  {item(
-                    "Name",
-                    "eigentuemer.bruchteilsgemeinschaftangaben.angaben.name"
-                  )}
-                  {item(
-                    "Straße",
-                    "eigentuemer.bruchteilsgemeinschaftangaben.angaben.strasse"
-                  )}
-                  {item(
-                    "Hausnummer",
-                    "eigentuemer.bruchteilsgemeinschaftangaben.angaben.hausnummer"
-                  )}
-                  {item(
-                    "Postfach",
-                    "eigentuemer.bruchteilsgemeinschaftangaben.angaben.postfach"
-                  )}
-                  {item(
-                    "PLZ",
-                    "eigentuemer.bruchteilsgemeinschaftangaben.angaben.plz"
-                  )}
-                  {item(
-                    "Ort",
-                    "eigentuemer.bruchteilsgemeinschaftangaben.angaben.ort"
+                  {stepItem(
+                    "eigentuemer.bruchteilsgemeinschaftangaben.angaben",
+                    [
+                      {
+                        label: "Name Bruchteilsgemeinschaft",
+                        path: "name",
+                      },
+                      {
+                        label: "Adresse",
+                        path: "",
+                        resolver: resolveAdresse,
+                      },
+                    ]
                   )}
                 </ul>
-              </div>
+              </IndentedFields>
             )}
           </ul>
           <ul>
-            {item(
-              "Empfangsvollmacht",
-              "eigentuemer.empfangsvollmacht.hasEmpfangsvollmacht",
-              resolveJaNein
-            )}
+            {stepItem("eigentuemer.empfangsvollmacht", [
+              {
+                label: "Empfangsbevollmächtigte Person",
+                path: "hasEmpfangsvollmacht",
+                resolver: resolveEmpfangsvollmacht,
+              },
+            ])}
             {(conditions.hasEmpfangsbevollmaechtigter(allData) ||
               conditions.isBruchteilsgemeinschaft(allData)) && (
-              <div
-                className="bg-gray-300 mx-4"
-                id={"empfangsbevollmaechtigter"}
-              >
-                <h5 className="font-bold">Empfangsbevollmächtigte Person</h5>
+              <IndentedFields id="empfangsbevollmaechtigter">
                 <ul>
-                  {item(
-                    "Anrede",
-                    "eigentuemer.empfangsbevollmaechtigter.name.anrede",
-                    resolveAnrede
-                  )}
-                  {item(
-                    "Titel",
-                    "eigentuemer.empfangsbevollmaechtigter.name.titel"
-                  )}
-                  {item(
-                    "Name",
-                    "eigentuemer.empfangsbevollmaechtigter.name.name"
-                  )}
-                  {item(
-                    "Vorname",
-                    "eigentuemer.empfangsbevollmaechtigter.name.vorname"
-                  )}
-
-                  {item(
-                    "Straße",
-                    "eigentuemer.empfangsbevollmaechtigter.adresse.strasse"
-                  )}
-                  {item(
-                    "Hausnummer",
-                    "eigentuemer.empfangsbevollmaechtigter.adresse.hausnummer"
-                  )}
-                  {item(
-                    "Postfach",
-                    "eigentuemer.empfangsbevollmaechtigter.adresse.postfach"
-                  )}
-                  {item(
-                    "PLZ",
-                    "eigentuemer.empfangsbevollmaechtigter.adresse.plz"
-                  )}
-                  {item(
-                    "Ort",
-                    "eigentuemer.empfangsbevollmaechtigter.adresse.ort"
-                  )}
-                  {item(
-                    "Telefonnummer",
-                    "eigentuemer.empfangsbevollmaechtigter.adresse.telefonnummer"
-                  )}
+                  {stepItem("eigentuemer.empfangsbevollmaechtigter.name", [
+                    {
+                      label:
+                        "Persönliche Angaben Empfangsbevollmächtigte Person",
+                      path: "",
+                      resolver: resolvePersoenlicheAngaben,
+                    },
+                  ])}
+                  {stepItem("eigentuemer.empfangsbevollmaechtigter.adresse", [
+                    {
+                      label: "Adresse Empfangsbevollmächtigte Person",
+                      path: "",
+                      resolver: resolveAdresse,
+                    },
+                    {
+                      label: "Telefonnummer",
+                      path: "telefonnummer",
+                    },
+                  ])}
                 </ul>
-              </div>
+              </IndentedFields>
             )}
           </ul>
         </div>
