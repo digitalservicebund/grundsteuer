@@ -545,15 +545,12 @@ describe("Happy Path", () => {
     cy.contains("#grundstueck-area dd", "Einfamilienhaus");
 
     cy.contains("button", "Gebäude").click();
-    cy.get("#gebaeude-area")
-      .contains("Auswahl Baujahr Gebäude")
-      .next()
-      .contains("Nach 1949");
+    cy.contains("#gebaeude-area dt", "Auswahl Baujahr");
+    cy.contains("#gebaeude-area dd", "Nach 1949");
 
     cy.contains("button", "Eigentümer:innen").click();
-    cy.contains("#eigentuemer-area", "Anzahl")
-      .next()
-      .contains(inputData.eigentuemer.anzahl.anzahl);
+    cy.contains("#eigentuemer-area dt", "Anzahl");
+    cy.contains("#eigentuemer-area dd", inputData.eigentuemer.anzahl.anzahl);
     cy.contains("#person-0", "Frau");
     cy.contains(
       "#person-0-vertreter",
