@@ -130,9 +130,10 @@ describe("Zusammenfassung route", () => {
 
       cy.visit("formular/zusammenfassung");
       cy.contains("button", "Grundstück").wait(100).click();
-      cy.get(
-        'a[href="formular/grundstueck/adresse?redirectToSummary=true"]'
-      ).click();
+      cy.wait(100)
+        .get('a[href="formular/grundstueck/adresse?redirectToSummary=true"]')
+        .first()
+        .click();
     });
 
     it("should point back to zusammenfassung", () => {
