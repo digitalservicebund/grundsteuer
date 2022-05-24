@@ -1,0 +1,20 @@
+{
+  "discardResponseBodies": true,
+  "thresholds": {
+    "http_req_failed": ["rate<0.02"],
+    "http_req_duration": ["p(95)<1000"]
+  },
+  "scenarios": {
+    "default": {
+      "executor": "ramping-arrival-rate",
+      "startRate": 60,
+      "timeUnit": "1m",
+      "preAllocatedVUs": 5,
+      "maxVUs": 250,
+      "stages": [
+        { "target": 300, "duration": "20s" },
+        { "target": 300, "duration": "5m" }
+      ]
+    }
+  }
+}

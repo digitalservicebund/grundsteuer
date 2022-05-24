@@ -1,0 +1,5 @@
+{
+  "reporter": "Landing",
+  "screenshotOnRunFailure": false,
+  "video": false
+}
