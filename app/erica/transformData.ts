@@ -14,7 +14,10 @@ import { GebaeudeWohnflaecheFields } from "~/domain/steps/gebaeude/wohnflaeche";
 import { GebaeudeWohnflaechenFields } from "~/domain/steps/gebaeude/wohnflaechen";
 import _ from "lodash";
 import { EigentuemerBruchteilsgemeinschaftFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaft";
-import { EigentuemerBruchteilsgemeinschaftAngabenFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
+import {
+  EigentuemerBruchteilsgemeinschaftAdresseFields,
+  EigentuemerBruchteilsgemeinschaftAngabenFields,
+} from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
 import { EigentuemerPersonAdresseFields } from "~/domain/steps/eigentuemer/person/adresse";
 import { EigentuemerPersonAnteilFields } from "~/domain/steps/eigentuemer/person/anteil";
 
@@ -174,6 +177,23 @@ const transformPerson = (person: Person) => {
   };
 };
 
+export const transformBruchteilsgemeinschaftName = (
+  eigentuemerAdresse?: EigentuemerPersonAdresseFields
+) => {
+  return `Bruchteilsgem. ${eigentuemerAdresse?.strasse} ${eigentuemerAdresse?.hausnummer}`;
+};
+
+export const transformBruchteilsgemeinschaftAdresse = (
+  grundstueckAdresse?: GrundstueckAdresseFields
+) => {
+  return {
+    strasse: grundstueckAdresse?.strasse,
+    ...separateHausnummerAndZusatz(grundstueckAdresse?.hausnummer),
+    plz: grundstueckAdresse?.plz,
+    ort: grundstueckAdresse?.ort,
+  } as EigentuemerBruchteilsgemeinschaftAdresseFields;
+};
+
 const transformBruchteilsgemeinschaft = (
   bruchteilsgemeinschaft?: EigentuemerBruchteilsgemeinschaftFields,
   angaben?: EigentuemerBruchteilsgemeinschaftAngabenFields,
@@ -182,13 +202,8 @@ const transformBruchteilsgemeinschaft = (
 ) => {
   if (bruchteilsgemeinschaft?.predefinedData == "true") {
     return {
-      name: `Bruchteilsgem. ${eigentuemerAdresse?.strasse} ${eigentuemerAdresse?.hausnummer}`,
-      adresse: {
-        strasse: grundstueckAdresse?.strasse,
-        ...separateHausnummerAndZusatz(grundstueckAdresse?.hausnummer),
-        plz: grundstueckAdresse?.plz,
-        ort: grundstueckAdresse?.ort,
-      },
+      name: transformBruchteilsgemeinschaftName(eigentuemerAdresse),
+      adresse: transformBruchteilsgemeinschaftAdresse(grundstueckAdresse),
     };
   } else {
     return {

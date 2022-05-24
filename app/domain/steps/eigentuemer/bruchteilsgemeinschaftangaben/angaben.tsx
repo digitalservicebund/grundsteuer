@@ -1,10 +1,14 @@
 import { StepDefinition } from "~/domain/steps";
 
-export type EigentuemerBruchteilsgemeinschaftAngabenFields = {
+export interface EigentuemerBruchteilsgemeinschaftAngabenFields
+  extends EigentuemerBruchteilsgemeinschaftAdresseFields {
   name: string;
+}
+
+export type EigentuemerBruchteilsgemeinschaftAdresseFields = {
   strasse: string;
   hausnummer: string;
-  postfach: string;
+  postfach?: string;
   plz: string;
   ort: string;
 };

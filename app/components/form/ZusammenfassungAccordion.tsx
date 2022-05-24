@@ -19,7 +19,11 @@ import classNames from "classnames";
 import _ from "lodash";
 import invariant from "tiny-invariant";
 import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/grundstueck/flurstueck/miteigentumsanteil";
-import { calculateGroesse } from "~/erica/transformData";
+import {
+  calculateGroesse,
+  transformBruchteilsgemeinschaftAdresse,
+  transformBruchteilsgemeinschaftName,
+} from "~/erica/transformData";
 import { EigentuemerPersonPersoenlicheAngabenFields } from "~/domain/steps/eigentuemer/person/persoenlicheAngaben";
 import { EigentuemerPersonAdresseFields } from "~/domain/steps/eigentuemer/person/adresse";
 import { EigentuemerPersonAnteilFields } from "~/domain/steps/eigentuemer/person/anteil";
@@ -27,6 +31,7 @@ import { StepFormField } from "~/components";
 import { StepFormFieldProps } from "~/components/form/StepFormField";
 import Paragraph from "~/components/icons/mui/Paragraph";
 import ExclamationMarkFilled from "~/components/icons/mui/ExclamationMarkFilled";
+import { EigentuemerBruchteilsgemeinschaftAdresseFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
 
 const resolveAnrede = (value: string | undefined) => {
   if (value === "no_anrede") {
@@ -145,7 +150,7 @@ const resolveBundesland = (value: string | undefined) => {
 
 const resolveAdresse: StepResolver = (value) => {
   if (!value || Object.keys(value).length == 0) return undefined;
-  invariant("ort" in value, "Only use for grundstueck fields");
+  invariant("ort" in value, "Only use for adresse fields");
   return (
     <div className="flex flex-col">
       <div>
@@ -276,15 +281,25 @@ const resolveAnteilFraction: StepResolver = (value) => {
   return value.zaehler + " / " + value.nenner;
 };
 
-const resolveBruchteilsgemeinschaft: FieldResolver = (value) => {
-  switch (value) {
-    case "true":
-      return "Vorgeschlagene Angaben übernehmen";
-    case "false":
-      return "Eigene Angaben machen";
-    default:
-      return "";
+const resolveBruchteilsgemeinschaftName: StepResolver = (_value, allData) => {
+  const eigentuemerAdresse = allData?.eigentuemer?.person?.[0].adresse;
+  if (eigentuemerAdresse) {
+    return transformBruchteilsgemeinschaftName(eigentuemerAdresse);
   }
+  return "";
+};
+
+const resolveBruchteilsgemeinschaftAdresse: StepResolver = (
+  _value,
+  allData
+) => {
+  const grundstueckAdresse = allData?.grundstueck?.adresse;
+  if (grundstueckAdresse) {
+    return resolveAdresse(
+      transformBruchteilsgemeinschaftAdresse(grundstueckAdresse)
+    );
+  }
+  return "";
 };
 
 const resolveEmpfangsvollmacht: FieldResolver = (value) => {
@@ -359,7 +374,9 @@ type StepResolver = (
     | EigentuemerPersonPersoenlicheAngabenFields
     | EigentuemerPersonAdresseFields
     | EigentuemerPersonAnteilFields
-    | undefined
+    | EigentuemerBruchteilsgemeinschaftAdresseFields
+    | undefined,
+  allData?: GrundModel
 ) => ReactNode;
 
 export default function ZusammenfassungAccordion({
@@ -405,7 +422,7 @@ export default function ZusammenfassungAccordion({
       }
       if (fieldItem.explicitValue) value = fieldItem.explicitValue;
       const displayValue = fieldItem.resolver
-        ? fieldItem.resolver(value)
+        ? fieldItem.resolver(value, allData)
         : value;
 
       if (!displayValue && !error) return undefined;
@@ -694,11 +711,11 @@ export default function ZusammenfassungAccordion({
             ])}
             {stepItem("gebaeude.wohnflaechen", [
               {
-                label: "Wohnung 1 Gesamtfäche in Quaratmetern",
+                label: "Wohnung 1 - Gesamtwohnfäche in Quaratmetern",
                 path: "wohnflaeche1",
               },
               {
-                label: "Wohnung 2 Gesamtfäche in Quaratmetern",
+                label: "Wohnung 2 - Gesamtwohnfäche in Quaratmetern",
                 path: "wohnflaeche2",
               },
             ])}
@@ -763,7 +780,7 @@ export default function ZusammenfassungAccordion({
             )}
             {stepItem("eigentuemer.verheiratet", [
               {
-                label: "Beziehungsstatus",
+                label: "Beziehungsstatus der Eigentümer:innen",
                 path: "areVerheiratet",
                 resolver: resolveVerheiratet,
               },
@@ -813,7 +830,7 @@ export default function ZusammenfassungAccordion({
                     ])}
                     {stepItem(`eigentuemer.person.${index + 1}.steuerId`, [
                       {
-                        label: "Steueridentifikationsnummer",
+                        label: "Steuer-ID",
                         path: "steuerId",
                       },
                     ])}
@@ -875,15 +892,24 @@ export default function ZusammenfassungAccordion({
             </>
           )}
           <ul>
-            {stepItem("eigentuemer.bruchteilsgemeinschaft", [
-              {
-                label: "Auswahl Bruchteilsgemeinschaft",
-                path: "predefinedData",
-                resolver: resolveBruchteilsgemeinschaft,
-              },
-            ])}
+            {!conditions.customBruchteilsgemeinschaftData(allData) && (
+              <div id={"bruchteilsgemeinschaft"}>
+                {stepItem("eigentuemer.bruchteilsgemeinschaft", [
+                  {
+                    label: "Name Bruchteilsgemeinschaft",
+                    path: "",
+                    resolver: resolveBruchteilsgemeinschaftName,
+                  },
+                  {
+                    label: "Adresse",
+                    path: "",
+                    resolver: resolveBruchteilsgemeinschaftAdresse,
+                  },
+                ])}
+              </div>
+            )}
             {conditions.customBruchteilsgemeinschaftData(allData) && (
-              <IndentedFields id={"bruchteilsgemeinschaft"}>
+              <div id={"bruchteilsgemeinschaft"}>
                 <ul>
                   {stepItem(
                     "eigentuemer.bruchteilsgemeinschaftangaben.angaben",
@@ -900,7 +926,7 @@ export default function ZusammenfassungAccordion({
                     ]
                   )}
                 </ul>
-              </IndentedFields>
+              </div>
             )}
           </ul>
           <ul>
