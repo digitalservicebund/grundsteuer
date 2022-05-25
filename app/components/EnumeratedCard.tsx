@@ -12,7 +12,7 @@ export default function EnumeratedCard(props: {
   return (
     <div
       className={classNames(
-        "py-24 lg:px-32 px-24 enumerate-card flex-col md:flex-row",
+        "py-24 lg:px-32 px-24 enumerate-card flex-col md:flex-row max-w-[970px]",
         props.className
       )}
     >
