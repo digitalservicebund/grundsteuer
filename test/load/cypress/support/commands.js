@@ -23,3 +23,12 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+/* eslint-disable no-undef */
+Cypress.Commands.add("login", () => {
+  cy.visit("/anmelden");
+  cy.get("[name=email]").type("grundsteuer+load-test@digitalservice.bund.de");
+  cy.get("[name=password]").type("12345678");
+  cy.get("[data-testid=submit]").click();
+  cy.url().should("contain", "/fsc");
+});

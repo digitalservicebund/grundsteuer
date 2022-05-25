@@ -47,22 +47,13 @@ function convertHarToK6Script(
   );
 }
 
-program
-  .command("staticPages")
-  .description("Generate test script for the static suite")
-  .showHelpAfterError()
-  .requiredOption("-n, --hostname <hostname>", "hostname to run against")
-  .option(
-    "-a, --auth-credentials <username:passsword>",
-    "HTTP Basic Auth credentials to use for the test"
-  )
-  .action(async (options) => {
+function actionFunctionFor(runName) {
+  return async (options) => {
     const hostname = options.hostname;
     const authCredentials = options.authCredentials;
     const targetUrl = `https://${
       authCredentials === undefined ? "" : authCredentials + "@"
     }${hostname}`;
-    const runName = "staticPages";
     const specFilename = `./cypress/integration/${runName}.js`;
     const harFilename = `${runName}.har`;
     const scriptFilename = `${runName}.js`;
@@ -79,6 +70,29 @@ program
       hostname,
       optionsFilename
     );
-  });
+  };
+}
+
+program
+  .command("staticPages")
+  .description("Generate test script for the static suite")
+  .showHelpAfterError()
+  .requiredOption("-n, --hostname <hostname>", "hostname to run against")
+  .option(
+    "-a, --auth-credentials <username:passsword>",
+    "HTTP Basic Auth credentials to use for the test"
+  )
+  .action(actionFunctionFor("staticPages"));
+
+program
+  .command("form")
+  .description("Generate test script for the form suite")
+  .showHelpAfterError()
+  .requiredOption("-n, --hostname <hostname>", "hostname to run against")
+  .option(
+    "-a, --auth-credentials <username:passsword>",
+    "HTTP Basic Auth credentials to use for the test"
+  )
+  .action(actionFunctionFor("form"));
 
 program.parse();
