@@ -64,9 +64,7 @@ describe("Zusammenfassung route", () => {
       cy.get("#nextButton").click();
 
       cy.url().should("include", "/formular/zusammenfassung");
-      cy.contains(
-        "Es sind Fehler im Formular aufgetreten, bitte überprüfen Sie Ihre Angaben."
-      ).should("exist");
+      cy.contains("Es sind Fehler im Formular aufgetreten.").should("exist");
     });
   });
 
