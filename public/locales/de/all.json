@@ -140,7 +140,7 @@
       "bodenrichtwertAnzahl": "Bodenrichtwert-Anzahl",
       "flurstueck": {
         "angaben": "Grundbuchblatt / Gemarkung",
-        "flur": "Flur / Zähler / Nenner",
+        "flur": "Flur / Flurstück",
         "miteigentum": "Miteigentum Angabe",
         "miteigentumsanteil": "Miteigentum Zähler/Nenner",
         "groesse": "Gesamtgröße"
@@ -156,9 +156,9 @@
       "abbruchverpflichtungsjahr": "Jahr der Abbruchverpflichtung",
       "wohnflaeche": "Wohnfläche",
       "wohnflaechen": "Wohnflächen",
-      "weitereWohnraeume": "weitere Wohnräume",
+      "weitereWohnraeume": "Weitere Wohnräume",
       "weitereWohnraeumeDetails": "Fläche der weiteren Wohnräume",
-      "garagen": "Garagen?",
+      "garagen": "Garagen",
       "garagenAnzahl": "Anzahl Garagen"
     },
     "eigentuemer": {
