@@ -1315,7 +1315,8 @@
       "fscHeading": "Sie haben noch keinen Freischaltcode eingegeben.",
       "fscExplanation": "Um die Erklärung nach Eingabe aller Daten an Ihr Finanzamt übermitteln zu können, brauchen Sie einen Freischaltcode. Informationen dazu finden Sie hier:",
       "fscLinkText": "Zum Bereich Freischaltcode",
-      "errorsInPreviousSteps": "Es sind Fehler im Formular aufgetreten, bitte überprüfen Sie Ihre Angaben."
+      "errorsInPreviousStepsHeading": "Es sind Fehler im Formular aufgetreten.",
+      "errorsInPreviousStepsText": "Bitte überprüfen Sie Ihre Angaben."
     }
   }
 }

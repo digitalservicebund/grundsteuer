@@ -50,7 +50,7 @@ export default function KitchenSinkIndex() {
         className="mb-24"
       />
 
-      <ErrorBar heading="Fehler" className="mb-8">
+      <ErrorBar heading="Eigene Headline" className="mb-8">
         Es ist ein Fehler aufgetreten.
       </ErrorBar>
       <ErrorBarStandard />

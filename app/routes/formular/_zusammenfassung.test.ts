@@ -317,14 +317,24 @@ describe("getEricaErrorMessagesFromResponse", () => {
   );
 
   it("should return validation errors if ERIC_GLOBAL_PRUEF_FEHLER", () => {
+    const validationErrors = [
+      "Grundsteuer, we have a problem.",
+      "Actually, two.",
+    ];
     const result = getEricaErrorMessagesFromResponse({
       errorType: "ERIC_GLOBAL_PRUEF_FEHLER",
       errorMessage: "some Error",
-      validationErrors: ["Grundsteuer, we have a problem.", "Actually, two."],
+      validationErrors,
     });
-    expect(result).toHaveLength(3);
-    expect(result).toContain("Grundsteuer, we have a problem.");
-    expect(result).toContain("Actually, two.");
+    expect(result).toEqual(validationErrors);
+  });
+
+  it("should return general error message if ERIC_GLOBAL_PRUEF_FEHLER but no validation errors", () => {
+    const result = getEricaErrorMessagesFromResponse({
+      errorType: "ERIC_GLOBAL_PRUEF_FEHLER",
+      errorMessage: "some Error",
+    });
+    expect(result).toHaveLength(1);
   });
 
   it("should raise error if error code is unexpected", async () => {

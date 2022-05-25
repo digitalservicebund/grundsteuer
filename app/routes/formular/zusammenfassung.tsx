@@ -77,11 +77,7 @@ export const getEricaErrorMessagesFromResponse = (
   errorResponse: EricaError
 ): string[] => {
   if (errorResponse.errorType == "ERIC_GLOBAL_PRUEF_FEHLER") {
-    const validationErrorMessage =
-      "Es sind Validierungsfehler bei Elster aufgetreten. Bitte prüfen Sie Ihre Angaben.";
-    return errorResponse.validationErrors
-      ? [validationErrorMessage, ...errorResponse.validationErrors]
-      : [validationErrorMessage];
+    return errorResponse.validationErrors || ["Bitte prüfen Sie Ihre Angaben."];
   }
   if (
     [
@@ -325,17 +321,25 @@ export default function Zusammenfassung() {
           <Headline>{i18n.headline}</Headline>
         </div>
         {actionData?.previousStepsErrors && (
-          <ErrorBar className="mb-32">
+          <ErrorBar
+            className="mb-32"
+            heading={i18n.specifics.errorsInPreviousStepsHeading}
+          >
             {i18n.specifics.errorsInPreviousSteps}
           </ErrorBar>
         )}
-        {ericaErrors.map((ericaError, index) => {
-          return (
-            <ErrorBar key={index} className="mb-32">
-              {ericaError}
-            </ErrorBar>
-          );
-        })}
+        {ericaErrors.length !== 0 && (
+          <ErrorBar
+            className="mb-32"
+            heading={"Bitte prüfen oder ergänzen Sie Ihre Angaben."}
+          >
+            <ul className="pl-16 list-disc">
+              {ericaErrors.map((ericaError, index) => {
+                return <li key={index}>{ericaError}</li>;
+              })}
+            </ul>
+          </ErrorBar>
+        )}
         {actionData?.errors && <ErrorBarStandard />}
 
         <Form method="post" className="mb-16">
