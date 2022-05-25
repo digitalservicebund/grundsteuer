@@ -10,6 +10,7 @@ import {
   SimplePageLayout,
 } from "~/components";
 import germanyMapImage from "~/assets/images/germany-map.svg";
+import steuerlotseImg from "~/assets/images/mock-up-steuerlotse.png";
 import HomepageSharing from "~/components/HomepageSharing";
 
 export const loader: LoaderFunction = async () => {
@@ -136,11 +137,34 @@ export default function Index() {
           </div>
         </div>
 
-        <div className="mb-64 md:mb-32">
+        <div className="mb-0 md:mb-80">
           <h2 className="text-32 leading-40 mb-16 md:mb-32">
             {t("homepage.sharing.headline")}
           </h2>
           <HomepageSharing />
+        </div>
+        <div className="bg-blue-200 pt-32 pl-[32px] lg:px-[144px] mx-[-16px] md:mx-[-32px] lg:mx-[-144px] flex flex-col md:flex-row">
+          <div className="flex flex-col xl:flex-row">
+            <h2 className="text-30 leading-36 mb-32 md:mr-32 min-w-[240px] w-[240px]">
+              {t("homepage.steuerlotse.headline")}
+            </h2>
+            <div className="mb-32">
+              <p className="mb-24 max-w-[378px]">
+                {t("homepage.steuerlotse.paragraph")}
+              </p>
+              <Button
+                href="https://www.steuerlotse-rente.de"
+                target="_blank"
+                look="tertiary"
+                size="medium"
+              >
+                {t("homepage.steuerlotse.buttonText")}
+              </Button>
+            </div>
+          </div>
+          <div className="flex flex-col justify-end">
+            <img src={steuerlotseImg} alt="" className="max-w-[410px]" />
+          </div>
         </div>
       </SimplePageLayout>
     </>
