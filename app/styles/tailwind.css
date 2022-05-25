@@ -95,6 +95,14 @@
   .w-fit {
     width: fit-content;
   }
+
+  .text-11 {
+    font-size: 0.6875rem;
+  }
+
+  .tracking-1 {
+    letter-spacing: 0.0625em;
+  }
 }
 
 @layer components {

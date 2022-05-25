@@ -45,7 +45,7 @@ describe("ZusammenfassungAccordion component", () => {
 
       expect(screen.queryAllByRole("img", { name: "Fertig" })).toHaveLength(2);
       expect(
-        screen.queryByRole("img", { name: "Unfertig" })
+        screen.queryByRole("img", { name: "Ausrufezeichen" })
       ).not.toBeInTheDocument();
     });
 
@@ -176,7 +176,7 @@ describe("ZusammenfassungAccordion component", () => {
         screen.getByRole("img", { name: "Fertig" }).nextSibling
       ).toContainHTML("Eigentümer:innen");
       expect(
-        screen.getByRole("img", { name: "Unfertig" }).nextSibling
+        screen.getByRole("img", { name: "Ausrufezeichen" }).nextSibling
       ).toContainHTML("Grundstück");
     });
 

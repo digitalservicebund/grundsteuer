@@ -1,5 +1,4 @@
 import { getStepData } from "~/domain/model";
-import Unfinished from "~/components/icons/mui/Unfinished";
 import Finished from "~/components/icons/mui/Finished";
 import Edit from "~/components/icons/mui/Edit";
 import { conditions } from "~/domain/guards";
@@ -332,7 +331,7 @@ const EnumerationFields = ({
 }) => {
   return (
     <div id={id}>
-      <div className="bg-gray-300 flex flex-row p-10 w-fit items-center mb-16">
+      <div className="bg-gray-300 flex flex-row p-10 w-fit items-center my-16 h-36 rounded">
         <div className="mr-10">{icon}</div>
         <h3 className="font-bold uppercase text-10 text-gray-900">
           {label} {index + 1}
@@ -435,7 +434,7 @@ export default function ZusammenfassungAccordion({
           })}
         >
           <dl>
-            <dt className="flex flex-row items-center font-bold block uppercase text-10 mb-4">
+            <dt className="flex flex-row items-center font-bold block uppercase text-11 tracking-1 mb-4">
               {error && <ExclamationMarkFilled className="mr-10" />}
               {fieldItem.label}
             </dt>
@@ -449,7 +448,7 @@ export default function ZusammenfassungAccordion({
     return (
       <li>
         {!isFirst && <hr className="my-16 border-gray-400" />}
-        <div className="mb-16 flex flex-row">
+        <div className="mb-16 last:mb-0 flex flex-row">
           <div className="flex flex-row w-full justify-between items-start">
             <ul>{fieldNodes}</ul>
             {editLink(editUrl)}
@@ -461,7 +460,7 @@ export default function ZusammenfassungAccordion({
 
   const sectionHeading = (label: string, dataKey: string) => {
     const finishedIcon = errors?.[dataKey] ? (
-      <Unfinished className="mr-16" />
+      <ExclamationMarkFilled className="mr-16" />
     ) : (
       <Finished className="mr-16" />
     );
@@ -479,7 +478,7 @@ export default function ZusammenfassungAccordion({
       <div
         id={`${sectionIdentifier}-area`}
         data-testid={`${sectionIdentifier}-area`}
-        className="mb-16 flex flex-row w-full justify-between items-center"
+        className="flex flex-row w-full justify-between items-center"
       >
         {i18n.specifics.sectionUnfilled}
         {editLink(`${sectionIdentifier}/uebersicht`)}

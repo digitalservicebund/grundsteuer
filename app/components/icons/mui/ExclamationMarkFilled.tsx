@@ -6,6 +6,8 @@ const ExclamationMarkFilled = (props: SVGProps<SVGSVGElement>) => (
     height="20"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label="Ausrufezeichen"
     {...props}
   >
     <path

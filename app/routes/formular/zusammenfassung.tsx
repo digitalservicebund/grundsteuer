@@ -321,7 +321,9 @@ export default function Zusammenfassung() {
   return (
     <>
       <ContentContainer size="md">
-        <Headline>{i18n.headline}</Headline>
+        <div className="sm:max-w-[412px]">
+          <Headline>{i18n.headline}</Headline>
+        </div>
         {actionData?.previousStepsErrors && (
           <ErrorBar className="mb-32">
             {i18n.specifics.errorsInPreviousSteps}
@@ -352,8 +354,10 @@ export default function Zusammenfassung() {
                 <Attention className="min-w-[22px]" />
               </div>
 
-              <div className="flex flex-col">
-                <h2 className="mb-8 text-18">{i18n.specifics.fscHeading}</h2>
+              <div className="flex flex-col sm:max-w-[332px]">
+                <h2 className="mb-8 text-18 font-bold">
+                  {i18n.specifics.fscHeading}
+                </h2>
                 <p className="mb-24">{i18n.specifics.fscExplanation}</p>
                 <Button
                   look="tertiary"
@@ -366,10 +370,12 @@ export default function Zusammenfassung() {
             </div>
           )}
 
-          <h2 className="mb-24 mt-80 text-24">
-            {i18n.specifics.confirmationHeading}
-          </h2>
-          <p className="mb-32">{i18n.specifics.confirmationText}</p>
+          <div className="sm:max-w-[412px]">
+            <h2 className="mb-24 mt-80 text-24">
+              {i18n.specifics.confirmationHeading}
+            </h2>
+            <p className="mb-32">{i18n.specifics.confirmationText}</p>
+          </div>
           <div className="bg-white p-16 mb-16">
             <StepFormField {...fieldProps[1]}>
               {i18n.fields.confirmCompleteCorrect.label}
