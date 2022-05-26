@@ -88,7 +88,7 @@ export default function RadioWithImageGroup(props: RadioWithImageGroupProps) {
         return (
           <div
             key={option.value}
-            className={index + 1 < options.length ? "mb-24" : ""}
+            className={index + 1 < options.length ? "mb-16" : ""}
           >
             <RadioGroupOption
               {...{
