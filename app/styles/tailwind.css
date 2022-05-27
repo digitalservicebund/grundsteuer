@@ -142,7 +142,7 @@
 
   /* form-group */
   .form-group:last-of-type {
-    @apply mb-80;
+    @apply mb-64;
   }
 
   /* checkbox */

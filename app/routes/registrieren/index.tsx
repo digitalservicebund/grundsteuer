@@ -12,11 +12,13 @@ import { createUser, userExists } from "~/domain/user";
 import {
   BreadcrumbNavigation,
   Button,
+  Checkbox,
   ContentContainer,
   FormGroup,
   Headline,
   Input,
   IntroText,
+  SubHeadline,
   UserLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
@@ -25,6 +27,7 @@ import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { getSession } from "~/session.server";
 import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
+import { Trans } from "react-i18next";
 
 const validateInputEmail = async (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -49,6 +52,8 @@ export const action: ActionFunction = async ({ request, context }) => {
   const emailRepeated = formData.get("emailRepeated");
   const password = formData.get("password");
   const passwordRepeated = formData.get("passwordRepeated");
+  const confirmDataPrivacy = formData.get("confirmDataPrivacy");
+  const confirmTermsOfUse = formData.get("confirmTermsOfUse");
 
   invariant(
     typeof email === "string",
@@ -80,13 +85,17 @@ export const action: ActionFunction = async ({ request, context }) => {
 
     passwordRepeated:
       password !== passwordRepeated && "errors.password.notMatching",
+
+    confirmDataPrivacy:
+      !validateRequired({ value: (confirmDataPrivacy || "") as string }) &&
+      "errors.required",
+
+    confirmTermsOfUse:
+      !validateRequired({ value: (confirmTermsOfUse || "") as string }) &&
+      "errors.required",
   };
 
-  const errorsExist =
-    errors.email ||
-    errors.emailRepeated ||
-    errors.password ||
-    errors.passwordRepeated;
+  const errorsExist = Object.keys(removeUndefined(errors)).length > 0;
 
   if (!errorsExist) {
     await createUser(normalizedEmail, password);
@@ -132,9 +141,11 @@ export default function Registrieren() {
         </IntroText>
 
         {errors && <ErrorBarStandard />}
+      </ContentContainer>
 
-        <Form method="post" noValidate>
-          <CsrfToken />
+      <Form method="post" noValidate>
+        <CsrfToken />
+        <ContentContainer size="sm">
           <FormGroup>
             <Input
               type="email"
@@ -170,10 +181,64 @@ export default function Registrieren() {
               error={t(errors?.passwordRepeated)}
             />
           </FormGroup>
+        </ContentContainer>
+        <ContentContainer size="md">
+          <SubHeadline>
+            Datenschutzerklärung und Nutzungsbedingungen
+          </SubHeadline>
+
+          <div className="bg-white p-24 mb-16">
+            <Checkbox
+              name="confirmDataPrivacy"
+              error={t(errors?.confirmDataPrivacy)}
+            >
+              <Trans
+                components={{
+                  dataPrivacyLink: (
+                    <a
+                      href="/datenschutz"
+                      target="_blank"
+                      className="font-bold underline"
+                    />
+                  ),
+                  bmfDataPrivacyLink: (
+                    <a
+                      href="https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Weitere_Steuerthemen/Abgabenordnung/2020-07-01-Korrektur-Allgemeine-Informationen-Datenschutz-Grundverordnung-Steuerverwaltung-anlage-1.pdf?__blob=publicationFile&v=3"
+                      target="_blank"
+                      rel="noopener"
+                      className="font-bold underline"
+                    />
+                  ),
+                }}
+              >
+                {t("zusammenfassung.fields.confirmDataPrivacy.label")}
+              </Trans>
+            </Checkbox>
+          </div>
+          <div className="bg-white p-24 mb-80">
+            <Checkbox
+              name="confirmTermsOfUse"
+              error={t(errors?.confirmTermsOfUse)}
+            >
+              <Trans
+                components={{
+                  termsOfUseLink: (
+                    <a
+                      href="/nutzungsbedingungen"
+                      target="_blank"
+                      className="font-bold underline"
+                    />
+                  ),
+                }}
+              >
+                {t("zusammenfassung.fields.confirmTermsOfUse.label")}
+              </Trans>
+            </Checkbox>
+          </div>
 
           <Button disabled={isSubmitting}>Weiter</Button>
-        </Form>
-      </ContentContainer>
+        </ContentContainer>
+      </Form>
     </UserLayout>
   );
 }

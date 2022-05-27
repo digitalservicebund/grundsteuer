@@ -14,6 +14,7 @@ import {
   FormGroup,
   Headline,
   Input,
+  IntroText,
   SubHeadline,
   UserLayout,
 } from "~/components";
@@ -77,7 +78,7 @@ export default function Anmelden() {
             E-Mail-Adresse und/oder Passwort falsch.
           </ErrorBar>
         )}
-        <div className="mb-64">
+        <div className="mb-80">
           <Form method="post" noValidate>
             <CsrfToken />
             <div>
@@ -102,7 +103,13 @@ export default function Anmelden() {
         {!loaderData?.userIsComingfromSuccessfulRegistration && (
           <div>
             <SubHeadline>Noch nicht registriert?</SubHeadline>
-            <Button to="/registrieren">Konto erstellen</Button>
+            <IntroText className="!mb-64">
+              Erstellen Sie ein Konto um die Bearbeitung nach Wunsch
+              unterbrechen- und wieder fortsetzen zu können.
+            </IntroText>
+            <Button to="/registrieren" look="tertiary">
+              Konto erstellen
+            </Button>
           </div>
         )}
       </ContentContainer>

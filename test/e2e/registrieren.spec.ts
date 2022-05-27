@@ -7,6 +7,8 @@ describe("/registrieren", () => {
     cy.get("[name=emailRepeated]").type("user@example.com");
     cy.get("[name=password]").type("password");
     cy.get("[name=passwordRepeated]").type("password");
+    cy.get("label[for=confirmDataPrivacy]").click("topLeft");
+    cy.get("label[for=confirmTermsOfUse]").click("topLeft");
     cy.get("form button").click();
     cy.url().should("include", "/registrieren/erfolgreich");
   });
@@ -76,6 +78,28 @@ describe("/registrieren", () => {
     cy.get("[name=passwordRepeated]").type("12345678");
     cy.get("form button").click();
     cy.contains("stimmen nicht");
+  });
+
+  it("data privacy not confirmed", () => {
+    cy.visit("/registrieren");
+    cy.get("[name=email]").type("user@example.com");
+    cy.get("[name=emailRepeated]").type("user@example.com");
+    cy.get("[name=password]").type("password");
+    cy.get("[name=passwordRepeated]").type("password");
+    cy.get("label[for=confirmTermsOfUse]").click("topLeft");
+    cy.get("form button").click();
+    cy.contains("Bitte füllen Sie dieses Feld aus.");
+  });
+
+  it("terms of use not confirmed", () => {
+    cy.visit("/registrieren");
+    cy.get("[name=email]").type("user@example.com");
+    cy.get("[name=emailRepeated]").type("user@example.com");
+    cy.get("[name=password]").type("password");
+    cy.get("[name=passwordRepeated]").type("password");
+    cy.get("label[for=confirmDataPrivacy]").click("topLeft");
+    cy.get("form button").click();
+    cy.contains("Bitte füllen Sie dieses Feld aus.");
   });
 });
 

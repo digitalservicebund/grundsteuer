@@ -5,11 +5,9 @@ import {
   ContentContainer,
   Headline,
   IntroText,
+  SuccessPageLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
-import UebersichtStep from "~/components/form/UebersichtStep";
-import erfolgImageSmall from "~/assets/images/erfolg-small.svg";
-import erfolgImageMedium from "~/assets/images/erfolg-medium.svg";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Freischaltcode erfolgreich beantragt") };
@@ -19,10 +17,7 @@ export default function FscBeantragenErfolgreich() {
   return (
     <ContentContainer size="sm">
       <BreadcrumbNavigation />
-      <UebersichtStep
-        imageSrc={erfolgImageMedium}
-        smallImageSrc={erfolgImageSmall}
-      >
+      <SuccessPageLayout>
         <Headline>Vielen Dank</Headline>
 
         <IntroText className="mb-80">
@@ -31,7 +26,7 @@ export default function FscBeantragenErfolgreich() {
         </IntroText>
 
         <Button to="/formular/welcome">Weiter zum Formular</Button>
-      </UebersichtStep>
+      </SuccessPageLayout>
     </ContentContainer>
   );
 }

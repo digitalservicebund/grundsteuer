@@ -21,6 +21,8 @@ const validFormData = {
   emailRepeated: "user@example.com",
   password: "12345678",
   passwordRepeated: "12345678",
+  confirmDataPrivacy: "true",
+  confirmTermsOfUse: "true",
 };
 
 describe("/registrieren action", () => {
@@ -80,10 +82,9 @@ describe("/registrieren action", () => {
     test("with capitalized email", async () => {
       const args = await mockActionArgs({
         formData: {
+          ...validFormData,
           email: "USER@example.Com",
           emailRepeated: "user@example.com",
-          password: "12345678",
-          passwordRepeated: "12345678",
         },
         context: {},
       });
@@ -113,7 +114,12 @@ describe("/registrieren action", () => {
           password: "",
           passwordRepeated: "",
         },
-        errors: { email: "errors.required", password: "errors.required" },
+        errors: {
+          email: "errors.required",
+          password: "errors.required",
+          confirmDataPrivacy: "errors.required",
+          confirmTermsOfUse: "errors.required",
+        },
       },
       {
         description: "email has wrong format",
@@ -157,6 +163,14 @@ describe("/registrieren action", () => {
           password: "123456789",
         },
         errors: { passwordRepeated: "errors.password.notMatching" },
+      },
+      {
+        description: "data privacy not confirmed",
+        formData: {
+          ...validFormData,
+          confirmDataPrivacy: "",
+        },
+        errors: { confirmDataPrivacy: "errors.required" },
       },
     ];
 

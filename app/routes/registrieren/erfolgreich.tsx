@@ -6,6 +6,7 @@ import {
   Headline,
   IntroText,
   UserLayout,
+  SuccessPageLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 
@@ -18,10 +19,16 @@ export default function RegistrierenErfolgreich() {
     <UserLayout>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
-        <Headline>Vielen Dank!</Headline>
-        <IntroText>Sie haben ein Konto erstellt.</IntroText>
+        <SuccessPageLayout>
+          <Headline>Konto erfolgreich erstellt.</Headline>
+          <IntroText className="!mb-80">
+            Sie haben erfolgreich ein Konto erstellt. Merken Sie sich ihre
+            Anmeldedaten – aktuell können Sie ihr Passwort nocht nicht
+            zurücksetzen.
+          </IntroText>
 
-        <Button to="/anmelden?registered=1">Weiter zum Anmelden</Button>
+          <Button to="/anmelden?registered=1">Zur Anmeldung</Button>
+        </SuccessPageLayout>
       </ContentContainer>
     </UserLayout>
   );
