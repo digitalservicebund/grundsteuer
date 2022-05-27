@@ -6,7 +6,7 @@ export default function HomepageCrossPromo() {
   const { t } = useTranslation("all");
 
   return (
-    <>
+    <div className="flex flex-col md:flex-row">
       <div className="flex flex-col xl:flex-row">
         <h2 className="text-30 leading-36 mb-32 md:mr-32 min-w-[240px] w-[240px]">
           {t("homepage.steuerlotse.headline")}
@@ -16,8 +16,9 @@ export default function HomepageCrossPromo() {
             {t("homepage.steuerlotse.paragraph")}
           </p>
           <Button
-            href="https://www.steuerlotse-rente.de"
+            href="https://www.steuerlotse-rente.de?ref=grundsteuer"
             target="_blank"
+            rel="noopener"
             look="tertiary"
             size="medium"
           >
@@ -26,8 +27,13 @@ export default function HomepageCrossPromo() {
         </div>
       </div>
       <div className="flex flex-col justify-end">
-        <img src={steuerlotseImg} alt="" className="max-w-[410px]" />
+        <img
+          src={steuerlotseImg}
+          alt=""
+          className="max-w-[410px]"
+          loading="lazy"
+        />
       </div>
-    </>
+    </div>
   );
 }
