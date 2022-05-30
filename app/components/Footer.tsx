@@ -7,6 +7,17 @@ export default function Footer() {
   const { t } = useTranslation("all");
   return (
     <footer className="flex-shrink-0 bg-white">
+      <div className="p-32 bg-blue-200 text-16 flex flex-wrap md:flex md:justify-between md:items-center ">
+        <div className="flex items-center">
+          {/*Put the thumbs up/down component here*/}
+        </div>
+        <div className="flex flex-wrap">
+          <a href="/hilfe">
+            Haben Sie Fragen? Sie können uns eine{" "}
+            <span className="underline font-bold">Nachricht</span> schreiben.
+          </a>
+        </div>
+      </div>
       <div className="px-16 md:px-32 lg:px-48">
         <div className="md:flex md:justify-between md:items-center pt-16 md:pt-0">
           <div className="flex items-center">
