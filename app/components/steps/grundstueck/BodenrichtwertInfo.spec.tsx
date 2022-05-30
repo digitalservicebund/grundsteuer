@@ -20,7 +20,7 @@ describe("BodenrichtwertInfo component should display link label for each bundes
     { bundesland: "BB", expectedText: "Brandenburg" },
     { bundesland: "HB", expectedText: "Bremen" },
     { bundesland: "MV", expectedText: "Mecklenburg-Vorpommern" },
-    { bundesland: "NW", expectedText: "Nordrhein-Westfahlen" },
+    { bundesland: "NW", expectedText: "Nordrhein-Westfalen" },
     { bundesland: "RP", expectedText: "Rheinland-Pfalz" },
     { bundesland: "SH", expectedText: "Schleswig-Holstein" },
     { bundesland: "SL", expectedText: "Saarland" },
