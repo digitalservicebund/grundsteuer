@@ -144,8 +144,8 @@ program
     "--use-existing-har",
     "Skip running Cypress and use a previously generated .har file"
   )
-  .action((options) => {
-    actionFunctionFor("registration")(options);
+  .action(async (options) => {
+    await actionFunctionFor("registration")(options);
     patchRegistrationScript("registration.js");
   });
 
