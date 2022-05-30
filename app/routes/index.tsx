@@ -148,7 +148,7 @@ export default function Index() {
           </div>
         </ContentContainer>
       </main>
-      <div className="flex-shrink-0 bg-blue-200 pt-32 pl-32 lg:px-144 -mx-16 md:-mx-32 lg:-mx-144">
+      <div className="flex-shrink-0 bg-blue-200 pt-32">
         <ContentContainer>
           <HomepageCrossPromo />
         </ContentContainer>
