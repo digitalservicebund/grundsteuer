@@ -86,7 +86,9 @@ function actionFunctionFor(runName) {
     const optionsFilename = `${runName}Options.json`;
 
     ensureCorrectWorkingDir();
-    await runCypress(targetUrl, specFilename);
+    if (!options.useExistingHar) {
+      await runCypress(targetUrl, specFilename);
+    }
     if (authCredentials !== undefined) {
       injectCredentialsIntoHar(harFilename, hostname, authCredentials);
     }
@@ -108,6 +110,10 @@ program
     "-a, --auth-credentials <username:passsword>",
     "HTTP Basic Auth credentials to use for the test"
   )
+  .option(
+    "--use-existing-har",
+    "Skip running Cypress and use a previously generated .har file"
+  )
   .action(actionFunctionFor("staticPages"));
 
 program
@@ -119,6 +125,10 @@ program
     "-a, --auth-credentials <username:passsword>",
     "HTTP Basic Auth credentials to use for the test"
   )
+  .option(
+    "--use-existing-har",
+    "Skip running Cypress and use a previously generated .har file"
+  )
   .action(actionFunctionFor("form"));
 
 program
@@ -129,6 +139,10 @@ program
   .option(
     "-a, --auth-credentials <username:passsword>",
     "HTTP Basic Auth credentials to use for the test"
+  )
+  .option(
+    "--use-existing-har",
+    "Skip running Cypress and use a previously generated .har file"
   )
   .action((options) => {
     actionFunctionFor("registration")(options);
