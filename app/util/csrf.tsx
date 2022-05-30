@@ -35,6 +35,9 @@ export const createCsrfToken = (session: Session) => {
 };
 
 export const verifyCsrfToken = async (request: Request, session: Session) => {
+  //TODO: temporarily disabling csrf checks for load testing
+  return;
+
   const formData = await request.clone().formData();
   const formToken = formData.get(SESSION_KEY);
 
