@@ -2,4 +2,5 @@
 
 # To avoid accidentally checking in auth credentials, the test scripts are ignored
 /form.js
+/registration.js
 /staticPages.js

@@ -22,3 +22,40 @@ Execute this helper to run all steps in a single command:
 ```sh
 k6 run ./<script-name>.js
 ```
+
+# Data setup
+
+## static pages
+
+Requires no setup.
+
+## form
+
+Requires a user to exist with email grundsteuer+load-test@digitalservice.bund.de and password 12345678, which you can create via the registration form.
+
+## registration
+
+Requires no setup, but creates lots of user entries, which you can delete with this command (for staging):
+
+```sh
+kubectl --namespace grundsteuer-staging run -i --tty --rm --image=postgres:12-alpine db-access --restart=Never --overrides='{
+  "spec": {
+    "containers": [
+      {
+        "name": "postgres",
+        "image": "postgres:12-alpine",
+        "args": ["psql", "-c", "DELETE FROM \"User\" WHERE email LIKE '"'"'grundsteuer+load-test-%@digitalservice.bund.de'"'"';"],
+        "stdin": true,
+        "stdinOnce": true,
+        "tty": true,
+        "env": [
+          { "name": "PGPASSWORD", "valueFrom": { "secretKeyRef": { "name": "database-grundsteuer-credentials", "key": "password" } } },
+          { "name": "PGHOST", "valueFrom": { "secretKeyRef": { "name": "database-grundsteuer-credentials", "key": "host" } } },
+          { "name": "PGPORT", "valueFrom": { "secretKeyRef": { "name": "database-grundsteuer-credentials", "key": "port" } } },
+          { "name": "PGUSER", "value": "grundsteuer" }
+        ]
+      }
+    ]
+  }
+}'
+```

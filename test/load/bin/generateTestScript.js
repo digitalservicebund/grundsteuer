@@ -47,6 +47,32 @@ function convertHarToK6Script(
   );
 }
 
+function patchRegistrationScript(scriptFilename) {
+  // K6 is neither using a browser nor nodejs, so we have to use vanilla JS. See https://stackoverflow.com/a/19964557/11819
+  const randomStringExpression =
+    "(Math.random().toString(36)+'00000000000000000').slice(2, 14)";
+  const randomEmailAddressDefinition =
+    "const email = `grundsteuer+load-test-${" +
+    randomStringExpression +
+    "}@digitalservice.bund.de`;\n";
+
+  let scriptContents = fs.readFileSync(scriptFilename).toString();
+  const randomEmailAddressDefinitionInsertionPoint =
+    scriptContents.indexOf('group("Global"');
+
+  scriptContents =
+    scriptContents.slice(0, randomEmailAddressDefinitionInsertionPoint) +
+    randomEmailAddressDefinition +
+    scriptContents
+      .slice(randomEmailAddressDefinitionInsertionPoint)
+      .replaceAll(
+        '"grundsteuer+load-test-RANDOM@digitalservice.bund.de"',
+        "email"
+      );
+
+  fs.writeFileSync(scriptFilename, scriptContents);
+}
+
 function actionFunctionFor(runName) {
   return async (options) => {
     const hostname = options.hostname;
@@ -94,5 +120,19 @@ program
     "HTTP Basic Auth credentials to use for the test"
   )
   .action(actionFunctionFor("form"));
+
+program
+  .command("registration")
+  .description("Generate test script for the registration suite")
+  .showHelpAfterError()
+  .requiredOption("-n, --hostname <hostname>", "hostname to run against")
+  .option(
+    "-a, --auth-credentials <username:passsword>",
+    "HTTP Basic Auth credentials to use for the test"
+  )
+  .action((options) => {
+    actionFunctionFor("registration")(options);
+    patchRegistrationScript("registration.js");
+  });
 
 program.parse();
