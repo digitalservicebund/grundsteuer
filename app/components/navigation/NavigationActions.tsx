@@ -40,7 +40,7 @@ export default function NavigationActions(props: {
         isAllCaps
         isActive={!!currentLocation.match(/\/formular\/zusammenfassung/)}
       >
-        Prüfen & Versenden
+        Übersicht & Abgeben
       </NavigationLink>
     </div>
   );

@@ -35,6 +35,9 @@ const renderGraph = (
       {graph &&
         Object.entries(graph).map(([k, v]) => {
           if ((v as Graph).path) {
+            if (v.path === "zusammenfassung") {
+              return null;
+            }
             return (
               <div key={k}>
                 <GraphNavigationLink {...v} currentState={currentState} />
