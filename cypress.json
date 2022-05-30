@@ -2,7 +2,7 @@
   "baseUrl": "http://localhost:3000/",
   "integrationFolder": "test/e2e",
   "testFiles": "**/*.spec.ts",
-  "defaultCommandTimeout": 10000,
+  "defaultCommandTimeout": 60000,
   "video": false,
   "experimentalSessionAndOrigin": true
 }
