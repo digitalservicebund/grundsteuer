@@ -4,7 +4,6 @@ import { action } from "./index";
 import * as auditLogModule from "~/audit/auditLog";
 import { AuditLogEvent } from "~/audit/auditLog";
 import * as csrfModule from "~/util/csrf";
-import { verifyCsrfToken } from "~/util/csrf";
 
 jest.mock("~/domain/user", () => {
   return {

@@ -1318,5 +1318,12 @@
       "errorsInPreviousStepsHeading": "Es sind Fehler im Formular aufgetreten.",
       "errorsInPreviousStepsText": "Bitte überprüfen Sie Ihre Angaben."
     }
+  },
+  "hilfe": {
+    "headline": "Wie können wir Ihnen weiterhelfen?",
+    "intro": "Wir konnten Ihre Fragen nicht beantworten?<lineBreak/>Auf unserer Informationsseite finden Sie Antworten auf häufig gestellte Fragen.",
+    "emailText": "Sie können uns Ihre Frage auch jederzeit schriftlich unter dieser E-Mail-Adresse zukommen lassen: <emailContactLink>kontakt@grundsteuererklärung-fuer-privateigentum.de</emailContactLink>",
+    "emailSubjectText": "Bitte verwenden Sie in Ihrer E-Mail einen passenden Betreff. Das erleichtert uns die Bearbeitung der Anfragen. Ihre E-Mail wird ausschließlich zur Beantwortung Ihrer Anfrage verarbeitet und gespeichert.",
+    "legalNote": "Bitte beachten Sie, dass wir Sie aus rechtlichen Gründen nicht zu individuellen Steuerfragen beraten dürfen. Bitte schicken Sie uns außerdem keine spezifischen personenbezogenen Daten wie zum Beispiel Ihre Adresse, Steuer-Identifikationsnummer oder Ihren Freischaltcode."
   }
 }

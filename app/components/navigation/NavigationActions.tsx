@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "@remix-run/react";
-import { Button, LogoutButton } from "~/components";
+import { LogoutButton } from "~/components";
 import EmailOutlinedIcon from "~/components/icons/mui/EmailOutlined";
 import DriveFileRenameOutlineIcon from "~/components/icons/mui/DriveFileRenameOutline";
 import NavigationLink from "./NavigationLink";
