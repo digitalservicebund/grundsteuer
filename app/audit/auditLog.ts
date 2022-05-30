@@ -11,6 +11,8 @@ export enum AuditLogEvent {
   CONFIRMED_COMPLETE_CORRECT = "confirmed_data_complete_correct",
   CONFIRMED_DATA_PRIVACY = "confirmed_data_privacy",
   CONFIRMED_TERMS_OF_USE = "confirmed_terms_of_use",
+  CONFIRMED_DATA_PRIVACY_REGISTRATION = "confirmed_data_privacy_on_registration",
+  CONFIRMED_TERMS_OF_USE_REGISTRATION = "confirmed_terms_of_use_on_registration",
 }
 
 export interface AuditLogData {

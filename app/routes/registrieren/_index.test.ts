@@ -35,7 +35,7 @@ describe("/registrieren action", () => {
   });
 
   describe('"succeeds"', () => {
-    test("and saves audit log", async () => {
+    test("and saves audit logs", async () => {
       const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
       const args = await mockActionArgs({
         formData: validFormData,
@@ -54,6 +54,20 @@ describe("/registrieren action", () => {
           timestamp: timestamp,
           ipAddress: "123",
           username: "user@example.com",
+        });
+        expect(spyOnSaveAuditLog).toHaveBeenNthCalledWith(2, {
+          eventName: AuditLogEvent.CONFIRMED_DATA_PRIVACY_REGISTRATION,
+          timestamp: timestamp,
+          ipAddress: "123",
+          username: "user@example.com",
+          eventData: { value: "true" },
+        });
+        expect(spyOnSaveAuditLog).toHaveBeenNthCalledWith(3, {
+          eventName: AuditLogEvent.CONFIRMED_TERMS_OF_USE_REGISTRATION,
+          timestamp: timestamp,
+          ipAddress: "123",
+          username: "user@example.com",
+          eventData: { value: "true" },
         });
       } finally {
         Date.now = actualNowImplementation;
@@ -102,6 +116,23 @@ describe("/registrieren action", () => {
       });
       const errors = { email: "errors.email.alreadyExists" };
       expect(await action(args)).toEqual({ errors });
+    });
+
+    test("and does not save audit logs", async () => {
+      const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
+      const args = await mockActionArgs({
+        formData: {
+          email: "",
+          emailRepeated: "",
+          password: "",
+          passwordRepeated: "",
+        },
+        context: { clientIp: "123" },
+      });
+
+      await action(args);
+
+      expect(spyOnSaveAuditLog).not.toHaveBeenCalled();
     });
 
     const cases = [

@@ -1,6 +1,6 @@
 import { ActionFunction, MetaFunction, redirect } from "@remix-run/node";
 import { Form, useActionData, useTransition } from "@remix-run/react";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import invariant from "tiny-invariant";
 import {
   validateEmail,
@@ -27,7 +27,6 @@ import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { getSession } from "~/session.server";
 import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
-import { Trans } from "react-i18next";
 
 const validateInputEmail = async (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -40,6 +39,49 @@ const validateInputPassword = (password: string) =>
     "errors.password.tooShort") ||
   (!validateMaxLength({ value: password, maxLength: 64 }) &&
     "errors.password.tooLong");
+
+export const saveAuditLogs = async (
+  clientIp: string,
+  email: string,
+  data: {
+    confirmDataPrivacy: string | null;
+    confirmTermsOfUse: string | null;
+  }
+) => {
+  invariant(
+    data.confirmDataPrivacy == "true",
+    "confirmDataPrivacy should be checked"
+  );
+  invariant(
+    data.confirmTermsOfUse == "true",
+    "confirmTermsOfUse should be checked"
+  );
+
+  await saveAuditLog({
+    eventName: AuditLogEvent.USER_REGISTERED,
+    timestamp: Date.now(),
+    ipAddress: clientIp,
+    username: email,
+  });
+  await saveAuditLog({
+    eventName: AuditLogEvent.CONFIRMED_DATA_PRIVACY_REGISTRATION,
+    timestamp: Date.now(),
+    ipAddress: clientIp,
+    username: email,
+    eventData: {
+      value: data.confirmDataPrivacy,
+    },
+  });
+  await saveAuditLog({
+    eventName: AuditLogEvent.CONFIRMED_TERMS_OF_USE_REGISTRATION,
+    timestamp: Date.now(),
+    ipAddress: clientIp,
+    username: email,
+    eventData: {
+      value: data.confirmTermsOfUse,
+    },
+  });
+};
 
 export const action: ActionFunction = async ({ request, context }) => {
   const { clientIp } = context;
@@ -71,25 +113,28 @@ export const action: ActionFunction = async ({ request, context }) => {
     typeof passwordRepeated === "string",
     "expected formData to include passwordRepeated field of type string"
   );
+  invariant(
+    typeof confirmDataPrivacy === "string" || confirmDataPrivacy == null,
+    "expected formData to include confirmDataPrivacy field of type string"
+  );
+  invariant(
+    typeof confirmTermsOfUse === "string" || confirmTermsOfUse == null,
+    "expected formData to include confirmTermsOfUse field of type string"
+  );
 
   const normalizedEmail = email.trim().toLowerCase();
   const normalizedEmailRepeated = emailRepeated.trim().toLowerCase();
 
   const errors = {
     email: await validateInputEmail(normalizedEmail),
-
     emailRepeated:
       normalizedEmail !== normalizedEmailRepeated && "errors.email.notMatching",
-
     password: validateInputPassword(password),
-
     passwordRepeated:
       password !== passwordRepeated && "errors.password.notMatching",
-
     confirmDataPrivacy:
       !validateRequired({ value: (confirmDataPrivacy || "") as string }) &&
       "errors.required",
-
     confirmTermsOfUse:
       !validateRequired({ value: (confirmTermsOfUse || "") as string }) &&
       "errors.required",
@@ -99,11 +144,9 @@ export const action: ActionFunction = async ({ request, context }) => {
 
   if (!errorsExist) {
     await createUser(normalizedEmail, password);
-    await saveAuditLog({
-      eventName: AuditLogEvent.USER_REGISTERED,
-      timestamp: Date.now(),
-      ipAddress: clientIp,
-      username: normalizedEmail,
+    await saveAuditLogs(clientIp, normalizedEmail, {
+      confirmDataPrivacy,
+      confirmTermsOfUse,
     });
     return redirect("/registrieren/erfolgreich");
   }
