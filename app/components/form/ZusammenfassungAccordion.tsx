@@ -977,7 +977,17 @@ export default function ZusammenfassungAccordion({
           <h2 className="font-bold text-2xl mb-3">Ergänzende Angaben</h2>
         </div>
       ),
-      content: <StepFormField {...freitextFieldProps} />,
+      content: (
+        <div className="max-w-[400px]">
+          <p className="text-16 pb-24">
+            Wenn Sie hier Angaben ergänzen, wird Ihre Erklärung von den
+            Mitarbeitenden des Finanzamts bearbeitet und nicht maschinell.
+            Machen Sie eine Eintragung nur, wenn weitere oder abweichende
+            Angaben oder Sachverhalte berücksichtigt werden sollen.
+          </p>
+          <StepFormField {...freitextFieldProps} />
+        </div>
+      ),
     };
   };
 

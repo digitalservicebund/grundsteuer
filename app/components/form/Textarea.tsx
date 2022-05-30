@@ -31,7 +31,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         id={id || name}
         rows={3}
         className={classNames(
-          "block w-full",
+          "block w-full h-[240px] resize-none",
           "bg-white text-black",
           "border-2 border-blue-800",
           "hover:outline hover:outline-4 hover:outline-blue-800 hover:outline-offset-[-4px]",
