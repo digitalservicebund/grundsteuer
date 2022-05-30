@@ -22,6 +22,10 @@ describe("form", () => {
     );
     cy.get("[name=password]").type("password");
     cy.get("[name=passwordRepeated]").type("password");
+
+    cy.get("[name=confirmDataPrivacy]").check({ force: true });
+    cy.get("[name=confirmTermsOfUse]").check({ force: true });
+
     cy.get("form button").click();
     cy.url().should("include", "/registrieren/erfolgreich");
   });
