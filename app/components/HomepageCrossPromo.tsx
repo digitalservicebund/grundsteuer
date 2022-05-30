@@ -30,7 +30,7 @@ export default function HomepageCrossPromo() {
         <img
           src={steuerlotseImg}
           alt=""
-          className="max-w-[410px]"
+          className="w-full max-w-[410px]"
           width={820}
           height={449}
           loading="lazy"
