@@ -51,7 +51,7 @@ export default function RadioButtonBild(props: RadioBildProps) {
         <img
           src={image}
           alt={imageAltText}
-          className="mr-24 w-1/3 max-w-[120px] max-h-[120px] bg-gray-100"
+          className="mr-24 w-1/3 max-w-[120px] max-h-[120px]"
         />
         {inputComponent}
         {labelComponent}
