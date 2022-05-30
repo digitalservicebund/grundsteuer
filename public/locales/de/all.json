@@ -80,7 +80,7 @@
   "common": {
     "continue": "Übernehmen & Weiter",
     "back": "Zurück",
-    "backToSummary": "Übernehmen & Zur Prüfseite"
+    "backToSummary": "Übernehmen & Zur Übersicht"
   },
   "errors": {
     "elsterChars": "Das Feld enthält ein Zeichen, das nicht unterstützt wird.",

@@ -375,7 +375,7 @@ export default function Zusammenfassung() {
           )}
 
           <div className="sm:max-w-[412px]">
-            <h2 className="mb-24 mt-80 text-24">
+            <h2 className="mb-24 mt-80 text-24 leading-30">
               {i18n.specifics.confirmationHeading}
             </h2>
             <p className="mb-32">{i18n.specifics.confirmationText}</p>

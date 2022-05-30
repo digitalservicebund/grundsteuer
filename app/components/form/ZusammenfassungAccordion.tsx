@@ -546,7 +546,7 @@ export default function ZusammenfassungAccordion({
             ])}
             {stepItem("grundstueck.anzahl", [
               {
-                label: "Anzahl der Grundstückseinheiten",
+                label: "Anzahl der Grundstücksflächen",
                 path: "anzahl",
               },
             ])}
@@ -561,7 +561,7 @@ export default function ZusammenfassungAccordion({
                   return (
                     <EnumerationFields
                       index={index}
-                      label="Angaben zu Flurstück"
+                      label="Angaben zu Grundstücksfläche"
                       icon={<House fill="#4E596A" />}
                       key={flurstueckKey}
                       id={flurstueckKey}

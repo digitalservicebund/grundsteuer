@@ -140,7 +140,7 @@ describe("Zusammenfassung route", () => {
     });
 
     it("should set correct text on next button", () => {
-      cy.contains("#nextButton", "Übernehmen & Zur Prüfseite");
+      cy.contains("#nextButton", "Übernehmen & Zur Übersicht");
     });
 
     it("should execute validations", () => {
