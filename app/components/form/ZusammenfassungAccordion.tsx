@@ -891,22 +891,23 @@ export default function ZusammenfassungAccordion({
             </>
           )}
           <ul>
-            {!conditions.customBruchteilsgemeinschaftData(allData) && (
-              <div id={"bruchteilsgemeinschaft"}>
-                {stepItem("eigentuemer.bruchteilsgemeinschaft", [
-                  {
-                    label: "Name Bruchteilsgemeinschaft",
-                    path: "",
-                    resolver: resolveBruchteilsgemeinschaftName,
-                  },
-                  {
-                    label: "Adresse",
-                    path: "",
-                    resolver: resolveBruchteilsgemeinschaftAdresse,
-                  },
-                ])}
-              </div>
-            )}
+            {conditions.isBruchteilsgemeinschaft(allData) &&
+              !conditions.customBruchteilsgemeinschaftData(allData) && (
+                <div id={"bruchteilsgemeinschaft"}>
+                  {stepItem("eigentuemer.bruchteilsgemeinschaft", [
+                    {
+                      label: "Name Bruchteilsgemeinschaft",
+                      path: "",
+                      resolver: resolveBruchteilsgemeinschaftName,
+                    },
+                    {
+                      label: "Adresse",
+                      path: "",
+                      resolver: resolveBruchteilsgemeinschaftAdresse,
+                    },
+                  ])}
+                </div>
+              )}
             {conditions.customBruchteilsgemeinschaftData(allData) && (
               <div id={"bruchteilsgemeinschaft"}>
                 <ul>
