@@ -71,7 +71,7 @@
     "react-imask": "^6.4.2",
     "remix-auth": "^3.2.2",
     "remix-auth-form": "^1.1.2",
-    "remix-i18next": "^4.1.0",
+    "remix-i18next": "^4.1.1",
     "tiny-invariant": "^1.2.0",
     "tsconfig-paths": "^4.0.0",
     "uuid": "^8.3.2",
