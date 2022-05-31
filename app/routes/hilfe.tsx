@@ -50,7 +50,7 @@ export default function Hilfe() {
               emailContactLink: (
                 <a
                   className="text-blue-900"
-                  href="mailto:kontakt@grundsteuererklärung-fuer-privateigentum.de"
+                  href="mailto:kontakt@grundsteuererklaerung-fuer-privateigentum.de"
                 />
               ),
             }}
