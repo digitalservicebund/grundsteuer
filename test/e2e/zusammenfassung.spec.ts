@@ -127,9 +127,8 @@ describe("Zusammenfassung route", () => {
       cy.url().should("not.include", "formular/zusammenfassung");
 
       cy.visit("formular/zusammenfassung");
-      cy.contains("button", "Grundstück").wait(100).click();
-      cy.wait(100)
-        .get('a[href="formular/grundstueck/adresse?redirectToSummary=true"]')
+      cy.contains("summary", "Grundstück").click();
+      cy.get('a[href="formular/grundstueck/adresse?redirectToSummary=true"]')
         .first()
         .click();
     });
