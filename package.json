@@ -60,7 +60,7 @@
     "helmet": "^5.0.2",
     "i18next": "^21.8.3",
     "i18next-fs-backend": "^1.1.4",
-    "i18next-http-backend": "^1.4.0",
+    "i18next-http-backend": "^1.4.1",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
     "node-cron": "^3.0.0",
@@ -71,7 +71,7 @@
     "react-imask": "^6.4.2",
     "remix-auth": "^3.2.2",
     "remix-auth-form": "^1.1.2",
-    "remix-i18next": "^4.1.0",
+    "remix-i18next": "^4.1.1",
     "tiny-invariant": "^1.2.0",
     "tsconfig-paths": "^4.0.0",
     "uuid": "^8.3.2",
@@ -120,7 +120,7 @@
     "start-server-and-test": "^1.14.0",
     "tailwindcss": "^3.0.24",
     "ts-jest": "^27.1.4",
-    "ts-node": "^10.7.0",
+    "ts-node": "^10.8.0",
     "typescript": "^4.6.3"
   },
   "lint-staged": {
