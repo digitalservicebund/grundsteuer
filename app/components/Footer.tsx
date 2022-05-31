@@ -17,7 +17,7 @@ export default function Footer() {
       >
         Können wir helfen?
       </FloatButton>
-      <div className="visible md:invisible p-32 bg-blue-200 text-16 flex flex-wrap md:flex md:justify-between md:items-center ">
+      <div className="visible md:hidden p-32 bg-blue-200 text-16 flex flex-wrap md:flex md:justify-between md:items-center ">
         <div className="flex items-center">
           {/*Put the thumbs up/down component here*/}
         </div>
