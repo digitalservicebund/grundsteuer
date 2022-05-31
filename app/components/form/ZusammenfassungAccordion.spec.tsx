@@ -173,11 +173,15 @@ describe("ZusammenfassungAccordion component", () => {
       render(<ZusammenfassungAccordion {...defaultProps} />);
 
       expect(
-        screen.getByRole("img", { name: "Fertig" }).nextSibling
-      ).toContainHTML("Eigentümer:innen");
-      expect(
-        screen.getByRole("img", { name: "Ausrufezeichen" }).nextSibling
+        within(
+          document.querySelector("details:first-child summary") as HTMLElement
+        ).getByRole("img", { name: "Ausrufezeichen" }).nextSibling
       ).toContainHTML("Grundstück");
+      expect(
+        within(
+          document.querySelector("details:nth-child(2) summary") as HTMLElement
+        ).getByRole("img", { name: "Fertig" }).nextSibling
+      ).toContainHTML("Eigentümer:innen");
     });
 
     describe("with no data for field with error", () => {

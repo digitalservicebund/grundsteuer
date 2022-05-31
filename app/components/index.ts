@@ -1,3 +1,5 @@
+export { default as Accordion } from "./Accordion";
+export { default as AccordionItem } from "./AccordionItem";
 export { default as BmfLogo } from "./BmfLogo";
 export { default as BreadcrumbNavigation } from "./BreadcrumbNavigation";
 export { default as Button } from "./Button";

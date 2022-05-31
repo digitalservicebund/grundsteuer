@@ -107,22 +107,7 @@
 
 @layer components {
   /* accordion */
-  [data-state="open"] .accordion-open-icon {
-    @apply hidden;
-  }
-  [data-state="closed"] .accordion-close-icon {
-    @apply hidden;
-  }
-  .accordion-content[data-state="open"] {
-    @apply animate-open-accordion-content;
-  }
-  .accordion-content[data-state="closed"] {
-    @apply animate-close-accordion-content;
-  }
-  .accordion-header[data-state="open"] {
-    @apply bg-blue-200;
-  }
-  .accordion-header > button:focus:not(:focus-visible) {
+  .accordion-summary:focus:not(:focus-visible) {
     @apply outline-none;
   }
 

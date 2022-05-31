@@ -180,24 +180,6 @@ module.exports = {
       320: "20rem",
       384: "24rem",
     },
-    extend: {
-      keyframes: {
-        openAccordionContent: {
-          "0%": { height: 0 },
-          "100%": { height: "var(--radix-accordion-content-height)" },
-        },
-        closeAccordionContent: {
-          "0%": { height: "var(--radix-accordion-content-height)" },
-          "100%": { height: 0 },
-        },
-      },
-      animation: {
-        "open-accordion-content":
-          "openAccordionContent 300ms ease-out forwards",
-        "close-accordion-content":
-          "closeAccordionContent 300ms ease-out forwards",
-      },
-    },
   },
   plugins: [require("@tailwindcss/typography")],
 };

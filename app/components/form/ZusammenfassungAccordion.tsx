@@ -2,7 +2,8 @@ import { getStepData } from "~/domain/model";
 import Finished from "~/components/icons/mui/Finished";
 import Edit from "~/components/icons/mui/Edit";
 import { conditions } from "~/domain/guards";
-import Accordion, { AccordionItem } from "~/components/Accordion";
+import { Accordion } from "~/components";
+import { AccordionItemProps } from "~/components/AccordionItem";
 import {
   GrundModel,
   GrundstueckAdresseFields,
@@ -486,7 +487,7 @@ export default function ZusammenfassungAccordion({
     );
   };
 
-  const grundstueckAccordionItem = (): AccordionItem => {
+  const grundstueckAccordionItem = (): AccordionItemProps => {
     const header = sectionHeading("Grundstück", "grundstueck");
     if (!allData.grundstueck) {
       return {
@@ -644,7 +645,7 @@ export default function ZusammenfassungAccordion({
     };
   };
 
-  const gebaeudeAccordionItem = (): AccordionItem | undefined => {
+  const gebaeudeAccordionItem = (): AccordionItemProps | undefined => {
     if (!conditions.isBebaut(allData)) return undefined;
 
     const header = sectionHeading("Gebäude", "gebaeude");
@@ -754,7 +755,7 @@ export default function ZusammenfassungAccordion({
     };
   };
 
-  const eigentuemerAccordionItem = (): AccordionItem => {
+  const eigentuemerAccordionItem = (): AccordionItemProps => {
     const header = sectionHeading("Eigentümer:innen", "eigentuemer");
     if (!allData?.eigentuemer) {
       return {
@@ -969,7 +970,7 @@ export default function ZusammenfassungAccordion({
     };
   };
 
-  const freitextAccordionItem = (): AccordionItem => {
+  const freitextAccordionItem = (): AccordionItemProps => {
     return {
       header: (
         <div className="flex items-center">
@@ -996,7 +997,7 @@ export default function ZusammenfassungAccordion({
     gebaeudeAccordionItem(),
     eigentuemerAccordionItem(),
     freitextAccordionItem(),
-  ].filter((i) => i !== undefined) as AccordionItem[];
+  ].filter((i) => i !== undefined) as AccordionItemProps[];
 
   return <Accordion items={accordionItems} />;
 }

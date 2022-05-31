@@ -536,19 +536,19 @@ describe("Happy Path", () => {
     // ZUSAMMENFASSUNG
     cy.url().should("include", "/formular/zusammenfassung");
 
-    cy.contains("button", "Ergänzende Angaben").click();
+    cy.contains("summary", "Ergänzende Angaben").click();
     cy.get("#freitext").clear().type(inputData.freitext);
 
     // unpack accordion items
-    cy.contains("button", "Grundstück").click();
+    cy.contains("summary", "Grundstück").click();
     cy.contains("#grundstueck-area dt", "Art des Grundstücks");
     cy.contains("#grundstueck-area dd", "Einfamilienhaus");
 
-    cy.contains("button", "Gebäude").click();
+    cy.contains("summary", "Gebäude").click();
     cy.contains("#gebaeude-area dt", "Auswahl Baujahr");
     cy.contains("#gebaeude-area dd", "Nach 1949");
 
-    cy.contains("button", "Eigentümer:innen").click();
+    cy.contains("summary", "Eigentümer:innen").click();
     cy.contains("#eigentuemer-area dt", "Anzahl");
     cy.contains("#eigentuemer-area dd", inputData.eigentuemer.anzahl.anzahl);
     cy.contains("#person-0", "Frau");
