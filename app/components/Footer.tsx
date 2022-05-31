@@ -2,12 +2,22 @@ import { useTranslation } from "react-i18next";
 import { Link } from "@remix-run/react";
 import bmfLogoImage from "~/assets/images/bmf-logo.svg";
 import digitalserviceLogoImage from "~/assets/images/digitalservice-logo.svg";
+import FloatButton from "~/components/FloatButton";
+import LetterIcon from "~/components/icons/mui/LetterIcon";
 
 export default function Footer() {
   const { t } = useTranslation("all");
   return (
     <footer className="flex-shrink-0 bg-white">
-      <div className="p-32 bg-blue-200 text-16 flex flex-wrap md:flex md:justify-between md:items-center ">
+      <FloatButton
+        className="invisible md:visible"
+        look="secondary"
+        icon={<LetterIcon />}
+        to={"/hilfe"}
+      >
+        Können wir helfen?
+      </FloatButton>
+      <div className="visible md:invisible p-32 bg-blue-200 text-16 flex flex-wrap md:flex md:justify-between md:items-center ">
         <div className="flex items-center">
           {/*Put the thumbs up/down component here*/}
         </div>
