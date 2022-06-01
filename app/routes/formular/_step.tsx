@@ -213,7 +213,7 @@ export const action: ActionFunction = async ({ params, request }) => {
     await request.formData()
   ) as unknown as StepFormData;
   const errors = await validateStepFormData(
-    currentStateWithoutId,
+    getStepDefinition({ currentStateWithoutId }),
     stepFormData,
     storedFormData
   );

@@ -15,7 +15,7 @@ import {
   createHeadersWithFormDataCookie,
   getStoredFormData,
 } from "~/formDataStorage.server";
-import { GrundModel, StepDefinition } from "~/domain/steps";
+import { getStepDefinition, GrundModel, StepDefinition } from "~/domain/steps";
 import { pageTitle } from "~/util/pageTitle";
 import {
   filterDataForReachablePaths,
@@ -235,7 +235,7 @@ export const action: ActionFunction = async ({
     await request.formData()
   ) as unknown as StepFormData;
   const errors = await validateStepFormData(
-    "zusammenfassung",
+    getStepDefinition({ currentStateWithoutId: "zusammenfassung" }),
     zusammenfassungFormData,
     storedFormData
   );

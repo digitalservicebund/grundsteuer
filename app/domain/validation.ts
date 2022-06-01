@@ -5,6 +5,7 @@ import stepDefinitions, {
   getStepDefinition,
   GrundModel,
   GrundstueckFlurstueckGroesseFields,
+  StepDefinition,
   StepDefinitionField,
   StepDefinitionFieldWithOptions,
 } from "~/domain/steps";
@@ -712,12 +713,11 @@ export const getErrorMessage = (
 };
 
 export const validateStepFormData = async (
-  currentStateWithoutId: string,
+  stepDefinition: StepDefinition,
   stepFormData: StepFormData,
-  storedFormData: GrundModel
+  storedFormData: GrundModel | PruefenModel
 ): Promise<Record<string, string>> => {
   const errors: Record<string, string> = {};
-  const stepDefinition = getStepDefinition({ currentStateWithoutId });
   const tFunction = await i18Next.getFixedT("de", "all");
   if (stepDefinition) {
     Object.entries(stepDefinition.fields).forEach(
@@ -762,7 +762,7 @@ export const validateAllStepsData = async (
     let fieldErrors: Record<string, string | undefined> = {};
     if (stepFormData) {
       fieldErrors = await validateStepFormData(
-        stepPath,
+        getStepDefinition({ currentStateWithoutId: stepPath }),
         stepFormData,
         storedFormData
       );
