@@ -76,7 +76,7 @@
     "tsconfig-paths": "^4.0.0",
     "uuid": "^8.3.2",
     "validator": "^13.7.0",
-    "xstate": "^4.31.0"
+    "xstate": "^4.32.1"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.5.1",
