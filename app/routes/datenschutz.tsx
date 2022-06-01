@@ -47,11 +47,11 @@ export default function Datenschutz() {
         <h3>Wer sind wir?</h3>
         <p>
           Der Online-Dienst Grundsteuererklärung für Privateigentum wird im
-          Auftrag des Bundesministeriums für Finanzen von DigitalService4Germany
-          GmbH entwickelt und betrieben.
+          Auftrag des Bundesministeriums für Finanzen von DigitalService GmbH
+          des Bundes entwickelt und betrieben.
         </p>
         <p>
-          DigitalService4Germany GmbH ist eine Bundes GmbH. Die Bundesrepublik
+          DigitalService ist eine GmbH des Bundes. Die Bundesrepublik
           Deutschland – vertreten durch das Bundeskanzleramt – hält 100 Prozent
           der Anteile der GmbH. Unser Ziel: Dienstleistungen, die besser für
           alle funktionieren. Dienstleistungen der Verwaltung sollten für alle
@@ -77,7 +77,7 @@ export default function Datenschutz() {
         </p>
 
         <p>
-          DigitalService4Germany GmbH
+          DigitalService GmbH des Bundes
           <br /> Prinzessinenstraße 8-14 <br />
           10969 Berlin
           <br />
@@ -214,7 +214,7 @@ export default function Datenschutz() {
         </p>
 
         <p>
-          Externer Datenschutzbeauftragter des DigitalService4Germany GmbH
+          Externer Datenschutzbeauftragter der DigitalService GmbH des Bundes
           <br />
           1000 Elephants GmbH <br />
           Björn Stecher <br />

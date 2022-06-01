@@ -32,7 +32,7 @@ export default function Impressum() {
       <div className="prose prose-xl mb-64">
         <h3>Angaben gemäß § 5 TMG</h3>
         <p>
-          DigitalService4Germany GmbH
+          DigitalService GmbH des Bundes
           <br />
           Prinzessinenstraße 8-14
           <br /> 10969 Berlin
@@ -134,7 +134,7 @@ export default function Impressum() {
         <h3>Verantwortlich für den Inhalt gemäß § 18 Abs. 2 MStV</h3>
 
         <p>
-          DigitalService4Germany GmbH
+          DigitalService GmbH des Bundes
           <br /> Frau Christina Lang
           <br /> Prinzessinnenstraße 8-14
           <br /> 10969 Berlin

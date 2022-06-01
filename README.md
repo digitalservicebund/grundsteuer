@@ -1,6 +1,6 @@
 # Grundsteuer
 
-This is the code repository of Grundsteuer by [DigitalService4Germany](https://digitalservice4germany.com).
+This is the code repository of Grundsteuer by [DigitalService](https://digitalservice.bund.de).
 
 ## Quick Start Guide
 

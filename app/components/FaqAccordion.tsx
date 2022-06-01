@@ -231,14 +231,14 @@ export default function FaqAccordion() {
       content: (
         <>
           <p>
-            „Grundsteuererklärung für Privateigentum“ wurde von{" "}
+            „Grundsteuererklärung für Privateigentum“ wurde vom{" "}
             <a
               href="https://digitalservice.bund.de"
               target="_blank"
               rel="noopener"
               className="text-blue-800 underline"
             >
-              DigitalService4Germany
+              DigitalService
             </a>{" "}
             – einer GmbH, deren 100%-iger Anteilseigner der Bund ist – im
             Auftrag des{" "}
@@ -250,7 +250,7 @@ export default function FaqAccordion() {
             >
               Bundesfinanzministeriums
             </a>{" "}
-            entwickelt. Zuvor hat DigitalService4Germany{" "}
+            entwickelt. Zuvor hat DigitalService{" "}
             <a
               href="https://www.steuerlotse-rente.de"
               target="_blank"
