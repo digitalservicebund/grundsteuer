@@ -76,9 +76,8 @@ describe("authenticator.isAuthenticated", () => {
       });
 
       await authenticator
-        .authenticate("user-pass", request, {
+        .isAuthenticated(request, {
           successRedirect: "/redirectionUrl",
-          throwOnError: true,
         })
         .catch((response) => {
           expect(response.status).toEqual(302);
@@ -96,9 +95,8 @@ describe("authenticator.isAuthenticated", () => {
       });
 
       await authenticator
-        .authenticate("user-pass", request, {
+        .isAuthenticated(request, {
           successRedirect: "/redirectionUrl",
-          throwOnError: true,
         })
         .catch((response) => {
           expect(response.status).toEqual(302);
