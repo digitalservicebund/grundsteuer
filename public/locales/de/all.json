@@ -884,18 +884,18 @@
         }
       }
     },
-  "miteigentumsanteil": {
-        "headline": "Übertragen Sie die Angaben aus dem Grundbuchblatt zum Miteigentumsanteil",
-        "description": "Auf der Seite “Bestandsverzeichnis” finden Sie die Angaben über Ihren Miteigentumsanteil am Grundstück. Oft sind die Eintragungen etwas verschoben. In den meisten Fällen aber durch das Wort “Miteigentumsanteil” zu erkennen.",
-        "fields": {
-          "wirtschaftlicheEinheitZaehler": {
-            "label": "Zähler"
-          },
-          "wirtschaftlicheEinheitNenner": {
-            "label": "Nenner"
-          }
+    "miteigentumsanteil": {
+      "headline": "Übertragen Sie die Angaben aus dem Grundbuchblatt zum Miteigentumsanteil",
+      "description": "Auf der Seite “Bestandsverzeichnis” finden Sie die Angaben über Ihren Miteigentumsanteil am Grundstück. Oft sind die Eintragungen etwas verschoben. In den meisten Fällen aber durch das Wort “Miteigentumsanteil” zu erkennen.",
+      "fields": {
+        "wirtschaftlicheEinheitZaehler": {
+          "label": "Zähler"
+        },
+        "wirtschaftlicheEinheitNenner": {
+          "label": "Nenner"
         }
-  },
+      }
+    },
     "bodenrichtwertInfo": {
       "default": {
         "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
