@@ -111,7 +111,10 @@ const resolveMiteigentumFraction: StepResolver = (value) => {
 
 const resolveFlurstueckGroesse: StepResolver = (value) => {
   if (!value || Object.keys(value).length == 0) return undefined;
-  invariant("groesseQm" in value, "Only use for groesse fields");
+  invariant(
+    "groesseHa" in value || "groesseA" in value || "groesseQm" in value,
+    "Only use for groesse fields"
+  );
   return calculateGroesse({
     groesseHa: value.groesseHa || "",
     groesseA: value.groesseA || "",
