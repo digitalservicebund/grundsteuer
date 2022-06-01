@@ -1,6 +1,7 @@
 import _ from "lodash";
 import type { GrundModel } from "~/domain/steps";
 import { getReachablePathsFromData } from "~/domain/graph";
+import { PruefenModel } from "~/domain/pruefen/model";
 
 export type StepFormDataValue = string | undefined;
 export type StepFormData = Record<string, StepFormDataValue>;
@@ -13,14 +14,14 @@ export const idToIndex = (path: string) => {
 };
 
 export const setStepData = (
-  data: GrundModel,
+  data: GrundModel | PruefenModel,
   path: string,
   values: StepFormData
 ) => {
   return _.set(data, idToIndex(path), values);
 };
 
-export const getStepData = (data: GrundModel, path: string) => {
+export const getStepData = (data: GrundModel | PruefenModel, path: string) => {
   return _.get(data, idToIndex(path));
 };
 

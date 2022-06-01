@@ -246,7 +246,7 @@ export const action: ActionFunction = async ({
     storedFormData,
     "zusammenfassung",
     zusammenfassungFormData
-  );
+  ) as GrundModel;
 
   const headers = await createHeadersWithFormDataCookie({
     data: formDataToBeStored,

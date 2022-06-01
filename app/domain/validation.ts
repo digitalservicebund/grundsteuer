@@ -14,6 +14,7 @@ import _ from "lodash";
 import { i18Next } from "~/i18n.server";
 import { getCurrentStateWithoutId } from "~/util/getCurrentState";
 import { PreviousStepsErrors } from "~/routes/formular/zusammenfassung";
+import { PruefenModel } from "~/domain/pruefen/model";
 
 type ValidateFunctionDefault = ({ value }: { value: string }) => boolean;
 
@@ -353,7 +354,7 @@ type ValidateRequiredIfConditionFunction = ({
 }: {
   value: string;
   condition: Condition;
-  allData: GrundModel;
+  allData: GrundModel | PruefenModel;
 }) => boolean;
 export const validateRequiredIfCondition: ValidateRequiredIfConditionFunction =
   ({ value, condition, allData }) =>
@@ -636,7 +637,7 @@ export const getErrorMessage = (
   value: string,
   validationConfig: ValidationConfig,
   formData: StepFormData,
-  allData: GrundModel,
+  allData: GrundModel | PruefenModel,
   i18n: Record<string, Record<string, string> | string>
 ): string | undefined => {
   const validatorMapping: Record<string, ValidateFunction> = {

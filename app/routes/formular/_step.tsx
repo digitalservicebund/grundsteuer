@@ -224,7 +224,7 @@ export const action: ActionFunction = async ({ params, request }) => {
     storedFormData,
     currentState,
     stepFormData
-  );
+  ) as GrundModel;
   const headers = await createHeadersWithFormDataCookie({
     data: formDataToBeStored,
     user,
