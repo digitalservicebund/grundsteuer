@@ -73,7 +73,7 @@ export const getLoaderArgsWithAuthenticatedSession = async (
   }
 
   return {
-    request: new Request(requestUrl, {
+    request: new Request(`http://localhost${requestUrl}`, {
       headers: headers,
     }),
     params: {},

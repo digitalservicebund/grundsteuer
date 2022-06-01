@@ -31,7 +31,7 @@ describe("createFormDataCookieName", () => {
 describe("getStoredFormData", () => {
   describe("no cookie present", () => {
     it("returns empty object", async () => {
-      const request = new Request("/");
+      const request = new Request("http://localhost/");
       const data = await getStoredFormData({
         request,
         user,
@@ -61,7 +61,7 @@ describe("getStoredFormData", () => {
           userId,
           index,
         }).serialize("data");
-        const request = new Request("/", {
+        const request = new Request("http://localhost/", {
           headers: {
             Cookie: cookie,
           },
@@ -86,7 +86,7 @@ describe("getStoredFormData", () => {
           userId: user.id,
           index: 0,
         }).serialize("1" + data);
-        const request = new Request("/", {
+        const request = new Request("http://localhost/", {
           headers: {
             Cookie: cookie,
           },
@@ -116,7 +116,7 @@ describe("getStoredFormData", () => {
             userId: user.id,
             index: 2,
           }).serialize(data.slice(20));
-          const request = new Request("/", {
+          const request = new Request("http://localhost/", {
             headers: {
               Cookie: [cookie, cookie2, cookie3].join(";"),
             },
@@ -142,7 +142,7 @@ describe("getStoredFormData", () => {
               userId: user.id,
               index: 2,
             }).serialize(data.slice(10));
-            const request = new Request("/", {
+            const request = new Request("http://localhost/", {
               headers: {
                 Cookie: [cookie, cookie3].join(";"),
               },
@@ -175,7 +175,7 @@ describe("getStoredFormData", () => {
             }).serialize(
               "data which would lead to a syntax error if taken into account"
             );
-            const request = new Request("/", {
+            const request = new Request("http://localhost/", {
               headers: {
                 Cookie: [cookie, cookie2, cookie3].join(";"),
               },
@@ -200,7 +200,7 @@ describe("getStoredFormData", () => {
           userId: user.id,
           index: 0,
         }).serialize("1" + data);
-        const request = new Request("/", {
+        const request = new Request("http://localhost/", {
           headers: {
             Cookie: cookie,
           },

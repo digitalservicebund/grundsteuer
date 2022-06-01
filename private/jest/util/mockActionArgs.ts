@@ -26,7 +26,7 @@ export const mockActionArgs: MockActionArgsFunction = async ({
     allData || {},
     headers
   );
-  const request = new Request(route || "/", {
+  const request = new Request(`http://localhost${route || "/"}`, {
     method: "POST",
     headers,
   });
