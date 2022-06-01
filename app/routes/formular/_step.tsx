@@ -36,8 +36,6 @@ import {
   getCurrentStateFromUrl,
   getCurrentStateWithoutId,
 } from "~/util/getCurrentState";
-import { State } from "xstate/lib/State";
-import { StateSchema, Typestate } from "xstate/lib/types";
 import { StepHeadline } from "~/components/StepHeadline";
 import { getReachablePathsFromData } from "~/domain";
 import { pageTitle } from "~/util/pageTitle";
@@ -47,6 +45,9 @@ import { Params } from "react-router";
 import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
+import { getBackUrl, getRedirectUrl } from "~/util/constructUrls";
+
+const PREFIX = "formular";
 
 const getMachine = ({
   formData,
@@ -66,68 +67,6 @@ const getMachine = ({
     guards: conditions,
     actions: actions,
   });
-};
-
-const getBackUrl = ({
-  machine,
-  currentStateWithoutId,
-}: {
-  machine: any;
-  currentStateWithoutId: string;
-}) => {
-  const backState = machine.transition(currentStateWithoutId, {
-    type: "BACK",
-  });
-  const dotNotation = backState.toStrings().at(-1);
-  if (
-    dotNotation === currentStateWithoutId &&
-    currentStateWithoutId !== "grundstueck.flurstueck.angaben"
-  ) {
-    return null;
-  }
-  let backUrl = `/formular/${dotNotation.split(".").join("/")}`;
-  if (backState.matches("eigentuemer.person")) {
-    backUrl = backUrl.replace(
-      "person/",
-      `person/${(backState.context as StateMachineContext).personId || 1}/`
-    );
-  } else if (backState.matches("grundstueck.flurstueck")) {
-    backUrl = backUrl.replace(
-      "flurstueck/",
-      `flurstueck/${
-        (backState.context as StateMachineContext).flurstueckId || 1
-      }/`
-    );
-  }
-  return backUrl;
-};
-
-const getRedirectUrl = (
-  state: State<
-    StateMachineContext,
-    Event,
-    StateSchema,
-    Typestate<StateMachineContext>,
-    any
-  >
-): string => {
-  let redirectUrl = `/formular/${state
-    .toStrings()
-    .at(-1)
-    ?.split(".")
-    .join("/")}`;
-  if (state.matches("eigentuemer.person")) {
-    redirectUrl = redirectUrl.replace(
-      "person/",
-      `person/${state.context.personId || 1}/`
-    );
-  } else if (state.matches("grundstueck.flurstueck")) {
-    redirectUrl = redirectUrl.replace(
-      "flurstueck/",
-      `flurstueck/${state.context.flurstueckId || 1}/`
-    );
-  }
-  return redirectUrl;
 };
 
 export type LoaderData = {
@@ -157,7 +96,7 @@ export const loader: LoaderFunction = async ({
   // redirect to first fitting child node
   if (stateNodeType == "compound") {
     const inititalState = machine.transition(currentStateWithoutId, "FAKE");
-    const redirectUrl = getRedirectUrl(inititalState);
+    const redirectUrl = getRedirectUrl(inititalState, PREFIX);
     return redirect(redirectUrl);
   }
   // redirect in case the step is not enabled
@@ -166,7 +105,11 @@ export const loader: LoaderFunction = async ({
     return redirect("/formular/welcome");
   }
 
-  const backUrl = getBackUrl({ machine, currentStateWithoutId });
+  const backUrl = getBackUrl({
+    machine,
+    currentStateWithoutId,
+    prefix: PREFIX,
+  });
   const stepDefinition = getStepDefinition({ currentStateWithoutId });
   const redirectToSummary = !!new URL(request.url).searchParams.get(
     "redirectToSummary"
@@ -241,7 +184,7 @@ export const action: ActionFunction = async ({ params, request }) => {
   const nextState = machine.transition(currentStateWithoutId, {
     type: "NEXT",
   });
-  const redirectUrl = getRedirectUrl(nextState);
+  const redirectUrl = getRedirectUrl(nextState, PREFIX);
 
   return redirect(redirectUrl, {
     headers,
