@@ -28,10 +28,11 @@ export type I18nObject = {
 export const getStepI18n = async (
   stepI18nKey: string,
   stepI18nParams?: { id?: string },
-  bundesland = "default"
+  bundesland = "default",
+  prefix = ""
 ) => {
   const tFunction = await i18Next.getFixedT("de", "all");
-  let key = stepI18nKey;
+  let key = prefix ? prefix + "." + stepI18nKey : stepI18nKey;
   if (stepI18nKey.startsWith("grundstueck.bodenrichtwert")) {
     key = `${stepI18nKey}.${bundesland.toLowerCase()}`;
   }

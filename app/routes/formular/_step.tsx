@@ -47,7 +47,7 @@ import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { getBackUrl, getRedirectUrl } from "~/util/constructUrls";
 
-const PREFIX = "formular";
+export const PREFIX = "formular";
 
 const getMachine = ({
   formData,

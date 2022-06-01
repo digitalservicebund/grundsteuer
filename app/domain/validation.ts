@@ -13,6 +13,7 @@ import { getReachablePathsFromData } from "~/domain/graph";
 import _ from "lodash";
 import { i18Next } from "~/i18n.server";
 import { getCurrentStateWithoutId } from "~/util/getCurrentState";
+import { PruefenCondition } from "~/domain/pruefen/guards";
 import { PreviousStepsErrors } from "~/routes/formular/zusammenfassung";
 import { PruefenModel } from "~/domain/pruefen/model";
 
@@ -353,7 +354,7 @@ type ValidateRequiredIfConditionFunction = ({
   allData,
 }: {
   value: string;
-  condition: Condition;
+  condition: Condition | PruefenCondition;
   allData: GrundModel | PruefenModel;
 }) => boolean;
 export const validateRequiredIfCondition: ValidateRequiredIfConditionFunction =

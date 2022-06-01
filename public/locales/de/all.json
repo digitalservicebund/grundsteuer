@@ -119,6 +119,44 @@
       "notInPast": "Ihr Geburtsdatum muss in der Vergangenheit liegen."
     }
   },
+  "pruefen": {
+    "eigentuemerTyp": {
+      "headline": "Wer oder für wen soll die Grundsteuererklärung abgegeben werden?",
+      "fields": {
+        "eigentuemerTyp": {
+          "options": {
+            "privatperson": {
+              "label": "Ich bin eine Privatperson oder eine (private) Gemeinschaft (Alleinstehend, Ehepartern:innen, Familien, Bruchteilsgemeinschaften,...)"
+            },
+            "unternehmen": {
+              "label": "Wir sind eine Organisation / Firma / Verein / Unternehmen / Stiftung / Genossenschaft"
+            },
+            "beratung": {
+              "label": "Ich bin eine Hausverwaltung oder Steuerberater:in, ein Rechtsanwalt oder eine Rechtsanwältin und gebe die Erklärung für eine andere Person ab"
+            }
+          }
+        }
+      }
+    },
+    "erbengemeinschaft": {
+      "headline": "Gehört das Grundstück einer Erbengemeinschaft?",
+      "fields": {
+        "isErbengemeinschaft": {
+          "options": {
+            "noErbengemeinschaft": {
+              "label": "Nein, das Grundstück gehört keiner Erbengemeinschaft"
+            },
+            "erbengemeinschaftInGrundbuch": {
+              "label": "Ja, es gehört einer Erbengemeinschaft. Die Eigentümer:innen teilen sich das Grundstück und sind im Grundbuch vermerkt"
+            },
+            "erbengemeinschaftNotInGrundbuch": {
+              "label": "Ja, es gehört einer Erbengemeinschaft. Den Eigentümer:innen gehört das Grundstück zu gleichen Teilen. Sie sind nicht im Grundbuch vermerkt."
+            }
+          }
+        }
+      }
+    }
+  },
   "nav": {
     "headline": {
       "grundstueck": "Grundstück",
@@ -373,7 +411,7 @@
     },
     "person": {
       "persoenlicheAngaben": {
-        "headline": "Persoenliche Angaben Person {{id}}",
+        "headline": "Persönliche Angaben Person {{id}}",
         "fields": {
           "anrede": {
             "label": "Anrede",
