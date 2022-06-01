@@ -20,7 +20,10 @@ describe("authenticator.isAuthenticated", () => {
       const body = new FormData();
       body.set("email", "unknown@foo.com");
       body.set("password", correctPassword);
-      const request = new Request("", { body, method: "POST" });
+      const request = new Request("http://localhost/", {
+        body,
+        method: "POST",
+      });
 
       await expect(
         authenticator.authenticate("user-pass", request, {
@@ -50,7 +53,10 @@ describe("authenticator.isAuthenticated", () => {
       const body = new FormData();
       body.set("email", email);
       body.set("password", "incorrectPassword");
-      const request = new Request("", { body, method: "POST" });
+      const request = new Request("http://localhost/", {
+        body,
+        method: "POST",
+      });
 
       await expect(
         authenticator.authenticate("user-pass", request, {
@@ -64,7 +70,10 @@ describe("authenticator.isAuthenticated", () => {
       const body = new FormData();
       body.set("email", email);
       body.set("password", correctPassword);
-      const request = new Request("", { body, method: "POST" });
+      const request = new Request("http://localhost/", {
+        body,
+        method: "POST",
+      });
 
       await authenticator
         .authenticate("user-pass", request, {
@@ -81,7 +90,10 @@ describe("authenticator.isAuthenticated", () => {
       const body = new FormData();
       body.set("email", email.toUpperCase());
       body.set("password", correctPassword);
-      const request = new Request("", { body, method: "POST" });
+      const request = new Request("http://localhost/", {
+        body,
+        method: "POST",
+      });
 
       await authenticator
         .authenticate("user-pass", request, {
