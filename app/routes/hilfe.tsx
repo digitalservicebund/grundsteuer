@@ -11,28 +11,16 @@ import { useLoaderData } from "@remix-run/react";
 import Button from "~/components/Button";
 import TextParagraph from "~/components/TextParagraph";
 import { Trans } from "react-i18next";
-import { commitSession, getSession } from "~/session.server";
 
-export const BACKLINK_URL_KEY = "backLinkUrl";
-
-export const loader: LoaderFunction = async ({ request }) => {
-  const session = await getSession(request.headers.get("Cookie"));
-  return json(
-    {
-      i18n: await getStepI18n("hilfe"),
-      backLinkUrl: session.get(BACKLINK_URL_KEY),
-    },
-    {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
-    }
-  );
+export const loader: LoaderFunction = async () => {
+  return json({
+    i18n: await getStepI18n("hilfe"),
+  });
 };
 
 export default function Hilfe() {
   const loaderData = useLoaderData();
-  const { backLinkUrl, i18n } = loaderData;
+  const { i18n } = loaderData;
   return (
     <UserLayout>
       <ContentContainer size="sm">
@@ -61,7 +49,11 @@ export default function Hilfe() {
         <TextParagraph>{i18n.emailSubjectText}</TextParagraph>
         <TextParagraph>{i18n.legalNote}</TextParagraph>
 
-        <Button look="primary" icon={<ArrowBackIcon />} to={backLinkUrl}>
+        <Button
+          look="primary"
+          icon={<ArrowBackIcon />}
+          onClick={() => history.back()}
+        >
           Zurück
         </Button>
       </ContentContainer>
