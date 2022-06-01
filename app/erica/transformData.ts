@@ -20,6 +20,7 @@ import {
 } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
 import { EigentuemerPersonAdresseFields } from "~/domain/steps/eigentuemer/person/adresse";
 import { EigentuemerPersonAnteilFields } from "~/domain/steps/eigentuemer/person/anteil";
+import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/grundstueck/miteigentumsanteil";
 
 export const calculateGroesse = (
   groesse: GrundstueckFlurstueckGroesseFields
@@ -126,16 +127,18 @@ const calculateWohnflaechen = (
   ]);
 };
 
-const transformFlurstueck = (flurstueck: Flurstueck) => {
+const transformFlurstueck = (
+  flurstueck: Flurstueck,
+  miteigentum: GrundstueckFlurstueckMiteigentumsanteilFields | undefined
+) => {
   return {
     angaben: flurstueck.angaben,
     flur: {
       ...flurstueck.flur,
       wirtschaftlicheEinheitZaehler: transformWirtschaftlicheEinheitZaehler(
-        flurstueck.miteigentumsanteil?.wirtschaftlicheEinheitZaehler
+        miteigentum?.wirtschaftlicheEinheitZaehler
       ),
-      wirtschaftlicheEinheitNenner:
-        flurstueck.miteigentumsanteil?.wirtschaftlicheEinheitNenner,
+      wirtschaftlicheEinheitNenner: miteigentum?.wirtschaftlicheEinheitNenner,
     },
     groesseQm: flurstueck.groesse
       ? calculateGroesse(flurstueck.groesse)
@@ -247,7 +250,9 @@ export const transforDataToEricaFormat = (inputData: GrundModel) => {
         2,
         inputData.grundstueck?.bodenrichtwertEingabe?.bodenrichtwert
       ),
-      flurstueck: inputData.grundstueck?.flurstueck?.map(transformFlurstueck),
+      flurstueck: inputData.grundstueck?.flurstueck?.map((value) =>
+        transformFlurstueck(value, inputData.grundstueck?.miteigentumsanteil)
+      ),
     },
     gebaeude: {
       ab1949: inputData.gebaeude?.ab1949,

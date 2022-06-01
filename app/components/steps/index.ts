@@ -35,12 +35,12 @@ export default {
   grundstueck: {
     uebersicht: GrundstueckUebersicht,
     typ: GrundstueckTyp,
+    miteigentumsanteil: FlurstueckMiteigentumsanteil,
     bodenrichtwertInfo: BodenrichtwertInfo,
     bodenrichtwertAnzahl: BodenrichtwertAnzahl,
     flurstueck: {
       angaben: FlurstueckAngaben,
       flur: FlurstueckFlur,
-      miteigentumsanteil: FlurstueckMiteigentumsanteil,
       groesse: FlurstueckGroesse,
     },
   },

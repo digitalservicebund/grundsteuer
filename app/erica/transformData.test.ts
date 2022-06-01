@@ -102,9 +102,6 @@ describe("transforDataToEricaFormat", () => {
             flurstueckZaehler: "23",
             flurstueckNenner: "45",
           },
-          miteigentum: {
-            hasMiteigentum: "true" as "true" | "false",
-          },
           miteigentumsanteil: {
             wirtschaftlicheEinheitZaehler: "67,1",
             wirtschaftlicheEinheitNenner: "89",
@@ -124,13 +121,6 @@ describe("transforDataToEricaFormat", () => {
             flur: "Test2",
             flurstueckZaehler: "34",
             flurstueckNenner: "56",
-          },
-          miteigentum: {
-            hasMiteigentum: "true" as "true" | "false",
-          },
-          miteigentumsanteil: {
-            wirtschaftlicheEinheitZaehler: "78",
-            wirtschaftlicheEinheitNenner: "90",
           },
           groesse: {
             groesseHa: "",
@@ -153,6 +143,10 @@ describe("transforDataToEricaFormat", () => {
         .grundstueckAbweichendeEntwicklung({ zustand: "rohbauland" })
         .grundstueckGemeinde({ innerhalbEinerGemeinde: "true" })
         .grundstueckBodenrichtwert({ bodenrichtwert: "123" })
+        .miteigentumsanteil({
+          wirtschaftlicheEinheitZaehler: "67,1",
+          wirtschaftlicheEinheitNenner: "89",
+        })
         .grundstueckFlurstueck({ list: inputFlurstuecke, count: 2 })
         .build();
       const expectedData = {
@@ -189,8 +183,8 @@ describe("transforDataToEricaFormat", () => {
                 flur: "Test2",
                 flurstueckZaehler: "34",
                 flurstueckNenner: "56",
-                wirtschaftlicheEinheitZaehler: "78.0000",
-                wirtschaftlicheEinheitNenner: "90",
+                wirtschaftlicheEinheitZaehler: "67.1000",
+                wirtschaftlicheEinheitNenner: "89",
               },
               groesseQm: "12345",
             },

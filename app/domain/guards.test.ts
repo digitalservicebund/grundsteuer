@@ -1,8 +1,50 @@
 import { conditions } from "~/domain/guards";
 import { StateMachineContext } from "~/domain/states";
-import { flurstueckFactory, grundModelFactory } from "test/factories";
+import { grundModelFactory } from "test/factories";
 import { GrundModel } from "./steps";
-import { GrundstueckFlurstueckMiteigentumFields } from "~/domain/steps/grundstueck/flurstueck/miteingentum";
+
+describe("isEigentumswohnung", () => {
+  it("Should return false if data is undefined", async () => {
+    const result = conditions.isEigentumswohnung(undefined);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false if typ is invalid", async () => {
+    const inputData = grundModelFactory
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      .grundstueckTyp({ typ: "INVALID" })
+      .build();
+    const result = conditions.isEigentumswohnung(inputData);
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false if typ is not wohnungseigentum", async () => {
+    const wrongValues = [
+      "einfamilienhaus",
+      "zweifamilienhaus",
+      "baureif",
+      "abweichendeEntwicklung",
+    ];
+    wrongValues.forEach((wrongValue) => {
+      const inputData = grundModelFactory
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        .grundstueckTyp({ typ: wrongValue })
+        .build();
+      const result = conditions.isEigentumswohnung(inputData);
+      expect(result).toEqual(false);
+    });
+  });
+
+  it("Should return true if typ is wohnungseigentum", async () => {
+    const inputData = grundModelFactory
+      .grundstueckTyp({ typ: "wohnungseigentum" })
+      .build();
+    const result = conditions.isEigentumswohnung(inputData);
+    expect(result).toEqual(true);
+  });
+});
 
 describe("isZweifamilienhaus", () => {
   it("Should return false if data is undefined", async () => {
@@ -665,34 +707,6 @@ describe("repeatFlurstueck", () => {
       expect(result).toEqual(false);
     });
   });
-});
-
-describe("hasMiteigentum", () => {
-  const cases = [
-    { input: "true", expectedValue: true },
-    { input: "false", expectedValue: false },
-    { input: "INVALID", expectedValue: false },
-    { input: null, expectedValue: false },
-  ];
-
-  test.each(cases)(
-    "Should return $expectedValue if hasMiteigentum is $input",
-    ({ input, expectedValue }) => {
-      const data = flurstueckFactory
-        .miteigentum({
-          hasMiteigentum: input,
-        } as GrundstueckFlurstueckMiteigentumFields)
-        .build();
-      const inputData = {
-        grundstueck: { flurstueck: [{ ...data }] },
-        flurstueckId: 1,
-      };
-
-      const result = conditions.hasMiteigentum(inputData);
-
-      expect(result).toEqual(expectedValue);
-    }
-  );
 });
 
 describe("isBebaut", () => {

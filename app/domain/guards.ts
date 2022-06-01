@@ -3,6 +3,10 @@ import { StateMachineContext } from "~/domain/states";
 export type Condition = (context: StateMachineContext | undefined) => boolean;
 export type Conditions = Record<string, Condition>;
 
+const isEigentumswohnung: Condition = (context) => {
+  return context?.grundstueck?.typ?.typ === "wohnungseigentum";
+};
+
 const isZweifamilienhaus: Condition = (context) => {
   return context?.grundstueck?.typ?.typ === "zweifamilienhaus";
 };
@@ -106,14 +110,6 @@ const flurstueckIdGreaterThanOne: Condition = (context) => {
   return Number(context?.flurstueckId) > 1;
 };
 
-const hasMiteigentum: Condition = (context) => {
-  const flurstueck =
-    context?.grundstueck?.flurstueck?.[(context?.flurstueckId || 1) - 1];
-  if (!flurstueck) return false;
-
-  return flurstueck.miteigentum?.hasMiteigentum === "true";
-};
-
 const bundeslandIsNW: Condition = (context) => {
   return context?.grundstueck?.adresse?.bundesland == "NW";
 };
@@ -122,6 +118,7 @@ export const conditions: Conditions = {
   isBezugsfertigAb1949,
   isKernsaniert,
   hasAbbruchverpflichtung,
+  isEigentumswohnung,
   isZweifamilienhaus,
   hasWeitereWohnraeume,
   hasGaragen,
@@ -140,6 +137,5 @@ export const conditions: Conditions = {
   isAbweichendeEntwicklung,
   personIdGreaterThanOne,
   flurstueckIdGreaterThanOne,
-  hasMiteigentum,
   bundeslandIsNW,
 };

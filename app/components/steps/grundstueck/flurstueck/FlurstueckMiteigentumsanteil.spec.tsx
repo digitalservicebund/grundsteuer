@@ -1,7 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import { getI18nObject } from "test/factories/i18n";
 import { I18nObject } from "~/i18n/getStepI18n";
-import { grundstueckFlurstueckMiteigentumsanteil } from "~/domain/steps/grundstueck/flurstueck/miteigentumsanteil";
+import { grundstueckFlurstueckMiteigentumsanteil } from "~/domain/steps/grundstueck/miteigentumsanteil";
 import FlurstueckMiteigentumsanteil from "~/components/steps/grundstueck/flurstueck/FlurstueckMiteigentumsanteil";
 
 describe("Miteigentumsanteil page component", () => {
@@ -16,9 +16,7 @@ describe("Miteigentumsanteil page component", () => {
   };
 
   beforeEach(async () => {
-    defaultInput.i18n = await getI18nObject(
-      "grundstueck.flurstueck.miteigentumsanteil"
-    );
+    defaultInput.i18n = await getI18nObject("grundstueck.miteigentumsanteil");
   });
 
   it("should render all input fields", () => {

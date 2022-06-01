@@ -91,23 +91,8 @@ export const states: MachineConfig<any, any, any> = {
             },
             flur: {
               on: {
-                NEXT: [{ target: "miteigentum" }],
-                BACK: [{ target: "angaben" }],
-              },
-            },
-            miteigentum: {
-              on: {
-                NEXT: [
-                  { target: "miteigentumsanteil", cond: "hasMiteigentum" },
-                  { target: "groesse" },
-                ],
-                BACK: [{ target: "flur" }],
-              },
-            },
-            miteigentumsanteil: {
-              on: {
                 NEXT: [{ target: "groesse" }],
-                BACK: [{ target: "miteigentum" }],
+                BACK: [{ target: "angaben" }],
               },
             },
             groesse: {
@@ -118,20 +103,33 @@ export const states: MachineConfig<any, any, any> = {
                     cond: "repeatFlurstueck",
                     actions: ["incrementFlurstueckId"],
                   },
+                  {
+                    target: "#grundstueck.miteigentumsanteil",
+                    cond: "isEigentumswohnung",
+                  },
                   { target: "#grundstueck.bodenrichtwertInfo" },
                 ],
-                BACK: [
-                  { target: "miteigentumsanteil", cond: "hasMiteigentum" },
-                  { target: "miteigentum" },
-                ],
+                BACK: [{ target: "flur" }],
               },
             },
+          },
+        },
+        miteigentumsanteil: {
+          on: {
+            NEXT: [{ target: "bodenrichtwertInfo" }],
+            BACK: [
+              {
+                target: "#flurstueck.groesse",
+                actions: "setFlurstueckIdToMaximum",
+              },
+            ],
           },
         },
         bodenrichtwertInfo: {
           on: {
             NEXT: [{ target: "bodenrichtwertEingabe" }],
             BACK: [
+              { target: "miteigentumsanteil", cond: "isEigentumswohnung" },
               {
                 target: "#flurstueck.groesse",
                 actions: "setFlurstueckIdToMaximum",

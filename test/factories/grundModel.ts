@@ -36,6 +36,7 @@ import { EigentuemerEmpfangsbevollmaechtigterNameFields } from "~/domain/steps/e
 import { EigentuemerEmpfangsbevollmaechtigterAdresseFields } from "~/domain/steps/eigentuemer/empfangsbevollmaechtigter/adresse";
 import { ZusammenfassungFields } from "~/domain/steps/zusammenfassung";
 import { GrundstueckBodenrichtwertAnzahlFields } from "~/domain/steps/grundstueck/bodenrichtwert/anzahl";
+import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/grundstueck/miteigentumsanteil";
 
 type PersonTransientParams = {
   transient: {
@@ -147,14 +148,26 @@ class GrundModelFactory extends Factory<GrundModel> {
       flurstueckFactory
         .angaben()
         .flur()
-        .miteigentum()
-        .miteigentumsanteil()
         .groesse()
         .buildList(count || 1);
 
     return this.params({
       grundstueck: {
         flurstueck: flurstueckList,
+      },
+    });
+  }
+
+  miteigentumsanteil(
+    fields?: Partial<GrundstueckFlurstueckMiteigentumsanteilFields>
+  ) {
+    return this.params({
+      grundstueck: {
+        miteigentumsanteil: {
+          wirtschaftlicheEinheitZaehler: "1",
+          wirtschaftlicheEinheitNenner: "234",
+          ...fields,
+        },
       },
     });
   }
@@ -437,6 +450,10 @@ class GrundModelFactory extends Factory<GrundModel> {
         .grundstueckSteuernummer({ steuernummer: "1234567890" })
         .grundstueckAbweichendeEntwicklung({ zustand: "rohbauland" })
         .grundstueckGemeinde({ innerhalbEinerGemeinde: "true" })
+        .miteigentumsanteil({
+          wirtschaftlicheEinheitZaehler: "67,1",
+          wirtschaftlicheEinheitNenner: "89",
+        })
         .grundstueckBodenrichtwert({ bodenrichtwert: "123" })
         .flurstueckAnzahl({ anzahl: "2" })
         .grundstueckFlurstueck({
@@ -450,13 +467,6 @@ class GrundModelFactory extends Factory<GrundModel> {
                 flur: "Test1",
                 flurstueckZaehler: "23",
                 flurstueckNenner: "45",
-              },
-              miteigentum: {
-                hasMiteigentum: "true",
-              },
-              miteigentumsanteil: {
-                wirtschaftlicheEinheitZaehler: "67,1",
-                wirtschaftlicheEinheitNenner: "89",
               },
               groesse: {
                 groesseHa: "",
@@ -473,13 +483,6 @@ class GrundModelFactory extends Factory<GrundModel> {
                 flur: "Test2",
                 flurstueckZaehler: "34",
                 flurstueckNenner: "56",
-              },
-              miteigentum: {
-                hasMiteigentum: "true",
-              },
-              miteigentumsanteil: {
-                wirtschaftlicheEinheitZaehler: "78",
-                wirtschaftlicheEinheitNenner: "90",
               },
               groesse: {
                 groesseHa: "",

@@ -18,7 +18,7 @@ import Person from "~/components/icons/mui/Person";
 import classNames from "classnames";
 import _ from "lodash";
 import invariant from "tiny-invariant";
-import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/grundstueck/flurstueck/miteigentumsanteil";
+import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/grundstueck/miteigentumsanteil";
 import {
   calculateGroesse,
   transformBruchteilsgemeinschaftAdresse,

@@ -199,13 +199,9 @@ import {
 } from "~/domain/steps/zusammenfassung";
 import { ValidationConfig } from "~/domain/validation";
 import {
-  GrundstueckFlurstueckMiteigentumFields,
-  grundstueckFlurstueckMiteigentum,
-} from "~/domain/steps/grundstueck/flurstueck/miteingentum";
-import {
   grundstueckFlurstueckMiteigentumsanteil,
   GrundstueckFlurstueckMiteigentumsanteilFields,
-} from "~/domain/steps/grundstueck/flurstueck/miteigentumsanteil";
+} from "~/domain/steps/grundstueck/miteigentumsanteil";
 
 export type { GrundstueckBodenrichtwertEingabeFields };
 
@@ -217,13 +213,12 @@ const stepDefinitions = {
     abweichendeEntwicklung: grundstueckAbweichendeEntwicklung,
     gemeinde: grundstueckGemeinde,
     anzahl: grundstueckAnzahl,
+    miteigentumsanteil: grundstueckFlurstueckMiteigentumsanteil,
     bodenrichtwertEingabe: grundstueckBodenrichtwertEingabe,
     bodenrichtwertAnzahl: grundstueckBodenrichtwertAnzahl,
     flurstueck: {
       angaben: grundstueckFlurstueckAngaben,
       flur: grundstueckFlurstueckFlur,
-      miteigentum: grundstueckFlurstueckMiteigentum,
-      miteigentumsanteil: grundstueckFlurstueckMiteigentumsanteil,
       groesse: grundstueckFlurstueckGroesse,
     },
   },
@@ -273,8 +268,6 @@ export default stepDefinitions;
 export type Flurstueck = {
   angaben?: GrundstueckFlurstueckAngabenFields;
   flur?: GrundstueckFlurstueckFlurFields;
-  miteigentum?: GrundstueckFlurstueckMiteigentumFields;
-  miteigentumsanteil?: GrundstueckFlurstueckMiteigentumsanteilFields;
   groesse?: GrundstueckFlurstueckGroesseFields;
 };
 
@@ -299,6 +292,7 @@ export type GrundModel = {
     abweichendeEntwicklung?: GrundstueckAbweichendeEntwicklungFields;
     gemeinde?: GrundstueckGemeindeFields;
     anzahl?: GrundstueckAnzahlFields;
+    miteigentumsanteil?: GrundstueckFlurstueckMiteigentumsanteilFields;
     bodenrichtwertEingabe?: GrundstueckBodenrichtwertEingabeFields;
     bodenrichtwertAnzahl?: GrundstueckBodenrichtwertAnzahlFields;
     flurstueck?: Flurstueck[];

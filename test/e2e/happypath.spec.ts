@@ -14,7 +14,7 @@ const inputData = {
       steuernummer: "1234567890",
     },
     typ: {
-      typ: "einfamilienhaus",
+      typ: "wohnungseigentum",
     },
     gemeinde: {
       innerhalbEinerGemeinde: "true",
@@ -32,18 +32,15 @@ const inputData = {
         flurstueckZaehler: "2345",
         flurstueckNenner: "9876",
       },
-      miteigentum: {
-        hasMiteigentum: "true",
-      },
-      miteigentumsanteil: {
-        wirtschaftlicheEinheitZaehler: "1",
-        wirtschaftlicheEinheitNenner: "234",
-      },
       groesse: {
         groesseHa: "1",
         groesseA: "2",
         groesseQm: "30",
       },
+    },
+    miteigentumsanteil: {
+      wirtschaftlicheEinheitZaehler: "1",
+      wirtschaftlicheEinheitNenner: "234",
     },
     bodenrichtwert: {
       bodenrichtwert: "200",
@@ -253,33 +250,6 @@ describe("Happy Path", () => {
       .type(inputData.grundstueck.flurstueck.flur.flurstueckNenner);
     cy.get(submitBtnSelector).click();
 
-    cy.url().should(
-      "include",
-      "/formular/grundstueck/flurstueck/1/miteigentum"
-    );
-    cy.get(
-      `label[for=hasMiteigentum-${inputData.grundstueck.flurstueck.miteigentum.hasMiteigentum}]`
-    ).click();
-    cy.get(submitBtnSelector).click();
-
-    cy.url().should(
-      "include",
-      "/formular/grundstueck/flurstueck/1/miteigentumsanteil"
-    );
-    cy.get("#wirtschaftlicheEinheitZaehler")
-      .clear()
-      .type(
-        inputData.grundstueck.flurstueck.miteigentumsanteil
-          .wirtschaftlicheEinheitZaehler
-      );
-    cy.get("#wirtschaftlicheEinheitNenner")
-      .clear()
-      .type(
-        inputData.grundstueck.flurstueck.miteigentumsanteil
-          .wirtschaftlicheEinheitNenner
-      );
-    cy.get(submitBtnSelector).click();
-
     cy.url().should("include", "/formular/grundstueck/flurstueck/1/groesse");
     cy.get("#groesseHa")
       .clear()
@@ -311,13 +281,6 @@ describe("Happy Path", () => {
       .type(inputData.grundstueck.flurstueck.flur.flurstueckNenner);
     cy.get(submitBtnSelector).click();
 
-    cy.url().should(
-      "include",
-      "/formular/grundstueck/flurstueck/2/miteigentum"
-    );
-    cy.get(`label[for=hasMiteigentum-false]`).click();
-    cy.get(submitBtnSelector).click();
-
     cy.url().should("include", "/formular/grundstueck/flurstueck/2/groesse");
     cy.get("#groesseHa")
       .clear()
@@ -328,6 +291,19 @@ describe("Happy Path", () => {
     cy.get("#groesseQm")
       .clear()
       .type(inputData.grundstueck.flurstueck.groesse.groesseQm);
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should("include", "/formular/grundstueck/miteigentumsanteil");
+    cy.get("#wirtschaftlicheEinheitZaehler")
+      .clear()
+      .type(
+        inputData.grundstueck.miteigentumsanteil.wirtschaftlicheEinheitZaehler
+      );
+    cy.get("#wirtschaftlicheEinheitNenner")
+      .clear()
+      .type(
+        inputData.grundstueck.miteigentumsanteil.wirtschaftlicheEinheitNenner
+      );
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/bodenrichtwertInfo");
@@ -542,7 +518,7 @@ describe("Happy Path", () => {
     // unpack accordion items
     cy.contains("summary", "Grundstück").click();
     cy.contains("#grundstueck-area dt", "Art des Grundstücks");
-    cy.contains("#grundstueck-area dd", "Einfamilienhaus");
+    cy.contains("#grundstueck-area dd", "Wohnungseigentum");
 
     cy.contains("summary", "Gebäude").click();
     cy.contains("#gebaeude-area dt", "Auswahl Baujahr");
