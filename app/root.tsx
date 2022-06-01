@@ -21,6 +21,8 @@ import { commitSession, getSession } from "~/session.server";
 import { createCsrfToken, CsrfTokenProvider } from "~/util/csrf";
 import { BACKLINK_URL_KEY } from "~/routes/hilfe";
 
+const IGNORED_BACKLINK_URLS = ["/hilfe"];
+
 export const links: LinksFunction = () => {
   return [
     {
@@ -73,7 +75,8 @@ interface LoaderData {
 export const loader: LoaderFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
   const currentUrl = new URL(request.url);
-  session.set(BACKLINK_URL_KEY, currentUrl.pathname);
+  if (!(IGNORED_BACKLINK_URLS.indexOf(currentUrl.pathname) > -1))
+    session.set(BACKLINK_URL_KEY, currentUrl.pathname);
   const token = createCsrfToken(session);
 
   return json<LoaderData>(
