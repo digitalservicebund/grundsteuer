@@ -10,6 +10,7 @@ export default function Footer() {
   return (
     <footer className="flex-shrink-0 bg-white">
       <FloatButton
+        size="small"
         className="invisible md:visible"
         look="secondary"
         icon={<LetterIcon />}
