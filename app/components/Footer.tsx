@@ -13,6 +13,7 @@ export default function Footer() {
         size="small"
         className="invisible md:visible"
         look="secondary"
+        floatingBorderBottom={82}
         icon={<LetterIcon />}
         to={"/hilfe"}
       >
