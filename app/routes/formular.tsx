@@ -10,7 +10,7 @@ import {
   NavigationActions,
   TopNavigation,
 } from "~/components";
-import { createGraph } from "~/domain";
+import { createFormGraph } from "~/domain";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 import { authenticator } from "~/auth.server";
 
@@ -20,7 +20,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
   const storedFormData = await getStoredFormData({ request, user });
 
-  const graph = createGraph({
+  const graph = createFormGraph({
     machineContext: storedFormData,
   });
 

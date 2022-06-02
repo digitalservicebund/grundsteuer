@@ -1,9 +1,9 @@
-import { createGraph, getReachablePaths, Graph } from "~/domain/graph";
+import { createFormGraph, getReachablePaths, Graph } from "~/domain/graph";
 
-describe("createGraph", () => {
+describe("createFormGraph", () => {
   describe("with empty data", () => {
     it("returns an empty object for enabled step", () => {
-      const result = createGraph({ machineContext: {} });
+      const result = createFormGraph({ machineContext: {} });
       expect((result.eigentuemer as Graph).anzahl).toEqual({
         data: undefined,
         path: "eigentuemer.anzahl",
@@ -12,7 +12,7 @@ describe("createGraph", () => {
     });
 
     it("returns only steps for person 1", () => {
-      const result = createGraph({ machineContext: {} });
+      const result = createFormGraph({ machineContext: {} });
       expect((result.eigentuemer as Graph).person).toHaveLength(1);
       expect(
         (((result.eigentuemer as Graph).person as Graph[])[0] as Graph).adresse
@@ -24,7 +24,7 @@ describe("createGraph", () => {
     });
 
     it("includes steps that have empty data set", () => {
-      const result = createGraph({ machineContext: { welcome: {} } });
+      const result = createFormGraph({ machineContext: { welcome: {} } });
       expect(result.welcome).toEqual({
         data: {},
         path: "welcome",
