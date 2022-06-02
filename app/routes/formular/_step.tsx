@@ -37,7 +37,7 @@ import {
   getCurrentStateWithoutId,
 } from "~/util/getCurrentState";
 import { StepHeadline } from "~/components/StepHeadline";
-import { getReachablePathsFromData } from "~/domain";
+import { getReachablePathsFromGrundData } from "~/domain";
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
 import { getSession } from "~/session.server";
@@ -100,7 +100,7 @@ export const loader: LoaderFunction = async ({
     return redirect(redirectUrl);
   }
   // redirect in case the step is not enabled
-  const reachablePaths = getReachablePathsFromData(storedFormData);
+  const reachablePaths = getReachablePathsFromGrundData(storedFormData);
   if (!reachablePaths.includes(currentState)) {
     return redirect("/formular/welcome");
   }

@@ -1,6 +1,6 @@
 import _ from "lodash";
 import type { GrundModel } from "~/domain/steps";
-import { getReachablePathsFromData } from "~/domain/graph";
+import { getReachablePathsFromGrundData } from "~/domain/graph";
 import { PruefenModel } from "~/domain/pruefen/model";
 
 export type StepFormDataValue = string | undefined;
@@ -30,7 +30,7 @@ export const filterDataForReachablePaths = (
 ): GrundModel => {
   const filteredData = {};
 
-  const reachablePaths = getReachablePathsFromData(completeData);
+  const reachablePaths = getReachablePathsFromGrundData(completeData);
   reachablePaths.forEach((path) => {
     const pathData = _.get(completeData, idToIndex(path));
     if (pathData) {

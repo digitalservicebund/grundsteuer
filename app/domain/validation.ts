@@ -9,7 +9,7 @@ import stepDefinitions, {
   StepDefinitionField,
   StepDefinitionFieldWithOptions,
 } from "~/domain/steps";
-import { getReachablePathsFromData } from "~/domain/graph";
+import { getReachablePathsFromGrundData } from "~/domain/graph";
 import _ from "lodash";
 import { i18Next } from "~/i18n.server";
 import { getCurrentStateWithoutId } from "~/util/getCurrentState";
@@ -752,7 +752,7 @@ export const validateAllStepsData = async (
   storedFormData: GrundModel
 ): Promise<PreviousStepsErrors> => {
   const generalErrors = {};
-  const reachablePaths = getReachablePathsFromData(storedFormData);
+  const reachablePaths = getReachablePathsFromGrundData(storedFormData);
   for (const stepPath of reachablePaths) {
     const stepFormData = getStepData(storedFormData, stepPath);
     const stepDefinition = _.get(
