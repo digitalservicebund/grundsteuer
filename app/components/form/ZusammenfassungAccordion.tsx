@@ -85,17 +85,6 @@ const resolveGemeinde: FieldResolver = (value) => {
   }
 };
 
-const resolveMiteigentum: FieldResolver = (value) => {
-  switch (value) {
-    case "true":
-      return "Teil der Grundstückseinheit";
-    case "false":
-      return "Gesamte Grundstückseinheit";
-    default:
-      return "";
-  }
-};
-
 const resolveMiteigentumFraction: StepResolver = (value) => {
   if (!value || Object.keys(value).length == 0) return undefined;
   invariant(
@@ -595,28 +584,6 @@ export default function ZusammenfassungAccordion({
                           resolver: resolveFlurstueckFraction,
                         },
                       ])}
-                      {stepItem(
-                        `grundstueck.flurstueck.${index + 1}.miteigentum`,
-                        [
-                          {
-                            label: "Auswahl Miteigentum",
-                            path: "hasMiteigentum",
-                            resolver: resolveMiteigentum,
-                          },
-                        ]
-                      )}
-                      {stepItem(
-                        `grundstueck.flurstueck.${
-                          index + 1
-                        }.miteigentumsanteil`,
-                        [
-                          {
-                            label: "Miteigentumsanteil",
-                            path: "",
-                            resolver: resolveMiteigentumFraction,
-                          },
-                        ]
-                      )}
                       {stepItem(`grundstueck.flurstueck.${index + 1}.groesse`, [
                         {
                           label: "Gesamtgrösße in Quadratmetern",
@@ -629,6 +596,14 @@ export default function ZusammenfassungAccordion({
                 })}
               </>
             )}
+
+            {stepItem(`grundstueck.miteigentumsanteil`, [
+              {
+                label: "Miteigentumsanteil",
+                path: "",
+                resolver: resolveMiteigentumFraction,
+              },
+            ])}
             {stepItem("grundstueck.bodenrichtwertEingabe", [
               {
                 label: "Bodenrichtwert in Euro",
