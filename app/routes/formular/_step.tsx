@@ -46,6 +46,7 @@ import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { getBackUrl, getRedirectUrl } from "~/util/constructUrls";
+import invariant from "tiny-invariant";
 
 export const PREFIX = "formular";
 
@@ -155,18 +156,22 @@ export const action: ActionFunction = async ({ params, request }) => {
   const stepFormData = Object.fromEntries(
     await request.formData()
   ) as unknown as StepFormData;
-  const { errors } = await validateStepFormData(
+  const { errors, validatedStepData } = await validateStepFormData(
     getStepDefinition({ currentStateWithoutId }),
     stepFormData,
     storedFormData
   );
   if (errors) return { errors } as ActionData;
+  invariant(
+    validatedStepData,
+    "If no errors, validatedStepData has to be returned"
+  );
 
   // store
   const formDataToBeStored = setStepData(
     storedFormData,
     currentState,
-    stepFormData
+    validatedStepData
   ) as GrundModel;
   const headers = await createHeadersWithFormDataCookie({
     data: formDataToBeStored,

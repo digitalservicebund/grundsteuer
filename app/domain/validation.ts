@@ -720,7 +720,7 @@ export const validateStepFormData = async (
   storedFormData: GrundModel | PruefenModel
 ): Promise<{
   errors: Record<string, string> | null;
-  validatedData: GrundModel | PruefenModel | null;
+  validatedStepData: StepFormData | null;
 }> => {
   const errors: Record<string, string> = {};
   const tFunction = await i18Next.getFixedT("de", "all");
@@ -749,9 +749,9 @@ export const validateStepFormData = async (
     );
   }
   if (Object.keys(errors).length != 0) {
-    return { errors, validatedData: null };
+    return { errors, validatedStepData: null };
   } else {
-    return { errors: null, validatedData: stepFormData };
+    return { errors: null, validatedStepData: stepFormData };
   }
 };
 

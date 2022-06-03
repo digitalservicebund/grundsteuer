@@ -44,6 +44,7 @@ import { HomepageHeader } from "~/routes";
 import SectionLabel from "~/components/SectionLabel";
 import Communication from "~/components/icons/mui/Communication";
 import { pruefenStateCookie } from "~/cookies";
+import invariant from "tiny-invariant";
 
 export const PREFIX = "pruefen";
 const START_STEP = "eigentuemerTyp";
@@ -146,18 +147,22 @@ export const action: ActionFunction = async ({ request }) => {
   const stepFormData = Object.fromEntries(
     await request.formData()
   ) as unknown as StepFormData;
-  const { errors } = await validateStepFormData(
+  const { errors, validatedStepData } = await validateStepFormData(
     getPruefenStepDefinition({ currentState }),
     stepFormData,
     storedFormData
   );
   if (errors) return { errors } as ActionData;
+  invariant(
+    validatedStepData,
+    "If no errors, validatedStepData has to be returned"
+  );
 
   // store
   const formDataToBeStored = setStepData(
     storedFormData,
     currentState,
-    stepFormData
+    validatedStepData
   ) as PruefenModel;
 
   const machine = getMachine({ formData: formDataToBeStored });

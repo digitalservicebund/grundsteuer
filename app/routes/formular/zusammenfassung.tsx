@@ -234,18 +234,22 @@ export const action: ActionFunction = async ({
   const zusammenfassungFormData = Object.fromEntries(
     await request.formData()
   ) as unknown as StepFormData;
-  const { errors } = await validateStepFormData(
+  const { errors, validatedStepData } = await validateStepFormData(
     getStepDefinition({ currentStateWithoutId: "zusammenfassung" }),
     zusammenfassungFormData,
     storedFormData
   );
   if (errors) return { errors };
+  invariant(
+    validatedStepData,
+    "If no errors, validatedStepData has to be returned"
+  );
 
   // store
   const formDataToBeStored = setStepData(
     storedFormData,
     "zusammenfassung",
-    zusammenfassungFormData
+    validatedStepData
   ) as GrundModel;
 
   const headers = await createHeadersWithFormDataCookie({
