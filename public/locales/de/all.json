@@ -166,6 +166,12 @@
             "default": {
               "label": "Bundesland auswählen"
             },
+            "BW": {
+              "label": "Baden-Württemberg"
+            },
+            "BY": {
+              "label": "Bayern"
+            },
             "BE": {
               "label": "Berlin"
             },
@@ -175,8 +181,17 @@
             "HB": {
               "label": "Bremen"
             },
+            "HH": {
+              "label": "Hamburg"
+            },
+            "HE": {
+              "label": "Hessen"
+            },
             "MV": {
               "label": "Mecklenburg-Vorpommern"
+            },
+            "NI": {
+              "label": "Niedersachsen"
             },
             "NW": {
               "label": "Nordrhein-Westfalen"
@@ -274,7 +289,7 @@
     },
     "fremderBoden": {
       "headline": "Haben das Gebäude und das dazugehörige Grundstück unterschiedliche Eigentümer:innen?",
-      "description": "Wir fragen dies, um herauszufinden, ob Ihr Gebäude auf fremden Grund und Boden steht oder das das Erbbaurecht an dem Grundstück auf Sie zutrifft.",
+      "description": "Wir fragen dies, um herauszufinden, ob Ihr Gebäude auf fremden Grund und Boden steht oder das Erbbaurecht an dem Grundstück auf Sie zutrifft.",
       "fields": {
         "fremderBoden": {
           "options": {
