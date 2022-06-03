@@ -1,6 +1,5 @@
 import {
   ActionFunction,
-  createCookie,
   LoaderFunction,
   MetaFunction,
   redirect,
@@ -43,8 +42,8 @@ import { getBackUrl, getRedirectUrl } from "~/util/constructUrls";
 import { State } from "xstate/lib/State";
 import { HomepageHeader } from "~/routes";
 import SectionLabel from "~/components/SectionLabel";
-import House from "~/components/icons/mui/House";
 import Communication from "~/components/icons/mui/Communication";
+import { pruefenCookie, pruefenStateCookie } from "~/cookies";
 
 export const PREFIX = "pruefen";
 const START_STEP = "eigentuemerTyp";
@@ -56,14 +55,6 @@ const getMachine = ({ formData }: { formData: PruefenModel }) => {
     guards: pruefenConditions,
   });
 };
-
-const pruefenCookie = createCookie(PREFIX, {
-  maxAge: 604_800, // one week
-});
-
-const pruefenStateCookie = createCookie("pruefen_state", {
-  maxAge: 604_800, // one week
-});
 
 export type LoaderData = {
   formData: StepFormData;
