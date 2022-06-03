@@ -18,7 +18,7 @@ export const setStepData = (
   path: string,
   values: StepFormData
 ) => {
-  return _.set(data, idToIndex(path), values);
+  return _.set({ ...data }, idToIndex(path), values);
 };
 
 export const getStepData = (data: GrundModel | PruefenModel, path: string) => {

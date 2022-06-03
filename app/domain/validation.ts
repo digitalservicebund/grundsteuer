@@ -723,6 +723,7 @@ export const validateStepFormData = async (
   validatedStepData: StepFormData | null;
 }> => {
   const errors: Record<string, string> = {};
+  const validatedStepData: StepFormData = {};
   const tFunction = await i18Next.getFixedT("de", "all");
   if (stepDefinition) {
     Object.entries(stepDefinition.fields).forEach(
@@ -744,14 +745,18 @@ export const validateStepFormData = async (
           storedFormData,
           i18n
         );
-        if (errorMessage) errors[name] = errorMessage;
+        if (errorMessage) {
+          errors[name] = errorMessage;
+        } else {
+          validatedStepData[name] = value;
+        }
       }
     );
   }
   if (Object.keys(errors).length != 0) {
     return { errors, validatedStepData: null };
   } else {
-    return { errors: null, validatedStepData: stepFormData };
+    return { errors: null, validatedStepData };
   }
 };
 

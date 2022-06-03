@@ -46,10 +46,10 @@ import Communication from "~/components/icons/mui/Communication";
 import { pruefenStateCookie } from "~/cookies";
 import invariant from "tiny-invariant";
 
-export const PREFIX = "pruefen";
+const PREFIX = "pruefen";
 const START_STEP = "eigentuemerTyp";
 
-const getMachine = ({ formData }: { formData: PruefenModel }) => {
+export const getMachine = ({ formData }: { formData: PruefenModel }) => {
   const machineContext = { ...formData } as PruefenMachineContext;
 
   return createMachine(getPruefenConfig(machineContext), {

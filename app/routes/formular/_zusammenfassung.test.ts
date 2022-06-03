@@ -19,6 +19,7 @@ import _ from "lodash";
 import * as sendGrundsteuerModule from "~/erica/sendGrundsteuer";
 import * as csrfModule from "~/util/csrf";
 import { AuditLogEvent } from "~/audit/auditLog";
+import * as modelModule from "~/domain/model";
 
 process.env.FORM_COOKIE_SECRET = "secret";
 
@@ -254,6 +255,69 @@ describe("/zusammenfassung action", () => {
     test("does not throw an error", async () => {
       const args = await mockActionArgs({ formData: {}, context: {} });
       expect(await action(args)).toMatchObject({ errors: {} });
+    });
+
+    test("Returns error if fields not filled", async () => {
+      const args = await mockActionArgs({
+        formData: {},
+        context: {},
+        userEmail: "user@example.com",
+        allData: grundModelFactory.full().build(),
+      });
+
+      const result = await action(args);
+
+      expect(Object.keys(result.errors)).toHaveLength(3);
+    });
+
+    test("Does not update data if fields not filled", async () => {
+      const spyOnSetStepData = jest.spyOn(modelModule, "setStepData");
+      const args = await mockActionArgs({
+        formData: {},
+        context: {},
+        userEmail: "user@example.com",
+        allData: grundModelFactory.full().build(),
+      });
+
+      await action(args);
+
+      expect(spyOnSetStepData).not.toHaveBeenCalled();
+    });
+
+    test("Updates data if fields filled", async () => {
+      getMockedFunction(
+        sendGrundsteuerModule,
+        "sendNewGrundsteuer",
+        "ericaRequestId"
+      );
+      const spyOnSetStepData = jest.spyOn(modelModule, "setStepData");
+      const previousData = grundModelFactory.full().build();
+      const args = await mockActionArgs({
+        formData: {
+          confirmCompleteCorrect: "true",
+          confirmDataPrivacy: "true",
+          confirmTermsOfUse: "true",
+          freitext: "Freitext",
+          additional: "Should not be in result",
+        },
+        context: {},
+        userEmail: "user@example.com",
+        allData: previousData,
+      });
+
+      await action(args);
+
+      expect(spyOnSetStepData).toHaveBeenCalledTimes(1);
+      expect(spyOnSetStepData).toHaveBeenCalledWith(
+        previousData,
+        "zusammenfassung",
+        {
+          confirmCompleteCorrect: "true",
+          confirmDataPrivacy: "true",
+          confirmTermsOfUse: "true",
+          freitext: "Freitext",
+        }
+      );
     });
 
     test("does not save confirmation audit logs when fields not filled", async () => {

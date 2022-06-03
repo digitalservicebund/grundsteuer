@@ -10,6 +10,7 @@ type MockActionArgsFunction = (options: {
   context: { clientIp?: string };
   userEmail?: string;
   allData?: GrundModel;
+  explicitCookie?: string;
 }) => Promise<DataFunctionArgs>;
 
 export const mockActionArgs: MockActionArgsFunction = async ({
@@ -18,6 +19,7 @@ export const mockActionArgs: MockActionArgsFunction = async ({
   context,
   userEmail,
   allData,
+  explicitCookie,
 }) => {
   let headers = new Headers();
   headers.append("content-type", "application/x-www-form-urlencoded");
@@ -26,6 +28,12 @@ export const mockActionArgs: MockActionArgsFunction = async ({
     allData || {},
     headers
   );
+  if (explicitCookie) {
+    headers.set(
+      "Cookie",
+      (headers.get("Cookie") || "") + "; " + explicitCookie
+    );
+  }
   const request = new Request(`http://localhost${route || "/"}`, {
     method: "POST",
     headers,
