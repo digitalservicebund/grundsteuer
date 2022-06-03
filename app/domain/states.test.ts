@@ -9,30 +9,16 @@ import { conditions } from "~/domain/guards";
 import { actions } from "~/domain/actions";
 import { grundModelFactory } from "test/factories";
 import { getPathsFromState } from "~/util/getPathsFromState";
+import {
+  RecursiveStringRecord,
+  removeTransitions,
+} from "test/utils/removeTransitions";
 
-const removeTransitions = (
+const removeTransitionsGrund = (
   refStates: StateMachineConfig,
   transitionName: "NEXT" | "BACK"
 ): StateMachineConfig => {
-  return Object.entries({ ...refStates }).reduce((acc, [k, v]) => {
-    if (k === transitionName) {
-      return { ...acc, [k]: undefined };
-    } else if (Array.isArray(v)) {
-      return {
-        ...acc,
-        [k]: v.map((c) =>
-          typeof c === "object" ? removeTransitions(c, transitionName) : c
-        ),
-      };
-    } else if (v !== null && typeof v === "object") {
-      return {
-        ...acc,
-        [k]: removeTransitions(v, transitionName),
-      };
-    } else {
-      return { ...acc, [k]: v };
-    }
-  }, {});
+  return removeTransitions(refStates as RecursiveStringRecord, transitionName);
 };
 
 const getPath = (
@@ -51,8 +37,8 @@ const getPath = (
 
 describe("states", () => {
   describe("traversal", () => {
-    const statesForForwardTraversal = removeTransitions(states, "BACK");
-    const statesForReverseTraversal = removeTransitions(
+    const statesForForwardTraversal = removeTransitionsGrund(states, "BACK");
+    const statesForReverseTraversal = removeTransitionsGrund(
       { ...states, initial: "zusammenfassung" },
       "NEXT"
     );
