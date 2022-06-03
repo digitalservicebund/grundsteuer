@@ -60,15 +60,13 @@ export const getRedirectUrl = (
   if (state.matches("eigentuemer.person")) {
     redirectUrl = redirectUrl.replace(
       "person/",
-      `person/${
-        "personId" in state.context ? state.context.personId || 1 : ""
-      }/`
+      `person/${"personId" in state.context ? state.context.personId || 1 : 1}/`
     );
   } else if (state.matches("grundstueck.flurstueck")) {
     redirectUrl = redirectUrl.replace(
       "flurstueck/",
       `flurstueck/${
-        "flurstueckId" in state.context ? state.context.flurstueckId || 1 : ""
+        "flurstueckId" in state.context ? state.context.flurstueckId || 1 : 1
       }/`
     );
   }
