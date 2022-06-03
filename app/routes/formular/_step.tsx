@@ -155,12 +155,12 @@ export const action: ActionFunction = async ({ params, request }) => {
   const stepFormData = Object.fromEntries(
     await request.formData()
   ) as unknown as StepFormData;
-  const errors = await validateStepFormData(
+  const { errors } = await validateStepFormData(
     getStepDefinition({ currentStateWithoutId }),
     stepFormData,
     storedFormData
   );
-  if (Object.keys(errors).length > 0) return { errors } as ActionData;
+  if (errors) return { errors } as ActionData;
 
   // store
   const formDataToBeStored = setStepData(

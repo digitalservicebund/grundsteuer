@@ -234,12 +234,12 @@ export const action: ActionFunction = async ({
   const zusammenfassungFormData = Object.fromEntries(
     await request.formData()
   ) as unknown as StepFormData;
-  const errors = await validateStepFormData(
+  const { errors } = await validateStepFormData(
     getStepDefinition({ currentStateWithoutId: "zusammenfassung" }),
     zusammenfassungFormData,
     storedFormData
   );
-  if (Object.keys(errors).length > 0) return { errors };
+  if (errors) return { errors };
 
   // store
   const formDataToBeStored = setStepData(

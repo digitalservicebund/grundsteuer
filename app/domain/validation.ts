@@ -718,7 +718,10 @@ export const validateStepFormData = async (
   stepDefinition: StepDefinition,
   stepFormData: StepFormData,
   storedFormData: GrundModel | PruefenModel
-): Promise<Record<string, string>> => {
+): Promise<{
+  errors: Record<string, string> | null;
+  validatedData: GrundModel | PruefenModel | null;
+}> => {
   const errors: Record<string, string> = {};
   const tFunction = await i18Next.getFixedT("de", "all");
   if (stepDefinition) {
@@ -745,7 +748,11 @@ export const validateStepFormData = async (
       }
     );
   }
-  return errors;
+  if (Object.keys(errors).length != 0) {
+    return { errors, validatedData: null };
+  } else {
+    return { errors: null, validatedData: stepFormData };
+  }
 };
 
 export const validateAllStepsData = async (
@@ -763,11 +770,12 @@ export const validateAllStepsData = async (
 
     let fieldErrors: Record<string, string | undefined> = {};
     if (stepFormData) {
-      fieldErrors = await validateStepFormData(
+      const { errors } = await validateStepFormData(
         getStepDefinition({ currentStateWithoutId: stepPath }),
         stepFormData,
         storedFormData
       );
+      fieldErrors = errors || {};
     } else {
       Object.keys(stepDefinition.fields).forEach(
         (field) => (fieldErrors[field] = "Bitte ergänzen")
