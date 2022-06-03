@@ -79,13 +79,13 @@ const resetFlow = async () => {
 
 const redirectIfStateNotReachable = (
   state: State<PruefenModel>,
-  currentState: string
+  currentStateFromUrl: string
 ) => {
   if (!state) {
     return resetFlow();
-  } else if (state.value != currentState) {
+  } else if (state.value != currentStateFromUrl) {
     const reachablePaths = getReachablePathsFromPruefenData(state.context);
-    if (!reachablePaths.includes(currentState)) {
+    if (!reachablePaths.includes(currentStateFromUrl)) {
       return resetFlow();
     }
   }
@@ -94,32 +94,38 @@ const redirectIfStateNotReachable = (
 export const loader: LoaderFunction = async ({
   request,
 }): Promise<LoaderData | Response> => {
-  const currentState = getCurrentStateFromUrl(request.url);
+  const currentStateFromUrl = getCurrentStateFromUrl(request.url);
   const cookieHeader = request.headers.get("Cookie");
   const state = (await pruefenStateCookie.parse(cookieHeader)) || undefined;
 
-  const potentialRedirect = redirectIfStateNotReachable(state, currentState);
+  const potentialRedirect = redirectIfStateNotReachable(
+    state,
+    currentStateFromUrl
+  );
   if (potentialRedirect) {
     return potentialRedirect;
   }
 
   const storedFormData = state.context;
   const machine = getMachine({ formData: storedFormData });
-  const isFinalStep = machine.getStateNodeByPath(currentState).type == "final";
+  const isFinalStep =
+    machine.getStateNodeByPath(currentStateFromUrl).type == "final";
   const backUrl = getBackUrl({
     machine,
-    currentStateWithoutId: currentState,
+    currentStateWithoutId: currentStateFromUrl,
     prefix: PREFIX,
   });
-  const stepDefinition = getPruefenStepDefinition({ currentState });
+  const stepDefinition = getPruefenStepDefinition({
+    currentState: currentStateFromUrl,
+  });
 
   return {
-    formData: getStepData(storedFormData, currentState),
+    formData: getStepData(storedFormData, currentStateFromUrl),
     allData: storedFormData,
-    i18n: await getStepI18n(currentState, {}, "default", PREFIX),
+    i18n: await getStepI18n(currentStateFromUrl, {}, "default", PREFIX),
     backUrl,
     isFinalStep,
-    currentState,
+    currentState: currentStateFromUrl,
     stepDefinition,
   };
 };
