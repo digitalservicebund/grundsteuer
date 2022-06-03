@@ -40,6 +40,7 @@ const StepFormField = (props: StepFormFieldProps) => {
         ...option,
         label: i18n.options?.[option.value].label || option.value,
         help: i18n.options?.[option.value]?.help,
+        description: i18n.options?.[option.value]?.description,
       };
     });
     const radioProps: RadioGroupProps = {

@@ -224,28 +224,36 @@
         "grundstueckArt": {
           "options": {
             "einfamilienhaus": {
-              "label": "Einfamilienhaus"
+              "label": "Einfamilienhaus",
+              "description": "Genau eine Wohnung mit eigenem Zugang und mindestens 50 % Nutzung zu Wohnzwecken"
             },
             "zweifamilienhaus": {
-              "label": "Zweifamilienhaus"
+              "label": "Zweifamilienhaus",
+              "description": "Genau zwei Wohnungen mit separaten Zugängen"
             },
             "eigentumswohnung": {
-              "label": "Eigentumswohnung"
+              "label": "Eigentumswohnung",
+              "description": ""
             },
             "mehrfamilienhaus": {
-              "label": "Mehrfamilienhaus"
+              "label": "Mehrfamilienhaus",
+              "description": "Mehr als 2 Wohnungen"
             },
             "mehrereGebaeude": {
-              "label": "Mehrere Gebäude"
+              "label": "Mehrere Gebäude",
+              "description": "Auf dem Grundstück stehen mehr als ein Einfamilien- oder Zweifamilienhaus"
             },
             "nichtWohn": {
-              "label": "Nicht-Wohngrundstueck"
+              "label": "Nicht-Wohngrundstueck",
+              "description": "Geschäftsgrundstück, Teileigentum, gemischt genutztes Grundstück, sonstiges Grundstück"
             },
             "unbebaut": {
-              "label": "Unbebautes Grundstück"
+              "label": "Unbebautes Grundstück",
+              "description": "Baureifes Land mit beispielsweise unbenutzbaren Gebäude oder abweichendem Entwicklungszustand"
             },
             "landUndForst": {
-              "label": "Betrieb der Land- und/oder Forstwirtschaft"
+              "label": "Betrieb der Land- und/oder Forstwirtschaft",
+              "description": ""
             }
           }
         }

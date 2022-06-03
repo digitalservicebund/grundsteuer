@@ -6,6 +6,7 @@ export type I18nObjectField = {
     [index: string]: {
       label: string;
       help?: string;
+      description?: string;
     };
   };
   placeholder?: string;

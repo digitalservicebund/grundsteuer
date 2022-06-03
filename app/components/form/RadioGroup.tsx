@@ -7,7 +7,12 @@ import Radio from "./Radio";
 export type RadioGroupProps = {
   name: string;
   label?: string;
-  options: { value: string; label: string; help?: string }[];
+  options: {
+    value: string;
+    label: string;
+    help?: string;
+    description?: string;
+  }[];
   value?: string;
   defaultValue?: string;
   error?: string;
@@ -18,6 +23,7 @@ const RadioGroupOption = (
     name: string;
     checked: boolean;
     help?: string;
+    description?: string;
   }
 ) => {
   const radioComponent = (
@@ -26,7 +32,14 @@ const RadioGroupOption = (
       name={option.name}
       value={option.value}
     >
-      {option.label}
+      {option.description !== undefined ? (
+        <>
+          <span className="block font-bold">{option.label}</span>
+          <span>{option.description}</span>
+        </>
+      ) : (
+        option.label
+      )}
     </Radio>
   );
 
@@ -81,6 +94,7 @@ export default function RadioGroup(props: RadioGroupProps) {
                 value: option.value,
                 label: option.label,
                 help: option.help,
+                description: option.description,
               }}
             />
           </div>
