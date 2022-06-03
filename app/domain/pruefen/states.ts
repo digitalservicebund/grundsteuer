@@ -27,6 +27,7 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
       },
     },
     failure: {
+      type: "final",
       on: {
         BACK: [
           {

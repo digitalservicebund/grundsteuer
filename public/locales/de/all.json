@@ -80,6 +80,7 @@
   "common": {
     "continue": "Übernehmen & Weiter",
     "back": "Zurück",
+    "backToHomepage": "Zurück zur Startseite",
     "backToSummary": "Übernehmen & Zur Übersicht"
   },
   "errors": {
@@ -154,6 +155,12 @@
             }
           }
         }
+      }
+    },
+    "failure": {
+      "headline": "Tut uns leid, Sie können unseren Service leider nicht nutzen",
+      "specifics": {
+        "explanation": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Tool machen können. „Grundsteuererklärung für Privateigentum“ ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben. Alternativ bietet sich eine Erfassung mit <elsterLink>Elster</elsterLink> an."
       }
     }
   },
