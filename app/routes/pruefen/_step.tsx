@@ -28,13 +28,16 @@ import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { getPruefenStepDefinition } from "~/domain/pruefen/steps";
 import {
   getPruefenConfig,
+  getReachablePathsFromPruefenData,
   PruefenMachineContext,
 } from "~/domain/pruefen/states";
 import { pruefenConditions } from "~/domain/pruefen/guards";
 import { PruefenModel } from "~/domain/pruefen/model";
 import { getBackUrl, getRedirectUrl } from "~/util/constructUrls";
+import { State } from "xstate/lib/State";
 
 export const PREFIX = "pruefen";
+const START_STEP = "eigentuemerTyp";
 
 const getMachine = ({ formData }: { formData: PruefenModel }) => {
   const machineContext = { ...formData } as PruefenMachineContext;
@@ -48,6 +51,10 @@ const pruefenCookie = createCookie(PREFIX, {
   maxAge: 604_800, // one week
 });
 
+const pruefenStateCookie = createCookie("pruefen_state", {
+  maxAge: 604_800, // one week
+});
+
 export type LoaderData = {
   formData: StepFormData;
   allData: PruefenModel;
@@ -57,17 +64,48 @@ export type LoaderData = {
   stepDefinition: StepDefinition;
 };
 
+const resetFlow = async () => {
+  return redirect(START_STEP, {
+    headers: [
+      ["Set-Cookie", await pruefenCookie.serialize({})],
+      [
+        "Set-Cookie",
+        await pruefenStateCookie.serialize(
+          getMachine({ formData: {} }).getInitialState(START_STEP)
+        ),
+      ],
+    ],
+  });
+};
+
+const redirectIfStateNotReachable = (
+  state: State<PruefenModel>,
+  currentState: string
+) => {
+  if (!state) {
+    return resetFlow();
+  } else if (state.value != currentState) {
+    const reachablePaths = getReachablePathsFromPruefenData(state.context);
+    if (!reachablePaths.includes(currentState)) {
+      return resetFlow();
+    }
+  }
+};
+
 export const loader: LoaderFunction = async ({
   request,
 }): Promise<LoaderData | Response> => {
-  const cookieHeader = request.headers.get("Cookie");
-  const storedFormData = (await pruefenCookie.parse(cookieHeader)) || {};
   const currentState = getCurrentStateFromUrl(request.url);
+  const cookieHeader = request.headers.get("Cookie");
+  const state = (await pruefenStateCookie.parse(cookieHeader)) || undefined;
 
+  const potentialRedirect = redirectIfStateNotReachable(state, currentState);
+  if (potentialRedirect) {
+    return potentialRedirect;
+  }
+
+  const storedFormData = state.context;
   const machine = getMachine({ formData: storedFormData });
-
-  // TODO redirect in case the step is not enabled
-
   const backUrl = getBackUrl({
     machine,
     currentStateWithoutId: currentState,
@@ -93,9 +131,16 @@ export const action: ActionFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
   await verifyCsrfToken(request, session);
 
-  const cookieHeader = request.headers.get("Cookie");
-  const storedFormData = (await pruefenCookie.parse(cookieHeader)) || {};
   const currentState = getCurrentStateFromUrl(request.url);
+  const cookieHeader = request.headers.get("Cookie");
+  const state = (await pruefenStateCookie.parse(cookieHeader)) || undefined;
+
+  const potentialRedirect = redirectIfStateNotReachable(state, currentState);
+  if (potentialRedirect) {
+    return potentialRedirect;
+  }
+
+  const storedFormData = state.context;
 
   // validate
   const stepFormData = Object.fromEntries(
@@ -119,12 +164,13 @@ export const action: ActionFunction = async ({ request }) => {
   const nextState = machine.transition(currentState, {
     type: "NEXT",
   });
-  const redirectUrl = getRedirectUrl(nextState, PREFIX);
+  const nextStepUrl = getRedirectUrl(nextState, PREFIX);
 
-  return redirect(redirectUrl, {
-    headers: {
-      "Set-Cookie": await pruefenCookie.serialize(formDataToBeStored),
-    },
+  return redirect(nextStepUrl, {
+    headers: [
+      ["Set-Cookie", await pruefenCookie.serialize(formDataToBeStored)],
+      ["Set-Cookie", await pruefenStateCookie.serialize(nextState)],
+    ],
   });
 };
 

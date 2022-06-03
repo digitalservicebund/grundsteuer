@@ -1,13 +1,16 @@
 import { StateMachineContext } from "~/domain/states";
 import { State } from "xstate/lib/State";
-import { StateSchema, Typestate } from "xstate/lib/types";
+import { EventObject, StateSchema, Typestate } from "xstate/lib/types";
+import invariant from "tiny-invariant";
+import { PruefenMachineContext } from "~/domain/pruefen/states";
+import { StateMachine } from "xstate";
 
 export const getBackUrl = ({
   machine,
   currentStateWithoutId,
   prefix,
 }: {
-  machine: any;
+  machine: StateMachine<any, StateSchema, EventObject>;
   currentStateWithoutId: string;
   prefix: string;
 }) => {
@@ -15,6 +18,7 @@ export const getBackUrl = ({
     type: "BACK",
   });
   const dotNotation = backState.toStrings().at(-1);
+  invariant(dotNotation, "Should return a back state");
   if (
     dotNotation === currentStateWithoutId &&
     currentStateWithoutId !== "grundstueck.flurstueck.angaben"
@@ -40,10 +44,10 @@ export const getBackUrl = ({
 
 export const getRedirectUrl = (
   state: State<
-    StateMachineContext,
-    Event,
+    StateMachineContext | PruefenMachineContext,
+    EventObject,
     StateSchema,
-    Typestate<StateMachineContext>,
+    Typestate<any>,
     any
   >,
   prefix: string
@@ -56,12 +60,16 @@ export const getRedirectUrl = (
   if (state.matches("eigentuemer.person")) {
     redirectUrl = redirectUrl.replace(
       "person/",
-      `person/${state.context.personId || 1}/`
+      `person/${
+        "personId" in state.context ? state.context.personId || 1 : ""
+      }/`
     );
   } else if (state.matches("grundstueck.flurstueck")) {
     redirectUrl = redirectUrl.replace(
       "flurstueck/",
-      `flurstueck/${state.context.flurstueckId || 1}/`
+      `flurstueck/${
+        "flurstueckId" in state.context ? state.context.flurstueckId || 1 : ""
+      }/`
     );
   }
   return redirectUrl;

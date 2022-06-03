@@ -42,11 +42,7 @@ export const createGraph = ({
   machine,
   machineContext,
 }: {
-  machine: StateMachine<
-    StateMachineContext | PruefenMachineContext,
-    StateSchema,
-    EventObject
-  >;
+  machine: StateMachine<any, StateSchema, EventObject>;
   machineContext: GrundModel | PruefenModel;
 }): Graph => {
   const paths = Object.values(getShortestPaths(machine));

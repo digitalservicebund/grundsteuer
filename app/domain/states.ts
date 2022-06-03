@@ -1,12 +1,13 @@
 import { MachineConfig } from "xstate";
 import { GrundModel } from "./steps";
+import { EventObject } from "xstate/lib/types";
 
 export interface StateMachineContext extends GrundModel {
   personId?: number;
   flurstueckId?: number;
 }
 
-export const states: MachineConfig<any, any, any> = {
+export const states: MachineConfig<StateMachineContext, any, EventObject> = {
   id: "steps",
   initial: "welcome",
   states: {
