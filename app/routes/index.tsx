@@ -19,16 +19,62 @@ export const loader: LoaderFunction = async () => {
   };
 };
 
-export default function Index() {
+export function HomepageHeader({
+  loaderData,
+}: {
+  loaderData: { env: string };
+}) {
   const { t } = useTranslation("all");
-  const loaderData = useLoaderData();
-
   // buttons in production are temporarily disabled until full launch
   // (implementation note: cannot pass props "disabled" and "to" at the same time)
   const startButtonProps =
     loaderData?.env === "production"
       ? { disabled: true }
       : { to: "/formular/welcome" };
+  const pruefenButtonProps =
+    loaderData?.env === "production"
+      ? { disabled: true }
+      : { to: "/pruefen/eigentuemerTyp" };
+
+  return (
+    <div className="mb-10 md:mb-48 lg:mb-36 flex flex-col md:flex-row-reverse md:justify-between">
+      <div className="flex justify-center mb-40 md:block">
+        <div className="lg:hidden inline-flex flex-col md:flex-row md:pt-32">
+          <Button
+            size="medium"
+            look="tertiary"
+            disabled
+            className="mb-16 text-center md:mb-0 md:mr-24"
+            {...pruefenButtonProps}
+          >
+            {t("homepage.buttonCheck")}
+          </Button>
+          <Button size="medium" {...startButtonProps}>
+            {t("homepage.buttonStart")}
+          </Button>
+        </div>
+        <div className="hidden lg:block pt-16">
+          <Button
+            look="tertiary"
+            disabled
+            className="mr-24"
+            {...pruefenButtonProps}
+          >
+            {t("homepage.buttonCheck")}
+          </Button>
+          <Button {...startButtonProps}>{t("homepage.buttonStart")}</Button>
+        </div>
+      </div>
+      <div>
+        <BmfLogo />
+      </div>
+    </div>
+  );
+}
+
+export default function Index() {
+  const { t } = useTranslation("all");
+  const loaderData = useLoaderData();
 
   return (
     <>
@@ -41,35 +87,7 @@ export default function Index() {
       </div>
       <main className="flex-grow pt-32">
         <ContentContainer>
-          <div className="mb-10 md:mb-48 lg:mb-36 flex flex-col md:flex-row-reverse md:justify-between">
-            <div className="flex justify-center mb-40 md:block">
-              <div className="lg:hidden inline-flex flex-col md:flex-row md:pt-32">
-                <Button
-                  size="medium"
-                  look="tertiary"
-                  disabled
-                  className="mb-16 text-center md:mb-0 md:mr-24"
-                >
-                  {t("homepage.buttonCheck")}
-                </Button>
-                <Button size="medium" {...startButtonProps}>
-                  {t("homepage.buttonStart")}
-                </Button>
-              </div>
-              <div className="hidden lg:block pt-16">
-                <Button look="tertiary" disabled className="mr-24">
-                  {t("homepage.buttonCheck")}
-                </Button>
-                <Button {...startButtonProps}>
-                  {t("homepage.buttonStart")}
-                </Button>
-              </div>
-            </div>
-            <div>
-              <BmfLogo />
-            </div>
-          </div>
-
+          <HomepageHeader loaderData={loaderData} />
           <h1 className="mb-64 md:mb-96 xl:mb-80">
             <div className="text-16 leading-26 mb-16 md:text-20 md:leading-20 md:mb-24 lg:mb-32">
               {t("homepage.kicker")}

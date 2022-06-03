@@ -32,6 +32,7 @@ import { StepFormFieldProps } from "~/components/form/StepFormField";
 import Paragraph from "~/components/icons/mui/Paragraph";
 import ExclamationMarkFilled from "~/components/icons/mui/ExclamationMarkFilled";
 import { EigentuemerBruchteilsgemeinschaftAdresseFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
+import SectionLabel from "~/components/SectionLabel";
 
 const resolveAnrede = (value: string | undefined) => {
   if (value === "no_anrede") {
@@ -324,12 +325,7 @@ const EnumerationFields = ({
 }) => {
   return (
     <div id={id}>
-      <div className="bg-gray-300 flex flex-row p-10 w-fit items-center my-16 h-36 rounded">
-        <div className="mr-10">{icon}</div>
-        <h3 className="font-bold uppercase text-10 text-gray-900">
-          {label} {index + 1}
-        </h3>
-      </div>
+      <SectionLabel icon={icon} label={label + " " + index + 1} />
       <ul className="ml-64">{children}</ul>
     </div>
   );

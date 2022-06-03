@@ -13,7 +13,12 @@ import {
 } from "@remix-run/react";
 import { createMachine } from "xstate";
 import _ from "lodash";
-import { Button, ButtonContainer, ContentContainer } from "~/components";
+import {
+  Button,
+  ButtonContainer,
+  ContentContainer,
+  Footer,
+} from "~/components";
 import { getStepData, setStepData, StepFormData } from "~/domain/model";
 import { validateStepFormData } from "~/domain/validation";
 import stepComponents, { FallbackStepComponent } from "~/components/steps";
@@ -35,6 +40,10 @@ import { pruefenConditions } from "~/domain/pruefen/guards";
 import { PruefenModel } from "~/domain/pruefen/model";
 import { getBackUrl, getRedirectUrl } from "~/util/constructUrls";
 import { State } from "xstate/lib/State";
+import { HomepageHeader } from "~/routes";
+import SectionLabel from "~/components/SectionLabel";
+import House from "~/components/icons/mui/House";
+import Communication from "~/components/icons/mui/Communication";
 
 export const PREFIX = "pruefen";
 const START_STEP = "eigentuemerTyp";
@@ -202,39 +211,53 @@ export function Step() {
     fields[Object.keys(fields)[0]].type === "radio";
 
   return (
-    <ContentContainer size="sm">
-      <Form method="post" className="mb-16" key={currentState}>
-        <CsrfToken />
-        {headlineIsLegend ? (
-          <fieldset>
-            <StepHeadline i18n={i18n} asLegend />
-            {actionData?.errors && <ErrorBarStandard />}
-            <StepComponent {...loaderData} {...actionData} />
-          </fieldset>
-        ) : (
-          <>
-            <StepHeadline i18n={i18n} />
-            {actionData?.errors && <ErrorBarStandard />}
-            <StepComponent {...loaderData} {...actionData} />
-          </>
-        )}
-        <ButtonContainer>
-          <Button
-            id="nextButton"
-            className={backUrl ? "" : "flex-grow-0"}
-            disabled={isSubmitting}
-          >
-            {nextButtonLabel}
-          </Button>
-          {backUrl ? (
-            <Button to={backUrl} look="secondary">
-              {i18n.common.back}
-            </Button>
-          ) : (
-            ""
-          )}
-        </ButtonContainer>
-      </Form>
-    </ContentContainer>
+    <>
+      <main className="flex-grow pt-32 mb-56">
+        <ContentContainer>
+          <HomepageHeader loaderData={loaderData} />
+          <div className="bg-white px-80 py-56">
+            <SectionLabel
+              label={"Nutzung prüfen"}
+              icon={<Communication fill="#4E596A" />}
+            />
+            <ContentContainer size="sm">
+              <Form method="post" className="mb-16" key={currentState}>
+                <CsrfToken />
+                {headlineIsLegend ? (
+                  <fieldset>
+                    <StepHeadline i18n={i18n} asLegend />
+                    {actionData?.errors && <ErrorBarStandard />}
+                    <StepComponent {...loaderData} {...actionData} />
+                  </fieldset>
+                ) : (
+                  <>
+                    <StepHeadline i18n={i18n} />
+                    {actionData?.errors && <ErrorBarStandard />}
+                    <StepComponent {...loaderData} {...actionData} />
+                  </>
+                )}
+                <ButtonContainer>
+                  <Button
+                    id="nextButton"
+                    className={backUrl ? "" : "flex-grow-0"}
+                    disabled={isSubmitting}
+                  >
+                    {nextButtonLabel}
+                  </Button>
+                  {backUrl ? (
+                    <Button to={backUrl} look="secondary">
+                      {i18n.common.back}
+                    </Button>
+                  ) : (
+                    ""
+                  )}
+                </ButtonContainer>
+              </Form>
+            </ContentContainer>
+          </div>
+        </ContentContainer>
+      </main>
+      <Footer />
+    </>
   );
 }
