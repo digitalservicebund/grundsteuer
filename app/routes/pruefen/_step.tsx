@@ -43,7 +43,7 @@ import { State } from "xstate/lib/State";
 import { HomepageHeader } from "~/routes";
 import SectionLabel from "~/components/SectionLabel";
 import Communication from "~/components/icons/mui/Communication";
-import { pruefenCookie, pruefenStateCookie } from "~/cookies";
+import { pruefenStateCookie } from "~/cookies";
 
 export const PREFIX = "pruefen";
 const START_STEP = "eigentuemerTyp";
@@ -68,15 +68,11 @@ export type LoaderData = {
 
 const resetFlow = async () => {
   return redirect(START_STEP, {
-    headers: [
-      ["Set-Cookie", await pruefenCookie.serialize({})],
-      [
-        "Set-Cookie",
-        await pruefenStateCookie.serialize(
-          getMachine({ formData: {} }).getInitialState(START_STEP)
-        ),
-      ],
-    ],
+    headers: {
+      "Set-Cookie": await pruefenStateCookie.serialize(
+        getMachine({ formData: {} }).getInitialState(START_STEP)
+      ),
+    },
   });
 };
 
@@ -171,10 +167,7 @@ export const action: ActionFunction = async ({ request }) => {
   const nextStepUrl = getRedirectUrl(nextState, PREFIX);
 
   return redirect(nextStepUrl, {
-    headers: [
-      ["Set-Cookie", await pruefenCookie.serialize(formDataToBeStored)],
-      ["Set-Cookie", await pruefenStateCookie.serialize(nextState)],
-    ],
+    headers: { "Set-Cookie": await pruefenStateCookie.serialize(nextState) },
   });
 };
 
