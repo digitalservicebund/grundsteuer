@@ -1,3 +1,5 @@
+const plugin = require("tailwindcss/plugin");
+
 module.exports = {
   content: ["./app/**/*.{ts,tsx}"],
   theme: {
@@ -181,5 +183,10 @@ module.exports = {
       384: "24rem",
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [
+    require("@tailwindcss/typography"),
+    plugin(function ({ addVariant }) {
+      addVariant("child-p", "& > p");
+    }),
+  ],
 };

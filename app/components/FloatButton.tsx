@@ -20,7 +20,6 @@ export default function FloatButton(props: any) {
 
   const handleScroll = () => {
     const calcPos = window.scrollY + window.innerHeight;
-    console.log(floatingBorderBottom - window.document.fonts.size * 3);
     const bottomBorder =
       window.document.body.offsetHeight -
       (floatingBorderBottom - window.document.fonts.size * 3);
