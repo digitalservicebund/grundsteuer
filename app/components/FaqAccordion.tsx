@@ -157,8 +157,15 @@ export default function FaqAccordion() {
           <p>
             Für Grundstücke in Baden-Württemberg, Bayern, Hamburg, Hessen und
             Niedersachsen kann „Grundsteuererklärung für Privateigentum“ leider{" "}
-            <strong>noch nicht</strong> verwendet werden. Für diese Länder gibt
-            es zum Beispiel ELSTER.
+            <strong> nicht</strong> verwendet werden. Für diese Länder gibt es
+            zum Beispiel{" "}
+            <a
+              className="text-blue-900"
+              href={"https://www.elster.de/eportal/infoseite/grundsteuerreform"}
+            >
+              ELSTER
+            </a>
+            .
           </p>
         </>
       ),
