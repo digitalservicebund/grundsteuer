@@ -212,16 +212,25 @@ export function Step() {
             <SectionLabel
               label={"Nutzung prüfen"}
               icon={<Communication fill="#4E596A" />}
+              className="mb-32"
             />
             <ContentContainer size="sm">
               <Form method="post" className="mb-16" key={currentState}>
                 <CsrfToken />
                 {headlineIsLegend ? (
-                  <fieldset>
-                    <StepHeadline i18n={i18n} asLegend />
-                    {actionData?.errors && <ErrorBarStandard />}
-                    <StepComponent {...loaderData} {...actionData} />
-                  </fieldset>
+                  <>
+                    {currentState == START_STEP && (
+                      <h1 className="text-30 leading-36 font-bold">
+                        Prüfen Sie in wenigen Schritten, ob Sie unser Tool
+                        nutzen können.
+                      </h1>
+                    )}
+                    <fieldset>
+                      <StepHeadline i18n={i18n} asLegend />
+                      {actionData?.errors && <ErrorBarStandard />}
+                      <StepComponent {...loaderData} {...actionData} />
+                    </fieldset>
+                  </>
                 ) : (
                   <>
                     <StepHeadline i18n={i18n} />
