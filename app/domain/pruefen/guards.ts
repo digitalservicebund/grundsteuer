@@ -5,10 +5,10 @@ export type PruefenCondition = (
 ) => boolean;
 export type PruefenConditions = Record<string, PruefenCondition>;
 
-const isNotPrivatperson: PruefenCondition = (context) => {
-  return context?.eigentuemerTyp?.eigentuemerTyp !== "privatperson";
+const isPrivatperson: PruefenCondition = (context) => {
+  return context?.eigentuemerTyp?.eigentuemerTyp == "privatperson";
 };
 
 export const pruefenConditions: PruefenConditions = {
-  isNotPrivatperson,
+  isPrivatperson,
 };

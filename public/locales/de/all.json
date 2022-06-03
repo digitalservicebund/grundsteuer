@@ -157,10 +157,184 @@
         }
       }
     },
-    "failure": {
+    "bundesland": {
+      "headline": "In welchem Bundesland liegt Ihr Grundstück?",
+      "fields": {
+        "bundesland": {
+          "label": "Bundesland",
+          "options": {
+            "default": {
+              "label": "Bundesland auswählen"
+            },
+            "BE": {
+              "label": "Berlin"
+            },
+            "BB": {
+              "label": "Brandenburg"
+            },
+            "HB": {
+              "label": "Bremen"
+            },
+            "MV": {
+              "label": "Mecklenburg-Vorpommern"
+            },
+            "NW": {
+              "label": "Nordrhein-Westfalen"
+            },
+            "RP": {
+              "label": "Rheinland-Pfalz"
+            },
+            "SL": {
+              "label": "Saarland"
+            },
+            "SN": {
+              "label": "Sachsen"
+            },
+            "ST": {
+              "label": "Sachsen-Anhalt"
+            },
+            "SH": {
+              "label": "Schleswig-Holstein"
+            },
+            "TH": {
+              "label": "Thüringen"
+            }
+          }
+        }
+      }
+    },
+    "grundstueckArt": {
+      "headline": "Um welche Art Grundstück \u2028handelt es sich?",
+      "fields": {
+        "grundstueckArt": {
+          "options": {
+            "einfamilienhaus": {
+              "label": "Einfamilienhaus"
+            },
+            "zweifamilienhaus": {
+              "label": "Zweifamilienhaus"
+            },
+            "eigentumswohnung": {
+              "label": "Eigentumswohnung"
+            },
+            "mehrfamilienhaus": {
+              "label": "Mehrfamilienhaus"
+            },
+            "mehrereGebaeude": {
+              "label": "Mehrere Gebäude"
+            },
+            "nichtWohn": {
+              "label": "Nicht-Wohngrundstueck"
+            },
+            "unbebaut": {
+              "label": "Unbebautes Grundstück"
+            },
+            "landUndForst": {
+              "label": "Betrieb der Land- und/oder Forstwirtschaft"
+            }
+          }
+        }
+      }
+    },
+    "garagen": {
+      "headline": "Haben Sie einen Garagen- oder Tiefgaragenstellplatz?",
+      "fields": {
+        "garagen": {
+          "options": {
+            "garageAufGrundstueck": {
+              "label": "Ich habe eine Garage, Carport oder Stellplatz im Freien — auf meinem Grundstück"
+            },
+            "garageAufAnderemGrundstueck": {
+              "label": "Ich habe eine Garage, Carport oder Stellplatz im Freien — auf einem anderen Grundstück, das ich mir mit weiteren Eigentümer:innen teile. Ich habe dafür auch einen separaten Grundbuchauszug"
+            },
+            "tiefgarage": {
+              "label": "Ich habe eine Eigentumswohnung und einen Stellplatz in einer Tiefgarage"
+            },
+            "keine": {
+              "label": "Keine der Optionen — Ich habe keinen Stellplatz"
+            }
+          }
+        }
+      }
+    },
+    "ausland": {
+      "headline": "Wohnen Sie als Eigentümer:in des Grundstücks im Ausland?",
+      "fields": {
+        "ausland": {
+          "options": {
+            "true": {
+              "label": "Ja, ich wohne im Ausland"
+            },
+            "false": {
+              "label": "Nein, ich wohne nicht im Ausland"
+            }
+          }
+        }
+      }
+    },
+    "fremderBoden": {
+      "headline": "Haben das Gebäude und das dazugehörige Grundstück unterschiedliche Eigentümer:innen?",
+      "description": "Wir fragen dies, um herauszufinden, ob Ihr Gebäude auf fremden Grund und Boden steht oder das das Erbbaurecht an dem Grundstück auf Sie zutrifft.",
+      "fields": {
+        "fremderBoden": {
+          "options": {
+            "true": {
+              "label": "Ja, es gibt jeweils unterschiedliche Eigentümer:innen"
+            },
+            "false": {
+              "label": "Nein, Gebäude und Grundstück haben nur eine:n Eigentümer:in"
+            }
+          }
+        }
+      }
+    },
+    "beguenstigung": {
+      "headline": "Haben Sie Steuerbegünstigungen oder -befreiungen?",
+      "fields": {
+        "beguenstigung": {
+          "options": {
+            "true": {
+              "label": "Ja, mein Gebäude steht unter Denkmalschutz oder ist eine öffentliche Verkehrsfläche oder hat sonstige Steuerbegünstigungen wie zum Beispiel fließende Gewässer"
+            },
+            "false": {
+              "label": "Nein, es gibt keine Steuerbegünstigungen oder -befreiungen"
+            }
+          }
+        }
+      }
+    },
+    "elster": {
+      "headline": "Fast geschafft! Haben Sie ein ELSTER-Konto?",
+      "fields": {
+        "elster": {
+          "options": {
+            "true": {
+              "label": "Ja, ich habe ein ELSTER-Konto"
+            },
+            "false": {
+              "label": "Nein, ich habe kein ELSTER-Konto"
+            }
+          }
+        }
+      }
+    },
+    "keineNutzung": {
       "headline": "Tut uns leid, Sie können unseren Service leider nicht nutzen",
       "specifics": {
         "explanation": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Tool machen können. „Grundsteuererklärung für Privateigentum“ ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben. Alternativ bietet sich eine Erfassung mit <elsterLink>Elster</elsterLink> an."
+      }
+    },
+    "nutzung": {
+      "headline": "Super, Sie können diesen Service für Ihre Grundsteuererklärung nutzen.",
+      "specifics": {
+        "explanation": "Starten Sie jetzt Ihre Grundsteuererklärung zur Feststellung des Grundsteuerwerts."
+      }
+    },
+    "spaeterNutzung": {
+      "headline": "Sag niemals nie! Bald können Sie unseren Online-Service nutzen.",
+      "specifics": {
+        "explanation1": "Aktuell können wir die Nutzung unseres Service für Personen mit einem ELSTER Konto aus technischen Gründen nicht gewährleisten. Wir entwickeln unseren Service allerdings ständig weiter und rechnen damit, ab September auch Personen mit einem Elster Konto aufnehmen zu können.",
+        "explanation2": "Schreiben Sie uns eine Email an <emailContactLink>kontakt@grundsteuererklaerung-fuer-privateigentum.de</emailContactLink>. Wir melden uns bei Ihnen, sobald unser Online-Service für Sie nutzbar ist."
       }
     }
   },

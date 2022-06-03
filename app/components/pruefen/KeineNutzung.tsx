@@ -3,7 +3,7 @@ import IntroText from "../IntroText";
 import { Trans } from "react-i18next";
 import failureImage from "~/assets/images/pruefen-no.svg";
 
-const Failure: StepComponentFunction = ({ i18n }) => {
+const KeineNutzung: StepComponentFunction = ({ i18n }) => {
   return (
     <div>
       <IntroText className="mb-32">
@@ -21,9 +21,9 @@ const Failure: StepComponentFunction = ({ i18n }) => {
           {i18n.specifics.explanation}
         </Trans>
       </IntroText>
-      <img src={failureImage} alt="" className="mb-80" />
+      <img src={failureImage} alt="" className="mb-80 mx-auto" />
     </div>
   );
 };
 
-export default Failure;
+export default KeineNutzung;

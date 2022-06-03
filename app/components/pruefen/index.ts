@@ -1,5 +1,9 @@
-import Failure from "~/components/pruefen/Failure";
+import KeineNutzung from "~/components/pruefen/KeineNutzung";
+import Nutzung from "~/components/pruefen/Nutzung";
+import SpaeterNutzung from "~/components/pruefen/SpaeterNutzung";
 
 export default {
-  failure: Failure,
+  nutzung: Nutzung,
+  keineNutzung: KeineNutzung,
+  spaeterNutzung: SpaeterNutzung,
 };

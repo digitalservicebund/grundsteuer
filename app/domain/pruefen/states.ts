@@ -12,31 +12,69 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
     eigentuemerTyp: {
       on: {
         NEXT: [
+          { target: "erbengemeinschaft", cond: "isPrivatperson" },
           {
-            target: "failure",
-            cond: "isNotPrivatperson",
+            target: "keineNutzung",
           },
-          { target: "erbengemeinschaft" },
         ],
       },
     },
     erbengemeinschaft: {
       on: {
         BACK: { target: "eigentuemerTyp" },
-        NEXT: [{ target: "failure" }],
+        NEXT: [{ target: "bundesland" }],
       },
     },
-    failure: {
-      type: "final",
+    bundesland: {
       on: {
-        BACK: [
-          {
-            target: "eigentuemerTyp",
-            cond: "isNotPrivatperson",
-          },
-          { target: "erbengemeinschaft" },
-        ],
+        BACK: { target: "erbengemeinschaft" },
+        NEXT: [{ target: "grundstueckArt" }],
       },
+    },
+    grundstueckArt: {
+      on: {
+        BACK: { target: "bundesland" },
+        NEXT: [{ target: "garagen" }],
+      },
+    },
+    garagen: {
+      on: {
+        BACK: { target: "grundstueckArt" },
+        NEXT: [{ target: "ausland" }],
+      },
+    },
+    ausland: {
+      on: {
+        BACK: { target: "garagen" },
+        NEXT: [{ target: "fremderBoden" }],
+      },
+    },
+    fremderBoden: {
+      on: {
+        BACK: { target: "ausland" },
+        NEXT: [{ target: "beguenstigung" }],
+      },
+    },
+    beguenstigung: {
+      on: {
+        BACK: { target: "fremderBoden" },
+        NEXT: [{ target: "elster" }],
+      },
+    },
+    elster: {
+      on: {
+        BACK: { target: "beguenstigung" },
+        NEXT: [{ target: "nutzung" }],
+      },
+    },
+    keineNutzung: {
+      type: "final",
+    },
+    nutzung: {
+      type: "final",
+    },
+    spaeterNutzung: {
+      type: "final",
     },
   },
 };
