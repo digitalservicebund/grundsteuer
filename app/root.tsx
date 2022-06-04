@@ -131,12 +131,14 @@ export default function App() {
         <CsrfTokenProvider token={csrf}>
           <Outlet />
           <ScrollRestoration />
-          <script
-            suppressHydrationWarning
-            dangerouslySetInnerHTML={{
-              __html: `window.sentry_dsn="${sentry_dsn}";`,
-            }}
-          />
+          {sentry_dsn && (
+            <script
+              suppressHydrationWarning
+              dangerouslySetInnerHTML={{
+                __html: `window.sentry_dsn="${sentry_dsn}";`,
+              }}
+            />
+          )}
           <Scripts />
           <LiveReload />
         </CsrfTokenProvider>
