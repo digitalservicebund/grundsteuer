@@ -14,7 +14,6 @@ import { getMockedFunction } from "test/mocks/mockHelper";
 import * as userModule from "~/domain/user";
 import * as auditLogModule from "~/audit/auditLog";
 import * as validationModule from "~/domain/validation";
-import bcrypt from "bcryptjs";
 import _ from "lodash";
 import * as sendGrundsteuerModule from "~/erica/sendGrundsteuer";
 import * as csrfModule from "~/util/csrf";
@@ -27,7 +26,6 @@ describe("/zusammenfassung loader", () => {
   beforeAll(async () => {
     getMockedFunction(userModule, "findUserByEmail", {
       email: "existing_user@foo.com",
-      password: await bcrypt.hash("12345678", 10),
       identified: true,
     });
     mockIsAuthenticated.mockImplementation(() =>
@@ -60,7 +58,7 @@ describe("/zusammenfassung loader", () => {
         fullData
       )
     );
-    const jsonResponse = await response;
+    const jsonResponse = await response.json();
 
     expect(jsonResponse.previousStepsErrors).toEqual({});
     expect(jsonResponse.ericaErrors).toEqual([]);
@@ -80,7 +78,7 @@ describe("/zusammenfassung loader", () => {
         "existing_user@foo.com"
       )
     );
-    const jsonResponse = await response;
+    const jsonResponse = await response.json();
 
     expect(jsonResponse.previousStepsErrors).toEqual(validationErrors);
     expect(jsonResponse.ericaErrors).toEqual([]);
@@ -92,7 +90,6 @@ describe("/zusammenfassung loader", () => {
       getMockedFunction(userModule, "findUserByEmail", {
         email: "existing_user@foo.com",
         ericaRequestIdSenden: "foo",
-        password: await bcrypt.hash("12345678", 10),
         identified: true,
       });
       getMockedFunction(sendGrundsteuerModule, "retrieveResult", undefined);
@@ -105,7 +102,7 @@ describe("/zusammenfassung loader", () => {
           "existing_user@foo.com"
         )
       );
-      const jsonResponse = await response;
+      const jsonResponse = await response.json();
 
       expect(jsonResponse.showSpinner).toEqual(true);
     });
@@ -205,15 +202,17 @@ describe("/zusammenfassung loader", () => {
       });
 
       it("should return error messages", async () => {
-        const result = await loader(
+        const response = await loader(
           await getLoaderArgsWithAuthenticatedSession(
             "/formular/zusammenfassung",
             "existing_user@foo.com"
           )
         );
 
-        expect(result.ericaErrors).toContain("Error 1");
-        expect(result.ericaErrors).toContain("Error 2");
+        const jsonResponse = await response.json();
+
+        expect(jsonResponse.ericaErrors).toContain("Error 1");
+        expect(jsonResponse.ericaErrors).toContain("Error 2");
       });
     });
   });

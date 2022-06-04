@@ -4,6 +4,7 @@ import { action } from "./index";
 import * as auditLogModule from "~/audit/auditLog";
 import { AuditLogEvent } from "~/audit/auditLog";
 import * as csrfModule from "~/util/csrf";
+import { mockAuthenticate } from "test/mocks/authenticationMocks";
 
 jest.mock("~/domain/user", () => {
   return {
@@ -17,14 +18,24 @@ const mockUserExists = userExists as jest.MockedFunction<typeof userExists>;
 
 const validFormData = {
   email: "user@example.com",
-  emailRepeated: "user@example.com",
-  password: "12345678",
-  passwordRepeated: "12345678",
   confirmDataPrivacy: "true",
   confirmTermsOfUse: "true",
 };
 
 describe("/registrieren action", () => {
+  beforeAll(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    mockAuthenticate.mockImplementation(() =>
+      Promise.resolve({
+        status: 302,
+        headers: {
+          get: () => "/registrieren/erfolgreich",
+        },
+      })
+    );
+  });
+
   beforeEach(async () => {
     const csrfMock = jest.spyOn(csrfModule, "verifyCsrfToken");
     csrfMock.mockImplementation(() => Promise.resolve());
@@ -97,7 +108,6 @@ describe("/registrieren action", () => {
         formData: {
           ...validFormData,
           email: "USER@example.Com",
-          emailRepeated: "user@example.com",
         },
         context: {},
       });
@@ -108,14 +118,15 @@ describe("/registrieren action", () => {
   });
 
   describe('"fails"', () => {
-    test("with errors when user with email already exists", async () => {
+    test("without errors when user with email already exists", async () => {
       mockUserExists.mockImplementationOnce(() => Promise.resolve(true));
       const args = await mockActionArgs({
         formData: validFormData,
         context: {},
       });
-      const errors = { email: "errors.email.alreadyExists" };
-      expect(await action(args)).toEqual({ errors });
+      expect((await action(args)).headers.get("Location")).toBe(
+        "/registrieren/erfolgreich"
+      );
     });
 
     test("and does not save audit logs", async () => {
@@ -123,9 +134,6 @@ describe("/registrieren action", () => {
       const args = await mockActionArgs({
         formData: {
           email: "",
-          emailRepeated: "",
-          password: "",
-          passwordRepeated: "",
         },
         context: { clientIp: "123" },
       });
@@ -140,13 +148,9 @@ describe("/registrieren action", () => {
         description: "form fields are empty",
         formData: {
           email: "",
-          emailRepeated: "",
-          password: "",
-          passwordRepeated: "",
         },
         errors: {
           email: "errors.required",
-          password: "errors.required",
           confirmDataPrivacy: "errors.required",
           confirmTermsOfUse: "errors.required",
         },
@@ -156,43 +160,8 @@ describe("/registrieren action", () => {
         formData: {
           ...validFormData,
           email: "user@example",
-          emailRepeated: "user@example",
         },
         errors: { email: "errors.email.wrongFormat" },
-      },
-      {
-        description: "email does not match repeated email",
-        formData: {
-          ...validFormData,
-          emailRepeated: "user@example.org",
-        },
-        errors: { emailRepeated: "errors.email.notMatching" },
-      },
-      {
-        description: "password is too short",
-        formData: {
-          ...validFormData,
-          password: "1234567",
-          passwordRepeated: "1234567",
-        },
-        errors: { password: "errors.password.tooShort" },
-      },
-      {
-        description: "password is too long",
-        formData: {
-          ...validFormData,
-          password: "#".repeat(65),
-          passwordRepeated: "#".repeat(65),
-        },
-        errors: { password: "errors.password.tooLong" },
-      },
-      {
-        description: "password does not match repeated password",
-        formData: {
-          ...validFormData,
-          password: "123456789",
-        },
-        errors: { passwordRepeated: "errors.password.notMatching" },
       },
       {
         description: "data privacy not confirmed",

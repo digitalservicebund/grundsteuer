@@ -3,6 +3,7 @@ import {
   LoaderFunction,
   MetaFunction,
   redirect,
+  json,
 } from "@remix-run/node";
 import {
   Form,
@@ -37,10 +38,11 @@ import { StepHeadline } from "~/components/StepHeadline";
 import { getReachablePathsFromGrundData } from "~/domain";
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
+import { commitSession } from "~/session.server";
 import { Params } from "react-router";
 import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
-import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
+import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { getBackUrl, getRedirectUrl } from "~/util/constructUrls";
 
 export const PREFIX = "formular";
@@ -74,6 +76,7 @@ export type LoaderData = {
   currentState?: string;
   stepDefinition: StepDefinition;
   redirectToSummary?: boolean;
+  csrfToken?: string;
 };
 
 export const loader: LoaderFunction = async ({
@@ -91,6 +94,7 @@ export const loader: LoaderFunction = async ({
 
   const machine = getMachine({ formData: storedFormData, params });
   const stateNodeType = machine.getStateNodeByPath(currentStateWithoutId).type;
+
   // redirect to first fitting child node
   if (stateNodeType == "compound") {
     const inititalState = machine.transition(currentStateWithoutId, "FAKE");
@@ -115,22 +119,30 @@ export const loader: LoaderFunction = async ({
 
   const bundesland = storedFormData.grundstueck?.adresse?.bundesland;
 
-  return {
-    formData: getStepData(storedFormData, currentState),
-    allData: storedFormData,
-    i18n: await getStepI18n(
+  const csrfToken = createCsrfToken(session);
+
+  return json(
+    {
+      formData: getStepData(storedFormData, currentState),
+      allData: storedFormData,
+      i18n: await getStepI18n(
+        currentStateWithoutId,
+        {
+          id: params?.personId || params?.flurstueckId,
+        },
+        bundesland ? bundesland : "default"
+      ),
+      backUrl,
       currentStateWithoutId,
-      {
-        id: params?.personId || params?.flurstueckId,
-      },
-      bundesland ? bundesland : "default"
-    ),
-    backUrl,
-    currentStateWithoutId,
-    currentState,
-    stepDefinition,
-    redirectToSummary,
-  };
+      currentState,
+      stepDefinition,
+      redirectToSummary,
+      csrfToken,
+    },
+    {
+      headers: { "Set-Cookie": await commitSession(session) },
+    }
+  );
 };
 
 export type ActionData = {
@@ -207,6 +219,7 @@ export function Step() {
     currentStateWithoutId,
     currentState,
     redirectToSummary,
+    csrfToken,
   } = loaderData;
   const StepComponent =
     _.get(stepComponents, currentStateWithoutId) || FallbackStepComponent;
@@ -234,7 +247,7 @@ export function Step() {
         key={currentState}
         action={redirectToSummary ? "?redirectToSummary=true" : ""}
       >
-        <CsrfToken />
+        <CsrfToken value={csrfToken} />
         {headlineIsLegend ? (
           <fieldset>
             <StepHeadline i18n={i18n} asLegend />

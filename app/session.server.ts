@@ -6,7 +6,7 @@ export const sessionStorage = createCookieSessionStorage({
     name: `${useSecureCookie ? "__Host-" : ""}session`,
     path: "/",
     httpOnly: true,
-    sameSite: "strict",
+    sameSite: "lax",
     secure: useSecureCookie,
     secrets: [process.env.SESSION_COOKIE_SECRET as string],
   },

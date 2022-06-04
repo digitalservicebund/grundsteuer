@@ -1,6 +1,5 @@
 import { deleteExpiredFscs } from "~/cron.server";
 import { db } from "~/db.server";
-import bcrypt from "bcryptjs";
 
 describe("Cron jobs", () => {
   describe("deleteExpiredFscs", () => {
@@ -8,7 +7,6 @@ describe("Cron jobs", () => {
       await db.user.create({
         data: {
           email: "one@foo.com",
-          password: await bcrypt.hash("12345678", 10),
           fscRequest: {
             create: {
               requestId: "under90daysold",
@@ -23,7 +21,6 @@ describe("Cron jobs", () => {
       await db.user.create({
         data: {
           email: "two@foo.com",
-          password: await bcrypt.hash("12345678", 10),
           fscRequest: {
             create: {
               requestId: "over90daysold",

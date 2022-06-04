@@ -1,13 +1,18 @@
-import { ActionFunction, MetaFunction, redirect } from "@remix-run/node";
-import { Form, useActionData, useTransition } from "@remix-run/react";
+import {
+  ActionFunction,
+  LoaderFunction,
+  MetaFunction,
+  json,
+} from "@remix-run/node";
+import {
+  Form,
+  useLoaderData,
+  useActionData,
+  useTransition,
+} from "@remix-run/react";
 import { useTranslation, Trans } from "react-i18next";
 import invariant from "tiny-invariant";
-import {
-  validateEmail,
-  validateMaxLength,
-  validateMinLength,
-  validateRequired,
-} from "~/domain/validation";
+import { validateEmail, validateRequired } from "~/domain/validation";
 import { createUser, userExists } from "~/domain/user";
 import {
   BreadcrumbNavigation,
@@ -25,19 +30,13 @@ import { pageTitle } from "~/util/pageTitle";
 import { removeUndefined } from "~/util/removeUndefined";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
-import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
+import { commitSession } from "~/session.server";
+import { CsrfToken, verifyCsrfToken, createCsrfToken } from "~/util/csrf";
+import { authenticator } from "~/auth.server";
 
 const validateInputEmail = async (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
-  (!validateEmail({ value: normalizedEmail }) && "errors.email.wrongFormat") ||
-  ((await userExists(normalizedEmail)) && "errors.email.alreadyExists");
-
-const validateInputPassword = (password: string) =>
-  (!validateRequired({ value: password }) && "errors.required") ||
-  (!validateMinLength({ value: password, minLength: 8 }) &&
-    "errors.password.tooShort") ||
-  (!validateMaxLength({ value: password, maxLength: 64 }) &&
-    "errors.password.tooLong");
+  (!validateEmail({ value: normalizedEmail }) && "errors.email.wrongFormat");
 
 export const saveAuditLogs = async (
   clientIp: string,
@@ -82,34 +81,35 @@ export const saveAuditLogs = async (
   });
 };
 
+export const loader: LoaderFunction = async ({ request }) => {
+  const session = await getSession(request.headers.get("Cookie"));
+  const csrfToken = createCsrfToken(session);
+  return json(
+    {
+      csrfToken,
+    },
+    {
+      headers: { "Set-Cookie": await commitSession(session) },
+    }
+  );
+};
+
 export const action: ActionFunction = async ({ request, context }) => {
   const { clientIp } = context;
   await verifyCsrfToken(request);
 
-  const formData = await request.formData();
+  // clone request before accessing formData, as remix-auth also needs the formData
+  // and it can only be accessed once
+  const requestClone = request.clone();
+  const formData = await requestClone.formData();
 
   const email = formData.get("email");
-  const emailRepeated = formData.get("emailRepeated");
-  const password = formData.get("password");
-  const passwordRepeated = formData.get("passwordRepeated");
   const confirmDataPrivacy = formData.get("confirmDataPrivacy");
   const confirmTermsOfUse = formData.get("confirmTermsOfUse");
 
   invariant(
     typeof email === "string",
     "expected formData to include email field of type string"
-  );
-  invariant(
-    typeof emailRepeated === "string",
-    "expected formData to include emailRepeated field of type string"
-  );
-  invariant(
-    typeof password === "string",
-    "expected formData to include password field of type string"
-  );
-  invariant(
-    typeof passwordRepeated === "string",
-    "expected formData to include passwordRepeated field of type string"
   );
   invariant(
     typeof confirmDataPrivacy === "string" || confirmDataPrivacy == null,
@@ -121,15 +121,9 @@ export const action: ActionFunction = async ({ request, context }) => {
   );
 
   const normalizedEmail = email.trim().toLowerCase();
-  const normalizedEmailRepeated = emailRepeated.trim().toLowerCase();
 
   const errors = {
     email: await validateInputEmail(normalizedEmail),
-    emailRepeated:
-      normalizedEmail !== normalizedEmailRepeated && "errors.email.notMatching",
-    password: validateInputPassword(password),
-    passwordRepeated:
-      password !== passwordRepeated && "errors.password.notMatching",
     confirmDataPrivacy:
       !validateRequired({ value: confirmDataPrivacy || "" }) &&
       "errors.required",
@@ -141,12 +135,24 @@ export const action: ActionFunction = async ({ request, context }) => {
   const errorsExist = Object.keys(removeUndefined(errors)).length > 0;
 
   if (!errorsExist) {
-    await createUser(normalizedEmail, password);
-    await saveAuditLogs(clientIp, normalizedEmail, {
-      confirmDataPrivacy,
-      confirmTermsOfUse,
-    });
-    return redirect("/registrieren/erfolgreich");
+    if (await userExists(normalizedEmail)) {
+      console.log("already registered email!");
+    } else {
+      await createUser(normalizedEmail);
+      await saveAuditLogs(clientIp, normalizedEmail, {
+        confirmDataPrivacy,
+        confirmTermsOfUse,
+      });
+    }
+
+    return await authenticator.authenticate(
+      process.env.APP_ENV === "test" ? "form" : "email-link",
+      request,
+      {
+        successRedirect: "/registrieren/erfolgreich",
+        throwOnError: true,
+      }
+    );
   }
 
   return {
@@ -160,6 +166,7 @@ export const meta: MetaFunction = () => {
 
 export default function Registrieren() {
   const { t } = useTranslation("all");
+  const loaderData = useLoaderData();
   const actionData = useActionData();
   const errors = actionData?.errors;
   const transition = useTransition();
@@ -185,7 +192,7 @@ export default function Registrieren() {
       </ContentContainer>
 
       <Form method="post" noValidate>
-        <CsrfToken />
+        <CsrfToken value={loaderData.csrfToken} />
         <ContentContainer size="sm">
           <FormGroup>
             <Input
@@ -193,33 +200,6 @@ export default function Registrieren() {
               name="email"
               label="E-Mail-Adresse"
               error={t(errors?.email)}
-            />
-          </FormGroup>
-
-          <FormGroup>
-            <Input
-              type="password"
-              name="password"
-              label="Passwort"
-              error={t(errors?.password)}
-            />
-          </FormGroup>
-
-          <FormGroup>
-            <Input
-              type="email"
-              name="emailRepeated"
-              label="E-Mail-Adresse wiederholen"
-              error={t(errors?.emailRepeated)}
-            />
-          </FormGroup>
-
-          <FormGroup>
-            <Input
-              type="password"
-              name="passwordRepeated"
-              label="Passwort wiederholen"
-              error={t(errors?.passwordRepeated)}
             />
           </FormGroup>
         </ContentContainer>

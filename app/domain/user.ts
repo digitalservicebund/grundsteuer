@@ -1,15 +1,12 @@
 import { db } from "~/db.server";
-import bcrypt from "bcryptjs";
 import { Prisma } from "@prisma/client";
 
 export type User = Prisma.UserGetPayload<{ include: { fscRequest: true } }>;
 
-export const createUser = async (email: string, password: string) => {
-  const hash = await bcrypt.hash(password, 10);
+export const createUser = async (email: string) => {
   await db.user.create({
     data: {
       email: email,
-      password: hash,
     },
   });
 };

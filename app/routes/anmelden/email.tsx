@@ -10,23 +10,17 @@ import {
 import { pageTitle } from "~/util/pageTitle";
 
 export const meta: MetaFunction = () => {
-  return { title: pageTitle("Registrierung erfolgreich") };
+  return { title: pageTitle("Anmeldelink per E-Mail gesendet") };
 };
 
-export default function RegistrierenErfolgreich() {
+export default function AnmeldenEmail() {
   return (
     <UserLayout>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         <SuccessPageLayout>
-          <Headline>Konto erfolgreich erstellt.</Headline>
+          <Headline>Wir haben Ihnen eine E-Mail gesendet.</Headline>
           <IntroText>
-            Sie haben erfolgreich ein Konto erstellt. Merken Sie sich bitte die
-            verwendete E-Mail-Adresse.
-          </IntroText>
-          <IntroText className="!mb-80">
-            Wir haben Ihnen eine E-Mail gesendet.
-            <br />
             Bitte klicken Sie auf den Anmeldelink in der E-Mail.
           </IntroText>
         </SuccessPageLayout>

@@ -48,7 +48,7 @@ import {
 } from "~/erica/freischaltCodeStornieren";
 import ErrorBar from "~/components/ErrorBar";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
-import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
+import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return (
@@ -166,7 +166,6 @@ export const loader: LoaderFunction = async ({ request, context }) => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
-  const session = await getSession(request.headers.get("Cookie"));
   const userData: User | null = await findUserByEmail(user.email);
   invariant(
     userData,
@@ -181,6 +180,8 @@ export const loader: LoaderFunction = async ({ request, context }) => {
   if (await wasEricaRequestSuccessful(userData)) {
     return redirect("/fsc/eingeben/erfolgreich");
   }
+
+  const session = await getSession(request.headers.get("Cookie"));
 
   if (ericaActivationRequestIsInProgress) {
     const fscActivationData = await handleFscActivationProgress(
@@ -197,8 +198,11 @@ export const loader: LoaderFunction = async ({ request, context }) => {
     await handleFscRevocationInProgress(userData, clientIp);
   }
 
+  const csrfToken = createCsrfToken(session);
+
   return json(
     {
+      csrfToken,
       showError: false,
       showSpinner:
         ericaActivationRequestIsInProgress ||
@@ -309,7 +313,7 @@ export default function FscEingeben() {
       )}
 
       <Form method="post">
-        <CsrfToken />
+        <CsrfToken value={loaderData.csrfToken} />
         <div>
           <FormGroup>
             <FreischaltCodeInput

@@ -1,6 +1,5 @@
 import { loader } from "~/routes/fsc/eingeben/index";
 import { getSession } from "~/session.server";
-import bcrypt from "bcryptjs";
 import * as freischaltCodeAktivierenModule from "~/erica/freischaltCodeAktivieren";
 import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStornieren";
 import * as userModule from "~/domain/user";
@@ -56,7 +55,6 @@ describe("Loader", () => {
       getMockedFunction(userModule, "findUserByEmail", {
         email: "existing_user@foo.com",
         ericaRequestIdFscAktivieren: "foo",
-        password: await bcrypt.hash("12345678", 10),
         fscRequest: { requestId: "foo" },
       });
     });
@@ -196,7 +194,6 @@ describe("Loader", () => {
       getMockedFunction(userModule, "findUserByEmail", {
         email: "existing_user@foo.com",
         ericaRequestIdFscStornieren: "foo",
-        password: await bcrypt.hash("12345678", 10),
         fscRequest: { requestId: "foo" },
         identified: true,
       });

@@ -1,33 +1,13 @@
-import React, { ReactNode } from "react";
 import { Session } from "@remix-run/node";
 import { v4 as uuid } from "uuid";
 import { getSession } from "~/session.server";
 
-export interface CsrfTokenProviderProps {
-  children: ReactNode;
-  token: string;
-}
-
 const SESSION_KEY = "csrf";
-const context = React.createContext<string | null>(null);
 
-export const CsrfTokenProvider = ({
-  children,
-  token,
-}: CsrfTokenProviderProps): JSX.Element => {
-  return <context.Provider value={token}>{children}</context.Provider>;
+export const CsrfToken = (props: { value?: string }) => {
+  if (!props.value) return null;
+  return <input type="hidden" value={props.value} name="csrf" />;
 };
-
-export const CsrfToken = (): JSX.Element => {
-  const token = getCsrfToken();
-  return (
-    <input type="hidden" value={token as string | undefined} name="csrf" />
-  );
-};
-
-function getCsrfToken() {
-  return React.useContext(context);
-}
 
 export const createCsrfToken = (session: Session) => {
   const token = uuid();
