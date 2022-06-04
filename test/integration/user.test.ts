@@ -1,5 +1,4 @@
 import { db } from "~/db.server";
-import bcrypt from "bcryptjs";
 import {
   createUser,
   deleteEricaRequestIdFscAktivieren,
@@ -26,14 +25,12 @@ describe("user", () => {
     await db.user.create({
       data: {
         email: "existing@foo.com",
-        password: await bcrypt.hash("12345678", 10),
       },
     });
 
     await db.user.create({
       data: {
         email: "existing_with_fsc_request@foo.com",
-        password: await bcrypt.hash("12345678", 10),
         fscRequest: {
           create: {
             requestId: "foo",
@@ -61,7 +58,7 @@ describe("user", () => {
       const before = await db.user.findMany({ where: { email: email } });
       expect(before.length).toEqual(0);
 
-      await createUser(email, "123");
+      await createUser(email);
       const after = await db.user.findMany({
         where: { email: email },
       });
@@ -71,7 +68,7 @@ describe("user", () => {
 
     it("should fail on existing email", async () => {
       await expect(async () => {
-        await createUser("existing@foo.com", "123");
+        await createUser("existing@foo.com");
       }).rejects.toThrow();
     });
   });
@@ -143,7 +140,6 @@ describe("user", () => {
       await db.user.create({
         data: {
           email: "existing_with_fsc_request_to_delete@foo.com",
-          password: await bcrypt.hash("12345678", 10),
           fscRequest: {
             create: {
               requestId: "labrador",
@@ -155,7 +151,6 @@ describe("user", () => {
       await db.user.create({
         data: {
           email: "different_user@foo.com",
-          password: await bcrypt.hash("12345678", 10),
           fscRequest: {
             create: {
               requestId: "terrier",
@@ -167,7 +162,6 @@ describe("user", () => {
       await db.user.create({
         data: {
           email: "existing_with_no_fsc_request_to_delete@foo.com",
-          password: await bcrypt.hash("12345678", 10),
         },
       });
     });

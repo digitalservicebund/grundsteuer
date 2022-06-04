@@ -57,8 +57,8 @@ import ErrorBar from "~/components/ErrorBar";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import Send from "~/components/icons/mui/Send";
 import Attention from "~/components/icons/mui/Attention";
-import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
-import { getSession } from "~/session.server";
+import { CsrfToken, verifyCsrfToken, createCsrfToken } from "~/util/csrf";
+import { getSession, commitSession } from "~/session.server";
 import { Trans } from "react-i18next";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 
@@ -71,6 +71,7 @@ type LoaderData = {
   previousStepsErrors: PreviousStepsErrors;
   ericaErrors: string[];
   showSpinner: boolean;
+  csrfToken?: string;
 };
 
 export const getEricaErrorMessagesFromResponse = (
@@ -193,16 +194,27 @@ export const loader: LoaderFunction = async ({
     }
   }
 
-  return {
-    formData: getStepData(storedFormData, "zusammenfassung"),
-    allData: cleanedData,
-    i18n: await getStepI18n("zusammenfassung"),
-    stepDefinition: zusammenfassung,
-    isIdentified: userData.identified,
-    previousStepsErrors,
-    ericaErrors,
-    showSpinner: !!ericaRequestId,
-  };
+  const session = await getSession(request.headers.get("Cookie"));
+  const csrfToken = createCsrfToken(session);
+
+  return json(
+    {
+      csrfToken,
+      formData: getStepData(storedFormData, "zusammenfassung"),
+      allData: cleanedData,
+      i18n: await getStepI18n("zusammenfassung"),
+      stepDefinition: zusammenfassung,
+      isIdentified: userData.identified,
+      previousStepsErrors,
+      ericaErrors,
+      showSpinner: !!ericaRequestId,
+    },
+    {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    }
+  );
 };
 
 export type PreviousStepsErrors = {
@@ -347,7 +359,7 @@ export default function Zusammenfassung() {
         {actionData?.errors && <ErrorBarStandard />}
 
         <Form method="post" className="mb-16">
-          <CsrfToken />
+          <CsrfToken value={loaderData.csrfToken} />
           <ZusammenfassungAccordion
             {...{
               allData,

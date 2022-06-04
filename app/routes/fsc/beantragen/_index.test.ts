@@ -9,7 +9,6 @@ import * as userModule from "~/domain/user";
 import { getMockedFunction } from "test/mocks/mockHelper";
 import { loader } from "~/routes/fsc/beantragen/index";
 import { AuditLogEvent } from "~/audit/auditLog";
-import bcrypt from "bcryptjs";
 
 describe("Loader", () => {
   const expectedTransferticket = "foo12345";
@@ -31,7 +30,6 @@ describe("Loader", () => {
     getMockedFunction(userModule, "findUserByEmail", {
       email: "existing_user@foo.com",
       ericaRequestIdFscBeantragen: "foo",
-      password: await bcrypt.hash("12345678", 10),
       fscRequest: null,
     });
   });

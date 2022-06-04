@@ -87,9 +87,7 @@
     "elsterChars": "Das Feld enthält ein Zeichen, das nicht unterstützt wird.",
     "required": "Bitte füllen Sie dieses Feld aus.",
     "email": {
-      "wrongFormat": "Bitte überprüfen Sie die Schreibweise der E-Mail-Adresse.",
-      "alreadyExists": "Es existiert bereits ein Nutzer:innen-Konto mit dieser E-Mail-Adresse.",
-      "notMatching": "Bitte geben Sie zur Kontrolle die E-Mail-Adresse genau so ein, wie im obigen Feld."
+      "wrongFormat": "Bitte überprüfen Sie die Schreibweise der E-Mail-Adresse."
     },
     "onlyDecimal": "Darf nur Ziffern beinhalten",
     "isDate": "Kein valides Datenformat. Benötigtes Format: TT.MM.JJJJ",
@@ -106,11 +104,6 @@
     "yearInFuture": "Das Jahr muss in der Zukunft liegen",
     "yearInPast": "Das Jahr muss in der Vergangenheit liegen",
     "dateInPast": "Das Datum muss in der Vergangenheit liegen",
-    "password": {
-      "notMatching": "Passwörter stimmen nicht überein.",
-      "tooShort": "Das Passwort ist zu kurz. Geben Sie bitte mindestens 8 Zeichen ein.",
-      "tooLong": "Das Passwort ist zu lang. Geben Sie bitte nicht mehr als 64 Zeichen ein."
-    },
     "steuerId": {
       "wrongLength": "Die Steuer-Identifikationsnummer ist genau 11-stellig. Bitte überprüfen Sie Ihre Eingabe.",
       "onlyNumbers": "Die Steuer-Identifikationsnummer besteht nur aus Zahlen. Bitte überprüfen Sie Ihre Eingabe."

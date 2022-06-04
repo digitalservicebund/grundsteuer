@@ -8,6 +8,7 @@ jest.mock("~/auth.server", () => {
     __esModule: true,
     authenticator: {
       isAuthenticated: jest.fn(),
+      authenticate: jest.fn(),
     },
   };
 });
@@ -22,6 +23,11 @@ export const getAuthenticatedSession = async (userMail: string) => {
 export const mockIsAuthenticated =
   authenticator.isAuthenticated as jest.MockedFunction<
     typeof authenticator.isAuthenticated
+  >;
+
+export const mockAuthenticate =
+  authenticator.authenticate as jest.MockedFunction<
+    typeof authenticator.authenticate
   >;
 
 export const setCookieHeaderWithSessionAndData = async (
