@@ -12,6 +12,7 @@ import {
 import germanyMapImage from "~/assets/images/germany-map.svg";
 import HomepageSharing from "~/components/HomepageSharing";
 import HomepageCrossPromo from "~/components/HomepageCrossPromo";
+import classNames from "classnames";
 
 export const loader: LoaderFunction = async () => {
   return {
@@ -21,8 +22,10 @@ export const loader: LoaderFunction = async () => {
 
 export function HomepageHeader({
   loaderData,
+  pruefenActive,
 }: {
   loaderData: { env: string };
+  pruefenActive?: boolean;
 }) {
   const { t } = useTranslation("all");
   // buttons in production are temporarily disabled until full launch
@@ -44,7 +47,9 @@ export function HomepageHeader({
             size="medium"
             look="tertiary"
             disabled
-            className="mb-16 text-center md:mb-0 md:mr-24"
+            className={classNames("mb-16 text-center md:mb-0 md:mr-24", {
+              "bg-blue-200 shadow-none": pruefenActive,
+            })}
             {...pruefenButtonProps}
           >
             {t("homepage.buttonCheck")}
