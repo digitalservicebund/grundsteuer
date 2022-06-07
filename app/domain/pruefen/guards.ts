@@ -42,7 +42,6 @@ const isEligibleGrundstueckArt: PruefenCondition = (context) => {
     "einfamilienhaus",
     "zweifamilienhaus",
     "eigentumswohnung",
-    "mehrereGebaeude",
     "unbebaut",
   ];
   return !!(
