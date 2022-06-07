@@ -66,7 +66,9 @@ export function HomepageHeader({
         </div>
       </div>
       <div>
-        <BmfLogo />
+        <a href="/" title="Zur Startseite">
+          <BmfLogo />
+        </a>
       </div>
     </div>
   );
