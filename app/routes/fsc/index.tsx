@@ -1,11 +1,12 @@
 import { LoaderFunction, redirect } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { findUserByEmail } from "~/domain/user";
-import { getSession } from "~/session.server";
+import { authenticator } from "~/auth.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const session = await getSession(request.headers.get("Cookie"));
-  const sessionUser = session.get("user");
+  const sessionUser = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/anmelden",
+  });
 
   const dbUser = await findUserByEmail(sessionUser.email);
   invariant(

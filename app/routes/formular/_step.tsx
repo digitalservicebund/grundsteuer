@@ -85,8 +85,10 @@ export const loader: LoaderFunction = async ({
   params,
   request,
 }): Promise<LoaderData | Response> => {
-  const session = await getSession(request.headers.get("Cookie"));
-  const user = session.get("user");
+  const user = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/anmelden",
+  });
+
   const storedFormData = await getStoredFormData({ request, user });
 
   const currentState = getCurrentStateFromUrl(request.url);
