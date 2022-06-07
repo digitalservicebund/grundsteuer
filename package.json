@@ -13,7 +13,7 @@
     "build": " tsc --noEmit && run-s build:*",
     "build:css": "npm run generate:css -- --minify",
     "build:remix": "remix build",
-    "build:server": "esbuild --bundle --platform=node --format=cjs ./server.ts --outdir=build",
+    "build:server": "esbuild --bundle --platform=node --format=cjs ./server.ts --outdir=build --sourcemap=external",
     "clean": "rm -rf build public/build public/tailwind.css",
     "db:migrate": "prisma migrate deploy",
     "dev": "copy-env-cli && npm run build:server && run-p dev:*",
