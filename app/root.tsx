@@ -67,6 +67,7 @@ export const meta: MetaFunction = () => {
 interface LoaderData {
   env: string;
   csrf: string;
+  sentry_dsn: string;
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -74,7 +75,11 @@ export const loader: LoaderFunction = async ({ request }) => {
   const token = createCsrfToken(session);
 
   return json<LoaderData>(
-    { csrf: token, env: process.env.APP_ENV as string },
+    {
+      csrf: token,
+      env: process.env.APP_ENV as string,
+      sentry_dsn: process.env.SENTRY_DSN as string,
+    },
     { headers: { "Set-Cookie": await commitSession(session) } }
   );
 };
@@ -104,7 +109,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
 }
 
 export default function App() {
-  const { csrf, env } = useLoaderData();
+  const { csrf, env, sentry_dsn } = useLoaderData();
   useChangeLanguage("de");
 
   return (
@@ -126,6 +131,14 @@ export default function App() {
         <CsrfTokenProvider token={csrf}>
           <Outlet />
           <ScrollRestoration />
+          {sentry_dsn && (
+            <script
+              suppressHydrationWarning
+              dangerouslySetInnerHTML={{
+                __html: `window.sentry_dsn="${sentry_dsn}";`,
+              }}
+            />
+          )}
           <Scripts />
           <LiveReload />
         </CsrfTokenProvider>

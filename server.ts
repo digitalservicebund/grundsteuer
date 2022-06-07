@@ -1,16 +1,32 @@
 import compression from "compression";
 import dotenv from "dotenv-safe";
-import express, { Request } from "express";
+import express, { Request, Response } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import { createRequestHandler } from "@remix-run/express";
 import { jobs } from "~/cron.server";
 import path from "path";
 import invariant from "tiny-invariant";
+import * as Sentry from "@sentry/node";
+import * as Tracing from "@sentry/tracing";
+import { registerSentry, sentryLoadContext } from "~/sentry-remix-node";
+import { db } from "~/db.server";
 
 const BUILD_DIR = path.join(process.cwd(), "build");
 
 const appMode = process.env.APP_MODE;
+
+function loadBuild() {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  let build = require(BUILD_DIR);
+  build = registerSentry(build);
+  return build;
+}
+
+Sentry.init({
+  dsn: process.env.SENTRY_DSN,
+  integrations: [new Tracing.Integrations.Prisma({ client: db })],
+});
 
 // cron mode is intended for running cron jobs only. The app will not serve any HTTP requests in this mode.
 if (appMode === "cron") {
@@ -65,8 +81,9 @@ if (appMode === "cron") {
 
   app.set("trust proxy", true);
 
-  const getLoadContext = (req: Request) => ({
+  const getLoadContext = (req: Request, res: Response) => ({
     clientIp: req.ip,
+    ...sentryLoadContext(req, res),
   });
 
   app.all(
@@ -76,13 +93,13 @@ if (appMode === "cron") {
           purgeRequireCache();
 
           return createRequestHandler({
-            build: require(BUILD_DIR),
+            build: loadBuild(),
             getLoadContext,
             mode: process.env.NODE_ENV,
           })(req, res, next);
         }
       : createRequestHandler({
-          build: require(BUILD_DIR),
+          build: loadBuild(),
           getLoadContext,
           mode: process.env.NODE_ENV,
         })
