@@ -244,7 +244,7 @@
               "description": "Auf dem Grundstück stehen mehr als ein Einfamilien- oder Zweifamilienhaus"
             },
             "nichtWohn": {
-              "label": "Nicht-Wohngrundstueck",
+              "label": "Nichtwohngrundstück",
               "description": "Geschäftsgrundstück, Teileigentum, gemischt genutztes Grundstück, sonstiges Grundstück"
             },
             "unbebaut": {
@@ -344,7 +344,7 @@
     "keineNutzung": {
       "headline": "Tut uns leid, Sie können unseren Service leider nicht nutzen",
       "specifics": {
-        "explanation": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Tool machen können. „Grundsteuererklärung für Privateigentum“ ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben. Alternativ bietet sich eine Erfassung mit <elsterLink>Elster</elsterLink> an."
+        "explanation": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Tool machen können. „Grundsteuererklärung für Privateigentum“ ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an."
       }
     },
     "nutzung": {
@@ -356,7 +356,7 @@
     "spaeterNutzung": {
       "headline": "Sag niemals nie! Bald können Sie unseren Online-Service nutzen.",
       "specifics": {
-        "explanation1": "Aktuell können wir die Nutzung unseres Service für Personen mit einem ELSTER Konto aus technischen Gründen nicht gewährleisten. Wir entwickeln unseren Service allerdings ständig weiter und rechnen damit, ab September auch Personen mit einem Elster Konto aufnehmen zu können.",
+        "explanation1": "Aktuell können wir die Nutzung unseres Service für Personen mit einem ELSTER Konto aus technischen Gründen nicht gewährleisten. Wir entwickeln unseren Service allerdings ständig weiter und rechnen damit, ab September auch Personen mit einem ELSTER Konto aufnehmen zu können.",
         "explanation2": "Schreiben Sie uns eine Email an <emailContactLink>kontakt@grundsteuererklaerung-fuer-privateigentum.de</emailContactLink>. Wir melden uns bei Ihnen, sobald unser Online-Service für Sie nutzbar ist."
       }
     }
