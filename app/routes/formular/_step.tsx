@@ -144,8 +144,7 @@ export const action: ActionFunction = async ({ params, request }) => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
-  const session = await getSession(request.headers.get("Cookie"));
-  await verifyCsrfToken(request, session);
+  await verifyCsrfToken(request);
 
   const storedFormData = await getStoredFormData({ request, user });
 

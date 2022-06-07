@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import { Session } from "@remix-run/node";
 import { v4 as uuid } from "uuid";
+import { getSession } from "~/session.server";
 
 export interface CsrfTokenProviderProps {
   children: ReactNode;
@@ -34,7 +35,8 @@ export const createCsrfToken = (session: Session) => {
   return token;
 };
 
-export const verifyCsrfToken = async (request: Request, session: Session) => {
+export const verifyCsrfToken = async (request: Request) => {
+  const session = await getSession(request.headers.get("Cookie"));
   const formData = await request.clone().formData();
   const formToken = formData.get(SESSION_KEY);
 

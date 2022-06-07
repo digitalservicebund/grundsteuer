@@ -6,9 +6,9 @@ import {
   Session,
 } from "@remix-run/node";
 import {
+  BreadcrumbNavigation,
   Button,
   ButtonContainer,
-  BreadcrumbNavigation,
   ContentContainer,
   FormGroup,
   Headline,
@@ -213,8 +213,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
 };
 
 export const action: ActionFunction = async ({ request }) => {
-  const session = await getSession(request.headers.get("Cookie"));
-  await verifyCsrfToken(request, session);
+  await verifyCsrfToken(request);
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });

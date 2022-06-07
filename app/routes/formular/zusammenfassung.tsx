@@ -58,7 +58,6 @@ import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import Send from "~/components/icons/mui/Send";
 import Attention from "~/components/icons/mui/Attention";
 import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
-import { getSession } from "~/session.server";
 import { Trans } from "react-i18next";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 
@@ -219,8 +218,7 @@ export const action: ActionFunction = async ({
   context,
 }): Promise<ActionData | Response> => {
   const { clientIp } = context;
-  const session = await getSession(request.headers.get("Cookie"));
-  await verifyCsrfToken(request, session);
+  await verifyCsrfToken(request);
 
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",

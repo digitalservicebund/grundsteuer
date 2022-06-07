@@ -26,7 +26,6 @@ import { StepDefinition } from "~/domain/steps";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 import { StepHeadline } from "~/components/StepHeadline";
 import { pageTitle } from "~/util/pageTitle";
-import { getSession } from "~/session.server";
 import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
@@ -135,8 +134,7 @@ export type ActionData = {
 };
 
 export const action: ActionFunction = async ({ request }) => {
-  const session = await getSession(request.headers.get("Cookie"));
-  await verifyCsrfToken(request, session);
+  await verifyCsrfToken(request);
 
   const currentState = getCurrentStateFromUrl(request.url);
   const cookieHeader = request.headers.get("Cookie");

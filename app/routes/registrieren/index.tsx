@@ -25,7 +25,6 @@ import { pageTitle } from "~/util/pageTitle";
 import { removeUndefined } from "~/util/removeUndefined";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
-import { getSession } from "~/session.server";
 import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
 
 const validateInputEmail = async (normalizedEmail: string) =>
@@ -85,8 +84,7 @@ export const saveAuditLogs = async (
 
 export const action: ActionFunction = async ({ request, context }) => {
   const { clientIp } = context;
-  const session = await getSession(request.headers.get("Cookie"));
-  await verifyCsrfToken(request, session);
+  await verifyCsrfToken(request);
 
   const formData = await request.formData();
 
@@ -133,10 +131,10 @@ export const action: ActionFunction = async ({ request, context }) => {
     passwordRepeated:
       password !== passwordRepeated && "errors.password.notMatching",
     confirmDataPrivacy:
-      !validateRequired({ value: (confirmDataPrivacy || "") as string }) &&
+      !validateRequired({ value: confirmDataPrivacy || "" }) &&
       "errors.required",
     confirmTermsOfUse:
-      !validateRequired({ value: (confirmTermsOfUse || "") as string }) &&
+      !validateRequired({ value: confirmTermsOfUse || "" }) &&
       "errors.required",
   };
 

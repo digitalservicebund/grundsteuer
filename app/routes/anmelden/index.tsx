@@ -20,7 +20,6 @@ import {
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 import ErrorBar from "~/components/ErrorBar";
-import { getSession } from "~/session.server";
 import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
 
 export const meta: MetaFunction = () => {
@@ -41,8 +40,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export const action: ActionFunction = async ({ request }) => {
-  const session = await getSession(request.headers.get("Cookie"));
-  await verifyCsrfToken(request, session);
+  await verifyCsrfToken(request);
   try {
     return await authenticator.authenticate("user-pass", request, {
       successRedirect: "/fsc",
