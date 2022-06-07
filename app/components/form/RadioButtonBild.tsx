@@ -28,7 +28,7 @@ export default function RadioButtonBild(props: RadioBildProps) {
     <label
       htmlFor={derivedId}
       className={classNames(
-        "radio__label flex items-center text-18 leading-26",
+        "radio__label flex items-center text-18 leading-26 before:top-[50%] after:top-[50%] before:mt-0 after:mt-0",
         {
           "has-error": error,
         }
