@@ -46,12 +46,12 @@ if (appMode === "cron") {
         directives: {
           // unfortunately we have to allow unsafe inline scripts, as otherwise Remix does not work;
           // issue is tracked here: https://github.com/remix-run/remix/issues/183
-          scriptSrc: ["'self'", "plausible.io", "'unsafe-inline'"],
+          scriptSrc: ["'self'", "plausible.io", "sentry.io", "'unsafe-inline'"],
           // allow connections from WebSocket for development tooling
           connectSrc:
             process.env.APP_ENV === "local"
               ? ["*"]
-              : ["'self'", "plausible.io"],
+              : ["'self'", "plausible.io", "sentry.io"],
         },
       },
       referrerPolicy: {
