@@ -147,7 +147,7 @@ const transformFlurstueck = (
 };
 
 export const transformAnteil = (anteil?: EigentuemerPersonAnteilFields) => {
-  return !anteil ? { zaehler: "1", nenner: "1" } : anteil;
+  return anteil || { zaehler: "1", nenner: "1" };
 };
 
 const transformPerson = (person: Person) => {

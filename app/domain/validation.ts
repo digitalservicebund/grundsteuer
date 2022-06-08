@@ -5,6 +5,7 @@ import stepDefinitions, {
   getStepDefinition,
   GrundModel,
   GrundstueckFlurstueckGroesseFields,
+  Person,
   StepDefinition,
   StepDefinitionField,
   StepDefinitionFieldWithOptions,
@@ -361,6 +362,30 @@ export const validateRequiredIfCondition: ValidateRequiredIfConditionFunction =
   ({ value, condition, allData }) =>
     condition(allData) ? validateRequired({ value }) : true;
 
+type ValidateUniqueSteuerIdFunction = ({
+  allData,
+}: {
+  allData: GrundModel | PruefenModel;
+}) => boolean;
+export const validateUniqueSteuerId: ValidateUniqueSteuerIdFunction = ({
+  allData,
+}) => {
+  const existingSteuerId: Array<string> = [];
+
+  const isUniqueSteuerId = (person: Person) => {
+    const steuerId = person.steuerId?.steuerId;
+    const alreadyExisting = steuerId && existingSteuerId.includes(steuerId);
+    if (!alreadyExisting && steuerId) {
+      existingSteuerId.push(steuerId);
+    }
+    return !alreadyExisting;
+  };
+  if ("eigentuemer" in allData) {
+    return !!allData.eigentuemer?.person?.every(isUniqueSteuerId);
+  }
+  return true;
+};
+
 export const validateForbiddenIf: ValidateDependentFunction = ({
   value,
   dependentValue,
@@ -440,7 +465,7 @@ export const validateFlurstueckGroesse: ValidateFlurstueckGroesseFunction = ({
   if (!isZeroOrEmpty(valueA)) {
     return valueQm.trim().length <= 2;
   }
-  return true;
+  return !isZeroOrEmpty(valueQm);
 };
 
 export const validateFlurstueckGroesseLength: ValidateFlurstueckGroesseFunction =
@@ -645,6 +670,7 @@ export const getErrorMessage = (
     required: validateRequired,
     requiredIf: validateRequiredIf,
     requiredIfCondition: validateRequiredIfCondition,
+    uniqueSteuerId: validateUniqueSteuerId,
     email: validateEmail,
     onlyDecimal: validateOnlyDecimal,
     isDate: validateIsDate,

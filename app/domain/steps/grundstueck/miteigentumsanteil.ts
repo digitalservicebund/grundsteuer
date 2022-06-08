@@ -27,6 +27,10 @@ export const grundstueckFlurstueckMiteigentumsanteil: StepDefinition = {
         },
         onlyDecimal: {},
         noZero: {},
+        biggerThan: {
+          dependentField: "wirtschaftlicheEinheitZaehler",
+          msg: "Muss größer als der Zähler sein, um einen validen Anteil zu ergeben.",
+        },
       },
     },
   },

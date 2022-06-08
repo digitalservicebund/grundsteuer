@@ -106,6 +106,7 @@
     "yearInFuture": "Das Jahr muss in der Zukunft liegen",
     "yearInPast": "Das Jahr muss in der Vergangenheit liegen",
     "dateInPast": "Das Datum muss in der Vergangenheit liegen",
+    "uniqueSteuerId": "Steueridentifikationsnummern sind spezifisch für eine Person und dürfen nicht für mehrere Personen verwendet werden",
     "password": {
       "notMatching": "Passwörter stimmen nicht überein.",
       "tooShort": "Das Passwort ist zu kurz. Geben Sie bitte mindestens 8 Zeichen ein.",

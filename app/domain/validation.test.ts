@@ -25,6 +25,7 @@ import {
   validateRequiredIf,
   validateRequiredIfCondition,
   validateSteuerId,
+  validateUniqueSteuerId,
   validateYearAfterBaujahr,
   validateYearInFuture,
   validateYearInPast,
@@ -295,6 +296,51 @@ describe("validateRequiredIfCondition", () => {
   );
 });
 
+describe("validateUniqueSteuerId", () => {
+  const steuerId1 = {
+    steuerId: {
+      steuerId: "11 111 111 111",
+    },
+  };
+  const steuerId2 = {
+    steuerId: {
+      steuerId: "22 222 222 222",
+    },
+  };
+  const cases = [
+    { allData: {}, valid: true },
+    {
+      allData: grundModelFactory.eigentuemerPerson({ list: [{}] }).build(),
+      valid: true,
+    },
+    {
+      allData: grundModelFactory
+        .eigentuemerPerson({ list: [steuerId1] })
+        .build(),
+      valid: true,
+    },
+    {
+      allData: grundModelFactory
+        .eigentuemerPerson({ list: [steuerId1, steuerId2] })
+        .build(),
+      valid: true,
+    },
+    {
+      allData: grundModelFactory
+        .eigentuemerPerson({ list: [steuerId1, steuerId1] })
+        .build(),
+      valid: false,
+    },
+  ];
+
+  test.each(cases)(
+    "Should return $valid if value is '$value' and condition is '$condition'",
+    ({ allData, valid }) => {
+      expect(validateUniqueSteuerId({ allData })).toBe(valid);
+    }
+  );
+});
+
 describe("validateEitherOr", () => {
   const cases = [
     { value: "", dependentValue: "", valid: false },
@@ -433,6 +479,8 @@ describe("validateFlurstueckGroesse", () => {
     { valueHa: "", valueA: "", valueQm: "123", valid: true },
     { valueHa: "0", valueA: "", valueQm: "123", valid: true },
     { valueHa: "", valueA: "0000", valueQm: "123", valid: true },
+    { valueHa: "", valueA: "", valueQm: "0", valid: false },
+    { valueHa: "0", valueA: "0", valueQm: "0", valid: false },
   ];
 
   test.each(cases)(
