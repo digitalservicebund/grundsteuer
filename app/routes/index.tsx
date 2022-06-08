@@ -62,7 +62,9 @@ export function HomepageHeader({
           <Button
             look="tertiary"
             disabled
-            className="mr-24"
+            className={classNames("mr-24", {
+              "bg-blue-200 shadow-none": pruefenActive,
+            })}
             {...pruefenButtonProps}
           >
             {t("homepage.buttonCheck")}
