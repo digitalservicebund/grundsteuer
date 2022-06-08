@@ -579,7 +579,7 @@
       "headline": "Wieviele Garagen gehören zu Ihrem Gebäude / Wohneinheit",
       "fields": {
         "anzahlGaragen": {
-          "label": "Bitte Anzahl maneull eingeben"
+          "label": "Bitte Anzahl manuell eingeben"
         }
       }
     }

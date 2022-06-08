@@ -210,6 +210,8 @@
     content: "";
     display: block;
     position: absolute;
+    top: 20px;
+    left: 0;
     transform: translateY(-50%);
   }
   .radio__label::before {
