@@ -1,5 +1,6 @@
-import { StepDefinition } from "~/domain/steps";
+import stepDefinitions, { infoStep, StepDefinition } from "~/domain/steps";
 import _ from "lodash";
+import invariant from "tiny-invariant";
 
 export const pruefenStepDefinitions: Record<string, StepDefinition> = {
   eigentuemerTyp: {
@@ -141,6 +142,9 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
       },
     },
   },
+  nutzung: infoStep,
+  keineNutzung: infoStep,
+  spaeterNutzung: infoStep,
 };
 
 export const getPruefenStepDefinition = ({
@@ -148,6 +152,10 @@ export const getPruefenStepDefinition = ({
 }: {
   currentState: string;
 }): StepDefinition => {
-  console.log(currentState);
-  return _.get(pruefenStepDefinitions, currentState);
+  const definition = _.get(pruefenStepDefinitions, currentState);
+  invariant(
+    definition,
+    `No pruefen step definition found for ${currentState}.`
+  );
+  return definition;
 };

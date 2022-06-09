@@ -206,7 +206,7 @@ import invariant from "tiny-invariant";
 
 export type { GrundstueckBodenrichtwertEingabeFields };
 
-const infoStep: StepDefinition = {
+export const infoStep: StepDefinition = {
   fields: {},
 };
 

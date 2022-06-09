@@ -757,34 +757,32 @@ export const validateStepFormData = async (
   const errors: Record<string, string> = {};
   const validatedStepData: StepFormData = {};
   const tFunction = await i18Next.getFixedT("de", "all");
-  if (stepDefinition) {
-    Object.entries(stepDefinition.fields).forEach(
-      ([name, field]: [
-        string,
-        StepDefinitionField | StepDefinitionFieldWithOptions
-      ]) => {
-        let value = stepFormData[name];
-        // unchecked checkbox
-        if (typeof value == "undefined") {
-          value = "";
-        }
-
-        const i18n = { ...(tFunction("errors") as object) };
-        const errorMessage = getErrorMessage(
-          value,
-          field.validations,
-          stepFormData,
-          storedFormData,
-          i18n
-        );
-        if (errorMessage) {
-          errors[name] = errorMessage;
-        } else {
-          validatedStepData[name] = value;
-        }
+  Object.entries(stepDefinition.fields).forEach(
+    ([name, field]: [
+      string,
+      StepDefinitionField | StepDefinitionFieldWithOptions
+    ]) => {
+      let value = stepFormData[name];
+      // unchecked checkbox
+      if (typeof value == "undefined") {
+        value = "";
       }
-    );
-  }
+
+      const i18n = { ...(tFunction("errors") as object) };
+      const errorMessage = getErrorMessage(
+        value,
+        field.validations,
+        stepFormData,
+        storedFormData,
+        i18n
+      );
+      if (errorMessage) {
+        errors[name] = errorMessage;
+      } else {
+        validatedStepData[name] = value;
+      }
+    }
+  );
   if (Object.keys(errors).length != 0) {
     return { errors, validatedStepData: null };
   } else {
@@ -801,7 +799,6 @@ export const validateAllStepsData = async (
     const stepDefinition = getStepDefinition({
       currentStateWithoutId: getCurrentStateWithoutId(stepPath),
     });
-    if (!stepDefinition) continue; // no validations necessary
 
     let fieldErrors: Record<string, string | undefined> = {};
     const stepFormData = getStepData(storedFormData, stepPath);
