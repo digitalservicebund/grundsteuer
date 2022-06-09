@@ -43,7 +43,6 @@ import { HomepageHeader } from "~/routes";
 import SectionLabel from "~/components/SectionLabel";
 import Communication from "~/components/icons/mui/Communication";
 import { pruefenStateCookie } from "~/cookies";
-import invariant from "tiny-invariant";
 
 const PREFIX = "pruefen";
 const START_STEP = "eigentuemerTyp";
@@ -157,10 +156,6 @@ export const action: ActionFunction = async ({ request }) => {
     storedFormData
   );
   if (errors) return { errors } as ActionData;
-  invariant(
-    validatedStepData,
-    "If no errors, validatedStepData has to be returned"
-  );
 
   // store
   const formDataToBeStored = setStepData(

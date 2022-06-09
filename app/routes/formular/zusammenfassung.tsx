@@ -238,10 +238,6 @@ export const action: ActionFunction = async ({
     storedFormData
   );
   if (errors) return { errors };
-  invariant(
-    validatedStepData,
-    "If no errors, validatedStepData has to be returned"
-  );
 
   // store
   const formDataToBeStored = setStepData(

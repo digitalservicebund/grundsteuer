@@ -40,13 +40,11 @@ import { StepHeadline } from "~/components/StepHeadline";
 import { getReachablePathsFromGrundData } from "~/domain";
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
-import { getSession } from "~/session.server";
 import { Params } from "react-router";
 import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { getBackUrl, getRedirectUrl } from "~/util/constructUrls";
-import invariant from "tiny-invariant";
 
 export const PREFIX = "formular";
 
@@ -163,10 +161,6 @@ export const action: ActionFunction = async ({ params, request }) => {
     storedFormData
   );
   if (errors) return { errors } as ActionData;
-  invariant(
-    validatedStepData,
-    "If no errors, validatedStepData has to be returned"
-  );
 
   // store
   const formDataToBeStored = setStepData(

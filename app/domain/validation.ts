@@ -744,10 +744,16 @@ export const validateStepFormData = async (
   stepDefinition: StepDefinition,
   stepFormData: StepFormData,
   storedFormData: GrundModel | PruefenModel
-): Promise<{
-  errors: Record<string, string> | null;
-  validatedStepData: StepFormData | null;
-}> => {
+): Promise<
+  | {
+      errors: null;
+      validatedStepData: StepFormData;
+    }
+  | {
+      errors: Record<string, string>;
+      validatedStepData: null;
+    }
+> => {
   const errors: Record<string, string> = {};
   const validatedStepData: StepFormData = {};
   const tFunction = await i18Next.getFixedT("de", "all");
