@@ -1,4 +1,4 @@
-import { StepComponentFunction } from "~/routes/formular/_step";
+import { StepComponentFunction } from "~/routes/pruefen/_step";
 import IntroText from "../IntroText";
 import successImage from "~/assets/images/pruefen-yes.svg";
 

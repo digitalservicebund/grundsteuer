@@ -1,4 +1,4 @@
-import { StepComponentFunction } from "~/routes/formular/_step";
+import { StepComponentFunction } from "~/routes/pruefen/_step";
 import IntroText from "../IntroText";
 import maybeImage from "~/assets/images/pruefen-maybe.svg";
 import { Trans } from "react-i18next";
