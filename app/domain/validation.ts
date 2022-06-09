@@ -1,7 +1,7 @@
 import { getStepData, idToIndex, StepFormData } from "~/domain/model";
 import validator from "validator";
 import { Condition } from "~/domain/guards";
-import stepDefinitions, {
+import {
   getStepDefinition,
   GrundModel,
   GrundstueckFlurstueckGroesseFields,
@@ -13,7 +13,6 @@ import stepDefinitions, {
 import { getReachablePathsFromGrundData } from "~/domain/graph";
 import _ from "lodash";
 import { i18Next } from "~/i18n.server";
-import { getCurrentStateWithoutId } from "~/util/getCurrentState";
 import { PruefenCondition } from "~/domain/pruefen/guards";
 import { PreviousStepsErrors } from "~/routes/formular/zusammenfassung";
 import { PruefenModel } from "~/domain/pruefen/model";
@@ -798,17 +797,16 @@ export const validateAllStepsData = async (
   const generalErrors = {};
   const reachablePaths = getReachablePathsFromGrundData(storedFormData);
   for (const stepPath of reachablePaths) {
-    const stepFormData = getStepData(storedFormData, stepPath);
-    const stepDefinition = _.get(
-      stepDefinitions,
-      getCurrentStateWithoutId(stepPath)
-    );
+    const stepDefinition = getStepDefinition({
+      currentStateWithoutId: stepPath,
+    });
     if (!stepDefinition) continue; // no validations necessary
 
     let fieldErrors: Record<string, string | undefined> = {};
+    const stepFormData = getStepData(storedFormData, stepPath);
     if (stepFormData) {
       const { errors } = await validateStepFormData(
-        getStepDefinition({ currentStateWithoutId: stepPath }),
+        stepDefinition,
         stepFormData,
         storedFormData
       );
