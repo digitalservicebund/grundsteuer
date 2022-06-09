@@ -325,4 +325,10 @@
     flex-direction: row;
     border-radius: 8px;
   }
+
+  /* Hide arrow in accordions  */
+  details > summary::marker, /* Latest Chrome, Edge, Firefox */
+  details > summary::-webkit-details-marker /* Safari */ {
+    display: none;
+  }
 }
