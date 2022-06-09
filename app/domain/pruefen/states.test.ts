@@ -102,7 +102,7 @@ describe("states", () => {
           "bundesland",
           "grundstueckArt",
           "garagen",
-          "keineNutzung",
+          "spaeterNutzung",
         ],
       },
       {

@@ -52,7 +52,7 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
         BACK: { target: "grundstueckArt" },
         NEXT: [
           { target: "ausland", cond: "isEligibleGarage" },
-          { target: "keineNutzung" },
+          { target: "spaeterNutzung" },
         ],
       },
     },
