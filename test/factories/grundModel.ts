@@ -464,7 +464,7 @@ class GrundModelFactory extends Factory<GrundModel> {
                 gemarkung: "2",
               },
               flur: {
-                flur: "Test1",
+                flur: "1",
                 flurstueckZaehler: "23",
                 flurstueckNenner: "45",
               },
@@ -480,7 +480,7 @@ class GrundModelFactory extends Factory<GrundModel> {
                 gemarkung: "3",
               },
               flur: {
-                flur: "Test2",
+                flur: "2",
                 flurstueckZaehler: "34",
                 flurstueckNenner: "56",
               },
@@ -521,9 +521,8 @@ class GrundModelFactory extends Factory<GrundModel> {
               },
               adresse: {
                 strasse: "1 Strasse",
-                hausnummer: "1 Hausnummer",
-                postfach: "1 Postfach",
-                plz: "1 PLZ",
+                hausnummer: "1 H",
+                plz: "12345",
                 ort: "1 Ort",
                 telefonnummer: "111111",
               },
@@ -544,18 +543,16 @@ class GrundModelFactory extends Factory<GrundModel> {
                 titel: "2 Titel",
                 vorname: "2 Vorname",
                 name: "2 Name",
-                geburtsdatum: "02.02.2222",
+                geburtsdatum: "02.02.2000",
               },
               adresse: {
-                strasse: "2 Strasse",
-                hausnummer: "2 Hausnummer",
-                postfach: "2 Postfach",
-                plz: "2 PLZ",
+                postfach: "23",
+                plz: "22345",
                 ort: "2 Ort",
                 telefonnummer: "222222",
               },
               steuerId: {
-                steuerId: "2222",
+                steuerId: "22223333456",
               },
               gesetzlicherVertreter: {
                 hasVertreter: "true",
@@ -570,8 +567,7 @@ class GrundModelFactory extends Factory<GrundModel> {
                 adresse: {
                   strasse: "VERT Strasse",
                   hausnummer: "3VERT",
-                  postfach: "VERT Postfach",
-                  plz: "VERT PLZ",
+                  plz: "54321",
                   ort: "VERT Ort",
                   telefonnummer: "333333",
                 },

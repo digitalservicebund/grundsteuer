@@ -1,9 +1,9 @@
 import { StepDefinition } from "~/domain/steps";
 
 export type AdresseFields = {
-  strasse: string;
-  hausnummer: string;
-  postfach: string;
+  strasse?: string;
+  hausnummer?: string;
+  postfach?: string;
   plz: string;
   ort: string;
   telefonnummer: string;

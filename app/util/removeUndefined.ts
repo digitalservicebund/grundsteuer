@@ -14,7 +14,7 @@ export const removeUndefined = (
     if (_.isObject(value)) {
       data[key] = _(removeUndefined(value, trimOutput))
         .omitBy(_.isNil)
-        .omitBy(_.isEmpty)
+        .omitBy(isEmptyExceptEmptyString)
         .value();
     }
     if (_.isArray(value)) {
@@ -28,5 +28,9 @@ export const removeUndefined = (
       data[key] = resultingValue;
     }
   });
-  return _(data).omitBy(_.isNil).omitBy(_.isEmpty).value();
+  return _(data).omitBy(isEmptyExceptEmptyString).value();
+};
+
+const isEmptyExceptEmptyString = (value: any) => {
+  return value !== "" && _.isEmpty(value);
 };

@@ -86,4 +86,10 @@ describe("removeUndefined", function () {
     const result = removeUndefined({ array: [" hello "] }, true);
     expect(result).toEqual(expected);
   });
+
+  it("keeps empty string values", () => {
+    const expected = { key: "" };
+    const result = removeUndefined({ key: "" });
+    expect(result).toEqual(expected);
+  });
 });

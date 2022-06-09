@@ -16,6 +16,7 @@ import { i18Next } from "~/i18n.server";
 import { PruefenCondition } from "~/domain/pruefen/guards";
 import { PreviousStepsErrors } from "~/routes/formular/zusammenfassung";
 import { PruefenModel } from "~/domain/pruefen/model";
+import { getCurrentStateWithoutId } from "~/util/getCurrentState";
 
 type ValidateFunctionDefault = ({ value }: { value: string }) => boolean;
 
@@ -798,7 +799,7 @@ export const validateAllStepsData = async (
   const reachablePaths = getReachablePathsFromGrundData(storedFormData);
   for (const stepPath of reachablePaths) {
     const stepDefinition = getStepDefinition({
-      currentStateWithoutId: stepPath,
+      currentStateWithoutId: getCurrentStateWithoutId(stepPath),
     });
     if (!stepDefinition) continue; // no validations necessary
 
