@@ -74,4 +74,32 @@ describe("_step action", () => {
       }
     );
   });
+
+  const cases = [
+    { route: "/welcome", path: "welcome" },
+    { route: "/grundstueck/uebersicht", path: "grundstueck.uebersicht" },
+    {
+      route: "/grundstueck/bodenrichtwertInfo",
+      path: "grundstueck.bodenrichtwertInfo",
+    },
+    { route: "/gebaeude/uebersicht", path: "gebaeude.uebersicht" },
+    { route: "/eigentuemer/uebersicht", path: "eigentuemer.uebersicht" },
+    { route: "/eigentuemer/abschluss", path: "eigentuemer.abschluss" },
+  ];
+
+  test.each(cases)("Updates data on info step", async ({ route, path }) => {
+    const spyOnSetStepData = jest.spyOn(modelModule, "setStepData");
+    const previousData = grundModelFactory.full().build();
+    const args = await mockActionArgs({
+      route: route,
+      formData: {},
+      context: {},
+      userEmail: "user@example.com",
+      allData: previousData,
+    });
+
+    await action(args);
+
+    expect(spyOnSetStepData).toHaveBeenCalledWith(previousData, path, {});
+  });
 });

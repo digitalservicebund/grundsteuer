@@ -202,11 +202,18 @@ import {
   grundstueckFlurstueckMiteigentumsanteil,
   GrundstueckFlurstueckMiteigentumsanteilFields,
 } from "~/domain/steps/grundstueck/miteigentumsanteil";
+import invariant from "tiny-invariant";
 
 export type { GrundstueckBodenrichtwertEingabeFields };
 
+const infoStep: StepDefinition = {
+  fields: {},
+};
+
 const stepDefinitions = {
+  welcome: infoStep,
   grundstueck: {
+    uebersicht: infoStep,
     adresse: grundstueckAdresse,
     steuernummer: grundstueckSteuernummer,
     typ: grundstueckTyp,
@@ -214,6 +221,7 @@ const stepDefinitions = {
     gemeinde: grundstueckGemeinde,
     anzahl: grundstueckAnzahl,
     miteigentumsanteil: grundstueckFlurstueckMiteigentumsanteil,
+    bodenrichtwertInfo: infoStep,
     bodenrichtwertEingabe: grundstueckBodenrichtwertEingabe,
     bodenrichtwertAnzahl: grundstueckBodenrichtwertAnzahl,
     flurstueck: {
@@ -223,6 +231,7 @@ const stepDefinitions = {
     },
   },
   gebaeude: {
+    uebersicht: infoStep,
     ab1949: gebaeudeAb1949,
     abbruchverpflichtung: gebaeudeAbbruchverpflichtung,
     abbruchverpflichtungsjahr: gebaeudeAbbruchverpflichtungsjahrjahr,
@@ -237,6 +246,7 @@ const stepDefinitions = {
     wohnflaechen: gebaeudeWohnflaechen,
   },
   eigentuemer: {
+    uebersicht: infoStep,
     anzahl: eigentuemerAnzahl,
     verheiratet: eigentuemerVerheiratet,
     person: {
@@ -259,6 +269,7 @@ const stepDefinitions = {
       name: eigentuemerEmpfangsbevollmaechtigterName,
       adresse: eigentuemerEmpfangsbevollmaechtigterAdresse,
     },
+    abschluss: infoStep,
   },
   zusammenfassung: zusammenfassung,
 };
@@ -347,5 +358,10 @@ export const getStepDefinition = ({
 }: {
   currentStateWithoutId: string;
 }): StepDefinition => {
-  return _.get(stepDefinitions, currentStateWithoutId);
+  const definition = _.get(stepDefinitions, currentStateWithoutId);
+  invariant(
+    definition,
+    `No step definition found for ${currentStateWithoutId}.`
+  );
+  return definition;
 };
