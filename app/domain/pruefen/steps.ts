@@ -101,7 +101,7 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
     fields: {
       ausland: {
         type: "radio",
-        options: [{ value: "true" }, { value: "false" }],
+        options: [{ value: "false" }, { value: "true" }],
         validations: {
           required: {},
         },
@@ -112,7 +112,7 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
     fields: {
       fremderBoden: {
         type: "radio",
-        options: [{ value: "true" }, { value: "false" }],
+        options: [{ value: "false" }, { value: "true" }],
         validations: {
           required: {},
         },
@@ -123,7 +123,7 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
     fields: {
       beguenstigung: {
         type: "radio",
-        options: [{ value: "true" }, { value: "false" }],
+        options: [{ value: "false" }, { value: "true" }],
         validations: {
           required: {},
         },
@@ -134,7 +134,7 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
     fields: {
       elster: {
         type: "radio",
-        options: [{ value: "true" }, { value: "false" }],
+        options: [{ value: "false" }, { value: "true" }],
         validations: {
           required: {},
         },

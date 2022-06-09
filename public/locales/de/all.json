@@ -128,13 +128,13 @@
         "eigentuemerTyp": {
           "options": {
             "privatperson": {
-              "label": "Ich bin eine Privatperson oder eine (private) Gemeinschaft (Alleinstehend, Ehepartern:innen, Familien, Bruchteilsgemeinschaften,...)"
+              "label": "Ich bin eine Privatperson, Ehepartern:innen, Familien, unverheiratetes Paar oder Bruchteilsgemeinschaft"
             },
             "unternehmen": {
-              "label": "Wir sind eine Organisation / Firma / Verein / Unternehmen / Stiftung / Genossenschaft"
+              "label": "Wir sind eine Organisation, Verein, Unternehmen, Stiftung oder Genossenschaft"
             },
             "beratung": {
-              "label": "Ich bin eine Hausverwaltung oder Steuerberater:in, ein Rechtsanwalt oder eine Rechtsanwältin und gebe die Erklärung für eine andere Person ab"
+              "label": "Ich bin eine Hausverwaltung oder Steuerberater:in, ein Rechtsanwalt oder eine Rechtsanwältin und gebe die Erklärung für eine andere Person ab (Bevollmächtigter nach § 80 AO)"
             }
           }
         }
@@ -220,17 +220,17 @@
       }
     },
     "grundstueckArt": {
-      "headline": "Um welche Art Grundstück \u2028handelt es sich?",
+      "headline": "Um welche Art Grundstück handelt es sich?",
       "fields": {
         "grundstueckArt": {
           "options": {
             "einfamilienhaus": {
               "label": "Einfamilienhaus",
-              "description": "Genau eine Wohnung mit eigenem Zugang und mindestens 50 % Nutzung zu Wohnzwecken"
+              "description": "Hierzu zählen auch Doppelhaushälften oder ein Reihenhaus. Die Wohnung hat einen eigenen Zugang. "
             },
             "zweifamilienhaus": {
               "label": "Zweifamilienhaus",
-              "description": "Genau zwei Wohnungen mit separaten Zugängen"
+              "description": "Es handelt sich um genau zwei Wohnungen mit separaten Zugängen"
             },
             "eigentumswohnung": {
               "label": "Eigentumswohnung",
@@ -238,19 +238,19 @@
             },
             "mehrfamilienhaus": {
               "label": "Mehrfamilienhaus",
-              "description": "Mehr als 2 Wohnungen"
+              "description": "Das Gebäude hat mehr als 2 Wohnungen"
             },
             "mehrereGebaeude": {
               "label": "Mehrere Gebäude",
-              "description": "Auf dem Grundstück stehen mehr als ein Einfamilien- oder Zweifamilienhaus"
+              "description": "Auf dem Grundstück stehen mehr als ein Einfamilienhaus oder Zweifamilienhaus"
             },
             "nichtWohn": {
               "label": "Nichtwohngrundstück",
-              "description": "Geschäftsgrundstück, Teileigentum, gemischt genutztes Grundstück, sonstiges Grundstück"
+              "description": "Hier sind Geschäftsgrundstücke, Teileigentum, gemischt genutzte Grundstücke oder sonstige Grundstücke gemeint"
             },
             "unbebaut": {
               "label": "Unbebautes Grundstück",
-              "description": "Baureifes Land mit beispielsweise unbenutzbaren Gebäude oder abweichendem Entwicklungszustand"
+              "description": "Baureifes Land mit beispielsweise unbenutzbaren Gebäuden oder abweichendem Entwicklungszustand"
             },
             "landUndForst": {
               "label": "Betrieb der Land- und/oder Forstwirtschaft",
@@ -266,62 +266,62 @@
         "garagen": {
           "options": {
             "garageAufGrundstueck": {
-              "label": "Ich habe eine Garage, Carport oder Stellplatz im Freien — auf meinem Grundstück"
+              "label": "Ja, ich habe eine Garage, Carport oder Stellplatz im Freien auf meinem Grundstück "
             },
             "garageAufAnderemGrundstueck": {
-              "label": "Ich habe eine Garage, Carport oder Stellplatz im Freien — auf einem anderen Grundstück, das ich mir mit weiteren Eigentümer:innen teile. Ich habe dafür auch einen separaten Grundbuchauszug"
+              "label": "Ja, ich habe eine Garage, Carport oder Stellplatz im Freien auf einem anderen Grundstück, das ich mir mit weiteren Eigentümer:innen teile. Ich habe dafür auch einen separaten Grundbuchauszug"
             },
             "tiefgarage": {
-              "label": "Ich habe eine Eigentumswohnung und einen Stellplatz in einer Tiefgarage"
+              "label": "Ja, ich habe eine Eigentumswohnung und einen Stellplatz in einer Tiefgarage"
             },
             "keine": {
-              "label": "Keine der Optionen — Ich habe keinen Stellplatz"
+              "label": "Nein, keine der Optionen. Ich habe keinen Stellplatz"
             }
           }
         }
       }
     },
     "ausland": {
-      "headline": "Wohnen Sie als Eigentümer:in des Grundstücks im Ausland?",
+      "headline": "Sind Sie als Eigentümer:in mit einem Erstwohnsitz im Ausland gemeldet?",
       "fields": {
         "ausland": {
           "options": {
-            "true": {
-              "label": "Ja, ich wohne im Ausland"
-            },
             "false": {
-              "label": "Nein, ich wohne nicht im Ausland"
+              "label": "Nein, mein Erstwohnsitz ist in Deutschland"
+            },
+            "true": {
+              "label": "Ja, mein Erstwohnsitz ist im Ausland "
             }
           }
         }
       }
     },
     "fremderBoden": {
-      "headline": "Haben das Gebäude und das dazugehörige Grundstück unterschiedliche Eigentümer:innen?",
-      "description": "Wir fragen dies, um herauszufinden, ob Ihr Gebäude auf fremden Grund und Boden steht oder das Erbbaurecht an dem Grundstück auf Sie zutrifft.",
+      "headline": "Gehört das Grundstück, auf dem Ihr Gebäude steht, jemand anderem?",
+      "description": "Wir fragen dies, um herauszufinden, ob Ihr Gebäude auf fremden Grund und Boden steht oder ob das Erbbaurecht an dem Grundstück auf Sie zutrifft.",
       "fields": {
         "fremderBoden": {
           "options": {
-            "true": {
-              "label": "Ja, es gibt jeweils unterschiedliche Eigentümer:innen"
-            },
             "false": {
-              "label": "Nein, Gebäude und Grundstück haben nur eine:n Eigentümer:in"
+              "label": "Nein, Gebäude und Grundstück gehören zusammen"
+            },
+            "true": {
+              "label": "Ja, das Grundstück gehört jemand anderem"
             }
           }
         }
       }
     },
     "beguenstigung": {
-      "headline": "Haben Sie Steuerbegünstigungen oder -befreiungen?",
+      "headline": "Haben Sie Steuerbegünstigungen oder Steuerbefreiungen?",
       "fields": {
         "beguenstigung": {
           "options": {
-            "true": {
-              "label": "Ja, mein Gebäude steht unter Denkmalschutz oder ist eine öffentliche Verkehrsfläche oder hat sonstige Steuerbegünstigungen wie zum Beispiel fließende Gewässer"
-            },
             "false": {
               "label": "Nein, es gibt keine Steuerbegünstigungen oder -befreiungen"
+            },
+            "true": {
+              "label": "Ja, mein Gebäude steht unter Denkmalschutz oder ist eine öffentliche Verkehrsfläche oder hat sonstige Steuerbegünstigungen wie zum Beispiel fließende Gewässer"
             }
           }
         }
@@ -332,30 +332,30 @@
       "fields": {
         "elster": {
           "options": {
-            "true": {
-              "label": "Ja, ich habe ein ELSTER-Konto"
-            },
             "false": {
               "label": "Nein, ich habe kein ELSTER-Konto"
+            },
+            "true": {
+              "label": "Ja, ich habe ein ELSTER-Konto"
             }
           }
         }
       }
     },
     "keineNutzung": {
-      "headline": "Tut uns leid, Sie können unseren Service leider nicht nutzen",
+      "headline": "Tut uns leid, Sie können unseren Online-Dienst leider nicht nutzen",
       "specifics": {
         "explanation": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Tool machen können. „Grundsteuererklärung für Privateigentum“ ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an."
       }
     },
     "nutzung": {
-      "headline": "Super, Sie können diesen Service für Ihre Grundsteuererklärung nutzen.",
+      "headline": "Super, Sie können diesen Online-Dienst für Ihre Grundsteuererklärung nutzen.",
       "specifics": {
         "explanation": "Starten Sie jetzt Ihre Grundsteuererklärung zur Feststellung des Grundsteuerwerts."
       }
     },
     "spaeterNutzung": {
-      "headline": "Sag niemals nie! Bald können Sie unseren Online-Service nutzen.",
+      "headline": "Bald können Sie unseren Online-Dienst nutzen.",
       "specifics": {
         "explanation1": "Aktuell können wir die Nutzung unseres Service für Personen mit einem ELSTER Konto aus technischen Gründen nicht gewährleisten. Wir entwickeln unseren Service allerdings ständig weiter und rechnen damit, ab September auch Personen mit einem ELSTER Konto aufnehmen zu können.",
         "explanation2": "Schreiben Sie uns eine Email an <emailContactLink>kontakt@grundsteuererklaerung-fuer-privateigentum.de</emailContactLink>. Wir melden uns bei Ihnen, sobald unser Online-Service für Sie nutzbar ist."
