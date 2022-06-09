@@ -43,7 +43,7 @@ export const createFormDataCookie: CreateFormDataCookieFunction = ({
   const name = createFormDataCookieName({ userId, index });
   return createCookie(name, {
     path: "/",
-    maxAge: 604_800 * 4, // 4 weeks
+    maxAge: 604_800 * 26, // 26 weeks (1/2 year)
     httpOnly: true,
     sameSite: "strict",
     secure: useSecureCookie,
