@@ -213,7 +213,7 @@ export function Step() {
               icon={<Communication fill="#4E596A" />}
               className="mb-32"
             />
-            <ContentContainer size="sm">
+            <ContentContainer size="md">
               <Form method="post" className="mb-16" key={currentState}>
                 <CsrfToken />
                 {headlineIsLegend ? (
@@ -243,22 +243,24 @@ export function Step() {
                   </Button>
                 )}
                 {!loaderData?.isFinalStep && (
-                  <ButtonContainer>
-                    <Button
-                      id="nextButton"
-                      className={backUrl ? "" : "flex-grow-0"}
-                      disabled={isSubmitting}
-                    >
-                      {nextButtonLabel}
-                    </Button>
-                    {backUrl ? (
-                      <Button to={backUrl} look="secondary">
-                        {i18n.common.back}
+                  <ContentContainer size="sm">
+                    <ButtonContainer>
+                      <Button
+                        id="nextButton"
+                        className={backUrl ? "" : "flex-grow-0"}
+                        disabled={isSubmitting}
+                      >
+                        {nextButtonLabel}
                       </Button>
-                    ) : (
-                      ""
-                    )}
-                  </ButtonContainer>
+                      {backUrl ? (
+                        <Button to={backUrl} look="secondary">
+                          {i18n.common.back}
+                        </Button>
+                      ) : (
+                        ""
+                      )}
+                    </ButtonContainer>
+                  </ContentContainer>
                 )}
               </Form>
             </ContentContainer>
