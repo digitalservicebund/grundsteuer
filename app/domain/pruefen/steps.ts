@@ -113,7 +113,11 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
     fields: {
       fremderBoden: {
         type: "radio",
-        options: [{ value: "false" }, { value: "true" }],
+        options: [
+          { value: "false" },
+          { value: "true" },
+          { value: "noBuilding" },
+        ],
         validations: {
           required: {},
         },

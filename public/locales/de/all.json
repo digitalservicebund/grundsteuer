@@ -297,16 +297,19 @@
       }
     },
     "fremderBoden": {
-      "headline": "Gehört das Grundstück, auf dem Ihr Gebäude steht, jemand anderem?",
+      "headline": "Haben das Grundstück und das Gebäude dieselben Eigentümer:innen?",
       "description": "Wir fragen dies, um herauszufinden, ob Ihr Gebäude auf fremden Grund und Boden steht oder ob das Erbbaurecht an dem Grundstück auf Sie zutrifft.",
       "fields": {
         "fremderBoden": {
           "options": {
             "false": {
-              "label": "Nein, Gebäude und Grundstück gehören zusammen"
+              "label": "Ja, das Gebäude und das Grundstück haben dieselben Eigentümer:innen"
             },
             "true": {
-              "label": "Ja, das Grundstück gehört jemand anderem"
+              "label": "Nein, das Grundstück gehört jemand Anderem"
+            },
+            "noBuilding": {
+              "label": "Keine der Optionen — Es gibt kein Gebäude auf dem Grundstück"
             }
           }
         }

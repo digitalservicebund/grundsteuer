@@ -63,7 +63,11 @@ const isNotAusland: PruefenCondition = (context) => {
 };
 
 const isNotFremderBoden: PruefenCondition = (context) => {
-  return context?.fremderBoden?.fremderBoden == "false";
+  const notFremderBoden = ["false", "noBuilding"];
+  return !!(
+    context?.fremderBoden?.fremderBoden &&
+    notFremderBoden.includes(context.fremderBoden.fremderBoden)
+  );
 };
 
 const isNotBeguenstigung: PruefenCondition = (context) => {
