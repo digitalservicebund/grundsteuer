@@ -309,13 +309,13 @@ describe("Happy Path", () => {
     cy.url().should("include", "/formular/grundstueck/bodenrichtwertInfo");
     cy.contains("h1", "Bodenrichtwert");
     cy.get(submitBtnSelector).click();
+    cy.url().should("include", "/formular/grundstueck/bodenrichtwertAnzahl");
+    cy.get("label[for=anzahl-1]").click();
+    cy.get(submitBtnSelector).click();
     cy.url().should("include", "/formular/grundstueck/bodenrichtwertEingabe");
     cy.get("#bodenrichtwert")
       .clear()
       .type(inputData.grundstueck.bodenrichtwert.bodenrichtwert);
-    cy.get(submitBtnSelector).click();
-    cy.url().should("include", "/formular/grundstueck/bodenrichtwertAnzahl");
-    cy.get("label[for=anzahl-1]").click();
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/gebaeude/uebersicht");

@@ -65,8 +65,8 @@ describe("states", () => {
       "grundstueck.flurstueck.1.flur",
       "grundstueck.flurstueck.1.groesse",
       "grundstueck.bodenrichtwertInfo",
-      "grundstueck.bodenrichtwertEingabe",
       "grundstueck.bodenrichtwertAnzahl",
+      "grundstueck.bodenrichtwertEingabe",
     ];
 
     const defaultGebaeude = [
@@ -115,8 +115,8 @@ describe("states", () => {
           "grundstueck.flurstueck.1.flur",
           "grundstueck.flurstueck.1.groesse",
           "grundstueck.bodenrichtwertInfo",
-          "grundstueck.bodenrichtwertEingabe",
           "grundstueck.bodenrichtwertAnzahl",
+          "grundstueck.bodenrichtwertEingabe",
           ...defaultEigentuemer,
           "zusammenfassung",
         ],
@@ -358,8 +358,8 @@ describe("states", () => {
           "grundstueck.flurstueck.1.groesse",
           "grundstueck.miteigentumsanteil",
           "grundstueck.bodenrichtwertInfo",
-          "grundstueck.bodenrichtwertEingabe",
           "grundstueck.bodenrichtwertAnzahl",
+          "grundstueck.bodenrichtwertEingabe",
           "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",

@@ -128,7 +128,7 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
         },
         bodenrichtwertInfo: {
           on: {
-            NEXT: [{ target: "bodenrichtwertEingabe" }],
+            NEXT: [{ target: "bodenrichtwertAnzahl" }],
             BACK: [
               { target: "miteigentumsanteil", cond: "isEigentumswohnung" },
               {
@@ -138,9 +138,9 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
             ],
           },
         },
-        bodenrichtwertEingabe: {
+        bodenrichtwertAnzahl: {
           on: {
-            NEXT: [{ target: "bodenrichtwertAnzahl" }],
+            NEXT: [{ target: "bodenrichtwertEingabe" }],
             BACK: [
               {
                 target: "bodenrichtwertInfo",
@@ -148,13 +148,13 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
             ],
           },
         },
-        bodenrichtwertAnzahl: {
+        bodenrichtwertEingabe: {
           on: {
             NEXT: [
               { target: "#steps.gebaeude", cond: "isBebaut" },
               { target: "#steps.eigentuemer" },
             ],
-            BACK: [{ target: "bodenrichtwertEingabe" }],
+            BACK: [{ target: "bodenrichtwertAnzahl" }],
           },
         },
       },
@@ -306,7 +306,7 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
           },
         },
       },
-      on: { NEXT: "eigentuemer", BACK: "grundstueck.bodenrichtwertAnzahl" },
+      on: { NEXT: "eigentuemer", BACK: "grundstueck.bodenrichtwertEingabe" },
     },
     eigentuemer: {
       id: "eigentuemer",
@@ -318,7 +318,7 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
             BACK: [
               { target: "#steps.gebaeude.garagenAnzahl", cond: "hasGaragen" },
               { target: "#steps.gebaeude.garagen", cond: "isBebaut" },
-              { target: "#steps.grundstueck.bodenrichtwertAnzahl" },
+              { target: "#steps.grundstueck.bodenrichtwertEingabe" },
             ],
           },
         },
