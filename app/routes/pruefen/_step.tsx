@@ -213,7 +213,7 @@ export function Step() {
               icon={<Communication fill="#4E596A" />}
               className="mb-32"
             />
-            <ContentContainer size="md">
+            <ContentContainer size="sm-md">
               <Form method="post" className="mb-16" key={currentState}>
                 <CsrfToken />
                 {headlineIsLegend ? (
