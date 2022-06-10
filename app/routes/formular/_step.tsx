@@ -27,10 +27,7 @@ import { getMachineConfig, StateMachineContext } from "~/domain/states";
 import { conditions } from "~/domain/guards";
 import { validateStepFormData } from "~/domain/validation";
 import { actions } from "~/domain/actions";
-import stepComponents, {
-  FallbackStepComponent,
-  helpComponents,
-} from "~/components/steps";
+import stepComponents, { FallbackStepComponent } from "~/components/steps";
 import { getStepDefinition, GrundModel, StepDefinition } from "~/domain/steps";
 import {
   getCurrentStateFromUrl,
@@ -199,10 +196,6 @@ export type StepComponentFunction = (
   props: LoaderData & ActionData
 ) => JSX.Element;
 
-export type HelpComponentFunction = (
-  props: LoaderData & ActionData
-) => JSX.Element;
-
 export function Step() {
   const loaderData = useLoaderData();
   const actionData = useActionData() as ActionData;
@@ -217,8 +210,6 @@ export function Step() {
   } = loaderData;
   const StepComponent =
     _.get(stepComponents, currentStateWithoutId) || FallbackStepComponent;
-  const HelpComponent =
-    _.get(helpComponents, currentStateWithoutId) || undefined;
 
   let nextButtonLabel: string;
   if (redirectToSummary) {
@@ -274,11 +265,6 @@ export function Step() {
           )}
         </ButtonContainer>
       </Form>
-      {HelpComponent && false && (
-        <div className="md:w-1/4 bg-blue-400 h-full px-16 py-32">
-          <HelpComponent {...loaderData} {...actionData} />
-        </div>
-      )}
     </ContentContainer>
   );
 }
