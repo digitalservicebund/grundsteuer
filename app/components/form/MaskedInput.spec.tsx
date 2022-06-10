@@ -89,8 +89,9 @@ describe("MaskedInput component", () => {
       });
     });
 
-    it("should focus summary on tab", async () => {
+    it("should focus summary on tab tab", async () => {
       render(<MaskedInput {...{ ...defaultProps, help: "HELP TEXT" }} />);
+      await userEvent.tab();
       await userEvent.tab();
       expect(screen.getByTestId("help-summary")).toHaveFocus();
     });

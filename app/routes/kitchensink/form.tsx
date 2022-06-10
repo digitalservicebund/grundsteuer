@@ -13,45 +13,10 @@ import RadioButtonBild from "~/components/form/RadioButtonBild";
 import unbebautImage from "~/assets/images/icon_unbebaut.svg";
 import baureifImage from "~/assets/images/icon_baureif.svg";
 import RadioWithImageGroup from "~/components/form/RadioWithImageGroup";
-import Help from "~/components/Help";
-import Hint from "~/components/Hint";
-import AngabenGrundbuch from "~/assets/images/angaben-grundbuch-page-medium.png";
 
 export default function KitchenSinkForm() {
   return (
     <ContentContainer>
-      <Help isShown={true}>
-        <Hint>
-          Unterstrichene Zeilen im Grundbuchauszug bedeuten, dass diese Einträge
-          nicht mehr gültig sind. Diese werden nicht mitgezählt.
-        </Hint>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
-          odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla
-          quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent
-          mauris. Fusce nec tellus sed augue semper porta. Mauris massa.
-          Vestibulum lacinia arcu eget nulla.
-        </p>
-        <p>
-          Class aptent taciti sociosqu ad litora torquent per conubia nostra,
-          per inceptos himenaeos. Curabitur sodales ligula in libero. Sed
-          dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean
-          quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis
-          tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi
-          lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac
-          turpis quis ligula lacinia aliquet. Mauris ipsum.{" "}
-        </p>
-        <img src={AngabenGrundbuch} alt={"Some picture"} />
-        <p>
-          Class aptent taciti sociosqu ad litora torquent per conubia nostra,
-          per inceptos himenaeos. Curabitur sodales ligula in libero. Sed
-          dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean
-          quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis
-          tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi
-          lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac
-          turpis quis ligula lacinia aliquet. Mauris ipsum.{" "}
-        </p>
-      </Help>
       <FormGroup>
         <Input
           name="email"

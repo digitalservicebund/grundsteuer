@@ -141,8 +141,9 @@ describe("RadioWithImageGroup component", () => {
       ).toHaveAttribute("aria-expanded", "false");
     });
 
-    it("should focus first summary on tab", () => {
+    it("should focus first summary on tab tab", () => {
       render(<RadioWithImageGroup {...defaultPropsWithHelp} />);
+      userEvent.tab();
       userEvent.tab();
       expect(
         within(screen.getByTestId("option-1")).getByTestId("help-summary")

@@ -43,31 +43,17 @@ const RadioGroupOption = (
     </Radio>
   );
 
-  if (option.help) {
-    return (
-      <div key={option.value} data-testid={`option-${option.value}`}>
+  return (
+    <div key={option.value} data-testid={`option-${option.value}`}>
+      {radioComponent}
+      {option.help && (
         <Details
-          summaryContent={
-            <>
-              {radioComponent}
-              <QuestionMark
-                className="inline-block float-right"
-                role="img"
-                aria-label="Hinweis"
-              />
-            </>
-          }
+          summaryContent={<QuestionMark role="img" aria-label="Hinweis" />}
           detailsContent={<p>{option.help}</p>}
         />
-      </div>
-    );
-  } else {
-    return (
-      <div key={option.value} data-testid={`option-${option.value}`}>
-        {radioComponent}
-      </div>
-    );
-  }
+      )}
+    </div>
+  );
 };
 
 export default function RadioGroup(props: RadioGroupProps) {

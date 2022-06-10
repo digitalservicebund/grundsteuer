@@ -44,6 +44,14 @@ export default function KitchenSink() {
         >
           Spinner
         </Button>
+        <Button
+          to="/kitchensink/help"
+          look="tertiary"
+          size="small"
+          className="mr-16 my-16"
+        >
+          Help
+        </Button>
       </ContentContainer>
       <hr className="border-b border-b-gray-800 mb-32" />
       <Outlet />

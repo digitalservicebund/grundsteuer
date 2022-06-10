@@ -41,33 +41,23 @@ export default function Checkbox(props: CheckboxProps) {
     </div>
   );
 
-  if (help) {
-    return (
-      <>
+  return (
+    <>
+      {inputComponent}
+      {labelComponent}
+      {errorComponent}
+      {help && (
         <Details
           summaryContent={
-            <div className="position-relative">
-              {inputComponent}
-              {labelComponent}
-              <QuestionMark
-                className="inline-block float-right"
-                role="img"
-                aria-label="Hinweis"
-              />
-            </div>
+            <QuestionMark
+              className="inline-block float-right"
+              role="img"
+              aria-label="Hinweis"
+            />
           }
           detailsContent={<p>{help}</p>}
         />
-        {errorComponent}
-      </>
-    );
-  } else {
-    return (
-      <>
-        {inputComponent}
-        {labelComponent}
-        {errorComponent}
-      </>
-    );
-  }
+      )}
+    </>
+  );
 }

@@ -57,31 +57,17 @@ export default function Select(props: SelectProps) {
 
   const errorComponent = error && <FieldError>{error}</FieldError>;
 
-  if (help) {
-    return (
-      <>
+  return (
+    <>
+      {labelComponent}
+      {fieldComponent}
+      {errorComponent}
+      {help && (
         <Details
-          summaryContent={
-            <>
-              <div className="flex justify-between">
-                {labelComponent}
-                <QuestionMark role="img" aria-label="Hinweis" />
-              </div>
-              {fieldComponent}
-            </>
-          }
+          summaryContent={<QuestionMark role="img" aria-label="Hinweis" />}
           detailsContent={<p>{help}</p>}
         />
-        {errorComponent}
-      </>
-    );
-  } else {
-    return (
-      <>
-        {labelComponent}
-        {fieldComponent}
-        {errorComponent}
-      </>
-    );
-  }
+      )}
+    </>
+  );
 }

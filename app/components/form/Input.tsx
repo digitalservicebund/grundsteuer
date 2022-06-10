@@ -48,33 +48,23 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 
   const errorComponent = error && <FieldError>{error}</FieldError>;
 
-  if (help) {
-    return (
-      <>
+  return (
+    <>
+      {labelComponent}
+      {inputComponent}
+      {errorComponent}
+      {help && (
         <Details
           summaryContent={
             <>
-              <div className="flex justify-between">
-                {labelComponent}
-                <QuestionMark role="img" aria-label="Hinweis" />
-              </div>
-              {inputComponent}
+              <QuestionMark role="img" aria-label="Hinweis" />
             </>
           }
           detailsContent={<p>{help}</p>}
         />
-        {errorComponent}
-      </>
-    );
-  } else {
-    return (
-      <>
-        {labelComponent}
-        {inputComponent}
-        {errorComponent}
-      </>
-    );
-  }
+      )}
+    </>
+  );
 });
 
 export default Input;
