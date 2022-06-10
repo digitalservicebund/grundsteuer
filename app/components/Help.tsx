@@ -3,10 +3,7 @@ import YellowArrowLeft from "~/components/icons/mui/YellowArrowLeft";
 import HelpOutline from "~/components/icons/mui/HelpOutline";
 import HighlightOff from "~/components/icons/mui/HighlightOff";
 
-export default function Hilfestellung(props: {
-  isShown: boolean;
-  children: ReactNode;
-}) {
+export default function Help(props: { isShown: boolean; children: ReactNode }) {
   const { isShown = true, children } = props;
   const [isDisplayed, setIsDisplayed] = useState(isShown);
 

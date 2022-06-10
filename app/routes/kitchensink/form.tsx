@@ -13,18 +13,18 @@ import RadioButtonBild from "~/components/form/RadioButtonBild";
 import unbebautImage from "~/assets/images/icon_unbebaut.svg";
 import baureifImage from "~/assets/images/icon_baureif.svg";
 import RadioWithImageGroup from "~/components/form/RadioWithImageGroup";
-import Hilfestellung from "~/components/Hilfestellung";
-import Hinweis from "~/components/Hinweis";
+import Help from "~/components/Help";
+import Hint from "~/components/Hint";
 import AngabenGrundbuch from "~/assets/images/angaben-grundbuch-page-medium.png";
 
 export default function KitchenSinkForm() {
   return (
     <ContentContainer>
-      <Hilfestellung isShown={true}>
-        <Hinweis>
+      <Help isShown={true}>
+        <Hint>
           Unterstrichene Zeilen im Grundbuchauszug bedeuten, dass diese Einträge
           nicht mehr gültig sind. Diese werden nicht mitgezählt.
-        </Hinweis>
+        </Hint>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
           odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla
@@ -51,7 +51,7 @@ export default function KitchenSinkForm() {
           lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac
           turpis quis ligula lacinia aliquet. Mauris ipsum.{" "}
         </p>
-      </Hilfestellung>
+      </Help>
       <FormGroup>
         <Input
           name="email"
