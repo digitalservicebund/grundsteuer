@@ -2,6 +2,7 @@ import {
   getErrorMessageForFreischaltcode,
   getErrorMessageForGeburtsdatum,
   getErrorMessageForSteuerId,
+  validateAllStepsData,
   validateBiggerThan,
   validateDateInPast,
   validateEitherOr,
@@ -33,6 +34,7 @@ import {
 import { GrundModel } from "~/domain/steps";
 import { grundModelFactory } from "test/factories";
 import { i18Next } from "~/i18n.server";
+import _ from "lodash";
 
 describe("validateEmail", () => {
   const cases = [
@@ -846,5 +848,44 @@ describe("validateFreischaltCode", () => {
 
   it("should fail with empty string", () => {
     expect(validateFreischaltCode({ value: "" })).toBeFalsy();
+  });
+});
+
+describe("validateAllStepData", () => {
+  it("should return no errors on valid data", async () => {
+    const data = _.merge(grundModelFactory.full().build(), {
+      zusammenfassung: {
+        confirmCompleteCorrect: "true",
+        confirmDataPrivacy: "true",
+        confirmTermsOfUse: "true",
+      },
+    });
+    const result = await validateAllStepsData(data);
+
+    expect(result).toEqual({});
+  });
+
+  it("should return errors on numbered steps", async () => {
+    const data = _.merge(
+      grundModelFactory
+        .full()
+        .eigentuemerPersonAdresse({
+          strasse: "foo",
+          hausnummer: "INVALID",
+          plz: "123",
+          ort: "wonderland",
+        })
+        .build(),
+      {
+        zusammenfassung: {
+          confirmCompleteCorrect: "true",
+          confirmDataPrivacy: "true",
+          confirmTermsOfUse: "true",
+        },
+      }
+    );
+    const result = await validateAllStepsData(data);
+
+    expect(Object.keys(result).length).toEqual(1);
   });
 });
