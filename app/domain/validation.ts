@@ -380,8 +380,8 @@ export const validateUniqueSteuerId: ValidateUniqueSteuerIdFunction = ({
     }
     return !alreadyExisting;
   };
-  if ("eigentuemer" in allData) {
-    return !!allData.eigentuemer?.person?.every(isUniqueSteuerId);
+  if ("eigentuemer" in allData && allData.eigentuemer?.person) {
+    return allData.eigentuemer.person.every(isUniqueSteuerId);
   }
   return true;
 };

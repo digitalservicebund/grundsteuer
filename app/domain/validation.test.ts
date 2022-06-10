@@ -310,33 +310,42 @@ describe("validateUniqueSteuerId", () => {
     },
   };
   const cases = [
-    { allData: {}, valid: true },
+    { id: "1", allData: {}, valid: true },
     {
+      id: "2",
       allData: grundModelFactory.eigentuemerPerson({ list: [{}] }).build(),
       valid: true,
     },
     {
+      id: "3",
       allData: grundModelFactory
         .eigentuemerPerson({ list: [steuerId1] })
         .build(),
       valid: true,
     },
     {
+      id: "4",
       allData: grundModelFactory
         .eigentuemerPerson({ list: [steuerId1, steuerId2] })
         .build(),
       valid: true,
     },
     {
+      id: "5",
       allData: grundModelFactory
         .eigentuemerPerson({ list: [steuerId1, steuerId1] })
         .build(),
       valid: false,
     },
+    {
+      id: "6",
+      allData: { eigentuemer: {} },
+      valid: true,
+    },
   ];
 
   test.each(cases)(
-    "Should return $valid if value is '$value' and condition is '$condition'",
+    "Should return $valid if allData is '$allData' - id: '$id'",
     ({ allData, valid }) => {
       expect(validateUniqueSteuerId({ allData })).toBe(valid);
     }
