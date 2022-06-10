@@ -88,7 +88,7 @@
     "required": "Bitte füllen Sie dieses Feld aus.",
     "email": {
       "wrongFormat": "Bitte überprüfen Sie die Schreibweise der E-Mail-Adresse.",
-      "alreadyExists": "Es existiert bereits ein Nutzer:innen-Konto mit dieser E-Mail-Adresse.",
+      "alreadyExists": "Es existiert bereits ein Nutzerkonto mit dieser E-Mail-Adresse.",
       "notMatching": "Bitte geben Sie zur Kontrolle die E-Mail-Adresse genau so ein, wie im obigen Feld."
     },
     "onlyDecimal": "Darf nur Ziffern beinhalten",
