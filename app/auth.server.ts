@@ -1,6 +1,7 @@
 import { Authenticator } from "remix-auth";
 import { FormStrategy } from "remix-auth-form";
 import { EmailLinkStrategy } from "remix-auth-email-link";
+import invariant from "tiny-invariant";
 import { sessionStorage } from "./session.server";
 import { sendMagicLinkEmail } from "~/email.server";
 import { findUserByEmail } from "~/domain/user";
@@ -12,6 +13,9 @@ export type SessionUser = {
 };
 
 export const authenticator = new Authenticator<SessionUser>(sessionStorage);
+
+const magicLinkSecret = process.env.MAGIC_LINK_SECRET;
+invariant(magicLinkSecret, "MAGIC_LINK_SECRET env variable not set.");
 
 const login = async (email: string): Promise<SessionUser> => {
   const user = await findUserByEmail(email);
@@ -31,7 +35,7 @@ authenticator.use(
     : new EmailLinkStrategy(
         {
           sendEmail: sendMagicLinkEmail,
-          secret: process.env.MAGIC_LINK_SECRET as string,
+          secret: magicLinkSecret,
           linkExpirationTime: 86400000, // 24 hours
           callbackURL: "/anmelden/bestaetigen",
         },
