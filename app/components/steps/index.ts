@@ -12,6 +12,7 @@ import EigentuemerUebersicht from "~/components/steps/eigentuemer/EigentuemerUeb
 import EigentuemerAbschluss from "~/components/steps/eigentuemer/EigentuemerAbschluss";
 import GrundstueckTyp from "~/components/steps/grundstueck/GrundstueckTyp";
 import BodenrichtwertAnzahl from "~/components/steps/grundstueck/BodenrichtwertAnzahl";
+import SteuernummerHelp from "~/components/form/help/Steuernummer";
 
 export { Default as FallbackStepComponent };
 
@@ -41,4 +42,8 @@ export default {
   },
 };
 
-export const helpComponents = {};
+export const helpComponents = {
+  grundstueck: {
+    steuernummer: { steuernummer: SteuernummerHelp },
+  },
+};
