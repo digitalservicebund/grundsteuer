@@ -21,7 +21,7 @@ export default function KitchenSinkHelp() {
         Bitte tragen Sie das Aktenzeichen / die Steuernummer ohne Sonderzeichen
         ein.
       </Hint>
-      <Help isShown={true}>
+      <Help>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
           odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla

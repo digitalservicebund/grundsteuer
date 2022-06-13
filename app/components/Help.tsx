@@ -1,59 +1,41 @@
 import { ReactNode, useState } from "react";
-import YellowArrowLeft from "~/components/icons/mui/YellowArrowLeft";
-import HelpOutline from "~/components/icons/mui/HelpOutline";
-import HighlightOff from "~/components/icons/mui/HighlightOff";
+import Cancel from "~/components/icons/mui/Cancel";
+import Info from "~/components/icons/mui/Info";
 
-export default function Help(props: { isShown: boolean; children: ReactNode }) {
-  const { isShown = true, children } = props;
-  const [isDisplayed, setIsDisplayed] = useState(isShown);
-
-  const shownComponent = (
-    <>
-      <div className={"flex flex-col lg:flex-row"}>
-        <div className={"hidden lg:flex lg:flex-col"}>
-          <div className={"flex"}>
-            <div className={"pt-16"}>
-              <YellowArrowLeft />
-            </div>
-            <div
-              className={
-                "pt-16 bg-yellow-500 rounded-tl-lg w-[50px] flex justify-center"
-              }
-            >
-              <HelpOutline />
-            </div>
-          </div>
-          <div className={"flex flex-grow"}>
-            <div>
-              <YellowArrowLeft className={"invisible"} />
-            </div>
-            <div className={"bg-yellow-500 rounded-bl-lg w-[50px]"} />
-          </div>
-        </div>
-        <div className={"bg-yellow-500 h-8 lg:hidden"} />
-        <div className={"bg-white"}>
-          <div
-            className={"py-10 px-10 lg:hidden"}
-            onClick={() => {
-              setIsDisplayed(false);
-            }}
-          >
-            <HighlightOff className={"ml-auto"} />
-          </div>
-          <div
-            className={
-              "pb-24 px-16 child-p:pr-[20%] md:px-24 lg:py-32 lg:px-24"
-            }
-          >
-            {children}
-          </div>
-        </div>
-      </div>
-    </>
+export default function Help(props: { children: ReactNode }) {
+  const { children } = props;
+  const [helpExpanded, setHelpExpanded] = useState(false);
+  const summaryTextClasses = "ml-6 uppercase font-bold";
+  let summaryContent = (
+    <div className={"flex"}>
+      <Info />
+      <p className={summaryTextClasses}>Hilfe</p>
+    </div>
   );
-  if (isDisplayed) {
-    return shownComponent;
-  } else {
-    return <></>;
+  if (helpExpanded) {
+    summaryContent = (
+      <div className={"flex"}>
+        <Cancel />
+        <p className={summaryTextClasses}>Hilfe schließen</p>
+      </div>
+    );
   }
+  return (
+    <details
+      onToggle={() => setHelpExpanded(!helpExpanded)}
+      data-testid="help-details"
+    >
+      <summary
+        className="list-none"
+        role="button"
+        aria-expanded={helpExpanded}
+        tabIndex={0}
+        data-testid="help-summary"
+      >
+        {summaryContent}
+      </summary>
+      <div className={"bg-yellow-500 h-8 mt-8"} />
+      <div className="bg-white py-32 px-24 mb-24">{children}</div>
+    </details>
+  );
 }

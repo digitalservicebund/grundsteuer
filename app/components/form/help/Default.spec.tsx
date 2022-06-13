@@ -56,7 +56,7 @@ describe("Default Help", () => {
       />
     );
 
-    const childNodes = container.firstChild?.childNodes;
+    const childNodes = container.firstChild?.childNodes[2]?.childNodes; //We need to access the third child because the Help component puts the content in its own div
     expect(childNodes?.length).toEqual(4);
     expect(childNodes?.[0]).toHaveTextContent(paragraphElement.value);
     expect(childNodes?.[1].childNodes[0]).toHaveAttribute(

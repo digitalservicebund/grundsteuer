@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import Help from "~/components/Help";
 import { GrundModel } from "~/domain/steps";
 import { PruefenModel } from "~/domain/pruefen/model";
 import { I18nObjectField } from "~/i18n/getStepI18n";
@@ -62,7 +63,7 @@ const DefaultHelp = (props: HelpDefaultProps) => {
   });
 
   return (
-    <div>
+    <Help>
       {elementComponents.map((component, index) => {
         return (
           <div key={index} className="mb-32">
@@ -70,7 +71,7 @@ const DefaultHelp = (props: HelpDefaultProps) => {
           </div>
         );
       })}
-    </div>
+    </Help>
   );
 };
 
