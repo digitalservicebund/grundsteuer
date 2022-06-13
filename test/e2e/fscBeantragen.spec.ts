@@ -91,9 +91,9 @@ describe("/beantragen", () => {
     cy.get("[name=geburtsdatum]").type("01.08.1991");
     cy.get("form[action='/fsc/beantragen?index'] button").click();
     cy.wait("@beantragen").then((intercept) => {
-      expect(intercept.response?.statusCode == 500);
+      expect(intercept.response?.statusCode).equal(500);
     });
-    cy.contains("Da ist etwas schiefgelaufen");
+    cy.contains("Ein unerwarteter Fehler ist aufgetreten.");
   });
 });
 

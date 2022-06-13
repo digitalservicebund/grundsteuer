@@ -97,9 +97,9 @@ describe("/eingeben", () => {
     cy.get("[name=freischaltCode]").type(validFreischaltCode);
     cy.get("form[action='/fsc/eingeben?index'] button").click();
     cy.wait("@eingeben").then((intercept) => {
-      expect(intercept.response?.statusCode == 500);
+      expect(intercept.response?.statusCode).equal(500);
     });
-    cy.contains("Da ist etwas schiefgelaufen");
+    cy.contains("Ein unerwarteter Fehler ist aufgetreten.");
   });
 });
 
