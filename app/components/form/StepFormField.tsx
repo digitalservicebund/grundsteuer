@@ -56,6 +56,9 @@ const StepFormField = (props: StepFormFieldProps) => {
     return <RadioGroup {...radioProps} />;
   }
 
+  const helpComponent =
+    currentState && getHelpComponent(currentState + "." + name);
+
   if (type === "select" && options) {
     const optionsWithLabels = options.map((option) => {
       return {
@@ -66,7 +69,7 @@ const StepFormField = (props: StepFormFieldProps) => {
     const selectProps: SelectProps = {
       ...commonProps,
       options: optionsWithLabels,
-      help: i18n.help,
+      help: helpComponent,
     };
     return <Select {...selectProps} />;
   }
@@ -75,7 +78,7 @@ const StepFormField = (props: StepFormFieldProps) => {
     const { label, ...otherProps } = commonProps;
     const checkboxProps: CheckboxProps = {
       ...otherProps,
-      help: i18n.help,
+      help: helpComponent,
     };
 
     return <Checkbox {...checkboxProps}>{children || label}</Checkbox>;
@@ -90,8 +93,6 @@ const StepFormField = (props: StepFormFieldProps) => {
     return <Textarea {...textareaProps} />;
   }
 
-  const helpComponent =
-    currentState && getHelpComponent(currentState + "." + name);
   const textProps: InputProps = {
     ...commonProps,
     placeholder: i18n.placeholder,

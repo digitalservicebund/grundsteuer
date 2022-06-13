@@ -59,7 +59,7 @@ export default function KitchenSinkForm() {
             { value: "1", label: "eins" },
             { value: "2", label: "zwei" },
           ]}
-          help="Hilfetext..."
+          help={<p>Hilfetext…</p>}
         />
       </FormGroup>
       <FormGroup>

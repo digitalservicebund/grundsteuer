@@ -2,10 +2,11 @@ import classNames from "classnames";
 import QuestionMark from "~/components/icons/mui/QuestionMark";
 import Details from "~/components/Details";
 import FieldError from "./FieldError";
+import { ReactElement } from "react";
 
 export interface CheckboxProps
   extends Omit<React.ComponentPropsWithoutRef<"input">, "type"> {
-  help?: string;
+  help?: ReactElement;
   error?: string;
 }
 
@@ -55,7 +56,7 @@ export default function Checkbox(props: CheckboxProps) {
               aria-label="Hinweis"
             />
           }
-          detailsContent={<p>{help}</p>}
+          detailsContent={help}
         />
       )}
     </>

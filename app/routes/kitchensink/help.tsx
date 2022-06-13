@@ -91,7 +91,7 @@ export default function KitchenSinkHelp() {
             { value: "1", label: "eins" },
             { value: "2", label: "zwei" },
           ]}
-          help="Hilfetext…"
+          help={<p>Hilfetext…</p>}
         />
       </FormGroup>
       <FormGroup>
@@ -104,17 +104,21 @@ export default function KitchenSinkHelp() {
             { value: "2", label: "zwei" },
           ]}
           error="Fehler !"
-          help="Hilfetext…"
+          help={<p>Hilfetext…</p>}
         />
       </FormGroup>
 
       <FormGroup>
-        <Checkbox name="checkbox" help="Hilfetext…">
+        <Checkbox name="checkbox" help={<p>Hilfetext…</p>}>
           Lorem ipsum
         </Checkbox>
       </FormGroup>
       <FormGroup>
-        <Checkbox name="checkbox4" error="Error message" help="Hilfetext…">
+        <Checkbox
+          name="checkbox4"
+          error="Error message"
+          help={<p>Hilfetext…</p>}
+        >
           with error
         </Checkbox>
       </FormGroup>
