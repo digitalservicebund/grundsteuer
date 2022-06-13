@@ -57,8 +57,10 @@ export const getElementComponents = (elements: HelpConfigurationElement[]) => {
     if (element.type == "image") {
       elementComponent = <img src={element.source} alt={element.altText} />;
     }
+
+    const outerClassnames = index > 0 ? "mt-32" : "";
     return (
-      <div key={index} className="mb-32">
+      <div key={index} className={outerClassnames}>
         {elementComponent}
       </div>
     );
