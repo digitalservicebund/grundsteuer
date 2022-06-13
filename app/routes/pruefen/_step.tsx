@@ -3,6 +3,7 @@ import {
   LoaderFunction,
   MetaFunction,
   redirect,
+  json,
 } from "@remix-run/node";
 import {
   Form,
@@ -28,7 +29,7 @@ import { StepHeadline } from "~/components/StepHeadline";
 import { pageTitle } from "~/util/pageTitle";
 import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
-import { CsrfToken, verifyCsrfToken } from "~/util/csrf";
+import { CsrfToken, createCsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { getPruefenStepDefinition } from "~/domain/pruefen/steps";
 import {
   getPruefenConfig,
@@ -43,6 +44,7 @@ import { HomepageHeader } from "~/routes";
 import SectionLabel from "~/components/SectionLabel";
 import Communication from "~/components/icons/mui/Communication";
 import { pruefenStateCookie } from "~/cookies";
+import { commitSession, getSession } from "~/session.server";
 
 const PREFIX = "pruefen";
 const START_STEP = "eigentuemerTyp";
@@ -63,6 +65,7 @@ export type LoaderData = {
   isFinalStep: boolean;
   currentState: string;
   stepDefinition: StepDefinition;
+  csrfToken: string;
 };
 
 const resetFlow = async () => {
@@ -117,15 +120,24 @@ export const loader: LoaderFunction = async ({
     currentState: currentStateFromUrl,
   });
 
-  return {
-    formData: getStepData(storedFormData, currentStateFromUrl),
-    allData: storedFormData,
-    i18n: await getStepI18n(currentStateFromUrl, {}, "default", PREFIX),
-    backUrl,
-    isFinalStep,
-    currentState: currentStateFromUrl,
-    stepDefinition,
-  };
+  const session = await getSession(request.headers.get("Cookie"));
+  const csrfToken = createCsrfToken(session);
+
+  return json(
+    {
+      formData: getStepData(storedFormData, currentStateFromUrl),
+      allData: storedFormData,
+      i18n: await getStepI18n(currentStateFromUrl, {}, "default", PREFIX),
+      backUrl,
+      isFinalStep,
+      currentState: currentStateFromUrl,
+      stepDefinition,
+      csrfToken,
+    },
+    {
+      headers: { "Set-Cookie": await commitSession(session) },
+    }
+  );
 };
 
 export type ActionData = {
@@ -215,7 +227,7 @@ export function Step() {
             />
             <ContentContainer size="sm-md">
               <Form method="post" className="mb-16" key={currentState}>
-                <CsrfToken />
+                <CsrfToken value={loaderData.csrfToken} />
                 {headlineIsLegend ? (
                   <>
                     {currentState == START_STEP && (
