@@ -40,3 +40,5 @@ export default {
     uebersicht: GebaeudeUebersicht,
   },
 };
+
+export const helpComponents = {};

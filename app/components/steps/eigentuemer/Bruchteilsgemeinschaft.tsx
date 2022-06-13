@@ -13,6 +13,7 @@ const constructBruchteilsgemeinschaftName = (
 
 const Bruchteilsgemeinschaft: StepComponentFunction = ({
   stepDefinition,
+  currentState,
   formData,
   allData,
   i18n,
@@ -92,7 +93,9 @@ const Bruchteilsgemeinschaft: StepComponentFunction = ({
         )}
       </div>
       <div className="mb-8">
-        <StepFormFields {...{ stepDefinition, formData, i18n, errors }} />
+        <StepFormFields
+          {...{ stepDefinition, currentState, formData, i18n, errors }}
+        />
       </div>
     </div>
   );

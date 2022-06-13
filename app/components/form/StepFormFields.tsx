@@ -1,11 +1,10 @@
 import StepFormField from "./StepFormField";
 import { I18nObjectField } from "~/i18n/getStepI18n";
 import FormGroup from "./FormGroup";
+import { StepDefinition } from "~/domain/steps";
 
 export type StepFormFieldsProps = {
-  stepDefinition?: {
-    fields: Record<string, any>;
-  };
+  stepDefinition?: StepDefinition;
   formData?: any;
   i18n: {
     fields: {
@@ -27,6 +26,7 @@ const StepFormFields = (props: StepFormFieldsProps) => {
               {...{
                 name,
                 definition,
+                currentState,
                 i18n: i18n.fields[name],
                 value: formData?.[name],
                 error: errors?.[name],

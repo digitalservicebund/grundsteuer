@@ -6,10 +6,13 @@ import SteuerIdField from "./SteuerIdField";
 import Checkbox, { CheckboxProps } from "./Checkbox";
 import { I18nObjectField } from "~/i18n/getStepI18n";
 import { ReactNode } from "react";
+import _ from "lodash";
+import { helpComponents } from "~/components/steps";
 
 export type StepFormFieldProps = {
   name: string;
   value?: string;
+  currentState?: string;
   i18n: I18nObjectField;
   definition: {
     type?: string;
@@ -22,7 +25,8 @@ export type StepFormFieldProps = {
 };
 
 const StepFormField = (props: StepFormFieldProps) => {
-  const { name, value, i18n, definition, error, children } = props;
+  const { name, value, currentState, i18n, definition, error, children } =
+    props;
   const { type, options, defaultValue, htmlAttributes } = definition;
 
   const commonProps = {
@@ -84,10 +88,12 @@ const StepFormField = (props: StepFormFieldProps) => {
     return <Textarea {...textareaProps} />;
   }
 
+  const helpComponent =
+    currentState && _.get(helpComponents, currentState + "." + name);
   const textProps: InputProps = {
     ...commonProps,
     placeholder: i18n.placeholder,
-    help: i18n.help ? <p>{i18n.help}</p> : undefined,
+    help: helpComponent && helpComponent(),
   };
 
   if (type === "steuerId") {

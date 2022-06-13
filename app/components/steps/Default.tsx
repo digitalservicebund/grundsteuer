@@ -6,10 +6,13 @@ const Default: StepComponentFunction = ({
   formData,
   i18n,
   errors,
+  currentState,
 }) => {
   return (
     <div>
-      <StepFormFields {...{ stepDefinition, formData, i18n, errors }} />
+      <StepFormFields
+        {...{ stepDefinition, currentState, formData, i18n, errors }}
+      />
     </div>
   );
 };
