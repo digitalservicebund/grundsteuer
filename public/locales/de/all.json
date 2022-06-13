@@ -1263,102 +1263,15 @@
       }
     },
     "bodenrichtwertEingabe": {
-      "default": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "bodenrichtwert": {
-            "label": "Bodenrichtwert in € / m²"
-          }
+      "headline": "Geben Sie den Bodenrichtwert für Ihr Grundstück ein",
+      "description": "Den Wert können Sie über einen Link auf der vorherigen Seite und der Schritt-für-Schritt Anleitung ermitteln.",
+      "fields": {
+        "bodenrichtwert": {
+          "label": "Bodenrichtwert in € / m²"
         }
       },
-      "bb": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "bodenrichtwert": {
-            "label": "Bodenrichtwert in € / m²"
-          }
-        }
-      },
-      "be": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "description": "Übertragen Sie den ermittelten Bodenrichtwert von der externen Seite — die erste unterstrichene rote Zahl — in dieses Feld.",
-        "fields": {
-          "bodenrichtwert": {
-            "label": "Bodenrichtwert in € / m²"
-          }
-        }
-      },
-      "hb": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "bodenrichtwert": {
-            "label": "Bodenrichtwert in € / m²"
-          }
-        }
-      },
-      "mv": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "bodenrichtwert": {
-            "label": "Bodenrichtwert in € / m²"
-          }
-        }
-      },
-      "nw": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "bodenrichtwert": {
-            "label": "Bodenrichtwert in € / m²"
-          }
-        }
-      },
-      "rp": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "bodenrichtwert": {
-            "label": "Bodenrichtwert in € / m²"
-          }
-        }
-      },
-      "sh": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "bodenrichtwert": {
-            "label": "Bodenrichtwert in € / m²"
-          }
-        }
-      },
-      "sl": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "bodenrichtwert": {
-            "label": "Bodenrichtwert in € / m²"
-          }
-        }
-      },
-      "sn": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "bodenrichtwert": {
-            "label": "Bodenrichtwert in € / m²"
-          }
-        }
-      },
-      "st": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "bodenrichtwert": {
-            "label": "Bodenrichtwert in € / m²"
-          }
-        }
-      },
-      "th": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "bodenrichtwert": {
-            "label": "Bodenrichtwert in € / m²"
-          }
-        }
+      "specifics": {
+        "zweiBodenrichtwerteHinweis": "Wenn Sie zwei Bodenrichtwerte haben, geben Sie bitte hier den größeren der beiden Werte ein."
       }
     },
     "bodenrichtwertAnzahl": {

@@ -34,7 +34,12 @@ export const getStepI18n = async (
 ) => {
   const tFunction = await i18Next.getFixedT("de", "all");
   let key = prefix ? prefix + "." + stepI18nKey : stepI18nKey;
-  if (stepI18nKey.startsWith("grundstueck.bodenrichtwert")) {
+  if (
+    [
+      "grundstueck.bodenrichtwertInfo",
+      "grundstueck.bodenrichtwertAnzahl",
+    ].includes(stepI18nKey)
+  ) {
     key = `${stepI18nKey}.${bundesland.toLowerCase()}`;
   }
   return {

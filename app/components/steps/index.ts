@@ -12,6 +12,7 @@ import EigentuemerUebersicht from "~/components/steps/eigentuemer/EigentuemerUeb
 import EigentuemerAbschluss from "~/components/steps/eigentuemer/EigentuemerAbschluss";
 import GrundstueckTyp from "~/components/steps/grundstueck/GrundstueckTyp";
 import BodenrichtwertAnzahl from "~/components/steps/grundstueck/BodenrichtwertAnzahl";
+import BodenrichtwertEingabe from "~/components/steps/grundstueck/BodenrichtwertEingabe";
 
 export { Default as FallbackStepComponent };
 
@@ -31,6 +32,7 @@ export default {
     miteigentumsanteil: FlurstueckMiteigentumsanteil,
     bodenrichtwertInfo: BodenrichtwertInfo,
     bodenrichtwertAnzahl: BodenrichtwertAnzahl,
+    bodenrichtwertEingabe: BodenrichtwertEingabe,
     flurstueck: {
       flur: FlurstueckFlur,
       groesse: FlurstueckGroesse,
