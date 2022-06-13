@@ -63,14 +63,36 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
         },
         gemeinde: {
           on: {
-            NEXT: [{ target: "anzahl" }],
+            NEXT: [{ target: "bodenrichtwertInfo" }],
             BACK: [{ target: "steuernummer" }],
+          },
+        },
+        bodenrichtwertInfo: {
+          on: {
+            NEXT: [{ target: "bodenrichtwertAnzahl" }],
+            BACK: [{ target: "gemeinde" }],
+          },
+        },
+        bodenrichtwertAnzahl: {
+          on: {
+            NEXT: [{ target: "bodenrichtwertEingabe" }],
+            BACK: [
+              {
+                target: "bodenrichtwertInfo",
+              },
+            ],
+          },
+        },
+        bodenrichtwertEingabe: {
+          on: {
+            NEXT: [{ target: "anzahl" }],
+            BACK: [{ target: "bodenrichtwertAnzahl" }],
           },
         },
         anzahl: {
           on: {
             NEXT: [{ target: "flurstueck" }],
-            BACK: [{ target: "gemeinde" }],
+            BACK: [{ target: "bodenrichtwertEingabe" }],
           },
         },
         flurstueck: {
@@ -108,7 +130,8 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                     target: "#grundstueck.miteigentumsanteil",
                     cond: "isEigentumswohnung",
                   },
-                  { target: "#grundstueck.bodenrichtwertInfo" },
+                  { target: "#steps.gebaeude", cond: "isBebaut" },
+                  { target: "#steps.eigentuemer" },
                 ],
                 BACK: [{ target: "flur" }],
               },
@@ -117,44 +140,16 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
         },
         miteigentumsanteil: {
           on: {
-            NEXT: [{ target: "bodenrichtwertInfo" }],
-            BACK: [
-              {
-                target: "#flurstueck.groesse",
-                actions: "setFlurstueckIdToMaximum",
-              },
-            ],
-          },
-        },
-        bodenrichtwertInfo: {
-          on: {
-            NEXT: [{ target: "bodenrichtwertAnzahl" }],
-            BACK: [
-              { target: "miteigentumsanteil", cond: "isEigentumswohnung" },
-              {
-                target: "#flurstueck.groesse",
-                actions: "setFlurstueckIdToMaximum",
-              },
-            ],
-          },
-        },
-        bodenrichtwertAnzahl: {
-          on: {
-            NEXT: [{ target: "bodenrichtwertEingabe" }],
-            BACK: [
-              {
-                target: "bodenrichtwertInfo",
-              },
-            ],
-          },
-        },
-        bodenrichtwertEingabe: {
-          on: {
             NEXT: [
               { target: "#steps.gebaeude", cond: "isBebaut" },
               { target: "#steps.eigentuemer" },
             ],
-            BACK: [{ target: "bodenrichtwertAnzahl" }],
+            BACK: [
+              {
+                target: "#flurstueck.groesse",
+                actions: "setFlurstueckIdToMaximum",
+              },
+            ],
           },
         },
       },
@@ -306,7 +301,19 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
           },
         },
       },
-      on: { NEXT: "eigentuemer", BACK: "grundstueck.bodenrichtwertEingabe" },
+      on: {
+        NEXT: "eigentuemer",
+        BACK: [
+          {
+            target: "#grundstueck.miteigentumsanteil",
+            cond: "isEigentumswohnung",
+          },
+          {
+            target: "#flurstueck.groesse",
+            actions: "setFlurstueckIdToMaximum",
+          },
+        ],
+      },
     },
     eigentuemer: {
       id: "eigentuemer",
@@ -318,7 +325,10 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
             BACK: [
               { target: "#steps.gebaeude.garagenAnzahl", cond: "hasGaragen" },
               { target: "#steps.gebaeude.garagen", cond: "isBebaut" },
-              { target: "#steps.grundstueck.bodenrichtwertEingabe" },
+              {
+                target: "#flurstueck.groesse",
+                actions: "setFlurstueckIdToMaximum",
+              },
             ],
           },
         },
