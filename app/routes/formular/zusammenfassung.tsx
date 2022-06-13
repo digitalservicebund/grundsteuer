@@ -58,7 +58,7 @@ import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import Send from "~/components/icons/mui/Send";
 import Attention from "~/components/icons/mui/Attention";
 import { CsrfToken, verifyCsrfToken, createCsrfToken } from "~/util/csrf";
-import { commitSession } from "~/session.server";
+import { getSession, commitSession } from "~/session.server";
 import { Trans } from "react-i18next";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 

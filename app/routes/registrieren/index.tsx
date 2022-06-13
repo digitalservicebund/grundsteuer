@@ -30,7 +30,7 @@ import { pageTitle } from "~/util/pageTitle";
 import { removeUndefined } from "~/util/removeUndefined";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
-import { commitSession } from "~/session.server";
+import { getSession, commitSession } from "~/session.server";
 import { CsrfToken, verifyCsrfToken, createCsrfToken } from "~/util/csrf";
 import { authenticator } from "~/auth.server";
 

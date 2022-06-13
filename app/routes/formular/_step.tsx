@@ -38,7 +38,7 @@ import { StepHeadline } from "~/components/StepHeadline";
 import { getReachablePathsFromGrundData } from "~/domain";
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
-import { commitSession } from "~/session.server";
+import { commitSession, getSession } from "~/session.server";
 import { Params } from "react-router";
 import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
@@ -86,6 +86,8 @@ export const loader: LoaderFunction = async ({
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
+
+  const session = await getSession(request.headers.get("Cookie"));
 
   const storedFormData = await getStoredFormData({ request, user });
 

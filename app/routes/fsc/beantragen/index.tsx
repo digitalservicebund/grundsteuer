@@ -49,7 +49,7 @@ import lohnsteuerbescheinigungImage from "~/assets/images/lohnsteuerbescheinigun
 import fscLetterImage from "~/assets/images/fsc-letter.svg";
 import fscInputImage from "~/assets/images/fsc-input.svg";
 import ErrorBar from "~/components/ErrorBar";
-import { commitSession } from "~/session.server";
+import { getSession, commitSession } from "~/session.server";
 import { CsrfToken, verifyCsrfToken, createCsrfToken } from "~/util/csrf";
 
 const isEricaRequestInProgress = async (userData: User) => {
