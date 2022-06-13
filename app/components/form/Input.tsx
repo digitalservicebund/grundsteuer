@@ -1,9 +1,8 @@
 import React, { ReactElement } from "react";
 import classNames from "classnames";
 import Label from "./Label";
-import Details from "../Details";
 import FieldError from "./FieldError";
-import QuestionMark from "~/components/icons/mui/QuestionMark";
+import Help from "~/components/Help";
 
 export interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
   name: string;
@@ -55,16 +54,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         {inputComponent}
         {errorComponent}
       </div>
-      {help && (
-        <Details
-          summaryContent={
-            <>
-              <QuestionMark role="img" aria-label="Hinweis" />
-            </>
-          }
-          detailsContent={help}
-        />
-      )}
+      {help && <Help>{help}</Help>}
     </>
   );
 });

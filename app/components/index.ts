@@ -6,7 +6,6 @@ export { default as Button } from "./Button";
 export { default as ButtonContainer } from "./form/ButtonContainer";
 export { default as Checkbox } from "./form/Checkbox";
 export { default as ContentContainer } from "./ContentContainer";
-export { default as Details } from "./Details";
 export { default as FaqAccordion } from "./FaqAccordion";
 export { default as FieldError } from "./form/FieldError";
 export { default as Footer } from "./Footer";

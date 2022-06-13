@@ -22,6 +22,7 @@ export default function Help(props: { children: ReactNode }) {
   }
   return (
     <details
+      className={"mt-10"}
       onToggle={() => setHelpExpanded(!helpExpanded)}
       data-testid="help-details"
     >

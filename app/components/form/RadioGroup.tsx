@@ -1,9 +1,8 @@
 import { ConfigStepFieldOptionsItem } from "~/domain";
-import Details from "../Details";
-import QuestionMark from "~/components/icons/mui/QuestionMark";
 import FieldError from "./FieldError";
 import Radio from "./Radio";
 import { ReactElement } from "react";
+import Help from "~/components/Help";
 
 export type RadioGroupProps = {
   name: string;
@@ -47,12 +46,7 @@ const RadioGroupOption = (
   return (
     <div key={option.value} data-testid={`option-${option.value}`}>
       {radioComponent}
-      {option.help && (
-        <Details
-          summaryContent={<QuestionMark role="img" aria-label="Hinweis" />}
-          detailsContent={option.help}
-        />
-      )}
+      {option.help && <Help>{option.help}</Help>}
     </div>
   );
 };

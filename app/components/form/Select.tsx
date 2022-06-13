@@ -1,9 +1,8 @@
 import classNames from "classnames";
 import { ConfigStepFieldOptionsItem } from "~/domain";
-import Details from "../Details";
 import FieldError from "./FieldError";
 import Label from "./Label";
-import QuestionMark from "~/components/icons/mui/QuestionMark";
+import Help from "~/components/Help";
 import { ReactElement } from "react";
 
 export type SelectProps = {
@@ -65,12 +64,7 @@ export default function Select(props: SelectProps) {
         {fieldComponent}
         {errorComponent}
       </div>
-      {help && (
-        <Details
-          summaryContent={<QuestionMark role="img" aria-label="Hinweis" />}
-          detailsContent={help}
-        />
-      )}
+      {help && <Help>{help}</Help>}
     </>
   );
 }

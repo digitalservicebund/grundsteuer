@@ -1,6 +1,4 @@
 import { ConfigStepFieldOptionsItem } from "~/domain";
-import Details from "../Details";
-import QuestionMark from "~/components/icons/mui/QuestionMark";
 import FieldError from "./FieldError";
 import RadioButtonBild from "~/components/form/RadioButtonBild";
 import {
@@ -11,6 +9,7 @@ import { I18nObjectField } from "~/i18n/getStepI18n";
 import invariant from "tiny-invariant";
 import { ReactElement } from "react";
 import { getHelpComponent } from "~/components/form/help";
+import Help from "~/components/Help";
 
 export type RadioWithImageGroupProps = {
   name: string;
@@ -51,16 +50,7 @@ const RadioGroupOption = (
   return (
     <div key={option.value} data-testid={`option-${option.value}`}>
       {radioComponent}
-      {option.help && (
-        <Details
-          summaryContent={
-            <>
-              <QuestionMark role="img" aria-label="Hinweis" />
-            </>
-          }
-          detailsContent={option.help}
-        />
-      )}
+      {option.help && <Help>{option.help}</Help>}
     </div>
   );
 };
@@ -76,7 +66,7 @@ export default function RadioWithImageGroup(props: RadioWithImageGroupProps) {
         const checked = value
           ? option.value === value
           : option.value === defaultValue;
-
+        console.log(option.help);
         return (
           <div
             key={option.value}

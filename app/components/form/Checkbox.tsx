@@ -1,8 +1,7 @@
 import classNames from "classnames";
-import QuestionMark from "~/components/icons/mui/QuestionMark";
-import Details from "~/components/Details";
 import FieldError from "./FieldError";
 import { ReactElement } from "react";
+import Help from "~/components/Help";
 
 export interface CheckboxProps
   extends Omit<React.ComponentPropsWithoutRef<"input">, "type"> {
@@ -49,18 +48,7 @@ export default function Checkbox(props: CheckboxProps) {
         {labelComponent}
         {errorComponent}
       </div>
-      {help && (
-        <Details
-          summaryContent={
-            <QuestionMark
-              className="inline-block float-right"
-              role="img"
-              aria-label="Hinweis"
-            />
-          }
-          detailsContent={help}
-        />
-      )}
+      {help && <Help>{help}</Help>}
     </>
   );
 }

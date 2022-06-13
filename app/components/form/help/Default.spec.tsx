@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
-import DefaultHelp from "~/components/form/help/Default";
+import { getElementComponents } from "~/components/form/help/Default";
 
 describe("Default Help", () => {
   it("should render paragraph", () => {
     const paragraphElement = { type: "paragraph" as const, value: "Hilfetext" };
-    render(<DefaultHelp elements={[paragraphElement]} />);
+    render(<>{getElementComponents([paragraphElement])}</>);
     expect(screen.getByText(paragraphElement.value)).toBeInTheDocument();
   });
 
@@ -14,7 +14,7 @@ describe("Default Help", () => {
       source: "path/to/image",
       altText: "pretty image",
     };
-    render(<DefaultHelp elements={[imageElement]} />);
+    render(<>{getElementComponents([imageElement])}</>);
     expect(screen.getByRole("img")).toBeInTheDocument();
     expect(screen.getByRole("img")).toHaveAttribute("src", imageElement.source);
     expect(screen.getByAltText(imageElement.altText)).toBeInTheDocument();
@@ -26,7 +26,7 @@ describe("Default Help", () => {
       intro: "Intro",
       items: ["Item 1", "Item 2"],
     };
-    render(<DefaultHelp elements={[listElement]} />);
+    render(<>{getElementComponents([listElement])}</>);
     expect(screen.getByRole("list")).toBeInTheDocument();
     expect(screen.getByText(listElement.intro)).toBeInTheDocument();
     expect(screen.getByText(listElement.items[0])).toBeInTheDocument();
@@ -51,13 +51,17 @@ describe("Default Help", () => {
       altText: "very pretty image",
     };
     const { container } = render(
-      <DefaultHelp
-        elements={[paragraphElement, imageElement, listElement, image2Element]}
-      />
+      <>
+        {getElementComponents([
+          paragraphElement,
+          imageElement,
+          listElement,
+          image2Element,
+        ])}
+      </>
     );
 
-    const childNodes = container.firstChild?.childNodes[2]?.childNodes; //We need to access the third child because the Help component puts the content in its own div
-    expect(childNodes?.length).toEqual(4);
+    const childNodes = container.childNodes;
     expect(childNodes?.[0]).toHaveTextContent(paragraphElement.value);
     expect(childNodes?.[1].childNodes[0]).toHaveAttribute(
       "src",
@@ -68,5 +72,6 @@ describe("Default Help", () => {
       "src",
       image2Element.source
     );
+    expect(childNodes?.length).toEqual(4);
   });
 });

@@ -37,15 +37,14 @@ export type HelpComponentFunction = ({
   i18n: I18nObjectField;
 }) => JSX.Element;
 
-const DefaultHelp = (props: HelpDefaultProps) => {
-  const { elements } = props;
-
-  const elementComponents: Array<ReactElement> = elements.map((element) => {
+export const getElementComponents = (elements: HelpConfigurationElement[]) => {
+  return elements.map((element, index) => {
+    let elementComponent = <></>;
     if (element.type == "paragraph") {
-      return <p>{element.value}</p>;
+      elementComponent = <p>{element.value}</p>;
     }
     if (element.type == "list") {
-      return (
+      elementComponent = (
         <>
           <p>{element.intro}</p>
           <ul className="list-disc ml-[15px]">
@@ -57,22 +56,22 @@ const DefaultHelp = (props: HelpDefaultProps) => {
       );
     }
     if (element.type == "image") {
-      return <img src={element.source} alt={element.altText} />;
+      elementComponent = <img src={element.source} alt={element.altText} />;
     }
-    return <></>;
+    return (
+      <div key={index} className="mb-32">
+        {elementComponent}
+      </div>
+    );
   });
+};
 
-  return (
-    <Help>
-      {elementComponents.map((component, index) => {
-        return (
-          <div key={index} className="mb-32">
-            {component}
-          </div>
-        );
-      })}
-    </Help>
-  );
+const DefaultHelp = (props: HelpDefaultProps) => {
+  const { elements } = props;
+
+  const elementComponents: Array<ReactElement> = getElementComponents(elements);
+
+  return <Help>{elementComponents}</Help>;
 };
 
 export default DefaultHelp;
