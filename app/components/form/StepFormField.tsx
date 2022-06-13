@@ -53,6 +53,7 @@ const StepFormField = (props: StepFormFieldProps) => {
         currentState &&
         getHelpComponent({
           path: currentState + "." + name + "." + option.value,
+          helpText: i18n.options?.[option.value]?.help,
         });
       return {
         ...option,
@@ -70,7 +71,12 @@ const StepFormField = (props: StepFormFieldProps) => {
 
   const helpComponent =
     currentState &&
-    getHelpComponent({ path: currentState + "." + name, allData, i18n });
+    getHelpComponent({
+      path: currentState + "." + name,
+      allData,
+      i18n,
+      helpText: i18n.help,
+    });
 
   if (type === "select" && options) {
     const optionsWithLabels = options.map((option) => {
