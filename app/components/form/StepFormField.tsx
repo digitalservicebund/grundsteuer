@@ -87,7 +87,7 @@ const StepFormField = (props: StepFormFieldProps) => {
   const textProps: InputProps = {
     ...commonProps,
     placeholder: i18n.placeholder,
-    help: i18n.help,
+    help: i18n.help ? <p>{i18n.help}</p> : undefined,
   };
 
   if (type === "steuerId") {

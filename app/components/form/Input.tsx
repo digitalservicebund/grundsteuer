@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import classNames from "classnames";
 import Label from "./Label";
 import Details from "../Details";
@@ -10,7 +10,7 @@ export interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
   value?: string;
   label?: string;
   error?: string;
-  help?: string;
+  help?: ReactElement;
   defaultValue?: string;
   placeholder?: string;
 }
@@ -60,7 +60,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
               <QuestionMark role="img" aria-label="Hinweis" />
             </>
           }
-          detailsContent={<p>{help}</p>}
+          detailsContent={help}
         />
       )}
     </>

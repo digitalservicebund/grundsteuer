@@ -54,7 +54,7 @@ export default function KitchenSinkHelp() {
           type="email"
           label="Input type email"
           placeholder="user@example.com"
-          help="Hilfetext…"
+          help={<p>Hilfetext…</p>}
         />
       </FormGroup>
       <FormGroup>
@@ -62,7 +62,7 @@ export default function KitchenSinkHelp() {
           name="emailError"
           type="email"
           label="Input with error message"
-          help="Hilfetext…"
+          help={<p>Hilfetext…</p>}
           error="Fehler!"
         />
       </FormGroup>

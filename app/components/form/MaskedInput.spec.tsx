@@ -48,17 +48,17 @@ describe("MaskedInput component", () => {
 
   describe("With help set", () => {
     it("should render help icon", () => {
-      render(<MaskedInput {...{ ...defaultProps, help: "HELP TEXT" }} />);
+      render(<MaskedInput {...{ ...defaultProps, help: <p>HELP TEXT</p> }} />);
       expect(screen.getByRole("img")).toBeInTheDocument();
     });
 
     it("should not display help text by default", () => {
-      render(<MaskedInput {...{ ...defaultProps, help: "HELP TEXT" }} />);
+      render(<MaskedInput {...{ ...defaultProps, help: <p>HELP TEXT</p> }} />);
       expect(screen.queryByText("HELP TEXT")).not.toBeVisible();
     });
 
     it("should not be expanded by default", () => {
-      render(<MaskedInput {...{ ...defaultProps, help: "HELP TEXT" }} />);
+      render(<MaskedInput {...{ ...defaultProps, help: <p>HELP TEXT</p> }} />);
       expect(screen.getByTestId("help-summary")).toHaveAttribute(
         "aria-expanded",
         "false"
@@ -66,13 +66,13 @@ describe("MaskedInput component", () => {
     });
 
     it("should display help text on icon click", async () => {
-      render(<MaskedInput {...{ ...defaultProps, help: "HELP TEXT" }} />);
+      render(<MaskedInput {...{ ...defaultProps, help: <p>HELP TEXT</p> }} />);
       await userEvent.click(screen.getByRole("img"));
       expect(screen.queryByText("HELP TEXT")).toBeVisible();
     });
 
     it("should expand according to icon clicks", async () => {
-      render(<MaskedInput {...{ ...defaultProps, help: "HELP TEXT" }} />);
+      render(<MaskedInput {...{ ...defaultProps, help: <p>HELP TEXT</p> }} />);
       await userEvent.click(screen.getByRole("img"));
       await waitFor(() => {
         expect(screen.getByTestId("help-summary")).toHaveAttribute(
@@ -90,7 +90,7 @@ describe("MaskedInput component", () => {
     });
 
     it("should focus summary on tab tab", async () => {
-      render(<MaskedInput {...{ ...defaultProps, help: "HELP TEXT" }} />);
+      render(<MaskedInput {...{ ...defaultProps, help: <p>HELP TEXT</p> }} />);
       await userEvent.tab();
       await userEvent.tab();
       expect(screen.getByTestId("help-summary")).toHaveFocus();

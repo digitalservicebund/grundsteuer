@@ -23,7 +23,7 @@ export default function KitchenSinkForm() {
           type="email"
           label="Input type email"
           placeholder="user@example.com"
-          help="Hilfetext…"
+          help={<p>Hilfetext...</p>}
         />
       </FormGroup>
       <FormGroup>
@@ -39,7 +39,7 @@ export default function KitchenSinkForm() {
           name="emailError"
           type="email"
           label="Input with error message"
-          help="Hilfetext…"
+          help={<p>Hilfetext...</p>}
           error="Fehler!"
         />
       </FormGroup>
@@ -48,7 +48,7 @@ export default function KitchenSinkForm() {
           mask={"00 000 000 000"}
           name="maskedInput"
           label="MaskedInput"
-          help="Hilfetext…"
+          help={<p>Hilfetext...</p>}
         />
       </FormGroup>
       <FormGroup>
@@ -59,7 +59,7 @@ export default function KitchenSinkForm() {
             { value: "1", label: "eins" },
             { value: "2", label: "zwei" },
           ]}
-          help="Hilfetext…"
+          help="Hilfetext..."
         />
       </FormGroup>
       <FormGroup>

@@ -37,17 +37,17 @@ describe("Input component", () => {
 
   describe("With help set", () => {
     it("should render help icon", () => {
-      render(<Input {...{ ...defaultProps, help: "HELP TEXT" }} />);
+      render(<Input {...{ ...defaultProps, help: <p>HELP TEXT</p> }} />);
       expect(screen.getByRole("img")).toBeInTheDocument();
     });
 
     it("should not display help text by default", () => {
-      render(<Input {...{ ...defaultProps, help: "HELP TEXT" }} />);
+      render(<Input {...{ ...defaultProps, help: <p>HELP TEXT</p> }} />);
       expect(screen.queryByText("HELP TEXT")).not.toBeVisible();
     });
 
     it("should not be expanded by default", () => {
-      render(<Input {...{ ...defaultProps, help: "HELP TEXT" }} />);
+      render(<Input {...{ ...defaultProps, help: <p>HELP TEXT</p> }} />);
       expect(screen.getByTestId("help-summary")).toHaveAttribute(
         "aria-expanded",
         "false"
@@ -55,13 +55,13 @@ describe("Input component", () => {
     });
 
     it("should display help text on icon click", async () => {
-      render(<Input {...{ ...defaultProps, help: "HELP TEXT" }} />);
+      render(<Input {...{ ...defaultProps, help: <p>HELP TEXT</p> }} />);
       await userEvent.click(screen.getByRole("img"));
       expect(screen.queryByText("HELP TEXT")).toBeVisible();
     });
 
     it("should expand according to icon clicks", async () => {
-      render(<Input {...{ ...defaultProps, help: "HELP TEXT" }} />);
+      render(<Input {...{ ...defaultProps, help: <p>HELP TEXT</p> }} />);
       await userEvent.click(screen.getByRole("img"));
       await waitFor(() => {
         expect(screen.getByTestId("help-summary")).toHaveAttribute(
@@ -79,7 +79,7 @@ describe("Input component", () => {
     });
 
     it("should focus summary on tab tab", async () => {
-      render(<Input {...{ ...defaultProps, help: "HELP TEXT" }} />);
+      render(<Input {...{ ...defaultProps, help: <p>HELP TEXT</p> }} />);
       await userEvent.tab();
       await userEvent.tab();
       expect(screen.getByTestId("help-summary")).toHaveFocus();
