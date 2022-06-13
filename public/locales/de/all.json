@@ -689,7 +689,6 @@
       },
       "gesetzlicherVertreter": {
         "headline": "Gesetzlicher Vertreter Person {{id}}",
-        "headlineHelp": "Gesetzliche Vertretung bedeutet....",
         "fields": {
           "hasVertreter": {
             "options": {
@@ -1058,6 +1057,7 @@
     },
     "anzahl": {
       "headline": "Wie viele Grundstücksflächen stehen im vorliegenden Grundbuchauszug?",
+      "hint": "<underline>Unterstrichene Zeilen</underline> im Grundbuchauszug bedeuten, dass diese Einträge <bold>nicht</bold> mehr gültig sind. Diese werden nicht mitgezählt.",
       "fields": {
         "anzahl": {
           "label": "Wie viele Grundstücksflächen stehen im vorliegenden Grundbuchauszug?",

@@ -1,7 +1,7 @@
 export default function Hint(props: any) {
   const { title = "Hinweis", children } = props;
   return (
-    <div className={"bg-red-200 rounded-lg pr-[20%] py-16 p-16 mb-16 "}>
+    <div className={"bg-yellow-300 rounded-lg pr-[20%] p-16 mb-32 "}>
       <p className={"uppercase font-bold"}>{title}</p>
       {children}
     </div>

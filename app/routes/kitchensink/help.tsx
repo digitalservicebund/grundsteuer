@@ -10,7 +10,6 @@ import unbebautImage from "~/assets/images/icon_unbebaut.svg";
 import baureifImage from "~/assets/images/icon_baureif.svg";
 import RadioWithImageGroup from "~/components/form/RadioWithImageGroup";
 import Help from "~/components/Help";
-import Hint from "~/components/Hint";
 import AngabenGrundbuch from "~/assets/images/angaben-grundbuch-page-medium.png";
 import DefaultHelp from "~/components/form/help/Default";
 
@@ -18,10 +17,6 @@ export default function KitchenSinkHelp() {
   return (
     <ContentContainer>
       <Help isShown={true}>
-        <Hint>
-          Unterstrichene Zeilen im Grundbuchauszug bedeuten, dass diese Einträge
-          nicht mehr gültig sind. Diese werden nicht mitgezählt.
-        </Hint>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
           odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla
