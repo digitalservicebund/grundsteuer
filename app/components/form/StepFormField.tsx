@@ -7,6 +7,7 @@ import Checkbox, { CheckboxProps } from "./Checkbox";
 import { I18nObjectField } from "~/i18n/getStepI18n";
 import { ReactNode } from "react";
 import { getHelpComponent } from "~/components/form/help";
+import { GrundModel } from "~/domain/steps";
 
 export type StepFormFieldProps = {
   name: string;
@@ -20,12 +21,21 @@ export type StepFormFieldProps = {
     htmlAttributes?: Record<string, string | number | boolean>;
   };
   error?: string;
+  allData?: GrundModel;
   children?: ReactNode;
 };
 
 const StepFormField = (props: StepFormFieldProps) => {
-  const { name, value, currentState, i18n, definition, error, children } =
-    props;
+  const {
+    name,
+    value,
+    currentState,
+    i18n,
+    definition,
+    error,
+    allData,
+    children,
+  } = props;
   const { type, options, defaultValue, htmlAttributes } = definition;
 
   const commonProps = {
@@ -41,7 +51,9 @@ const StepFormField = (props: StepFormFieldProps) => {
     const optionsWithLabelsAndHelp = options.map((option) => {
       const optionHelpComponent =
         currentState &&
-        getHelpComponent(currentState + "." + name + "." + option.value);
+        getHelpComponent({
+          path: currentState + "." + name + "." + option.value,
+        });
       return {
         ...option,
         label: i18n.options?.[option.value].label || option.value,
@@ -57,7 +69,8 @@ const StepFormField = (props: StepFormFieldProps) => {
   }
 
   const helpComponent =
-    currentState && getHelpComponent(currentState + "." + name);
+    currentState &&
+    getHelpComponent({ path: currentState + "." + name, allData, i18n });
 
   if (type === "select" && options) {
     const optionsWithLabels = options.map((option) => {

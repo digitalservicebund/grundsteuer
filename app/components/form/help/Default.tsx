@@ -1,4 +1,7 @@
 import { ReactElement } from "react";
+import { GrundModel } from "~/domain/steps";
+import { PruefenModel } from "~/domain/pruefen/model";
+import { I18nObjectField } from "~/i18n/getStepI18n";
 
 type HelpConfigurationElement =
   | ParagraphHelpConfiguration
@@ -26,7 +29,12 @@ export type HelpDefaultProps = {
   elements: HelpConfigurationElement[];
 };
 
-export type HelpComponentFunction = () => JSX.Element;
+export type HelpComponentFunction = ({
+  allData,
+}: {
+  allData: GrundModel | PruefenModel;
+  i18n: I18nObjectField;
+}) => JSX.Element;
 
 const DefaultHelp = (props: HelpDefaultProps) => {
   const { elements } = props;
