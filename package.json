@@ -110,7 +110,7 @@
     "copy-env-cli": "^1.0.0",
     "cypress": "^9.7.0",
     "esbuild": "^0.14.42",
-    "eslint": "^8.16.0",
+    "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.5.0",
     "fishery": "^2.2.2",
     "husky": "^8.0.1",
