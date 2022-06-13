@@ -6,6 +6,7 @@ const HelpOutline = (props: SVGProps<SVGSVGElement>) => (
     width="36"
     height="36"
     fill="none"
+    role="img"
     xmlns="http://www.w3.org/2000/svg"
   >
     <title>Fragezeichen</title>

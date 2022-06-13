@@ -6,6 +6,7 @@ const LetterIcon = (props: SVGProps<SVGSVGElement>) => (
     height="1em"
     viewBox="0 0 36 36"
     fill="none"
+    role="img"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
