@@ -42,12 +42,12 @@ describe("RadioGroup component", () => {
         {
           value: "1",
           label: "Option 1",
-          help: "Help 1",
+          help: <p>Help 1</p>,
         },
         {
           value: "2",
           label: "Option 2",
-          help: "Help 2",
+          help: <p>Help 2</p>,
         },
       ],
     };

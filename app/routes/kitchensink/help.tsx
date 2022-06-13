@@ -126,12 +126,12 @@ export default function KitchenSinkHelp() {
             {
               value: "option1",
               label: "Option 1",
-              help: "Hilfetext 1...",
+              help: <p>Hilfetext 1...</p>,
             },
             {
               value: "option2",
               label: "Option 2",
-              help: "Hilfetext 2...",
+              help: <p>Hilfetext 2...</p>,
             },
           ]}
         />
@@ -145,7 +145,7 @@ export default function KitchenSinkHelp() {
               label: "First radio button label",
               image: unbebautImage,
               imageAltText: "Bild mit Haus",
-              help: "Hilfetext...",
+              help: <p>Hilfetext...</p>,
             },
             {
               value: "Second Radio button with image",
@@ -153,7 +153,7 @@ export default function KitchenSinkHelp() {
                 "Second radio button label with a lot more text: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
               image: baureifImage,
               imageAltText: "Bild mit Haus",
-              help: "Hilfetext...",
+              help: <p>Hilfetext...</p>,
             },
           ]}
         />

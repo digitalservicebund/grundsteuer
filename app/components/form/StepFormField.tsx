@@ -6,8 +6,7 @@ import SteuerIdField from "./SteuerIdField";
 import Checkbox, { CheckboxProps } from "./Checkbox";
 import { I18nObjectField } from "~/i18n/getStepI18n";
 import { ReactNode } from "react";
-import _ from "lodash";
-import { helpComponents } from "~/components/form/help";
+import { getHelpComponent } from "~/components/form/help";
 
 export type StepFormFieldProps = {
   name: string;
@@ -40,10 +39,13 @@ const StepFormField = (props: StepFormFieldProps) => {
 
   if (type === "radio" && options) {
     const optionsWithLabelsAndHelp = options.map((option) => {
+      const optionHelpComponent =
+        currentState &&
+        getHelpComponent(currentState + "." + name + "." + option.value);
       return {
         ...option,
         label: i18n.options?.[option.value].label || option.value,
-        help: i18n.options?.[option.value]?.help,
+        help: optionHelpComponent,
         description: i18n.options?.[option.value]?.description,
       };
     });
@@ -89,11 +91,11 @@ const StepFormField = (props: StepFormFieldProps) => {
   }
 
   const helpComponent =
-    currentState && _.get(helpComponents, currentState + "." + name);
+    currentState && getHelpComponent(currentState + "." + name);
   const textProps: InputProps = {
     ...commonProps,
     placeholder: i18n.placeholder,
-    help: helpComponent && helpComponent(),
+    help: helpComponent,
   };
 
   if (type === "steuerId") {

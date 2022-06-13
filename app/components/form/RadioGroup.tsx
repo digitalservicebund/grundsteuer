@@ -3,6 +3,7 @@ import Details from "../Details";
 import QuestionMark from "~/components/icons/mui/QuestionMark";
 import FieldError from "./FieldError";
 import Radio from "./Radio";
+import { ReactElement } from "react";
 
 export type RadioGroupProps = {
   name: string;
@@ -10,7 +11,7 @@ export type RadioGroupProps = {
   options: {
     value: string;
     label: string;
-    help?: string;
+    help?: ReactElement;
     description?: string;
   }[];
   value?: string;
@@ -22,7 +23,7 @@ const RadioGroupOption = (
   option: ConfigStepFieldOptionsItem & {
     name: string;
     checked: boolean;
-    help?: string;
+    help?: ReactElement;
     description?: string;
   }
 ) => {
@@ -49,7 +50,7 @@ const RadioGroupOption = (
       {option.help && (
         <Details
           summaryContent={<QuestionMark role="img" aria-label="Hinweis" />}
-          detailsContent={<p>{option.help}</p>}
+          detailsContent={option.help}
         />
       )}
     </div>

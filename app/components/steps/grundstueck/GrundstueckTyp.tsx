@@ -10,9 +10,11 @@ import baureifIcon from "~/assets/images/icon_baureif.svg";
 import unbebautIcon from "~/assets/images/icon_unbebaut.svg";
 import { FormGroup } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
+import invariant from "tiny-invariant";
 
 const GrundstueckTyp: StepComponentFunction = ({
   stepDefinition,
+  currentState,
   formData,
   i18n,
   errors,
@@ -43,10 +45,15 @@ const GrundstueckTyp: StepComponentFunction = ({
     },
   ];
 
+  invariant(typeof currentState !== "undefined", "currentState must be set");
   return (
     <FormGroup>
       <RadioWithImageGroup
-        {...extractRadioWithImageGroupProps(fieldProps, imagesAndAltTexts)}
+        {...extractRadioWithImageGroupProps(
+          fieldProps,
+          imagesAndAltTexts,
+          currentState
+        )}
       />
     </FormGroup>
   );

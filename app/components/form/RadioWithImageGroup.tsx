@@ -9,6 +9,8 @@ import {
 } from "~/domain/steps";
 import { I18nObjectField } from "~/i18n/getStepI18n";
 import invariant from "tiny-invariant";
+import { ReactElement } from "react";
+import { getHelpComponent } from "~/components/form/help";
 
 export type RadioWithImageGroupProps = {
   name: string;
@@ -16,7 +18,7 @@ export type RadioWithImageGroupProps = {
   options: {
     value: string;
     label: string;
-    help?: string;
+    help?: ReactElement;
     image: string;
     imageAltText: string;
   }[];
@@ -31,7 +33,7 @@ const RadioGroupOption = (
     checked: boolean;
     image: string;
     imageAltText: string;
-    help?: string;
+    help?: ReactElement;
   }
 ) => {
   const radioComponent = (
@@ -56,7 +58,7 @@ const RadioGroupOption = (
               <QuestionMark role="img" aria-label="Hinweis" />
             </>
           }
-          detailsContent={<p>{option.help}</p>}
+          detailsContent={option.help}
         />
       )}
     </div>
@@ -117,7 +119,8 @@ export const extractRadioWithImageGroupProps = (
     value: any;
     i18n: I18nObjectField;
   },
-  imagesAndAltTexts: { image: string; imageAltText: string }[]
+  imagesAndAltTexts: { image: string; imageAltText: string }[],
+  pathToStep: string
 ) => {
   const commonProps = {
     name: fieldProps.name,
@@ -142,10 +145,13 @@ export const extractRadioWithImageGroupProps = (
     optionsWithImages.push({ ...option, ...image });
   }
   const optionsWithLabelsAndHelp = optionsWithImages.map((option) => {
+    const helpComponent = getHelpComponent(
+      pathToStep + "." + fieldProps.name + "." + option.value
+    );
     return {
       ...option,
       label: fieldProps.i18n.options?.[option.value].label || option.value,
-      help: fieldProps.i18n.options?.[option.value]?.help,
+      help: helpComponent,
     };
   });
   return {
