@@ -12,10 +12,15 @@ import RadioWithImageGroup from "~/components/form/RadioWithImageGroup";
 import Help from "~/components/Help";
 import AngabenGrundbuch from "~/assets/images/angaben-grundbuch-page-medium.png";
 import DefaultHelp from "~/components/form/help/Default";
+import Hint from "~/components/Hint";
 
 export default function KitchenSinkHelp() {
   return (
     <ContentContainer>
+      <Hint>
+        Bitte tragen Sie das Aktenzeichen / die Steuernummer ohne Sonderzeichen
+        ein.
+      </Hint>
       <Help isShown={true}>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
