@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import classNames from "classnames";
 import Label from "./Label";
 import FieldError from "./FieldError";
-import Help from "~/components/Help";
+import Help from "~/components/form/help/Help";
 
 export interface InputProps extends React.ComponentPropsWithoutRef<"input"> {
   name: string;

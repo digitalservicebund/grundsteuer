@@ -1,4 +1,4 @@
-import DefaultHelp, {
+import DefaultHelpContent, {
   HelpComponentFunction,
 } from "~/components/form/help/Default";
 import sonderzeichenImg from "~/assets/images/help-steuernummer-sonderzeichen.png";
@@ -6,7 +6,7 @@ import infoschreibenImg from "~/assets/images/help-steuernummer-infoschreiben.pn
 
 const SteuernummerHelp: HelpComponentFunction = () => {
   return (
-    <DefaultHelp
+    <DefaultHelpContent
       elements={[
         {
           type: "paragraph",

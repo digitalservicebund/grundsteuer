@@ -2,7 +2,7 @@ import { ConfigStepFieldOptionsItem } from "~/domain";
 import FieldError from "./FieldError";
 import Radio from "./Radio";
 import { ReactElement } from "react";
-import Help from "~/components/Help";
+import Help from "~/components/form/help/Help";
 
 export type RadioGroupProps = {
   name: string;

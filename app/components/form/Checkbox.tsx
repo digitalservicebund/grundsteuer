@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import FieldError from "./FieldError";
 import { ReactElement } from "react";
-import Help from "~/components/Help";
+import Help from "~/components/form/help/Help";
 
 export interface CheckboxProps
   extends Omit<React.ComponentPropsWithoutRef<"input">, "type"> {

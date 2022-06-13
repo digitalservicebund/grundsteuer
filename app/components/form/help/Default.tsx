@@ -1,5 +1,4 @@
 import { ReactElement } from "react";
-import Help from "~/components/Help";
 import { GrundModel } from "~/domain/steps";
 import { PruefenModel } from "~/domain/pruefen/model";
 import { I18nObjectField } from "~/i18n/getStepI18n";
@@ -66,12 +65,12 @@ export const getElementComponents = (elements: HelpConfigurationElement[]) => {
   });
 };
 
-const DefaultHelp = (props: HelpDefaultProps) => {
+const DefaultHelpContent = (props: HelpDefaultProps) => {
   const { elements } = props;
 
   const elementComponents: Array<ReactElement> = getElementComponents(elements);
 
-  return <Help>{elementComponents}</Help>;
+  return <>{elementComponents}</>;
 };
 
-export default DefaultHelp;
+export default DefaultHelpContent;

@@ -9,9 +9,9 @@ import {
 import unbebautImage from "~/assets/images/icon_unbebaut.svg";
 import baureifImage from "~/assets/images/icon_baureif.svg";
 import RadioWithImageGroup from "~/components/form/RadioWithImageGroup";
-import Help from "~/components/Help";
+import Help from "~/components/form/help/Help";
 import AngabenGrundbuch from "~/assets/images/angaben-grundbuch-page-medium.png";
-import DefaultHelp from "~/components/form/help/Default";
+import DefaultHelpContent from "~/components/form/help/Default";
 import Hint from "~/components/Hint";
 
 export default function KitchenSinkHelp() {
@@ -56,7 +56,7 @@ export default function KitchenSinkHelp() {
           label="Input type email"
           placeholder="user@example.com"
           help={
-            <DefaultHelp
+            <DefaultHelpContent
               elements={[
                 { type: "paragraph", value: "Text" },
                 {

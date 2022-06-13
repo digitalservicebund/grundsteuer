@@ -9,7 +9,7 @@ import { I18nObjectField } from "~/i18n/getStepI18n";
 import invariant from "tiny-invariant";
 import { ReactElement } from "react";
 import { getHelpComponent } from "~/components/form/help";
-import Help from "~/components/Help";
+import Help from "~/components/form/help/Help";
 
 export type RadioWithImageGroupProps = {
   name: string;

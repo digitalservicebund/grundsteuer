@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { ConfigStepFieldOptionsItem } from "~/domain";
 import FieldError from "./FieldError";
 import Label from "./Label";
-import Help from "~/components/Help";
+import Help from "~/components/form/help/Help";
 import { ReactElement } from "react";
 
 export type SelectProps = {
