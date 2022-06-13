@@ -64,6 +64,11 @@
     "text": "Es tut uns leid. Diese Seite scheint es nicht zu geben. Sie wurde vielleicht entfernt, im Namen geändert oder ist auf andere Weise nicht erreichbar.",
     "smallprint": "Wenn Sie die URL direkt eingegeben haben, überprüfen Sie die Schreibweise."
   },
+  "500": {
+    "backButton": "Zur Startseite",
+    "headline": "Ein unerwarteter Fehler ist aufgetreten.",
+    "text": "Es tut uns leid! Ein Fehler ist aufgetreten. Bitte laden Sie die Seite neu oder versuchen Sie es zu einem anderen Zeitpunkt noch einmal. "
+  },
   "dataProtection": {
     "headline": "Datenschutzerklärung",
     "backButton": "Zur Startseite"

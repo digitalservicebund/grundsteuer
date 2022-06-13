@@ -18,6 +18,7 @@ import { useChangeLanguage } from "remix-i18next";
 import { pageTitle } from "~/util/pageTitle";
 import styles from "public/tailwind.css";
 import ogImage from "~/assets/images/og-image.png";
+import { ErrorPage } from "~/components";
 
 export const links: LinksFunction = () => {
   return [
@@ -85,14 +86,14 @@ export function ErrorBoundary({ error }: { error: Error }) {
     console.error(error);
   }
   return (
-    <html>
+    <html lang="de">
       <head>
-        <title>Oh nein!</title>
-        <Meta />
+        <title>{pageTitle("Ein unerwarteter Fehler ist aufgetreten")}</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Links />
       </head>
-      <body>
-        <h1>Da ist etwas schiefgelaufen :(</h1>
+      <body className="flex flex-col min-h-screen text-black bg-gray-100 leading-default">
+        <ErrorPage statusCode={500} />
         <Scripts />
       </body>
     </html>
