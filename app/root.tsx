@@ -10,9 +10,10 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration,
   useLoaderData,
+  useLocation,
 } from "@remix-run/react";
+import { useEffect } from "react";
 import { useChangeLanguage } from "remix-i18next";
 import { pageTitle } from "~/util/pageTitle";
 import styles from "public/tailwind.css";
@@ -102,6 +103,12 @@ export default function App() {
   const { env, sentry_dsn } = useLoaderData();
   useChangeLanguage("de");
 
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [location]);
+
   return (
     <html lang="de">
       <head>
@@ -119,7 +126,6 @@ export default function App() {
       </head>
       <body className="flex flex-col min-h-screen text-black bg-gray-100 leading-default">
         <Outlet />
-        <ScrollRestoration />
         {sentry_dsn && (
           <script
             suppressHydrationWarning
