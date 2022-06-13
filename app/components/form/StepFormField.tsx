@@ -7,7 +7,7 @@ import Checkbox, { CheckboxProps } from "./Checkbox";
 import { I18nObjectField } from "~/i18n/getStepI18n";
 import { ReactNode } from "react";
 import _ from "lodash";
-import { helpComponents } from "~/components/steps";
+import { helpComponents } from "~/components/form/help";
 
 export type StepFormFieldProps = {
   name: string;
