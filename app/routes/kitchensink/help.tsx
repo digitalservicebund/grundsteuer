@@ -12,6 +12,7 @@ import RadioWithImageGroup from "~/components/form/RadioWithImageGroup";
 import Help from "~/components/Help";
 import Hint from "~/components/Hint";
 import AngabenGrundbuch from "~/assets/images/angaben-grundbuch-page-medium.png";
+import DefaultHelp from "~/components/form/help/Default";
 
 export default function KitchenSinkHelp() {
   return (
@@ -54,7 +55,23 @@ export default function KitchenSinkHelp() {
           type="email"
           label="Input type email"
           placeholder="user@example.com"
-          help={<p>Hilfetext…</p>}
+          help={
+            <DefaultHelp
+              elements={[
+                { type: "paragraph", value: "Text" },
+                {
+                  type: "list",
+                  intro: "Intro:",
+                  items: ["Item 1", "Item 2"],
+                },
+                {
+                  type: "image",
+                  source: AngabenGrundbuch,
+                  altText: "Angaben Grundbuch",
+                },
+              ]}
+            />
+          }
         />
       </FormGroup>
       <FormGroup>
