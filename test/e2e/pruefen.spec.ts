@@ -6,6 +6,7 @@ describe("Happy Path", () => {
     cy.visit("/");
     cy.contains("a", "Kann ich teilnehmen?").click();
 
+    cy.url().should("include", "/pruefen/eigentuemerTyp");
     cy.contains(
       "h1",
       "Prüfen Sie in wenigen Schritten, ob Sie unser Tool nutzen können."
