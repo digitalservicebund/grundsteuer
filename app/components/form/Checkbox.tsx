@@ -44,9 +44,11 @@ export default function Checkbox(props: CheckboxProps) {
 
   return (
     <>
-      {inputComponent}
-      {labelComponent}
-      {errorComponent}
+      <div className="input-width">
+        {inputComponent}
+        {labelComponent}
+        {errorComponent}
+      </div>
       {help && (
         <Details
           summaryContent={

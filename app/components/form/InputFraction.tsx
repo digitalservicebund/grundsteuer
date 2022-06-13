@@ -8,7 +8,10 @@ export default function InputFraction(props: {
   className?: string;
 }) {
   const { zaehler, nenner, className } = props;
-  const cssClasses = classNames("flex-row flex items-baseline", className);
+  const cssClasses = classNames(
+    "flex-row flex items-baseline input-width",
+    className
+  );
   return (
     <fieldset className={cssClasses}>
       <div className="inline-block w-full">{zaehler}</div>

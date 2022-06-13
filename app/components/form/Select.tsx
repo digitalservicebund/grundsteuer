@@ -60,9 +60,11 @@ export default function Select(props: SelectProps) {
 
   return (
     <>
-      {labelComponent}
-      {fieldComponent}
-      {errorComponent}
+      <div className="input-width">
+        {labelComponent}
+        {fieldComponent}
+        {errorComponent}
+      </div>
       {help && (
         <Details
           summaryContent={<QuestionMark role="img" aria-label="Hinweis" />}

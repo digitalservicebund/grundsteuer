@@ -50,9 +50,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 
   return (
     <>
-      {labelComponent}
-      {inputComponent}
-      {errorComponent}
+      <div className="input-width">
+        {labelComponent}
+        {inputComponent}
+        {errorComponent}
+      </div>
       {help && (
         <Details
           summaryContent={

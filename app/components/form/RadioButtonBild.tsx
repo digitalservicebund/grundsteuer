@@ -44,7 +44,7 @@ export default function RadioButtonBild(props: RadioBildProps) {
     <>
       <div
         className={classNames(
-          "py-16 pl-16 pr-32 radio-image-card flex items-center",
+          "py-16 pl-16 pr-32 radio-image-card flex items-center input-width",
           props.className
         )}
       >

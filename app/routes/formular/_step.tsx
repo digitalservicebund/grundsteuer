@@ -241,7 +241,7 @@ export function Step() {
     fields[Object.keys(fields)[0]].type === "radio";
 
   return (
-    <ContentContainer size="sm">
+    <ContentContainer size="sm-md">
       <BreadcrumbNavigation />
       <Form
         method="post"
@@ -263,7 +263,7 @@ export function Step() {
             <StepComponent {...loaderData} {...actionData} />
           </>
         )}
-        <ButtonContainer>
+        <ButtonContainer className="input-width">
           <Button
             id="nextButton"
             className={backUrl ? "" : "flex-grow-0"}

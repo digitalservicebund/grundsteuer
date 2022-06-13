@@ -96,6 +96,10 @@
     width: fit-content;
   }
 
+  .input-width {
+    max-width: 412px
+  }
+
   .text-11 {
     font-size: 0.6875rem;
   }
