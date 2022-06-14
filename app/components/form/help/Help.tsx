@@ -8,7 +8,7 @@ export default function Help(props: {
 }) {
   const { children, summaryClassNames = "" } = props;
   const [helpExpanded, setHelpExpanded] = useState(false);
-  const summaryTextClasses = "ml-6 uppercase font-bold";
+  const summaryTextClasses = "ml-6 uppercase font-bold text-11";
   let summaryContent = (
     <div className={"flex"}>
       <Info />
@@ -31,7 +31,9 @@ export default function Help(props: {
     >
       <summary
         className={
-          summaryClassNames ? "list-none " + summaryClassNames : "list-none"
+          summaryClassNames
+            ? "list-none " + summaryClassNames
+            : "list-none ml-[8px]"
         }
         role="button"
         aria-expanded={helpExpanded}

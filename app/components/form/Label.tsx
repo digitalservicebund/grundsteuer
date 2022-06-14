@@ -13,7 +13,7 @@ export default function Label(props: LabelProps) {
   return (
     <label
       htmlFor={id}
-      className={classNames("block mb-4", {
+      className={classNames("block mb-4 text-gray-900", {
         "text-gray-600": disabled,
       })}
     >
