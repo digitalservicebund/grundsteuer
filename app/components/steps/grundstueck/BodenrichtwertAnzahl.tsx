@@ -1,4 +1,4 @@
-import { FormGroup } from "~/components";
+import { ContentContainer, FormGroup } from "~/components";
 import RadioWithImageGroup, {
   extractRadioWithImageGroupProps,
 } from "~/components/form/RadioWithImageGroup";
@@ -32,15 +32,17 @@ const BodenrichtwertAnzahl: StepComponentFunction = ({
   invariant(typeof currentState !== "undefined", "currentState must be set");
 
   return (
-    <FormGroup>
-      <RadioWithImageGroup
-        {...extractRadioWithImageGroupProps(
-          fieldProps,
-          imagesAndAltTexts,
-          currentState
-        )}
-      />
-    </FormGroup>
+    <ContentContainer size="sm-md">
+      <FormGroup>
+        <RadioWithImageGroup
+          {...extractRadioWithImageGroupProps(
+            fieldProps,
+            imagesAndAltTexts,
+            currentState
+          )}
+        />
+      </FormGroup>
+    </ContentContainer>
   );
 };
 

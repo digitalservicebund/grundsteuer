@@ -1,5 +1,5 @@
 import { StepComponentFunction } from "~/routes/formular/_step";
-import { StepFormFields } from "~/components";
+import { ContentContainer, StepFormFields } from "~/components";
 import { Trans } from "react-i18next";
 import Person from "~/components/icons/mui/Person";
 import House from "~/components/icons/mui/House";
@@ -23,7 +23,7 @@ const Bruchteilsgemeinschaft: StepComponentFunction = ({
   const eigentuemer1AdresseData = allData?.eigentuemer?.person?.[0]?.adresse;
 
   return (
-    <div>
+    <ContentContainer size="sm-md">
       <p className="mb-16">{i18n.specifics.explanation}</p>
       <h2 className="text-20">{i18n.specifics.subheading}</h2>
 
@@ -97,7 +97,7 @@ const Bruchteilsgemeinschaft: StepComponentFunction = ({
           {...{ stepDefinition, currentState, formData, i18n, errors }}
         />
       </div>
-    </div>
+    </ContentContainer>
   );
 };
 

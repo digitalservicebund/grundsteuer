@@ -1,5 +1,5 @@
 import type { StepComponentFunction } from "~/routes/formular/_step";
-import { FormGroup, StepFormField } from "~/components";
+import { ContentContainer, FormGroup, StepFormField } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 
 const BruchteilsgemeinschaftAngaben: StepComponentFunction = ({
@@ -11,7 +11,7 @@ const BruchteilsgemeinschaftAngaben: StepComponentFunction = ({
   const fieldProps = getFieldProps(stepDefinition, formData, i18n, errors);
 
   return (
-    <div>
+    <ContentContainer size="sm-md">
       <div className="mb-32">
         <h2 className="mb-16 font-bold">{i18n.specifics.subHeadingName}</h2>
         <FormGroup>
@@ -32,7 +32,7 @@ const BruchteilsgemeinschaftAngaben: StepComponentFunction = ({
           }
         })}
       </fieldset>
-    </div>
+    </ContentContainer>
   );
 };
 

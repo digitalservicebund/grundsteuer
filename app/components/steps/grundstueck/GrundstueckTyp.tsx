@@ -8,7 +8,7 @@ import zweifamilienhausIcon from "~/assets/images/icon_zweifamilienhaus.svg";
 import eigentumswohnungIcon from "~/assets/images/icon_eigentumswohnung.svg";
 import baureifIcon from "~/assets/images/icon_baureif.svg";
 import unbebautIcon from "~/assets/images/icon_unbebaut.svg";
-import { FormGroup } from "~/components";
+import { ContentContainer, FormGroup } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 import invariant from "tiny-invariant";
 
@@ -47,15 +47,17 @@ const GrundstueckTyp: StepComponentFunction = ({
 
   invariant(typeof currentState !== "undefined", "currentState must be set");
   return (
-    <FormGroup>
-      <RadioWithImageGroup
-        {...extractRadioWithImageGroupProps(
-          fieldProps,
-          imagesAndAltTexts,
-          currentState
-        )}
-      />
-    </FormGroup>
+    <ContentContainer size="sm-md">
+      <FormGroup>
+        <RadioWithImageGroup
+          {...extractRadioWithImageGroupProps(
+            fieldProps,
+            imagesAndAltTexts,
+            currentState
+          )}
+        />
+      </FormGroup>
+    </ContentContainer>
   );
 };
 

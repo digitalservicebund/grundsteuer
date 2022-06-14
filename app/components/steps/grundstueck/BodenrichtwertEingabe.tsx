@@ -1,5 +1,5 @@
 import type { StepComponentFunction } from "~/routes/formular/_step";
-import { StepFormFields } from "~/components";
+import { ContentContainer, StepFormFields } from "~/components";
 import Hint from "~/components/Hint";
 
 const BodenrichtwertEingabe: StepComponentFunction = ({
@@ -11,14 +11,14 @@ const BodenrichtwertEingabe: StepComponentFunction = ({
   currentState,
 }) => {
   return (
-    <div>
+    <ContentContainer size="sm-md">
       {allData.grundstueck?.bodenrichtwertAnzahl?.anzahl === "2" && (
         <Hint>{i18n.specifics.zweiBodenrichtwerteHinweis}</Hint>
       )}
       <StepFormFields
         {...{ stepDefinition, currentState, formData, i18n, errors }}
       />
-    </div>
+    </ContentContainer>
   );
 };
 

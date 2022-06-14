@@ -41,7 +41,7 @@ describe("BodenrichtwertInfo component should display link label for each bundes
         .grundstueckAdresse({ bundesland: bundesland })
         .build();
       render(<BodenrichtwertInfo {...defaultInput} />);
-      expect(screen.queryByRole("link")).toHaveTextContent(expectedText);
+      expect(screen.queryAllByRole("link")[0]).toHaveTextContent(expectedText);
     }
   );
 

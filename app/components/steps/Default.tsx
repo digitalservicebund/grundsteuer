@@ -1,5 +1,5 @@
 import type { StepComponentFunction } from "~/routes/formular/_step";
-import { StepFormFields } from "~/components";
+import { ContentContainer, StepFormFields } from "~/components";
 
 const Default: StepComponentFunction = ({
   stepDefinition,
@@ -10,11 +10,11 @@ const Default: StepComponentFunction = ({
   allData,
 }) => {
   return (
-    <div>
+    <ContentContainer size="sm-md">
       <StepFormFields
         {...{ stepDefinition, currentState, formData, i18n, errors, allData }}
       />
-    </div>
+    </ContentContainer>
   );
 };
 

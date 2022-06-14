@@ -241,8 +241,10 @@ export function Step() {
     fields[Object.keys(fields)[0]].type === "radio";
 
   return (
-    <ContentContainer size="sm-md">
-      <BreadcrumbNavigation />
+    <>
+      <ContentContainer size="sm-md">
+        <BreadcrumbNavigation />
+      </ContentContainer>
       <Form
         method="post"
         className="mb-16"
@@ -252,34 +254,40 @@ export function Step() {
         <CsrfToken value={csrfToken} />
         {headlineIsLegend ? (
           <fieldset>
-            <StepHeadline i18n={i18n} asLegend />
-            {actionData?.errors && <ErrorBarStandard />}
+            <ContentContainer size="sm-md">
+              <StepHeadline i18n={i18n} asLegend />
+              {actionData?.errors && <ErrorBarStandard />}
+            </ContentContainer>
             <StepComponent {...loaderData} {...actionData} />
           </fieldset>
         ) : (
           <>
-            <StepHeadline i18n={i18n} />
-            {actionData?.errors && <ErrorBarStandard />}
+            <ContentContainer size="sm-md">
+              <StepHeadline i18n={i18n} />
+              {actionData?.errors && <ErrorBarStandard />}
+            </ContentContainer>
             <StepComponent {...loaderData} {...actionData} />
           </>
         )}
-        <ButtonContainer className="input-width">
-          <Button
-            id="nextButton"
-            className={backUrl ? "" : "flex-grow-0"}
-            disabled={isSubmitting}
-          >
-            {nextButtonLabel}
-          </Button>
-          {backUrl ? (
-            <Button to={backUrl} look="secondary">
-              {i18n.common.back}
+        <ContentContainer size="sm-md">
+          <ButtonContainer className="input-width">
+            <Button
+              id="nextButton"
+              className={backUrl ? "" : "flex-grow-0"}
+              disabled={isSubmitting}
+            >
+              {nextButtonLabel}
             </Button>
-          ) : (
-            ""
-          )}
-        </ButtonContainer>
+            {backUrl ? (
+              <Button to={backUrl} look="secondary">
+                {i18n.common.back}
+              </Button>
+            ) : (
+              ""
+            )}
+          </ButtonContainer>
+        </ContentContainer>
       </Form>
-    </ContentContainer>
+    </>
   );
 }

@@ -1,5 +1,5 @@
 import type { StepComponentFunction } from "~/routes/formular/_step";
-import { FormGroup, StepFormField } from "~/components";
+import { ContentContainer, FormGroup, StepFormField } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 import InputRow from "~/components/form/InputRow";
 
@@ -12,7 +12,7 @@ const FlurstueckGroesse: StepComponentFunction = ({
   const fieldProps = getFieldProps(stepDefinition, formData, i18n, errors);
 
   return (
-    <div>
+    <ContentContainer size="sm-md">
       <FormGroup>
         <InputRow>
           <div>
@@ -26,7 +26,7 @@ const FlurstueckGroesse: StepComponentFunction = ({
           </div>
         </InputRow>
       </FormGroup>
-    </div>
+    </ContentContainer>
   );
 };
 

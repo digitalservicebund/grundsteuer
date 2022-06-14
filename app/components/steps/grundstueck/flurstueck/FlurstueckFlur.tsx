@@ -1,5 +1,11 @@
 import type { StepComponentFunction } from "~/routes/formular/_step";
-import { FormGroup, IntroText, StepFormField, SubHeadline } from "~/components";
+import {
+  ContentContainer,
+  FormGroup,
+  IntroText,
+  StepFormField,
+  SubHeadline,
+} from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 import InputFraction from "~/components/form/InputFraction";
 
@@ -12,7 +18,7 @@ const FlurstueckFlur: StepComponentFunction = ({
   const fieldProps = getFieldProps(stepDefinition, formData, i18n, errors);
 
   return (
-    <div>
+    <ContentContainer size="sm-md">
       <IntroText>{i18n.specifics.explanation}</IntroText>
       <div>
         <FormGroup>
@@ -26,7 +32,7 @@ const FlurstueckFlur: StepComponentFunction = ({
           />
         </FormGroup>
       </div>
-    </div>
+    </ContentContainer>
   );
 };
 

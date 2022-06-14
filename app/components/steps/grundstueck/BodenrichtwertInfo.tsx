@@ -1,52 +1,87 @@
 import { StepComponentFunction } from "~/routes/formular/_step";
-import { Button } from "~/components";
-import { SVGProps } from "react";
+import { Button, ContentContainer } from "~/components";
+import { ReactNode, SVGProps } from "react";
 import Accordion from "~/components/Accordion";
 import { useTranslation } from "react-i18next";
+import bremen1 from "~/assets/images/boris/info-bremen-1.svg";
+import bremen2 from "~/assets/images/boris/info-bremen-2.svg";
+import EnumeratedCard from "~/components/EnumeratedCard";
+import { I18nObject } from "~/i18n/getStepI18n";
 
 const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
   const bundesland = allData.grundstueck?.adresse?.bundesland;
   return (
-    <div>
-      <div className="mb-16">
+    <div className="mb-16">
+      <ContentContainer size="sm-md">
         <p className="mb-2">{i18n.specifics.explanation}</p>
         {i18n.specifics.portalUrl && (
           <PortalButton
-            portalUrl={i18n.specifics.portalUrl}
+            url={i18n.specifics.portalUrl}
             bundesland={i18n.specifics.bundesland}
             border={true}
-            classNames={"mt-16"}
+            classNames={"mt-32"}
           />
         )}
-        <div>
-          <BodenrichtwertHelp
-            bundesland={bundesland ? bundesland : "default"}
-          />
-        </div>
+      </ContentContainer>
+      <div>
+        <BodenrichtwertHelp
+          i18n={i18n}
+          bundesland={bundesland ? bundesland : "default"}
+        />
       </div>
     </div>
   );
 };
 
-interface PortalButtonProps {
-  portalUrl: string;
-  bundesland: string;
+interface BodenrichtwertButtonProps {
+  url: string;
   border: boolean;
   classNames: string;
+  children?: ReactNode;
 }
 
-const PortalButton = (props: PortalButtonProps) => {
+const BodenrichtwertButton = (props: BodenrichtwertButtonProps) => {
   return (
-    <Button
-      size="large"
-      look={props.border ? "tertiary" : "ghost"}
-      href={props.portalUrl}
-      target={"_blank"}
-      icon={<PortalIcon />}
-      className={props.classNames}
+    <div className="mb-80">
+      <Button
+        size="large"
+        look={props.border ? "tertiary" : "ghost"}
+        href={props.url}
+        target={"_blank"}
+        icon={<PortalIcon />}
+        className={props.classNames}
+      >
+        {props.children}
+      </Button>
+    </div>
+  );
+};
+
+const PortalButton = (
+  props: BodenrichtwertButtonProps & { bundesland: string }
+) => {
+  return (
+    <BodenrichtwertButton
+      border={props.border}
+      classNames={props.classNames}
+      url={props.url}
     >
       Zum Bodenrichtwert-Portal {props.bundesland}
-    </Button>
+    </BodenrichtwertButton>
+  );
+};
+
+const GeoviewerButton = (
+  props: BodenrichtwertButtonProps & { bundesland: string }
+) => {
+  return (
+    <BodenrichtwertButton
+      border={props.border}
+      classNames={props.classNames}
+      url={props.url}
+    >
+      Zum Geoviewer {props.bundesland}
+    </BodenrichtwertButton>
   );
 };
 
@@ -103,7 +138,7 @@ const PortalLink = ({ bundesland }: { bundesland: string }) => {
     <div className="mb-24">
       <p className="mb-8">Bodenrichtwertportal {bundeslandName}</p>
       <PortalButton
-        portalUrl={portalUrl}
+        url={portalUrl}
         bundesland={bundeslandName}
         border={false}
         classNames={"mt-8 pl-0"}
@@ -140,7 +175,7 @@ const BBHelp = () => {
 const BEHelp = () => {
   return (
     <>
-      <h2 className="mt-32 font-bold">Eine Schritt für Schritt Anleitung</h2>
+      <h2 className="font-bold">Eine Schritt für Schritt Anleitung</h2>
       <ol className="list-decimal">
         <li>
           Öffnen Sie die Seite und geben sie im unteren linken Bereich ihre
@@ -164,8 +199,42 @@ const BEHelp = () => {
   );
 };
 
-const HBHelp = () => {
-  return <></>;
+const HBHelp = ({ i18n }: { i18n: I18nObject }) => {
+  return (
+    <>
+      <h2 className="mb-32 text-24">Eine Schritt-für-Schritt Anleitung</h2>
+      <div className={"mb-80"}>
+        <EnumeratedCard
+          image={bremen1}
+          imageAltText="Screenshot vom Bodenrichtwert-Portal Bremen"
+          number="1"
+          heading="Externe Seite öffnen und Adresse eingeben"
+          text="Öffnen Sie den oben stehenden Link. Auf der Seite finden Sie oben eine Suchleiste. Geben Sie dort Ihre Adresse ein."
+          className="mb-16"
+        />
+        <EnumeratedCard
+          image={bremen2}
+          imageAltText="Screenshot vom Bodenrichtwert-Portal Bremen"
+          number="2"
+          heading="Bodenrichtwert ablesen"
+          text="Der Kartenausschnitt zeigt nun Ihr Grundstück und markiert die Stelle mit einem roten Symbol. Klicken Sie auf dieses Symbol. Rechts öffnet sich ein Bereich mit Informationen. Merken Sie sich den Wert von “Bodenrichtwert” für die Eingabe. Sie können das “Bodenrichtwert-Portal Bremen” nun verlassen."
+          className="mb-16"
+        />
+      </div>
+
+      <ContentContainer size="sm-md" className="mb-32">
+        Für weitere Angaben zu Ihrem Grundstück finden sie unter diesem Link
+        passende Informationen.
+      </ContentContainer>
+
+      <GeoviewerButton
+        url={i18n.specifics.geoviewerUrl}
+        bundesland={i18n.specifics.bundesland}
+        border={true}
+        classNames={"mt-16"}
+      />
+    </>
+  );
 };
 
 const MVHelp = () => {
@@ -200,14 +269,20 @@ const THHelp = () => {
   return <></>;
 };
 
-export const BodenrichtwertHelp = ({ bundesland }: { bundesland?: string }) => {
+export const BodenrichtwertHelp = ({
+  i18n,
+  bundesland,
+}: {
+  i18n: I18nObject;
+  bundesland?: string;
+}) => {
   switch (bundesland) {
     case "BB":
       return <BBHelp />;
     case "BE":
       return <BEHelp />;
     case "HB":
-      return <HBHelp />;
+      return <HBHelp i18n={i18n} />;
     case "MV":
       return <MVHelp />;
     case "NW":
