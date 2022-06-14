@@ -12,10 +12,10 @@ export default function UebersichtStep(
   const { children, imageSrc, smallImageSrc } = props;
   return (
     <div className="flex-col lg:flex-row w-full">
-      <div className="hidden lg:flex justify-end absolute right-0 top-80 w-1/3 mb-0">
+      <div className="hidden xl:flex justify-end absolute right-0 top-80 w-1/3 mb-0">
         <img src={imageSrc} alt="" />
       </div>
-      <div className="flex mb-56 lg:hidden">
+      <div className="flex mb-56 xl:hidden">
         <img src={smallImageSrc} alt="" />
       </div>
       <div>{children}</div>
