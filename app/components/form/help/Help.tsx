@@ -8,7 +8,8 @@ export default function Help(props: {
 }) {
   const { children, summaryClassNames = "" } = props;
   const [helpExpanded, setHelpExpanded] = useState(false);
-  const summaryTextClasses = "ml-6 uppercase font-bold text-11";
+  const summaryTextClasses =
+    "ml-6 uppercase font-bold text-11 flex items-center";
   let summaryContent = (
     <div className={"flex"}>
       <Info />
