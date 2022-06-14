@@ -48,7 +48,7 @@ export default function Checkbox(props: CheckboxProps) {
         {labelComponent}
         {errorComponent}
       </div>
-      {help && <Help>{help}</Help>}
+      {help && <Help summaryClassNames={"ml-[48px]"}>{help}</Help>}
     </>
   );
 }

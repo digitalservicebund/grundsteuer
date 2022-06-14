@@ -46,7 +46,9 @@ const RadioGroupOption = (
   return (
     <div key={option.value} data-testid={`option-${option.value}`}>
       {radioComponent}
-      {option.help && <Help>{option.help}</Help>}
+      {option.help && (
+        <Help summaryClassNames={"ml-[48px]"}>{option.help}</Help>
+      )}
     </div>
   );
 };

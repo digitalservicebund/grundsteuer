@@ -2,8 +2,11 @@ import { ReactNode, useState } from "react";
 import Cancel from "~/components/icons/mui/Cancel";
 import Info from "~/components/icons/mui/Info";
 
-export default function Help(props: { children: ReactNode }) {
-  const { children } = props;
+export default function Help(props: {
+  children: ReactNode;
+  summaryClassNames?: string;
+}) {
+  const { children, summaryClassNames = "" } = props;
   const [helpExpanded, setHelpExpanded] = useState(false);
   const summaryTextClasses = "ml-6 uppercase font-bold";
   let summaryContent = (
@@ -27,7 +30,9 @@ export default function Help(props: { children: ReactNode }) {
       data-testid="help-details"
     >
       <summary
-        className="list-none"
+        className={
+          summaryClassNames ? "list-none " + summaryClassNames : "list-none"
+        }
         role="button"
         aria-expanded={helpExpanded}
         tabIndex={0}
