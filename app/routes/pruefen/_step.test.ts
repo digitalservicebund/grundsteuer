@@ -28,7 +28,7 @@ describe("_step action", () => {
     const result = await action(args);
 
     expect(result.status).toEqual(302);
-    expect(result.headers.get("location")).toEqual("eigentuemerTyp");
+    expect(result.headers.get("location")).toEqual("/pruefen/eigentuemerTyp");
   });
 
   describe("With state in cookie", () => {

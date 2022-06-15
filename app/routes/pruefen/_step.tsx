@@ -69,7 +69,7 @@ export type LoaderData = {
 };
 
 const resetFlow = async () => {
-  return redirect(START_STEP, {
+  return redirect("/" + PREFIX + "/" + START_STEP, {
     headers: {
       "Set-Cookie": await pruefenStateCookie.serialize(
         getMachine({ formData: {} }).getInitialState(START_STEP)
