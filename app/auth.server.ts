@@ -38,6 +38,7 @@ authenticator.use(
           secret: magicLinkSecret,
           linkExpirationTime: 86400000, // 24 hours
           callbackURL: "/anmelden/bestaetigen",
+          validateSessionMagicLink: true,
         },
         async ({ email }: { email: string }) => login(email)
       )
