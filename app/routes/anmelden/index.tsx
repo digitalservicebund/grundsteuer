@@ -24,6 +24,7 @@ import { getSession, commitSession } from "~/session.server";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { userExists } from "~/domain/user";
 import { sendLoginAttemptEmail } from "~/email.server";
+import ErrorBar from "~/components/ErrorBar";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Anmelden") };
@@ -39,11 +40,13 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const url = new URL(request.url);
   const registered = url.searchParams.get("registered");
+  const error = url.searchParams.get("error");
 
   return json(
     {
       csrfToken,
       userIsComingfromSuccessfulRegistration: registered && registered === "1",
+      error,
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -91,6 +94,17 @@ export default function Anmelden() {
     <UserLayout>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
+        {loaderData?.error === "token" && (
+          <div className="mb-64">
+            <ErrorBar>
+              Der Login Link hat leider nicht funktioniert. Bitte beachten Sie,
+              dass Sie immer nur den zuletzt angeforderten Login Link verwenden
+              können und die Gültigkeit des Links auf 24 Stunden begrenzt ist.
+              Bitte führen Sie die Anmeldung oder Registrierung erneut durch um
+              einen neuen Login Link zu erhalten.
+            </ErrorBar>
+          </div>
+        )}
         <Headline>
           Herzlich willkommen!
           <br />
