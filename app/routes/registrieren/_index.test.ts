@@ -82,7 +82,7 @@ describe("/registrieren action", () => {
           eventData: { value: "true" },
         });
         expect(spyOnSaveAuditLog).toHaveBeenNthCalledWith(4, {
-          eventName: AuditLogEvent.CONFIRMED_ELIGIBILE_TO_USE_REGISTRATION,
+          eventName: AuditLogEvent.CONFIRMED_ELIGIBLE_TO_USE_REGISTRATION,
           timestamp: timestamp,
           ipAddress: "123",
           username: "user@example.com",

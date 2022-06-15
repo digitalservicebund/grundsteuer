@@ -86,7 +86,7 @@ export const saveAuditLogs = async (
     },
   });
   await saveAuditLog({
-    eventName: AuditLogEvent.CONFIRMED_ELIGIBILE_TO_USE_REGISTRATION,
+    eventName: AuditLogEvent.CONFIRMED_ELIGIBLE_TO_USE_REGISTRATION,
     timestamp: Date.now(),
     ipAddress: clientIp,
     username: email,
