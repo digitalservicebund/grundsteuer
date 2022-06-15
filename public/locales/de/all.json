@@ -1474,6 +1474,9 @@
       },
       "confirmTermsOfUse": {
         "label": "Ich habe die <termsOfUseLink>Nutzungsbedingungen</termsOfUseLink> gelesen und stimme ihnen zu."
+      },
+      "confirmEligibilityCheck": {
+        "label": "Ich habe unter <pruefenLink>Kann ich teilnehmen?</pruefenLink> den Fragebogen ausgewertet und erfülle alle Voraussetzungen für die Nutzung des Online-Service Grundsteuererklärung für Privateigentum."
       }
     },
     "specifics": {

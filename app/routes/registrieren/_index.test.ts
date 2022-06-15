@@ -20,6 +20,7 @@ const validFormData = {
   email: "user@example.com",
   confirmDataPrivacy: "true",
   confirmTermsOfUse: "true",
+  confirmEligibilityCheck: "true",
 };
 
 describe("/registrieren action", () => {
@@ -75,6 +76,13 @@ describe("/registrieren action", () => {
         });
         expect(spyOnSaveAuditLog).toHaveBeenNthCalledWith(3, {
           eventName: AuditLogEvent.CONFIRMED_TERMS_OF_USE_REGISTRATION,
+          timestamp: timestamp,
+          ipAddress: "123",
+          username: "user@example.com",
+          eventData: { value: "true" },
+        });
+        expect(spyOnSaveAuditLog).toHaveBeenNthCalledWith(4, {
+          eventName: AuditLogEvent.CONFIRMED_ELIGIBILE_TO_USE_REGISTRATION,
           timestamp: timestamp,
           ipAddress: "123",
           username: "user@example.com",
@@ -153,6 +161,7 @@ describe("/registrieren action", () => {
           email: "errors.required",
           confirmDataPrivacy: "errors.required",
           confirmTermsOfUse: "errors.required",
+          confirmEligibilityCheck: "errors.required",
         },
       },
       {
@@ -170,6 +179,14 @@ describe("/registrieren action", () => {
           confirmDataPrivacy: "",
         },
         errors: { confirmDataPrivacy: "errors.required" },
+      },
+      {
+        description: "eligibility to use not confirmed",
+        formData: {
+          ...validFormData,
+          confirmEligibilityCheck: "",
+        },
+        errors: { confirmEligibilityCheck: "errors.required" },
       },
     ];
 

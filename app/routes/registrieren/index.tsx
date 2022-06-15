@@ -44,6 +44,7 @@ export const saveAuditLogs = async (
   data: {
     confirmDataPrivacy: string | null;
     confirmTermsOfUse: string | null;
+    confirmEligibilityCheck: string | null;
   }
 ) => {
   invariant(
@@ -53,6 +54,10 @@ export const saveAuditLogs = async (
   invariant(
     data.confirmTermsOfUse == "true",
     "confirmTermsOfUse should be checked"
+  );
+  invariant(
+    data.confirmEligibilityCheck == "true",
+    "confirmEligibilityCheck should be checked"
   );
 
   await saveAuditLog({
@@ -77,6 +82,15 @@ export const saveAuditLogs = async (
     username: email,
     eventData: {
       value: data.confirmTermsOfUse,
+    },
+  });
+  await saveAuditLog({
+    eventName: AuditLogEvent.CONFIRMED_ELIGIBILE_TO_USE_REGISTRATION,
+    timestamp: Date.now(),
+    ipAddress: clientIp,
+    username: email,
+    eventData: {
+      value: data.confirmEligibilityCheck,
     },
   });
 };
@@ -106,6 +120,7 @@ export const action: ActionFunction = async ({ request, context }) => {
   const email = formData.get("email");
   const confirmDataPrivacy = formData.get("confirmDataPrivacy");
   const confirmTermsOfUse = formData.get("confirmTermsOfUse");
+  const confirmEligibilityCheck = formData.get("confirmEligibilityCheck");
 
   invariant(
     typeof email === "string",
@@ -119,6 +134,11 @@ export const action: ActionFunction = async ({ request, context }) => {
     typeof confirmTermsOfUse === "string" || confirmTermsOfUse == null,
     "expected formData to include confirmTermsOfUse field of type string"
   );
+  invariant(
+    typeof confirmEligibilityCheck === "string" ||
+      confirmEligibilityCheck == null,
+    "expected formData to include confirmEligibilityCheck field of type string"
+  );
 
   const normalizedEmail = email.trim().toLowerCase();
 
@@ -129,6 +149,9 @@ export const action: ActionFunction = async ({ request, context }) => {
       "errors.required",
     confirmTermsOfUse:
       !validateRequired({ value: confirmTermsOfUse || "" }) &&
+      "errors.required",
+    confirmEligibilityCheck:
+      !validateRequired({ value: confirmEligibilityCheck || "" }) &&
       "errors.required",
   };
 
@@ -142,6 +165,7 @@ export const action: ActionFunction = async ({ request, context }) => {
       await saveAuditLogs(clientIp, normalizedEmail, {
         confirmDataPrivacy,
         confirmTermsOfUse,
+        confirmEligibilityCheck,
       });
     }
 
@@ -236,7 +260,7 @@ export default function Registrieren() {
               </Trans>
             </Checkbox>
           </div>
-          <div className="bg-white p-24 mb-80">
+          <div className="bg-white p-24 mb-16">
             <Checkbox
               name="confirmTermsOfUse"
               error={t(errors?.confirmTermsOfUse)}
@@ -253,6 +277,26 @@ export default function Registrieren() {
                 }}
               >
                 {t("zusammenfassung.fields.confirmTermsOfUse.label")}
+              </Trans>
+            </Checkbox>
+          </div>
+          <div className="bg-white p-24 mb-80">
+            <Checkbox
+              name="confirmEligibilityCheck"
+              error={t(errors?.confirmEligibilityCheck)}
+            >
+              <Trans
+                components={{
+                  pruefenLink: (
+                    <a
+                      href="/pruefen"
+                      target="_blank"
+                      className="font-bold underline"
+                    />
+                  ),
+                }}
+              >
+                {t("zusammenfassung.fields.confirmEligibilityCheck.label")}
               </Trans>
             </Checkbox>
           </div>
