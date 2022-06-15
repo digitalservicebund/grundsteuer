@@ -100,8 +100,11 @@ export default function Anmelden() {
               Der Login Link hat leider nicht funktioniert. Bitte beachten Sie,
               dass Sie immer nur den zuletzt angeforderten Login Link verwenden
               können und die Gültigkeit des Links auf 24 Stunden begrenzt ist.
-              Bitte führen Sie die Anmeldung oder Registrierung erneut durch um
-              einen neuen Login Link zu erhalten.
+              Stellen Sie außerdem sicher, dass Sie den Login Link im gleichen
+              Browser auf dem gleichen Gerät aufrufen, in dem Sie auch die
+              Anmeldung oder Registrierung angefangen haben. Bitte führen Sie
+              die Anmeldung oder Registrierung erneut durch um einen neuen Login
+              Link zu erhalten.
             </ErrorBar>
           </div>
         )}
