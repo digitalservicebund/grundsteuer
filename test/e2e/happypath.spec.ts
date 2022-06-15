@@ -399,6 +399,7 @@ describe("Happy Path", () => {
       .clear()
       .type(inputData.eigentuemer.person1.adresse.telefonnummer);
     cy.get(submitBtnSelector).click();
+    cy.url().should("include", "/person/1/steuerId");
     cy.get("#steuerId")
       .clear()
       .type(inputData.eigentuemer.person1.steuerId.steuerId);
@@ -465,6 +466,7 @@ describe("Happy Path", () => {
       .clear()
       .type(inputData.eigentuemer.person2.adresse.telefonnummer);
     cy.get(submitBtnSelector).click();
+    cy.url().should("include", "/person/2/steuerId");
     cy.get("#steuerId")
       .clear()
       .type(inputData.eigentuemer.person2.steuerId.steuerId);
