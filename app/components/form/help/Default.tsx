@@ -10,7 +10,7 @@ type HelpConfigurationElement =
 
 type ParagraphHelpConfiguration = {
   type: "paragraph";
-  value: string;
+  value: string | ReactElement;
 };
 
 type ListHelpConfiguration = {
@@ -32,8 +32,8 @@ export type HelpDefaultProps = {
 export type HelpComponentFunction = ({
   allData,
 }: {
-  allData: GrundModel | PruefenModel;
-  i18n: I18nObjectField;
+  allData?: GrundModel | PruefenModel;
+  i18n?: I18nObjectField;
 }) => JSX.Element;
 
 export const getElementComponents = (elements: HelpConfigurationElement[]) => {

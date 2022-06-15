@@ -49,6 +49,7 @@ import {
 import ErrorBar from "~/components/ErrorBar";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
+import FreischaltcodeHelp from "~/components/form/help/Freischaltcode";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return (
@@ -321,6 +322,7 @@ export default function FscEingeben() {
               label="Freischaltcode"
               placeholder="XXXX-XXXX-XXXX"
               error={errors?.freischaltCode}
+              help={<FreischaltcodeHelp />}
             />
           </FormGroup>
         </div>
