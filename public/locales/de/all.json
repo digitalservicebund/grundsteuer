@@ -77,6 +77,10 @@
     "headline": "Nutzungsbedingungen",
     "backButton": "Zur Startseite"
   },
+  "barrierefreiheit": {
+    "headline": "Erklärung zur Barrierefreiheit",
+    "backButton": "Zur Startseite"
+  },
   "alt": {
     "angabenGrundbuchTitle": "Grundbuchauszug Titelseite",
     "angabenGrundbuchPage": "Grundbuchauszug Bestandsverzeichnis",
