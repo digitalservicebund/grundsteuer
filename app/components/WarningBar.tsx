@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import ExclamationMark from "~/components/icons/mui/ExclamationMark";
 import classNames from "classnames";
 
-export default function ErrorBar(props: {
+export default function WarningBar(props: {
   heading?: ReactNode | string;
   children: ReactNode;
   className?: string;
@@ -11,13 +11,15 @@ export default function ErrorBar(props: {
   return (
     <div
       className={classNames(
-        "bg-red-200 border-l-[8px] border-l-red-900 pl-16 pr-32 py-16 mb-8 flex flex-row",
+        "bg-yellow-200 px-32 py-24 flex flex-row",
         props.className
       )}
     >
-      <ExclamationMark className="mr-10 min-w-[20px] text-red-900" />
       <div className="flex flex-col">
-        <strong>{heading}</strong>
+        <div className="flex items-center mb-10">
+          <ExclamationMark className="mr-10 w-20 h-20" />
+          <strong className="uppercase text-11">{heading}</strong>
+        </div>
         {props.children}
       </div>
     </div>

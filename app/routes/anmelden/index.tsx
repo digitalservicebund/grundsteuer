@@ -25,6 +25,7 @@ import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { userExists } from "~/domain/user";
 import { sendLoginAttemptEmail } from "~/email.server";
 import ErrorBar from "~/components/ErrorBar";
+import EmailOutlined from "~/components/icons/mui/EmailOutlined";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Anmelden") };
@@ -95,18 +96,16 @@ export default function Anmelden() {
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         {loaderData?.error === "token" && (
-          <div className="mb-64">
-            <ErrorBar>
-              Der Login Link hat leider nicht funktioniert. Bitte beachten Sie,
-              dass Sie immer nur den zuletzt angeforderten Login Link verwenden
-              können und die Gültigkeit des Links auf 24 Stunden begrenzt ist.
-              Stellen Sie außerdem sicher, dass Sie den Login Link im gleichen
-              Browser auf dem gleichen Gerät aufrufen, in dem Sie auch die
-              Anmeldung oder Registrierung angefangen haben. Bitte führen Sie
-              die Anmeldung oder Registrierung erneut durch um einen neuen Login
-              Link zu erhalten.
-            </ErrorBar>
-          </div>
+          <ErrorBar className="mb-64">
+            Der Login Link hat leider nicht funktioniert. Bitte beachten Sie,
+            dass Sie immer nur den zuletzt angeforderten Login Link verwenden
+            können und die Gültigkeit des Links auf 24 Stunden begrenzt ist.
+            Stellen Sie außerdem sicher, dass Sie den Login Link im gleichen
+            Browser auf dem gleichen Gerät aufrufen, in dem Sie auch die
+            Anmeldung oder Registrierung angefangen haben. Bitte führen Sie die
+            Anmeldung oder Registrierung erneut durch um einen neuen Login Link
+            zu erhalten.
+          </ErrorBar>
         )}
         <Headline>
           Herzlich willkommen!
@@ -114,9 +113,9 @@ export default function Anmelden() {
           Bitte melden Sie sich an.
         </Headline>
         <IntroText>
-          Bitte geben Sie die E-Mail-Adresse ein, mit der Sie sich bei uns
-          registriert haben. Wir schicken Ihnen dann eine E-Mail mit einem
-          speziellen Link zu, mit dem Sie sich anmelden können.
+          Bitte geben Sie die E-Mail-Adresse ein, mit der Sie sich registriert
+          haben. Wir senden Ihnen einen Link für die Anmeldung. Es wird kein
+          Passwort benötigt.
         </IntroText>
         <div className="mb-80">
           <Form method="post" noValidate>
@@ -126,8 +125,12 @@ export default function Anmelden() {
                 <Input type="email" name="email" label="E-Mail-Adresse" />
               </FormGroup>
             </div>
-            <Button data-testid="submit" disabled={isSubmitting}>
-              Einloggen
+            <Button
+              data-testid="submit"
+              icon={<EmailOutlined />}
+              disabled={isSubmitting}
+            >
+              Login Link senden
             </Button>
           </Form>
         </div>
@@ -137,7 +140,7 @@ export default function Anmelden() {
             <SubHeadline>Noch nicht registriert?</SubHeadline>
             <IntroText className="!mb-64">
               Erstellen Sie ein Konto um die Bearbeitung nach Wunsch
-              unterbrechen- und wieder fortsetzen zu können.
+              unterbrechen- und später fortsetzen zu können.
             </IntroText>
             <Button to="/registrieren" look="tertiary">
               Konto erstellen

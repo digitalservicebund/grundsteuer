@@ -33,6 +33,7 @@ import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { getSession, commitSession } from "~/session.server";
 import { CsrfToken, verifyCsrfToken, createCsrfToken } from "~/util/csrf";
 import { authenticator } from "~/auth.server";
+import WarningBar from "~/components/WarningBar";
 
 const validateInputEmail = async (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -206,11 +207,14 @@ export default function Registrieren() {
 
         <IntroText>
           Mit einem Konto können Sie die Bearbeitung Ihrer Grundsteuererklärung
-          unterbrechen und später fortsetzen. Wichtig: Die Weiterbearbeitung ist
-          nur mit dem Gerät und dem Browser möglich, mit denen das Konto
-          erstellt wurde. Der Grund: Ihre Formulardaten werden nur im Cookie in
-          Ihrem Browser gespeichert.
+          unterbrechen und später fortsetzen.
         </IntroText>
+
+        <WarningBar className="mb-40">
+          Die Weiterbearbeitung ist nur mit dem Gerät und dem Browser möglich,
+          mit dem das Konto erstellt wurde. Der Grund: Ihre Formulardaten werden
+          nur im Cookie in Ihrem Browser gespeichert.
+        </WarningBar>
 
         {errors && <ErrorBarStandard />}
       </ContentContainer>
@@ -301,7 +305,7 @@ export default function Registrieren() {
             </Checkbox>
           </div>
 
-          <Button disabled={isSubmitting}>Weiter</Button>
+          <Button disabled={isSubmitting}>Konto erstellen</Button>
         </ContentContainer>
       </Form>
     </UserLayout>
