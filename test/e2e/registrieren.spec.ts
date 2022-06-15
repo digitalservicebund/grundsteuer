@@ -6,6 +6,7 @@ describe("/registrieren", () => {
     cy.get("[name=email]").type("user@example.com");
     cy.get("label[for=confirmDataPrivacy]").click("topLeft");
     cy.get("label[for=confirmTermsOfUse]").click("topLeft");
+    cy.get("label[for=confirmEligibilityCheck]").click("topLeft");
     cy.get("form button").click();
     cy.url().should("include", "/registrieren/erfolgreich");
   });
@@ -23,6 +24,7 @@ describe("/registrieren", () => {
     cy.get("[name=email]").type(email);
     cy.get("label[for=confirmDataPrivacy]").click("topLeft");
     cy.get("label[for=confirmTermsOfUse]").click("topLeft");
+    cy.get("label[for=confirmEligibilityCheck]").click("topLeft");
     cy.get("form button").click();
     cy.url().should("include", "/registrieren/erfolgreich");
   });
@@ -33,6 +35,7 @@ describe("/registrieren", () => {
     cy.get("[name=email]").type(email);
     cy.get("label[for=confirmDataPrivacy]").click("topLeft");
     cy.get("label[for=confirmTermsOfUse]").click("topLeft");
+    cy.get("label[for=confirmEligibilityCheck]").click("topLeft");
     cy.get("form button").click();
     cy.url().should("include", "/registrieren/erfolgreich");
   });
@@ -40,6 +43,7 @@ describe("/registrieren", () => {
   it("data privacy not confirmed", () => {
     cy.visit("/registrieren");
     cy.get("[name=email]").type("user@example.com");
+    cy.get("label[for=confirmEligibilityCheck]").click("topLeft");
     cy.get("label[for=confirmTermsOfUse]").click("topLeft");
     cy.get("form button").click();
     cy.contains("Bitte füllen Sie dieses Feld aus.");
@@ -48,7 +52,17 @@ describe("/registrieren", () => {
   it("terms of use not confirmed", () => {
     cy.visit("/registrieren");
     cy.get("[name=email]").type("user@example.com");
+    cy.get("label[for=confirmEligibilityCheck]").click("topLeft");
     cy.get("label[for=confirmDataPrivacy]").click("topLeft");
+    cy.get("form button").click();
+    cy.contains("Bitte füllen Sie dieses Feld aus.");
+  });
+
+  it("success of eligibility check not confirmed", () => {
+    cy.visit("/registrieren");
+    cy.get("[name=email]").type("user@example.com");
+    cy.get("label[for=confirmDataPrivacy]").click("topLeft");
+    cy.get("label[for=confirmTermsOfUse]").click("topLeft");
     cy.get("form button").click();
     cy.contains("Bitte füllen Sie dieses Feld aus.");
   });
