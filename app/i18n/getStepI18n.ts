@@ -1,4 +1,6 @@
 import { i18Next } from "~/i18n.server";
+import { TFunction } from "i18next";
+import _ from "lodash";
 
 export type I18nObjectField = {
   label: string;
@@ -26,6 +28,46 @@ export type I18nObject = {
   common: Record<string, string>;
 };
 
+const getStepSpecificI18n = (
+  tFunction: TFunction,
+  stepI18nKey: string,
+  stepI18nParams?: { id?: string },
+  bundesland = "default",
+  prefix = ""
+) => {
+  if (
+    [
+      "grundstueck.bodenrichtwertInfo",
+      "grundstueck.bodenrichtwertAnzahl",
+    ].includes(stepI18nKey)
+  ) {
+    return getBodenrichtwertTranslations(stepI18nKey, tFunction, bundesland);
+  } else {
+    const key = prefix ? prefix + "." + stepI18nKey : stepI18nKey;
+    return {
+      ...(tFunction(key, stepI18nParams) as object),
+    };
+  }
+};
+
+const getBodenrichtwertTranslations = (
+  stepI18nKey: string,
+  tFunction: TFunction,
+  bundesland: string
+) => {
+  const defaultKey = `${stepI18nKey}.default`;
+  const defaultTranslations = tFunction(defaultKey) as object;
+
+  if (bundesland === "default") {
+    return { ...defaultTranslations };
+  } else {
+    const bundeslandKey = `${stepI18nKey}.${bundesland.toLowerCase()}`;
+    const bundeslandTranslations = tFunction(bundeslandKey) as object;
+
+    return _.merge({ ...defaultTranslations }, { ...bundeslandTranslations });
+  }
+};
+
 export const getStepI18n = async (
   stepI18nKey: string,
   stepI18nParams?: { id?: string },
@@ -33,17 +75,15 @@ export const getStepI18n = async (
   prefix = ""
 ) => {
   const tFunction = await i18Next.getFixedT("de", "all");
-  let key = prefix ? prefix + "." + stepI18nKey : stepI18nKey;
-  if (
-    [
-      "grundstueck.bodenrichtwertInfo",
-      "grundstueck.bodenrichtwertAnzahl",
-    ].includes(stepI18nKey)
-  ) {
-    key = `${stepI18nKey}.${bundesland.toLowerCase()}`;
-  }
+  const stepTranslations = getStepSpecificI18n(
+    tFunction,
+    stepI18nKey,
+    stepI18nParams,
+    bundesland,
+    prefix
+  );
   return {
-    ...tFunction(key, stepI18nParams),
+    ...stepTranslations,
     common: { ...tFunction("common") },
   } as I18nObject;
 };

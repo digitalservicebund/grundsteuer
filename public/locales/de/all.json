@@ -1167,8 +1167,6 @@
         }
       },
       "bb": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "nextButtonLabel": "Weiter",
         "specifics": {
           "explanation": "",
           "portalUrl": "https://informationsportal-grundstuecksdaten.brandenburg.de",
@@ -1176,8 +1174,6 @@
         }
       },
       "be": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "nextButtonLabel": "Weiter",
         "specifics": {
           "explanation": "Klicken sie auf den Link und geben Sie ihre Grundstücksadresse in der externen Seite ein. Auf einer Karte können Sie den Bodenrichtwert ablesen.",
           "portalUrl": "https://fbinter.stadt-berlin.de/boris/",
@@ -1185,8 +1181,6 @@
         }
       },
       "hb": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "nextButtonLabel": "Weiter",
         "specifics": {
           "explanation": "Klicken sie auf den Link, der Sie zum Bodenrichtwert-Portal Bremen führt. Geben Sie dort Ihre Grundstücksadresse ein. Auf einer Karte können Sie den Bodenrichtwert ablesen. Nutzen Sie bei Bedarf unsere Schritt-für-Schritt Anleitung.",
           "portalUrl": "https://immobilienmarkt.niedersachsen.de/bodenrichtwerte?teilmarkt=Bauland&stichtag=2022-01-01&zoom=7.00",
@@ -1195,8 +1189,6 @@
         }
       },
       "mv": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "nextButtonLabel": "Weiter",
         "specifics": {
           "explanation": "",
           "portalUrl": "https://www.geodaten-mv.de/grundsteuerdaten/",
@@ -1204,8 +1196,6 @@
         }
       },
       "nw": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "nextButtonLabel": "Weiter",
         "specifics": {
           "explanation": "",
           "portalUrl": "https://grundsteuer-geodaten.nrw.de/",
@@ -1213,8 +1203,6 @@
         }
       },
       "rp": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "nextButtonLabel": "Weiter",
         "specifics": {
           "explanation": "",
           "portalUrl": "https://maps.rlp.de/",
@@ -1222,8 +1210,6 @@
         }
       },
       "sh": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "nextButtonLabel": "Weiter",
         "specifics": {
           "explanation": "",
           "portalUrl": "https://danord.gdi-sh.de/viewer/resources/apps/bodenrichtwertefuergrundsteuerzweckesh",
@@ -1231,8 +1217,6 @@
         }
       },
       "sl": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "nextButtonLabel": "Weiter",
         "specifics": {
           "explanation": "",
           "portalUrl": "https://geoportal.saarland.de/Grundsteuer/",
@@ -1240,8 +1224,6 @@
         }
       },
       "sn": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "nextButtonLabel": "Weiter",
         "specifics": {
           "explanation": "",
           "portalUrl": "https://www.grundsteuer.sachsen.de",
@@ -1249,8 +1231,6 @@
         }
       },
       "st": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "nextButtonLabel": "Weiter",
         "specifics": {
           "explanation": "",
           "portalUrl": "https://www.grundsteuerdaten.sachsen-anhalt.de/",
@@ -1258,8 +1238,6 @@
         }
       },
       "th": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "nextButtonLabel": "Weiter",
         "specifics": {
           "explanation": "",
           "portalUrl": "https://thueringenviewer.thueringen.de/thviewer/grundsteuer.html",
@@ -1281,7 +1259,7 @@
     },
     "bodenrichtwertAnzahl": {
       "default": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "headline": "Wie viele Bodenrichtwerte hat Ihr Grundstück?",
         "fields": {
           "anzahl": {
             "options": {
@@ -1296,170 +1274,37 @@
         }
       },
       "bb": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "anzahl": {
-            "options": {
-              "1": {
-                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-              },
-              "2": {
-                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-              }
-            }
-          }
-        }
+        "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
       },
       "be": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus.",
-        "fields": {
-          "anzahl": {
-            "options": {
-              "1": {
-                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-              },
-              "2": {
-                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-              }
-            }
-          }
-        }
+        "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
       },
       "hb": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "anzahl": {
-            "options": {
-              "1": {
-                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-              },
-              "2": {
-                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-              }
-            }
-          }
-        }
+        "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
       },
       "mv": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "anzahl": {
-            "options": {
-              "1": {
-                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-              },
-              "2": {
-                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-              }
-            }
-          }
-        }
+        "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
       },
       "nw": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "anzahl": {
-            "options": {
-              "1": {
-                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-              },
-              "2": {
-                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-              }
-            }
-          }
-        }
+        "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
       },
       "rp": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "anzahl": {
-            "options": {
-              "1": {
-                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-              },
-              "2": {
-                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-              }
-            }
-          }
-        }
+        "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
       },
       "sh": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "anzahl": {
-            "options": {
-              "1": {
-                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-              },
-              "2": {
-                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-              }
-            }
-          }
-        }
+        "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
       },
       "sl": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "anzahl": {
-            "options": {
-              "1": {
-                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-              },
-              "2": {
-                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-              }
-            }
-          }
-        }
+        "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
       },
       "sn": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "anzahl": {
-            "options": {
-              "1": {
-                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-              },
-              "2": {
-                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-              }
-            }
-          }
-        }
+        "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
       },
       "st": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "anzahl": {
-            "options": {
-              "1": {
-                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-              },
-              "2": {
-                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-              }
-            }
-          }
-        }
+        "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
       },
       "th": {
-        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "fields": {
-          "anzahl": {
-            "options": {
-              "1": {
-                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
-              },
-              "2": {
-                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
-              }
-            }
-          }
-        }
+        "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
       }
     }
   },

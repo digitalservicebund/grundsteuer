@@ -231,8 +231,10 @@ describe("Happy Path", () => {
     cy.contains("h1", "Bodenrichtwert");
     cy.get(submitBtnSelector).click();
     cy.url().should("include", "/formular/grundstueck/bodenrichtwertAnzahl");
+    cy.contains("legend", "Wie viele Bodenrichtwerte");
     cy.get("label[for=anzahl-1]").click();
     cy.get(submitBtnSelector).click();
+    cy.contains("h1", "Geben Sie den Bodenrichtwert");
     cy.url().should("include", "/formular/grundstueck/bodenrichtwertEingabe");
     cy.get("#bodenrichtwert")
       .clear()
