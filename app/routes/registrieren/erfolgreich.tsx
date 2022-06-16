@@ -1,10 +1,12 @@
 import { MetaFunction } from "@remix-run/node";
+import { Link } from "@remix-run/react";
 import {
   BreadcrumbNavigation,
   ContentContainer,
   Headline,
   IntroText,
   UserLayout,
+  SubHeadline,
   SuccessPageLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
@@ -19,15 +21,19 @@ export default function RegistrierenErfolgreich() {
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         <SuccessPageLayout>
-          <Headline>Konto erfolgreich erstellt.</Headline>
-          <IntroText>
-            Sie haben erfolgreich ein Konto erstellt. Merken Sie sich bitte die
-            verwendete E-Mail-Adresse.
+          <Headline>Wir haben Ihnen eine E-Mail gesendet.</Headline>
+          <IntroText className="mb-80">
+            Bitte schauen Sie in Ihr E-Mail Postfach und klicken Sie auf den
+            Link in der E-Mail. Damit werden Sie angemeldet.
           </IntroText>
-          <IntroText className="!mb-80">
-            Wir haben Ihnen eine E-Mail gesendet.
-            <br />
-            Bitte klicken Sie auf den Anmeldelink in der E-Mail.
+          <SubHeadline>Sie haben keine E-Mail erhalten?</SubHeadline>
+          <IntroText>
+            Bitte warten Sie 5 Minuten oder schauen Sie im Spam-Ordner Ihres
+            Postfachs nach. Oder versuchen Sie es{" "}
+            <Link to="/registrieren" className="font-bold underline">
+              erneut
+            </Link>
+            .
           </IntroText>
         </SuccessPageLayout>
       </ContentContainer>
