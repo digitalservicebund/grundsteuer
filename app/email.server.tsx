@@ -60,7 +60,7 @@ export const sendMagicLinkEmail: SendEmailFunction<SessionUser> = async (
 
   const textContent = [
     "Hallo!",
-    "Mit dieser E-Mail-Adresse wurde eine Anmeldung bei Grundsteuererklärung für Privateigentum angefordert. Wenn Sie das waren und sich nun anmelden möchten, klicken Sie bitte auf diesen Link:",
+    "Mit dieser E-Mail-Adresse wurde eine Anmeldung bei Grundsteuererklärung für Privateigentum angefordert. Wenn Sie das waren und sich nun anmelden möchten, klicken Sie bitte auf diesen Link. Bitte achten Sie darauf, dass Sie den Link in dem gleichen Browser auf dem gleichen Gerät öffnen, in dem Sie auch den Login Link angefordert haben.",
     options.magicLink,
     "Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail einfach ignorieren.",
     "Vielen Dank!",
@@ -72,7 +72,9 @@ export const sendMagicLinkEmail: SendEmailFunction<SessionUser> = async (
       <p>
         Mit dieser E-Mail-Adresse wurde eine Anmeldung bei Grundsteuererklärung
         für Privateigentum angefordert. Wenn Sie das waren und sich nun anmelden
-        möchten, klicken Sie bitte auf diesen Link:
+        möchten, klicken Sie bitte auf den folgenden Link. Bitte achten Sie
+        darauf, dass Sie den Link in dem gleichen Browser auf dem gleichen Gerät
+        öffnen, in dem Sie auch den Login Link angefordert haben.
       </p>
       <p>
         <a href={options.magicLink}>Anmelden</a>
@@ -114,7 +116,7 @@ export const sendLoginAttemptEmail = async (options: {
         Mit dieser E-Mail-Adresse wurde eine Anmeldung bei Grundsteuererklärung
         für Privateigentum angefordert. Allerdings muss zuerst eine
         Registrierung durchgeführt werden. Bitte klicken Sie auf den Link, um
-        sich zu registrieren:
+        sich zu registrieren.
       </p>
       <p>
         <a href="https://www.grundsteuererklaerung-fuer-privateigentum.de/registrieren">
