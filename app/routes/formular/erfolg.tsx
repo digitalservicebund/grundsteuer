@@ -18,6 +18,7 @@ import { useLoaderData } from "@remix-run/react";
 import Download from "~/components/icons/mui/Download";
 import { ReactNode } from "react";
 import Hint from "~/components/Hint";
+import EnumeratedList from "~/components/EnumeratedList";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erklärung abgeschickt") };
@@ -75,22 +76,25 @@ export default function Erfolg() {
           </Headline>
 
           <h2 className="text-24 mb-16">Wie geht es jetzt weiter?</h2>
-          <p>
+          <p className="mb-32">
             Das Wichtigste: bis zum Jahr 2025 zahlen Sie noch die alte
             Grundsteuer.
           </p>
-          <ul className="list-disc ml-20 mb-48">
-            <li>Ihre Erklärung wird nun von Ihrem Finanzamt bearbeitet</li>
-            <li>
-              Zwischen 2022 und 2024 bekommen Sie <strong>drei Briefe</strong>:
-              <ul className="list-disc ml-20 mb-48">
-                <li>Grundsteuerwertbescheid</li>
-                <li>Grundsteuermessbescheid</li>
-                <li>den neuen Grundsteuerbescheid</li>
-              </ul>
-            </li>
-            <li>Ab 2025 zahlen Sie die neue Grundsteuer.</li>
-          </ul>
+          <EnumeratedList
+            items={[
+              "Ihre Erklärung wird nun von Ihrem Finanzamt bearbeitet",
+              <div>
+                Zwischen 2022 und 2024 bekommen Sie <strong>drei Briefe</strong>
+                :
+                <ul className="list-disc ml-20">
+                  <li>Grundsteuerwertbescheid</li>
+                  <li>Grundsteuermessbescheid</li>
+                  <li>den neuen Grundsteuerbescheid</li>
+                </ul>
+              </div>,
+              "Ab 2025 zahlen Sie die neue Grundsteuer.",
+            ]}
+          />
         </UebersichtStep>
       </ContentContainer>
       <ContentContainer size="lg">
