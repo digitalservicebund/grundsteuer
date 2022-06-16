@@ -31,8 +31,8 @@ export default function Footer() {
         </div>
       </div>
       <div className="px-16 md:px-32 lg:px-48">
-        <div className="md:flex md:justify-between md:items-center pt-16 md:pt-0">
-          <div className="flex items-center">
+        <div className="md:flex md:justify-between md:items-center gap-x-32 md:gap-x-64 pt-16">
+          <div className="flex items-center shrink-0 pb-16">
             <a
               href="https://www.bundesfinanzministerium.de"
               rel="noopener"
@@ -59,23 +59,42 @@ export default function Footer() {
             </a>
           </div>
 
-          <div className="flex flex-wrap pb-16">
+          <div className="flex flex-wrap pb-16 md:justify-end gap-x-14 md:gap-x-32">
             <Link
               to="/impressum"
-              className="mr-14 md:mr-32 block py-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
+              className="block pb-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
             >
               {t("footer.imprint")}
             </Link>
             <Link
+              to="/nutzungsbedingungen"
+              className="block pb-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
+            >
+              {t("footer.termsOfUse")}
+            </Link>
+            <Link
               to="/datenschutz"
-              className="mr-14 md:mr-32 block py-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
+              className="block pb-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
             >
               {t("footer.dataProtection")}
             </Link>
+            <Link
+              to="/barrierefreiheit"
+              className="block pb-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
+            >
+              {t("footer.accessibility")}
+            </Link>
+            <a
+              href="https://github.com/digitalservice4germany/grundsteuer"
+              target="_blank"
+              className="block pb-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
+            >
+              {t("footer.openSource")}
+            </a>
             <a
               href="https://digitalservice.bund.de/presse"
               target="_blank"
-              className="block py-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
+              className="block pb-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
             >
               {t("footer.press")}
             </a>
