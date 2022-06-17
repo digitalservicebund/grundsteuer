@@ -59,7 +59,7 @@ export default function Footer() {
             </a>
           </div>
 
-          <div className="flex flex-wrap pb-16 md:justify-end gap-x-14 md:gap-x-32">
+          <div className="flex flex-wrap pb-16 md:justify-end gap-x-14 md:gap-x-32 max-w-[700px]">
             <Link
               to="/impressum"
               className="block pb-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
