@@ -26,7 +26,7 @@ export default function Help(props: {
   }
   return (
     <details
-      className={"mt-10"}
+      className={"mt-6"}
       onToggle={() => setHelpExpanded(!helpExpanded)}
       data-testid="help-details"
     >
@@ -43,7 +43,7 @@ export default function Help(props: {
       >
         {summaryContent}
       </summary>
-      <div className={"bg-yellow-500 h-8 mt-8"} />
+      <div className={"bg-yellow-500 h-8 mt-6"} />
       <div className="bg-white py-32 px-24 mb-24">{children}</div>
     </details>
   );
