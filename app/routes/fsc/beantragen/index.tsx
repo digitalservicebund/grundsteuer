@@ -236,9 +236,8 @@ export default function FscBeantragen() {
 
         <IntroText>
           Nur mit einem Freischaltcode können Sie Ihre Grundsteuererklärung nach
-          Eingabe aller Daten absenden. Mit Eingabe des Codes bestätigen Sie
-          Ihre Identität, das heißt: Wir wissen, dass keine andere Person
-          widerrechtlich die Grundsteuererklärung abgibt.
+          Eingabe aller Daten absenden. Wir benötigen Ihre Steuernummer und
+          Geburtsdatum, um Sie eindeutig zu identifizieren.
         </IntroText>
 
         {showError && (

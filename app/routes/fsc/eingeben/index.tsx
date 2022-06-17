@@ -12,6 +12,7 @@ import {
   ContentContainer,
   FormGroup,
   Headline,
+  IntroText,
   Spinner,
 } from "~/components";
 import {
@@ -305,6 +306,10 @@ export default function FscEingeben() {
     <ContentContainer size="sm">
       <BreadcrumbNavigation />
       <Headline>Bitte geben Sie Ihren Freischaltcode ein</Headline>
+      <IntroText>
+        Ihren Freischaltcode finden Sie in dem Brief, den Sie von Ihrem
+        Finanzamt erhalten haben. Der Code steht auf der letzten Seite.
+      </IntroText>
 
       {showError && (
         <ErrorBar className="mb-32">

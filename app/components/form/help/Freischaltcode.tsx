@@ -15,10 +15,10 @@ const FreischaltcodeHelp: HelpComponentFunction = () => {
         {
           type: "paragraph",
           value: (
-            <p>
+            <span>
               Der Freischaltcode besteht immer aus 12 Zeichen und sieht zum
               Beispiel so aus: <strong>A1B2-C3D4-E5F$</strong>.
-            </p>
+            </span>
           ),
         },
         {
