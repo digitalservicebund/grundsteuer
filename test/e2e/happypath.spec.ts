@@ -202,7 +202,7 @@ describe("Happy Path", () => {
     cy.get(`label[for=typ-${inputData.grundstueck.typ.typ}]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.contains("h1", "Wie lautet die Adresse des Grundstücks?");
+    cy.contains("h1", "Geben Sie die Adresse Ihres Grundstücks ein");
     cy.get("#strasse").clear().type(inputData.grundstueck.adresse.strasse);
     cy.get("#hausnummer")
       .clear()
