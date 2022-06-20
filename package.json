@@ -52,7 +52,6 @@
     "@xstate/graph": "^1.4.2",
     "@xstate/inspect": "^0.7.0",
     "@xstate/react": "^3.0.0",
-    "bcryptjs": "^2.4.3",
     "classnames": "^2.3.1",
     "compression": "^1.7.4",
     "copy-to-clipboard": "^3.3.1",
