@@ -3,8 +3,8 @@ import { StepDefinition } from "~/domain/steps";
 export type NameFields = {
   anrede: "no_anrede" | "frau" | "herr";
   titel: string;
-  name: string;
   vorname: string;
+  name: string;
 };
 
 export const stepDefinition: StepDefinition = {
@@ -24,7 +24,7 @@ export const stepDefinition: StepDefinition = {
         },
       },
     },
-    name: {
+    vorname: {
       validations: {
         required: {},
         maxLength: {
@@ -33,7 +33,7 @@ export const stepDefinition: StepDefinition = {
         },
       },
     },
-    vorname: {
+    name: {
       validations: {
         required: {},
         maxLength: {

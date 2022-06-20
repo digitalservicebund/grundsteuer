@@ -1,8 +1,8 @@
 import { StepComponentFunction } from "~/routes/formular/_step";
-import { ContentContainer, StepFormFields } from "~/components";
-import { Trans } from "react-i18next";
+import { Button, ContentContainer, StepFormFields } from "~/components";
 import Person from "~/components/icons/mui/Person";
 import House from "~/components/icons/mui/House";
+import ArrowRight from "~/components/icons/mui/ArrowRight";
 
 const constructBruchteilsgemeinschaftName = (
   strasse: string,
@@ -24,13 +24,10 @@ const Bruchteilsgemeinschaft: StepComponentFunction = ({
 
   return (
     <ContentContainer size="sm-md">
-      <p className="mb-16">{i18n.specifics.explanation}</p>
-      <h2 className="text-20">{i18n.specifics.subheading}</h2>
-
-      <div className="bg-gray-300 p-16 mb-8">
+      <div className="bg-white p-16 mb-8">
         <div className="mb-8">
           <Person height="25px" width="25px" className="inline-block mr-8" />
-          <h3 className="font-bold inline-block">
+          <h3 className="font-bold inline-block uppercase text-11">
             {i18n.specifics.nameHeading}
           </h3>
         </div>
@@ -43,26 +40,23 @@ const Bruchteilsgemeinschaft: StepComponentFunction = ({
           </p>
         )}
         {!grundstueckAdresseData && (
-          <p>
-            <Trans
-              components={{
-                grundstueckAdresseLink: (
-                  <a
-                    href="/formular/grundstueck/adresse"
-                    className="underline"
-                  />
-                ),
-              }}
+          <>
+            <p className="mb-16 text-18">{i18n.specifics.nameMissing}</p>
+            <Button
+              look="tertiary"
+              size="medium"
+              href="/formular/grundstueck/adresse"
+              icon={<ArrowRight />}
             >
-              {i18n.specifics.nameMissing}
-            </Trans>
-          </p>
+              {i18n.specifics.grundstueckAdresseLinkText}
+            </Button>
+          </>
         )}
       </div>
-      <div className="bg-gray-300 p-16 mb-32">
+      <div className="bg-white p-16 mb-32">
         <div className="mb-8">
           <House height="25px" width="25px" className="inline-block mr-8" />
-          <h3 className="font-bold inline-block">
+          <h3 className="font-bold inline-block uppercase text-11">
             {i18n.specifics.adresseHeading}
           </h3>
         </div>
@@ -76,20 +70,17 @@ const Bruchteilsgemeinschaft: StepComponentFunction = ({
           </p>
         )}
         {!eigentuemer1AdresseData && (
-          <p>
-            <Trans
-              components={{
-                eigentuemerAdresseLink: (
-                  <a
-                    href="/formular/eigentuemer/person/1/adresse"
-                    className="underline"
-                  />
-                ),
-              }}
+          <>
+            <p className="mb-16 text-18">{i18n.specifics.adresseMissing}</p>
+            <Button
+              look="tertiary"
+              size="medium"
+              href="/formular/eigentuemer/person/1/adresse"
+              icon={<ArrowRight />}
             >
-              {i18n.specifics.adresseMissing}
-            </Trans>
-          </p>
+              {i18n.specifics.eigentuemerAdresseLinkText}
+            </Button>
+          </>
         )}
       </div>
       <div className="mb-8">

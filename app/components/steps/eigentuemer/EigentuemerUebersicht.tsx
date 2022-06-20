@@ -11,12 +11,12 @@ const EigentuemerUebersicht: StepComponentFunction = () => {
         imageSrc={eigentuemerUebersicht}
         smallImageSrc={eigentuemerUebersichtSmall}
       >
-        <p className="mb-32">
-          In diesem Abschnitt dreht sich alles um Sie: die Eigentümer:in (oder
-          Eigentümer:innen).
+        <p className="mb-32 font-bold">
+          In diesem Abschnitt dreht sich alles um Sie als Eigentümer:in des
+          Grundstücks.
         </p>
 
-        <p>Wir fragen Sie auf den folgenden Seiten nach diesen Angaben:</p>
+        <p>Wir fragen Sie auf den nächsten Seiten nach:</p>
         <ul className="mb-32 ml-[15px] list-disc">
           <li>Anzahl der Eigentümer:innen des Grundstücks</li>
           <li>Kontaktdaten der Eigentümer:innen</li>

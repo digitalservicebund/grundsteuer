@@ -116,7 +116,7 @@
     "yearInFuture": "Das Jahr muss in der Zukunft liegen",
     "yearInPast": "Das Jahr muss in der Vergangenheit liegen",
     "dateInPast": "Das Datum muss in der Vergangenheit liegen",
-    "uniqueSteuerId": "Steueridentifikationsnummern sind spezifisch für eine Person und dürfen nicht für mehrere Personen verwendet werden",
+    "uniqueSteuerId": "Steuer-Identifikationsnummern sind spezifisch für eine Person und dürfen nicht für mehrere Personen verwendet werden",
     "steuerId": {
       "wrongLength": "Die Steuer-Identifikationsnummer ist genau 11-stellig. Bitte überprüfen Sie Ihre Eingabe.",
       "onlyNumbers": "Die Steuer-Identifikationsnummer besteht nur aus Zahlen. Bitte überprüfen Sie Ihre Eingabe."
@@ -607,28 +607,47 @@
   },
   "eigentuemer": {
     "uebersicht": {
-      "headline": "Eigentümer:innen",
+      "headline": "Bereich: Eigentümer:in",
       "nextButtonLabel": "Los geht's"
     },
     "anzahl": {
-      "headline": "Wie viele Eigentümer:innen hat das Grundstück?",
+      "headline": "Wie viele Eigentümer:innen hat das Gründstück/die Eigentumswohnung?",
+      "hint": "Wir decken nur die geteilte Erbengemeinschaft ab, das bedeutet die Eigentümer:innen sind im Grundbuch namentlich vermerkt und haben einen eignen Miteigentumsanteil am Grundstück. Wenn dies nicht auf Ihre Erbengemeinschaft zutrifft, geben Sie die Grundsteuererklärung bitte über ELSTER ab.",
       "fields": {
         "anzahl": {
-          "label": "Anzahl"
+          "label": "Anzahl Eigentümer:innen",
+          "options": {
+            "1": {
+              "label": "1 Eigentümer:in"
+            },
+            "2": {
+              "label": "2 Eigentümer:innen"
+            },
+            "3": {
+              "label": "3 Eigentümer:innen"
+            },
+            "4": {
+              "label": "4 Eigentümer:innen"
+            },
+            "5": {
+              "label": "5 Eigentümer:innen"
+            }
+          }
         }
       }
     },
     "verheiratet": {
-      "headline": "Sind die Eigentümer:innen verheiratet?",
+      "headline": "Welcher Beziehungsstatus trifft auf die Eigentümer:innen zu?",
+      "description": "Wenn die Eigentümer:innen verheiratet sind oder in einer eingetragenen Lebenspartnerschaft leben, wird nur ein Steuerbescheid versendet. Wenn dies nicht der Fall ist, erhalten jeweils beide Eigentümer:innen einen Bescheid.",
       "fields": {
         "areVerheiratet": {
           "options": {
             "true": {
-              "label": "Ja, die Eigentümer:innen sind verheiratet",
+              "label": "Die Eigentümer:innen sind verheiratet / in eingetragener Lebenspartnerschaft",
               "help": "Bei in einem Haushalt lebenden Ehepaaren wird nur ein Steuerbescheid ein die gemeinsame Adresse versendet. Steuerlich hat das keine Auswirkungen."
             },
             "false": {
-              "label": "Nein, die Eigentümer:innen sind nicht verheiratet"
+              "label": "Die Eigentümer:innen sind nicht verheiratet oder leben dauernd getrennt."
             }
           }
         }
@@ -636,7 +655,7 @@
     },
     "person": {
       "persoenlicheAngaben": {
-        "headline": "Persönliche Angaben Person {{id}}",
+        "headline": "Wie lauten die persönlichen Daten von Eigentümer:in {{id}}?",
         "fields": {
           "anrede": {
             "label": "Anrede",
@@ -653,62 +672,66 @@
             }
           },
           "titel": {
-            "label": "Titel"
-          },
-          "name": {
-            "label": "Name"
+            "label": "Titel (Optional)"
           },
           "vorname": {
             "label": "Vorname"
           },
+          "name": {
+            "label": "Name"
+          },
           "geburtsdatum": {
-            "label": "Geburtsdatum"
+            "label": "Geburtsdatum",
+            "placeholder": "TT.MM.JJJJ"
           }
         }
       },
       "adresse": {
-        "headline": "Adresse Person {{id}}",
+        "headline": "Wie lautet die Adresse von Eigentümer:in {{id}}?",
+        "description": "Geben Sie hier die Adresse des jetzigen Wohnsitzes des Eigentümers oder der Eigentümerin an.",
         "fields": {
           "strasse": {
-            "label": "Straße / Lagebezeichnung"
+            "label": "Straße"
           },
           "hausnummer": {
-            "label": "Hausnummer (+Hausnummerzusatz)"
+            "label": "Hausnummer (+Hausnummerzusatz) (Optional)"
           },
           "postfach": {
-            "label": "Postfach"
+            "label": "Postfach (Optional)"
           },
           "plz": {
-            "label": "PLZ"
+            "label": "Postleitzahl"
           },
           "ort": {
             "label": "Ort"
           },
           "telefonnummer": {
-            "label": "Telefonnummer",
-            "help": "Das Finanzamt benötigt die Telefonnummer für eventuelle Rückfragen."
+            "label": "Telefonnummer (Optional)",
+            "placeholder": "0150 111 111 11"
           }
         }
       },
       "steuerId": {
-        "headline": "Steuer-ID Person {{id}}",
+        "headline": "Wie lautet die Steuer-Identifikationsnummer von Eigentümer:in {{id}}?",
+        "description": "Schauen Sie dafür auf Ihren letzten Einkommensteuerbescheid oder suchen Sie in Ihren Unterlagen nach einem Brief vom Bundeszentralamt für Steuern. Die 11-stellige Nummer steht oben rechts groß auf dem Brief.",
         "fields": {
           "steuerId": {
-            "label": "Steuer-ID",
-            "placeholder": "99 999 999 999"
+            "label": "Steuer-Identifikationsnummer",
+            "placeholder": "11 111 111 111"
           }
         }
       },
       "gesetzlicherVertreter": {
-        "headline": "Gesetzlicher Vertreter Person {{id}}",
+        "headline": "Möchten Sie eine gesetzliche Vertretung für Eigentümer:in {{id}} angeben?",
+        "description": "Eine gesetzliche Vertretung ist eine Person, die per Gesetz dazu berechtigt ist, für den oder die Eigentümer:in Entscheidungen zu treffen. Zum Beispiel sind die Eltern eines minderjährigen Kindes in der Regel seine gesetzlichen Vertreter.",
         "fields": {
           "hasVertreter": {
             "options": {
               "true": {
-                "label": "Ja, ich möchte einen ges. Vetreter angeben"
+                "label": "Ja, ich möchte eine gesetzliche Vertretung angeben"
               },
               "false": {
-                "label": "Nein, ich möchte keinen ges. Vetreter angeben"
+                "label": "Nein, ich möchte keine gesetzliche Vertretung angeben"
               }
             }
           }
@@ -716,7 +739,7 @@
       },
       "vertreter": {
         "name": {
-          "headline": "Gesetzlicher Vertreter Person {{id}} - Name",
+          "headline": "Geben Sie bitte die persönlichen Daten der gesetzlichen Vertretung ein",
           "fields": {
             "anrede": {
               "label": "Anrede",
@@ -733,43 +756,43 @@
               }
             },
             "titel": {
-              "label": "Titel"
-            },
-            "name": {
-              "label": "Name"
+              "label": "Titel (Optional)"
             },
             "vorname": {
               "label": "Vorname"
+            },
+            "name": {
+              "label": "Name"
             }
           }
         },
         "adresse": {
-          "headline": "Gesetzlicher Vertreter Person {{id}} - Adresse",
+          "headline": "Wie lautet die Adresse der gesetzlichen Vertretung?",
           "fields": {
             "strasse": {
-              "label": "Straße / Lagebezeichnung"
+              "label": "Straße"
             },
             "hausnummer": {
-              "label": "Hausnummer (+Hausnummerzusatz)"
+              "label": "Hausnummer (+Hausnummerzusatz) (Optional)"
             },
             "postfach": {
-              "label": "Postfach"
+              "label": "Postfach (Optional)"
             },
             "plz": {
-              "label": "PLZ"
+              "label": "Postleitzahl"
             },
             "ort": {
               "label": "Ort"
             },
             "telefonnummer": {
-              "label": "Telefonnummer",
-              "help": "Das Finanzamt benötigt die Telefonnummer für eventuelle Rückfragen."
+              "label": "Telefonnummer (Optional)"
             }
           }
         }
       },
       "anteil": {
-        "headline": "Wie hoch ist der Anteil am Gründstück von Person {{id}}?",
+        "headline": "Wie hoch ist der Anteil am Grundstück von Eigentümer:in {{id}}?",
+        "description": "Wenn Sie das Grundstück mit einer anderen Person erworben haben, teilen Sie sich die Anteile der Grundstücksfläche. Den Anteil am Grundstück finden Sie auf einer Seite im Grundbuch unter den Angaben der einzelnen Eigentümer:innen",
         "fields": {
           "zaehler": {
             "label": "Zähler"
@@ -781,7 +804,8 @@
       }
     },
     "bruchteilsgemeinschaft": {
-      "headline": "Sie sind eine sogenannte Bruchteilsgemeinschaft. Bitte überprüfen Sie die Angaben.",
+      "headline": "Sie sind eine Bruchteilsgemeinschaft. Stimmen die Angaben?",
+      "description": "Auf Basis Ihrer Angaben haben wir ermittelt, dass Sie steuerrechtlich eine sogenannte Bruchteilsgemeinschaft darstellen. Das hat keine Auswirkungen auf Ihre Grundsteuer. Wir haben unten einen Vorschlag für einen Namen und Adresse, die Sie  für das Finanzamt übernehmen können.",
       "fields": {
         "predefinedData": {
           "options": {
@@ -795,12 +819,12 @@
         }
       },
       "specifics": {
-        "explanation": "Auf Basis Ihrer Angaben haben wir ermittelt, dass es sich in Ihrem Fall um eine Bruchteilsgemeinschaft handelt. Wir haben unten einen Vorschlag für den Namen und die Adresse gemacht, den Sie übernehmen oder ändern können.",
-        "subheading": "Angaben zur Bruchteilsgemeinschaft",
         "nameHeading": "Name der Bruchteilsgemeinschaft",
-        "nameMissing": "Bitte geben Sie die Adresse des Grundstücks an. Gehe zu -> Link zu <grundstueckAdresseLink>Grundstück Adresse</grundstueckAdresseLink>",
+        "nameMissing": "Bitte geben Sie die Adresse des Grundstücks an.",
+        "grundstueckAdresseLinkText": "Zurück zur Grundstück Adresse",
+        "eigentuemerAdresseLinkText": "Zurück zu Eigentümer:in 1",
         "adresseHeading": "Adresse der Bruchteilsgemeinschaft",
-        "adresseMissing": "Bitte füllen Sie die Adresse von Eigentümer:in 1 aus. Gehe zu -> Link zu <eigentuemerAdresseLink>Eigentümer:in 1</eigentuemerAdresseLink>"
+        "adresseMissing": "Bitte füllen Sie die Adresse von Eigentümer:in 1 aus."
       },
       "help": {
         "whatHeadline": "Was ist eine Bruchteilsgemeinschaft?",
@@ -821,18 +845,20 @@
     "bruchteilsgemeinschaftangaben": {
       "angaben": {
         "headline": "Wie lauten die Angaben Ihrer Bruchteilsgemeinschaft?",
+        "description": "Sie können hier den Namen und die Adresse für Ihre Bruchteilsgemeinschaft manuell festlegen.",
         "fields": {
           "name": {
-            "label": ""
+            "label": "Name der Bruchteilsgemeinschaft",
+            "placeholder": "Bruchteilsgemeinschaft Schneider und Schubert"
           },
           "strasse": {
             "label": "Straße"
           },
           "hausnummer": {
-            "label": "Hausnummer (+Hausnummerzusatz)"
+            "label": "Hausnummer + (Hausnummerzusatz) (Optional)"
           },
           "postfach": {
-            "label": "Postfach (falls vorhanden)"
+            "label": "Postfach (Optional)"
           },
           "plz": {
             "label": "Postleitzahl"
@@ -840,15 +866,12 @@
           "ort": {
             "label": "Ort"
           }
-        },
-        "specifics": {
-          "subHeadingName": "Name der Bruchteilsgemeinschaft",
-          "subHeadingAdresse": "Adresse der Bruchteilsgemeinschaft"
         }
       }
     },
     "empfangsvollmacht": {
-      "headline": "Soll es eine empfangsberechtigte Person geben, an die die Bescheide zugestellt werden sollen? ",
+      "headline": "Möchten Sie eine empfangs-bevollmächtigte Person angeben?",
+      "description": "An diese Person sendet das Finanzamt die Bescheide Grundsteuerwert- und Grundsteuermessbescheid. Der eigentliche Grundsteuerbescheid wird von der Gemeinde ausgestellt.",
       "fields": {
         "hasEmpfangsvollmacht": {
           "options": {
@@ -864,7 +887,7 @@
     },
     "empfangsbevollmaechtigter": {
       "name": {
-        "headline": "Stammdaten empfangsbevollmächtigte Person",
+        "headline": "Wie lauten die persönlichen Daten der empfangsbevollmächtigten Person?",
         "fields": {
           "anrede": {
             "label": "Anrede",
@@ -881,13 +904,13 @@
             }
           },
           "titel": {
-            "label": "Titel"
-          },
-          "name": {
-            "label": "Name"
+            "label": "Titel (Optional)"
           },
           "vorname": {
             "label": "Vorname"
+          },
+          "name": {
+            "label": "Name"
           }
         },
         "help": {
@@ -898,32 +921,33 @@
         }
       },
       "adresse": {
-        "headline": "Adresse empfangsbevollmächtigte Person",
+        "headline": "Wie lautet die Adresse der empfangsbevollmächtigten Person?",
         "fields": {
           "strasse": {
-            "label": "Straße / Lagebezeichnung"
+            "label": "Straße"
           },
           "hausnummer": {
-            "label": "Hausnummer (+Hausnummerzusatz)"
+            "label": "Hausnummer + (Hausnummerzusatz) (Optional)"
           },
           "postfach": {
             "label": "Postfach"
           },
           "plz": {
-            "label": "PLZ"
+            "label": "Postleitzahl"
           },
           "ort": {
             "label": "Ort"
           },
           "telefonnummer": {
-            "label": "Telefonnummer",
-            "help": "Das Finanzamt benötigt die Telefonnummer für eventuelle Rückfragen."
+            "label": "Telefonnummer"
           }
         }
       }
     },
     "abschluss": {
-      "headline": "Super, Sie sind fast fertig!"
+      "headline": "Super, Sie sind fast fertig!",
+      "description": "Bevor Sie Ihre Grundsteuererklärung an das Finanzamt übermitteln, überprüfen Sie bitte Ihre Angaben auf der nächsten Seite.",
+      "nextButtonLabel": "Zur Übersicht"
     }
   },
   "grundstueck": {

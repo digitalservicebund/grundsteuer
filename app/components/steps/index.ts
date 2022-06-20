@@ -4,7 +4,6 @@ import FlurstueckFlur from "~/components/steps/grundstueck/flurstueck/Flurstueck
 import FlurstueckGroesse from "~/components/steps/grundstueck/flurstueck/FlurstueckGroesse";
 import FlurstueckMiteigentumsanteil from "~/components/steps/grundstueck/flurstueck/FlurstueckMiteigentumsanteil";
 import Bruchteilsgemeinschaft from "~/components/steps/eigentuemer/Bruchteilsgemeinschaft";
-import BruchteilsgemeinschaftAngaben from "~/components/steps/eigentuemer/bruchteilsgemeinschaftangaben/BruchteilsgemeinschaftAngaben";
 import Willkommen from "~/components/steps/Willkommen";
 import GrundstueckUebersicht from "~/components/steps/grundstueck/GrundstueckUebersicht";
 import GebaeudeUebersicht from "~/components/steps/gebaeude/GebaeudeUebersicht";
@@ -21,9 +20,6 @@ export default {
   eigentuemer: {
     uebersicht: EigentuemerUebersicht,
     bruchteilsgemeinschaft: Bruchteilsgemeinschaft,
-    bruchteilsgemeinschaftangaben: {
-      angaben: BruchteilsgemeinschaftAngaben,
-    },
     abschluss: EigentuemerAbschluss,
   },
   grundstueck: {
