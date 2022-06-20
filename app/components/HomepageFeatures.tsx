@@ -48,15 +48,24 @@ export default function HomepageFeatures() {
         headline={t("homepage.features.2.headline")}
         image={feature2Image}
       >
-        <p className="mb-24">
-          <Trans components={{ bold: <strong /> }}>
-            {t("homepage.features.2.text1")}
-          </Trans>
-        </p>
+        <p className="mb-24">{t("homepage.features.2.text1")}</p>
+        <ul className="mb-24 list-disc pl-24">
+          <li>
+            <Trans components={{ bold: <strong /> }}>
+              {t("homepage.features.2.listItem1")}
+            </Trans>
+          </li>
+          <li>
+            <Trans components={{ bold: <strong /> }}>
+              {t("homepage.features.2.listItem2")}
+            </Trans>
+          </li>
+          <li>{t("homepage.features.2.listItem3")}</li>
+        </ul>
         <p>{t("homepage.features.2.text2")}</p>
       </HomepageFeature>
       <HomepageFeature
-        headline={t("homepage.features.3.headline")}
+        headline={t("homepage.features.2.text2")}
         image={feature3Image}
       >
         <p className="mb-24">{t("homepage.features.3.text1")}</p>

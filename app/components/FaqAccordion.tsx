@@ -7,54 +7,231 @@ export default function FaqAccordion() {
       content: (
         <>
           <p className="mb-24">
-            Wenn Sie sich vorbereiten wollen, können Sie jetzt schon Folgendes
-            tun:
+            Für die Abgabe der Erklärung mit „Grundsteuererklärung für
+            Privateigentum“ benötigen Sie insbesondere folgende Angaben:
           </p>
           <ul className="pl-24 mb-24 list-disc">
+            <li>Größe des Grundstücks</li>
             <li>
-              Suchen Sie in Ihren Unterlagen Ihren{" "}
-              <strong>Grundbuchauszug</strong> heraus. Falls sie ihn nicht
-              haben, können Sie ihn in Ihrem Grundbuchamt beantragen. Der
-              Grundbuchauszug ist für die Grundsteuererklärung äußerst
-              hilfreich.
+              Grundbuchblattnummer (falls zur Hand), Gemarkung, Flur, Flurstück
             </li>
             <li>
-              Folgende Unterlagen können das Ausfüllen erleichtern: der letzte{" "}
-              <strong>Einheitswertbescheid</strong>, der{" "}
-              <strong>Kaufvertrag</strong> über das Grundstück, die{" "}
-              <strong>Bauunterlagen</strong> zu dem Gebäude und (soweit
-              vorhanden) das{" "}
-              <strong>
-                Informationsschreiben Ihrer Landesfinanzverwaltung
-              </strong>
-              .
+              <i>Für Eigentumswohnungen:</i> Miteigentumsanteil am Grundstück
             </li>
+            <li>Steuernummer / Aktenzeichen des Grundstücks</li>
+            <li>Bodenrichtwert</li>
+            <li>genaues Baujahr des Gebäudes (ab einem Baujahr von 1949)</li>
+            <li>Wohnfläche</li>
+            <li>Anzahl der Garagenstellplätze</li>
             <li>
-              Einige Länder bieten sog. Grundsteuerviewer über das Internet an,
-              mit denen Sie relevante Daten zu ihrem Grundstück erfahren können
-              (Grundstücksfläche, Bodenrichtwert usw.). Teilweise bieten diese
-              Seiten Ihnen eine Downloadfunktion mit den erforderlichen Daten zu
-              ihrem Grundstück in einem pdf-Format an.
+              Kontaktdaten der Eigentümer:innen und deren Anteile am Eigentum.
             </li>
           </ul>
           <p className="mb-24">
-            Für die Abgabe der Erklärung mit „Grundsteuererklärung für
-            Privateigentum“ benötigen Sie nur wenige Angaben, die Sie z. B. mit
-            Hilfe der vorgenannten Unterlagen zur Vorbereitung bereits jetzt
-            heraussuchen können. Sie benötigen insbesondere
+            Überprüfen Sie, welche Angaben Sie schon haben und was Ihnen noch
+            fehlt. Bitte reichen Sie keine Unterlagen mit Ihrer
+            Grundsteuererklärung ein. Sollte das Finanzamt Unterlagen von Ihnen
+            für die Prüfung benötigen, wird es diese bei Ihnen gesondert
+            anfordern. Bitte bewahren Sie daher vorhandene Unterlagen sorgfältig
+            auf.
+          </p>
+          <p className="mb-24">
+            Überprüfen Sie, welche Angaben Sie schon haben und was Ihnen noch
+            fehlt. Bitte reichen Sie keine Unterlagen mit Ihrer
+            Grundsteuererklärung ein. Sollte das Finanzamt Unterlagen von Ihnen
+            für die Prüfung benötigen, wird es diese bei Ihnen gesondert
+            anfordern. Bitte bewahren Sie daher vorhandene Unterlagen sorgfältig
+            auf.
+          </p>
+          <p className="mb-24">
+            Die Unterlagen und Quellen, die für das Ausfüllen der
+            Grundsteuererklärung hilfreich sind, unterscheiden sich nach dem
+            Bundesland, in dem Ihr Grundstück liegt. Mit einem Klick auf das
+            Bundesland gelangen Sie zu der jeweiligen Internetseite dieses
+            Bundeslandes, auf welcher Sie weitere Informationen zur
+            Grundsteuerreform finden.
           </p>
           <ul className="pl-24 list-disc">
-            <li>die Größe des Grundstücks,</li>
-            <li>den Bodenrichtwert,</li>
-            <li>die Wohnfläche,</li>
-            <li>das Baujahr des Gebäudes (ab 1949),</li>
-            <li>die Anzahl der Garagen- oder Tiefgaragenstellplätze,</li>
             <li>
-              falls das Gebäude verbindlich abgerissen werden muss, das Jahr der
-              Abbruchverpflichtung,
+              <b>
+                Grundstücke in{" "}
+                <a href={"https://www.berlin.de/grundsteuer"}>Berlin</a>
+              </b>
+              : Geoportal (
+              <a href={"https://fbinter.stadt-berlin.de/fb/index.jsp"}>
+                FIS-Broker
+              </a>
+              ), Bodenrichtwert vom BORIS-Portal, Grundbuchauszug, ggf.
+              Teilungserkärung bei Wohnungseigentum, Bauunterlagen /
+              Kauf-/Schenkungsvertrag (optional)
             </li>
             <li>
-              falls das Gebäude kernsaniert wurde, das Jahr der Kernsanierung.
+              <b>
+                Grundstücke in{" "}
+                <a href={"https://grundsteuer.brandenburg.de/"}>Brandenburg</a>
+              </b>
+              : Informationsschreiben des Landes, Grundstücksdaten aus dem{" "}
+              <a
+                href={
+                  "https://informationsportal-grundstuecksdaten.brandenburg.de/"
+                }
+              >
+                Geoviewer Brandenburg
+              </a>
+              , Grundbuchauszug (optional), ggf. Teilungserklärung bei
+              Wohnungseigentum, Einheitswertbescheid (optional), Bauunterlagen /
+              Kauf-/Schenkungsvertrag (optional){" "}
+            </li>
+            <li>
+              <b>
+                Grundstücke in{" "}
+                <a href={"http://www.grundsteuer.bremen.de/"}>Bremen</a>
+              </b>
+              : Informationsschreiben des Landes, Grundstücksdaten aus dem{" "}
+              <a href={"https://geoportal.bremen.de/flurstuecksviewer/"}>
+                Flurstücksviewer Bremen
+              </a>
+              , Bodenrichtwert vom{" "}
+              <a
+                href={
+                  "https://immobilienmarkt.niedersachsen.de/bodenrichtwerte?teilmarkt=Bauland&stichtag=2022-01-01&zoom=7.00"
+                }
+              >
+                Immobilienmarkt Niedersachsen
+              </a>
+              , Grundbuchauszug (optional), ggf. Teilungserklärung bei
+              Wohnungseigentum (optional), Bauunterlagen /
+              Kauf-/Schenkungsvertrag (optional){" "}
+            </li>
+            <li>
+              <b>
+                Grundstücke in{" "}
+                <a
+                  href={
+                    "https://www.steuerportal-mv.de/Steuerrecht/Rund-ums-Grundst%C3%BCck/Grundsteuerreform/"
+                  }
+                >
+                  Mecklenburg-Vorpommern
+                </a>
+              </b>
+              : Informationsschreiben des Landes, Grundstücksdaten aus dem{" "}
+              <a
+                href={
+                  "https://www.geodaten-mv.de/grundsteuerdaten/Karten/Grundvermoegen"
+                }
+              >
+                Geoviewer Mecklenburg-Vorpommern
+              </a>
+              , Grundbuchauszug (optional), ggf. Teilungserklärung bei
+              Wohnungseigentum, Bauunterlagen / Kauf-/Schenkungsvertrag
+              (optional)
+            </li>
+            <li>
+              <b>
+                Grundstücke in{" "}
+                <a href={"http://www.grundsteuer.nrw.de/"}>
+                  Nordrhein-Westfalen
+                </a>
+              </b>
+              : Informationsschreiben der Finanzämter inkl. beigefügtes
+              Datenstammblatt, Grundstücksdaten aus dem{" "}
+              <a href={"https://grundsteuer-geodaten.nrw.de/"}>
+                Grundsteuerportal (Geodatenportal)
+              </a>
+              , ggf. Teilungserklärung bei Wohnungseigentum oder
+              Kauf-/Schenkungsvertrag
+            </li>
+            <li>
+              <b>
+                Grundstücke in{" "}
+                <a href={"https://www.fin-rlp.de/grundsteuer"}>
+                  Rheinland-Pfalz
+                </a>
+              </b>
+              : Informationsschreiben des Landes inkl. beigefügtes
+              Datenstammblatt, Bodenrichtwerte in Rheinland-Pfalz aus dem{" "}
+              <a href={"https://www.maps.rlp.de"}>GeoBasisViewer</a>,
+              Bauunterlagen / Kauf-/Schenkungsvertrag (optional),{" "}
+            </li>
+            <li>
+              <b>
+                Grundstücke in{" "}
+                <a
+                  href={
+                    "https://www.saarland.de/mfe/DE/portale/steuernundfinanzaemter/Grundsteuerreform/Grundsteuerreform.html"
+                  }
+                >
+                  Saarland
+                </a>
+              </b>
+              : Informationsschreiben des Landes inkl. beigefügtes Datenblatt,
+              Grundstücksdaten aus dem Grundsteuerviewer im{" "}
+              <a href={"https://geoportal.saarland.de/Grundsteuer/"}>
+                Geoportal des Saarlandes
+              </a>
+              , Bauunterlagen / Kauf-/Schenkungsvertrag (optional)
+            </li>
+            <li>
+              <b>
+                Grundstücke in{" "}
+                <a href={"https://www.grundsteuer.sachsen.de/"}>Sachsen</a>
+              </b>
+              : Informationsschreiben des Landes, Grundstücksdaten und
+              Bodenrichtwert aus dem{" "}
+              <a
+                href={
+                  "https://www.finanzamt.sachsen.de/grundsteuerportal-sachsen-flurstuecksinformationen-11764.html"
+                }
+              >
+                Grundsteuerportal Sachsen
+              </a>
+              , ggf. Grundbuchauszug, Bauunterlagen / Kauf-/Schenkungsvertrag
+            </li>
+            <li>
+              <b>
+                Grundstücke in{" "}
+                <a href={"https://mf.sachsen-anhalt.de/steuern/grundsteuer/"}>
+                  Sachsen-Anhalt
+                </a>
+              </b>
+              : Informationsschreiben des Landes, Grundstücksdaten aus dem{" "}
+              <a href={"https://www.grundsteuerdaten.sachsen-anhalt.de/"}>
+                Grundsteuer-Viewer Sachsen-Anhalt
+              </a>
+              , Grundbuchauszug (optional), ggf. Teilungserklärung bei
+              Wohnungseigentum (optional), Bauunterlagen /
+              Kauf-/Schenkungsvertrag (optional)
+            </li>
+            <li>
+              <b>
+                Grundstücke in{" "}
+                <a href={"https://www.schleswig-holstein.de/grundsteuer"}>
+                  Schleswig-Holstein
+                </a>
+              </b>
+              : Informationsschreiben des Landes, Grundstücksdaten aus dem
+              Grundsteuerportal Schleswig-Holstein (noch in Entwicklung),
+              Grundbuchauszug (optional), ggf. Teilungserklärung bei
+              Wohnungseigentum, Bauunterlagen / Kauf-/Schenkungsvertrag
+              (optional)
+            </li>
+            <li>
+              <b>
+                Grundstücke in{" "}
+                <a href={"https://grundsteuer.thueringen.de/"}>Thüringen</a>
+              </b>
+              : Informationsschreiben des Landes einschließlich Beiblatt,
+              Grundstücksdaten aus dem{" "}
+              <a
+                href={
+                  "https://thueringenviewer.thueringen.de/thviewer/grundsteuer.html"
+                }
+              >
+                Grundsteuer Viewer Thüringen (Bereitstellung ab 1. Juli 2022)
+              </a>
+              , Grundbuchauszug (optional), ggf. Teilungserklärung bei
+              Wohnungseigentum (optional) Bauunterlagen /
+              Kauf-/Schenkungsvertrag (optional)
             </li>
           </ul>
         </>
