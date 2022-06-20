@@ -17,7 +17,7 @@ const EigentuemerUebersicht: StepComponentFunction = () => {
         </p>
 
         <p>Wir fragen Sie auf den nächsten Seiten nach:</p>
-        <ul className="mb-32 ml-[15px] list-disc">
+        <ul className="mb-32 ml-20 list-disc">
           <li>Anzahl der Eigentümer:innen des Grundstücks</li>
           <li>Kontaktdaten der Eigentümer:innen</li>
           <li>Gesetzliche Vertretung</li>

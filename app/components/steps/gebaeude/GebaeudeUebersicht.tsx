@@ -17,7 +17,7 @@ const GebaeudeUebersicht: StepComponentFunction = () => {
         </p>
 
         <p>Wir befragen Sie auf den folgenden Seiten zu diesen Themen:</p>
-        <ul className="mb-32 ml-[15px] list-disc">
+        <ul className="mb-32 ml-20 list-disc">
           <li>Baujahr</li>
           <li>Kernsanierung</li>
           <li>Größe der Wohnfläche</li>

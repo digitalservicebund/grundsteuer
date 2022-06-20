@@ -17,7 +17,7 @@ const GrundstueckUebersicht: StepComponentFunction = () => {
         </p>
 
         <p>Wir fragen Sie auf den folgenden Seiten nach diesen Angaben:</p>
-        <ul className="mb-32 ml-[15px] list-disc">
+        <ul className="mb-32 ml-20 list-disc">
           <li>Grundstücksadresse</li>
           <li>Steuernummer / Aktenzeichen</li>
           <li>Art des Grundstücks</li>

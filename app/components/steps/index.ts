@@ -12,6 +12,8 @@ import EigentuemerAbschluss from "~/components/steps/eigentuemer/EigentuemerAbsc
 import GrundstueckTyp from "~/components/steps/grundstueck/GrundstueckTyp";
 import BodenrichtwertAnzahl from "~/components/steps/grundstueck/BodenrichtwertAnzahl";
 import BodenrichtwertEingabe from "~/components/steps/grundstueck/BodenrichtwertEingabe";
+import Wohnflaeche from "~/components/steps/gebaeude/Wohnflaeche";
+import Wohnflaechen from "~/components/steps/gebaeude/Wohnflaechen";
 
 export { Default as FallbackStepComponent };
 
@@ -36,5 +38,7 @@ export default {
   },
   gebaeude: {
     uebersicht: GebaeudeUebersicht,
+    wohnflaeche: Wohnflaeche,
+    wohnflaechen: Wohnflaechen,
   },
 };

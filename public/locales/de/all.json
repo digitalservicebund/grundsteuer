@@ -469,45 +469,50 @@
       "nextButtonLabel": "Los geht's"
     },
     "ab1949": {
-      "headline": "Wann war das Gebäude bezugsfertig?",
+      "headline": "Wann wurde das Gebäude gebaut?",
+      "description": "Mit dem Baujahr ist das Jahr gemeint, in dem das Gebäude erstmals bezugsfertig wurde. Ein Gebäude ist bezugsfertig, sobald es bestimmungsgemäß genutzt werden kann. Eine Abnahme durch die Bauaufsichtsbehörde ist dabei nicht entscheidend.",
       "fields": {
         "isAb1949": {
           "options": {
             "false": {
-              "label": "Vor 1949 bezugsfertig"
+              "label": "Vor 1949"
             },
             "true": {
-              "label": "Ab 1949 bezugsfertig"
+              "label": "Ab 1949"
             }
           }
         }
       }
     },
     "baujahr": {
-      "headline": "In welchem Jahr wurde das Gebäude errichtet?",
+      "headline": "In welchem Jahr genau wurde das Gebäude gebaut?",
+      "description": "Wenn Sie Eigentümer:in eines Ein- oder Zweifamilienhauses sind, finden Sie das Baujahr zum Beispiel in Ihrem Kaufvertrag oder Ihren Bauunterlagen. Bei Eigentumswohnungen geben Sie das Baujahr des gesamten Mehrfamilienhauses an.",
       "fields": {
         "baujahr": {
-          "label": "Baujahr"
+          "label": "Baujahr",
+          "placeholder": "JJJJ"
         }
       }
     },
     "kernsaniert": {
       "headline": "Wurde das Gebäude kernsaniert?",
+      "description": "Kernsaniert wird relativ selten — meistens liegt eher eine Sanierung oder Modernisierung vor. Bei der Kernsaniserung eines Gebäudes wird alles bis auf die Grundmauern entfernt und komplett erneuert. Die Entfernung von Schimmel oder einen nassen Keller trocken legen, gilt hingegen als Sanierung.",
       "fields": {
         "isKernsaniert": {
           "options": {
             "false": {
-              "label": "Nein, das Haus wurde nicht kernsaniert"
+              "label": "Nein, das Gebäude wurde nicht kernsaniert"
             },
             "true": {
-              "label": "Ja, das Haus wurde kernsaniert"
+              "label": "Ja, das Gebäude wurde kernsaniert"
             }
           }
         }
       }
     },
     "kernsanierungsjahr": {
-      "headline": "In welchem Jahr wurde die Kernsanierung durchgeführt?",
+      "headline": "In welchem Jahr genau wurde das Gebäude kernsaniert?",
+      "description": "Hier handelt es sich um das Jahr, in dem die Kernsanierung abgeschlossen wurde. Wenn sich das Gebäude zum 01.01.2022 noch in der Kernsanierung befand, gehen Sie zurück und ändern Sie Ihre Auswahl bitte auf “Nein”.",
       "fields": {
         "kernsanierungsjahr": {
           "label": "Jahr der Kernsanierung",
@@ -516,7 +521,8 @@
       }
     },
     "abbruchverpflichtung": {
-      "headline": "Liegt eine Abbruchverpflichtung vor?",
+      "headline": "Liegt eine Abbruchverpflichtung für das Gebäude vor?",
+      "description": "Beispiele wären hier, wenn ein Gebäude nach einer Naturkatastrophe nicht mehr kernsaniert werden kann und eine Behörde den Abbruch angeordnet hat. In diesem Fall haben Sie ein Schreiben von der Behörde bekommen.",
       "fields": {
         "hasAbbruchverpflichtung": {
           "options": {
@@ -531,7 +537,8 @@
       }
     },
     "abbruchverpflichtungsjahr": {
-      "headline": "Für welches Jahr ist die Abbruchverpflichtung ausgestellt?",
+      "headline": "In welchem Jahr muss das Gebäude abgerissen werden?",
+      "description": "Schauen Sie dazu in Ihren Unterlagen nach. Eine Abbruchverpflichtung wird in der Regel behördlich angeordnet.",
       "fields": {
         "abbruchverpflichtungsjahr": {
           "label": "Jahr der Abbruchverpflichtung",
@@ -543,7 +550,7 @@
       "headline": "Wie groß ist die Wohnfläche in Ihrem Einfamilienhaus / Eigentumswohnung?",
       "fields": {
         "wohnflaeche": {
-          "label": "Wohnfläche in m²"
+          "label": "Wohnfläche in Quadratmetern"
         }
       }
     },
@@ -551,59 +558,62 @@
       "headline": "Wie groß sind die Wohnflächen in Ihrem Zweifamilienhaus?",
       "fields": {
         "wohnflaeche1": {
-          "label": "Wohnung 1 Wohnfläche in m²"
+          "label": "Wohnfläche in Quadratmetern"
         },
         "wohnflaeche2": {
-          "label": "Wohnung 2 Wohnfläche in m²"
+          "label": "Wohnfläche in Quadratmetern"
         }
       }
     },
     "weitereWohnraeume": {
-      "headline": "Haben Sie weitere Wonhräume wie z.B. Poolhaus oder ausgebaute Garage?",
+      "headline": "Haben Sie weitere Wohnräume?",
+      "description": "Hier geht es um Wohnraum, der außerhalb der Wohnung liegt, ausgebaut wurde und bewohnbar ist. Zum Beispiel ein Gästehaus oder eine zu Wohnzwecken ausgebaute Garage. Diese Wohnräume können ein Bad oder eine Küche haben — müssen sie aber nicht.",
       "fields": {
         "hasWeitereWohnraeume": {
           "options": {
             "false": {
-              "label": "Nein, es gehören keine weiteren Wohnräumen zum Gebäude"
+              "label": "Nein, es gibt keine weiteren ausgebauten Wohnräume außerhalb der Wohnung"
             },
             "true": {
-              "label": "Ja, es gibt weitere Wohnräume"
+              "label": "Ja, es gibt weitere ausgebaute Wohnräume außerhalb der Wohnung"
             }
           }
         }
       }
     },
     "weitereWohnraeumeDetails": {
-      "headline": "Bitte geben Sie die Anzahl und Gesamtfläche der weiteren Wohnräume ein",
+      "headline": "Wie viele weitere Wohnräume haben Sie und wie groß ist die Gesamtfläche?",
+      "description": "In der Regel sind die Größen der Wohnflächen im Grundriss, Kaufvertrag oder Bauunterlagen zu finden. Finden Sie diese Angaben nicht mehr, müssen Sie Ihre Wohnfläche neu vermessen.",
       "fields": {
         "anzahl": {
-          "label": "Anzahl"
+          "label": "Anzahl der Wohnräume"
         },
         "flaeche": {
-          "label": "Gesamtfläche in m²"
+          "label": "Gesamtfläche in Quadratmetern"
         }
       }
     },
     "garagen": {
-      "headline": "Gibt es Garagen, die zu Ihrer Wohneinheit gehören?",
+      "headline": "Gibt es einen oder mehrere Garagenstellplätze, die zu Ihrer Wohneinheit gehören?",
+      "description": "Hierunter fallen allgemein alle Garagen- und Tiefgaragenstellplätze. Nicht aber Carports und Stellplätze im Freien. Diese müssen nicht berücksichtigt werden. In der Regel findet man Angaben dazu im Kaufvertrag.",
       "fields": {
         "hasGaragen": {
           "options": {
             "false": {
-              "label": "Nein, es gehört keine Garage zum Gebäude / Wohneinheit"
+              "label": "Nein, es gibt keine Garagenstellplätze"
             },
             "true": {
-              "label": "Ja, es gehört eine Garage zum Gebäude / Wohneinheit"
+              "label": "Ja, es gibt einen oder mehrere Garagenstellplätze"
             }
           }
         }
       }
     },
     "garagenAnzahl": {
-      "headline": "Wieviele Garagen gehören zu Ihrem Gebäude / Wohneinheit",
+      "headline": "Wie viele Garagenstellplätze gehören zu Ihrem Gebäude / Ihrer Wohneinheit? ",
       "fields": {
         "anzahlGaragen": {
-          "label": "Bitte Anzahl manuell eingeben"
+          "label": "Anzahl der Garagenstellplätze"
         }
       }
     }
