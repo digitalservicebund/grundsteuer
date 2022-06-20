@@ -55,10 +55,22 @@ export default function FaqAccordion() {
             <li>
               <b>
                 Grundstücke in{" "}
-                <a href={"https://www.berlin.de/grundsteuer"}>Berlin</a>
+                <a
+                  href={"https://www.berlin.de/grundsteuer"}
+                  rel="noopener"
+                  target="_blank"
+                  className="text-blue-800 underline"
+                >
+                  Berlin
+                </a>
               </b>
               : Geoportal (
-              <a href={"https://fbinter.stadt-berlin.de/fb/index.jsp"}>
+              <a
+                href={"https://fbinter.stadt-berlin.de/fb/index.jsp"}
+                rel="noopener"
+                target="_blank"
+                className="text-blue-800 underline"
+              >
                 FIS-Broker
               </a>
               ), Bodenrichtwert vom BORIS-Portal, Grundbuchauszug, ggf.
@@ -68,13 +80,23 @@ export default function FaqAccordion() {
             <li>
               <b>
                 Grundstücke in{" "}
-                <a href={"https://grundsteuer.brandenburg.de/"}>Brandenburg</a>
+                <a
+                  href={"https://grundsteuer.brandenburg.de/"}
+                  rel="noopener"
+                  target="_blank"
+                  className="text-blue-800 underline"
+                >
+                  Brandenburg
+                </a>
               </b>
               : Informationsschreiben des Landes, Grundstücksdaten aus dem{" "}
               <a
                 href={
                   "https://informationsportal-grundstuecksdaten.brandenburg.de/"
                 }
+                rel="noopener"
+                target="_blank"
+                className="text-blue-800 underline"
               >
                 Geoviewer Brandenburg
               </a>
@@ -85,10 +107,22 @@ export default function FaqAccordion() {
             <li>
               <b>
                 Grundstücke in{" "}
-                <a href={"http://www.grundsteuer.bremen.de/"}>Bremen</a>
+                <a
+                  href={"http://www.grundsteuer.bremen.de/"}
+                  rel="noopener"
+                  target="_blank"
+                  className="text-blue-800 underline"
+                >
+                  Bremen
+                </a>
               </b>
               : Informationsschreiben des Landes, Grundstücksdaten aus dem{" "}
-              <a href={"https://geoportal.bremen.de/flurstuecksviewer/"}>
+              <a
+                href={"https://geoportal.bremen.de/flurstuecksviewer/"}
+                rel="noopener"
+                target="_blank"
+                className="text-blue-800 underline"
+              >
                 Flurstücksviewer Bremen
               </a>
               , Bodenrichtwert vom{" "}
@@ -96,6 +130,9 @@ export default function FaqAccordion() {
                 href={
                   "https://immobilienmarkt.niedersachsen.de/bodenrichtwerte?teilmarkt=Bauland&stichtag=2022-01-01&zoom=7.00"
                 }
+                rel="noopener"
+                target="_blank"
+                className="text-blue-800 underline"
               >
                 Immobilienmarkt Niedersachsen
               </a>
@@ -110,6 +147,9 @@ export default function FaqAccordion() {
                   href={
                     "https://www.steuerportal-mv.de/Steuerrecht/Rund-ums-Grundst%C3%BCck/Grundsteuerreform/"
                   }
+                  rel="noopener"
+                  target="_blank"
+                  className="text-blue-800 underline"
                 >
                   Mecklenburg-Vorpommern
                 </a>
@@ -119,6 +159,9 @@ export default function FaqAccordion() {
                 href={
                   "https://www.geodaten-mv.de/grundsteuerdaten/Karten/Grundvermoegen"
                 }
+                rel="noopener"
+                target="_blank"
+                className="text-blue-800 underline"
               >
                 Geoviewer Mecklenburg-Vorpommern
               </a>
@@ -129,13 +172,23 @@ export default function FaqAccordion() {
             <li>
               <b>
                 Grundstücke in{" "}
-                <a href={"http://www.grundsteuer.nrw.de/"}>
+                <a
+                  href={"http://www.grundsteuer.nrw.de/"}
+                  rel="noopener"
+                  target="_blank"
+                  className="text-blue-800 underline"
+                >
                   Nordrhein-Westfalen
                 </a>
               </b>
               : Informationsschreiben der Finanzämter inkl. beigefügtes
               Datenstammblatt, Grundstücksdaten aus dem{" "}
-              <a href={"https://grundsteuer-geodaten.nrw.de/"}>
+              <a
+                href={"https://grundsteuer-geodaten.nrw.de/"}
+                rel="noopener"
+                target="_blank"
+                className="text-blue-800 underline"
+              >
                 Grundsteuerportal (Geodatenportal)
               </a>
               , ggf. Teilungserklärung bei Wohnungseigentum oder
@@ -144,14 +197,26 @@ export default function FaqAccordion() {
             <li>
               <b>
                 Grundstücke in{" "}
-                <a href={"https://www.fin-rlp.de/grundsteuer"}>
+                <a
+                  href={"https://www.fin-rlp.de/grundsteuer"}
+                  rel="noopener"
+                  target="_blank"
+                  className="text-blue-800 underline"
+                >
                   Rheinland-Pfalz
                 </a>
               </b>
               : Informationsschreiben des Landes inkl. beigefügtes
               Datenstammblatt, Bodenrichtwerte in Rheinland-Pfalz aus dem{" "}
-              <a href={"https://www.maps.rlp.de"}>GeoBasisViewer</a>,
-              Bauunterlagen / Kauf-/Schenkungsvertrag (optional),{" "}
+              <a
+                href={"https://www.maps.rlp.de"}
+                rel="noopener"
+                target="_blank"
+                className="text-blue-800 underline"
+              >
+                GeoBasisViewer
+              </a>
+              , Bauunterlagen / Kauf-/Schenkungsvertrag (optional),{" "}
             </li>
             <li>
               <b>
@@ -160,13 +225,21 @@ export default function FaqAccordion() {
                   href={
                     "https://www.saarland.de/mfe/DE/portale/steuernundfinanzaemter/Grundsteuerreform/Grundsteuerreform.html"
                   }
+                  rel="noopener"
+                  target="_blank"
+                  className="text-blue-800 underline"
                 >
                   Saarland
                 </a>
               </b>
               : Informationsschreiben des Landes inkl. beigefügtes Datenblatt,
               Grundstücksdaten aus dem Grundsteuerviewer im{" "}
-              <a href={"https://geoportal.saarland.de/Grundsteuer/"}>
+              <a
+                href={"https://geoportal.saarland.de/Grundsteuer/"}
+                rel="noopener"
+                target="_blank"
+                className="text-blue-800 underline"
+              >
                 Geoportal des Saarlandes
               </a>
               , Bauunterlagen / Kauf-/Schenkungsvertrag (optional)
@@ -174,7 +247,14 @@ export default function FaqAccordion() {
             <li>
               <b>
                 Grundstücke in{" "}
-                <a href={"https://www.grundsteuer.sachsen.de/"}>Sachsen</a>
+                <a
+                  href={"https://www.grundsteuer.sachsen.de/"}
+                  rel="noopener"
+                  target="_blank"
+                  className="text-blue-800 underline"
+                >
+                  Sachsen
+                </a>
               </b>
               : Informationsschreiben des Landes, Grundstücksdaten und
               Bodenrichtwert aus dem{" "}
@@ -182,6 +262,9 @@ export default function FaqAccordion() {
                 href={
                   "https://www.finanzamt.sachsen.de/grundsteuerportal-sachsen-flurstuecksinformationen-11764.html"
                 }
+                rel="noopener"
+                target="_blank"
+                className="text-blue-800 underline"
               >
                 Grundsteuerportal Sachsen
               </a>
@@ -190,12 +273,22 @@ export default function FaqAccordion() {
             <li>
               <b>
                 Grundstücke in{" "}
-                <a href={"https://mf.sachsen-anhalt.de/steuern/grundsteuer/"}>
+                <a
+                  href={"https://mf.sachsen-anhalt.de/steuern/grundsteuer/"}
+                  rel="noopener"
+                  target="_blank"
+                  className="text-blue-800 underline"
+                >
                   Sachsen-Anhalt
                 </a>
               </b>
               : Informationsschreiben des Landes, Grundstücksdaten aus dem{" "}
-              <a href={"https://www.grundsteuerdaten.sachsen-anhalt.de/"}>
+              <a
+                href={"https://www.grundsteuerdaten.sachsen-anhalt.de/"}
+                rel="noopener"
+                target="_blank"
+                className="text-blue-800 underline"
+              >
                 Grundsteuer-Viewer Sachsen-Anhalt
               </a>
               , Grundbuchauszug (optional), ggf. Teilungserklärung bei
@@ -205,7 +298,12 @@ export default function FaqAccordion() {
             <li>
               <b>
                 Grundstücke in{" "}
-                <a href={"https://www.schleswig-holstein.de/grundsteuer"}>
+                <a
+                  href={"https://www.schleswig-holstein.de/grundsteuer"}
+                  rel="noopener"
+                  target="_blank"
+                  className="text-blue-800 underline"
+                >
                   Schleswig-Holstein
                 </a>
               </b>
@@ -218,7 +316,14 @@ export default function FaqAccordion() {
             <li>
               <b>
                 Grundstücke in{" "}
-                <a href={"https://grundsteuer.thueringen.de/"}>Thüringen</a>
+                <a
+                  href={"https://grundsteuer.thueringen.de/"}
+                  rel="noopener"
+                  target="_blank"
+                  className="text-blue-800 underline"
+                >
+                  Thüringen
+                </a>
               </b>
               : Informationsschreiben des Landes einschließlich Beiblatt,
               Grundstücksdaten aus dem{" "}
@@ -226,6 +331,9 @@ export default function FaqAccordion() {
                 href={
                   "https://thueringenviewer.thueringen.de/thviewer/grundsteuer.html"
                 }
+                rel="noopener"
+                target="_blank"
+                className="text-blue-800 underline"
               >
                 Grundsteuer Viewer Thüringen (Bereitstellung ab 1. Juli 2022)
               </a>
