@@ -12,7 +12,6 @@ import {
   BreadcrumbNavigation,
   Button,
   ContentContainer,
-  FormGroup,
   Headline,
   Input,
   IntroText,
@@ -107,11 +106,24 @@ export default function Anmelden() {
             zu erhalten.
           </ErrorBar>
         )}
-        <Headline>
-          Herzlich willkommen!
-          <br />
-          Bitte melden Sie sich an.
-        </Headline>
+        <Headline className="mb-80">Herzlich willkommen!</Headline>
+
+        {!loaderData?.userIsComingfromSuccessfulRegistration && (
+          <div className="mb-80">
+            <SubHeadline className="font-bold">
+              Ich bin das erste Mal hier
+            </SubHeadline>
+            <IntroText>
+              Erstellen Sie ein Konto um die Bearbeitung nach Wunsch
+              unterbrechen- und später fortsetzen zu können.
+            </IntroText>
+            <Button to="/registrieren">Konto erstellen</Button>
+          </div>
+        )}
+
+        <SubHeadline className="font-bold">
+          Ich habe bereits ein Konto
+        </SubHeadline>
         <IntroText>
           Bitte geben Sie die E-Mail-Adresse ein, mit der Sie sich registriert
           haben. Wir senden Ihnen einen Link für die Anmeldung. Es wird kein
@@ -120,10 +132,8 @@ export default function Anmelden() {
         <div className="mb-80">
           <Form method="post" noValidate>
             <CsrfToken value={loaderData.csrfToken} />
-            <div>
-              <FormGroup>
-                <Input type="email" name="email" label="E-Mail-Adresse" />
-              </FormGroup>
+            <div className="mb-32">
+              <Input type="email" name="email" label="E-Mail-Adresse" />
             </div>
             <Button
               data-testid="submit"
@@ -134,19 +144,6 @@ export default function Anmelden() {
             </Button>
           </Form>
         </div>
-
-        {!loaderData?.userIsComingfromSuccessfulRegistration && (
-          <div>
-            <SubHeadline>Noch nicht registriert?</SubHeadline>
-            <IntroText className="!mb-64">
-              Erstellen Sie ein Konto um die Bearbeitung nach Wunsch
-              unterbrechen- und später fortsetzen zu können.
-            </IntroText>
-            <Button to="/registrieren" look="tertiary">
-              Konto erstellen
-            </Button>
-          </div>
-        )}
       </ContentContainer>
     </UserLayout>
   );
