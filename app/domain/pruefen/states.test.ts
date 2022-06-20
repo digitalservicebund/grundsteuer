@@ -45,24 +45,42 @@ describe("states", () => {
       {
         description: "without context",
         context: pruefenModelFactory.build(),
-        expectedPath: ["eigentuemerTyp", "keineNutzung"],
+        expectedPath: ["start", "keineNutzung"],
+      },
+      {
+        description: "with invalid abgeber",
+        context: pruefenModelFactory
+          .abgeber({ abgeber: "steuerberater" })
+          .build(),
+        expectedPath: ["start", "keineNutzung"],
+      },
+      {
+        description: "with invalid eigentuemerTyp",
+        context: pruefenModelFactory
+          .abgeber({ abgeber: "eigentuemer" })
+          .eigentuemerTyp({ eigentuemerTyp: "unternehmen" })
+          .build(),
+        expectedPath: ["start", "eigentuemerTyp", "keineNutzung"],
       },
       {
         description: "with invalid bundesland",
         context: pruefenModelFactory
+          .abgeber({ abgeber: "eigentuemer" })
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "HE" })
           .build(),
-        expectedPath: ["eigentuemerTyp", "bundesland", "keineNutzung"],
+        expectedPath: ["start", "eigentuemerTyp", "bundesland", "keineNutzung"],
       },
       {
         description: "with invalid grundstueckArt",
         context: pruefenModelFactory
+          .abgeber({ abgeber: "eigentuemer" })
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
           .grundstueckArt({ grundstueckArt: "landUndForst" })
           .build(),
         expectedPath: [
+          "start",
           "eigentuemerTyp",
           "bundesland",
           "grundstueckArt",
@@ -72,12 +90,14 @@ describe("states", () => {
       {
         description: "with invalid garage",
         context: pruefenModelFactory
+          .abgeber({ abgeber: "eigentuemer" })
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
           .grundstueckArt({ grundstueckArt: "unbebaut" })
           .garagen({ garagen: "garageAufAnderemGrundstueck" })
           .build(),
         expectedPath: [
+          "start",
           "eigentuemerTyp",
           "bundesland",
           "grundstueckArt",
@@ -88,6 +108,7 @@ describe("states", () => {
       {
         description: "with living abroad",
         context: pruefenModelFactory
+          .abgeber({ abgeber: "eigentuemer" })
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
           .grundstueckArt({ grundstueckArt: "unbebaut" })
@@ -95,6 +116,7 @@ describe("states", () => {
           .ausland({ ausland: "true" })
           .build(),
         expectedPath: [
+          "start",
           "eigentuemerTyp",
           "bundesland",
           "grundstueckArt",
@@ -106,6 +128,7 @@ describe("states", () => {
       {
         description: "with fremderBoden",
         context: pruefenModelFactory
+          .abgeber({ abgeber: "eigentuemer" })
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
           .grundstueckArt({ grundstueckArt: "unbebaut" })
@@ -114,6 +137,7 @@ describe("states", () => {
           .fremderBoden({ fremderBoden: "true" })
           .build(),
         expectedPath: [
+          "start",
           "eigentuemerTyp",
           "bundesland",
           "grundstueckArt",
@@ -126,6 +150,7 @@ describe("states", () => {
       {
         description: "with beguenstigung",
         context: pruefenModelFactory
+          .abgeber({ abgeber: "eigentuemer" })
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
           .grundstueckArt({ grundstueckArt: "unbebaut" })
@@ -135,6 +160,7 @@ describe("states", () => {
           .beguenstigung({ beguenstigung: "true" })
           .build(),
         expectedPath: [
+          "start",
           "eigentuemerTyp",
           "bundesland",
           "grundstueckArt",
@@ -148,6 +174,7 @@ describe("states", () => {
       {
         description: "with elster account",
         context: pruefenModelFactory
+          .abgeber({ abgeber: "eigentuemer" })
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
           .grundstueckArt({ grundstueckArt: "unbebaut" })
@@ -158,6 +185,7 @@ describe("states", () => {
           .elster({ elster: "true" })
           .build(),
         expectedPath: [
+          "start",
           "eigentuemerTyp",
           "bundesland",
           "grundstueckArt",
@@ -191,6 +219,7 @@ describe("states", () => {
     );
     const context = pruefenModelFactory.full().build();
     const expectedPath = [
+      "start",
       "eigentuemerTyp",
       "bundesland",
       "grundstueckArt",

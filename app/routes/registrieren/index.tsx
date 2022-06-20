@@ -293,7 +293,7 @@ export default function Registrieren() {
                 components={{
                   pruefenLink: (
                     <a
-                      href="/pruefen/eigentuemerTyp"
+                      href="/pruefen/start"
                       target="_blank"
                       className="font-bold underline"
                     />

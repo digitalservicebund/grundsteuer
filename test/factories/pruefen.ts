@@ -1,5 +1,6 @@
 import { Factory } from "fishery";
 import {
+  AbgeberFields,
   AuslandFields,
   BeguenstigungFields,
   BundeslandFields,
@@ -12,6 +13,14 @@ import {
 } from "~/domain/pruefen/model";
 
 class PruefenFactory extends Factory<PruefenModel> {
+  abgeber(fields?: Partial<AbgeberFields>) {
+    return this.params({
+      start: {
+        abgeber: fields?.abgeber,
+      },
+    });
+  }
+
   eigentuemerTyp(fields?: Partial<EigentuemerTypFields>) {
     return this.params({
       eigentuemerTyp: {
@@ -78,7 +87,8 @@ class PruefenFactory extends Factory<PruefenModel> {
 
   full() {
     return this.params(
-      this.eigentuemerTyp({ eigentuemerTyp: "privatperson" })
+      this.abgeber({ abgeber: "eigentuemer" })
+        .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
         .bundesland({ bundesland: "BB" })
         .grundstueckArt({ grundstueckArt: "zweifamilienhaus" })
         .garagen({ garagen: "garageAufGrundstueck" })

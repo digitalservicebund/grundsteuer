@@ -1,3 +1,11 @@
+export type AbgeberFields = {
+  abgeber:
+    | "eigentuemer"
+    | "angehoerig"
+    | "keinEigentuemer"
+    | "eigentuemerNeu"
+    | "steuerberater";
+};
 export type EigentuemerTypFields = {
   eigentuemerTyp: "privatperson" | "unternehmen" | "beratung";
 };
@@ -59,6 +67,7 @@ export type ElsterFields = {
 };
 
 export type PruefenModel = {
+  start?: AbgeberFields;
   eigentuemerTyp?: EigentuemerTypFields;
   bundesland?: BundeslandFields;
   grundstueckArt?: GrundstueckArtFields;

@@ -5,6 +5,18 @@ export type PruefenCondition = (
 ) => boolean;
 export type PruefenConditions = Record<string, PruefenCondition>;
 
+const isEigentuemer: PruefenCondition = (context) => {
+  const eligibleEigentuemerArten = [
+    "eigentuemer",
+    "angehoerig",
+    "eigentuemerNeu",
+  ];
+  return !!(
+    context?.start?.abgeber &&
+    eligibleEigentuemerArten.includes(context.start.abgeber)
+  );
+};
+
 const isPrivatperson: PruefenCondition = (context) => {
   return context?.eigentuemerTyp?.eigentuemerTyp == "privatperson";
 };
@@ -72,6 +84,7 @@ const hasNoElster: PruefenCondition = (context) => {
 
 export const pruefenConditions: PruefenConditions = {
   isPrivatperson,
+  isEigentuemer,
   isBundesmodelBundesland,
   isEligibleGrundstueckArt,
   isEligibleGarage,

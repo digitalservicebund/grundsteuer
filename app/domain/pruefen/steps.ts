@@ -3,6 +3,23 @@ import _ from "lodash";
 import invariant from "tiny-invariant";
 
 export const pruefenStepDefinitions: Record<string, StepDefinition> = {
+  start: {
+    fields: {
+      abgeber: {
+        type: "radio",
+        options: [
+          { value: "eigentuemer" },
+          { value: "angehoerig" },
+          { value: "keinEigentuemer" },
+          { value: "eigentuemerNeu" },
+          { value: "steuerberater" },
+        ],
+        validations: {
+          required: {},
+        },
+      },
+    },
+  },
   eigentuemerTyp: {
     fields: {
       eigentuemerTyp: {

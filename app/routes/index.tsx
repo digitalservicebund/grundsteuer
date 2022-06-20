@@ -37,7 +37,7 @@ export function HomepageHeader({
   const pruefenButtonProps =
     loaderData?.env === "production"
       ? { disabled: true }
-      : { to: "/pruefen/eigentuemerTyp" };
+      : { to: "/pruefen/start" };
 
   return (
     <div className="mb-10 md:mb-48 lg:mb-36 flex flex-col md:flex-row-reverse md:justify-between">

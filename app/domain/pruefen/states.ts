@@ -8,10 +8,21 @@ export type PruefenMachineContext = PruefenModel;
 
 export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
   id: "steps",
-  initial: "eigentuemerTyp",
+  initial: "start",
   states: {
+    start: {
+      on: {
+        NEXT: [
+          { target: "eigentuemerTyp", cond: "isEigentuemer" },
+          {
+            target: "keineNutzung",
+          },
+        ],
+      },
+    },
     eigentuemerTyp: {
       on: {
+        BACK: { target: "start" },
         NEXT: [
           { target: "bundesland", cond: "isPrivatperson" },
           {

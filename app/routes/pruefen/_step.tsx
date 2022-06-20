@@ -47,7 +47,7 @@ import { pruefenStateCookie } from "~/cookies";
 import { commitSession, getSession } from "~/session.server";
 
 const PREFIX = "pruefen";
-const START_STEP = "eigentuemerTyp";
+const START_STEP = "start";
 
 export const getMachine = ({ formData }: { formData: PruefenModel }) => {
   const machineContext = { ...formData } as PruefenMachineContext;
@@ -231,7 +231,7 @@ export function Step() {
                 {headlineIsLegend ? (
                   <>
                     {currentState == START_STEP && (
-                      <h1 className="text-30 leading-36 font-bold">
+                      <h1 className="text-30 leading-36 font-bold mb-16">
                         Prüfen Sie in wenigen Schritten, ob Sie unser Tool
                         nutzen können.
                       </h1>

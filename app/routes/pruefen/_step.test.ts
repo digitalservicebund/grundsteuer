@@ -29,7 +29,7 @@ describe("_step action", () => {
     const result = await action(args);
 
     expect(result.status).toEqual(302);
-    expect(result.headers.get("location")).toEqual("/pruefen/eigentuemerTyp");
+    expect(result.headers.get("location")).toEqual("/pruefen/start");
   });
 
   describe("With state in cookie", () => {
@@ -37,13 +37,13 @@ describe("_step action", () => {
 
     beforeAll(async () => {
       explicitCookie = await pruefenStateCookie.serialize(
-        getMachine({ formData: {} }).getInitialState("eigentuemerTyp")
+        getMachine({ formData: {} }).getInitialState("start")
       );
     });
 
     test("Returns error if fields not filled", async () => {
       const args = await mockActionArgs({
-        route: "/eigentuemerTyp",
+        route: "/start",
         formData: {},
         context: {},
         userEmail: "user@example.com",
@@ -59,7 +59,7 @@ describe("_step action", () => {
     test("Does not update data if fields not filled", async () => {
       const spyOnSetStepData = jest.spyOn(modelModule, "setStepData");
       const args = await mockActionArgs({
-        route: "/eigentuemerTyp",
+        route: "/start",
         formData: {},
         context: {},
         userEmail: "user@example.com",
@@ -76,9 +76,9 @@ describe("_step action", () => {
       const spyOnSetStepData = jest.spyOn(modelModule, "setStepData");
       const previousData = {};
       const args = await mockActionArgs({
-        route: "/eigentuemerTyp",
+        route: "/start",
         formData: {
-          eigentuemerTyp: "privatperson",
+          abgeber: "eigentuemerNeu",
           additional: "Should not be in result",
         },
         context: {},
@@ -90,13 +90,9 @@ describe("_step action", () => {
       await action(args);
 
       expect(spyOnSetStepData).toHaveBeenCalledTimes(1);
-      expect(spyOnSetStepData).toHaveBeenCalledWith(
-        previousData,
-        "eigentuemerTyp",
-        {
-          eigentuemerTyp: "privatperson",
-        }
-      );
+      expect(spyOnSetStepData).toHaveBeenCalledWith(previousData, "start", {
+        abgeber: "eigentuemerNeu",
+      });
     });
   });
 });

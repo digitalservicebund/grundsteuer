@@ -130,6 +130,30 @@
     }
   },
   "pruefen": {
+    "start": {
+      "headline": "Wer gibt die Grundsteuererklärung ab?",
+      "fields": {
+        "abgeber": {
+          "options": {
+            "eigentuemer": {
+              "label": "Ich als Eigentümer:in. Ich möchte die Erklärung für mein Grundstück abgeben, bei dem ggf. noch andere Privatpersonen Eigentümer:in sind"
+            },
+            "angehoerig": {
+              "label": "Ich als naher Angehöriger der Eigentümer:in. Ich unterstütze diese bei der Erklärungsabgabe"
+            },
+            "keinEigentuemer": {
+              "label": "Ich als neue:r Eigentümer:in. Ich habe das Grundstück nach dem 01.01.2022 erworben"
+            },
+            "eigentuemerNeu": {
+              "label": "Ich als neue:r Eigentümer:in. Ich habe das Grundstück kurz vor dem 01.01.2022 erworben. Zum Stichtag 01.01.2022 habe ich den Kaufpreises bezahlt und auf mich sind bereits alle Pflichten (Besitz, Lasten, Nutzen und Gefahren) übergegangen. Ich bin aber noch nicht im Grundbuch als neue:r Eigentümer:in eingetragen"
+            },
+            "steuerberater": {
+              "label": "Ich als Steuerberater:in, Rechtsanwalt/Rechtsanwältin oder Hausverwaltung. Ich gebe die Erklärung für eine andere Person ab (Bevollmächtigter nach § 80 AO)"
+            }
+          }
+        }
+      }
+    },
     "eigentuemerTyp": {
       "headline": "Wer oder für wen soll die Grundsteuererklärung abgegeben werden?",
       "fields": {

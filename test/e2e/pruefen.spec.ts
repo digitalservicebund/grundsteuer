@@ -6,11 +6,14 @@ describe("Happy Path", () => {
     cy.visit("/");
     cy.contains("a", "Kann ich teilnehmen?").click();
 
-    cy.url().should("include", "/pruefen/eigentuemerTyp");
+    cy.url().should("include", "/pruefen/start");
     cy.contains(
       "h1",
       "Prüfen Sie in wenigen Schritten, ob Sie unser Tool nutzen können."
     );
+    cy.get(`label[for=abgeber-eigentuemer]`).click();
+    cy.get(submitBtnSelector).click();
+
     cy.get(`label[for=eigentuemerTyp-privatperson]`).click();
     cy.get(submitBtnSelector).click();
 
@@ -60,8 +63,8 @@ describe("Order Enforcing", () => {
   });
 
   it("Does not redirect if directly accessing enabled step", () => {
-    cy.visit("/pruefen/eigentuemerTyp");
-    cy.get(`label[for=eigentuemerTyp-privatperson]`).click();
+    cy.visit("/pruefen/start");
+    cy.get(`label[for=abgeber-eigentuemer]`).click();
     cy.get(submitBtnSelector).click();
 
     cy.visit("/pruefen/eigentuemerTyp");
