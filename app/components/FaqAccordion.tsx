@@ -15,9 +15,7 @@ export default function FaqAccordion() {
             <li>
               Grundbuchblattnummer (falls zur Hand), Gemarkung, Flur, Flurstück
             </li>
-            <li>
-              <i>Für Eigentumswohnungen:</i> Miteigentumsanteil am Grundstück
-            </li>
+            <li>Für Eigentumswohnungen: Miteigentumsanteil am Grundstück</li>
             <li>Steuernummer / Aktenzeichen des Grundstücks</li>
             <li>Bodenrichtwert</li>
             <li>genaues Baujahr des Gebäudes (ab einem Baujahr von 1949)</li>
