@@ -45,8 +45,9 @@ export const setCookieHeaderWithSessionAndData = async (
   })) as Headers;
 
   // Move from Set-Cookie to Cookie header
+  const regex = /, /g;
   const dataCookieHeader = (dataHeaders.get("Set-Cookie") || "").replace(
-    ", ",
+    regex,
     "; "
   );
   dataHeaders.delete("Set-Cookie");

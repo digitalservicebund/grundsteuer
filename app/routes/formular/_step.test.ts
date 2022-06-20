@@ -6,6 +6,7 @@ import * as modelModule from "~/domain/model";
 import { action } from "~/routes/formular/_step";
 
 process.env.FORM_COOKIE_SECRET = "secret";
+process.env.FORM_COOKIE_ENC_SECRET = "26d011bcbb9db8c4673b7fcd90c9ec6d";
 
 describe("_step action", () => {
   beforeEach(async () => {

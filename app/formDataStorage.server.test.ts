@@ -3,6 +3,7 @@ import {
   createHeadersWithFormDataCookie,
   createFormDataCookie,
   createFormDataCookieName,
+  encryptCookie,
 } from "~/formDataStorage.server";
 import { SessionUser } from "./auth.server";
 import { GrundModel } from "./domain/steps";
@@ -17,6 +18,7 @@ jest.mock("~/util/useSecureCookie", () => {
 const user = { id: "64914671-b3bb-4525-9494-ed44b55cc7e0" } as SessionUser;
 
 process.env.FORM_COOKIE_SECRET = "secret";
+process.env.FORM_COOKIE_ENC_SECRET = "26d011bcbb9db8c4673b7fcd90c9ec6d";
 
 describe("createFormDataCookieName", () => {
   it("returns correct cookie name", async () => {
@@ -78,9 +80,9 @@ describe("getStoredFormData", () => {
   describe("authoritive cookie for given user is present", () => {
     describe("user id inside cookie matches given user id", () => {
       it("returns stored data", async () => {
-        const data = JSON.stringify({
+        const data = encryptCookie({
           userId: user.id,
-          data: { sensitiveData: true },
+          data: { grundstueck: { typ: { typ: "einfamilienhaus" } } },
         });
         const cookie = await createFormDataCookie({
           userId: user.id,
@@ -95,14 +97,16 @@ describe("getStoredFormData", () => {
           request,
           user,
         });
-        expect(retrievedData).toEqual({ sensitiveData: true });
+        expect(retrievedData).toEqual({
+          grundstueck: { typ: { typ: "einfamilienhaus" } },
+        });
       });
 
       describe("multiple cookies", () => {
         it("returns stored data", async () => {
-          const data = JSON.stringify({
+          const data = encryptCookie({
             userId: user.id,
-            data: { sensitiveData: true },
+            data: { grundstueck: { typ: { typ: "einfamilienhaus" } } },
           });
           const cookie = await createFormDataCookie({
             userId: user.id,
@@ -125,14 +129,16 @@ describe("getStoredFormData", () => {
             request,
             user,
           });
-          expect(retrievedData).toEqual({ sensitiveData: true });
+          expect(retrievedData).toEqual({
+            grundstueck: { typ: { typ: "einfamilienhaus" } },
+          });
         });
 
         describe("a single cookie is missing", () => {
           it("returns empty object", async () => {
-            const data = JSON.stringify({
+            const data = encryptCookie({
               userId: user.id,
-              data: { sensitiveData: "splitted" },
+              data: { grundstueck: { typ: { typ: "einfamilienhaus" } } },
             });
             const cookie = await createFormDataCookie({
               userId: user.id,
@@ -157,9 +163,9 @@ describe("getStoredFormData", () => {
 
         describe("a left-over cookie is present", () => {
           it("ignores left-over cookie and returns stored data", async () => {
-            const data = JSON.stringify({
+            const data = encryptCookie({
               userId: user.id,
-              data: { sensitiveData: true },
+              data: { grundstueck: { typ: { typ: "einfamilienhaus" } } },
             });
             const cookie = await createFormDataCookie({
               userId: user.id,
@@ -184,7 +190,9 @@ describe("getStoredFormData", () => {
               request,
               user,
             });
-            expect(retrievedData).toEqual({ sensitiveData: true });
+            expect(retrievedData).toEqual({
+              grundstueck: { typ: { typ: "einfamilienhaus" } },
+            });
           });
         });
       });

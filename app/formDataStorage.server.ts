@@ -8,6 +8,9 @@ import { useSecureCookie } from "~/util/useSecureCookie";
 
 const debug = createDebugMessages("formDataStorage");
 
+const KEY_VERSION = "v01";
+const COOKIE_ENCODING = "base64";
+
 type CreateFormDataCookieNameFunction = (options: {
   userId: string;
   index: number;
@@ -51,6 +54,41 @@ export const createFormDataCookie: CreateFormDataCookieFunction = ({
   });
 };
 
+export const encryptCookie = (cookie: { userId: string; data: GrundModel }) => {
+  const key = Buffer.from(process.env.FORM_COOKIE_ENC_SECRET as string);
+  const iv = crypto.randomBytes(16);
+  const cipher = crypto.createCipheriv("aes-256-gcm", key, iv);
+  const stringifiedData = JSON.stringify(cookie);
+  const encryptedCookie = Buffer.concat([
+    Buffer.from(KEY_VERSION),
+    iv,
+    cipher.update(stringifiedData),
+    cipher.final(),
+    cipher.getAuthTag(),
+  ]);
+  return encryptedCookie.toString(COOKIE_ENCODING);
+};
+
+const decryptCookie = (
+  encryptedCookie: Buffer
+): { userId: string; data: GrundModel } => {
+  const key = Buffer.from(process.env.FORM_COOKIE_ENC_SECRET as string);
+  // ignoring key version for now since no key rotation is implemented
+  const iv = encryptedCookie.subarray(3, 16 + 3);
+  const ciphertext = encryptedCookie.subarray(
+    16 + 3,
+    encryptedCookie.length - 16
+  );
+  const authTag = encryptedCookie.subarray(encryptedCookie.length - 16);
+  const decipher = crypto.createDecipheriv("aes-256-gcm", key, iv);
+  decipher.setAuthTag(authTag);
+  const decryptedCookie = Buffer.concat([
+    decipher.update(ciphertext),
+    decipher.final(),
+  ]);
+  return JSON.parse(decryptedCookie.toString("utf-8"));
+};
+
 type GetStoredFormDataFunction = (options: {
   request: Request;
   user: SessionUser;
@@ -87,12 +125,15 @@ export const getStoredFormData: GetStoredFormDataFunction = async ({
 
   const cookiesCombined = cookies.join("");
   try {
-    const parsedContent = JSON.parse(cookiesCombined);
+    const parsedContent = decryptCookie(
+      Buffer.from(cookiesCombined, COOKIE_ENCODING)
+    );
     if (parsedContent?.userId === user.id && parsedContent?.data) {
       return parsedContent.data;
     }
     return {};
   } catch (error) {
+    console.error(error);
     return {};
   }
 };
@@ -123,12 +164,12 @@ export const createHeadersWithFormDataCookie: CreateHeadersWithFormDataCookie =
       data,
     };
 
-    const stringifiedAndCompressedData = JSON.stringify(cookieData);
+    const encryptedCookie = encryptCookie(cookieData);
 
     // Does the data fit into one cookie or do we have to slice it
     // and store it across serveral cookies?
     const slicesCount = Math.ceil(
-      stringifiedAndCompressedData.length / CONTENT_LENGTH_PER_COOKIE
+      encryptedCookie.length / CONTENT_LENGTH_PER_COOKIE
     );
 
     // Expect slicesCount to be 1-3, but just in case (later we assume it is one digit).
@@ -141,7 +182,7 @@ export const createHeadersWithFormDataCookie: CreateHeadersWithFormDataCookie =
     const slicedData = [];
     for (let index = 0; index < slicesCount; index++) {
       slicedData.push(
-        stringifiedAndCompressedData.slice(
+        encryptedCookie.slice(
           index * CONTENT_LENGTH_PER_COOKIE,
           (index + 1) * CONTENT_LENGTH_PER_COOKIE
         )
