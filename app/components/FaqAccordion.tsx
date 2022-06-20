@@ -36,14 +36,6 @@ export default function FaqAccordion() {
             auf.
           </p>
           <p className="mb-24">
-            Überprüfen Sie, welche Angaben Sie schon haben und was Ihnen noch
-            fehlt. Bitte reichen Sie keine Unterlagen mit Ihrer
-            Grundsteuererklärung ein. Sollte das Finanzamt Unterlagen von Ihnen
-            für die Prüfung benötigen, wird es diese bei Ihnen gesondert
-            anfordern. Bitte bewahren Sie daher vorhandene Unterlagen sorgfältig
-            auf.
-          </p>
-          <p className="mb-24">
             Die Unterlagen und Quellen, die für das Ausfüllen der
             Grundsteuererklärung hilfreich sind, unterscheiden sich nach dem
             Bundesland, in dem Ihr Grundstück liegt. Mit einem Klick auf das
