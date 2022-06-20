@@ -9,8 +9,6 @@ import { PruefenModel } from "~/domain/pruefen/model";
 const getFailureReason = (allData: PruefenModel, i18n: I18nObject) => {
   if (!pruefenConditions.isPrivatperson(allData))
     return i18n.specifics.noPrivatperson;
-  if (!pruefenConditions.isNoErbengemeinschaft(allData))
-    return i18n.specifics.erbengemeinschaft;
   if (!pruefenConditions.isBundesmodelBundesland(allData))
     return i18n.specifics.invalidBundesland;
   if (!pruefenConditions.isEligibleGrundstueckArt(allData))

@@ -148,24 +148,6 @@
         }
       }
     },
-    "erbengemeinschaft": {
-      "headline": "Gehört das Grundstück einer Erbengemeinschaft?",
-      "fields": {
-        "isErbengemeinschaft": {
-          "options": {
-            "noErbengemeinschaft": {
-              "label": "Nein, das Grundstück gehört keiner Erbengemeinschaft"
-            },
-            "erbengemeinschaftInGrundbuch": {
-              "label": "Ja, es gehört einer Erbengemeinschaft. Die Eigentümer:innen teilen sich das Grundstück und sind im Grundbuch vermerkt"
-            },
-            "erbengemeinschaftNotInGrundbuch": {
-              "label": "Ja, es gehört einer Erbengemeinschaft. Den Eigentümer:innen gehört das Grundstück zu gleichen Teilen. Sie sind nicht im Grundbuch vermerkt."
-            }
-          }
-        }
-      }
-    },
     "bundesland": {
       "headline": "In welchem Bundesland liegt Ihr Grundstück?",
       "fields": {
@@ -358,7 +340,6 @@
       "specifics": {
         "explanationFallback": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Tool machen können. „Grundsteuererklärung für Privateigentum“ ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
         "noPrivatperson": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Unser Service ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
-        "erbengemeinschaft": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Erbengemeinschaften mit ungeteilten Grundstücken können wir aktuell noch nicht mit unserem Tool abbilden. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
         "invalidBundesland": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Ihr ausgewähltes Bundesland nimmt nicht am Bundesmodell teil, sondern hat ein eigenes Grundsteuermodell eingeführt. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
         "invalidGrundstueckArt": "Aktuell können nur Eigentümer:innen von Einfamilien- und Zweifamilienhäusern, Eigentumswohnungen und unbebauten Grundstücken „Grundsteuererklärung für Privateigentum“ nutzen. Für alle anderen bietet sich alternativ eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
         "ausland": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Tool machen können. Im Moment können wir nur Personen  die in Deutschland leben eine Abgabe mit “Grundsteuererklärung für Privateigentum” ermöglichen. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",

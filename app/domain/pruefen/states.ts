@@ -13,25 +13,16 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
     eigentuemerTyp: {
       on: {
         NEXT: [
-          { target: "erbengemeinschaft", cond: "isPrivatperson" },
+          { target: "bundesland", cond: "isPrivatperson" },
           {
             target: "keineNutzung",
           },
         ],
       },
     },
-    erbengemeinschaft: {
-      on: {
-        BACK: { target: "eigentuemerTyp" },
-        NEXT: [
-          { target: "bundesland", cond: "isNoErbengemeinschaft" },
-          { target: "keineNutzung" },
-        ],
-      },
-    },
     bundesland: {
       on: {
-        BACK: { target: "erbengemeinschaft" },
+        BACK: { target: "eigentuemerTyp" },
         NEXT: [
           { target: "grundstueckArt", cond: "isBundesmodelBundesland" },
           { target: "keineNutzung" },

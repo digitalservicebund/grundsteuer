@@ -48,40 +48,22 @@ describe("states", () => {
         expectedPath: ["eigentuemerTyp", "keineNutzung"],
       },
       {
-        description: "with invalid erbengemeinschaft",
-        context: pruefenModelFactory
-          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
-          .erbengemeinschaft({
-            isErbengemeinschaft: "erbengemeinschaftNotInGrundbuch",
-          })
-          .build(),
-        expectedPath: ["eigentuemerTyp", "erbengemeinschaft", "keineNutzung"],
-      },
-      {
         description: "with invalid bundesland",
         context: pruefenModelFactory
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
-          .erbengemeinschaft({ isErbengemeinschaft: "noErbengemeinschaft" })
           .bundesland({ bundesland: "HE" })
           .build(),
-        expectedPath: [
-          "eigentuemerTyp",
-          "erbengemeinschaft",
-          "bundesland",
-          "keineNutzung",
-        ],
+        expectedPath: ["eigentuemerTyp", "bundesland", "keineNutzung"],
       },
       {
         description: "with invalid grundstueckArt",
         context: pruefenModelFactory
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
-          .erbengemeinschaft({ isErbengemeinschaft: "noErbengemeinschaft" })
           .bundesland({ bundesland: "BE" })
           .grundstueckArt({ grundstueckArt: "landUndForst" })
           .build(),
         expectedPath: [
           "eigentuemerTyp",
-          "erbengemeinschaft",
           "bundesland",
           "grundstueckArt",
           "keineNutzung",
@@ -91,14 +73,12 @@ describe("states", () => {
         description: "with invalid garage",
         context: pruefenModelFactory
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
-          .erbengemeinschaft({ isErbengemeinschaft: "noErbengemeinschaft" })
           .bundesland({ bundesland: "BE" })
           .grundstueckArt({ grundstueckArt: "unbebaut" })
           .garagen({ garagen: "garageAufAnderemGrundstueck" })
           .build(),
         expectedPath: [
           "eigentuemerTyp",
-          "erbengemeinschaft",
           "bundesland",
           "grundstueckArt",
           "garagen",
@@ -109,7 +89,6 @@ describe("states", () => {
         description: "with living abroad",
         context: pruefenModelFactory
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
-          .erbengemeinschaft({ isErbengemeinschaft: "noErbengemeinschaft" })
           .bundesland({ bundesland: "BE" })
           .grundstueckArt({ grundstueckArt: "unbebaut" })
           .garagen({ garagen: "keine" })
@@ -117,7 +96,6 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "eigentuemerTyp",
-          "erbengemeinschaft",
           "bundesland",
           "grundstueckArt",
           "garagen",
@@ -129,7 +107,6 @@ describe("states", () => {
         description: "with fremderBoden",
         context: pruefenModelFactory
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
-          .erbengemeinschaft({ isErbengemeinschaft: "noErbengemeinschaft" })
           .bundesland({ bundesland: "BE" })
           .grundstueckArt({ grundstueckArt: "unbebaut" })
           .garagen({ garagen: "keine" })
@@ -138,7 +115,6 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "eigentuemerTyp",
-          "erbengemeinschaft",
           "bundesland",
           "grundstueckArt",
           "garagen",
@@ -151,7 +127,6 @@ describe("states", () => {
         description: "with beguenstigung",
         context: pruefenModelFactory
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
-          .erbengemeinschaft({ isErbengemeinschaft: "noErbengemeinschaft" })
           .bundesland({ bundesland: "BE" })
           .grundstueckArt({ grundstueckArt: "unbebaut" })
           .garagen({ garagen: "keine" })
@@ -161,7 +136,6 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "eigentuemerTyp",
-          "erbengemeinschaft",
           "bundesland",
           "grundstueckArt",
           "garagen",
@@ -175,7 +149,6 @@ describe("states", () => {
         description: "with elster account",
         context: pruefenModelFactory
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
-          .erbengemeinschaft({ isErbengemeinschaft: "noErbengemeinschaft" })
           .bundesland({ bundesland: "BE" })
           .grundstueckArt({ grundstueckArt: "unbebaut" })
           .garagen({ garagen: "keine" })
@@ -186,7 +159,6 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "eigentuemerTyp",
-          "erbengemeinschaft",
           "bundesland",
           "grundstueckArt",
           "garagen",
@@ -220,7 +192,6 @@ describe("states", () => {
     const context = pruefenModelFactory.full().build();
     const expectedPath = [
       "eigentuemerTyp",
-      "erbengemeinschaft",
       "bundesland",
       "grundstueckArt",
       "garagen",

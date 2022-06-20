@@ -18,21 +18,6 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
       },
     },
   },
-  erbengemeinschaft: {
-    fields: {
-      isErbengemeinschaft: {
-        type: "radio",
-        options: [
-          { value: "noErbengemeinschaft" },
-          { value: "erbengemeinschaftInGrundbuch" },
-          { value: "erbengemeinschaftNotInGrundbuch" },
-        ],
-        validations: {
-          required: {},
-        },
-      },
-    },
-  },
   bundesland: {
     fields: {
       bundesland: {

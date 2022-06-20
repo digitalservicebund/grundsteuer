@@ -14,9 +14,6 @@ describe("Happy Path", () => {
     cy.get(`label[for=eigentuemerTyp-privatperson]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.get(`label[for=isErbengemeinschaft-noErbengemeinschaft]`).click();
-    cy.get(submitBtnSelector).click();
-
     cy.get("#bundesland").select("BB");
     cy.get(submitBtnSelector).click();
 
@@ -55,7 +52,7 @@ describe("Order Enforcing", () => {
   });
 
   it("Redirects if directly accessing disabled step", () => {
-    cy.visit("/pruefen/erbengemeinschaft");
+    cy.visit("/pruefen/bundesland");
     cy.contains(
       "h1",
       "Prüfen Sie in wenigen Schritten, ob Sie unser Tool nutzen können."
@@ -65,8 +62,6 @@ describe("Order Enforcing", () => {
   it("Does not redirect if directly accessing enabled step", () => {
     cy.visit("/pruefen/eigentuemerTyp");
     cy.get(`label[for=eigentuemerTyp-privatperson]`).click();
-    cy.get(submitBtnSelector).click();
-    cy.get(`label[for=isErbengemeinschaft-noErbengemeinschaft]`).click();
     cy.get(submitBtnSelector).click();
 
     cy.visit("/pruefen/eigentuemerTyp");

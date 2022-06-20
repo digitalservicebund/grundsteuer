@@ -3,7 +3,6 @@ import { pruefenConditions } from "~/domain/pruefen/guards";
 describe("guards", () => {
   const cases = [
     { guard: pruefenConditions.isPrivatperson },
-    { guard: pruefenConditions.isNoErbengemeinschaft },
     { guard: pruefenConditions.isBundesmodelBundesland },
     { guard: pruefenConditions.isEligibleGrundstueckArt },
     { guard: pruefenConditions.isEligibleGarage },

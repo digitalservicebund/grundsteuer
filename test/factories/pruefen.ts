@@ -5,7 +5,6 @@ import {
   BundeslandFields,
   EigentuemerTypFields,
   ElsterFields,
-  ErbengemeinschaftFields,
   FremderBodenFields,
   GaragenFields,
   GrundstueckArtFields,
@@ -17,14 +16,6 @@ class PruefenFactory extends Factory<PruefenModel> {
     return this.params({
       eigentuemerTyp: {
         eigentuemerTyp: fields?.eigentuemerTyp,
-      },
-    });
-  }
-
-  erbengemeinschaft(fields?: Partial<ErbengemeinschaftFields>) {
-    return this.params({
-      erbengemeinschaft: {
-        isErbengemeinschaft: fields?.isErbengemeinschaft,
       },
     });
   }
@@ -88,7 +79,6 @@ class PruefenFactory extends Factory<PruefenModel> {
   full() {
     return this.params(
       this.eigentuemerTyp({ eigentuemerTyp: "privatperson" })
-        .erbengemeinschaft({ isErbengemeinschaft: "noErbengemeinschaft" })
         .bundesland({ bundesland: "BB" })
         .grundstueckArt({ grundstueckArt: "zweifamilienhaus" })
         .garagen({ garagen: "garageAufGrundstueck" })

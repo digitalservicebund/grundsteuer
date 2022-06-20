@@ -9,14 +9,6 @@ const isPrivatperson: PruefenCondition = (context) => {
   return context?.eigentuemerTyp?.eigentuemerTyp == "privatperson";
 };
 
-const isNoErbengemeinschaft: PruefenCondition = (context) => {
-  return (
-    context?.erbengemeinschaft?.isErbengemeinschaft == "noErbengemeinschaft" ||
-    context?.erbengemeinschaft?.isErbengemeinschaft ==
-      "erbengemeinschaftInGrundbuch"
-  );
-};
-
 const isBundesmodelBundesland: PruefenCondition = (context) => {
   const bundesmodellBundeslaender = [
     "BE",
@@ -80,7 +72,6 @@ const hasNoElster: PruefenCondition = (context) => {
 
 export const pruefenConditions: PruefenConditions = {
   isPrivatperson,
-  isNoErbengemeinschaft,
   isBundesmodelBundesland,
   isEligibleGrundstueckArt,
   isEligibleGarage,

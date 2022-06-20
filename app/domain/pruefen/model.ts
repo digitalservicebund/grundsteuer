@@ -2,13 +2,6 @@ export type EigentuemerTypFields = {
   eigentuemerTyp: "privatperson" | "unternehmen" | "beratung";
 };
 
-export type ErbengemeinschaftFields = {
-  isErbengemeinschaft:
-    | "noErbengemeinschaft"
-    | "erbengemeinschaftInGrundbuch"
-    | "erbengemeinschaftNotInGrundbuch";
-};
-
 export type BundeslandFields = {
   bundesland:
     | "BW"
@@ -67,7 +60,6 @@ export type ElsterFields = {
 
 export type PruefenModel = {
   eigentuemerTyp?: EigentuemerTypFields;
-  erbengemeinschaft?: ErbengemeinschaftFields;
   bundesland?: BundeslandFields;
   grundstueckArt?: GrundstueckArtFields;
   garagen?: GaragenFields;
