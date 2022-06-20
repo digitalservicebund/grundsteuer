@@ -47,8 +47,8 @@ export const getElementComponents = (elements: HelpConfigurationElement[]) => {
         <>
           <p>{element.intro}</p>
           <ul className="list-disc ml-[15px]">
-            {element.items.map((item, index) => (
-              <li key={index}>{item}</li>
+            {element.items.map((item, itemsIndex) => (
+              <li key={itemsIndex}>{item}</li>
             ))}
           </ul>
         </>

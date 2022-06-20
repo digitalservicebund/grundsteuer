@@ -1,5 +1,5 @@
 import { StepComponentFunction } from "~/routes/formular/_step";
-import { ContentContainer, StepFormField, StepFormFields } from "~/components";
+import { ContentContainer, StepFormField } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 
 const Wohnflaechen: StepComponentFunction = (props) => {

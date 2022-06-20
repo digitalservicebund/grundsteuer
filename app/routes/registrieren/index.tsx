@@ -170,7 +170,7 @@ export const action: ActionFunction = async ({ request, context }) => {
       });
     }
 
-    return await authenticator.authenticate(
+    return authenticator.authenticate(
       process.env.APP_ENV === "test" ? "form" : "email-link",
       request,
       {

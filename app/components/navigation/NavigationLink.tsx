@@ -19,14 +19,11 @@ export default function NavigationLink(props: NavigationLinkProps) {
     { "bg-blue-200": isActive, "text-14 uppercase font-bold": isAllCaps }
   );
 
+  const borderColor = isFinished ? "bg-green-700" : " border-2 border-gray-600";
   const finishedIcon =
     typeof isFinished !== "undefined" ? (
       <div className="w-24 h-24 flex items-center justify-center">
-        <div
-          className={`w-8 h-8 rounded-full ${
-            isFinished ? "bg-green-700" : " border-2 border-gray-600"
-          }`}
-        ></div>
+        <div className={`w-8 h-8 rounded-full ${borderColor}`}></div>
       </div>
     ) : null;
 

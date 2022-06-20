@@ -2,7 +2,7 @@ import { getStepData } from "~/domain/model";
 import Finished from "~/components/icons/mui/Finished";
 import Edit from "~/components/icons/mui/Edit";
 import { conditions } from "~/domain/guards";
-import { Accordion } from "~/components";
+import { Accordion, StepFormField } from "~/components";
 import { AccordionItemProps } from "~/components/AccordionItem";
 import {
   GrundModel,
@@ -27,7 +27,6 @@ import {
 import { EigentuemerPersonPersoenlicheAngabenFields } from "~/domain/steps/eigentuemer/person/persoenlicheAngaben";
 import { EigentuemerPersonAdresseFields } from "~/domain/steps/eigentuemer/person/adresse";
 import { EigentuemerPersonAnteilFields } from "~/domain/steps/eigentuemer/person/anteil";
-import { StepFormField } from "~/components";
 import { StepFormFieldProps } from "~/components/form/StepFormField";
 import Paragraph from "~/components/icons/mui/Paragraph";
 import ExclamationMarkFilled from "~/components/icons/mui/ExclamationMarkFilled";

@@ -340,12 +340,15 @@ export default function FscEingeben() {
           </Button>
         </ButtonContainer>
       </Form>
-      {false && (
-        <a href={"/fsc/neuBeantragen"}>
-          Zwei Wochen sind um und Sie haben noch keinen Brief mit dem
-          Freischaltcode erhalten?
-        </a>
-      )}
+      {
+        // Not used until neuBeantragen implemented
+        false && (
+          <a href={"/fsc/neuBeantragen"}>
+            Zwei Wochen sind um und Sie haben noch keinen Brief mit dem
+            Freischaltcode erhalten?
+          </a>
+        )
+      }
       {showSpinner && (
         <Spinner
           initialText={"Ihr Freischaltcode wird überprüft."}

@@ -8,7 +8,6 @@ import { getMachineConfig, StateMachineContext } from "~/domain/states";
 import { getPathsFromState } from "~/util/getPathsFromState";
 import { GrundModel } from "~/domain/steps";
 import { PruefenModel } from "~/domain/pruefen/model";
-import { PruefenMachineContext } from "~/domain/pruefen/states";
 import { EventObject, StateSchema } from "xstate/lib/types";
 
 export type GraphChildElement = {
