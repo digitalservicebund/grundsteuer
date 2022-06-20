@@ -63,9 +63,17 @@ export default function FaqAccordion() {
               >
                 FIS-Broker
               </a>
-              ), Bodenrichtwert vom BORIS-Portal, Grundbuchauszug, ggf.
-              Teilungserkärung bei Wohnungseigentum, Bauunterlagen /
-              Kauf-/Schenkungsvertrag (optional)
+              ), Bodenrichtwert vom{" "}
+              <a
+                href={"https://fbinter.stadt-berlin.de/boris/"}
+                rel="noopener"
+                target="_blank"
+                className="text-blue-800 underline"
+              >
+                BORIS-Portal
+              </a>
+              , Grundbuchauszug, ggf. Teilungserkärung bei Wohnungseigentum,
+              Bauunterlagen / Kauf-/Schenkungsvertrag (optional)
             </li>
             <li>
               <b>
