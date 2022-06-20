@@ -370,7 +370,7 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/eigentuemer");
-    cy.contains("h1", "Eigentümer:innen");
+    cy.contains("h1", "Bereich: Eigentümer:in");
     cy.get(submitBtnSelector).click();
     cy.get("#anzahl").select(inputData.eigentuemer.anzahl.anzahl);
     cy.get(submitBtnSelector).click();
