@@ -8,15 +8,6 @@ export type GrundstueckFlurstueckAngabenFields = {
 
 export const grundstueckFlurstueckAngaben: StepDefinition = {
   fields: {
-    grundbuchblattnummer: {
-      validations: {
-        grundbuchblattnummer: {},
-        requiredIfCondition: {
-          condition: conditions.bundeslandIsNW,
-          msg: "Für Grundstücke in Nordrhein-Westfalen muss immer ein Grundbuchblatt angegeben werden.",
-        },
-      },
-    },
     gemarkung: {
       validations: {
         maxLength: {
@@ -24,6 +15,15 @@ export const grundstueckFlurstueckAngaben: StepDefinition = {
           msg: "Die Angabe darf maximal 25 Zeichen lang sein",
         },
         required: {},
+      },
+    },
+    grundbuchblattnummer: {
+      validations: {
+        grundbuchblattnummer: {},
+        requiredIfCondition: {
+          condition: conditions.bundeslandIsNW,
+          msg: "Für Grundstücke in Nordrhein-Westfalen muss immer ein Grundbuchblatt angegeben werden.",
+        },
       },
     },
   },

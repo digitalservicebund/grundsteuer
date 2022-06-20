@@ -969,20 +969,21 @@
       "nextButtonLabel": "Los geht's"
     },
     "adresse": {
-      "headline": "Wie lautet die Adresse des Grundstücks?",
+      "headline": "Geben Sie die Adresse Ihres Grundstücks ein",
+      "description": "Die Adresse Ihres Grundstücks ist die Adresse, die in der Regel auch im Grundbuchauszug steht.",
       "fields": {
         "strasse": {
-          "label": "Straße / Lagebezeichnung"
+          "label": "Straße"
         },
         "hausnummer": {
-          "label": "Hausnummer (+Hausnummerzusatz)"
+          "label": "Hausnummer + (Hausnummerzusatz) (Optional)"
         },
         "zusatzangaben": {
-          "label": "Zusatzangaben (Bsp. Hinterhaus)",
-          "help": "Zum Beispiel: Hinterhaus, 2. Hinterhof, Wohnungs- oder Teileigentumsnummer"
+          "label": "Zusatzangaben (Optional)",
+          "placeholder": "Zum Beispiel: Hinterhaus, 2. Hinterhof etc."
         },
         "plz": {
-          "label": "PLZ"
+          "label": "Postleitzahl"
         },
         "ort": {
           "label": "Ort"
@@ -1032,7 +1033,9 @@
       }
     },
     "steuernummer": {
-      "headline": "Wie lautet das Aktenzeichen/ die Steuernummer des Grundstücks?",
+      "headline": "Geben Sie das Aktenzeichen/ die Steuernummer Ihres Grundstücks ein",
+      "description": "Es handelt sich nicht um Ihre Steuernummer bei der Einkommensteuer und auch nicht um ihre Steuer-ID. Die Steuernummer / Aktenzeichen Ihres Grundstücks finden Sie beispielsweise auf dem Einheitswertbescheid oder im Informationsschreiben Ihrer Finanzverwaltung zur Grundsteuerreform.",
+      "hint": "Bitte tragen Sie das Aktenzeichen / die Steuernummer ohne Sonderzeichen ein.",
       "fields": {
         "steuernummer": {
           "label": "Aktenzeichen/Steuernummer"
@@ -1068,7 +1071,8 @@
       }
     },
     "abweichendeEntwicklung": {
-      "headline": "Da abweichende Entwicklung, welcher Zustand trifft auf Ihr Grundstück zu?",
+      "headline": "Welcher Zustand trifft auf Ihr Grundstück zu?",
+      "description": "Ob ihr Grundstück Bauerwartungsland oder Rohbauland ist, richtet sich danach, ob das Grundstück durch die Gemeinde bereits für eine mögliche Bebauung vorgesehen ist.",
       "fields": {
         "zustand": {
           "options": {
@@ -1090,7 +1094,8 @@
       }
     },
     "gemeinde": {
-      "headline": "Liegt das Grundstück innerhalb einer Gemeinde?",
+      "headline": "Liegt Ihr Grundstück innerhalb einer Gemeinde?",
+      "description": "In den meisten Fällen liegen Grundstücke innerhalb einer Gemeinde. Grundstücke, die über eine Gemeindegrenze laufen, haben in der Vergangenheit in der Regel von zwei Gemeinden jeweils einen Grundsteuerbescheid erhalten.",
       "fields": {
         "innerhalbEinerGemeinde": {
           "options": {
@@ -1105,14 +1110,15 @@
       }
     },
     "anzahl": {
-      "headline": "Wie viele Grundstücksflächen stehen im vorliegenden Grundbuchauszug?",
+      "headline": "Wie viele Grundstücksflächen zählen Sie in Ihrem Grundbuchauszug?",
+      "description": "Schauen Sie dazu auf die Seite “Bestandsverzeichnis” und zählen Sie die Einträge durch. Unterstrichene Zeilen bedeuten, dass diese Einträge ungültig sind. Diese werden nicht mitgezählt.",
       "hint": "<underline>Unterstrichene Zeilen</underline> im Grundbuchauszug bedeuten, dass diese Einträge <bold>nicht</bold> mehr gültig sind. Diese werden nicht mitgezählt.",
       "fields": {
         "anzahl": {
-          "label": "Wie viele Grundstücksflächen stehen im vorliegenden Grundbuchauszug?",
+          "label": "Anzahl der Grundstücksflächen im Grundbuchauszug",
           "options": {
             "default": {
-              "label": "Bitte auswählen"
+              "label": "Anzahl auswählen"
             }
           }
         }
@@ -1120,22 +1126,22 @@
     },
     "flurstueck": {
       "angaben": {
-        "headline": "Übertragen Sie die Angaben aus dem Grundbuch zu Grundstücksfläche {{id}}:",
+        "headline": "Wie lautet die Nummer des Grundbuchblatts und die Gemarkung für Grundstücksfläche {{id}}?",
+        "description": "Sie finden die Nummer des Grundbuchblatts und Gemarkung auf dem Deckblatt und auf den Innenseiten des Grundbuchauszugs. Viele Angaben stellen auch einige der Bodenrichtwert-Portale bereit.",
         "fields": {
-          "grundbuchblattnummer": {
-            "label": "Grundbuchblattnummer"
-          },
           "gemarkung": {
-            "label": "Gemarkung"
+            "label": "Name Gemarkung",
+            "placeholder": "zum Beispiel: Nordkirchen"
+          },
+          "grundbuchblattnummer": {
+            "label": "Nummer Grundbuchblatt (Optional)",
+            "placeholder": "12216"
           }
-        },
-        "help": {
-          "paragraph1": "Nehmen Sie sich jetzt Ihren Grundbuchauszug zur Hand und geben Sie Stück für Stück alle gefragten Daten ein.",
-          "paragraph2": "Sie finden die Nummer des Grundbuchblatts auf der ersten Seite ihrer Grundbuchunterlagen sowie auf allen Folgeseiten im oberen Bereich über der Tabelle."
         }
       },
       "flur": {
         "headline": "Wie lauten Flur und Flurstück zu Grundstücksfläche {{id}}?",
+        "description": "Schauen Sie auf die Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs. In der Tabelle finden Sie die benötigten Nummern. Viele Angaben stellen auch einige der Bodenrichtwert-Portale bereit.",
         "fields": {
           "flur": {
             "label": "Flur (wenn vorhanden)"
@@ -1148,45 +1154,28 @@
           }
         },
         "specifics": {
-          "explanation": "Schauen Sie auf die Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs. In der Tabelle finden Sie die benötigten Nummern.",
           "flurstueckSubheading": "Flurstück"
         }
       },
-      "miteigentum": {
-        "headline": "Haben Sie Miteigentum an der Grundstücksfläche?",
-        "description": "“Miteigentum” trifft auf Sie zu, wenn Sie zum Beispiel eine Eigentumswohnung haben. Dann teilen Sie das Grundstück mit den anderen Eigentümer:innen im Haus. Oder wenn Sie zum Beispiel ein Garagengrundstück mit Nachbar:innen teilen. Normalerweise gehört Ihnen die ganze Grundstückstückseinheit. Sollten Sie Miteigentum am Grundstück haben, ist dies im Grundbuchauszug vermerkt.",
-        "fields": {
-          "hasMiteigentum": {
-            "options": {
-              "true": {
-                "label": "Ja, ich habe Miteigentum am Grundstück"
-              },
-              "false": {
-                "label": "Nein, ich habe kein Miteigentum am Grundstück"
-              }
-            }
-          }
-        }
-      },
       "groesse": {
-        "headline": "Tragen Sie die Grundstücksgröße für Grundstücksfläche {{id}} ein",
-        "description": "Auf der Seite “Bestandsverzeichnis” finden Sie den Eintrag über die Größe Ihres Grundstücks. Meistens ist diese in Hektar, Ar und Quadratmeter angegeben. Oft auch nur in Quadratmeter. Übertragen Sie die Zahlen so, wie Sie sie vorfinden.",
+        "headline": "Tragen Sie die Größe für Grundstücksfläche {{id}} ein",
+        "description": "Auf der Seite “Bestandsverzeichnis” finden Sie den Eintrag über die Größe Ihres Grundstücks. Meistens ist diese in Hektar, Ar und Quadratmeter angegeben. Oft auch nur in Quadratmeter. Übertragen Sie die Zahlen so, wie Sie sie vorfinden. Auch einige Bodenrichtwert-Portale stellen diese Angaben bereit.",
         "fields": {
           "groesseHa": {
-            "label": "Größe in ha"
+            "label": "In ha"
           },
           "groesseA": {
-            "label": "Größe in a"
+            "label": "In a"
           },
           "groesseQm": {
-            "label": "Größe in m²"
+            "label": "In m²"
           }
         }
       }
     },
     "miteigentumsanteil": {
       "headline": "Übertragen Sie die Angaben aus dem Grundbuchblatt zum Miteigentumsanteil",
-      "description": "Auf der Seite “Bestandsverzeichnis” finden Sie die Angaben über Ihren Miteigentumsanteil am Grundstück. Oft sind die Eintragungen etwas verschoben. In den meisten Fällen aber durch das Wort “Miteigentumsanteil” zu erkennen.",
+      "description": "Auf der Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs oder oft auch im Kaufvertrag finden Sie die Angaben über Ihren Miteigentumsanteil am Grundstück.",
       "fields": {
         "wirtschaftlicheEinheitZaehler": {
           "label": "Zähler"

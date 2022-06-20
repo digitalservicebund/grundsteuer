@@ -25,11 +25,15 @@ const FlurstueckFlur: StepComponentFunction = ({
           <StepFormField {...fieldProps[0]} />
         </FormGroup>
         <FormGroup>
-          <SubHeadline>{i18n.specifics.flurstueckSubheading}</SubHeadline>
-          <InputFraction
-            zaehler={<StepFormField {...fieldProps[1]} />}
-            nenner={<StepFormField {...fieldProps[2]} />}
-          />
+          <fieldset>
+            <legend className="mb-8 text-24 leading-30">
+              {i18n.specifics.flurstueckSubheading}
+            </legend>
+            <InputFraction
+              zaehler={<StepFormField {...fieldProps[1]} />}
+              nenner={<StepFormField {...fieldProps[2]} />}
+            />
+          </fieldset>
         </FormGroup>
       </div>
     </ContentContainer>
