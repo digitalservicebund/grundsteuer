@@ -39,6 +39,7 @@ const getStepSpecificI18n = (
     [
       "grundstueck.bodenrichtwertInfo",
       "grundstueck.bodenrichtwertAnzahl",
+      "grundstueck.bodenrichtwertEingabe",
     ].includes(stepI18nKey)
   ) {
     return getBodenrichtwertTranslations(stepI18nKey, tFunction, bundesland);

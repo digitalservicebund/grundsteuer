@@ -1280,15 +1280,17 @@
       }
     },
     "bodenrichtwertEingabe": {
-      "headline": "Geben Sie den Bodenrichtwert für Ihr Grundstück ein",
-      "description": "Den Wert können Sie über einen Link auf der vorherigen Seite und der Schritt-für-Schritt Anleitung ermitteln.",
-      "fields": {
-        "bodenrichtwert": {
-          "label": "Bodenrichtwert in € / m²"
+      "default": {
+        "headline": "Geben Sie den Bodenrichtwert für Ihr Grundstück ein",
+        "description": "Den Wert können Sie über einen Link auf der vorherigen Seite und der Schritt-für-Schritt Anleitung ermitteln.",
+        "fields": {
+          "bodenrichtwert": {
+            "label": "Bodenrichtwert in € / m²"
+          }
+        },
+        "specifics": {
+          "zweiBodenrichtwerteHinweis": "Wenn Sie zwei Bodenrichtwerte haben, geben Sie bitte hier den größeren der beiden Werte ein."
         }
-      },
-      "specifics": {
-        "zweiBodenrichtwerteHinweis": "Wenn Sie zwei Bodenrichtwerte haben, geben Sie bitte hier den größeren der beiden Werte ein."
       }
     },
     "bodenrichtwertAnzahl": {
