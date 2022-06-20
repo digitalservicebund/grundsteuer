@@ -48,6 +48,7 @@ import { commitSession, getSession } from "~/session.server";
 
 const PREFIX = "pruefen";
 const START_STEP = "start";
+const SUCCESS_STEP = "nutzung";
 
 export const getMachine = ({ formData }: { formData: PruefenModel }) => {
   const machineContext = { ...formData } as PruefenMachineContext;
@@ -63,6 +64,7 @@ export type LoaderData = {
   i18n: I18nObject;
   backUrl: string | null;
   isFinalStep: boolean;
+  isSuccessStep: boolean;
   currentState: string;
   stepDefinition: StepDefinition;
   csrfToken: string;
@@ -111,6 +113,7 @@ export const loader: LoaderFunction = async ({
   const machine = getMachine({ formData: storedFormData });
   const isFinalStep =
     machine.getStateNodeByPath(currentStateFromUrl).type == "final";
+  const isSuccessStep = isFinalStep && currentStateFromUrl == SUCCESS_STEP;
   const backUrl = getBackUrl({
     machine,
     currentStateWithoutId: currentStateFromUrl,
@@ -130,6 +133,7 @@ export const loader: LoaderFunction = async ({
       i18n: await getStepI18n(currentStateFromUrl, {}, "default", PREFIX),
       backUrl,
       isFinalStep,
+      isSuccessStep,
       currentState: currentStateFromUrl,
       stepDefinition,
       csrfToken,
@@ -249,31 +253,42 @@ export function Step() {
                     <StepComponent {...loaderData} {...actionData} />
                   </>
                 )}
-                {loaderData?.isFinalStep && (
-                  <Button to={"/"} look="secondary">
-                    {i18n.common.backToHomepage}
-                  </Button>
-                )}
-                {!loaderData?.isFinalStep && (
-                  <ContentContainer size="sm">
-                    <ButtonContainer>
-                      <Button
-                        id="nextButton"
-                        className={backUrl ? "" : "flex-grow-0"}
-                        disabled={isSubmitting}
-                      >
-                        {nextButtonLabel}
-                      </Button>
-                      {backUrl ? (
-                        <Button to={backUrl} look="secondary">
-                          {i18n.common.back}
+                <ContentContainer size="sm">
+                  <ButtonContainer>
+                    {!loaderData?.isFinalStep && (
+                      <>
+                        <Button
+                          id="nextButton"
+                          className={backUrl ? "" : "flex-grow-0"}
+                          disabled={isSubmitting}
+                        >
+                          {nextButtonLabel}
                         </Button>
-                      ) : (
-                        ""
-                      )}
-                    </ButtonContainer>
-                  </ContentContainer>
-                )}
+                        {backUrl && (
+                          <Button to={backUrl} look="secondary">
+                            {i18n.common.back}
+                          </Button>
+                        )}
+                      </>
+                    )}
+                    {loaderData?.isFinalStep && (
+                      <>
+                        {loaderData?.isSuccessStep && (
+                          <Button
+                            to="/formular/welcome"
+                            id="nextButton"
+                            className={backUrl ? "" : "flex-grow-0"}
+                          >
+                            {nextButtonLabel}
+                          </Button>
+                        )}
+                        <Button to="/" look="secondary">
+                          {i18n.common.backToHomepage}
+                        </Button>
+                      </>
+                    )}
+                  </ButtonContainer>
+                </ContentContainer>
               </Form>
             </ContentContainer>
           </div>

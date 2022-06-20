@@ -373,6 +373,7 @@
     },
     "nutzung": {
       "headline": "Super, Sie können diesen Online-Dienst für Ihre Grundsteuererklärung nutzen.",
+      "nextButtonLabel": "Zur Grundsteuererklärung",
       "specifics": {
         "explanation": "Starten Sie jetzt Ihre Grundsteuererklärung zur Feststellung des Grundsteuerwerts."
       }
