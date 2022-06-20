@@ -219,7 +219,7 @@ export function Step() {
       <main className="flex-grow pt-32 mb-56">
         <ContentContainer>
           <HomepageHeader loaderData={loaderData} pruefenActive={true} />
-          <div className="bg-white px-80 py-56">
+          <div className="bg-white px-16 md:px-80 py-16 md:py-56">
             <SectionLabel
               label={"Nutzung prüfen"}
               icon={<Communication fill="#4E596A" />}
