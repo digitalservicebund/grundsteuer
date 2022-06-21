@@ -85,7 +85,7 @@ export default function Footer() {
               {t("footer.accessibility")}
             </Link>
             <a
-              href="https://github.com/digitalservice4germany/grundsteuer"
+              href="https://github.com/digitalservicebund/grundsteuer"
               target="_blank"
               className="block pb-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
             >
