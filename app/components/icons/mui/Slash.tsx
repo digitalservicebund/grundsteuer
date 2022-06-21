@@ -8,7 +8,6 @@ const Slash = (props: SVGProps<SVGSVGElement>) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <title>Schrägstrich</title>
     <path d="M16 1 1 35" stroke="#4E596A" strokeWidth="2" />
   </svg>
 );

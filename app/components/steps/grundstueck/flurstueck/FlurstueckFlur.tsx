@@ -4,16 +4,17 @@ import {
   FormGroup,
   IntroText,
   StepFormField,
-  SubHeadline,
 } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 import InputFraction from "~/components/form/InputFraction";
+import FlurstueckZaehlerHelp from "~/components/form/help/FlurstueckZaehler";
 
 const FlurstueckFlur: StepComponentFunction = ({
   stepDefinition,
   formData,
   i18n,
   errors,
+  currentState,
 }) => {
   const fieldProps = getFieldProps(stepDefinition, formData, i18n, errors);
 
@@ -22,7 +23,7 @@ const FlurstueckFlur: StepComponentFunction = ({
       <IntroText>{i18n.specifics.explanation}</IntroText>
       <div>
         <FormGroup>
-          <StepFormField {...fieldProps[0]} />
+          <StepFormField {...fieldProps[0]} currentState={currentState} />
         </FormGroup>
         <FormGroup>
           <fieldset>
@@ -30,8 +31,13 @@ const FlurstueckFlur: StepComponentFunction = ({
               {i18n.specifics.flurstueckSubheading}
             </legend>
             <InputFraction
-              zaehler={<StepFormField {...fieldProps[1]} />}
-              nenner={<StepFormField {...fieldProps[2]} />}
+              zaehler={
+                <StepFormField {...fieldProps[1]} currentState={currentState} />
+              }
+              nenner={
+                <StepFormField {...fieldProps[2]} currentState={currentState} />
+              }
+              help={<FlurstueckZaehlerHelp />}
             />
           </fieldset>
         </FormGroup>

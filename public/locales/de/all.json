@@ -996,7 +996,7 @@
         },
         "bundesland": {
           "label": "Bundesland",
-          "help": "Wenn Sie Ihr Bundesland nicht in der Auswahl finden, können Sie unseren Online-Service leider nicht nutzen. Geben Sie Ihre Grundsteuererklärung in diesem Fall bitte über ELSTER ab.",
+          "help": "Wählen Sie das Bundesland in dem sich das Grundstück befindet. Wenn Sie Ihr Bundesland nicht in der Auswahl finden, können Sie unseren Online-Service leider nicht nutzen. Ihr Bundesland nimmt dann nicht am sogenannten Bundesmodell für die Grundsteuer teil. Geben Sie Ihre Grundsteuererklärung in diesem Fall bitte beispielsweise über ELSTER ab.",
           "options": {
             "default": {
               "label": "Bundesland auswählen"
@@ -1058,19 +1058,24 @@
         "typ": {
           "options": {
             "einfamilienhaus": {
-              "label": "Grundstück mit Einfamilienhaus"
+              "label": "Grundstück mit Einfamilienhaus",
+              "help": "Hat Ihr Gebäude einen eigenen Eingang, zum Beispiel bei einer Doppelhaushälfte, handelt es sich um ein Einfamilienhaus. Ein ausgebauter Dachboden mit separatem Eingang, zählt als weitere Wohnung. Das Gebäude ist dann ein Zweifamilienhaus."
             },
             "zweifamilienhaus": {
-              "label": "Grundstück mit Zweifamilienhaus"
+              "label": "Grundstück mit Zweifamilienhaus",
+              "help": "Zweifamilienhäuser sind Gebäude, die zwei Wohnungen enthalten. Jede Wohnung bedarf eines eigenen Zugangs zu den Wohnräumen. Bewohnen Sie eine Doppelhaushälfte, handelt es sich um ein Einfamilienhaus."
             },
             "wohnungseigentum": {
-              "label": "Eigentumswohnung"
+              "label": "Eigentumswohnung",
+              "help": "Eine Eigentumswohnung liegt vor, wenn Wohneigentum gebildet wurde und die Wohnung ein eigenes Grundbuchblatt hat."
             },
             "baureif": {
-              "label": "Unbebautes baureifes Land"
+              "label": "Unbebautes baureifes Land",
+              "help": "Ein unbebautes Grundstück ist ein Grundstück, auf dem sich keine benutzbaren Gebäude befinden. Baureif ist ein Grundstück, wenn dies in einem Bebauungsplan definiert ist oder das Grundstück sofort bebaut werden kann."
             },
             "abweichendeEntwicklung": {
-              "label": "Unbebautes Grundstück in einem abweichenden Entwicklungszustand"
+              "label": "Unbebautes Grundstück in einem abweichenden Entwicklungszustand",
+              "help": "Ein unbebautes Grundstück in einem abweichenden Entwicklungszustand ist ein Grundstück, das noch nicht baureif ist und auf dem sich keine benutzbaren Gebäude befinden. Es ist im Bebauungsplan noch nicht als Bauland ausgewiesen."
             }
           }
         }
@@ -1084,10 +1089,11 @@
           "options": {
             "bauerwartungsland": {
               "label": "Bauerwartungsland",
-              "help": "Bauerwartungsland sind Flächen, die planungsrechtlich noch nicht bebaut werden können, bei denen aber damit zu rechnen ist, dass dies in absehbarer Zeit so sein wird. "
+              "help": "Als Bauerwartungsland wird eine Fläche bezeichnet, die zwar noch kein offizielles Bauland ist, aber es wahrscheinlich in der näheren Zukunft sein wird. Im Flächennutzungsplan ist das Grundstück häufig bereits als Bauland ausgewiesen."
             },
             "rohbauland": {
-              "label": "Rohbauland"
+              "label": "Rohbauland",
+              "help": "Als Rohbauland wird ein größeres, unerschlossenes Grundstück bezeichnet, das in der Regel bereits in einem Bebauungsplan als Bauland vorgesehen ist. Sein Zustand reicht für eine Bebauung noch nicht aus, weil beispielsweise Abwasserzugänge oder Zugänge zu einer Straße fehlen."
             }
           }
         }
@@ -1106,10 +1112,12 @@
         "innerhalbEinerGemeinde": {
           "options": {
             "true": {
-              "label": "Ja, es liegt innerhalb einer Gemeinde"
+              "label": "Ja, es liegt innerhalb einer Gemeinde",
+              "help": "In der Regel liegen Grundstücke innerhalb einer Gemeinde."
             },
             "false": {
-              "label": "Nein, es läuft über mehrere Gemeindegrenzen"
+              "label": "Nein, es läuft über mehrere Gemeindegrenzen",
+              "help": "Liegt ihr Grundstück auf der Gemeindegrenze, dann bestätigen Sie dieses Feld."
             }
           }
         }

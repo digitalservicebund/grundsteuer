@@ -30,7 +30,9 @@ describe("Flur page component", () => {
     render(<Flur {...defaultInput} />);
     const fieldsets = screen.getAllByRole("group");
     expect(within(fieldsets[0]).getByLabelText("Zähler")).toBeInTheDocument();
-    expect(within(fieldsets[0]).getByRole("img")).toBeInTheDocument();
+    expect(
+      within(fieldsets[0]).getByLabelText("Schrägstrich")
+    ).toBeInTheDocument();
     expect(within(fieldsets[0]).getByLabelText("Nenner")).toBeInTheDocument();
   });
 });

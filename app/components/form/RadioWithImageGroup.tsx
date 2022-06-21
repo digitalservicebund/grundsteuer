@@ -135,12 +135,14 @@ export const extractRadioWithImageGroupProps = (
     optionsWithImages.push({ ...option, ...image });
   }
   const optionsWithLabelsAndHelp = optionsWithImages.map((option) => {
+    const optionI18n = fieldProps.i18n.options?.[option.value];
     const helpComponent = getHelpComponent({
       path: pathToStep + "." + fieldProps.name + "." + option.value,
+      helpText: optionI18n?.help,
     });
     return {
       ...option,
-      label: fieldProps.i18n.options?.[option.value].label || option.value,
+      label: optionI18n?.label || option.value,
       help: helpComponent,
     };
   });
