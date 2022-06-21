@@ -88,31 +88,12 @@ describe("states", () => {
         ],
       },
       {
-        description: "with invalid garage",
-        context: pruefenModelFactory
-          .abgeber({ abgeber: "eigentuemer" })
-          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
-          .bundesland({ bundesland: "BE" })
-          .grundstueckArt({ grundstueckArt: "unbebaut" })
-          .garagen({ garagen: "garageAufAnderemGrundstueck" })
-          .build(),
-        expectedPath: [
-          "start",
-          "eigentuemerTyp",
-          "bundesland",
-          "grundstueckArt",
-          "garagen",
-          "spaeterNutzung",
-        ],
-      },
-      {
         description: "with living abroad",
         context: pruefenModelFactory
           .abgeber({ abgeber: "eigentuemer" })
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
           .grundstueckArt({ grundstueckArt: "unbebaut" })
-          .garagen({ garagen: "keine" })
           .ausland({ ausland: "true" })
           .build(),
         expectedPath: [
@@ -120,7 +101,6 @@ describe("states", () => {
           "eigentuemerTyp",
           "bundesland",
           "grundstueckArt",
-          "garagen",
           "ausland",
           "keineNutzung",
         ],
@@ -132,7 +112,6 @@ describe("states", () => {
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
           .grundstueckArt({ grundstueckArt: "unbebaut" })
-          .garagen({ garagen: "keine" })
           .ausland({ ausland: "false" })
           .fremderBoden({ fremderBoden: "true" })
           .build(),
@@ -141,7 +120,6 @@ describe("states", () => {
           "eigentuemerTyp",
           "bundesland",
           "grundstueckArt",
-          "garagen",
           "ausland",
           "fremderBoden",
           "keineNutzung",
@@ -154,7 +132,6 @@ describe("states", () => {
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
           .grundstueckArt({ grundstueckArt: "unbebaut" })
-          .garagen({ garagen: "keine" })
           .ausland({ ausland: "false" })
           .fremderBoden({ fremderBoden: "false" })
           .beguenstigung({ beguenstigung: "true" })
@@ -164,11 +141,34 @@ describe("states", () => {
           "eigentuemerTyp",
           "bundesland",
           "grundstueckArt",
-          "garagen",
           "ausland",
           "fremderBoden",
           "beguenstigung",
           "keineNutzung",
+        ],
+      },
+      {
+        description: "with invalid garage",
+        context: pruefenModelFactory
+          .abgeber({ abgeber: "eigentuemer" })
+          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
+          .bundesland({ bundesland: "BE" })
+          .grundstueckArt({ grundstueckArt: "unbebaut" })
+          .ausland({ ausland: "false" })
+          .fremderBoden({ fremderBoden: "false" })
+          .beguenstigung({ beguenstigung: "false" })
+          .garagen({ garagen: "garageAufAnderemGrundstueck" })
+          .build(),
+        expectedPath: [
+          "start",
+          "eigentuemerTyp",
+          "bundesland",
+          "grundstueckArt",
+          "ausland",
+          "fremderBoden",
+          "beguenstigung",
+          "garagen",
+          "spaeterNutzung",
         ],
       },
       {
@@ -178,10 +178,10 @@ describe("states", () => {
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
           .grundstueckArt({ grundstueckArt: "unbebaut" })
-          .garagen({ garagen: "keine" })
           .ausland({ ausland: "false" })
           .fremderBoden({ fremderBoden: "false" })
           .beguenstigung({ beguenstigung: "false" })
+          .garagen({ garagen: "keine" })
           .elster({ elster: "true" })
           .build(),
         expectedPath: [
@@ -189,10 +189,10 @@ describe("states", () => {
           "eigentuemerTyp",
           "bundesland",
           "grundstueckArt",
-          "garagen",
           "ausland",
           "fremderBoden",
           "beguenstigung",
+          "garagen",
           "elster",
           "spaeterNutzung",
         ],
@@ -223,10 +223,10 @@ describe("states", () => {
       "eigentuemerTyp",
       "bundesland",
       "grundstueckArt",
-      "garagen",
       "ausland",
       "fremderBoden",
       "beguenstigung",
+      "garagen",
       "elster",
       "nutzung",
     ];

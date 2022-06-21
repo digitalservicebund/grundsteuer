@@ -57,14 +57,6 @@ const isEligibleGrundstueckArt: PruefenCondition = (context) => {
   );
 };
 
-const isEligibleGarage: PruefenCondition = (context) => {
-  const eligibleGaragen = ["garageAufGrundstueck", "keine"];
-  return !!(
-    context?.garagen?.garagen &&
-    eligibleGaragen.includes(context.garagen.garagen)
-  );
-};
-
 const isNotAusland: PruefenCondition = (context) => {
   return context?.ausland?.ausland == "false";
 };
@@ -81,6 +73,14 @@ const isNotBeguenstigung: PruefenCondition = (context) => {
   return context?.beguenstigung?.beguenstigung == "false";
 };
 
+const isEligibleGarage: PruefenCondition = (context) => {
+  const eligibleGaragen = ["garageAufGrundstueck", "keine"];
+  return !!(
+    context?.garagen?.garagen &&
+    eligibleGaragen.includes(context.garagen.garagen)
+  );
+};
+
 const hasNoElster: PruefenCondition = (context) => {
   return context?.elster?.elster == "false";
 };
@@ -90,9 +90,9 @@ export const pruefenConditions: PruefenConditions = {
   isEigentuemer,
   isBundesmodelBundesland,
   isEligibleGrundstueckArt,
-  isEligibleGarage,
   isNotAusland,
   isNotFremderBoden,
   isNotBeguenstigung,
+  isEligibleGarage,
   hasNoElster,
 };

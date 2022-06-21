@@ -45,14 +45,6 @@ class PruefenFactory extends Factory<PruefenModel> {
     });
   }
 
-  garagen(fields?: Partial<GaragenFields>) {
-    return this.params({
-      garagen: {
-        garagen: fields?.garagen,
-      },
-    });
-  }
-
   ausland(fields?: Partial<AuslandFields>) {
     return this.params({
       ausland: {
@@ -77,6 +69,14 @@ class PruefenFactory extends Factory<PruefenModel> {
     });
   }
 
+  garagen(fields?: Partial<GaragenFields>) {
+    return this.params({
+      garagen: {
+        garagen: fields?.garagen,
+      },
+    });
+  }
+
   elster(fields?: Partial<ElsterFields>) {
     return this.params({
       elster: {
@@ -91,10 +91,10 @@ class PruefenFactory extends Factory<PruefenModel> {
         .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
         .bundesland({ bundesland: "BB" })
         .grundstueckArt({ grundstueckArt: "zweifamilienhaus" })
-        .garagen({ garagen: "garageAufGrundstueck" })
         .ausland({ ausland: "false" })
         .fremderBoden({ fremderBoden: "false" })
         .beguenstigung({ beguenstigung: "false" })
+        .garagen({ garagen: "garageAufGrundstueck" })
         .elster({ elster: "false" })
         .build()
     );

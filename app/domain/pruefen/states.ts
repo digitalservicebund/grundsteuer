@@ -44,23 +44,14 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
       on: {
         BACK: { target: "bundesland" },
         NEXT: [
-          { target: "garagen", cond: "isEligibleGrundstueckArt" },
+          { target: "ausland", cond: "isEligibleGrundstueckArt" },
           { target: "keineNutzung" },
-        ],
-      },
-    },
-    garagen: {
-      on: {
-        BACK: { target: "grundstueckArt" },
-        NEXT: [
-          { target: "ausland", cond: "isEligibleGarage" },
-          { target: "spaeterNutzung" },
         ],
       },
     },
     ausland: {
       on: {
-        BACK: { target: "garagen" },
+        BACK: { target: "grundstueckArt" },
         NEXT: [
           { target: "fremderBoden", cond: "isNotAusland" },
           { target: "keineNutzung" },
@@ -80,14 +71,23 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
       on: {
         BACK: { target: "fremderBoden" },
         NEXT: [
-          { target: "elster", cond: "isNotBeguenstigung" },
+          { target: "garagen", cond: "isNotBeguenstigung" },
           { target: "keineNutzung" },
+        ],
+      },
+    },
+    garagen: {
+      on: {
+        BACK: { target: "beguenstigung" },
+        NEXT: [
+          { target: "elster", cond: "isEligibleGarage" },
+          { target: "spaeterNutzung" },
         ],
       },
     },
     elster: {
       on: {
-        BACK: { target: "beguenstigung" },
+        BACK: { target: "garagen" },
         NEXT: [
           { target: "nutzung", cond: "hasNoElster" },
           { target: "spaeterNutzung" },

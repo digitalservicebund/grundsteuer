@@ -45,14 +45,6 @@ export type GrundstueckArtFields = {
     | "landUndForst";
 };
 
-export type GaragenFields = {
-  garagen:
-    | "garageAufGrundstueck"
-    | "garageAufAnderemGrundstueck"
-    | "tiefgarage"
-    | "keine";
-};
-
 export type AuslandFields = {
   ausland: "true" | "false";
 };
@@ -65,6 +57,14 @@ export type BeguenstigungFields = {
   beguenstigung: "true" | "false";
 };
 
+export type GaragenFields = {
+  garagen:
+    | "garageAufGrundstueck"
+    | "garageAufAnderemGrundstueck"
+    | "tiefgarage"
+    | "keine";
+};
+
 export type ElsterFields = {
   elster: "true" | "false";
 };
@@ -74,9 +74,9 @@ export type PruefenModel = {
   eigentuemerTyp?: EigentuemerTypFields;
   bundesland?: BundeslandFields;
   grundstueckArt?: GrundstueckArtFields;
-  garagen?: GaragenFields;
   ausland?: AuslandFields;
   fremderBoden?: FremderBodenFields;
   beguenstigung?: BeguenstigungFields;
+  garagen?: GaragenFields;
   elster?: ElsterFields;
 };

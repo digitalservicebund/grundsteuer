@@ -84,22 +84,6 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
       },
     },
   },
-  garagen: {
-    fields: {
-      garagen: {
-        type: "radio",
-        options: [
-          { value: "garageAufGrundstueck" },
-          { value: "garageAufAnderemGrundstueck" },
-          { value: "tiefgarage" },
-          { value: "keine" },
-        ],
-        validations: {
-          required: {},
-        },
-      },
-    },
-  },
   ausland: {
     fields: {
       ausland: {
@@ -131,6 +115,22 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
       beguenstigung: {
         type: "radio",
         options: [{ value: "false" }, { value: "true" }],
+        validations: {
+          required: {},
+        },
+      },
+    },
+  },
+  garagen: {
+    fields: {
+      garagen: {
+        type: "radio",
+        options: [
+          { value: "garageAufGrundstueck" },
+          { value: "garageAufAnderemGrundstueck" },
+          { value: "tiefgarage" },
+          { value: "keine" },
+        ],
         validations: {
           required: {},
         },

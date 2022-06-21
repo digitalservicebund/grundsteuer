@@ -6,10 +6,10 @@ describe("guards", () => {
     { guard: pruefenConditions.isPrivatperson },
     { guard: pruefenConditions.isBundesmodelBundesland },
     { guard: pruefenConditions.isEligibleGrundstueckArt },
-    { guard: pruefenConditions.isEligibleGarage },
     { guard: pruefenConditions.isNotAusland },
     { guard: pruefenConditions.isNotFremderBoden },
     { guard: pruefenConditions.isNotBeguenstigung },
+    { guard: pruefenConditions.isEligibleGarage },
     { guard: pruefenConditions.hasNoElster },
   ];
 
