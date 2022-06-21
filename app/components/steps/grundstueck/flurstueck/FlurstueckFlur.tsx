@@ -7,7 +7,7 @@ import {
 } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 import InputFraction from "~/components/form/InputFraction";
-import FlurstueckZaehlerHelp from "~/components/form/help/FlurstueckZaehler";
+import FlurstueckZaehlerHelp from "~/components/form/help/grundstueck/FlurstueckZaehler";
 
 const FlurstueckFlur: StepComponentFunction = ({
   stepDefinition,

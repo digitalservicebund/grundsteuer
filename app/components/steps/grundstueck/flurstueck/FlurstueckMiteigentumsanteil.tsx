@@ -2,7 +2,7 @@ import type { StepComponentFunction } from "~/routes/formular/_step";
 import { ContentContainer, FormGroup, StepFormField } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 import InputFraction from "~/components/form/InputFraction";
-import FlurstueckMiteigentumHelp from "~/components/form/help/FlurstueckMiteigentum";
+import FlurstueckMiteigentumHelp from "~/components/form/help/grundstueck/FlurstueckMiteigentum";
 
 const FlurstueckMiteigentumsanteil: StepComponentFunction = ({
   stepDefinition,

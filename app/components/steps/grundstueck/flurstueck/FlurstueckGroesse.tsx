@@ -2,7 +2,7 @@ import type { StepComponentFunction } from "~/routes/formular/_step";
 import { ContentContainer, FormGroup, StepFormField } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 import InputRow from "~/components/form/InputRow";
-import FlurstueckGroesseHelp from "~/components/form/help/FlurstueckGroesse";
+import FlurstueckGroesseHelp from "~/components/form/help/grundstueck/FlurstueckGroesse";
 import Help from "~/components/form/help/Help";
 
 const FlurstueckGroesse: StepComponentFunction = ({

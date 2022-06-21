@@ -1,13 +1,13 @@
-import SteuernummerHelp from "~/components/form/help/Steuernummer";
+import SteuernummerHelp from "~/components/form/help/grundstueck/Steuernummer";
 import _ from "lodash";
 import { GrundModel } from "~/domain/steps";
 import { I18nObjectField } from "~/i18n/getStepI18n";
 import DefaultHelpContent from "~/components/form/help/Default";
-import GrundstueckAnzahlHelp from "~/components/form/help/GrundstueckAnzahl";
-import GemarkungHelp from "~/components/form/help/Gemarkung";
+import GrundstueckAnzahlHelp from "~/components/form/help/grundstueck/GrundstueckAnzahl";
+import GemarkungHelp from "~/components/form/help/grundstueck/Gemarkung";
 import { getCurrentStateWithoutId } from "~/util/getCurrentState";
-import GrundbuchblattHelp from "~/components/form/help/Grundbuchblatt";
-import FlurHelp from "~/components/form/help/Flur";
+import GrundbuchblattHelp from "~/components/form/help/grundstueck/Grundbuchblatt";
+import FlurHelp from "~/components/form/help/grundstueck/Flur";
 
 export const helpComponents = {
   grundstueck: {
