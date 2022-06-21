@@ -7,7 +7,11 @@ export type AbgeberFields = {
     | "steuerberater";
 };
 export type EigentuemerTypFields = {
-  eigentuemerTyp: "privatperson" | "unternehmen" | "beratung";
+  eigentuemerTyp:
+    | "privatperson"
+    | "erbengemeinschaft"
+    | "mehrereErben"
+    | "unternehmen";
 };
 
 export type BundeslandFields = {
@@ -36,7 +40,6 @@ export type GrundstueckArtFields = {
     | "zweifamilienhaus"
     | "eigentumswohnung"
     | "mehrfamilienhaus"
-    | "mehrereGebaeude"
     | "nichtWohn"
     | "unbebaut"
     | "landUndForst";

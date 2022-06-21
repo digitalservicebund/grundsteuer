@@ -7,6 +7,8 @@ import { pruefenConditions } from "~/domain/pruefen/guards";
 import { PruefenModel } from "~/domain/pruefen/model";
 
 const getFailureReason = (allData: PruefenModel, i18n: I18nObject) => {
+  if (!pruefenConditions.isEigentuemer(allData))
+    return i18n.specifics.noEigentuemer;
   if (!pruefenConditions.isPrivatperson(allData))
     return i18n.specifics.noPrivatperson;
   if (!pruefenConditions.isBundesmodelBundesland(allData))
@@ -35,6 +37,7 @@ const KeineNutzung: StepComponentFunction = ({ i18n, allData }) => {
                 target="_blank"
               />
             ),
+            break: <br />,
           }}
         >
           {reason}

@@ -18,7 +18,10 @@ const isEigentuemer: PruefenCondition = (context) => {
 };
 
 const isPrivatperson: PruefenCondition = (context) => {
-  return context?.eigentuemerTyp?.eigentuemerTyp == "privatperson";
+  return (
+    context?.eigentuemerTyp?.eigentuemerTyp == "privatperson" ||
+    context?.eigentuemerTyp?.eigentuemerTyp == "mehrereErben"
+  );
 };
 
 const isBundesmodelBundesland: PruefenCondition = (context) => {

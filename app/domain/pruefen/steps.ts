@@ -26,8 +26,9 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
         type: "radio",
         options: [
           { value: "privatperson" },
+          { value: "erbengemeinschaft" },
+          { value: "mehrereErben" },
           { value: "unternehmen" },
-          { value: "beratung" },
         ],
         validations: {
           required: {},
@@ -73,7 +74,6 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
           { value: "zweifamilienhaus" },
           { value: "eigentumswohnung" },
           { value: "mehrfamilienhaus" },
-          { value: "mehrereGebaeude" },
           { value: "nichtWohn" },
           { value: "unbebaut" },
           { value: "landUndForst" },
