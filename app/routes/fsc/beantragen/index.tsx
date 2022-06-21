@@ -242,7 +242,7 @@ export default function FscBeantragen() {
 
         {showError && (
           <ErrorBar className="mb-32">
-            Mit diesen Daten können wir keinen FSC beantragen.
+            Mit diesen Daten können wir keinen Freischaltcode beantragen.
           </ErrorBar>
         )}
 
@@ -255,6 +255,12 @@ export default function FscBeantragen() {
                 label="Steuer-Identifikationsnummer"
                 placeholder="99 999 999 999"
                 error={errors?.steuerId}
+                help={
+                  <p>
+                    Ihre Steuernummer finden Sie beispielsweise auf Ihrem
+                    letzten Einkommensteuerbescheid.
+                  </p>
+                }
               />
             </FormGroup>
             <FormGroup>

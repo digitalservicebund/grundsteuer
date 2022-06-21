@@ -9,11 +9,6 @@ const FreischaltcodeHelp: HelpComponentFunction = () => {
       elements={[
         {
           type: "paragraph",
-          value:
-            "Ihren Freischaltcode finden Sie in dem Brief, den Sie von Ihrem Finanzamt erhalten haben. Der Code steht auf der letzten Seite.",
-        },
-        {
-          type: "paragraph",
           value: (
             <span>
               Der Freischaltcode besteht immer aus 12 Zeichen und sieht zum
