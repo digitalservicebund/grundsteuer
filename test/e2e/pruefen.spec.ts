@@ -23,9 +23,6 @@ describe("Happy Path", () => {
     cy.get(`label[for=grundstueckArt-einfamilienhaus]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.get(`label[for=garagen-garageAufGrundstueck]`).click();
-    cy.get(submitBtnSelector).click();
-
     cy.get(`label[for=ausland-false]`).click();
     cy.get(submitBtnSelector).click();
 
@@ -33,6 +30,9 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
 
     cy.get(`label[for=beguenstigung-false]`).click();
+    cy.get(submitBtnSelector).click();
+
+    cy.get(`label[for=garagen-garageAufGrundstueck]`).click();
     cy.get(submitBtnSelector).click();
 
     cy.get(`label[for=elster-false]`).click();
@@ -67,12 +67,9 @@ describe("Order Enforcing", () => {
     cy.get(`label[for=abgeber-eigentuemer]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.visit("/pruefen/eigentuemerTyp");
+    cy.visit("/pruefen/start");
 
-    cy.contains(
-      "legend",
-      "Wer oder für wen soll die Grundsteuererklärung abgegeben werden?"
-    );
+    cy.contains("legend", "Wer gibt die Grundsteuererklärung ab?");
   });
 });
 
