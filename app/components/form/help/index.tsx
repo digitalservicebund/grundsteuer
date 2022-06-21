@@ -8,6 +8,7 @@ import GemarkungHelp from "~/components/form/help/grundstueck/Gemarkung";
 import { getCurrentStateWithoutId } from "~/util/getCurrentState";
 import GrundbuchblattHelp from "~/components/form/help/grundstueck/Grundbuchblatt";
 import FlurHelp from "~/components/form/help/grundstueck/Flur";
+import EigentuemerAnzahlHelp from "~/components/form/help/eigentuemer/EigentuemerAnzahl";
 
 export const helpComponents = {
   grundstueck: {
@@ -21,6 +22,11 @@ export const helpComponents = {
       flur: {
         flur: FlurHelp,
       },
+    },
+  },
+  eigentuemer: {
+    anzahl: {
+      anzahl: EigentuemerAnzahlHelp,
     },
   },
 };

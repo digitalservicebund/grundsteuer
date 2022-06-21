@@ -673,10 +673,11 @@
           "options": {
             "true": {
               "label": "Die Eigentümer:innen sind verheiratet / in eingetragener Lebenspartnerschaft",
-              "help": "Bei in einem Haushalt lebenden Ehepaaren wird nur ein Steuerbescheid ein die gemeinsame Adresse versendet. Steuerlich hat das keine Auswirkungen."
+              "help": "Bei Ehegatten oder Lebenspartner:innen, die in einem Haushalt leben, wird nur ein Steuerbescheid an die gemeinsame Adresse versendet. Wohnen die Ehegatten oder Lebenspartner:innen nicht zusammen, werden zwei Bescheide verschickt. Das hat keine Auswirkung auf die Höhe der Grundsteuer."
             },
             "false": {
-              "label": "Die Eigentümer:innen sind nicht verheiratet oder leben dauernd getrennt."
+              "label": "Die Eigentümer:innen sind nicht verheiratet oder leben dauernd getrennt.",
+              "help": "In diesem Fall erhalten beide Eigentümer:innen jeweils einen Bescheid an die angegebenen Adressen. Das hat keine Auswirkung auf die Höhe der Grundsteuer."
             }
           }
         }
@@ -839,10 +840,12 @@
         "predefinedData": {
           "options": {
             "true": {
-              "label": "Ich möchte den Vorschlag übernehmen"
+              "label": "Ich möchte den Vorschlag übernehmen",
+              "help": "Ihr Grundsteuerbescheid wird später auf diesen Namen postalisch ausgestellt und an die Postadresse von Eigentümer:in 1 versendet."
             },
             "false": {
-              "label": "Ich möchte die Angaben ändern"
+              "label": "Ich möchte die Angaben ändern",
+              "help": "Sie können den Vorschlag damit auf der nächsten Seite manuell anpassen."
             }
           }
         }
@@ -878,7 +881,8 @@
         "fields": {
           "name": {
             "label": "Name der Bruchteilsgemeinschaft",
-            "placeholder": "Bruchteilsgemeinschaft Schneider und Schubert"
+            "placeholder": "Bruchteilsgemeinschaft Schneider und Schubert",
+            "help": "Überlegen Sie sich einen Namen für Ihre Bruchteilsgemeinschaft. Er wird später auf dem Grundsteuerbescheid stehen. Es reicht zum Beispiel, wenn Sie die Straße und Hausnummer des Grundstücks angeben."
           },
           "strasse": {
             "label": "Straße"
@@ -905,10 +909,12 @@
         "hasEmpfangsvollmacht": {
           "options": {
             "true": {
-              "label": "Ja, ich möchte eine empfangsbevollmächtigte Person angeben"
+              "label": "Ja, ich möchte eine empfangsbevollmächtigte Person angeben",
+              "help": "Ihre Bescheide werden später auf diesen Namen postalisch ausgestellt und an die Postadresse von Eigentümer:in 1 versendet."
             },
             "false": {
-              "label": "Nein, ich möchte keine empfangsbevollmächtigte Person angeben"
+              "label": "Nein, ich möchte keine empfangsbevollmächtigte Person angeben",
+              "help": "Die Bescheide werden an Sie und an die von Ihnen hinterlegte Postadresse versendet."
             }
           }
         }

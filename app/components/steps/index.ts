@@ -14,6 +14,7 @@ import BodenrichtwertAnzahl from "~/components/steps/grundstueck/BodenrichtwertA
 import BodenrichtwertEingabe from "~/components/steps/grundstueck/BodenrichtwertEingabe";
 import Wohnflaeche from "~/components/steps/gebaeude/Wohnflaeche";
 import Wohnflaechen from "~/components/steps/gebaeude/Wohnflaechen";
+import EigentuemerAnteil from "~/components/steps/eigentuemer/EigentuemerAnteil";
 
 export { Default as FallbackStepComponent };
 
@@ -23,6 +24,9 @@ export default {
     uebersicht: EigentuemerUebersicht,
     bruchteilsgemeinschaft: Bruchteilsgemeinschaft,
     abschluss: EigentuemerAbschluss,
+    person: {
+      anteil: EigentuemerAnteil,
+    },
   },
   grundstueck: {
     uebersicht: GrundstueckUebersicht,
