@@ -481,10 +481,12 @@
         "isAb1949": {
           "options": {
             "false": {
-              "label": "Vor 1949"
+              "label": "Vor 1949",
+              "help": "Das Baujahr finden Sie in der Regel im Kaufvertrag oder in der Bauakte beim Bauamt."
             },
             "true": {
-              "label": "Ab 1949"
+              "label": "Ab 1949",
+              "help": "Bei Eigentumswohnungen geht es hier um das Baujahr des ganzen Mehrfamilienhauses. Wenn Sie dieses nicht kennen, schauen Sie im Kaufvertrag nach oder fragen Sie Ihre Hausverwaltung."
             }
           }
         }
@@ -496,7 +498,8 @@
       "fields": {
         "baujahr": {
           "label": "Baujahr",
-          "placeholder": "JJJJ"
+          "placeholder": "JJJJ",
+          "help": "Sollten Sie das Baujahr in Ihren Unterlagen nicht finden, können Sie es in der Bauakte beim Bauamt, Grundbuchamt, Bauarchiv, Stadt- oder Landesarchiv der jeweiligen Gemeinde nachsehen oder erfragen. Das Jahr der Fertigstellung gilt als Baujahr. Tragen Sie bitte immer das Jahr der erstmaligen Bezugsfertigkeit ein, auch wenn das Gebäude später durch Anbauten oder Aufstockungen erweitert wurde."
         }
       }
     },
@@ -507,10 +510,12 @@
         "isKernsaniert": {
           "options": {
             "false": {
-              "label": "Nein, das Gebäude wurde nicht kernsaniert"
+              "label": "Nein, das Gebäude wurde nicht kernsaniert",
+              "help": "Das Gebäude wurde, wenn überhaupt, saniert oder modernisiert. Zum Beispiel Schimmel beseitigt, ein undichtes Dach repariert, eine neue Heizung eingebaut oder die Fassade gedämmt."
             },
             "true": {
-              "label": "Ja, das Gebäude wurde kernsaniert"
+              "label": "Ja, das Gebäude wurde kernsaniert",
+              "help": "Eine Kernsanierung beinhaltet die komplette Erneuerung der Dacheindeckung, der Fassade, die Innen- und Außenwände, die Fußböden, die Fenster, die Innen- und Außentüren, alle technischen Systeme, das Abwassersystem, die Elektrik usw. Das Jahr der Kernsanierung gilt dann als neues Baujahr. Wählen Sie \"Nein\", wenn die Kernsanierung zum 01.01.2022 noch nicht abgeschlossen war."
             }
           }
         }
@@ -522,7 +527,8 @@
       "fields": {
         "kernsanierungsjahr": {
           "label": "Jahr der Kernsanierung",
-          "placeholder": "JJJJ"
+          "placeholder": "JJJJ",
+          "help": "Angaben zum Jahr der Kernsanierung finden Sie ggf. im Kaufvertrag oder in Niederschriften der Eigentümerversammlungen. Vielleicht können Ihnen auch die Voreigentümer:innen oder die Hausverwaltung Auskunft geben."
         }
       }
     },
@@ -533,10 +539,12 @@
         "hasAbbruchverpflichtung": {
           "options": {
             "false": {
-              "label": "Nein, es liegt keine Abbruchverpflichtung vor"
+              "label": "Nein, es liegt keine Abbruchverpflichtung vor",
+              "help": "Sie haben kein Schreiben mit einer Abbruchverpflichtung erhalten."
             },
             "true": {
-              "label": "Ja, es liegt eine Abbruchverpflichtung vor"
+              "label": "Ja, es liegt eine Abbruchverpflichtung vor",
+              "help": "Ob das Gebäude abgerissen werden muss, wird behördlich angeordnet. Zum Beispiel, wenn auf Ihrem Grundstück widerrechtlich ein Gebäude errichtet wurde oder das Gebäude einsturzgefährdet ist."
             }
           }
         }
@@ -581,7 +589,8 @@
               "label": "Nein, es gibt keine weiteren ausgebauten Wohnräume außerhalb der Wohnung"
             },
             "true": {
-              "label": "Ja, es gibt weitere ausgebaute Wohnräume außerhalb der Wohnung"
+              "label": "Ja, es gibt weitere ausgebaute Wohnräume außerhalb der Wohnung",
+              "help": "Diese Angabe trifft auf Sie zu, wenn sie weitere nutzbare Wohnräume haben. Dazu zählen bewohnbare Gartenhäuser, Gästehäuser, Poolhäuser oder zu Wohnzwecken ausgebaute Garagen."
             }
           }
         }
@@ -619,7 +628,8 @@
       "headline": "Wie viele Garagenstellplätze gehören zu Ihrem Gebäude / Ihrer Wohneinheit? ",
       "fields": {
         "anzahlGaragen": {
-          "label": "Anzahl der Garagenstellplätze"
+          "label": "Anzahl der Garagenstellplätze",
+          "help": "Geben Sie hier die Anzahl der Garagenstellplätze an. Dazu gehören auch Tiefgaragenstellplätze."
         }
       }
     }
