@@ -965,7 +965,7 @@
             "label": "Hausnummer + (Hausnummerzusatz) (Optional)"
           },
           "postfach": {
-            "label": "Postfach"
+            "label": "Postfach (Optional)"
           },
           "plz": {
             "label": "Postleitzahl"

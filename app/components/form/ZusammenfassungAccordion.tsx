@@ -259,9 +259,9 @@ const resolvePersoenlicheAngaben: StepResolver = (value) => {
 const resolveGesetzlicherVertreter: FieldResolver = (value) => {
   switch (value) {
     case "true":
-      return "Hat gesetzliche:n Vertreter:in";
+      return "Hat gesetzliche Vertretung";
     case "false":
-      return "Kein:e gesetzliche:r Vertreter:in";
+      return "Keine gesetzliche Vertretung";
     default:
       return "";
   }
@@ -324,7 +324,7 @@ const EnumerationFields = ({
 }) => {
   return (
     <div id={id}>
-      <SectionLabel icon={icon} label={label + " " + index + 1} />
+      <SectionLabel icon={icon} label={label + " " + (index + 1)} />
       <ul className="ml-64">{children}</ul>
     </div>
   );
@@ -811,7 +811,7 @@ export default function ZusammenfassungAccordion({
                       `eigentuemer.person.${index + 1}.gesetzlicherVertreter`,
                       [
                         {
-                          label: "Auswahl gesetzliche:r Vertreter:in",
+                          label: "Auswahl gesetzliche Vertretung",
                           path: "hasVertreter",
                           resolver: resolveGesetzlicherVertreter,
                         },

@@ -94,6 +94,7 @@ export default function Erfolg() {
               </div>,
               "Ab 2025 zahlen Sie die neue Grundsteuer.",
             ]}
+            className="mb-32"
           />
         </UebersichtStep>
       </ContentContainer>
