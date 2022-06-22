@@ -1,4 +1,4 @@
-import { deleteExpiredFscs } from "~/cron.server";
+import { deleteExpiredFscs, deleteExpiredPdfs } from "~/cron.server";
 import { db } from "~/db.server";
 
 describe("Cron jobs", () => {
@@ -53,6 +53,57 @@ describe("Cron jobs", () => {
 
       expect(requestIds.length).toEqual(1);
       expect(requestIds).toEqual(["under90daysold"]);
+    });
+  });
+
+  describe("deleteExpiredPdfs", () => {
+    beforeAll(async () => {
+      await db.user.create({
+        data: {
+          email: "one@foo.com",
+          pdf: {
+            create: {
+              data: Buffer.from("overOneHourOld"),
+              createdAt: new Date(
+                // 60 minutes ago
+                new Date().setMinutes(new Date().getMinutes() - 60)
+              ),
+            },
+          },
+        },
+      });
+      await db.user.create({
+        data: {
+          email: "two@foo.com",
+          pdf: {
+            create: {
+              data: Buffer.from("underOneHourOld"),
+              createdAt: new Date(
+                // 59 minutes ago
+                new Date().setMinutes(new Date().getMinutes() - 59)
+              ),
+            },
+          },
+        },
+      });
+    });
+    afterAll(async () => {
+      await db.pdf.deleteMany({});
+      await db.user.deleteMany({
+        where: { email: { in: ["one@foo.com", "two@foo.com"] } },
+      });
+    });
+
+    it("should delete entry over one hour old", async () => {
+      const beforeRows = await db.pdf.findMany();
+      expect(beforeRows.length).toEqual(2);
+
+      await deleteExpiredPdfs();
+
+      const afterRows = await db.pdf.findMany();
+
+      expect(afterRows.length).toEqual(1);
+      expect(afterRows[0].data).toEqual(Buffer.from("underOneHourOld"));
     });
   });
 });

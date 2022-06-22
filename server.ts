@@ -31,8 +31,9 @@ Sentry.init({
 // cron mode is intended for running cron jobs only. The app will not serve any HTTP requests in this mode.
 if (appMode === "cron") {
   invariant(process.env.DATABASE_URL, "DATABASE_URL is not set.");
-  // run every hour
+  // run once every hour
   jobs.scheduleFscCleanup("0 * * * *");
+  jobs.schedulePdfCleanup("30 * * * *");
 } else {
   // Fail fast on missing configuration parameters
   dotenv.config();
