@@ -96,14 +96,17 @@ export const fillPostCommaToLength = (
 ) => {
   if (!value || value.length == 0 || postCommaLength == 0) return value;
 
-  const splits = value.split(",");
+  const splits = value.trim().split(",");
   if (splits[1] && splits[1].length >= postCommaLength) return value;
 
   const difference = splits[1]
     ? postCommaLength - splits[1].length
     : postCommaLength;
   return (
-    splits[0] + "," + (splits[1] || "") + Array(difference).fill("0").join("")
+    splits[0]?.trim() +
+    "," +
+    (splits[1]?.trim() || "") +
+    Array(difference).fill("0").join("")
   );
 };
 
@@ -111,9 +114,9 @@ const transformWirtschaftlicheEinheitZaehler = (value?: string) => {
   return fillPostCommaToLength(4, value)?.replace(",", ".");
 };
 
-const transformDate = (value?: string) => {
+export const transformDate = (value?: string) => {
   if (!value) return undefined;
-  return value.split(".").reverse().join("-");
+  return value.trim().split(".").reverse().join("-");
 };
 
 const calculateWohnflaechen = (

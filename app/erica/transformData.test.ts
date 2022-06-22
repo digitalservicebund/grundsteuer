@@ -5,6 +5,7 @@ import {
   separateHausnummerAndZusatz,
   transforDataToEricaFormat,
   transformAnteil,
+  transformDate,
 } from "~/erica/transformData";
 import { Person } from "~/domain/steps";
 
@@ -681,6 +682,7 @@ describe("fillPostCommaToLength", () => {
     { value: "1,0", postCommaLength: 1, output: "1,0" },
     { value: "1,12", postCommaLength: 3, output: "1,120" },
     { value: "1,12", postCommaLength: 1, output: "1,12" },
+    { value: " 1,12 ", postCommaLength: 3, output: "1,120" },
   ];
 
   test.each(cases)(
@@ -708,6 +710,21 @@ describe("transformAnteil", () => {
     "Should return '$output' if anteil is '$anteil'",
     ({ anteil, output }) => {
       expect(transformAnteil(anteil)).toEqual(output);
+    }
+  );
+});
+
+describe("transformAnteil", () => {
+  const cases = [
+    { date: "1.2.2020", output: "2020-2-1" },
+    { date: "01.12.2020", output: "2020-12-01" },
+    { date: " 01.12.2020 ", output: "2020-12-01" },
+  ];
+
+  test.each(cases)(
+    "Should return '$output' if anteil is '$anteil'",
+    ({ date, output }) => {
+      expect(transformDate(date)).toEqual(output);
     }
   );
 });
