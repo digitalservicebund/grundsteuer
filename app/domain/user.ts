@@ -177,7 +177,7 @@ export const savePdf = async (email: string, pdf: string) => {
 
 export const deletePdf = async (email: string) => {
   const user = await findUserByEmail(email);
-  invariant(user, `User with email ${email} not found.`);
+  invariant(user, `User with given email not found.`);
 
   // prisma does not support deleteIfExists yet and throws an error on missing record
   if (user?.pdf) {
