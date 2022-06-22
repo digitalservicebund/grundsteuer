@@ -159,6 +159,10 @@ export const deleteTransferticket = async (email: string) => {
 
 export const savePdf = async (email: string, pdf: string) => {
   const pdfBuffer = Buffer.from(pdf, "base64");
+  const user = await findUserByEmail(email);
+  if (user?.pdf) {
+    await deletePdf(email);
+  }
   return db.user.update({
     where: { email: email },
     data: {
