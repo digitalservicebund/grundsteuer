@@ -257,8 +257,8 @@ export default function FscBeantragen() {
                 error={errors?.steuerId}
                 help={
                   <p>
-                    Ihre Steuernummer finden Sie beispielsweise auf Ihrem
-                    letzten Einkommensteuerbescheid.
+                    Ihre Steuer-Identifikationsnummer finden Sie beispielsweise
+                    auf Ihrem letzten Einkommensteuerbescheid.
                   </p>
                 }
               />
