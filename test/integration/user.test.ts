@@ -610,7 +610,7 @@ describe("user", () => {
       const user = await findUserByEmail("existing@foo.com");
 
       expect(user).toBeTruthy();
-      expect(user?.pdf).toEqual(Buffer.from(inputPdf, "base64"));
+      expect(user?.pdf?.data).toEqual(Buffer.from(inputPdf, "base64"));
     });
 
     it("should fail on unknown user", async () => {
@@ -623,7 +623,13 @@ describe("user", () => {
   const setPdf = () => {
     db.user.update({
       where: { email: "existing@foo.com" },
-      data: { pdf: Buffer.from("PDF") },
+      data: {
+        pdf: {
+          create: {
+            data: Buffer.from("PDF"),
+          },
+        },
+      },
     });
   };
 

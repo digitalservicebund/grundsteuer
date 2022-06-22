@@ -1,7 +1,10 @@
 import { db } from "~/db.server";
 import { Prisma } from "@prisma/client";
+import invariant from "tiny-invariant";
 
-export type User = Prisma.UserGetPayload<{ include: { fscRequest: true } }>;
+export type User = Prisma.UserGetPayload<{
+  include: { fscRequest: true; pdf: true };
+}>;
 
 export const createUser = async (email: string) => {
   await db.user.create({
@@ -26,6 +29,7 @@ export const findUserByEmail = async (email: string): Promise<User | null> => {
     },
     include: {
       fscRequest: true,
+      pdf: true,
     },
   });
 };
@@ -157,13 +161,29 @@ export const savePdf = async (email: string, pdf: string) => {
   const pdfBuffer = Buffer.from(pdf, "base64");
   return db.user.update({
     where: { email: email },
-    data: { pdf: pdfBuffer },
+    data: {
+      pdf: {
+        create: {
+          data: pdfBuffer,
+        },
+      },
+    },
   });
 };
 
 export const deletePdf = async (email: string) => {
-  return db.user.update({
-    where: { email: email },
-    data: { pdf: null },
-  });
+  const user = await findUserByEmail(email);
+  invariant(user, `User with email ${email} not found.`);
+
+  // prisma does not support deleteIfExists yet and throws an error on missing record
+  if (user?.pdf) {
+    return db.user.update({
+      where: { email: email },
+      data: {
+        pdf: {
+          delete: true,
+        },
+      },
+    });
+  }
 };

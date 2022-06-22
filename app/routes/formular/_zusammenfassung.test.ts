@@ -130,6 +130,7 @@ describe("/zusammenfassung loader", () => {
           transferticket: "transfer complete",
           pdf: "PDF",
         });
+        getMockedFunction(userModule, "savePdf", {});
       });
 
       it("should remove ericaRequestId and save pdf + transferticket", async () => {

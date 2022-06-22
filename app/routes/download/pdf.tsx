@@ -15,7 +15,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   );
   invariant(userData.pdf, "expected pdf to be stored in user");
 
-  const response = new Response(userData.pdf);
+  const response = new Response(userData.pdf.data);
   response.headers.set(
     "Content-Disposition",
     `attachment; filename="Grundsteuererklaerung.pdf"`

@@ -22,7 +22,14 @@ model User {
   ericaRequestIdFscStornieren   String?
   ericaRequestIdSenden          String?
   transferticket                String?
-  pdf                           Bytes?
+  pdf                           Pdf?
+}
+
+model Pdf {
+  userId        String          @id @unique
+  createdAt     DateTime        @default(now())
+  data          Bytes
+  User          User            @relation(fields: [userId], references: [id])
 }
 
 model FscRequest {
