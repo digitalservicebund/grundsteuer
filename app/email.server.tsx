@@ -1,7 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import sdk from "sib-api-v3-sdk";
-import { renderToString } from "react-dom/server";
 import type { SendEmailFunction } from "remix-auth-email-link";
 import type { SessionUser } from "~/auth.server";
 
@@ -24,11 +23,19 @@ export const sendToSendinblue = (options: {
     const email = new sdk.SendSmtpEmail();
 
     email.subject = options.subject;
-    email.htmlContent = options.htmlContent;
+    email.htmlContent = [
+      '<!DOCTYPE html><html lang="de"><head>',
+      '<meta http-equiv="Content-Type" content="text/html charset=UTF-8" />',
+      `<title>${options.subject}</title>`,
+      '<meta name="viewport" content="width=device-width, initial-scale=1.0"/>',
+      "</head><body>",
+      options.htmlContent,
+      "</body></html>",
+    ].join("");
     email.textContent = options.textContent;
     email.sender = {
       name: "Grundsteuererklärung für Privateigentum",
-      email: "kontakt@grundsteuererklaerung-fuer-privateigentum.de",
+      email: "no-reply@mail.grundsteuererklaerung-fuer-privateigentum.de",
     };
     email.to = [{ email: options.to }];
     email.replyTo = {
@@ -40,7 +47,7 @@ export const sendToSendinblue = (options: {
     apiInstance.sendTransacEmail(email).then(
       function (data: any) {
         console.log(
-          "Sendinblue API called successfully. Returned data: " +
+          "Sendinblue API called successfully. Message ID: " +
             JSON.stringify(data)
         );
       },
@@ -53,39 +60,71 @@ export const sendToSendinblue = (options: {
   }
 };
 
+const textGreetings = ["Guten Tag!", ""];
+
+const htmlGreetings = ["<p>Guten Tag!</p>"];
+
+const textFooter = [
+  "",
+  "Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail einfach ignorieren.",
+  "",
+  "Vielen Dank",
+  "Ihr Team von „Grundsteuererklärung für Privateigentum“",
+  "",
+  "-- ", // must be exactly 2 dashes + 1 space!
+  "DigitalService GmbH des Bundes",
+  "Prinzessinenstraße 8-14",
+  "10969 Berlin",
+  "",
+  "Vertreten durch die Geschäftsführung: Frau Christina Lang, Herr Philipp Moeser",
+  "Alleingesellschafterin: Bundesrepublik Deutschland, vertreten durch das Bundeskanzleramt",
+  "",
+  "Handelsregister-Nummer: HRB 212879 B",
+  "Registergericht: Berlin Charlottenburg",
+  "",
+  "Kontakt: kontakt@grundsteuererklaerung-fuer-privateigentum.de",
+  "Impressum: https://www.grundsteuererklaerung-fuer-privateigentum.de/impressum",
+  "Datenschutzerklärung: https://www.grundsteuererklaerung-fuer-privateigentum.de/datenschutz",
+];
+
+const htmlFooter = [
+  "<p>Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail einfach ignorieren.</p>",
+  "<p>Vielen Dank<br />",
+  "Ihr Team von „Grundsteuererklärung für Privateigentum“</p>",
+  '<hr style="margin-top: 3rem"/>',
+  "<p>DigitalService GmbH des Bundes<br />",
+  "Prinzessinenstraße 8-14<br />",
+  "10969 Berlin</p>",
+  "<p>Vertreten durch die Geschäftsführung: Frau Christina Lang, Herr Philipp Moeser<br />",
+  "Alleingesellschafterin: Bundesrepublik Deutschland, vertreten durch das Bundeskanzleramt</p>",
+  "<p>Handelsregister-Nummer: HRB 212879 B<br />",
+  "Registergericht: Berlin Charlottenburg</p>",
+  '<p>Kontakt: <a href="mailto:kontakt@grundsteuererklaerung-fuer-privateigentum.de">kontakt@grundsteuererklaerung-fuer-privateigentum.de</a></p>',
+  '<p><a href="https://www.grundsteuererklaerung-fuer-privateigentum.de/impressum">Impressum</a> | ',
+  '<a href="https://www.grundsteuererklaerung-fuer-privateigentum.de/datenschutz">Datenschutzerklärung</a></p>',
+];
+
 export const sendMagicLinkEmail: SendEmailFunction<SessionUser> = async (
   options
 ) => {
-  const subject = "Anmelden bei Grundsteuererklärung für Privateigentum";
+  const subject = "Anmelden bei „Grundsteuererklärung für Privateigentum“";
 
-  const textContent = [
-    "Hallo!",
-    "Mit dieser E-Mail-Adresse wurde eine Anmeldung bei Grundsteuererklärung für Privateigentum angefordert. Wenn Sie das waren und sich nun anmelden möchten, klicken Sie bitte auf diesen Link. Bitte achten Sie darauf, dass Sie den Link in dem gleichen Browser auf dem gleichen Gerät öffnen, in dem Sie auch den Login Link angefordert haben.",
-    options.magicLink,
-    "Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail einfach ignorieren.",
-    "Vielen Dank!",
-  ].join("\n\n");
+  const textContent = textGreetings
+    .concat([
+      "Mit dieser E-Mail-Adresse wurde eine Anmeldung bei „Grundsteuererklärung für Privateigentum“ angefordert. Wenn Sie das waren und sich nun anmelden möchten, nutzen Sie bitte diesen Link:",
+      "",
+      options.magicLink,
+    ])
+    .concat(textFooter)
+    .join("\n");
 
-  const htmlContent = renderToString(
-    <>
-      <p>Hallo!</p>
-      <p>
-        Mit dieser E-Mail-Adresse wurde eine Anmeldung bei Grundsteuererklärung
-        für Privateigentum angefordert. Wenn Sie das waren und sich nun anmelden
-        möchten, klicken Sie bitte auf den folgenden Link. Bitte achten Sie
-        darauf, dass Sie den Link in dem gleichen Browser auf dem gleichen Gerät
-        öffnen, in dem Sie auch den Login Link angefordert haben.
-      </p>
-      <p>
-        <a href={options.magicLink}>Anmelden</a>
-        <p>
-          Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail
-          einfach ignorieren.
-        </p>
-        <p>Vielen Dank!</p>
-      </p>
-    </>
-  );
+  const htmlContent = htmlGreetings
+    .concat([
+      "<p>Mit dieser E-Mail-Adresse wurde eine Anmeldung bei „Grundsteuererklärung für Privateigentum“ angefordert. Wenn Sie das waren und sich nun anmelden möchten, klicken Sie bitte auf diesen Link:</p>",
+      `<p><strong><a href="${options.magicLink}">Anmelden bei „Grundsteuererklärung für Privateigentum“</a></strong></p>`,
+    ])
+    .concat(htmlFooter)
+    .join("");
 
   sendToSendinblue({
     to: options.emailAddress,
@@ -101,35 +140,25 @@ export const sendLoginAttemptEmail = async (options: {
   const subject =
     "Versuchte Anmeldung bei Grundsteuererklärung für Privateigentum";
 
-  const textContent = [
-    "Hallo!",
-    "Mit dieser E-Mail-Adresse wurde eine Anmeldung bei Grundsteuererklärung für Privateigentum angefordert. Allerdings muss zuerst eine Registrierung durchgeführt werden. Bitte klicken Sie auf den Link, um sich zu registrieren:",
-    "https://www.grundsteuererklaerung-fuer-privateigentum/registrieren",
-    "Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail einfach ignorieren.",
-    "Vielen Dank!",
-  ].join("\n\n");
+  const registerUrl =
+    "https://www.grundsteuererklaerung-fuer-privateigentum/registrieren";
 
-  const htmlContent = renderToString(
-    <>
-      <p>Hallo!</p>
-      <p>
-        Mit dieser E-Mail-Adresse wurde eine Anmeldung bei Grundsteuererklärung
-        für Privateigentum angefordert. Allerdings muss zuerst eine
-        Registrierung durchgeführt werden. Bitte klicken Sie auf den Link, um
-        sich zu registrieren.
-      </p>
-      <p>
-        <a href="https://www.grundsteuererklaerung-fuer-privateigentum.de/registrieren">
-          Registrieren
-        </a>
-        <p>
-          Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail
-          einfach ignorieren.
-        </p>
-        <p>Vielen Dank!</p>
-      </p>
-    </>
-  );
+  const textContent = textGreetings
+    .concat([
+      "Mit dieser E-Mail-Adresse wurde eine Anmeldung bei Grundsteuererklärung für Privateigentum angefordert. Bitte registrieren Sie sich zunächst. Nutzen Sie dazu den folgenden Link:",
+      "",
+      registerUrl,
+    ])
+    .concat(textFooter)
+    .join("\n");
+
+  const htmlContent = htmlGreetings
+    .concat([
+      "<p>Mit dieser E-Mail-Adresse wurde eine Anmeldung bei Grundsteuererklärung für Privateigentum angefordert. Bitte registrieren Sie sich zunächst. Klicken Sie dazu auf den folgenden Link:</p>",
+      `<p><strong><a href="${registerUrl}">Registrieren bei „Grundsteuererklärung für Privateigentum“</a></strong></p>`,
+    ])
+    .concat(htmlFooter)
+    .join("");
 
   sendToSendinblue({
     to: options.emailAddress,
