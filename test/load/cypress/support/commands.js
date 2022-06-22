@@ -26,9 +26,15 @@
 
 /* eslint-disable no-undef */
 Cypress.Commands.add("login", () => {
-  cy.visit("/anmelden");
-  cy.get("[name=email]").type("grundsteuer+load-test@digitalservice.bund.de");
-  cy.get("[name=password]").type("12345678");
-  cy.get("[data-testid=submit]").click();
-  cy.url().should("contain", "/fsc");
+  // Cookie value obtained by manually logging in with grundsteuer+load-test@digitalservice.bund.de on staging
+  cy.setCookie(
+    "__Host-session",
+    "eyJjc3JmIjoiNTkzOGI2ZTYtMDQ5OS00NmJhLWI2NmEtYzk1ODI5NTUwOWFkIiwidXNlciI6eyJlbWFpbCI6ImdydW5kc3RldWVyK2xvYWQtdGVzdEBkaWdpdGFsc2VydmljZS5idW5kLmRlIiwiaWQiOiI5ZTc3NmE1MC1hZWUyLTRjNDctOWQyMC1mMjJkN2Y2NGNiNDAiLCJpZGVudGlmaWVkIjp0cnVlfX0=.uCm1caCqy9DiYUJwMeT836vdEa3ck0kCWgJwJa1C/qE",
+    {
+      domain: "grund-stag.dev.ds4g.net",
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+    }
+  );
 });

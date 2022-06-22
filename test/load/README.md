@@ -31,7 +31,7 @@ Requires no setup.
 
 ## form
 
-Requires a user to exist with email grundsteuer+load-test@digitalservice.bund.de and password 12345678, which you can create via the registration form.
+Requires a user to exist with email grundsteuer+load-test@digitalservice.bund.de, which you can create via the registration form.
 
 ## registration
 
