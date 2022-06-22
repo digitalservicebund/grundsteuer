@@ -39,13 +39,11 @@ export const loader: LoaderFunction = async ({ request }) => {
   const csrfToken = createCsrfToken(session);
 
   const url = new URL(request.url);
-  const registered = url.searchParams.get("registered");
   const error = url.searchParams.get("error");
 
   return json(
     {
       csrfToken,
-      userIsComingfromSuccessfulRegistration: registered && registered === "1",
       error,
     },
     {
@@ -79,7 +77,7 @@ export const action: ActionFunction = async ({ request }) => {
       }
     );
   } else {
-    sendLoginAttemptEmail({ emailAddress: normalizedEmail });
+    await sendLoginAttemptEmail({ emailAddress: normalizedEmail });
     console.log("unknown email!");
     return redirect("/anmelden/email");
   }
@@ -108,18 +106,16 @@ export default function Anmelden() {
         )}
         <Headline className="mb-80">Herzlich willkommen!</Headline>
 
-        {!loaderData?.userIsComingfromSuccessfulRegistration && (
-          <div className="mb-80">
-            <SubHeadline className="font-bold">
-              Ich bin das erste Mal hier
-            </SubHeadline>
-            <IntroText>
-              Erstellen Sie ein Konto um die Bearbeitung nach Wunsch
-              unterbrechen- und später fortsetzen zu können.
-            </IntroText>
-            <Button to="/registrieren">Konto erstellen</Button>
-          </div>
-        )}
+        <div className="mb-80">
+          <SubHeadline className="font-bold">
+            Ich bin das erste Mal hier
+          </SubHeadline>
+          <IntroText>
+            Erstellen Sie ein Konto um die Bearbeitung nach Wunsch unterbrechen-
+            und später fortsetzen zu können.
+          </IntroText>
+          <Button to="/registrieren">Konto erstellen</Button>
+        </div>
 
         <SubHeadline className="font-bold">
           Ich habe bereits ein Konto
