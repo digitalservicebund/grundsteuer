@@ -1,7 +1,5 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "@remix-run/react";
-import bmfLogoImage from "~/assets/images/bmf-logo.svg";
-import digitalserviceLogoImage from "~/assets/images/digitalservice-logo.svg";
 import FloatButton from "~/components/FloatButton";
 import LetterIcon from "~/components/icons/mui/LetterIcon";
 
@@ -31,32 +29,30 @@ export default function Footer() {
         </div>
       </div>
       <div className="px-16 md:px-32 lg:px-48">
-        <div className="md:flex md:justify-between md:items-center gap-x-32 md:gap-x-64 pt-16">
-          <div className="flex items-center shrink-0 pb-16">
-            <a
-              href="https://www.bundesfinanzministerium.de"
-              rel="noopener"
-              target="_blank"
-            >
-              <img
-                src={bmfLogoImage}
-                alt={t("footer.bmf")}
-                className="w-[132px]"
-                width={168}
-                height={104}
-              />
-            </a>
-            <a
-              href="https://digitalservice.bund.de"
-              rel="noopener"
-              target="_blank"
-            >
-              <img
-                src={digitalserviceLogoImage}
-                alt={t("footer.digitalservice")}
-                className="w-[70px] h-[70px]"
-              />
-            </a>
+        <div className="md:flex md:justify-between md:items-center gap-x-32 md:gap-x-64 pt-32">
+          <div className="flex flex-col shrink-0 pb-56">
+            <div className="flex flex-col md:flex-row mb-16 md:mb-0">
+              <span>Im Auftrag des</span>
+              <a
+                href="https://www.bundesfinanzministerium.de"
+                rel="noopener"
+                target="_blank"
+                className="text-blue-800 underline font-bold md:ml-4"
+              >
+                Bundesministerium für Finanzen
+              </a>
+            </div>
+            <div className="flex flex-col md:flex-row">
+              <span>Ein Online-Dienst des</span>
+              <a
+                href="https://digitalservice.bund.de"
+                rel="noopener"
+                target="_blank"
+                className="text-blue-800 underline font-bold md:ml-4"
+              >
+                DigitalService GmbH
+              </a>
+            </div>
           </div>
 
           <div className="flex flex-wrap pb-16 md:justify-end gap-x-14 md:gap-x-32 max-w-[700px]">
