@@ -274,9 +274,9 @@ const resolveAnteilFraction: StepResolver = (value) => {
 };
 
 const resolveBruchteilsgemeinschaftName: StepResolver = (_value, allData) => {
-  const eigentuemerAdresse = allData?.eigentuemer?.person?.[0].adresse;
-  if (eigentuemerAdresse) {
-    return transformBruchteilsgemeinschaftName(eigentuemerAdresse);
+  const grundstueckAdresse = allData?.grundstueck?.adresse;
+  if (grundstueckAdresse) {
+    return transformBruchteilsgemeinschaftName(grundstueckAdresse);
   }
   return "";
 };
@@ -285,10 +285,10 @@ const resolveBruchteilsgemeinschaftAdresse: StepResolver = (
   _value,
   allData
 ) => {
-  const grundstueckAdresse = allData?.grundstueck?.adresse;
-  if (grundstueckAdresse) {
+  const eigentuemerAdresse = allData?.eigentuemer?.person?.[0].adresse;
+  if (eigentuemerAdresse) {
     return resolveAdresse(
-      transformBruchteilsgemeinschaftAdresse(grundstueckAdresse)
+      transformBruchteilsgemeinschaftAdresse(eigentuemerAdresse)
     );
   }
   return "";

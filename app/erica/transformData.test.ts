@@ -537,13 +537,14 @@ describe("transforDataToEricaFormat", () => {
       const result = transforDataToEricaFormat(inputData);
 
       expect(result.eigentuemer.bruchteilsgemeinschaft).toEqual({
-        name: "Bruchteilsgem. 1 Strasse 1 Hausnummer",
+        name: "Bruchteilsgem. GST Strasse 2GST",
         adresse: {
-          strasse: "GST Strasse",
-          hausnummer: "2",
-          hausnummerzusatz: "GST",
-          plz: "GST PLZ",
-          ort: "GST Ort",
+          postfach: "1 Postfach",
+          strasse: "1 Strasse",
+          hausnummer: "1",
+          hausnummerzusatz: "Hausnummer",
+          plz: "1 PLZ",
+          ort: "1 Ort",
         },
       });
     });

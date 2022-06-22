@@ -181,19 +181,20 @@ const transformPerson = (person: Person) => {
 };
 
 export const transformBruchteilsgemeinschaftName = (
-  eigentuemerAdresse?: EigentuemerPersonAdresseFields
+  grundstueckAdresse?: GrundstueckAdresseFields
 ) => {
-  return `Bruchteilsgem. ${eigentuemerAdresse?.strasse} ${eigentuemerAdresse?.hausnummer}`;
+  return `Bruchteilsgem. ${grundstueckAdresse?.strasse} ${grundstueckAdresse?.hausnummer}`;
 };
 
 export const transformBruchteilsgemeinschaftAdresse = (
-  grundstueckAdresse?: GrundstueckAdresseFields
+  eigentuemerAdresse?: EigentuemerPersonAdresseFields
 ) => {
   return {
-    strasse: grundstueckAdresse?.strasse,
-    ...separateHausnummerAndZusatz(grundstueckAdresse?.hausnummer),
-    plz: grundstueckAdresse?.plz,
-    ort: grundstueckAdresse?.ort,
+    strasse: eigentuemerAdresse?.strasse,
+    ...separateHausnummerAndZusatz(eigentuemerAdresse?.hausnummer),
+    postfach: eigentuemerAdresse?.postfach,
+    plz: eigentuemerAdresse?.plz,
+    ort: eigentuemerAdresse?.ort,
   } as EigentuemerBruchteilsgemeinschaftAdresseFields;
 };
 
@@ -205,8 +206,8 @@ const transformBruchteilsgemeinschaft = (
 ) => {
   if (bruchteilsgemeinschaft?.predefinedData == "true") {
     return {
-      name: transformBruchteilsgemeinschaftName(eigentuemerAdresse),
-      adresse: transformBruchteilsgemeinschaftAdresse(grundstueckAdresse),
+      name: transformBruchteilsgemeinschaftName(grundstueckAdresse),
+      adresse: transformBruchteilsgemeinschaftAdresse(eigentuemerAdresse),
     };
   } else {
     return {
