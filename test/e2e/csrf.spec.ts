@@ -77,6 +77,22 @@ describe("CSRF protection", () => {
     });
   });
 
+  describe("on pruefen", () => {
+    it("should fail on direct post", () => {
+      cy.login();
+      cy.visit("/pruefen/start");
+      cy.request({
+        method: "POST",
+        url: "/pruefen/start",
+        body: "csrf=bar",
+        form: true,
+        failOnStatusCode: false,
+      }).then((response) => {
+        expect(response.status).to.eq(400);
+      });
+    });
+  });
+
   describe("on /fsc", () => {
     it("should fail on direct post to /beantragen", () => {
       cy.login();
