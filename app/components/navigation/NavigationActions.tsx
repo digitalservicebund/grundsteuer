@@ -6,6 +6,7 @@ import DriveFileRenameOutlineIcon from "~/components/icons/mui/DriveFileRenameOu
 import NavigationLink from "./NavigationLink";
 import PersonCircle from "~/components/icons/mui/PersonCircle";
 import LetterIcon from "~/components/icons/mui/LetterIcon";
+import classNames from "classnames";
 
 export default function NavigationActions(props: {
   userIsIdentified?: boolean;
@@ -19,8 +20,15 @@ export default function NavigationActions(props: {
       <div className="px-8 mb-32">
         <NavigationLink
           to="/anmelden"
-          icon={<PersonCircle className="w-24 h-24 fill-blue-800" />}
+          icon={
+            <PersonCircle
+              className={classNames("w-24 h-24 fill-blue-800", {
+                "fill-gray-800": process.env.APP_ENV === "production",
+              })}
+            />
+          }
           isAllCaps
+          isDisabled={process.env.APP_ENV === "production"}
           isActive={!!currentLocation.match(/\/anmelden/)}
         >
           Anmelden
