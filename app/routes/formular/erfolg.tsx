@@ -111,7 +111,9 @@ export default function Erfolg() {
             Transferticket als Textdatei herunter.
           </p>
           <div className="mb-16 p-16 border-blue-800 border-2 text-center">
-            <p className="text-18 font-bold text-blue-800">{transferticket}</p>
+            <p className="text-18 font-bold text-blue-800 break-all">
+              {transferticket}
+            </p>
           </div>
           <Button
             href="/download/transferticket"

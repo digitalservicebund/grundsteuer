@@ -223,15 +223,25 @@ export default function Datenschutz() {
 
         <p>
           Bundesbeauftragter für Datenschutz und Informationsfreiheit
-          <br /> Graurheindorfer Str. 153 - 53117 Bonn
-          <br /> Telefon: +49 (0)228-997799-0
-          <br /> Fax: +49 (0)228-997799-5550
           <br />
-          E-Mail: poststelle@bfdi.bund.de <br />
+          Graurheindorfer Str. 153 - 53117 Bonn
+          <br />
+          Telefon: +49 (0)228-997799-0
+          <br />
+          Fax: +49 (0)228-997799-5550
+          <br />
+          E-Mail: poststelle@bfdi.bund.de
+          <br />
           De-Mail: poststelle@bfdi.de-mail.de
           <br />
-          Online-Beschwerde:
-          www.bfdi.bund.de/DE/Service/Beschwerden/beschwerden_node.htm
+          Online-Beschwerde:{" "}
+          <a
+            href="https://www.bfdi.bund.de/DE/Service/Beschwerden/beschwerden_node.htm"
+            target="_blank"
+            className="text-blue-800 underline break-words"
+          >
+            www.bfdi.bund.de/DE/Service/Beschwerden/beschwerden_node.htm
+          </a>
         </p>
       </div>
     </SimplePageLayout>
