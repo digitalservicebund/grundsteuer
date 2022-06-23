@@ -25,20 +25,6 @@ import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/gr
 export const calculateGroesse = (
   groesse: GrundstueckFlurstueckGroesseFields
 ) => {
-  const convertToAtLeastTwoDigitString = (value: string) => {
-    let numberString = "";
-
-    // get rid of leading zeros and spaces
-    if (value) numberString = "" + Number.parseInt(value);
-
-    if (numberString.length == 0) {
-      numberString = "00";
-    } else if (numberString.length == 1) {
-      numberString = "0" + numberString;
-    }
-    return numberString;
-  };
-
   if (
     !validateFlurstueckGroesseRequired({
       valueHa: groesse.groesseHa,
@@ -55,11 +41,9 @@ export const calculateGroesse = (
 
   return (
     "" +
-    Number.parseInt(
-      convertToAtLeastTwoDigitString(groesse.groesseHa) +
-        convertToAtLeastTwoDigitString(groesse.groesseA) +
-        convertToAtLeastTwoDigitString(groesse.groesseQm)
-    )
+    (10000 * Number.parseInt(groesse.groesseHa || "0") +
+      100 * Number.parseInt(groesse.groesseA || "0") +
+      Number.parseInt(groesse.groesseQm || "0"))
   );
 };
 

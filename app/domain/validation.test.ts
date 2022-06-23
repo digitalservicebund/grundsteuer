@@ -506,9 +506,15 @@ describe("validateFlurstueckGroesse", () => {
 
 describe("validateFlurstueckGroesseLength", () => {
   const cases = [
-    { valueHa: "12345678901", valueA: "23", valueQm: "45", valid: true },
-    { valueHa: "12345678901", valueA: "23", valueQm: "45  ", valid: true },
-    { valueHa: "112345678901", valueA: "23", valueQm: "45", valid: false },
+    { valueHa: "123456789", valueA: "", valueQm: "", valid: true },
+    { valueHa: "1234567890", valueA: "", valueQm: "", valid: false },
+    { valueHa: "", valueA: "", valueQm: "123456789", valid: true },
+    { valueHa: "", valueA: "", valueQm: "1234567890", valid: false },
+    { valueHa: "", valueA: "123456789", valueQm: "", valid: true },
+    { valueHa: "", valueA: "1234567890", valueQm: "", valid: false },
+    { valueHa: "12345", valueA: "678", valueQm: "9", valid: true },
+    { valueHa: "12345", valueA: "678", valueQm: "90", valid: false },
+    { valueHa: "12345", valueA: "678", valueQm: "091", valid: false },
   ];
 
   test.each(cases)(

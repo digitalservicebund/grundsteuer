@@ -471,7 +471,7 @@ export const validateFlurstueckGroesse: ValidateFlurstueckGroesseFunction = ({
 export const validateFlurstueckGroesseLength: ValidateFlurstueckGroesseFunction =
   ({ valueHa, valueA, valueQm }) => {
     return (
-      valueHa.trim().length + valueA.trim().length + valueQm.trim().length <= 15
+      valueHa.trim().length + valueA.trim().length + valueQm.trim().length <= 9
     );
   };
 
