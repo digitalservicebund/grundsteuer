@@ -17,16 +17,12 @@ describe("form", () => {
     cy.get("[name=email]").type(
       "grundsteuer+load-test-RANDOM@digitalservice.bund.de"
     );
-    cy.get("[name=emailRepeated]").type(
-      "grundsteuer+load-test-RANDOM@digitalservice.bund.de"
-    );
-    cy.get("[name=password]").type("password");
-    cy.get("[name=passwordRepeated]").type("password");
 
     cy.get("[name=confirmDataPrivacy]").check({ force: true });
     cy.get("[name=confirmTermsOfUse]").check({ force: true });
+    cy.get("[name=confirmEligibilityCheck]").check({ force: true });
 
     cy.get("form button").click();
-    cy.url().should("include", "/registrieren/erfolgreich");
+    cy.contains("h1", "Wir haben Ihnen eine E-Mail gesendet.");
   });
 });

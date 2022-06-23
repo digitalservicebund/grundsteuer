@@ -7,14 +7,12 @@
   "scenarios": {
     "default": {
       "executor": "ramping-arrival-rate",
-      "startRate": 10,
+      "startRate": 50,
       "timeUnit": "1m",
       "preAllocatedVUs": 5,
       "maxVUs": 300,
       "stages": [
-        { "target": 10, "duration": "1m" },
-        { "target": 50, "duration": "1m" },
-        { "target": 50, "duration": "5m" }
+        { "target": 50, "duration": "2m" }
       ]
     }
   }
