@@ -94,8 +94,7 @@ describe("RadioWithImageGroup component", () => {
     });
 
     it("should not display help text by default", () => {
-      const dudu = render(<RadioWithImageGroup {...defaultPropsWithHelp} />);
-      console.log(dudu);
+      render(<RadioWithImageGroup {...defaultPropsWithHelp} />);
       expect(screen.queryByText("Help 1")).not.toBeVisible();
       expect(screen.queryByText("Help 2")).not.toBeVisible();
     });

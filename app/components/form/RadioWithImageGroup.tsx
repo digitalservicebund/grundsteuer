@@ -66,7 +66,6 @@ export default function RadioWithImageGroup(props: RadioWithImageGroupProps) {
         const checked = value
           ? option.value === value
           : option.value === defaultValue;
-        console.log(option.help);
         return (
           <div
             key={option.value}
