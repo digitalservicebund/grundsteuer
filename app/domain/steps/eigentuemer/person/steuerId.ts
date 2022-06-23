@@ -22,6 +22,7 @@ export const eigentuemerPersonSteuerId: StepDefinition = {
           exceptions: [" "],
           msg: "Die Steuer-Identifikationsnummer ist genau 11 Ziffern lang",
         },
+        isSteuerId: {},
         uniqueSteuerId: {},
       },
       type: "steuerId",

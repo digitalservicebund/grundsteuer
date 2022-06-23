@@ -527,7 +527,7 @@ class GrundModelFactory extends Factory<GrundModel> {
                 telefonnummer: "111111",
               },
               steuerId: {
-                steuerId: "11 111 111 111",
+                steuerId: "02293417683",
               },
               gesetzlicherVertreter: {
                 hasVertreter: "false",
@@ -552,7 +552,7 @@ class GrundModelFactory extends Factory<GrundModel> {
                 telefonnummer: "222222",
               },
               steuerId: {
-                steuerId: "22223333456",
+                steuerId: "04452397687",
               },
               gesetzlicherVertreter: {
                 hasVertreter: "true",
