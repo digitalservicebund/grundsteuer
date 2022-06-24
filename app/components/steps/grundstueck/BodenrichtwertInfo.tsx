@@ -11,7 +11,7 @@ import { I18nObject } from "~/i18n/getStepI18n";
 const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
   const bundesland = allData.grundstueck?.adresse?.bundesland;
   return (
-    <div className="mb-16">
+    <div className="mb-80">
       <ContentContainer size="sm-md">
         <p className="mb-2">{i18n.specifics.explanation}</p>
         {i18n.specifics.portalUrl && (

@@ -130,8 +130,12 @@
   }
 
   /* form-group */
+  .form-group {
+    @apply mb-24;
+  }
+
   .form-group:last-of-type {
-    @apply mb-64;
+    @apply mb-80;
   }
 
   /* checkbox */

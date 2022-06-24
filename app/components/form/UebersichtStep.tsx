@@ -11,7 +11,7 @@ export default function UebersichtStep(
 ): JSX.Element {
   const { children, imageSrc, smallImageSrc } = props;
   return (
-    <div className="flex-col lg:flex-row w-full">
+    <div className="flex-col lg:flex-row w-full mb-80">
       <div className="hidden xl:flex justify-end absolute right-0 top-80 w-1/3 mb-0">
         <img src={imageSrc} alt="" />
       </div>
