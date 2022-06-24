@@ -114,7 +114,7 @@
     "hausnummer": "Die Hausnummer muss mit Ziffern beginnen und darf nicht länger als 14 Zeichen sein",
     "grundbuchblattnummer": "Die Grundbuchblattnummer muss mit Ziffern beginnen und darf nicht länger als 6 Zeichen sein",
     "flurstueckGroesse": "Geben Sie entweder die volle Flurstückgröße bei m2 an oder teilen Sie die Zahl in drei Einheiten auf. Beides ist nicht zulässig",
-    "flurstueckGroesseLength": "Die Länge darf insgesamt 15 Ziffern nicht überschreiten",
+    "flurstueckGroesseLength": "Die Länge darf insgesamt 9 Ziffern nicht überschreiten",
     "flurstueckGroesseRequired": "Es muss mindestens ein Wert angegeben werden",
     "yearInFuture": "Das Jahr muss in der Zukunft liegen",
     "yearInPast": "Das Jahr muss in der Vergangenheit liegen",
