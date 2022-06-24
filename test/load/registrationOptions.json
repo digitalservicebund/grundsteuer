@@ -11,9 +11,7 @@
       "timeUnit": "1m",
       "preAllocatedVUs": 5,
       "maxVUs": 300,
-      "stages": [
-        { "target": 50, "duration": "2m" }
-      ]
+      "stages": [{ "target": 50, "duration": "2m" }]
     }
   }
 }
