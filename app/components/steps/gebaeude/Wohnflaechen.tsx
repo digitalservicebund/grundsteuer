@@ -10,7 +10,7 @@ const Wohnflaechen: StepComponentFunction = (props) => {
     props.errors
   );
   return (
-    <ContentContainer size="sm">
+    <ContentContainer size="sm-md">
       <p>
         In der Regel sind die Größen der Wohnflächen im Grundriss, Kaufvertrag
         oder Bauunterlagen zu finden. Finden Sie diese Angaben nicht mehr,

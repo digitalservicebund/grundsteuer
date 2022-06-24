@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useLocation } from "@remix-run/react";
 import { LogoutButton } from "~/components";
 import EmailOutlinedIcon from "~/components/icons/mui/EmailOutlined";
-import DriveFileRenameOutlineIcon from "~/components/icons/mui/DriveFileRenameOutline";
 import NavigationLink from "./NavigationLink";
 import PersonCircle from "~/components/icons/mui/PersonCircle";
 import LetterIcon from "~/components/icons/mui/LetterIcon";
 import classNames from "classnames";
+import Lock from "~/components/icons/mui/Lock";
 
 export default function NavigationActions(props: {
   userIsIdentified?: boolean;
@@ -57,9 +57,7 @@ export default function NavigationActions(props: {
       {!props.userIsIdentified && (
         <NavigationLink
           to="/fsc"
-          icon={
-            <DriveFileRenameOutlineIcon className="w-24 h-24 fill-blue-800" />
-          }
+          icon={<Lock className="w-24 h-24 fill-blue-800" />}
           isAllCaps
           isActive={!!currentLocation.match(/\/fsc\//)}
         >

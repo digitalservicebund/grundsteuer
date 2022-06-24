@@ -14,7 +14,7 @@ export default function SectionLabel(props: {
       )}
     >
       <div className="mr-10">{props.icon}</div>
-      <h3 className="font-bold uppercase text-10 text-gray-900">
+      <h3 className="font-bold uppercase text-11 tracking-1 text-gray-900">
         {props.label}
       </h3>
     </div>

@@ -328,9 +328,9 @@ export default function Zusammenfassung() {
   return (
     <>
       <ContentContainer size="md">
-        <div className="sm:max-w-[412px]">
+        <ContentContainer size="sm-md">
           <Headline>{i18n.headline}</Headline>
-        </div>
+        </ContentContainer>
         {actionData?.previousStepsErrors && (
           <ErrorBar
             className="mb-32"
@@ -364,12 +364,12 @@ export default function Zusammenfassung() {
             }}
           />
           {!isIdentified && (
-            <div className="bg-yellow-200 mt-32 p-32 flex flex-row">
+            <div className="bg-yellow-200 mt-32 p-32 pr-48 flex flex-row">
               <div className="rounded-placeholder bg-yellow-400 mr-8">
                 <Attention className="min-w-[22px]" />
               </div>
 
-              <div className="flex flex-col sm:max-w-[332px]">
+              <div className="flex flex-col">
                 <h2 className="mb-8 text-18 font-bold">
                   {i18n.specifics.fscHeading}
                 </h2>
@@ -385,18 +385,18 @@ export default function Zusammenfassung() {
             </div>
           )}
 
-          <div className="sm:max-w-[412px]">
-            <h2 className="mb-24 mt-80 text-24 leading-30">
+          <ContentContainer size="sm-md">
+            <h2 className="mb-24 mt-48 text-24 leading-30">
               {i18n.specifics.confirmationHeading}
             </h2>
             <p className="mb-32">{i18n.specifics.confirmationText}</p>
-          </div>
-          <div className="bg-white p-16 mb-16">
+          </ContentContainer>
+          <ContentContainer size="sm-md" className="bg-white p-16 mb-16">
             <StepFormField {...fieldProps[1]}>
               {i18n.fields.confirmCompleteCorrect.label}
             </StepFormField>
-          </div>
-          <div className="bg-white p-16 mb-16">
+          </ContentContainer>
+          <ContentContainer size="sm-md" className="bg-white p-16 mb-16">
             <StepFormField {...{ ...fieldProps[2] }}>
               <Trans
                 components={{
@@ -419,8 +419,8 @@ export default function Zusammenfassung() {
                 {i18n.fields.confirmDataPrivacy.label}
               </Trans>
             </StepFormField>
-          </div>
-          <div className="bg-white p-16 mb-80">
+          </ContentContainer>
+          <ContentContainer size="sm-md" className="bg-white p-16 mb-80">
             <StepFormField {...fieldProps[3]}>
               <Trans
                 components={{
@@ -436,7 +436,7 @@ export default function Zusammenfassung() {
                 {i18n.fields.confirmTermsOfUse.label}
               </Trans>
             </StepFormField>
-          </div>
+          </ContentContainer>
           <Button
             id="nextButton"
             disabled={!isIdentified}

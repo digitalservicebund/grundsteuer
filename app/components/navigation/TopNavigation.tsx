@@ -36,7 +36,7 @@ export default function TopNavigation(props: TopNavigationProps) {
           aria-controls="top-navigation-content"
           aria-expanded={isOpen}
           onClick={() => setIsOpen(!isOpen)}
-          className="top-navigation__menu-button flex items-center gap-10 bg-gray-100 px-24 mb-2 text-blue-800 text-18 font-bold"
+          className="top-navigation__menu-button flex items-center gap-10 bg-gray-100 px-24 mb-2 text-blue-800 text-18 font-bold border-t-2 border-white"
         >
           <MenuIcon className="top-navigation__menu-icon w-36 h-36" />
           <CloseIcon className="top-navigation__close-icon hidden w-36 h-36" />
@@ -46,7 +46,7 @@ export default function TopNavigation(props: TopNavigationProps) {
 
       <div
         id="top-navigation-content"
-        className="peer-checked:flex overflow-y-auto bg-white fixed z-10 top-64 left-0 w-full h-full hidden flex-wrap gap-32 px-16 pt-24 pb-80 md:px-24"
+        className="peer-checked:flex overflow-y-auto bg-white fixed z-10 top-64 left-0 w-full h-full hidden flex-wrap md:gap-32 px-16 pt-24 pb-80 md:px-24"
       >
         <div className="min-w-[16rem] flex-[1_0_16rem]">{props.actions}</div>
         <div className="min-w-[16rem] flex-[4_0_16rem]">{props.children}</div>

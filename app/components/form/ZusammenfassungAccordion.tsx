@@ -378,7 +378,7 @@ export default function ZusammenfassungAccordion({
         href={editUrl}
         className="text-14 font-bold underline flex flex-row items-center"
       >
-        <Edit className="mr-10" />
+        <Edit className="mr-10 ml-8" />
         Ändern
       </a>
     );
@@ -423,7 +423,9 @@ export default function ZusammenfassungAccordion({
         >
           <dl>
             <dt className="flex flex-row items-center font-bold block uppercase text-11 tracking-1 mb-4">
-              {error && <ExclamationMarkFilled className="mr-10" />}
+              {error && (
+                <ExclamationMarkFilled className="mr-10 min-w-[20px]" />
+              )}
               {fieldItem.label}
             </dt>
             <dd className="block">{error ? error : displayValue}</dd>

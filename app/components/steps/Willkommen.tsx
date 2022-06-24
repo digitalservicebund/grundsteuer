@@ -28,25 +28,25 @@ const Willkommen: StepComponentFunction = () => {
         <SubHeadline>Wichtige Hinweise:</SubHeadline>
         <IntroText>
           <ol className="mb-32 ml-[15px] list-decimal">
-            <li>
+            <li className="mb-16">
               Um die Erklärung nach Eingabe aller Daten an Ihr Finanzamt
               übermitteln zu können, brauchen Sie einen{" "}
-              <span className="font-bold underline">Freischaltcode</span>.
-              Informationen dazu finden Sie jederzeit nach Klick auf den Link
-              oben rechts auf dieser Seite.
+              <span className="font-bold">Freischaltcode</span>. Informationen
+              dazu finden Sie jederzeit nach Klick auf den Link oben rechts auf
+              dieser Seite.
             </li>
-            <li>
+            <li className="mb-16">
               Alle Angaben beziehen sich auf den Zustand Ihres Grundstücks am{" "}
               <strong>01.01.2022</strong>. Faustregel: Stellen Sie sich bei
               jeder Angabe die Frage “Wie sah mein Grundstück am 01.01.2022
               aus?”
             </li>
-            <li>
+            <li className="mb-16">
               Mit unserem Online-Service geben Sie eine{" "}
               <strong>Hauptfeststellung</strong> ab. Das ist standardmäßig so,
               wenn Sie zum ersten Mal die Erklärung abgeben.
             </li>
-            <li>
+            <li className="mb-16">
               Ihre Daten werden nur temporär in einem sogenannten{" "}
               <strong>Cookie</strong> gespeichert. Deshalb können Sie die
               Bearbeitung nur mit dem Gerät und dem Browser abbrechen und

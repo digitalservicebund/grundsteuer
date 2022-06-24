@@ -230,7 +230,7 @@ export default function FscBeantragen() {
 
   return (
     <div className="lg:pr-[10%]">
-      <ContentContainer size="sm" className="mb-80">
+      <ContentContainer size="sm-md" className="mb-80">
         <BreadcrumbNavigation />
         <Headline>Beantragen Sie Ihren persönlichen Freischaltcode.</Headline>
 
