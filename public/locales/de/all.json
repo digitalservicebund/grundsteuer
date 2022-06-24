@@ -717,7 +717,7 @@
         }
       },
       "adresse": {
-        "headline": "Wie lautet die Adresse von Eigentümer:in\u00A0{{id}}?",
+        "headline": "Wie lautet die Adresse von Eigentümer:in {{id}}?",
         "description": "Geben Sie hier die Adresse des jetzigen Wohnsitzes des Eigentümers oder der Eigentümerin an.",
         "fields": {
           "strasse": {
@@ -991,7 +991,7 @@
       "nextButtonLabel": "Los geht's"
     },
     "adresse": {
-      "headline": "Geben Sie die Adresse Ihres Grundstücks\u00A0ein",
+      "headline": "Geben Sie die Adresse Ihres Grundstücks ein",
       "description": "Die Adresse Ihres Grundstücks ist die Adresse, die in der Regel auch im Grundbuchauszug steht.",
       "fields": {
         "strasse": {
