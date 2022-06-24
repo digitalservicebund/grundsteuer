@@ -44,6 +44,7 @@ module.exports = {
       },
       dustyGrey: "#424C5A",
       lightGray: "#dce0e0",
+      placeholderGray: "#6f7785",
       green: {
         100: "#e8f7f0",
         200: "#ccebdd",
