@@ -145,10 +145,10 @@
               "label": "Ich als neue:r Eigentümer:in. Ich habe das Grundstück nach dem 01.01.2022 erworben"
             },
             "eigentuemerNeu": {
-              "label": "Ich als neue:r Eigentümer:in. Ich habe das Grundstück kurz vor dem 01.01.2022 erworben. Zum Stichtag 01.01.2022 habe ich den Kaufpreis bezahlt und auf mich sind bereits alle Pflichten (Besitz, Lasten, Nutzen und Gefahren) übergegangen. Ich bin aber noch nicht im Grundbuch als neue:r Eigentümer:in eingetragen"
+              "label": "Ich als neue:r Eigentümer:in. Ich habe das Grundstück vor dem 01.01.2022 erworben. Zum Stichtag 01.01.2022 habe ich den Kaufpreis bezahlt und auf mich sind bereits alle Pflichten (Besitz, Lasten, Nutzen und Gefahren) übergegangen. Ich bin aber noch nicht im Grundbuch als neue:r Eigentümer:in eingetragen"
             },
             "steuerberater": {
-              "label": "Ich als Steuerberater:in, Rechtsanwalt/Rechtsanwältin oder Hausverwaltung. Ich gebe die Erklärung für eine andere Person ab (Bevollmächtigter nach § 80 AO)"
+              "label": "Ich als Steuerberater:in, Rechtsanwalt/Rechtsanwältin oder Hausverwaltung. Ich gebe die Erklärung für eine andere Person ab (Bevollmächtigter nach § 80 AO). Im Auftrag für eine Organisation, ein Verein, ein Unternehmen, eine Personengesellschaft, eine Stiftung oder Genossenschaft o.ä."
             }
           }
         }
@@ -295,15 +295,15 @@
       }
     },
     "ausland": {
-      "headline": "Sind Sie als Eigentümer:in mit einem Erstwohnsitz im Ausland gemeldet?",
+      "headline": "Haben Sie als Eigentümer:in einen Wohnsitz in Deutschland?",
       "fields": {
         "ausland": {
           "options": {
             "false": {
-              "label": "Nein, mein Erstwohnsitz ist in Deutschland"
+              "label": "Ja, ich habe einen Wohnsitz in Deutschland"
             },
             "true": {
-              "label": "Ja, mein Erstwohnsitz ist im Ausland "
+              "label": "Nein, mein Wohnsitz liegt Ausland"
             }
           }
         }
@@ -362,12 +362,12 @@
       "headline": "Tut uns leid, Sie können unseren Online-Dienst leider nicht nutzen",
       "specifics": {
         "explanationFallback": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Tool machen können. „Grundsteuererklärung für Privateigentum“ ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
-        "noEigentuemer": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Unser Service ist speziell für Privatpersonen entwickelt, die zum Stichtag am 01.01.2022 Eigentümer:innen des Grundstücks waren. <break/><break/>Wenn Sie das Grundstück nach dem 01.01.2022 erworben haben, geben Sie als neue:r Eigentümer:in erst nächstes Jahr eine Erklärung ab. Die sogenannte Nachfeststellung. <break/><break/>Rechtsberatende Berufe können wir leider nicht abdecken.",
+        "noEigentuemer": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Unser Service ist speziell für Privatpersonen entwickelt, die zum Stichtag am 01.01.2022 Eigentümer:innen des Grundstücks waren. <break/><break/>Wenn Sie das Grundstück nach dem 01.01.2022 erworben haben, müssen Sie derzeit keine Erklärung abgeben.<break/><break/>Rechtsberatende Berufe können wir leider nicht abdecken.",
         "noPrivatperson": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Unser Service ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben. <break/><break/>Auch Erbengemeinschaften bilden wir aktuell nicht ab. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
         "invalidBundesland": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Ihr ausgewähltes Bundesland nimmt nicht am Bundesmodell teil, sondern hat ein eigenes Grundsteuermodell eingeführt. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
         "invalidGrundstueckArt": "Aktuell können nur Eigentümer:innen von Einfamilien- und Zweifamilienhäusern, Eigentumswohnungen und unbebauten Grundstücken „Grundsteuererklärung für Privateigentum“ nutzen. Für alle anderen bietet sich alternativ eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
-        "ausland": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Online-Dienst machen können. Im Moment können wir nur Personen, die in Deutschland leben eine Abgabe mit “Grundsteuererklärung für Privateigentum” ermöglichen. Alternativ bietet sich eine Abgabe mit <elsterLink>ELSTER</elsterLink> an.",
-        "fremderBoden": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Online-Dienst machen können. Aktuell müssen Grundstück und Gebäude einen Eigentümer oder Eigentümerin haben. Gemischte Besitzverhältnisse können wir aktuell noch nicht anbieten. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
+        "ausland": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Online-Dienst machen können. Im Moment können wir nur Personen, die in Deutschland einen Wohnsitz haben, eine Abgabe mit “Grundsteuererklärung für Privateigentum” ermöglichen. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
+        "fremderBoden": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Online-Dienst machen können. Aktuell müssen Grundstück und Gebäude einen Eigentümer oder Eigentümerin haben. Gemischte Eigentumsverhältnisse können wir aktuell noch nicht anbieten. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
         "beguenstigung": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Online-Dienst machen können. Im Moment decken wir keine Grundstücke ab, die steuerlich begünstigt oder befreit sind. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an."
       }
     },
