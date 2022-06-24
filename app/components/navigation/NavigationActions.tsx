@@ -11,6 +11,7 @@ import classNames from "classnames";
 export default function NavigationActions(props: {
   userIsIdentified?: boolean;
   userIsLoggedIn?: boolean;
+  disableLogin?: boolean;
 }) {
   const location = useLocation();
   const [currentLocation, setCurrentLocation] = useState(location.pathname);
@@ -23,12 +24,12 @@ export default function NavigationActions(props: {
           icon={
             <PersonCircle
               className={classNames("w-24 h-24 fill-blue-800", {
-                "fill-gray-800": process.env.APP_ENV === "production",
+                "fill-gray-800": props.disableLogin,
               })}
             />
           }
           isAllCaps
-          isDisabled={process.env.APP_ENV === "production"}
+          isDisabled={props.disableLogin}
           isActive={!!currentLocation.match(/\/anmelden/)}
         >
           Anmelden
