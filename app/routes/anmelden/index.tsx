@@ -6,7 +6,12 @@ import {
   json,
 } from "@remix-run/node";
 import invariant from "tiny-invariant";
-import { Form, useLoaderData, useTransition } from "@remix-run/react";
+import {
+  Form,
+  useActionData,
+  useLoaderData,
+  useTransition,
+} from "@remix-run/react";
 import { authenticator } from "~/auth.server";
 import {
   BreadcrumbNavigation,
@@ -25,6 +30,14 @@ import { userExists } from "~/domain/user";
 import { sendLoginAttemptEmail } from "~/email.server";
 import ErrorBar from "~/components/ErrorBar";
 import EmailOutlined from "~/components/icons/mui/EmailOutlined";
+import { useTranslation } from "react-i18next";
+import { validateEmail, validateRequired } from "~/domain/validation";
+import { removeUndefined } from "~/util/removeUndefined";
+import ErrorBarStandard from "~/components/ErrorBarStandard";
+
+const validateInputEmail = (normalizedEmail: string) =>
+  (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
+  (!validateEmail({ value: normalizedEmail }) && "errors.email.wrongFormat");
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Anmelden") };
@@ -68,6 +81,17 @@ export const action: ActionFunction = async ({ request }) => {
   );
 
   const normalizedEmail = email.trim().toLowerCase();
+
+  const errors = {
+    email: validateInputEmail(normalizedEmail),
+  };
+  const errorsExist = Object.keys(removeUndefined(errors)).length > 0;
+  if (errorsExist) {
+    return {
+      errors: removeUndefined(errors),
+    };
+  }
+
   if (await userExists(normalizedEmail)) {
     return authenticator.authenticate(
       process.env.APP_ENV === "test" ? "form" : "email-link",
@@ -84,7 +108,10 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Anmelden() {
+  const { t } = useTranslation("all");
   const loaderData = useLoaderData();
+  const actionData = useActionData();
+  const errors = actionData?.errors;
   const transition = useTransition();
   const isSubmitting = Boolean(transition.submission);
 
@@ -125,11 +152,17 @@ export default function Anmelden() {
           haben. Wir senden Ihnen einen Link für die Anmeldung. Es wird kein
           Passwort benötigt.
         </IntroText>
+        {errors && <ErrorBarStandard />}
         <div className="mb-80">
           <Form method="post" noValidate>
             <CsrfToken value={loaderData.csrfToken} />
             <div className="mb-32">
-              <Input type="email" name="email" label="E-Mail-Adresse" />
+              <Input
+                type="email"
+                name="email"
+                label="E-Mail-Adresse"
+                error={t(errors?.email)}
+              />
             </div>
             <Button
               data-testid="submit"
