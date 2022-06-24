@@ -35,7 +35,7 @@ import { CsrfToken, verifyCsrfToken, createCsrfToken } from "~/util/csrf";
 import { authenticator } from "~/auth.server";
 import WarningBar from "~/components/WarningBar";
 
-const validateInputEmail = async (normalizedEmail: string) =>
+const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
   (!validateEmail({ value: normalizedEmail }) && "errors.email.wrongFormat");
 
@@ -144,7 +144,7 @@ export const action: ActionFunction = async ({ request, context }) => {
   const normalizedEmail = email.trim().toLowerCase();
 
   const errors = {
-    email: await validateInputEmail(normalizedEmail),
+    email: validateInputEmail(normalizedEmail),
     confirmDataPrivacy:
       !validateRequired({ value: confirmDataPrivacy || "" }) &&
       "errors.required",
