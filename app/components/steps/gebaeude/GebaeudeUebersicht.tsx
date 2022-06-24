@@ -11,7 +11,7 @@ const GebaeudeUebersicht: StepComponentFunction = () => {
         imageSrc={gebaeudeUebersicht}
         smallImageSrc={gebaeudeUebersichtSmall}
       >
-        <p className="mb-32">
+        <p className="mb-32 font-bold">
           In diesem Abschnitt geht es um die Immobilie, die Sie im Abschnitt
           “Grundstück” angegeben haben:
         </p>

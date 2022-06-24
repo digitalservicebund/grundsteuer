@@ -11,7 +11,7 @@ const GrundstueckUebersicht: StepComponentFunction = () => {
         imageSrc={grundstueckUebersicht}
         smallImageSrc={grundstueckUebersichtSmall}
       >
-        <p className="mb-32">
+        <p className="mb-32 font-bold">
           In diesem ersten Abschnitt dreht sich alles um das Grundstück, für das
           Sie die Grundsteuererklärung abgeben möchten.
         </p>
