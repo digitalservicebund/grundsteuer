@@ -394,11 +394,11 @@
   "nav": {
     "headline": {
       "grundstueck": "Grundstück",
-      "flurstueck": "Grundstücksfläche {{number}}",
+      "flurstueck": "Grundstücksfläche {{number}}",
       "bodenrichtwert": "Bodenrichtwert",
       "gebaeude": "Gebäude",
       "eigentuemer": "Eigentümer:innen",
-      "person": "Eigentümer:in {{number}}",
+      "person": "Eigentümer:in {{number}}",
       "vertreter": "Gesetzliche:r Vertreter:in",
       "empfangsbevollmaechtigter": "Empfangsbevollmächtigte:r",
       "bruchteilsgemeinschaftangaben": "Angaben"
@@ -641,7 +641,7 @@
     },
     "anzahl": {
       "headline": "Wie viele Eigentümer:innen hat das Gründstück/die Eigentumswohnung?",
-      "hint": "Wir decken nur die geteilte Erbengemeinschaft ab. Das bedeutet, die Eigentümer:innen sind im Grundbuch namentlich vermerkt und haben einen eignen Miteigentumsanteil am Grundstück. Wenn dies nicht auf Ihre Erbengemeinschaft zutrifft, geben Sie die Grundsteuererklärung bitte über ELSTER ab.",
+      "hint": "<bold>Wir decken nur die geteilte Erbengemeinschaft ab.</bold> Das bedeutet, die Eigentümer:innen sind im Grundbuch namentlich vermerkt und haben einen eignen Miteigentumsanteil am Grundstück. Wenn dies nicht auf Ihre Erbengemeinschaft zutrifft, geben Sie die Grundsteuererklärung bitte über ELSTER ab.",
       "fields": {
         "anzahl": {
           "label": "Anzahl Eigentümer:innen",
@@ -685,7 +685,7 @@
     },
     "person": {
       "persoenlicheAngaben": {
-        "headline": "Wie lauten die persönlichen Daten von Eigentümer:in {{id}}?",
+        "headline": "Wie lauten die persönlichen Daten von Eigentümer:in {{id}}?",
         "fields": {
           "anrede": {
             "label": "Anrede",
@@ -717,7 +717,7 @@
         }
       },
       "adresse": {
-        "headline": "Geben Sie hier hier die Adresse von Eigentümer:in {{id}} an",
+        "headline": "Wie lautet die Adresse von Eigentümer:in\u00A0{{id}}?",
         "description": "Geben Sie hier die Adresse des jetzigen Wohnsitzes des Eigentümers oder der Eigentümerin an.",
         "fields": {
           "strasse": {
@@ -742,7 +742,7 @@
         }
       },
       "steuerId": {
-        "headline": "Wie lautet die Steuer-Identifikationsnummer von Eigentümer:in {{id}}?",
+        "headline": "Wie lautet die Steuer\u2011Identifikationsnummer von Eigentümer:in {{id}}?",
         "description": "Schauen Sie dafür auf Ihren letzten Einkommensteuerbescheid oder suchen Sie in Ihren Unterlagen nach einem Brief vom Bundeszentralamt für Steuern. Die 11-stellige Nummer steht oben rechts groß auf dem Brief. ",
         "fields": {
           "steuerId": {
@@ -752,7 +752,7 @@
         }
       },
       "gesetzlicherVertreter": {
-        "headline": "Möchten Sie eine gesetzliche Vertretung für Eigentümer:in {{id}} angeben?",
+        "headline": "Möchten Sie eine gesetzliche Vertretung für Eigentümer:in {{id}} angeben?",
         "description": "Eine gesetzliche Vertretung ist eine Person, die per Gesetz dazu berechtigt ist, für den oder die Eigentümer:in Entscheidungen zu treffen. Zum Beispiel sind die Eltern eines minderjährigen Kindes in der Regel seine gesetzlichen Vertreter.",
         "fields": {
           "hasVertreter": {
@@ -821,7 +821,7 @@
         }
       },
       "anteil": {
-        "headline": "Wie hoch ist der Anteil am Grundstück von Eigentümer:in {{id}}?",
+        "headline": "Wie hoch ist der Anteil am Grundstück von Eigentümer:in {{id}}?",
         "description": "Wenn Sie das Grundstück mit einer anderen Person erworben haben, teilen Sie sich die Anteile der Grundstücksfläche. Den Anteil am Grundstück finden Sie auf einer Seite im Grundbuch unter den Angaben der einzelnen Eigentümer:innen",
         "fields": {
           "zaehler": {
@@ -991,7 +991,7 @@
       "nextButtonLabel": "Los geht's"
     },
     "adresse": {
-      "headline": "Geben Sie die Adresse Ihres Grundstücks ein",
+      "headline": "Geben Sie die Adresse Ihres Grundstücks\u00A0ein",
       "description": "Die Adresse Ihres Grundstücks ist die Adresse, die in der Regel auch im Grundbuchauszug steht.",
       "fields": {
         "strasse": {
@@ -1156,7 +1156,7 @@
     },
     "flurstueck": {
       "angaben": {
-        "headline": "Wie lautet die Nummer des Grundbuchblatts und die Gemarkung für Grundstücksfläche {{id}}?",
+        "headline": "Wie lautet die Nummer des Grundbuchblatts und die Gemarkung für Grundstücksfläche {{id}}?",
         "description": "Sie finden die Nummer des Grundbuchblatts und Gemarkung auf dem Deckblatt und auf den Innenseiten des Grundbuchauszugs. Viele Angaben stellen auch einige der Bodenrichtwert-Portale bereit.",
         "fields": {
           "gemarkung": {
@@ -1170,7 +1170,7 @@
         }
       },
       "flur": {
-        "headline": "Wie lauten Flur und Flurstück zu Grundstücksfläche {{id}}?",
+        "headline": "Wie lauten Flur und Flurstück zu Grundstücksfläche {{id}}?",
         "description": "Schauen Sie auf die Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs. In der Tabelle finden Sie die benötigten Nummern. Viele Angaben stellen auch einige der Bodenrichtwert-Portale bereit.",
         "fields": {
           "flur": {
@@ -1188,7 +1188,7 @@
         }
       },
       "groesse": {
-        "headline": "Tragen Sie die Größe für Grundstücksfläche {{id}} ein",
+        "headline": "Tragen Sie die Größe für Grundstücksfläche {{id}} ein",
         "description": "Auf der Seite “Bestandsverzeichnis” finden Sie den Eintrag über die Größe Ihres Grundstücks. Meistens ist diese in Hektar, Ar und Quadratmeter angegeben. Oft auch nur in Quadratmeter. Übertragen Sie die Zahlen so, wie Sie sie vorfinden. Auch einige Bodenrichtwert-Portale stellen diese Angaben bereit.",
         "fields": {
           "groesseHa": {
