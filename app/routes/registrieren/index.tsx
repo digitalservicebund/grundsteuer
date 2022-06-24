@@ -33,7 +33,7 @@ import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { getSession, commitSession } from "~/session.server";
 import { CsrfToken, verifyCsrfToken, createCsrfToken } from "~/util/csrf";
 import { authenticator } from "~/auth.server";
-import WarningBar from "~/components/WarningBar";
+import Hint from "~/components/Hint";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -210,11 +210,11 @@ export default function Registrieren() {
           unterbrechen und später fortsetzen.
         </IntroText>
 
-        <WarningBar className="mb-40">
+        <Hint className="mb-40">
           Die Weiterbearbeitung ist nur mit dem Gerät und dem Browser möglich,
           mit dem das Konto erstellt wurde. Der Grund: Ihre Formulardaten werden
           nur im Cookie in Ihrem Browser gespeichert.
-        </WarningBar>
+        </Hint>
 
         {errors && <ErrorBarStandard />}
       </ContentContainer>

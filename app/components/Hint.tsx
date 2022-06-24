@@ -15,11 +15,13 @@ export default function Hint(props: {
         className
       )}
     >
-      <div className="flex items-center">
+      <div className="flex items-center mb-8">
         <Bell className="mr-12 inline-block" />
-        <p className="uppercase font-bold inline-block text-11">{title}</p>
+        <p className="uppercase font-bold inline-block text-11 tracking-1">
+          {title}
+        </p>
       </div>
-      <div className="pl-28">{children}</div>
+      <div>{children}</div>
     </div>
   );
 }
