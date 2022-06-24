@@ -20,12 +20,12 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: "16.13.0"
+          node-version: "16.15.1"
           cache: "npm"
 
       - run: npm install
@@ -43,7 +43,7 @@ jobs:
         run: npm test
 
       - name: Log in to the Container registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -84,7 +84,7 @@ jobs:
       packages: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Build an image from Dockerfile
         run: |
@@ -92,7 +92,7 @@ jobs:
           docker build -t ${{ env.IMAGE_NAME }}-migrate:${{ github.sha }} . --target build
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
         with:
           image-ref: "${{ env.IMAGE_NAME }}:${{ github.sha }}"
           format: "template"
@@ -103,12 +103,12 @@ jobs:
           severity: "CRITICAL,HIGH"
 
       - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@81b419c908d540ec4c7da9bfb4b5d941fca8f624
         with:
           sarif_file: "trivy-results.sarif"
 
       - name: Login to container registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -142,7 +142,7 @@ jobs:
           kustomize edit set image ghcr.io/digitalservicebund/grundsteuer-migrate:${{ github.sha }}
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@050a66787244b10a4874a2a5f682130263edc192
         with:
           add: "manifests/overlays/staging/kustomization.yaml"
           message: "Update staging image to ${{ github.sha }}"
@@ -150,7 +150,7 @@ jobs:
           push: true
 
       - name: Report Deployment
-        uses: satak/webrequest-action@v1.2.3
+        uses: satak/webrequest-action@6127ff14e9269df0d49bcaec84f948dc8b50df1f
         with:
           url: ${{ secrets.METRICS_DEPLOYMENT_WEBHOOK_URL }}
           method: POST
