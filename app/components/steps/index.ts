@@ -15,6 +15,7 @@ import BodenrichtwertEingabe from "~/components/steps/grundstueck/Bodenrichtwert
 import Wohnflaeche from "~/components/steps/gebaeude/Wohnflaeche";
 import Wohnflaechen from "~/components/steps/gebaeude/Wohnflaechen";
 import EigentuemerAnteil from "~/components/steps/eigentuemer/EigentuemerAnteil";
+import Kernsaniert from "~/components/steps/gebaeude/Kernsaniert.tsx";
 
 export { Default as FallbackStepComponent };
 
@@ -42,6 +43,7 @@ export default {
   },
   gebaeude: {
     uebersicht: GebaeudeUebersicht,
+    kernsaniert: Kernsaniert,
     wohnflaeche: Wohnflaeche,
     wohnflaechen: Wohnflaechen,
   },
