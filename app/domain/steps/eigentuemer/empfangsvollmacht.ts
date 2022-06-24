@@ -9,7 +9,7 @@ export const eigentuemerEmpfangsvollmacht: StepDefinition = {
     hasEmpfangsvollmacht: {
       type: "radio",
       validations: {
-        required: {},
+        required: { msg: "Bitte treffen Sie eine Auswahl" },
       },
       options: [{ value: "true" }, { value: "false" }],
     },

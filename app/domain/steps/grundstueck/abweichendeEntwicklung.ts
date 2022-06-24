@@ -9,7 +9,7 @@ export const grundstueckAbweichendeEntwicklung: StepDefinition = {
     zustand: {
       type: "radio",
       validations: {
-        required: {},
+        required: { msg: "Bitte treffen Sie eine Auswahl" },
       },
       options: [{ value: "bauerwartungsland" }, { value: "rohbauland" }],
     },

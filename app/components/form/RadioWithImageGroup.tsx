@@ -58,7 +58,9 @@ const RadioGroupOption = (
 export default function RadioWithImageGroup(props: RadioWithImageGroupProps) {
   const { name, label, options, value, defaultValue, error } = props;
 
-  const errorComponent = error && <FieldError>{error}</FieldError>;
+  const errorComponent = error && (
+    <FieldError className="!mt-32">{error}</FieldError>
+  );
 
   const radioGroupComponent = (
     <>

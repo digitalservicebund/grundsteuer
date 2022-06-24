@@ -10,7 +10,7 @@ export const eigentuemerBruchteilsgemeinschaft: StepDefinition = {
       type: "radio",
       options: [{ value: "true" }, { value: "false" }],
       validations: {
-        required: {},
+        required: { msg: "Bitte treffen Sie eine Auswahl" },
       },
     },
   },

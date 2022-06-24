@@ -9,7 +9,7 @@ export const grundstueckBodenrichtwertAnzahl: StepDefinition = {
     anzahl: {
       type: "radio",
       validations: {
-        required: {},
+        required: { msg: "Bitte treffen Sie eine Auswahl" },
       },
       options: [{ value: "1" }, { value: "2" }],
     },

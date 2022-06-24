@@ -15,7 +15,7 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
           { value: "steuerberater" },
         ],
         validations: {
-          required: {},
+          required: { msg: "Bitte treffen Sie eine Auswahl" },
         },
       },
     },
@@ -31,7 +31,7 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
           { value: "unternehmen" },
         ],
         validations: {
-          required: {},
+          required: { msg: "Bitte treffen Sie eine Auswahl" },
         },
       },
     },
@@ -79,7 +79,7 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
           { value: "landUndForst" },
         ],
         validations: {
-          required: {},
+          required: { msg: "Bitte treffen Sie eine Auswahl" },
         },
       },
     },
@@ -90,7 +90,7 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
         type: "radio",
         options: [{ value: "false" }, { value: "true" }],
         validations: {
-          required: {},
+          required: { msg: "Bitte treffen Sie eine Auswahl" },
         },
       },
     },
@@ -105,7 +105,7 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
           { value: "noBuilding" },
         ],
         validations: {
-          required: {},
+          required: { msg: "Bitte treffen Sie eine Auswahl" },
         },
       },
     },
@@ -116,7 +116,7 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
         type: "radio",
         options: [{ value: "false" }, { value: "true" }],
         validations: {
-          required: {},
+          required: { msg: "Bitte treffen Sie eine Auswahl" },
         },
       },
     },
@@ -132,7 +132,7 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
           { value: "keine" },
         ],
         validations: {
-          required: {},
+          required: { msg: "Bitte treffen Sie eine Auswahl" },
         },
       },
     },
@@ -143,7 +143,7 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
         type: "radio",
         options: [{ value: "false" }, { value: "true" }],
         validations: {
-          required: {},
+          required: { msg: "Bitte treffen Sie eine Auswahl" },
         },
       },
     },

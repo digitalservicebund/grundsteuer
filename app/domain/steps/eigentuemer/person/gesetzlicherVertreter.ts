@@ -8,7 +8,9 @@ export const eigentuemerPersonGesetzlicherVertreter: StepDefinition = {
   fields: {
     hasVertreter: {
       type: "radio",
-      validations: {},
+      validations: {
+        required: { msg: "Bitte treffen Sie eine Auswahl" },
+      },
       options: [{ value: "true" }, { value: "false" }],
     },
   },

@@ -9,7 +9,7 @@ export const gebaeudeAb1949: StepDefinition = {
     isAb1949: {
       type: "radio",
       validations: {
-        required: {},
+        required: { msg: "Bitte treffen Sie eine Auswahl" },
       },
       options: [{ value: "true" }, { value: "false" }],
     },
