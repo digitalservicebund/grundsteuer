@@ -641,7 +641,7 @@
     },
     "anzahl": {
       "headline": "Wie viele Eigentümer:innen hat das Gründstück/die Eigentumswohnung?",
-      "hint": "Wir decken nur die geteilte Erbengemeinschaft ab, das bedeutet die Eigentümer:innen sind im Grundbuch namentlich vermerkt und haben einen eignen Miteigentumsanteil am Grundstück. Wenn dies nicht auf Ihre Erbengemeinschaft zutrifft, geben Sie die Grundsteuererklärung bitte über ELSTER ab.",
+      "hint": "Wir decken nur die geteilte Erbengemeinschaft ab. Das bedeutet, die Eigentümer:innen sind im Grundbuch namentlich vermerkt und haben einen eignen Miteigentumsanteil am Grundstück. Wenn dies nicht auf Ihre Erbengemeinschaft zutrifft, geben Sie die Grundsteuererklärung bitte über ELSTER ab.",
       "fields": {
         "anzahl": {
           "label": "Anzahl Eigentümer:innen",
@@ -717,7 +717,7 @@
         }
       },
       "adresse": {
-        "headline": "Wie lautet die Adresse von Eigentümer:in {{id}}?",
+        "headline": "Geben Sie hier hier die Adresse von Eigentümer:in {{id}} an",
         "description": "Geben Sie hier die Adresse des jetzigen Wohnsitzes des Eigentümers oder der Eigentümerin an.",
         "fields": {
           "strasse": {
@@ -743,7 +743,7 @@
       },
       "steuerId": {
         "headline": "Wie lautet die Steuer-Identifikationsnummer von Eigentümer:in {{id}}?",
-        "description": "Schauen Sie dafür auf Ihren letzten Einkommensteuerbescheid oder suchen Sie in Ihren Unterlagen nach einem Brief vom Bundeszentralamt für Steuern. Die 11-stellige Nummer steht oben rechts groß auf dem Brief.",
+        "description": "Schauen Sie dafür auf Ihren letzten Einkommensteuerbescheid oder suchen Sie in Ihren Unterlagen nach einem Brief vom Bundeszentralamt für Steuern. Die 11-stellige Nummer steht oben rechts groß auf dem Brief. ",
         "fields": {
           "steuerId": {
             "label": "Steuer-Identifikationsnummer",

@@ -30,6 +30,7 @@ import { userExists } from "~/domain/user";
 import { sendLoginAttemptEmail } from "~/email.server";
 import ErrorBar from "~/components/ErrorBar";
 import EmailOutlined from "~/components/icons/mui/EmailOutlined";
+import Hint from "~/components/Hint";
 import { useTranslation } from "react-i18next";
 import { validateEmail, validateRequired } from "~/domain/validation";
 import { removeUndefined } from "~/util/removeUndefined";
@@ -152,6 +153,11 @@ export default function Anmelden() {
           haben. Wir senden Ihnen einen Link für die Anmeldung. Es wird kein
           Passwort benötigt.
         </IntroText>
+        <Hint className="mb-40">
+          Die Weiterbearbeitung ist nur mit dem Gerät und dem Browser möglich,
+          mit dem das Konto erstellt wurde. Der Grund: Ihre Formulardaten werden
+          nur im Cookie in Ihrem Browser gespeichert.
+        </Hint>
         {errors && <ErrorBarStandard />}
         <div className="mb-80">
           <Form method="post" noValidate>

@@ -53,7 +53,7 @@ const resolveGrundstueckTyp = (value: string | undefined) => {
     case "zweifamilienhaus":
       return "Zweifamilienhaus";
     case "wohnungseigentum":
-      return "Wohnungseigentum";
+      return "Eigentumswohnung";
     case "baureif":
       return "Baureif";
     case "abweichendeEntwicklung":

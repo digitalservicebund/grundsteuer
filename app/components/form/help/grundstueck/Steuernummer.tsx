@@ -1,7 +1,7 @@
 import DefaultHelpContent, {
   HelpComponentFunction,
 } from "~/components/form/help/Default";
-import infoschreibenImg from "~/assets/images/help-steuernummer-infoschreiben.png";
+import infoschreibenImg from "~/assets/images/help/help-steuernummer-infoschreiben.png";
 
 const SteuernummerHelp: HelpComponentFunction = () => {
   return (

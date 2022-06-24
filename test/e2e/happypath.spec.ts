@@ -522,7 +522,7 @@ describe("Happy Path", () => {
     // unpack accordion items
     cy.contains("summary", "Grundstück").click();
     cy.contains("#grundstueck-area dt", "Art des Grundstücks");
-    cy.contains("#grundstueck-area dd", "Wohnungseigentum");
+    cy.contains("#grundstueck-area dd", "Eigentumswohnung");
 
     cy.contains("summary", "Gebäude").click();
     cy.contains("#gebaeude-area dt", "Auswahl Baujahr");

@@ -253,12 +253,14 @@ export default function FscBeantragen() {
               <SteuerIdField
                 name="steuerId"
                 label="Steuer-Identifikationsnummer"
-                placeholder="99 999 999 999"
+                placeholder="11 111 111 111"
                 error={errors?.steuerId}
                 help={
                   <p>
-                    Ihre Steuer-Identifikationsnummer finden Sie beispielsweise
-                    auf Ihrem letzten Einkommensteuerbescheid.
+                    Schauen Sie dafür auf Ihren letzten Einkommensteuerbescheid
+                    oder suchen Sie in Ihren Unterlagen nach einem Brief vom
+                    Bundeszentralamt für Steuern. Die 11-stellige Nummer steht
+                    oben rechts groß auf dem Brief.
                   </p>
                 }
               />
