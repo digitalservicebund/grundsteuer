@@ -112,9 +112,21 @@ if (appMode === "cron") {
   );
   const port = process.env.PORT || 3000;
 
-  app.listen(port, () => {
+  const server = app.listen(port, () => {
     console.log(`Express server listening on port ${port}`);
   });
+
+  const shutdown = (signal: string) => {
+    console.log(`${signal} received: closing HTTP server gracefully`);
+    server.close(() => {
+      console.log("HTTP server closed");
+    });
+  };
+
+  const SIGINT = "SIGINT";
+  const SIGTERM = "SIGTERM";
+  process.on(SIGINT, () => shutdown(SIGINT));
+  process.on(SIGTERM, () => shutdown(SIGTERM));
 }
 
 function purgeRequireCache() {
