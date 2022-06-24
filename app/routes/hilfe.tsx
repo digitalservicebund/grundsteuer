@@ -22,7 +22,6 @@ export const loader: LoaderFunction = async () => {
 export default function Hilfe() {
   const loaderData = useLoaderData();
   const { i18n, isProduction } = loaderData;
-  console.log(isProduction);
   return (
     <UserLayout disableLogin={isProduction}>
       <ContentContainer size="sm">
