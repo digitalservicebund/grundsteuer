@@ -17,7 +17,7 @@ const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
         {i18n.specifics.portalUrl && (
           <PortalButton
             url={i18n.specifics.portalUrl}
-            bundesland={i18n.specifics.bundesland}
+            label={i18n.specifics.portalLabel}
             border={true}
             classNames={"mt-32"}
           />
@@ -68,16 +68,14 @@ const BodenrichtwertButton = (props: BodenrichtwertButtonProps) => {
   );
 };
 
-const PortalButton = (
-  props: BodenrichtwertButtonProps & { bundesland: string }
-) => {
+const PortalButton = (props: BodenrichtwertButtonProps & { label: string }) => {
   return (
     <BodenrichtwertButton
       border={props.border}
       classNames={props.classNames}
       url={props.url}
     >
-      Zum Bodenrichtwert-Portal {props.bundesland}
+      {props.label}
     </BodenrichtwertButton>
   );
 };
@@ -129,6 +127,7 @@ const PortalLink = ({ bundesland }: { bundesland: string }) => {
 
   const i18nPref = "grundstueck.bodenrichtwertInfo";
   const portalUrl = t(`${i18nPref}.${bundesland}.specifics.portalUrl`);
+  const portalLabel = t(`${i18nPref}.${bundesland}.specifics.portalLabel`);
   const bundeslandName = t(`${i18nPref}.${bundesland}.specifics.bundesland`);
 
   return (
@@ -136,7 +135,7 @@ const PortalLink = ({ bundesland }: { bundesland: string }) => {
       <p className="mb-8">Bodenrichtwertportal {bundeslandName}</p>
       <PortalButton
         url={portalUrl}
-        bundesland={bundeslandName}
+        label={portalLabel}
         border={false}
         classNames={"mt-8 pl-0"}
       />

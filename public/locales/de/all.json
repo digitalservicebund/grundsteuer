@@ -1230,6 +1230,7 @@
         "description": "Klicken Sie auf den Link, der Sie zum Informationsportal Grundstücksdaten Brandenburg führt. Geben Sie dort Ihre Grundstücksadresse ein. Es öffnet sich ein Fenster in dem Sie Detailinformationen zu Flurstück, Gemarkung, Grundstücksgröße und Bodenrichtwert (Stichtag 1. Januar 2022) ablesen können. Nutzen Sie bei Bedarf unsere Schritt-für-Schritt-Anleitung weiter unten oder die Benutzungsanleitung im Informationsportal.",
         "specifics": {
           "portalUrl": "https://informationsportal-grundstuecksdaten.brandenburg.de/",
+          "portalLabel": "Zum Informationsportal Grundstücksdaten Brandenburg",
           "bundesland": "Brandenburg"
         }
       },
@@ -1238,6 +1239,7 @@
         "description": "Klicken Sie auf den Link und geben Sie Ihre Grundstücksadresse im Bodenrichtwert-Portal Berlin ein. Auf einer Karte können Sie den Bodenrichtwert ablesen. Nutzen Sie bei Bedarf unsere Schritt-für-Schritt Anleitung weiter unten.",
         "specifics": {
           "portalUrl": "https://fbinter.stadt-berlin.de/boris/",
+          "portalLabel": "Zum Bodenrichtwert-Portal Berlin",
           "bundesland": "Berlin"
         }
       },
@@ -1246,6 +1248,7 @@
         "description": "Den Bodenrichtwert für Ihr Grundstück finden Sie mithilfe des Bodenrichtwert-Portals für Bremen und Niedersachsen. Klicken Sie auf den Link, der Sie direkt dorthin führt. Geben Sie dort Ihre Grundstücksadresse ein. Auf einer Karte können Sie den Bodenrichtwert ablesen. Nutzen Sie bei Bedarf unsere Schritt-für-Schritt Anleitung weiter unten.",
         "specifics": {
           "portalUrl": "https://immobilienmarkt.niedersachsen.de/bodenrichtwerte?teilmarkt=Bauland&stichtag=2022-01-01&zoom=7.00",
+          "portalLabel": "Zum Bodenrichtwert-Portal Bremen und Niedersachsen",
           "bundesland": "Bremen",
           "geoviewerUrl": "https://geoportal.bremen.de/flurstuecksviewer/"
         }
@@ -1256,6 +1259,7 @@
         "specifics": {
           "explanation": "In diesem Bodenrichtwert-Portal finden Sie noch weitere Angaben zu Gemarkung, Flurstück und Grundstücksgröße.",
           "portalUrl": "https://www.geodaten-mv.de/grundsteuerdaten/Karten/Grundvermoegen",
+          "portalLabel": "Zum Bodenrichtwert-Portal Mecklenburg-Vorpommern",
           "bundesland": "Mecklenburg-Vorpommern"
         }
       },
@@ -1263,6 +1267,7 @@
         "specifics": {
           "explanation": "",
           "portalUrl": "https://grundsteuer-geodaten.nrw.de/",
+          "portalLabel": "Zum Bodenrichtwert-Portal Nordrhein-Westfalen",
           "bundesland": "Nordrhein-Westfalen"
         }
       },
@@ -1270,6 +1275,7 @@
         "specifics": {
           "explanation": "",
           "portalUrl": "https://maps.rlp.de/",
+          "portalLabel": "Zum Bodenrichtwert-Portal Rheinland-Pfalz",
           "bundesland": "Rheinland-Pfalz"
         }
       },
@@ -1277,6 +1283,7 @@
         "specifics": {
           "explanation": "",
           "portalUrl": "https://danord.gdi-sh.de/viewer/resources/apps/bodenrichtwertefuergrundsteuerzweckesh",
+          "portalLabel": "Zum Bodenrichtwert-Portal Schleswig-Holstein",
           "bundesland": "Schleswig-Holstein"
         }
       },
@@ -1284,6 +1291,7 @@
         "specifics": {
           "explanation": "",
           "portalUrl": "https://geoportal.saarland.de/Grundsteuer/",
+          "portalLabel": "Zum Bodenrichtwert-Portal Saarland",
           "bundesland": "Saarland"
         }
       },
@@ -1291,6 +1299,7 @@
         "specifics": {
           "explanation": "",
           "portalUrl": "https://www.grundsteuer.sachsen.de",
+          "portalLabel": "Zum Geoviewer Sachsen",
           "bundesland": "Sachsen"
         }
       },
@@ -1298,6 +1307,7 @@
         "specifics": {
           "explanation": "",
           "portalUrl": "https://www.grundsteuerdaten.sachsen-anhalt.de/",
+          "portalLabel": "Zum Grundsteuer-Viewer Sachsen-Anhalt",
           "bundesland": "Sachsen-Anhalt"
         }
       },
@@ -1305,6 +1315,7 @@
         "specifics": {
           "explanation": "",
           "portalUrl": "https://thueringenviewer.thueringen.de/thviewer/grundsteuer.html",
+          "portalLabel": "Zum Bodenrichtwert-Portal Thüringen",
           "bundesland": "Thüringen"
         }
       }
