@@ -7,6 +7,8 @@ import { GrundModel } from "~/domain/steps";
 const KEY_VERSION = "v01";
 export const COOKIE_ENCODING = "base64";
 
+type PruefenCookieData = any;
+
 const getPruefenStateCookie = () => {
   invariant(
     typeof process.env.FORM_COOKIE_SECRET === "string",
@@ -22,7 +24,20 @@ const getPruefenStateCookie = () => {
     secrets: [process.env.FORM_COOKIE_SECRET],
   });
 };
-export const pruefenStateCookie = getPruefenStateCookie();
+const pruefenStateCookie = getPruefenStateCookie();
+
+export const saveToPruefenStateCookie = (data: PruefenCookieData) => {
+  const encryptedData = encryptCookie(data);
+  return pruefenStateCookie.serialize(encryptedData);
+};
+
+export const getFromPruefenStateCookie = async (
+  cookieHeader: string | null
+) => {
+  const cookieContent = await pruefenStateCookie.parse(cookieHeader);
+  if (!cookieContent) return null;
+  return decryptCookie(Buffer.from(cookieContent, COOKIE_ENCODING));
+};
 
 type CreateFormDataCookieNameFunction = (options: {
   userId: string;
@@ -67,7 +82,9 @@ export const createFormDataCookie: CreateFormDataCookieFunction = ({
   });
 };
 
-export const encryptCookie = (cookie: { userId: string; data: GrundModel }) => {
+export const encryptCookie = (
+  cookie: { userId: string; data: GrundModel } | PruefenCookieData
+) => {
   const key = Buffer.from(process.env.FORM_COOKIE_ENC_SECRET as string);
   const iv = crypto.randomBytes(16);
   const cipher = crypto.createCipheriv("aes-256-gcm", key, iv);
@@ -84,7 +101,7 @@ export const encryptCookie = (cookie: { userId: string; data: GrundModel }) => {
 
 export const decryptCookie = (
   encryptedCookie: Buffer
-): { userId: string; data: GrundModel } => {
+): { userId: string; data: GrundModel } | PruefenCookieData => {
   const key = Buffer.from(process.env.FORM_COOKIE_ENC_SECRET as string);
   // ignoring key version for now since no key rotation is implemented
   const iv = encryptedCookie.subarray(3, 16 + 3);

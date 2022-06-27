@@ -2,7 +2,7 @@ import { mockActionArgs } from "testUtil/mockActionArgs";
 import * as csrfModule from "~/util/csrf";
 import * as modelModule from "~/domain/model";
 import { action, getMachine } from "~/routes/pruefen/_step";
-import { pruefenStateCookie } from "~/cookies.server";
+import { saveToPruefenStateCookie } from "~/cookies.server";
 
 describe("_step action", () => {
   beforeEach(async () => {
@@ -33,7 +33,7 @@ describe("_step action", () => {
     let explicitCookie = "";
 
     beforeAll(async () => {
-      explicitCookie = await pruefenStateCookie.serialize(
+      explicitCookie = await saveToPruefenStateCookie(
         getMachine({ formData: {} }).getInitialState("start")
       );
     });

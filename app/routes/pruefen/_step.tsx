@@ -43,7 +43,10 @@ import { State } from "xstate/lib/State";
 import { HomepageHeader } from "~/routes";
 import SectionLabel from "~/components/SectionLabel";
 import Communication from "~/components/icons/mui/Communication";
-import { pruefenStateCookie } from "~/cookies.server";
+import {
+  getFromPruefenStateCookie,
+  saveToPruefenStateCookie,
+} from "~/cookies.server";
 import { commitSession, getSession } from "~/session.server";
 
 const PREFIX = "pruefen";
@@ -73,7 +76,7 @@ export type LoaderData = {
 const resetFlow = async () => {
   return redirect("/" + PREFIX + "/" + START_STEP, {
     headers: {
-      "Set-Cookie": await pruefenStateCookie.serialize(
+      "Set-Cookie": await saveToPruefenStateCookie(
         getMachine({ formData: {} }).getInitialState(START_STEP)
       ),
     },
@@ -99,7 +102,7 @@ export const loader: LoaderFunction = async ({
 }): Promise<LoaderData | Response> => {
   const currentStateFromUrl = getCurrentStateFromUrl(request.url);
   const cookieHeader = request.headers.get("Cookie");
-  const state = (await pruefenStateCookie.parse(cookieHeader)) || undefined;
+  const state = (await getFromPruefenStateCookie(cookieHeader)) || undefined;
 
   const potentialRedirect = redirectIfStateNotReachable(
     state,
@@ -153,7 +156,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   const currentState = getCurrentStateFromUrl(request.url);
   const cookieHeader = request.headers.get("Cookie");
-  const state = (await pruefenStateCookie.parse(cookieHeader)) || undefined;
+  const state = (await getFromPruefenStateCookie(cookieHeader)) || undefined;
 
   const potentialRedirect = redirectIfStateNotReachable(state, currentState);
   if (potentialRedirect) {
@@ -187,7 +190,7 @@ export const action: ActionFunction = async ({ request }) => {
   const nextStepUrl = getRedirectUrl(nextState, PREFIX);
 
   return redirect(nextStepUrl, {
-    headers: { "Set-Cookie": await pruefenStateCookie.serialize(nextState) },
+    headers: { "Set-Cookie": await saveToPruefenStateCookie(nextState) },
   });
 };
 
