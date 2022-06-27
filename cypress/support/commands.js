@@ -32,3 +32,11 @@ Cypress.Commands.add("login", () => {
   cy.get("[data-testid=submit").click();
   cy.url().should("contain", "/anmelden/email");
 });
+
+Cypress.Commands.add("bundesland", (bundesland) => {
+  cy.visit("/formular/grundstueck/adresse");
+  cy.get("#plz").clear().type("12345");
+  cy.get("#ort").clear().type("baz");
+  cy.get("#bundesland").select(bundesland);
+  cy.get("#nextButton").click();
+});

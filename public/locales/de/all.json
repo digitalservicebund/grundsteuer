@@ -1218,7 +1218,7 @@
     "bodenrichtwertInfo": {
       "default": {
         "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
-        "nextButtonLabel": "Weiter",
+        "nextButtonLabel": "Verstanden & Weiter",
         "specifics": {
           "explanation": "",
           "portalUrl": "",
@@ -1233,8 +1233,9 @@
         }
       },
       "be": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr Grundstück",
         "specifics": {
-          "explanation": "Klicken sie auf den Link und geben Sie ihre Grundstücksadresse in der externen Seite ein. Auf einer Karte können Sie den Bodenrichtwert ablesen.",
+          "explanation": "Klicken Sie auf den Link und geben Sie Ihre Grundstücksadresse im Bodenrichtwert-Portal Berlin ein. Auf einer Karte können Sie den Bodenrichtwert ablesen. Nutzen Sie bei Bedarf unsere Schritt-für-Schritt Anleitung weiter unten.",
           "portalUrl": "https://fbinter.stadt-berlin.de/boris/",
           "bundesland": "Berlin"
         }
@@ -1316,6 +1317,9 @@
         "specifics": {
           "zweiBodenrichtwerteHinweis": "Haben Sie mehr als einen Bodenrichtwert für Ihr Flurstück ermittelt? Tragen Sie hier den ein, der der größten Fläche entspricht. Flächenanteile müssen Sie nicht zuordnen. Die Angaben werden vom Finanzamt überprüft."
         }
+      },
+      "be": {
+        "description": "Den Wert haben Sie dem Bodenrichtwert-Portal Berlin entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."
       }
     },
     "bodenrichtwertAnzahl": {
@@ -1338,7 +1342,7 @@
         "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
       },
       "be": {
-        "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
+        "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
       },
       "hb": {
         "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."

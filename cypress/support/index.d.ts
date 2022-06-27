@@ -8,5 +8,7 @@ declare namespace Cypress {
      * cy.login()
      */
     login(): Chainable<any>;
+
+    bundesland(bundesland: string): Chainable<any>;
   }
 }

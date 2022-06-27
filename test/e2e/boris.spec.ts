@@ -1,0 +1,48 @@
+/// <reference types="../../cypress/support" />
+// @ts-checkdescribe("Boris pages", () => {
+describe("Boris pags", () => {
+  before(() => {
+    cy.login();
+  });
+  const data = [
+    {
+      bundesland: "Berlin",
+      key: "BE",
+      infoTitle: "Ermitteln Sie den Bodenrichtwert für Ihr Grundstück",
+      infoDesc: "Ihre Grundstücksadresse im Bodenrichtwert-Portal Berlin",
+      anzahlDesc:
+        "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus.",
+      eingabeDesc:
+        "Den Wert haben Sie dem Bodenrichtwert-Portal Berlin entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
+    },
+  ];
+
+  data.forEach(
+    ({ bundesland, key, infoTitle, infoDesc, anzahlDesc, eingabeDesc }) => {
+      it(`should render correct text for ${bundesland}`, () => {
+        cy.bundesland(key);
+        cy.visit("/formular/grundstueck/bodenrichtwertInfo");
+        cy.contains("h1", infoTitle);
+        cy.contains(infoDesc);
+        cy.contains(`Zum Bodenrichtwert-Portal ${bundesland}`);
+        cy.get("#nextButton").click();
+
+        cy.url().should(
+          "include",
+          "/formular/grundstueck/bodenrichtwertAnzahl"
+        );
+        cy.contains(anzahlDesc);
+        cy.get("label[for=anzahl-1]").click();
+        cy.get("#nextButton").click();
+
+        cy.url().should(
+          "include",
+          "/formular/grundstueck/bodenrichtwertEingabe"
+        );
+        cy.contains(eingabeDesc);
+      });
+    }
+  );
+});
+
+export {};
