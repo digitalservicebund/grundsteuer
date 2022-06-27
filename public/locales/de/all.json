@@ -303,7 +303,7 @@
               "label": "Ja, ich habe einen Wohnsitz in Deutschland"
             },
             "true": {
-              "label": "Nein, mein Wohnsitz liegt Ausland"
+              "label": "Nein, mein Wohnsitz liegt im Ausland"
             }
           }
         }
