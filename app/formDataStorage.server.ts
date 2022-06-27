@@ -6,7 +6,7 @@ import {
   createFormDataCookie,
   decryptCookie,
   encryptCookie,
-} from "~/cookies";
+} from "~/cookies.server";
 
 const debug = createDebugMessages("formDataStorage");
 

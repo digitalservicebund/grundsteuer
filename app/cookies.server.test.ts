@@ -1,6 +1,6 @@
 process.env.FORM_COOKIE_SECRET = "secret";
 
-import { createFormDataCookieName } from "~/cookies";
+import { createFormDataCookieName } from "~/cookies.server";
 import { SessionUser } from "~/auth.server";
 
 jest.mock("~/util/useSecureCookie", () => {

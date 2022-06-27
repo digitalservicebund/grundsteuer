@@ -7,7 +7,7 @@ import {
 } from "~/formDataStorage.server";
 import { SessionUser } from "./auth.server";
 import { GrundModel } from "./domain/steps";
-import { createFormDataCookie, encryptCookie } from "~/cookies";
+import { createFormDataCookie, encryptCookie } from "~/cookies.server";
 
 jest.mock("~/util/useSecureCookie", () => {
   return {

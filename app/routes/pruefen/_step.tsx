@@ -43,7 +43,7 @@ import { State } from "xstate/lib/State";
 import { HomepageHeader } from "~/routes";
 import SectionLabel from "~/components/SectionLabel";
 import Communication from "~/components/icons/mui/Communication";
-import { pruefenStateCookie } from "~/cookies";
+import { pruefenStateCookie } from "~/cookies.server";
 import { commitSession, getSession } from "~/session.server";
 
 const PREFIX = "pruefen";
