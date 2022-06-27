@@ -46,6 +46,7 @@ describe("Boris pags", () => {
       it(`should render correct text for ${bundesland}`, () => {
         cy.bundesland(key);
         cy.visit("/formular/grundstueck/bodenrichtwertInfo");
+        cy.url().should("contain", "bodenrichtwertInfo");
         cy.contains("h1", infoTitle);
         cy.contains(infoDesc);
         cy.contains(`Zum Bodenrichtwert-Portal ${bundesland}`);
