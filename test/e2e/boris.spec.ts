@@ -1,7 +1,7 @@
 /// <reference types="../../cypress/support" />
 // @ts-checkdescribe("Boris pages", () => {
 describe("Boris pags", () => {
-  before(() => {
+  beforeEach(() => {
     cy.login();
   });
   const data = [
@@ -14,6 +14,18 @@ describe("Boris pags", () => {
         "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus.",
       eingabeDesc:
         "Den Wert haben Sie dem Bodenrichtwert-Portal Berlin entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
+    },
+    {
+      bundesland: "Bremen",
+      key: "HB",
+      infoTitle:
+        "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
+      infoDesc:
+        "mithilfe des Bodenrichtwert-Portals für Bremen und Niedersachsen",
+      anzahlDesc:
+        "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im zweiten Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus.",
+      eingabeDesc:
+        "Den Wert haben Sie dem Bodenrichtwert-Portal Bremen und Niedersachsen entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
     },
   ];
 

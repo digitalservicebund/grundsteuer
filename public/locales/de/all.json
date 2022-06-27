@@ -1241,8 +1241,9 @@
         }
       },
       "hb": {
+        "headline": "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
         "specifics": {
-          "explanation": "Klicken sie auf den Link, der Sie zum Bodenrichtwert-Portal Bremen führt. Geben Sie dort Ihre Grundstücksadresse ein. Auf einer Karte können Sie den Bodenrichtwert ablesen. Nutzen Sie bei Bedarf unsere Schritt-für-Schritt Anleitung.",
+          "explanation": "Den Bodenrichtwert für Ihr Grundstück finden Sie mithilfe des Bodenrichtwert-Portals für Bremen und Niedersachsen. Klicken Sie auf den Link, der Sie direkt dorthin führt. Geben Sie dort Ihre Grundstücksadresse ein. Auf einer Karte können Sie den Bodenrichtwert ablesen. Nutzen Sie bei Bedarf unsere Schritt-für-Schritt Anleitung weiter unten.",
           "portalUrl": "https://immobilienmarkt.niedersachsen.de/bodenrichtwerte?teilmarkt=Bauland&stichtag=2022-01-01&zoom=7.00",
           "bundesland": "Bremen",
           "geoviewerUrl": "https://geoportal.bremen.de/flurstuecksviewer/"
@@ -1320,6 +1321,9 @@
       },
       "be": {
         "description": "Den Wert haben Sie dem Bodenrichtwert-Portal Berlin entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."
+      },
+      "hb": {
+        "description": "Den Wert haben Sie dem Bodenrichtwert-Portal Bremen und Niedersachsen entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."
       }
     },
     "bodenrichtwertAnzahl": {
@@ -1345,7 +1349,7 @@
         "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
       },
       "hb": {
-        "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
+        "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im zweiten Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."
       },
       "mv": {
         "description": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus."

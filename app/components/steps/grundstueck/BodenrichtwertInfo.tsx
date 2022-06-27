@@ -10,14 +10,14 @@ import berlin4 from "~/assets/images/boris/info-berlin-4.svg";
 import berlin5 from "~/assets/images/boris/info-berlin-5.svg";
 import bremen1 from "~/assets/images/boris/info-bremen-1.svg";
 import bremen2 from "~/assets/images/boris/info-bremen-2.svg";
+import bremen3 from "~/assets/images/boris/info-bremen-3.svg";
 import EnumeratedCard from "~/components/EnumeratedCard";
-import { I18nObject } from "~/i18n/getStepI18n";
 
 const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
   const bundesland = allData.grundstueck?.adresse?.bundesland;
   return (
     <div className="mb-80">
-      <ContentContainer size="sm-md">
+      <ContentContainer size="sm-md" className="mb-80">
         <p className="mb-2">{i18n.specifics.explanation}</p>
         {i18n.specifics.portalUrl && (
           <PortalButton
@@ -27,12 +27,23 @@ const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
             classNames={"mt-32"}
           />
         )}
+        {bundesland === "HB" && (
+          <p>
+            Im{" "}
+            <a
+              href={i18n.specifics.geoviewerUrl}
+              target="_blank"
+              className="font-bold underline"
+            >
+              Flurstücksviewer Bremen
+            </a>{" "}
+            finden Sie weitere Angaben zu Gemarkung, Flur, Flurstück und
+            Grundstücksgröße Ihres Grundstücks.
+          </p>
+        )}
       </ContentContainer>
       <div>
-        <BodenrichtwertHelp
-          i18n={i18n}
-          bundesland={bundesland ? bundesland : "default"}
-        />
+        <BodenrichtwertHelp bundesland={bundesland ? bundesland : "default"} />
       </div>
     </div>
   );
@@ -47,7 +58,7 @@ interface BodenrichtwertButtonProps {
 
 const BodenrichtwertButton = (props: BodenrichtwertButtonProps) => {
   return (
-    <div className="mb-80">
+    <div className="mb-32">
       <Button
         size="large"
         look={props.border ? "tertiary" : "ghost"}
@@ -72,20 +83,6 @@ const PortalButton = (
       url={props.url}
     >
       Zum Bodenrichtwert-Portal {props.bundesland}
-    </BodenrichtwertButton>
-  );
-};
-
-const GeoviewerButton = (
-  props: BodenrichtwertButtonProps & { bundesland: string }
-) => {
-  return (
-    <BodenrichtwertButton
-      border={props.border}
-      classNames={props.classNames}
-      url={props.url}
-    >
-      Zum Geoviewer {props.bundesland}
     </BodenrichtwertButton>
   );
 };
@@ -228,40 +225,37 @@ Wenn Sie zwei Bodenrichtwerte in dem PDF finden, wählen Sie auf der nächsten S
   );
 };
 
-const HBHelp = ({ i18n }: { i18n: I18nObject }) => {
+const HBHelp = () => {
   return (
     <>
       <h2 className="mb-32 text-24">Eine Schritt-für-Schritt Anleitung</h2>
-      <div className={"mb-80"}>
+      <div className="mb-80">
         <EnumeratedCard
           image={bremen1}
-          imageAltText="Screenshot vom Bodenrichtwert-Portal Bremen"
+          imageAltText="Screenshot vom Bodenrichtwert-Portal Bremen und Niedersachsen"
           number="1"
-          heading="Externe Seite öffnen und Adresse eingeben"
-          text="Öffnen Sie den oben stehenden Link. Auf der Seite finden Sie oben eine Suchleiste. Geben Sie dort Ihre Adresse ein."
+          heading="Bodenrichtwert-Portal Bremen und Niedersachsen öffnen und Adresse eingeben"
+          text="Öffnen Sie den oben stehenden Link. Auf der Seite finden Sie oben eine Suchleiste. Geben Sie dort Ihre Adresse ein. "
           className="mb-16"
         />
         <EnumeratedCard
           image={bremen2}
-          imageAltText="Screenshot vom Bodenrichtwert-Portal Bremen"
+          imageAltText="Screenshot vom Bodenrichtwert-Portal Bremen und Niedersachsen"
           number="2"
           heading="Bodenrichtwert ablesen"
-          text="Der Kartenausschnitt zeigt nun Ihr Grundstück und markiert die Stelle mit einem roten Symbol. Klicken Sie auf dieses Symbol. Rechts öffnet sich ein Bereich mit Informationen. Merken Sie sich den Wert von “Bodenrichtwert” für die Eingabe. Sie können das “Bodenrichtwert-Portal Bremen” nun verlassen."
+          text="Der Kartenausschnitt zeigt nun Ihr Grundstück und markiert die Stelle mit einem roten Symbol. Rechts öffnet sich ein Bereich mit Informationen. Merken Sie sich den Wert von “Bodenrichtwert” für die Eingabe."
+          className="mb-16"
+        />
+        <EnumeratedCard
+          image={bremen3}
+          imageAltText="Screenshot vom Bodenrichtwert-Portal Bremen und Niedersachsen"
+          number="3"
+          heading="Sie sehen mehrere Bodenrichtwerte?"
+          text="Vergleichen Sie in diesem Fall die Zeilen “Art der Nutzung” und wählen Sie dann den Bodenrichtwert jener Zone, die auf Ihren Grundstückstyp zutrifft.
+Hinweis: Bei Eigentumswohnungen, trifft die Nutzung für Mehrfamilienhäuser zu.&#13;  Merken Sie sich den Bodenrichtwert für die Eingabe. Dieser ist nicht umzurechnen (die angezeigte Umrechnungsdatei ist nicht zu beachten)."
           className="mb-16"
         />
       </div>
-
-      <ContentContainer size="sm-md" className="mb-32">
-        Für weitere Angaben zu Ihrem Grundstück finden sie unter diesem Link
-        passende Informationen.
-      </ContentContainer>
-
-      <GeoviewerButton
-        url={i18n.specifics.geoviewerUrl}
-        bundesland={i18n.specifics.bundesland}
-        border={true}
-        classNames={"mt-16"}
-      />
     </>
   );
 };
@@ -298,20 +292,14 @@ const THHelp = () => {
   return <></>;
 };
 
-export const BodenrichtwertHelp = ({
-  i18n,
-  bundesland,
-}: {
-  i18n: I18nObject;
-  bundesland?: string;
-}) => {
+export const BodenrichtwertHelp = ({ bundesland }: { bundesland?: string }) => {
   switch (bundesland) {
     case "BB":
       return <BBHelp />;
     case "BE":
       return <BEHelp />;
     case "HB":
-      return <HBHelp i18n={i18n} />;
+      return <HBHelp />;
     case "MV":
       return <MVHelp />;
     case "NW":
