@@ -1,3 +1,5 @@
+process.env.FORM_COOKIE_SECRET = "secret";
+
 import { commitSession, getSession } from "~/session.server";
 import { authenticator } from "~/auth.server";
 import { GrundModel } from "~/domain/steps";

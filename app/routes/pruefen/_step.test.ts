@@ -4,9 +4,6 @@ import * as modelModule from "~/domain/model";
 import { action, getMachine } from "~/routes/pruefen/_step";
 import { pruefenStateCookie } from "~/cookies";
 
-process.env.FORM_COOKIE_SECRET = "secret";
-process.env.FORM_COOKIE_ENC_SECRET = "26d011bcbb9db8c4673b7fcd90c9ec6d";
-
 describe("_step action", () => {
   beforeEach(async () => {
     const csrfMock = jest.spyOn(csrfModule, "verifyCsrfToken");

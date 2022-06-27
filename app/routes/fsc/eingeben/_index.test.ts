@@ -12,8 +12,6 @@ import {
 import { getMockedFunction } from "test/mocks/mockHelper";
 import { AuditLogEvent } from "~/audit/auditLog";
 
-process.env.FORM_COOKIE_SECRET = "secret";
-
 describe("Loader", () => {
   const expectedTransferticket = "foo12345";
   const expectedTaxIdNumber = "007";
