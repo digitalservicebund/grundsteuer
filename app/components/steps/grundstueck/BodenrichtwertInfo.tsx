@@ -37,9 +37,9 @@ const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
           </p>
         )}
       </ContentContainer>
-      <div>
+      <ContentContainer size="lg">
         <BodenrichtwertHelp bundesland={bundesland ? bundesland : "default"} />
-      </div>
+      </ContentContainer>
     </div>
   );
 };
