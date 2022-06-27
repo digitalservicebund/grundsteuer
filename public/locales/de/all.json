@@ -1314,7 +1314,7 @@
           }
         },
         "specifics": {
-          "zweiBodenrichtwerteHinweis": "Wenn Sie zwei Bodenrichtwerte haben, geben Sie bitte hier den größeren der beiden Werte ein."
+          "zweiBodenrichtwerteHinweis": "Haben Sie mehr als einen Bodenrichtwert für Ihr Flurstück ermittelt? Tragen Sie hier den ein, der der größten Fläche entspricht. Flächenanteile müssen Sie nicht zuordnen. Die Angaben werden vom Finanzamt überprüft."
         }
       }
     },
