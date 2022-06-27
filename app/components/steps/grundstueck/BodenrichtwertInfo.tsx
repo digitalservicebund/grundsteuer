@@ -3,6 +3,7 @@ import { Button, ContentContainer } from "~/components";
 import { ReactNode, SVGProps } from "react";
 import Accordion from "~/components/Accordion";
 import { useTranslation } from "react-i18next";
+import { BBHelp } from "~/components/steps/grundstueck/bodenrichtwert/BBHelp";
 import { BEHelp } from "~/components/steps/grundstueck/bodenrichtwert/BEHelp";
 import { HBHelp } from "~/components/steps/grundstueck/bodenrichtwert/HBHelp";
 
@@ -161,10 +162,6 @@ const DefaultHelp = () => {
       <DefaultBodenrichtwertPortalLinks />
     </>
   );
-};
-
-const BBHelp = () => {
-  return <></>;
 };
 
 const MVHelp = () => {

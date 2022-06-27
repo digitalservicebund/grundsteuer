@@ -6,6 +6,18 @@ describe("Boris pags", () => {
   });
   const data = [
     {
+      bundesland: "Brandenburg",
+      key: "BB",
+      infoTitle:
+        "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
+      infoDesc:
+        "Klicken Sie auf den Link, der Sie zum Informationsportal Grundstücksdaten Brandenburg führt.",
+      anzahlDesc:
+        "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im zweiten Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus.",
+      eingabeDesc:
+        "Den Wert haben Sie dem Informationsportal Grundstücksdaten entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
+    },
+    {
       bundesland: "Berlin",
       key: "BE",
       infoTitle: "Ermitteln Sie den Bodenrichtwert für Ihr Grundstück",
