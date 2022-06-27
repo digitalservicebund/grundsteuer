@@ -1,15 +1,15 @@
 import EnumeratedCard from "~/components/EnumeratedCard";
-import berlin1 from "~/assets/images/boris/info-berlin-1.svg";
-import berlin2 from "~/assets/images/boris/info-berlin-2.svg";
-import berlin3 from "~/assets/images/boris/info-berlin-3.svg";
-import berlin4 from "~/assets/images/boris/info-berlin-4.svg";
-import berlin5 from "~/assets/images/boris/info-berlin-5.svg";
+import berlin1 from "~/assets/images/boris/info-berlin-1.png";
+import berlin2 from "~/assets/images/boris/info-berlin-2.png";
+import berlin3 from "~/assets/images/boris/info-berlin-3.png";
+import berlin4 from "~/assets/images/boris/info-berlin-4.png";
+import berlin5 from "~/assets/images/boris/info-berlin-5.png";
 
 export const BEHelp = () => {
   return (
     <>
       <h2 className="mb-32 text-24">Eine Schritt-für-Schritt Anleitung</h2>
-      <div className={"mb-80"}>
+      <div className="mb-80">
         <EnumeratedCard
           image={berlin1}
           imageAltText="Screenshot vom Bodenrichtwert-Portal Berlin"

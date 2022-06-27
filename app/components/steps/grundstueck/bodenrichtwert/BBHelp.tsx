@@ -1,14 +1,14 @@
-import brandenburg1 from "~/assets/images/boris/info-brandenburg-1.png";
-import brandenburg2 from "~/assets/images/boris/info-brandenburg-2.svg";
-import brandenburg3 from "~/assets/images/boris/info-brandenburg-3.svg";
-import brandenburg4 from "~/assets/images/boris/info-brandenburg-4.svg";
 import EnumeratedCard from "~/components/EnumeratedCard";
+import brandenburg1 from "~/assets/images/boris/info-brandenburg-1.png";
+import brandenburg2 from "~/assets/images/boris/info-brandenburg-2.png";
+import brandenburg3 from "~/assets/images/boris/info-brandenburg-3.png";
+import brandenburg4 from "~/assets/images/boris/info-brandenburg-4.png";
 
 export const BBHelp = () => {
   return (
     <>
       <h2 className="mb-32 text-24">Eine Schritt-für-Schritt Anleitung</h2>
-      <div className={"mb-80"}>
+      <div className="mb-80">
         <EnumeratedCard
           image={brandenburg1}
           imageAltText="Screenshot vom Bodenrichtwert-Portal Brandenburg"

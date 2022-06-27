@@ -1,7 +1,7 @@
 import EnumeratedCard from "~/components/EnumeratedCard";
-import bremen1 from "~/assets/images/boris/info-bremen-1.svg";
-import bremen2 from "~/assets/images/boris/info-bremen-2.svg";
-import bremen3 from "~/assets/images/boris/info-bremen-3.svg";
+import bremen1 from "~/assets/images/boris/info-bremen-1.png";
+import bremen2 from "~/assets/images/boris/info-bremen-2.png";
+import bremen3 from "~/assets/images/boris/info-bremen-3.png";
 
 export const HBHelp = () => {
   return (
