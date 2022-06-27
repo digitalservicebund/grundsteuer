@@ -39,6 +39,18 @@ describe("Boris pags", () => {
       eingabeDesc:
         "Den Wert haben Sie dem Bodenrichtwert-Portal Bremen und Niedersachsen entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
     },
+    {
+      bundesland: "Mecklenburg-Vorpommern",
+      key: "MV",
+      infoTitle:
+        "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
+      infoDesc:
+        "Klicken Sie auf den Link, der Sie zum Bodenrichtwert-Portal Mecklenburg-Vorpommern führt.",
+      anzahlDesc:
+        "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im zweiten Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus.",
+      eingabeDesc:
+        "Den Wert haben Sie dem Bodenrichtwert-Portal Mecklenburg-Vorpommern entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
+    },
   ];
 
   data.forEach(

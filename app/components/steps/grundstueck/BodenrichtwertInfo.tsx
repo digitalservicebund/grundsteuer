@@ -6,13 +6,14 @@ import { useTranslation } from "react-i18next";
 import { BBHelp } from "~/components/steps/grundstueck/bodenrichtwert/BBHelp";
 import { BEHelp } from "~/components/steps/grundstueck/bodenrichtwert/BEHelp";
 import { HBHelp } from "~/components/steps/grundstueck/bodenrichtwert/HBHelp";
+import { MVHelp } from "~/components/steps/grundstueck/bodenrichtwert/MVHelp";
 
 const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
   const bundesland = allData.grundstueck?.adresse?.bundesland;
   return (
     <div className="mb-80">
       <ContentContainer size="sm-md" className="mb-80">
-        <p className="mb-2">{i18n.specifics.explanation}</p>
+        <p className="mb-2 text-18">{i18n.specifics.explanation}</p>
         {i18n.specifics.portalUrl && (
           <PortalButton
             url={i18n.specifics.portalUrl}
@@ -162,10 +163,6 @@ const DefaultHelp = () => {
       <DefaultBodenrichtwertPortalLinks />
     </>
   );
-};
-
-const MVHelp = () => {
-  return <></>;
 };
 
 const NWHelp = () => {
