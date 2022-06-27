@@ -12,6 +12,7 @@ describe("Boris pags", () => {
         "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
       infoDesc:
         "Klicken Sie auf den Link, der Sie zum Informationsportal Grundstücksdaten Brandenburg führt.",
+      portalLabel: "Zum Informationsportal Grundstücksdaten Brandenburg",
       anzahlDesc:
         "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im zweiten Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus.",
       eingabeDesc:
@@ -22,6 +23,7 @@ describe("Boris pags", () => {
       key: "BE",
       infoTitle: "Ermitteln Sie den Bodenrichtwert für Ihr Grundstück",
       infoDesc: "Ihre Grundstücksadresse im Bodenrichtwert-Portal Berlin",
+      portalLabel: "Zum Bodenrichtwert-Portal Berlin",
       anzahlDesc:
         "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im unteren Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus.",
       eingabeDesc:
@@ -34,6 +36,7 @@ describe("Boris pags", () => {
         "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
       infoDesc:
         "mithilfe des Bodenrichtwert-Portals für Bremen und Niedersachsen",
+      portalLabel: "Zum Bodenrichtwert-Portal Bremen und Niedersachsen",
       anzahlDesc:
         "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im zweiten Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus.",
       eingabeDesc:
@@ -46,6 +49,7 @@ describe("Boris pags", () => {
         "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
       infoDesc:
         "Klicken Sie auf den Link, der Sie zum Bodenrichtwert-Portal Mecklenburg-Vorpommern führt.",
+      portalLabel: "Zum Bodenrichtwert-Portal Mecklenburg-Vorpommern",
       anzahlDesc:
         "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im zweiten Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus.",
       eingabeDesc:
@@ -54,14 +58,22 @@ describe("Boris pags", () => {
   ];
 
   data.forEach(
-    ({ bundesland, key, infoTitle, infoDesc, anzahlDesc, eingabeDesc }) => {
+    ({
+      bundesland,
+      key,
+      infoTitle,
+      infoDesc,
+      portalLabel,
+      anzahlDesc,
+      eingabeDesc,
+    }) => {
       it(`should render correct text for ${bundesland}`, () => {
         cy.bundesland(key);
         cy.visit("/formular/grundstueck/bodenrichtwertInfo");
         cy.url().should("contain", "bodenrichtwertInfo");
         cy.contains("h1", infoTitle);
         cy.contains(infoDesc);
-        cy.contains(`Zum Bodenrichtwert-Portal ${bundesland}`);
+        cy.contains(portalLabel);
         cy.get("#nextButton").click();
 
         cy.url().should(
