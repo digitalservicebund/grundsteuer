@@ -33,9 +33,7 @@ export const filterDataForReachablePaths = (
   const reachablePaths = getReachablePathsFromGrundData(completeData);
   reachablePaths.forEach((path) => {
     const pathData = _.get(completeData, idToIndex(path));
-    if (pathData) {
-      _.set(filteredData, idToIndex(path), pathData);
-    }
+    _.set(filteredData, idToIndex(path), pathData);
   });
 
   return filteredData;

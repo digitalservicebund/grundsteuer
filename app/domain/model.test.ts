@@ -87,13 +87,10 @@ describe("filterDataForReachablePaths", () => {
       .grundstueckTyp({ typ: "baureif" })
       .gebaeudeBaujahr({ baujahr: "1990" })
       .build();
-    const expectedData = grundModelFactory
-      .grundstueckTyp({ typ: "baureif" })
-      .build();
 
     const filteredData = filterDataForReachablePaths(completeData);
 
-    expect(filteredData).toEqual(expectedData);
+    expect(filteredData.gebaeude).toBeUndefined();
   });
 });
 
