@@ -36,7 +36,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         "hover:outline hover:outline-4 hover:outline-blue-800 hover:outline-offset-[-4px]",
         "focus:outline focus:outline-4 focus:outline-blue-800 focus:outline-offset-[-4px]",
         "disabled:!text-gray-600 disabled:!border-gray-600 disabled:!outline-none",
-        "px-24 min-h-[3.75rem] text-18 leading-24 placeholder:italic placeholder:text-placeholderGray",
+        "px-24 min-h-[3.75rem] text-18 leading-24 placeholder:font-serif placeholder:italic placeholder:text-placeholderGray",
         {
           "border-red-800 bg-red-200": error,
         },
