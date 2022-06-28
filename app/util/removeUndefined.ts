@@ -4,31 +4,36 @@ export const removeUndefined = (
   data: Record<string, any>,
   trimOutput?: boolean
 ) => {
-  Object.entries(data).forEach((entry) => {
+  const filteredData = _.cloneDeep(data);
+  Object.entries(filteredData).forEach((entry) => {
     const key = entry[0];
     const value = entry[1];
 
     if (_.isString(value) && trimOutput) {
-      data[key] = value.trim();
+      filteredData[key] = value.trim();
     }
     if (_.isObject(value)) {
-      data[key] = _(removeUndefined(value, trimOutput))
+      filteredData[key] = _(removeUndefined(value, trimOutput))
         .omitBy(_.isNil)
         .omitBy(isEmptyExceptEmptyString)
         .value();
     }
     if (_.isArray(value)) {
-      const resultingValue = value.map((item) =>
-        _.isObject(item) || _.isArray(item)
-          ? removeUndefined(item, trimOutput)
-          : item
-      );
+      const resultingValue = value.map((item) => {
+        if (_.isObject(item) || _.isArray(item)) {
+          return removeUndefined(item, trimOutput);
+        } else if (_.isString(item) && trimOutput) {
+          return item.trim();
+        } else {
+          return item;
+        }
+      });
       _.remove(resultingValue, _.isEmpty);
       _.remove(resultingValue, _.isNil);
-      data[key] = resultingValue;
+      filteredData[key] = resultingValue;
     }
   });
-  return _(data).omitBy(isEmptyExceptEmptyString).value();
+  return _(filteredData).omitBy(isEmptyExceptEmptyString).value();
 };
 
 const isEmptyExceptEmptyString = (value: any) => {
