@@ -5,6 +5,7 @@ import bb from "~/assets/images/help/boris/eingabe-bb.png";
 import be from "~/assets/images/help/boris/eingabe-be.png";
 import hb from "~/assets/images/help/boris/eingabe-hb.png";
 import mv from "~/assets/images/help/boris/eingabe-mv.png";
+import sh from "~/assets/images/help/boris/eingabe-sh.png";
 
 import { GrundModel } from "~/domain/steps";
 
@@ -63,6 +64,17 @@ const RPEingabeHelp: HelpComponentFunction = () => {
   );
 };
 
+const SHEingabeHelp: HelpComponentFunction = () => {
+  return (
+    <BundeslandEingabeHelp
+      paragraph1="Auf der externen Seite, habe Sie nach Eingabe der Adresse des Grundstücks einen vergrößerten Kartenausschnitt mit dazugehörigen Daten erhalten. Hier können Sie den Bodenrichtwert ablesen."
+      image={sh}
+      altText="Screenshot vom Bodenrichtwert-Portal Schleswig-Holstein"
+      paragraph2="Konnten Sie die Eingaben nicht finden? Dann gehen Sie zurück auf die Seite Bodenrichtwert-Info und befolgen Sie unsere Schritt-für-Schritt Anleitung."
+    />
+  );
+};
+
 const BundeslandEingabeHelp = ({
   paragraph1,
   paragraph2,
@@ -109,6 +121,8 @@ export const BodenrichtwertEingabeHelp: HelpComponentFunction = ({
       return <MVEingabeHelp />;
     case "RP":
       return <RPEingabeHelp />;
+    case "SH":
+      return <SHEingabeHelp />;
     default:
       return <></>;
   }
