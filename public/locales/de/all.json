@@ -1359,10 +1359,12 @@
           "anzahl": {
             "options": {
               "1": {
-                "label": "Mein Grundstück hat nur einen Bodenrichtwert"
+                "label": "Mein Grundstück hat nur einen Bodenrichtwert",
+                "help": "Wenn ihr Grundstück in einer Bodenrichtwertzone liegt, wählen Sie dieses Feld aus."
               },
               "2": {
-                "label": "Mein Grundstück hat zwei Bodenrichtwerte"
+                "label": "Mein Grundstück hat zwei Bodenrichtwerte",
+                "help": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann jedoch vorkommen, dass sich Bodenrichtwertzonen flächenmäßig überlagern. In Ausnahmefällen, kann ein Flurstück auch anteilig mehreren Bodenrichtwertzonen zugeordnet werden."
               }
             }
           }

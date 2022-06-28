@@ -9,11 +9,13 @@ import { getCurrentStateWithoutId } from "~/util/getCurrentState";
 import GrundbuchblattHelp from "~/components/form/help/grundstueck/Grundbuchblatt";
 import FlurHelp from "~/components/form/help/grundstueck/Flur";
 import EigentuemerAnzahlHelp from "~/components/form/help/eigentuemer/EigentuemerAnzahl";
+import { BodenrichtwertEingabeHelp } from "~/components/form/help/grundstueck/bodenrichtwert/BodenrichtwertEingabeHelp";
 
 export const helpComponents = {
   grundstueck: {
     steuernummer: { steuernummer: SteuernummerHelp },
     anzahl: { anzahl: GrundstueckAnzahlHelp },
+    bodenrichtwertEingabe: { bodenrichtwert: BodenrichtwertEingabeHelp },
     flurstueck: {
       angaben: {
         gemarkung: GemarkungHelp,

@@ -16,7 +16,7 @@ const BodenrichtwertEingabe: StepComponentFunction = ({
         <Hint>{i18n.specifics.zweiBodenrichtwerteHinweis}</Hint>
       )}
       <StepFormFields
-        {...{ stepDefinition, currentState, formData, i18n, errors }}
+        {...{ stepDefinition, currentState, formData, i18n, errors, allData }}
       />
     </ContentContainer>
   );
