@@ -18,5 +18,15 @@ export default function CatchAllRoute() {
 }
 
 export function CatchBoundary() {
-  return <ErrorPage statusCode={404} />;
+  return (
+    <>
+      <ErrorPage statusCode={404} />
+      <script
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: `window.plausible && window.plausible("404",{ props: { path: document.location.pathname } });`,
+        }}
+      />
+    </>
+  );
 }
