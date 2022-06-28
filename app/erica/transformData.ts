@@ -219,7 +219,7 @@ const transformFreitext = (freitext?: string, twoBodenrichtwerte?: boolean) => {
   return freitext;
 };
 
-export const transformDataToEricaFormat = (inputData: GrundModel) => {
+export const transforDataToEricaFormat = (inputData: GrundModel) => {
   const dataEricaFormat = {
     grundstueck: {
       typ: inputData.grundstueck?.typ?.typ,

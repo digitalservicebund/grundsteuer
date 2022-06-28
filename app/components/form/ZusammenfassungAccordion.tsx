@@ -5,13 +5,10 @@ import { conditions } from "~/domain/guards";
 import { Accordion, StepFormField } from "~/components";
 import { AccordionItemProps } from "~/components/AccordionItem";
 import {
-  EigentuemerModel,
-  GebaeudeModel,
   GrundModel,
   GrundstueckAdresseFields,
   GrundstueckFlurstueckFlurFields,
   GrundstueckFlurstueckGroesseFields,
-  GrundstueckModel,
 } from "~/domain/steps";
 import { I18nObject } from "~/i18n/getStepI18n";
 import { PreviousStepsErrors } from "~/routes/formular/zusammenfassung";
@@ -35,13 +32,6 @@ import Paragraph from "~/components/icons/mui/Paragraph";
 import ExclamationMarkFilled from "~/components/icons/mui/ExclamationMarkFilled";
 import { EigentuemerBruchteilsgemeinschaftAdresseFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
 import SectionLabel from "~/components/SectionLabel";
-import { removeUndefined } from "~/util/removeUndefined";
-
-const isDataEmpty = (
-  data: GrundstueckModel | GebaeudeModel | EigentuemerModel
-) => {
-  return Object.keys(removeUndefined(data)).length <= 0;
-};
 
 const resolveAnrede = (value: string | undefined) => {
   if (value === "no_anrede") {
@@ -488,7 +478,7 @@ export default function ZusammenfassungAccordion({
 
   const grundstueckAccordionItem = (): AccordionItemProps => {
     const header = sectionHeading("Grundstück", "grundstueck");
-    if (isDataEmpty(allData?.grundstueck || {})) {
+    if (!allData.grundstueck) {
       return {
         header,
         content: unfilledAccordionItemContent("grundstueck"),
@@ -550,11 +540,11 @@ export default function ZusammenfassungAccordion({
                 path: "anzahl",
               },
             ])}
-            {allData.grundstueck?.anzahl?.anzahl && (
+            {allData.grundstueck.anzahl?.anzahl && (
               <>
                 {[
                   ...Array(
-                    Number.parseInt(allData.grundstueck?.anzahl.anzahl)
+                    Number.parseInt(allData.grundstueck.anzahl.anzahl)
                   ).keys(),
                 ].map((index) => {
                   const flurstueckKey = "flurstueck-" + index;
@@ -634,8 +624,7 @@ export default function ZusammenfassungAccordion({
     if (!conditions.isBebaut(allData)) return undefined;
 
     const header = sectionHeading("Gebäude", "gebaeude");
-
-    if (isDataEmpty(allData?.gebaeude || {})) {
+    if (!allData?.gebaeude) {
       return {
         header,
         content: unfilledAccordionItemContent("gebaeude"),
@@ -743,7 +732,7 @@ export default function ZusammenfassungAccordion({
 
   const eigentuemerAccordionItem = (): AccordionItemProps => {
     const header = sectionHeading("Eigentümer:innen", "eigentuemer");
-    if (isDataEmpty(allData?.eigentuemer || {})) {
+    if (!allData?.eigentuemer) {
       return {
         header,
         content: unfilledAccordionItemContent("eigentuemer"),
@@ -772,11 +761,11 @@ export default function ZusammenfassungAccordion({
               },
             ])}
           </ul>
-          {allData.eigentuemer?.anzahl?.anzahl && (
+          {allData.eigentuemer.anzahl?.anzahl && (
             <>
               {[
                 ...Array(
-                  Number.parseInt(allData.eigentuemer?.anzahl.anzahl)
+                  Number.parseInt(allData.eigentuemer.anzahl.anzahl)
                 ).keys(),
               ].map((index) => {
                 const personKey = "person-" + index;

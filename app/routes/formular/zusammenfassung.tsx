@@ -39,8 +39,9 @@ import {
 } from "~/domain/validation";
 import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
 import ZusammenfassungAccordion from "~/components/form/ZusammenfassungAccordion";
+import { removeUndefined } from "~/util/removeUndefined";
 import { retrieveResult, sendNewGrundsteuer } from "~/erica/sendGrundsteuer";
-import { transformDataToEricaFormat } from "~/erica/transformData";
+import { transforDataToEricaFormat } from "~/erica/transformData";
 import {
   deleteEricaRequestIdSenden,
   findUserByEmail,
@@ -158,8 +159,9 @@ export const loader: LoaderFunction = async ({
 
   const storedFormData = await getStoredFormData({ request, user });
   const filteredData = filterDataForReachablePaths(storedFormData);
+  const cleanedData = removeUndefined(filteredData);
 
-  const previousStepsErrors = await validateAllStepsData(filteredData);
+  const previousStepsErrors = await validateAllStepsData(cleanedData);
 
   // Query Erica result
   let ericaErrors: string[] = [];
@@ -199,7 +201,7 @@ export const loader: LoaderFunction = async ({
     {
       csrfToken,
       formData: getStepData(storedFormData, "zusammenfassung"),
-      allData: filteredData,
+      allData: cleanedData,
       i18n: await getStepI18n("zusammenfassung"),
       stepDefinition: zusammenfassung,
       isIdentified: userData.identified,
@@ -271,7 +273,7 @@ export const action: ActionFunction = async ({
   await saveConfirmationAuditLogs(clientIp, user.email, formDataToBeStored);
 
   // Send to Erica
-  const transformedData = transformDataToEricaFormat(
+  const transformedData = transforDataToEricaFormat(
     filterDataForReachablePaths(formDataToBeStored)
   );
   const ericaRequestId = await sendNewGrundsteuer(transformedData);

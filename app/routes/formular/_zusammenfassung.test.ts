@@ -29,7 +29,6 @@ describe("/zusammenfassung loader", () => {
     mockIsAuthenticated.mockImplementation(() =>
       Promise.resolve(
         sessionUserFactory.build({
-          id: "1",
           email: "existing_user@foo.com",
           identified: true,
         })
@@ -62,46 +61,6 @@ describe("/zusammenfassung loader", () => {
     expect(jsonResponse.previousStepsErrors).toEqual({});
     expect(jsonResponse.ericaErrors).toEqual([]);
     expect(jsonResponse.showSpinner).toBe(false);
-  });
-
-  it("should keep null values from arrays as empty objects in return data ", async () => {
-    const fullData = _.merge(grundModelFactory.full().build(), {
-      zusammenfassung: {
-        confirmCompleteCorrect: "true",
-        confirmDataPrivacy: "true",
-        confirmTermsOfUse: "true",
-      },
-    });
-    let personData;
-    const generatedPersonData = grundModelFactory
-      .eigentuemerPerson({
-        list: [
-          {
-            steuerId: {
-              steuerId: "22 222 222 222",
-            },
-          },
-        ],
-      })
-      .build().eigentuemer?.person;
-    if (
-      fullData.eigentuemer &&
-      generatedPersonData &&
-      generatedPersonData.length > 0
-    ) {
-      personData = [{}, generatedPersonData[0]];
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      fullData.eigentuemer.person = [null, generatedPersonData[0]];
-    }
-    const options = await getLoaderArgsWithAuthenticatedSession(
-      "/formular/zusammenfassung",
-      "existing_user@foo.com",
-      fullData
-    );
-    const response = await loader(options);
-    const jsonResponse = await response.json();
-    expect(jsonResponse.allData.eigentuemer.person).toEqual(personData);
   });
 
   it("should return previousStepsErrors if errors in previous steps", async () => {

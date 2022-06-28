@@ -293,53 +293,50 @@ export type Person = {
     name?: EigentuemerPersonVertreterNameFields;
   };
 };
+
 export type GrundModel = {
   welcome?: object;
-  grundstueck?: GrundstueckModel;
-  gebaeude?: GebaeudeModel;
-  eigentuemer?: EigentuemerModel;
+  grundstueck?: {
+    adresse?: GrundstueckAdresseFields;
+    steuernummer?: GrundstueckSteuernummerFields;
+    typ?: GrundstueckTypFields;
+    abweichendeEntwicklung?: GrundstueckAbweichendeEntwicklungFields;
+    gemeinde?: GrundstueckGemeindeFields;
+    anzahl?: GrundstueckAnzahlFields;
+    miteigentumsanteil?: GrundstueckFlurstueckMiteigentumsanteilFields;
+    bodenrichtwertEingabe?: GrundstueckBodenrichtwertEingabeFields;
+    bodenrichtwertAnzahl?: GrundstueckBodenrichtwertAnzahlFields;
+    flurstueck?: Flurstueck[];
+  };
+  gebaeude?: {
+    ab1949?: GebaeudeAb1949Fields;
+    abbruchverpflichtung?: GebaeudeAbbruchverpflichtungFields;
+    abbruchverpflichtungsjahr?: GebaeudeAbbruchverpflichtungsjahrFields;
+    baujahr?: GebaeudeBaujahrFields;
+    garagen?: GebaeudeGaragenFields;
+    garagenAnzahl?: GebaeudeGaragenAnzahlFields;
+    kernsaniert?: GebaeudeKernsaniertFields;
+    kernsanierungsjahr?: GebaeudeKernsanierungsjahrFields;
+    weitereWohnraeume?: GebaeudeWeitereWohnraeumeFields;
+    weitereWohnraeumeDetails?: GebaeudeWeitereWohnraeumeDetailsFields;
+    wohnflaeche?: GebaeudeWohnflaecheFields;
+    wohnflaechen?: GebaeudeWohnflaechenFields;
+  };
+  eigentuemer?: {
+    anzahl?: EigentuemerAnzahlFields;
+    verheiratet?: EigentuemerVerheiratetFields;
+    person?: Person[];
+    bruchteilsgemeinschaft?: EigentuemerBruchteilsgemeinschaftFields;
+    bruchteilsgemeinschaftangaben?: {
+      angaben?: EigentuemerBruchteilsgemeinschaftAngabenFields;
+    };
+    empfangsvollmacht?: EigentuemerEmpfangsvollmachtFields;
+    empfangsbevollmaechtigter?: {
+      name?: EigentuemerEmpfangsbevollmaechtigterNameFields;
+      adresse?: EigentuemerEmpfangsbevollmaechtigterAdresseFields;
+    };
+  };
   zusammenfassung?: ZusammenfassungFields;
-};
-export type GrundstueckModel = {
-  adresse?: GrundstueckAdresseFields;
-  steuernummer?: GrundstueckSteuernummerFields;
-  typ?: GrundstueckTypFields;
-  abweichendeEntwicklung?: GrundstueckAbweichendeEntwicklungFields;
-  gemeinde?: GrundstueckGemeindeFields;
-  anzahl?: GrundstueckAnzahlFields;
-  miteigentumsanteil?: GrundstueckFlurstueckMiteigentumsanteilFields;
-  bodenrichtwertEingabe?: GrundstueckBodenrichtwertEingabeFields;
-  bodenrichtwertAnzahl?: GrundstueckBodenrichtwertAnzahlFields;
-  flurstueck?: Flurstueck[];
-};
-
-export type GebaeudeModel = {
-  ab1949?: GebaeudeAb1949Fields;
-  abbruchverpflichtung?: GebaeudeAbbruchverpflichtungFields;
-  abbruchverpflichtungsjahr?: GebaeudeAbbruchverpflichtungsjahrFields;
-  baujahr?: GebaeudeBaujahrFields;
-  garagen?: GebaeudeGaragenFields;
-  garagenAnzahl?: GebaeudeGaragenAnzahlFields;
-  kernsaniert?: GebaeudeKernsaniertFields;
-  kernsanierungsjahr?: GebaeudeKernsanierungsjahrFields;
-  weitereWohnraeume?: GebaeudeWeitereWohnraeumeFields;
-  weitereWohnraeumeDetails?: GebaeudeWeitereWohnraeumeDetailsFields;
-  wohnflaeche?: GebaeudeWohnflaecheFields;
-  wohnflaechen?: GebaeudeWohnflaechenFields;
-};
-export type EigentuemerModel = {
-  anzahl?: EigentuemerAnzahlFields;
-  verheiratet?: EigentuemerVerheiratetFields;
-  person?: Person[];
-  bruchteilsgemeinschaft?: EigentuemerBruchteilsgemeinschaftFields;
-  bruchteilsgemeinschaftangaben?: {
-    angaben?: EigentuemerBruchteilsgemeinschaftAngabenFields;
-  };
-  empfangsvollmacht?: EigentuemerEmpfangsvollmachtFields;
-  empfangsbevollmaechtigter?: {
-    name?: EigentuemerEmpfangsbevollmaechtigterNameFields;
-    adresse?: EigentuemerEmpfangsbevollmaechtigterAdresseFields;
-  };
 };
 
 export type StepDefinitionField = {

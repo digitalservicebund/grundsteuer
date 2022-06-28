@@ -3,13 +3,13 @@ import {
   calculateGroesse,
   fillPostCommaToLength,
   separateHausnummerAndZusatz,
-  transformDataToEricaFormat,
+  transforDataToEricaFormat,
   transformAnteil,
   transformDate,
 } from "~/erica/transformData";
 import { Person } from "~/domain/steps";
 
-describe("transformDataToEricaFormat", () => {
+describe("transforDataToEricaFormat", () => {
   const twoPersonList: Person[] = [
     {
       persoenlicheAngaben: {
@@ -85,7 +85,7 @@ describe("transformDataToEricaFormat", () => {
 
   describe("no data", function () {
     it("should return empty object", () => {
-      const result = transformDataToEricaFormat({});
+      const result = transforDataToEricaFormat({});
       expect(Object.keys(result).length).toEqual(0);
     });
   });
@@ -193,7 +193,7 @@ describe("transformDataToEricaFormat", () => {
         },
       };
 
-      const result = transformDataToEricaFormat(inputData);
+      const result = transforDataToEricaFormat(inputData);
 
       expect(result).toEqual(expectedData);
     });
@@ -254,7 +254,7 @@ describe("transformDataToEricaFormat", () => {
         },
       };
 
-      const result = transformDataToEricaFormat(inputData);
+      const result = transforDataToEricaFormat(inputData);
 
       expect(result).toEqual(expectedData);
     });
@@ -390,7 +390,7 @@ describe("transformDataToEricaFormat", () => {
         },
       };
 
-      const result = transformDataToEricaFormat(inputData);
+      const result = transforDataToEricaFormat(inputData);
 
       expect(result).toEqual(expectedData);
     });
@@ -403,7 +403,7 @@ describe("transformDataToEricaFormat", () => {
         .freitext({ freitext: "Mehr Angaben" })
         .build();
 
-      const result = transformDataToEricaFormat(inputData);
+      const result = transforDataToEricaFormat(inputData);
 
       expect(result.freitext).toEqual("Mehr Angaben");
     });
@@ -413,7 +413,7 @@ describe("transformDataToEricaFormat", () => {
         .grundstueckBodenrichtwert({ bodenrichtwert: "200" }, { anzahl: "1" })
         .build();
 
-      const result = transformDataToEricaFormat(inputData);
+      const result = transforDataToEricaFormat(inputData);
 
       expect(result.freitext).toEqual(undefined);
     });
@@ -424,7 +424,7 @@ describe("transformDataToEricaFormat", () => {
         .freitext({ freitext: "Mehr Angaben" })
         .build();
 
-      const result = transformDataToEricaFormat(inputData);
+      const result = transforDataToEricaFormat(inputData);
 
       expect(result.freitext).toEqual(
         "Es existiert ein zweiter Bodenrichtwert für dieses Grundstück. Mehr Angaben"
@@ -436,7 +436,7 @@ describe("transformDataToEricaFormat", () => {
         .grundstueckBodenrichtwert({ bodenrichtwert: "200" }, { anzahl: "2" })
         .build();
 
-      const result = transformDataToEricaFormat(inputData);
+      const result = transforDataToEricaFormat(inputData);
 
       expect(result.freitext).toEqual(
         "Es existiert ein zweiter Bodenrichtwert für dieses Grundstück."
@@ -472,7 +472,7 @@ describe("transformDataToEricaFormat", () => {
         .grundstueckFlurstueck({ list: [defaultFlurstueck], count: 2 })
         .build();
 
-      const result = transformDataToEricaFormat(inputData);
+      const result = transforDataToEricaFormat(inputData);
 
       expect(result.grundstueck.flurstueck[0].groesseQm).toEqual("123");
     });
@@ -485,7 +485,7 @@ describe("transformDataToEricaFormat", () => {
         .grundstueckFlurstueck({ list: [defaultFlurstueck], count: 2 })
         .build();
 
-      const result = transformDataToEricaFormat(inputData);
+      const result = transforDataToEricaFormat(inputData);
 
       expect(result.grundstueck.flurstueck[0].groesseQm).toEqual("10203");
     });
@@ -497,7 +497,7 @@ describe("transformDataToEricaFormat", () => {
         .wohnflaechen({ wohnflaeche: "10" })
         .build();
 
-      const result = transformDataToEricaFormat(inputData);
+      const result = transforDataToEricaFormat(inputData);
 
       expect(result.gebaeude.wohnflaechen).toEqual(["10"]);
     });
@@ -507,7 +507,7 @@ describe("transformDataToEricaFormat", () => {
         .wohnflaechen({ wohnflaeche1: "10", wohnflaeche2: "20" })
         .build();
 
-      const result = transformDataToEricaFormat(inputData);
+      const result = transforDataToEricaFormat(inputData);
 
       expect(result.gebaeude.wohnflaechen).toEqual(["10", "20"]);
     });
@@ -535,7 +535,7 @@ describe("transformDataToEricaFormat", () => {
         })
         .build();
 
-      const result = transformDataToEricaFormat(inputData);
+      const result = transforDataToEricaFormat(inputData);
 
       expect(result.eigentuemer.bruchteilsgemeinschaft).toEqual({
         name: "Bruchteilsgem. GST Strasse 2GST",
@@ -571,7 +571,7 @@ describe("transformDataToEricaFormat", () => {
         })
         .build();
 
-      const result = transformDataToEricaFormat(inputData);
+      const result = transforDataToEricaFormat(inputData);
 
       expect(result.eigentuemer.bruchteilsgemeinschaft).toEqual({
         name: "BTG Name",
@@ -598,7 +598,7 @@ describe("transformDataToEricaFormat", () => {
       })
       .build();
 
-    const result = transformDataToEricaFormat(inputData);
+    const result = transforDataToEricaFormat(inputData);
 
     expect(result.grundstueck.adresse).toEqual({
       strasse: "GST Strasse",
