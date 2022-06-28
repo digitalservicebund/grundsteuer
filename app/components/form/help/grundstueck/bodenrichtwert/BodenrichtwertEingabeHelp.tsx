@@ -5,126 +5,90 @@ import bb from "~/assets/images/help/boris/eingabe-bb.png";
 import be from "~/assets/images/help/boris/eingabe-be.png";
 import hb from "~/assets/images/help/boris/eingabe-hb.png";
 import mv from "~/assets/images/help/boris/eingabe-mv.png";
-import rp from "~/assets/images/help/boris/eingabe-rp.png";
 
 import { GrundModel } from "~/domain/steps";
 
 const BBEingabeHelp: HelpComponentFunction = () => {
   return (
-    <DefaultHelpContent
-      elements={[
-        {
-          type: "paragraph",
-          value:
-            "In der vorletzten Zeile der PDF mit Detailangaben zu Ihrem Flurstück, finden Sie den Bodenrichtwert.",
-        },
-        {
-          type: "image",
-          source: bb,
-          altText: "Beispiel PDF",
-        },
-        {
-          type: "paragraph",
-          value:
-            "Konnten Sie die Eingaben nicht finden? Dann gehen Sie zurück auf die Seite Bodenrichtwert-Info und befolgen Sie unsere Schritt-für-Schritt Anleitung.",
-        },
-      ]}
+    <BundeslandEingabeHelp
+      paragraph1="In der vorletzten Zeile der PDF mit Detailangaben zu Ihrem Flurstück, finden Sie den Bodenrichtwert."
+      image={bb}
+      altText="Beispiel PDF"
+      paragraph2="Konnten Sie die Eingaben nicht finden? Dann gehen Sie zurück auf die Seite Bodenrichtwert-Info und befolgen Sie unsere Schritt-für-Schritt Anleitung."
     />
   );
 };
 
 const BEEingabeHelp: HelpComponentFunction = () => {
   return (
-    <DefaultHelpContent
-      elements={[
-        {
-          type: "paragraph",
-          value:
-            "Im Bodenrichtwert-Portal “BORIS Berlin” können Sie den Bodenrichtwert ablesen. Die obere, rot unterstrichene Zahl übertragen Sie in dieses Feld.",
-        },
-        {
-          type: "image",
-          source: be,
-          altText: "Screenshot vom Portal BORIS Berlin",
-        },
-        {
-          type: "paragraph",
-          value:
-            "Konnten Sie die Eingaben nicht finden? Dann gehen Sie zurück auf die Seite Bodenrichtwert-Info und befolgen Sie unsere Schritt-für-Schritt Anleitung.",
-        },
-      ]}
+    <BundeslandEingabeHelp
+      paragraph1="Im Bodenrichtwert-Portal “BORIS Berlin” können Sie den Bodenrichtwert ablesen. Die obere, rot unterstrichene Zahl übertragen Sie in dieses Feld."
+      image={be}
+      altText="Screenshot vom Portal BORIS Berlin"
+      paragraph2="Konnten Sie die Eingaben nicht finden? Dann gehen Sie zurück auf die Seite Bodenrichtwert-Info und befolgen Sie unsere Schritt-für-Schritt Anleitung."
     />
   );
 };
 
 const HBEingabeHelp: HelpComponentFunction = () => {
   return (
-    <DefaultHelpContent
-      elements={[
-        {
-          type: "paragraph",
-          value:
-            "Im Bodenrichtwert-Portal Bremen und Niedersachsen öffnet sich nach Adresseingabe ein Feld rechts neben dem Kartenausschnitt. Hier finden Sie in der ersten Zeile den Bodenrichtwert für Ihr Grundstück.",
-        },
-        {
-          type: "image",
-          source: hb,
-          altText:
-            "Screenshot vom Bodenrichtwert-Portal Bremen und Niedersachsen",
-        },
-        {
-          type: "paragraph",
-          value:
-            "Konnten Sie die Eingaben nicht finden? Dann gehen Sie zurück auf die Seite Bodenrichtwert-Info und befolgen Sie unsere Schritt-für-Schritt Anleitung.",
-        },
-      ]}
+    <BundeslandEingabeHelp
+      paragraph1="Im Bodenrichtwert-Portal Bremen und Niedersachsen öffnet sich nach Adresseingabe ein Feld rechts neben dem Kartenausschnitt. Hier finden Sie in der ersten Zeile den Bodenrichtwert für Ihr Grundstück."
+      image={hb}
+      altText="Screenshot vom Bodenrichtwert-Portal Bremen und Niedersachsen"
+      paragraph2="Konnten Sie die Eingaben nicht finden? Dann gehen Sie zurück auf die Seite Bodenrichtwert-Info und befolgen Sie unsere Schritt-für-Schritt Anleitung."
     />
   );
 };
 
 const MVEingabeHelp: HelpComponentFunction = () => {
   return (
-    <DefaultHelpContent
-      elements={[
-        {
-          type: "paragraph",
-          value:
-            "In dem PDF, dass Sie auf der externen Seite generieren konnten, finden Sie den Bodenrichtwert in Euro pro Quadratmeter.",
-        },
-        {
-          type: "image",
-          source: mv,
-          altText: "Beispiel PDF",
-        },
-        {
-          type: "paragraph",
-          value:
-            "Konnten Sie die Eingaben nicht finden? Dann gehen Sie zurück auf die Seite Bodenrichtwert-Info und befolgen Sie unsere Schritt-für-Schritt Anleitung.",
-        },
-      ]}
+    <BundeslandEingabeHelp
+      paragraph1="In dem PDF, dass Sie auf der externen Seite generieren konnten, finden Sie den Bodenrichtwert in Euro pro Quadratmeter."
+      image={mv}
+      altText="Beispiel PDF"
+      paragraph2="Konnten Sie die Eingaben nicht finden? Dann gehen Sie zurück auf die Seite Bodenrichtwert-Info und befolgen Sie unsere Schritt-für-Schritt Anleitung."
     />
   );
 };
 
 const RPEingabeHelp: HelpComponentFunction = () => {
   return (
+    <BundeslandEingabeHelp
+      paragraph1="Den Bodenrichtwert finden Sie im Datenblatt des Informationsschreibens der Finanzverwaltung."
+      image={mv}
+      altText="Beispiel Datenblatt des Informationsschreibens"
+      paragraph2="Konnten Sie die Eingaben nicht finden? Dann gehen Sie zurück auf die Seite Bodenrichtwert-Info und befolgen Sie unsere Schritt-für-Schritt Anleitung."
+    />
+  );
+};
+
+const BundeslandEingabeHelp = ({
+  paragraph1,
+  paragraph2,
+  image,
+  altText,
+}: {
+  paragraph1: string;
+  paragraph2: string;
+  image: string;
+  altText: string;
+}): JSX.Element => {
+  return (
     <DefaultHelpContent
       elements={[
         {
           type: "paragraph",
-          value:
-            "Im Bodenrichtwert-Portal Bremen und Niedersachsen öffnet sich nach Adresseingabe ein Feld rechts neben dem Kartenausschnitt. Hier finden Sie in der ersten Zeile den Bodenrichtwert für Ihr Grundstück.",
+          value: paragraph1,
         },
         {
           type: "image",
-          source: rp,
-          altText:
-            "Screenshot vom Bodenrichtwert-Portal Bremen und Niedersachsen",
+          source: image,
+          altText: altText,
         },
         {
           type: "paragraph",
-          value:
-            "Konnten Sie die Eingaben nicht finden? Dann gehen Sie zurück auf die Seite Bodenrichtwert-Info und befolgen Sie unsere Schritt-für-Schritt Anleitung.",
+          value: paragraph2,
         },
       ]}
     />
