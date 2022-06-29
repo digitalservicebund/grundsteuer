@@ -311,7 +311,7 @@ export default function FscEingeben() {
         Finanzamt erhalten haben. Der Code steht auf der letzten Seite.
       </IntroText>
 
-      {showError && (
+      {showError && !isSubmitting && (
         <ErrorBar className="mb-32">
           Der eingegebene Freischaltcode ist nicht gültig. Sie haben insgesamt 5
           Versuche. Danach müssen Sie einen neuen Freischaltcode beantragen.

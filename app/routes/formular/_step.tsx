@@ -256,7 +256,7 @@ export function Step() {
           <fieldset>
             <ContentContainer size="sm-md">
               <StepHeadline i18n={i18n} asLegend />
-              {actionData?.errors && <ErrorBarStandard />}
+              {actionData?.errors && !isSubmitting && <ErrorBarStandard />}
             </ContentContainer>
             <StepComponent {...loaderData} {...actionData} />
           </fieldset>
@@ -264,7 +264,7 @@ export function Step() {
           <>
             <ContentContainer size="sm-md">
               <StepHeadline i18n={i18n} />
-              {actionData?.errors && <ErrorBarStandard />}
+              {actionData?.errors && !isSubmitting && <ErrorBarStandard />}
             </ContentContainer>
             <StepComponent {...loaderData} {...actionData} />
           </>

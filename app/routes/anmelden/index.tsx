@@ -158,7 +158,7 @@ export default function Anmelden() {
           mit dem das Konto erstellt wurde. Der Grund: Ihre Formulardaten werden
           nur im Cookie in Ihrem Browser gespeichert.
         </Hint>
-        {errors && <ErrorBarStandard />}
+        {errors && !isSubmitting && <ErrorBarStandard />}
         <div className="mb-80">
           <Form method="post" noValidate>
             <CsrfToken value={loaderData.csrfToken} />

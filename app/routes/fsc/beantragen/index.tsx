@@ -240,7 +240,7 @@ export default function FscBeantragen() {
           Geburtsdatum, um Sie eindeutig zu identifizieren.
         </IntroText>
 
-        {showError && (
+        {showError && !isSubmitting && (
           <ErrorBar className="mb-32">
             Mit diesen Daten können wir keinen Freischaltcode beantragen.
           </ErrorBar>

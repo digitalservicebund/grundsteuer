@@ -13,7 +13,7 @@ import {
   useLoaderData,
   useLocation,
 } from "@remix-run/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useChangeLanguage } from "remix-i18next";
 import { pageTitle } from "~/util/pageTitle";
 import styles from "public/tailwind.css";
@@ -105,11 +105,13 @@ export default function App() {
   useChangeLanguage("de");
 
   const location = useLocation();
+  const [pathname, setPathname] = useState(location.pathname);
 
   useEffect(() => {
-    if (!location.hash) {
+    if (pathname !== location.pathname && !location.hash) {
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     }
+    setPathname(location.pathname);
   }, [location]);
 
   return (

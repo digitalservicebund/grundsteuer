@@ -245,14 +245,18 @@ export function Step() {
                     )}
                     <fieldset>
                       <StepHeadline i18n={i18n} asLegend />
-                      {actionData?.errors && <ErrorBarStandard />}
+                      {actionData?.errors && !isSubmitting && (
+                        <ErrorBarStandard />
+                      )}
                       <StepComponent {...loaderData} {...actionData} />
                     </fieldset>
                   </>
                 ) : (
                   <>
                     <StepHeadline i18n={i18n} />
-                    {actionData?.errors && <ErrorBarStandard />}
+                    {actionData?.errors && !isSubmitting && (
+                      <ErrorBarStandard />
+                    )}
                     <StepComponent {...loaderData} {...actionData} />
                   </>
                 )}

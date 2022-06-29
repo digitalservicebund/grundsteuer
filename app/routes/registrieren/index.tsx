@@ -216,7 +216,7 @@ export default function Registrieren() {
           nur im Cookie in Ihrem Browser gespeichert.
         </Hint>
 
-        {errors && <ErrorBarStandard />}
+        {errors && !isSubmitting && <ErrorBarStandard />}
       </ContentContainer>
 
       <Form method="post" noValidate>
