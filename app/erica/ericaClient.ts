@@ -19,7 +19,9 @@ export const postToErica = async (endpoint: string, dataToSend: object) => {
     payload: dataToSend,
   };
 
-  const response = await fetch(`${process.env.ERICA_URL}/${endpoint}`, {
+  const url = `${process.env.ERICA_URL}/${endpoint}`;
+  console.log(`Making erica request to ${url}`);
+  const response = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -32,7 +34,9 @@ export const postToErica = async (endpoint: string, dataToSend: object) => {
     response.headers.get("location") &&
     response.headers.get("location") !== "null"
   ) {
-    return response.headers.get("location");
+    const location = response.headers.get("location");
+    console.log(`Request to ${url} succeeded with location ${location}`);
+    return location;
   } else if (response.status == 201) {
     throw Error("Erica responded without location parameter");
   } else if (response.status == 422) {
@@ -48,10 +52,15 @@ export const getFromErica = async (endpoint: string) => {
     "environment variable ERICA_URL is not set"
   );
 
-  const response = await fetch(`${process.env.ERICA_URL}/${endpoint}`);
+  const url = `${process.env.ERICA_URL}/${endpoint}`;
+  const response = await fetch(url);
 
   if (response.status == 200) {
     const ericaResponse: EricaResponse = await response.json();
     return ericaResponse;
+  } else {
+    console.error(
+      `Error in getFromErica: status ${response.status} for ${url}`
+    );
   }
 };

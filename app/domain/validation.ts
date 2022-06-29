@@ -784,6 +784,7 @@ export const validateStepFormData = async (
     }
   );
   if (Object.keys(errors).length != 0) {
+    console.error(`Validation failed for fields: ${Object.keys(errors)}`);
     return { errors, validatedStepData: null };
   } else {
     return { errors: null, validatedStepData };

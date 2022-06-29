@@ -20,6 +20,7 @@ invariant(magicLinkSecret, "MAGIC_LINK_SECRET env variable not set.");
 const login = async (email: string): Promise<SessionUser> => {
   const user = await findUserByEmail(email);
   if (user) {
+    console.log(`Logging in user ${user.id}`);
     return {
       email: user.email,
       id: user.id,
