@@ -29,8 +29,8 @@ export default function Footer() {
         </div>
       </div>
       <div className="px-16 md:px-32 lg:px-48">
-        <div className="md:flex md:justify-between md:items-center gap-x-32 md:gap-x-64 pt-32">
-          <div className="flex flex-col shrink-0 pb-56">
+        <div className="md:flex md:justify-between md:items-center gap-x-32 md:gap-x-64 pt-32 md:pb-32">
+          <div className="flex flex-col shrink-0 pb-56 md:pb-0">
             <div className="flex flex-col md:flex-row mb-16 md:mb-0">
               <span>Im Auftrag des</span>
               <a
@@ -55,42 +55,42 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-wrap pb-16 md:justify-end gap-x-14 md:gap-x-32 max-w-[700px]">
+          <div className="flex flex-wrap pb-16 md:pb-0 md:justify-end gap-x-14 md:gap-x-32 max-w-[700px]">
             <Link
               to="/impressum"
-              className="block pb-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
+              className="block text-blue-800 uppercase text-14 leading-26 font-bold tracking-widest"
             >
               {t("footer.imprint")}
             </Link>
             <Link
               to="#"
-              className="block pb-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
+              className="block text-blue-800 uppercase text-14 leading-26 font-bold tracking-widest"
             >
               {t("footer.termsOfUse")}
             </Link>
             <Link
               to="/datenschutz"
-              className="block pb-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
+              className="block text-blue-800 uppercase text-14 leading-26 font-bold tracking-widest"
             >
               {t("footer.dataProtection")}
             </Link>
             <Link
               to="#"
-              className="block pb-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
+              className="block text-blue-800 uppercase text-14 leading-26 font-bold tracking-widest"
             >
               {t("footer.accessibility")}
             </Link>
             <a
               href="https://github.com/digitalservicebund/grundsteuer"
               target="_blank"
-              className="block pb-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
+              className="block text-blue-800 uppercase text-14 leading-26 font-bold tracking-widest"
             >
               {t("footer.openSource")}
             </a>
             <a
               href="https://digitalservice.bund.de/presse"
               target="_blank"
-              className="block pb-8 text-blue-800 uppercase text-14 leading-18 font-bold tracking-widest"
+              className="block text-blue-800 uppercase text-14 leading-26 font-bold tracking-widest"
             >
               {t("footer.press")}
             </a>
