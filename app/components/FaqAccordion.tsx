@@ -4,6 +4,7 @@ export default function FaqAccordion() {
   const items = [
     {
       header: "Wie kann ich mich auf die Abgabe der Erklärung vorbereiten?",
+      id: "vorbereitung",
       content: (
         <>
           <p>
@@ -476,6 +477,7 @@ export default function FaqAccordion() {
     {
       header:
         "Welche Sachverhalte deckt „Grundsteuererklärung für Privateigentum“ ab?",
+      id: "sachverhalte",
       content: (
         <>
           <p className="mb-24">
@@ -509,6 +511,7 @@ export default function FaqAccordion() {
     {
       header:
         "Welche Sachverhalte deckt „Grundsteuererklärung für Privateigentum“ nicht ab?",
+      id: "ausgeschlossene-sachverhalte",
       content: (
         <>
           <p className="mb-24">
@@ -556,6 +559,7 @@ export default function FaqAccordion() {
     {
       header:
         "In welchem Bundesland muss ein Grundstück liegen, damit es für „Grundsteuererklärung für Privateigentum“ infrage kommt?",
+      id: "bundesmodell",
       content: (
         <>
           <p className="mb-24">
@@ -586,6 +590,7 @@ export default function FaqAccordion() {
     {
       header:
         "Ab wann kann ich „Grundsteuererklärung für Privateigentum“ nutzen?",
+      id: "ab-wann-online",
       content: (
         <>
           <p>
@@ -599,6 +604,7 @@ export default function FaqAccordion() {
     {
       header:
         "In meinem Informationsschreiben steht, ich soll die Erklärung über ELSTER abgeben. Darf ich „Grundsteuererklärung für Privateigentum“ trotzdem nutzen?",
+      id: "elster",
       content: (
         <>
           <p>
@@ -613,6 +619,7 @@ export default function FaqAccordion() {
     {
       header:
         "Ich habe bereits ein ELSTER-Konto. Kann ich „Grundsteuererklärung für Privateigentum” nutzen?",
+      id: "elster-konto-vorhanden",
       content: (
         <p>
           Aktuell können Personen mit einem ELSTER-Konto „Grundsteuererklärung
@@ -624,6 +631,7 @@ export default function FaqAccordion() {
     },
     {
       header: "Brauche ich ein ELSTER-Konto?",
+      id: "elster-konto",
       content: (
         <>
           <p>
@@ -638,6 +646,7 @@ export default function FaqAccordion() {
     },
     {
       header: "Ist „Grundsteuererklärung für Privateigentum“ kostenlos?",
+      id: "kostenlos",
       content: (
         <>
           <p>Ja, unser Service ist kostenlos.</p>
@@ -647,6 +656,7 @@ export default function FaqAccordion() {
     {
       header:
         "Kann ich „Grundsteuererklärung für Privateigentum“ nutzen, wenn ich mehrere Grundstücke habe?",
+      id: "mehrere-grundstuecke",
       content: (
         <>
           <p>
@@ -663,6 +673,7 @@ export default function FaqAccordion() {
     },
     {
       header: "Wer hat „Grundsteuererklärung für Privateigentum“  entwickelt?",
+      id: "digitalservice",
       content: (
         <>
           <p>
@@ -701,6 +712,7 @@ export default function FaqAccordion() {
     },
     {
       header: "Wo kann ich mehr über die Grundsteuerreform erfahren?",
+      id: "grundsteuerreform",
       content: (
         <>
           <p className="mb-24">
@@ -769,6 +781,7 @@ export default function FaqAccordion() {
     {
       header:
         "Warum muss ich die Grundsteuererklärung abgeben, obwohl meine Daten der Finanzverwaltung vorliegen?",
+      id: "warum",
       content: (
         <>
           <p className="mb-24">

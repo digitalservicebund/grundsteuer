@@ -6,17 +6,19 @@ import classNames from "classnames";
 export type AccordionItemProps = {
   header: string | ReactElement;
   content: ReactElement;
+  id?: string;
   boldAppearance?: boolean;
 };
 
 export default function AccordionItem(props: AccordionItemProps) {
-  const { header, content, boldAppearance } = props;
+  const { header, content, id, boldAppearance } = props;
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <details
       onToggle={() => setIsExpanded(!isExpanded)}
       className="border-t-2 border-t-blue-800 group"
+      id={id}
     >
       <summary
         role="button"

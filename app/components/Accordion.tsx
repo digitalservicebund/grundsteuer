@@ -14,6 +14,7 @@ export default function Accordion({
           key={index}
           header={item.header}
           content={item.content}
+          id={item.id}
           boldAppearance={boldAppearance}
         />
       ))}
