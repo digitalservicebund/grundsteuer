@@ -87,6 +87,8 @@ if (appMode === "cron") {
 
   app.use(morgan("tiny"));
 
+  app.use(Sentry.Handlers.errorHandler());
+
   app.set("trust proxy", true);
 
   const getLoadContext = (req: Request, res: Response) => ({
