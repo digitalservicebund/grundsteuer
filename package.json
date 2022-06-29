@@ -33,7 +33,7 @@
     "prepare": "is-ci || husky install",
     "start": "cross-env NODE_ENV=production node --max-http-header-size=65536 ./build/server.js",
     "test": "cross-env NODE_OPTIONS=--no-warnings jest --testPathPattern=/app/",
-    "test:e2e": "cross-env APP_ENV=test start-server-and-test start http://localhost:3000 cypress",
+    "test:e2e": "cross-env SKIP_AUTH=true start-server-and-test start http://localhost:3000 cypress",
     "test:integration": "cross-env INTEGRATION_TEST=1 jest --testPathPattern=/test/integration/ --runInBand",
     "cypress": "cypress run --browser chrome --headless",
     "cypress:open": "cypress open",
@@ -43,7 +43,7 @@
   "dependencies": {
     "@prisma/client": "^3.15.2",
     "@remix-run/express": "^1.6.1",
-    "@remix-run/node": "^1.5.1",
+    "@remix-run/node": "^1.6.2",
     "@remix-run/react": "^1.6.1",
     "@sentry/browser": "^7.1.1",
     "@sentry/node": "^7.0.0",
