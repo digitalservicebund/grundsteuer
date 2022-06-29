@@ -11,7 +11,7 @@ export const SHHelp = () => {
       <div className="mb-80">
         <EnumeratedCard
           image={sh1}
-          imageAltText="Screenshot vom Bodenrichtwert-Portal Schleswig-Holstein"
+          imageAltText="Kartenausschnitt von Schritt 1 des Grundsteuerportal Schleswig-Holstein"
           number="1"
           heading="Externe Seite öffnen und Adresse eingeben"
           text="Öffnen Sie den oben stehenden Link. Geben Sie in Suchleiste oben links Ihre Grundstücksadresse ein. "
@@ -19,7 +19,7 @@ export const SHHelp = () => {
         />
         <EnumeratedCard
           image={sh2}
-          imageAltText="Screenshot vom Bodenrichtwert-Portal Schleswig-Holstein"
+          imageAltText="Kartenausschnitt von Schritt 2 des Grundsteuerportal Schleswig-Holstein"
           number="2"
           heading="Kartenausschnitt"
           text="Der Kartenausschnitt zeigt nun Ihr Grundstück an. Die roten linien markieren die Grenze des Bodenrichtwert. Wenn Sie den Kartenausschnitt vergrößern, werden auch die Flurstücke in Gelb dargestellt. Klicken Sie auf das rote Symbol, das Ihr Grundstück markiert. "
@@ -27,7 +27,7 @@ export const SHHelp = () => {
         />
         <EnumeratedCard
           image={sh3}
-          imageAltText="Screenshot vom Bodenrichtwert-Portal Schleswig-Holstein"
+          imageAltText="Kartenausschnitt von Schritt 3 des Grundsteuerportal Schleswig-Holstein"
           number="3"
           heading="Art der Nutzung auswählen"
           text="Es öffnet sich ein Fenster. Wählen Sie hier die Art der Nutzung aus, die auf Ihr Wohneigentum zutrifft und klicken Sie auf die Zeile. Hinweis: Eigentumswohnungen gehören zu Mehrfamilienhäuser."
@@ -35,7 +35,7 @@ export const SHHelp = () => {
         />
         <EnumeratedCard
           image={sh4}
-          imageAltText="Screenshot vom Bodenrichtwert-Portal Schleswig-Holstein"
+          imageAltText="Kartenausschnitt von Schritt 4 des Grundsteuerportal Schleswig-Holstein"
           number="4"
           heading="Bodenrichtwert ablesen"
           text="Den Bodenrichtwert finden Sie in der ersten Zeile der Tabelle. Merken Sie sich den Wert für die Eingabe. Auch Informationen zu Gemarkung, Flur und Flurstück sind später noch relevant."

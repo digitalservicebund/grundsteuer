@@ -9,7 +9,7 @@ export const RPHelp = () => {
       <div className="mb-80">
         <EnumeratedCard
           image={rp1}
-          imageAltText="Screenshot vom Bodenrichtwert-Portal Rheinland-Pfalz"
+          imageAltText="Bildbeispiel des Datenstammblatt Rheinland-Pfalz für Schritt 1"
           number="1"
           heading="Das Datenstammblatt"
           text="Sie haben kürzlich ein Informationsschreiben von Ihrer Landesfinanzverwaltung erhalten. Diesem ist ein Datenstammblatt beigelegt. Darin finden Sie alle Angaben zu Ihrem Grundstück."
@@ -17,7 +17,7 @@ export const RPHelp = () => {
         />
         <EnumeratedCard
           image={rp2}
-          imageAltText="Screenshot vom Bodenrichtwert-Portal Rheinland-Pfalz"
+          imageAltText="Bildbeispiel des Datenstammblatt Rheinland-Pfalz für Schritt 2"
           number="2"
           heading="Bodenrichtwert ablesen"
           text="Gehen Sie in die Tabelle des Datenstammblatts. Dort können Sie den Bodenrichtwert in Euro pro Quadratmeter ablesen."

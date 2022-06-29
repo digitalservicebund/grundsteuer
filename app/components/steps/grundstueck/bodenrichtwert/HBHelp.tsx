@@ -10,7 +10,7 @@ export const HBHelp = () => {
       <div className="mb-80">
         <EnumeratedCard
           image={bremen1}
-          imageAltText="Screenshot vom Bodenrichtwert-Portal Bremen und Niedersachsen"
+          imageAltText="Kartenausschnitt von Schritt 1 Bodenrichtwert-Portal Bremen und Niedersachsen"
           number="1"
           heading="Bodenrichtwert-Portal Bremen und Niedersachsen öffnen und Adresse eingeben"
           text="Öffnen Sie den oben stehenden Link. Auf der Seite finden Sie oben eine Suchleiste. Geben Sie dort Ihre Adresse ein. "
@@ -18,7 +18,7 @@ export const HBHelp = () => {
         />
         <EnumeratedCard
           image={bremen2}
-          imageAltText="Screenshot vom Bodenrichtwert-Portal Bremen und Niedersachsen"
+          imageAltText="Kartenausschnitt von Schritt 2 Bodenrichtwert-Portal Bremen und Niedersachsen"
           number="2"
           heading="Bodenrichtwert ablesen"
           text="Der Kartenausschnitt zeigt nun Ihr Grundstück und markiert die Stelle mit einem roten Symbol. Rechts öffnet sich ein Bereich mit Informationen. Merken Sie sich den Wert von “Bodenrichtwert” für die Eingabe."
@@ -26,7 +26,7 @@ export const HBHelp = () => {
         />
         <EnumeratedCard
           image={bremen3}
-          imageAltText="Screenshot vom Bodenrichtwert-Portal Bremen und Niedersachsen"
+          imageAltText="Kartenausschnitt von Schritt 3 Bodenrichtwert-Portal Bremen und Niedersachsen"
           number="3"
           heading="Sie sehen mehrere Bodenrichtwerte?"
           text="Vergleichen Sie in diesem Fall die Zeilen “Art der Nutzung” und wählen Sie dann den Bodenrichtwert jener Zone, die auf Ihren Grundstückstyp zutrifft.
