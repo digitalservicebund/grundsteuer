@@ -216,6 +216,7 @@ type ValidateFunction =
   | ValidateOnlyDecimalFunction
   | ValidateDependentFunction
   | ValidateRequiredIfConditionFunction
+  | ValidateUniqueSteuerIdFunction
   | ValidateMaxLengthFunction
   | ValidateMinLengthFunction
   | ValidateMaxLengthFloatFunction
@@ -363,25 +364,50 @@ export const validateRequiredIfCondition: ValidateRequiredIfConditionFunction =
     condition(allData) ? validateRequired({ value }) : true;
 
 type ValidateUniqueSteuerIdFunction = ({
+  value,
   allData,
+  noNewDataAdded,
 }: {
+  value?: string;
   allData: GrundModel | PruefenModel;
+  noNewDataAdded?: boolean | undefined;
 }) => boolean;
 export const validateUniqueSteuerId: ValidateUniqueSteuerIdFunction = ({
+  value,
   allData,
+  noNewDataAdded,
 }) => {
-  const existingSteuerId: Array<string> = [];
-
-  const isUniqueSteuerId = (person: Person) => {
-    const steuerId = person.steuerId?.steuerId;
-    const alreadyExisting = steuerId && existingSteuerId.includes(steuerId);
-    if (!alreadyExisting && steuerId) {
-      existingSteuerId.push(steuerId);
-    }
-    return !alreadyExisting;
+  const collectSteuerId = (
+    existingSteuerIds: Array<string>,
+    person: Person
+  ) => {
+    if (person && person.steuerId?.steuerId)
+      existingSteuerIds.push(person.steuerId?.steuerId);
+    return existingSteuerIds;
   };
+
+  const containsOnlyUniqueValues = (existingSteuerIds: Array<string>) => {
+    const onlyUniques = existingSteuerIds.filter(
+      (steuerId, currentIndex, steuerIds) =>
+        steuerIds.indexOf(steuerId) === currentIndex
+    );
+    return onlyUniques.length == existingSteuerIds.length;
+  };
+
   if ("eigentuemer" in allData && allData.eigentuemer?.person) {
-    return allData.eigentuemer.person.every(isUniqueSteuerId);
+    const existingSteuerIds: Array<string> = allData.eigentuemer.person.reduce(
+      collectSteuerId,
+      []
+    );
+
+    if (noNewDataAdded) {
+      return containsOnlyUniqueValues(existingSteuerIds);
+    }
+    for (let i = 0; i < existingSteuerIds.length; i++) {
+      if (existingSteuerIds[i] === value) {
+        return false;
+      }
+    }
   }
   return true;
 };
@@ -664,7 +690,8 @@ export const getErrorMessage = (
   validationConfig: ValidationConfig,
   formData: StepFormData,
   allData: GrundModel | PruefenModel,
-  i18n: Record<string, Record<string, string> | string>
+  i18n: Record<string, Record<string, string> | string>,
+  noNewDataAdded?: boolean | undefined
 ): string | undefined => {
   const validatorMapping: Record<string, ValidateFunction> = {
     required: validateRequired,
@@ -733,6 +760,7 @@ export const getErrorMessage = (
         valueHa,
         valueA,
         valueQm,
+        noNewDataAdded,
       })
     ) {
       return validation.msg || (i18n[key] as string);
@@ -743,7 +771,8 @@ export const getErrorMessage = (
 export const validateStepFormData = async (
   stepDefinition: StepDefinition,
   stepFormData: StepFormData,
-  storedFormData: GrundModel | PruefenModel
+  storedFormData: GrundModel | PruefenModel,
+  noNewDataAdded?: boolean | undefined
 ): Promise<
   | {
       errors: null;
@@ -774,7 +803,8 @@ export const validateStepFormData = async (
         field.validations,
         stepFormData,
         storedFormData,
-        i18n
+        i18n,
+        noNewDataAdded
       );
       if (errorMessage) {
         errors[name] = errorMessage;
@@ -807,7 +837,8 @@ export const validateAllStepsData = async (
       const { errors } = await validateStepFormData(
         stepDefinition,
         stepFormData,
-        storedFormData
+        storedFormData,
+        true
       );
       fieldErrors = errors || {};
     } else {

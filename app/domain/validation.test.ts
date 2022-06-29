@@ -310,44 +310,93 @@ describe("validateUniqueSteuerId", () => {
     },
   };
   const cases = [
-    { id: "1", allData: {}, valid: true },
+    { id: "1", allData: {}, value: undefined, valid: true },
     {
       id: "2",
       allData: grundModelFactory.eigentuemerPerson({ list: [{}] }).build(),
+      value: undefined,
       valid: true,
     },
     {
       id: "3",
-      allData: grundModelFactory
-        .eigentuemerPerson({ list: [steuerId1] })
-        .build(),
+      allData: grundModelFactory.eigentuemerPerson({ list: [{}] }).build(),
+      value: steuerId1.steuerId.steuerId,
       valid: true,
     },
     {
       id: "4",
       allData: grundModelFactory
-        .eigentuemerPerson({ list: [steuerId1, steuerId2] })
+        .eigentuemerPerson({ list: [steuerId1] })
         .build(),
+      value: undefined,
+
       valid: true,
     },
     {
       id: "5",
       allData: grundModelFactory
-        .eigentuemerPerson({ list: [steuerId1, steuerId1] })
+        .eigentuemerPerson({ list: [steuerId1] })
         .build(),
-      valid: false,
+      value: steuerId2.steuerId.steuerId,
+      valid: true,
     },
     {
       id: "6",
+      allData: grundModelFactory
+        .eigentuemerPerson({ list: [steuerId1] })
+        .build(),
+      value: steuerId1.steuerId.steuerId,
+      valid: false,
+    },
+    {
+      id: "7",
+      allData: grundModelFactory
+        .eigentuemerPerson({ list: [steuerId1] })
+        .build(),
+      value: steuerId1.steuerId.steuerId,
+      noNewDataAdded: true,
+      valid: true,
+    },
+    {
+      id: "8",
+      allData: grundModelFactory
+        .eigentuemerPerson({ list: [steuerId1, steuerId2] })
+        .build(),
+      value: undefined,
+      valid: true,
+    },
+    {
+      id: "9",
+      allData: grundModelFactory
+        .eigentuemerPerson({ list: [steuerId1] })
+        .build(),
+      value: steuerId1.steuerId.steuerId,
+      valid: false,
+    },
+
+    {
+      id: "10",
+      allData: grundModelFactory
+        .eigentuemerPerson({ list: [steuerId1, steuerId1] })
+        .build(),
+      value: undefined,
+      noNewDataAdded: true,
+      valid: false,
+    },
+    {
+      id: "11",
       allData: { eigentuemer: {} },
+      value: undefined,
       valid: true,
     },
   ];
 
   test.each(cases)(
     "Should return $valid if allData is '$allData' - id: '$id'",
-    ({ allData, valid }) => {
-      expect(validateUniqueSteuerId({ allData })).toBe(valid);
+    ({ allData, value, noNewDataAdded, valid }) => {
+      expect(validateUniqueSteuerId({ allData, value, noNewDataAdded })).toBe(
+        valid
+      );
     }
   );
 });

@@ -166,10 +166,14 @@ export const action: ActionFunction = async ({ params, request }) => {
   const stepFormData = Object.fromEntries(
     await request.formData()
   ) as unknown as StepFormData;
+  const stepFormDataWithoutCsrf = _.cloneDeep(stepFormData);
+  delete stepFormDataWithoutCsrf.csrf;
   const { errors, validatedStepData } = await validateStepFormData(
     getStepDefinition({ currentStateWithoutId }),
     stepFormData,
-    storedFormData
+    storedFormData,
+    JSON.stringify(stepFormDataWithoutCsrf) ==
+      JSON.stringify(getStepData(storedFormData, currentState))
   );
   if (errors) return { errors } as ActionData;
 
