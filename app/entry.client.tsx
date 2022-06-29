@@ -10,12 +10,14 @@ import { Integrations } from "@sentry/tracing";
 declare global {
   interface Window {
     sentry_dsn: string | undefined;
+    app_env: string | undefined;
   }
 }
 
 Sentry.init({
   dsn: window.sentry_dsn,
   tracesSampleRate: 1.0,
+  environment: window.app_env,
   integrations: [new Integrations.BrowserTracing()],
 });
 

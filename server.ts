@@ -23,11 +23,6 @@ function loadBuild() {
   return build;
 }
 
-Sentry.init({
-  dsn: process.env.SENTRY_DSN,
-  integrations: [new Tracing.Integrations.Prisma({ client: db })],
-});
-
 // cron mode is intended for running cron jobs only. The app will not serve any HTTP requests in this mode.
 if (appMode === "cron") {
   invariant(process.env.DATABASE_URL, "DATABASE_URL is not set.");
@@ -39,6 +34,13 @@ if (appMode === "cron") {
   dotenv.config();
 
   const app = express();
+
+  Sentry.init({
+    dsn: process.env.SENTRY_DSN,
+    environment: process.env.APP_ENV,
+    tracesSampleRate: 1.0,
+    integrations: [new Tracing.Integrations.Prisma({ client: db })],
+  });
 
   // Set security-related http headers
   app.use(

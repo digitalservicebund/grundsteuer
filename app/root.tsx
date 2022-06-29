@@ -144,7 +144,7 @@ export default function App() {
           <script
             suppressHydrationWarning
             dangerouslySetInnerHTML={{
-              __html: `window.sentry_dsn="${sentry_dsn}";`,
+              __html: `window.sentry_dsn="${sentry_dsn}"; window.app_env="${env}";`,
             }}
           />
         )}
