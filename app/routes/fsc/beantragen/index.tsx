@@ -51,6 +51,7 @@ import fscInputImage from "~/assets/images/fsc-input.svg";
 import ErrorBar from "~/components/ErrorBar";
 import { getSession, commitSession } from "~/session.server";
 import { CsrfToken, verifyCsrfToken, createCsrfToken } from "~/util/csrf";
+import { getRedirectionParams } from "~/routes/fsc/index";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -82,7 +83,9 @@ export const loader: LoaderFunction = async ({ request, context }) => {
   const ericaRequestInProgress = await isEricaRequestInProgress(userData);
 
   if (await wasEricaRequestSuccessful(userData)) {
-    return redirect("/fsc/beantragen/erfolgreich");
+    return redirect(
+      "/fsc/beantragen/erfolgreich" + getRedirectionParams(request.url)
+    );
   }
 
   if (ericaRequestInProgress) {
@@ -150,7 +153,9 @@ export const action: ActionFunction = async ({ request }) => {
   );
 
   if (await wasEricaRequestSuccessful(userData)) {
-    return redirect("/fsc/beantragen/erfolgreich");
+    return redirect(
+      "/fsc/beantragen/erfolgreich" + getRedirectionParams(request.url)
+    );
   }
 
   if (await isEricaRequestInProgress(userData)) return {};
@@ -204,6 +209,11 @@ export default function FscBeantragen() {
 
   const [showSpinner, setShowSpinner] = useState(loaderData?.showSpinner);
   const [showError, setShowError] = useState(loaderData?.showError);
+  const [redirectionParams, setRedirectionParams] = useState("");
+
+  useEffect(() => {
+    setRedirectionParams(getRedirectionParams(window.location.href, true));
+  });
 
   useEffect(() => {
     if (fetcher.data) {
@@ -222,7 +232,7 @@ export default function FscBeantragen() {
   useEffect(() => {
     const interval = setInterval(() => {
       if (showSpinner) {
-        fetcher.load("/fsc/beantragen?index");
+        fetcher.load("/fsc/beantragen?index" + redirectionParams);
       }
     }, 2000);
     return () => clearInterval(interval);
@@ -246,7 +256,10 @@ export default function FscBeantragen() {
           </ErrorBar>
         )}
 
-        <Form method="post">
+        <Form
+          method="post"
+          action={"/fsc/beantragen?index" + redirectionParams}
+        >
           <CsrfToken value={loaderData.csrfToken} />
           <div>
             <FormGroup>

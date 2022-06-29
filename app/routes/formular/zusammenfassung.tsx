@@ -374,7 +374,7 @@ export default function Zusammenfassung() {
                 <p className="mb-24">{i18n.specifics.fscExplanation}</p>
                 <Button
                   look="tertiary"
-                  to="/fsc/"
+                  to="/fsc?redirectToSummary=true"
                   className="text-center w-fit"
                 >
                   {i18n.specifics.fscLinkText}

@@ -1,4 +1,4 @@
-import { MetaFunction } from "@remix-run/node";
+import { json, LoaderFunction, MetaFunction } from "@remix-run/node";
 import {
   BreadcrumbNavigation,
   Button,
@@ -8,12 +8,21 @@ import {
   SuccessPageLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
+import { getNextStepLink } from "~/routes/fsc/index";
+import { useLoaderData } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Freischaltcode erfolgreich beantragt") };
 };
 
+export const loader: LoaderFunction = async ({ request }) => {
+  return json({
+    nextStepLink: getNextStepLink(request.url),
+  });
+};
+
 export default function FscBeantragenErfolgreich() {
+  const loaderData = useLoaderData();
   return (
     <ContentContainer size="sm">
       <BreadcrumbNavigation />
@@ -25,7 +34,7 @@ export default function FscBeantragenErfolgreich() {
           in den nächsten 14 Tagen per Post.
         </IntroText>
 
-        <Button to="/formular/welcome">Weiter zum Formular</Button>
+        <Button to={loaderData.nextStepLink}>Weiter zum Formular</Button>
       </SuccessPageLayout>
     </ContentContainer>
   );

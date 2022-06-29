@@ -51,6 +51,7 @@ import ErrorBar from "~/components/ErrorBar";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import FreischaltcodeHelp from "~/components/form/help/Freischaltcode";
+import { getRedirectionParams } from "~/routes/fsc/index";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return (
@@ -180,7 +181,9 @@ export const loader: LoaderFunction = async ({ request, context }) => {
     await isEricaRevocationRequestInProgress(userData);
 
   if (await wasEricaRequestSuccessful(userData)) {
-    return redirect("/fsc/eingeben/erfolgreich");
+    return redirect(
+      "/fsc/eingeben/erfolgreich" + getRedirectionParams(request.url)
+    );
   }
 
   const session = await getSession(request.headers.get("Cookie"));
@@ -232,7 +235,9 @@ export const action: ActionFunction = async ({ request }) => {
   const elsterRequestId = userData.fscRequest.requestId;
 
   if (await wasEricaRequestSuccessful(userData)) {
-    return redirect("/fsc/eingeben/erfolgreich");
+    return redirect(
+      "/fsc/eingeben/erfolgreich" + getRedirectionParams(request.url)
+    );
   }
 
   if (await isEricaRequestInProgress(userData)) return {};
@@ -278,6 +283,11 @@ export default function FscEingeben() {
 
   const [showSpinner, setShowSpinner] = useState(loaderData?.showSpinner);
   const [showError, setShowError] = useState(loaderData?.showError);
+  const [redirectionParams, setRedirectionParams] = useState("");
+
+  useEffect(() => {
+    setRedirectionParams(getRedirectionParams(window.location.href, true));
+  });
 
   useEffect(() => {
     if (fetcher.data) {
@@ -296,7 +306,8 @@ export default function FscEingeben() {
   useEffect(() => {
     const interval = setInterval(() => {
       if (showSpinner) {
-        fetcher.load("/fsc/eingeben?index");
+        alert(redirectionParams);
+        fetcher.load("/fsc/eingeben?index" + redirectionParams);
       }
     }, 1000);
     return () => clearInterval(interval);
@@ -318,7 +329,7 @@ export default function FscEingeben() {
         </ErrorBar>
       )}
 
-      <Form method="post">
+      <Form method="post" action={"/fsc/eingeben?index" + redirectionParams}>
         <CsrfToken value={loaderData.csrfToken} />
         <div>
           <FormGroup>

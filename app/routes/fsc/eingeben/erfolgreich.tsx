@@ -1,4 +1,4 @@
-import { MetaFunction } from "@remix-run/node";
+import { json, LoaderFunction, MetaFunction } from "@remix-run/node";
 import {
   BreadcrumbNavigation,
   Button,
@@ -8,12 +8,21 @@ import {
   SuccessPageLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
+import { getNextStepLink } from "~/routes/fsc/index";
+import { useLoaderData } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Freischaltcode erfolgreich eingegeben") };
 };
 
+export const loader: LoaderFunction = async ({ request }) => {
+  return json({
+    nextStepLink: getNextStepLink(request.url),
+  });
+};
+
 export default function FscBeantragenErfolgreich() {
+  const loaderData = useLoaderData();
   return (
     <ContentContainer size="sm">
       <BreadcrumbNavigation />
@@ -24,7 +33,7 @@ export default function FscBeantragenErfolgreich() {
           Finanzamt übermitteln.
         </IntroText>
 
-        <Button to="/formular/welcome">Zur Grundsteuererklärung</Button>
+        <Button to={loaderData.nextStepLink}>Zur Grundsteuererklärung</Button>
       </SuccessPageLayout>
     </ContentContainer>
   );
