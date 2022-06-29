@@ -95,7 +95,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   if (await userExists(normalizedEmail)) {
     return authenticator.authenticate(
-      process.env.APP_ENV === "test" ? "form" : "email-link",
+      process.env.SKIP_AUTH === "true" ? "form" : "email-link",
       request,
       {
         successRedirect: "/anmelden/email",

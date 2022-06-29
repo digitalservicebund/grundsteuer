@@ -30,7 +30,7 @@ const login = async (email: string): Promise<SessionUser> => {
 };
 
 authenticator.use(
-  process.env.APP_ENV === "test"
+  process.env.SKIP_AUTH === "true"
     ? new FormStrategy(async ({ form }) => login(form.get("email") as string))
     : new EmailLinkStrategy(
         {

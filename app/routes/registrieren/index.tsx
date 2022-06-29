@@ -171,7 +171,7 @@ export const action: ActionFunction = async ({ request, context }) => {
     }
 
     return authenticator.authenticate(
-      process.env.APP_ENV === "test" ? "form" : "email-link",
+      process.env.SKIP_AUTH === "true" ? "form" : "email-link",
       request,
       {
         successRedirect: "/registrieren/erfolgreich",
