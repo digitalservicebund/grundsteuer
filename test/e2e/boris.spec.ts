@@ -10,11 +10,10 @@ describe("Boris pags", () => {
       key: "BB",
       infoTitle:
         "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
-      infoDesc:
+      infoBody: [
         "Klicken Sie auf den Link, der Sie zum Informationsportal Grundstücksdaten Brandenburg führt.",
+      ],
       portalLabel: "Zum Informationsportal Grundstücksdaten Brandenburg",
-      anzahlDesc:
-        "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im zweiten Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus.",
       eingabeDesc:
         "Den Wert haben Sie dem Informationsportal Grundstücksdaten entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
     },
@@ -22,10 +21,8 @@ describe("Boris pags", () => {
       bundesland: "Berlin",
       key: "BE",
       infoTitle: "Ermitteln Sie den Bodenrichtwert für Ihr Grundstück",
-      infoDesc: "Ihre Grundstücksadresse im Bodenrichtwert-Portal Berlin",
+      infoBody: ["Ihre Grundstücksadresse im Bodenrichtwert-Portal Berlin"],
       portalLabel: "Zum Bodenrichtwert-Portal Berlin",
-      anzahlDesc:
-        "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im zweiten Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus.",
       eingabeDesc:
         "Den Wert haben Sie dem Bodenrichtwert-Portal Berlin entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
     },
@@ -34,11 +31,11 @@ describe("Boris pags", () => {
       key: "HB",
       infoTitle:
         "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
-      infoDesc:
+      infoBody: [
         "mithilfe des Bodenrichtwert-Portals für Bremen und Niedersachsen",
+        "Im Flurstücksviewer Bremen finden Sie weitere Angaben zu Gemarkung, Flur, Flurstück und Grundstücksgröße Ihres Grundstücks.",
+      ],
       portalLabel: "Zum Bodenrichtwert-Portal Bremen und Niedersachsen",
-      anzahlDesc:
-        "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im zweiten Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus.",
       eingabeDesc:
         "Den Wert haben Sie dem Bodenrichtwert-Portal Bremen und Niedersachsen entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
     },
@@ -47,11 +44,11 @@ describe("Boris pags", () => {
       key: "MV",
       infoTitle:
         "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
-      infoDesc:
+      infoBody: [
         "Klicken Sie auf den Link, der Sie zum Bodenrichtwert-Portal Mecklenburg-Vorpommern führt.",
+        "In diesem Bodenrichtwert-Portal finden Sie noch weitere Angaben zu Gemarkung, Flurstück und Grundstücksgröße.",
+      ],
       portalLabel: "Zum Bodenrichtwert-Portal Mecklenburg-Vorpommern",
-      anzahlDesc:
-        "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im zweiten Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus.",
       eingabeDesc:
         "Den Wert haben Sie dem Bodenrichtwert-Portal Mecklenburg-Vorpommern entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
     },
@@ -60,11 +57,11 @@ describe("Boris pags", () => {
       key: "RP",
       infoTitle:
         "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
-      infoDesc:
+      infoBody: [
         "Sie haben kürzlich ein Informationsschreiben von Ihrer Landesfinanzverwaltung erhalten",
+        "Falls Ihnen der Brief nicht mehr vorliegt oder Sie zur Prüfung den Bodenrichtwert nachsehen wollen",
+      ],
       portalLabel: "Zum Bodenrichtwert-Portal Rheinland-Pfalz",
-      anzahlDesc:
-        "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im zweiten Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus.",
       eingabeDesc:
         "Den Wert finden Sie in der Tabelle des Datenstammblatts, das Sie kürzlich mit dem Informationsschreiben der Finanzverwaltung erhalten haben. Falls Ihnen das Datenblatt nicht mehr vorliegt, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
     },
@@ -73,33 +70,27 @@ describe("Boris pags", () => {
       key: "SH",
       infoTitle:
         "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
-      infoDesc:
+      infoBody: [
         "Klicken Sie auf den Link, der Sie zum Bodenrichtwert-Portal Schleswig-Holstein führt.",
+        "In diesem Bodenrichtwert-Portal finden Sie noch weitere Angaben zu Gemarkung, Flurstück und Grundstücksgröße.",
+      ],
       portalLabel: "Zum Bodenrichtwert-Portal Schleswig-Holstein",
-      anzahlDesc:
-        "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann aber vorkommen, das sich Bodenrichtwertzonen überlagern. Sieht Ihr Grundstück auf der Karte so aus wie im zweiten Bildbeispiel, wählen Sie bitte “zwei Bodenrichwerte” aus.",
       eingabeDesc:
         "Den Wert haben Sie dem Bodenrichtwert-Portal Schleswig-Holstein entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
     },
   ];
 
   data.forEach(
-    ({
-      bundesland,
-      key,
-      infoTitle,
-      infoDesc,
-      portalLabel,
-      anzahlDesc,
-      eingabeDesc,
-    }) => {
+    ({ bundesland, key, infoTitle, infoBody, portalLabel, eingabeDesc }) => {
       it(`should render correct text for ${bundesland}`, () => {
         cy.bundesland(key);
         cy.wait(500);
         cy.visit("/formular/grundstueck/bodenrichtwertInfo");
         cy.url().should("contain", "bodenrichtwertInfo");
         cy.contains("h1", infoTitle);
-        cy.contains(infoDesc);
+        for (const text of infoBody) {
+          cy.contains(text);
+        }
         cy.contains(portalLabel);
         cy.get("#nextButton").click();
 
@@ -107,8 +98,21 @@ describe("Boris pags", () => {
           "include",
           "/formular/grundstueck/bodenrichtwertAnzahl"
         );
-        cy.contains(anzahlDesc);
-        cy.get("label[for=anzahl-1]").click();
+        cy.contains(
+          "legend",
+          "Verläuft durch Ihr Grundstück eine Bodenrichtwertgrenze?"
+        );
+        cy.contains(
+          "Die meisten Grundstücke liegen innerhalb einer Bodenrichtwertzone. Es kann aber vorkommen, das sich diese überlagern. Wie verläuft die Bodenrichtwertgrenze für Ihr Grundstück? Herum oder hindurch? Vergleichen Sie dafür die Bildbeispiele."
+        );
+        cy.get("label[for=anzahl-1]")
+          .contains(
+            "Nein, das Grundstück liegt innerhalb einer Bodenrichtwertzone"
+          )
+          .click();
+        cy.get("label[for=anzahl-2").contains(
+          "Ja, eine Bodenrichtwertgrenze teilt das Grundstück"
+        );
         cy.get("#nextButton").click();
 
         cy.url().should(
