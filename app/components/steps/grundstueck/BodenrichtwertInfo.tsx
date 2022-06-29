@@ -9,6 +9,7 @@ import { HBHelp } from "~/components/steps/grundstueck/bodenrichtwert/HBHelp";
 import { MVHelp } from "~/components/steps/grundstueck/bodenrichtwert/MVHelp";
 import { RPHelp } from "~/components/steps/grundstueck/bodenrichtwert/RPHelp";
 import { SHHelp } from "~/components/steps/grundstueck/bodenrichtwert/SHHelp";
+import { SLHelp } from "~/components/steps/grundstueck/bodenrichtwert/SLHelp";
 
 const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
   const bundesland = allData.grundstueck?.adresse?.bundesland;
@@ -167,10 +168,6 @@ const DefaultHelp = () => {
 };
 
 const NWHelp = () => {
-  return <></>;
-};
-
-const SLHelp = () => {
   return <></>;
 };
 

@@ -7,6 +7,7 @@ import hb from "~/assets/images/help/boris/eingabe-hb.png";
 import mv from "~/assets/images/help/boris/eingabe-mv.png";
 import rp from "~/assets/images/help/boris/eingabe-rp.png";
 import sh from "~/assets/images/help/boris/eingabe-sh.png";
+import sl from "~/assets/images/help/boris/eingabe-sl.png";
 import mehrereWerte from "~/assets/images/help/boris/eingabe-mehrere-werte.png";
 
 import { GrundModel } from "~/domain/steps";
@@ -164,6 +165,26 @@ const SHEingabeHelp: HelpComponentFunction = () => {
   );
 };
 
+const SLEingabeHelp: HelpComponentFunction = () => {
+  return (
+    <DefaultHelpContent
+      elements={[
+        {
+          type: "paragraph",
+          value:
+            "Auf dem Bodenrichtwertportal Saarland, haben Sie nach Eingabe der Adresse des Grundstücks einen vergrößerten Kartenausschnitt mit dazugehörigen Daten erhalten. Hier können Sie den Bodenrichtwert ablesen.",
+        },
+        {
+          type: "image",
+          source: sl,
+          altText:
+            "Alt Text: Bildbeispiel für einen Bodenrichtwert im Datenstammblatt Saarland",
+        },
+      ]}
+    />
+  );
+};
+
 export const BodenrichtwertEingabeHelp: HelpComponentFunction = ({
   allData,
 }) => {
@@ -180,6 +201,8 @@ export const BodenrichtwertEingabeHelp: HelpComponentFunction = ({
       return <RPEingabeHelp />;
     case "SH":
       return <SHEingabeHelp />;
+    case "SL":
+      return <SLEingabeHelp />;
     default:
       return <></>;
   }

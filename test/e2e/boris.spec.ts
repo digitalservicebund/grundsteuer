@@ -78,6 +78,19 @@ describe("Boris pags", () => {
       eingabeDesc:
         "Den Wert haben Sie dem Bodenrichtwert-Portal Schleswig-Holstein entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
     },
+    {
+      bundesland: "Saarland",
+      key: "SL",
+      infoTitle:
+        "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
+      infoBody: [
+        "Sie haben kürzlich ein Informationsschreiben mit von Ihrer Landesfinanzverwaltung erhalten. Diesem ist ein Datenstammblatt beigelegt. Darin finden Sie alle Angaben zu Ihrem Grundstück.",
+        "Falls Ihnen der Brief nicht mehr vorliegt",
+      ],
+      portalLabel: "Zum Bodenrichtwert-Portal Saarland",
+      eingabeDesc:
+        "Den Wert finden Sie in der Tabelle des Datenstammblatts, das Sie kürzlich mit dem Informationsschreiben der Finanzverwaltung erhalten haben. Falls Ihnen das Datenblatt nicht mehr vorliegt, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
+    },
   ];
 
   data.forEach(
