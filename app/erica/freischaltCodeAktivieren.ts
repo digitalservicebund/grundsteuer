@@ -12,7 +12,6 @@ const createPayloadForActivateFreischaltCode = (
   elster_request_id: string
 ) => {
   return {
-    taxIdNumber: "UNKOWN",
     freischaltCode: freischalt_code,
     elsterRequestId: elster_request_id,
   };

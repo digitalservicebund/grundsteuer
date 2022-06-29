@@ -33,7 +33,6 @@ describe("activateFreischaltCode", () => {
     await activateFreischaltCode(inputFreischaltCode, inputEricaRequestId);
 
     expect(mockPostEricaRepsone.mock.calls[0][1]).toEqual({
-      taxIdNumber: "UNKOWN",
       freischaltCode: inputFreischaltCode,
       elsterRequestId: inputEricaRequestId,
     });

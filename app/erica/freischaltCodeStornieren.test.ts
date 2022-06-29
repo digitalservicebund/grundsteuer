@@ -29,7 +29,6 @@ describe("revokeFreischaltCode", () => {
     await revokeFreischaltCode(inputEricaRequestId);
 
     expect(mockPostEricaRepsone.mock.calls[0][1]).toEqual({
-      taxIdNumber: "UNKOWN",
       elsterRequestId: inputEricaRequestId,
     });
 

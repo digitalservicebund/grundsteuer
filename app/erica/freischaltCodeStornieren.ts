@@ -9,7 +9,6 @@ import {
 
 const createPayloadForRevokeFreischaltCode = (elster_request_id: string) => {
   return {
-    taxIdNumber: "UNKOWN",
     elsterRequestId: elster_request_id,
   };
 };
