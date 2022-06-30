@@ -130,7 +130,6 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: |
           # Extract source maps
-          mkdir public
           container_id=$(docker create ${{ env.IMAGE_NAME }}-migrate:${{ github.sha }})
           docker cp ${container_id}:/src/public/build public
           docker rm ${container_id}
