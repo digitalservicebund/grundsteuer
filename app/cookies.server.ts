@@ -19,7 +19,7 @@ const getPruefenStateCookie = () => {
     path: "/",
     maxAge: 604_800 * 13, // 13 weeks (1/4 year)
     httpOnly: true,
-    sameSite: "strict",
+    sameSite: "lax",
     secure: useSecureCookie,
     secrets: [process.env.FORM_COOKIE_SECRET],
   });
