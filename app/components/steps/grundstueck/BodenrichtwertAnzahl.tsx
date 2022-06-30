@@ -19,13 +19,11 @@ const BodenrichtwertAnzahl: StepComponentFunction = ({
   const imagesAndAltTexts = [
     {
       image: einBodenrichtWertIcon,
-      imageAltText:
-        "Planausschnitt, der das graue Grundstück innerhalb der roten Bodenrichtwertslinie zeigt",
+      imageAltText: "Bildbeispiel für ein Grundstück ohne Bodenrichtwertgrenze",
     },
     {
       image: zweiBodenrichtWerteIcon,
-      imageAltText:
-        "Planausschnitt, der die rote Bodenrichtwertslinie zeigt, die durch das graue Grundstück hindurch geht",
+      imageAltText: "Bildbeispiel für ein Grundstück mit Bodenrichtwertgrenze",
     },
   ];
 
