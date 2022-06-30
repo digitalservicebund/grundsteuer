@@ -837,8 +837,16 @@ describe("validateSteuerId", () => {
     expect(validateSteuerId({ value: "04452397687" })).toBeTruthy();
   });
 
+  it("should succeed with TestSteuerId with spaces", () => {
+    expect(validateSteuerId({ value: "04 452 397 687" })).toBeTruthy();
+  });
+
   it("should succeed with correct SteuerId", () => {
     expect(validateSteuerId({ value: "34285296716" })).toBeTruthy();
+  });
+
+  it("should succeed with correct SteuerId with spaces", () => {
+    expect(validateSteuerId({ value: " 34 285 296 716 " })).toBeTruthy();
   });
 
   it("should fail with incorrect SteuerId", () => {

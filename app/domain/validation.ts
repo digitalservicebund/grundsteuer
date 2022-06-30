@@ -609,7 +609,8 @@ export const getErrorMessageForSteuerId = async (steuerId: string) => {
 };
 
 export const validateSteuerId: ValidateFunctionDefault = ({ value }) =>
-  value.charAt(0) == "0" || validator.isTaxID(value, "de-DE");
+  value.charAt(0) == "0" ||
+  validator.isTaxID(value.split(" ").join(""), "de-DE");
 
 export const getErrorMessageForFreischaltcode = async (
   freischaltCode: string
