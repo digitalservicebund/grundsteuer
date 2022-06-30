@@ -169,7 +169,7 @@ const SHEingabeHelp: HelpComponentFunction = () => {
           type: "image",
           source: sh,
           altText:
-            "Bildbeispiel für einen Bodenrichtwert im Bodenrichtwertportal Schleswig-Holstein",
+            "Bildbeispiel für einen Bodenrichtwert im Grundsteuerportal Schleswig-Holstein",
         },
         {
           type: "paragraph",

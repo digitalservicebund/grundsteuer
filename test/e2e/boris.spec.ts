@@ -45,12 +45,12 @@ describe("Boris pags", () => {
       infoTitle:
         "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
       infoBody: [
-        "Klicken Sie auf den Link, der Sie zum Bodenrichtwert-Portal Mecklenburg-Vorpommern führt.",
+        "Klicken Sie auf den Link, der Sie zum Grundsteuerdaten-Portal Mecklenburg-Vorpommern führt.",
         "In diesem Bodenrichtwert-Portal finden Sie noch weitere Angaben zu Gemarkung, Flurstück und Grundstücksgröße.",
       ],
-      portalLabel: "Zum Bodenrichtwert-Portal Mecklenburg-Vorpommern",
+      portalLabel: "Zum Grundsteuerdaten-Portal Mecklenburg-Vorpommern",
       eingabeDesc:
-        "Den Wert haben Sie dem Bodenrichtwert-Portal Mecklenburg-Vorpommern entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
+        "Den Wert haben Sie dem Grundsteuerdaten-Portal Mecklenburg-Vorpommern entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
     },
     {
       bundesland: "Nordrhein-Westfalen",
@@ -84,12 +84,12 @@ describe("Boris pags", () => {
       infoTitle:
         "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
       infoBody: [
-        "Klicken Sie auf den Link, der Sie zum Bodenrichtwert-Portal Schleswig-Holstein führt.",
-        "In diesem Bodenrichtwert-Portal finden Sie noch weitere Angaben zu Gemarkung, Flurstück und Grundstücksgröße.",
+        "Klicken Sie auf den Link, der Sie zum Grundsteuerportal Schleswig-Holstein führt.",
+        "In diesem Grundsteuerportal finden Sie noch weitere Angaben zu Gemarkung, Flurstück und Grundstücksgröße.",
       ],
-      portalLabel: "Zum Bodenrichtwert-Portal Schleswig-Holstein",
+      portalLabel: "Zum Grundsteuerportal Schleswig-Holstein",
       eingabeDesc:
-        "Den Wert haben Sie dem Bodenrichtwert-Portal Schleswig-Holstein entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
+        "Den Wert haben Sie dem Grundsteuerportal Schleswig-Holstein entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
     },
     {
       bundesland: "Saarland",

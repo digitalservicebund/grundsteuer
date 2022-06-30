@@ -1255,11 +1255,11 @@
       },
       "mv": {
         "headline": "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
-        "description": "Klicken Sie auf den Link, der Sie zum Bodenrichtwert-Portal Mecklenburg-Vorpommern führt. Geben Sie dort Ihre Grundstücksadresse ein. Auf einer Karte können Sie den Bodenrichtwert ablesen. Nutzen Sie bei Bedarf unsere Schritt-für-Schritt Anleitung.",
+        "description": "Klicken Sie auf den Link, der Sie zum Grundsteuerdaten-Portal Mecklenburg-Vorpommern führt. Geben Sie dort Ihre Grundstücksadresse ein. Auf einer Karte können Sie den Bodenrichtwert ablesen. Nutzen Sie bei Bedarf unsere Schritt-für-Schritt Anleitung.",
         "specifics": {
           "explanation": "In diesem Bodenrichtwert-Portal finden Sie noch weitere Angaben zu Gemarkung, Flurstück und Grundstücksgröße.",
           "portalUrl": "https://www.geodaten-mv.de/grundsteuerdaten/Karten/Grundvermoegen",
-          "portalLabel": "Zum Bodenrichtwert-Portal Mecklenburg-Vorpommern",
+          "portalLabel": "Zum Grundsteuerdaten-Portal Mecklenburg-Vorpommern",
           "bundesland": "Mecklenburg-Vorpommern"
         }
       },
@@ -1285,11 +1285,11 @@
       },
       "sh": {
         "headline": "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
-        "description": "Klicken Sie auf den Link, der Sie zum Bodenrichtwert-Portal Schleswig-Holstein führt. Geben Sie dort Ihre Grundstücksadresse ein. Auf einer Karte können Sie den Bodenrichtwert ablesen. Nutzen Sie bei Bedarf unsere Schritt-für-Schritt Anleitung.",
+        "description": "Klicken Sie auf den Link, der Sie zum Grundsteuerportal Schleswig-Holstein führt. Geben Sie dort Ihre Grundstücksadresse ein. Auf einer Karte können Sie den Bodenrichtwert ablesen. Nutzen Sie bei Bedarf unsere Schritt-für-Schritt Anleitung.",
         "specifics": {
-          "explanation": "In diesem Bodenrichtwert-Portal finden Sie noch weitere Angaben zu Gemarkung, Flurstück und Grundstücksgröße.",
+          "explanation": "In diesem Grundsteuerportal finden Sie noch weitere Angaben zu Gemarkung, Flurstück und Grundstücksgröße.",
           "portalUrl": "https://danord.gdi-sh.de/viewer/resources/apps/bodenrichtwertefuergrundsteuerzweckesh",
-          "portalLabel": "Zum Bodenrichtwert-Portal Schleswig-Holstein",
+          "portalLabel": "Zum Grundsteuerportal Schleswig-Holstein",
           "bundesland": "Schleswig-Holstein"
         }
       },
@@ -1353,7 +1353,7 @@
         "description": "Den Wert haben Sie dem Bodenrichtwert-Portal Bremen und Niedersachsen entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."
       },
       "mv": {
-        "description": "Den Wert haben Sie dem Bodenrichtwert-Portal Mecklenburg-Vorpommern entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."
+        "description": "Den Wert haben Sie dem Grundsteuerdaten-Portal Mecklenburg-Vorpommern entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."
       },
       "nw": {
         "description": "Den Wert finden Sie in der Tabelle der Anlage, die Sie kürzlich mit dem Informationsschreiben der Finanzverwaltung erhalten haben. Falls Ihnen dieses Datenblatt nicht mehr vorliegt, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."
@@ -1362,7 +1362,7 @@
         "description": "Den Wert finden Sie in der Tabelle des Datenstammblatts, das Sie kürzlich mit dem Informationsschreiben der Finanzverwaltung erhalten haben. Falls Ihnen das Datenblatt nicht mehr vorliegt, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."
       },
       "sh": {
-        "description": "Den Wert haben Sie dem Bodenrichtwert-Portal Schleswig-Holstein entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."
+        "description": "Den Wert haben Sie dem Grundsteuerportal Schleswig-Holstein entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."
       },
       "sl": {
         "description": "Den Wert finden Sie in der Tabelle des Datenstammblatts, das Sie kürzlich mit dem Informationsschreiben der Finanzverwaltung erhalten haben. Falls Ihnen das Datenblatt nicht mehr vorliegt, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."
