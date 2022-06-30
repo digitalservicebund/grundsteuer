@@ -1,6 +1,5 @@
 import { StepComponentFunction } from "~/routes/formular/_step";
-import { Button, ContentContainer } from "~/components";
-import { ReactNode, SVGProps } from "react";
+import { ContentContainer } from "~/components";
 import Accordion from "~/components/Accordion";
 import { useTranslation } from "react-i18next";
 import { BBHelp } from "~/components/steps/grundstueck/bodenrichtwert/BBHelp";
@@ -13,6 +12,7 @@ import { SHHelp } from "~/components/steps/grundstueck/bodenrichtwert/SHHelp";
 import { SLHelp } from "~/components/steps/grundstueck/bodenrichtwert/SLHelp";
 import { SNHelp } from "~/components/steps/grundstueck/bodenrichtwert/SNHelp";
 import { STHelp } from "~/components/steps/grundstueck/bodenrichtwert/STHelp";
+import { ExternalLinkButton } from "~/components/ExternalLinkButton";
 
 const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
   const bundesland = allData.grundstueck?.adresse?.bundesland;
@@ -21,12 +21,13 @@ const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
       <ContentContainer size="sm-md" className="mb-80">
         <p className="mb-2 text-18">{i18n.specifics.explanation}</p>
         {i18n.specifics.portalUrl && (
-          <PortalButton
+          <ExternalLinkButton
             url={i18n.specifics.portalUrl}
-            label={i18n.specifics.portalLabel}
             border={true}
             classNames={"mt-32"}
-          />
+          >
+            {i18n.specifics.portalLabel}
+          </ExternalLinkButton>
         )}
         {bundesland === "HB" && (
           <p className="mt-64">
@@ -49,57 +50,6 @@ const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
     </div>
   );
 };
-
-interface BodenrichtwertButtonProps {
-  url: string;
-  border: boolean;
-  classNames: string;
-  children?: ReactNode;
-}
-
-const BodenrichtwertButton = (props: BodenrichtwertButtonProps) => {
-  return (
-    <div className="mb-32">
-      <Button
-        size="large"
-        look={props.border ? "tertiary" : "ghost"}
-        href={props.url}
-        target={"_blank"}
-        icon={<PortalIcon />}
-        className={props.classNames}
-      >
-        {props.children}
-      </Button>
-    </div>
-  );
-};
-
-const PortalButton = (props: BodenrichtwertButtonProps & { label: string }) => {
-  return (
-    <BodenrichtwertButton
-      border={props.border}
-      classNames={props.classNames}
-      url={props.url}
-    >
-      {props.label}
-    </BodenrichtwertButton>
-  );
-};
-
-const PortalIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    viewBox="0 0 30 22"
-    fill="none"
-    {...props}
-  >
-    <path
-      d="M19.5 0.335938L17.385 2.45094L24.255 9.33594H0V12.3359H24.255L17.37 19.2209L19.5 21.3359L30 10.8359L19.5 0.335938Z"
-      fill="#004B76"
-    />
-  </svg>
-);
 
 export default BodenrichtwertInfo;
 
@@ -139,12 +89,13 @@ const PortalLink = ({ bundesland }: { bundesland: string }) => {
   return (
     <div className="mb-24">
       <p className="mb-8">Bodenrichtwertportal {bundeslandName}</p>
-      <PortalButton
+      <ExternalLinkButton
         url={portalUrl}
-        label={portalLabel}
         border={false}
         classNames={"mt-8 pl-0"}
-      />
+      >
+        {portalLabel}
+      </ExternalLinkButton>
     </div>
   );
 };
