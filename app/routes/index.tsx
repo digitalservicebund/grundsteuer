@@ -6,6 +6,7 @@ import {
   FaqAccordion,
   HomepageFeatures,
   Footer,
+  BmfLogo,
 } from "~/components";
 import germanyMapImage from "~/assets/images/germany-map.svg";
 import HomepageSharing from "~/components/HomepageSharing";
@@ -31,9 +32,10 @@ export default function Index() {
           </div>
         </ContentContainer>
       </div>
-      <main className="flex-grow pt-32">
+      <HomepageHeader loaderData={loaderData} />
+      <main className="flex-grow">
         <ContentContainer>
-          <HomepageHeader loaderData={loaderData} />
+          <BmfLogo />
           <h1 className="mb-64 md:mb-96 xl:mb-80">
             <div className="text-16 leading-26 mb-16 md:text-20 md:leading-20 md:mb-24 lg:mb-32">
               {t("homepage.kicker")}

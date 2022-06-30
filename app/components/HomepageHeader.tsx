@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { BmfLogo, Button } from "~/components/index";
+import { Button, ContentContainer } from "~/components/index";
+import logo from "~/assets/images/logo.svg";
 import classNames from "classnames";
 
 export function HomepageHeader({
@@ -22,43 +23,47 @@ export function HomepageHeader({
       : { to: "/pruefen/start" };
 
   return (
-    <div className="mb-10 md:mb-48 lg:mb-36 flex flex-col md:flex-row-reverse md:justify-between">
-      <div className="flex justify-center mb-40 md:block">
-        <div className="lg:hidden inline-flex flex-col md:flex-row md:pt-32">
-          <Button
-            size="medium"
-            look="tertiary"
-            disabled
-            className={classNames("mb-16 text-center md:mb-0 md:mr-24", {
-              "bg-blue-200 shadow-none": pruefenActive,
-            })}
-            {...pruefenButtonProps}
-          >
-            {t("homepage.buttonCheck")}
-          </Button>
-          <Button size="medium" {...startButtonProps}>
-            {t("homepage.buttonStart")}
-          </Button>
+    <div className="mb-10 md:mb-48 lg:mb-36 bg-white py-32">
+      <ContentContainer className="w-full flex flex-col md:flex-row md:justify-between">
+        <div className="inline-block">
+          <a href="/" title="Zur Startseite">
+            <img src={logo} alt="Grundsteuererklärung für Privateigentum" />
+          </a>
         </div>
-        <div className="hidden lg:block pt-16">
-          <Button
-            look="tertiary"
-            disabled
-            className={classNames("mr-24", {
-              "bg-blue-200 shadow-none": pruefenActive,
-            })}
-            {...pruefenButtonProps}
-          >
-            {t("homepage.buttonCheck")}
-          </Button>
-          <Button {...startButtonProps}>{t("homepage.buttonStart")}</Button>
+        <div className="inline-block">
+          <div className="flex justify-center md:block">
+            <div className="lg:hidden inline-flex flex-col md:flex-row md:pt-32">
+              <Button
+                size="medium"
+                look="tertiary"
+                disabled
+                className={classNames("mb-16 text-center md:mb-0 md:mr-24", {
+                  "bg-blue-200 shadow-none": pruefenActive,
+                })}
+                {...pruefenButtonProps}
+              >
+                {t("homepage.buttonCheck")}
+              </Button>
+              <Button size="medium" {...startButtonProps}>
+                {t("homepage.buttonStart")}
+              </Button>
+            </div>
+            <div className="hidden lg:block pt-16">
+              <Button
+                look="tertiary"
+                disabled
+                className={classNames("mr-24", {
+                  "bg-blue-200 shadow-none": pruefenActive,
+                })}
+                {...pruefenButtonProps}
+              >
+                {t("homepage.buttonCheck")}
+              </Button>
+              <Button {...startButtonProps}>{t("homepage.buttonStart")}</Button>
+            </div>
+          </div>
         </div>
-      </div>
-      <div>
-        <a href="/" title="Zur Startseite">
-          <BmfLogo />
-        </a>
-      </div>
+      </ContentContainer>
     </div>
   );
 }
