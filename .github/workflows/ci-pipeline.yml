@@ -125,7 +125,7 @@ jobs:
 
       # This needs to happen here b/c remix changes filenames on each `remix build` run. So, to get working source maps,
       # we need access to the actual image that was built.
-      - name: Build and upload sourcemaps to Sentry
+      - name: Extract and upload sourcemaps to Sentry
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: |
