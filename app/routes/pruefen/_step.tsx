@@ -40,7 +40,6 @@ import { pruefenConditions } from "~/domain/pruefen/guards";
 import { PruefenModel } from "~/domain/pruefen/model";
 import { getBackUrl, getRedirectUrl } from "~/util/constructUrls";
 import { State } from "xstate/lib/State";
-import { HomepageHeader } from "~/routes";
 import SectionLabel from "~/components/SectionLabel";
 import Communication from "~/components/icons/mui/Communication";
 import {
@@ -48,6 +47,7 @@ import {
   saveToPruefenStateCookie,
 } from "~/cookies.server";
 import { commitSession, getSession } from "~/session.server";
+import { HomepageHeader } from "~/components/HomepageHeader";
 
 const PREFIX = "pruefen";
 const START_STEP = "start";
