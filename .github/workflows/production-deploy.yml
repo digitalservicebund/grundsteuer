@@ -39,7 +39,7 @@ jobs:
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: |
-          npx --package @sentry/cli --yes sentry-cli releases deploys --org digitalservice --project grundsteuer ${{ github.sha }} new -e production
+          npx --package @sentry/cli --yes sentry-cli releases deploys --org digitalservice --project grundsteuer ${{ github.event.inputs.imageTag }} new -e production
 
       - name: Report Deployment
         uses: satak/webrequest-action@6127ff14e9269df0d49bcaec84f948dc8b50df1f
