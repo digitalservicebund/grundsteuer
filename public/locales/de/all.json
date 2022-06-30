@@ -1276,7 +1276,7 @@
         "description": "Sie haben kürzlich ein Informationsschreiben von Ihrer Landesfinanzverwaltung erhalten. Diesem ist ein Datenstammblatt beigelegt. Darin finden Sie alle Angaben zu Ihrem Grundstück.",
         "specifics": {
           "explanation": "Falls Ihnen der Brief nicht mehr vorliegt oder Sie zur Prüfung den Bodenrichtwert nachsehen wollen, klicken Sie auf den Link und geben Sie Ihre Grundstücksadresse auf der Seite des Bodenrichtwert-Portal Rheinland-Pfalz ein. Auf einer Karte können Sie den Bodenrichtwert ablesen.",
-          "portalUrl": "https://maps.rlp.de/",
+          "portalUrl": "https://www.boris.rlp.de",
           "portalLabel": "Zum Bodenrichtwert-Portal Rheinland-Pfalz",
           "bundesland": "Rheinland-Pfalz"
         }
