@@ -1,9 +1,8 @@
 import { StepComponentFunction } from "~/routes/formular/_step";
 import { ContentContainer } from "~/components";
-import Accordion from "~/components/Accordion";
-import { useTranslation } from "react-i18next";
 import { BBHelp } from "~/components/steps/grundstueck/bodenrichtwert/BBHelp";
 import { BEHelp } from "~/components/steps/grundstueck/bodenrichtwert/BEHelp";
+import { DefaultHelp } from "~/components/steps/grundstueck/bodenrichtwert/DefaultHelp";
 import { HBHelp } from "~/components/steps/grundstueck/bodenrichtwert/HBHelp";
 import { MVHelp } from "~/components/steps/grundstueck/bodenrichtwert/MVHelp";
 import { NWHelp } from "~/components/steps/grundstueck/bodenrichtwert/NWHelp";
@@ -19,13 +18,11 @@ const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
   return (
     <div className="mb-80">
       <ContentContainer size="sm-md" className="mb-80">
-        <p className="mb-2 text-18">{i18n.specifics.explanation}</p>
+        {i18n.specifics.explanation && (
+          <p className="text-18 mb-32">{i18n.specifics.explanation}</p>
+        )}
         {i18n.specifics.portalUrl && (
-          <ExternalLinkButton
-            url={i18n.specifics.portalUrl}
-            border={true}
-            classNames={"mt-32"}
-          >
+          <ExternalLinkButton url={i18n.specifics.portalUrl} border={true}>
             {i18n.specifics.portalLabel}
           </ExternalLinkButton>
         )}
@@ -51,64 +48,11 @@ const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
   );
 };
 
-export default BodenrichtwertInfo;
-
-const DefaultBodenrichtwertPortalLinks = () => {
-  const items = [
-    {
-      header: "Links zu länderspezifischen Bodenrichtwert-Portalen",
-      content: (
-        <>
-          <PortalLink bundesland="bb" />
-          <PortalLink bundesland="be" />
-          <PortalLink bundesland="hb" />
-          <PortalLink bundesland="mv" />
-          <PortalLink bundesland="nw" />
-          <PortalLink bundesland="rp" />
-          <PortalLink bundesland="sh" />
-          <PortalLink bundesland="sl" />
-          <PortalLink bundesland="sn" />
-          <PortalLink bundesland="st" />
-          <PortalLink bundesland="th" />
-        </>
-      ),
-    },
-  ];
-
-  return <Accordion {...{ items, boldAppearance: true }} />;
-};
-
-const PortalLink = ({ bundesland }: { bundesland: string }) => {
-  const { t } = useTranslation();
-
-  const i18nPref = "grundstueck.bodenrichtwertInfo";
-  const portalUrl = t(`${i18nPref}.${bundesland}.specifics.portalUrl`);
-  const portalLabel = t(`${i18nPref}.${bundesland}.specifics.portalLabel`);
-  const bundeslandName = t(`${i18nPref}.${bundesland}.specifics.bundesland`);
-
-  return (
-    <div className="mb-24">
-      <p className="mb-8">Bodenrichtwertportal {bundeslandName}</p>
-      <ExternalLinkButton
-        url={portalUrl}
-        border={false}
-        classNames={"mt-8 pl-0"}
-      >
-        {portalLabel}
-      </ExternalLinkButton>
-    </div>
-  );
-};
-
-const DefaultHelp = () => {
-  return <DefaultBodenrichtwertPortalLinks />;
-};
-
 const THHelp = () => {
   return <></>;
 };
 
-export const BodenrichtwertHelp = ({ bundesland }: { bundesland?: string }) => {
+const BodenrichtwertHelp = ({ bundesland }: { bundesland?: string }) => {
   switch (bundesland) {
     case "BB":
       return <BBHelp />;
@@ -136,3 +80,5 @@ export const BodenrichtwertHelp = ({ bundesland }: { bundesland?: string }) => {
       return <DefaultHelp />;
   }
 };
+
+export default BodenrichtwertInfo;
