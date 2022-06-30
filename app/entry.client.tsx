@@ -16,7 +16,7 @@ declare global {
 
 Sentry.init({
   dsn: window.sentry_dsn,
-  tracesSampleRate: 1.0,
+  tracesSampleRate: 0.05,
   environment: window.app_env,
   integrations: [new Integrations.BrowserTracing()],
 });
