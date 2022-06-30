@@ -23,7 +23,7 @@ export const BEHelp = () => {
           imageAltText="Kartenausschnitt von Schritt 2 Bodenrichtwert-Portal Berlin"
           number="2"
           heading="Adresse im Kartenausschnitt finden"
-          text="Der Kartenausschnitt zeigt Ihr Grundstück und markiert dieses mit einem blassen, hellblauen Kreis. Der Kreis befindet sich innerhalb eines Bereichs, der durch eine rote gestrichelten Linie umrandet ist. Diese Linien ist die Bodenrichtwertzone für Ihr Grundstück. Hier können entweder ein oder mehrere Bodenrichtwerte angezeigt werden."
+          text="Der Kartenausschnitt zeigt Ihr Grundstück und markiert dieses mit einem blassen, hellblauen Kreis. Der Kreis befindet sich innerhalb eines Bereichs, der durch eine rote gestrichelten Linie umrandet ist. Diese Linien zeigt die Bodenrichtwertgrenze für Ihr Grundstück. Hier können entweder ein oder mehrere Bodenrichtwerte angezeigt werden."
           className="mb-16"
         />
         <EnumeratedCard

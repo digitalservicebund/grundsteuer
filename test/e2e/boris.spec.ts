@@ -142,7 +142,7 @@ describe("Boris pags", () => {
           "Verläuft durch Ihr Grundstück eine Bodenrichtwertgrenze?"
         );
         cy.contains(
-          "Die meisten Grundstücke liegen innerhalb einer Bodenrichtwertzone. Es kann aber vorkommen, das sich diese überlagern. Wie verläuft die Bodenrichtwertgrenze für Ihr Grundstück? Herum oder hindurch? Vergleichen Sie dafür die Bildbeispiele."
+          "Die meisten Grundstücke liegen innerhalb einer Bodenrichtwertzone. Es kann aber vorkommen, dass sich diese überlagern. Wie verläuft die Bodenrichtwertgrenze für Ihr Grundstück? Herum oder hindurch? Vergleichen Sie dafür die Bildbeispiele."
         );
         cy.get("label[for=anzahl-1]")
           .contains(
