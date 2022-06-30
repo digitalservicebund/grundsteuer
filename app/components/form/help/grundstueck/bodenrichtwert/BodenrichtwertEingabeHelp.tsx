@@ -9,6 +9,7 @@ import nw from "~/assets/images/help/boris/eingabe-nw.png";
 import rp from "~/assets/images/help/boris/eingabe-rp.png";
 import sh from "~/assets/images/help/boris/eingabe-sh.png";
 import sl from "~/assets/images/help/boris/eingabe-sl.png";
+import sn from "~/assets/images/help/boris/eingabe-sn.png";
 import mehrereWerte from "~/assets/images/help/boris/eingabe-mehrere-werte.png";
 
 import { GrundModel } from "~/domain/steps";
@@ -206,6 +207,37 @@ const SLEingabeHelp: HelpComponentFunction = () => {
   );
 };
 
+const SNEingabeHelp: HelpComponentFunction = () => {
+  return (
+    <DefaultHelpContent
+      elements={[
+        {
+          type: "paragraph",
+          value:
+            "Im Grundsteuerportal Sachsen, haben Sie nach Eingabe Ihrer Grundstücksadresse einen Kartenausschnitt erhalten. Ein Informationsfenster öffnet sich mit Klick auf das blaue Plus-Symbol. Hier können Sie den Bodenrichtwert für Ihr Grundstück ablesen.",
+        },
+        {
+          type: "image",
+          source: sn,
+          altText:
+            "Bildbeispiel für einen Bodenrichtwert des Grundsteuerportal Sachsen",
+        },
+        {
+          type: "paragraph",
+          value:
+            "Es ist möglich, dass in einer Bodenrichtwertzone mehrere Werte angeben werden. Jeder Wert steht dann für eine andere Art der Nutzung (zum Beispiel Mehrfamilienhaus oder Gewerbefläche). Prüfen Sie, welche Art der Nutzung auf Ihr Grundstück zutrifft und tragen Sie den entsprechenden Wert ein.",
+        },
+        {
+          type: "image",
+          source: mehrereWerte,
+          altText:
+            "Bildbeispiel für eine Bodenrichtwertzone mit mehreren Werten",
+        },
+      ]}
+    />
+  );
+};
+
 export const BodenrichtwertEingabeHelp: HelpComponentFunction = ({
   allData,
 }) => {
@@ -226,6 +258,8 @@ export const BodenrichtwertEingabeHelp: HelpComponentFunction = ({
       return <SHEingabeHelp />;
     case "SL":
       return <SLEingabeHelp />;
+    case "SN":
+      return <SNEingabeHelp />;
     default:
       return <></>;
   }

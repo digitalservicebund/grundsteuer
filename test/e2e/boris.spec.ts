@@ -104,6 +104,19 @@ describe("Boris pags", () => {
       eingabeDesc:
         "Den Wert finden Sie in der Tabelle des Datenstammblatts, das Sie kürzlich mit dem Informationsschreiben der Finanzverwaltung erhalten haben. Falls Ihnen das Datenblatt nicht mehr vorliegt, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
     },
+    {
+      bundesland: "Sachsen",
+      key: "SN",
+      infoTitle:
+        "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
+      infoBody: [
+        "Klicken Sie auf den Link, der Sie zum Grundsteuerportal Sachsen führt. Geben Sie dort Ihre Grundstücksadresse ein. Auf einer Karte können Sie den Bodenrichtwert ablesen. Nutzen Sie bei Bedarf unsere Schritt-für-Schritt Anleitung weiter unten.",
+        "In diesem Bodenrichtwert-Portal finden Sie noch weitere Angaben zu Gemeinde, Gemarkung und Flurstück.",
+      ],
+      portalLabel: "Zum Grundsteuerportal Sachsen",
+      eingabeDesc:
+        "Den Wert haben Sie dem Grundsteuerportal Sachsen entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
+    },
   ];
 
   data.forEach(
