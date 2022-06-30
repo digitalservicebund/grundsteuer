@@ -1295,9 +1295,9 @@
         "headline": "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
         "description": "Sie haben kürzlich ein Informationsschreiben mit von Ihrer Landesfinanzverwaltung erhalten. Diesem ist ein Datenstammblatt beigelegt. Darin finden Sie alle Angaben zu Ihrem Grundstück.",
         "specifics": {
-          "explanation": "Falls Ihnen der Brief nicht mehr vorliegt oder Sie zur Prüfung den Bodenrichtwert nachsehen wollen, klicken Sie auf den Link und geben Sie Ihre Grundstücksadresse auf der Seite des Bodenrichtwert-Portal Saarland ein. Auf einer Karte können Sie den Bodenrichtwert ablesen. ",
+          "explanation": "Falls Ihnen der Brief nicht mehr vorliegt oder Sie zur Prüfung den Bodenrichtwert nachsehen wollen, klicken Sie auf den Link und geben Sie Ihre Grundstücksadresse auf der Seite des Grundsteuerviewer Saarland ein. Auf einer Karte können Sie den Bodenrichtwert ablesen.",
           "portalUrl": "https://geoportal.saarland.de/Grundsteuer/",
-          "portalLabel": "Zum Bodenrichtwert-Portal Saarland",
+          "portalLabel": "Zum Grundsteuerviewer Saarland",
           "bundesland": "Saarland"
         }
       },

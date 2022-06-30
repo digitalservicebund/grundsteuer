@@ -172,7 +172,7 @@ const SLEingabeHelp: HelpComponentFunction = () => {
         {
           type: "paragraph",
           value:
-            "Auf dem Bodenrichtwertportal Saarland, haben Sie nach Eingabe der Adresse des Grundstücks einen vergrößerten Kartenausschnitt mit dazugehörigen Daten erhalten. Hier können Sie den Bodenrichtwert ablesen.",
+            "Auf dem Grundsteuerviewer Saarland, haben Sie nach Eingabe der Adresse des Grundstücks einen vergrößerten Kartenausschnitt mit dazugehörigen Daten erhalten. Hier können Sie den Bodenrichtwert ablesen.",
         },
         {
           type: "image",

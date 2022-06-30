@@ -87,7 +87,7 @@ describe("Boris pags", () => {
         "Sie haben kürzlich ein Informationsschreiben mit von Ihrer Landesfinanzverwaltung erhalten. Diesem ist ein Datenstammblatt beigelegt. Darin finden Sie alle Angaben zu Ihrem Grundstück.",
         "Falls Ihnen der Brief nicht mehr vorliegt",
       ],
-      portalLabel: "Zum Bodenrichtwert-Portal Saarland",
+      portalLabel: "Zum Grundsteuerviewer Saarland",
       eingabeDesc:
         "Den Wert finden Sie in der Tabelle des Datenstammblatts, das Sie kürzlich mit dem Informationsschreiben der Finanzverwaltung erhalten haben. Falls Ihnen das Datenblatt nicht mehr vorliegt, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
     },
