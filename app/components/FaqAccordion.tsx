@@ -423,14 +423,17 @@ export default function FaqAccordion() {
             <ul className={"list-disc pl-24"}>
               <li>Informationsschreiben des Landes</li>
               <li>
-                Angaben zu Ihrem Grundstück: <a
-                  href={"https://danord.gdi-sh.de/viewer/resources/apps/bodenrichtwertefuergrundsteuerzweckesh/index.html?lang=de#/"}
+                Angaben zu Ihrem Grundstück:{" "}
+                <a
+                  href={
+                    "https://danord.gdi-sh.de/viewer/resources/apps/bodenrichtwertefuergrundsteuerzweckesh/index.html?lang=de#/"
+                  }
                   rel="noopener"
                   target="_blank"
                   className="text-blue-800 underline font-bold"
                 >
                   Grundsteuerportal Schleswig-Holstein
-              </a>
+                </a>
               </li>
               <li>
                 Sie benötigen darüber hinaus: Grundbuchauszug (optional), ggf.
