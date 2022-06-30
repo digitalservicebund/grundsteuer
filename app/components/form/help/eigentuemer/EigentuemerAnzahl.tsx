@@ -15,7 +15,8 @@ const EigentuemerAnzahlHelp: HelpComponentFunction = () => {
         {
           type: "image",
           source: grundbuchImg,
-          altText: "Beispiel Grundbuch",
+          altText:
+            "Bildbeispiel eines Grundbuchauszug in dem die Anteile der Eigentümer und Eigentümerinnen hervorgehoben ist",
         },
       ]}
     />

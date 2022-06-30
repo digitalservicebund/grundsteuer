@@ -313,7 +313,7 @@ export default function FscBeantragen() {
       <h2 className="text-24 mb-24">Wie beantrage ich den Freischaltcode?</h2>
       <EnumeratedCard
         image={lohnsteuerbescheinigungImage}
-        imageAltText="Lohnsteuerbescheinigung"
+        imageAltText="Bildbeispiel einer Lohnsteuerbescheinigung"
         number="1"
         heading="Sie geben die Daten ein"
         text="Geben Sie Ihre Steuer-Identifikationsnummer und Ihr Geburtsdatum ein. Ihre Steuer-ID finden Sie zum Beispiel auf Ihren Steuerbescheiden, Lohnsteuerabrechnungen oder anderen Unterlagen vom Finanzamt."
@@ -321,7 +321,7 @@ export default function FscBeantragen() {
       />
       <EnumeratedCard
         image={fscLetterImage}
-        imageAltText="Brief mit Freischaltcode"
+        imageAltText="Bildbeispiel des Freischaltcode Brief"
         number="2"
         heading="Sie bekommen einen Brief vom Finanzamt"
         text="Der Freischaltcode wird von Ihrem technischen Finanzamt als Brief an Ihre Meldeadresse versendet. Dies dauert in der Regel 7 bis 14 Tage. Sie können aber schon vor dem Erhalt des Codes Ihre Grundsteuererklärung ausfüllen."
@@ -329,7 +329,7 @@ export default function FscBeantragen() {
       />
       <EnumeratedCard
         image={fscInputImage}
-        imageAltText="Freischaltcode Eingabe"
+        imageAltText="Bildbeispiel der Eingabe des Freischaltcode"
         number="3"
         heading="Sie geben den Freischaltcode ein"
         text="Sobald Sie den Brief mit dem Freischaltcode erhalten haben, können Sie ihn hier hinterlegen und sind damit identifizeirt. Die Erklärung schicken Sie dann ab, wenn Sie sich bereit fühlen."

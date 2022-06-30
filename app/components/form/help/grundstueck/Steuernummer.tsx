@@ -21,7 +21,8 @@ const SteuernummerHelp: HelpComponentFunction = () => {
         {
           type: "image",
           source: infoschreibenImg,
-          altText: "Beispiel Infoschreiben",
+          altText:
+            "Bildbeispiel für ein Informationsschreiben mit einem Aktenzeichen oder Steuernummer Ihres Grundstücks",
         },
       ]}
     />

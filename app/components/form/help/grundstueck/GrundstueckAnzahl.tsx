@@ -10,7 +10,8 @@ const GrundstueckAnzahlHelp: HelpComponentFunction = () => {
         {
           type: "image",
           source: grundbuchImg,
-          altText: "Beispiel Grundbuch Bestandsverzeichnis",
+          altText:
+            "Bildbeispiel eines Grundbuchauszug in dem Grundstücksflächen hervorgehoben sind",
         },
       ]}
     />

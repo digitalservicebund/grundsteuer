@@ -15,7 +15,8 @@ const GrundbuchblattHelp: HelpComponentFunction = () => {
         {
           type: "image",
           source: grundbuchImg,
-          altText: "Beispiel Grundbuch Deckblatt",
+          altText:
+            "Bildbeispiel eines Deckblatt eines Grundbuchauszugs in dem die Grundbuchblattnummer hervorgehoben ist",
         },
       ]}
     />

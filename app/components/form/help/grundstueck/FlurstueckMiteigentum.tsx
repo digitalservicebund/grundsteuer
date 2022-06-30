@@ -15,7 +15,8 @@ const FlurstueckMiteigentumHelp: HelpComponentFunction = () => {
         {
           type: "image",
           source: grundbuchImg,
-          altText: "Beispiel Grundbuch Bestandsverzeichnis",
+          altText:
+            "Bildbeispiel eines Grundbuchauszug in dem der Miteigentumsanteil hervorgehoben ist",
         },
       ]}
     />

@@ -15,7 +15,8 @@ const FlurstueckGroesseHelp: HelpComponentFunction = () => {
         {
           type: "image",
           source: grundbuchImg,
-          altText: "Beispiel Grundbuch Bestandsverzeichnis",
+          altText:
+            "Bildbeispiel eines Grundbuchauszug in dem die Grundstücksgröße hervorgehoben ist",
         },
       ]}
     />
