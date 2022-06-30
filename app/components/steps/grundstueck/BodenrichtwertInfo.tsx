@@ -12,6 +12,7 @@ import { RPHelp } from "~/components/steps/grundstueck/bodenrichtwert/RPHelp";
 import { SHHelp } from "~/components/steps/grundstueck/bodenrichtwert/SHHelp";
 import { SLHelp } from "~/components/steps/grundstueck/bodenrichtwert/SLHelp";
 import { SNHelp } from "~/components/steps/grundstueck/bodenrichtwert/SNHelp";
+import { STHelp } from "~/components/steps/grundstueck/bodenrichtwert/STHelp";
 
 const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
   const bundesland = allData.grundstueck?.adresse?.bundesland;
@@ -167,10 +168,6 @@ const DefaultHelp = () => {
       <DefaultBodenrichtwertPortalLinks />
     </>
   );
-};
-
-const STHelp = () => {
-  return <></>;
 };
 
 const THHelp = () => {

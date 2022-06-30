@@ -1314,8 +1314,9 @@
         }
       },
       "st": {
+        "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "description": "Den Bodenrichtwert für Ihr Grundstück finden Sie mithilfe des Grundsteuer-Viewers Sachsen-Anhalt. Klicken Sie auf den Link, der Sie direkt dorthin führt. Geben Sie dort Ihre Grundstücksadresse ein. Auf einer Karte können Sie den Bodenrichtwert ablesen. Nutzen Sie bei Bedarf unsere Schritt-für-Schritt Anleitung weiter unten.",
         "specifics": {
-          "explanation": "",
           "portalUrl": "https://www.grundsteuerdaten.sachsen-anhalt.de/",
           "portalLabel": "Zum Grundsteuer-Viewer Sachsen-Anhalt",
           "bundesland": "Sachsen-Anhalt"
@@ -1369,6 +1370,9 @@
       },
       "sn": {
         "description": "Den Wert haben Sie dem Grundsteuerportal Sachsen entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."
+      },
+      "st": {
+        "description": "Den Wert haben Sie dem Grundsteuer-Viewer Sachsen-Anhalt entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."
       }
     },
     "bodenrichtwertAnzahl": {

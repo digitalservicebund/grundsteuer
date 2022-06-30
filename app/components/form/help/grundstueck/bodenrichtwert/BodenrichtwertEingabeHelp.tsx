@@ -10,6 +10,7 @@ import rp from "~/assets/images/help/boris/eingabe-rp.png";
 import sh from "~/assets/images/help/boris/eingabe-sh.png";
 import sl from "~/assets/images/help/boris/eingabe-sl.png";
 import sn from "~/assets/images/help/boris/eingabe-sn.png";
+import st from "~/assets/images/help/boris/eingabe-st.png";
 import mehrereWerte from "~/assets/images/help/boris/eingabe-mehrere-werte.png";
 
 import { GrundModel } from "~/domain/steps";
@@ -200,7 +201,7 @@ const SLEingabeHelp: HelpComponentFunction = () => {
           type: "image",
           source: sl,
           altText:
-            "Alt Text: Bildbeispiel für einen Bodenrichtwert im Datenstammblatt Saarland",
+            "Bildbeispiel für einen Bodenrichtwert im Datenstammblatt Saarland",
         },
       ]}
     />
@@ -238,6 +239,26 @@ const SNEingabeHelp: HelpComponentFunction = () => {
   );
 };
 
+const STEingabeHelp: HelpComponentFunction = () => {
+  return (
+    <DefaultHelpContent
+      elements={[
+        {
+          type: "paragraph",
+          value:
+            "Im Grundsteuer-Viewer Sachsen-Anhalt, öffnet sich nach Eingabe von Gemarkung, Flur, Zähler und Nenner ein Informationsfenster. Hier können Sie den Bodenrichtwert für Ihr Grundstück ablesen.",
+        },
+        {
+          type: "image",
+          source: st,
+          altText:
+            "Bildbeispiel für einen Bodenrichtwert des Grundsteuer-Viewer Sachsen-Anhalt",
+        },
+      ]}
+    />
+  );
+};
+
 export const BodenrichtwertEingabeHelp: HelpComponentFunction = ({
   allData,
 }) => {
@@ -260,6 +281,8 @@ export const BodenrichtwertEingabeHelp: HelpComponentFunction = ({
       return <SLEingabeHelp />;
     case "SN":
       return <SNEingabeHelp />;
+    case "ST":
+      return <STEingabeHelp />;
     default:
       return <></>;
   }

@@ -117,6 +117,17 @@ describe("Boris pags", () => {
       eingabeDesc:
         "Den Wert haben Sie dem Grundsteuerportal Sachsen entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
     },
+    {
+      bundesland: "Sachsen-Anhalt",
+      key: "ST",
+      infoTitle: "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+      infoBody: [
+        "Den Bodenrichtwert für Ihr Grundstück finden Sie mithilfe des Grundsteuer-Viewers Sachsen-Anhalt.",
+      ],
+      portalLabel: "Zum Grundsteuer-Viewer Sachsen-Anhalt",
+      eingabeDesc:
+        "Den Wert haben Sie dem Grundsteuer-Viewer Sachsen-Anhalt entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
+    },
   ];
 
   data.forEach(
