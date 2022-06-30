@@ -12,7 +12,7 @@
     "audit:export": "ts-node -r tsconfig-paths/register audit-export.server.ts",
     "build": " tsc --noEmit && run-s build:*",
     "build:css": "npm run generate:css -- --minify",
-    "build:remix": "remix build",
+    "build:remix": "remix build --sourcemap",
     "build:server": "esbuild --bundle --platform=node --format=cjs ./server.ts --outdir=build --sourcemap=external",
     "clean": "rm -rf build public/build public/tailwind.css",
     "db:migrate": "prisma migrate deploy",

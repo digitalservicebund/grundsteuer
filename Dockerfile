@@ -16,6 +16,8 @@ ENV NODE_ENV=production
 
 WORKDIR /home/node/src
 COPY --chown=node:node --from=build /src ./
+# Purge source maps
+RUN find public/build -name '*.map' -exec rm {} \;
 EXPOSE 3000
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD ["node", "--max-http-header-size=65536", "./build/server.js"]

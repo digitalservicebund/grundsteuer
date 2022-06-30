@@ -123,6 +123,20 @@ jobs:
           docker push --all-tags ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           docker push --all-tags ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-migrate
 
+      # This needs to happen here b/c remix changes filenames on each `remix build` run. So, to get working source maps,
+      # we need access to the actual image that was built.
+      - name: Build and upload sourcemaps to Sentry
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        run: |
+          # Extract source maps
+          mkdir public
+          container_id=$(docker create ${{ env.IMAGE_NAME }}-migrate:${{ github.sha }})
+          docker cp ${container_id}:/src/public/build public
+          docker rm ${container_id}
+          npx --package @sentry/cli --yes sentry-cli releases new --org digitalservice --project grundsteuer ${{ github.sha }} --finalize
+          npx --package @sentry/cli --yes sentry-cli sourcemaps upload --org digitalservice --project grundsteuer --release ${{ github.sha }} --url-prefix '~/build/' public/build
+
   deploy-staging:
     needs: [build-push-image]
     if: github.ref == 'refs/heads/main'
@@ -148,6 +162,12 @@ jobs:
           message: "Update staging image to ${{ github.sha }}"
           pathspec_error_handling: exitImmediately
           push: true
+
+      - name: Register deployment with Sentry
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        run: |
+          npx --package @sentry/cli --yes sentry-cli releases deploys --org digitalservice --project grundsteuer ${{ github.sha }} new -e staging
 
       - name: Report Deployment
         uses: satak/webrequest-action@6127ff14e9269df0d49bcaec84f948dc8b50df1f
