@@ -13,7 +13,7 @@ describe("/anmelden action", () => {
       Promise.resolve({
         status: 302,
         headers: {
-          get: () => "/formular/wilkommen",
+          get: () => "/formular/welcome",
         },
       })
     );
@@ -55,5 +55,16 @@ describe("/anmelden action", () => {
         expect(await action(args)).toEqual({ errors });
       }
     );
+  });
+
+  it("Succeeds with correct mail address", async () => {
+    const args = await mockActionArgs({
+      formData: {
+        email: "user@example.de",
+      },
+      context: {},
+    });
+    const response = await action(args);
+    expect(response.status).toEqual(302);
   });
 });
