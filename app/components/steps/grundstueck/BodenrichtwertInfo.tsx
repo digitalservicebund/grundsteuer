@@ -150,24 +150,7 @@ const PortalLink = ({ bundesland }: { bundesland: string }) => {
 };
 
 const DefaultHelp = () => {
-  return (
-    <>
-      <p className="mb-16">
-        Wenn sie zuerst Ihre Grundstücksadresse eingeben, können wir Ihnen
-        gezielte Hilfestellungen zur Ermittlung des Bodenrichtswerts geben. Dann
-        erhalten Sie an dieser Stelle passende Links und Informationen, die auf
-        ihr Bundesland zugeschnitten sind.
-      </p>
-      <p className="mb-16">
-        Vielleicht haben Sie auch ein Informationsschreiben aus Ihrem Bundesland
-        erhalten, dann können Sie die Daten zu Ihrem Bodenrichtwert dort ablesen
-        und auf der nächsten Seite eintragen. Wenn nicht, schauen Sie bitte auf
-        die Webseiten zur Ermittlung der Bodenrichtwerte.
-      </p>
-
-      <DefaultBodenrichtwertPortalLinks />
-    </>
-  );
+  return <DefaultBodenrichtwertPortalLinks />;
 };
 
 const THHelp = () => {

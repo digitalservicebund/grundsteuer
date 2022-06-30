@@ -1218,6 +1218,7 @@
     "bodenrichtwertInfo": {
       "default": {
         "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+        "description": "Einige Finanzverwaltungen schicken mit dem Informationsschreiben auch ein Datenstammblatt mit. Dort können Sie die Daten zu Ihrem Bodenrichtwert ablesen und auf der nächsten Seite eintragen. Haben Sie keinen Brief erhalten, folgen Sie bitte den Links für das jeweilige Bundesland.",
         "nextButtonLabel": "Verstanden & Weiter",
         "specifics": {
           "explanation": "",
@@ -1334,7 +1335,7 @@
     "bodenrichtwertEingabe": {
       "default": {
         "headline": "Geben Sie den Bodenrichtwert für Ihr Grundstück ein",
-        "description": "Den Wert können Sie über einen Link auf der vorherigen Seite und der Schritt-für-Schritt Anleitung ermitteln.",
+        "description": "Den Wert konnten Sie dem Bodenrichtwert-Portal Ihres Bundeslandes entnehmen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
         "fields": {
           "bodenrichtwert": {
             "label": "Bodenrichtwert in € / m²"

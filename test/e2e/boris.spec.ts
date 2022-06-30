@@ -6,6 +6,17 @@ describe("Boris pags", () => {
   });
   const data = [
     {
+      bundesland: "no Bundesland selected",
+      key: undefined,
+      infoTitle: "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
+      infoBody: [
+        "Einige Finanzverwaltungen schicken mit dem Informationsschreiben auch ein Datenstammblatt mit. Dort können Sie die Daten zu Ihrem Bodenrichtwert ablesen und auf der nächsten Seite eintragen. Haben Sie keinen Brief erhalten, folgen Sie bitte den Links für das jeweilige Bundesland.",
+      ],
+      portalLabel: undefined,
+      eingabeDesc:
+        "Den Wert konnten Sie dem Bodenrichtwert-Portal Ihres Bundeslandes entnehmen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
+    },
+    {
       bundesland: "Brandenburg",
       key: "BB",
       infoTitle:
@@ -133,15 +144,19 @@ describe("Boris pags", () => {
   data.forEach(
     ({ bundesland, key, infoTitle, infoBody, portalLabel, eingabeDesc }) => {
       it(`should render correct text for ${bundesland}`, () => {
-        cy.bundesland(key);
-        cy.wait(500);
+        if (key) {
+          cy.bundesland(key);
+          cy.wait(500);
+        }
         cy.visit("/formular/grundstueck/bodenrichtwertInfo");
         cy.url().should("contain", "bodenrichtwertInfo");
         cy.contains("h1", infoTitle);
         for (const text of infoBody) {
           cy.contains(text);
         }
-        cy.contains(portalLabel);
+        if (key) {
+          cy.contains(portalLabel);
+        }
         cy.get("#nextButton").click();
 
         cy.url().should(

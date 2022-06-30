@@ -259,6 +259,26 @@ const STEingabeHelp: HelpComponentFunction = () => {
   );
 };
 
+const DefaultEingabeHelp: HelpComponentFunction = () => {
+  return (
+    <DefaultHelpContent
+      elements={[
+        {
+          type: "paragraph",
+          value:
+            "Es ist möglich, dass in einer Bodenrichtwertzone mehrere Werte angeben werden. Jeder Wert steht dann für eine andere Art der Nutzung (zum Beispiel Mehrfamilienhaus oder Gewerbefläche). Prüfen Sie, welche Art der Nutzung auf Ihr Grundstück zutrifft und tragen Sie den entsprechenden Wert ein.",
+        },
+        {
+          type: "image",
+          source: mehrereWerte,
+          altText:
+            "Bildbeispiel für eine Bodenrichtwertzone mit mehreren Werten",
+        },
+      ]}
+    />
+  );
+};
+
 export const BodenrichtwertEingabeHelp: HelpComponentFunction = ({
   allData,
 }) => {
@@ -284,6 +304,6 @@ export const BodenrichtwertEingabeHelp: HelpComponentFunction = ({
     case "ST":
       return <STEingabeHelp />;
     default:
-      return <></>;
+      return <DefaultEingabeHelp />;
   }
 };
