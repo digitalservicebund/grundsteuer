@@ -43,14 +43,14 @@ export default function Footer() {
               </a>
             </div>
             <div className="flex flex-col md:flex-row">
-              <span>Ein Online-Dienst des</span>
+              <span>Ein Online-Dienst der</span>
               <a
                 href="https://digitalservice.bund.de"
                 rel="noopener"
                 target="_blank"
                 className="text-blue-800 underline font-bold md:ml-4"
               >
-                DigitalService GmbH
+                DigitalService GmbH des Bundes
               </a>
             </div>
           </div>
