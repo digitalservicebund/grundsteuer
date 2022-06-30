@@ -7,7 +7,9 @@ COPY . ./
 RUN npm set-script prepare "" && npm ci && npm run build && npm prune --production
 
 FROM node:16.15.1-alpine3.16
-RUN apk add --update dumb-init
+RUN apk add --no-cache dumb-init curl && \
+    rm -rf /var/cache/apk/* && \
+    curl https://dbs-download.obs.otc.t-systems.com/rds/ca-bundle.pem -o /opt/rds-ca-bundle.pem
 
 USER node
 ENV NODE_ENV=production
