@@ -82,7 +82,7 @@ export default function FaqAccordion() {
                 </a>
               </li>
               <li>
-                Sie benötigen darüber hinaus: Grundbuchauszug, ggf.
+                Hilfreich sein können darüber hinaus: Grundbuchauszug, ggf.
                 Teilungserklärung bei Wohnungseigentum, Bauunterlagen /
                 Kauf-/Schenkungsvertrag (optional)
               </li>
@@ -205,7 +205,7 @@ export default function FaqAccordion() {
                   target="_blank"
                   className="text-blue-800 underline font-bold"
                 >
-                  Geoviewer Mecklenburg-Vorpommern
+                  Grundsteuerdaten Mecklenburg-Vorpommern
                 </a>
               </li>
               <li>
@@ -423,8 +423,14 @@ export default function FaqAccordion() {
             <ul className={"list-disc pl-24"}>
               <li>Informationsschreiben des Landes</li>
               <li>
-                Angaben zu Ihrem Grundstück: Grundsteuerportal
-                Schleswig-Holstein (noch in Entwicklung)
+                Angaben zu Ihrem Grundstück: <a
+                  href={"https://danord.gdi-sh.de/viewer/resources/apps/bodenrichtwertefuergrundsteuerzweckesh/index.html?lang=de#/"}
+                  rel="noopener"
+                  target="_blank"
+                  className="text-blue-800 underline font-bold"
+                >
+                  Grundsteuerportal Schleswig-Holstein
+              </a>
               </li>
               <li>
                 Sie benötigen darüber hinaus: Grundbuchauszug (optional), ggf.
