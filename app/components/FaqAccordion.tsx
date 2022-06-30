@@ -83,7 +83,7 @@ export default function FaqAccordion() {
               </li>
               <li>
                 Sie benötigen darüber hinaus: Grundbuchauszug, ggf.
-                Teilungserkärung bei Wohnungseigentum, Bauunterlagen /
+                Teilungserklärung bei Wohnungseigentum, Bauunterlagen /
                 Kauf-/Schenkungsvertrag (optional)
               </li>
             </ul>
@@ -277,7 +277,7 @@ export default function FaqAccordion() {
               <li>
                 Angaben zum Bodenrichtwert:{" "}
                 <a
-                  href={"https://www.maps.rlp.de"}
+                  href={"https://www.boris.rlp.de"}
                   rel="noopener"
                   target="_blank"
                   className="text-blue-800 underline font-bold"
@@ -322,7 +322,7 @@ export default function FaqAccordion() {
                   target="_blank"
                   className="text-blue-800 underline font-bold"
                 >
-                  Geoportal Saarland
+                  Grundsteuerviewer Saarland
                 </a>
               </li>
               <li>
