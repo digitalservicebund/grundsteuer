@@ -1264,8 +1264,10 @@
         }
       },
       "nw": {
+        "headline": "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
+        "description": "Sie haben kürzlich ein Informationsschreiben von Ihrer Landesfinanzverwaltung erhalten. Diesem ist eine Anlage beigelegt. Darin finden Sie alle Angaben zu Ihrem Grundstück.",
         "specifics": {
-          "explanation": "",
+          "explanation": "Falls Ihnen der Brief nicht mehr vorliegt oder Sie zur Prüfung den Bodenrichtwert nachsehen wollen, klicken Sie auf den Link und geben Sie Ihre Grundstücksadresse auf der Seite des Bodenrichtwert-Portal Nordrhein-Westfalen ein. Auf einer Karte können Sie den Bodenrichtwert ablesen.",
           "portalUrl": "https://grundsteuer-geodaten.nrw.de/",
           "portalLabel": "Zum Bodenrichtwert-Portal Nordrhein-Westfalen",
           "bundesland": "Nordrhein-Westfalen"
@@ -1350,6 +1352,9 @@
       },
       "mv": {
         "description": "Den Wert haben Sie dem Bodenrichtwert-Portal Mecklenburg-Vorpommern entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."
+      },
+      "nw": {
+        "description": "Den Wert finden Sie in der Tabelle der Anlage, die Sie kürzlich mit dem Informationsschreiben der Finanzverwaltung erhalten haben. Falls Ihnen dieses Datenblatt nicht mehr vorliegt, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."
       },
       "rp": {
         "description": "Den Wert finden Sie in der Tabelle des Datenstammblatts, das Sie kürzlich mit dem Informationsschreiben der Finanzverwaltung erhalten haben. Falls Ihnen das Datenblatt nicht mehr vorliegt, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."

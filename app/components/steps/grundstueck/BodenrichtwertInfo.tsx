@@ -7,6 +7,7 @@ import { BBHelp } from "~/components/steps/grundstueck/bodenrichtwert/BBHelp";
 import { BEHelp } from "~/components/steps/grundstueck/bodenrichtwert/BEHelp";
 import { HBHelp } from "~/components/steps/grundstueck/bodenrichtwert/HBHelp";
 import { MVHelp } from "~/components/steps/grundstueck/bodenrichtwert/MVHelp";
+import { NWHelp } from "~/components/steps/grundstueck/bodenrichtwert/NWHelp";
 import { RPHelp } from "~/components/steps/grundstueck/bodenrichtwert/RPHelp";
 import { SHHelp } from "~/components/steps/grundstueck/bodenrichtwert/SHHelp";
 import { SLHelp } from "~/components/steps/grundstueck/bodenrichtwert/SLHelp";
@@ -165,10 +166,6 @@ const DefaultHelp = () => {
       <DefaultBodenrichtwertPortalLinks />
     </>
   );
-};
-
-const NWHelp = () => {
-  return <></>;
 };
 
 const SNHelp = () => {

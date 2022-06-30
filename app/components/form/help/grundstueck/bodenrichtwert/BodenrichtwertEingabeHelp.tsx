@@ -5,6 +5,7 @@ import bb from "~/assets/images/help/boris/eingabe-bb.png";
 import be from "~/assets/images/help/boris/eingabe-be.png";
 import hb from "~/assets/images/help/boris/eingabe-hb.png";
 import mv from "~/assets/images/help/boris/eingabe-mv.png";
+import nw from "~/assets/images/help/boris/eingabe-nw.png";
 import rp from "~/assets/images/help/boris/eingabe-rp.png";
 import sh from "~/assets/images/help/boris/eingabe-sh.png";
 import sl from "~/assets/images/help/boris/eingabe-sl.png";
@@ -114,6 +115,26 @@ const MVEingabeHelp: HelpComponentFunction = () => {
   );
 };
 
+const NWEingabeHelp: HelpComponentFunction = () => {
+  return (
+    <DefaultHelpContent
+      elements={[
+        {
+          type: "paragraph",
+          value:
+            "Den Bodenrichtwert finden Sie im Datenblatt des Informationsschreiben der Finanzverwaltung.",
+        },
+        {
+          type: "image",
+          source: nw,
+          altText:
+            "Bildbeispiel für einen Bodenrichtwert des Bodenrichtwertportal Nordrhein-Westfalen",
+        },
+      ]}
+    />
+  );
+};
+
 const RPEingabeHelp: HelpComponentFunction = () => {
   return (
     <DefaultHelpContent
@@ -197,6 +218,8 @@ export const BodenrichtwertEingabeHelp: HelpComponentFunction = ({
       return <HBEingabeHelp />;
     case "MV":
       return <MVEingabeHelp />;
+    case "NW":
+      return <NWEingabeHelp />;
     case "RP":
       return <RPEingabeHelp />;
     case "SH":

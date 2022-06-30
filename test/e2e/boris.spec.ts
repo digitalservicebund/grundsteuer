@@ -53,6 +53,19 @@ describe("Boris pags", () => {
         "Den Wert haben Sie dem Bodenrichtwert-Portal Mecklenburg-Vorpommern entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
     },
     {
+      bundesland: "Nordrhein-Westfalen",
+      key: "NW",
+      infoTitle:
+        "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
+      infoBody: [
+        "Sie haben kürzlich ein Informationsschreiben von Ihrer Landesfinanzverwaltung erhalten.",
+        "Falls Ihnen der Brief nicht mehr vorliegt oder Sie zur Prüfung den Bodenrichtwert nachsehen wollen, klicken Sie auf den Link und geben Sie Ihre Grundstücksadresse auf der Seite des Bodenrichtwert-Portal Nordrhein-Westfalen ein.",
+      ],
+      portalLabel: "Zum Bodenrichtwert-Portal Nordrhein-Westfalen",
+      eingabeDesc:
+        "Den Wert finden Sie in der Tabelle der Anlage, die Sie kürzlich mit dem Informationsschreiben der Finanzverwaltung erhalten haben. Falls Ihnen dieses Datenblatt nicht mehr vorliegt, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
+    },
+    {
       bundesland: "Rheinland-Pfalz",
       key: "RP",
       infoTitle:
