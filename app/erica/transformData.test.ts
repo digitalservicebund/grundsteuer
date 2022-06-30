@@ -6,6 +6,7 @@ import {
   transformDataToEricaFormat,
   transformAnteil,
   transformDate,
+  transformFlurstueck,
 } from "~/erica/transformData";
 import { Person } from "~/domain/steps";
 
@@ -99,7 +100,7 @@ describe("transformDataToEricaFormat", () => {
             gemarkung: "2",
           },
           flur: {
-            flur: "Test1",
+            flur: "123",
             flurstueckZaehler: "23",
             flurstueckNenner: "45",
           },
@@ -119,7 +120,7 @@ describe("transformDataToEricaFormat", () => {
             gemarkung: "3",
           },
           flur: {
-            flur: "Test2",
+            flur: "222",
             flurstueckZaehler: "34",
             flurstueckNenner: "56",
           },
@@ -170,7 +171,7 @@ describe("transformDataToEricaFormat", () => {
             {
               angaben: inputFlurstuecke[0].angaben,
               flur: {
-                flur: "Test1",
+                flur: "123",
                 flurstueckZaehler: "23",
                 flurstueckNenner: "45",
                 wirtschaftlicheEinheitZaehler: "67.1000",
@@ -181,7 +182,7 @@ describe("transformDataToEricaFormat", () => {
             {
               angaben: inputFlurstuecke[1].angaben,
               flur: {
-                flur: "Test2",
+                flur: "222",
                 flurstueckZaehler: "34",
                 flurstueckNenner: "56",
                 wirtschaftlicheEinheitZaehler: "67.1000",
@@ -451,7 +452,7 @@ describe("transformDataToEricaFormat", () => {
         gemarkung: "2",
       },
       flur: {
-        flur: "Test1",
+        flur: "123",
         flurstueckZaehler: "23",
         flurstueckNenner: "45",
         wirtschaftlicheEinheitZaehler: "67.0000",
@@ -725,6 +726,63 @@ describe("transformAnteil", () => {
     "Should return '$output' if anteil is '$anteil'",
     ({ date, output }) => {
       expect(transformDate(date)).toEqual(output);
+    }
+  );
+});
+
+describe("transformFlurstueck", () => {
+  const cases = [
+    {
+      description: "flur has leading zero",
+      data: {
+        flur: {
+          flur: "0123",
+          flurstueckZaehler: "1",
+          flurstueckNenner: "2",
+        },
+      },
+      result: {
+        flur: "123",
+        flurstueckZaehler: "1",
+        flurstueckNenner: "2",
+      },
+    },
+    {
+      description: "flur is empty",
+      data: {
+        flur: {
+          flur: "",
+          flurstueckZaehler: "1",
+          flurstueckNenner: "2",
+        },
+      },
+      result: {
+        flur: "",
+        flurstueckZaehler: "1",
+        flurstueckNenner: "2",
+      },
+    },
+    {
+      description: "flur without leading",
+      data: {
+        flur: {
+          flur: "123",
+          flurstueckZaehler: "1",
+          flurstueckNenner: "2",
+        },
+      },
+      result: {
+        flur: "123",
+        flurstueckZaehler: "1",
+        flurstueckNenner: "2",
+      },
+    },
+  ];
+
+  test.each(cases)(
+    "Should return '$result' if data is '$data' if '$description'",
+    ({ data, result }) => {
+      expect(transformFlurstueck(data, undefined).flur).toEqual(result);
     }
   );
 });

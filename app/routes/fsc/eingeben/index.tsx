@@ -306,7 +306,6 @@ export default function FscEingeben() {
   useEffect(() => {
     const interval = setInterval(() => {
       if (showSpinner) {
-        alert(redirectionParams);
         fetcher.load("/fsc/eingeben?index" + redirectionParams);
       }
     }, 1000);

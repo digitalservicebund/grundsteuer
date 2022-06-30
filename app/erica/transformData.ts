@@ -114,14 +114,18 @@ const calculateWohnflaechen = (
   ]);
 };
 
-const transformFlurstueck = (
+export const transformFlurstueck = (
   flurstueck: Flurstueck,
   miteigentum: GrundstueckFlurstueckMiteigentumsanteilFields | undefined
 ) => {
   return {
     angaben: flurstueck.angaben,
     flur: {
-      ...flurstueck.flur,
+      flur: flurstueck.flur?.flur
+        ? "" + Number.parseInt(flurstueck.flur?.flur)
+        : flurstueck.flur?.flur,
+      flurstueckZaehler: flurstueck.flur?.flurstueckZaehler,
+      flurstueckNenner: flurstueck.flur?.flurstueckNenner,
       wirtschaftlicheEinheitZaehler: transformWirtschaftlicheEinheitZaehler(
         miteigentum?.wirtschaftlicheEinheitZaehler
       ),
