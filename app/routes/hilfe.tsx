@@ -13,7 +13,7 @@ export const meta: MetaFunction = () => {
 export default function Hilfe() {
   return (
     <>
-      <HomepageHeader loaderData={{ env: "production" }} />
+      <HomepageHeader />
       <main className="flex-grow">
         <ContentContainer>
           <h1 className="text-30 leading-36 md:pt-16 md:text-64 md:leading-68 max-w-[44rem] mb-32 md:mb-48">
