@@ -40,7 +40,7 @@ describe("Happy Path", () => {
 
     cy.contains(
       "h1",
-      "Sie können diesen Online-Dienst für Ihre Grundsteuererklärung nutzen."
+      "Super, Sie können ab dem 04. Juli 2022 diesen Online-Dienst für Ihre Grundsteuererklärung nutzen."
     );
   });
 });
