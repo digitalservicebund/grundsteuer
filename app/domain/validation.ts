@@ -442,7 +442,12 @@ export const validateBiggerThan: ValidateDependentFunction = ({
   value,
   dependentValue,
 }) => {
-  return !value || !dependentValue || +value > +dependentValue;
+  return (
+    !value ||
+    !dependentValue ||
+    parseFloat(value.replace(",", ".")) >
+      parseFloat(dependentValue.replace(",", "."))
+  );
 };
 
 export const validateHausnummer: ValidateFunctionDefault = ({ value }) => {

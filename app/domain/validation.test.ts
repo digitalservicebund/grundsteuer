@@ -470,7 +470,10 @@ describe("validateRequiredIfvalidateBiggerThan", () => {
     { value: "2", dependentValue: "1", valid: true },
     { value: "1", dependentValue: "1", valid: false },
     { value: "0", dependentValue: "1", valid: false },
+    { value: "0.2", dependentValue: "0.1", valid: true },
     { value: "0.1", dependentValue: "0.2", valid: false },
+    { value: "0,2", dependentValue: "0,1", valid: true },
+    { value: "0,1", dependentValue: "0,2", valid: false },
   ];
 
   test.each(cases)(
