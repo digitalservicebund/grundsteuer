@@ -17,10 +17,7 @@ export function HomepageHeader({
     loaderData?.env === "production"
       ? { disabled: true }
       : { to: "/formular/welcome" };
-  const pruefenButtonProps =
-    loaderData?.env === "production"
-      ? { disabled: true }
-      : { to: "/pruefen/start" };
+  const pruefenButtonProps = { to: "/pruefen/start" };
 
   return (
     <div className="mb-32 md:mb-64 bg-white py-32">
