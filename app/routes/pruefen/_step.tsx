@@ -140,7 +140,6 @@ export const loader: LoaderFunction = async ({
       currentState: currentStateFromUrl,
       stepDefinition,
       csrfToken,
-      env: process.env.APP_ENV,
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -225,7 +224,7 @@ export function Step() {
   return (
     <>
       <main className="flex-grow mb-56">
-        <HomepageHeader loaderData={loaderData} pruefenActive={true} />
+        <HomepageHeader pruefenActive={true} />
         <ContentContainer>
           <div className="bg-white px-16 md:px-80 py-16 md:py-56">
             <SectionLabel
