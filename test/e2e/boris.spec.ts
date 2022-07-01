@@ -108,7 +108,7 @@ describe("Boris pags", () => {
       infoTitle:
         "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
       infoBody: [
-        "Sie haben kürzlich ein Informationsschreiben mit von Ihrer Landesfinanzverwaltung erhalten. Diesem ist ein Datenstammblatt beigelegt. Darin finden Sie alle Angaben zu Ihrem Grundstück.",
+        "Sie haben kürzlich ein Informationsschreiben von Ihrer Landesfinanzverwaltung erhalten. Diesem ist ein Datenstammblatt beigelegt. Darin finden Sie alle Angaben zu Ihrem Grundstück.",
         "Falls Ihnen der Brief nicht mehr vorliegt",
       ],
       portalLabel: "Zum Grundsteuerviewer Saarland",
