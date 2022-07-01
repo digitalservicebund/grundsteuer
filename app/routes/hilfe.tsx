@@ -15,15 +15,14 @@ import { Trans } from "react-i18next";
 export const loader: LoaderFunction = async () => {
   return json({
     i18n: await getStepI18n("hilfe"),
-    isProduction: process.env.NODE_ENV === "production",
   });
 };
 
 export default function Hilfe() {
   const loaderData = useLoaderData();
-  const { i18n, isProduction } = loaderData;
+  const { i18n } = loaderData;
   return (
-    <UserLayout disableLogin={isProduction}>
+    <UserLayout>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         <div className="sm:max-w-[412px]">
