@@ -20,15 +20,8 @@ export default function NavigationActions(props: {
       <div className="px-8 mb-32">
         <NavigationLink
           to="/anmelden"
-          icon={
-            <PersonCircle
-              className={classNames("w-24 h-24 fill-blue-800", {
-                "fill-gray-800": process.env.APP_ENV === "production",
-              })}
-            />
-          }
+          icon={<PersonCircle className="w-24 h-24 fill-blue-800" />}
           isAllCaps
-          isDisabled={process.env.APP_ENV === "production"}
           isActive={!!currentLocation.match(/\/anmelden/)}
         >
           Anmelden
