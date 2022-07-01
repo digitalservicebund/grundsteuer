@@ -23,6 +23,11 @@ export const getSendenResult = async (
 ): Promise<EricaError | EricaSendenResponseData> => {
   const result = ericaUtils.extractResultFromEricaResponse(ericaResponse);
   if ("errorCode" in result && result.errorCode) {
+    console.info(
+      `Received Erica error: ${result.errorCode} - ${
+        result.errorMessage
+      } - ${JSON.stringify(result.result?.validationErrors)}`
+    );
     return {
       errorType: result.errorCode,
       errorMessage: result.errorMessage,
