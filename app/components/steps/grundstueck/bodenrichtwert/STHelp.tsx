@@ -56,7 +56,7 @@ export const STHelp = () => {
           imageAltText="Kartenausschnitt von Schritt 6 des Grundsteuer-Viewer Sachsen-Anhalt"
           number="6"
           heading="Bodenrichtwert ablesen"
-          text="Rechts öffnet sich ein Fenster “Informationen zum Flurstück”. Scrollen Sie in diesem Fenster runter bis Sie die Angaben zum Bodenrichtwert finden. Merken Sie sich diesen für die Eingabe. Laden Sie sich bei Bedarf auch das Infoblatt als PDF herunter."
+          text="Rechts öffnet sich ein Fenster “Informationen zum Flurstück”. Scrollen Sie in diesem Fenster runter, bis Sie die Angaben zum Bodenrichtwert finden. Merken Sie sich diesen für die Eingabe. Laden Sie sich bei Bedarf auch das Infoblatt als PDF herunter."
           className="mb-16"
         />
       </div>

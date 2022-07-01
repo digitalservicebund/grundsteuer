@@ -9,7 +9,7 @@ export const SLHelp = () => {
       <div className="mb-80">
         <EnumeratedCard
           image={sl1}
-          imageAltText="Bildbeispiel von Schritt 1 des Datenstammblatt Saarland"
+          imageAltText="Bildbeispiel von Schritt 1 des Datenstammblatts Saarland"
           number="1"
           heading="Das Datenstammblatt"
           text="Sie haben kürzlich ein Informationsschreiben von Ihrer Landesfinanzverwaltung erhalten. Diesem ist ein Datenstammblatt beigelegt. Darin finden Sie alle Angaben zu Ihrem Grundstück."
@@ -17,7 +17,7 @@ export const SLHelp = () => {
         />
         <EnumeratedCard
           image={sl2}
-          imageAltText="Bildbeispiel von Schritt 2 des Datenstammblatt Saarland"
+          imageAltText="Bildbeispiel von Schritt 2 des Datenstammblatts Saarland"
           number="2"
           heading="Bodenrichtwert ablesen"
           text="Gehen Sie in die Tabelle des Datenstammblatts. Dort können Sie den Bodenrichtwert in Euro pro Quadratmeter ablesen."
