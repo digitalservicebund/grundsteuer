@@ -54,7 +54,7 @@ const PortalLink = ({
       <ExternalLinkButton
         url={portalUrl}
         border={false}
-        classNames={"mt-32 mb-32 pl-0"}
+        classNames={"my-16 pl-0"}
       >
         {portalLabel}
       </ExternalLinkButton>
