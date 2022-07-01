@@ -38,7 +38,7 @@ if (appMode === "cron") {
   Sentry.init({
     dsn: process.env.SENTRY_DSN,
     environment: process.env.APP_ENV,
-    tracesSampleRate: 0.05,
+    // tracesSampleRate: 0.05,
     integrations: [new Tracing.Integrations.Prisma({ client: db })],
   });
 
