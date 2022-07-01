@@ -140,6 +140,7 @@ export const loader: LoaderFunction = async ({
       currentState: currentStateFromUrl,
       stepDefinition,
       csrfToken,
+      env: process.env.APP_ENV,
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
