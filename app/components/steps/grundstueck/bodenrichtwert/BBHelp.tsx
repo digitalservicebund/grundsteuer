@@ -1,8 +1,8 @@
 import EnumeratedCard from "~/components/EnumeratedCard";
-import brandenburg1 from "~/assets/images/boris/info-brandenburg-1.png";
-import brandenburg2 from "~/assets/images/boris/info-brandenburg-2.png";
-import brandenburg3 from "~/assets/images/boris/info-brandenburg-3.png";
-import brandenburg4 from "~/assets/images/boris/info-brandenburg-4.png";
+import bb1 from "~/assets/images/boris/info-bb-1.png";
+import bb2 from "~/assets/images/boris/info-bb-2.png";
+import bb3 from "~/assets/images/boris/info-bb-3.png";
+import bb4 from "~/assets/images/boris/info-bb-4.png";
 
 export const BBHelp = () => {
   return (
@@ -10,7 +10,7 @@ export const BBHelp = () => {
       <h2 className="mb-32 text-24">Eine Schritt-für-Schritt Anleitung</h2>
       <div className="mb-80">
         <EnumeratedCard
-          image={brandenburg1}
+          image={bb1}
           imageAltText="Kartenausschnitt von Schritt 1 Bodenrichtwert-Portal Brandenburg"
           number="1"
           heading="Externe Seite öffnen und Adresse eingeben"
@@ -18,7 +18,7 @@ export const BBHelp = () => {
           className="mb-16"
         />
         <EnumeratedCard
-          image={brandenburg2}
+          image={bb2}
           imageAltText="Kartenausschnitt von Schritt 2 Bodenrichtwert-Portal Brandenburg"
           number="2"
           heading="Adresse / Flurstück im Kartenausschnitt finden"
@@ -26,7 +26,7 @@ export const BBHelp = () => {
           className="mb-16"
         />
         <EnumeratedCard
-          image={brandenburg3}
+          image={bb3}
           imageAltText="Kartenausschnitt von Schritt 3 Bodenrichtwert-Portal Brandenburg"
           number="3"
           heading="Link zu PDF finden"
@@ -34,7 +34,7 @@ export const BBHelp = () => {
           className="mb-16"
         />
         <EnumeratedCard
-          image={brandenburg4}
+          image={bb4}
           imageAltText="Kartenausschnitt von Schritt 4 Bodenrichtwert-Portal Brandenburg"
           number="4"
           heading="Bodenrichtwert dem PDF entnehmen"

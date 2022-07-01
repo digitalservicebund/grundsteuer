@@ -1,7 +1,7 @@
 import EnumeratedCard from "~/components/EnumeratedCard";
-import bremen1 from "~/assets/images/boris/info-bremen-1.png";
-import bremen2 from "~/assets/images/boris/info-bremen-2.png";
-import bremen3 from "~/assets/images/boris/info-bremen-3.png";
+import hb1 from "~/assets/images/boris/info-hb-1.png";
+import hb2 from "~/assets/images/boris/info-hb-2.png";
+import hb3 from "~/assets/images/boris/info-hb-3.png";
 
 export const HBHelp = () => {
   return (
@@ -9,7 +9,7 @@ export const HBHelp = () => {
       <h2 className="mb-32 text-24">Eine Schritt-für-Schritt Anleitung</h2>
       <div className="mb-80">
         <EnumeratedCard
-          image={bremen1}
+          image={hb1}
           imageAltText="Kartenausschnitt von Schritt 1 Bodenrichtwert-Portal Bremen und Niedersachsen"
           number="1"
           heading="Bodenrichtwert-Portal Bremen und Niedersachsen öffnen und Adresse eingeben"
@@ -17,7 +17,7 @@ export const HBHelp = () => {
           className="mb-16"
         />
         <EnumeratedCard
-          image={bremen2}
+          image={hb2}
           imageAltText="Kartenausschnitt von Schritt 2 Bodenrichtwert-Portal Bremen und Niedersachsen"
           number="2"
           heading="Bodenrichtwert ablesen"
@@ -25,7 +25,7 @@ export const HBHelp = () => {
           className="mb-16"
         />
         <EnumeratedCard
-          image={bremen3}
+          image={hb3}
           imageAltText="Kartenausschnitt von Schritt 3 Bodenrichtwert-Portal Bremen und Niedersachsen"
           number="3"
           heading="Sie sehen mehrere Bodenrichtwerte?"

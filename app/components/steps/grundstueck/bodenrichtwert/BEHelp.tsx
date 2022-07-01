@@ -1,9 +1,9 @@
 import EnumeratedCard from "~/components/EnumeratedCard";
-import berlin1 from "~/assets/images/boris/info-berlin-1.png";
-import berlin2 from "~/assets/images/boris/info-berlin-2.png";
-import berlin3 from "~/assets/images/boris/info-berlin-3.png";
-import berlin4 from "~/assets/images/boris/info-berlin-4.png";
-import berlin5 from "~/assets/images/boris/info-berlin-5.png";
+import be1 from "~/assets/images/boris/info-be-1.png";
+import be2 from "~/assets/images/boris/info-be-2.png";
+import be3 from "~/assets/images/boris/info-be-3.png";
+import be4 from "~/assets/images/boris/info-be-4.png";
+import be5 from "~/assets/images/boris/info-be-5.png";
 
 export const BEHelp = () => {
   return (
@@ -11,7 +11,7 @@ export const BEHelp = () => {
       <h2 className="mb-32 text-24">Eine Schritt-für-Schritt Anleitung</h2>
       <div className="mb-80">
         <EnumeratedCard
-          image={berlin1}
+          image={be1}
           imageAltText="Kartenausschnitt von Schritt 1 Bodenrichtwert-Portal Berlin"
           number="1"
           heading="Externe Seite öffnen und Adresse eingeben"
@@ -19,7 +19,7 @@ export const BEHelp = () => {
           className="mb-16"
         />
         <EnumeratedCard
-          image={berlin2}
+          image={be2}
           imageAltText="Kartenausschnitt von Schritt 2 Bodenrichtwert-Portal Berlin"
           number="2"
           heading="Adresse im Kartenausschnitt finden"
@@ -27,7 +27,7 @@ export const BEHelp = () => {
           className="mb-16"
         />
         <EnumeratedCard
-          image={berlin3}
+          image={be3}
           imageAltText="Kartenausschnitt von Schritt 3 Bodenrichtwert-Portal Berlin"
           number="3"
           heading="Bodenrichtwert auswählen"
@@ -35,7 +35,7 @@ export const BEHelp = () => {
           className="mb-16"
         />
         <EnumeratedCard
-          image={berlin4}
+          image={be4}
           imageAltText="Kartenausschnitt von Schritt 4 Bodenrichtwert-Portal Berlin"
           number="4"
           heading="PDF erzeugen"
@@ -43,7 +43,7 @@ export const BEHelp = () => {
           className="mb-16"
         />
         <EnumeratedCard
-          image={berlin5}
+          image={be5}
           imageAltText="Kartenausschnitt von Schritt 5 Bodenrichtwert-Portal Berlin"
           number="5"
           heading="Bodenrichtwert aus PDF entnehmen"

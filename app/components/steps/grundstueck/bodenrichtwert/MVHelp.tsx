@@ -1,15 +1,15 @@
 import EnumeratedCard from "~/components/EnumeratedCard";
-import mvp1 from "~/assets/images/boris/info-mvp-1.png";
-import mvp2 from "~/assets/images/boris/info-mvp-2.png";
-import mvp3 from "~/assets/images/boris/info-mvp-3.png";
-import mvp4 from "~/assets/images/boris/info-mvp-4.png";
-import mvp5 from "~/assets/images/boris/info-mvp-5.png";
+import mv1 from "~/assets/images/boris/info-mv-1.png";
+import mv2 from "~/assets/images/boris/info-mv-2.png";
+import mv3 from "~/assets/images/boris/info-mv-3.png";
+import mv4 from "~/assets/images/boris/info-mv-4.png";
+import mv5 from "~/assets/images/boris/info-mv-5.png";
 
 export const MVHelp = () => {
   return (
     <>
       <EnumeratedCard
-        image={mvp1}
+        image={mv1}
         imageAltText="Bildbeispiel von Schritt 1 des Grundsteuerdaten-Portals Mecklenburg-Vorpommern"
         number="1"
         heading="Externe Seite öffnen und Adresse eingeben"
@@ -17,7 +17,7 @@ export const MVHelp = () => {
         className="mb-16"
       />
       <EnumeratedCard
-        image={mvp2}
+        image={mv2}
         imageAltText="Bildbeispiel von Schritt 2 des Grundsteuerdaten-Portals Mecklenburg-Vorpommern"
         number="2"
         heading="Kartenausschnitt"
@@ -25,7 +25,7 @@ export const MVHelp = () => {
         className="mb-16"
       />
       <EnumeratedCard
-        image={mvp3}
+        image={mv3}
         imageAltText="Bildbeispiel von Schritt 3 des Grundsteuerdaten-Portals Mecklenburg-Vorpommern"
         number="3"
         heading="Flurstück auswählen"
@@ -33,7 +33,7 @@ export const MVHelp = () => {
         className="mb-16"
       />
       <EnumeratedCard
-        image={mvp4}
+        image={mv4}
         imageAltText="Bildbeispiel von Schritt 4 des Grundsteuerdaten-Portals Mecklenburg-Vorpommern"
         number="4"
         heading="PDF abrufen"
@@ -41,7 +41,7 @@ export const MVHelp = () => {
         className="mb-16"
       />
       <EnumeratedCard
-        image={mvp5}
+        image={mv5}
         imageAltText="Bildbeispiel von Schritt 5 des Grundsteuerdaten-Portals Mecklenburg-Vorpommern"
         number="5"
         heading="PDF öffnen und Bodenrichtwert ablesen"
