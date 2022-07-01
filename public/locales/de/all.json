@@ -641,7 +641,7 @@
     },
     "anzahl": {
       "headline": "Wie viele Eigentümer:innen hat das Gründstück/die Eigentumswohnung?",
-      "hint": "<bold>Wir decken nur die geteilte Erbengemeinschaft ab.</bold> Das bedeutet, die Eigentümer:innen sind im Grundbuch namentlich vermerkt und haben einen eignen Miteigentumsanteil am Grundstück. Wenn dies nicht auf Ihre Erbengemeinschaft zutrifft, geben Sie die Grundsteuererklärung bitte über ELSTER ab.",
+      "hint": "<bold>Für Erbengemeinschaften:</bold> Wir decken nur die geteilte Erbengemeinschaft ab. Das bedeutet die Eigentümer:innen sind im Grundbuch namentlich vermerkt und haben einen eignen Miteigentumsanteil am Grundstück. Wenn dies nicht auf Ihre Erbengemeinschaft zutrifft, geben Sie die Grundsteuererklärung bitte über ELSTER ab.",
       "fields": {
         "anzahl": {
           "label": "Anzahl Eigentümer:innen",
