@@ -54,7 +54,7 @@ const BEEingabeHelp: HelpComponentFunction = () => {
         {
           type: "paragraph",
           value:
-            "Es ist möglich, dass in einer Bodenrichtwertzone mehrere Werte angeben werden. Jeder Wert steht dann für eine andere Art der Nutzung (zum Beispiel Mehrfamilienhaus oder Gewerbefläche). Prüfen Sie, welche Art der Nutzung auf Ihr Grundstück zutrifft und tragen Sie den entsprechenden Wert ein.",
+            "Es ist möglich, dass in einer Bodenrichtwertzone mehrere Werte angegeben werden. Jeder Wert steht dann für eine andere Art der Nutzung (zum Beispiel Mehrfamilienhaus oder Gewerbefläche). Prüfen Sie, welche Art der Nutzung auf Ihr Grundstück zutrifft und tragen Sie den entsprechenden Wert ein.",
         },
         {
           type: "image",
@@ -85,7 +85,7 @@ const HBEingabeHelp: HelpComponentFunction = () => {
         {
           type: "paragraph",
           value:
-            "Es ist möglich, dass in einer Bodenrichtwertzone mehrere Werte angeben werden. Jeder Wert steht dann für eine andere Art der Nutzung (zum Beispiel Mehrfamilienhaus oder Gewerbefläche). Prüfen Sie, welche Art der Nutzung auf Ihr Grundstück zutrifft und tragen Sie den entsprechenden Wert ein.",
+            "Es ist möglich, dass in einer Bodenrichtwertzone mehrere Werte angegeben werden. Jeder Wert steht dann für eine andere Art der Nutzung (zum Beispiel Mehrfamilienhaus oder Gewerbefläche). Prüfen Sie, welche Art der Nutzung auf Ihr Grundstück zutrifft und tragen Sie den entsprechenden Wert ein.",
         },
         {
           type: "image",
@@ -176,7 +176,7 @@ const SHEingabeHelp: HelpComponentFunction = () => {
         {
           type: "paragraph",
           value:
-            "Es ist möglich, dass in einer Bodenrichtwertzone mehrere Werte angeben werden. Jeder Wert steht dann für eine andere Art der Nutzung (zum Beispiel Mehrfamilienhaus oder Gewerbefläche). Prüfen Sie, welche Art der Nutzung auf Ihr Grundstück zutrifft und tragen Sie den entsprechenden Wert ein.",
+            "Es ist möglich, dass in einer Bodenrichtwertzone mehrere Werte angegeben werden. Jeder Wert steht dann für eine andere Art der Nutzung (zum Beispiel Mehrfamilienhaus oder Gewerbefläche). Prüfen Sie, welche Art der Nutzung auf Ihr Grundstück zutrifft und tragen Sie den entsprechenden Wert ein.",
         },
         {
           type: "image",
@@ -227,7 +227,7 @@ const SNEingabeHelp: HelpComponentFunction = () => {
         {
           type: "paragraph",
           value:
-            "Es ist möglich, dass in einer Bodenrichtwertzone mehrere Werte angeben werden. Jeder Wert steht dann für eine andere Art der Nutzung (zum Beispiel Mehrfamilienhaus oder Gewerbefläche). Prüfen Sie, welche Art der Nutzung auf Ihr Grundstück zutrifft und tragen Sie den entsprechenden Wert ein.",
+            "Es ist möglich, dass in einer Bodenrichtwertzone mehrere Werte angegeben werden. Jeder Wert steht dann für eine andere Art der Nutzung (zum Beispiel Mehrfamilienhaus oder Gewerbefläche). Prüfen Sie, welche Art der Nutzung auf Ihr Grundstück zutrifft und tragen Sie den entsprechenden Wert ein.",
         },
         {
           type: "image",
@@ -278,7 +278,7 @@ const THEingabeHelp: HelpComponentFunction = () => {
         {
           type: "paragraph",
           value:
-            "Es ist möglich, dass in einer Bodenrichtwertzone mehrere Werte angeben werden. Jeder Wert steht dann für eine andere Art der Nutzung (zum Beispiel Mehrfamilienhaus oder Gewerbefläche). Prüfen Sie, welche Art der Nutzung auf Ihr Grundstück zutrifft und tragen Sie den entsprechenden Wert ein.",
+            "Es ist möglich, dass in einer Bodenrichtwertzone mehrere Werte angegeben werden. Jeder Wert steht dann für eine andere Art der Nutzung (zum Beispiel Mehrfamilienhaus oder Gewerbefläche). Prüfen Sie, welche Art der Nutzung auf Ihr Grundstück zutrifft und tragen Sie den entsprechenden Wert ein.",
         },
         {
           type: "image",
@@ -298,7 +298,7 @@ const DefaultEingabeHelp: HelpComponentFunction = () => {
         {
           type: "paragraph",
           value:
-            "Es ist möglich, dass in einer Bodenrichtwertzone mehrere Werte angeben werden. Jeder Wert steht dann für eine andere Art der Nutzung (zum Beispiel Mehrfamilienhaus oder Gewerbefläche). Prüfen Sie, welche Art der Nutzung auf Ihr Grundstück zutrifft und tragen Sie den entsprechenden Wert ein.",
+            "Es ist möglich, dass in einer Bodenrichtwertzone mehrere Werte angegeben werden. Jeder Wert steht dann für eine andere Art der Nutzung (zum Beispiel Mehrfamilienhaus oder Gewerbefläche). Prüfen Sie, welche Art der Nutzung auf Ihr Grundstück zutrifft und tragen Sie den entsprechenden Wert ein.",
         },
         {
           type: "image",

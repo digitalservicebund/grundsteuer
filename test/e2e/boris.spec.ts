@@ -57,7 +57,7 @@ describe("Boris pags", () => {
         "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
       infoBody: [
         "Klicken Sie auf den Link, der Sie zum Grundsteuerdaten-Portal Mecklenburg-Vorpommern führt.",
-        "In diesem Bodenrichtwert-Portal finden Sie noch weitere Angaben zu Gemarkung, Flurstück und Grundstücksgröße.",
+        "In diesem Grundsteuerdaten-Portal finden Sie noch weitere Angaben zu Gemarkung, Flurstück und Grundstücksgröße.",
       ],
       portalLabel: "Zum Grundsteuerdaten-Portal Mecklenburg-Vorpommern",
       eingabeDesc:

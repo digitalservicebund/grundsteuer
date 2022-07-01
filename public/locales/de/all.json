@@ -1256,7 +1256,7 @@
         "headline": "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
         "description": "Klicken Sie auf den Link, der Sie zum Grundsteuerdaten-Portal Mecklenburg-Vorpommern führt. Geben Sie dort Ihre Grundstücksadresse ein. Auf einer Karte können Sie den Bodenrichtwert ablesen. Nutzen Sie bei Bedarf unsere Schritt-für-Schritt Anleitung.",
         "specifics": {
-          "explanation": "In diesem Bodenrichtwert-Portal finden Sie noch weitere Angaben zu Gemarkung, Flurstück und Grundstücksgröße.",
+          "explanation": "In diesem Grundsteuerdaten-Portal finden Sie noch weitere Angaben zu Gemarkung, Flurstück und Grundstücksgröße.",
           "portalUrl": "https://www.geodaten-mv.de/grundsteuerdaten/Karten/Grundvermoegen",
           "portalLabel": "Zum Grundsteuerdaten-Portal Mecklenburg-Vorpommern",
           "bundesland": "Mecklenburg-Vorpommern"
