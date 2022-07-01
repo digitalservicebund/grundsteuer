@@ -1060,7 +1060,8 @@
       "hint": "Bitte tragen Sie das Aktenzeichen / die Steuernummer ohne Sonderzeichen ein.",
       "fields": {
         "steuernummer": {
-          "label": "Aktenzeichen/Steuernummer"
+          "label": "Aktenzeichen/Steuernummer",
+          "placeholder": "2080353038893"
         }
       },
       "help": {
