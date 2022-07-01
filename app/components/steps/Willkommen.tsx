@@ -26,7 +26,7 @@ const Willkommen: StepComponentFunction = () => {
         </IntroText>
 
         <SubHeadline>Wichtige Hinweise:</SubHeadline>
-        <IntroText>
+        <div className="mb-32 text-18 leading-26">
           <ol className="mb-32 ml-[15px] list-decimal">
             <li className="mb-16">
               Um die Erklärung nach Eingabe aller Daten an Ihr Finanzamt
@@ -59,7 +59,7 @@ const Willkommen: StepComponentFunction = () => {
             </li>
           </ol>
           <p>Jetzt kann es losgehen!</p>
-        </IntroText>
+        </div>
       </UebersichtStep>
     </ContentContainer>
   );
