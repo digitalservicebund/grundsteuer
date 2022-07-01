@@ -30,11 +30,13 @@ export default function Datenschutz() {
       </h1>
 
       <div className="prose prose-xl mb-64">
-        <p>Zuletzt aktualisiert: 01.07.2022</p>
+        <p>Zuletzt aktualisiert: 16.03.2022</p>
         <p>
-          Mit dem Online-Dienst <i>Grundsteuererklärung für Privateigentum</i>{" "}
-          möchten wir es Ihnen als Eigentümer:in einfacher machen, Ihre
-          Feststellungserklärung online abzugeben.
+          Mit dem Online-Dienst Grundsteuererklärung für Privateigentum möchten
+          wir es Ihnen als Eigentümer:in einfacher machen, Ihre
+          Feststellungserklärung online abzugeben. Die aktuell verfügbare
+          Landung Page bildet noch keinen vollständigen Service ab, sondern
+          informiert nur über den Service, der Anfang Juli 2022 online geht.
         </p>
         <p>
           Im Folgenden informieren wir Sie darüber, welche personenbezogenen
@@ -42,18 +44,17 @@ export default function Datenschutz() {
           Daten machen. Außerdem informieren wir Sie über Ihre Rechte in
           Datenschutzfragen und an wen Sie sich diesbezüglich wenden können.
         </p>
-
-        <h2>Wer sind wir?</h2>
+        <h3>Wer sind wir?</h3>
         <p>
-          Der Online-Dienst <i>Grundsteuererklärung für Privateigentum</i> wird
-          im Auftrag des Bundesministeriums für Finanzen von DigitalService GmbH
+          Der Online-Dienst Grundsteuererklärung für Privateigentum wird im
+          Auftrag des Bundesministeriums für Finanzen von DigitalService GmbH
           des Bundes entwickelt und betrieben.
         </p>
         <p>
-          DigitalService ist eine Bundes GmbH. Die Bundesrepublik Deutschland –
-          vertreten durch das Bundeskanzleramt – hält 100 Prozent der Anteile
-          der GmbH. Unser Ziel: Dienstleistungen, die besser für alle
-          funktionieren. Dienstleistungen der Verwaltung sollten für alle
+          DigitalService ist eine GmbH des Bundes. Die Bundesrepublik
+          Deutschland – vertreten durch das Bundeskanzleramt – hält 100 Prozent
+          der Anteile der GmbH. Unser Ziel: Dienstleistungen, die besser für
+          alle funktionieren. Dienstleistungen der Verwaltung sollten für alle
           Menschen genauso einfach zu erreichen und bedienen sein wie andere
           digitale Produkte, die wir in Beruf und Alltag regelmäßig nutzen.
           Deshalb stehen die Nutzer:innen mit ihren Bedürfnissen bei unserer
@@ -63,27 +64,18 @@ export default function Datenschutz() {
           Verwaltung und unter Einbindung von Bürger:innen bauen wir digitale
           Lösungen, die nutzerzentriert, modern und vertrauensfördernd sind.
         </p>
-        <p>
-          <a
-            href="https://digitalservice.bund.de"
-            target="_blank"
-            className="underline text-blue-800"
-          >
-            www.digitalservice.bund.de
-          </a>
-        </p>
-
-        <h2>Wer sind Ihre Ansprechpartner:innen?</h2>
+        <p>www.digitalservice.bund.de</p>
+        <h3>Wer sind Ihre Ansprechpartner:innen?</h3>
         <p>
           Fragen in datenschutzrechtlichen Angelegenheiten können Sie an die für
           den Steuerlotsen zuständigen Datenschutzbeauftragten richten:
         </p>
-
-        <h3>Verantwortliche Organisation</h3>
+        <h4>Verantwortliche Organisation</h4>
         <p>
           Die datenschutzrechtlich Verantwortliche für die auf unserer Website
           stattfindenden Datenverarbeitungen ist die
         </p>
+
         <p>
           DigitalService GmbH des Bundes
           <br /> Prinzessinenstraße 8-14 <br />
@@ -97,20 +89,16 @@ export default function Datenschutz() {
           E-Mail: datenschutz@digitalservice.bund.de
         </p>
 
-        <h2>Zu welchem Zweck verarbeiten wir Ihre personenbezogenen Daten?</h2>
+        <h3>Zu welchem Zweck verarbeiten wir Ihre personenbezogenen Daten?</h3>
+
         <p>
-          Zweck des Online-Dienstes ist es, bestimmten Privateigentümer:innen zu
-          ermöglichen, auf eine für Sie bequeme und nachvollziehbare Art und
-          Weise Ihrer Pflicht zur Abgabe einer Grundsteuererklärung
-          nachzukommen.
-        </p>
-        <p>
-          Um den Zweck des Dienstes zu erfüllen, ist die Verarbeitung
-          personenbezogener Daten, die für die Feststellung des Grundsteuerwerts
-          relevant sind, notwendig.
+          Zweck der Landing Page ist es, über das künftige Online-Service zu
+          informieren und Nutzer:innen die Möglichkeiten für die Kommunikation
+          via E-Mail einzuräumen.
         </p>
 
-        <h2>Welche personenbezogenen Daten verarbeiten wir?</h2>
+        <h3>Welche personenbezogenen Daten verarbeiten wir?</h3>
+
         <p>
           Wenn Sie diese Website aufrufen, verarbeiten wir die Daten Ihrer
           Anfrage, wie die konkret aufgerufene Seite, Ihre IP-Adresse, Ihren
@@ -121,88 +109,21 @@ export default function Datenschutz() {
           werden könnten.
         </p>
         <p>
-          Um Sie zu registrieren und anzumelden, nutzen wir Ihre Email-Adresse.
-        </p>
-        <p>
-          Um Sie zu identifizieren, nutzen wir Ihre steuerliche
-          Identifikationsnummer und Ihr Geburtsdatum.
-        </p>
-        <p>
-          Sollten Sie eine Grundsteuererklärung über den Steuerlotsen
-          abschicken, speichern wir kurzzeitig (60 Minuten) auch eine
-          Zusammenfassung Ihrer Angaben, insbesondere Daten über Ihr Grundstück
-          und Gebäude und die Kontaktdaten sowie steuerliche
-          Identifikationsnummer von Eigentümer:innen. Diese Zusammenfassung
-          wird, nachdem wir Sie Ihnen für Ihre Unterlagen in der pdf-Datei
-          bereitstellen, zeitnah wieder gelöscht. Die betroffenen Daten sind für
-          die Abgabe einer Grundsteuererklärung zwingend notwendig.
-        </p>
-        <p>
           Nehmen Sie unter der auf unserer Website angegebenen E-Mail-Adresse
           Kontakt zu uns auf, teilen Sie uns zumindest Ihre E-Mail-Adresse mit,
           sowie gegebenenfalls weitere Informationen, die Sie in Ihrer E-Mail
           preisgeben. Damit wir Ihr Anliegen bearbeiten können, müssen wir diese
           Daten verarbeiten.
         </p>
-
-        <h2> Auf welcher Grundlage werden die Daten verarbeitet?</h2>
+        <h3> Auf welcher Grundlage werden die Daten verarbeitet?</h3>
         <p>
-          Grundlage für die Datenverarbeitung bei der Registrierung und
-          Identifizierung sowie die Übermittlung der Steuerdaten ist Art. 6 Abs.
-          1 lit. a der Datenschutzgrundverordnung. Für eine notwendige
-          Archivierung der personenbezogenen Daten ist die Rechtsgrundlage Art.
-          6 Abs. 1 lit. a und c der Datenschutzgrundverordnung.
+          Für eine notwendige Archivierung der personenbezogenen Daten ist die
+          Rechtsgrundlage Art. 6 Abs. 1 lit. a und c der
+          Datenschutzgrundverordnung.
         </p>
 
-        <h2>
-          Unter welchen Voraussetzungen dürfen wir Ihre Daten an Dritte
-          weitergeben?
-        </h2>
-        <p>
-          Ihre in der Grundsteuererklärung eingegebenen Daten übermitteln wir
-          mittels ELSTER an die Finanzverwaltung. Diese Übermittlung ist
-          zwingend für die Abgabe der Grundsteuererklärung notwendig und
-          gesetzlich geregelt. Für die auf diese Weise übermittelten Daten
-          gelten die Unterlage Allgemeine Informationen zur Umsetzung der
-          datenschutzrechtlichen Vorgaben der Artikel 12 bis 14 der
-          Datenschutz-Grundverordnung in der Steuerverwaltung welche Sie unter
-          folgendem Link abrufen können:
-        </p>
-        <p>
-          <a
-            href="https://www.bzst.de/SharedDocs/Downloads/DE/Informationen_zum_Datenschutz/allg_informationen_zum_Datenschutz.pdf?__blob=publicationFile&v=3"
-            target="_blank"
-            className="underline text-blue-800"
-          >
-            Allgemeine Informationen zur Umsetzung der datenschutzrechtlichen
-            Vorgaben der Datenschutz-Grundverordnung in der Steuerverwaltung
-          </a>
-        </p>
+        <h3>Wie lange und wo speichern wir Ihre Daten?</h3>
 
-        <h2>Wie lange und wo speichern wir Ihre Daten?</h2>
-        <p>
-          Personenbezogene Daten, die Sie im Rahmen der Steuererklärung angeben,
-          werden für die Dauer der aktiven Nutzung verschlüsselt gespeichert.
-        </p>
-        <p>
-          Nach dem Verschicken der Steuererklärung werden die personenbezogenen
-          Daten 60 Minuten lang bei uns gespeichert, um Ihnen eine
-          Zusammenfassung der übermittelten Daten bereitzustellen. Da danach der
-          Zweck der Verarbeitung dieser Daten erfüllt ist, löschen wir sie gemäß
-          Art. 5 der Datenschutz-Grundverordnung (DSGVO).
-        </p>
-        <p>
-          Daten, die wir im Rahmen der Identifizierung erheben, sind wir, gemäß
-          §87d Abs. 2, verpflichtet 5 Jahre lang aufzubewahren. Diese
-          Protokolldaten werden nur zu diesem Zweck und in einem gesonderten
-          System gespeichert.
-        </p>
-        <p>
-          Für den Betrieb unseres Dienstes nutzen wir als Auftragsverarbeiter
-          den Dienstleister T-Systems International GmbH, Hahnstraße 43d, 60528
-          Frankfurt am Main. Ihre Daten werden ausschließlich in einem sicheren
-          Rechenzentrum in Deutschland gespeichert.
-        </p>
         <p>
           Ihre E-Mails und Kontaktaufnahmen speichern wir so lange, wie es zur
           Bearbeitung Ihrer Anfrage erforderlich ist und speichern Sie
@@ -210,68 +131,40 @@ export default function Datenschutz() {
           bezugnehmend auf Ihre ursprüngliche Frage noch einmal an uns wenden.
         </p>
 
-        <h2>Werden Webanalyse-Dienste oder Cookies eingesetzt?</h2>
+        <p>
+          Für den Betrieb unseres Dienstes nutzen wir als Auftragsverarbeiter
+          den Dienstleister T-Systems International GmbH, Hahnstraße 43d, 60528
+          Frankfurt am Main.
+        </p>
+
+        <h3>Werden Webanalyse-Dienste oder Cookies eingesetzt?</h3>
+
         <p>
           Für den Betrieb unseres Dienstes setzen wir ausschließlich einen für
           die Funktion der Webseite notwendigen Cookie. Dieser wird
-          verschlüsselt auf Ihrem Gerät hinterlegt. Es werden zwei Cookies
-          geschrieben:
+          verschlüsselt auf Ihrem Gerät hinterlegt.
         </p>
-        <ul>
-          <li>
-            Session-Cookie: Die maximale Länge einer Session entspricht der vom
-            Browser festgelegten Session-Länge.
-          </li>
-          <li>
-            Cookie mit Formulardaten: Dieser wird für 3 Monate in Ihrem Browser
-            gespeichert.
-          </li>
-        </ul>
+
         <p>
           Um den Dienst weiterzuentwickeln und zu analysieren, nutzen wir den
           Open Source Webanalysedienst plausible.io. Dieser erhebt jedoch weder
           personenbezogenen Daten, noch kommen dabei Cookies zum Einsatz.
           Weitere Informationen zu Plausible und der Datenverarbeitung finden
-          Sie unter{" "}
-          <a
-            href="https://plausible.io/data-policy"
-            target="_blank"
-            className="underline text-blue-800"
-          >
-            https://plausible.io/data-policy
-          </a>
-          .
+          Sie unter https://plausible.io/data-policy.
         </p>
 
-        <h2>Unter welchen Voraussetzungen erfolgt der E-Mail-Versand?</h2>
-        <p>
-          Der Versand der Transaktions-E-Mails ist für die Registrierung sowie
-          Anmeldung notwendig. Per E-Mail wird ein eindeutiger Link verschickt
-          (“Magic Link”), der Registrierung oder Anmeldung ermöglicht. Die Daten
-          werden ausschließlich für die Registrierung und/oder Anmeldung
-          verwendet.
-        </p>
-        <p>
-          Rechtsgrundlage für die Verarbeitung Ihrer personenbezogenen Daten ist
-          Art. 6 Abs. 1 DSGVO.
-        </p>
-        <p>
-          Die Verwaltung des E-Mail-Versands wird mit dem Dienstleister
-          Sendinblue GmbH durchgeführt. Die erhobenen E-Mail-Adressen werden auf
-          einem Server der Sendinblue GmbH gespeichert. Eine darüber
-          hinausgehende Weitergabe an Dritte findet nicht statt.
-        </p>
-
-        <h2>
+        <h3>
           Welche Rechte (Auskunftsrecht, Widerspruchsrecht usw.) haben Sie?
-        </h2>
+        </h3>
+
         <p>
           Sie haben nach der Datenschutz-Grundverordnung verschiedene Rechte.
           Einzelheiten ergeben sich insbesondere aus Artikel 15 bis 18 und 21
           der Datenschutz-Grundverordnung.
         </p>
 
-        <h3>Recht auf Auskunft</h3>
+        <h4>Recht auf Auskunft</h4>
+
         <p>
           Sie können Auskunft über Ihre von uns verarbeiteten personenbezogenen
           Daten verlangen. In Ihrem Auskunftsantrag sollten Sie Ihr Anliegen
@@ -280,14 +173,16 @@ export default function Datenschutz() {
           konkreten Prozessschritt gemacht werden.
         </p>
 
-        <h3>Recht auf Berichtigung</h3>
+        <h4>Recht auf Berichtigung</h4>
+
         <p>
           Sollten die Sie betreffenden Angaben nicht (mehr) zutreffend sein,
           können Sie eine Berichtigung verlangen. Sollten Ihre Daten
           unvollständig sein, können Sie eine Vervollständigung verlangen.
         </p>
 
-        <h3>Recht auf Löschung</h3>
+        <h4>Recht auf Löschung</h4>
+
         <p>
           Sie können die Löschung Ihrer personenbezogenen Daten verlangen. Ihr
           Anspruch auf Löschung hängt u. a. davon ab, ob die Sie betreffenden
@@ -295,20 +190,22 @@ export default function Datenschutz() {
           benötigt werden.
         </p>
 
-        <h3>Recht auf Einschränkung der Verarbeitung</h3>
+        <h4>Recht auf Einschränkung der Verarbeitung</h4>
+
         <p>
           Sie haben das Recht, eine Einschränkung der Verarbeitung der Sie
           betreffenden Daten zu verlangen.
         </p>
 
-        <h3>Recht auf Widerspruch</h3>
+        <h4>Recht auf Widerspruch</h4>
+
         <p>
           Sie haben das Recht, aus Gründen, die sich aus Ihrer besonderen
           Situation ergeben, jederzeit der Verarbeitung der Sie betreffenden
           Daten zu widersprechen.
         </p>
 
-        <h3>Recht auf Beschwerde </h3>
+        <h4>Recht auf Beschwerde </h4>
         <p>
           Wenn Sie der Auffassung sind, dass wir Ihrem Anliegen nicht oder nicht
           in vollem Umfang nachgekommen sind, können Sie bei unserem
@@ -321,12 +218,7 @@ export default function Datenschutz() {
           <br />
           1000 Elephants GmbH <br />
           Björn Stecher <br />
-          <a
-            href="mailto:datenschutz@digitalservice.bund.de"
-            className="underline text-blue-800"
-          >
-            datenschutz@digitalservice.bund.de
-          </a>
+          datenschutz@digitalservice.bund.de
         </p>
 
         <p>

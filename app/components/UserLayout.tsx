@@ -12,6 +12,7 @@ export default function UserLayout(props: {
   children: ReactNode;
   userIsLoggedIn?: boolean;
   userIsIdentified?: boolean;
+  disableLogin?: boolean;
 }) {
   return (
     <Layout
@@ -22,6 +23,7 @@ export default function UserLayout(props: {
             <NavigationActions
               userIsIdentified={props.userIsIdentified}
               userIsLoggedIn={props.userIsLoggedIn}
+              disableLogin={props.disableLogin}
             />
           }
         />

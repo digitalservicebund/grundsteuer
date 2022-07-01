@@ -11,6 +11,7 @@ import Lock from "~/components/icons/mui/Lock";
 export default function NavigationActions(props: {
   userIsIdentified?: boolean;
   userIsLoggedIn?: boolean;
+  disableLogin?: boolean;
 }) {
   const location = useLocation();
   const [currentLocation, setCurrentLocation] = useState(location.pathname);
@@ -20,8 +21,15 @@ export default function NavigationActions(props: {
       <div className="px-8 mb-32">
         <NavigationLink
           to="/anmelden"
-          icon={<PersonCircle className="w-24 h-24 fill-blue-800" />}
+          icon={
+            <PersonCircle
+              className={classNames("w-24 h-24 fill-blue-800", {
+                "fill-gray-800": props.disableLogin,
+              })}
+            />
+          }
           isAllCaps
+          isDisabled={props.disableLogin}
           isActive={!!currentLocation.match(/\/anmelden/)}
         >
           Anmelden

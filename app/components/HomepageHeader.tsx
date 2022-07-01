@@ -3,11 +3,20 @@ import { Button, ContentContainer } from "~/components/index";
 import logo from "~/assets/images/logo.svg";
 import classNames from "classnames";
 
-export function HomepageHeader({ pruefenActive }: { pruefenActive?: boolean }) {
+export function HomepageHeader({
+  loaderData,
+  pruefenActive,
+}: {
+  loaderData: { env: string };
+  pruefenActive?: boolean;
+}) {
   const { t } = useTranslation("all");
   // buttons in production are temporarily disabled until full launch
   // (implementation note: cannot pass props "disabled" and "to" at the same time)
-  const startButtonProps = { to: "/formular/welcome" };
+  const startButtonProps =
+    loaderData?.env === "production"
+      ? { disabled: true }
+      : { to: "/formular/welcome" };
   const pruefenButtonProps = { to: "/pruefen/start" };
 
   return (

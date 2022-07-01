@@ -14,15 +14,25 @@ import HomepageCrossPromo from "~/components/HomepageCrossPromo";
 import { HomepageHeader } from "~/components/HomepageHeader";
 
 export const loader: LoaderFunction = async () => {
-  return {};
+  return {
+    env: process.env.APP_ENV,
+  };
 };
 
 export default function Index() {
   const { t } = useTranslation("all");
+  const loaderData = useLoaderData();
 
   return (
     <>
-      <HomepageHeader />
+      <div className="flex-shrink-0 bg-yellow-300 border-l-[9px] border-l-yellow-500 py-16 lg:py-28">
+        <ContentContainer>
+          <div className="text-20 leading-26 lg:text-32 lg:leading-40">
+            {t("homepage.banner")}
+          </div>
+        </ContentContainer>
+      </div>
+      <HomepageHeader loaderData={loaderData} />
       <main className="flex-grow">
         <ContentContainer>
           <BmfLogo />
