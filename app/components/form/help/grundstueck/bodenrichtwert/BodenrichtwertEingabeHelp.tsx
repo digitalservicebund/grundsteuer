@@ -11,6 +11,7 @@ import sh from "~/assets/images/help/boris/eingabe-sh.png";
 import sl from "~/assets/images/help/boris/eingabe-sl.png";
 import sn from "~/assets/images/help/boris/eingabe-sn.png";
 import st from "~/assets/images/help/boris/eingabe-st.png";
+import th from "~/assets/images/help/boris/eingabe-th.png";
 import mehrereWerte from "~/assets/images/help/boris/eingabe-mehrere-werte.png";
 
 import { GrundModel } from "~/domain/steps";
@@ -259,6 +260,37 @@ const STEingabeHelp: HelpComponentFunction = () => {
   );
 };
 
+const THEingabeHelp: HelpComponentFunction = () => {
+  return (
+    <DefaultHelpContent
+      elements={[
+        {
+          type: "paragraph",
+          value:
+            "Im Grundsteuer Viewer Thüringen öffnet sich nach Adresseingabe ein Feld rechts neben dem Kartenausschnitt. Hier finden weiter unten den Bodenrichtwert für Ihr Grundstück.",
+        },
+        {
+          type: "image",
+          source: th,
+          altText:
+            "Bildbeispiel für einen Bodenrichtwert des Grundsteuer Viewers Thüringen",
+        },
+        {
+          type: "paragraph",
+          value:
+            "Es ist möglich, dass in einer Bodenrichtwertzone mehrere Werte angeben werden. Jeder Wert steht dann für eine andere Art der Nutzung (zum Beispiel Mehrfamilienhaus oder Gewerbefläche). Prüfen Sie, welche Art der Nutzung auf Ihr Grundstück zutrifft und tragen Sie den entsprechenden Wert ein.",
+        },
+        {
+          type: "image",
+          source: mehrereWerte,
+          altText:
+            "Bildbeispiel für eine Bodenrichtwertzone mit mehreren Werten",
+        },
+      ]}
+    />
+  );
+};
+
 const DefaultEingabeHelp: HelpComponentFunction = () => {
   return (
     <DefaultHelpContent
@@ -303,6 +335,8 @@ export const BodenrichtwertEingabeHelp: HelpComponentFunction = ({
       return <SNEingabeHelp />;
     case "ST":
       return <STEingabeHelp />;
+    case "TH":
+      return <THEingabeHelp />;
     default:
       return <DefaultEingabeHelp />;
   }

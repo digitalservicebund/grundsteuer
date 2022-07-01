@@ -139,6 +139,19 @@ describe("Boris pags", () => {
       eingabeDesc:
         "Den Wert haben Sie dem Grundsteuer-Viewer Sachsen-Anhalt entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
     },
+    {
+      bundesland: "Thüringen",
+      key: "TH",
+      infoTitle:
+        "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
+      infoBody: [
+        "Klicken Sie auf den Link, der Sie zum Grundsteuer Viewer Thüringen führt.",
+        "In diesem Grundsteuer Viewer finden Sie noch weitere Angaben zu Gemarkung, Flurstück und Grundstücksgröße.",
+      ],
+      portalLabel: "Zum Grundsteuer Viewer Thüringen",
+      eingabeDesc:
+        "Den Wert haben Sie dem Grundsteuer Viewer Thüringen entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
+    },
   ];
 
   data.forEach(

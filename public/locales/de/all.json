@@ -1324,10 +1324,12 @@
         }
       },
       "th": {
+        "headline": "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
+        "description": "Klicken Sie auf den Link, der Sie zum Grundsteuer Viewer Thüringen führt. Geben Sie dort Ihre Grundstücksadresse ein. Auf einer Karte können Sie den Bodenrichtwert ablesen. Nutzen Sie bei Bedarf unsere Schritt-für-Schritt Anleitung.",
         "specifics": {
-          "explanation": "",
+          "explanation": "In diesem Grundsteuer Viewer finden Sie noch weitere Angaben zu Gemarkung, Flurstück und Grundstücksgröße.",
           "portalUrl": "https://thueringenviewer.thueringen.de/thviewer/grundsteuer.html",
-          "portalLabel": "Zum Bodenrichtwert-Portal Thüringen",
+          "portalLabel": "Zum Grundsteuer Viewer Thüringen",
           "bundesland": "Thüringen"
         }
       }
@@ -1374,6 +1376,9 @@
       },
       "st": {
         "description": "Den Wert haben Sie dem Grundsteuer-Viewer Sachsen-Anhalt entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."
+      },
+      "th": {
+        "description": "Den Wert haben Sie dem Grundsteuer Viewer Thüringen entnommen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info."
       }
     },
     "bodenrichtwertAnzahl": {

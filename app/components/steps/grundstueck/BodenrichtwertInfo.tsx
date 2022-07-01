@@ -11,6 +11,7 @@ import { SHHelp } from "~/components/steps/grundstueck/bodenrichtwert/SHHelp";
 import { SLHelp } from "~/components/steps/grundstueck/bodenrichtwert/SLHelp";
 import { SNHelp } from "~/components/steps/grundstueck/bodenrichtwert/SNHelp";
 import { STHelp } from "~/components/steps/grundstueck/bodenrichtwert/STHelp";
+import { THHelp } from "~/components/steps/grundstueck/bodenrichtwert/THHelp";
 import { ExternalLinkButton } from "~/components/ExternalLinkButton";
 
 const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
@@ -46,10 +47,6 @@ const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
       </ContentContainer>
     </div>
   );
-};
-
-const THHelp = () => {
-  return <></>;
 };
 
 const BodenrichtwertHelp = ({ bundesland }: { bundesland?: string }) => {
