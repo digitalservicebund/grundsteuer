@@ -71,7 +71,6 @@ export type LoaderData = {
   currentState: string;
   stepDefinition: StepDefinition;
   csrfToken: string;
-  env: string;
 };
 
 const resetFlow = async () => {
@@ -141,7 +140,6 @@ export const loader: LoaderFunction = async ({
       currentState: currentStateFromUrl,
       stepDefinition,
       csrfToken,
-      env: process.env.APP_ENV,
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -226,7 +224,7 @@ export function Step() {
   return (
     <>
       <main className="flex-grow mb-56">
-        <HomepageHeader loaderData={loaderData} pruefenActive={true} />
+        <HomepageHeader pruefenActive={true} />
         <ContentContainer>
           <div className="bg-white px-16 md:px-80 py-16 md:py-56">
             <SectionLabel
@@ -284,15 +282,9 @@ export function Step() {
                       <>
                         {loaderData?.isSuccessStep && (
                           <Button
+                            to="/formular/welcome"
                             id="nextButton"
                             className={backUrl ? "" : "flex-grow-0"}
-                            {...{
-                              disabled: loaderData?.env === "production",
-                              to:
-                                loaderData?.env === "production"
-                                  ? undefined
-                                  : "/formular/welcome",
-                            }}
                           >
                             {nextButtonLabel}
                           </Button>

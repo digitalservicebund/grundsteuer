@@ -63,7 +63,7 @@ export default function Footer() {
               {t("footer.imprint")}
             </Link>
             <Link
-              to="#"
+              to="/nutzungsbedingungen"
               className="block text-blue-800 uppercase text-14 leading-26 font-bold tracking-widest"
             >
               {t("footer.termsOfUse")}
@@ -75,7 +75,7 @@ export default function Footer() {
               {t("footer.dataProtection")}
             </Link>
             <Link
-              to="#"
+              to="/barrierefreiheit"
               className="block text-blue-800 uppercase text-14 leading-26 font-bold tracking-widest"
             >
               {t("footer.accessibility")}
