@@ -15,7 +15,7 @@ export default function Footer() {
         icon={<LetterIcon />}
         to={"/hilfe"}
       >
-        Können wir helfen?
+        Haben Sie Fragen?
       </FloatButton>
       <div className="visible md:hidden p-32 bg-blue-200 text-16 flex flex-wrap md:flex md:justify-between md:items-center ">
         <div className="flex items-center">
@@ -23,8 +23,11 @@ export default function Footer() {
         </div>
         <div className="flex flex-wrap">
           <a href="/hilfe">
-            Haben Sie Fragen? Sie können uns eine{" "}
-            <span className="underline font-bold">Nachricht</span> schreiben.
+            Haben Sie noch Fragen? Schauen Sie sich{" "}
+            <span className="underline font-bold text-blue-800">
+              unsere Hilfeseite
+            </span>{" "}
+            an.
           </a>
         </div>
       </div>
