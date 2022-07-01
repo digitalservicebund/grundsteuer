@@ -71,6 +71,7 @@ export type LoaderData = {
   currentState: string;
   stepDefinition: StepDefinition;
   csrfToken: string;
+  env: string;
 };
 
 const resetFlow = async () => {
@@ -283,9 +284,15 @@ export function Step() {
                       <>
                         {loaderData?.isSuccessStep && (
                           <Button
-                            to="/formular/welcome"
                             id="nextButton"
                             className={backUrl ? "" : "flex-grow-0"}
+                            {...{
+                              disabled: loaderData?.env === "production",
+                              to:
+                                loaderData?.env === "production"
+                                  ? undefined
+                                  : "/formular/welcome",
+                            }}
                           >
                             {nextButtonLabel}
                           </Button>
