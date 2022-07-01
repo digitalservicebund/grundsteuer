@@ -372,8 +372,11 @@
       }
     },
     "nutzung": {
-      "headline": "Super, Sie können ab dem 04. Juli 2022 diesen Online-Dienst für Ihre Grundsteuererklärung nutzen.",
-      "nextButtonLabel": "Zur Grundsteuererklärung"
+      "headline": "Super, Sie können diesen Online-Dienst für Ihre Grundsteuererklärung nutzen.",
+      "nextButtonLabel": "Zur Grundsteuererklärung",
+      "specifics": {
+        "explanation": "Starten Sie jetzt Ihre Grundsteuererklärung zur Feststellung des Grundsteuerwerts."
+      }
     },
     "spaeterNutzung": {
       "headline": "Bald können Sie unseren Online-Dienst nutzen.",
