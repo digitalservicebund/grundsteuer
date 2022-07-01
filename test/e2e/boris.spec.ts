@@ -70,7 +70,7 @@ describe("Boris pags", () => {
         "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
       infoBody: [
         "Sie haben kürzlich ein Informationsschreiben von Ihrer Landesfinanzverwaltung erhalten.",
-        "Falls Ihnen der Brief nicht mehr vorliegt oder Sie zur Prüfung den Bodenrichtwert nachsehen wollen, klicken Sie auf den Link und geben Sie Ihre Grundstücksadresse auf der Seite des Bodenrichtwert-Portal Nordrhein-Westfalen ein.",
+        "Falls Ihnen der Brief nicht mehr vorliegt oder Sie zur Prüfung den Bodenrichtwert nachsehen wollen, klicken Sie auf den Link und geben Sie Ihre Grundstücksadresse auf der Seite des Bodenrichtwert-Portals Nordrhein-Westfalen ein.",
       ],
       portalLabel: "Zum Bodenrichtwert-Portal Nordrhein-Westfalen",
       eingabeDesc:

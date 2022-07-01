@@ -49,7 +49,7 @@ const BEEingabeHelp: HelpComponentFunction = () => {
           type: "image",
           source: be,
           altText:
-            "Kartenausschnitt des Bodenrichtwertportal Berlin mit einem Bodenrichtwert für ein markiertes Grundstück",
+            "Kartenausschnitt des Bodenrichtwertportals Berlin mit einem Bodenrichtwert für ein markiertes Grundstück",
         },
         {
           type: "paragraph",
@@ -80,7 +80,7 @@ const HBEingabeHelp: HelpComponentFunction = () => {
           type: "image",
           source: hb,
           altText:
-            "Bildbeispiel für einen Bodenrichtwert des Bodenrichtwertportal Bremen und Niedersachsen",
+            "Bildbeispiel für einen Bodenrichtwert des Bodenrichtwertportals Bremen und Niedersachsen",
         },
         {
           type: "paragraph",
@@ -125,13 +125,13 @@ const NWEingabeHelp: HelpComponentFunction = () => {
         {
           type: "paragraph",
           value:
-            "Den Bodenrichtwert finden Sie im Datenblatt des Informationsschreiben der Finanzverwaltung.",
+            "Den Bodenrichtwert finden Sie im Datenblatt des Informationsschreibens der Finanzverwaltung.",
         },
         {
           type: "image",
           source: nw,
           altText:
-            "Bildbeispiel für einen Bodenrichtwert des Bodenrichtwertportal Nordrhein-Westfalen",
+            "Bildbeispiel für einen Bodenrichtwert des Bodenrichtwertportals Nordrhein-Westfalen",
         },
       ]}
     />
@@ -222,7 +222,7 @@ const SNEingabeHelp: HelpComponentFunction = () => {
           type: "image",
           source: sn,
           altText:
-            "Bildbeispiel für einen Bodenrichtwert des Grundsteuerportal Sachsen",
+            "Bildbeispiel für einen Bodenrichtwert des Grundsteuerportals Sachsen",
         },
         {
           type: "paragraph",
@@ -253,7 +253,7 @@ const STEingabeHelp: HelpComponentFunction = () => {
           type: "image",
           source: st,
           altText:
-            "Bildbeispiel für einen Bodenrichtwert des Grundsteuer-Viewer Sachsen-Anhalt",
+            "Bildbeispiel für einen Bodenrichtwert des Grundsteuer-Viewers Sachsen-Anhalt",
         },
       ]}
     />

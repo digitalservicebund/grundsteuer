@@ -13,7 +13,7 @@ export const STHelp = () => {
       <div className="mb-80">
         <EnumeratedCard
           image={st1}
-          imageAltText="Kartenausschnitt von Schritt 1 des Grundsteuer-Viewer Sachsen-Anhalt"
+          imageAltText="Kartenausschnitt von Schritt 1 des Grundsteuer-Viewers Sachsen-Anhalt"
           number="1"
           heading="Grundsteuer-Viewer Sachsen-Anhalt öffnen und Adresse eingeben"
           text="Folgen Sie dem Link zum Grundsteuer-Viewer Sachsen-Anhalt. Schließen Sie auf der linken Seite den Bereich für die Suchparameter mit einem Klick auf das graue X in der rechten oberen Ecke."
@@ -21,7 +21,7 @@ export const STHelp = () => {
         />
         <EnumeratedCard
           image={st2}
-          imageAltText="Kartenausschnitt von Schritt 2 des Grundsteuer-Viewer Sachsen-Anhalt"
+          imageAltText="Kartenausschnitt von Schritt 2 des Grundsteuer-Viewers Sachsen-Anhalt"
           number="2"
           heading="Adresse eingeben"
           text="Darunter befindet sich eine Suchleiste. Geben Sie hier die Adresse Ihres Grundstücks ein und bestätigen Sie die Auswahl."
@@ -29,7 +29,7 @@ export const STHelp = () => {
         />
         <EnumeratedCard
           image={st3}
-          imageAltText="Kartenausschnitt von Schritt 3 des Grundsteuer-Viewer Sachsen-Anhalt"
+          imageAltText="Kartenausschnitt von Schritt 3 des Grundsteuer-Viewers Sachsen-Anhalt"
           number="3"
           heading="Flurstück im Kartenausschnitt finden"
           text="Die eingegebene Adresse wird mit einem roten Symbol markiert. Mit Klick auf das Plus-Zeichen am rechten Kartenrand vergrößern Sie den Ausschnitt und sehen weitere Details zu Flurstück und Gemarkung."
@@ -37,7 +37,7 @@ export const STHelp = () => {
         />
         <EnumeratedCard
           image={st4}
-          imageAltText="Kartenausschnitt von Schritt 4 des Grundsteuer-Viewer Sachsen-Anhalt"
+          imageAltText="Kartenausschnitt von Schritt 4 des Grundsteuer-Viewers Sachsen-Anhalt"
           number="4"
           heading="Gemarkung und Flur ermitteln"
           text="Verschieben Sie den Kartenausschnitt so, das Gemarkung (“Gmkg”) und Flur innerhalb der roten Linie angezeigt werden."
@@ -45,7 +45,7 @@ export const STHelp = () => {
         />
         <EnumeratedCard
           image={st5}
-          imageAltText="Kartenausschnitt von Schritt 5 des Grundsteuer-Viewer Sachsen-Anhalt"
+          imageAltText="Kartenausschnitt von Schritt 5 des Grundsteuer-Viewers Sachsen-Anhalt"
           number="5"
           heading="Informationen zum Flurstück erhalten"
           text="Klicken Sie auf “Suche” oben in der Menüleiste. Das Suchfenster öffnet sich im linken Bereich. Übertragen Sie hier die Angaben aus dem Kartenausschnitt zu Gemarkung, Flur, Zähler und Nenner. Klicken Sie auf “Suche starten”"
@@ -53,7 +53,7 @@ export const STHelp = () => {
         />
         <EnumeratedCard
           image={st6}
-          imageAltText="Kartenausschnitt von Schritt 6 des Grundsteuer-Viewer Sachsen-Anhalt"
+          imageAltText="Kartenausschnitt von Schritt 6 des Grundsteuer-Viewers Sachsen-Anhalt"
           number="6"
           heading="Bodenrichtwert ablesen"
           text="Rechts öffnet sich ein Fenster “Informationen zum Flurstück”. Scrollen Sie in diesem Fenster runter, bis Sie die Angaben zum Bodenrichtwert finden. Merken Sie sich diesen für die Eingabe. Laden Sie sich bei Bedarf auch das Infoblatt als PDF herunter."

@@ -1268,7 +1268,7 @@
         "headline": "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
         "description": "Sie haben kürzlich ein Informationsschreiben von Ihrer Landesfinanzverwaltung erhalten. Diesem ist eine Anlage beigelegt. Darin finden Sie alle Angaben zu Ihrem Grundstück.",
         "specifics": {
-          "explanation": "Falls Ihnen der Brief nicht mehr vorliegt oder Sie zur Prüfung den Bodenrichtwert nachsehen wollen, klicken Sie auf den Link und geben Sie Ihre Grundstücksadresse auf der Seite des Bodenrichtwert-Portal Nordrhein-Westfalen ein. Auf einer Karte können Sie den Bodenrichtwert ablesen.",
+          "explanation": "Falls Ihnen der Brief nicht mehr vorliegt oder Sie zur Prüfung den Bodenrichtwert nachsehen wollen, klicken Sie auf den Link und geben Sie Ihre Grundstücksadresse auf der Seite des Bodenrichtwert-Portals Nordrhein-Westfalen ein. Auf einer Karte können Sie den Bodenrichtwert ablesen.",
           "portalUrl": "https://grundsteuer-geodaten.nrw.de/",
           "portalLabel": "Zum Bodenrichtwert-Portal Nordrhein-Westfalen",
           "bundesland": "Nordrhein-Westfalen"
@@ -1278,7 +1278,7 @@
         "headline": "Ermitteln Sie weitere Angaben für die Eingaben auf den folgenden Seiten",
         "description": "Sie haben kürzlich ein Informationsschreiben von Ihrer Landesfinanzverwaltung erhalten. Diesem ist ein Datenstammblatt beigelegt. Darin finden Sie alle Angaben zu Ihrem Grundstück.",
         "specifics": {
-          "explanation": "Falls Ihnen der Brief nicht mehr vorliegt oder Sie zur Prüfung den Bodenrichtwert nachsehen wollen, klicken Sie auf den Link und geben Sie Ihre Grundstücksadresse auf der Seite des Bodenrichtwert-Portal Rheinland-Pfalz ein. Auf einer Karte können Sie den Bodenrichtwert ablesen.",
+          "explanation": "Falls Ihnen der Brief nicht mehr vorliegt oder Sie zur Prüfung den Bodenrichtwert nachsehen wollen, klicken Sie auf den Link und geben Sie Ihre Grundstücksadresse auf der Seite des Bodenrichtwert-Portals Rheinland-Pfalz ein. Auf einer Karte können Sie den Bodenrichtwert ablesen.",
           "portalUrl": "https://www.boris.rlp.de",
           "portalLabel": "Zum Bodenrichtwert-Portal Rheinland-Pfalz",
           "bundesland": "Rheinland-Pfalz"
