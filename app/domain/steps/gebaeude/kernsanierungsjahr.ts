@@ -20,7 +20,7 @@ export const gebaeudeKernsanierungsjahr: StepDefinition = {
         },
         yearInPast: {
           excludingCurrentYear: true,
-          msg: "Das Jahr muss vor dem Veranlagungszeitraum liegen - also vor 2022 kernsaniert worden sein",
+          msg: "Das Jahr muss vor dem Feststellungszeitpunkt liegen - also vor 2022 kernsaniert worden sein.",
         },
         yearAfterBaujahr: {},
       },
