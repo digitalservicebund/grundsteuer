@@ -27,7 +27,7 @@ const Bruchteilsgemeinschaft: StepComponentFunction = ({
       <div className="bg-white p-16 mb-8">
         <div className="mb-8">
           <Person height="25px" width="25px" className="inline-block mr-8" />
-          <h3 className="font-bold inline-block uppercase text-11">
+          <h3 className="font-bold inline-block uppercase text-11 tracking-1">
             {i18n.specifics.nameHeading}
           </h3>
         </div>
@@ -56,7 +56,7 @@ const Bruchteilsgemeinschaft: StepComponentFunction = ({
       <div className="bg-white p-16 mb-32">
         <div className="mb-8">
           <House height="25px" width="25px" className="inline-block mr-8" />
-          <h3 className="font-bold inline-block uppercase text-11">
+          <h3 className="font-bold inline-block uppercase text-11 tracking-1">
             {i18n.specifics.adresseHeading}
           </h3>
         </div>

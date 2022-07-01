@@ -166,7 +166,7 @@
               "label": "Eine Erbengemeinschaft"
             },
             "mehrereErben": {
-              "label": "Mehrere Erben. Das Grundstück wurde zwar vor dem 1.1.2022 geerbt, die Erbengemeinschaft wurde aber bereits aufgelöst und die Eigentümer:innen stehen bereits im Grundbuch"
+              "label": "Mehrere Erben. Das Grundstück wurde zwar vor dem 01.01.2022 geerbt, die Erbengemeinschaft wurde aber bereits aufgelöst und die Eigentümer:innen stehen bereits im Grundbuch"
             },
             "unternehmen": {
               "label": "Eine Organisation, ein Verein, ein Unternehmen, eine Personengesellschaft, eine Stiftung oder eine Genossenschaft"
@@ -464,7 +464,7 @@
   },
   "welcome": {
     "headline": "Herzlich willkommen bei Ihrer Grundsteuererklärung für Privateigentum!",
-    "nextButtonLabel": "Verstanden"
+    "nextButtonLabel": "Los geht's"
   },
   "gebaeude": {
     "uebersicht": {
@@ -978,7 +978,7 @@
     },
     "abschluss": {
       "headline": "Super, Sie sind fast fertig!",
-      "description": "Bevor Sie Ihre Grundsteuererklärung an das Finanzamt übermitteln, überprüfen Sie bitte Ihre Angaben auf der nächsten Seite.",
+      "description": "Bevor Sie Ihre Grundsteuererklärung an das Finanzamt übermitteln, überprüfen Sie bitte Ihre Angaben in der Übersicht.",
       "nextButtonLabel": "Zur Übersicht"
     }
   },

@@ -247,7 +247,7 @@ export default function FscBeantragen() {
         <IntroText>
           Nur mit einem Freischaltcode können Sie Ihre Grundsteuererklärung nach
           Eingabe aller Daten absenden. Wir benötigen Ihre Steuernummer und
-          Geburtsdatum, um Sie eindeutig zu identifizieren.
+          Geburtsdatum um Sie eindeutig zu identifizieren.
         </IntroText>
 
         {showError && !isSubmitting && (
@@ -332,7 +332,7 @@ export default function FscBeantragen() {
         imageAltText="Bildbeispiel der Eingabe des Freischaltcode"
         number="3"
         heading="Sie geben den Freischaltcode ein"
-        text="Sobald Sie den Brief mit dem Freischaltcode erhalten haben, können Sie ihn hier hinterlegen und sind damit identifizeirt. Die Erklärung schicken Sie dann ab, wenn Sie sich bereit fühlen."
+        text="Sobald Sie den Brief mit dem Freischaltcode erhalten haben, können Sie ihn hier hinterlegen und sind damit identifiziert. Im Anschluss können Sie eine vollständig ausgefüllte Erklärung abschicken."
       />
     </div>
   );

@@ -17,49 +17,53 @@ const Willkommen: StepComponentFunction = () => {
 
         <SubHeadline>Welche Unterlagen brauchen Sie?</SubHeadline>
         <IntroText>
-          Damit Sie Ihre Daten möglichst bequem und schnell eingeben können,
-          legen Sie sich am besten folgende Unterlagen bereit: Ihren
-          Grundbuchauszug, das Informationsschreiben Ihrer
-          Landesfinanzverwaltung (falls erhalten) Weitere Unterlagen wie
-          Bauunterlagen, Einheitswertbescheid, letzter Grundsteuerbescheid,
-          Versicherungspolice (falls zur Hand)
+          <ul className="font-bold list-disc pl-24">
+            <li className="mb-16">
+              Informationsschreiben Ihres Bundeslandes ggf. mit beigefügtem
+              Beiblatt oder Datenstammblatt
+            </li>
+            <li className="mb-16">
+              Grundsteuerportal (Geodatenportal) Ihres Bundeslandes
+            </li>
+            <li className="mb-48">
+              Optional: Grundbuchauszug, Einheitswertbescheid,
+              Kauf-/Schenkungsvertrag, Teilungserklärung bei Wohnungseigentum
+              oder Bau-/Vermessungsunterlagen
+            </li>
+          </ul>
         </IntroText>
 
         <SubHeadline>Wichtige Hinweise:</SubHeadline>
-        <div className="mb-32 text-18 leading-26">
-          <ol className="mb-32 ml-[15px] list-decimal">
-            <li className="mb-16">
-              Um die Erklärung nach Eingabe aller Daten an Ihr Finanzamt
-              übermitteln zu können, brauchen Sie einen{" "}
-              <span className="font-bold">Freischaltcode</span>. Informationen
-              dazu finden Sie jederzeit nach Klick auf den Link oben rechts auf
-              dieser Seite.
+        <IntroText>
+          <ol className="mb-32 ml-[15px]">
+            <li className="mb-16 flex">
+              <div className="mr-16 enumerate-icon">1</div>
+              <div>
+                Alle Angaben beziehen sich auf den Zustand Ihres Grundstücks am
+                01.01.2022. Fragen Sie sich bei den Angaben also zum Beispiel
+                “Wie sah mein Grundstück am 01.01.2022 aus?”
+              </div>
             </li>
-            <li className="mb-16">
-              Alle Angaben beziehen sich auf den Zustand Ihres Grundstücks am{" "}
-              <strong>01.01.2022</strong>. Faustregel: Stellen Sie sich bei
-              jeder Angabe die Frage “Wie sah mein Grundstück am 01.01.2022
-              aus?”
+            <li className="mb-16 flex">
+              <div className="mr-16 enumerate-icon">2</div>
+              <div>
+                Sie können die Bearbeitung unterbrechen und zu einem späteren
+                Zeitpunkt fortführen. Bitte beachten Sie, das die Bearbeitung
+                nur mit dem Gerät und Browser möglich ist, mit denen Sie sich
+                angemeldet haben.
+              </div>
             </li>
-            <li className="mb-16">
-              Mit unserem Online-Service geben Sie eine{" "}
-              <strong>Hauptfeststellung</strong> ab. Das ist standardmäßig so,
-              wenn Sie zum ersten Mal die Erklärung abgeben.
-            </li>
-            <li className="mb-16">
-              Ihre Daten werden nur temporär in einem sogenannten{" "}
-              <strong>Cookie</strong> gespeichert. Deshalb können Sie die
-              Bearbeitung nur mit dem Gerät und dem Browser abbrechen und
-              fortsetzen, mit denen Sie sich angemeldet haben. (Wenn Sie Ihre
-              Browserdaten löschen, sind auch Ihre Eingaben gelöscht.)
-            </li>
-            <li>
-              Für jedes Grundstück müssen Sie eine eigene Grundsteuererklärung
-              abgeben.
+            <li className="mb-16 flex">
+              <div className="mr-16 enumerate-icon">3</div>
+              <div>
+                Für jedes Grundstück müssen Sie eine eigene Grundsteuererklärung
+                abgeben. Unter Grundstück versteht man zusammengehörende
+                Grundstücksflächen, wie zum Beispiel direkt
+                nebeneinanderliegende Haus- und Gartengründstücke.
+              </div>
             </li>
           </ol>
-          <p>Jetzt kann es losgehen!</p>
-        </div>
+        </IntroText>
       </UebersichtStep>
     </ContentContainer>
   );
