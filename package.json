@@ -98,7 +98,7 @@
     "@types/lodash": "^4.14.182",
     "@types/lru-cache": "^7.10.10",
     "@types/morgan": "^1.9.3",
-    "@types/node": "^18.0.0",
+    "@types/node": "^18.0.1",
     "@types/node-cron": "^3.0.1",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
