@@ -1,8 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "linux-musl"]
 }
 
@@ -12,36 +9,36 @@ datasource db {
 }
 
 model User {
-  id                            String          @id @default(uuid())
-  email                         String          @unique
-  identified                    Boolean         @default(false)
-  createdAt                     DateTime        @default(now())
-  fscRequest                    FscRequest?
-  ericaRequestIdFscBeantragen   String?
-  ericaRequestIdFscAktivieren   String?
-  ericaRequestIdFscStornieren   String?
-  ericaRequestIdSenden          String?
-  transferticket                String?
-  pdf                           Pdf?
+  id                          String      @id @default(uuid())
+  email                       String      @unique
+  identified                  Boolean     @default(false)
+  createdAt                   DateTime    @default(now())
+  ericaRequestIdFscBeantragen String?
+  ericaRequestIdSenden        String?
+  ericaRequestIdFscAktivieren String?
+  transferticket              String?
+  ericaRequestIdFscStornieren String?
+  fscRequest                  FscRequest?
+  pdf                         Pdf?
 }
 
 model Pdf {
-  userId        String          @id @unique
-  createdAt     DateTime        @default(now())
-  data          Bytes
-  User          User            @relation(fields: [userId], references: [id])
+  userId    String   @id @unique
+  createdAt DateTime @default(now())
+  data      Bytes
+  User      User     @relation(fields: [userId], references: [id])
 }
 
 model FscRequest {
-  id            String      @id @default(uuid())
-  requestId     String
-  createdAt     DateTime    @default(now())
-  userId        String      @unique
-  User          User        @relation(fields: [userId], references: [id])
+  id        String   @id @default(uuid())
+  requestId String
+  createdAt DateTime @default(now())
+  userId    String   @unique
+  User      User     @relation(fields: [userId], references: [id])
 }
 
 model AuditLog {
-  id            String      @id @default(uuid())
-  createdAt     DateTime    @default(now())
-  data          String
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  data      String
 }
