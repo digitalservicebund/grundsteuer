@@ -246,8 +246,16 @@ export default function FscBeantragen() {
 
         <IntroText>
           Nur mit einem Freischaltcode können Sie Ihre Grundsteuererklärung nach
-          Eingabe aller Daten absenden. Wir benötigen Ihre Steuernummer und
-          Geburtsdatum um Sie eindeutig zu identifizieren.
+          Eingabe aller Daten absenden. Wir benötigen Ihre
+          Steuer-Identifikationsnummer und Geburtsdatum um Sie eindeutig zu
+          identifizieren.
+        </IntroText>
+
+        <IntroText>
+          Der Freischaltcode wird von Ihrem technischen Finanzamt als Brief an
+          Ihre Meldeadresse versendet. Dies dauert in der Regel 7 bis 14 Tage.
+          Sie können aber schon vor dem Erhalt des Codes Ihre
+          Grundsteuererklärung ausfüllen.
         </IntroText>
 
         {showError && !isSubmitting && (
