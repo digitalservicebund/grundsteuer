@@ -15,7 +15,7 @@ export default function NavigationLink(props: NavigationLinkProps) {
   const { isActive, isAllCaps, isFinished, to, icon, children, ...otherProps } =
     props;
   const cssClasses = classNames(
-    "navigation-link flex w-full py-6 pl-8 pr-16 text-16 leading-24 hover:underline hover:bg-blue-200 focus:bg-blue-200 focus:outline-none focus:shadow-[inset_0_0_0_2px_#004b76] focus-visible:shadow-[inset_0_0_0_2px_#004b76]",
+    "navigation-link flex w-full py-6 pl-8 pr-16 text-16 leading-24 items-center hover:underline hover:bg-blue-200 focus:bg-blue-200 focus:outline-none focus:shadow-[inset_0_0_0_2px_#004b76] focus-visible:shadow-[inset_0_0_0_2px_#004b76]",
     { "bg-blue-200": isActive, "text-14 uppercase font-bold": isAllCaps }
   );
 

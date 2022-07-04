@@ -5,7 +5,6 @@ import EmailOutlinedIcon from "~/components/icons/mui/EmailOutlined";
 import NavigationLink from "./NavigationLink";
 import PersonCircle from "~/components/icons/mui/PersonCircle";
 import LetterIcon from "~/components/icons/mui/LetterIcon";
-import classNames from "classnames";
 import Lock from "~/components/icons/mui/Lock";
 
 export default function NavigationActions(props: {
@@ -20,7 +19,7 @@ export default function NavigationActions(props: {
       <div className="px-8 mb-32">
         <NavigationLink
           to="/anmelden"
-          icon={<PersonCircle className="w-24 h-24 fill-blue-800" />}
+          icon={<PersonCircle className="w-[20px] h-[20px] fill-blue-800" />}
           isAllCaps
           isActive={!!currentLocation.match(/\/anmelden/)}
         >
@@ -28,7 +27,7 @@ export default function NavigationActions(props: {
         </NavigationLink>
         <NavigationLink
           to="/hilfe"
-          icon={<LetterIcon className="w-24 h-24 fill-blue-800" />}
+          icon={<LetterIcon className="w-[20px] h-[20px] fill-blue-800" />}
           isAllCaps
           isActive={!!currentLocation.match(/\/hilfe/)}
         >

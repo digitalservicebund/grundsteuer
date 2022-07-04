@@ -46,7 +46,7 @@ export default function TopNavigation(props: TopNavigationProps) {
 
       <div
         id="top-navigation-content"
-        className="peer-checked:flex overflow-y-auto bg-white fixed z-10 top-64 left-0 w-full h-full hidden flex-wrap md:gap-32 px-16 pt-24 pb-80 md:px-24"
+        className="peer-checked:flex overflow-y-auto bg-white fixed z-10 top-64 left-0 w-full h-full hidden flex-wrap md:gap-32 px-16 pt-48 pb-80 md:px-24"
       >
         <div className="min-w-[16rem] flex-[1_0_16rem]">{props.actions}</div>
         <div className="min-w-[16rem] flex-[4_0_16rem]">{props.children}</div>
