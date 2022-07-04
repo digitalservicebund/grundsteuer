@@ -318,7 +318,8 @@ export default function FscEingeben() {
       <Headline>Bitte geben Sie Ihren Freischaltcode ein</Headline>
       <IntroText>
         Ihren Freischaltcode finden Sie in dem Brief, den Sie von Ihrem
-        Finanzamt erhalten haben. Der Code steht auf der letzten Seite.
+        Finanzamt erhalten haben. Die Zusendung dauert in der Regel 2 Wochen.
+        Der Code steht auf der letzten Seite.
       </IntroText>
 
       {showError && !isSubmitting && (
