@@ -7,7 +7,7 @@ export default function LoggedOutLayout(props: { children: ReactNode }) {
   return (
     <>
       <HomepageHeader />
-      <main className="flex-grow pt-32">
+      <main className="flex-grow">
         <ContentContainer>{props.children}</ContentContainer>
       </main>
       <Footer />
