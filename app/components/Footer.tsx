@@ -1,7 +1,5 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "@remix-run/react";
-import FloatButton from "~/components/FloatButton";
-import LetterIcon from "~/components/icons/mui/LetterIcon";
 
 export default function Footer() {
   const { t } = useTranslation("all");
@@ -66,12 +64,6 @@ export default function Footer() {
               className="block text-blue-800 uppercase text-14 leading-26 font-bold tracking-widest"
             >
               {t("footer.dataProtection")}
-            </Link>
-            <Link
-              to="/barrierefreiheit"
-              className="block text-blue-800 uppercase text-14 leading-26 font-bold tracking-widest"
-            >
-              {t("footer.accessibility")}
             </Link>
             <a
               href="https://github.com/digitalservicebund/grundsteuer"
