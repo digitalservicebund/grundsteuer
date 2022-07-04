@@ -4,7 +4,8 @@ FROM node:16.15.1 as build
 WORKDIR /src
 # Required files are whitelisted in dockerignore
 COPY . ./
-RUN npm set-script prepare "" && npm ci && npm run build && npm prune --production
+RUN npm set-script prepare "" && npm ci && npm run build && npm prune --production && \
+    curl https://dbs-download.obs.otc.t-systems.com/rds/ca-bundle.pem -o /opt/rds-ca-bundle.pem
 
 FROM node:16.15.1-alpine3.16
 RUN apk add --no-cache dumb-init curl && \
