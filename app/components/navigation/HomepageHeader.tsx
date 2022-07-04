@@ -1,5 +1,5 @@
 import { TFunction, useTranslation } from "react-i18next";
-import { Button, ContentContainer, TopNavigation } from "~/components/index";
+import { Button, ContentContainer, TopNavigation } from "~/components";
 import logo from "~/assets/images/logo.svg";
 import classNames from "classnames";
 import { ReactNode } from "react";

@@ -2,7 +2,7 @@ import { getStepData } from "~/domain/model";
 import Finished from "~/components/icons/mui/Finished";
 import Edit from "~/components/icons/mui/Edit";
 import { conditions } from "~/domain/guards";
-import { Accordion, StepFormField } from "~/components";
+import { Accordion, SectionLabel, StepFormField } from "~/components";
 import { AccordionItemProps } from "~/components/AccordionItem";
 import {
   EigentuemerModel,
@@ -34,7 +34,6 @@ import { StepFormFieldProps } from "~/components/form/StepFormField";
 import Paragraph from "~/components/icons/mui/Paragraph";
 import ExclamationMarkFilled from "~/components/icons/mui/ExclamationMarkFilled";
 import { EigentuemerBruchteilsgemeinschaftAdresseFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
-import SectionLabel from "~/components/SectionLabel";
 import { removeUndefined } from "~/util/removeUndefined";
 
 const isDataEmpty = (

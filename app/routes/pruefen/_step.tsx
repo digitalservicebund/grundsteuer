@@ -18,6 +18,7 @@ import {
   ButtonContainer,
   ContentContainer,
   Footer,
+  SectionLabel,
 } from "~/components";
 import { getStepData, setStepData, StepFormData } from "~/domain/model";
 import { validateStepFormData } from "~/domain/validation";
@@ -40,14 +41,13 @@ import { pruefenConditions } from "~/domain/pruefen/guards";
 import { PruefenModel } from "~/domain/pruefen/model";
 import { getBackUrl, getRedirectUrl } from "~/util/constructUrls";
 import { State } from "xstate/lib/State";
-import SectionLabel from "~/components/SectionLabel";
 import Communication from "~/components/icons/mui/Communication";
 import {
   getFromPruefenStateCookie,
   saveToPruefenStateCookie,
 } from "~/cookies.server";
 import { commitSession, getSession } from "~/session.server";
-import { HomepageHeader } from "~/components/HomepageHeader";
+import { HomepageHeader } from "~/components/navigation/HomepageHeader";
 
 const PREFIX = "pruefen";
 const START_STEP = "start";

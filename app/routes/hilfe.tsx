@@ -2,7 +2,7 @@ import { MetaFunction } from "@remix-run/node";
 import { pageTitle } from "~/util/pageTitle";
 import { ContentContainer, Footer } from "~/components";
 import Button from "~/components/Button";
-import { HomepageHeader } from "~/components/HomepageHeader";
+import { HomepageHeader } from "~/components/navigation/HomepageHeader";
 import Hint from "~/components/Hint";
 import EmailOutlined from "~/components/icons/mui/EmailOutlined";
 

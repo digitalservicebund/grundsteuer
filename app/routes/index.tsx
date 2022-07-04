@@ -11,7 +11,7 @@ import {
 import germanyMapImage from "~/assets/images/germany-map.svg";
 import HomepageSharing from "~/components/HomepageSharing";
 import HomepageCrossPromo from "~/components/HomepageCrossPromo";
-import { HomepageHeader } from "~/components/HomepageHeader";
+import { HomepageHeader } from "~/components/navigation/HomepageHeader";
 
 export const loader: LoaderFunction = async () => {
   return {};
