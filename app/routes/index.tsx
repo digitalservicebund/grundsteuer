@@ -22,16 +22,13 @@ export default function Index() {
 
   return (
     <>
-      <div className="flex-shrink-0 bg-yellow-300 border-l-[9px] border-l-yellow-500 py-16 lg:py-28">
-        <ContentContainer>
-          <div className="text-20 leading-26 lg:text-32 lg:leading-40">
-            Wichtig! Aktuell gibt es Probleme bei der Zustellung der
-            Registrierungs-Emails an die Email-Adressen von @t-online.de,
-            @web.de, @yahoo.de, @aol.de und @gmx.de. Wir arbeiten daran, das
-            Problem zu beheben. Wir bitten um Ihr Verständnis.
-          </div>
-        </ContentContainer>
-      </div>
+      {false && (
+        <div className="flex-shrink-0 bg-yellow-300 border-l-[9px] border-l-yellow-500 py-16 lg:py-28">
+          <ContentContainer>
+            <div className="text-20 leading-26 lg:text-32 lg:leading-40"></div>
+          </ContentContainer>
+        </div>
+      )}
       <HomepageHeader />
       <main className="flex-grow">
         <ContentContainer>
