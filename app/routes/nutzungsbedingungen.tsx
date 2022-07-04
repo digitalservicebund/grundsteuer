@@ -570,7 +570,7 @@ export default function Nutzungsbedingungen() {
           Im Übrigen sind wir zur Kündigung nur aus wichtigem Grund berechtigt.
           Ein wichtiger Grund liegt insbesondere dann vor, wenn Sie vorsätzlich
           oder fahrlässig und trotz Abmahnung wiederholt gegen wesentliche
-          vertraglichen Pflichten, insbesondere Ihre Pflichten aus § 4 verstoßen
+          vertraglichen Pflichten, insbesondere Ihre Pflichten aus § 5 verstoßen
           haben.
         </p>
 
