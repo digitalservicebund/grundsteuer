@@ -5,52 +5,67 @@ import classNames from "classnames";
 import { ReactNode } from "react";
 import LetterIcon from "~/components/icons/mui/LetterIcon";
 import PersonCircle from "~/components/icons/mui/PersonCircle";
+import { useLocation } from "@remix-run/react";
 
 function HeaderLink({
   destination,
   icon,
+  active,
   children,
 }: {
   destination: string;
   icon?: ReactNode;
+  active?: boolean;
   children: ReactNode;
 }) {
   return (
     <div className="inline-flex py-8">
       {icon && <div className="mr-10 inline-flex">{icon}</div>}
-      <a href={destination} className="text-14 uppercase tracking-1 font-bold">
+      <a
+        href={destination}
+        className={classNames("text-14 uppercase tracking-1 font-bold", {
+          "underline text-blue-800": active,
+        })}
+      >
         {children}
       </a>
     </div>
   );
 }
 
-function HeaderActions() {
+function HeaderActions({ location }: { location: string }) {
   return (
     <>
       <HeaderLink
         destination="/anmelden"
         icon={<PersonCircle className="w-[20px] h-[20px]" />}
+        active={location.includes("/anmelden")}
       >
         Anmelden
       </HeaderLink>
       <HeaderLink
         destination="/hilfe"
         icon={<LetterIcon className="w-[20px] h-[20px]" />}
+        active={location.includes("/hilfe")}
       >
         Kontakt
       </HeaderLink>
-      <HeaderLink destination="/barrierefreiheit">Barrierefreiheit</HeaderLink>
+      <HeaderLink
+        destination="/barrierefreiheit"
+        active={location.includes("/barrierefreiheit")}
+      >
+        Barrierefreiheit
+      </HeaderLink>
     </>
   );
 }
 
 function HeaderButtons({
   t,
-  pruefenActive,
+  location,
 }: {
   t: TFunction<"all", "all">;
-  pruefenActive?: boolean;
+  location: string;
 }) {
   return (
     <>
@@ -59,7 +74,7 @@ function HeaderButtons({
         size="medium"
         look="tertiary"
         className={classNames("mb-16 text-center lg:mb-0 lg:mr-24", {
-          hidden: pruefenActive,
+          hidden: location.includes("/pruefen"),
         })}
       >
         {t("homepage.buttonCheck")}
@@ -71,8 +86,9 @@ function HeaderButtons({
   );
 }
 
-export function HomepageHeader({ pruefenActive }: { pruefenActive?: boolean }) {
+export function HomepageHeader() {
   const { t } = useTranslation("all");
+  const location = useLocation().pathname;
 
   return (
     <div className="mb-32 md:mb-64 bg-white pb-24 lg:py-32">
@@ -82,13 +98,13 @@ export function HomepageHeader({ pruefenActive }: { pruefenActive?: boolean }) {
           <TopNavigation
             actions={
               <div className="flex flex-col mb-32">
-                <HeaderActions />
+                <HeaderActions location={location} />
               </div>
             }
           />
         </div>
         <div className="flex flex-col max-w-[412px] w-full px-24">
-          <HeaderButtons t={t} pruefenActive={pruefenActive} />
+          <HeaderButtons t={t} location={location} />
         </div>
       </div>
       {/* Desktop Header */}
@@ -101,10 +117,10 @@ export function HomepageHeader({ pruefenActive }: { pruefenActive?: boolean }) {
           </div>
           <div className="flex flex-col">
             <div className="flex flex-row-reverse gap-x-32 mb-32">
-              <HeaderActions />
+              <HeaderActions location={location} />
             </div>
             <div className="flex justify-end">
-              <HeaderButtons t={t} pruefenActive={pruefenActive} />
+              <HeaderButtons t={t} location={location} />
             </div>
           </div>
         </ContentContainer>

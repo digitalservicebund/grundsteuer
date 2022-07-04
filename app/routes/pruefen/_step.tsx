@@ -224,7 +224,7 @@ export function Step() {
   return (
     <>
       <main className="flex-grow mb-56">
-        <HomepageHeader pruefenActive={true} />
+        <HomepageHeader />
         <ContentContainer>
           <div className="bg-white px-16 md:px-80 py-16 md:py-56">
             <SectionLabel
