@@ -1,12 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { MetaFunction } from "@remix-run/node";
-import {
-  BmfLogo,
-  Button,
-  ContentContainer,
-  SimplePageLayout,
-} from "~/components";
-import ArrowBackIcon from "~/components/icons/mui/ArrowBack";
+import { BmfLogo, ContentContainer, LoggedOutLayout } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 
 export const meta: MetaFunction = () => {
@@ -16,16 +10,7 @@ export const meta: MetaFunction = () => {
 export default function Nutzungsbedingungen() {
   const { t } = useTranslation("all");
   return (
-    <SimplePageLayout>
-      <Button
-        to="/"
-        look="secondary"
-        icon={<ArrowBackIcon />}
-        className="mb-32"
-      >
-        {t("barrierefreiheit.backButton")}
-      </Button>
-
+    <LoggedOutLayout>
       <div className="mb-32 md:mb-64">
         <BmfLogo />
       </div>
@@ -145,6 +130,6 @@ export default function Nutzungsbedingungen() {
           </p>
         </div>
       </ContentContainer>
-    </SimplePageLayout>
+    </LoggedOutLayout>
   );
 }
