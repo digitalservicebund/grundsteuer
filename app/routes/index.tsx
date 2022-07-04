@@ -22,13 +22,15 @@ export default function Index() {
 
   return (
     <>
-      {false && (
-        <div className="flex-shrink-0 bg-yellow-300 border-l-[9px] border-l-yellow-500 py-16 lg:py-28">
-          <ContentContainer>
-            <div className="text-20 leading-26 lg:text-32 lg:leading-40"></div>
-          </ContentContainer>
-        </div>
-      )}
+      <div className="flex-shrink-0 bg-yellow-300 border-l-[9px] border-l-yellow-500 py-16 lg:py-28">
+        <ContentContainer>
+          <div className="text-20 leading-26 lg:text-32 lg:leading-40">
+            Wichtig! Aktuell gibt es Probleme bei der Interaktion mit ELSTER.
+            Sie könnten daher mehr Fehler bekommen, wir bitten um
+            Entschuldigung. Wir arbeiten daran das Problem zu beheben.
+          </div>
+        </ContentContainer>
+      </div>
       <HomepageHeader />
       <main className="flex-grow">
         <ContentContainer>
