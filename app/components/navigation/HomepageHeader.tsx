@@ -110,7 +110,7 @@ export function HomepageHeader() {
       {/* Desktop Header */}
       <div className="hidden lg:flex lg:flex-col">
         <ContentContainer className="w-full flex flex-col md:flex-row md:justify-between">
-          <div>
+          <div className="mt-16">
             <a href="/" title="Zur Startseite" className="flex">
               <img src={logo} alt="Grundsteuererklärung für Privateigentum" />
             </a>
