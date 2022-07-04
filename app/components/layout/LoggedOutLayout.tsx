@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import ContentContainer from "./ContentContainer";
-import Footer from "./Footer";
+import ContentContainer from "../ContentContainer";
+import Footer from "../Footer";
 import { HomepageHeader } from "~/components/HomepageHeader";
 
 export default function LoggedOutLayout(props: { children: ReactNode }) {

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import ContentContainer from "./ContentContainer";
-import Footer from "./Footer";
+import ContentContainer from "../ContentContainer";
+import Footer from "../Footer";
 
 export default function SimplePageLayout(props: { children: ReactNode }) {
   return (
