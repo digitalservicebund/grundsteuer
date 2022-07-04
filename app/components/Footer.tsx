@@ -7,16 +7,6 @@ export default function Footer() {
   const { t } = useTranslation("all");
   return (
     <footer className="flex-shrink-0 bg-white">
-      <FloatButton
-        size="small"
-        className="invisible md:visible"
-        look="secondary"
-        floatingBorderBottom={82}
-        icon={<LetterIcon />}
-        to={"/hilfe"}
-      >
-        Haben Sie Fragen?
-      </FloatButton>
       <div className="visible md:hidden p-32 bg-blue-200 text-16 flex flex-wrap md:flex md:justify-between md:items-center ">
         <div className="flex items-center">
           {/*Put the thumbs up/down component here*/}
