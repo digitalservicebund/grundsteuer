@@ -24,7 +24,7 @@ import {
   Input,
   IntroText,
   SubHeadline,
-  UserLayout,
+  LoggedOutLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 import { removeUndefined } from "~/util/removeUndefined";
@@ -198,7 +198,7 @@ export default function Registrieren() {
   const isSubmitting = Boolean(transition.submission);
 
   return (
-    <UserLayout>
+    <LoggedOutLayout>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         <Headline>
@@ -219,7 +219,7 @@ export default function Registrieren() {
         {errors && !isSubmitting && <ErrorBarStandard />}
       </ContentContainer>
 
-      <Form method="post" noValidate>
+      <Form method="post" noValidate className="mb-80">
         <CsrfToken value={loaderData.csrfToken} />
         <ContentContainer size="sm">
           <FormGroup>
@@ -308,6 +308,6 @@ export default function Registrieren() {
           <Button disabled={isSubmitting}>Konto erstellen</Button>
         </ContentContainer>
       </Form>
-    </UserLayout>
+    </LoggedOutLayout>
   );
 }

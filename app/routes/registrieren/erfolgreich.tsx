@@ -5,8 +5,8 @@ import {
   ContentContainer,
   Headline,
   IntroText,
-  UserLayout,
   SubHeadline,
+  LoggedOutLayout,
   SuccessPageLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
@@ -17,10 +17,10 @@ export const meta: MetaFunction = () => {
 
 export default function RegistrierenErfolgreich() {
   return (
-    <UserLayout>
+    <LoggedOutLayout>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
-        <SuccessPageLayout>
+        <SuccessPageLayout lowVersion>
           <Headline>Wir haben Ihnen eine E-Mail gesendet.</Headline>
           <IntroText className="mb-80">
             Bitte schauen Sie in Ihr E-Mail Postfach und klicken Sie auf den
@@ -37,6 +37,6 @@ export default function RegistrierenErfolgreich() {
           </IntroText>
         </SuccessPageLayout>
       </ContentContainer>
-    </UserLayout>
+    </LoggedOutLayout>
   );
 }

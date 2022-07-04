@@ -21,7 +21,7 @@ import {
   Input,
   IntroText,
   SubHeadline,
-  UserLayout,
+  LoggedOutLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 import { getSession, commitSession } from "~/session.server";
@@ -117,7 +117,7 @@ export default function Anmelden() {
   const isSubmitting = Boolean(transition.submission);
 
   return (
-    <UserLayout>
+    <LoggedOutLayout>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         {loaderData?.error === "token" && (
@@ -180,6 +180,6 @@ export default function Anmelden() {
           </Form>
         </div>
       </ContentContainer>
-    </UserLayout>
+    </LoggedOutLayout>
   );
 }

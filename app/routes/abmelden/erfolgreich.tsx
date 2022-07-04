@@ -5,7 +5,7 @@ import {
   ContentContainer,
   Headline,
   IntroText,
-  UserLayout,
+  LoggedOutLayout,
   SuccessPageLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
@@ -16,10 +16,10 @@ export const meta: MetaFunction = () => {
 
 export default function AbmeldenErfolgreich() {
   return (
-    <UserLayout>
-      <ContentContainer size="sm">
+    <LoggedOutLayout>
+      <ContentContainer size="sm" className="mb-80">
         <BreadcrumbNavigation />
-        <SuccessPageLayout>
+        <SuccessPageLayout lowVersion>
           <Headline>Sie haben sich erfolgreich abgemeldet.</Headline>
 
           <IntroText className="mb-80">
@@ -32,6 +32,6 @@ export default function AbmeldenErfolgreich() {
           <Button to="/">Zur Startseite</Button>
         </SuccessPageLayout>
       </ContentContainer>
-    </UserLayout>
+    </LoggedOutLayout>
   );
 }

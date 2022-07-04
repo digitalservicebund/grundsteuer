@@ -39,3 +39,4 @@ export { default as Textarea } from "./form/Textarea";
 export { default as TopNavigation } from "./navigation/TopNavigation";
 export { default as UebersichtStep } from "./form/UebersichtStep";
 export { default as UserLayout } from "./UserLayout";
+export { default as LoggedOutLayout } from "./LoggedOutLayout";
