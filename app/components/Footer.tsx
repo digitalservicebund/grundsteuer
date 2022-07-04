@@ -1,5 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "@remix-run/react";
+import FloatButton from "~/components/FloatButton";
+import LetterIcon from "~/components/icons/mui/LetterIcon";
 
 export default function Footer() {
   const { t } = useTranslation("all");
