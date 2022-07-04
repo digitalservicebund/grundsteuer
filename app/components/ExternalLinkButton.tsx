@@ -1,5 +1,5 @@
 import { Button } from "~/components/index";
-import { ArrowRight } from "~/components/ArrowRight";
+import { ArrowRightLong } from "~/components/icons/mui/ArrowRightLong";
 import { ReactNode } from "react";
 
 export interface ExternalLinkButtonProps {
@@ -16,7 +16,7 @@ export const ExternalLinkButton = (props: ExternalLinkButtonProps) => {
       look={props.border ? "tertiary" : "ghost"}
       href={props.url}
       target={"_blank"}
-      icon={<ArrowRight />}
+      icon={<ArrowRightLong />}
       className={props.classNames}
     >
       {props.children}
