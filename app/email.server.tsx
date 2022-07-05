@@ -67,6 +67,7 @@ const htmlGreetings = ["<p>Guten Tag!</p>"];
 const textFooter = [
   "",
   "Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail einfach ignorieren.",
+  "Bitte beachten Sie, dass Sie diesen Link nur für eine Sitzung nutzen können. Wenn Sie sich aus dem Online-Dienst abgemeldet haben, und zu einem späteren Zeitpunkt wieder anmelden möchten, gehen Sie bitte auf https://www.grundsteuererklaerung-fuer-privateigentum.de/anmelden und lassen Sie sich einen neuen Anmeldelink per E-Mail zusenden.",
   "",
   "Vielen Dank",
   "Ihr Team von „Grundsteuererklärung für Privateigentum“",
@@ -85,6 +86,7 @@ const textFooter = [
 
 const htmlFooter = [
   "<p>Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail einfach ignorieren.</p>",
+  "<p>Bitte beachten Sie, dass Sie diesen Link nur für eine Sitzung nutzen können. Wenn Sie sich aus dem Online-Dienst abgemeldet haben, und zu einem späteren Zeitpunkt wieder anmelden möchten, gehen Sie bitte auf <a href='https://www.grundsteuererklaerung-fuer-privateigentum.de/anmelden'>https://www.grundsteuererklaerung-fuer-privateigentum.de/anmelden</a> und lassen Sie sich einen neuen Anmeldelink per E-Mail zusenden.</p>",
   "<p>Vielen Dank<br />",
   "Ihr Team von „Grundsteuererklärung für Privateigentum“</p>",
   '<hr style="margin-top: 3rem"/>',
