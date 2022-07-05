@@ -46,7 +46,7 @@
     "@remix-run/node": "^1.6.3",
     "@remix-run/react": "^1.6.3",
     "@sentry/browser": "^7.4.1",
-    "@sentry/node": "^7.4.1",
+    "@sentry/node": "^7.5.0",
     "@sentry/tracing": "^7.5.0",
     "@tailwindcss/typography": "^0.5.2",
     "@xstate/graph": "^1.4.2",
