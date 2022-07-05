@@ -88,7 +88,7 @@ jobs:
 
       - name: Build an image from Dockerfile
         run: |
-          docker build -t ${{ env.IMAGE_NAME }}:${{ github.sha }} .
+          docker build -t ${{ env.IMAGE_NAME }}:${{ github.sha }} . --build-arg COMMIT_SHA=${{ github.sha }}
           docker build -t ${{ env.IMAGE_NAME }}-migrate:${{ github.sha }} . --target build
 
       - name: Run Trivy vulnerability scanner

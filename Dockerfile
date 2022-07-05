@@ -13,6 +13,8 @@ RUN apk add --no-cache dumb-init curl && \
 
 USER node
 ENV NODE_ENV=production
+ARG COMMIT_SHA
+ENV APP_VERSION=$COMMIT_SHA
 
 WORKDIR /home/node/src
 COPY --chown=node:node --from=build /src ./

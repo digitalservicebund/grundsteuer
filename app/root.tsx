@@ -66,13 +66,15 @@ export const meta: MetaFunction = () => {
 
 interface LoaderData {
   env: string;
-  sentry_dsn: string;
+  sentryDsn: string;
+  version: string;
 }
 
 export const loader: LoaderFunction = async () => {
   return json<LoaderData>({
     env: process.env.APP_ENV as string,
-    sentry_dsn: process.env.SENTRY_DSN as string,
+    sentryDsn: process.env.SENTRY_DSN as string,
+    version: process.env.APP_VERSION as string,
   });
 };
 
@@ -101,7 +103,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
 }
 
 export default function App() {
-  const { env, sentry_dsn } = useLoaderData();
+  const { env, sentryDsn, version } = useLoaderData();
   useChangeLanguage("de");
 
   const location = useLocation();
@@ -140,11 +142,11 @@ export default function App() {
       </head>
       <body className="flex flex-col min-h-screen text-black bg-gray-100 leading-default">
         <Outlet />
-        {sentry_dsn && (
+        {sentryDsn && (
           <script
             suppressHydrationWarning
             dangerouslySetInnerHTML={{
-              __html: `window.sentry_dsn="${sentry_dsn}"; window.app_env="${env}";`,
+              __html: `window.SENTRY_DSN="${sentryDsn}"; window.APP_ENV="${env}"; window.APP_VERSION="${version}";`,
             }}
           />
         )}
