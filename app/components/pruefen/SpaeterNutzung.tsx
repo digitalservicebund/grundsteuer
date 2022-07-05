@@ -36,7 +36,7 @@ const SpaeterNutzung: StepComponentFunction = ({ i18n, allData }) => {
             emailContactLink: (
               <a
                 className="text-blue-900 underline font-bold"
-                href={`mailto:kontakt@grundsteuererklaerung-fuer-privateigentum.de?subject=${
+                href={`mailto:erinnerung@grundsteuererklaerung-fuer-privateigentum.de?subject=${
                   emailSubject?.split(" ").join("%20") || ""
                 }`}
               />
