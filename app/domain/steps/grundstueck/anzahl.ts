@@ -1,7 +1,27 @@
 import { StepDefinition } from "~/domain/steps";
 
 export type GrundstueckAnzahlFields = {
-  anzahl: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10";
+  anzahl:
+    | "1"
+    | "2"
+    | "3"
+    | "4"
+    | "5"
+    | "6"
+    | "7"
+    | "8"
+    | "9"
+    | "10"
+    | "11"
+    | "12"
+    | "13"
+    | "14"
+    | "15"
+    | "16"
+    | "17"
+    | "18"
+    | "19"
+    | "20";
 };
 
 export const grundstueckAnzahl: StepDefinition = {
@@ -23,6 +43,16 @@ export const grundstueckAnzahl: StepDefinition = {
         { value: "8" },
         { value: "9" },
         { value: "10" },
+        { value: "11" },
+        { value: "12" },
+        { value: "13" },
+        { value: "14" },
+        { value: "15" },
+        { value: "16" },
+        { value: "17" },
+        { value: "18" },
+        { value: "19" },
+        { value: "20" },
       ],
     },
   },
