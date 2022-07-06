@@ -373,7 +373,7 @@ type ValidateUniqueSteuerIdFunction = ({
 }: {
   value?: string;
   allData: GrundModel | PruefenModel;
-  noNewDataAdded?: boolean | undefined;
+  noNewDataAdded?: boolean;
 }) => boolean;
 export const validateUniqueSteuerId: ValidateUniqueSteuerIdFunction = ({
   value,
@@ -406,8 +406,8 @@ export const validateUniqueSteuerId: ValidateUniqueSteuerIdFunction = ({
     if (noNewDataAdded) {
       return containsOnlyUniqueValues(existingSteuerIds);
     }
-    for (let i = 0; i < existingSteuerIds.length; i++) {
-      if (existingSteuerIds[i] === value) {
+    for (const element of existingSteuerIds) {
+      if (element === value) {
         return false;
       }
     }
