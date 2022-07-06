@@ -87,22 +87,18 @@ export default function Hilfe() {
                       Fragen und Antworten zur Grundsteuerreform
                     </a>
                   </dd>
-                  {false && (
-                    <>
-                      <dt className="clear-left md:float-left md:mr-8">
-                        Informationen zur Grundsteuer-Festsetzung:
-                      </dt>
-                      <dd>
-                        <a
-                          href="https://www.berlin.de/sen/finanzen/steuern/informationen-fuer-steuerzahler-/faq-steuern/artikel.9031.php"
-                          rel="noopener"
-                          className="text-blue-800 font-bold underline"
-                        >
-                          Service-Portal Berlin
-                        </a>
-                      </dd>
-                    </>
-                  )}
+                  <dt className="clear-left md:float-left md:mr-8">
+                    Informationen zur Grundsteuer-Festsetzung:
+                  </dt>
+                  <dd>
+                    <a
+                      href="https://www.berlin.de/grundsteuer/berlin/artikel.1182343.php"
+                      rel="noopener"
+                      className="text-blue-800 font-bold underline"
+                    >
+                      Grundbesitz in Berlin
+                    </a>
+                  </dd>
                 </dl>
 
                 <h4 className="pt-24 font-bold" id="brandenburg">
@@ -121,22 +117,18 @@ export default function Hilfe() {
                       Informationen für Grundstücke in Brandenburg
                     </a>
                   </dd>
-                  {false && (
-                    <>
-                      <dt className="clear-left md:float-left md:mr-8">
-                        Häufig gestellte Fragen:
-                      </dt>
-                      <dd>
-                        <a
-                          href="#"
-                          rel="noopener"
-                          className="text-blue-800 font-bold underline"
-                        >
-                          Fragen und Antworten zur Grundsteuerreform
-                        </a>
-                      </dd>
-                    </>
-                  )}
+                  <dt className="clear-left md:float-left md:mr-8">
+                    Häufig gestellte Fragen:
+                  </dt>
+                  <dd>
+                    <a
+                      href="https://finanzamt.brandenburg.de/fa/de/themen/grundsteuer/unbebaute-und-bebaute-grundstuecke-wohnungseigentum-erbbaurecht/#"
+                      rel="noopener"
+                      className="text-blue-800 font-bold underline"
+                    >
+                      Fragen und Antworten zur Grundsteuerreform
+                    </a>
+                  </dd>
                 </dl>
 
                 <h4 className="pt-24 font-bold" id="bremen">
@@ -269,22 +261,18 @@ export default function Hilfe() {
                       Fragen und Antworten zur Grundsteuerreform
                     </a>
                   </dd>
-                  {false && (
-                    <>
-                      <dt className="clear-left md:float-left md:mr-8">
-                        Kontaktmöglichkeit:
-                      </dt>
-                      <dd>
-                        <a
-                          href="#"
-                          rel="noopener"
-                          className="text-blue-800 font-bold underline"
-                        >
-                          Kontakt
-                        </a>
-                      </dd>
-                    </>
-                  )}
+                  <dt className="clear-left md:float-left md:mr-8">
+                    Kontaktmöglichkeit:
+                  </dt>
+                  <dd>
+                    <a
+                      href="https://www.finanzamt.sachsen.de/kontakt-12557.html"
+                      rel="noopener"
+                      className="text-blue-800 font-bold underline"
+                    >
+                      Kontakt
+                    </a>
+                  </dd>
                 </dl>
 
                 <h4 className="pt-24 font-bold" id="sachsen-anhalt">
