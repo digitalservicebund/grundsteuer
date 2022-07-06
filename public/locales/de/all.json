@@ -1356,7 +1356,8 @@
         "description": "Den Wert konnten Sie dem Bodenrichtwert-Portal Ihres Bundeslandes entnehmen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
         "fields": {
           "bodenrichtwert": {
-            "label": "Bodenrichtwert in € / m²"
+            "label": "Bodenrichtwert in € / m²",
+            "placeholder": "234"
           }
         },
         "specifics": {
