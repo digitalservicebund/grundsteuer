@@ -109,6 +109,7 @@
     "isSteuerId": "Die eingegebene Steuer-Identifikationsnummer ist ungültig. Bitte überprüfen Sie Ihre Eingabe.",
     "noZero": "Darf nicht Null sein",
     "float": "Die Angabe muss eine Zahl sein, die durch Komma getrennt sein kann",
+    "floatNoUnit": "Die Angabe muss eine Zahl sein, die durch ein Komma getrennt sein kann. Geben Sie keine Einheiten ein.",
     "yearAfterBaujahr": "Das Jahr muss nach dem Baujahr des Gebäudes liegen",
     "hausnummer": "Die Hausnummer muss mit Ziffern beginnen und darf nicht länger als 14 Zeichen sein",
     "grundbuchblattnummer": "Die Grundbuchblattnummer muss mit Ziffern beginnen und darf nicht länger als 6 Zeichen sein",

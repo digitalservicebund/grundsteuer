@@ -9,7 +9,7 @@ export const grundstueckBodenrichtwertEingabe: StepDefinition = {
     bodenrichtwert: {
       validations: {
         required: {},
-        float: {},
+        floatNoUnit: {},
         maxLengthFloat: {
           preComma: 6,
           postComma: 2,
