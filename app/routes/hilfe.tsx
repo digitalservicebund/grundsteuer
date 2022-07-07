@@ -366,15 +366,6 @@ export default function Hilfe() {
               direkt eine Email-Schreiben. Unsere Email-Adresse finden Sie dort
               unter “Kontakt”.
             </ContentContainer>
-
-            <ContentContainer size="sm-md">
-              <p className="pt-24 text-16 leading-26">
-                <strong>Wichtig:</strong> Bitte verwenden Sie in Ihrer E-Mail
-                einen passenden Betreff. Das erleichtert uns die Bearbeitung der
-                Anfragen. Ihre E-Mail wird ausschließlich zur Beantwortung Ihrer
-                Anfrage verarbeitet und gespeichert.
-              </p>
-            </ContentContainer>
           </div>
         </ContentContainer>
       </ContentContainer>
