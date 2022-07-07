@@ -6,7 +6,7 @@ export type AdresseFields = {
   postfach?: string;
   plz: string;
   ort: string;
-  telefonnummer: string;
+  telefonnummer?: string;
 };
 
 export const stepDefinition: StepDefinition = {

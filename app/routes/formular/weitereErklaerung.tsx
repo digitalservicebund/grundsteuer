@@ -3,6 +3,7 @@ import {
   json,
   LoaderFunction,
   MetaFunction,
+  redirect,
 } from "@remix-run/node";
 import {
   Form,
@@ -28,8 +29,16 @@ import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { commitSession, getSession } from "~/session.server";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import Hint from "~/components/Hint";
+import {
+  createHeadersWithFormDataCookie,
+  getStoredFormData,
+} from "~/formDataStorage.server";
+import { authenticator } from "~/auth.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
+  await authenticator.isAuthenticated(request, {
+    failureRedirect: "/anmelden",
+  });
   const session = await getSession(request.headers.get("Cookie"));
   const csrfToken = createCsrfToken(session);
   return json(
@@ -43,6 +52,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export const action: ActionFunction = async ({ request }) => {
+  const user = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/anmelden",
+  });
   await verifyCsrfToken(request);
 
   // clone request before accessing formData, as remix-auth also needs the formData
@@ -67,8 +79,33 @@ export const action: ActionFunction = async ({ request }) => {
   const errorsExist = Object.keys(removeUndefined(errors)).length > 0;
 
   if (!errorsExist) {
-    // TODO
-    return {};
+    const storedFormData = await getStoredFormData({ request, user });
+    let formDataToBeStored = {};
+    if (datenUebernehmen == "true") {
+      formDataToBeStored = {
+        eigentuemer: {
+          person: [
+            {
+              persoenlicheAngaben:
+                storedFormData.eigentuemer?.person?.[0].persoenlicheAngaben,
+              adresse: storedFormData.eigentuemer?.person?.[0].adresse,
+              steuerId: storedFormData.eigentuemer?.person?.[0].steuerId,
+              vertreter: storedFormData.eigentuemer?.person?.[0].vertreter,
+              gesetzlicherVertreter:
+                storedFormData.eigentuemer?.person?.[0].gesetzlicherVertreter,
+            },
+          ],
+        },
+      };
+    }
+    const headers = await createHeadersWithFormDataCookie({
+      data: formDataToBeStored,
+      user,
+    });
+
+    return redirect("/formular/welcome", {
+      headers,
+    });
   }
 
   return {

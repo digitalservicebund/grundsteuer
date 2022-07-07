@@ -23,7 +23,16 @@ export const getStoredFormData: GetStoredFormDataFunction = async ({
   debug({ cookieHeader });
 
   if (!cookieHeader) return {};
+  return decodeFormDataCookie({ cookieHeader, user });
+};
 
+export const decodeFormDataCookie = async ({
+  cookieHeader,
+  user,
+}: {
+  cookieHeader: string;
+  user: SessionUser;
+}) => {
   const authoritiveCookie = await createFormDataCookie({
     userId: user.id,
     index: 0,
