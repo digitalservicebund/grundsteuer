@@ -30,7 +30,7 @@ export default function Datenschutz() {
       </h1>
 
       <div className="prose prose-xl mb-64">
-        <p>Zuletzt aktualisiert: 01.07.2022</p>
+        <p>Zuletzt aktualisiert: 04.07.2022</p>
         <p>
           Mit dem Online-Dienst <i>Grundsteuererklärung für Privateigentum</i>{" "}
           möchten wir es Ihnen als Eigentümer:in einfacher machen, Ihre
@@ -143,6 +143,32 @@ export default function Datenschutz() {
           sowie gegebenenfalls weitere Informationen, die Sie in Ihrer E-Mail
           preisgeben. Damit wir Ihr Anliegen bearbeiten können, müssen wir diese
           Daten verarbeiten.
+        </p>
+        <p>
+          Das gilt ebenso für die Nutzung unserer Help Desk Software{" "}
+          <a
+            href="https://zammad.de"
+            target="_blank"
+            className="text-blue-800 underline break-words"
+          >
+            {" "}
+            www.zammad.de
+          </a>
+          . Das Helpdesk-System ermöglicht es, Supportanfragen zu sortieren und
+          zu strukturieren, sowie nach Kategorien zu ordnen, um sie so schneller
+          den zuständigen Personen zuzuordnen und immer den Status des Tickets
+          im Auge behalten zu können. Sobald Sie uns eine Nachricht schicken,
+          wird im Helpdesk-System ein Kundenprofil mit Vorname, Nachname und
+          E-Mail-Adresse angelegt. Die Verarbeitung der Daten erfolgt über{" "}
+          <a
+            href="https://zammad.de"
+            target="_blank"
+            className="text-blue-800 underline break-words"
+          >
+            zammad.de
+          </a>{" "}
+          mit dem ein gültiger Auftragsverarbeitungsvertrag besteht und der
+          seinen Sitz in Deutschland hat.
         </p>
 
         <h2> Auf welcher Grundlage werden die Daten verarbeitet?</h2>
