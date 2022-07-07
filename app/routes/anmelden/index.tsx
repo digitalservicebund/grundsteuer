@@ -17,7 +17,6 @@ import {
   BreadcrumbNavigation,
   Button,
   ContentContainer,
-  Headline,
   Input,
   IntroText,
   SubHeadline,
@@ -132,7 +131,6 @@ export default function Anmelden() {
             zu erhalten.
           </ErrorBar>
         )}
-        <Headline className="mb-80">Herzlich willkommen!</Headline>
 
         <div className="mb-80">
           <SubHeadline className="font-bold">
