@@ -24,6 +24,7 @@ import {
   savePdf,
   saveTransferticket,
   setUserIdentified,
+  setUserInDeclarationProcess,
 } from "../../app/domain/user";
 
 /**
@@ -57,6 +58,7 @@ export default (on, config) => {
       await setUserIdentified(userEmail, false);
       await deletePdf(userEmail);
       await deleteTransferticket(userEmail);
+      await setUserInDeclarationProcess(userEmail, true);
       return null;
     },
 
@@ -92,6 +94,14 @@ export default (on, config) => {
 
     dbRemoveUserPdf: async ({ userEmail }) => {
       await deletePdf(userEmail);
+      return null;
+    },
+
+    setUserInDeclarationProcessAttribute: async ({
+      userEmail,
+      inDeclarationProcess,
+    }) => {
+      await setUserInDeclarationProcess(userEmail, inDeclarationProcess);
       return null;
     },
   });

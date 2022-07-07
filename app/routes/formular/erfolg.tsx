@@ -1,4 +1,4 @@
-import { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
 import { pageTitle } from "~/util/pageTitle";
 import UebersichtStep from "~/components/form/UebersichtStep";
 import erfolgMedium from "~/assets/images/erfolg-medium.svg";
@@ -33,6 +33,10 @@ export const loader: LoaderFunction = async ({ request }) => {
     userData,
     "expected a matching user in the database from a user in a cookie session"
   );
+
+  if (userData.inDeclarationProcess) {
+    return redirect("/formular/welcome");
+  }
 
   return {
     transferticket: userData.transferticket,
