@@ -61,6 +61,7 @@ describe("CSRF protection", () => {
       });
     });
   });
+
   describe("on zusammenfassung", () => {
     it("should fail on direct post", () => {
       cy.login();
@@ -69,6 +70,22 @@ describe("CSRF protection", () => {
         method: "POST",
         url: "/formular/zusammenfassung",
         body: "csrf=bar",
+        form: true,
+        failOnStatusCode: false,
+      }).then((response) => {
+        expect(response.status).to.eq(400);
+      });
+    });
+  });
+
+  describe("on /formular/weitereErklaerung", () => {
+    it("should fail on direct post", () => {
+      cy.login();
+      cy.visit("/formular/weitereErklaerung");
+      cy.request({
+        method: "POST",
+        url: "/formular/weitereErklaerung",
+        body: "datenUebernehmen=true",
         form: true,
         failOnStatusCode: false,
       }).then((response) => {
