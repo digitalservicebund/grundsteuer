@@ -16,7 +16,7 @@ describe("Download transferticket", () => {
       url: "/download/transferticket",
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(500);
+      expect(response.status).to.eq(404);
     });
   });
 

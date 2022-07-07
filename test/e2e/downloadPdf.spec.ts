@@ -16,7 +16,7 @@ describe("Download pdf", () => {
       url: "/download/pdf",
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(500);
+      expect(response.status).to.eq(404);
     });
   });
 

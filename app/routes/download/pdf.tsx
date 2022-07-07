@@ -13,7 +13,10 @@ export const loader: LoaderFunction = async ({ request }) => {
     userData,
     "expected a matching user in the database from a user in a cookie session"
   );
-  invariant(userData.pdf, "expected pdf to be stored for user");
+
+  if (!userData.pdf) {
+    throw new Response("Not found", { status: 404 });
+  }
 
   const response = new Response(userData.pdf.data);
   response.headers.set(

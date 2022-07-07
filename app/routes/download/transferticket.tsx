@@ -13,10 +13,10 @@ export const loader: LoaderFunction = async ({ request }) => {
     userData,
     "expected a matching user in the database from a user in a cookie session"
   );
-  invariant(
-    userData.transferticket,
-    "expected transferticket to be stored in user"
-  );
+
+  if (!userData.transferticket) {
+    throw new Response("Not found", { status: 404 });
+  }
 
   const response = new Response(userData.transferticket);
   response.headers.set(
