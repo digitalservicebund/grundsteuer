@@ -150,8 +150,8 @@ export default function Erfolg() {
             Angaben als PDF herunterladen
           </Button>
           <Hint className="mb-0">
-            Sie können die Angaben nur innerhalb der ersten 60 Minuten nach
-            Erstellung herunterladen.
+            Sie können die Grundsteuererklärung als PDF nur innerhalb der ersten
+            60 Minuten nach Erstellung herunterladen.
           </Hint>
         </DownloadCard>
       </ContentContainer>
