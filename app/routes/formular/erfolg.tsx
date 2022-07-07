@@ -33,11 +33,6 @@ export const loader: LoaderFunction = async ({ request }) => {
     userData,
     "expected a matching user in the database from a user in a cookie session"
   );
-  invariant(
-    userData.transferticket,
-    "expected transferticket to be stored in user"
-  );
-  invariant(userData.pdf, "expected pdf to be stored in user");
 
   return {
     transferticket: userData.transferticket,
@@ -65,7 +60,11 @@ const DownloadCard = (props: {
 };
 
 export default function Erfolg() {
-  const { transferticket } = useLoaderData();
+  const { transferticket, pdf } = useLoaderData();
+  const transferticketButtonProps = transferticket
+    ? { href: "/download/transferticket" }
+    : { disabled: true };
+  const pdfButtonProps = pdf ? { href: "/download/pdf" } : { disabled: true };
   return (
     <>
       <ContentContainer size="sm">
@@ -110,23 +109,26 @@ export default function Erfolg() {
             – notieren Sie sich das Ticket oder laden sie sich das
             Transferticket als Textdatei herunter.
           </p>
-          <div className="mb-16 p-16 border-blue-800 border-2 text-center">
-            <p className="text-18 font-bold text-blue-800 break-all">
-              {transferticket}
-            </p>
-          </div>
+          {transferticket && (
+            <div className="mb-16 p-16 border-blue-800 border-2 text-center">
+              <p className="text-18 font-bold text-blue-800 break-all">
+                {transferticket}
+              </p>
+            </div>
+          )}
           <Button
-            href="/download/transferticket"
             target={"_blank"}
             download
             look="primary"
             iconRight={<Download />}
             className="mb-40"
+            {...transferticketButtonProps}
           >
             Transferticket als .txt herunterladen
           </Button>
           <Hint className="mb-0">
-            Sie können das Ticket nur jetzt herunterladen.
+            Sie können das Transferticket nur innerhalb der ersten 60 Minuten
+            nach Erstellung herunterladen.
           </Hint>
         </DownloadCard>
 
@@ -138,17 +140,18 @@ export default function Erfolg() {
             das Transferticket.
           </p>
           <Button
-            href="/download/pdf"
             target={"_blank"}
             download
             look="primary"
             iconRight={<Download />}
             className="mb-40"
+            {...pdfButtonProps}
           >
             Angaben als PDF herunterladen
           </Button>
           <Hint className="mb-0">
-            Sie können die Angaben nur jetzt herunterladen.
+            Sie können die Angaben nur innerhalb der ersten 60 Minuten nach
+            Erstellung herunterladen.
           </Hint>
         </DownloadCard>
       </ContentContainer>
