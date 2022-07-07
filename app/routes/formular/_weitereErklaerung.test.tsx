@@ -71,6 +71,27 @@ describe("/weitereErklaerung action", () => {
           deleteTransferticketMock.mockRestore();
         }
       });
+
+      test("keeps inDeclarationProcess", async () => {
+        const setFlagMock = getMockedFunction(
+          userModule,
+          "setUserInDeclarationProcess",
+          () => Promise.resolve()
+        );
+        const args = await mockActionArgs({
+          route: "/formular/weitereErklaerung",
+          formData: {},
+          context: {},
+        });
+
+        try {
+          await action(args);
+
+          expect(setFlagMock).not.toBeCalled();
+        } finally {
+          setFlagMock.mockRestore();
+        }
+      });
     });
 
     describe("with datenUebernehmen true", () => {
@@ -80,17 +101,14 @@ describe("/weitereErklaerung action", () => {
           formData: { datenUebernehmen: "true" },
           context: {},
         });
+
         const result = await action(args);
+
         expect(result.status).toEqual(302);
         expect(result.headers.get("Location")).toEqual("/formular/welcome");
       });
 
       test("deletes pdf and transferticket", async () => {
-        const args = await mockActionArgs({
-          route: "/formular/weitereErklaerung",
-          formData: { datenUebernehmen: "true" },
-          context: {},
-        });
         const deletePdfMock = getMockedFunction(userModule, "deletePdf", () =>
           Promise.resolve()
         );
@@ -99,13 +117,42 @@ describe("/weitereErklaerung action", () => {
           "deleteTransferticket",
           () => Promise.resolve()
         );
+        const args = await mockActionArgs({
+          route: "/formular/weitereErklaerung",
+          formData: { datenUebernehmen: "true" },
+          context: {},
+        });
+
         try {
           await action(args);
+
           expect(deletePdfMock.mock.calls.length).toBe(1);
           expect(deleteTransferticketMock.mock.calls.length).toBe(1);
         } finally {
           deletePdfMock.mockRestore();
           deleteTransferticketMock.mockRestore();
+        }
+      });
+
+      test("sets inDeclarationProcess to true", async () => {
+        const setFlagMock = getMockedFunction(
+          userModule,
+          "setUserInDeclarationProcess",
+          () => Promise.resolve()
+        );
+        const args = await mockActionArgs({
+          route: "/formular/weitereErklaerung",
+          formData: { datenUebernehmen: "true" },
+          context: {},
+        });
+
+        try {
+          await action(args);
+
+          expect(setFlagMock).toBeCalledTimes(1);
+          expect(setFlagMock).toHaveBeenCalledWith("user@example.com", true);
+        } finally {
+          setFlagMock.mockRestore();
         }
       });
 
@@ -145,7 +192,9 @@ describe("/weitereErklaerung action", () => {
             .build(),
           context: {},
         });
+
         const result = await action(args);
+
         const decodedCookieData = await decodeFormDataCookie({
           cookieHeader: result.headers.get("Set-Cookie"),
           user: sessionUserFactory.build({ id: "1" }),
@@ -191,6 +240,28 @@ describe("/weitereErklaerung action", () => {
         } finally {
           deletePdfMock.mockRestore();
           deleteTransferticketMock.mockRestore();
+        }
+      });
+
+      test("sets inDeclarationProcess to true", async () => {
+        const setFlagMock = getMockedFunction(
+          userModule,
+          "setUserInDeclarationProcess",
+          () => Promise.resolve()
+        );
+        const args = await mockActionArgs({
+          route: "/formular/weitereErklaerung",
+          formData: { datenUebernehmen: "false" },
+          context: {},
+        });
+
+        try {
+          await action(args);
+
+          expect(setFlagMock).toBeCalledTimes(1);
+          expect(setFlagMock).toHaveBeenCalledWith("user@example.com", true);
+        } finally {
+          setFlagMock.mockRestore();
         }
       });
 

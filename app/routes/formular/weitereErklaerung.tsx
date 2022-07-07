@@ -34,7 +34,11 @@ import {
   getStoredFormData,
 } from "~/formDataStorage.server";
 import { authenticator } from "~/auth.server";
-import { deletePdf, deleteTransferticket } from "~/domain/user";
+import {
+  deletePdf,
+  deleteTransferticket,
+  setUserInDeclarationProcess,
+} from "~/domain/user";
 
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticator.isAuthenticated(request, {
@@ -82,6 +86,7 @@ export const action: ActionFunction = async ({ request }) => {
   if (!errorsExist) {
     await deletePdf(user.email);
     await deleteTransferticket(user.email);
+    await setUserInDeclarationProcess(user.email, true);
     const storedFormData = await getStoredFormData({ request, user });
     let formDataToBeStored = {};
     if (datenUebernehmen == "true") {
