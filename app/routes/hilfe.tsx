@@ -5,9 +5,8 @@ import {
   ContentContainer,
   LoggedOutLayout,
 } from "~/components";
-import Button from "~/components/Button";
 import Hint from "~/components/Hint";
-import EmailOutlined from "~/components/icons/mui/EmailOutlined";
+import { ExternalLinkButton } from "~/components/ExternalLinkButton";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Hilfe") };
@@ -352,29 +351,21 @@ export default function Hilfe() {
                   kann ich tun?
                 </li>
               </ul>
-              dann möchten wir Sie höflich bitten, sich an folgende
-              E-Mail-Adresse zu wenden:
+              dann möchten wir Sie höflich bitten, nach der Antwort in unserem
+              Hilfebereich zu suchen:
+              <ExternalLinkButton
+                url={
+                  "https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de"
+                }
+                border={false}
+                classNames={"my-16 pl-0"}
+              >
+                Hilfebereich “Grundsteuererklärung für Privateigentum”
+              </ExternalLinkButton>
+              Wenn Sie keine Antwort im Hilfebereich finden, können Sie uns
+              direkt eine Email-Schreiben. Unsere Email-Adresse finden Sie dort
+              unter “Kontakt”.
             </ContentContainer>
-
-            <Button
-              href="mailto:hilfe@grundsteuererklaerung-fuer-privateigentum.de"
-              look="ghost"
-              size="medium"
-              icon={<EmailOutlined />}
-              className="md:hidden"
-            >
-              hilfe@grundsteuererklaerung-fuer-privateigentum.de
-            </Button>
-
-            <Button
-              href="mailto:hilfe@grundsteuererklaerung-fuer-privateigentum.de"
-              look="ghost"
-              size="large"
-              icon={<EmailOutlined />}
-              className="hidden md:inline-flex"
-            >
-              hilfe@grundsteuererklaerung-fuer-privateigentum.de
-            </Button>
 
             <ContentContainer size="sm-md">
               <p className="pt-24 text-16 leading-26">
