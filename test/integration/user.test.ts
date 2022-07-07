@@ -17,6 +17,7 @@ import {
   savePdf,
   saveTransferticket,
   setUserIdentified,
+  setUserInDeclarationProcess,
   userExists,
 } from "~/domain/user";
 
@@ -649,6 +650,42 @@ describe("user", () => {
     it("should fail on unknown user", async () => {
       await expect(async () => {
         await deletePdf("unknown@foo.com");
+      }).rejects.toThrow("not found");
+    });
+  });
+
+  const unsetUserInDeclarationProcess = () => {
+    db.user.update({
+      where: { email: "existing@foo.com" },
+      data: { inDeclarationProcess: true },
+    });
+  };
+
+  describe("setUserInDeclarationProcess", () => {
+    beforeEach(unsetUserInDeclarationProcess);
+    afterEach(unsetUserInDeclarationProcess);
+
+    it("should set inDeclarationProcess attribute to true if true given as value", async () => {
+      await setUserInDeclarationProcess("existing@foo.com", true);
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.inDeclarationProcess).toEqual(true);
+    });
+
+    it("should set inDeclarationProcess attribute to false if false given as value", async () => {
+      await setUserInDeclarationProcess("existing@foo.com", false);
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.inDeclarationProcess).toEqual(false);
+    });
+
+    it("should fail on unknown user", async () => {
+      await expect(async () => {
+        await setUserInDeclarationProcess("unknown@foo.com", true);
       }).rejects.toThrow("not found");
     });
   });

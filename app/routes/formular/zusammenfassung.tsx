@@ -47,6 +47,7 @@ import {
   saveEricaRequestIdSenden,
   savePdf,
   saveTransferticket,
+  setUserInDeclarationProcess,
   User,
 } from "~/domain/user";
 import invariant from "tiny-invariant";
@@ -181,6 +182,7 @@ export const loader: LoaderFunction = async ({
           username: userData.email,
           eventData: { transferticket: successResponseOrErrors.transferticket },
         });
+        await setUserInDeclarationProcess(userData.email, false);
         return redirect("/formular/erfolg");
       } else {
         await deleteEricaRequestIdSenden(user.email);

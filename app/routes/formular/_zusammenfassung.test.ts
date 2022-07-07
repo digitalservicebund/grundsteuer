@@ -202,6 +202,29 @@ describe("/zusammenfassung loader", () => {
         );
       });
 
+      it("should set inDeclarationProcess to false", async () => {
+        const spyOnSetUserInDeclarationProcess = jest.spyOn(
+          userModule,
+          "setUserInDeclarationProcess"
+        );
+
+        try {
+          await loader(
+            await getLoaderArgsWithAuthenticatedSession(
+              "/formular/zusammenfassung",
+              "existing_user@foo.com"
+            )
+          );
+
+          expect(spyOnSetUserInDeclarationProcess).toHaveBeenCalledWith(
+            "existing_user@foo.com",
+            false
+          );
+        } finally {
+          spyOnSetUserInDeclarationProcess.mockRestore();
+        }
+      });
+
       it("should redirect to /formular/erfolg", async () => {
         const response = await loader(
           await getLoaderArgsWithAuthenticatedSession(
@@ -253,6 +276,26 @@ describe("/zusammenfassung loader", () => {
 
         expect(jsonResponse.ericaErrors).toContain("Error 1");
         expect(jsonResponse.ericaErrors).toContain("Error 2");
+      });
+
+      it("should not set inDeclarationProcess", async () => {
+        const spyOnSetUserInDeclarationProcess = jest.spyOn(
+          userModule,
+          "setUserInDeclarationProcess"
+        );
+
+        try {
+          await loader(
+            await getLoaderArgsWithAuthenticatedSession(
+              "/formular/zusammenfassung",
+              "existing_user@foo.com"
+            )
+          );
+
+          expect(spyOnSetUserInDeclarationProcess).not.toHaveBeenCalled();
+        } finally {
+          spyOnSetUserInDeclarationProcess.mockRestore();
+        }
       });
     });
   });

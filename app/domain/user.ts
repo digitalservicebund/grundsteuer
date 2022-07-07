@@ -191,3 +191,13 @@ export const deletePdf = async (email: string) => {
     });
   }
 };
+
+export const setUserInDeclarationProcess = async (
+  email: string,
+  inDeclarationProcess: boolean
+) => {
+  return db.user.update({
+    where: { email: email },
+    data: { inDeclarationProcess: inDeclarationProcess },
+  });
+};
