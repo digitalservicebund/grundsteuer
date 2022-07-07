@@ -102,6 +102,27 @@ export function ErrorBoundary({ error }: { error: Error }) {
   );
 }
 
+export function CatchBoundary() {
+  return (
+    <html lang="de">
+      <head>
+        <title>{pageTitle("Ein unerwarteter Fehler ist aufgetreten")}</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <Links />
+      </head>
+      <body>
+        <ErrorPage statusCode={404} />
+        <script
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: `window.plausible && window.plausible("404",{ props: { path: document.location.pathname } });`,
+          }}
+        />
+      </body>
+    </html>
+  );
+}
+
 export default function App() {
   const { env, sentryDsn, version } = useLoaderData();
   useChangeLanguage("de");
