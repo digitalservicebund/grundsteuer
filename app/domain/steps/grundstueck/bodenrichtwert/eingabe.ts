@@ -9,7 +9,9 @@ export const grundstueckBodenrichtwertEingabe: StepDefinition = {
     bodenrichtwert: {
       validations: {
         required: {},
-        floatNoUnit: {},
+        float: {
+          msg: "Die Angabe muss eine Zahl sein, die durch ein Komma getrennt sein kann. Geben Sie keine Einheiten ein.",
+        },
         maxLengthFloat: {
           preComma: 6,
           postComma: 2,

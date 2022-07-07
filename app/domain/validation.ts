@@ -267,9 +267,6 @@ export const validateNoZero: ValidateFunctionDefault = ({ value }) =>
 export const validateFloat: ValidateFunctionDefault = ({ value }) =>
   !value || validator.isFloat(value.trim(), { locale: "de-DE" });
 
-export const validateFloatNoUnit: ValidateFunctionDefault = ({ value }) =>
-  validateFloat({ value });
-
 type ValidateMaxLengthFloatFunction = ({
   value,
   preComma,
@@ -714,7 +711,6 @@ export const getErrorMessage = (
     isSteuerId: validateSteuerId,
     noZero: validateNoZero,
     float: validateFloat,
-    floatNoUnit: validateFloat,
     maxLengthFloat: validateMaxLengthFloat,
     maxLength: validateMaxLength,
     minLength: validateMinLength,
