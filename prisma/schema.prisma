@@ -13,6 +13,7 @@ model User {
   email                       String      @unique
   identified                  Boolean     @default(false)
   createdAt                   DateTime    @default(now())
+  inDeclarationProcess        Boolean     @default(true)
   ericaRequestIdFscBeantragen String?
   ericaRequestIdSenden        String?
   ericaRequestIdFscAktivieren String?
