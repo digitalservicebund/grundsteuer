@@ -56,8 +56,8 @@ export default function Impressum() {
         <h3>Kontakt</h3>
         <p>
           E-Mail:{" "}
-          <a href="mailto:kontakt@grundsteuererklaerung-fuer-privateigentum.de">
-            kontakt@grundsteuererklaerung-fuer-privateigentum.de
+          <a href="mailto:hilfe@grundsteuererklaerung-fuer-privateigentum.de">
+            hilfe@grundsteuererklaerung-fuer-privateigentum.de
           </a>
         </p>
         <h3>Informationspflichten gemäß Art. 14 ODR-VO, § 36 VSBG</h3>

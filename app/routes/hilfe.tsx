@@ -357,23 +357,23 @@ export default function Hilfe() {
             </ContentContainer>
 
             <Button
-              href="mailto:kontakt@grundsteuererklaerung-fuer-privateigentum.de"
+              href="mailto:hilfe@grundsteuererklaerung-fuer-privateigentum.de"
               look="ghost"
               size="medium"
               icon={<EmailOutlined />}
               className="md:hidden"
             >
-              kontakt@grundsteuererklaerung-fuer-privateigentum.de
+              hilfe@grundsteuererklaerung-fuer-privateigentum.de
             </Button>
 
             <Button
-              href="mailto:kontakt@grundsteuererklaerung-fuer-privateigentum.de"
+              href="mailto:hilfe@grundsteuererklaerung-fuer-privateigentum.de"
               look="ghost"
               size="large"
               icon={<EmailOutlined />}
               className="hidden md:inline-flex"
             >
-              kontakt@grundsteuererklaerung-fuer-privateigentum.de
+              hilfe@grundsteuererklaerung-fuer-privateigentum.de
             </Button>
 
             <ContentContainer size="sm-md">

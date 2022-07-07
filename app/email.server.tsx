@@ -39,7 +39,7 @@ export const sendToSendinblue = (options: {
     };
     email.to = [{ email: options.to }];
     email.replyTo = {
-      email: "kontakt@grundsteuererklaerung-fuer-privateigentum.de",
+      email: "hilfe@grundsteuererklaerung-fuer-privateigentum.de",
     };
     // disable List-Unsubscribe header
     email.headers = { "X-List-Unsub": "disabled" };

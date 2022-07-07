@@ -544,10 +544,10 @@ export default function Nutzungsbedingungen() {
           Sie können diesen Vertrag bis zum Versand Ihrer Grundsteuererklärung
           jederzeit widerrufen. Schreiben Sie uns eine Email-Nachricht unter{" "}
           <a
-            href="mailto:kontakt@grundsteuererklaerung-fuer-privateigentum.de"
+            href="mailto:hilfe@grundsteuererklaerung-fuer-privateigentum.de"
             className="underline text-blue-800"
           >
-            kontakt@grundsteuererklaerung-fuer-privateigentum.de
+            hilfe@grundsteuererklaerung-fuer-privateigentum.de
           </a>{" "}
           mit dem Betreff “Widerruf”. Ihr Nutzer:innenkonto und sämtliche Ihrer
           Eingaben werden in diesem Fall sofort gelöscht.

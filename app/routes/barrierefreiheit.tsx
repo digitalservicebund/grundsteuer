@@ -69,9 +69,9 @@ export default function Nutzungsbedingungen() {
           aufgefallen? Dann können Sie sich gerne bei uns melden:{" "}
           <a
             className="text-blue-900 underline"
-            href="mailto:kontakt@grundsteuererklaerung-fuer-privateigentum.de"
+            href="mailto:hilfe@grundsteuererklaerung-fuer-privateigentum.de"
           >
-            kontakt@grundsteuererklaerung-fuer-privateigentum.de
+            hilfe@grundsteuererklaerung-fuer-privateigentum.de
           </a>
           .
         </p>
