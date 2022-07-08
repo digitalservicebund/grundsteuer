@@ -10,19 +10,25 @@ import {
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
+import { useLoaderData } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erfolgreich angemeldet.") };
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  await authenticator.isAuthenticated(request, {
+  const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
 
-  return {};
+  return {
+    inDeclarationProcess: user.inDeclarationProcess,
+  };
 };
 export default function ErfolgreichAngemeldet() {
+  const { inDeclarationProcess } = useLoaderData();
+
+  const nextStepUrl = !inDeclarationProcess ? "/formular/erfolg" : "/fsc";
   return (
     <UserLayout userIsLoggedIn>
       <ContentContainer size="sm">
@@ -38,7 +44,7 @@ export default function ErfolgreichAngemeldet() {
             in dem Sie sich registriert haben.
           </IntroText>
 
-          <Button to="/fsc">Verstanden & Weiter</Button>
+          <Button to={nextStepUrl}>Verstanden & Weiter</Button>
         </SuccessPageLayout>
       </ContentContainer>
     </UserLayout>

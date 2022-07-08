@@ -1,19 +1,12 @@
 import { LoaderFunction, redirect } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { findUserByEmail } from "~/domain/user";
-import { authenticator, SessionUser } from "~/auth.server";
+import { authenticator } from "~/auth.server";
 
-export const getNextStepLink = async (url: string, user: SessionUser) => {
+export const getNextStepLink = async (url: string) => {
   const urlObject = new URL(url);
   const redirectToSummary = urlObject.searchParams.get("redirectToSummary");
-  if (redirectToSummary) {
-    return "/formular/zusammenfassung";
-  }
-
-  if (!user.inDeclarationProcess) {
-    return "/formular/erfolg";
-  }
-  return "/formular/welcome";
+  return redirectToSummary ? "/formular/zusammenfassung" : "/formular/welcome";
 };
 
 export const getRedirectionParams = (

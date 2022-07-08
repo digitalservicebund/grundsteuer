@@ -17,12 +17,12 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const sessionUser = await authenticator.isAuthenticated(request, {
+  await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
 
   return json({
-    nextStepLink: await getNextStepLink(request.url, sessionUser),
+    nextStepLink: await getNextStepLink(request.url),
   });
 };
 

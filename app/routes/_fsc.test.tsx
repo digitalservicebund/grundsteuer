@@ -84,49 +84,4 @@ describe("Loader", () => {
       expect(result).toEqual({});
     });
   });
-
-  describe("with identified user with finished process", () => {
-    beforeAll(() => {
-      mockIsAuthenticated.mockImplementation(() =>
-        Promise.resolve(
-          sessionUserFactory.build({
-            email: "existing_user@foo.com",
-            identified: true,
-            inDeclarationProcess: false,
-          })
-        )
-      );
-      getMockedFunction(userModule, "findUserByEmail", {
-        email: "existing_user@foo.com",
-        identified: true,
-        inDeclarationProcess: false,
-      });
-    });
-
-    afterAll(() => {
-      jest.clearAllMocks();
-    });
-
-    it("returns redirect to formular erfolg", async () => {
-      const result = await loader(
-        await getLoaderArgsWithAuthenticatedSession(
-          "/fsc",
-          "existing_user@foo.com"
-        )
-      );
-      expect(result.status).toEqual(302);
-      expect(result.headers.get("Location")).toEqual("/formular/erfolg");
-    });
-
-    it("returns redirect to formular erfolg for fsc/eingeben/erfolgreich", async () => {
-      const result = await loader(
-        await getLoaderArgsWithAuthenticatedSession(
-          "/fsc/eingeben/erfolgreich",
-          "existing_user@foo.com"
-        )
-      );
-      expect(result.status).toEqual(302);
-      expect(result.headers.get("Location")).toEqual("/formular/erfolg");
-    });
-  });
 });

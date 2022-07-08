@@ -8,9 +8,6 @@ export const loader: LoaderFunction = async ({ request }) => {
     failureRedirect: "/anmelden",
   });
 
-  if (!sessionUser.inDeclarationProcess) {
-    return redirect("/formular/erfolg");
-  }
   if (
     sessionUser.identified &&
     !request.url.includes("fsc/eingeben/erfolgreich")
