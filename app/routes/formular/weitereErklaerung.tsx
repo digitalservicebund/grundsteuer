@@ -112,20 +112,11 @@ export const action: ActionFunction = async ({ request }) => {
         },
       };
     }
-    let headers = await createHeadersWithFormDataCookie({
+    const headers = await createHeadersWithFormDataCookie({
       data: formDataToBeStored,
       user,
     });
-
-    const formDataHeader = headers?.get("Set-Cookie");
-    if (headers && formDataHeader) {
-      headers.set(
-        "Set-Cookie",
-        formDataHeader + ";" + (await commitSession(session))
-      );
-    } else {
-      headers = new Headers({ "Set-Cookie": await commitSession(session) });
-    }
+    headers?.append("Set-Cookie", await commitSession(session));
 
     return redirect("/formular/welcome", {
       headers,

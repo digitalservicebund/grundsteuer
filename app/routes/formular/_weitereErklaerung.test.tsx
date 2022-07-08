@@ -169,7 +169,7 @@ describe("/weitereErklaerung action", () => {
         const result = await action(args);
 
         const resultingSession = await getSession(
-          result.headers.get("Set-Cookie")
+          result.headers.get("Set-Cookie").replace(",", ";")
         );
         expect(resultingSession.get("user").inDeclarationProcess).toEqual(true);
       });
@@ -293,7 +293,7 @@ describe("/weitereErklaerung action", () => {
         const result = await action(args);
 
         const resultingSession = await getSession(
-          result.headers.get("Set-Cookie")
+          result.headers.get("Set-Cookie").replace(",", ";")
         );
         expect(resultingSession.get("user").inDeclarationProcess).toEqual(true);
       });
