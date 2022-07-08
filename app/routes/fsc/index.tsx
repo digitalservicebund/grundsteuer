@@ -3,10 +3,22 @@ import invariant from "tiny-invariant";
 import { findUserByEmail } from "~/domain/user";
 import { authenticator } from "~/auth.server";
 
-export const getNextStepLink = (url: string) => {
+export const getNextStepLink = async (url: string, userMail: string) => {
   const urlObject = new URL(url);
   const redirectToSummary = urlObject.searchParams.get("redirectToSummary");
-  return redirectToSummary ? "/formular/zusammenfassung" : "/formular/welcome";
+  if (redirectToSummary) {
+    return "/formular/zusammenfassung";
+  }
+
+  const user = await findUserByEmail(userMail);
+  invariant(
+    user,
+    "expected a matching user in the database from a user in a cookie session"
+  );
+  if (!user.inDeclarationProcess) {
+    return "/formular/erfolg";
+  }
+  return "/formular/welcome";
 };
 
 export const getRedirectionParams = (

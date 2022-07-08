@@ -10,14 +10,19 @@ import {
 import { pageTitle } from "~/util/pageTitle";
 import { getNextStepLink } from "~/routes/fsc/index";
 import { useLoaderData } from "@remix-run/react";
+import { authenticator } from "~/auth.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Freischaltcode erfolgreich eingegeben") };
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
+  const sessionUser = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/anmelden",
+  });
+
   return json({
-    nextStepLink: getNextStepLink(request.url),
+    nextStepLink: await getNextStepLink(request.url, sessionUser.email),
   });
 };
 
