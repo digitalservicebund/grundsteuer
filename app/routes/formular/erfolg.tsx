@@ -10,6 +10,7 @@ import {
   Button,
   ContentContainer,
   Headline,
+  IntroText,
 } from "~/components";
 import invariant from "tiny-invariant";
 import { authenticator } from "~/auth.server";
@@ -158,6 +159,31 @@ export default function Erfolg() {
             60 Minuten nach Erstellung herunterladen.
           </Hint>
         </DownloadCard>
+
+        <div className="bg-white p-32 mb-32">
+          <ContentContainer size="sm">
+            <h2 className="text-30 mb-32">
+              Weitere Grundsteuererklärung abgeben{" "}
+            </h2>
+            <IntroText>
+              Sie können hier im Anschluss eine weitere Erklärung starten. Dafür
+              müssen Sie keinen neuen Freischaltcode beantragen.
+            </IntroText>
+            <Button href="/formular/weitereErklaerung">
+              Weitere Erklärung abgeben
+            </Button>
+          </ContentContainer>
+        </div>
+
+        <ContentContainer size="sm">
+          <h2 className="text-24 mb-16">
+            Was passiert mit meinem Nutzerkonto?
+          </h2>
+          <IntroText>
+            Wir werden Ihr Konto automatisch 4 Monate nach Abgabe der
+            Grundsteuerklärung löschen.
+          </IntroText>
+        </ContentContainer>
       </ContentContainer>
     </>
   );
