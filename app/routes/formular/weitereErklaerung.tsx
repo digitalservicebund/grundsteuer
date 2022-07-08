@@ -182,7 +182,7 @@ export default function WeitereErklaerung() {
             />
           </FormGroup>
         </fieldset>
-        <Button disabled={isSubmitting}>
+        <Button id="nextButton" disabled={isSubmitting}>
           Verstanden & neue Erklärung starten
         </Button>
       </Form>
