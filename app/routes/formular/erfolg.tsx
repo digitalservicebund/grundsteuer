@@ -20,7 +20,6 @@ import Download from "~/components/icons/mui/Download";
 import { ReactNode } from "react";
 import Hint from "~/components/Hint";
 import EnumeratedList from "~/components/EnumeratedList";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erklärung abgeschickt") };
@@ -43,7 +42,6 @@ export const loader: LoaderFunction = async ({ request }) => {
   return {
     transferticket: userData.transferticket,
     pdf: userData.pdf,
-    showTestFeatures: testFeaturesEnabled,
   };
 };
 
@@ -67,7 +65,7 @@ const DownloadCard = (props: {
 };
 
 export default function Erfolg() {
-  const { transferticket, pdf, showTestFeatures } = useLoaderData();
+  const { transferticket, pdf } = useLoaderData();
   const transferticketButtonProps = transferticket
     ? { href: "/download/transferticket" }
     : { disabled: true };
@@ -162,34 +160,30 @@ export default function Erfolg() {
           </Hint>
         </DownloadCard>
 
-        {showTestFeatures && (
-          <>
-            <div className="bg-white p-32 mb-32">
-              <ContentContainer size="sm">
-                <h2 className="text-30 mb-32 leading-36">
-                  Weitere Grundsteuererklärung abgeben{" "}
-                </h2>
-                <IntroText>
-                  Sie können hier im Anschluss eine weitere Erklärung starten.
-                  Dafür müssen Sie keinen neuen Freischaltcode beantragen.
-                </IntroText>
-                <Button href="/formular/weitereErklaerung">
-                  Weitere Erklärung abgeben
-                </Button>
-              </ContentContainer>
-            </div>
+        <div className="bg-white p-32 mb-32">
+          <ContentContainer size="sm">
+            <h2 className="text-30 mb-32 leading-36">
+              Weitere Grundsteuererklärung abgeben{" "}
+            </h2>
+            <IntroText>
+              Sie können hier im Anschluss eine weitere Erklärung starten. Dafür
+              müssen Sie keinen neuen Freischaltcode beantragen.
+            </IntroText>
+            <Button href="/formular/weitereErklaerung">
+              Weitere Erklärung abgeben
+            </Button>
+          </ContentContainer>
+        </div>
 
-            <ContentContainer size="sm">
-              <h2 className="text-24 mb-16">
-                Was passiert mit meinem Nutzerkonto?
-              </h2>
-              <IntroText>
-                Wir werden Ihr Konto automatisch 4 Monate nach Abgabe der
-                Grundsteuerklärung löschen.
-              </IntroText>
-            </ContentContainer>
-          </>
-        )}
+        <ContentContainer size="sm">
+          <h2 className="text-24 mb-16">
+            Was passiert mit meinem Nutzerkonto?
+          </h2>
+          <IntroText>
+            Wir werden Ihr Konto automatisch 4 Monate nach Abgabe der
+            Grundsteuerklärung löschen.
+          </IntroText>
+        </ContentContainer>
       </ContentContainer>
     </>
   );
