@@ -118,7 +118,7 @@ export const action: ActionFunction = async ({ request }) => {
     });
     headers?.append("Set-Cookie", await commitSession(session));
 
-    return redirect("/formular/welcome", {
+    return redirect("/formular/welcome?weitereErklaerung=true", {
       headers,
     });
   }

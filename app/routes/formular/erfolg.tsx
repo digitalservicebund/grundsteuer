@@ -166,7 +166,7 @@ export default function Erfolg() {
           <>
             <div className="bg-white p-32 mb-32">
               <ContentContainer size="sm">
-                <h2 className="text-30 mb-32">
+                <h2 className="text-30 mb-32 leading-36">
                   Weitere Grundsteuererklärung abgeben{" "}
                 </h2>
                 <IntroText>

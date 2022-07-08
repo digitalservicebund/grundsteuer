@@ -466,6 +466,7 @@
   },
   "welcome": {
     "headline": "Herzlich willkommen bei Ihrer Grundsteuererklärung für Privateigentum!",
+    "headlineWeitereErklaerung": "Willkommen zurück! Hier starten Sie Ihre neue Erkärung",
     "nextButtonLabel": "Los geht's"
   },
   "gebaeude": {

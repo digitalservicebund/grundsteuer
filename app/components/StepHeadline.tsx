@@ -6,13 +6,18 @@ import { Trans } from "react-i18next";
 export function StepHeadline({
   i18n,
   asLegend,
+  isWeitereErklaerung,
 }: {
   i18n: I18nObject;
   asLegend?: boolean;
+  isWeitereErklaerung?: boolean;
 }) {
+  const headlineText = isWeitereErklaerung
+    ? i18n.headlineWeitereErklaerung
+    : i18n.headline;
   return (
     <>
-      <Headline asLegend={asLegend}>{i18n.headline}</Headline>
+      <Headline asLegend={asLegend}>{headlineText}</Headline>
       {i18n.description && <IntroText>{i18n.description}</IntroText>}
       {i18n.hint && (
         <Hint>

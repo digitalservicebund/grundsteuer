@@ -118,6 +118,9 @@ export const loader: LoaderFunction = async ({
   const redirectToSummary = !!new URL(request.url).searchParams.get(
     "redirectToSummary"
   );
+  const isWeitereErklaerung = !!new URL(request.url).searchParams.get(
+    "weitereErklaerung"
+  );
 
   const bundesland = storedFormData.grundstueck?.adresse?.bundesland;
 
@@ -139,6 +142,7 @@ export const loader: LoaderFunction = async ({
       currentState,
       stepDefinition,
       redirectToSummary,
+      isWeitereErklaerung,
       csrfToken,
     },
     {
@@ -225,6 +229,7 @@ export function Step() {
     currentStateWithoutId,
     currentState,
     redirectToSummary,
+    isWeitereErklaerung,
     csrfToken,
   } = loaderData;
   const StepComponent =
@@ -259,7 +264,11 @@ export function Step() {
         {headlineIsLegend ? (
           <fieldset>
             <ContentContainer size="sm-md">
-              <StepHeadline i18n={i18n} asLegend />
+              <StepHeadline
+                i18n={i18n}
+                isWeitereErklaerung={isWeitereErklaerung}
+                asLegend
+              />
               {actionData?.errors && !isSubmitting && <ErrorBarStandard />}
             </ContentContainer>
             <StepComponent {...loaderData} {...actionData} />
@@ -267,7 +276,10 @@ export function Step() {
         ) : (
           <>
             <ContentContainer size="sm-md">
-              <StepHeadline i18n={i18n} />
+              <StepHeadline
+                i18n={i18n}
+                isWeitereErklaerung={isWeitereErklaerung}
+              />
               {actionData?.errors && !isSubmitting && <ErrorBarStandard />}
             </ContentContainer>
             <StepComponent {...loaderData} {...actionData} />

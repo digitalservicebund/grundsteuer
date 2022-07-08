@@ -563,5 +563,10 @@ describe("Happy Path", () => {
     cy.contains("a", "PDF")
       .should("have.attr", "href")
       .and("include", "download/pdf");
+
+    cy.contains("a", "Weitere Erklärung").click();
+
+    cy.get(`label[for=datenUebernehmen-true]`).click();
+    cy.contains("Willkommen zurück");
   });
 });

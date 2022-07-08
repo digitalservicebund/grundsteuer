@@ -108,7 +108,9 @@ describe("/weitereErklaerung action", () => {
         const result = await action(args);
 
         expect(result.status).toEqual(302);
-        expect(result.headers.get("Location")).toEqual("/formular/welcome");
+        expect(result.headers.get("Location")).toEqual(
+          "/formular/welcome?weitereErklaerung=true"
+        );
       });
 
       test("deletes pdf and transferticket", async () => {
@@ -234,7 +236,9 @@ describe("/weitereErklaerung action", () => {
         });
         const result = await action(args);
         expect(result.status).toEqual(302);
-        expect(result.headers.get("Location")).toEqual("/formular/welcome");
+        expect(result.headers.get("Location")).toEqual(
+          "/formular/welcome?weitereErklaerung=true"
+        );
       });
 
       test("deletes pdf and transferticket", async () => {
