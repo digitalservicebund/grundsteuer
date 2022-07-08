@@ -1,6 +1,6 @@
 import * as Sentry from "@sentry/node";
 import { Transaction } from "@sentry/types";
-import { isResponse } from "@remix-run/server-runtime/responses";
+import { isResponse } from "@remix-run/server-runtime/dist/responses";
 import { v4 as uuid } from "uuid";
 import { Request, Response } from "express";
 import { ServerBuild } from "@remix-run/node";
