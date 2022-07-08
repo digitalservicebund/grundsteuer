@@ -1,6 +1,5 @@
 import { getNextStepLink } from "~/routes/fsc/index";
-import { getMockedFunction } from "test/mocks/mockHelper";
-import * as userModule from "~/domain/user";
+import { sessionUserFactory } from "test/factories";
 
 describe("getNextStepLink", () => {
   afterEach(() => {
@@ -8,28 +7,23 @@ describe("getNextStepLink", () => {
   });
 
   it("Returns summary if url param set", async () => {
+    const user = sessionUserFactory.build();
     const result = await getNextStepLink(
       "localhost:3000/fsc?redirectToSummary=true",
-      "foo@bar.com"
+      user
     );
     expect(result).toEqual("/formular/zusammenfassung");
   });
 
   it("Returns formular start if still inDeclarationProcess", async () => {
-    getMockedFunction(userModule, "findUserByEmail", {
-      email: "existing_user@foo.com",
-      inDeclarationProcess: true,
-    });
-    const result = await getNextStepLink("localhost:3000/fsc", "foo@bar.com");
+    const user = sessionUserFactory.build({ inDeclarationProcess: true });
+    const result = await getNextStepLink("localhost:3000/fsc", user);
     expect(result).toEqual("/formular/welcome");
   });
 
   it("Returns formular erfolg if not inDeclarationProcess", async () => {
-    getMockedFunction(userModule, "findUserByEmail", {
-      email: "existing_user@foo.com",
-      inDeclarationProcess: false,
-    });
-    const result = await getNextStepLink("localhost:3000/fsc", "foo@bar.com");
+    const user = sessionUserFactory.build({ inDeclarationProcess: false });
+    const result = await getNextStepLink("localhost:3000/fsc", user);
     expect(result).toEqual("/formular/erfolg");
   });
 });

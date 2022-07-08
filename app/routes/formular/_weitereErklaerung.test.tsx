@@ -6,6 +6,7 @@ import { action } from "~/routes/formular/weitereErklaerung";
 import { decodeFormDataCookie } from "~/formDataStorage.server";
 import { getMockedFunction } from "test/mocks/mockHelper";
 import * as userModule from "~/domain/user";
+import { getSession } from "~/session.server";
 
 describe("/weitereErklaerung action", () => {
   beforeAll(async () => {
@@ -85,9 +86,11 @@ describe("/weitereErklaerung action", () => {
         });
 
         try {
-          await action(args);
+          const result = await action(args);
 
           expect(setFlagMock).not.toBeCalled();
+          // No cookies means no overridden session
+          expect(result.headers).toBeUndefined();
         } finally {
           setFlagMock.mockRestore();
         }
@@ -154,6 +157,21 @@ describe("/weitereErklaerung action", () => {
         } finally {
           setFlagMock.mockRestore();
         }
+      });
+
+      test("sets inDeclarationProcess to true in session", async () => {
+        const args = await mockActionArgs({
+          route: "/formular/weitereErklaerung",
+          formData: { datenUebernehmen: "true" },
+          context: {},
+        });
+
+        const result = await action(args);
+
+        const resultingSession = await getSession(
+          result.headers.get("Set-Cookie")
+        );
+        expect(resultingSession.get("user").inDeclarationProcess).toEqual(true);
       });
 
       test("keeps relevant formData", async () => {
@@ -263,6 +281,21 @@ describe("/weitereErklaerung action", () => {
         } finally {
           setFlagMock.mockRestore();
         }
+      });
+
+      test("sets inDeclarationProcess to true in session", async () => {
+        const args = await mockActionArgs({
+          route: "/formular/weitereErklaerung",
+          formData: { datenUebernehmen: "false" },
+          context: {},
+        });
+
+        const result = await action(args);
+
+        const resultingSession = await getSession(
+          result.headers.get("Set-Cookie")
+        );
+        expect(resultingSession.get("user").inDeclarationProcess).toEqual(true);
       });
 
       test("clears formData if datenUebernehmen is false", async () => {

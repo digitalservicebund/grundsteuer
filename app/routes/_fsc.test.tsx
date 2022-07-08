@@ -14,6 +14,8 @@ describe("Loader", () => {
         Promise.resolve(
           sessionUserFactory.build({
             email: "existing_user@foo.com",
+            identified: false,
+            inDeclarationProcess: true,
           })
         )
       );
@@ -46,6 +48,7 @@ describe("Loader", () => {
           sessionUserFactory.build({
             email: "existing_user@foo.com",
             identified: true,
+            inDeclarationProcess: true,
           })
         )
       );
@@ -89,6 +92,7 @@ describe("Loader", () => {
           sessionUserFactory.build({
             email: "existing_user@foo.com",
             identified: true,
+            inDeclarationProcess: false,
           })
         )
       );

@@ -19,6 +19,7 @@ import * as sendGrundsteuerModule from "~/erica/sendGrundsteuer";
 import * as csrfModule from "~/util/csrf";
 import { AuditLogEvent } from "~/audit/auditLog";
 import * as modelModule from "~/domain/model";
+import { getSession } from "~/session.server";
 
 describe("/zusammenfassung loader", () => {
   beforeAll(async () => {
@@ -225,6 +226,22 @@ describe("/zusammenfassung loader", () => {
         }
       });
 
+      it("should set inDeclarationProcess to false in session", async () => {
+        const result = await loader(
+          await getLoaderArgsWithAuthenticatedSession(
+            "/formular/zusammenfassung",
+            "existing_user@foo.com"
+          )
+        );
+
+        const resultingSession = await getSession(
+          result.headers.get("Set-Cookie")
+        );
+        expect(resultingSession.get("user").inDeclarationProcess).toEqual(
+          false
+        );
+      });
+
       it("should redirect to /formular/erfolg", async () => {
         const response = await loader(
           await getLoaderArgsWithAuthenticatedSession(
@@ -285,7 +302,7 @@ describe("/zusammenfassung loader", () => {
         );
 
         try {
-          await loader(
+          const result = await loader(
             await getLoaderArgsWithAuthenticatedSession(
               "/formular/zusammenfassung",
               "existing_user@foo.com"
@@ -293,6 +310,12 @@ describe("/zusammenfassung loader", () => {
           );
 
           expect(spyOnSetUserInDeclarationProcess).not.toHaveBeenCalled();
+          const resultingSession = await getSession(
+            result.headers.get("Set-Cookie")
+          );
+          expect(resultingSession.get("user").inDeclarationProcess).toEqual(
+            undefined
+          );
         } finally {
           spyOnSetUserInDeclarationProcess.mockRestore();
         }

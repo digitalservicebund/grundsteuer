@@ -60,6 +60,8 @@ export const action: ActionFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
+  const session = await getSession(request.headers.get("Cookie"));
+
   await verifyCsrfToken(request);
 
   // clone request before accessing formData, as remix-auth also needs the formData
@@ -87,6 +89,10 @@ export const action: ActionFunction = async ({ request }) => {
     await deletePdf(user.email);
     await deleteTransferticket(user.email);
     await setUserInDeclarationProcess(user.email, true);
+    session.set(
+      "user",
+      Object.assign(session.get("user"), { inDeclarationProcess: true })
+    );
     const storedFormData = await getStoredFormData({ request, user });
     let formDataToBeStored = {};
     if (datenUebernehmen == "true") {
@@ -106,10 +112,20 @@ export const action: ActionFunction = async ({ request }) => {
         },
       };
     }
-    const headers = await createHeadersWithFormDataCookie({
+    let headers = await createHeadersWithFormDataCookie({
       data: formDataToBeStored,
       user,
     });
+
+    const formDataHeader = headers?.get("Set-Cookie");
+    if (headers && formDataHeader) {
+      headers.set(
+        "Set-Cookie",
+        formDataHeader + ";" + (await commitSession(session))
+      );
+    } else {
+      headers = new Headers({ "Set-Cookie": await commitSession(session) });
+    }
 
     return redirect("/formular/welcome", {
       headers,

@@ -10,6 +10,7 @@ export type SessionUser = {
   email: string;
   id: string;
   identified: boolean;
+  inDeclarationProcess: boolean;
 };
 
 export const authenticator = new Authenticator<SessionUser>(sessionStorage);
@@ -25,6 +26,7 @@ const login = async (email: string): Promise<SessionUser> => {
       email: user.email,
       id: user.id,
       identified: user.identified,
+      inDeclarationProcess: user.inDeclarationProcess,
     };
   }
   throw new Error("unknown user!");

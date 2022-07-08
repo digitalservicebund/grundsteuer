@@ -6,5 +6,6 @@ export const sessionUserFactory = Factory.define<SessionUser>(
     id: sequence.toString(),
     email: "user@example.com",
     identified: false,
+    inDeclarationProcess: true,
   })
 );

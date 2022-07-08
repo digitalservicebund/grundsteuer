@@ -1,20 +1,15 @@
 import { LoaderFunction, redirect } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { findUserByEmail } from "~/domain/user";
-import { authenticator } from "~/auth.server";
+import { authenticator, SessionUser } from "~/auth.server";
 
-export const getNextStepLink = async (url: string, userMail: string) => {
+export const getNextStepLink = async (url: string, user: SessionUser) => {
   const urlObject = new URL(url);
   const redirectToSummary = urlObject.searchParams.get("redirectToSummary");
   if (redirectToSummary) {
     return "/formular/zusammenfassung";
   }
 
-  const user = await findUserByEmail(userMail);
-  invariant(
-    user,
-    "expected a matching user in the database from a user in a cookie session"
-  );
   if (!user.inDeclarationProcess) {
     return "/formular/erfolg";
   }

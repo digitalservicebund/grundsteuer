@@ -156,6 +156,7 @@ export const loader: LoaderFunction = async ({
     userData,
     "expected a matching user in the database from a user in a cookie session"
   );
+  const session = await getSession(request.headers.get("Cookie"));
 
   const storedFormData = await getStoredFormData({ request, user });
   const filteredData = filterDataForReachablePaths(storedFormData);
@@ -183,7 +184,15 @@ export const loader: LoaderFunction = async ({
           eventData: { transferticket: successResponseOrErrors.transferticket },
         });
         await setUserInDeclarationProcess(userData.email, false);
-        return redirect("/formular/erfolg");
+        session.set(
+          "user",
+          Object.assign(session.get("user"), { inDeclarationProcess: false })
+        );
+        return redirect("/formular/erfolg", {
+          headers: {
+            "Set-Cookie": await commitSession(session),
+          },
+        });
       } else {
         await deleteEricaRequestIdSenden(user.email);
         ericaRequestId = null;
@@ -193,8 +202,6 @@ export const loader: LoaderFunction = async ({
       }
     }
   }
-
-  const session = await getSession(request.headers.get("Cookie"));
   const csrfToken = createCsrfToken(session);
 
   return json(

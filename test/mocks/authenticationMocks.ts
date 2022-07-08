@@ -42,7 +42,12 @@ export const setCookieHeaderWithSessionAndData = async (
   );
 
   const dataHeaders = (await createHeadersWithFormDataCookie({
-    user: { email: userEmail, id: "1", identified: true },
+    user: {
+      email: userEmail,
+      id: "1",
+      identified: true,
+      inDeclarationProcess: true,
+    },
     data: formData,
   })) as Headers;
 
