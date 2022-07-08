@@ -43,7 +43,7 @@
   "dependencies": {
     "@prisma/client": "^4.0.0",
     "@remix-run/express": "^1.6.3",
-    "@remix-run/node": "^1.6.3",
+    "@remix-run/node": "^1.6.4",
     "@remix-run/react": "^1.6.3",
     "@sentry/browser": "^7.5.1",
     "@sentry/node": "^7.5.1",
@@ -98,7 +98,7 @@
     "@types/lodash": "^4.14.182",
     "@types/lru-cache": "^7.10.10",
     "@types/morgan": "^1.9.3",
-    "@types/node": "^18.0.1",
+    "@types/node": "^18.0.3",
     "@types/node-cron": "^3.0.2",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
