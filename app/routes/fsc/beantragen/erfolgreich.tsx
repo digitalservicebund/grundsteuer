@@ -21,7 +21,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     failureRedirect: "/anmelden",
   });
   return json({
-    nextStepLink: await getNextStepLink(request.url),
+    nextStepLink: getNextStepLink(request.url),
   });
 };
 

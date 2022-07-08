@@ -22,7 +22,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 
   return json({
-    nextStepLink: await getNextStepLink(request.url),
+    nextStepLink: getNextStepLink(request.url),
   });
 };
 

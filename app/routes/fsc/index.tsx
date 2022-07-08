@@ -3,7 +3,7 @@ import invariant from "tiny-invariant";
 import { findUserByEmail } from "~/domain/user";
 import { authenticator } from "~/auth.server";
 
-export const getNextStepLink = async (url: string) => {
+export const getNextStepLink = (url: string) => {
   const urlObject = new URL(url);
   const redirectToSummary = urlObject.searchParams.get("redirectToSummary");
   return redirectToSummary ? "/formular/zusammenfassung" : "/formular/welcome";
