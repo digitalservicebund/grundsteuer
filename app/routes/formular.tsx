@@ -28,11 +28,13 @@ export const loader: LoaderFunction = async ({ request }) => {
     graph,
     currentState: getCurrentStateFromUrl(request.url),
     userIsIdentified: user.identified,
+    userHasFinishedProcess: !user.inDeclarationProcess,
   };
 };
 
 export default function Formular() {
-  const { graph, currentState, userIsIdentified } = useLoaderData();
+  const { graph, currentState, userIsIdentified, userHasFinishedProcess } =
+    useLoaderData();
 
   return (
     <Layout
@@ -43,13 +45,16 @@ export default function Formular() {
             <NavigationActions
               userIsIdentified={userIsIdentified}
               userIsLoggedIn={true}
+              userHasFinishedProcess={userHasFinishedProcess}
             />
           }
         >
-          <FormSidebarNavigation
-            graph={graph}
-            initialCurrentState={currentState}
-          />
+          {!userHasFinishedProcess && (
+            <FormSidebarNavigation
+              graph={graph}
+              initialCurrentState={currentState}
+            />
+          )}
         </SidebarNavigation>
       }
       topNavigation={
@@ -58,13 +63,16 @@ export default function Formular() {
             <NavigationActions
               userIsIdentified={userIsIdentified}
               userIsLoggedIn={true}
+              userHasFinishedProcess={userHasFinishedProcess}
             />
           }
         >
-          <FormSidebarNavigation
-            graph={graph}
-            initialCurrentState={currentState}
-          />
+          {!userHasFinishedProcess && (
+            <FormSidebarNavigation
+              graph={graph}
+              initialCurrentState={currentState}
+            />
+          )}
         </TopNavigation>
       }
     >

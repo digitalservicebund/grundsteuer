@@ -6,10 +6,12 @@ import NavigationLink from "./NavigationLink";
 import PersonCircle from "~/components/icons/mui/PersonCircle";
 import LetterIcon from "~/components/icons/mui/LetterIcon";
 import Lock from "~/components/icons/mui/Lock";
+import AddFile from "~/components/icons/mui/AddFile";
 
 export default function NavigationActions(props: {
   userIsIdentified?: boolean;
   userIsLoggedIn?: boolean;
+  userHasFinishedProcess?: boolean;
 }) {
   const location = useLocation();
   const [currentLocation, setCurrentLocation] = useState(location.pathname);
@@ -55,14 +57,26 @@ export default function NavigationActions(props: {
           Freischaltcode
         </NavigationLink>
       )}
-      <NavigationLink
-        to="/formular/zusammenfassung"
-        icon={<EmailOutlinedIcon className="w-24 h-24 fill-blue-800" />}
-        isAllCaps
-        isActive={!!currentLocation.match(/\/formular\/zusammenfassung/)}
-      >
-        Übersicht & Abgeben
-      </NavigationLink>
+      {!props.userHasFinishedProcess && (
+        <NavigationLink
+          to="/formular/zusammenfassung"
+          icon={<EmailOutlinedIcon className="w-24 h-24 fill-blue-800" />}
+          isAllCaps
+          isActive={!!currentLocation.match(/\/formular\/zusammenfassung/)}
+        >
+          Übersicht & Abgeben
+        </NavigationLink>
+      )}
+      {props.userHasFinishedProcess && (
+        <NavigationLink
+          to="/formular/weitereErklaerung"
+          icon={<AddFile className="w-24 h-24 fill-blue-800" />}
+          isAllCaps
+          isActive={!!currentLocation.match(/\/formular\/weitereErklaerung/)}
+        >
+          Weitere Erklärung Abgeben
+        </NavigationLink>
+      )}
     </div>
   );
 }
