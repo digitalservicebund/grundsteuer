@@ -84,6 +84,14 @@ const getEricaRequestIdFscAktivieren = async (userData: User) => {
   return userData.ericaRequestIdFscAktivieren;
 };
 
+export const revokeFsc = async (userData: User) => {
+  invariant(userData.fscRequest, "expected an fscRequest in database for user");
+  const ericaRequestId = await revokeFreischaltCode(
+    userData.fscRequest?.requestId
+  );
+  await saveEricaRequestIdFscStornieren(userData.email, ericaRequestId);
+};
+
 const handleFscActivationProgress = async (
   userData: User,
   session: Session,
@@ -110,11 +118,7 @@ const handleFscActivationProgress = async (
         },
       });
 
-      invariant(userData.fscRequest, "expected fscRequest to be present");
-      const ericaRequestId = await revokeFreischaltCode(
-        userData.fscRequest?.requestId
-      );
-      await saveEricaRequestIdFscStornieren(userData.email, ericaRequestId);
+      await revokeFsc(userData);
     } else if (fscActivatedOrError?.errorType == "EricaUserInputError") {
       await deleteEricaRequestIdFscAktivieren(userData.email);
       return {
@@ -138,7 +142,7 @@ const getEricaRequestIdFscStornieren = async (userData: User) => {
   return userData.ericaRequestIdFscStornieren;
 };
 
-const handleFscRevocationInProgress = async (
+export const handleFscRevocationInProgress = async (
   userData: User,
   clientIp: string
 ) => {
@@ -159,8 +163,13 @@ const handleFscRevocationInProgress = async (
           transferticket: fscRevocatedOrError.transferticket,
         },
       });
+    } else if (fscRevocatedOrError?.errorType == "EricaUserInputError") {
+      await deleteEricaRequestIdFscStornieren(userData.email);
+      return {
+        showError: true,
+        showSpinner: false,
+      };
     } else {
-      // We only try to revocate. If it does not succeed, we do not want to show an error to the user
       await deleteEricaRequestIdFscStornieren(userData.email);
     }
   }
@@ -202,6 +211,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
   }
 
   if (ericaRevocationRequestIsInProgress) {
+    // We only try to revocate. If it does not succeed, we do not want to show an error to the user
     await handleFscRevocationInProgress(userData, clientIp);
   }
 

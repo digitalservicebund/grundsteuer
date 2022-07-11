@@ -49,8 +49,8 @@ import lohnsteuerbescheinigungImage from "~/assets/images/lohnsteuerbescheinigun
 import fscLetterImage from "~/assets/images/fsc-letter.svg";
 import fscInputImage from "~/assets/images/fsc-input.svg";
 import ErrorBar from "~/components/ErrorBar";
-import { getSession, commitSession } from "~/session.server";
-import { CsrfToken, verifyCsrfToken, createCsrfToken } from "~/util/csrf";
+import { commitSession, getSession } from "~/session.server";
+import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { getRedirectionParams } from "~/routes/fsc/index";
 
 const isEricaRequestInProgress = async (userData: User) => {
@@ -67,6 +67,100 @@ const getEricaRequestIdFscBeantragen = async (userData: User) => {
     "ericaRequestIdFscBeantragen is null"
   );
   return userData.ericaRequestIdFscBeantragen;
+};
+
+export const handleFscRequestInProgress = async (
+  userData: User,
+  clientIp: string
+) => {
+  const elsterRequestResultOrError = await retrieveAntragsId(
+    await getEricaRequestIdFscBeantragen(userData)
+  );
+  if (elsterRequestResultOrError) {
+    if ("elsterRequestId" in elsterRequestResultOrError) {
+      await saveAuditLog({
+        eventName: AuditLogEvent.FSC_REQUESTED,
+        timestamp: Date.now(),
+        ipAddress: clientIp,
+        username: userData.email,
+        eventData: {
+          transferticket: elsterRequestResultOrError.transferticket,
+          steuerId: elsterRequestResultOrError.taxIdNumber,
+        },
+      });
+      await saveFscRequest(
+        userData.email,
+        elsterRequestResultOrError.elsterRequestId
+      );
+      await deleteEricaRequestIdFscBeantragen(userData.email);
+    } else if (elsterRequestResultOrError?.errorType == "EricaUserInputError") {
+      await deleteEricaRequestIdFscBeantragen(userData.email);
+      return {
+        showError: true,
+        showSpinner: false,
+      };
+    } else {
+      await deleteEricaRequestIdFscBeantragen(userData.email);
+      throw new Error(
+        `${elsterRequestResultOrError?.errorType}: ${elsterRequestResultOrError?.errorMessage}`
+      );
+    }
+  }
+};
+
+export const getBeantragenData = async (request: Request) => {
+  const formData = await request.formData();
+  const steuerId = formData.get("steuerId");
+  const geburtsdatum = formData.get("geburtsdatum");
+
+  invariant(
+    typeof steuerId === "string",
+    "expected formData to include steuerId field of type string"
+  );
+  invariant(
+    typeof geburtsdatum === "string",
+    "expected formData to include geburtsdatum field of type string"
+  );
+  return {
+    steuerId,
+    geburtsdatum,
+  };
+};
+
+export const validateBeantragenData = async ({
+  steuerId,
+  geburtsdatum,
+}: {
+  steuerId: string;
+  geburtsdatum: string;
+}) => {
+  const normalizedSteuerId = steuerId.replace(/[\s/]/g, "");
+  const normalizedGeburtsdatum = geburtsdatum.replace(/\s/g, "");
+
+  const errors = {
+    steuerId: await getErrorMessageForSteuerId(normalizedSteuerId),
+    geburtsdatum: await getErrorMessageForGeburtsdatum(normalizedGeburtsdatum),
+  };
+
+  const errorsExist = errors.steuerId || errors.geburtsdatum;
+
+  if (errorsExist) {
+    return json({
+      errors: removeUndefined(errors),
+    });
+  }
+};
+
+export const requestNewFsc = async (
+  normalizedSteuerId: string,
+  normalizedGeburtsdatum: string,
+  email: string
+) => {
+  const ericaRequestId = await requestNewFreischaltCode(
+    normalizedSteuerId,
+    normalizedGeburtsdatum
+  );
+  await saveEricaRequestIdFscBeantragen(email, ericaRequestId);
 };
 
 export const loader: LoaderFunction = async ({ request, context }) => {
@@ -89,40 +183,9 @@ export const loader: LoaderFunction = async ({ request, context }) => {
   }
 
   if (ericaRequestInProgress) {
-    const elsterRequestResultOrError = await retrieveAntragsId(
-      await getEricaRequestIdFscBeantragen(userData)
-    );
-    if (elsterRequestResultOrError) {
-      if ("elsterRequestId" in elsterRequestResultOrError) {
-        await saveAuditLog({
-          eventName: AuditLogEvent.FSC_REQUESTED,
-          timestamp: Date.now(),
-          ipAddress: clientIp,
-          username: userData.email,
-          eventData: {
-            transferticket: elsterRequestResultOrError.transferticket,
-            steuerId: elsterRequestResultOrError.taxIdNumber,
-          },
-        });
-        await saveFscRequest(
-          user.email,
-          elsterRequestResultOrError.elsterRequestId
-        );
-        await deleteEricaRequestIdFscBeantragen(user.email);
-      } else if (
-        elsterRequestResultOrError?.errorType == "EricaUserInputError"
-      ) {
-        await deleteEricaRequestIdFscBeantragen(user.email);
-        return {
-          showError: true,
-          showSpinner: false,
-        };
-      } else {
-        await deleteEricaRequestIdFscBeantragen(user.email);
-        throw new Error(
-          `${elsterRequestResultOrError?.errorType}: ${elsterRequestResultOrError?.errorMessage}`
-        );
-      }
+    const fscRequestData = await handleFscRequestInProgress(userData, clientIp);
+    if (fscRequestData) {
+      return fscRequestData;
     }
   }
 
@@ -160,41 +223,10 @@ export const action: ActionFunction = async ({ request }) => {
 
   if (await isEricaRequestInProgress(userData)) return {};
 
-  const formData = await request.formData();
-  const steuerId = formData.get("steuerId");
-  const geburtsdatum = formData.get("geburtsdatum");
-
-  invariant(
-    typeof steuerId === "string",
-    "expected formData to include steuerId field of type string"
-  );
-  invariant(
-    typeof geburtsdatum === "string",
-    "expected formData to include geburtsdatum field of type string"
-  );
-
-  const normalizedSteuerId = steuerId.replace(/[\s/]/g, "");
-  const normalizedGeburtsdatum = geburtsdatum.replace(/\s/g, "");
-
-  const errors = {
-    steuerId: await getErrorMessageForSteuerId(normalizedSteuerId),
-    geburtsdatum: await getErrorMessageForGeburtsdatum(normalizedGeburtsdatum),
-  };
-
-  const errorsExist = errors.steuerId || errors.geburtsdatum;
-
-  if (errorsExist) {
-    return json({
-      errors: removeUndefined(errors),
-    });
-  }
-
-  const ericaRequestId = await requestNewFreischaltCode(
-    normalizedSteuerId,
-    normalizedGeburtsdatum
-  );
-  await saveEricaRequestIdFscBeantragen(user.email, ericaRequestId);
-
+  const formData = await getBeantragenData(request);
+  const validationErrors = await validateBeantragenData(formData);
+  if (validationErrors) return validationErrors;
+  await requestNewFsc(formData.steuerId, formData.geburtsdatum, userData.email);
   return {};
 };
 
