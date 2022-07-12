@@ -65,7 +65,7 @@ export default function HomepageFeatures() {
         <p>{t("homepage.features.2.text2")}</p>
       </HomepageFeature>
       <HomepageFeature
-        headline={t("homepage.features.2.text2")}
+        headline={t("homepage.features.3.headline")}
         image={feature3Image}
       >
         <p className="mb-24">{t("homepage.features.3.text1")}</p>
