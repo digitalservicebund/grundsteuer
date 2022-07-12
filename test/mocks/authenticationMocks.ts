@@ -69,14 +69,19 @@ export const setCookieHeaderWithSessionAndData = async (
 export const getLoaderArgsWithAuthenticatedSession = async (
   requestUrl: string,
   userEmail: string,
-  formData?: GrundModel
+  formData?: GrundModel,
+  sessionData?: Record<string, any>
 ) => {
   let headers = new Headers();
 
   if (!formData) {
-    const authenticatedSessionCookie = await commitSession(
-      await getAuthenticatedSession(userEmail)
-    );
+    const session = await getAuthenticatedSession(userEmail);
+    if (sessionData) {
+      Object.entries(sessionData).forEach(([key, value]) => {
+        session.set(key, value);
+      });
+    }
+    const authenticatedSessionCookie = await commitSession(session);
     headers.set("Cookie", authenticatedSessionCookie);
   } else {
     headers = await setCookieHeaderWithSessionAndData(

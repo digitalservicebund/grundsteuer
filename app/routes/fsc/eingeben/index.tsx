@@ -163,14 +163,17 @@ export const handleFscRevocationInProgress = async (
           transferticket: fscRevocatedOrError.transferticket,
         },
       });
+      return { finished: true };
     } else if (fscRevocatedOrError?.errorType == "EricaUserInputError") {
       await deleteEricaRequestIdFscStornieren(userData.email);
       return {
+        finished: true,
         showError: true,
         showSpinner: false,
       };
     } else {
       await deleteEricaRequestIdFscStornieren(userData.email);
+      return { finished: true };
     }
   }
 };

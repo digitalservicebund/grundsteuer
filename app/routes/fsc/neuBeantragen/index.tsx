@@ -1,4 +1,4 @@
-import { LoaderFunction } from "@remix-run/node";
+import { json, LoaderFunction, redirect, Session } from "@remix-run/node";
 import {
   BreadcrumbNavigation,
   Button,
@@ -19,14 +19,114 @@ import {
   useLoaderData,
   useTransition,
 } from "@remix-run/react";
-import { CsrfToken } from "~/util/csrf";
+import { createCsrfToken, CsrfToken } from "~/util/csrf";
 import SteuerIdField from "~/components/form/SteuerIdField";
 import { useEffect, useState } from "react";
 import EnumeratedCard from "~/components/EnumeratedCard";
 import freischaltcodeImg from "~/assets/images/help/freischaltcode-no-explanation.png";
+import { authenticator } from "~/auth.server";
+import { findUserByEmail, User } from "~/domain/user";
+import invariant from "tiny-invariant";
+import {
+  handleFscRequestInProgress,
+  requestNewFsc,
+} from "~/routes/fsc/beantragen";
+import { handleFscRevocationInProgress } from "~/routes/fsc/eingeben";
+import { commitSession, getSession } from "~/session.server";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
+import { getRedirectionParams } from "~/routes/fsc/index";
 
-export const loader: LoaderFunction = async () => {
-  return {};
+const isEricaRequestInProgress = (userData: User) => {
+  return Boolean(userData.ericaRequestIdFscBeantragen);
+};
+
+const isEricaRevocationInProgress = (userData: User) => {
+  return Boolean(userData.ericaRequestIdFscStornieren);
+};
+
+const wasProcessSuccessful = async (userData: User, session: Session) => {
+  return (
+    Boolean(await session.get("fscData")) &&
+    Boolean(userData.fscRequest) &&
+    !isEricaRequestInProgress(userData) &&
+    !isEricaRevocationInProgress(userData)
+  );
+};
+
+export const loader: LoaderFunction = async ({ context, request }) => {
+  const { clientIp } = context;
+  const user = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/anmelden",
+  });
+  const session = await getSession(request.headers.get("Cookie"));
+  const userData: User | null = await findUserByEmail(user.email);
+  invariant(
+    userData,
+    "expected a matching user in the database from a user in a cookie session"
+  );
+
+  const ericaFscRevocationIsInProgress = isEricaRevocationInProgress(userData);
+  const ericaFscRequestIsInProgress = isEricaRequestInProgress(userData);
+
+  if (ericaFscRevocationIsInProgress) {
+    const fscRevocationResult = await handleFscRevocationInProgress(
+      userData,
+      clientIp
+    );
+    if (fscRevocationResult?.finished) {
+      const fscData = await session.get("fscData");
+      await requestNewFsc(
+        fscData.steuerId,
+        fscData.geburtsdatum,
+        userData.email
+      );
+    }
+  }
+
+  if (ericaFscRequestIsInProgress) {
+    const fscRequestError = await handleFscRequestInProgress(
+      userData,
+      clientIp
+    );
+    if (fscRequestError) {
+      //TESTEN: Fehler im Request + neu Abschicken geänderter Daten -> 400?!
+      Object.assign(fscRequestError, { csrfToken: createCsrfToken(session) });
+      session.unset("fscData");
+      return json(fscRequestError, {
+        headers: {
+          "Set-Cookie": await commitSession(session),
+        },
+      });
+    }
+  }
+
+  if (await wasProcessSuccessful(userData, session)) {
+    session.unset("fscData");
+    return redirect(
+      "/fsc/neuBeantragen/erfolgreich" + getRedirectionParams(request.url),
+      {
+        headers: {
+          "Set-Cookie": await commitSession(session),
+        },
+      }
+    );
+  }
+
+  const csrfToken = createCsrfToken(session);
+  return json(
+    {
+      csrfToken,
+      showError: false,
+      showSpinner:
+        ericaFscRevocationIsInProgress || ericaFscRequestIsInProgress,
+      showTestFeatures: testFeaturesEnabled,
+    },
+    {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    }
+  );
 };
 
 export default function FscNeuBeantragen() {
@@ -69,7 +169,7 @@ export default function FscNeuBeantragen() {
     <div className="lg:pr-[10%]">
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
-        <Headline>Bitte geben Sie Ihren Freischaltcode ein</Headline>
+        <Headline>Freischaltcode neu beantragen</Headline>
         <IntroText>
           Falls der Brief nach zwei Wochen bei Ihnen nicht angekommen ist,
           empfehlen wir Ihnen, den Freischaltcode neu zu beantragen.
