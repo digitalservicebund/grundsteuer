@@ -61,9 +61,22 @@ function HeaderButtons({
   t: TFunction<"all", "all">;
   location: string;
 }) {
+  const onPruefenPage = location.includes("/pruefen");
   return (
-    <div className="flex flex-col lg:flex-row lg:justify-between lg:gap-x-64 max-w-[412px] lg:max-w-screen-xl w-full lg:max-w-auto px-24 lg:px-64 lg:mx-auto">
-      <div className="mb-24 lg:mb-0 flex flex-col lg:flex-row">
+    <div
+      className={classNames(
+        "flex flex-col lg:flex-row lg:gap-x-64 max-w-[412px] lg:max-w-screen-xl w-full lg:max-w-auto px-24 lg:px-64 lg:mx-auto",
+        {
+          "lg:justify-center": onPruefenPage,
+          "lg:justify-between": !onPruefenPage,
+        }
+      )}
+    >
+      <div
+        className={classNames("mb-24 lg:mb-0 flex flex-col lg:flex-row", {
+          hidden: onPruefenPage,
+        })}
+      >
         <div className="flex flex-row mb-16">
           <div className="mr-8 enumerate-icon inline-flex">1</div>
           <p className="inline-flex mr-16 lg:max-w-[180px]">
@@ -74,18 +87,17 @@ function HeaderButtons({
           to="/pruefen/start"
           size="medium"
           look="primary"
-          className={classNames(
-            "whitespace-nowrap w-full lg:w-[260px] h-fit lg:py-14",
-            {
-              hidden: location.includes("/pruefen"),
-            }
-          )}
+          className="whitespace-nowrap w-full lg:w-[260px] h-fit lg:py-14"
         >
           {t("homepage.buttonCheck")}
         </Button>
       </div>
       <div className="flex flex-col lg:flex-row">
-        <div className="flex flex-row mb-16">
+        <div
+          className={classNames("flex flex-row mb-16", {
+            hidden: onPruefenPage,
+          })}
+        >
           <div className="mr-8 enumerate-icon inline-flex">2</div>
           <p className="inline-flex mr-16 lg:max-w-[180px]">
             Gehen Sie dann in den Formularbereich.
