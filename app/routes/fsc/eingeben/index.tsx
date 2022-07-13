@@ -377,7 +377,7 @@ export default function FscEingeben() {
           <div className="flex items-center">
             <ArrowRight className="inline-block mr-16" />
             <a
-              href={"/fsc/neuBeantragen"}
+              href={"/fsc/neuBeantragen?index" + redirectionParams}
               className="font-bold underline text-18 text-blue-800"
             >
               Freischaltcode neu beantragen

@@ -187,6 +187,11 @@ export default function FscNeuBeantragen() {
 
   const [showSpinner, setShowSpinner] = useState(loaderData?.showSpinner);
   const [showError, setShowError] = useState(loaderData?.showError);
+  const [redirectionParams, setRedirectionParams] = useState("");
+
+  useEffect(() => {
+    setRedirectionParams(getRedirectionParams(window.location.href, true));
+  });
 
   useEffect(() => {
     if (fetcher.data) {
@@ -205,7 +210,7 @@ export default function FscNeuBeantragen() {
   useEffect(() => {
     const interval = setInterval(() => {
       if (showSpinner) {
-        fetcher.load("/fsc/neuBeantragen?index");
+        fetcher.load("/fsc/neuBeantragen?index" + redirectionParams);
       }
     }, 1000);
     return () => clearInterval(interval);
@@ -239,7 +244,10 @@ export default function FscNeuBeantragen() {
           </ErrorBar>
         )}
 
-        <Form method="post" action={"/fsc/neuBeantragen?index"}>
+        <Form
+          method="post"
+          action={"/fsc/neuBeantragen?index" + redirectionParams}
+        >
           <CsrfToken value={loaderData.csrfToken} />
           <div>
             <FormGroup>
