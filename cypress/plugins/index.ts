@@ -20,6 +20,7 @@ import {
   deleteTransferticket,
   saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscBeantragen,
+  saveEricaRequestIdFscStornieren,
   saveFscRequest,
   savePdf,
   saveTransferticket,
@@ -69,6 +70,11 @@ export default (on, config) => {
 
     addEricaRequestIdFscAktivieren: async ({ userEmail, ericaRequestId }) => {
       await saveEricaRequestIdFscAktivieren(userEmail, ericaRequestId);
+      return null;
+    },
+
+    addEricaRequestIdFscStornieren: async ({ userEmail, ericaRequestId }) => {
+      await saveEricaRequestIdFscStornieren(userEmail, ericaRequestId);
       return null;
     },
 
