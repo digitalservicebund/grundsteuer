@@ -50,12 +50,6 @@ function HeaderActions({ location }: { location: string }) {
       >
         Kontakt
       </HeaderLink>
-      <HeaderLink
-        destination="/barrierefreiheit"
-        active={location.includes("/barrierefreiheit")}
-      >
-        Barrierefreiheit
-      </HeaderLink>
     </>
   );
 }

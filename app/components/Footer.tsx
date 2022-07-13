@@ -77,6 +77,12 @@ export default function Footer() {
             >
               {t("footer.dataProtection")}
             </Link>
+            <Link
+              to="/barrierefreiheit"
+              className="block text-blue-800 uppercase text-14 leading-26 font-bold tracking-widest"
+            >
+              {t("footer.barrierefreiheit")}
+            </Link>
             <a
               href="https://github.com/digitalservicebund/grundsteuer"
               target="_blank"
