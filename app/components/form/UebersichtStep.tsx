@@ -17,7 +17,7 @@ export default function UebersichtStep(
       <div
         className={classNames(
           "hidden xl:flex justify-end absolute right-0 top-80 w-1/3 mb-0",
-          { "top-[250px]": lowVersion }
+          { "top-[350px]": lowVersion }
         )}
       >
         <img src={imageSrc} alt="" />
