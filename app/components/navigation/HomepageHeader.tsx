@@ -77,7 +77,7 @@ function HeaderButtons({
           hidden: onPruefenPage,
         })}
       >
-        <div className="flex flex-row mb-16">
+        <div className="flex flex-row mb-16 lg:mb-0">
           <div className="mr-8 enumerate-icon inline-flex">1</div>
           <p className="inline-flex mr-16 lg:max-w-[180px]">
             Prüfen Sie, ob Sie den Service nutzen können.
@@ -94,7 +94,7 @@ function HeaderButtons({
       </div>
       <div className="flex flex-col lg:flex-row">
         <div
-          className={classNames("flex flex-row mb-16", {
+          className={classNames("flex flex-row mb-16 lg:mb-0", {
             hidden: onPruefenPage,
           })}
         >
@@ -122,7 +122,7 @@ export function HomepageHeader() {
 
   return (
     <div>
-      <div className="bg-white lg:py-32 lg:shadow-[0px_4px_10px_rgba(0,0,0,0.1)] lg:relative lg:z-10">
+      <div className="bg-white lg:pt-48 lg:pb-56 lg:shadow-[0px_4px_10px_rgba(0,0,0,0.1)] lg:relative lg:z-10">
         {/* Mobile Header */}
         <div className="lg:hidden inline-flex flex-col items-center w-full">
           <div className="mb-24 w-full">
@@ -138,7 +138,7 @@ export function HomepageHeader() {
         {/* Desktop Header */}
         <div className="hidden lg:flex lg:flex-col">
           <ContentContainer className="w-full flex flex-col md:flex-row md:justify-between">
-            <div className="mt-16">
+            <div>
               <a href="/" title="Zur Startseite" className="flex">
                 <img src={logo} alt="Grundsteuererklärung für Privateigentum" />
               </a>
@@ -151,7 +151,7 @@ export function HomepageHeader() {
           </ContentContainer>
         </div>
       </div>
-      <div className="mb-32 md:mb-64 bg-white pb-24 lg:py-32 flex justify-center lg:justify-auto">
+      <div className="mb-32 md:mb-64 bg-white pb-24 lg:py-24 flex justify-center lg:justify-auto">
         <HeaderButtons t={t} location={location} />
       </div>
     </div>
