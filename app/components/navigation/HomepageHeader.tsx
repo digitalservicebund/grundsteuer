@@ -62,21 +62,45 @@ function HeaderButtons({
   location: string;
 }) {
   return (
-    <>
-      <Button
-        to="/pruefen/start"
-        size="medium"
-        look="tertiary"
-        className={classNames("mb-16 text-center lg:mb-0 lg:mr-24", {
-          hidden: location.includes("/pruefen"),
-        })}
-      >
-        {t("homepage.buttonCheck")}
-      </Button>
-      <Button to="/formular/welcome" size="medium">
-        {t("homepage.buttonStart")}
-      </Button>
-    </>
+    <div className="flex flex-col lg:flex-row lg:justify-between lg:gap-x-64 max-w-[412px] lg:max-w-screen-xl w-full lg:max-w-auto px-24 lg:px-64 lg:mx-auto">
+      <div className="mb-24 lg:mb-0 flex flex-col lg:flex-row">
+        <div className="flex flex-row mb-16">
+          <div className="mr-8 enumerate-icon inline-flex">1</div>
+          <p className="inline-flex mr-16 lg:max-w-[180px]">
+            Prüfen Sie, ob Sie den Service nutzen können.
+          </p>
+        </div>
+        <Button
+          to="/pruefen/start"
+          size="medium"
+          look="primary"
+          className={classNames(
+            "whitespace-nowrap w-full lg:w-[260px] h-fit lg:py-14",
+            {
+              hidden: location.includes("/pruefen"),
+            }
+          )}
+        >
+          {t("homepage.buttonCheck")}
+        </Button>
+      </div>
+      <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-row mb-16">
+          <div className="mr-8 enumerate-icon inline-flex">2</div>
+          <p className="inline-flex mr-16 lg:max-w-[180px]">
+            Gehen Sie dann in den Formularbereich.
+          </p>
+        </div>
+        <Button
+          to="/formular/welcome"
+          look="tertiary"
+          size="medium"
+          className="whitespace-nowrap w-full lg:w-[260px] h-fit lg:py-14"
+        >
+          {t("homepage.buttonStart")}
+        </Button>
+      </div>
+    </div>
   );
 }
 
@@ -85,39 +109,38 @@ export function HomepageHeader() {
   const location = useLocation().pathname;
 
   return (
-    <div className="mb-32 md:mb-64 bg-white pb-24 lg:py-32">
-      {/* Mobile Header */}
-      <div className="lg:hidden inline-flex flex-col items-center w-full">
-        <div className="mb-24 w-full">
-          <TopNavigation
-            actions={
-              <div className="flex flex-col mb-32">
+    <div>
+      <div className="bg-white lg:py-32 lg:shadow-[0px_4px_10px_rgba(0,0,0,0.1)] lg:relative lg:z-10">
+        {/* Mobile Header */}
+        <div className="lg:hidden inline-flex flex-col items-center w-full">
+          <div className="mb-24 w-full">
+            <TopNavigation
+              actions={
+                <div className="flex flex-col mb-32">
+                  <HeaderActions location={location} />
+                </div>
+              }
+            />
+          </div>
+        </div>
+        {/* Desktop Header */}
+        <div className="hidden lg:flex lg:flex-col">
+          <ContentContainer className="w-full flex flex-col md:flex-row md:justify-between">
+            <div className="mt-16">
+              <a href="/" title="Zur Startseite" className="flex">
+                <img src={logo} alt="Grundsteuererklärung für Privateigentum" />
+              </a>
+            </div>
+            <div className="flex flex-col">
+              <div className="flex flex-row-reverse gap-x-32 mb-32">
                 <HeaderActions location={location} />
               </div>
-            }
-          />
-        </div>
-        <div className="flex flex-col max-w-[412px] w-full px-24">
-          <HeaderButtons t={t} location={location} />
+            </div>
+          </ContentContainer>
         </div>
       </div>
-      {/* Desktop Header */}
-      <div className="hidden lg:flex lg:flex-col">
-        <ContentContainer className="w-full flex flex-col md:flex-row md:justify-between">
-          <div className="mt-16">
-            <a href="/" title="Zur Startseite" className="flex">
-              <img src={logo} alt="Grundsteuererklärung für Privateigentum" />
-            </a>
-          </div>
-          <div className="flex flex-col">
-            <div className="flex flex-row-reverse gap-x-32 mb-32">
-              <HeaderActions location={location} />
-            </div>
-            <div className="flex justify-end">
-              <HeaderButtons t={t} location={location} />
-            </div>
-          </div>
-        </ContentContainer>
+      <div className="mb-32 md:mb-64 bg-white pb-24 lg:py-32 flex justify-center lg:justify-auto">
+        <HeaderButtons t={t} location={location} />
       </div>
     </div>
   );
