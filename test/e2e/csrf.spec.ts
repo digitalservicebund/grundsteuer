@@ -138,6 +138,20 @@ describe("CSRF protection", () => {
         expect(response.status).to.eq(400);
       });
     });
+
+    it("should fail on direct post to /neuBeantragen", () => {
+      cy.login();
+      cy.visit("/formular");
+      cy.request({
+        method: "POST",
+        url: "/fsc/neuBeantragen?index",
+        body: "csrf=bar",
+        form: true,
+        failOnStatusCode: false,
+      }).then((response) => {
+        expect(response.status).to.eq(400);
+      });
+    });
   });
 });
 

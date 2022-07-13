@@ -1,4 +1,10 @@
-import { json, LoaderFunction, redirect, Session } from "@remix-run/node";
+import {
+  ActionFunction,
+  json,
+  LoaderFunction,
+  redirect,
+  Session,
+} from "@remix-run/node";
 import {
   BreadcrumbNavigation,
   Button,
@@ -19,7 +25,7 @@ import {
   useLoaderData,
   useTransition,
 } from "@remix-run/react";
-import { createCsrfToken, CsrfToken } from "~/util/csrf";
+import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import SteuerIdField from "~/components/form/SteuerIdField";
 import { useEffect, useState } from "react";
 import EnumeratedCard from "~/components/EnumeratedCard";
@@ -28,10 +34,15 @@ import { authenticator } from "~/auth.server";
 import { findUserByEmail, User } from "~/domain/user";
 import invariant from "tiny-invariant";
 import {
+  getBeantragenData,
   handleFscRequestInProgress,
   requestNewFsc,
+  validateBeantragenData,
 } from "~/routes/fsc/beantragen";
-import { handleFscRevocationInProgress } from "~/routes/fsc/eingeben";
+import {
+  handleFscRevocationInProgress,
+  revokeFsc,
+} from "~/routes/fsc/eingeben";
 import { commitSession, getSession } from "~/session.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { getRedirectionParams } from "~/routes/fsc/index";
@@ -121,6 +132,41 @@ export const loader: LoaderFunction = async ({ context, request }) => {
         ericaFscRevocationIsInProgress || ericaFscRequestIsInProgress,
       showTestFeatures: testFeaturesEnabled,
     },
+    {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    }
+  );
+};
+
+export const action: ActionFunction = async ({ request }) => {
+  const user = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/anmelden",
+  });
+  await verifyCsrfToken(request);
+  const userData: User | null = await findUserByEmail(user.email);
+  invariant(
+    userData,
+    "expected a matching user in the database from a user in a cookie session"
+  );
+
+  if (
+    isEricaRequestInProgress(userData) ||
+    isEricaRevocationInProgress(userData)
+  )
+    return {};
+
+  const formData = await getBeantragenData(request);
+  const validationErrors = await validateBeantragenData(formData);
+  if (validationErrors) return validationErrors;
+
+  await revokeFsc(userData);
+  const session = await getSession(request.headers.get("Cookie"));
+  session.set("fscData", formData);
+
+  return json(
+    {},
     {
       headers: {
         "Set-Cookie": await commitSession(session),

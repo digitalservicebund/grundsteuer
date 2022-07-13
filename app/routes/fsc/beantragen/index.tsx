@@ -145,9 +145,9 @@ export const validateBeantragenData = async ({
   const errorsExist = errors.steuerId || errors.geburtsdatum;
 
   if (errorsExist) {
-    return json({
+    return {
       errors: removeUndefined(errors),
-    });
+    };
   }
 };
 

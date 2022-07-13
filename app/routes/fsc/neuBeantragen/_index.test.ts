@@ -1,4 +1,4 @@
-import { loader } from "~/routes/fsc/neuBeantragen/index";
+import { action, loader } from "~/routes/fsc/neuBeantragen/index";
 import { getSession } from "~/session.server";
 import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStornieren";
 import * as freischaltCodeBeantragenModule from "~/erica/freischaltCodeBeantragen";
@@ -7,7 +7,10 @@ import * as auditLogModule from "~/audit/auditLog";
 import { AuditLogEvent } from "~/audit/auditLog";
 import { getLoaderArgsWithAuthenticatedSession } from "test/mocks/authenticationMocks";
 import { getMockedFunction } from "test/mocks/mockHelper";
+import { mockActionArgs } from "testUtil/mockActionArgs";
+import * as csrfModule from "~/util/csrf";
 import SpyInstance = jest.SpyInstance;
+import { DataFunctionArgs } from "@remix-run/node";
 
 describe("Loader", () => {
   beforeAll(async () => {
@@ -616,6 +619,137 @@ describe("Loader", () => {
         expect(
           (await getSession(response.headers.get("Set-Cookie"))).get("fscData")
         ).toBeUndefined();
+      });
+    });
+  });
+});
+
+describe("Action", () => {
+  beforeAll(async () => {
+    getMockedFunction(csrfModule, "verifyCsrfToken", Promise.resolve());
+  });
+
+  test("Returns no data if revocation in progress", async () => {
+    const stornoMock = getMockedFunction(userModule, "findUserByEmail", {
+      email: "existing_user@foo.com",
+      fscRequest: { requestId: "foo" },
+      ericaRequestIdFscStornieren: "storno-id",
+    });
+    try {
+      const args = await mockActionArgs({
+        route: "/fsc/neuBeantragen",
+        formData: { steuerId: "03352417692", geburtsdatum: "01.01.1985" },
+        context: {},
+        userEmail: "existing_user@foo.com",
+        allData: {},
+      });
+
+      const result = await action(args);
+
+      expect(result).toEqual({});
+    } finally {
+      stornoMock.mockRestore();
+    }
+  });
+
+  test("Returns no data if beantragen in progress", async () => {
+    const stornoMock = getMockedFunction(userModule, "findUserByEmail", {
+      email: "existing_user@foo.com",
+      fscRequest: { requestId: "foo" },
+      ericaRequestIdFscBeantragen: "storno-id",
+    });
+    try {
+      const args = await mockActionArgs({
+        route: "/fsc/neuBeantragen",
+        formData: { steuerId: "03352417692", geburtsdatum: "01.01.1985" },
+        context: {},
+        userEmail: "existing_user@foo.com",
+        allData: {},
+      });
+
+      const result = await action(args);
+
+      expect(result).toEqual({});
+    } finally {
+      stornoMock.mockRestore();
+    }
+  });
+
+  describe("With correct user state", () => {
+    let userMock: jest.SpyInstance;
+    beforeAll(() => {
+      userMock = getMockedFunction(userModule, "findUserByEmail", {
+        email: "existing_user@foo.com",
+        fscRequest: { requestId: "bar" },
+      });
+    });
+
+    afterAll(() => {
+      userMock.mockRestore();
+    });
+
+    test("Returns errors if no data provided", async () => {
+      const args = await mockActionArgs({
+        route: "/fsc/neuBeantragen",
+        formData: { steuerId: "", geburtsdatum: "" },
+        context: {},
+        userEmail: "existing_user@foo.com",
+        allData: {},
+      });
+
+      const result = await action(args);
+
+      expect(result).toEqual({
+        errors: {
+          steuerId: "Bitte füllen Sie dieses Feld aus.",
+          geburtsdatum: "Bitte füllen Sie dieses Feld aus.",
+        },
+      });
+    });
+
+    describe("With correct form data", () => {
+      let correctArgs: DataFunctionArgs;
+      let revocationMock: jest.SpyInstance;
+      const formData = { steuerId: "03352417692", geburtsdatum: "01.01.1985" };
+
+      beforeAll(async () => {
+        correctArgs = await mockActionArgs({
+          route: "/fsc/neuBeantragen",
+          formData: formData,
+          context: {},
+          userEmail: "existing_user@foo.com",
+          allData: {},
+        });
+        revocationMock = getMockedFunction(
+          freischaltCodeStornierenModule,
+          "revokeFreischaltCode",
+          Promise.resolve()
+        );
+      });
+
+      afterEach(() => {
+        revocationMock.mockReset();
+      });
+
+      afterAll(() => {
+        revocationMock.mockRestore();
+      });
+
+      test("starts fsc revocation", async () => {
+        await action(correctArgs);
+        expect(revocationMock).toHaveBeenCalledWith("bar");
+      });
+
+      test("sets form data into cookie", async () => {
+        const result = await action(correctArgs);
+        expect(
+          (await getSession(result.headers.get("Set-Cookie"))).get("fscData")
+        ).toEqual(formData);
+      });
+
+      test("returns no data", async () => {
+        const result = await action(correctArgs);
+        expect(await result.json()).toEqual({});
       });
     });
   });
