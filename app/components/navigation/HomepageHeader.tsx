@@ -3,9 +3,9 @@ import { Button, ContentContainer, TopNavigation } from "~/components";
 import logo from "~/assets/images/logo.svg";
 import classNames from "classnames";
 import { ReactNode } from "react";
-import LetterIcon from "~/components/icons/mui/LetterIcon";
 import PersonCircle from "~/components/icons/mui/PersonCircle";
 import { useLocation } from "@remix-run/react";
+import OpenTab from "~/components/icons/mui/OpenTab";
 
 function HeaderLink({
   destination,
@@ -45,10 +45,10 @@ function HeaderActions({ location }: { location: string }) {
       </HeaderLink>
       <HeaderLink
         destination="/hilfe"
-        icon={<LetterIcon className="w-[20px] h-[20px]" />}
+        icon={<OpenTab className="w-[20px] h-[20px]" />}
         active={location.includes("/hilfe")}
       >
-        Kontakt
+        Hilfebereich
       </HeaderLink>
     </>
   );
