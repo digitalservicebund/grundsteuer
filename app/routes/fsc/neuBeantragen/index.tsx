@@ -158,12 +158,20 @@ export const action: ActionFunction = async ({ request }) => {
     return {};
 
   const formData = await getBeantragenData(request);
-  const validationErrors = await validateBeantragenData(formData);
+  const normalizedSteuerId = formData.steuerId.replace(/[\s/]/g, "");
+  const normalizedGeburtsdatum = formData.geburtsdatum.replace(/\s/g, "");
+  const validationErrors = await validateBeantragenData({
+    steuerId: normalizedSteuerId,
+    geburtsdatum: normalizedGeburtsdatum,
+  });
   if (validationErrors) return validationErrors;
 
   await revokeFsc(userData);
   const session = await getSession(request.headers.get("Cookie"));
-  session.set("fscData", formData);
+  session.set("fscData", {
+    steuerId: normalizedSteuerId,
+    geburtsdatum: normalizedGeburtsdatum,
+  });
 
   return json(
     {},
