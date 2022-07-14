@@ -79,7 +79,7 @@ function HeaderButtons({
       >
         <div className="flex flex-row mb-16 lg:mb-0">
           <div className="mr-8 enumerate-icon inline-flex">1</div>
-          <p className="inline-flex mr-16 lg:max-w-[180px]">
+          <p className="inline-flex mr-16 text-18 lg:max-w-[180px]">
             Prüfen Sie, ob Sie den Service nutzen können.
           </p>
         </div>
@@ -93,16 +93,21 @@ function HeaderButtons({
         </Button>
       </div>
       <div className="flex flex-col lg:flex-row">
-        <div
-          className={classNames("flex flex-row mb-16 lg:mb-0", {
-            hidden: onPruefenPage,
-          })}
-        >
-          <div className="mr-8 enumerate-icon inline-flex">2</div>
-          <p className="inline-flex mr-16 lg:max-w-[180px]">
-            Gehen Sie dann in den Formularbereich.
-          </p>
-        </div>
+        {onPruefenPage ? (
+          <div className="mb-16 lg:mb-0">
+            <p className="inline-flex mr-16 text-18 lg:max-w-[355px]">
+              Prüfen Sie, ob sie den Service nutzen können. Gehen Sie dann in
+              den Formularbereich.
+            </p>
+          </div>
+        ) : (
+          <div className="flex flex-row mb-16 lg:mb-0">
+            <div className="mr-8 enumerate-icon inline-flex">2</div>
+            <p className="inline-flex mr-16 text-18 lg:max-w-[180px]">
+              Gehen Sie dann in den Formularbereich.
+            </p>
+          </div>
+        )}
         <Button
           to="/formular/welcome"
           look="tertiary"
