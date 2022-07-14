@@ -134,12 +134,9 @@ export const validateBeantragenData = async ({
   steuerId: string;
   geburtsdatum: string;
 }) => {
-  const normalizedSteuerId = steuerId.replace(/[\s/]/g, "");
-  const normalizedGeburtsdatum = geburtsdatum.replace(/\s/g, "");
-
   const errors = {
-    steuerId: await getErrorMessageForSteuerId(normalizedSteuerId),
-    geburtsdatum: await getErrorMessageForGeburtsdatum(normalizedGeburtsdatum),
+    steuerId: await getErrorMessageForSteuerId(steuerId),
+    geburtsdatum: await getErrorMessageForGeburtsdatum(geburtsdatum),
   };
 
   const errorsExist = errors.steuerId || errors.geburtsdatum;
@@ -224,9 +221,18 @@ export const action: ActionFunction = async ({ request }) => {
   if (await isEricaRequestInProgress(userData)) return {};
 
   const formData = await getBeantragenData(request);
-  const validationErrors = await validateBeantragenData(formData);
+  const normalizedSteuerId = formData.steuerId.replace(/[\s/]/g, "");
+  const normalizedGeburtsdatum = formData.geburtsdatum.replace(/\s/g, "");
+  const validationErrors = await validateBeantragenData({
+    steuerId: normalizedSteuerId,
+    geburtsdatum: normalizedGeburtsdatum,
+  });
   if (validationErrors) return validationErrors;
-  await requestNewFsc(formData.steuerId, formData.geburtsdatum, userData.email);
+  await requestNewFsc(
+    normalizedSteuerId,
+    normalizedGeburtsdatum,
+    userData.email
+  );
   return {};
 };
 
