@@ -40,7 +40,7 @@ jobs:
         run: npm run lint:check
 
       - name: Run unit tests
-        run: npm test | tee webapp-unit-test-report.log
+        run: npm test -- --json ----outputFile=webapp-unit-test-report.log
 
       - name: Archive unit test logs
         uses: actions/upload-artifact@v1
@@ -66,7 +66,7 @@ jobs:
       - name: Run integration tests
         env:
           DATABASE_URL: postgresql://prisma:prisma@localhost:5433/tests
-        run: npm run test:integration | tee webapp-integration-test-report.log
+        run: npm run test:integration -- --json ----outputFile=webapp-integration-test-report.log
 
       - name: Archive unit test logs
         uses: actions/upload-artifact@v1
