@@ -18,7 +18,7 @@ import { useChangeLanguage } from "remix-i18next";
 import { pageTitle } from "~/util/pageTitle";
 import styles from "public/tailwind.css";
 import ogImage from "~/assets/images/og-image.png";
-import { ContentContainer, ErrorPage } from "~/components";
+import { ErrorPage } from "~/components";
 
 export const links: LinksFunction = () => {
   return [
@@ -145,16 +145,6 @@ export default function App() {
         <Links />
       </head>
       <body className="flex flex-col min-h-screen text-black bg-gray-100 leading-default">
-        <div className="flex-shrink-0 bg-yellow-300 border-l-[9px] border-l-yellow-500 py-16 lg:py-28">
-          <ContentContainer>
-            <div className="text-20 leading-26 lg:leading-40">
-              Wichtig! Aufgrund von Wartungsarbeiten kommt es bei der
-              Beantragung und Eingabe von Freischaltcodes und der Abgabe der
-              Erklärung zurzeit zu vermehrten Fehlermeldungen. Wir bitten um
-              Verständnis.
-            </div>
-          </ContentContainer>
-        </div>
         <Outlet />
         {sentryDsn && (
           <script
