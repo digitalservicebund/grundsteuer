@@ -83,7 +83,8 @@ export const loader: LoaderFunction = async ({ context, request }) => {
   if (ericaFscRevocationIsInProgress) {
     const fscRevocationResult = await handleFscRevocationInProgress(
       userData,
-      clientIp
+      clientIp,
+      `FSC revoked for user with id ${userData?.id}`
     );
     if (fscRevocationResult?.finished) {
       const fscData = await session.get("fscData");
@@ -98,7 +99,8 @@ export const loader: LoaderFunction = async ({ context, request }) => {
   if (ericaFscRequestIsInProgress) {
     const fscRequestError = await handleFscRequestInProgress(
       userData,
-      clientIp
+      clientIp,
+      `FSC newly requested for user with id ${userData?.id}`
     );
     if (fscRequestError) {
       //TESTEN: Fehler im Request + neu Abschicken geänderter Daten -> 400?!

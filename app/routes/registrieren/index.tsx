@@ -162,12 +162,13 @@ export const action: ActionFunction = async ({ request, context }) => {
     if (await userExists(normalizedEmail)) {
       console.log("already registered email!");
     } else {
-      await createUser(normalizedEmail);
+      const newUser = await createUser(normalizedEmail);
       await saveAuditLogs(clientIp, normalizedEmail, {
         confirmDataPrivacy,
         confirmTermsOfUse,
         confirmEligibilityCheck,
       });
+      console.log(`Registered new user with id ${newUser?.id}`);
     }
 
     return authenticator.authenticate(

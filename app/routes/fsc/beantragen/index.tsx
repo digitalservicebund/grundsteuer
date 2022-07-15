@@ -73,7 +73,8 @@ const getEricaRequestIdFscBeantragen = async (userData: User) => {
 
 export const handleFscRequestInProgress = async (
   userData: User,
-  clientIp: string
+  clientIp: string,
+  successLoggingMessage?: string
 ) => {
   const elsterRequestResultOrError = await retrieveAntragsId(
     await getEricaRequestIdFscBeantragen(userData)
@@ -94,6 +95,7 @@ export const handleFscRequestInProgress = async (
         userData.email,
         elsterRequestResultOrError.elsterRequestId
       );
+      console.log(`${successLoggingMessage}`);
       await deleteEricaRequestIdFscBeantragen(userData.email);
     } else if (elsterRequestResultOrError?.errorType == "EricaUserInputError") {
       await deleteEricaRequestIdFscBeantragen(userData.email);
@@ -182,7 +184,11 @@ export const loader: LoaderFunction = async ({ request, context }) => {
   }
 
   if (ericaRequestInProgress) {
-    const fscRequestData = await handleFscRequestInProgress(userData, clientIp);
+    const fscRequestData = await handleFscRequestInProgress(
+      userData,
+      clientIp,
+      `FSC requested for user with id ${userData.id}`
+    );
     if (fscRequestData) {
       return fscRequestData;
     }

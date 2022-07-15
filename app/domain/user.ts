@@ -7,7 +7,7 @@ export type User = Prisma.UserGetPayload<{
 }>;
 
 export const createUser = async (email: string) => {
-  await db.user.create({
+  return db.user.create({
     data: {
       email: email,
     },

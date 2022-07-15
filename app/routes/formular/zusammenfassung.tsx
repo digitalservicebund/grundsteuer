@@ -61,6 +61,7 @@ import { CsrfToken, verifyCsrfToken, createCsrfToken } from "~/util/csrf";
 import { getSession, commitSession } from "~/session.server";
 import { Trans } from "react-i18next";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
+import bcrypt from "bcryptjs";
 
 type LoaderData = {
   formData: StepFormData;
@@ -183,6 +184,22 @@ export const loader: LoaderFunction = async ({
           username: userData.email,
           eventData: { transferticket: successResponseOrErrors.transferticket },
         });
+        invariant(
+          process.env.HASHED_LOGGING_SALT,
+          "Environment variable HASHED_LOGGING_SALT is not defined"
+        );
+        console.log(
+          `Tax declaration filed for user with id ${userData.id} for state ${
+            filteredData.grundstueck?.adresse?.bundesland
+          } and grundstueck ${
+            filteredData.grundstueck?.steuernummer?.steuernummer
+              ? await bcrypt.hash(
+                  filteredData.grundstueck?.steuernummer?.steuernummer,
+                  process.env.HASHED_LOGGING_SALT
+                )
+              : "no steuernummer given"
+          }`
+        );
         await setUserInDeclarationProcess(userData.email, false);
         session.set(
           "user",

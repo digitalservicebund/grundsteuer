@@ -95,7 +95,8 @@ export const revokeFsc = async (userData: User) => {
 const handleFscActivationProgress = async (
   userData: User,
   session: Session,
-  clientIp: string
+  clientIp: string,
+  successLoggingMessage?: string
 ) => {
   const fscActivatedOrError = await checkFreischaltcodeActivation(
     await getEricaRequestIdFscAktivieren(userData)
@@ -117,6 +118,7 @@ const handleFscActivationProgress = async (
           transferticket: fscActivatedOrError.transferticket,
         },
       });
+      console.log(`${successLoggingMessage}`);
 
       await revokeFsc(userData);
     } else if (fscActivatedOrError?.errorType == "EricaUserInputError") {
@@ -144,7 +146,8 @@ const getEricaRequestIdFscStornieren = async (userData: User) => {
 
 export const handleFscRevocationInProgress = async (
   userData: User,
-  clientIp: string
+  clientIp: string,
+  successLoggingMessage?: string
 ) => {
   const fscRevocatedOrError = await checkFreischaltcodeRevocation(
     await getEricaRequestIdFscStornieren(userData)
@@ -163,6 +166,7 @@ export const handleFscRevocationInProgress = async (
           transferticket: fscRevocatedOrError.transferticket,
         },
       });
+      console.log(`${successLoggingMessage}`);
       return { finished: true };
     } else if (fscRevocatedOrError?.errorType == "EricaUserInputError") {
       await deleteEricaRequestIdFscStornieren(userData.email);
@@ -206,7 +210,8 @@ export const loader: LoaderFunction = async ({ request, context }) => {
     const fscActivationData = await handleFscActivationProgress(
       userData,
       session,
-      clientIp
+      clientIp,
+      `FSC activated for user with id ${userData?.id}`
     );
     if (fscActivationData) {
       return fscActivationData;
@@ -215,7 +220,11 @@ export const loader: LoaderFunction = async ({ request, context }) => {
 
   if (ericaRevocationRequestIsInProgress) {
     // We only try to revocate. If it does not succeed, we do not want to show an error to the user
-    await handleFscRevocationInProgress(userData, clientIp);
+    await handleFscRevocationInProgress(
+      userData,
+      clientIp,
+      `FSC revoked after activation for user with id ${userData.id}`
+    );
   }
 
   const csrfToken = createCsrfToken(session);

@@ -1,3 +1,5 @@
+process.env.HASHED_LOGGING_SALT = "$2a$10$7hclYwYcZY5qCfmedLQx/u";
+
 import { mockActionArgs } from "testUtil/mockActionArgs";
 import {
   getLoaderArgsWithAuthenticatedSession,
