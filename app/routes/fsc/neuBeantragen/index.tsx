@@ -46,6 +46,7 @@ import {
 import { commitSession, getSession } from "~/session.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { getRedirectionParams } from "~/routes/fsc/index";
+import steuerIdImg from "~/assets/images/help/help-steuer-id.png";
 
 const isEricaRequestInProgress = (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -248,7 +249,11 @@ export default function FscNeuBeantragen() {
 
         {showError && !isSubmitting && (
           <ErrorBar className="mb-32">
-            Mit diesen Daten können wir keinen Freischaltcode beantragen.
+            Bitte überprüfen Sie Ihre Angaben. <br />
+            Die Steuer-Identifikationsnummer und Geburtsdatum müssen zur selben
+            Person gehören. <br />
+            Nach 5 falschen Eingaben der Daten können Sie erst wieder in 7 Tagen
+            einen Freischaltcode beantragen.
           </ErrorBar>
         )}
 
@@ -262,8 +267,25 @@ export default function FscNeuBeantragen() {
               <SteuerIdField
                 name="steuerId"
                 label="Steuer-Identifikationsnummer"
-                placeholder="11 111 111 111"
+                placeholder="99 999 999 999"
                 error={errors?.steuerId}
+                help={
+                  <>
+                    <p className="mb-32">
+                      Bei der Steuer-Identifikationsnummer handelt es sich nicht
+                      um die Steuernummer Ihres Grundstücks. Sie finden die
+                      Steuer-Identifikationsnummer zum Beispiel auf Ihrem
+                      letzten Einkommensteuerbescheid oder suchen Sie in Ihren
+                      Unterlagen nach einem Brief vom Bundeszentralamt für
+                      Steuern. Die 11-stellige Nummer steht oben rechts groß auf
+                      dem Brief.
+                    </p>
+                    <img
+                      src={steuerIdImg}
+                      alt="Abbildung des Briefes des Bundeszentralamtes mit der Steuer-Identifikationsnummer"
+                    />
+                  </>
+                }
               />
             </FormGroup>
             <FormGroup>

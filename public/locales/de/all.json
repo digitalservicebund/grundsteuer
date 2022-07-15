@@ -763,7 +763,7 @@
         "fields": {
           "steuerId": {
             "label": "Steuer-Identifikationsnummer",
-            "placeholder": "11 111 111 111"
+            "placeholder": "99 999 999 999"
           }
         }
       },

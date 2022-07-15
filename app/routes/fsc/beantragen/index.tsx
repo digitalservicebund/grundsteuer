@@ -52,6 +52,8 @@ import ErrorBar from "~/components/ErrorBar";
 import { commitSession, getSession } from "~/session.server";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { getRedirectionParams } from "~/routes/fsc/index";
+import Hint from "~/components/Hint";
+import steuerIdImg from "~/assets/images/help/help-steuer-id.png";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -280,25 +282,35 @@ export default function FscBeantragen() {
     <div className="lg:pr-[10%]">
       <ContentContainer size="sm-md" className="mb-80">
         <BreadcrumbNavigation />
-        <Headline>Beantragen Sie Ihren persönlichen Freischaltcode.</Headline>
+        <Headline>
+          Beantragen Sie einen Freischaltcode um die Erklärung später absenden
+          zu können
+        </Headline>
 
         <IntroText>
-          Nur mit einem Freischaltcode können Sie Ihre Grundsteuererklärung nach
-          Eingabe aller Daten absenden. Wir benötigen Ihre
-          Steuer-Identifikationsnummer und Geburtsdatum um Sie eindeutig zu
-          identifizieren.
+          Den Freischaltcode nutzen wir zur Identifizierung der abgebenden
+          Person. Zur Beantragung benötigen Sie die Steuer-Identifikationsnummer
+          und Geburtsdatum.
         </IntroText>
 
         <IntroText>
           Der Freischaltcode wird von Ihrem technischen Finanzamt als Brief an
           Ihre Meldeadresse versendet. Dies dauert in der Regel 7 bis 14 Tage.
-          Sie können aber schon vor dem Erhalt des Codes Ihre
-          Grundsteuererklärung ausfüllen.
         </IntroText>
+
+        <Hint>
+          Sie erhalten keinen Brief, wenn Sie bereits ein Konto bei Mein ELSTER
+          aktiviert haben. In diesem Fall können Sie unseren Online-Service
+          leider aktuell nicht verwenden.
+        </Hint>
 
         {showError && !isSubmitting && (
           <ErrorBar className="mb-32">
-            Mit diesen Daten können wir keinen Freischaltcode beantragen.
+            Bitte überprüfen Sie Ihre Angaben. <br />
+            Die Steuer-Identifikationsnummer und Geburtsdatum müssen zur selben
+            Person gehören. <br />
+            Nach 5 falschen Eingaben der Daten können Sie erst wieder in 7 Tagen
+            einen Freischaltcode beantragen.
           </ErrorBar>
         )}
 
@@ -312,15 +324,24 @@ export default function FscBeantragen() {
               <SteuerIdField
                 name="steuerId"
                 label="Steuer-Identifikationsnummer"
-                placeholder="11 111 111 111"
+                placeholder="99 999 999 999"
                 error={errors?.steuerId}
                 help={
-                  <p>
-                    Schauen Sie dafür auf Ihren letzten Einkommensteuerbescheid
-                    oder suchen Sie in Ihren Unterlagen nach einem Brief vom
-                    Bundeszentralamt für Steuern. Die 11-stellige Nummer steht
-                    oben rechts groß auf dem Brief.
-                  </p>
+                  <>
+                    <p className="mb-32">
+                      Bei der Steuer-Identifikationsnummer handelt es sich nicht
+                      um die Steuernummer Ihres Grundstücks. Sie finden die
+                      Steuer-Identifikationsnummer zum Beispiel auf Ihrem
+                      letzten Einkommensteuerbescheid oder suchen Sie in Ihren
+                      Unterlagen nach einem Brief vom Bundeszentralamt für
+                      Steuern. Die 11-stellige Nummer steht oben rechts groß auf
+                      dem Brief.
+                    </p>
+                    <img
+                      src={steuerIdImg}
+                      alt="Abbildung des Briefes des Bundeszentralamtes mit der Steuer-Identifikationsnummer"
+                    />
+                  </>
                 }
               />
             </FormGroup>

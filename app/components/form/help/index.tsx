@@ -10,6 +10,7 @@ import GrundbuchblattHelp from "~/components/form/help/grundstueck/Grundbuchblat
 import FlurHelp from "~/components/form/help/grundstueck/Flur";
 import EigentuemerAnzahlHelp from "~/components/form/help/eigentuemer/EigentuemerAnzahl";
 import { BodenrichtwertEingabeHelp } from "~/components/form/help/grundstueck/bodenrichtwert/BodenrichtwertEingabeHelp";
+import SteuerIdHelp from "~/components/form/help/eigentuemer/SteuerId";
 
 export const helpComponents = {
   grundstueck: {
@@ -29,6 +30,11 @@ export const helpComponents = {
   eigentuemer: {
     anzahl: {
       anzahl: EigentuemerAnzahlHelp,
+    },
+    person: {
+      steuerId: {
+        steuerId: SteuerIdHelp,
+      },
     },
   },
 };
