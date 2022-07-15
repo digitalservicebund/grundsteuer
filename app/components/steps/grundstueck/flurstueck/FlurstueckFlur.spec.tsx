@@ -23,7 +23,9 @@ describe("Flur page component", () => {
     render(<Flur {...defaultInput} />);
     expect(screen.getByLabelText("Flur (wenn vorhanden)")).toBeInTheDocument();
     expect(screen.getByLabelText("Zähler")).toBeInTheDocument();
-    expect(screen.getByLabelText("Nenner")).toBeInTheDocument();
+    expect(
+      screen.getByLabelText("Nenner (wenn vorhanden)")
+    ).toBeInTheDocument();
   });
 
   it("should render zähler and nenner in a fieldset with an image", () => {
@@ -33,7 +35,9 @@ describe("Flur page component", () => {
     expect(
       within(fieldsets[0]).getByLabelText("Schrägstrich")
     ).toBeInTheDocument();
-    expect(within(fieldsets[0]).getByLabelText("Nenner")).toBeInTheDocument();
+    expect(
+      within(fieldsets[0]).getByLabelText("Nenner (wenn vorhanden)")
+    ).toBeInTheDocument();
   });
 });
 

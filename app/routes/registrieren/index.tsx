@@ -207,7 +207,8 @@ export default function Registrieren() {
 
         <IntroText>
           Mit einem Konto können Sie die Bearbeitung Ihrer Grundsteuererklärung
-          unterbrechen und später fortsetzen.
+          unterbrechen und später fortsetzen. Für jede neue Anmeldung bestellen
+          Sie einen neuen Anmeldelink.
         </IntroText>
 
         <Hint className="mb-40">

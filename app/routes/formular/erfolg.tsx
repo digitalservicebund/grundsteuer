@@ -81,10 +81,6 @@ export default function Erfolg() {
           </Headline>
 
           <h2 className="text-24 mb-16">Wie geht es jetzt weiter?</h2>
-          <p className="mb-32">
-            Das Wichtigste: bis zum Jahr 2025 zahlen Sie noch die alte
-            Grundsteuer.
-          </p>
           <EnumeratedList
             items={[
               "Ihre Erklärung wird nun von Ihrem Finanzamt bearbeitet",
@@ -97,10 +93,19 @@ export default function Erfolg() {
                   <li>den neuen Grundsteuerbescheid</li>
                 </ul>
               </div>,
-              "Ab 2025 zahlen Sie die neue Grundsteuer.",
+              "Bis zum Jahr 2025 zahlen Sie die alte Grundsteuer. Ab 2025 zahlen Sie die neue Grundsteuer.",
             ]}
             className="mb-32"
           />
+          <p>
+            Sie können sich für Ihre Unterlagen Ihre Grundsteuererklärung und
+            das Transferticket als PDF herunterladen. Wenn Sie keine weitere
+            Erklärung abgeben wollen, können Sie diese Seite verlassen.
+          </p>
+          <p className="font-bold mb-32">
+            Ihr Nutzerkonto wird 4 Monate nach Absenden der Erklärung
+            automatisch gelöscht.
+          </p>
         </UebersichtStep>
       </ContentContainer>
       <ContentContainer size="lg">

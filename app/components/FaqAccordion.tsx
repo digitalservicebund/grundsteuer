@@ -22,6 +22,7 @@ export default function FaqAccordion() {
             <li>genaues Baujahr des Gebäudes (ab einem Baujahr von 1949)</li>
             <li>Wohnfläche</li>
             <li>Anzahl der Garagenstellplätze</li>
+            <li>Steuer-Identifikationsnummer aller Eigentümer:innen</li>
             <li>
               Kontaktdaten der Eigentümer:innen und deren Anteile am Eigentum.
             </li>

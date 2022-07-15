@@ -1092,7 +1092,7 @@
           "options": {
             "einfamilienhaus": {
               "label": "Grundstück mit Einfamilienhaus",
-              "help": "Hat Ihr Gebäude einen eigenen Eingang, zum Beispiel bei einer Doppelhaushälfte, handelt es sich um ein Einfamilienhaus. Ein ausgebauter Dachboden mit separatem Eingang, zählt als weitere Wohnung. Das Gebäude ist dann ein Zweifamilienhaus."
+              "help": "Hat Ihr Gebäude einen eigenen Eingang, zum Beispiel bei einer Doppelhaushälfte, handelt es sich um ein Einfamilienhaus. Ein ausgebauter Dachboden mit separatem Eingang zählt als weitere Wohnung. Das Gebäude ist dann ein Zweifamilienhaus."
             },
             "zweifamilienhaus": {
               "label": "Grundstück mit Zweifamilienhaus",
@@ -1157,7 +1157,7 @@
       }
     },
     "anzahl": {
-      "headline": "Wie viele Grundstücksflächen zählen Sie in Ihrem Grundbuchauszug?",
+      "headline": "Tragen Sie nun Ihre Grundstücksflächen ein. Wie viele Einträge zählen Sie in Ihrem Grundbuchauszug?",
       "description": "Schauen Sie dazu auf die Seite “Bestandsverzeichnis” und zählen Sie die Einträge durch. Unterstrichene Zeilen bedeuten, dass diese Einträge ungültig sind. Diese werden nicht mitgezählt.",
       "hint": "<underline>Unterstrichene Zeilen</underline> im Grundbuchauszug bedeuten, dass diese Einträge <bold>nicht</bold> mehr gültig sind. Diese werden nicht mitgezählt.",
       "fields": {
@@ -1197,7 +1197,7 @@
             "label": "Zähler"
           },
           "flurstueckNenner": {
-            "label": "Nenner"
+            "label": "Nenner (wenn vorhanden)"
           }
         },
         "specifics": {
@@ -1443,6 +1443,7 @@
     "specifics": {
       "confirmationHeading": "Bestätigung und Versand an Ihre Finanzverwaltung",
       "confirmationText": "Die Erklärung ist eine Erklärung zur Feststellung des Grundsteuerwerts im Sinne des § 228 Abs. 1 Satz 1 des Bewertungsgesetzes (BewG). Die mit der Feststellungserklärung angeforderten Daten werden aufgrund der §§ 149, 150 und 181 Absatz 2 AO sowie § 228 BewG erhoben. Die Angabe der Telefonnummer ist freiwillig.",
+      "pdfDisclaimer": "Sie können nach Abgabe Ihre Daten als PDF herunterladen.",
       "submitbutton": "Grundsteuererklärung abschicken",
       "sectionUnfilled": "Bitte ergänzen",
       "fscHeading": "Sie haben noch keinen Freischaltcode eingegeben.",

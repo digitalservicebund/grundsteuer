@@ -364,7 +364,7 @@ export default function FscEingeben() {
             Freischaltcode speichern
           </Button>
           <Button look="secondary" to="/formular/welcome">
-            Zurück
+            Zurück zum Formular
           </Button>
         </ButtonContainer>
       </Form>

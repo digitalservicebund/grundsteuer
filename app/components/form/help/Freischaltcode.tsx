@@ -8,18 +8,14 @@ const FreischaltcodeHelp: HelpComponentFunction = () => {
     <DefaultHelpContent
       elements={[
         {
-          type: "paragraph",
-          value: (
-            <span>
-              Der Freischaltcode besteht immer aus 12 Zeichen und sieht zum
-              Beispiel so aus: <strong>A1B2-C3D4-E5F$</strong>.
-            </span>
-          ),
-        },
-        {
           type: "image",
           source: freischaltcodeImg,
           altText: "Beispiel Freischaltcode Brief",
+        },
+        {
+          type: "paragraph",
+          value:
+            "Ihr persönlicher Freischaltcode ist für die erstmalige Anmeldung 90 Tage nach der Registrierung gültig. Nach der ersten Anmeldung mit Ihrem persönlichen Freischaltcode haben Sie weitere 60 Tage Zeit, Ihre Grundsteuererklärung auszufüllen und abzuschicken. Danach verliert der Freischaltcode seine Gültigkeit und Sie müssen einen neuen Freischaltcode beantragen.",
         },
       ]}
     />

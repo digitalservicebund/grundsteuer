@@ -304,7 +304,7 @@ export default function FscNeuBeantragen() {
               Freischaltcode neu beantragen
             </Button>
             <Button look="secondary" to="/formular/welcome">
-              Zurück
+              Zurück zum Formular
             </Button>
           </ButtonContainer>
         </Form>
