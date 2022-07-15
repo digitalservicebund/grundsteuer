@@ -710,6 +710,8 @@ describe("Action", () => {
     describe("With correct form data", () => {
       let correctArgs: DataFunctionArgs;
       let revocationMock: jest.SpyInstance;
+      let setStornierenStateMock: jest.SpyInstance;
+
       const formData = {
         steuerId: "03 352 417 692",
         geburtsdatum: "01.01.1985",
@@ -730,21 +732,36 @@ describe("Action", () => {
         revocationMock = getMockedFunction(
           freischaltCodeStornierenModule,
           "revokeFreischaltCode",
+          Promise.resolve("strono-erica-id")
+        );
+        setStornierenStateMock = getMockedFunction(
+          userModule,
+          "saveEricaRequestIdFscStornieren",
           Promise.resolve()
         );
       });
 
       afterEach(() => {
-        revocationMock.mockReset();
+        revocationMock.mockClear();
+        setStornierenStateMock.mockClear();
       });
 
       afterAll(() => {
         revocationMock.mockRestore();
+        setStornierenStateMock.mockRestore();
       });
 
       test("starts fsc revocation", async () => {
         await action(correctArgs);
         expect(revocationMock).toHaveBeenCalledWith("bar");
+      });
+
+      test("set fsc revocation erica request id", async () => {
+        await action(correctArgs);
+        expect(setStornierenStateMock).toHaveBeenCalledWith(
+          "existing_user@foo.com",
+          "strono-erica-id"
+        );
       });
 
       test("sets form data into cookie", async () => {
@@ -758,6 +775,94 @@ describe("Action", () => {
         const result = await action(correctArgs);
         expect(await result.json()).toEqual({});
       });
+    });
+  });
+
+  describe("With no fsc request stored", () => {
+    // Case if revocation already succeeded
+    let userMock: jest.SpyInstance;
+    let revocationMock: jest.SpyInstance;
+    let beantragenMock: jest.SpyInstance;
+    let setBeantragenStateMock: jest.SpyInstance;
+
+    let correctArgs: DataFunctionArgs;
+    const formData = {
+      steuerId: "03 352 417 692",
+      geburtsdatum: "01.01.1985",
+    };
+    const normalizedFormData = {
+      steuerId: "03352417692",
+      geburtsdatum: "01.01.1985",
+    };
+
+    beforeAll(async () => {
+      userMock = getMockedFunction(userModule, "findUserByEmail", {
+        email: "existing_user@foo.com",
+      });
+      correctArgs = await mockActionArgs({
+        route: "/fsc/neuBeantragen",
+        formData: formData,
+        context: {},
+        userEmail: "existing_user@foo.com",
+        allData: {},
+      });
+      revocationMock = getMockedFunction(
+        freischaltCodeStornierenModule,
+        "revokeFreischaltCode",
+        Promise.resolve()
+      );
+      beantragenMock = getMockedFunction(
+        freischaltCodeBeantragenModule,
+        "requestNewFreischaltCode",
+        Promise.resolve("erica-beantragen-id")
+      );
+      setBeantragenStateMock = getMockedFunction(
+        userModule,
+        "saveEricaRequestIdFscBeantragen",
+        Promise.resolve()
+      );
+    });
+
+    afterEach(() => {
+      revocationMock.mockClear();
+      beantragenMock.mockClear();
+      setBeantragenStateMock.mockClear();
+    });
+
+    afterAll(() => {
+      userMock.mockRestore();
+      revocationMock.mockRestore();
+      beantragenMock.mockRestore();
+      setBeantragenStateMock.mockRestore();
+    });
+
+    test("starts new fsc request", async () => {
+      await action(correctArgs);
+      expect(beantragenMock).toHaveBeenCalledWith(
+        normalizedFormData.steuerId,
+        normalizedFormData.geburtsdatum
+      );
+      expect(revocationMock).not.toHaveBeenCalled();
+    });
+
+    test("set fsc beantragen erica request id", async () => {
+      await action(correctArgs);
+      expect(setBeantragenStateMock).toHaveBeenCalledWith(
+        "existing_user@foo.com",
+        "erica-beantragen-id"
+      );
+    });
+
+    test("sets form data into cookie", async () => {
+      const result = await action(correctArgs);
+      expect(
+        (await getSession(result.headers.get("Set-Cookie"))).get("fscData")
+      ).toEqual(normalizedFormData);
+    });
+
+    test("returns no data", async () => {
+      const result = await action(correctArgs);
+      expect(await result.json()).toEqual({});
     });
   });
 });

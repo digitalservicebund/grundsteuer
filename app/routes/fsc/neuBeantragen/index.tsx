@@ -169,7 +169,15 @@ export const action: ActionFunction = async ({ request }) => {
   });
   if (validationErrors) return validationErrors;
 
-  await revokeFsc(userData);
+  if (userData.fscRequest) {
+    await revokeFsc(userData);
+  } else {
+    await requestNewFsc(
+      normalizedSteuerId,
+      normalizedGeburtsdatum,
+      userData.email
+    );
+  }
   const session = await getSession(request.headers.get("Cookie"));
   session.set("fscData", {
     steuerId: normalizedSteuerId,
