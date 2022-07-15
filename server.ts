@@ -56,6 +56,11 @@ if (appMode === "cron") {
             "*.sentry.io",
             "'unsafe-inline'",
           ],
+          "form-action":
+            process.env.APP_ENV === "production"
+              ? "self www.elster.de"
+              : "self e4k-portal.een.elster.de",
+
           // allow connections from WebSocket for development tooling
           connectSrc:
             process.env.APP_ENV === "local"
