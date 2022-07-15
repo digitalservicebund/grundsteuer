@@ -710,7 +710,14 @@ describe("Action", () => {
     describe("With correct form data", () => {
       let correctArgs: DataFunctionArgs;
       let revocationMock: jest.SpyInstance;
-      const formData = { steuerId: "03352417692", geburtsdatum: "01.01.1985" };
+      const formData = {
+        steuerId: "03 352 417 692",
+        geburtsdatum: "01.01.1985",
+      };
+      const normalizedFormData = {
+        steuerId: "03352417692",
+        geburtsdatum: "01.01.1985",
+      };
 
       beforeAll(async () => {
         correctArgs = await mockActionArgs({
@@ -744,7 +751,7 @@ describe("Action", () => {
         const result = await action(correctArgs);
         expect(
           (await getSession(result.headers.get("Set-Cookie"))).get("fscData")
-        ).toEqual(formData);
+        ).toEqual(normalizedFormData);
       });
 
       test("returns no data", async () => {

@@ -7,8 +7,11 @@ import * as freischaltCodeBeantragenModule from "~/erica/freischaltCodeBeantrage
 import * as auditLogModule from "~/audit/auditLog";
 import * as userModule from "~/domain/user";
 import { getMockedFunction } from "test/mocks/mockHelper";
-import { loader } from "~/routes/fsc/beantragen/index";
+import { loader, action } from "~/routes/fsc/beantragen/index";
 import { AuditLogEvent } from "~/audit/auditLog";
+import * as csrfModule from "~/util/csrf";
+import { mockActionArgs } from "testUtil/mockActionArgs";
+import { DataFunctionArgs } from "@remix-run/node";
 
 describe("Loader", () => {
   const expectedTransferticket = "foo12345";
@@ -104,5 +107,121 @@ describe("Loader", () => {
     const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
     await loader(args);
     expect(spyOnSaveAuditLog).not.toHaveBeenCalled();
+  });
+});
+
+describe("Action", () => {
+  beforeAll(async () => {
+    getMockedFunction(csrfModule, "verifyCsrfToken", Promise.resolve());
+    mockIsAuthenticated.mockImplementation(() =>
+      Promise.resolve(
+        sessionUserFactory.build({
+          email: "existing_user@foo.com",
+        })
+      )
+    );
+  });
+
+  test("Returns no data if beantragen in progress", async () => {
+    const stornoMock = getMockedFunction(userModule, "findUserByEmail", {
+      email: "existing_user@foo.com",
+      ericaRequestIdFscBeantragen: "storno-id",
+    });
+    try {
+      const args = await mockActionArgs({
+        route: "/fsc/beantragen",
+        formData: { steuerId: "03 352 417 692", geburtsdatum: "01.01.1985" },
+        context: {},
+        userEmail: "existing_user@foo.com",
+        allData: {},
+      });
+
+      const result = await action(args);
+
+      expect(result).toEqual({});
+    } finally {
+      stornoMock.mockRestore();
+    }
+  });
+
+  describe("With correct user state", () => {
+    let userMock: jest.SpyInstance;
+    beforeAll(() => {
+      userMock = getMockedFunction(userModule, "findUserByEmail", {
+        email: "existing_user@foo.com",
+      });
+    });
+
+    afterAll(() => {
+      userMock.mockRestore();
+    });
+
+    test("Returns errors if no data provided", async () => {
+      const args = await mockActionArgs({
+        route: "/fsc/beantragen",
+        formData: { steuerId: "", geburtsdatum: "" },
+        context: {},
+        userEmail: "existing_user@foo.com",
+        allData: {},
+      });
+
+      const result = await action(args);
+
+      expect(result).toEqual({
+        errors: {
+          steuerId: "Bitte füllen Sie dieses Feld aus.",
+          geburtsdatum: "Bitte füllen Sie dieses Feld aus.",
+        },
+      });
+    });
+
+    describe("With correct form data", () => {
+      let correctArgs: DataFunctionArgs;
+      let beantragenMock: jest.SpyInstance;
+      const formData = {
+        steuerId: "03 352 417 692",
+        geburtsdatum: "01.01.1985",
+      };
+      const normalizedFormData = {
+        steuerId: "03352417692",
+        geburtsdatum: "01.01.1985",
+      };
+
+      beforeAll(async () => {
+        correctArgs = await mockActionArgs({
+          route: "/fsc/beantragen",
+          formData: formData,
+          context: {},
+          userEmail: "existing_user@foo.com",
+          allData: {},
+        });
+        beantragenMock = getMockedFunction(
+          freischaltCodeBeantragenModule,
+          "requestNewFreischaltCode",
+          Promise.resolve()
+        );
+      });
+
+      afterEach(() => {
+        beantragenMock.mockReset();
+      });
+
+      afterAll(() => {
+        beantragenMock.mockRestore();
+      });
+
+      test("starts fsc beantragen", async () => {
+        await action(correctArgs);
+        expect(beantragenMock).toHaveBeenCalledWith(
+          normalizedFormData.steuerId,
+          normalizedFormData.geburtsdatum
+        );
+      });
+
+      test("returns no data", async () => {
+        const result = await action(correctArgs);
+        expect(await result).toEqual({});
+      });
+    });
   });
 });
