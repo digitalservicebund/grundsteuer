@@ -44,7 +44,6 @@ export default function Formular() {
           actions={
             <NavigationActions
               userIsIdentified={userIsIdentified}
-              userIsLoggedIn={true}
               userHasFinishedProcess={userHasFinishedProcess}
             />
           }
@@ -62,7 +61,6 @@ export default function Formular() {
           actions={
             <NavigationActions
               userIsIdentified={userIsIdentified}
-              userIsLoggedIn={true}
               userHasFinishedProcess={userHasFinishedProcess}
             />
           }

@@ -30,7 +30,7 @@ export default function ErfolgreichAngemeldet() {
 
   const nextStepUrl = !inDeclarationProcess ? "/formular/erfolg" : "/fsc";
   return (
-    <UserLayout userIsLoggedIn>
+    <UserLayout>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         <SuccessPageLayout>

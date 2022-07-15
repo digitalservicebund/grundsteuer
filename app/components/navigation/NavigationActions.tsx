@@ -3,41 +3,15 @@ import { useLocation } from "@remix-run/react";
 import { LogoutButton } from "~/components";
 import EmailOutlinedIcon from "~/components/icons/mui/EmailOutlined";
 import NavigationLink from "./NavigationLink";
-import PersonCircle from "~/components/icons/mui/PersonCircle";
-import LetterIcon from "~/components/icons/mui/LetterIcon";
 import Lock from "~/components/icons/mui/Lock";
 import AddFile from "~/components/icons/mui/AddFile";
 
 export default function NavigationActions(props: {
   userIsIdentified?: boolean;
-  userIsLoggedIn?: boolean;
   userHasFinishedProcess?: boolean;
 }) {
   const location = useLocation();
   const [currentLocation, setCurrentLocation] = useState(location.pathname);
-
-  if (!props.userIsLoggedIn) {
-    return (
-      <div className="px-8 mb-32">
-        <NavigationLink
-          to="/anmelden"
-          icon={<PersonCircle className="w-[20px] h-[20px] fill-blue-800" />}
-          isAllCaps
-          isActive={!!currentLocation.match(/\/anmelden/)}
-        >
-          Anmelden
-        </NavigationLink>
-        <NavigationLink
-          to="/hilfe"
-          icon={<LetterIcon className="w-[20px] h-[20px] fill-blue-800" />}
-          isAllCaps
-          isActive={!!currentLocation.match(/\/hilfe/)}
-        >
-          Kontakt
-        </NavigationLink>
-      </div>
-    );
-  }
 
   useEffect(() => {
     setCurrentLocation(location.pathname);

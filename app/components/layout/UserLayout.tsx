@@ -10,7 +10,6 @@ import {
 
 export default function UserLayout(props: {
   children: ReactNode;
-  userIsLoggedIn?: boolean;
   userIsIdentified?: boolean;
 }) {
   return (
@@ -19,20 +18,14 @@ export default function UserLayout(props: {
       sidebarNavigation={
         <SidebarNavigation
           actions={
-            <NavigationActions
-              userIsIdentified={props.userIsIdentified}
-              userIsLoggedIn={props.userIsLoggedIn}
-            />
+            <NavigationActions userIsIdentified={props.userIsIdentified} />
           }
         />
       }
       topNavigation={
         <TopNavigation
           actions={
-            <NavigationActions
-              userIsIdentified={props.userIsIdentified}
-              userIsLoggedIn={props.userIsLoggedIn}
-            />
+            <NavigationActions userIsIdentified={props.userIsIdentified} />
           }
         />
       }
