@@ -396,7 +396,8 @@ export default function Zusammenfassung() {
             <h2 className="mb-24 mt-48 text-24 leading-30">
               {i18n.specifics.confirmationHeading}
             </h2>
-            <p className="mb-32">{i18n.specifics.confirmationText}</p>
+            <p className="mb-16">{i18n.specifics.confirmationText}</p>
+            <p className="font-bold mb-32">{i18n.specifics.pdfDisclaimer}</p>
           </ContentContainer>
           <ContentContainer size="sm-md" className="bg-white p-16 mb-16">
             <StepFormField {...fieldProps[1]}>

@@ -2,7 +2,7 @@ import { StepComponentFunction } from "~/routes/formular/_step";
 import gebaeudeUebersicht from "~/assets/images/uebersicht-gebaeude.svg";
 import gebaeudeUebersichtSmall from "~/assets/images/uebersicht-gebaeude-small.svg";
 import UebersichtStep from "~/components/form/UebersichtStep";
-import { ContentContainer } from "~/components";
+import { ContentContainer, IntroText } from "~/components";
 
 const GebaeudeUebersicht: StepComponentFunction = () => {
   return (
@@ -11,10 +11,10 @@ const GebaeudeUebersicht: StepComponentFunction = () => {
         imageSrc={gebaeudeUebersicht}
         smallImageSrc={gebaeudeUebersichtSmall}
       >
-        <p className="mb-32 font-bold">
+        <IntroText className="mb-32 font-bold">
           In diesem Abschnitt geht es um die Immobilie, die Sie im Abschnitt
           “Grundstück” angegeben haben:
-        </p>
+        </IntroText>
 
         <p>Wir befragen Sie auf den folgenden Seiten zu diesen Themen:</p>
         <ul className="mb-32 ml-20 list-disc">

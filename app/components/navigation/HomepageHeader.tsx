@@ -156,7 +156,7 @@ export function HomepageHeader() {
           </ContentContainer>
         </div>
       </div>
-      <div className="mb-32 md:mb-64 bg-white pb-24 lg:py-24 flex justify-center lg:justify-auto">
+      <div className="mb-32 md:mb-48 bg-white pb-24 lg:py-24 flex justify-center lg:justify-auto">
         <HeaderButtons t={t} location={location} />
       </div>
     </div>

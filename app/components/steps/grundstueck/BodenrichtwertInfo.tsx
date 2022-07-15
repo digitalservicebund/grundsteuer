@@ -28,7 +28,7 @@ const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
           </ExternalLinkButton>
         )}
         {bundesland === "HB" && (
-          <p className="mt-64">
+          <p className="mt-48">
             Im{" "}
             <a
               href={i18n.specifics.geoviewerUrl}

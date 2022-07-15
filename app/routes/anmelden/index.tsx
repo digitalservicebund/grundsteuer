@@ -21,6 +21,7 @@ import {
   IntroText,
   SubHeadline,
   LoggedOutLayout,
+  Headline,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 import { getSession, commitSession } from "~/session.server";
@@ -132,10 +133,9 @@ export default function Anmelden() {
           </ErrorBar>
         )}
 
+        <Headline>Herzlich Willkommen</Headline>
         <div className="mb-80">
-          <SubHeadline className="font-bold">
-            Ich bin das erste Mal hier
-          </SubHeadline>
+          <SubHeadline>Ich bin das erste Mal hier</SubHeadline>
           <IntroText>
             Erstellen Sie ein Konto um die Bearbeitung nach Wunsch unterbrechen-
             und später fortsetzen zu können.
@@ -143,9 +143,7 @@ export default function Anmelden() {
           <Button to="/registrieren">Konto erstellen</Button>
         </div>
 
-        <SubHeadline className="font-bold">
-          Ich habe bereits ein Konto
-        </SubHeadline>
+        <SubHeadline>Ich habe bereits ein Konto</SubHeadline>
         <IntroText>
           Bitte geben Sie die E-Mail-Adresse ein, mit der Sie sich registriert
           haben. Wir senden Ihnen einen Link für die Anmeldung. Es wird kein

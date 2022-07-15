@@ -7,6 +7,7 @@ import {
   HomepageFeatures,
   Footer,
   BmfLogo,
+  BreadcrumbNavigation,
 } from "~/components";
 import germanyMapImage from "~/assets/images/germany-map.svg";
 import HomepageSharing from "~/components/HomepageSharing";
@@ -31,6 +32,7 @@ export default function Index() {
       )}
       <HomepageHeader />
       <main className="flex-grow">
+        <BreadcrumbNavigation />
         <ContentContainer>
           <BmfLogo />
           <h1 className="mb-64 md:mb-96 xl:mb-80">
