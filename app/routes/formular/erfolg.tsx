@@ -20,6 +20,7 @@ import Download from "~/components/icons/mui/Download";
 import { ReactNode } from "react";
 import Hint from "~/components/Hint";
 import EnumeratedList from "~/components/EnumeratedList";
+import Plus from "~/components/icons/mui/Plus";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erklärung abgeschickt") };
@@ -169,7 +170,11 @@ export default function Erfolg() {
               Sie können hier im Anschluss eine weitere Erklärung starten. Dafür
               müssen Sie keinen neuen Freischaltcode beantragen.
             </IntroText>
-            <Button href="/formular/weitereErklaerung">
+            <Button
+              href="/formular/weitereErklaerung"
+              iconRight={<Plus />}
+              className="w-full"
+            >
               Weitere Erklärung abgeben
             </Button>
           </ContentContainer>
