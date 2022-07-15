@@ -12,12 +12,20 @@ function HeaderLink({
   icon,
   active,
   children,
+  newTab,
 }: {
   destination: string;
   icon?: ReactNode;
   active?: boolean;
   children: ReactNode;
+  newTab?: boolean;
 }) {
+  const newTabAttributes = newTab
+    ? {
+        target: "_blank",
+      }
+    : {};
+
   return (
     <div className="inline-flex py-8">
       {icon && <div className="mr-10 inline-flex">{icon}</div>}
@@ -26,6 +34,7 @@ function HeaderLink({
         className={classNames("text-14 uppercase tracking-1 font-bold", {
           "underline text-blue-800": active,
         })}
+        {...newTabAttributes}
       >
         {children}
       </a>
@@ -44,9 +53,9 @@ function HeaderActions({ location }: { location: string }) {
         Anmelden
       </HeaderLink>
       <HeaderLink
-        destination="/hilfe"
+        destination="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de"
         icon={<OpenTab className="w-[20px] h-[20px]" />}
-        active={location.includes("/hilfe")}
+        newTab
       >
         Hilfebereich
       </HeaderLink>

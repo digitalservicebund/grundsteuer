@@ -13,7 +13,10 @@ export default function Footer() {
         look="secondary"
         floatingBorderBottom={82}
         icon={<LetterIcon />}
-        to={"/hilfe"}
+        href={
+          "https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de"
+        }
+        target="_blank"
       >
         Haben Sie Fragen?
       </FloatButton>
@@ -22,7 +25,10 @@ export default function Footer() {
           {/*Put the thumbs up/down component here*/}
         </div>
         <div className="flex flex-wrap">
-          <a href="/hilfe">
+          <a
+            href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de"
+            target="_blank"
+          >
             Haben Sie noch Fragen? Schauen Sie sich{" "}
             <span className="underline font-bold text-blue-800">
               unsere Hilfeseite
