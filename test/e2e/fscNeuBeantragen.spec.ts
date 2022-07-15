@@ -92,7 +92,7 @@ describe("/neuBeantragen", () => {
     cy.get("[name=steuerId]").type(validSteuerId);
     cy.get("[name=geburtsdatum]").type("01.08.1991");
     cy.get("form[action='/fsc/neuBeantragen?index'] button").click();
-    cy.contains("Mit diesen Daten können wir keinen Freischaltcode beantragen");
+    cy.contains("Bitte überprüfen Sie Ihre Angaben.");
     cy.contains("Ihr Freischaltcode wird beantragt.").should("not.exist");
   });
 
