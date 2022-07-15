@@ -5,6 +5,7 @@
 !build
 !package.json
 !package-lock.json
+!patches
 !prisma
 !public
 !remix.config.js
