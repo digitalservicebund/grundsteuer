@@ -29,12 +29,16 @@ export const isFscRevoked = (
 ): EricaFreischaltcodeStornierenResponseData | EricaError => {
   const result = ericaUtils.extractResultFromEricaResponse(ericaResponse);
   if ("errorCode" in result && result.errorCode) {
-    if (result.errorCode == "ELSTER_REQUEST_ID_UNKNOWN") {
+    if (
+      result.errorCode == "ELSTER_REQUEST_ID_UNKNOWN" ||
+      result.errorCode == "ALREADY_REVOKED_UNLOCK_CODE"
+    ) {
       return {
         errorType: "EricaUserInputError",
         errorMessage: result.errorMessage,
       };
     } else {
+      console.warn(`Erica returned an error: ${result.errorMessage}`);
       return {
         errorType: "GeneralEricaError",
         errorMessage: result.errorMessage,
