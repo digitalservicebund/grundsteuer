@@ -455,7 +455,7 @@ describe("Loader", () => {
           const response = await loader(args);
 
           const jsonResponse = await response.json();
-          expect(jsonResponse.csrfToken).not.toBeUndefined();
+          expect(jsonResponse.csrfToken).toBeUndefined();
           expect(jsonResponse.showSpinner).toBe(false);
           expect(jsonResponse.showError).toBe(true);
 

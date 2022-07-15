@@ -103,8 +103,6 @@ export const loader: LoaderFunction = async ({ context, request }) => {
       `FSC newly requested for user with id ${userData?.id}`
     );
     if (fscRequestError) {
-      //TESTEN: Fehler im Request + neu Abschicken geänderter Daten -> 400?!
-      Object.assign(fscRequestError, { csrfToken: createCsrfToken(session) });
       session.unset("fscData");
       return json(fscRequestError, {
         headers: {
