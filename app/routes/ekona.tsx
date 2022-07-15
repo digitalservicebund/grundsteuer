@@ -3,7 +3,7 @@ import { UserLayout } from "~/components";
 
 export default function Ekona() {
   return (
-    <UserLayout userIsLoggedIn={true}>
+    <UserLayout>
       <Outlet />
     </UserLayout>
   );
