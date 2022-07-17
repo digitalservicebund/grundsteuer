@@ -9,8 +9,14 @@ import {
   Headline,
   IntroText,
 } from "~/components";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const loader: LoaderFunction = async () => {
+  if (!testFeaturesEnabled) {
+    throw new Response("Not Found", {
+      status: 404,
+    });
+  }
   const saml = await createSamlRequest();
   return {
     context: saml,
