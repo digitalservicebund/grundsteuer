@@ -43,7 +43,6 @@ import {
   revokeFsc,
 } from "~/routes/fsc/eingeben";
 import { commitSession, getSession } from "~/session.server";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { getRedirectionParams } from "~/routes/fsc/index";
 import steuerIdImg from "~/assets/images/help/help-steuer-id.png";
 import lohnsteuerbescheinigungImage from "~/assets/images/lohnsteuerbescheinigung_idnr.svg";
@@ -133,7 +132,6 @@ export const loader: LoaderFunction = async ({ context, request }) => {
       showError: false,
       showSpinner:
         ericaFscRevocationIsInProgress || ericaFscRequestIsInProgress,
-      showTestFeatures: testFeaturesEnabled,
     },
     {
       headers: {

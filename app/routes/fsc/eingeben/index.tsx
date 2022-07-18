@@ -52,7 +52,6 @@ import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import FreischaltcodeHelp from "~/components/form/help/Freischaltcode";
 import { getRedirectionParams } from "~/routes/fsc/index";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import ArrowRight from "~/components/icons/mui/ArrowRight";
 
 const isEricaRequestInProgress = async (userData: User) => {
@@ -236,7 +235,6 @@ export const loader: LoaderFunction = async ({ request, context }) => {
       showSpinner:
         ericaActivationRequestIsInProgress ||
         ericaRevocationRequestIsInProgress,
-      showTestFeatures: testFeaturesEnabled,
     },
     {
       headers: {
@@ -377,23 +375,19 @@ export default function FscEingeben() {
           </Button>
         </ButtonContainer>
       </Form>
-      {loaderData.showTestFeatures && (
-        <>
-          <p className="mt-80 mb-16">
-            Zwei Wochen sind um und Sie haben noch keinen Brief mit dem
-            Freischaltcode erhalten?
-          </p>
-          <div className="flex items-center">
-            <ArrowRight className="inline-block mr-16" />
-            <a
-              href={"/fsc/neuBeantragen?index" + redirectionParams}
-              className="font-bold underline text-18 text-blue-800"
-            >
-              Freischaltcode neu beantragen
-            </a>
-          </div>
-        </>
-      )}
+      <p className="mt-80 mb-16">
+        Zwei Wochen sind um und Sie haben noch keinen Brief mit dem
+        Freischaltcode erhalten?
+      </p>
+      <div className="flex items-center">
+        <ArrowRight className="inline-block mr-16" />
+        <a
+          href={"/fsc/neuBeantragen?index" + redirectionParams}
+          className="font-bold underline text-18 text-blue-800"
+        >
+          Freischaltcode neu beantragen
+        </a>
+      </div>
       {showSpinner && (
         <Spinner
           initialText={"Ihr Freischaltcode wird überprüft."}
