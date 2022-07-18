@@ -11,6 +11,7 @@ export const grundstueckFlurstueckMiteigentumsanteil: StepDefinition = {
       validations: {
         required: {},
         float: {},
+        noZero: {},
         maxLengthFloat: {
           preComma: 6,
           postComma: 4,
