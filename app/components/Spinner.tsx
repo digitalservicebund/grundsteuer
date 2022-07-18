@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "./Button";
 import RefreshIcon from "./icons/mui/Refresh";
-import LoopIcon from "./icons/mui/Loop";
+import loopGif from "~/assets/images/loader.gif";
 import { Form } from "@remix-run/react";
 
 export default function Spinner(props: {
@@ -42,7 +42,7 @@ export default function Spinner(props: {
       <div className="bg-black opacity-40 absolute inset-0" />
       <div className="bg-white rounded-3xl p-32 relative">
         <div className="flex items-center justify-center">
-          <LoopIcon className="w-48 h-48 shrink-0 mr-16" />
+          <img className="w-48 h-48 shrink-0 mr-16" src={loopGif} />
           <p className="text-18">{text}</p>
         </div>
         {!isJavaScriptEnabled && (
