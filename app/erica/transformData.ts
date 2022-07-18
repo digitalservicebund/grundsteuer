@@ -87,10 +87,7 @@ export const fillPostCommaToLength = (
     ? postCommaLength - splits[1].length
     : postCommaLength;
   return (
-    splits[0]?.trim() +
-    "," +
-    (splits[1]?.trim() || "") +
-    Array(difference).fill("0").join("")
+    splits[0] + "," + (splits[1] || "") + Array(difference).fill("0").join("")
   );
 };
 

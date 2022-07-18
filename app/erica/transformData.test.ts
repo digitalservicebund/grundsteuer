@@ -684,6 +684,10 @@ describe("fillPostCommaToLength", () => {
     { value: "1,12", postCommaLength: 3, output: "1,120" },
     { value: "1,12", postCommaLength: 1, output: "1,12" },
     { value: " 1,12 ", postCommaLength: 3, output: "1,120" },
+    { value: "1,12", postCommaLength: 2, output: "1,12" },
+    { value: "1,1", postCommaLength: 2, output: "1,10" },
+    { value: "1,", postCommaLength: 2, output: "1,00" },
+    { value: "1", postCommaLength: 2, output: "1,00" },
   ];
 
   test.each(cases)(
