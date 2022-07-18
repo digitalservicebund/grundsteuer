@@ -95,7 +95,7 @@ export const fillPostCommaToLength = (
 };
 
 const transformWirtschaftlicheEinheitZaehler = (value?: string) => {
-  return fillPostCommaToLength(4, value)?.replace(",", ".");
+  return value?.replace(",", ".");
 };
 
 export const transformDate = (value?: string) => {
