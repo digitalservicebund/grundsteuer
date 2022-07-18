@@ -50,12 +50,7 @@ if (appMode === "cron") {
         directives: {
           // unfortunately we have to allow unsafe inline scripts, as otherwise Remix does not work;
           // issue is tracked here: https://github.com/remix-run/remix/issues/183
-          scriptSrc: [
-            "'self'",
-            "plausible.io",
-            "*.sentry.io",
-            "'unsafe-inline'",
-          ],
+          scriptSrc: ["'self'", "*.sentry.io", "'unsafe-inline'"],
           "form-action":
             process.env.APP_ENV === "production"
               ? "self www.elster.de"

@@ -143,23 +143,6 @@ export default function App() {
         <meta charSet="utf-8" />
         <Meta />
         <Links />
-        {env === "production" && (
-          <>
-            <script
-              defer
-              data-domain="grundsteuererklaerung-fuer-privateigentum.de"
-              src="https://plausible.io/js/plausible.js"
-              crossOrigin="anonymous"
-            ></script>
-            <script
-              suppressHydrationWarning
-              dangerouslySetInnerHTML={{
-                __html:
-                  "window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }",
-              }}
-            />
-          </>
-        )}
       </head>
       <body className="flex flex-col min-h-screen text-black bg-gray-100 leading-default">
         <Outlet />
