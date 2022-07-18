@@ -29,7 +29,6 @@ import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import SteuerIdField from "~/components/form/SteuerIdField";
 import { useEffect, useState } from "react";
 import EnumeratedCard from "~/components/EnumeratedCard";
-import freischaltcodeImg from "~/assets/images/help/freischaltcode-no-explanation.png";
 import { authenticator } from "~/auth.server";
 import { findUserByEmail, User } from "~/domain/user";
 import invariant from "tiny-invariant";
@@ -47,6 +46,9 @@ import { commitSession, getSession } from "~/session.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { getRedirectionParams } from "~/routes/fsc/index";
 import steuerIdImg from "~/assets/images/help/help-steuer-id.png";
+import lohnsteuerbescheinigungImage from "~/assets/images/lohnsteuerbescheinigung_idnr.svg";
+import fscLetterImage from "~/assets/images/fsc-letter.svg";
+import fscInputImage from "~/assets/images/fsc-input.svg";
 
 const isEricaRequestInProgress = (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -329,15 +331,29 @@ export default function FscNeuBeantragen() {
         )}
       </ContentContainer>
       <div className="md:mb-144">
-        <h2 className="text-24 mb-24">
-          Wo finde ich den Freischaltcode auf dem Brief vom Finanzamt?
-        </h2>
+        <h2 className="text-24 mb-24">Wie beantrage ich den Freischaltcode?</h2>
         <EnumeratedCard
-          image={freischaltcodeImg}
-          imageAltText="Beispiel Freischaltcode Brief"
-          heading="Brief vom Finanzamt"
-          text="Ihnen wurde ein Brief per Post zugestellt. In diesem finden Sie den 12-stelligen Freischaltcode."
+          image={lohnsteuerbescheinigungImage}
+          imageAltText="Bildbeispiel einer Lohnsteuerbescheinigung"
+          number="1"
+          heading="Sie geben die Daten ein"
+          text="Geben Sie Ihre Steuer-Identifikationsnummer und Ihr Geburtsdatum ein. Ihre Steuer-ID finden Sie zum Beispiel auf Ihren Steuerbescheiden, Lohnsteuerabrechnungen oder anderen Unterlagen vom Finanzamt."
           className="mb-16"
+        />
+        <EnumeratedCard
+          image={fscLetterImage}
+          imageAltText="Bildbeispiel des Freischaltcode Brief"
+          number="2"
+          heading="Sie bekommen einen Brief vom Finanzamt"
+          text="Der Freischaltcode wird von Ihrem technischen Finanzamt als Brief an Ihre Meldeadresse versendet. Dies dauert in der Regel 7 bis 14 Tage. Sie können aber schon vor dem Erhalt des Codes Ihre Grundsteuererklärung ausfüllen."
+          className="mb-16"
+        />
+        <EnumeratedCard
+          image={fscInputImage}
+          imageAltText="Bildbeispiel der Eingabe des Freischaltcode"
+          number="3"
+          heading="Sie geben den Freischaltcode ein"
+          text="Sobald Sie den Brief mit dem Freischaltcode erhalten haben, können Sie ihn hier hinterlegen und sind damit identifiziert. Im Anschluss können Sie eine vollständig ausgefüllte Erklärung abschicken."
         />
       </div>
     </div>

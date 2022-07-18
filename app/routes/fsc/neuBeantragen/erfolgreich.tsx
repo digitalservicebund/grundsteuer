@@ -33,9 +33,18 @@ export default function FscBeantragenErfolgreich() {
       <SuccessPageLayout>
         <Headline>Vielen Dank</Headline>
 
+        <IntroText>
+          Sie haben Ihren persönlichen Freischaltcode beantragt. Diesen erhalten
+          Sie in den nächsten 14 Tagen per Post. Sie können jetzt die
+          Feststellungserklärung ausfüllen und zu einem späteren Zeitpunkt den
+          Freischaltcode eingeben.
+        </IntroText>
+
         <IntroText className="mb-80">
-          Sie haben persönlichen Freischaltcode beantragt. Diesen erhalten Sie
-          in den nächsten 14 Tagen per Post.
+          Es könnte sein, dass in der Zwischenzeit dennoch Ihr Brief mit dem
+          zuvor beantragten Freischaltcode zugestellt wird. In diesem Fall ist
+          der alte Freischaltcode ungültig. Warten Sie auf den neuen Brief um
+          den Freischaltcode einzugeben.
         </IntroText>
 
         <Button to={loaderData.nextStepLink}>Weiter zum Formular</Button>
