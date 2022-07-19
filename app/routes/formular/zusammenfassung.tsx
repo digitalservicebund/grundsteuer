@@ -347,7 +347,7 @@ export default function Zusammenfassung() {
       if (showSpinner) {
         fetcher.load("/formular/zusammenfassung");
       }
-    }, 1000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, [fetcher, showSpinner, ericaErrors]);
