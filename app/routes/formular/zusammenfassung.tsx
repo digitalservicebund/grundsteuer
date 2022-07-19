@@ -10,6 +10,7 @@ import {
   useActionData,
   useFetcher,
   useLoaderData,
+  useTransition,
 } from "@remix-run/react";
 import {
   createHeadersWithFormDataCookie,
@@ -324,6 +325,8 @@ export default function Zusammenfassung() {
   const fetcher = useFetcher();
   const [showSpinner, setShowSpinner] = useState(loaderData.showSpinner);
   const [ericaErrors, setEricaErrors] = useState(loaderData.ericaErrors);
+  const transition = useTransition();
+  const isSubmitting = Boolean(transition.submission);
 
   useEffect(() => {
     if (fetcher.data) {
@@ -464,7 +467,7 @@ export default function Zusammenfassung() {
           </ContentContainer>
           <Button
             id="nextButton"
-            disabled={!isIdentified}
+            disabled={!isIdentified || isSubmitting}
             iconRight={<Send className="h-[10px]" />}
           >
             {i18n.specifics.submitbutton}
