@@ -13,6 +13,7 @@ import {
 import { createFormGraph } from "~/domain";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 import { authenticator } from "~/auth.server";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
@@ -29,12 +30,18 @@ export const loader: LoaderFunction = async ({ request }) => {
     currentState: getCurrentStateFromUrl(request.url),
     userIsIdentified: user.identified,
     userHasFinishedProcess: !user.inDeclarationProcess,
+    showNewIdent: testFeaturesEnabled,
   };
 };
 
 export default function Formular() {
-  const { graph, currentState, userIsIdentified, userHasFinishedProcess } =
-    useLoaderData();
+  const {
+    showNewIdent,
+    graph,
+    currentState,
+    userIsIdentified,
+    userHasFinishedProcess,
+  } = useLoaderData();
 
   return (
     <Layout
@@ -45,6 +52,7 @@ export default function Formular() {
             <NavigationActions
               userIsIdentified={userIsIdentified}
               userHasFinishedProcess={userHasFinishedProcess}
+              showNewIdent={showNewIdent}
             />
           }
         >
@@ -62,6 +70,7 @@ export default function Formular() {
             <NavigationActions
               userIsIdentified={userIsIdentified}
               userHasFinishedProcess={userHasFinishedProcess}
+              showNewIdent={showNewIdent}
             />
           }
         >

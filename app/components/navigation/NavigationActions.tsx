@@ -9,6 +9,7 @@ import AddFile from "~/components/icons/mui/AddFile";
 export default function NavigationActions(props: {
   userIsIdentified?: boolean;
   userHasFinishedProcess?: boolean;
+  showNewIdent?: boolean;
 }) {
   const location = useLocation();
   const [currentLocation, setCurrentLocation] = useState(location.pathname);
@@ -21,7 +22,7 @@ export default function NavigationActions(props: {
     <div className="px-8 mb-32">
       <LogoutButton />
 
-      {!props.userIsIdentified && (
+      {!props.userIsIdentified && !props.showNewIdent && (
         <NavigationLink
           to="/fsc"
           icon={<Lock className="w-24 h-24 fill-blue-800" />}
@@ -29,6 +30,18 @@ export default function NavigationActions(props: {
           isActive={!!currentLocation.match(/\/fsc\//)}
         >
           Freischaltcode
+        </NavigationLink>
+      )}
+      {!props.userIsIdentified && props.showNewIdent && (
+        <NavigationLink
+          to="/identifikation"
+          icon={<Lock className="w-24 h-24 fill-blue-800" />}
+          isAllCaps
+          isActive={
+            !!currentLocation.match(/(\/identifikation|\/fsc\/|\/ekona)/)
+          }
+        >
+          Identifikation
         </NavigationLink>
       )}
       {!props.userHasFinishedProcess && (
