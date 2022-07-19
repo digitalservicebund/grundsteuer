@@ -1,4 +1,4 @@
-FROM node:16.16.0 as build
+FROM node:18.6.0 as build
 
 # Create app directory
 WORKDIR /src
@@ -7,7 +7,7 @@ COPY . ./
 RUN npm set-script prepare "" && npm ci && npm run build && npm prune --production && \
     curl https://dbs-download.obs.otc.t-systems.com/rds/ca-bundle.pem -o /opt/rds-ca-bundle.pem
 
-FROM node:16.16.0-alpine3.16
+FROM node:18.6.0
 RUN apk add --no-cache dumb-init curl && \
     rm -rf /var/cache/apk/* && \
     curl https://dbs-download.obs.otc.t-systems.com/rds/ca-bundle.pem -o /opt/rds-ca-bundle.pem
