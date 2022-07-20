@@ -51,9 +51,9 @@ import fscInputImage from "~/assets/images/fsc-input.svg";
 import ErrorBar from "~/components/ErrorBar";
 import { commitSession, getSession } from "~/session.server";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
-import { getRedirectionParams } from "~/routes/fsc/index";
 import Hint from "~/components/Hint";
 import steuerIdImg from "~/assets/images/help/help-steuer-id.png";
+import { getRedirectionParams } from "~/routes/identifikation";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);

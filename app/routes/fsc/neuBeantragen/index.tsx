@@ -43,11 +43,11 @@ import {
   revokeFsc,
 } from "~/routes/fsc/eingeben";
 import { commitSession, getSession } from "~/session.server";
-import { getRedirectionParams } from "~/routes/fsc/index";
 import steuerIdImg from "~/assets/images/help/help-steuer-id.png";
 import lohnsteuerbescheinigungImage from "~/assets/images/lohnsteuerbescheinigung_idnr.svg";
 import fscLetterImage from "~/assets/images/fsc-letter.svg";
 import fscInputImage from "~/assets/images/fsc-input.svg";
+import { getRedirectionParams } from "~/routes/identifikation";
 
 const isEricaRequestInProgress = (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);

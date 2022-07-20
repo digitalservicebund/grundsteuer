@@ -11,16 +11,48 @@ import ident2 from "~/assets/images/ident-2.png";
 import ident3 from "~/assets/images/ident-3.png";
 import { ReactNode } from "react";
 import classNames from "classnames";
-import { LoaderFunction } from "@remix-run/node";
+import { LoaderFunction, redirect } from "@remix-run/node";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { useLoaderData } from "@remix-run/react";
+import { authenticator } from "~/auth.server";
+import { findUserByEmail } from "~/domain/user";
+import invariant from "tiny-invariant";
 
-export const loader: LoaderFunction = async () => {
+export const getRedirectionParams = (
+  url: string,
+  additionalParams?: boolean
+) => {
+  const urlObject = new URL(url);
+  const redirectToSummary = urlObject.searchParams.get("redirectToSummary");
+  if (additionalParams) {
+    return redirectToSummary ? "&redirectToSummary=true" : "";
+  }
+  return redirectToSummary ? "?redirectToSummary=true" : "";
+};
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const sessionUser = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/anmelden",
+  });
+
   if (!testFeaturesEnabled) {
     throw new Response("Not Found", {
       status: 404,
     });
   }
+
+  const dbUser = await findUserByEmail(sessionUser.email);
+  invariant(
+    dbUser,
+    "expected a matching user in the database from a user in a cookie session"
+  );
+
+  const params = getRedirectionParams(request.url);
+  const hasFscRequest = dbUser.fscRequest;
+  if (hasFscRequest) {
+    return redirect("/fsc/eingeben" + params);
+  }
+
   return { showNewIdent: testFeaturesEnabled };
 };
 

@@ -51,8 +51,8 @@ import ErrorBar from "~/components/ErrorBar";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import FreischaltcodeHelp from "~/components/form/help/Freischaltcode";
-import { getRedirectionParams } from "~/routes/fsc/index";
 import ArrowRight from "~/components/icons/mui/ArrowRight";
+import { getRedirectionParams } from "~/routes/identifikation";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return (
