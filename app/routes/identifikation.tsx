@@ -11,12 +11,13 @@ import ident2 from "~/assets/images/ident-2.png";
 import ident3 from "~/assets/images/ident-3.png";
 import { ReactNode } from "react";
 import classNames from "classnames";
-import { LoaderFunction, redirect } from "@remix-run/node";
+import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { useLoaderData } from "@remix-run/react";
 import { authenticator } from "~/auth.server";
 import { findUserByEmail } from "~/domain/user";
 import invariant from "tiny-invariant";
+import { pageTitle } from "~/util/pageTitle";
 
 export const getRedirectionParams = (
   url: string,
@@ -28,6 +29,10 @@ export const getRedirectionParams = (
     return redirectToSummary ? "&redirectToSummary=true" : "";
   }
   return redirectToSummary ? "?redirectToSummary=true" : "";
+};
+
+export const meta: MetaFunction = () => {
+  return { title: pageTitle("Identifikation") };
 };
 
 export const loader: LoaderFunction = async ({ request }) => {

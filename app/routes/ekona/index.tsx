@@ -1,5 +1,5 @@
 import { useLoaderData } from "@remix-run/react";
-import { LoaderFunction } from "@remix-run/node";
+import { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { createSamlRequest } from "~/saml.server";
 import {
   BreadcrumbNavigation,
@@ -14,8 +14,18 @@ import EnumeratedCard from "~/components/EnumeratedCard";
 import ekona1 from "~/assets/images/ekona-1.png";
 import ekona2 from "~/assets/images/ekona-2.svg";
 import ekona3 from "~/assets/images/ekona-3.svg";
+import { authenticator } from "~/auth.server";
+import { pageTitle } from "~/util/pageTitle";
 
-export const loader: LoaderFunction = async () => {
+export const meta: MetaFunction = () => {
+  return { title: pageTitle("Identifikation mit Elster") };
+};
+
+export const loader: LoaderFunction = async ({ request }) => {
+  await authenticator.isAuthenticated(request, {
+    failureRedirect: "/anmelden",
+  });
+
   if (!testFeaturesEnabled) {
     throw new Response("Not Found", {
       status: 404,
