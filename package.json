@@ -42,7 +42,7 @@
     "docker:down": "docker-compose -f ./docker-compose-test.yml -p grundsteuer-test down"
   },
   "dependencies": {
-    "@prisma/client": "^4.0.0",
+    "@prisma/client": "^4.1.0",
     "@remix-run/express": "^1.6.4",
     "@remix-run/node": "^1.6.4",
     "@remix-run/react": "^1.6.4",
@@ -88,7 +88,7 @@
   },
   "devDependencies": {
     "@remix-run/dev": "^1.6.4",
-    "@remix-run/eslint-config": "^1.6.4",
+    "@remix-run/eslint-config": "^1.6.5",
     "@testing-library/dom": "^8.16.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.5",
