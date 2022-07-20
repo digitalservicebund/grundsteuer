@@ -162,8 +162,7 @@ export const loader: LoaderFunction = async ({
 
   const storedFormData = await getStoredFormData({ request, user });
   const filteredData = filterDataForReachablePaths(storedFormData);
-
-  const previousStepsErrors = await validateAllStepsData(filteredData);
+  let previousStepsErrors: PreviousStepsErrors | undefined = undefined;
 
   // Query Erica result
   let ericaErrors: string[] = [];
@@ -219,6 +218,8 @@ export const loader: LoaderFunction = async ({
         );
       }
     }
+  } else {
+    previousStepsErrors = await validateAllStepsData(filteredData);
   }
   const csrfToken = createCsrfToken(session);
 
@@ -230,7 +231,7 @@ export const loader: LoaderFunction = async ({
       i18n: await getStepI18n("zusammenfassung"),
       stepDefinition: zusammenfassung,
       isIdentified: userData.identified,
-      previousStepsErrors,
+      previousStepsErrors: previousStepsErrors || {},
       ericaErrors,
       showSpinner: !!ericaRequestId,
     },
