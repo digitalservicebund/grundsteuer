@@ -42,7 +42,7 @@
     "docker:down": "docker-compose -f ./docker-compose-test.yml -p grundsteuer-test down"
   },
   "dependencies": {
-    "@prisma/client": "^4.0.0",
+    "@prisma/client": "^4.1.0",
     "@remix-run/express": "^1.6.4",
     "@remix-run/node": "^1.6.4",
     "@remix-run/react": "^1.6.4",
