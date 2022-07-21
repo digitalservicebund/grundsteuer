@@ -333,6 +333,7 @@ export default function Zusammenfassung() {
   const fetcher = useFetcher();
   const [showSpinner, setShowSpinner] = useState(loaderData.showSpinner);
   const [ericaErrors, setEricaErrors] = useState(loaderData.ericaErrors);
+  const [fetchInProgress, setFetchInProgress] = useState(false);
   const transition = useTransition();
   const isSubmitting = Boolean(transition.submission);
 
@@ -352,10 +353,12 @@ export default function Zusammenfassung() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (showSpinner) {
+      if (showSpinner && !fetchInProgress) {
+        setFetchInProgress(true);
         fetcher.load("/formular/zusammenfassung");
+        setFetchInProgress(false);
       }
-    }, 2000);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [fetcher, showSpinner, ericaErrors]);
