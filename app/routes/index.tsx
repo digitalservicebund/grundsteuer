@@ -23,19 +23,12 @@ export default function Index() {
 
   return (
     <>
-      <div className="flex-shrink-0 bg-yellow-300 border-l-[9px] border-l-yellow-500 py-16">
+      {/*<div className="flex-shrink-0 bg-yellow-300 border-l-[9px] border-l-yellow-500 py-16">
         <ContentContainer>
           <p className="text-14 leading-20 lg:text-18 lg:leading-24">
-            <strong>Hinweis:</strong> E-Mails mit Links zur Anmeldung an
-            Adressen mit den Endungen <em>@live.de/.com</em>,{" "}
-            <em>@hotmail.de/.com</em>, <em>@outlook.de/.com</em> und{" "}
-            <em>@msn.de/.com</em> konnten leider temporär nicht zugestellt
-            werden. Das Problem wurde inzwischen behoben. Bitte melden Sie sich
-            erneut an. Es kann allerdings weiterhin zu Verzögerungen im Versand
-            kommen. Dies bedauern wir und danken für Ihre Geduld.
           </p>
         </ContentContainer>
-      </div>
+      </div> */}
       <HomepageHeader />
       <main className="flex-grow">
         <BreadcrumbNavigation />
