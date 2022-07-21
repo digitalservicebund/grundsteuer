@@ -1,5 +1,5 @@
 import { useLoaderData } from "@remix-run/react";
-import { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { json, LoaderFunction, MetaFunction } from "@remix-run/node";
 import { createSamlRequest } from "~/saml.server";
 import {
   BreadcrumbNavigation,
@@ -14,6 +14,7 @@ import EnumeratedCard from "~/components/EnumeratedCard";
 import ekona1 from "~/assets/images/ekona-1.png";
 import ekona2 from "~/assets/images/ekona-2.svg";
 import ekona3 from "~/assets/images/ekona-3.svg";
+import { commitEkonaSession, getEkonaSession } from "~/ekonaCookies.server";
 import { authenticator } from "~/auth.server";
 import { pageTitle } from "~/util/pageTitle";
 
@@ -22,7 +23,7 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  await authenticator.isAuthenticated(request, {
+  const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
 
@@ -31,10 +32,20 @@ export const loader: LoaderFunction = async ({ request }) => {
       status: 404,
     });
   }
-  const saml = await createSamlRequest();
-  return {
-    context: saml,
-  };
+  const session = await getEkonaSession(request.headers.get("Cookie"));
+  const saml = await createSamlRequest(session);
+  session.set("userId", user.id);
+
+  return json(
+    {
+      context: saml,
+    },
+    {
+      headers: {
+        "Set-Cookie": await commitEkonaSession(session),
+      },
+    }
+  );
 };
 
 export default function EkonaIndex() {

@@ -34,6 +34,18 @@ export const findUserByEmail = async (email: string): Promise<User | null> => {
   });
 };
 
+export const findUserById = async (userId: string): Promise<User | null> => {
+  return db.user.findUnique({
+    where: {
+      id: userId,
+    },
+    include: {
+      fscRequest: true,
+      pdf: true,
+    },
+  });
+};
+
 export const saveFscRequest = async (email: string, requestId: string) => {
   const user = await findUserByEmail(email);
   if (!user) {

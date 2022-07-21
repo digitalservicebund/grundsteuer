@@ -9,6 +9,7 @@ import {
   deletePdf,
   deleteTransferticket,
   findUserByEmail,
+  findUserById,
   saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscBeantragen,
   saveEricaRequestIdFscStornieren,
@@ -20,6 +21,7 @@ import {
   setUserInDeclarationProcess,
   userExists,
 } from "~/domain/user";
+import invariant from "tiny-invariant";
 
 describe("user", () => {
   beforeAll(async () => {
@@ -98,6 +100,34 @@ describe("user", () => {
     it("should return user object on existing email", async () => {
       const result = await findUserByEmail("existing@foo.com");
 
+      expect(result).toEqual(
+        expect.objectContaining({ email: "existing@foo.com" })
+      );
+    });
+
+    it("should return user object on existing email not lowercases", async () => {
+      const result = await findUserByEmail("eXisTiNG@foO.cOm");
+
+      expect(result).toEqual(
+        expect.objectContaining({ email: "existing@foo.com" })
+      );
+    });
+  });
+
+  describe("findUserById", () => {
+    it("should return null on unknown id", async () => {
+      const result = await findUserById("unkown-id");
+
+      expect(result).toBeNull();
+    });
+
+    it("should return user object on existing id", async () => {
+      const user = await findUserByEmail("existing@foo.com");
+      const userId = user?.id;
+      invariant(userId, "Expected userId to be present");
+      const result = await findUserById(userId);
+
+      expect(result).toEqual(user);
       expect(result).toEqual(
         expect.objectContaining({ email: "existing@foo.com" })
       );
