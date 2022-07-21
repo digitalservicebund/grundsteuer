@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@prisma/client": "^4.1.0",
-    "@remix-run/express": "^1.6.4",
+    "@remix-run/express": "^1.6.5",
     "@remix-run/node": "^1.6.5",
     "@remix-run/react": "^1.6.4",
     "@sentry/browser": "^7.5.1",
