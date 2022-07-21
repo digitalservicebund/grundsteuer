@@ -52,9 +52,9 @@ if (appMode === "cron") {
           // issue is tracked here: https://github.com/remix-run/remix/issues/183
           scriptSrc: ["'self'", "*.sentry.io", "'unsafe-inline'"],
           "form-action":
-            process.env.APP_ENV === "production"
-              ? "self www.elster.de"
-              : "self e4k-portal.een.elster.de",
+            process.env.USE_TEST_CSP === "true"
+              ? "self localhost:3000 https://grund-stag.dev.ds4g.net e4k-portal.een.elster.de"
+              : "self https://www.grundsteuererklaerung-fuer-privateigentum.de/ www.elster.de",
 
           // allow connections from WebSocket for development tooling
           connectSrc:
