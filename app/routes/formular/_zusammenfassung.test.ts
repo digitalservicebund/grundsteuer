@@ -351,6 +351,10 @@ describe("/zusammenfassung action", () => {
       mockIsAuthenticated.mockImplementation(() =>
         Promise.resolve(sessionUserFactory.build({ identified: true, id: "1" }))
       );
+      getMockedFunction(userModule, "findUserByEmail", {
+        email: "existing_user@foo.com",
+        identified: true,
+      });
       const csrfMock = jest.spyOn(csrfModule, "verifyCsrfToken");
       csrfMock.mockImplementation(() => Promise.resolve());
     });
@@ -461,6 +465,61 @@ describe("/zusammenfassung action", () => {
       await action(args);
 
       expect(spyOnSaveAuditLog).toHaveBeenCalledTimes(3);
+    });
+
+    test("sends new grundsteuer", async () => {
+      const sendGrundsteuerMock = getMockedFunction(
+        sendGrundsteuerModule,
+        "sendNewGrundsteuer",
+        "ericaRequestId"
+      );
+      const args = await mockActionArgs({
+        formData: {
+          confirmCompleteCorrect: "true",
+          confirmDataPrivacy: "true",
+          confirmTermsOfUse: "true",
+        },
+        context: {},
+        userEmail: "user@example.com",
+        allData: grundModelFactory.full().build(),
+      });
+      sendGrundsteuerMock.mockClear();
+
+      await action(args);
+
+      expect(sendGrundsteuerMock).toHaveBeenCalledTimes(1);
+    });
+
+    test("does not send new grundsteuer if already in progress", async () => {
+      const sendGrundsteuerMock = getMockedFunction(
+        sendGrundsteuerModule,
+        "sendNewGrundsteuer",
+        "ericaRequestId"
+      );
+      const findUserMock = getMockedFunction(userModule, "findUserByEmail", {
+        email: "existing_user@foo.com",
+        identified: true,
+        ericaRequestIdSenden: "senden-id",
+      });
+      const args = await mockActionArgs({
+        formData: {
+          confirmCompleteCorrect: "true",
+          confirmDataPrivacy: "true",
+          confirmTermsOfUse: "true",
+        },
+        context: {},
+        userEmail: "user@example.com",
+        allData: grundModelFactory.full().build(),
+      });
+      sendGrundsteuerMock.mockClear();
+
+      try {
+        await action(args);
+
+        expect(sendGrundsteuerMock).not.toHaveBeenCalled();
+      } finally {
+        findUserMock.mockRestore();
+      }
     });
   });
 });

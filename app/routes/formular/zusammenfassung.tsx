@@ -265,6 +265,13 @@ export const action: ActionFunction = async ({
 
   if (!user.identified) throw new Error("user not identified!");
 
+  const dbUser: User | null = await findUserByEmail(user.email);
+  invariant(
+    dbUser,
+    "expected a matching user in the database from a user in a cookie session"
+  );
+  if (dbUser.ericaRequestIdSenden) return {};
+
   const storedFormData = await getStoredFormData({ request, user });
 
   // validate this step's data
