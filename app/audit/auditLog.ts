@@ -7,6 +7,7 @@ export enum AuditLogEvent {
   FSC_REQUESTED = "fsc_requested",
   FSC_ACTIVATED = "fsc_activated",
   FSC_REVOKED = "fsc_revoked",
+  IDENTIFIED_VIA_EKONA = "identified_via_ekona",
   TAX_DECLARATION_SENT = "tax_declaration_submitted",
   CONFIRMED_COMPLETE_CORRECT = "confirmed_data_complete_correct",
   CONFIRMED_DATA_PRIVACY = "confirmed_data_privacy",
@@ -29,6 +30,18 @@ export interface FscBeantragtData {
   steuerId: string;
 }
 
+export interface EkonaIdentifiedData {
+  idnr: string;
+  firstName: string;
+  lastName: string;
+  street: string;
+  housenumber: string;
+  postalCode: string | undefined;
+  addressSupplement: string | undefined;
+  city: string;
+  country: string;
+}
+
 export interface TransferticketData {
   transferticket: string;
 }
@@ -41,7 +54,8 @@ export interface ConfirmationData {
 export type EventData =
   | FscBeantragtData
   | TransferticketData
-  | ConfirmationData;
+  | ConfirmationData
+  | EkonaIdentifiedData;
 
 export const saveAuditLog = async (data: AuditLogData) => {
   await db.auditLog.create({
