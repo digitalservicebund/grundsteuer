@@ -45,7 +45,7 @@
     "@prisma/client": "^4.1.0",
     "@remix-run/express": "^1.6.5",
     "@remix-run/node": "^1.6.5",
-    "@remix-run/react": "^1.6.4",
+    "@remix-run/react": "^1.6.5",
     "@sentry/browser": "^7.5.1",
     "@sentry/node": "^7.5.1",
     "@sentry/tracing": "^7.5.1",
