@@ -17,6 +17,7 @@ import ekona3 from "~/assets/images/ekona-3.svg";
 import { commitEkonaSession, getEkonaSession } from "~/ekonaCookies.server";
 import { authenticator } from "~/auth.server";
 import { pageTitle } from "~/util/pageTitle";
+import { getNextStepLink } from "~/util/getNextStepLink";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation mit Elster") };
@@ -39,6 +40,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json(
     {
       context: saml,
+      nextStepLink: getNextStepLink(request.url),
     },
     {
       headers: {
@@ -49,7 +51,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function EkonaIndex() {
-  const { context } = useLoaderData();
+  const { context, nextStepLink } = useLoaderData();
   return (
     <>
       <ContentContainer size="sm" className="mb-80">
@@ -67,7 +69,7 @@ export default function EkonaIndex() {
             <Button data-testid="submit" type="submit">
               Zur Identifikation mit ELSTER-Konto
             </Button>
-            <Button look="secondary" to="/formular/zusammenfassung">
+            <Button look="secondary" to={nextStepLink}>
               Zurück zum Formular
             </Button>
           </ButtonContainer>
