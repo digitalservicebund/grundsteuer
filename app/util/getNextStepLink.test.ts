@@ -1,4 +1,4 @@
-import { getNextStepLink } from "~/routes/fsc/index";
+import { getNextStepLink } from "~/util/getNextStepLink";
 
 describe("getNextStepLink", () => {
   afterEach(() => {

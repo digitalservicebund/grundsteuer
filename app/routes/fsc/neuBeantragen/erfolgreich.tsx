@@ -8,9 +8,9 @@ import {
   SuccessPageLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
-import { getNextStepLink } from "~/routes/fsc/index";
 import { useLoaderData } from "@remix-run/react";
 import { authenticator } from "~/auth.server";
+import { getNextStepLink } from "~/util/getNextStepLink";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Freischaltcode erfolgreich beantragt") };

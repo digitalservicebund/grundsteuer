@@ -4,12 +4,6 @@ import { findUserByEmail } from "~/domain/user";
 import { authenticator } from "~/auth.server";
 import { getRedirectionParams } from "~/routes/identifikation";
 
-export const getNextStepLink = (url: string) => {
-  const urlObject = new URL(url);
-  const redirectToSummary = urlObject.searchParams.get("redirectToSummary");
-  return redirectToSummary ? "/formular/zusammenfassung" : "/formular/welcome";
-};
-
 export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",

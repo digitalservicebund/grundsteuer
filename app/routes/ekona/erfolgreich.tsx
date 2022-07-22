@@ -1,8 +1,17 @@
 import { LoaderFunction, MetaFunction } from "@remix-run/node";
-import { ContentContainer } from "~/components";
+import {
+  BreadcrumbNavigation,
+  Button,
+  ContentContainer,
+  Headline,
+  IntroText,
+  SuccessPageLayout,
+} from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
+import { useLoaderData } from "@remix-run/react";
+import { getNextStepLink } from "~/util/getNextStepLink";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Freischaltcode erfolgreich eingegeben") };
@@ -17,15 +26,27 @@ export const loader: LoaderFunction = async ({ request }) => {
       status: 404,
     });
   }
-  return null;
+  return {
+    nextStepLink: getNextStepLink(request.url),
+  };
 };
 
 export default function EkonaErfolgreich() {
+  const loaderData = useLoaderData();
   return (
     <ContentContainer size="sm">
-      Wir konnten Sie anhand Ihrer ELSTER Zugangsdaten erfolgreich
-      identifizieren. Sie können die Erklärung nun nach vollständiger
-      Bearbeitung absenden.
+      <BreadcrumbNavigation />
+      <SuccessPageLayout>
+        <Headline>Vielen Dank</Headline>
+
+        <IntroText className="mb-80">
+          Wir konnten Sie anhand Ihrer ELSTER Zugangsdaten erfolgreich
+          identifizieren. Sie können die Erklärung nun nach vollständiger
+          Bearbeitung absenden.
+        </IntroText>
+
+        <Button to={loaderData.nextStepLink}>Weiter zum Formular</Button>
+      </SuccessPageLayout>
     </ContentContainer>
   );
 }

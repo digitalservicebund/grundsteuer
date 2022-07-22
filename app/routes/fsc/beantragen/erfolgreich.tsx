@@ -8,9 +8,9 @@ import {
   SuccessPageLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
-import { getNextStepLink } from "~/routes/fsc/index";
 import { useLoaderData } from "@remix-run/react";
 import { authenticator } from "~/auth.server";
+import { getNextStepLink } from "~/util/getNextStepLink";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Freischaltcode erfolgreich beantragt") };
@@ -34,8 +34,10 @@ export default function FscBeantragenErfolgreich() {
         <Headline>Vielen Dank</Headline>
 
         <IntroText className="mb-80">
-          Sie haben persönlichen Freischaltcode beantragt. Diesen erhalten Sie
-          in den nächsten 14 Tagen per Post.
+          Sie haben Ihren persönlichen Freischaltcode beantragt. Diesen erhalten
+          Sie in den nächsten 14 Tagen per Post. Sie können jetzt die
+          Feststellungserklärung ausfüllen und zu einem späteren Zeitpunkt den
+          Freischaltcode eingeben.
         </IntroText>
 
         <Button to={loaderData.nextStepLink}>Weiter zum Formular</Button>
