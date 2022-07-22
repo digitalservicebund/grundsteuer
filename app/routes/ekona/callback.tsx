@@ -23,7 +23,7 @@ const saveAuditLogs = async (
   clientIp: string,
   userEmail: string
 ) => {
-  const extractedData = extractIdentData(responseData);
+  const extractedData = extractIdentData(responseData.profile);
   await saveAuditLog({
     eventName: AuditLogEvent.FSC_ACTIVATED,
     timestamp: Date.now(),
