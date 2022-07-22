@@ -13,7 +13,7 @@ export type ValidatedEkonaData = {
     Adressergaenzung?: { _: string }[];
   };
 };
-export const extractIdentData = (validatedData: ValidatedEkonaData) => {
+export const extractIdentData = (validatedData: any) => {
   checkDataForAttributes(validatedData);
   return {
     idnr: validatedData.IdNr,

@@ -4,7 +4,11 @@ import { getEkonaSession } from "~/ekonaCookies.server";
 import { extractIdentData } from "~/ekona/validation";
 import { findUserById, setUserIdentified } from "~/domain/user";
 import invariant from "tiny-invariant";
-import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
+import {
+  AuditLogEvent,
+  EkonaIdentifiedData,
+  saveAuditLog,
+} from "~/audit/auditLog";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const getUserFromEkonaSession = async (ekonaSession: Session) => {
@@ -19,11 +23,10 @@ const getUserFromEkonaSession = async (ekonaSession: Session) => {
 };
 
 const saveAuditLogs = async (
-  responseData: any,
+  extractedData: EkonaIdentifiedData,
   clientIp: string,
   userEmail: string
 ) => {
-  const extractedData = extractIdentData(responseData.profile);
   await saveAuditLog({
     eventName: AuditLogEvent.FSC_ACTIVATED,
     timestamp: Date.now(),
@@ -47,9 +50,14 @@ export const action: ActionFunction = async ({ request, context }) => {
     body.get("SAMLResponse") as string,
     ekonaSession
   );
+  invariant(
+    validatedResponse.profile,
+    "Expected valid response to contain attribute profile"
+  );
+  const extractedData = extractIdentData(validatedResponse.profile);
   await setUserIdentified(user.email, true);
   console.log(`User with id ${user.id} identified via Ekona`);
-  await saveAuditLogs(validatedResponse, clientIp, user.email);
+  await saveAuditLogs(extractedData, clientIp, user.email);
 
   return redirect("/ekona/erfolgreich");
 };
