@@ -30,7 +30,11 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function ErfolgreichAngemeldet() {
   const { inDeclarationProcess, showNewIdent } = useLoaderData();
 
-  const nextStepUrl = !inDeclarationProcess ? "/formular/erfolg" : "/fsc";
+  const nextStepUrl = !inDeclarationProcess
+    ? "/formular/erfolg"
+    : showNewIdent
+    ? "/identifikation"
+    : "/fsc";
   return (
     <UserLayout showNewIdent={showNewIdent}>
       <ContentContainer size="sm">
