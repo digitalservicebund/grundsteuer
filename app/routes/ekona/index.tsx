@@ -1,6 +1,6 @@
 import { useLoaderData } from "@remix-run/react";
 import { json, LoaderFunction, MetaFunction } from "@remix-run/node";
-import { createSamlRequest } from "~/saml.server";
+import { createSamlRequest } from "~/ekona/saml.server";
 import {
   BreadcrumbNavigation,
   Button,

@@ -1,6 +1,6 @@
 import { SAML, SamlConfig } from "node-saml/lib";
-import { SessionCacheProvider } from "~/ekona/utility";
 import { Session } from "@remix-run/node";
+import { SessionCacheProvider } from "~/ekona/ekonaSessionCacheProvider";
 
 export const createSamlRequest = async (session: Session) => {
   const samlOptions: SamlConfig = {

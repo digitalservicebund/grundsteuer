@@ -1,7 +1,7 @@
 import { ActionFunction, redirect, Session } from "@remix-run/node";
-import { validateSamlResponse } from "~/saml.server";
+import { validateSamlResponse } from "~/ekona/saml.server";
 import { getEkonaSession } from "~/ekonaCookies.server";
-import { extractIdentData } from "~/ekona/utility";
+import { extractIdentData } from "~/ekona/validation";
 import { findUserById, setUserIdentified } from "~/domain/user";
 import invariant from "tiny-invariant";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";

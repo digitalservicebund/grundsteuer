@@ -1,9 +1,5 @@
 import _ from "lodash";
-import {
-  checkDataForAttributes,
-  extractIdentData,
-  validatedEkonaData,
-} from "~/ekona/utility";
+import { extractIdentData, ValidatedEkonaData } from "~/ekona/validation";
 
 const ekonaDataInland = {
   issuer: "https://e4k-portal.een.elster.de",
@@ -189,109 +185,105 @@ describe("extractIdentData", () => {
     const extractedData = extractIdentData(ekonaDataWithoutPLZ);
     expect(extractedData.postalCode).toBeUndefined();
   });
-});
 
-describe("checkDataForAttributes", () => {
-  const removeAttribute = (
-    inputData: validatedEkonaData,
-    attributeToDelete: string
-  ) => {
-    const dataCopy: Partial<validatedEkonaData> = _.cloneDeep(ekonaDataInland);
-    const attributesList = attributeToDelete.split(".");
-    if (attributesList.length == 2)
+  describe("with missing values", () => {
+    const removeAttribute = (
+      inputData: ValidatedEkonaData,
+      attributeToDelete: string
+    ) => {
+      const dataCopy: Partial<ValidatedEkonaData> =
+        _.cloneDeep(ekonaDataInland);
+      const attributesList = attributeToDelete.split(".");
+      if (attributesList.length == 2)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        delete (dataCopy as any)[attributesList[0]][attributesList[1]];
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      delete (dataCopy as any)[attributesList[0]][attributesList[1]];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    delete (dataCopy as any)[attributeToDelete];
-    return dataCopy;
-  };
-  const casesWithoutAllAttributes = [
-    {
-      inputData: removeAttribute(ekonaDataInland, "IdNr"),
-      missingValue: "IdNr",
-    },
-    {
-      inputData: removeAttribute(ekonaDataInland, "Vorname"),
-      missingValue: "Vorname",
-    },
-    {
-      inputData: removeAttribute(ekonaDataInland, "Name"),
-      missingValue: "Name",
-    },
-    {
-      inputData: removeAttribute(ekonaDataInland, "Anschrift.Strasse"),
-      missingValue: "Strasse",
-    },
-    {
-      inputData: removeAttribute(ekonaDataInland, "Anschrift.Hausnummer"),
-      missingValue: "Hausnummer",
-    },
-    {
-      inputData: removeAttribute(ekonaDataInland, "Anschrift.Ort"),
-      missingValue: "Ort",
-    },
-    {
-      inputData: removeAttribute(ekonaDataInland, "Anschrift.Land"),
-      missingValue: "Land",
-    },
-  ];
+      delete (dataCopy as any)[attributeToDelete];
+      return dataCopy;
+    };
+    const casesWithoutAllAttributes = [
+      {
+        inputData: removeAttribute(ekonaDataInland, "IdNr"),
+        missingValue: "IdNr",
+      },
+      {
+        inputData: removeAttribute(ekonaDataInland, "Vorname"),
+        missingValue: "Vorname",
+      },
+      {
+        inputData: removeAttribute(ekonaDataInland, "Name"),
+        missingValue: "Name",
+      },
+      {
+        inputData: removeAttribute(ekonaDataInland, "Anschrift.Strasse"),
+        missingValue: "Strasse",
+      },
+      {
+        inputData: removeAttribute(ekonaDataInland, "Anschrift.Hausnummer"),
+        missingValue: "Hausnummer",
+      },
+      {
+        inputData: removeAttribute(ekonaDataInland, "Anschrift.Ort"),
+        missingValue: "Ort",
+      },
+      {
+        inputData: removeAttribute(ekonaDataInland, "Anschrift.Land"),
+        missingValue: "Land",
+      },
+    ];
 
-  test.each(casesWithoutAllAttributes)(
-    "Should throw if value is '$missingValue' is missing.",
-    ({ inputData }) => {
-      expect(() => {
-        checkDataForAttributes(inputData);
-      }).toThrow();
-    }
-  );
+    test.each(casesWithoutAllAttributes)(
+      "Should throw if value is '$missingValue' is missing.",
+      ({ inputData }) => {
+        expect(() => {
+          extractIdentData(<ValidatedEkonaData>inputData);
+        }).toThrow();
+      }
+    );
 
-  const removeElementsFromList = (
-    inputData: validatedEkonaData,
-    attributeToDelete: string
-  ) => {
-    const dataCopy: Partial<validatedEkonaData> = _.cloneDeep(ekonaDataInland);
-    const attributesList = attributeToDelete.split(".");
-    if (attributesList.length == 2)
+    const removeElementsFromList = (
+      inputData: ValidatedEkonaData,
+      attributeToDelete: string
+    ) => {
+      const dataCopy: Partial<ValidatedEkonaData> =
+        _.cloneDeep(ekonaDataInland);
+      const attributesList = attributeToDelete.split(".");
+      if (attributesList.length == 2)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (dataCopy as any)[attributesList[0]][attributesList[1]] = [];
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (dataCopy as any)[attributesList[0]][attributesList[1]] = [];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (dataCopy as any)[attributeToDelete] = [];
-    return dataCopy;
-  };
-  const casesWithEmptyLists = [
-    {
-      inputData: removeElementsFromList(ekonaDataInland, "Anschrift.Strasse"),
-      missingValue: "Strasse",
-    },
-    {
-      inputData: removeElementsFromList(
-        ekonaDataInland,
-        "Anschrift.Hausnummer"
-      ),
-      missingValue: "Hausnummer",
-    },
-    {
-      inputData: removeElementsFromList(ekonaDataInland, "Anschrift.Ort"),
-      missingValue: "Ort",
-    },
-    {
-      inputData: removeElementsFromList(ekonaDataInland, "Anschrift.Land"),
-      missingValue: "Land",
-    },
-  ];
+      (dataCopy as any)[attributeToDelete] = [];
+      return dataCopy;
+    };
+    const casesWithEmptyLists = [
+      {
+        inputData: removeElementsFromList(ekonaDataInland, "Anschrift.Strasse"),
+        missingValue: "Strasse",
+      },
+      {
+        inputData: removeElementsFromList(
+          ekonaDataInland,
+          "Anschrift.Hausnummer"
+        ),
+        missingValue: "Hausnummer",
+      },
+      {
+        inputData: removeElementsFromList(ekonaDataInland, "Anschrift.Ort"),
+        missingValue: "Ort",
+      },
+      {
+        inputData: removeElementsFromList(ekonaDataInland, "Anschrift.Land"),
+        missingValue: "Land",
+      },
+    ];
 
-  test.each(casesWithEmptyLists)(
-    "Should throw if value is '$missingValue' is empty list.",
-    ({ inputData }) => {
-      expect(() => {
-        checkDataForAttributes(inputData);
-      }).toThrow();
-    }
-  );
-
-  it("should throw no error if all needed attributes are set", () => {
-    expect(() => {
-      checkDataForAttributes(ekonaDataInland);
-    }).not.toThrow();
+    test.each(casesWithEmptyLists)(
+      "Should throw if value is '$missingValue' is empty list.",
+      ({ inputData }) => {
+        expect(() => {
+          extractIdentData(<ValidatedEkonaData>inputData);
+        }).toThrow();
+      }
+    );
   });
 });

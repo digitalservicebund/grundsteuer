@@ -1,8 +1,6 @@
-import { CacheProvider } from "node-saml";
-import { Session } from "@remix-run/node";
 import invariant from "tiny-invariant";
 
-export type validatedEkonaData = {
+export type ValidatedEkonaData = {
   IdNr: string;
   Vorname: string;
   Name: string;
@@ -15,7 +13,7 @@ export type validatedEkonaData = {
     Adressergaenzung?: { _: string }[];
   };
 };
-export const extractIdentData = (validatedData: validatedEkonaData) => {
+export const extractIdentData = (validatedData: ValidatedEkonaData) => {
   checkDataForAttributes(validatedData);
   return {
     idnr: validatedData.IdNr,
@@ -34,9 +32,7 @@ export const extractIdentData = (validatedData: validatedEkonaData) => {
   };
 };
 
-export const checkDataForAttributes = (
-  validatedData: Partial<validatedEkonaData>
-) => {
+const checkDataForAttributes = (validatedData: Partial<ValidatedEkonaData>) => {
   invariant(validatedData.IdNr, "Validated ekona data did not contain IdNr");
   invariant(
     validatedData.Vorname,
@@ -62,32 +58,3 @@ export const checkDataForAttributes = (
     "Validated ekona data did not contain Land"
   );
 };
-
-export class SessionCacheProvider implements CacheProvider {
-  session: Session;
-
-  constructor(session: Session) {
-    this.session = session;
-  }
-
-  // Store an item in the cache, using the specified key and value.
-  async saveAsync(key: string, value: string) {
-    this.session.set(key, value);
-    return Object.assign({
-      key: key,
-      value: value,
-      createdAt: new Date().getTime(),
-    });
-  }
-
-  // Returns the value of the specified key in the cache
-  async getAsync(key: string) {
-    return this.session.get(key);
-  }
-  // Removes an item from the cache if the key exists
-  async removeAsync(key: string) {
-    const oldValue = this.session.get(key);
-    this.session.unset(key);
-    return oldValue;
-  }
-}
