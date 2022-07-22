@@ -66,7 +66,7 @@ const isEricaActivationRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscAktivieren);
 };
 
-const isEricaRevocationRequestInProgress = async (userData: User) => {
+export const isEricaRevocationRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscStornieren);
 };
 
