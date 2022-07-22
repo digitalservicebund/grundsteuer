@@ -309,6 +309,7 @@ export default function FscEingeben() {
   const [showSpinner, setShowSpinner] = useState(loaderData?.showSpinner);
   const [showError, setShowError] = useState(loaderData?.showError);
   const [redirectionParams, setRedirectionParams] = useState("");
+  const [fetchInProgress, setFetchInProgress] = useState(false);
 
   useEffect(() => {
     setRedirectionParams(getRedirectionParams(window.location.href, true));
@@ -330,8 +331,10 @@ export default function FscEingeben() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (showSpinner) {
+      if (showSpinner && !fetchInProgress) {
+        setFetchInProgress(true);
         fetcher.load("/fsc/eingeben?index" + redirectionParams);
+        setFetchInProgress(false);
       }
     }, 1000);
     return () => clearInterval(interval);
