@@ -36,15 +36,15 @@ index 7b23694..35ff4b8 100644
      if (callback) callback(null, res)
      return res
    }
-
+ 
    this.getAlgorithmName = function() {
 -    return "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
 +    return "http://www.w3.org/2007/05/xmldsig-more#sha256-rsa-MGF1"
    }
-
+ 
  }
 @@ -329,7 +337,7 @@ SignedXml.HashAlgorithms = {
-
+ 
  SignedXml.SignatureAlgorithms = {
    'http://www.w3.org/2000/09/xmldsig#rsa-sha1': RSASHA1,
 -  'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256': RSASHA256,
