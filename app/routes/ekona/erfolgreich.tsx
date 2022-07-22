@@ -20,7 +20,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return null;
 };
 
-export default function FscBeantragenErfolgreich() {
+export default function EkonaErfolgreich() {
   return (
     <ContentContainer size="sm">
       Wir konnten Sie anhand Ihrer ELSTER Zugangsdaten erfolgreich
