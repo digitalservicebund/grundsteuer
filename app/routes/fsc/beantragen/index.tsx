@@ -54,6 +54,7 @@ import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import Hint from "~/components/Hint";
 import steuerIdImg from "~/assets/images/help/help-steuer-id.png";
 import { getRedirectionParams } from "~/routes/identifikation";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -202,6 +203,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
       showError: false,
       showSpinner: ericaRequestInProgress,
       csrfToken,
+      showNewIdent: testFeaturesEnabled,
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -287,6 +289,21 @@ export default function FscBeantragen() {
     return () => clearInterval(interval);
   }, [fetcher, showSpinner]);
 
+  function getBackButton(showNewIdent: boolean) {
+    if (showNewIdent) {
+      return (
+        <Button look="secondary" to="/identifikation">
+          Zurück zur Übersicht
+        </Button>
+      );
+    }
+    return (
+      <Button look="secondary" to="/formular/welcome">
+        Später beantragen
+      </Button>
+    );
+  }
+
   return (
     <div className="lg:pr-[10%]">
       <ContentContainer size="sm-md" className="mb-80">
@@ -369,9 +386,7 @@ export default function FscBeantragen() {
             <Button disabled={isSubmitting || showSpinner}>
               Freischaltcode beantragen
             </Button>
-            <Button look="secondary" to="/formular/welcome">
-              Später beantragen
-            </Button>
+            {getBackButton(loaderData.showNewIdent)}
           </ButtonContainer>
         </Form>
         {showSpinner && (
