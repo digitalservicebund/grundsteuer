@@ -34,8 +34,6 @@ const getUserFromEkonaSession = async (ekonaSession: Session) => {
 const revokeOutstandingFSCRequests = async (user: User) => {
   if (user.fscRequest) {
     await revokeFsc(user);
-  } else {
-    console.log("Keine FSCs");
   }
 };
 
@@ -45,7 +43,7 @@ const saveAuditLogs = async (
   userEmail: string
 ) => {
   await saveAuditLog({
-    eventName: AuditLogEvent.FSC_ACTIVATED,
+    eventName: AuditLogEvent.IDENTIFIED_VIA_EKONA,
     timestamp: Date.now(),
     ipAddress: clientIp,
     username: userEmail,
