@@ -21,4 +21,5 @@ module.exports = {
 process.env = Object.assign(process.env, {
   SESSION_COOKIE_SECRET: "s3cr3t",
   MAGIC_LINK_SECRET: "not_a_secret",
+  TEST_FEATURES_ENABLED: "true",
 });
