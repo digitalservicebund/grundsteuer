@@ -1,4 +1,4 @@
-import { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { json, LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
 import {
   BreadcrumbNavigation,
   Button,
@@ -12,13 +12,16 @@ import { authenticator } from "~/auth.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { useLoaderData } from "@remix-run/react";
 import { getNextStepLink } from "~/util/getNextStepLink";
+import { commitSession, getSession } from "~/session.server";
+import { findUserByEmail } from "~/domain/user";
+import invariant from "tiny-invariant";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Freischaltcode erfolgreich eingegeben") };
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  await authenticator.isAuthenticated(request, {
+  const sessionUser = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
   if (!testFeaturesEnabled) {
@@ -26,9 +29,28 @@ export const loader: LoaderFunction = async ({ request }) => {
       status: 404,
     });
   }
-  return {
-    nextStepLink: getNextStepLink(request.url),
-  };
+
+  const dbUser = await findUserByEmail(sessionUser.email);
+  invariant(
+    dbUser,
+    "expected a matching user in the database from a user in a cookie session"
+  );
+  if (!dbUser.identified) {
+    return redirect("/identifikation");
+  }
+  const session = await getSession(request.headers.get("Cookie"));
+  session.set("user", Object.assign(session.get("user"), { identified: true }));
+
+  return json(
+    {
+      nextStepLink: getNextStepLink(request.url),
+    },
+    {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    }
+  );
 };
 
 export default function EkonaErfolgreich() {
