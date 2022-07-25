@@ -87,6 +87,11 @@ jobs:
           MAGIC_LINK_SECRET: thisaintnosecret
           TEST_FEATURES_ENABLED: true
           HASHED_LOGGING_SALT: "$2a$10$7hclYwYcZY5qCfmedLQx/u"
+          EKONA_ISSUER: ${{ secrets.EKONA_ISSUER }}
+          EKONA_IDP_CERT: ${{ secrets.EKONA_IDP_CERT }}
+          EKONA_ENTRY_POINT: ${{ secrets.EKONA_ENTRY_POINT }}
+          EKONA_ENC_KEY: ${{ secrets.EKONA_ENC_KEY }}
+          EKONA_SIGNING_KEY: ${{ secrets.EKONA_SIGNING_KEY }}
           NO_COLOR: 1
         run: npm run test:e2e | tee webapp-e2e-test-report.log
 
