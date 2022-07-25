@@ -3,7 +3,10 @@ import * as userModule from "~/domain/user";
 import * as samlServerModule from "~/ekona/saml.server";
 import * as eingebenModule from "~/routes/fsc/eingeben";
 import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStornieren";
-import { getMockedFunction } from "test/mocks/mockHelper";
+import {
+  getMockedFunction,
+  getThrowingMockedFunction,
+} from "test/mocks/mockHelper";
 import { AuditLogEvent } from "~/audit/auditLog";
 import { action } from "./callback";
 import { mockActionArgs } from "testUtil/mockActionArgs";
@@ -33,6 +36,95 @@ describe("Action", () => {
   });
   afterAll(() => {
     userMock.mockRestore();
+  });
+
+  it("should redirect to ekona if user interruption error found during validation", async () => {
+    const ekonaSession = await getEkonaSession(null);
+    ekonaSession.set("userId", "123456");
+    getThrowingMockedFunction(samlServerModule, "validateSamlResponse", {
+      xmlStatus:
+        '<Status><StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Requester"><StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:AuthnFailed"/></StatusCode><StatusMessage>Die ELSTER-seitige Authentifizierung wurde durch den Benutzer abgebrochen.</StatusMessage></Status>',
+    });
+    await callWithMockedTime(1652887920227, async () => {
+      const result = await action(
+        await mockActionArgs({
+          route: "/ekona/callback",
+          formData: {
+            SAMLResponse: "PLACEHOLDER_SAML_RESPONSE",
+          },
+          context: {},
+          userEmail: "existing_user@foo.com",
+          allData: {},
+          explicitCookie: await commitEkonaSession(ekonaSession),
+        })
+      );
+      expect(result.status).toEqual(302);
+      expect(result.headers.get("location")).toEqual("/ekona");
+    });
+  });
+
+  it("should throw if different error found during validation", async () => {
+    const ekonaSession = await getEkonaSession(null);
+    ekonaSession.set("userId", "123456");
+    getThrowingMockedFunction(
+      samlServerModule,
+      "validateSamlResponse",
+      Error("Different error")
+    );
+    const spyOnSetUserIdentified = jest.spyOn(userModule, "setUserIdentified");
+    const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
+
+    await callWithMockedTime(1652887920227, async () => {
+      await expect(async () => {
+        await action(
+          await mockActionArgs({
+            route: "/ekona/callback",
+            formData: {
+              SAMLResponse: "<xml>This is just a mock placeholder</xml>",
+            },
+            context: {},
+            userEmail: "existing_user@foo.com",
+            allData: {},
+            explicitCookie: await commitEkonaSession(ekonaSession),
+          })
+        );
+      }).rejects.toThrow();
+      expect(spyOnSetUserIdentified).not.toHaveBeenCalled();
+      expect(spyOnSaveAuditLog).not.toHaveBeenCalled();
+    });
+    spyOnSetUserIdentified.mockClear();
+    spyOnSaveAuditLog.mockClear();
+  });
+
+  it("should not identify if user interruption error found during validation", async () => {
+    const ekonaSession = await getEkonaSession(null);
+    ekonaSession.set("userId", "123456");
+    getThrowingMockedFunction(samlServerModule, "validateSamlResponse", {
+      xmlStatus:
+        '<Status><StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Requester"><StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:AuthnFailed"/></StatusCode><StatusMessage>Die ELSTER-seitige Authentifizierung wurde durch den Benutzer abgebrochen.</StatusMessage></Status>',
+    });
+
+    const spyOnSetUserIdentified = jest.spyOn(userModule, "setUserIdentified");
+    const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
+
+    await callWithMockedTime(1652887920227, async () => {
+      await action(
+        await mockActionArgs({
+          route: "/ekona/callback",
+          formData: {
+            SAMLResponse: "PLACEHOLDER_SAML_RESPONSE",
+          },
+          context: {},
+          userEmail: "existing_user@foo.com",
+          allData: {},
+          explicitCookie: await commitEkonaSession(ekonaSession),
+        })
+      );
+      expect(spyOnSetUserIdentified).not.toHaveBeenCalled();
+      expect(spyOnSaveAuditLog).not.toHaveBeenCalled();
+    });
+    spyOnSetUserIdentified.mockClear();
+    spyOnSaveAuditLog.mockClear();
   });
 
   it("should set used identified if data validates", async () => {
@@ -303,10 +395,10 @@ describe("Action", () => {
       getMockedFunction(samlServerModule, "validateSamlResponse", ekonaData);
       const ekonaSession = await getEkonaSession(null);
       ekonaSession.set("userId", "123456");
-      jest.spyOn(userModule, "setUserIdentified").mockImplementation(
-        jest.fn(() => {
-          throw Error("fail identification");
-        }) as jest.Mock
+      getThrowingMockedFunction(
+        userModule,
+        "setUserIdentified",
+        Error("fail identification")
       );
       const spyOnRevokeFsc = jest.spyOn(eingebenModule, "revokeFsc");
 

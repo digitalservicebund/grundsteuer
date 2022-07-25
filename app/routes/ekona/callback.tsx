@@ -17,6 +17,11 @@ import {
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { revokeFsc } from "~/routes/fsc/eingeben";
 
+const AUTHN_FAILED_STATUS_CODE =
+  '<StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:AuthnFailed"/>';
+const USER_INTERRUPTION_MESSAGE =
+  "Die ELSTER-seitige Authentifizierung wurde durch den Benutzer abgebrochen.";
+
 const getUserFromEkonaSession = async (ekonaSession: Session) => {
   invariant(
     ekonaSession.get("userId"),
@@ -48,6 +53,17 @@ const saveAuditLogs = async (
   });
 };
 
+const redirectIfUserInterruption = (validationError: any) => {
+  if (
+    "xmlStatus" in validationError &&
+    validationError.xmlStatus.includes(AUTHN_FAILED_STATUS_CODE) &&
+    validationError.xmlStatus.includes(USER_INTERRUPTION_MESSAGE)
+  ) {
+    return redirect("/ekona");
+  }
+  throw validationError;
+};
+
 export const action: ActionFunction = async ({ request, context }) => {
   if (!testFeaturesEnabled) {
     throw new Response("Not Found", {
@@ -58,12 +74,17 @@ export const action: ActionFunction = async ({ request, context }) => {
   const body = await request.formData();
   const ekonaSession = await getEkonaSession(request.headers.get("Cookie"));
   const userData = await getUserFromEkonaSession(ekonaSession);
-  const validatedResponse = await validateSamlResponse(
-    body.get("SAMLResponse") as string,
-    ekonaSession
-  );
+  let validatedResponse;
+  try {
+    validatedResponse = await validateSamlResponse(
+      body.get("SAMLResponse") as string,
+      ekonaSession
+    );
+  } catch (validationError) {
+    return redirectIfUserInterruption(validationError);
+  }
   invariant(
-    validatedResponse.profile,
+    validatedResponse?.profile,
     "Expected valid response to contain attribute profile"
   );
   const extractedData = extractIdentData(validatedResponse.profile);
