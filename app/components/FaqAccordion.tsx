@@ -541,8 +541,8 @@ export default function FaqAccordion() {
             </li>
             <li>Das Grundstück ist von der Grundsteuer befreit.</li>
             <li>
-              Eigentümer:in des Grundstücks ist eine Erbengemeinschaft oder eine
-              Person mit Wohnsitz im Ausland.
+              Eigentümer:in des Grundstücks ist eine ungeteilte
+              Erbengemeinschaft oder eine Person mit Wohnsitz im Ausland.
             </li>
             <li>
               Eigentümer:innen des Grundstücks sind keine natürlichen Personen
