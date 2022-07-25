@@ -10,7 +10,10 @@ import {
 import { AuditLogEvent } from "~/audit/auditLog";
 import { action } from "./callback";
 import { mockActionArgs } from "testUtil/mockActionArgs";
-import { commitEkonaSession, getEkonaSession } from "~/ekonaCookies.server";
+import {
+  commitEkonaSession,
+  getEkonaSession,
+} from "~/ekona/ekonaCookies.server";
 
 const callWithMockedTime = async (timestamp: number, callback: () => void) => {
   const actualNowImplementation = Date.now;

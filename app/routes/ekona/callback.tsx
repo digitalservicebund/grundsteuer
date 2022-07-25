@@ -1,6 +1,6 @@
 import { ActionFunction, redirect, Session } from "@remix-run/node";
 import { validateSamlResponse } from "~/ekona/saml.server";
-import { getEkonaSession } from "~/ekonaCookies.server";
+import { getEkonaSession } from "~/ekona/ekonaCookies.server";
 import { extractIdentData } from "~/ekona/validation";
 import {
   deleteEricaRequestIdFscStornieren,

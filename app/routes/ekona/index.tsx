@@ -14,7 +14,10 @@ import EnumeratedCard from "~/components/EnumeratedCard";
 import ekona1 from "~/assets/images/ekona-1.png";
 import ekona2 from "~/assets/images/ekona-2.svg";
 import ekona3 from "~/assets/images/ekona-3.svg";
-import { commitEkonaSession, getEkonaSession } from "~/ekonaCookies.server";
+import {
+  commitEkonaSession,
+  getEkonaSession,
+} from "~/ekona/ekonaCookies.server";
 import { authenticator } from "~/auth.server";
 import { pageTitle } from "~/util/pageTitle";
 import { getNextStepLink } from "~/util/getNextStepLink";
