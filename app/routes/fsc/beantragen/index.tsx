@@ -293,7 +293,7 @@ export default function FscBeantragen() {
     if (showNewIdent) {
       return (
         <Button look="secondary" to="/identifikation">
-          Zurück zur Übersicht
+          Zurück zu Identifizierungsoptionen
         </Button>
       );
     }

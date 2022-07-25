@@ -375,8 +375,8 @@ export default function FscEingeben() {
           <Button disabled={isSubmitting || showSpinner}>
             Freischaltcode speichern
           </Button>
-          <Button look="secondary" to="/formular/welcome">
-            Zurück zum Formular
+          <Button look="secondary" to="/formular/zusammenfassung">
+            Zurück zur Übersicht
           </Button>
         </ButtonContainer>
       </Form>
