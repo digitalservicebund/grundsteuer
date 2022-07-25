@@ -86,7 +86,7 @@ describe("Zusammenfassung route", () => {
 
       it("should contain link and go to /identifikation page on click", () => {
         cy.contains("a", "Zum Bereich Identifikation").click();
-        cy.url().should("include", "/fsc");
+        cy.url().should("include", "/identifikation");
       });
 
       it("should have a disabled submit button", () => {
