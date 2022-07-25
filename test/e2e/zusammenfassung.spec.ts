@@ -81,11 +81,11 @@ describe("Zusammenfassung route", () => {
         });
       });
       it("should contain fsc section", () => {
-        cy.contains("Sie haben noch keinen Freischaltcode eingegeben.");
+        cy.contains("Sie haben sich noch nicht identifiziert.");
       });
 
-      it("should contain link and go to /fsc page on click", () => {
-        cy.contains("a", "Zum Bereich Freischaltcode").click();
+      it("should contain link and go to /identifikation page on click", () => {
+        cy.contains("a", "Zum Bereich Identifikation").click();
         cy.url().should("include", "/fsc");
       });
 

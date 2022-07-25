@@ -11,7 +11,6 @@ import {
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
 import { useLoaderData } from "@remix-run/react";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erfolgreich angemeldet.") };
@@ -24,19 +23,16 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   return {
     inDeclarationProcess: user.inDeclarationProcess,
-    showNewIdent: testFeaturesEnabled,
   };
 };
 export default function ErfolgreichAngemeldet() {
-  const { inDeclarationProcess, showNewIdent } = useLoaderData();
+  const { inDeclarationProcess } = useLoaderData();
 
   const nextStepUrl = !inDeclarationProcess
     ? "/formular/erfolg"
-    : showNewIdent
-    ? "/identifikation"
-    : "/fsc";
+    : "/identifikation";
   return (
-    <UserLayout showNewIdent={showNewIdent}>
+    <UserLayout>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         <SuccessPageLayout>

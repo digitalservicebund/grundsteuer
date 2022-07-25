@@ -30,8 +30,7 @@ describe("Loader", () => {
       jest.clearAllMocks();
     });
 
-    // TODO re-enable once ekona is done
-    it.skip("returns empty object", async () => {
+    it("returns empty object", async () => {
       const result = await loader(
         await getLoaderArgsWithAuthenticatedSession(
           "/fsc",
@@ -75,8 +74,7 @@ describe("Loader", () => {
       expect(result.headers.get("Location")).toEqual("/formular/welcome");
     });
 
-    // TODO re-enable once ekona is done
-    it.skip("returns empty object for fsc/eingeben/erfolgreich", async () => {
+    it("returns empty object for fsc/eingeben/erfolgreich", async () => {
       const result = await loader(
         await getLoaderArgsWithAuthenticatedSession(
           "/fsc/eingeben/erfolgreich",

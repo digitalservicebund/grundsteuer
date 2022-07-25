@@ -13,7 +13,6 @@ import { ReactNode } from "react";
 import classNames from "classnames";
 import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
-import { useLoaderData } from "@remix-run/react";
 import { authenticator } from "~/auth.server";
 import { findUserByEmail } from "~/domain/user";
 import invariant from "tiny-invariant";
@@ -40,10 +39,10 @@ export const loader: LoaderFunction = async ({ request }) => {
     failureRedirect: "/anmelden",
   });
 
+  const params = getRedirectionParams(request.url);
+
   if (!testFeaturesEnabled) {
-    throw new Response("Not Found", {
-      status: 404,
-    });
+    return redirect("/fsc" + params);
   }
 
   const dbUser = await findUserByEmail(sessionUser.email);
@@ -52,19 +51,17 @@ export const loader: LoaderFunction = async ({ request }) => {
     "expected a matching user in the database from a user in a cookie session"
   );
 
-  const params = getRedirectionParams(request.url);
   const hasFscRequest = dbUser.fscRequest;
   if (hasFscRequest) {
     return redirect("/fsc/eingeben" + params);
   }
 
-  return { showNewIdent: testFeaturesEnabled };
+  return {};
 };
 
 export default function Identifikation() {
-  const { showNewIdent } = useLoaderData();
   return (
-    <UserLayout showNewIdent={showNewIdent}>
+    <UserLayout>
       <ContentContainer size="sm-md">
         <BreadcrumbNavigation />
         <Headline>Mit welcher Option möchten Sie sich identifizieren?</Headline>

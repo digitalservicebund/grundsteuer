@@ -1446,9 +1446,9 @@
       "pdfDisclaimer": "Sie können nach Abgabe Ihre Daten als PDF herunterladen.",
       "submitbutton": "Grundsteuererklärung abschicken",
       "sectionUnfilled": "Bitte ergänzen",
-      "fscHeading": "Sie haben noch keinen Freischaltcode eingegeben.",
-      "fscExplanation": "Um die Erklärung nach Eingabe aller Daten an Ihr Finanzamt übermitteln zu können, brauchen Sie einen Freischaltcode. Informationen dazu finden Sie hier:",
-      "fscLinkText": "Zum Bereich Freischaltcode",
+      "fscHeading": "Sie haben sich noch nicht identifiziert.",
+      "fscExplanation": "Um die Erklärung nach Eingabe aller Daten an Ihr Finanzamt übermitteln zu können, müssen Sie sich als abgebende Person identifizieren. Informationen dazu finden Sie hier:",
+      "fscLinkText": "Zum Bereich Identifikation",
       "errorsInPreviousStepsHeading": "Es sind Fehler im Formular aufgetreten.",
       "errorsInPreviousStepsText": "Bitte überprüfen Sie Ihre Angaben."
     }

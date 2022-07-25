@@ -11,7 +11,6 @@ import {
 export default function UserLayout(props: {
   children: ReactNode;
   userIsIdentified?: boolean;
-  showNewIdent?: boolean;
 }) {
   return (
     <Layout
@@ -19,20 +18,14 @@ export default function UserLayout(props: {
       sidebarNavigation={
         <SidebarNavigation
           actions={
-            <NavigationActions
-              userIsIdentified={props.userIsIdentified}
-              showNewIdent={props.showNewIdent}
-            />
+            <NavigationActions userIsIdentified={props.userIsIdentified} />
           }
         />
       }
       topNavigation={
         <TopNavigation
           actions={
-            <NavigationActions
-              userIsIdentified={props.userIsIdentified}
-              showNewIdent={props.showNewIdent}
-            />
+            <NavigationActions userIsIdentified={props.userIsIdentified} />
           }
         />
       }
