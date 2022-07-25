@@ -138,6 +138,7 @@ describe("validateFloat", () => {
     { value: "0.9", valid: false },
     { value: "1,9 0", valid: false },
     { value: "1234,9876", valid: true },
+    { value: "-1,9", valid: false },
   ];
 
   test.each(cases)(

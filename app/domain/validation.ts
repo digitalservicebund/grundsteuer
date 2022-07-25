@@ -265,7 +265,9 @@ export const validateNoZero: ValidateFunctionDefault = ({ value }) =>
   value != "0";
 
 export const validateFloat: ValidateFunctionDefault = ({ value }) =>
-  !value || validator.isFloat(value.trim(), { locale: "de-DE" });
+  !value ||
+  (validateOnlyDecimal({ value, exceptions: [","] }) &&
+    validator.isFloat(value.trim(), { locale: "de-DE" }));
 
 type ValidateMaxLengthFloatFunction = ({
   value,
