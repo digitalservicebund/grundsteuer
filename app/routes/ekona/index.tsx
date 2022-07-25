@@ -1,5 +1,5 @@
 import { useLoaderData } from "@remix-run/react";
-import { json, LoaderFunction, MetaFunction } from "@remix-run/node";
+import { json, LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
 import { createSamlRequest } from "~/ekona/saml.server";
 import {
   BreadcrumbNavigation,
@@ -9,7 +9,6 @@ import {
   Headline,
   IntroText,
 } from "~/components";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import EnumeratedCard from "~/components/EnumeratedCard";
 import ekona1 from "~/assets/images/ekona-1.png";
 import ekona2 from "~/assets/images/ekona-2.svg";
@@ -30,10 +29,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     failureRedirect: "/anmelden",
   });
 
-  if (!testFeaturesEnabled) {
-    throw new Response("Not Found", {
-      status: 404,
-    });
+  if (user.identified) {
+    return redirect("/formular/welcome");
   }
 
   const session = await getEkonaSession(request.headers.get("Cookie"));
