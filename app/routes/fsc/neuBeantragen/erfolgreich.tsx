@@ -21,7 +21,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return {};
 };
 
-export default function FscBeantragenErfolgreich() {
+export default function FscNeuBeantragenErfolgreich() {
   return (
     <ContentContainer size="sm">
       <BreadcrumbNavigation />
