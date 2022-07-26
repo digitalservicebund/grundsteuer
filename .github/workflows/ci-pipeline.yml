@@ -58,6 +58,10 @@ jobs:
       - name: Set up test db and mock erica
         run: docker-compose -f ./docker-compose-test.yml -p grundsteuer-test up -d
 
+      - name: Wait for test db to rise and shine
+        run: sleep 2
+        shell: bash
+
       - name: Migrate test db
         env:
           DATABASE_URL: postgresql://prisma:prisma@localhost:5433/tests
