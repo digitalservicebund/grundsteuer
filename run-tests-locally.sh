@@ -39,4 +39,4 @@ elif [[ $1 == "integration" ]]; then
 fi
 
 
-DATABASE_URL=postgresql://prisma:prisma@localhost:5433/tests run_tests $command
+DATABASE_URL=postgresql://prisma:prisma@localhost:5433/tests ERICA_URL=http://localhost:8001 run_tests $command

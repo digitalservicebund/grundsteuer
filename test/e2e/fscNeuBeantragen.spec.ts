@@ -4,7 +4,7 @@ const validSteuerId = "77 819 250 434";
 
 describe("/neuBeantragen", () => {
   beforeEach(() => {
-    cy.request("GET", "http://localhost:8000/reset");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/reset");
     cy.task("addFscRequestId", {
       userEmail: "foo@bar.com",
       fscRequestId: "fooRequestId",
@@ -14,13 +14,13 @@ describe("/neuBeantragen", () => {
   });
 
   afterEach(() => {
-    cy.request("GET", "http://localhost:8000/reset");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/reset");
     cy.task("dbRemoveFsc", "foo@bar.com");
     cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
   });
 
   it("should show spinner if data is correct and mockErica returns no result", () => {
-    cy.request("GET", "http://localhost:8000/triggerDelayedResponse");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDelayedResponse");
     cy.visit("/fsc/neuBeantragen");
     cy.get("[name=steuerId]").type(validSteuerId);
     cy.get("[name=geburtsdatum]").type("01.08.1991");
@@ -31,7 +31,7 @@ describe("/neuBeantragen", () => {
   });
 
   it("should show error messages and no spinner if user input is invalid", () => {
-    cy.request("GET", "http://localhost:8000/triggerDelayedResponse");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDelayedResponse");
     cy.visit("/fsc/neuBeantragen");
     cy.get("[name=steuerId]").type("1");
     cy.get("[name=geburtsdatum]").type("10");
@@ -62,8 +62,8 @@ describe("/neuBeantragen", () => {
   });
 
   it("should redirect to success page if mockErica returns success", () => {
-    cy.request("GET", "http://localhost:8000/triggerDirectResponse");
-    cy.request("GET", "http://localhost:8000/triggerSuccess");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDirectResponse");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerSuccess");
     cy.visit("/fsc/neuBeantragen");
     cy.get("[name=steuerId]").type(validSteuerId);
     cy.get("[name=geburtsdatum]").type("01.08.1991");
@@ -72,8 +72,8 @@ describe("/neuBeantragen", () => {
   });
 
   it("should show error message and no spinner if mockErica returns failure", () => {
-    cy.request("GET", "http://localhost:8000/triggerDirectResponse");
-    cy.request("GET", "http://localhost:8000/triggerFailure");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDirectResponse");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerFailure");
     cy.visit("/fsc/neuBeantragen");
     cy.get("[name=steuerId]").type(validSteuerId);
     cy.get("[name=geburtsdatum]").type("01.08.1991");
@@ -88,9 +88,9 @@ describe("/neuBeantragen", () => {
       "GET",
       "/fsc/neuBeantragen?index=&_data=routes%2Ffsc%2FneuBeantragen%2Findex"
     ).as("neuBeantragen");
-    cy.request("GET", "http://localhost:8000/triggerDirectResponse");
-    cy.request("GET", "http://localhost:8000/triggerFailure");
-    cy.request("GET", "http://localhost:8000/triggerUnexpectedFailure");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDirectResponse");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerFailure");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerUnexpectedFailure");
     cy.visit("/fsc/neuBeantragen");
     cy.get("[name=steuerId]").type(validSteuerId);
     cy.get("[name=geburtsdatum]").type("01.08.1991");

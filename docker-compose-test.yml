@@ -17,4 +17,4 @@ services:
     restart: always
     container_name: erica-mock
     ports:
-      - "8000:8000"
+      - "8001:8000"

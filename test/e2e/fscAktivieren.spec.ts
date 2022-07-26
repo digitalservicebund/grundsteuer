@@ -4,7 +4,7 @@ const validFreischaltCode = "ABCD-1234-EFGH";
 
 describe("/eingeben", () => {
   beforeEach(() => {
-    cy.request("GET", "http://localhost:8000/reset");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/reset");
     cy.task("dbRemoveFsc", "foo@bar.com");
     cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
     cy.task("setUserIdentifiedAttribute", {
@@ -19,7 +19,7 @@ describe("/eingeben", () => {
   });
 
   afterEach(() => {
-    cy.request("GET", "http://localhost:8000/reset");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/reset");
     cy.task("dbRemoveFsc", "foo@bar.com");
     cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
     cy.task("setUserIdentifiedAttribute", {
@@ -29,8 +29,8 @@ describe("/eingeben", () => {
   });
 
   it("should redirect to success page if mockErica returns success", () => {
-    cy.request("GET", "http://localhost:8000/triggerDirectResponse");
-    cy.request("GET", "http://localhost:8000/triggerSuccess");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDirectResponse");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerSuccess");
     cy.visit("/fsc/eingeben");
     cy.get("[name=freischaltCode]").type(validFreischaltCode);
     cy.get("form[action='/fsc/eingeben?index'] button").click();
@@ -40,7 +40,7 @@ describe("/eingeben", () => {
   });
 
   it("should show spinner if data is correct and mockErica returns no result", () => {
-    cy.request("GET", "http://localhost:8000/triggerDelayedResponse");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDelayedResponse");
     cy.visit("/fsc/eingeben");
     cy.get("[name=freischaltCode]").type(validFreischaltCode);
     cy.get("form[action='/fsc/eingeben?index'] button").click();
@@ -48,7 +48,7 @@ describe("/eingeben", () => {
   });
 
   it("should show error messages and no spinner if user input is invalid", () => {
-    cy.request("GET", "http://localhost:8000/triggerDelayedResponse");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDelayedResponse");
     cy.visit("/fsc/eingeben");
     cy.get("[name=freischaltCode]").type("invalid");
     cy.get("form[action='/fsc/eingeben?index'] button").click();
@@ -66,8 +66,8 @@ describe("/eingeben", () => {
   });
 
   it("should show error message and no spinner if mockErica returns failure", () => {
-    cy.request("GET", "http://localhost:8000/triggerDirectResponse");
-    cy.request("GET", "http://localhost:8000/triggerFailure");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDirectResponse");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerFailure");
     cy.visit("/fsc/eingeben");
     cy.get("[name=freischaltCode]").type(validFreischaltCode);
     cy.get("form[action='/fsc/eingeben?index'] button").click();
@@ -92,9 +92,9 @@ describe("/eingeben", () => {
       "GET",
       "/fsc/eingeben?index=&_data=routes%2Ffsc%2Feingeben%2Findex"
     ).as("eingeben");
-    cy.request("GET", "http://localhost:8000/triggerDirectResponse");
-    cy.request("GET", "http://localhost:8000/triggerFailure");
-    cy.request("GET", "http://localhost:8000/triggerUnexpectedFailure");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDirectResponse");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerFailure");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerUnexpectedFailure");
     cy.visit("/fsc/eingeben");
     cy.get("[name=freischaltCode]").type(validFreischaltCode);
     cy.get("form[action='/fsc/eingeben?index'] button").click();

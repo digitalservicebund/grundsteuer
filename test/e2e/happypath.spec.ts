@@ -186,9 +186,9 @@ describe("Happy Path", () => {
       userEmail: "foo@bar.com",
       identified: true,
     });
-    cy.request("GET", "http://localhost:8000/reset");
-    cy.request("GET", "http://localhost:8000/triggerSuccess");
-    cy.request("GET", "http://localhost:8000/triggerDirectResponse");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/reset");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerSuccess");
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDirectResponse");
   });
 
   it("Enter data for two eigentuemer", () => {
