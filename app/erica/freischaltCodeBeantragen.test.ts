@@ -35,6 +35,7 @@ describe("requestNewFreischaltCode", () => {
     expect(mockPostEricaRepsone.mock.calls[0][1]).toEqual({
       taxIdNumber: inputTaxIdNumber,
       dateOfBirth: expectedDateOfBirth,
+      taxYear: "2022",
     });
 
     mockPostEricaRepsone.mockClear();

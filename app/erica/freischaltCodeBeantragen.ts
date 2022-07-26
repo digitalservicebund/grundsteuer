@@ -14,6 +14,7 @@ const createPayloadForNewFreischaltCode = (
   return {
     taxIdNumber: taxIdNumber,
     dateOfBirth: ericaUtils.createDateStringForErica(dateOfBirth),
+    taxYear: "2022",
   };
 };
 
