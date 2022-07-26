@@ -47,7 +47,6 @@ import steuerIdImg from "~/assets/images/help/help-steuer-id.png";
 import lohnsteuerbescheinigungImage from "~/assets/images/lohnsteuerbescheinigung_idnr.svg";
 import fscLetterImage from "~/assets/images/fsc-letter.svg";
 import fscInputImage from "~/assets/images/fsc-input.svg";
-import { getRedirectionParams } from "~/routes/identifikation";
 
 const isEricaRequestInProgress = (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -115,14 +114,11 @@ export const loader: LoaderFunction = async ({ context, request }) => {
 
   if (await wasProcessSuccessful(userData, session)) {
     session.unset("fscData");
-    return redirect(
-      "/fsc/neuBeantragen/erfolgreich" + getRedirectionParams(request.url),
-      {
-        headers: {
-          "Set-Cookie": await commitSession(session),
-        },
-      }
-    );
+    return redirect("/fsc/neuBeantragen/erfolgreich", {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    });
   }
 
   const csrfToken = createCsrfToken(session);
@@ -204,12 +200,7 @@ export default function FscNeuBeantragen() {
 
   const [showSpinner, setShowSpinner] = useState(loaderData?.showSpinner);
   const [showError, setShowError] = useState(loaderData?.showError);
-  const [redirectionParams, setRedirectionParams] = useState("");
   const [fetchInProgress, setFetchInProgress] = useState(false);
-
-  useEffect(() => {
-    setRedirectionParams(getRedirectionParams(window.location.href, true));
-  });
 
   useEffect(() => {
     if (fetcher.data) {
@@ -229,7 +220,7 @@ export default function FscNeuBeantragen() {
     const interval = setInterval(() => {
       if (showSpinner && !fetchInProgress) {
         setFetchInProgress(true);
-        fetcher.load("/fsc/neuBeantragen?index" + redirectionParams);
+        fetcher.load("/fsc/neuBeantragen?index");
         setFetchInProgress(false);
       }
     }, 1000);
@@ -268,10 +259,7 @@ export default function FscNeuBeantragen() {
           </ErrorBar>
         )}
 
-        <Form
-          method="post"
-          action={"/fsc/neuBeantragen?index" + redirectionParams}
-        >
+        <Form method="post" action={"/fsc/neuBeantragen?index"}>
           <CsrfToken value={loaderData.csrfToken} />
           <div>
             <FormGroup>

@@ -69,7 +69,7 @@ export default function EkonaIndex() {
               Zur Identifikation mit ELSTER-Konto
             </Button>
             <Button look="secondary" to="/identifikation">
-              Zurück zu Identifizierungsoptionen
+              Zurück zu Identifikationsoptionen
             </Button>
           </ButtonContainer>
         </form>

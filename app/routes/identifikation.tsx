@@ -18,18 +18,6 @@ import { findUserByEmail } from "~/domain/user";
 import invariant from "tiny-invariant";
 import { pageTitle } from "~/util/pageTitle";
 
-export const getRedirectionParams = (
-  url: string,
-  additionalParams?: boolean
-) => {
-  const urlObject = new URL(url);
-  const redirectToSummary = urlObject.searchParams.get("redirectToSummary");
-  if (additionalParams) {
-    return redirectToSummary ? "&redirectToSummary=true" : "";
-  }
-  return redirectToSummary ? "?redirectToSummary=true" : "";
-};
-
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation") };
 };
@@ -39,10 +27,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     failureRedirect: "/anmelden",
   });
 
-  const params = getRedirectionParams(request.url);
-
   if (!testFeaturesEnabled) {
-    return redirect("/fsc" + params);
+    return redirect("/fsc");
   }
 
   const dbUser = await findUserByEmail(sessionUser.email);
@@ -53,7 +39,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const hasFscRequest = dbUser.fscRequest;
   if (hasFscRequest) {
-    return redirect("/fsc/eingeben" + params);
+    return redirect("/fsc/eingeben");
   }
 
   return {};

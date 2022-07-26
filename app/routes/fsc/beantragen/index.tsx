@@ -53,7 +53,6 @@ import { commitSession, getSession } from "~/session.server";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import Hint from "~/components/Hint";
 import steuerIdImg from "~/assets/images/help/help-steuer-id.png";
-import { getRedirectionParams } from "~/routes/identifikation";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const isEricaRequestInProgress = async (userData: User) => {
@@ -179,9 +178,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
   const ericaRequestInProgress = await isEricaRequestInProgress(userData);
 
   if (await wasEricaRequestSuccessful(userData)) {
-    return redirect(
-      "/fsc/beantragen/erfolgreich" + getRedirectionParams(request.url)
-    );
+    return redirect("/fsc/beantragen/erfolgreich");
   }
 
   if (ericaRequestInProgress) {
@@ -223,9 +220,7 @@ export const action: ActionFunction = async ({ request }) => {
   );
 
   if (await wasEricaRequestSuccessful(userData)) {
-    return redirect(
-      "/fsc/beantragen/erfolgreich" + getRedirectionParams(request.url)
-    );
+    return redirect("/fsc/beantragen/erfolgreich");
   }
 
   if (await isEricaRequestInProgress(userData)) return {};
@@ -257,12 +252,7 @@ export default function FscBeantragen() {
 
   const [showSpinner, setShowSpinner] = useState(loaderData?.showSpinner);
   const [showError, setShowError] = useState(loaderData?.showError);
-  const [redirectionParams, setRedirectionParams] = useState("");
   const [fetchInProgress, setFetchInProgress] = useState(false);
-
-  useEffect(() => {
-    setRedirectionParams(getRedirectionParams(window.location.href, true));
-  });
 
   useEffect(() => {
     if (fetcher.data) {
@@ -282,7 +272,7 @@ export default function FscBeantragen() {
     const interval = setInterval(() => {
       if (showSpinner && !fetchInProgress) {
         setFetchInProgress(true);
-        fetcher.load("/fsc/beantragen?index" + redirectionParams);
+        fetcher.load("/fsc/beantragen?index");
         setFetchInProgress(false);
       }
     }, 2000);
@@ -293,7 +283,7 @@ export default function FscBeantragen() {
     if (showNewIdent) {
       return (
         <Button look="secondary" to="/identifikation">
-          Zurück zu Identifizierungsoptionen
+          Zurück zu Identifikationsoptionen
         </Button>
       );
     }
@@ -340,10 +330,7 @@ export default function FscBeantragen() {
           </ErrorBar>
         )}
 
-        <Form
-          method="post"
-          action={"/fsc/beantragen?index" + redirectionParams}
-        >
+        <Form method="post" action={"/fsc/beantragen?index"}>
           <CsrfToken value={loaderData.csrfToken} />
           <div>
             <FormGroup>

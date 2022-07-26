@@ -35,20 +35,7 @@ describe("/eingeben", () => {
     cy.get("[name=freischaltCode]").type(validFreischaltCode);
     cy.get("form[action='/fsc/eingeben?index'] button").click();
     cy.url().should("include", "/fsc/eingeben/erfolgreich");
-    cy.contains("Zur Grundsteuererklärung").click();
-    cy.url().should("include", "/formular/welcome");
-  });
-
-  it("should show link to summary page if redirect param set", () => {
-    cy.request("GET", "http://localhost:8000/triggerDirectResponse");
-    cy.request("GET", "http://localhost:8000/triggerSuccess");
-    cy.visit("/fsc/eingeben?redirectToSummary=true");
-    cy.get("[name=freischaltCode]").type(validFreischaltCode);
-    cy.get(
-      "form[action='/fsc/eingeben?index&redirectToSummary=true'] button"
-    ).click();
-    cy.url().should("include", "/fsc/eingeben/erfolgreich");
-    cy.contains("Zur Grundsteuererklärung").click();
+    cy.contains("Zur Übersicht").click();
     cy.url().should("include", "/formular/zusammenfassung");
   });
 

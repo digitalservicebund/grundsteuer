@@ -52,7 +52,6 @@ import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import FreischaltcodeHelp from "~/components/form/help/Freischaltcode";
 import ArrowRight from "~/components/icons/mui/ArrowRight";
-import { getRedirectionParams } from "~/routes/identifikation";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const isEricaRequestInProgress = async (userData: User) => {
@@ -199,9 +198,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
     await isEricaRevocationRequestInProgress(userData);
 
   if (await wasEricaRequestSuccessful(userData)) {
-    return redirect(
-      "/fsc/eingeben/erfolgreich" + getRedirectionParams(request.url)
-    );
+    return redirect("/fsc/eingeben/erfolgreich");
   }
 
   const session = await getSession(request.headers.get("Cookie"));
@@ -260,9 +257,7 @@ export const action: ActionFunction = async ({ request }) => {
   const elsterRequestId = userData.fscRequest.requestId;
 
   if (await wasEricaRequestSuccessful(userData)) {
-    return redirect(
-      "/fsc/eingeben/erfolgreich" + getRedirectionParams(request.url)
-    );
+    return redirect("/fsc/eingeben/erfolgreich");
   }
 
   if (await isEricaRequestInProgress(userData)) return {};
@@ -308,12 +303,7 @@ export default function FscEingeben() {
 
   const [showSpinner, setShowSpinner] = useState(loaderData?.showSpinner);
   const [showError, setShowError] = useState(loaderData?.showError);
-  const [redirectionParams, setRedirectionParams] = useState("");
   const [fetchInProgress, setFetchInProgress] = useState(false);
-
-  useEffect(() => {
-    setRedirectionParams(getRedirectionParams(window.location.href, true));
-  });
 
   useEffect(() => {
     if (fetcher.data) {
@@ -333,7 +323,7 @@ export default function FscEingeben() {
     const interval = setInterval(() => {
       if (showSpinner && !fetchInProgress) {
         setFetchInProgress(true);
-        fetcher.load("/fsc/eingeben?index" + redirectionParams);
+        fetcher.load("/fsc/eingeben?index");
         setFetchInProgress(false);
       }
     }, 1000);
@@ -358,7 +348,7 @@ export default function FscEingeben() {
         </ErrorBar>
       )}
 
-      <Form method="post" action={"/fsc/eingeben?index" + redirectionParams}>
+      <Form method="post" action={"/fsc/eingeben?index"}>
         <CsrfToken value={loaderData.csrfToken} />
         <div>
           <FormGroup>
@@ -390,7 +380,7 @@ export default function FscEingeben() {
       <div className="flex items-center mb-48">
         <ArrowRight className="inline-block mr-16" />
         <a
-          href={"/fsc/neuBeantragen?index" + redirectionParams}
+          href="/fsc/neuBeantragen?index"
           className="font-bold underline text-18 text-blue-800"
         >
           Freischaltcode neu beantragen
@@ -406,7 +396,7 @@ export default function FscEingeben() {
           <div className="flex items-center">
             <ArrowRight className="inline-block mr-16" />
             <a
-              href={"/ekona?index" + redirectionParams}
+              href={"/ekona?index"}
               className="font-bold underline text-18 text-blue-800"
             >
               Mit ELSTER Zugang identifizieren

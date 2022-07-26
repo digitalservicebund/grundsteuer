@@ -30,20 +30,6 @@ describe("/neuBeantragen", () => {
     cy.url().should("include", "/formular/welcome");
   });
 
-  it("should show link to summary page if redirect param set", () => {
-    cy.request("GET", "http://localhost:8000/triggerDirectResponse");
-    cy.request("GET", "http://localhost:8000/triggerSuccess");
-    cy.visit("/fsc/neuBeantragen?redirectToSummary=true");
-    cy.get("[name=steuerId]").type(validSteuerId);
-    cy.get("[name=geburtsdatum]").type("01.08.1991");
-    cy.get(
-      "form[action='/fsc/neuBeantragen?index&redirectToSummary=true'] button"
-    ).click();
-    cy.contains("Ihr Freischaltcode wird beantragt.");
-    cy.contains("Weiter zum Formular").click();
-    cy.url().should("include", "/formular/zusammenfassung");
-  });
-
   it("should show error messages and no spinner if user input is invalid", () => {
     cy.request("GET", "http://localhost:8000/triggerDelayedResponse");
     cy.visit("/fsc/neuBeantragen");

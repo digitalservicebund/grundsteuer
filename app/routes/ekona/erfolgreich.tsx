@@ -10,8 +10,6 @@ import {
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
-import { useLoaderData } from "@remix-run/react";
-import { getNextStepLink } from "~/util/getNextStepLink";
 import { commitSession, getSession } from "~/session.server";
 import { findUserByEmail } from "~/domain/user";
 import invariant from "tiny-invariant";
@@ -42,9 +40,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   session.set("user", Object.assign(session.get("user"), { identified: true }));
 
   return json(
-    {
-      nextStepLink: getNextStepLink(request.url),
-    },
+    {},
     {
       headers: {
         "Set-Cookie": await commitSession(session),
@@ -54,7 +50,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function EkonaErfolgreich() {
-  const loaderData = useLoaderData();
   return (
     <ContentContainer size="sm">
       <BreadcrumbNavigation />
@@ -67,7 +62,7 @@ export default function EkonaErfolgreich() {
           Bearbeitung absenden.
         </IntroText>
 
-        <Button to={loaderData.nextStepLink}>Weiter zum Formular</Button>
+        <Button to="/formular">Weiter zum Formular</Button>
       </SuccessPageLayout>
     </ContentContainer>
   );
