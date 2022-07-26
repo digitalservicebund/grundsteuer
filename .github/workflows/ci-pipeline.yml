@@ -93,7 +93,10 @@ jobs:
           EKONA_ENC_KEY: ${{ secrets.EKONA_ENC_KEY }}
           EKONA_SIGNING_KEY: ${{ secrets.EKONA_SIGNING_KEY }}
           NO_COLOR: 1
-        run: npm run test:e2e | tee webapp-e2e-test-report.log
+        run: |
+          npm run test:e2e | tee webapp-e2e-test-report.log
+          result_code=${PIPESTATUS[0]}
+          exit $result_code
 
       - name: Archive unit test logs
         uses: actions/upload-artifact@v1
