@@ -58,9 +58,11 @@ if (appMode === "cron") {
 
           // allow connections from WebSocket for development tooling
           connectSrc:
-            process.env.APP_ENV === "local"
+            process.env.NODE_ENV === "development"
               ? ["*"]
               : ["'self'", "plausible.io", "*.sentry.io"],
+          upgradeInsecureRequests:
+            process.env.NODE_ENV === "development" ? null : [],
         },
       },
       referrerPolicy: {
