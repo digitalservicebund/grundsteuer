@@ -13,6 +13,7 @@ export default defineConfig({
     baseUrl: "http://localhost:3000/",
     specPattern: "test/e2e/**/*.spec.ts",
     experimentalSessionAndOrigin: true,
+    chromeWebSecurity: false,
     env: {
       ERICA_URL: process.env.ERICA_URL,
     },
