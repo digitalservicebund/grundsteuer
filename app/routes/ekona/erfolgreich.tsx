@@ -33,7 +33,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     dbUser,
     "expected a matching user in the database from a user in a cookie session"
   );
-  if (!dbUser.identified) {
+  if (!dbUser.identified || dbUser.identified === sessionUser.identified) {
     return redirect("/identifikation");
   }
   const session = await getSession(request.headers.get("Cookie"));

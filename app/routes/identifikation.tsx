@@ -31,6 +31,10 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/fsc");
   }
 
+  if (sessionUser.identified) {
+    return redirect("/formular");
+  }
+
   const dbUser = await findUserByEmail(sessionUser.email);
   invariant(
     dbUser,
