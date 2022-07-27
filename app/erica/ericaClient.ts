@@ -58,6 +58,12 @@ export const getFromErica = async (endpoint: string) => {
   if (response.status == 200) {
     const ericaResponse: EricaResponse = await response.json();
     return ericaResponse;
+  } else if (response.status == 404) {
+    console.log(`Erica request not found for ${url}`);
+    return {
+      errorType: "EricaRequestNotFound",
+      errorMessage: "Could not find request",
+    };
   } else {
     console.error(
       `Error in getFromErica: status ${response.status} for ${url}`

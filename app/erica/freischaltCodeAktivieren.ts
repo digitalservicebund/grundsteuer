@@ -75,7 +75,12 @@ export const checkFreischaltcodeActivation = async (ericaRequestId: string) => {
   const ericaResponse = await checkActivateFreischaltCodeRequest(
     ericaRequestId
   );
-  if (ericaResponse && ericaUtils.isEricaRequestProcessed(ericaResponse)) {
+  if (ericaResponse && "errorType" in ericaResponse) {
+    return ericaResponse;
+  } else if (
+    ericaResponse &&
+    ericaUtils.isEricaRequestProcessed(ericaResponse)
+  ) {
     return isFscCorrect(ericaResponse);
   }
 };

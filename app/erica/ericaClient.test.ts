@@ -97,6 +97,12 @@ const mockFetchReturn200 = jest.fn(() =>
   })
 ) as jest.Mock;
 
+const mockFetchReturn404 = jest.fn(() =>
+  Promise.resolve({
+    status: 404,
+  })
+) as jest.Mock;
+
 describe("getFromErica", () => {
   const env = process.env;
 
@@ -142,6 +148,15 @@ describe("getFromErica", () => {
       jest.spyOn(global, "fetch").mockImplementation(mockFetchReturn200);
       const result = await getFromErica("someEndpoint");
       expect(result).toEqual(successObject);
+    });
+
+    it("should return not found error if receives a 404 from endpoint", async () => {
+      jest.spyOn(global, "fetch").mockImplementation(mockFetchReturn404);
+      const result = await getFromErica("someEndpoint");
+      expect(result).toEqual({
+        errorType: "EricaRequestNotFound",
+        errorMessage: "Could not find request",
+      });
     });
   });
 });

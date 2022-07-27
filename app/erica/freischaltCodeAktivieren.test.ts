@@ -1,6 +1,7 @@
 import * as ericaClientModule from "./ericaClient";
 import {
   activateFreischaltCode,
+  checkFreischaltcodeActivation,
   isFscCorrect,
 } from "~/erica/freischaltCodeAktivieren";
 import { EricaResponse } from "~/erica/utils";
@@ -99,5 +100,23 @@ describe("isFscCorrect", () => {
       transferticket: expectedTransferticket,
       taxIdNumber: expectedTaxIdNumber,
     });
+  });
+});
+
+describe("checkFreischaltcodeActivation", () => {
+  it("should return error if getFromErica returns error", async () => {
+    const expectedError = {
+      errorType: "EricaRequestNotFound",
+      errorMessage: "Could not find request",
+    };
+    const mockGetEricaResponse = jest
+      .spyOn(ericaClientModule, "getFromErica")
+      .mockImplementation(
+        jest.fn(() => Promise.resolve(expectedError)) as jest.Mock
+      );
+    const result = await checkFreischaltcodeActivation("ericaRequestId");
+    expect(result).toEqual(expectedError);
+
+    mockGetEricaResponse.mockClear();
   });
 });

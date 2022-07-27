@@ -56,7 +56,12 @@ export const isFscRevoked = (
 
 export const checkFreischaltcodeRevocation = async (ericaRequestId: string) => {
   const ericaResponse = await checkRevokeFreischaltCodeRequest(ericaRequestId);
-  if (ericaResponse && ericaUtils.isEricaRequestProcessed(ericaResponse)) {
+  if (ericaResponse && "errorType" in ericaResponse) {
+    return ericaResponse;
+  } else if (
+    ericaResponse &&
+    ericaUtils.isEricaRequestProcessed(ericaResponse)
+  ) {
     return isFscRevoked(ericaResponse);
   }
 };

@@ -47,7 +47,12 @@ export const getSendenResult = async (
 
 export const retrieveResult = async (ericaRequestId: string) => {
   const ericaResponse = await checkSentGrundsteuer(ericaRequestId);
-  if (ericaResponse && ericaUtils.isEricaRequestProcessed(ericaResponse)) {
+  if (ericaResponse && "errorType" in ericaResponse) {
+    return ericaResponse;
+  } else if (
+    ericaResponse &&
+    ericaUtils.isEricaRequestProcessed(ericaResponse)
+  ) {
     return getSendenResult(ericaResponse);
   }
 };

@@ -79,7 +79,12 @@ export const extractAntragsId = (
 
 export const retrieveAntragsId = async (ericaRequestId: string) => {
   const ericaResponse = await checkNewFreischaltCodeRequest(ericaRequestId);
-  if (ericaResponse && ericaUtils.isEricaRequestProcessed(ericaResponse)) {
+  if (ericaResponse && "errorType" in ericaResponse) {
+    return ericaResponse;
+  } else if (
+    ericaResponse &&
+    ericaUtils.isEricaRequestProcessed(ericaResponse)
+  ) {
     return extractAntragsId(ericaResponse);
   }
 };

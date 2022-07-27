@@ -102,6 +102,51 @@ describe("Loader", () => {
         });
       });
 
+      describe("with revocation errored with not found error", () => {
+        beforeAll(async () => {
+          getMockedFunction(
+            freischaltCodeStornierenModule,
+            "checkFreischaltcodeRevocation",
+            {
+              errorType: "EricaRequestNotFound",
+              errorMessage: "Could not find request",
+            }
+          );
+        });
+
+        it("throws error", async () => {
+          const args = await getLoaderArgsWithAuthenticatedSession(
+            "/fsc/neuBeantragen",
+            "existing_user@foo.com",
+            undefined,
+            fscDataForSession
+          );
+
+          await expect(async () => {
+            await loader(args);
+          }).rejects.toThrow();
+        });
+
+        it("deletes the erica request id", async () => {
+          const args = await getLoaderArgsWithAuthenticatedSession(
+            "/fsc/neuBeantragen",
+            "existing_user@foo.com",
+            undefined,
+            fscDataForSession
+          );
+          const spyOnDeleteEricaRequestId = jest.spyOn(
+            userModule,
+            "deleteEricaRequestIdFscStornieren"
+          );
+
+          await expect(async () => {
+            await loader(args);
+          }).rejects.toThrow();
+
+          expect(spyOnDeleteEricaRequestId).toHaveBeenCalled();
+        });
+      });
+
       describe("with revocation errored with general error", () => {
         let beantragenMock: SpyInstance;
         beforeAll(async () => {
@@ -389,6 +434,51 @@ describe("Loader", () => {
           await loader(args);
 
           expect(spyOnSaveAuditLog).not.toHaveBeenCalled();
+        });
+      });
+
+      describe("with fsc request errored with not found error", () => {
+        beforeAll(async () => {
+          getMockedFunction(
+            freischaltCodeBeantragenModule,
+            "retrieveAntragsId",
+            {
+              errorType: "EricaRequestNotFound",
+              errorMessage: "Could not find request",
+            }
+          );
+        });
+
+        it("throws error", async () => {
+          const args = await getLoaderArgsWithAuthenticatedSession(
+            "/fsc/neuBeantragen",
+            "existing_user@foo.com",
+            undefined,
+            fscDataForSession
+          );
+
+          await expect(async () => {
+            await loader(args);
+          }).rejects.toThrow();
+        });
+
+        it("deletes the erica request id", async () => {
+          const args = await getLoaderArgsWithAuthenticatedSession(
+            "/fsc/neuBeantragen",
+            "existing_user@foo.com",
+            undefined,
+            fscDataForSession
+          );
+          const spyOnDeleteEricaRequestId = jest.spyOn(
+            userModule,
+            "deleteEricaRequestIdFscBeantragen"
+          );
+
+          await expect(async () => {
+            await loader(args);
+          }).rejects.toThrow();
+
+          expect(spyOnDeleteEricaRequestId).toHaveBeenCalled();
         });
       });
 

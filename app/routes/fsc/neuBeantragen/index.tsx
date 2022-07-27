@@ -87,6 +87,9 @@ export const loader: LoaderFunction = async ({ context, request }) => {
       `FSC revoked for user with id ${userData?.id}`
     );
     if (fscRevocationResult?.finished) {
+      if (fscRevocationResult.failure) {
+        throw new Error(`FSC Revocation request not found`);
+      }
       const fscData = await session.get("fscData");
       await requestNewFsc(
         fscData.steuerId,

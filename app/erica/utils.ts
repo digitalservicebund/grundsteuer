@@ -48,7 +48,7 @@ type EricaErrorResponseData = {
 
 type EricaError = {
   errorType: string;
-  errorMessage: string;
+  errorMessage?: string;
   validationErrors?: string[];
 };
 

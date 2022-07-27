@@ -2,6 +2,7 @@ import * as ericaClientModule from "./ericaClient";
 import {
   extractAntragsId,
   requestNewFreischaltCode,
+  retrieveAntragsId,
 } from "~/erica/freischaltCodeBeantragen";
 import { EricaResponse } from "~/erica/utils";
 
@@ -119,5 +120,23 @@ describe("extractAntragsId", () => {
     const foundAntragsID = extractAntragsId(ericaResponseData);
 
     expect(foundAntragsID).toEqual(ericaResult);
+  });
+});
+
+describe("retrieveAntragsId", () => {
+  it("should return error if getFromErica returns error", async () => {
+    const expectedError = {
+      errorType: "EricaRequestNotFound",
+      errorMessage: "Could not find request",
+    };
+    const mockGetEricaResponse = jest
+      .spyOn(ericaClientModule, "getFromErica")
+      .mockImplementation(
+        jest.fn(() => Promise.resolve(expectedError)) as jest.Mock
+      );
+    const result = await retrieveAntragsId("ericaRequestId");
+    expect(result).toEqual(expectedError);
+
+    mockGetEricaResponse.mockClear();
   });
 });

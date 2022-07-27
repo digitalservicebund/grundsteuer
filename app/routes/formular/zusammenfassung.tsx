@@ -210,6 +210,9 @@ export const loader: LoaderFunction = async ({
             "Set-Cookie": await commitSession(session),
           },
         });
+      } else if (successResponseOrErrors?.errorType == "EricaRequestNotFound") {
+        await deleteEricaRequestIdSenden(user.email);
+        ericaRequestId = null;
       } else {
         await deleteEricaRequestIdSenden(user.email);
         ericaRequestId = null;

@@ -185,6 +185,46 @@ describe("Loader", () => {
       await loader(args);
       expect(spyOnSaveAuditLog).not.toHaveBeenCalled();
     });
+
+    it("should delete erica request id if erica sends not found error for aktivieren", async () => {
+      getMockedFunction(
+        freischaltCodeAktivierenModule,
+        "checkFreischaltcodeActivation",
+        {
+          errorType: "EricaRequestNotFound",
+          errorMessage: "Could not find request",
+        }
+      );
+      const args = await getLoaderArgsWithAuthenticatedSession(
+        "/fsc/beantragen",
+        "existing_user@foo.com"
+      );
+      const spyOnDeleteEricaRequestId = jest.spyOn(
+        userModule,
+        "deleteEricaRequestIdFscAktivieren"
+      );
+      await loader(args);
+      expect(spyOnDeleteEricaRequestId).toHaveBeenCalled();
+
+      spyOnDeleteEricaRequestId.mockClear();
+    });
+
+    it("should return not spinning if erica sends not found error for aktivieren", async () => {
+      getMockedFunction(
+        freischaltCodeAktivierenModule,
+        "checkFreischaltcodeActivation",
+        {
+          errorType: "EricaRequestNotFound",
+          errorMessage: "Could not find request",
+        }
+      );
+      const args = await getLoaderArgsWithAuthenticatedSession(
+        "/fsc/beantragen",
+        "existing_user@foo.com"
+      );
+      const result = await loader(args);
+      expect(result.showSpinner).toEqual(false);
+    });
   });
 
   describe("with identified user", () => {
@@ -340,6 +380,48 @@ describe("Loader", () => {
         "existing_user@foo.com"
       );
       expect(spyOnDeleteFscRequest).not.toHaveBeenCalled();
+
+      spyOnDeleteFscRequest.mockClear();
+    });
+
+    it("should delete erica request id if erica sends not found error for stornieren", async () => {
+      getMockedFunction(
+        freischaltCodeStornierenModule,
+        "checkFreischaltcodeRevocation",
+        {
+          errorType: "EricaRequestNotFound",
+          errorMessage: "Could not find request",
+        }
+      );
+      const args = await getLoaderArgsWithAuthenticatedSession(
+        "/fsc/beantragen",
+        "existing_user@foo.com"
+      );
+      const spyOnDeleteEricaRequestId = jest.spyOn(
+        userModule,
+        "deleteEricaRequestIdFscStornieren"
+      );
+      await loader(args);
+      expect(spyOnDeleteEricaRequestId).toHaveBeenCalled();
+
+      spyOnDeleteEricaRequestId.mockClear();
+    });
+
+    it("should return not spinning if erica sends not found error for stornieren", async () => {
+      getMockedFunction(
+        freischaltCodeStornierenModule,
+        "checkFreischaltcodeRevocation",
+        {
+          errorType: "EricaRequestNotFound",
+          errorMessage: "Could not find request",
+        }
+      );
+      const args = await getLoaderArgsWithAuthenticatedSession(
+        "/fsc/beantragen",
+        "existing_user@foo.com"
+      );
+      const result = await loader(args);
+      expect(result.showSpinner).toEqual(false);
     });
   });
 });

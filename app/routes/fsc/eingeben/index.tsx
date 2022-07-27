@@ -126,6 +126,13 @@ const handleFscActivationProgress = async (
         showError: true,
         showSpinner: false,
       };
+    } else if (fscActivatedOrError?.errorType == "EricaRequestNotFound") {
+      await deleteEricaRequestIdFscAktivieren(userData.email);
+      return {
+        showError: true,
+        showEricaError: true,
+        showSpinner: false,
+      };
     } else {
       await deleteEricaRequestIdFscAktivieren(userData.email);
       throw new Error(
@@ -174,6 +181,14 @@ export const handleFscRevocationInProgress = async (
         showError: true,
         showSpinner: false,
       };
+    } else if (fscRevocatedOrError?.errorType == "EricaRequestNotFound") {
+      await deleteEricaRequestIdFscStornieren(userData.email);
+      return {
+        finished: true,
+        showError: false,
+        showSpinner: false,
+        failure: true,
+      };
     } else {
       await deleteEricaRequestIdFscStornieren(userData.email);
       return { finished: true };
@@ -217,11 +232,14 @@ export const loader: LoaderFunction = async ({ request, context }) => {
 
   if (ericaRevocationRequestIsInProgress) {
     // We only try to revocate. If it does not succeed, we do not want to show an error to the user
-    await handleFscRevocationInProgress(
+    const fscRevocationData = await handleFscRevocationInProgress(
       userData,
       clientIp,
       `FSC revoked after activation for user with id ${userData.id}`
     );
+    if (fscRevocationData) {
+      return fscRevocationData;
+    }
   }
 
   const csrfToken = createCsrfToken(session);

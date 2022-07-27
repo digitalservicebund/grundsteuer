@@ -107,6 +107,42 @@ describe("Loader", () => {
     const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
     await loader(args);
     expect(spyOnSaveAuditLog).not.toHaveBeenCalled();
+    spyOnSaveAuditLog.mockClear();
+  });
+
+  it("should delete erica request id if erica sends not found error", async () => {
+    getMockedFunction(freischaltCodeBeantragenModule, "retrieveAntragsId", {
+      errorType: "EricaRequestNotFound",
+      errorMessage: "Could not find request",
+    });
+    const args = await getLoaderArgsWithAuthenticatedSession(
+      "/fsc/beantragen",
+      "existing_user@foo.com"
+    );
+    const spyOnDeleteEricaRequestId = jest.spyOn(
+      userModule,
+      "deleteEricaRequestIdFscBeantragen"
+    );
+    await expect(async () => {
+      await loader(args);
+    }).rejects.toThrow();
+    expect(spyOnDeleteEricaRequestId).toHaveBeenCalled();
+
+    spyOnDeleteEricaRequestId.mockClear();
+  });
+
+  it("should throw error if erica sends not found error", async () => {
+    getMockedFunction(freischaltCodeBeantragenModule, "retrieveAntragsId", {
+      errorType: "EricaRequestNotFound",
+      errorMessage: "Could not find request",
+    });
+    const args = await getLoaderArgsWithAuthenticatedSession(
+      "/fsc/beantragen",
+      "existing_user@foo.com"
+    );
+    await expect(async () => {
+      await loader(args);
+    }).rejects.toThrow();
   });
 });
 
