@@ -31,6 +31,7 @@ import {
 
 import {
   deleteEricaRequestIdFscBeantragen,
+  deleteFscRequest,
   findUserByEmail,
   saveEricaRequestIdFscBeantragen,
   saveFscRequest,
@@ -91,6 +92,9 @@ export const handleFscRequestInProgress = async (
           steuerId: elsterRequestResultOrError.taxIdNumber,
         },
       });
+      if (userData.fscRequest) {
+        await deleteFscRequest(userData.email, userData.fscRequest.requestId);
+      }
       await saveFscRequest(
         userData.email,
         elsterRequestResultOrError.elsterRequestId
