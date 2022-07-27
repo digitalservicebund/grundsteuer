@@ -27,29 +27,32 @@ export const loader: LoaderFunction = async ({ request }) => {
       status: 404,
     });
   }
-  if (sessionUser.identified) {
-    return redirect("/formular");
-  }
 
-  const dbUser = await findUserByEmail(sessionUser.email);
-  invariant(
-    dbUser,
-    "expected a matching user in the database from a user in a cookie session"
-  );
-  if (!dbUser.identified) {
-    return redirect("/identifikation");
-  }
-  const session = await getSession(request.headers.get("Cookie"));
-  session.set("user", Object.assign(session.get("user"), { identified: true }));
-
-  return json(
-    {},
-    {
-      headers: {
-        "Set-Cookie": await commitSession(session),
-      },
+  if (!sessionUser.identified) {
+    const dbUser = await findUserByEmail(sessionUser.email);
+    invariant(
+      dbUser,
+      "expected a matching user in the database from a user in a cookie session"
+    );
+    if (!dbUser.identified) {
+      return redirect("/identifikation");
     }
-  );
+    const session = await getSession(request.headers.get("Cookie"));
+    session.set(
+      "user",
+      Object.assign(session.get("user"), { identified: true })
+    );
+
+    return json(
+      {},
+      {
+        headers: {
+          "Set-Cookie": await commitSession(session),
+        },
+      }
+    );
+  }
+  return {};
 };
 
 export default function EkonaErfolgreich() {
