@@ -126,13 +126,6 @@ const handleFscActivationProgress = async (
         showError: true,
         showSpinner: false,
       };
-    } else if (fscActivatedOrError?.errorType == "EricaRequestNotFound") {
-      await deleteEricaRequestIdFscAktivieren(userData.email);
-      return {
-        showError: true,
-        showEricaError: true,
-        showSpinner: false,
-      };
     } else {
       await deleteEricaRequestIdFscAktivieren(userData.email);
       throw new Error(
@@ -237,7 +230,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
       clientIp,
       `FSC revoked after activation for user with id ${userData.id}`
     );
-    if (fscRevocationData) {
+    if (fscRevocationData?.finished && fscRevocationData?.failure) {
       return fscRevocationData;
     }
   }

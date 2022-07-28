@@ -3,6 +3,12 @@
 const validSteuerId = "77 819 250 434";
 
 describe("/beantragen", () => {
+  before(() => {
+    cy.task("setUserIdentifiedAttribute", {
+      userEmail: "foo@bar.com",
+      identified: false,
+    });
+  });
   beforeEach(() => {
     cy.request("GET", Cypress.env("ERICA_URL") + "/reset");
     cy.task("dbRemoveFsc", "foo@bar.com");
@@ -41,6 +47,8 @@ describe("/beantragen", () => {
   });
 
   it("should show spinner if ericaRequestId already in database", () => {
+    // We need to have an ongoing request at erica
+    cy.request("POST", Cypress.env("ERICA_URL") + "/v2/fsc/request");
     cy.task("addEricaRequestIdFscAntrag", {
       userEmail: "foo@bar.com",
       ericaRequestId: "foo",

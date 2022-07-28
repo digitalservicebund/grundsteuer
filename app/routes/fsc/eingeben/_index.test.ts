@@ -203,13 +203,15 @@ describe("Loader", () => {
         userModule,
         "deleteEricaRequestIdFscAktivieren"
       );
-      await loader(args);
+      await expect(async () => {
+        await loader(args);
+      }).rejects.toThrow();
       expect(spyOnDeleteEricaRequestId).toHaveBeenCalled();
 
       spyOnDeleteEricaRequestId.mockClear();
     });
 
-    it("should return not spinning if erica sends not found error for aktivieren", async () => {
+    it("should throw if erica sends not found error for aktivieren", async () => {
       getMockedFunction(
         freischaltCodeAktivierenModule,
         "checkFreischaltcodeActivation",
@@ -222,8 +224,9 @@ describe("Loader", () => {
         "/fsc/beantragen",
         "existing_user@foo.com"
       );
-      const result = await loader(args);
-      expect(result.showSpinner).toEqual(false);
+      await expect(async () => {
+        await loader(args);
+      }).rejects.toThrow();
     });
   });
 

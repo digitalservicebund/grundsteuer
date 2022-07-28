@@ -17,43 +17,12 @@ describe("Zusammenfassung route", () => {
     cy.login();
   });
 
-  it("should display the title", () => {
-    cy.visit("/formular/zusammenfassung");
-    cy.contains("h1", "Bitte überprüfen Sie Ihre Angaben vor dem Versand");
-  });
-
   describe("identified user", () => {
     before(() => {
       cy.task("setUserIdentifiedAttribute", {
         userEmail: "foo@bar.com",
         identified: true,
       });
-    });
-    it("should return errors with unfilled fields", () => {
-      cy.visit("/formular/zusammenfassung");
-      cy.get("#nextButton").click();
-
-      cy.url().should("include", "/formular/zusammenfassung");
-      cy.get("#confirmCompleteCorrect")
-        .parent()
-        .contains("Bitte füllen Sie dieses Feld aus.");
-      cy.get("#confirmDataPrivacy")
-        .parent()
-        .contains("Bitte füllen Sie dieses Feld aus.");
-      cy.get("#confirmTermsOfUse")
-        .parent()
-        .contains("Bitte füllen Sie dieses Feld aus.");
-    });
-
-    it("should not return errors with filled fields", () => {
-      cy.visit("/formular/zusammenfassung");
-      cy.get("label[for=confirmCompleteCorrect]").click("left");
-      cy.get("label[for=confirmDataPrivacy]").click("left");
-      cy.get("label[for=confirmTermsOfUse]").click("left");
-      cy.get("#nextButton").click();
-
-      cy.url().should("include", "/formular/zusammenfassung");
-      cy.contains("Bitte füllen Sie dieses Feld aus.").should("not.exist");
     });
 
     it("should show previous form errors with no data set", () => {

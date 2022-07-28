@@ -1,4 +1,5 @@
 /// <reference types="../../cypress/support" />
+
 describe("/ekona", () => {
   it("/ekona routes should only be accessible for logged-in users", () => {
     cy.visit("/ekona", { failOnStatusCode: false });
@@ -14,6 +15,12 @@ describe("/ekona", () => {
         identified: false,
       });
       cy.login();
+    });
+    after(() => {
+      cy.task("setUserIdentifiedAttribute", {
+        userEmail: "foo@bar.com",
+        identified: false,
+      });
     });
 
     it("should redirect to /identifikation page from erfolgreich", () => {
