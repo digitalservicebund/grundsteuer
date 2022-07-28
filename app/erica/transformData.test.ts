@@ -620,6 +620,7 @@ describe("calculateGroesse", () => {
     { groesseHa: "1", groesseA: "2", groesseQm: "3", result: "10203" },
     { groesseHa: "", groesseA: "123", groesseQm: "45", result: "12345" },
     { groesseHa: "", groesseA: "", groesseQm: "05", result: "5" },
+    { groesseHa: " ", groesseA: "  ", groesseQm: " 05 ", result: "5" },
     { groesseHa: "0", groesseA: "0", groesseQm: "5", result: "5" },
     { groesseHa: "1", groesseA: "", groesseQm: "", result: "10000" },
   ];

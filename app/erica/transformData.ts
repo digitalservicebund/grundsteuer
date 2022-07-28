@@ -41,9 +41,9 @@ export const calculateGroesse = (
 
   return (
     "" +
-    (10000 * Number.parseInt(groesse.groesseHa || "0") +
-      100 * Number.parseInt(groesse.groesseA || "0") +
-      Number.parseInt(groesse.groesseQm || "0"))
+    (10000 * Number.parseInt(groesse.groesseHa.trim() || "0") +
+      100 * Number.parseInt(groesse.groesseA.trim() || "0") +
+      Number.parseInt(groesse.groesseQm.trim() || "0"))
   );
 };
 
