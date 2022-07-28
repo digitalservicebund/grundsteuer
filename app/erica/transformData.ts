@@ -92,7 +92,8 @@ export const fillPostCommaToLength = (
 };
 
 const transformWirtschaftlicheEinheitZaehler = (value?: string) => {
-  return value?.replace(",", ".");
+  // remove leading zeros
+  return value ? parseFloat(value?.replace(",", ".")).toString() : value;
 };
 
 export const transformDate = (value?: string) => {

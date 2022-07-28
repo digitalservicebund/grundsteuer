@@ -146,7 +146,7 @@ describe("transformDataToEricaFormat", () => {
         .grundstueckGemeinde({ innerhalbEinerGemeinde: "true" })
         .grundstueckBodenrichtwert({ bodenrichtwert: "123" })
         .miteigentumsanteil({
-          wirtschaftlicheEinheitZaehler: "67,1",
+          wirtschaftlicheEinheitZaehler: "0067,1",
           wirtschaftlicheEinheitNenner: "89",
         })
         .grundstueckFlurstueck({ list: inputFlurstuecke, count: 2 })
