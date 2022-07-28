@@ -94,6 +94,10 @@ export const getEricaErrorMessagesFromResponse = (
     const steuernummerInvalidMessage =
       "Es scheint ein Problem mit Ihrer angegebenen Steuernummer/Aktenzeichen gegeben zu haben. Bitte prüfen Sie Ihre Angaben.";
     return [steuernummerInvalidMessage];
+  } else if (errorResponse.errorType == "EricaRequestNotFound") {
+    const serverproblemMessage =
+      "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es noch einmal.";
+    return [serverproblemMessage];
   }
   throw Error("Unexpected Error: " + errorResponse.errorType);
 };
@@ -213,6 +217,9 @@ export const loader: LoaderFunction = async ({
       } else if (successResponseOrErrors?.errorType == "EricaRequestNotFound") {
         await deleteEricaRequestIdSenden(user.email);
         ericaRequestId = null;
+        ericaErrors = getEricaErrorMessagesFromResponse(
+          successResponseOrErrors
+        );
       } else {
         await deleteEricaRequestIdSenden(user.email);
         ericaRequestId = null;

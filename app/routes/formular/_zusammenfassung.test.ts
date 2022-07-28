@@ -256,6 +256,74 @@ describe("/zusammenfassung loader", () => {
       });
     });
 
+    describe("Erica finished with not found error", () => {
+      beforeEach(async () => {
+        getMockedFunction(sendGrundsteuerModule, "retrieveResult", {
+          errorType: "EricaRequestNotFound",
+          errorMessage: "We could not find the request",
+        });
+      });
+
+      it("should remove ericaRequestId", async () => {
+        const spyOnDeleteEricaRequestIdSenden = jest.spyOn(
+          userModule,
+          "deleteEricaRequestIdSenden"
+        );
+
+        await loader(
+          await getLoaderArgsWithAuthenticatedSession(
+            "/formular/zusammenfassung",
+            "existing_user@foo.com"
+          )
+        );
+
+        expect(spyOnDeleteEricaRequestIdSenden).toHaveBeenCalledWith(
+          "existing_user@foo.com"
+        );
+      });
+
+      it("should return error messages", async () => {
+        const response = await loader(
+          await getLoaderArgsWithAuthenticatedSession(
+            "/formular/zusammenfassung",
+            "existing_user@foo.com"
+          )
+        );
+
+        const jsonResponse = await response.json();
+
+        expect(jsonResponse.ericaErrors).toContain(
+          "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es noch einmal."
+        );
+      });
+
+      it("should not set inDeclarationProcess", async () => {
+        const spyOnSetUserInDeclarationProcess = jest.spyOn(
+          userModule,
+          "setUserInDeclarationProcess"
+        );
+
+        try {
+          const result = await loader(
+            await getLoaderArgsWithAuthenticatedSession(
+              "/formular/zusammenfassung",
+              "existing_user@foo.com"
+            )
+          );
+
+          expect(spyOnSetUserInDeclarationProcess).not.toHaveBeenCalled();
+          const resultingSession = await getSession(
+            result.headers.get("Set-Cookie")
+          );
+          expect(resultingSession.get("user").inDeclarationProcess).toEqual(
+            undefined
+          );
+        } finally {
+          spyOnSetUserInDeclarationProcess.mockRestore();
+        }
+      });
+    });
+
     describe("Erica finished with errors", () => {
       beforeEach(async () => {
         getMockedFunction(sendGrundsteuerModule, "retrieveResult", {
@@ -545,6 +613,18 @@ describe("getEricaErrorMessagesFromResponse", () => {
       expect(result[0]).toContain("Steuernummer");
     }
   );
+
+  it("should return correct error message if error is not found", () => {
+    const result = getEricaErrorMessagesFromResponse({
+      errorType: "EricaRequestNotFound",
+      errorMessage: "We could not find the request.",
+      validationErrors: undefined,
+    });
+    expect(result).toHaveLength(1);
+    expect(result[0]).toContain(
+      "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es noch einmal."
+    );
+  });
 
   it("should return validation errors if ERIC_GLOBAL_PRUEF_FEHLER", () => {
     const validationErrors = [
