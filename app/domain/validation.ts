@@ -261,8 +261,18 @@ export const validateIsDate: ValidateFunctionDefault = ({ value }) =>
     delimiters: ["."],
   });
 
-export const validateNoZero: ValidateFunctionDefault = ({ value }) =>
-  value != "0";
+export const validateNoZero: ValidateFunctionDefault = ({ value }) => {
+  if (!value) return true;
+  if (!validateOnlyDecimal({ value, exceptions: [","] })) return true;
+  if (value.includes(",")) {
+    const floatRepresentation = parseFloat(value.replace(",", "."));
+    if (floatRepresentation == 0.0) return false;
+  } else {
+    const intRepresentation = parseInt(value);
+    if (intRepresentation == 0) return false;
+  }
+  return true;
+};
 
 export const validateFloat: ValidateFunctionDefault = ({ value }) =>
   !value ||

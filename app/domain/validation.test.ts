@@ -106,7 +106,11 @@ describe("validateIsDate", () => {
 describe("validateNoZero", () => {
   const cases = [
     { value: "0", valid: false },
-    { value: 0, valid: false },
+    { value: "00", valid: false },
+    { value: " 00 ", valid: false },
+    { value: "0,0", valid: false },
+    { value: "0,1", valid: true },
+    { value: "1,0", valid: true },
     { value: " 1  ", valid: true },
     { value: "01", valid: true },
     { value: "", valid: true },
