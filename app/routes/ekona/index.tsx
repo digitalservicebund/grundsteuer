@@ -30,7 +30,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 
   if (user.identified) {
-    return redirect("/formular/welcome");
+    return redirect("/formular");
   }
 
   const session = await getEkonaSession(request.headers.get("Cookie"));

@@ -305,7 +305,7 @@ export default function FscNeuBeantragen() {
             <Button disabled={isSubmitting || showSpinner}>
               Freischaltcode neu beantragen
             </Button>
-            <Button look="secondary" to="/formular/welcome">
+            <Button look="secondary" to="/formular">
               Zurück zum Formular
             </Button>
           </ButtonContainer>

@@ -71,7 +71,7 @@ describe("Loader", () => {
         )
       );
       expect(result.status).toEqual(302);
-      expect(result.headers.get("Location")).toEqual("/formular/welcome");
+      expect(result.headers.get("Location")).toEqual("/formular");
     });
 
     it("returns empty object for fsc/eingeben/erfolgreich", async () => {

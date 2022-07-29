@@ -292,7 +292,7 @@ export default function FscBeantragen() {
       );
     }
     return (
-      <Button look="secondary" to="/formular/welcome">
+      <Button look="secondary" to="/formular">
         Später beantragen
       </Button>
     );

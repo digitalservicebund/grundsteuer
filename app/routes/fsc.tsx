@@ -12,7 +12,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     sessionUser.identified &&
     !request.url.includes("fsc/eingeben/erfolgreich")
   ) {
-    return redirect("/formular/welcome");
+    return redirect("/formular");
   }
 
   return {};
