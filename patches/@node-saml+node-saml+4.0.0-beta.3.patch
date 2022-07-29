@@ -1,7 +1,7 @@
-diff --git a/node_modules/node-saml/lib/algorithms.js b/node_modules/node-saml/lib/algorithms.js
+diff --git a/node_modules/@node-saml/node-saml/lib/algorithms.js b/node_modules/@node-saml/node-saml/lib/algorithms.js
 index 5c1524f..b6c524c 100644
---- a/node_modules/node-saml/lib/algorithms.js
-+++ b/node_modules/node-saml/lib/algorithms.js
+--- a/node_modules/@node-saml/node-saml/lib/algorithms.js
++++ b/node_modules/@node-saml/node-saml/lib/algorithms.js
 @@ -5,7 +5,7 @@ const crypto = require("crypto");
  function getSigningAlgorithm(shortName) {
      switch (shortName) {
@@ -11,11 +11,11 @@ index 5c1524f..b6c524c 100644
          case "sha512":
              return "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512";
          case "sha1":
-diff --git a/node_modules/node-saml/lib/saml.js b/node_modules/node-saml/lib/saml.js
-index 9dc6594..977752a 100644
---- a/node_modules/node-saml/lib/saml.js
-+++ b/node_modules/node-saml/lib/saml.js
-@@ -472,30 +472,7 @@ class SAML {
+diff --git a/node_modules/@node-saml/node-saml/lib/saml.js b/node_modules/@node-saml/node-saml/lib/saml.js
+index 34e9829..41156f2 100644
+--- a/node_modules/@node-saml/node-saml/lib/saml.js
++++ b/node_modules/@node-saml/node-saml/lib/saml.js
+@@ -470,30 +470,7 @@ class SAML {
          Object.keys(additionalParameters).forEach((k) => {
              samlMessage[k] = additionalParameters[k] || "";
          });

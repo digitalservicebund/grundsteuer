@@ -42,6 +42,7 @@
     "docker:down": "docker-compose -f ./docker-compose-test.yml -p grundsteuer-test down"
   },
   "dependencies": {
+    "@node-saml/node-saml": "node-saml/node-saml#d8bf6b55a70044d98eb767123bcf717808d7369d",
     "@prisma/client": "^4.1.1",
     "@remix-run/express": "^1.6.5",
     "@remix-run/node": "^1.6.5",
@@ -68,7 +69,6 @@
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
     "node-cron": "^3.0.1",
-    "node-saml": "^4.0.0-beta.2",
     "plausible-tracker": "^0.3.8",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

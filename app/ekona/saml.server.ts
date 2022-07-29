@@ -1,10 +1,11 @@
-import { SAML, SamlConfig } from "node-saml/lib";
+import { SAML, SamlConfig } from "@node-saml/node-saml/lib";
 import { Session } from "@remix-run/node";
 import { SessionCacheProvider } from "~/ekona/SessionCacheProvider";
+import { ValidateInResponseTo } from "@node-saml/node-saml/lib/types";
 
 export const createSamlRequest = async (session: Session) => {
   const samlOptions: SamlConfig = {
-    issuer: process.env.EKONA_ISSUER,
+    issuer: process.env.EKONA_ISSUER as string,
     cert: process.env.EKONA_IDP_CERT as string,
     protocol: "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST",
     callbackUrl: process.env.BASE_URL + "/ekona/callback",
@@ -19,7 +20,7 @@ export const createSamlRequest = async (session: Session) => {
     skipRequestCompression: true,
     identifierFormat: "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent",
     cacheProvider: new SessionCacheProvider(session),
-    validateInResponseTo: true,
+    validateInResponseTo: ValidateInResponseTo.always,
   };
 
   const saml = new SAML(samlOptions);
@@ -31,7 +32,7 @@ export const validateSamlResponse = async (
   session: Session
 ) => {
   const samlOptions: SamlConfig = {
-    issuer: process.env.EKONA_ISSUER,
+    issuer: process.env.EKONA_ISSUER as string,
     cert: process.env.EKONA_IDP_CERT as string,
     protocol: "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST",
     callbackUrl: process.env.BASE_URL + "/ekona/callback",
@@ -46,7 +47,7 @@ export const validateSamlResponse = async (
     skipRequestCompression: true,
     identifierFormat: "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent",
     cacheProvider: new SessionCacheProvider(session),
-    validateInResponseTo: true,
+    validateInResponseTo: ValidateInResponseTo.always,
   };
 
   const saml = new SAML(samlOptions);

@@ -1,4 +1,4 @@
-import { CacheProvider } from "node-saml";
+import { CacheProvider } from "@node-saml/node-saml/lib";
 import { Session } from "@remix-run/node";
 
 export class SessionCacheProvider implements CacheProvider {
