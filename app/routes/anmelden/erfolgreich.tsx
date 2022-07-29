@@ -23,16 +23,17 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   return {
     inDeclarationProcess: user.inDeclarationProcess,
+    identified: user.identified,
   };
 };
 export default function ErfolgreichAngemeldet() {
-  const { inDeclarationProcess } = useLoaderData();
+  const { inDeclarationProcess, identified } = useLoaderData();
 
   const nextStepUrl = !inDeclarationProcess
     ? "/formular/erfolg"
     : "/identifikation";
   return (
-    <UserLayout>
+    <UserLayout userIsIdentified={identified}>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         <SuccessPageLayout>
