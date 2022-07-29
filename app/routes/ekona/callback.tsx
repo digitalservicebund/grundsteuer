@@ -95,3 +95,7 @@ export const action: ActionFunction = async ({ request, context }) => {
   await deleteEricaRequestIdFscStornieren(userData.email);
   return redirect("/ekona/erfolgreich");
 };
+
+export default function Callback() {
+  return null;
+}
