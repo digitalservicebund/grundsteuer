@@ -96,6 +96,14 @@ const transformWirtschaftlicheEinheitZaehler = (value?: string) => {
   return value ? parseFloat(value?.replace(",", ".")).toString() : value;
 };
 
+export const transformBodenrichtwert = (value?: string) => {
+  if (!value) return value;
+  const valueWithoutLeadingZeros = parseFloat(value?.replace(",", "."))
+    .toString()
+    .replace(".", ",");
+  return fillPostCommaToLength(2, valueWithoutLeadingZeros);
+};
+
 export const transformDate = (value?: string) => {
   if (!value) return undefined;
   return value.trim().split(".").reverse().join("-");
@@ -236,8 +244,7 @@ export const transformDataToEricaFormat = (inputData: GrundModel) => {
       },
       innerhalbEinerGemeinde:
         inputData.grundstueck?.gemeinde?.innerhalbEinerGemeinde,
-      bodenrichtwert: fillPostCommaToLength(
-        2,
+      bodenrichtwert: transformBodenrichtwert(
         inputData.grundstueck?.bodenrichtwertEingabe?.bodenrichtwert
       ),
       flurstueck: inputData.grundstueck?.flurstueck?.map((value) =>

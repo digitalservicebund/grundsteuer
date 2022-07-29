@@ -7,6 +7,7 @@ import {
   transformAnteil,
   transformDate,
   transformFlurstueck,
+  transformBodenrichtwert,
 } from "~/erica/transformData";
 import { Person } from "~/domain/steps";
 
@@ -720,7 +721,24 @@ describe("transformAnteil", () => {
   );
 });
 
-describe("transformAnteil", () => {
+describe("transformBodenrichtwert", () => {
+  const cases = [
+    { input: "12", output: "12,00" },
+    { input: "012", output: "12,00" },
+    { input: " 012 ", output: "12,00" },
+    { input: " 1,2 ", output: "1,20" },
+    { input: " 1,23 ", output: "1,23" },
+  ];
+
+  test.each(cases)(
+    "Should return '$output' if input is '$input'",
+    ({ input, output }) => {
+      expect(transformBodenrichtwert(input)).toEqual(output);
+    }
+  );
+});
+
+describe("transformDate", () => {
   const cases = [
     { date: "1.2.2020", output: "2020-2-1" },
     { date: "01.12.2020", output: "2020-12-01" },
@@ -728,7 +746,7 @@ describe("transformAnteil", () => {
   ];
 
   test.each(cases)(
-    "Should return '$output' if anteil is '$anteil'",
+    "Should return '$output' if date is '$date'",
     ({ date, output }) => {
       expect(transformDate(date)).toEqual(output);
     }
