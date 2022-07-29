@@ -1,6 +1,9 @@
 import { ActionFunction, redirect, Session } from "@remix-run/node";
 import { validateSamlResponse } from "~/ekona/saml.server";
-import { getEkonaSession } from "~/ekona/ekonaCookies.server";
+import {
+  destroyEkonaSession,
+  getEkonaSession,
+} from "~/ekona/ekonaCookies.server";
 import { extractIdentData } from "~/ekona/validation";
 import {
   deleteEricaRequestIdFscStornieren,
@@ -93,7 +96,11 @@ export const action: ActionFunction = async ({ request, context }) => {
   await saveAuditLogs(extractedData, clientIp, userData.email);
   await revokeOutstandingFSCRequests(userData);
   await deleteEricaRequestIdFscStornieren(userData.email);
-  return redirect("/ekona/erfolgreich");
+  return redirect("/ekona/erfolgreich", {
+    headers: {
+      "Set-Cookie": await destroyEkonaSession(ekonaSession),
+    },
+  });
 };
 
 export default function Callback() {
