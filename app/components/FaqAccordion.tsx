@@ -512,8 +512,11 @@ export default function FaqAccordion() {
             </li>
           </ul>
           <p>
-            Ab Juli 2022 können Sie auf dieser Seite mit Hilfe weniger Fragen
-            überprüfen, ob die Nutzung für Sie infrage kommt.
+            Überprüfen Sie unter “
+            <a href="/pruefen/start" className="underline text-blue-800">
+              Kann ich teilnehmen?
+            </a>
+            ”, ob die Nutzung für Sie infrage kommt.
           </p>
         </>
       ),
@@ -560,8 +563,11 @@ export default function FaqAccordion() {
             >
               ELSTER
             </a>
-            . Ab Juli 2022 können Sie auf dieser Seite mit Hilfe weniger Fragen
-            überprüfen, ob die Nutzung für Sie infrage kommt.
+            . Überprüfen Sie unter “
+            <a href="/pruefen/start" className="underline text-blue-800">
+              Kann ich teilnehmen?
+            </a>
+            ”, ob die Nutzung von unserem Service für Sie infrage kommt.
           </p>
         </>
       ),
@@ -598,15 +604,13 @@ export default function FaqAccordion() {
       ),
     },
     {
-      header:
-        "Ab wann kann ich „Grundsteuererklärung für Privateigentum“ nutzen?",
+      header: "Bis wann kann ich meine Grundsteuererklärung abgeben?",
       id: "ab-wann-online",
       content: (
         <>
           <p>
-            Der Online-Service „Grundsteuererklärung für Privateigentum“ geht
-            Anfang Juli 2022 online. Die Grundsteuererklärung muss im Zeitraum
-            vom 1. Juli bis 31. Oktober 2022 abgegeben werden.
+            Sie können Ihre Grundsteuererklärung bis zum 31. Oktober 2022
+            abgeben.
           </p>
         </>
       ),
