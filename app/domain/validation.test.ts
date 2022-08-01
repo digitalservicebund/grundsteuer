@@ -117,6 +117,8 @@ describe("validateNoZero", () => {
     { value: undefined, valid: true },
     { value: "1e", valid: true },
     { value: "text", valid: true },
+    { value: "0.,0", valid: true },
+    { value: "0.0", valid: true },
   ];
 
   test.each(cases)(

@@ -6,6 +6,7 @@ import FlurstueckMiteigentumsanteil from "~/components/steps/grundstueck/flurstu
 import Bruchteilsgemeinschaft from "~/components/steps/eigentuemer/Bruchteilsgemeinschaft";
 import Willkommen from "~/components/steps/Willkommen";
 import GrundstueckUebersicht from "~/components/steps/grundstueck/GrundstueckUebersicht";
+import GrundstueckAnzahl from "~/components/steps/grundstueck/GrundstueckAnzahl";
 import GebaeudeUebersicht from "~/components/steps/gebaeude/GebaeudeUebersicht";
 import EigentuemerUebersicht from "~/components/steps/eigentuemer/EigentuemerUebersicht";
 import EigentuemerAbschluss from "~/components/steps/eigentuemer/EigentuemerAbschluss";
@@ -15,6 +16,7 @@ import BodenrichtwertEingabe from "~/components/steps/grundstueck/Bodenrichtwert
 import Wohnflaeche from "~/components/steps/gebaeude/Wohnflaeche";
 import Wohnflaechen from "~/components/steps/gebaeude/Wohnflaechen";
 import EigentuemerAnteil from "~/components/steps/eigentuemer/EigentuemerAnteil";
+import EigentuemerAnzahl from "./eigentuemer/EigentuemerAnzahl";
 import Kernsaniert from "~/components/steps/gebaeude/Kernsaniert.tsx";
 
 export { Default as FallbackStepComponent };
@@ -23,6 +25,7 @@ export default {
   welcome: Willkommen,
   eigentuemer: {
     uebersicht: EigentuemerUebersicht,
+    anzahl: EigentuemerAnzahl,
     bruchteilsgemeinschaft: Bruchteilsgemeinschaft,
     abschluss: EigentuemerAbschluss,
     person: {
@@ -36,6 +39,7 @@ export default {
     bodenrichtwertInfo: BodenrichtwertInfo,
     bodenrichtwertAnzahl: BodenrichtwertAnzahl,
     bodenrichtwertEingabe: BodenrichtwertEingabe,
+    anzahl: GrundstueckAnzahl,
     flurstueck: {
       flur: FlurstueckFlur,
       groesse: FlurstueckGroesse,

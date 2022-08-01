@@ -6,6 +6,7 @@ import {
   EricaResponse,
   ericaUtils,
 } from "~/erica/utils";
+import { User } from "~/domain/user";
 
 const createPayloadForRevokeFreischaltCode = (elster_request_id: string) => {
   return {
@@ -16,8 +17,15 @@ const createPayloadForRevokeFreischaltCode = (elster_request_id: string) => {
 export const revokeFreischaltCode = async (elster_request_id: string) => {
   const payload = createPayloadForRevokeFreischaltCode(elster_request_id);
   const result = await postToErica("v2/fsc/revocation", payload);
-  invariant(result, "revokeFreischaltCode did not return an ericaRequestId");
-  return result.split("/").reverse()[0];
+  if ("location" in result) {
+    return { location: result.location.split("/").reverse()[0] };
+  }
+  return result;
+};
+
+export const revokeFscForUser = async (userData: User) => {
+  invariant(userData.fscRequest, "expected an fscRequest in database for user");
+  return revokeFreischaltCode(userData.fscRequest?.requestId);
 };
 
 export const checkRevokeFreischaltCodeRequest = async (requestId: string) => {

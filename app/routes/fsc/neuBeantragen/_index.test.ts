@@ -161,7 +161,7 @@ describe("Loader", () => {
           beantragenMock = getMockedFunction(
             freischaltCodeBeantragenModule,
             "requestNewFreischaltCode",
-            "request-id"
+            { location: "request-id" }
           );
         });
 
@@ -266,7 +266,7 @@ describe("Loader", () => {
           beantragenMock = getMockedFunction(
             freischaltCodeBeantragenModule,
             "requestNewFreischaltCode",
-            "request-id"
+            { location: "request-id" }
           );
         });
 
@@ -819,51 +819,97 @@ describe("Action", () => {
           userEmail: "existing_user@foo.com",
           allData: {},
         });
-        revocationMock = getMockedFunction(
-          freischaltCodeStornierenModule,
-          "revokeFreischaltCode",
-          Promise.resolve("strono-erica-id")
-        );
-        setStornierenStateMock = getMockedFunction(
-          userModule,
-          "saveEricaRequestIdFscStornieren",
-          Promise.resolve()
-        );
       });
 
-      afterEach(() => {
-        revocationMock.mockClear();
-        setStornierenStateMock.mockClear();
+      describe("with success erica response", () => {
+        beforeAll(() => {
+          revocationMock = getMockedFunction(
+            freischaltCodeStornierenModule,
+            "revokeFreischaltCode",
+            Promise.resolve({ location: "strono-erica-id" })
+          );
+          setStornierenStateMock = getMockedFunction(
+            userModule,
+            "saveEricaRequestIdFscStornieren",
+            Promise.resolve()
+          );
+        });
+
+        afterEach(() => {
+          revocationMock.mockClear();
+          setStornierenStateMock.mockClear();
+        });
+
+        afterAll(() => {
+          revocationMock.mockRestore();
+          setStornierenStateMock.mockRestore();
+        });
+
+        test("starts fsc revocation", async () => {
+          await action(correctArgs);
+          expect(revocationMock).toHaveBeenCalledWith("bar");
+        });
+
+        test("set fsc revocation erica request id", async () => {
+          await action(correctArgs);
+          expect(setStornierenStateMock).toHaveBeenCalledWith(
+            "existing_user@foo.com",
+            "strono-erica-id"
+          );
+        });
+
+        test("sets form data into cookie", async () => {
+          const result = await action(correctArgs);
+          expect(
+            (await getSession(result.headers.get("Set-Cookie"))).get("fscData")
+          ).toEqual(normalizedFormData);
+        });
+
+        test("returns no data", async () => {
+          const result = await action(correctArgs);
+          expect(await result.json()).toEqual({});
+        });
       });
 
-      afterAll(() => {
-        revocationMock.mockRestore();
-        setStornierenStateMock.mockRestore();
-      });
+      describe("with error erica response", () => {
+        beforeAll(() => {
+          revocationMock = getMockedFunction(
+            freischaltCodeStornierenModule,
+            "revokeFreischaltCode",
+            Promise.resolve({ error: "EricaWrongFormat" })
+          );
+          setStornierenStateMock = getMockedFunction(
+            userModule,
+            "saveEricaRequestIdFscStornieren",
+            Promise.resolve()
+          );
+        });
 
-      test("starts fsc revocation", async () => {
-        await action(correctArgs);
-        expect(revocationMock).toHaveBeenCalledWith("bar");
-      });
+        afterEach(() => {
+          revocationMock.mockClear();
+          setStornierenStateMock.mockClear();
+        });
 
-      test("set fsc revocation erica request id", async () => {
-        await action(correctArgs);
-        expect(setStornierenStateMock).toHaveBeenCalledWith(
-          "existing_user@foo.com",
-          "strono-erica-id"
-        );
-      });
+        afterAll(() => {
+          revocationMock.mockRestore();
+          setStornierenStateMock.mockRestore();
+        });
 
-      test("sets form data into cookie", async () => {
-        const result = await action(correctArgs);
-        expect(
-          (await getSession(result.headers.get("Set-Cookie"))).get("fscData")
-        ).toEqual(normalizedFormData);
-      });
+        test("does not set fsc revocation erica request id", async () => {
+          setStornierenStateMock.mockClear();
+          await action(correctArgs);
+          expect(setStornierenStateMock).not.toHaveBeenCalled();
+        });
 
-      test("returns no data", async () => {
-        const result = await action(correctArgs);
-        expect(await result.json()).toEqual({});
+        test("does not set form data into cookie", async () => {
+          const result = await action(correctArgs);
+          expect(result.headers).toBeUndefined();
+        });
+
+        test("returns error data", async () => {
+          const result = await action(correctArgs);
+          expect(await result).toEqual({ ericaApiError: "EricaWrongFormat" });
+        });
       });
     });
   });
@@ -896,63 +942,99 @@ describe("Action", () => {
         userEmail: "existing_user@foo.com",
         allData: {},
       });
-      revocationMock = getMockedFunction(
-        freischaltCodeStornierenModule,
-        "revokeFreischaltCode",
-        Promise.resolve()
-      );
-      beantragenMock = getMockedFunction(
-        freischaltCodeBeantragenModule,
-        "requestNewFreischaltCode",
-        Promise.resolve("erica-beantragen-id")
-      );
-      setBeantragenStateMock = getMockedFunction(
-        userModule,
-        "saveEricaRequestIdFscBeantragen",
-        Promise.resolve()
-      );
     });
 
-    afterEach(() => {
-      revocationMock.mockClear();
-      beantragenMock.mockClear();
-      setBeantragenStateMock.mockClear();
-    });
-
-    afterAll(() => {
+    afterAll(async () => {
       userMock.mockRestore();
-      revocationMock.mockRestore();
-      beantragenMock.mockRestore();
-      setBeantragenStateMock.mockRestore();
     });
 
-    test("starts new fsc request", async () => {
-      await action(correctArgs);
-      expect(beantragenMock).toHaveBeenCalledWith(
-        normalizedFormData.steuerId,
-        normalizedFormData.geburtsdatum
-      );
-      expect(revocationMock).not.toHaveBeenCalled();
+    describe("With success erica responses", () => {
+      beforeAll(() => {
+        revocationMock = getMockedFunction(
+          freischaltCodeStornierenModule,
+          "revokeFreischaltCode",
+          Promise.resolve({ location: "storno-erica-id" })
+        );
+        beantragenMock = getMockedFunction(
+          freischaltCodeBeantragenModule,
+          "requestNewFreischaltCode",
+          Promise.resolve({ location: "erica-beantragen-id" })
+        );
+        setBeantragenStateMock = getMockedFunction(
+          userModule,
+          "saveEricaRequestIdFscBeantragen",
+          Promise.resolve()
+        );
+      });
+
+      afterEach(() => {
+        revocationMock.mockClear();
+        beantragenMock.mockClear();
+        setBeantragenStateMock.mockClear();
+      });
+
+      afterAll(() => {
+        revocationMock.mockRestore();
+        beantragenMock.mockRestore();
+        setBeantragenStateMock.mockRestore();
+      });
+
+      test("starts new fsc request", async () => {
+        await action(correctArgs);
+        expect(beantragenMock).toHaveBeenCalledWith(
+          normalizedFormData.steuerId,
+          normalizedFormData.geburtsdatum
+        );
+        expect(revocationMock).not.toHaveBeenCalled();
+      });
+
+      test("set fsc beantragen erica request id", async () => {
+        await action(correctArgs);
+        expect(setBeantragenStateMock).toHaveBeenCalledWith(
+          "existing_user@foo.com",
+          "erica-beantragen-id"
+        );
+      });
+
+      test("sets form data into cookie", async () => {
+        const result = await action(correctArgs);
+        expect(
+          (await getSession(result.headers.get("Set-Cookie"))).get("fscData")
+        ).toEqual(normalizedFormData);
+      });
+
+      test("returns no data", async () => {
+        const result = await action(correctArgs);
+        expect(await result.json()).toEqual({});
+      });
     });
 
-    test("set fsc beantragen erica request id", async () => {
-      await action(correctArgs);
-      expect(setBeantragenStateMock).toHaveBeenCalledWith(
-        "existing_user@foo.com",
-        "erica-beantragen-id"
-      );
-    });
+    describe("With error erica beantragen response", () => {
+      beforeAll(() => {
+        beantragenMock = getMockedFunction(
+          freischaltCodeBeantragenModule,
+          "requestNewFreischaltCode",
+          Promise.resolve({ error: "EricaWrongFormat" })
+        );
+      });
 
-    test("sets form data into cookie", async () => {
-      const result = await action(correctArgs);
-      expect(
-        (await getSession(result.headers.get("Set-Cookie"))).get("fscData")
-      ).toEqual(normalizedFormData);
-    });
+      afterEach(() => {
+        beantragenMock.mockClear();
+      });
 
-    test("returns no data", async () => {
-      const result = await action(correctArgs);
-      expect(await result.json()).toEqual({});
+      afterAll(() => {
+        beantragenMock.mockRestore();
+      });
+
+      test("does not set form data into cookie", async () => {
+        const result = await action(correctArgs);
+        expect(result.headers).toBeUndefined();
+      });
+
+      test("returns error data", async () => {
+        const result = await action(correctArgs);
+        expect(result).toEqual({ ericaApiError: "EricaWrongFormat" });
+      });
     });
   });
 });

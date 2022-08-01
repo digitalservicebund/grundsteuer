@@ -83,7 +83,7 @@ export const createFormDataCookie: CreateFormDataCookieFunction = ({
 };
 
 export const encryptCookie = (
-  cookie: { userId: string; data: GrundModel } | PruefenCookieData
+  cookie: { userId: string; data?: GrundModel } | PruefenCookieData
 ) => {
   const key = Buffer.from(process.env.FORM_COOKIE_ENC_SECRET as string);
   const iv = crypto.randomBytes(16);
@@ -101,7 +101,7 @@ export const encryptCookie = (
 
 export const decryptCookie = (
   encryptedCookie: Buffer
-): { userId: string; data: GrundModel } | PruefenCookieData => {
+): { userId: string; data?: GrundModel } | PruefenCookieData => {
   const key = Buffer.from(process.env.FORM_COOKIE_ENC_SECRET as string);
   // ignoring key version for now since no key rotation is implemented
   const iv = encryptedCookie.subarray(3, 16 + 3);

@@ -26,8 +26,10 @@ export const activateFreischaltCode = async (
     elster_request_id
   );
   const result = await postToErica("v2/fsc/activation", payload);
-  invariant(result, "activateFreischaltCode did not return an ericaRequestId");
-  return result.split("/").reverse()[0];
+  if ("location" in result) {
+    return { location: result.location.split("/").reverse()[0] };
+  }
+  return result;
 };
 
 export const checkActivateFreischaltCodeRequest = async (requestId: string) => {

@@ -52,6 +52,14 @@ export default function KitchenSink() {
         >
           Help
         </Button>
+        <Button
+          to="/kitchensink/icons"
+          look="tertiary"
+          size="small"
+          className="mr-16 my-16"
+        >
+          Icons
+        </Button>
       </ContentContainer>
       <hr className="border-b border-b-gray-800 mb-32" />
       <Outlet />

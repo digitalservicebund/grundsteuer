@@ -260,6 +260,7 @@ export type PreviousStepsErrors = {
 export type ActionData = {
   errors?: Record<string, string>;
   previousStepsErrors?: PreviousStepsErrors;
+  ericaApiError?: string;
 };
 
 export const action: ActionFunction = async ({
@@ -319,8 +320,11 @@ export const action: ActionFunction = async ({
   const transformedData = transformDataToEricaFormat(
     filterDataForReachablePaths(formDataToBeStored)
   );
-  const ericaRequestId = await sendNewGrundsteuer(transformedData);
-  await saveEricaRequestIdSenden(user.email, ericaRequestId);
+  const ericaRequestIdOrError = await sendNewGrundsteuer(transformedData);
+  if ("error" in ericaRequestIdOrError) {
+    return json({ ericaApiError: ericaRequestIdOrError.error }, { headers });
+  }
+  await saveEricaRequestIdSenden(user.email, ericaRequestIdOrError.location);
 
   return json({}, { headers });
 };
@@ -397,6 +401,16 @@ export default function Zusammenfassung() {
                 return <li key={index}>{ericaError}</li>;
               })}
             </ul>
+          </ErrorBar>
+        )}
+        {actionData?.ericaApiError && (
+          <ErrorBar
+            className="mb-32"
+            heading={"Bitte prüfen oder ergänzen Sie Ihre Angaben."}
+          >
+            Wir konnten diese Daten nicht an ELSTER versenden. Überprüfen Sie
+            bitte noch einmal Ihre Angaben, insbesondere die
+            Steuer-Identifikationsnummern der Eigentümer:innen.
           </ErrorBar>
         )}
         {actionData?.errors && <ErrorBarStandard />}

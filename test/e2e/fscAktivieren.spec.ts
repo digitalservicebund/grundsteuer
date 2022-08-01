@@ -58,6 +58,7 @@ describe("/eingeben", () => {
 
   it("should show spinner if ericaRequestId already in database", () => {
     // We need to have an ongoing request at erica
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerNoResponse");
     cy.request("POST", Cypress.env("ERICA_URL") + "/v2/fsc/activation");
     cy.task("addEricaRequestIdFscAktivieren", {
       userEmail: "foo@bar.com",

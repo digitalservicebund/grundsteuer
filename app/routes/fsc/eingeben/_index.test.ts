@@ -1,4 +1,4 @@
-import { loader } from "~/routes/fsc/eingeben/index";
+import { loader, action } from "~/routes/fsc/eingeben/index";
 import { getSession } from "~/session.server";
 import * as freischaltCodeAktivierenModule from "~/erica/freischaltCodeAktivieren";
 import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStornieren";
@@ -11,6 +11,10 @@ import {
 } from "test/mocks/authenticationMocks";
 import { getMockedFunction } from "test/mocks/mockHelper";
 import { AuditLogEvent } from "~/audit/auditLog";
+import * as csrfModule from "~/util/csrf";
+import { mockActionArgs } from "testUtil/mockActionArgs";
+import { DataFunctionArgs } from "@remix-run/node";
+import * as freischaltCodeBeantragenModule from "~/erica/freischaltCodeBeantragen";
 
 describe("Loader", () => {
   const expectedTransferticket = "foo12345";
@@ -37,11 +41,9 @@ describe("Loader", () => {
         taxIdNumber: expectedTaxIdNumber,
       }
     );
-    getMockedFunction(
-      freischaltCodeStornierenModule,
-      "revokeFreischaltCode",
-      "007"
-    );
+    getMockedFunction(freischaltCodeStornierenModule, "revokeFreischaltCode", {
+      location: "007",
+    });
   });
 
   afterAll(() => {
@@ -425,6 +427,168 @@ describe("Loader", () => {
       );
       const result = await loader(args);
       expect(result.showSpinner).toEqual(false);
+    });
+  });
+});
+
+describe("Action", () => {
+  beforeAll(async () => {
+    getMockedFunction(csrfModule, "verifyCsrfToken", Promise.resolve());
+    mockIsAuthenticated.mockImplementation(() =>
+      Promise.resolve(
+        sessionUserFactory.build({
+          email: "existing_user@foo.com",
+        })
+      )
+    );
+  });
+
+  test("Returns no data if storno in progress", async () => {
+    const userMock = getMockedFunction(userModule, "findUserByEmail", {
+      email: "existing_user@foo.com",
+      ericaRequestIdFscStornieren: "storno-id",
+    });
+    try {
+      const args = await mockActionArgs({
+        route: "/fsc/eingeben",
+        formData: { freischaltCode: "XXXX-XXXX-XXXX" },
+        context: {},
+        userEmail: "existing_user@foo.com",
+        allData: {},
+      });
+
+      const result = await action(args);
+
+      expect(result).toEqual({});
+    } finally {
+      userMock.mockRestore();
+    }
+  });
+
+  test("Returns no data if eingeben in progress", async () => {
+    const userMock = getMockedFunction(userModule, "findUserByEmail", {
+      email: "existing_user@foo.com",
+      ericaRequestIdFscAktivieren: "eingeben-id",
+    });
+    try {
+      const args = await mockActionArgs({
+        route: "/fsc/eingeben",
+        formData: { freischaltCode: "XXXX-XXXX-XXXX" },
+        context: {},
+        userEmail: "existing_user@foo.com",
+        allData: {},
+      });
+
+      const result = await action(args);
+
+      expect(result).toEqual({});
+    } finally {
+      userMock.mockRestore();
+    }
+  });
+
+  describe("With correct user state", () => {
+    let userMock: jest.SpyInstance;
+    const fscRequestId = "fsc-request";
+    beforeAll(() => {
+      userMock = getMockedFunction(userModule, "findUserByEmail", {
+        email: "existing_user@foo.com",
+        fscRequest: { requestId: fscRequestId },
+      });
+    });
+
+    afterAll(() => {
+      userMock.mockRestore();
+    });
+
+    test("Returns errors if no data provided", async () => {
+      const args = await mockActionArgs({
+        route: "/fsc/beantragen",
+        formData: { freischaltCode: "" },
+        context: {},
+        userEmail: "existing_user@foo.com",
+        allData: {},
+      });
+
+      const result = await action(args);
+
+      expect(await result).toEqual({
+        errors: {
+          freischaltCode: "Bitte füllen Sie dieses Feld aus.",
+        },
+      });
+    });
+
+    describe("With correct form data", () => {
+      let correctArgs: DataFunctionArgs;
+      let eingebenMock: jest.SpyInstance;
+      const formData = {
+        freischaltCode: "XXXX-XXXX-XXXX",
+      };
+
+      beforeAll(async () => {
+        correctArgs = await mockActionArgs({
+          route: "/fsc/eingeben",
+          formData: formData,
+          context: {},
+          userEmail: "existing_user@foo.com",
+          allData: {},
+        });
+      });
+
+      describe("with success erica aktivieren response", () => {
+        beforeAll(() => {
+          eingebenMock = getMockedFunction(
+            freischaltCodeAktivierenModule,
+            "activateFreischaltCode",
+            Promise.resolve({ location: "007" })
+          );
+        });
+
+        afterEach(() => {
+          eingebenMock.mockClear();
+        });
+
+        afterAll(() => {
+          eingebenMock.mockRestore();
+        });
+
+        test("starts fsc aktivieren", async () => {
+          await action(correctArgs);
+          expect(eingebenMock).toHaveBeenCalledWith(
+            formData.freischaltCode,
+            fscRequestId
+          );
+        });
+
+        test("returns no data", async () => {
+          const result = await action(correctArgs);
+          expect(await result).toEqual({});
+        });
+      });
+
+      describe("with errornous erica aktivieren response", () => {
+        beforeAll(() => {
+          eingebenMock = getMockedFunction(
+            freischaltCodeAktivierenModule,
+            "activateFreischaltCode",
+            Promise.resolve({ error: "EricaWrongFormat" })
+          );
+        });
+
+        afterEach(() => {
+          eingebenMock.mockClear();
+        });
+
+        afterAll(() => {
+          eingebenMock.mockRestore();
+        });
+
+        test("returns erica error", async () => {
+          const result = await action(correctArgs);
+          expect(await result).toEqual({ ericaApiError: "EricaWrongFormat" });
+        });
+      });
     });
   });
 });

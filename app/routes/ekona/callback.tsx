@@ -1,16 +1,14 @@
+process.env.FORM_COOKIE_SECRET = "secret";
+process.env.FORM_COOKIE_ENC_SECRET = "26d011bcbb9db8c4673b7fcd90c9ec6d";
+
 import { ActionFunction, redirect, Session } from "@remix-run/node";
 import { validateSamlResponse } from "~/ekona/saml.server";
 import {
   destroyEkonaSession,
   getEkonaSession,
-} from "~/ekona/ekonaCookies.server";
+} from "~/ekona/ekonaCookie.server";
 import { extractIdentData } from "~/ekona/validation";
-import {
-  deleteEricaRequestIdFscStornieren,
-  findUserById,
-  setUserIdentified,
-  User,
-} from "~/domain/user";
+import { findUserById, setUserIdentified, User } from "~/domain/user";
 import invariant from "tiny-invariant";
 import {
   AuditLogEvent,
@@ -18,7 +16,7 @@ import {
   saveAuditLog,
 } from "~/audit/auditLog";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
-import { revokeFsc } from "~/routes/fsc/eingeben";
+import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
 
 const AUTHN_FAILED_STATUS_CODE =
   '<StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:AuthnFailed"/>';
@@ -38,7 +36,7 @@ const getUserFromEkonaSession = async (ekonaSession: Session) => {
 
 const revokeOutstandingFSCRequests = async (user: User) => {
   if (user.fscRequest) {
-    await revokeFsc(user);
+    await revokeFscForUser(user);
   }
 };
 
@@ -95,7 +93,6 @@ export const action: ActionFunction = async ({ request, context }) => {
   console.log(`User with id ${userData.id} identified via Ekona`);
   await saveAuditLogs(extractedData, clientIp, userData.email);
   await revokeOutstandingFSCRequests(userData);
-  await deleteEricaRequestIdFscStornieren(userData.email);
   return redirect("/ekona/erfolgreich", {
     headers: {
       "Set-Cookie": await destroyEkonaSession(ekonaSession),

@@ -16,7 +16,7 @@ import ekona3 from "~/assets/images/ekona-3.svg";
 import {
   commitEkonaSession,
   getEkonaSession,
-} from "~/ekona/ekonaCookies.server";
+} from "~/ekona/ekonaCookie.server";
 import { authenticator } from "~/auth.server";
 import { pageTitle } from "~/util/pageTitle";
 

@@ -44,6 +44,7 @@ import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { getBackUrl, getRedirectUrl } from "~/util/constructUrls";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const PREFIX = "formular";
 
@@ -77,6 +78,7 @@ export type LoaderData = {
   stepDefinition: StepDefinition;
   redirectToSummary?: boolean;
   csrfToken?: string;
+  testFeaturesEnabled?: boolean;
 };
 
 export const loader: LoaderFunction = async ({
@@ -144,6 +146,7 @@ export const loader: LoaderFunction = async ({
       redirectToSummary,
       isWeitereErklaerung,
       csrfToken,
+      testFeaturesEnabled,
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },

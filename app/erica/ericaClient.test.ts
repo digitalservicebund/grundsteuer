@@ -7,6 +7,12 @@ const mockFetchReturn201 = jest.fn(() =>
   })
 ) as jest.Mock;
 
+const mockFetchReturn201NoLocation = jest.fn(() =>
+  Promise.resolve({
+    status: 201,
+  })
+) as jest.Mock;
+
 describe("postToErica", () => {
   const env = process.env;
 
@@ -44,7 +50,14 @@ describe("postToErica", () => {
     it("should return location if receives a 201 from endpoint", async () => {
       jest.spyOn(global, "fetch").mockImplementation(mockFetchReturn201);
       const result = await postToErica("someEndpoint", {});
-      expect(result).toEqual("createdLocation");
+      expect(result).toEqual({ location: "createdLocation" });
+    });
+
+    it("should throw error if receives a 201 from endpoint without location", async () => {
+      jest
+        .spyOn(global, "fetch")
+        .mockImplementation(mockFetchReturn201NoLocation);
+      await expect(postToErica("someEndpoint", {})).rejects.toThrow();
     });
 
     it("should send correctly constructed data as JSON string to endpoint", async () => {
@@ -59,7 +72,7 @@ describe("postToErica", () => {
       );
     });
 
-    it("should throw an error if receives a 422 from endpoint", async () => {
+    it("should return an error if receives a 422 from endpoint", async () => {
       jest.spyOn(global, "fetch").mockImplementation(
         jest.fn(() =>
           Promise.resolve({
@@ -67,8 +80,12 @@ describe("postToErica", () => {
           })
         ) as jest.Mock
       );
-      await expect(postToErica("someEndpoint", {})).rejects.toThrow();
+
+      const result = await postToErica("someEndpoint", {});
+
+      await expect(result).toEqual({ error: "EricaWrongFormat" });
     });
+
     it("should throw an error if receives a 500 from endpoint", async () => {
       jest.spyOn(global, "fetch").mockImplementation(
         jest.fn(() =>

@@ -45,7 +45,7 @@ import { useEffect, useState } from "react";
 import FreischaltCodeInput from "~/components/FreischaltCodeInput";
 import {
   checkFreischaltcodeRevocation,
-  revokeFreischaltCode,
+  revokeFscForUser,
 } from "~/erica/freischaltCodeStornieren";
 import ErrorBar from "~/components/ErrorBar";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
@@ -54,25 +54,23 @@ import FreischaltcodeHelp from "~/components/form/help/Freischaltcode";
 import ArrowRight from "~/components/icons/mui/ArrowRight";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
-const isEricaRequestInProgress = async (userData: User) => {
+const isEricaRequestInProgress = (userData: User) => {
   return (
     isEricaActivationRequestInProgress(userData) ||
     isEricaRevocationRequestInProgress(userData)
   );
 };
 
-const isEricaActivationRequestInProgress = async (userData: User) => {
+const isEricaActivationRequestInProgress = (userData: User) => {
   return Boolean(userData.ericaRequestIdFscAktivieren);
 };
 
-export const isEricaRevocationRequestInProgress = async (userData: User) => {
+export const isEricaRevocationRequestInProgress = (userData: User) => {
   return Boolean(userData.ericaRequestIdFscStornieren);
 };
 
-const wasEricaRequestSuccessful = async (userData: User) => {
-  return (
-    userData.identified && !(await isEricaRevocationRequestInProgress(userData))
-  );
+const wasEricaRequestSuccessful = (userData: User) => {
+  return userData.identified && !isEricaRevocationRequestInProgress(userData);
 };
 
 const getEricaRequestIdFscAktivieren = async (userData: User) => {
@@ -81,14 +79,6 @@ const getEricaRequestIdFscAktivieren = async (userData: User) => {
     "ericaRequestIdFscAktivieren is null"
   );
   return userData.ericaRequestIdFscAktivieren;
-};
-
-export const revokeFsc = async (userData: User) => {
-  invariant(userData.fscRequest, "expected an fscRequest in database for user");
-  const ericaRequestId = await revokeFreischaltCode(
-    userData.fscRequest?.requestId
-  );
-  await saveEricaRequestIdFscStornieren(userData.email, ericaRequestId);
 };
 
 const handleFscActivationProgress = async (
@@ -119,7 +109,14 @@ const handleFscActivationProgress = async (
       });
       console.log(`${successLoggingMessage}`);
 
-      await revokeFsc(userData);
+      const ericaRequestIdOrError = await revokeFscForUser(userData);
+      if ("location" in ericaRequestIdOrError)
+        console.log("Location: " + ericaRequestIdOrError.location);
+      if ("location" in ericaRequestIdOrError)
+        await saveEricaRequestIdFscStornieren(
+          userData.email,
+          ericaRequestIdOrError.location
+        );
     } else if (fscActivatedOrError?.errorType == "EricaUserInputError") {
       await deleteEricaRequestIdFscAktivieren(userData.email);
       return {
@@ -254,7 +251,14 @@ export const loader: LoaderFunction = async ({ request, context }) => {
   );
 };
 
-export const action: ActionFunction = async ({ request }) => {
+type EingebenActionData = {
+  ericaApiError?: string;
+  errors?: Record<string, string>;
+};
+
+export const action: ActionFunction = async ({
+  request,
+}): Promise<EingebenActionData | Response> => {
   await verifyCsrfToken(request);
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
@@ -264,14 +268,15 @@ export const action: ActionFunction = async ({ request }) => {
     userData,
     "expected a matching user in the database from a user in a cookie session"
   );
+
+  if (isEricaRequestInProgress(userData)) return {};
+
   invariant(userData.fscRequest, "expected an fscRequest in database for user");
   const elsterRequestId = userData.fscRequest.requestId;
 
   if (await wasEricaRequestSuccessful(userData)) {
     return redirect("/fsc/eingeben/erfolgreich");
   }
-
-  if (await isEricaRequestInProgress(userData)) return {};
 
   const formData = await request.formData();
   const freischaltCode = formData.get("freischaltCode");
@@ -288,23 +293,30 @@ export const action: ActionFunction = async ({ request }) => {
   const errorsExist = errors.freischaltCode;
 
   if (errorsExist) {
-    return json({
+    return {
       errors: removeUndefined(errors),
-    });
+    };
   }
 
-  const ericaRequestId = await activateFreischaltCode(
+  const ericaRequestIdOrError = await activateFreischaltCode(
     freischaltCode,
     elsterRequestId
   );
-  await saveEricaRequestIdFscAktivieren(user.email, ericaRequestId);
+  if ("location" in ericaRequestIdOrError) {
+    await saveEricaRequestIdFscAktivieren(
+      user.email,
+      ericaRequestIdOrError.location
+    );
+  } else {
+    return { ericaApiError: ericaRequestIdOrError.error };
+  }
 
   return {};
 };
 
 export default function FscEingeben() {
   const loaderData = useLoaderData();
-  const actionData = useActionData();
+  const actionData: EingebenActionData | undefined = useActionData();
   const errors = actionData?.errors;
 
   // We need to fetch data to check the result with Elster
@@ -356,6 +368,12 @@ export default function FscEingeben() {
         <ErrorBar className="mb-32">
           Der eingegebene Freischaltcode ist nicht gültig. Sie haben insgesamt 5
           Versuche. Danach müssen Sie einen neuen Freischaltcode beantragen.
+        </ErrorBar>
+      )}
+      {actionData?.ericaApiError && (
+        <ErrorBar className="mb-32">
+          Der eingegebene Freischaltcode hat kein gültiges Format. Prüfen Sie
+          Ihre Eingabe.
         </ErrorBar>
       )}
 
