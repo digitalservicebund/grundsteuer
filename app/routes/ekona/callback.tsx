@@ -6,7 +6,7 @@ import { validateSamlResponse } from "~/ekona/saml.server";
 import {
   destroyEkonaSession,
   getEkonaSession,
-} from "~/ekona/ekonaCookies.server";
+} from "~/ekona/ekonaCookie.server";
 import { extractIdentData } from "~/ekona/validation";
 import { findUserById, setUserIdentified, User } from "~/domain/user";
 import invariant from "tiny-invariant";

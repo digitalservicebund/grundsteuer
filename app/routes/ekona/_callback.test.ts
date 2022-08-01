@@ -12,7 +12,7 @@ import { mockActionArgs } from "testUtil/mockActionArgs";
 import {
   commitEkonaSession,
   getEkonaSession,
-} from "~/ekona/ekonaCookies.server";
+} from "~/ekona/ekonaCookie.server";
 
 const callWithMockedTime = async (timestamp: number, callback: () => void) => {
   const actualNowImplementation = Date.now;
