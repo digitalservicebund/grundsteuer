@@ -45,6 +45,7 @@ describe("/neuBeantragen", () => {
 
   it("should show spinner if ericaRequestId for beantragen already in database", () => {
     // We need to have an ongoing request at erica
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerNoResponse");
     cy.request("POST", Cypress.env("ERICA_URL") + "/v2/fsc/request");
     cy.task("addEricaRequestIdFscAntrag", {
       userEmail: "foo@bar.com",
@@ -56,6 +57,7 @@ describe("/neuBeantragen", () => {
 
   it("should show spinner if ericaRequestId for revocation already in database", () => {
     // We need to have an ongoing request at erica
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerNoResponse");
     cy.request("POST", Cypress.env("ERICA_URL") + "/v2/fsc/revocation");
     cy.task("addEricaRequestIdFscStornieren", {
       userEmail: "foo@bar.com",
