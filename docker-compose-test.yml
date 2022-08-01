@@ -13,7 +13,7 @@ services:
       POSTGRES_DB: tests
 
   erica-mock:
-    image: ghcr.io/digitalservicebund/erica-mock:d7831058fc2562562a7c004d62c9977e1e4a79b4
+    image: ghcr.io/digitalservicebund/erica-mock:1db8b487f6c4ac2d1eb9d60e0ee60f709724177f
     restart: always
     container_name: erica-mock
     ports:
