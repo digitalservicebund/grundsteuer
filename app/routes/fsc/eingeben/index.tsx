@@ -45,7 +45,7 @@ import { useEffect, useState } from "react";
 import FreischaltCodeInput from "~/components/FreischaltCodeInput";
 import {
   checkFreischaltcodeRevocation,
-  revokeFreischaltCode,
+  revokeFscForUser,
 } from "~/erica/freischaltCodeStornieren";
 import ErrorBar from "~/components/ErrorBar";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
@@ -83,14 +83,6 @@ const getEricaRequestIdFscAktivieren = async (userData: User) => {
   return userData.ericaRequestIdFscAktivieren;
 };
 
-export const revokeFsc = async (userData: User) => {
-  invariant(userData.fscRequest, "expected an fscRequest in database for user");
-  const ericaRequestId = await revokeFreischaltCode(
-    userData.fscRequest?.requestId
-  );
-  await saveEricaRequestIdFscStornieren(userData.email, ericaRequestId);
-};
-
 const handleFscActivationProgress = async (
   userData: User,
   session: Session,
@@ -119,7 +111,8 @@ const handleFscActivationProgress = async (
       });
       console.log(`${successLoggingMessage}`);
 
-      await revokeFsc(userData);
+      const ericaRequestId = await revokeFscForUser(userData);
+      await saveEricaRequestIdFscStornieren(userData.email, ericaRequestId);
     } else if (fscActivatedOrError?.errorType == "EricaUserInputError") {
       await deleteEricaRequestIdFscAktivieren(userData.email);
       return {

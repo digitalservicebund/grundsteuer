@@ -6,6 +6,7 @@ import {
   EricaResponse,
   ericaUtils,
 } from "~/erica/utils";
+import { User } from "~/domain/user";
 
 const createPayloadForRevokeFreischaltCode = (elster_request_id: string) => {
   return {
@@ -64,4 +65,8 @@ export const checkFreischaltcodeRevocation = async (ericaRequestId: string) => {
   ) {
     return isFscRevoked(ericaResponse);
   }
+};
+export const revokeFscForUser = async (userData: User) => {
+  invariant(userData.fscRequest, "expected an fscRequest in database for user");
+  return revokeFreischaltCode(userData.fscRequest?.requestId);
 };

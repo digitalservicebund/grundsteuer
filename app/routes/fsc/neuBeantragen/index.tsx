@@ -30,7 +30,11 @@ import SteuerIdField from "~/components/form/SteuerIdField";
 import { useEffect, useState } from "react";
 import EnumeratedCard from "~/components/EnumeratedCard";
 import { authenticator } from "~/auth.server";
-import { findUserByEmail, User } from "~/domain/user";
+import {
+  findUserByEmail,
+  saveEricaRequestIdFscStornieren,
+  User,
+} from "~/domain/user";
 import invariant from "tiny-invariant";
 import {
   getBeantragenData,
@@ -38,15 +42,13 @@ import {
   requestNewFsc,
   validateBeantragenData,
 } from "~/routes/fsc/beantragen";
-import {
-  handleFscRevocationInProgress,
-  revokeFsc,
-} from "~/routes/fsc/eingeben";
+import { handleFscRevocationInProgress } from "~/routes/fsc/eingeben";
 import { commitSession, getSession } from "~/session.server";
 import steuerIdImg from "~/assets/images/help/help-steuer-id.png";
 import lohnsteuerbescheinigungImage from "~/assets/images/lohnsteuerbescheinigung_idnr.svg";
 import fscLetterImage from "~/assets/images/fsc-letter.svg";
 import fscInputImage from "~/assets/images/fsc-input.svg";
+import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
 
 const isEricaRequestInProgress = (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -167,7 +169,8 @@ export const action: ActionFunction = async ({ request }) => {
   if (validationErrors) return validationErrors;
 
   if (userData.fscRequest) {
-    await revokeFsc(userData);
+    const ericaRequestId = await revokeFscForUser(userData);
+    await saveEricaRequestIdFscStornieren(userData.email, ericaRequestId);
   } else {
     await requestNewFsc(
       normalizedSteuerId,

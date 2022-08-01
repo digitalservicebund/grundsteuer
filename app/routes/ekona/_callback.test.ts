@@ -1,7 +1,6 @@
 import * as auditLogModule from "~/audit/auditLog";
 import * as userModule from "~/domain/user";
 import * as samlServerModule from "~/ekona/saml.server";
-import * as eingebenModule from "~/routes/fsc/eingeben";
 import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStornieren";
 import {
   getMockedFunction,
@@ -359,7 +358,10 @@ describe("Action", () => {
       const ekonaSession = await getEkonaSession(null);
       ekonaSession.set("userId", "123456");
       getMockedFunction(samlServerModule, "validateSamlResponse", ekonaData);
-      const spyOnRevokeFsc = jest.spyOn(eingebenModule, "revokeFsc");
+      const spyOnRevokeFsc = jest.spyOn(
+        freischaltCodeStornierenModule,
+        "revokeFscForUser"
+      );
 
       await callWithMockedTime(1652887920227, async () => {
         await action(
@@ -403,7 +405,10 @@ describe("Action", () => {
         "setUserIdentified",
         Error("fail identification")
       );
-      const spyOnRevokeFsc = jest.spyOn(eingebenModule, "revokeFsc");
+      const spyOnRevokeFsc = jest.spyOn(
+        freischaltCodeStornierenModule,
+        "revokeFscForUser"
+      );
 
       await callWithMockedTime(1652887920227, async () => {
         await expect(async () => {
