@@ -10,8 +10,10 @@ import {
 
 export const sendNewGrundsteuer = async (data: GrundModel) => {
   const result = await postToErica("v2/grundsteuer", data);
-  invariant(result, "sendNewGrundsteuer did not return an ericaRequestId");
-  return result.split("/").reverse()[0];
+  if ("location" in result) {
+    return { location: result.location.split("/").reverse()[0] };
+  }
+  return result;
 };
 
 const checkSentGrundsteuer = async (requestId: string) => {

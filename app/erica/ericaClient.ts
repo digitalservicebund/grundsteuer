@@ -8,7 +8,12 @@ type ericaRequestDto = {
 
 const ericaClientIdentifier = "grundsteuer";
 
-export const postToErica = async (endpoint: string, dataToSend: object) => {
+type PostToEricaResponse = { location: string } | { error: string };
+
+export const postToErica = async (
+  endpoint: string,
+  dataToSend: object
+): Promise<PostToEricaResponse> => {
   invariant(
     typeof process.env.ERICA_URL !== "undefined",
     "environment variable ERICA_URL is not set"
@@ -35,12 +40,13 @@ export const postToErica = async (endpoint: string, dataToSend: object) => {
     response.headers.get("location") !== "null"
   ) {
     const location = response.headers.get("location");
+    invariant(location, `Request to ${url} did not return an ericaRequestId`);
     console.log(`Request to ${url} succeeded with location ${location}`);
-    return location;
+    return { location };
   } else if (response.status == 201) {
     throw Error("Erica responded without location parameter");
   } else if (response.status == 422) {
-    throw Error("Erica responded with error for wrong format");
+    return { error: "EricaWrongFormat" };
   } else {
     throw Error(`Erica responded with ${response.status}`);
   }

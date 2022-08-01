@@ -231,32 +231,60 @@ describe("Action", () => {
           userEmail: "existing_user@foo.com",
           allData: {},
         });
-        beantragenMock = getMockedFunction(
-          freischaltCodeBeantragenModule,
-          "requestNewFreischaltCode",
-          Promise.resolve()
-        );
       });
 
-      afterEach(() => {
-        beantragenMock.mockReset();
+      describe("with success erica response", () => {
+        beforeAll(() => {
+          beantragenMock = getMockedFunction(
+            freischaltCodeBeantragenModule,
+            "requestNewFreischaltCode",
+            Promise.resolve({ location: "007" })
+          );
+        });
+
+        afterEach(() => {
+          beantragenMock.mockClear();
+        });
+
+        afterAll(() => {
+          beantragenMock.mockRestore();
+        });
+
+        test("starts fsc beantragen", async () => {
+          await action(correctArgs);
+          expect(beantragenMock).toHaveBeenCalledWith(
+            normalizedFormData.steuerId,
+            normalizedFormData.geburtsdatum
+          );
+        });
+
+        test("returns no data", async () => {
+          const result = await action(correctArgs);
+          expect(await result).toEqual({});
+        });
       });
 
-      afterAll(() => {
-        beantragenMock.mockRestore();
-      });
+      describe("with errornous erica response", () => {
+        beforeAll(() => {
+          beantragenMock = getMockedFunction(
+            freischaltCodeBeantragenModule,
+            "requestNewFreischaltCode",
+            Promise.resolve({ error: "EricaWrongFormat" })
+          );
+        });
 
-      test("starts fsc beantragen", async () => {
-        await action(correctArgs);
-        expect(beantragenMock).toHaveBeenCalledWith(
-          normalizedFormData.steuerId,
-          normalizedFormData.geburtsdatum
-        );
-      });
+        afterEach(() => {
+          beantragenMock.mockClear();
+        });
 
-      test("returns no data", async () => {
-        const result = await action(correctArgs);
-        expect(await result).toEqual({});
+        afterAll(() => {
+          beantragenMock.mockRestore();
+        });
+
+        test("returns erica error", async () => {
+          const result = await action(correctArgs);
+          expect(await result).toEqual({ ericaApiError: "EricaWrongFormat" });
+        });
       });
     });
   });

@@ -283,7 +283,7 @@ describe("Action", () => {
       getMockedFunction(
         freischaltCodeStornierenModule,
         "revokeFreischaltCode",
-        "007"
+        { location: "007" }
       );
     });
 

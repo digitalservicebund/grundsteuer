@@ -161,11 +161,18 @@ export const requestNewFsc = async (
   normalizedGeburtsdatum: string,
   email: string
 ) => {
-  const ericaRequestId = await requestNewFreischaltCode(
+  const ericaRequestIdOrError = await requestNewFreischaltCode(
     normalizedSteuerId,
     normalizedGeburtsdatum
   );
-  await saveEricaRequestIdFscBeantragen(email, ericaRequestId);
+  if ("location" in ericaRequestIdOrError) {
+    await saveEricaRequestIdFscBeantragen(
+      email,
+      ericaRequestIdOrError.location
+    );
+  } else {
+    return ericaRequestIdOrError.error;
+  }
 };
 
 export const loader: LoaderFunction = async ({ request, context }) => {
@@ -212,7 +219,14 @@ export const loader: LoaderFunction = async ({ request, context }) => {
   );
 };
 
-export const action: ActionFunction = async ({ request }) => {
+type BeantragenActionData = {
+  ericaApiError?: string;
+  errors?: Record<string, string>;
+};
+
+export const action: ActionFunction = async ({
+  request,
+}): Promise<BeantragenActionData | Response> => {
   await verifyCsrfToken(request);
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
@@ -237,17 +251,20 @@ export const action: ActionFunction = async ({ request }) => {
     geburtsdatum: normalizedGeburtsdatum,
   });
   if (validationErrors) return validationErrors;
-  await requestNewFsc(
+  const ericaApiError = await requestNewFsc(
     normalizedSteuerId,
     normalizedGeburtsdatum,
     userData.email
   );
+  if (ericaApiError) {
+    return { ericaApiError };
+  }
   return {};
 };
 
 export default function FscBeantragen() {
   const loaderData = useLoaderData();
-  const actionData = useActionData();
+  const actionData: BeantragenActionData | undefined = useActionData();
   const errors = actionData?.errors;
   // We need to fetch data to check the result with Elster
   const fetcher = useFetcher();
@@ -331,6 +348,13 @@ export default function FscBeantragen() {
             Person gehören. <br />
             Nach 5 falschen Eingaben der Daten können Sie erst wieder in 7 Tagen
             einen Freischaltcode beantragen.
+          </ErrorBar>
+        )}
+        {actionData?.ericaApiError && (
+          <ErrorBar className="mb-32">
+            Bitte überprüfen Sie Ihre Angaben. <br />
+            Insbesondere, dass Sie die Steuer-Identifikationsnummer und nicht
+            die Steuernummer eingegeben haben.
           </ErrorBar>
         )}
 

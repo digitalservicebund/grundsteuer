@@ -11,10 +11,26 @@ describe("requestNewFreischaltCode", () => {
     const mockPostEricaRepsone = jest
       .spyOn(ericaClientModule, "postToErica")
       .mockImplementation(
-        jest.fn(() => Promise.resolve("v2/fsc/request/007")) as jest.Mock
+        jest.fn(() =>
+          Promise.resolve({ location: "v2/fsc/request/007" })
+        ) as jest.Mock
       );
     const requestId = await requestNewFreischaltCode("123456789", "01.02.2021");
-    expect(requestId).toEqual("007");
+    expect(requestId).toEqual({ location: "007" });
+
+    mockPostEricaRepsone.mockClear();
+  });
+
+  it("should return error from postToEricaResponse", async () => {
+    const mockPostEricaRepsone = jest
+      .spyOn(ericaClientModule, "postToErica")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ error: "EricaWrongFormat" })
+        ) as jest.Mock
+      );
+    const requestId = await requestNewFreischaltCode("123456789", "01.02.2021");
+    expect(requestId).toEqual({ error: "EricaWrongFormat" });
 
     mockPostEricaRepsone.mockClear();
   });
@@ -24,7 +40,7 @@ describe("requestNewFreischaltCode", () => {
       .spyOn(ericaClientModule, "postToErica")
       .mockImplementation(
         jest.fn(() =>
-          Promise.resolve("v2/freischalt_code_request/007")
+          Promise.resolve({ location: "v2/freischalt_code_request/007" })
         ) as jest.Mock
       );
     const inputTaxIdNumber = "123456789";

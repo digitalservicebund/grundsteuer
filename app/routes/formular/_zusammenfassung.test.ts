@@ -464,11 +464,9 @@ describe("/zusammenfassung action", () => {
     });
 
     test("Updates data if fields filled", async () => {
-      getMockedFunction(
-        sendGrundsteuerModule,
-        "sendNewGrundsteuer",
-        "ericaRequestId"
-      );
+      getMockedFunction(sendGrundsteuerModule, "sendNewGrundsteuer", {
+        location: "ericaRequestId",
+      });
       const spyOnSetStepData = jest.spyOn(modelModule, "setStepData");
       const previousData = grundModelFactory.full().build();
       const args = await mockActionArgs({
@@ -513,11 +511,9 @@ describe("/zusammenfassung action", () => {
     });
 
     test("saves confirmation audit logs when filled correctly", async () => {
-      getMockedFunction(
-        sendGrundsteuerModule,
-        "sendNewGrundsteuer",
-        "ericaRequestId"
-      );
+      getMockedFunction(sendGrundsteuerModule, "sendNewGrundsteuer", {
+        location: "ericaRequestId",
+      });
       const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
       const args = await mockActionArgs({
         formData: {
@@ -539,7 +535,7 @@ describe("/zusammenfassung action", () => {
       const sendGrundsteuerMock = getMockedFunction(
         sendGrundsteuerModule,
         "sendNewGrundsteuer",
-        "ericaRequestId"
+        { location: "ericaRequestId" }
       );
       const args = await mockActionArgs({
         formData: {
@@ -558,11 +554,36 @@ describe("/zusammenfassung action", () => {
       expect(sendGrundsteuerMock).toHaveBeenCalledTimes(1);
     });
 
+    test("returns error if grundsteuer sending returns error", async () => {
+      const sendGrundsteuerMock = getMockedFunction(
+        sendGrundsteuerModule,
+        "sendNewGrundsteuer",
+        { error: "EricaWrongFormat" }
+      );
+      const args = await mockActionArgs({
+        formData: {
+          confirmCompleteCorrect: "true",
+          confirmDataPrivacy: "true",
+          confirmTermsOfUse: "true",
+        },
+        context: {},
+        userEmail: "user@example.com",
+        allData: grundModelFactory.full().build(),
+      });
+      sendGrundsteuerMock.mockClear();
+
+      const result = await action(args);
+
+      expect(await result.json()).toEqual({
+        ericaApiError: "EricaWrongFormat",
+      });
+    });
+
     test("does not send new grundsteuer if already in progress", async () => {
       const sendGrundsteuerMock = getMockedFunction(
         sendGrundsteuerModule,
         "sendNewGrundsteuer",
-        "ericaRequestId"
+        { location: "ericaRequestId" }
       );
       const findUserMock = getMockedFunction(userModule, "findUserByEmail", {
         email: "existing_user@foo.com",

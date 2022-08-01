@@ -67,7 +67,17 @@ const wasProcessSuccessful = async (userData: User, session: Session) => {
   );
 };
 
-export const loader: LoaderFunction = async ({ context, request }) => {
+type NeuBeantragenLoaderData = {
+  csrfToken?: string;
+  showError?: boolean;
+  showSpinner?: boolean;
+  ericaApiError?: string;
+};
+
+export const loader: LoaderFunction = async ({
+  context,
+  request,
+}): Promise<NeuBeantragenLoaderData | Response> => {
   const { clientIp } = context;
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
@@ -93,11 +103,12 @@ export const loader: LoaderFunction = async ({ context, request }) => {
         throw new Error(`FSC Revocation request not found`);
       }
       const fscData = await session.get("fscData");
-      await requestNewFsc(
+      const ericaApiError = await requestNewFsc(
         fscData.steuerId,
         fscData.geburtsdatum,
         userData.email
       );
+      if (ericaApiError) return { ericaApiError };
     }
   }
 
@@ -142,7 +153,14 @@ export const loader: LoaderFunction = async ({ context, request }) => {
   );
 };
 
-export const action: ActionFunction = async ({ request }) => {
+type NeuBeantragenActionData = {
+  errors?: Record<string, string>;
+  ericaApiError?: string;
+};
+
+export const action: ActionFunction = async ({
+  request,
+}): Promise<NeuBeantragenActionData | Response> => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
@@ -169,14 +187,22 @@ export const action: ActionFunction = async ({ request }) => {
   if (validationErrors) return validationErrors;
 
   if (userData.fscRequest) {
-    const ericaRequestId = await revokeFscForUser(userData);
-    await saveEricaRequestIdFscStornieren(userData.email, ericaRequestId);
+    const ericaRequestIdOrError = await revokeFscForUser(userData);
+    if ("error" in ericaRequestIdOrError) {
+      return { ericaApiError: ericaRequestIdOrError.error };
+    }
+    console.log("Location: " + ericaRequestIdOrError.location);
+    await saveEricaRequestIdFscStornieren(
+      userData.email,
+      ericaRequestIdOrError.location
+    );
   } else {
-    await requestNewFsc(
+    const ericaApiError = await requestNewFsc(
       normalizedSteuerId,
       normalizedGeburtsdatum,
       userData.email
     );
+    if (ericaApiError) return { ericaApiError };
   }
   const session = await getSession(request.headers.get("Cookie"));
   session.set("fscData", {
@@ -195,8 +221,8 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function FscNeuBeantragen() {
-  const loaderData = useLoaderData();
-  const actionData = useActionData();
+  const loaderData: NeuBeantragenLoaderData | undefined = useLoaderData();
+  const actionData: NeuBeantragenActionData | undefined = useActionData();
   const errors = actionData?.errors;
 
   // We need to fetch data to check the result with Elster
@@ -264,9 +290,16 @@ export default function FscNeuBeantragen() {
             einen Freischaltcode beantragen.
           </ErrorBar>
         )}
+        {(loaderData?.ericaApiError || actionData?.ericaApiError) && (
+          <ErrorBar className="mb-32">
+            Bitte überprüfen Sie Ihre Angaben. <br />
+            Insbesondere, dass Sie die Steuer-Identifikationsnummer und nicht
+            die Steuernummer eingegeben haben.
+          </ErrorBar>
+        )}
 
         <Form method="post" action={"/fsc/neuBeantragen?index"}>
-          <CsrfToken value={loaderData.csrfToken} />
+          <CsrfToken value={loaderData?.csrfToken} />
           <div>
             <FormGroup>
               <SteuerIdField

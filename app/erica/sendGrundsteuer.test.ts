@@ -11,10 +11,26 @@ describe("sendNewGrundsteuer", () => {
     const mockPostEricaRepsone = jest
       .spyOn(ericaClientModule, "postToErica")
       .mockImplementation(
-        jest.fn(() => Promise.resolve("v2/grundsteuer/007")) as jest.Mock
+        jest.fn(() =>
+          Promise.resolve({ location: "v2/grundsteuer/007" })
+        ) as jest.Mock
       );
     const requestId = await sendNewGrundsteuer({});
-    expect(requestId).toEqual("007");
+    expect(requestId).toEqual({ location: "007" });
+
+    mockPostEricaRepsone.mockClear();
+  });
+
+  it("should return error from postToEricaResponse", async () => {
+    const mockPostEricaRepsone = jest
+      .spyOn(ericaClientModule, "postToErica")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ error: "EricaWrongFormat" })
+        ) as jest.Mock
+      );
+    const requestId = await sendNewGrundsteuer({});
+    expect(requestId).toEqual({ error: "EricaWrongFormat" });
 
     mockPostEricaRepsone.mockClear();
   });
@@ -23,7 +39,9 @@ describe("sendNewGrundsteuer", () => {
     const mockPostEricaRepsone = jest
       .spyOn(ericaClientModule, "postToErica")
       .mockImplementation(
-        jest.fn(() => Promise.resolve("v2/grundsteuer/007")) as jest.Mock
+        jest.fn(() =>
+          Promise.resolve({ location: "v2/grundsteuer/007" })
+        ) as jest.Mock
       );
     const expectedData = grundModelFactory
       .grundstueckTyp({ typ: "zweifamilienhaus" })

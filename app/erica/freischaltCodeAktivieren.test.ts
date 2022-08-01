@@ -11,13 +11,32 @@ describe("activateFreischaltCode", () => {
     const mockPostEricaRepsone = jest
       .spyOn(ericaClientModule, "postToErica")
       .mockImplementation(
-        jest.fn(() => Promise.resolve("v2/fsc/activate/007")) as jest.Mock
+        jest.fn(() =>
+          Promise.resolve({ location: "v2/fsc/activate/007" })
+        ) as jest.Mock
       );
     const requestId = await activateFreischaltCode(
       "AKIT-AINU-1234",
       "alopekis"
     );
-    expect(requestId).toEqual("007");
+    expect(requestId).toEqual({ location: "007" });
+
+    mockPostEricaRepsone.mockClear();
+  });
+
+  it("should return error from postToEricaResponse", async () => {
+    const mockPostEricaRepsone = jest
+      .spyOn(ericaClientModule, "postToErica")
+      .mockImplementation(
+        jest.fn(() =>
+          Promise.resolve({ error: "EricaWrongFormat" })
+        ) as jest.Mock
+      );
+    const requestId = await activateFreischaltCode(
+      "AKIT-AINU-1234",
+      "alopekis"
+    );
+    expect(requestId).toEqual({ error: "EricaWrongFormat" });
 
     mockPostEricaRepsone.mockClear();
   });
@@ -26,7 +45,9 @@ describe("activateFreischaltCode", () => {
     const mockPostEricaRepsone = jest
       .spyOn(ericaClientModule, "postToErica")
       .mockImplementation(
-        jest.fn(() => Promise.resolve("v2/fsc/activate/007")) as jest.Mock
+        jest.fn(() =>
+          Promise.resolve({ location: "v2/fsc/activate/007" })
+        ) as jest.Mock
       );
     const inputFreischaltCode = "COCK-ERSP-ANIEL";
     const inputEricaRequestId = "russe1terrier";
