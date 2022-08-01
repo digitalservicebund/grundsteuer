@@ -1,4 +1,9 @@
-import { ContentContainer, Footer, HomepageSharing } from "~/components";
+import {
+  ContentContainer,
+  Footer,
+  HomepageSharing,
+  IconLabel,
+} from "~/components";
 
 import CloseIcon from "~/components/icons/mui/Close";
 import AddIcon from "~/components/icons/mui/Add";
@@ -52,6 +57,16 @@ export default function KitchenSinkIndex() {
         Es ist ein Fehler aufgetreten.
       </ErrorBar>
       <ErrorBarStandard />
+
+      <IconLabel background="blue" className="mb-24" iconName="person">
+        Eigentümer:in 1 (IconLabel)
+      </IconLabel>
+
+      <div className="bg-blue-200 py-24">
+        <IconLabel background="white" iconName="marker">
+          Grundstücksfläche 1 (IconLabel)
+        </IconLabel>
+      </div>
 
       <Footer />
     </ContentContainer>
