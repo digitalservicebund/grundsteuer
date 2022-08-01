@@ -107,6 +107,10 @@
   .tracking-1 {
     letter-spacing: 0.0625em;
   }
+
+  .stack > * + * {
+    @apply mt-24;
+  }
 }
 
 @layer components {
