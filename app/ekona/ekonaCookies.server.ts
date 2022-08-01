@@ -1,5 +1,10 @@
-import { createCookieSessionStorage } from "@remix-run/node";
+import { createCookieSessionStorage, Session } from "@remix-run/node";
 import { useSecureCookie } from "~/util/useSecureCookie";
+import {
+  COOKIE_ENCODING,
+  decryptCookie,
+  encryptCookie,
+} from "~/cookies.server";
 
 export const sessionStorage = createCookieSessionStorage({
   cookie: {
@@ -13,8 +18,20 @@ export const sessionStorage = createCookieSessionStorage({
   },
 });
 
-export const {
-  getSession: getEkonaSession,
-  commitSession: commitEkonaSession,
-  destroySession: destroyEkonaSession,
-} = sessionStorage;
+export const getEkonaSession = (cookieHeader: string | null) => {
+  return sessionStorage.getSession(cookieHeader, {
+    decode: (ciphertext) => {
+      return decryptCookie(Buffer.from(ciphertext, COOKIE_ENCODING));
+    },
+  });
+};
+
+export const commitEkonaSession = (session: Session) => {
+  return sessionStorage.commitSession(session, {
+    encode: (plaintext) => {
+      return encryptCookie(plaintext);
+    },
+  });
+};
+
+export const destroyEkonaSession = sessionStorage.destroySession;
