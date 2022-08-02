@@ -3,8 +3,6 @@ import { action } from "./index";
 import * as csrfModule from "~/util/csrf";
 import { mockAuthenticate } from "test/mocks/authenticationMocks";
 
-process.env.FORM_COOKIE_ENC_SECRET = "26d011bcbb9db8c4673b7fcd90c9ec6d";
-
 describe("/anmelden action", () => {
   beforeAll(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

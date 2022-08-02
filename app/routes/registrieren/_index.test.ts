@@ -6,8 +6,6 @@ import { AuditLogEvent } from "~/audit/auditLog";
 import * as csrfModule from "~/util/csrf";
 import { mockAuthenticate } from "test/mocks/authenticationMocks";
 
-process.env.FORM_COOKIE_ENC_SECRET = "26d011bcbb9db8c4673b7fcd90c9ec6d";
-
 jest.mock("~/domain/user", () => {
   return {
     __esModule: true,
