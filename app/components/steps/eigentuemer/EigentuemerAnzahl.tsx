@@ -39,6 +39,7 @@ const EigentuemerAnzahl: StepComponentFunction = ({
       (person) => person?.persoenlicheAngaben?.name
     ),
     help: <HelpEigentuemerAnzahl />,
+    labelIconName: "person",
   };
 
   return <Anzahl {...anzahlProps} />;

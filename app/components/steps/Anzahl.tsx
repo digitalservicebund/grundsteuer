@@ -17,6 +17,7 @@ const Anzahl = (props: {
   itemAttributes1?: (string | undefined)[];
   itemAttributes2?: (string | undefined)[];
   help: ReactNode;
+  labelIconName: string;
 }) => {
   const transition = useTransition();
   const isSubmitting = Boolean(transition.submission);
@@ -31,7 +32,11 @@ const Anzahl = (props: {
       );
       return (
         <div key={id} className="p-24 bg-white">
-          <IconLabel background="blue" iconName="marker" className="mb-16">
+          <IconLabel
+            background="blue"
+            iconName={props.labelIconName}
+            className="mb-16"
+          >
             {props.itemLabelTemplate.replace("[ID]", id.toString())}
           </IconLabel>
           <dl className="mb-24">

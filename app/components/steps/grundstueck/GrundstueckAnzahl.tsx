@@ -38,6 +38,7 @@ const GrundstueckAnzahl: StepComponentFunction = ({
       (flurstueck) => flurstueck?.flur?.flur
     ),
     help: <HelpGrundstueckAnzahl />,
+    labelIconName: "marker",
   };
 
   return <Anzahl {...anzahlProps} />;

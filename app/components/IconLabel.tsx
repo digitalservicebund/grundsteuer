@@ -6,7 +6,7 @@ import RoomOutlinedIcon from "~/components/icons/mui/RoomOutlined";
 type IconLabelProps = {
   background: "white" | "blue";
   className?: string;
-  iconName: "person" | "marker";
+  iconName: string;
   children: ReactNode;
 };
 
