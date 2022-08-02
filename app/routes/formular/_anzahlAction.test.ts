@@ -239,7 +239,7 @@ describe("anzahlAction", () => {
             );
             const args = await mockActionArgs({
               ...actionArgs,
-              route: "/eigentuemer/anzahl",
+              route: "/grundstueck/anzahl",
               // trying to delete entry 1 from a set of 3 entries
               formData: { deleteButton: "1/3" },
               // actual set length is 2
@@ -251,7 +251,9 @@ describe("anzahlAction", () => {
             const actualArg1 =
               createHeadersWithFormDataCookieMock.mock.calls?.pop()?.[0];
             // nothing was deleted
-            expect(actualArg1?.data?.eigentuemer?.person?.length).toEqual(2);
+            expect(actualArg1?.data?.grundstueck?.flurstueck?.length).toEqual(
+              2
+            );
           });
         });
       });
