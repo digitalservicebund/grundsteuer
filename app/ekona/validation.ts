@@ -2,7 +2,7 @@ import invariant from "tiny-invariant";
 
 export type ValidatedEkonaData = {
   IdNr: string;
-  Vorname: string;
+  Vorname?: string;
   Name: string;
   Anschrift: {
     Strasse: { _: string }[];
@@ -34,10 +34,6 @@ export const extractIdentData = (validatedData: any) => {
 
 const checkDataForAttributes = (validatedData: Partial<ValidatedEkonaData>) => {
   invariant(validatedData.IdNr, "Validated ekona data did not contain IdNr");
-  invariant(
-    validatedData.Vorname,
-    "Validated ekona data did not contain Vorname"
-  );
   invariant(validatedData.Name, "Validated ekona data did not contain Name");
   invariant(
     validatedData.Anschrift?.Strasse &&

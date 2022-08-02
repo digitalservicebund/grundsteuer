@@ -32,12 +32,12 @@ export interface FscBeantragtData {
 
 export interface EkonaIdentifiedData {
   idnr: string;
-  firstName: string;
+  firstName?: string;
   lastName: string;
   street: string;
   housenumber: string;
-  postalCode: string | undefined;
-  addressSupplement: string | undefined;
+  postalCode?: string;
+  addressSupplement?: string;
   city: string;
   country: string;
 }

@@ -207,10 +207,6 @@ describe("extractIdentData", () => {
         missingValue: "IdNr",
       },
       {
-        inputData: removeAttribute(ekonaDataInland, "Vorname"),
-        missingValue: "Vorname",
-      },
-      {
         inputData: removeAttribute(ekonaDataInland, "Name"),
         missingValue: "Name",
       },
