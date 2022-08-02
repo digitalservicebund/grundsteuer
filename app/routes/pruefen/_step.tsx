@@ -228,10 +228,12 @@ export function Step() {
         <ContentContainer>
           <div className="bg-white px-16 md:px-80 py-16 md:py-56">
             <SectionLabel
-              label={"Nutzung prüfen"}
-              icon={<Communication fill="#4E596A" />}
+              background="gray"
+              icon={<Communication />}
               className="mb-32"
-            />
+            >
+              Nutzung prüfen
+            </SectionLabel>
             <ContentContainer size="sm-md">
               <Form method="post" className="mb-16" key={currentState}>
                 <CsrfToken value={loaderData.csrfToken} />

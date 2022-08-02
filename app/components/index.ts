@@ -27,7 +27,6 @@ export { default as NavigationLink } from "./navigation/NavigationLink";
 export { default as NavigationLogo } from "./navigation/NavigationLogo";
 export { default as Radio } from "./form/Radio";
 export { default as RadioGroup } from "./form/RadioGroup";
-export { default as IconLabel } from "./IconLabel";
 export { default as Select } from "./form/Select";
 export { default as SidebarNavigation } from "./navigation/SidebarNavigation";
 export { default as SimplePageLayout } from "./layout/SimplePageLayout";

@@ -1,5 +1,6 @@
 import { ContentContainer, StepFormFields } from "~/components";
 import HelpEigentuemerAnzahl from "~/components/form/help/eigentuemer/EigentuemerAnzahl";
+import Person from "~/components/icons/mui/Person";
 import Anzahl from "~/components/steps/Anzahl";
 import { EIGENTUEMER_ANZAHL_MAX } from "~/routes/formular/_anzahlAction";
 import { StepComponentFunction } from "~/routes/formular/_step";
@@ -39,7 +40,7 @@ const EigentuemerAnzahl: StepComponentFunction = ({
       (person) => person?.persoenlicheAngaben?.name
     ),
     help: <HelpEigentuemerAnzahl />,
-    labelIconName: "person",
+    labelIcon: <Person />,
   };
 
   return <Anzahl {...anzahlProps} />;

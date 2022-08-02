@@ -1,5 +1,6 @@
 import { ContentContainer, StepFormFields } from "~/components";
 import HelpGrundstueckAnzahl from "~/components/form/help/grundstueck/GrundstueckAnzahl";
+import House from "~/components/icons/mui/House";
 import Anzahl from "~/components/steps/Anzahl";
 import { GRUNDSTUECK_ANZAHL_MAX } from "~/routes/formular/_anzahlAction";
 import { StepComponentFunction } from "~/routes/formular/_step";
@@ -38,7 +39,7 @@ const GrundstueckAnzahl: StepComponentFunction = ({
       (flurstueck) => flurstueck?.flur?.flur
     ),
     help: <HelpGrundstueckAnzahl />,
-    labelIconName: "marker",
+    labelIcon: <House />,
   };
 
   return <Anzahl {...anzahlProps} />;

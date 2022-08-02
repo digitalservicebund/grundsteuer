@@ -2,7 +2,7 @@ import {
   ContentContainer,
   Footer,
   HomepageSharing,
-  IconLabel,
+  SectionLabel,
 } from "~/components";
 
 import CloseIcon from "~/components/icons/mui/Close";
@@ -15,6 +15,8 @@ import bmfLogoImage from "~/assets/images/bmf-logo.svg";
 import EnumeratedCard from "~/components/EnumeratedCard";
 import ErrorBar from "~/components/ErrorBar";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
+import Person from "~/components/icons/mui/Person";
+import House from "~/components/icons/mui/House";
 
 export default function KitchenSinkIndex() {
   return (
@@ -58,14 +60,14 @@ export default function KitchenSinkIndex() {
       </ErrorBar>
       <ErrorBarStandard />
 
-      <IconLabel background="blue" className="mb-24" iconName="person">
-        Eigentümer:in 1 (IconLabel)
-      </IconLabel>
+      <SectionLabel background="blue" className="mb-24" icon={<Person />}>
+        Eigentümer:in 1 (SectionLabel)
+      </SectionLabel>
 
       <div className="bg-blue-200 py-24">
-        <IconLabel background="white" iconName="marker">
-          Grundstücksfläche 1 (IconLabel)
-        </IconLabel>
+        <SectionLabel background="white" icon={<House />}>
+          Grundstücksfläche 1 (SectionLabel)
+        </SectionLabel>
       </div>
 
       <Footer />

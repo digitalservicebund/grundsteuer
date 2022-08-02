@@ -1,6 +1,6 @@
 import { useTransition } from "@remix-run/react";
 import { ReactNode } from "react";
-import { Button, ContentContainer, IconLabel } from "~/components";
+import { Button, ContentContainer, SectionLabel } from "~/components";
 import Help from "~/components/form/help/Help";
 import DeleteIcon from "~/components/icons/mui/DeleteOutline";
 import EditIcon from "~/components/icons/mui/EditOutlined";
@@ -17,7 +17,7 @@ const Anzahl = (props: {
   itemAttributes1?: (string | undefined)[];
   itemAttributes2?: (string | undefined)[];
   help: ReactNode;
-  labelIconName: string;
+  labelIcon: ReactNode;
 }) => {
   const transition = useTransition();
   const isSubmitting = Boolean(transition.submission);
@@ -32,13 +32,13 @@ const Anzahl = (props: {
       );
       return (
         <div key={id} className="p-24 bg-white">
-          <IconLabel
+          <SectionLabel
             background="blue"
-            iconName={props.labelIconName}
+            icon={props.labelIcon}
             className="mb-16"
           >
             {props.itemLabelTemplate.replace("[ID]", id.toString())}
-          </IconLabel>
+          </SectionLabel>
           <dl className="mb-24">
             <dt className="block uppercase tracking-1 text-11 leading-16 font-bold mb-4">
               {props.itemAttribute1Label}

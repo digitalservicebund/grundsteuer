@@ -2,9 +2,9 @@ import { SVGProps } from "react";
 
 const Communication = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    width="22"
-    height="22"
-    fill="#4E596A"
+    width="1em"
+    height="1em"
+    fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >

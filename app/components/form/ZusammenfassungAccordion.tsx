@@ -333,7 +333,9 @@ const EnumerationFields = ({
 }) => {
   return (
     <div id={id}>
-      <SectionLabel icon={icon} label={label + " " + (index + 1)} />
+      <SectionLabel icon={icon} background="gray" className="my-16">
+        <h3>{label + " " + (index + 1)}</h3>
+      </SectionLabel>
       <ul className="ml-64">{children}</ul>
     </div>
   );
@@ -561,7 +563,7 @@ export default function ZusammenfassungAccordion({
                     <EnumerationFields
                       index={index}
                       label="Angaben zu Grundstücksfläche"
-                      icon={<House fill="#4E596A" />}
+                      icon={<House />}
                       key={flurstueckKey}
                       id={flurstueckKey}
                     >

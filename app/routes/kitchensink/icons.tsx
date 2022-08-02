@@ -36,7 +36,6 @@ import Plus from "~/components/icons/mui/Plus";
 import QuestionMark from "~/components/icons/mui/QuestionMark";
 import Refresh from "~/components/icons/mui/Refresh";
 import Remove from "~/components/icons/mui/Remove";
-import RoomOutlined from "~/components/icons/mui/RoomOutlined";
 import Send from "~/components/icons/mui/Send";
 import Slash from "~/components/icons/mui/Slash";
 import YellowArrowLeft from "~/components/icons/mui/YellowArrowLeft";
@@ -81,7 +80,6 @@ export default function KitchenSinkIcons() {
       <QuestionMark />
       <Refresh />
       <Remove />
-      <RoomOutlined />
       <Send />
       <Slash />
       <YellowArrowLeft />
