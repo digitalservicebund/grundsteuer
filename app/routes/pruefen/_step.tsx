@@ -48,6 +48,7 @@ import {
 } from "~/cookies.server";
 import { commitSession, getSession } from "~/session.server";
 import { HomepageHeader } from "~/components/navigation/HomepageHeader";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const PREFIX = "pruefen";
 const START_STEP = "start";
@@ -71,6 +72,7 @@ export type LoaderData = {
   currentState: string;
   stepDefinition: StepDefinition;
   csrfToken: string;
+  testFeaturesEnabled?: boolean;
 };
 
 const resetFlow = async () => {
@@ -140,6 +142,7 @@ export const loader: LoaderFunction = async ({
       currentState: currentStateFromUrl,
       stepDefinition,
       csrfToken,
+      testFeaturesEnabled,
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -246,7 +249,11 @@ export function Step() {
                       </h1>
                     )}
                     <fieldset>
-                      <StepHeadline i18n={i18n} asLegend />
+                      <StepHeadline
+                        i18n={i18n}
+                        testFeaturesEnabled={loaderData.testFeaturesEnabled}
+                        asLegend
+                      />
                       {actionData?.errors && !isSubmitting && (
                         <ErrorBarStandard />
                       )}

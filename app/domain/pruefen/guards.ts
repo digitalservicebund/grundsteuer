@@ -1,4 +1,5 @@
 import { PruefenMachineContext } from "~/domain/pruefen/states";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export type PruefenCondition = (
   context: PruefenMachineContext | undefined
@@ -74,11 +75,35 @@ const isNotBeguenstigung: PruefenCondition = (context) => {
 };
 
 const isEligibleGarage: PruefenCondition = (context) => {
-  const eligibleGaragen = ["garageAufGrundstueck", "keine"];
-  return !!(
-    context?.garagen?.garagen &&
-    eligibleGaragen.includes(context.garagen.garagen)
-  );
+  if (testFeaturesEnabled) {
+    const eligibleGaragen = ["wohnung", "keiner"];
+    return !!(
+      context?.garagen?.garagen &&
+      eligibleGaragen.includes(context.garagen.garagen)
+    );
+  } else {
+    const eligibleGaragen = ["garageAufGrundstueck", "keine"];
+    return !!(
+      context?.garagen?.garagen &&
+      eligibleGaragen.includes(context.garagen.garagen)
+    );
+  }
+};
+
+const isLaterGarage: PruefenCondition = (context) => {
+  if (testFeaturesEnabled) {
+    const eligibleGaragen = ["hausGarage", "wohnungGarage"];
+    return !!(
+      context?.garagen?.garagen &&
+      eligibleGaragen.includes(context.garagen.garagen)
+    );
+  } else {
+    const eligibleGaragen = ["garageAufAnderemGrundstueck", "tiefgarage"];
+    return !!(
+      context?.garagen?.garagen &&
+      eligibleGaragen.includes(context.garagen.garagen)
+    );
+  }
 };
 
 const hasNoElster: PruefenCondition = (context) => {
@@ -94,5 +119,6 @@ export const pruefenConditions: PruefenConditions = {
   isNotFremderBoden,
   isNotBeguenstigung,
   isEligibleGarage,
+  isLaterGarage,
   hasNoElster,
 };

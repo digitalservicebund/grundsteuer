@@ -148,7 +148,7 @@ describe("states", () => {
         ],
       },
       {
-        description: "with invalid garage",
+        description: "with later garage",
         context: pruefenModelFactory
           .abgeber({ abgeber: "eigentuemer" })
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
@@ -157,7 +157,7 @@ describe("states", () => {
           .ausland({ ausland: "false" })
           .fremderBoden({ fremderBoden: "false" })
           .beguenstigung({ beguenstigung: "false" })
-          .garagen({ garagen: "garageAufAnderemGrundstueck" })
+          .garagen({ garagen: "hausGarage" })
           .build(),
         expectedPath: [
           "start",
@@ -172,6 +172,30 @@ describe("states", () => {
         ],
       },
       {
+        description: "with invalid garage",
+        context: pruefenModelFactory
+          .abgeber({ abgeber: "eigentuemer" })
+          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
+          .bundesland({ bundesland: "BE" })
+          .grundstueckArt({ grundstueckArt: "unbebaut" })
+          .ausland({ ausland: "false" })
+          .fremderBoden({ fremderBoden: "false" })
+          .beguenstigung({ beguenstigung: "false" })
+          .garagen({ garagen: "privatweg" })
+          .build(),
+        expectedPath: [
+          "start",
+          "eigentuemerTyp",
+          "bundesland",
+          "grundstueckArt",
+          "ausland",
+          "fremderBoden",
+          "beguenstigung",
+          "garagen",
+          "keineNutzung",
+        ],
+      },
+      {
         description: "with elster account",
         context: pruefenModelFactory
           .abgeber({ abgeber: "eigentuemer" })
@@ -181,7 +205,7 @@ describe("states", () => {
           .ausland({ ausland: "false" })
           .fremderBoden({ fremderBoden: "false" })
           .beguenstigung({ beguenstigung: "false" })
-          .garagen({ garagen: "keine" })
+          .garagen({ garagen: "keiner" })
           .elster({ elster: "true" })
           .build(),
         expectedPath: [

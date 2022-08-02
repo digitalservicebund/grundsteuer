@@ -94,7 +94,7 @@ class PruefenFactory extends Factory<PruefenModel> {
         .ausland({ ausland: "false" })
         .fremderBoden({ fremderBoden: "false" })
         .beguenstigung({ beguenstigung: "false" })
-        .garagen({ garagen: "garageAufGrundstueck" })
+        .garagen({ garagen: "wohnung" })
         .elster({ elster: "false" })
         .build()
     );

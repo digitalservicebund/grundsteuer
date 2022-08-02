@@ -274,7 +274,8 @@
       }
     },
     "garagen": {
-      "headline": "Haben Sie einen Garagen- oder Tiefgaragenstellplatz?",
+      "headline": "Trifft auf Sie Folgendes zu?",
+      "headlineOld": "Haben Sie einen Garagen- oder Tiefgaragenstellplatz?",
       "fields": {
         "garagen": {
           "options": {
@@ -289,6 +290,30 @@
             },
             "keine": {
               "label": "Nein, keine der Optionen. Ich habe keinen Stellplatz"
+            },
+            "privatweg": {
+              "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein Teil vom einem Privatweg. Den Privat weg teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
+            },
+            "hausGarage": {
+              "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein Teil vom einem Parkplatz oder Garagenhof. Diesen teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
+            },
+            "hausGarten": {
+              "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein Teil vom einem Garten, Grün- oder Waldfläche. Diesen teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
+            },
+            "hausSpielplatz": {
+              "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein Teil vom einem Spielplatz. Diesen teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
+            },
+            "wohnung": {
+              "label": "Ich habe eine Eigentumswohnung und habe deswegen einen Miteigentumsanteil. Dieser ist beispielsweise 137/10.000."
+            },
+            "wohnungGarage": {
+              "label": "Zu meiner Eigentumswohnung gehört ein Autostellplatz (Tiefgarage, Garage, Stellplatz im Freien). Mein Miteigentumsanteil an dem Autostellplatz  ist beispielsweise 2/10.000."
+            },
+            "anderer": {
+              "label": "Ich weiß, dass ich einen Miteigentumsanteil habe. Mein konkreter Fall ist hier aber nicht aufgelistet."
+            },
+            "keiner": {
+              "label": "Nein, auf mich trifft keine der obigen Optionen zu."
             }
           }
         }

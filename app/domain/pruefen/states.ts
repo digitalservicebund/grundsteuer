@@ -81,7 +81,8 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
         BACK: { target: "beguenstigung" },
         NEXT: [
           { target: "elster", cond: "isEligibleGarage" },
-          { target: "spaeterNutzung" },
+          { target: "spaeterNutzung", cond: "isLaterGarage" },
+          { target: "keineNutzung" },
         ],
       },
     },

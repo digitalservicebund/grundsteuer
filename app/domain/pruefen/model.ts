@@ -58,11 +58,20 @@ export type BeguenstigungFields = {
 };
 
 export type GaragenFields = {
-  garagen:
-    | "garageAufGrundstueck"
+  garagen: // Old flow TODO: remove
+  | "garageAufGrundstueck"
     | "garageAufAnderemGrundstueck"
     | "tiefgarage"
-    | "keine";
+    | "keine"
+    // New flow
+    | "privatweg"
+    | "hausGarage"
+    | "hausGarten"
+    | "hausSpielplatz"
+    | "wohnung"
+    | "wohnungGarage"
+    | "anderer"
+    | "keiner";
 };
 
 export type ElsterFields = {
