@@ -1,6 +1,41 @@
 import { infoStep, StepDefinition } from "~/domain/steps";
 import _ from "lodash";
 import invariant from "tiny-invariant";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
+
+const getGaragen = () => {
+  if (testFeaturesEnabled) {
+    return {
+      type: "radio" as const,
+      options: [
+        { value: "privatweg" },
+        { value: "hausGarage" },
+        { value: "hausGarten" },
+        { value: "hausSpielplatz" },
+        { value: "wohnung" },
+        { value: "wohnungGarage" },
+        { value: "anderer" },
+        { value: "keiner" },
+      ],
+      validations: {
+        required: { msg: "Bitte treffen Sie eine Auswahl" },
+      },
+    };
+  } else {
+    return {
+      type: "radio" as const,
+      options: [
+        { value: "garageAufGrundstueck" },
+        { value: "garageAufAnderemGrundstueck" },
+        { value: "tiefgarage" },
+        { value: "keine" },
+      ],
+      validations: {
+        required: { msg: "Bitte treffen Sie eine Auswahl" },
+      },
+    };
+  }
+};
 
 export const pruefenStepDefinitions: Record<string, StepDefinition> = {
   start: {
@@ -123,18 +158,7 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
   },
   garagen: {
     fields: {
-      garagen: {
-        type: "radio",
-        options: [
-          { value: "garageAufGrundstueck" },
-          { value: "garageAufAnderemGrundstueck" },
-          { value: "tiefgarage" },
-          { value: "keine" },
-        ],
-        validations: {
-          required: { msg: "Bitte treffen Sie eine Auswahl" },
-        },
-      },
+      garagen: getGaragen(),
     },
   },
   elster: {
