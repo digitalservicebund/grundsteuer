@@ -1,3 +1,6 @@
+process.env.FORM_COOKIE_SECRET = "secret";
+process.env.FORM_COOKIE_ENC_SECRET = "26d011bcbb9db8c4673b7fcd90c9ec6d";
+
 import * as auditLogModule from "~/audit/auditLog";
 import * as userModule from "~/domain/user";
 import * as samlServerModule from "~/ekona/saml.server";
