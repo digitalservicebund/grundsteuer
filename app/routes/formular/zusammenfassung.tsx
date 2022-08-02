@@ -274,13 +274,12 @@ export const action: ActionFunction = async ({
     failureRedirect: "/anmelden",
   });
 
-  if (!user.identified) throw new Error("user not identified!");
-
   const dbUser: User | null = await findUserByEmail(user.email);
   invariant(
     dbUser,
     "expected a matching user in the database from a user in a cookie session"
   );
+  if (!dbUser.identified) throw new Error("user not identified!");
   if (dbUser.ericaRequestIdSenden) return {};
 
   const storedFormData = await getStoredFormData({ request, user });

@@ -400,6 +400,10 @@ describe("/zusammenfassung action", () => {
       mockIsAuthenticated.mockImplementation(() =>
         Promise.resolve(sessionUserFactory.build())
       );
+      getMockedFunction(userModule, "findUserByEmail", {
+        email: "existing_user@foo.com",
+        identified: false,
+      });
       const csrfMock = jest.spyOn(csrfModule, "verifyCsrfToken");
       csrfMock.mockImplementation(() => Promise.resolve());
     });
