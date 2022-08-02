@@ -7,20 +7,14 @@ export function StepHeadline({
   i18n,
   asLegend,
   isWeitereErklaerung,
-  testFeaturesEnabled,
 }: {
   i18n: I18nObject;
   asLegend?: boolean;
   isWeitereErklaerung?: boolean;
-  testFeaturesEnabled?: boolean;
 }) {
-  let headlineText = isWeitereErklaerung
+  const headlineText = isWeitereErklaerung
     ? i18n.headlineWeitereErklaerung
     : i18n.headline;
-  if (!testFeaturesEnabled && i18n.headlineOld) {
-    headlineText = i18n.headlineOld;
-  }
-
   return (
     <>
       <Headline asLegend={asLegend}>{headlineText}</Headline>
