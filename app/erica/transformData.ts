@@ -220,13 +220,19 @@ const transformBruchteilsgemeinschaft = (
   }
 };
 
-const transformFreitext = (freitext?: string, twoBodenrichtwerte?: boolean) => {
+export const transformFreitext = (
+  freitext?: string,
+  twoBodenrichtwerte?: boolean
+) => {
+  let freitextWithoutNewLines = freitext?.replace(/(\r\n|\n|\r)/gm, "");
   if (twoBodenrichtwerte) {
     const twoBodenrichtwerteText =
       "Es existiert ein zweiter Bodenrichtwert für dieses Grundstück.";
-    freitext = twoBodenrichtwerteText + (freitext ? " " + freitext : "");
+    freitextWithoutNewLines =
+      twoBodenrichtwerteText +
+      (freitextWithoutNewLines ? " " + freitextWithoutNewLines : "");
   }
-  return freitext;
+  return freitextWithoutNewLines;
 };
 
 export const transformDataToEricaFormat = (inputData: GrundModel) => {

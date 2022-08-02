@@ -8,6 +8,7 @@ import {
   transformDate,
   transformFlurstueck,
   transformBodenrichtwert,
+  transformFreitext,
 } from "~/erica/transformData";
 import { Person } from "~/domain/steps";
 
@@ -806,6 +807,86 @@ describe("transformFlurstueck", () => {
     "Should return '$result' if data is '$data' if '$description'",
     ({ data, result }) => {
       expect(transformFlurstueck(data, undefined).flur).toEqual(result);
+    }
+  );
+});
+
+describe("transformFreitext", () => {
+  const cases = [
+    {
+      description: "No freitext",
+      data: {
+        freitext: undefined,
+        twoBodenrichtwerte: false,
+      },
+      result: undefined,
+    },
+    {
+      description: "No freitext and twoBodenrichtwerte true",
+      data: {
+        freitext: undefined,
+        twoBodenrichtwerte: true,
+      },
+      result: "Es existiert ein zweiter Bodenrichtwert für dieses Grundstück.",
+    },
+    {
+      description: "freitext without new lines",
+      data: {
+        freitext: "Bitte beachten Sie diese Infos.",
+        twoBodenrichtwerte: false,
+      },
+      result: "Bitte beachten Sie diese Infos.",
+    },
+    {
+      description: "freitext without new lines and twoBodenrichtwerte true",
+      data: {
+        freitext: "Bitte beachten Sie diese Infos.",
+        twoBodenrichtwerte: true,
+      },
+      result:
+        "Es existiert ein zweiter Bodenrichtwert für dieses Grundstück. Bitte beachten Sie diese Infos.",
+    },
+    {
+      description: "freitext with new lines",
+      data: {
+        freitext: "Bitte beachten Sie diese Infos.",
+        twoBodenrichtwerte: false,
+      },
+      result: "Bitte beachten Sie diese Infos.",
+    },
+    {
+      description: "freitext with new lines",
+      data: {
+        freitext: "Bitte\n beachten Sie \ndiese\r \n\rInfos.",
+        twoBodenrichtwerte: false,
+      },
+      result: "Bitte beachten Sie diese Infos.",
+    },
+    {
+      description: "freitext with new lines and two Bodenrichtwerte",
+      data: {
+        freitext: "Bitte\n beachten Sie \ndiese\r \n\rInfos.",
+        twoBodenrichtwerte: true,
+      },
+      result:
+        "Es existiert ein zweiter Bodenrichtwert für dieses Grundstück. Bitte beachten Sie diese Infos.",
+    },
+    {
+      description: "freitext with only new lines and two Bodenrichtwerte",
+      data: {
+        freitext: "\n\n\r\n\r",
+        twoBodenrichtwerte: false,
+      },
+      result: "",
+    },
+  ];
+
+  test.each(cases)(
+    "Should return '$result' if data is '$data' if '$description'",
+    ({ data, result }) => {
+      expect(transformFreitext(data.freitext, data.twoBodenrichtwerte)).toEqual(
+        result
+      );
     }
   );
 });
