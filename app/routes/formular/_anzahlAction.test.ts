@@ -52,7 +52,7 @@ describe("anzahlAction", () => {
       expect(stepActionMock).not.toHaveBeenCalled();
     });
 
-    it("authenticates the user", async () => {
+    it("checks that an user is authenticated", async () => {
       const args = await mockActionArgs({
         ...actionArgs,
         formData: { deleteButton: "1/2" },
