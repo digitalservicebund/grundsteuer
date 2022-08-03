@@ -4,7 +4,9 @@ import { createGraph, getReachablePaths, Graph } from "~/domain";
 import { pruefenConditions } from "~/domain/pruefen/guards";
 import { EventObject } from "xstate/lib/types";
 
-export type PruefenMachineContext = PruefenModel;
+export interface PruefenMachineContext extends PruefenModel {
+  testFeaturesEnabled?: boolean;
+}
 
 export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
   id: "steps",
@@ -128,7 +130,9 @@ export const createPruefenGraph = ({
   return createGraph({ machine, machineContext });
 };
 
-export const getReachablePathsFromPruefenData = (data: PruefenModel) => {
+export const getReachablePathsFromPruefenData = (
+  data: PruefenMachineContext
+) => {
   const graph = createPruefenGraph({
     machineContext: data,
   });

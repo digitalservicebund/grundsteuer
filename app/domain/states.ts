@@ -5,6 +5,7 @@ import { EventObject } from "xstate/lib/types";
 export interface StateMachineContext extends GrundModel {
   personId?: number;
   flurstueckId?: number;
+  testFeaturesEnabled?: boolean;
 }
 
 export const states: MachineConfig<StateMachineContext, any, EventObject> = {
