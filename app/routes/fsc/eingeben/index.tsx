@@ -110,8 +110,7 @@ const handleFscActivationProgress = async (
       console.log(`${successLoggingMessage}`);
 
       const ericaRequestIdOrError = await revokeFscForUser(userData);
-      if ("location" in ericaRequestIdOrError)
-        console.log("Location: " + ericaRequestIdOrError.location);
+
       if ("location" in ericaRequestIdOrError)
         await saveEricaRequestIdFscStornieren(
           userData.email,

@@ -191,7 +191,6 @@ export const action: ActionFunction = async ({
     if ("error" in ericaRequestIdOrError) {
       return { ericaApiError: ericaRequestIdOrError.error };
     }
-    console.log("Location: " + ericaRequestIdOrError.location);
     await saveEricaRequestIdFscStornieren(
       userData.email,
       ericaRequestIdOrError.location
