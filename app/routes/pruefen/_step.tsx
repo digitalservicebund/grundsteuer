@@ -56,14 +56,14 @@ const SUCCESS_STEP = "nutzung";
 
 export const getMachine = ({
   formData,
-  showTestFeatures,
+  testFeaturesEnabled,
 }: {
   formData: PruefenModel;
-  showTestFeatures?: boolean;
+  testFeaturesEnabled?: boolean;
 }) => {
   const machineContext = {
     ...formData,
-    showTestFeatures,
+    testFeaturesEnabled,
   } as PruefenMachineContext;
 
   return createMachine(getPruefenConfig(machineContext), {
@@ -126,7 +126,7 @@ export const loader: LoaderFunction = async ({
   const storedFormData = state.context;
   const machine = getMachine({
     formData: storedFormData,
-    showTestFeatures: testFeaturesEnabled,
+    testFeaturesEnabled,
   });
   const isFinalStep =
     machine.getStateNodeByPath(currentStateFromUrl).type == "final";
@@ -200,7 +200,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   const machine = getMachine({
     formData: formDataToBeStored,
-    showTestFeatures: testFeaturesEnabled,
+    testFeaturesEnabled,
   });
   const nextState = machine.transition(currentState, {
     type: "NEXT",
