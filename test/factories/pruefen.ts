@@ -9,10 +9,10 @@ import {
   FremderBodenFields,
   GaragenFields,
   GrundstueckArtFields,
-  PruefenModel,
 } from "~/domain/pruefen/model";
+import { PruefenMachineContext } from "~/domain/pruefen/states";
 
-class PruefenFactory extends Factory<PruefenModel> {
+class PruefenFactory extends Factory<PruefenMachineContext> {
   abgeber(fields?: Partial<AbgeberFields>) {
     return this.params({
       start: {
@@ -101,4 +101,6 @@ class PruefenFactory extends Factory<PruefenModel> {
   }
 }
 
-export const pruefenModelFactory = PruefenFactory.define(() => ({}));
+export const pruefenModelFactory = PruefenFactory.define(() => ({
+  testFeaturesEnabled: true,
+}));

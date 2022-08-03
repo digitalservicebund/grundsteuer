@@ -1,5 +1,4 @@
 import { PruefenMachineContext } from "~/domain/pruefen/states";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export type PruefenCondition = (
   context: PruefenMachineContext | undefined
@@ -75,7 +74,7 @@ const isNotBeguenstigung: PruefenCondition = (context) => {
 };
 
 const isEligibleGarage: PruefenCondition = (context) => {
-  if (testFeaturesEnabled) {
+  if (context?.testFeaturesEnabled) {
     const eligibleGaragen = ["wohnung", "keiner"];
     return !!(
       context?.garagen?.garagen &&
@@ -91,7 +90,7 @@ const isEligibleGarage: PruefenCondition = (context) => {
 };
 
 const isLaterGarage: PruefenCondition = (context) => {
-  if (testFeaturesEnabled) {
+  if (context?.testFeaturesEnabled) {
     const eligibleGaragen = ["hausGarage", "wohnungGarage"];
     return !!(
       context?.garagen?.garagen &&
