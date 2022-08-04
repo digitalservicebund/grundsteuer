@@ -11,6 +11,7 @@ import {
   GrundstueckArtFields,
 } from "~/domain/pruefen/model";
 import { PruefenMachineContext } from "~/domain/pruefen/states";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 class PruefenFactory extends Factory<PruefenMachineContext> {
   abgeber(fields?: Partial<AbgeberFields>) {
@@ -102,5 +103,5 @@ class PruefenFactory extends Factory<PruefenMachineContext> {
 }
 
 export const pruefenModelFactory = PruefenFactory.define(() => ({
-  testFeaturesEnabled: true,
+  testFeaturesEnabled,
 }));
