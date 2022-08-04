@@ -279,22 +279,22 @@
         "garagen": {
           "options": {
             "privatweg": {
-              "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein <bold>Teil vom einem Privatweg</bold>. Den Privatweg teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
+              "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein <bold>Teil eines Privatweges</bold>. Den Privatweg teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
             },
             "hausGarage": {
-              "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein <bold>Teil vom einem Parkplatz oder Garagenhof</bold>. Diesen teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
+              "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein <bold>Teil eines Parkplatzes oder Garagenhofes</bold>. Diesen teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
             },
             "hausGarten": {
-              "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein <bold>Teil vom einem Garten, Grün- oder Waldfläche</bold>. Diesen teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
+              "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein <bold>Teil eines Gartens, einer Grün- oder Waldfläche</bold>. Diesen teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
             },
             "hausSpielplatz": {
-              "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein <bold>Teil vom einem Spielplatz</bold>. Diesen teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
+              "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein <bold>Teil eines Spielplatzes</bold>. Diesen teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
             },
             "wohnung": {
               "label": "Ich habe eine <bold>Eigentumswohnung</bold> und habe deswegen einen Miteigentumsanteil. Dieser ist beispielsweise 137/10.000."
             },
             "wohnungGarage": {
-              "label": "Zu meiner <bold>Eigentumswohnung</bold> gehört ein <bold>Autostellplatz</bold> (Tiefgarage, Garage, Stellplatz im Freien). Mein Miteigentumsanteil an dem Autostellplatz  ist beispielsweise 2/10.000."
+              "label": "Zu meiner <bold>Eigentumswohnung</bold> gehört ein <bold>Autostellplatz</bold> (Tiefgarage, Garage, Stellplatz im Freien). Mein Miteigentumsanteil an dem Autostellplatz ist beispielsweise 2/10.000."
             },
             "anderer": {
               "label": "Ich weiß, dass ich einen Miteigentumsanteil habe. Mein konkreter Fall ist hier aber nicht aufgelistet."
