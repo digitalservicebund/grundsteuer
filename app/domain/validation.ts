@@ -412,14 +412,8 @@ export const validateUniqueSteuerId: ValidateUniqueSteuerIdFunction = ({
       []
     );
 
-    if (noNewDataAdded) {
-      return containsOnlyUniqueValues(existingSteuerIds);
-    }
-    for (const element of existingSteuerIds) {
-      if (element === value) {
-        return false;
-      }
-    }
+    if (noNewDataAdded) return containsOnlyUniqueValues(existingSteuerIds);
+    if (value) return !existingSteuerIds.includes(value);
   }
   return true;
 };
@@ -709,7 +703,7 @@ export const getErrorMessage = (
   formData: StepFormData,
   allData: GrundModel | PruefenModel,
   i18n: Record<string, Record<string, string> | string>,
-  noNewDataAdded?: boolean | undefined
+  noNewDataAdded?: boolean
 ): string | undefined => {
   const validatorMapping: Record<string, ValidateFunction> = {
     required: validateRequired,
@@ -790,7 +784,7 @@ export const validateStepFormData = async (
   stepDefinition: StepDefinition,
   stepFormData: StepFormData,
   storedFormData: GrundModel | PruefenModel,
-  noNewDataAdded?: boolean | undefined
+  noNewDataAdded?: boolean
 ): Promise<
   | {
       errors: null;
