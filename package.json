@@ -10,7 +10,7 @@
   "scripts": {
     "audit:decrypt": "ts-node -r tsconfig-paths/register audit-decrypt.server.ts",
     "audit:export": "ts-node -r tsconfig-paths/register audit-export.server.ts",
-    "build": " tsc --noEmit && run-s build:*",
+    "build": "tsc --noEmit && run-s build:*",
     "build:css": "npm run generate:css -- --minify",
     "build:remix": "remix build --sourcemap",
     "build:cron": "esbuild --bundle --platform=node --format=cjs ./start-cron.ts --outdir=build",
