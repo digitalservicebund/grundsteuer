@@ -1,12 +1,12 @@
-import cron from "node-cron";
-import { db } from "~/db.server";
+import { schedule } from "node-cron";
+import { db } from "./db.server";
 
 const scheduleFscCleanup = (cronExpression: string) => {
   console.info(
     "Schedule deleting expired FSC requests with cron expression: %s",
     cronExpression
   );
-  cron.schedule(cronExpression, async () => deleteExpiredFscs());
+  schedule(cronExpression, async () => deleteExpiredFscs());
 };
 
 const schedulePdfCleanup = (cronExpression: string) => {
@@ -14,7 +14,7 @@ const schedulePdfCleanup = (cronExpression: string) => {
     "Schedule deleting expired PDFs with cron expression: %s",
     cronExpression
   );
-  cron.schedule(cronExpression, async () => deleteExpiredPdfs());
+  schedule(cronExpression, async () => deleteExpiredPdfs());
 };
 
 export const deleteExpiredFscs = async () => {

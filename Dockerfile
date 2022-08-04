@@ -23,4 +23,4 @@ COPY --chown=node:node --from=build /src ./
 RUN find public/build -name '*.map' -exec rm {} \;
 EXPOSE 3000
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD ["node", "--max-http-header-size=65536", "./build/server.js"]
+CMD ["sh", "./start.sh"]

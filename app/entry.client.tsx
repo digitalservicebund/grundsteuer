@@ -1,12 +1,12 @@
-import { RemixBrowser } from "@remix-run/react";
+import { RemixBrowser, useLocation, useMatches } from "@remix-run/react";
+import { useEffect } from "react";
 import i18next from "i18next";
 import Backend from "i18next-http-backend";
 import { hydrate } from "react-dom";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import { getInitialNamespaces } from "remix-i18next";
-import * as Sentry from "@sentry/browser";
-import { Integrations } from "@sentry/tracing";
-import Plausible, { PlausibleOptions, EventOptions } from "plausible-tracker";
+import * as Sentry from "@sentry/remix";
+import Plausible, { EventOptions, PlausibleOptions } from "plausible-tracker";
 
 declare global {
   interface Window {
@@ -18,10 +18,17 @@ declare global {
 
 Sentry.init({
   dsn: window.SENTRY_DSN,
-  // tracesSampleRate: 0.05,
   environment: window.APP_ENV,
   release: window.APP_VERSION,
-  integrations: [new Integrations.BrowserTracing()],
+  integrations: [
+    new Sentry.BrowserTracing({
+      routingInstrumentation: Sentry.remixRouterInstrumentation(
+        useEffect,
+        useLocation,
+        useMatches
+      ),
+    }),
+  ],
 });
 
 i18next

@@ -19,6 +19,7 @@ import { pageTitle } from "~/util/pageTitle";
 import styles from "public/tailwind.css";
 import ogImage from "~/assets/images/og-image.png";
 import { ErrorPage } from "~/components";
+import { withSentry } from "@sentry/remix";
 
 export const links: LinksFunction = () => {
   return [
@@ -123,7 +124,7 @@ export function CatchBoundary() {
   );
 }
 
-export default function App() {
+function App() {
   const { env, sentryDsn, version } = useLoaderData();
   useChangeLanguage("de");
 
@@ -160,3 +161,5 @@ export default function App() {
     </html>
   );
 }
+
+export default withSentry(App);

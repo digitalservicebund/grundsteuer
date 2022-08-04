@@ -6,6 +6,15 @@ import Backend from "i18next-fs-backend";
 import { renderToString } from "react-dom/server";
 import { RemixServer } from "@remix-run/react";
 import { resolve } from "node:path";
+import * as Sentry from "@sentry/remix";
+import { db } from "~/db.server";
+
+Sentry.init({
+  dsn: process.env.SENTRY_DSN,
+  environment: process.env.APP_ENV,
+  release: process.env.APP_VERSION,
+  integrations: [new Sentry.Integrations.Prisma({ client: db })],
+});
 
 export default async function handleRequest(
   request: Request,

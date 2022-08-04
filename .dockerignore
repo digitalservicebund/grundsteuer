@@ -11,9 +11,11 @@
 !remix.config.js
 !tailwind.config.js
 !remix.env.d.ts
-!server.ts
+!server.js
 !tsconfig.json
 !.env.example
+!start.sh
+!start-cron.ts
 **/*.spec.*
 **/*.test.*
 /public/build/
