@@ -3,6 +3,7 @@ import FieldError from "./FieldError";
 import Radio from "./Radio";
 import { ReactElement } from "react";
 import Help from "~/components/form/help/Help";
+import { Trans } from "react-i18next";
 
 export type RadioGroupProps = {
   name: string;
@@ -38,7 +39,7 @@ const RadioGroupOption = (
           <span>{option.description}</span>
         </>
       ) : (
-        option.label
+        <Trans components={{ bold: <strong /> }}>{option.label}</Trans>
       )}
     </Radio>
   );
