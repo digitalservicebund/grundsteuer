@@ -74,35 +74,19 @@ const isNotBeguenstigung: PruefenCondition = (context) => {
 };
 
 const isEligibleGarage: PruefenCondition = (context) => {
-  if (context?.testFeaturesEnabled) {
-    const eligibleGaragen = ["wohnung", "keiner"];
-    return !!(
-      context?.garagen?.garagen &&
-      eligibleGaragen.includes(context.garagen.garagen)
-    );
-  } else {
-    const eligibleGaragen = ["garageAufGrundstueck", "keine"];
-    return !!(
-      context?.garagen?.garagen &&
-      eligibleGaragen.includes(context.garagen.garagen)
-    );
-  }
+  const eligibleGaragen = ["wohnung", "keiner"];
+  return !!(
+    context?.garagen?.garagen &&
+    eligibleGaragen.includes(context.garagen.garagen)
+  );
 };
 
 const isLaterGarage: PruefenCondition = (context) => {
-  if (context?.testFeaturesEnabled) {
-    const eligibleGaragen = ["hausGarage", "wohnungGarage"];
-    return !!(
-      context?.garagen?.garagen &&
-      eligibleGaragen.includes(context.garagen.garagen)
-    );
-  } else {
-    const eligibleGaragen = ["garageAufAnderemGrundstueck", "tiefgarage"];
-    return !!(
-      context?.garagen?.garagen &&
-      eligibleGaragen.includes(context.garagen.garagen)
-    );
-  }
+  const eligibleGaragen = ["hausGarage", "wohnungGarage"];
+  return !!(
+    context?.garagen?.garagen &&
+    eligibleGaragen.includes(context.garagen.garagen)
+  );
 };
 
 const hasNoElster: PruefenCondition = (context) => {

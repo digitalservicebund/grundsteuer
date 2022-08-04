@@ -275,22 +275,9 @@
     },
     "garagen": {
       "headline": "Trifft auf Sie Folgendes zu?",
-      "headlineOld": "Haben Sie einen Garagen- oder Tiefgaragenstellplatz?",
       "fields": {
         "garagen": {
           "options": {
-            "garageAufGrundstueck": {
-              "label": "Ja, ich habe eine Garage, Carport oder Stellplatz im Freien auf meinem Grundstück "
-            },
-            "garageAufAnderemGrundstueck": {
-              "label": "Ja, ich habe eine Garage, Carport oder Stellplatz im Freien auf einem anderen Grundstück, das ich mir mit weiteren Eigentümer:innen teile. Ich habe dafür auch einen separaten Grundbuchauszug"
-            },
-            "tiefgarage": {
-              "label": "Ja, ich habe eine Eigentumswohnung und einen Stellplatz in einer Tiefgarage"
-            },
-            "keine": {
-              "label": "Nein, keine der Optionen. Ich habe keinen Stellplatz"
-            },
             "privatweg": {
               "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein <bold>Teil vom einem Privatweg</bold>. Den Privatweg teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
             },

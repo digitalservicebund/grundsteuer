@@ -58,12 +58,7 @@ export type BeguenstigungFields = {
 };
 
 export type GaragenFields = {
-  garagen: // Old flow TODO: remove
-  | "garageAufGrundstueck"
-    | "garageAufAnderemGrundstueck"
-    | "tiefgarage"
-    | "keine"
-    // New flow
+  garagen:
     | "privatweg"
     | "hausGarage"
     | "hausGarten"
