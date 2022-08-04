@@ -12,10 +12,8 @@ const Anzahl = (props: {
   itemLabelTemplate: string;
   itemEditPathTemplate: string;
   increaseButtonLabel: string;
-  itemAttribute1Label: string;
-  itemAttribute2Label: string;
-  itemAttributes1?: (string | undefined)[];
-  itemAttributes2?: (string | undefined)[];
+  attributeLabels: string[];
+  attributes: ((string | undefined)[] | undefined)[];
   help: ReactNode;
   labelIcon: ReactNode;
 }) => {
@@ -40,18 +38,21 @@ const Anzahl = (props: {
             {props.itemLabelTemplate.replace("[ID]", id.toString())}
           </SectionLabel>
           <dl className="mb-24">
-            <dt className="block uppercase tracking-1 text-11 leading-16 font-bold mb-4">
-              {props.itemAttribute1Label}
-            </dt>
-            <dd className="block text-18 mb-16">
-              {props.itemAttributes1?.[index] || "Wird automatisch eingetragen"}
-            </dd>
-            <dt className="block uppercase tracking-1 text-11 leading-16 font-bold mb-4">
-              {props.itemAttribute2Label}
-            </dt>
-            <dd className="block text-18">
-              {props.itemAttributes2?.[index] || "Wird automatisch eingetragen"}
-            </dd>
+            {[...Array(props.attributeLabels.length).keys()].map(
+              (attributeIndex) => {
+                return (
+                  <>
+                    <dt className="block uppercase tracking-1 text-11 leading-16 font-bold mb-4">
+                      {props.attributeLabels[attributeIndex]}
+                    </dt>
+                    <dd className="block text-18 mb-16">
+                      {props.attributes?.[attributeIndex]?.[index] ||
+                        "noch nicht ausgefüllt"}
+                    </dd>
+                  </>
+                );
+              }
+            )}
           </dl>
           <div className="flex gap-24">
             <Button
@@ -83,8 +84,10 @@ const Anzahl = (props: {
 
   return (
     <ContentContainer size="sm-md">
+      <div className="mb-48">
+        <Help>{props.help}</Help>
+      </div>
       <div className="stack">{renderItems()}</div>
-      <Help>{props.help}</Help>
       {anzahl < props.maxAnzahl && (
         <button
           disabled={isSubmitting}
@@ -100,8 +103,8 @@ const Anzahl = (props: {
           <PlusIcon />
         </button>
       )}
-      <div className="h-64"></div>
       <input name="anzahl" value={anzahl} readOnly type="hidden"></input>
+      <div className="h-64"></div>
     </ContentContainer>
   );
 };

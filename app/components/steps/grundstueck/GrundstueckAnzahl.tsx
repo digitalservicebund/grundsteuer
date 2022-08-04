@@ -32,12 +32,15 @@ const GrundstueckAnzahl: StepComponentFunction = ({
     increaseButtonLabel: "Grundstücksfläche hinzufügen",
     itemAttribute1Label: "Gemarkung",
     itemAttribute2Label: "Flurstück",
-    itemAttributes1: allData.grundstueck?.flurstueck?.map(
-      (flurstueck) => flurstueck?.angaben?.gemarkung
-    ),
-    itemAttributes2: allData.grundstueck?.flurstueck?.map(
-      (flurstueck) => flurstueck?.flur?.flur
-    ),
+    attributeLabels: ["Gemarkung", "Flurstück"],
+    attributes: [
+      allData.grundstueck?.flurstueck?.map(
+        (flurstueck) => flurstueck?.angaben?.gemarkung
+      ),
+      allData.grundstueck?.flurstueck?.map(
+        (flurstueck) => flurstueck?.flur?.flurstueckZaehler
+      ),
+    ],
     help: <HelpGrundstueckAnzahl />,
     labelIcon: <House />,
   };

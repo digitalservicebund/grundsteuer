@@ -31,14 +31,14 @@ const EigentuemerAnzahl: StepComponentFunction = ({
     itemEditPathTemplate:
       "/formular/eigentuemer/person/[ID]/persoenlicheAngaben",
     increaseButtonLabel: "Eigentümer:in hinzufügen",
-    itemAttribute1Label: "Vorname",
-    itemAttribute2Label: "Nachname",
-    itemAttributes1: allData.eigentuemer?.person?.map(
-      (person) => person?.persoenlicheAngaben?.vorname
-    ),
-    itemAttributes2: allData.eigentuemer?.person?.map(
-      (person) => person?.persoenlicheAngaben?.name
-    ),
+    attributeLabels: ["Name"],
+    attributes: [
+      allData.eigentuemer?.person?.map((person) =>
+        person?.persoenlicheAngaben?.vorname
+          ? `${person?.persoenlicheAngaben?.vorname} ${person?.persoenlicheAngaben?.name}`
+          : undefined
+      ),
+    ],
     help: <HelpEigentuemerAnzahl />,
     labelIcon: <Person />,
   };
