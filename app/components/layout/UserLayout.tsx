@@ -7,6 +7,7 @@ import {
   TopNavigation,
   NavigationActions,
 } from "~/components";
+import LogoutMenu from "~/components/navigation/LogoutMenu";
 
 export default function UserLayout(props: {
   children: ReactNode;
@@ -27,6 +28,12 @@ export default function UserLayout(props: {
           actions={
             <NavigationActions userIsIdentified={props.userIsIdentified} />
           }
+        />
+      }
+      logoutMenu={
+        <LogoutMenu
+          containerClasses="flex flex-col items-center"
+          statusClasses="mb-8"
         />
       }
     >

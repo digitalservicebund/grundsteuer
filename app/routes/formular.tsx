@@ -13,6 +13,7 @@ import {
 import { createFormGraph } from "~/domain";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 import { authenticator } from "~/auth.server";
+import LogoutMenu from "~/components/navigation/LogoutMenu";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
@@ -72,6 +73,12 @@ export default function Formular() {
             />
           )}
         </TopNavigation>
+      }
+      logoutMenu={
+        <LogoutMenu
+          containerClasses="flex flex-col items-center"
+          statusClasses="mb-8"
+        />
       }
     >
       <Main>

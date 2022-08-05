@@ -38,7 +38,10 @@ export default function TopNavigation(props: TopNavigationProps) {
           onClick={() => setIsOpen(!isOpen)}
           className="top-navigation__menu-button flex items-center gap-10 bg-gray-100 px-24 mb-2 text-blue-800 text-18 font-bold border-t-2 border-white"
         >
-          <MenuIcon className="top-navigation__menu-icon w-36 h-36" />
+          <MenuIcon
+            data-testid="top-navigation__menu-icon"
+            className="top-navigation__menu-icon w-36 h-36"
+          />
           <CloseIcon className="top-navigation__close-icon hidden w-36 h-36" />
           Menü
         </label>

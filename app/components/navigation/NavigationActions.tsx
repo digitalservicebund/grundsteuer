@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "@remix-run/react";
-import { LogoutButton } from "~/components";
 import EmailOutlinedIcon from "~/components/icons/mui/EmailOutlined";
 import NavigationLink from "./NavigationLink";
 import Lock from "~/components/icons/mui/Lock";
 import AddFile from "~/components/icons/mui/AddFile";
+import LogoutMenu from "~/components/navigation/LogoutMenu";
 
 export default function NavigationActions(props: {
   userIsIdentified?: boolean;
@@ -19,7 +19,7 @@ export default function NavigationActions(props: {
 
   return (
     <div className="px-8 mb-32">
-      <LogoutButton />
+      <LogoutMenu containerClasses="lg:hidden" statusClasses="mb-16" />
 
       {!props.userIsIdentified && (
         <NavigationLink

@@ -2,20 +2,25 @@ import { ReactNode } from "react";
 
 export interface LayoutProps {
   /**
-  The main content
-  */
+     The main content
+     */
   children: ReactNode;
   /**
-  The top navigation which is only visible on smaller screens
-  */
+     The top navigation which is only visible on smaller screens
+     */
   topNavigation: ReactNode;
   /**
-  The sidebar navigation which is only visible on larger screens
-  */
+     The sidebar navigation which is only visible on larger screens
+     */
   sidebarNavigation: ReactNode;
+
   /**
-  The footer
-  */
+   * The logout menu displayed only on larger screens
+   */
+  logoutMenu: ReactNode;
+  /**
+     The footer
+     */
   footer: ReactNode;
 }
 
@@ -23,6 +28,7 @@ const Layout = ({
   children,
   footer,
   sidebarNavigation,
+  logoutMenu,
   topNavigation,
 }: LayoutProps) => {
   return (
@@ -34,6 +40,9 @@ const Layout = ({
         <header className="flex-shrink-0 bg-white lg:hidden">
           {topNavigation}
         </header>
+        <div className="flex justify-end mr-48 hidden lg:flex">
+          {logoutMenu}
+        </div>
         <main className="flex-grow">{children}</main>
         <footer className="flex-shrink-0 pl-2">{footer}</footer>
       </div>
