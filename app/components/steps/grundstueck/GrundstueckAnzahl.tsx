@@ -2,6 +2,7 @@ import { ContentContainer, StepFormFields } from "~/components";
 import HelpGrundstueckAnzahl from "~/components/form/help/grundstueck/GrundstueckAnzahl";
 import House from "~/components/icons/mui/House";
 import Anzahl from "~/components/steps/Anzahl";
+import { calculateGroesse } from "~/erica/transformData";
 import { GRUNDSTUECK_ANZAHL_MAX } from "~/routes/formular/_anzahlAction";
 import { StepComponentFunction } from "~/routes/formular/_step";
 
@@ -32,14 +33,24 @@ const GrundstueckAnzahl: StepComponentFunction = ({
     increaseButtonLabel: "Grundstücksfläche hinzufügen",
     itemAttribute1Label: "Gemarkung",
     itemAttribute2Label: "Flurstück",
-    attributeLabels: ["Gemarkung", "Flurstück"],
+    attributeLabels: ["Flurstück", "Gesamtgröße"],
     attributes: [
-      allData.grundstueck?.flurstueck?.map(
-        (flurstueck) => flurstueck?.angaben?.gemarkung
+      allData.grundstueck?.flurstueck?.map((flurstueck) =>
+        [
+          flurstueck?.flur?.flurstueckZaehler,
+          flurstueck?.flur?.flurstueckNenner,
+        ]
+          .filter((s) => s)
+          .join(" / ")
       ),
-      allData.grundstueck?.flurstueck?.map(
-        (flurstueck) => flurstueck?.flur?.flurstueckZaehler
-      ),
+      allData.grundstueck?.flurstueck?.map((flurstueck) => {
+        if (!flurstueck?.groesse) return undefined;
+        try {
+          return `${calculateGroesse(flurstueck.groesse)} m²`;
+        } catch {
+          return undefined;
+        }
+      }),
     ],
     help: <HelpGrundstueckAnzahl />,
     labelIcon: <House />,
