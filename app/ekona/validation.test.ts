@@ -1,5 +1,9 @@
 import _ from "lodash";
-import { extractIdentData, ValidatedEkonaData } from "~/ekona/validation";
+import {
+  checkIssuer,
+  extractIdentData,
+  ValidatedEkonaData,
+} from "~/ekona/validation";
 
 const ekonaDataInland = {
   issuer: "https://e4k-portal.een.elster.de",
@@ -281,5 +285,27 @@ describe("extractIdentData", () => {
         }).toThrow();
       }
     );
+  });
+});
+
+describe("checkIssuer", () => {
+  it("it should throw no error if profile.issuer correct", () => {
+    checkIssuer(ekonaDataInland);
+  });
+
+  it("it should throw error if no profile.issuer", () => {
+    const copyOfEkonaDataInland = _.cloneDeep(ekonaDataInland);
+    delete (copyOfEkonaDataInland as any)["issuer"];
+    expect(() => {
+      checkIssuer(copyOfEkonaDataInland);
+    }).toThrow();
+  });
+
+  it("it should throw error if no profile.issuer not correct", () => {
+    const copyOfEkonaDataInland = _.cloneDeep(ekonaDataInland);
+    copyOfEkonaDataInland.issuer = "INCORRECT ISSUER";
+    expect(() => {
+      checkIssuer(copyOfEkonaDataInland);
+    }).toThrow();
   });
 });

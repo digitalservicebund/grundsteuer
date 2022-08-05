@@ -1,6 +1,7 @@
 import invariant from "tiny-invariant";
 
 export type ValidatedEkonaData = {
+  issuer: string;
   IdNr: string;
   Vorname?: string;
   Name: string;
@@ -13,6 +14,14 @@ export type ValidatedEkonaData = {
     Adressergaenzung?: { _: string }[];
   };
 };
+
+export const checkIssuer = (validatedData: Partial<ValidatedEkonaData>) => {
+  invariant(
+    validatedData.issuer == process.env.EKONA_ISSUER_URL,
+    "Validated ekona data needs to have correct issued"
+  );
+};
+
 export const extractIdentData = (validatedData: any) => {
   checkDataForAttributes(validatedData);
   return {
