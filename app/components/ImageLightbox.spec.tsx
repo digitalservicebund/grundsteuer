@@ -72,9 +72,9 @@ describe("ImageLightbox component", () => {
     );
   });
 
-  it("should focus button on tab", () => {
+  it("should focus button on tab", async () => {
     render(<ImageLightbox {...defaultProps} />);
-    userEvent.tab();
+    await userEvent.tab();
     expect(screen.getByTestId("enlarge-button")).toHaveFocus();
   });
 });
