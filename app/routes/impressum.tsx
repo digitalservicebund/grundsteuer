@@ -3,6 +3,8 @@ import { MetaFunction } from "@remix-run/node";
 import { BmfLogo, Button, SimplePageLayout } from "~/components";
 import ArrowBackIcon from "~/components/icons/mui/ArrowBack";
 import { pageTitle } from "~/util/pageTitle";
+import Hint from "~/components/Hint";
+import { Link } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Impressum") };
@@ -39,6 +41,23 @@ export default function Impressum() {
           <br />
           Deutschland
         </p>
+
+        <Hint>
+          Bitte schicken Sie uns per Post <strong>keine</strong> Anlagen „
+          <strong>Freischaltcode</strong> zum Datenabruf elektronischer
+          Bescheinigungen“. Stattdessen geben Sie den Freischaltcode bitte nach
+          der <Link to="/anmelden">erneuten Anmeldung</Link> unter
+          “Identifikation” ein.{" "}
+          <a
+            href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/7-freischaltcode"
+            rel="noopener"
+            target="_blank"
+          >
+            Hier
+          </a>{" "}
+          finden Sie mehr Informationen dazu.
+        </Hint>
+
         <p>
           Vertreten durch die Geschäftsführung: Frau Christina Lang, Herr
           Philipp Moeser
