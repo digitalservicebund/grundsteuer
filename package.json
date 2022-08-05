@@ -87,7 +87,7 @@
     "@remix-run/dev": "^1.6.7",
     "@remix-run/eslint-config": "^1.6.7",
     "@testing-library/dom": "^8.16.1",
-    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.2",
     "@types/bcryptjs": "^2.4.2",
