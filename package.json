@@ -54,7 +54,7 @@
     "bcryptjs": "^2.4.3",
     "classnames": "^2.3.1",
     "compression": "^1.7.4",
-    "copy-to-clipboard": "^3.3.1",
+    "copy-to-clipboard": "^3.3.2",
     "cross-env": "^7.0.3",
     "debug": "^4.3.4",
     "dotenv-safe": "^8.2.0",
