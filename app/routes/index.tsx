@@ -1,5 +1,4 @@
 import { LoaderFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
 import { useTranslation } from "react-i18next";
 import {
   ContentContainer,
@@ -11,7 +10,6 @@ import {
 } from "~/components";
 import germanyMapImage from "~/assets/images/germany-map.svg";
 import HomepageSharing from "~/components/HomepageSharing";
-import HomepageCrossPromo from "~/components/HomepageCrossPromo";
 import { HomepageHeader } from "~/components/navigation/HomepageHeader";
 
 export const loader: LoaderFunction = async () => {
@@ -112,11 +110,6 @@ export default function Index() {
           </div>
         </ContentContainer>
       </main>
-      <div className="flex-shrink-0 bg-blue-200 pt-32">
-        <ContentContainer>
-          <HomepageCrossPromo />
-        </ContentContainer>
-      </div>
       <Footer />
     </>
   );
