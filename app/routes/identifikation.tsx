@@ -65,9 +65,9 @@ export default function Identifikation() {
           image={ident1}
           imageAltText="Bildbeispiel der Oberfläche für ELSTER Zugang"
           heading="Identifikation mit ELSTER"
-          subheading="Empfohlen für Nutzer:innen mit einem Elster-Konto."
-          text="Identifizieren Sie sich mit den Zugangsdaten für Ihr Elster&#8209;Konto um die Grundsteuererklärung abzuschicken."
-          buttonLabel="Identifikation mit ELSTER Konto"
+          subheading="Empfohlen für Nutzer:innen mit einem ELSTER-Konto."
+          text="Identifizieren Sie sich mit den Zugangsdaten für Ihr ELSTER‑Konto, um die Grundsteuererklärung abzuschicken."
+          buttonLabel="Identifikation mit ELSTER-Konto"
           url="/ekona"
           className="mb-16"
         />
@@ -75,7 +75,7 @@ export default function Identifikation() {
           image={ident2}
           imageAltText="Bildbeispiel Freischaltcode"
           heading="Identifikation mit Brief"
-          subheading="Empfohlen für Nutzer:innen ohne Elster-Konto."
+          subheading="Empfohlen für Nutzer:innen ohne ELSTER-Konto."
           text="Sie erhalten einen Freischaltcode an Ihre Meldeadresse. Sie können die Erklärung ausfüllen und nach Erhalt des Codes abschicken."
           buttonLabel="Freischaltcode beantragen"
           url="/fsc"

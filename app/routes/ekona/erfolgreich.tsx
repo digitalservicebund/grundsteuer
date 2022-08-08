@@ -15,7 +15,7 @@ import { findUserByEmail } from "~/domain/user";
 import invariant from "tiny-invariant";
 
 export const meta: MetaFunction = () => {
-  return { title: pageTitle("Freischaltcode erfolgreich eingegeben") };
+  return { title: pageTitle("Erfolgreich identifiziert") };
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -63,7 +63,7 @@ export default function EkonaErfolgreich() {
         <Headline>Vielen Dank</Headline>
 
         <IntroText className="mb-80">
-          Wir konnten Sie anhand Ihrer ELSTER Zugangsdaten erfolgreich
+          Wir konnten Sie anhand Ihrer ELSTER-Zugangsdaten erfolgreich
           identifizieren. Sie können die Erklärung nun nach vollständiger
           Bearbeitung absenden.
         </IntroText>

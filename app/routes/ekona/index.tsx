@@ -57,7 +57,7 @@ export default function EkonaIndex() {
         <BreadcrumbNavigation />
         <Headline>Identifizieren Sie sich mit Ihrem ELSTER-Konto</Headline>
         <IntroText>
-          Sie können Ihre ELSTER Zugangsdaten nutzen, um sich für diesen
+          Sie können Ihre ELSTER-Zugangsdaten nutzen, um sich für diesen
           Online-Dienst eindeutig und sicher zu identifizieren. Nach der
           erfolgreichen Anmeldung werden Sie zurück zu unserem Online-Dienst
           geleitet und können Ihre Erklärung an das Finanzamt übermitteln.
@@ -83,7 +83,7 @@ export default function EkonaIndex() {
             imageAltText="Bildbeispiel der Oberfläche für ELSTER Zugang"
             number="1"
             heading="Link öffnen"
-            text="Klicken Sie auf die blaue Schaltfläche “Zur Identifikation mit ELSTER-Konto”. Es öffnet sich eine neue Seite. Wählen Sie unter den Optionen Ihre ELSTER Anmeldevariante aus: Elsterzertifikat, Personalausweis, Mobiles Login, Sicherheitsstick oder Signaturkarte."
+            text="Klicken Sie auf die blaue Schaltfläche “Zur Identifikation mit ELSTER-Konto”. Es öffnet sich eine neue Seite. Wählen Sie unter den Optionen Ihre ELSTER-Anmeldevariante aus: ELSTER-Zertifikatsdatei, Personalausweis, Mobiles Login, Sicherheitsstick oder Signaturkarte."
             className="mb-16"
           />
           <EnumeratedCard
