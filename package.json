@@ -61,7 +61,7 @@
     "express": "^4.18.1",
     "helmet": "^5.1.1",
     "i18next": "^21.8.16",
-    "i18next-fs-backend": "^1.1.4",
+    "i18next-fs-backend": "^1.1.5",
     "i18next-http-backend": "^1.4.1",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
