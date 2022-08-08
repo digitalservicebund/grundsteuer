@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "@remix-run/react";
 import FloatButton from "~/components/FloatButton";
-import LetterIcon from "~/components/icons/mui/LetterIcon";
 
 export default function Footer() {
   const { t } = useTranslation("all");
@@ -12,13 +11,12 @@ export default function Footer() {
         className="invisible md:visible"
         look="secondary"
         floatingBorderBottom={82}
-        icon={<LetterIcon />}
         href={
           "https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de"
         }
         target="_blank"
       >
-        Haben Sie Fragen?
+        Zum Hilfebereich
       </FloatButton>
       <div className="visible md:hidden p-32 bg-blue-200 text-16 flex flex-wrap md:flex md:justify-between md:items-center ">
         <div className="flex items-center">
