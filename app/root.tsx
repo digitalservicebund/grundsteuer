@@ -107,7 +107,7 @@ export function CatchBoundary() {
   return (
     <html lang="de">
       <head>
-        <title>{pageTitle("Ein unerwarteter Fehler ist aufgetreten")}</title>
+        <title>{pageTitle("Seite konnte nicht gefunden werden")}</title>
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Links />
       </head>
