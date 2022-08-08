@@ -126,7 +126,7 @@ export const loader: LoaderFunction = async ({
   const storedFormData = state.context;
   const machine = getMachine({
     formData: storedFormData,
-    testFeaturesEnabled,
+    testFeaturesEnabled: testFeaturesEnabled(),
   });
   const isFinalStep =
     machine.getStateNodeByPath(currentStateFromUrl).type == "final";
@@ -154,7 +154,7 @@ export const loader: LoaderFunction = async ({
       currentState: currentStateFromUrl,
       stepDefinition,
       csrfToken,
-      testFeaturesEnabled,
+      testFeaturesEnabled: testFeaturesEnabled(),
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -200,7 +200,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   const machine = getMachine({
     formData: formDataToBeStored,
-    testFeaturesEnabled,
+    testFeaturesEnabled: testFeaturesEnabled(),
   });
   const nextState = machine.transition(currentState, {
     type: "NEXT",

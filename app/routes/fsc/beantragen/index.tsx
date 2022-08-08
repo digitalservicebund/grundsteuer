@@ -211,7 +211,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
       showError: false,
       showSpinner: ericaRequestInProgress,
       csrfToken,
-      showNewIdent: testFeaturesEnabled,
+      showNewIdent: testFeaturesEnabled(userData.email),
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },

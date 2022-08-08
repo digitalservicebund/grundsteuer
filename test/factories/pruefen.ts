@@ -103,5 +103,5 @@ class PruefenFactory extends Factory<PruefenMachineContext> {
 }
 
 export const pruefenModelFactory = PruefenFactory.define(() => ({
-  testFeaturesEnabled,
+  testFeaturesEnabled: testFeaturesEnabled(),
 }));

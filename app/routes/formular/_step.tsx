@@ -146,7 +146,7 @@ export const loader: LoaderFunction = async ({
       redirectToSummary,
       isWeitereErklaerung,
       csrfToken,
-      testFeaturesEnabled,
+      testFeaturesEnabled: testFeaturesEnabled(),
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },

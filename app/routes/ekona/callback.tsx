@@ -63,15 +63,17 @@ const redirectIfUserInterruption = (validationError: any) => {
 };
 
 export const action: ActionFunction = async ({ request, context }) => {
-  if (!testFeaturesEnabled) {
-    throw new Response("Not Found", {
-      status: 404,
-    });
-  }
   const { clientIp } = context;
   const body = await request.formData();
   const ekonaSession = await getEkonaSession(request.headers.get("Cookie"));
   const userData = await getUserFromEkonaSession(ekonaSession);
+
+  if (!testFeaturesEnabled(userData.email)) {
+    throw new Response("Not Found", {
+      status: 404,
+    });
+  }
+
   let validatedResponse;
   try {
     validatedResponse = await validateSamlResponse(

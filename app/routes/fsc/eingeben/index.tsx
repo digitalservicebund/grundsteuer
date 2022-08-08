@@ -240,7 +240,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
       showSpinner:
         ericaActivationRequestIsInProgress ||
         ericaRevocationRequestIsInProgress,
-      showNewIdent: testFeaturesEnabled,
+      showNewIdent: testFeaturesEnabled(userData.email),
     },
     {
       headers: {

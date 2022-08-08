@@ -27,7 +27,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     failureRedirect: "/anmelden",
   });
 
-  if (!testFeaturesEnabled) {
+  if (!testFeaturesEnabled(sessionUser.email)) {
     return redirect("/fsc");
   }
 

@@ -22,7 +22,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
-  if (!testFeaturesEnabled) {
+  if (!testFeaturesEnabled(sessionUser.email)) {
     throw new Response("Not Found", {
       status: 404,
     });
