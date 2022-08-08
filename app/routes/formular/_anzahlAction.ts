@@ -107,5 +107,14 @@ export const action: ActionFunction = async (args) => {
     user,
   });
 
-  return redirect(`/${PREFIX}/${section}/anzahl`, { headers });
+  const redirectToSummary = new URL(request.url).searchParams.get(
+    "redirectToSummary"
+  );
+
+  return redirect(
+    `/${PREFIX}/${section}/anzahl${
+      redirectToSummary ? "?redirectToSummary=true" : ""
+    }`,
+    { headers }
+  );
 };
