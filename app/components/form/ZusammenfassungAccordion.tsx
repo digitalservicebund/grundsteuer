@@ -315,7 +315,7 @@ const resolveEmpfangsvollmacht: FieldResolver = (value) => {
 };
 
 const pathToStepUrl = (path: string): string => {
-  return `formular/${path.split(".").join("/")}`;
+  return `/formular/${path.split(".").join("/")}`;
 };
 
 const EnumerationFields = ({
