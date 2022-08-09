@@ -19,7 +19,10 @@ export default function NavigationActions(props: {
 
   return (
     <div className="px-8 mb-32">
-      <LogoutMenu containerClasses="lg:hidden" statusClasses="mb-16" />
+      <LogoutMenu
+        containerClasses="lg:hidden"
+        statusClasses="mb-16 rounded-t py-4"
+      />
 
       {!props.userIsIdentified && (
         <NavigationLink
