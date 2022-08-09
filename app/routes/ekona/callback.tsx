@@ -20,11 +20,13 @@ const AUTHN_FAILED_STATUS_CODE =
 const USER_INTERRUPTION_MESSAGE =
   "Die ELSTER-seitige Authentifizierung wurde durch den Benutzer abgebrochen.";
 
-const getUserFromEkonaSession = async (ekonaSession: Session) => {
-  invariant(
-    ekonaSession.get("userId"),
-    "Expected ekonaSession cookie to contain userId"
-  );
+const getUserFromEkonaSession = async (
+  ekonaSession: Session
+): Promise<User | null> => {
+  if (!ekonaSession || !ekonaSession.get("userId")) {
+    console.warn("Expected ekonaSession cookie containing userId");
+    return null;
+  }
   const userId = ekonaSession.get("userId");
   const user = await findUserById(userId);
   invariant(user, "Expected to find a user");
@@ -67,6 +69,9 @@ export const action: ActionFunction = async ({ request, context }) => {
   const body = await request.formData();
   const ekonaSession = await getEkonaSession(request.headers.get("Cookie"));
   const userData = await getUserFromEkonaSession(ekonaSession);
+  if (!userData) {
+    return redirect("/ekona");
+  }
 
   if (!testFeaturesEnabled(userData.email)) {
     throw new Response("Not Found", {
