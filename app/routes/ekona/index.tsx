@@ -40,6 +40,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json(
     {
       context: saml,
+      entryPoint: process.env.EKONA_ENTRY_POINT,
     },
     {
       headers: {
@@ -50,7 +51,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function EkonaIndex() {
-  const { context } = useLoaderData();
+  const { context, entryPoint } = useLoaderData();
   return (
     <>
       <ContentContainer size="sm" className="mb-80">
@@ -62,7 +63,7 @@ export default function EkonaIndex() {
           erfolgreichen Anmeldung werden Sie zurück zu unserem Online-Dienst
           geleitet und können Ihre Erklärung an das Finanzamt übermitteln.
         </IntroText>
-        <form method="post" action="https://e4k-portal.een.elster.de/ekona/sso">
+        <form method="post" action={entryPoint}>
           <input type="hidden" name="SAMLRequest" value={context} />
           <ButtonContainer>
             <Button data-testid="submit" type="submit">
