@@ -133,7 +133,7 @@ export default function Anmelden() {
           </ErrorBar>
         )}
 
-        <Headline>Herzlich Willkommen</Headline>
+        <Headline>Herzlich willkommen</Headline>
         <div className="mb-80">
           <SubHeadline>Ich bin das erste Mal hier</SubHeadline>
           <IntroText>
