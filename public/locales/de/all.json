@@ -1025,7 +1025,7 @@
         },
         "zusatzangaben": {
           "label": "Zusatzangaben (Optional)",
-          "placeholder": "Zum Beispiel: Hinterhaus, 2. Hinterhof etc."
+          "placeholder": "Zum Beispiel: Wohnung Nr. 78, Hinterhaus etc."
         },
         "plz": {
           "label": "Postleitzahl"
