@@ -76,7 +76,7 @@
     "remix-i18next": "^4.1.1",
     "sib-api-v3-sdk": "^8.4.0",
     "tiny-invariant": "^1.2.0",
-    "tsconfig-paths": "^4.0.0",
+    "tsconfig-paths": "^4.1.0",
     "uuid": "^8.3.2",
     "validator": "^13.7.0",
     "xstate": "^4.32.1"
