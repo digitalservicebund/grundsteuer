@@ -636,10 +636,8 @@ export default function FaqAccordion() {
       id: "elster-konto-vorhanden",
       content: (
         <p>
-          Aktuell können Personen mit einem ELSTER-Konto „Grundsteuererklärung
-          für Privateigentum“ aus technischen Gründen nicht nutzen. Wir
-          entwickeln unseren Service aber weiter. Ab spätestens September wird
-          die Nutzung mit dem ELSTER-Konto möglich sein.
+          Ja, sie können „Grundsteuererklärung für Privateigentum“ nutzen, wenn
+          Sie bereits ein ELSTER-Konto haben.
         </p>
       ),
     },
@@ -651,9 +649,7 @@ export default function FaqAccordion() {
           <p>
             Nein, Sie brauchen kein ELSTER-Konto, um den Service
             „Grundsteuererklärung für Privateigentum“ nutzen zu können. Wenn Sie
-            jedoch bereits ein ELSTER-Konto haben, können Sie vorerst unseren
-            Online-Dienst nicht nutzen. Die Nutzung mit dem ELSTER-Konto wird
-            bis spätestens September hinzugefügt.
+            bereits ein ELSTER-Konto haben, können Sie den Service auch nutzen.
           </p>
         </>
       ),
