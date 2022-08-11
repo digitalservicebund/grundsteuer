@@ -262,7 +262,8 @@ describe("states", () => {
 
     test("back back back with full data", () => {
       const path = getPath(statesForReverseTraversal, context);
-      expect(path).toEqual(expectedPath.reverse());
+      expectedPath.reverse();
+      expect(path).toEqual(expectedPath);
     });
   });
 });

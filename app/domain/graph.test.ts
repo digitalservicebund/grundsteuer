@@ -15,7 +15,7 @@ describe("createFormGraph", () => {
       const result = createFormGraph({ machineContext: {} });
       expect((result.eigentuemer as Graph).person).toHaveLength(1);
       expect(
-        (((result.eigentuemer as Graph).person as Graph[])[0] as Graph).adresse
+        ((result.eigentuemer as Graph).person as Graph[])[0].adresse
       ).toEqual({
         data: undefined,
         path: "eigentuemer.person.adresse",
