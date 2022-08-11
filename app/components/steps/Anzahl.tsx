@@ -1,5 +1,5 @@
 import { useTransition } from "@remix-run/react";
-import { ReactNode } from "react";
+import { Fragment, ReactNode } from "react";
 import { Button, ContentContainer, SectionLabel } from "~/components";
 import Help from "~/components/form/help/Help";
 import DeleteIcon from "~/components/icons/mui/DeleteOutline";
@@ -12,8 +12,7 @@ const Anzahl = (props: {
   itemLabelTemplate: string;
   itemEditPathTemplate: string;
   increaseButtonLabel: string;
-  attributeLabels: string[];
-  attributes: ((string | undefined)[] | undefined)[];
+  attributes: { label: string; values?: (string | undefined)[] }[];
   help: ReactNode;
   labelIcon: ReactNode;
 }) => {
@@ -38,21 +37,18 @@ const Anzahl = (props: {
             {props.itemLabelTemplate.replace("[ID]", id.toString())}
           </SectionLabel>
           <dl className="mb-24">
-            {[...Array(props.attributeLabels.length).keys()].map(
-              (attributeIndex) => {
-                return (
-                  <>
-                    <dt className="block uppercase tracking-1 text-11 leading-16 font-bold mb-4">
-                      {props.attributeLabels[attributeIndex]}
-                    </dt>
-                    <dd className="block text-18 mb-16">
-                      {props.attributes?.[attributeIndex]?.[index] ||
-                        "noch nicht ausgefüllt"}
-                    </dd>
-                  </>
-                );
-              }
-            )}
+            {Object.entries(props.attributes).map(([key, attribute]) => {
+              return (
+                <Fragment key={key}>
+                  <dt className="block uppercase tracking-1 text-11 leading-16 font-bold mb-4">
+                    {attribute.label}
+                  </dt>
+                  <dd className="block text-18 mb-16">
+                    {attribute.values?.[index] || "noch nicht ausgefüllt"}
+                  </dd>
+                </Fragment>
+              );
+            })}
           </dl>
           <div className="flex gap-24">
             <Button

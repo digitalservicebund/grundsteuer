@@ -31,26 +31,29 @@ const GrundstueckAnzahl: StepComponentFunction = ({
     itemLabelTemplate: "Grundstücksfläche [ID]",
     itemEditPathTemplate: "/formular/grundstueck/flurstueck/[ID]/angaben",
     increaseButtonLabel: "Grundstücksfläche hinzufügen",
-    itemAttribute1Label: "Gemarkung",
-    itemAttribute2Label: "Flurstück",
-    attributeLabels: ["Flurstück", "Gesamtgröße"],
     attributes: [
-      allData.grundstueck?.flurstueck?.map((flurstueck) =>
-        [
-          flurstueck?.flur?.flurstueckZaehler,
-          flurstueck?.flur?.flurstueckNenner,
-        ]
-          .filter((s) => s)
-          .join(" / ")
-      ),
-      allData.grundstueck?.flurstueck?.map((flurstueck) => {
-        if (!flurstueck?.groesse) return undefined;
-        try {
-          return `${calculateGroesse(flurstueck.groesse)} m²`;
-        } catch {
-          return undefined;
-        }
-      }),
+      {
+        label: "Flurstück",
+        values: allData.grundstueck?.flurstueck?.map((flurstueck) =>
+          [
+            flurstueck?.flur?.flurstueckZaehler,
+            flurstueck?.flur?.flurstueckNenner,
+          ]
+            .filter((s) => s)
+            .join(" / ")
+        ),
+      },
+      {
+        label: "Gesamtgröße",
+        values: allData.grundstueck?.flurstueck?.map((flurstueck) => {
+          if (!flurstueck?.groesse) return undefined;
+          try {
+            return `${calculateGroesse(flurstueck.groesse)} m²`;
+          } catch {
+            return undefined;
+          }
+        }),
+      },
     ],
     help: <HelpGrundstueckAnzahl />,
     labelIcon: <House />,
