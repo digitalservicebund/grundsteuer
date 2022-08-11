@@ -69,10 +69,6 @@ export type GaragenFields = {
     | "keiner";
 };
 
-export type ElsterFields = {
-  elster: "true" | "false";
-};
-
 export type PruefenModel = {
   start?: AbgeberFields;
   eigentuemerTyp?: EigentuemerTypFields;
@@ -82,5 +78,4 @@ export type PruefenModel = {
   fremderBoden?: FremderBodenFields;
   beguenstigung?: BeguenstigungFields;
   garagen?: GaragenFields;
-  elster?: ElsterFields;
 };

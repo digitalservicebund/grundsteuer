@@ -13,12 +13,6 @@ const getSpaeterReason = (allData: PruefenModel, i18n: I18nObject) => {
       reasonParagraph2: i18n.specifics.garagenParagraph2,
       emailSubject: i18n.specifics.garagenEmailSubject,
     };
-  if (!pruefenConditions.hasNoElster(allData))
-    return {
-      reasonParagraph1: i18n.specifics.elsterParagraph1,
-      reasonParagraph2: i18n.specifics.elsterParagraph2,
-      emailSubject: i18n.specifics.elsterEmailSubject,
-    };
   return { reasonParagraph1: i18n.specifics.explanationFallback };
 };
 

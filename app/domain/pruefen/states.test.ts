@@ -195,32 +195,6 @@ describe("states", () => {
           "keineNutzung",
         ],
       },
-      {
-        description: "with elster account",
-        context: pruefenModelFactory
-          .abgeber({ abgeber: "eigentuemer" })
-          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
-          .bundesland({ bundesland: "BE" })
-          .grundstueckArt({ grundstueckArt: "unbebaut" })
-          .ausland({ ausland: "false" })
-          .fremderBoden({ fremderBoden: "false" })
-          .beguenstigung({ beguenstigung: "false" })
-          .garagen({ garagen: "keiner" })
-          .elster({ elster: "true" })
-          .build(),
-        expectedPath: [
-          "start",
-          "eigentuemerTyp",
-          "bundesland",
-          "grundstueckArt",
-          "ausland",
-          "fremderBoden",
-          "beguenstigung",
-          "garagen",
-          "elster",
-          "spaeterNutzung",
-        ],
-      },
     ];
 
     test.each(cases)(
@@ -251,7 +225,6 @@ describe("states", () => {
       "fremderBoden",
       "beguenstigung",
       "garagen",
-      "elster",
       "nutzung",
     ];
 

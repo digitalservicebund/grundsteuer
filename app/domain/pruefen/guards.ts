@@ -89,10 +89,6 @@ const isLaterGarage: PruefenCondition = (context) => {
   );
 };
 
-const hasNoElster: PruefenCondition = (context) => {
-  return context?.elster?.elster == "false";
-};
-
 export const pruefenConditions: PruefenConditions = {
   isPrivatperson,
   isEigentuemer,
@@ -103,5 +99,4 @@ export const pruefenConditions: PruefenConditions = {
   isNotBeguenstigung,
   isEligibleGarage,
   isLaterGarage,
-  hasNoElster,
 };

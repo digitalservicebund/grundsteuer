@@ -10,7 +10,6 @@ describe("guards", () => {
     { guard: pruefenConditions.isNotFremderBoden },
     { guard: pruefenConditions.isNotBeguenstigung },
     { guard: pruefenConditions.isEligibleGarage },
-    { guard: pruefenConditions.hasNoElster },
   ];
 
   test.each(cases)(

@@ -5,7 +5,6 @@ import {
   BeguenstigungFields,
   BundeslandFields,
   EigentuemerTypFields,
-  ElsterFields,
   FremderBodenFields,
   GaragenFields,
   GrundstueckArtFields,
@@ -78,14 +77,6 @@ class PruefenFactory extends Factory<PruefenMachineContext> {
     });
   }
 
-  elster(fields?: Partial<ElsterFields>) {
-    return this.params({
-      elster: {
-        elster: fields?.elster,
-      },
-    });
-  }
-
   full() {
     return this.params(
       this.abgeber({ abgeber: "eigentuemer" })
@@ -96,7 +87,6 @@ class PruefenFactory extends Factory<PruefenMachineContext> {
         .fremderBoden({ fremderBoden: "false" })
         .beguenstigung({ beguenstigung: "false" })
         .garagen({ garagen: "wohnung" })
-        .elster({ elster: "false" })
         .build()
     );
   }
