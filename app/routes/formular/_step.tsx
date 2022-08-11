@@ -76,6 +76,7 @@ export type LoaderData = {
   currentStateWithoutId: string;
   currentState?: string;
   stepDefinition: StepDefinition;
+  isWeitereErklaerung?: boolean;
   redirectToSummary?: boolean;
   csrfToken?: string;
   testFeaturesEnabled?: boolean;
@@ -222,8 +223,8 @@ export type StepComponentFunction = (
 ) => JSX.Element;
 
 export function Step() {
-  const loaderData = useLoaderData();
-  const actionData = useActionData() as ActionData;
+  const loaderData: LoaderData = useLoaderData();
+  const actionData: ActionData = useActionData() as ActionData;
   const transition = useTransition();
   const isSubmitting = Boolean(transition.submission);
   const {
@@ -247,10 +248,12 @@ export function Step() {
       : i18n.common.continue;
   }
   const fields = loaderData.stepDefinition?.fields;
+  const firstFieldDefinition = fields[Object.keys(fields)[0]];
   const headlineIsLegend =
     fields &&
     Object.keys(fields).length === 1 &&
-    fields[Object.keys(fields)[0]].type === "radio";
+    "type" in firstFieldDefinition &&
+    firstFieldDefinition.type === "radio";
 
   return (
     <>
