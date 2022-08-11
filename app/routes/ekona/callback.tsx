@@ -5,7 +5,12 @@ import {
   getEkonaSession,
 } from "~/ekona/ekonaCookie.server";
 import { extractIdentData } from "~/ekona/validation";
-import { findUserById, setUserIdentified, User } from "~/domain/user";
+import {
+  deleteFscRequest,
+  findUserById,
+  setUserIdentified,
+  User,
+} from "~/domain/user";
 import invariant from "tiny-invariant";
 import {
   AuditLogEvent,
@@ -36,6 +41,7 @@ const getUserFromEkonaSession = async (
 const revokeOutstandingFSCRequests = async (user: User) => {
   if (user.fscRequest) {
     await revokeFscForUser(user);
+    await deleteFscRequest(user.email, user.fscRequest.requestId);
   }
 };
 

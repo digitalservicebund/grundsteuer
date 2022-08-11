@@ -285,6 +285,7 @@ describe("Action", () => {
         "revokeFreischaltCode",
         { location: "007" }
       );
+      getMockedFunction(userModule, "deleteFscRequest", {});
     });
 
     afterAll(() => {
