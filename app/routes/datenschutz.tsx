@@ -123,9 +123,38 @@ export default function Datenschutz() {
         <p>
           Um Sie zu registrieren und anzumelden, nutzen wir Ihre Email-Adresse.
         </p>
+        <p>Für die Identifizierung bieten wir zwei Optionen an:</p>
+        <ul>
+          <li>Identifizierung mit Freischaltcode</li>
+        </ul>
         <p>
-          Um Sie zu identifizieren, nutzen wir Ihre steuerliche
-          Identifikationsnummer und Ihr Geburtsdatum.
+          Durch die Eingabe Ihrer steuerlichen Identifikationsnummer und Ihres
+          Geburtsdatums erhalten Sie postalisch einen Freischaltcode, den Sie
+          für die Identifizierung verwenden.
+        </p>
+        <ul>
+          <li>Identifizierung mit ELSTER-Konto</li>
+        </ul>
+        <p>
+          Die Identifizierung mit Hilfe Ihres ELSTER-Kontos wird über eine
+          technische Schnittstelle (EKONA) realisiert. Sie werden direkt auf die
+          Webseite von ELSTER (
+          <a
+            href="https://www.elster.de/ekona/login/softpse"
+            target="_blank"
+            className="underline text-blue-800"
+          >
+            https://www.elster.de/ekona/login/softpse
+          </a>
+          ) weitergeleitet, auf der Sie sich mit Ihrem ELSTER-Konto einloggen
+          können. Sie können dort direkt mittels Ihres ELSTER-Zertifikat und
+          Passwort bzw. über die von ELSTER vorgesehene Login-Möglichkeit
+          (Sicherheitsstick, Personalausweis, Signaturkarte etc.) sich
+          authentifizieren. Nach erfolgter Authentifizierung erhält
+          DigitalService Name, Vorname, Geburtsdatum, Steuer-ID, Anschrift,
+          Geburtsort, Geburtsland, akad. Grad) für den weiteren
+          Registrierungsprozess auf dieser Webseite. Der DigitalService
+          speichert in den AuditLogs Name, Vorname, Steuer-ID und Anschrift.
         </p>
         <p>
           Sollten Sie eine Grundsteuererklärung über den Steuerlotsen
