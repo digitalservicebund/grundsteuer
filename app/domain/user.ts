@@ -146,10 +146,23 @@ export const deleteEricaRequestIdSenden = async (email: string) => {
 };
 
 export const setUserIdentified = async (email: string, identified: boolean) => {
-  return db.user.update({
-    where: { email: email },
-    data: { identified: identified },
-  });
+  if (identified) {
+    return db.user.update({
+      where: { email: email },
+      data: {
+        identified: identified,
+        identifiedAt: new Date(),
+      },
+    });
+  } else {
+    return db.user.update({
+      where: { email: email },
+      data: {
+        identified: identified,
+        identifiedAt: null,
+      },
+    });
+  }
 };
 
 export const saveTransferticket = async (

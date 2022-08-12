@@ -540,8 +540,18 @@ describe("user", () => {
   };
 
   describe("setUserIdentified", () => {
-    beforeEach(unsetEricaRequestIdentified);
-    afterEach(unsetEricaRequestIdentified);
+    let dateMock: jest.SpyInstance;
+    const mockDate = new Date();
+    beforeEach(() => {
+      unsetEricaRequestIdentified();
+      dateMock = jest
+        .spyOn(global, "Date")
+        .mockImplementation(() => mockDate as unknown as string);
+    });
+    afterEach(() => {
+      unsetEricaRequestIdentified();
+      dateMock.mockRestore();
+    });
 
     it("should set identified attribute to true if true given as value", async () => {
       await setUserIdentified("existing@foo.com", true);
@@ -552,6 +562,14 @@ describe("user", () => {
       expect(user?.identified).toEqual(true);
     });
 
+    it("should set identifiedAt attribute to now if true given as value", async () => {
+      await setUserIdentified("existing@foo.com", true);
+
+      const user = await findUserByEmail("existing@foo.com");
+      expect(user).toBeTruthy();
+      expect(user?.identifiedAt).toEqual(mockDate);
+    });
+
     it("should set identified attribute to false if false given as value", async () => {
       await setUserIdentified("existing@foo.com", false);
 
@@ -559,6 +577,14 @@ describe("user", () => {
 
       expect(user).toBeTruthy();
       expect(user?.identified).toEqual(false);
+    });
+
+    it("should unset identifiedAt attribute if false given as value", async () => {
+      await setUserIdentified("existing@foo.com", false);
+
+      const user = await findUserByEmail("existing@foo.com");
+      expect(user).toBeTruthy();
+      expect(user?.identifiedAt).toBeNull();
     });
 
     it("should fail on unknown user", async () => {
