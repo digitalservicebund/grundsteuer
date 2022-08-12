@@ -34,7 +34,7 @@ export default function Nutzungsbedingungen() {
         {t("termsOfUse.headline")}
       </h1>
       <ContentContainer size="md">
-        <p className="mb-32">Stand: 01.07.2022</p>
+        <p className="mb-32">Stand: 15.08.2022</p>
         <h2 className="text-24 mb-24 font-bold">Präambel</h2>
         <p>
           Die Software Steuerlotse ist eine webbasierte Anwendung („Anwendung“),
@@ -108,7 +108,7 @@ export default function Nutzungsbedingungen() {
             <strong>Eigentumsverhältnisse</strong>: Das zu erklärende Grundstück
             ist ein Alleineigentum einer natürlichen Person, Eigentum von
             Ehegatten / Lebenspartnern, Eigentum einer Bruchteilsgemeinschaft.
-            Die Anzahl der Eigentümer:innen ist auf 5 begrenzt. Wenn das zu
+            Die Anzahl der Eigentümer:innen ist auf 10 begrenzt. Wenn das zu
             erklärende Grundstück im Allein- oder Miteigentum einer Körperschaft
             der öffentlichen Rechts, einer unternehmerisch tätigen juristischen
             Person, einer nicht unternehmerisch tätigen juristischen Person,
@@ -119,12 +119,11 @@ export default function Nutzungsbedingungen() {
           </li>
           <li>
             <strong>Absender:in der Erklärung</strong>: Die Grundsteuererklärung
-            wird von einer Privatperson ohne ELSTER-Konto, die in Deutschland
-            wohnt, abgegeben. Personen mit ELSTER-Konto, Personen ausschließlich
-            mit Wohnsitz im Ausland sowie Hausverwaltungen, Steuerberater:in,
-            Rechtsanwält:innen (Bevollmächtigte im Sinne des § 80 der
-            Abgabenordnung) können die Grundsteuererklärung mit unserer
-            Anwendung nicht abgeben.
+            wird von einer Privatperson, die in Deutschland wohnt, abgegeben.
+            Personen ausschließlich mit Wohnsitz im Ausland sowie
+            Hausverwaltungen, Steuerberater:in, Rechtsanwält:innen
+            (Bevollmächtigte im Sinne des § 80 der Abgabenordnung) können die
+            Grundsteuererklärung mit unserer Anwendung nicht abgeben.
           </li>
           <li>
             <strong>Bundesland</strong>: Das zu erklärende Grundstück liegt in
@@ -146,15 +145,16 @@ export default function Nutzungsbedingungen() {
             Anwendung nicht abgegeben werden.
           </li>
           <li>
-            <strong>Garagen</strong>: Das zu erklärende Grundstück hat entweder
-            keinen Garagenstellplatz oder ein oder mehrere Garagenstellplätze
-            auf demselben Grundstück, auf dem das Gebäude steht. Wenn eine
-            Garage oder ein Garagenstellplatz im Freien auf einem anderen
-            Grundstück liegt, das ggf. mit weiteren Eigentümer:innen geteilt
-            wird (Miteigentum), aber mit dem erklärten Grundstück gemeinsam
-            genutzt wird oder es sich um eine Tiefgarage zu einem
-            Wohnungseigentum handelt, kann die Grundsteuererklärung mit unserer
-            Anwendung nicht abgegeben werden.
+            <strong>Miteigentumsanteile</strong>: Eigentumswohnungen haben immer
+            Miteigentumsanteile am Grundstück und sind von diesem Service
+            abgedeckt. Andere Formen von Miteigentum (Feld “Zur wirschaftlichen
+            Einheit gehörender Anteil: Zähler” und “Zur wirschaftlichen Einheit
+            gehörender Anteil: Nenner”) wie Eigentumswohnungen mit
+            Autostellplätzen, Teile von Privatwegen, Teile von Gärten, Teile von
+            Garagenhöfen oder Parkplätzen, Teile von Spielplätzen, Teile von
+            Bootsstegen sind von diesem Service nicht abgebildet. Wichtig: Dabei
+            geht es nicht um die Anteile einzelner Eigentümer:innen an dem
+            Grundvermögen wie beispielsweise 1/2 bei Ehepaaren.
           </li>
           <li>
             <strong>Gebäude auf fremdem Grund und Boden / Erbbaurecht</strong>:
@@ -172,8 +172,8 @@ export default function Nutzungsbedingungen() {
           </li>
           <li>
             <strong>Anzahl der Flurstücke</strong>: Das zu erklärende Grundstück
-            besteht aus 10 oder weniger Flurstücken. Wenn das zu erklärende
-            Grundstück aus mehr als 10 Flurstücken besteht, kann die
+            besteht aus 20 oder weniger Flurstücken. Wenn das zu erklärende
+            Grundstück aus mehr als 20 Flurstücken besteht, kann die
             Grundsteuererklärung mit unserer Anwendung nicht abgegeben werden.
           </li>
         </ul>
@@ -239,25 +239,55 @@ export default function Nutzungsbedingungen() {
           in deutscher Sprache zur Verfügung.
         </p>
         <h4 className="text-gray-800 mb-8">(3) Identifizieren</h4>
-        <p>
+        <p className="mb-8">
           Um Ihre Grundsteuererklärung an die Finanzverwaltung abschicken zu
           können, müssen wir Ihre Identität für die Finanzverwaltung feststellen
-          (§87d der Abgabenordnung).
+          (§87d der Abgabenordnung). Ohne Identifizierung ist keine Übermittlung
+          der Grundsteuererklärung an die Finanzverwaltung möglich. Die
+          Identifizierung ist jederzeit möglich: am Anfang des Prozesses, am
+          Ende des Prozesses oder auch zwischendurch.
         </p>
-        <p>
-          Zur Identifizierung benötigen wir Ihr Geburtsdatum und Ihre
-          Steueridentifikationsnummer. Diese geben Sie in den entsprechenden
-          Eingabefeldern ein. Die Identifizierung ist jederzeit möglich: am
-          Anfang des Prozesses, am Ende des Prozesses oder auch zwischendurch.
-          Mit erfolgter Bestätigung verschicken wir für Sie elektronisch einen
-          Antrag an die Finanzverwaltung. Die Finanzverwaltung schickt Ihnen per
-          Brief an Ihre Meldeadresse Ihren so genannten Freischaltcode innerhalb
-          von zwei Wochen zu. Diesen müssen Sie in unserer Anwendung angeben.
-        </p>
+        <p className="mb-16">Es gibt zwei Identifizierungsmöglichkeiten:</p>
+        <ul className="list-disc ml-24 mb-8">
+          <li>Identifizierung per Brief (Freischaltcode)</li>
+        </ul>
         <p className="mb-16">
-          Der Nutzende gilt nur dann als identifiziert, wenn sie / er den
-          Freischaltcode eingegeben hat. Ohne Identifizierung ist keine
-          Übermittlung der Grundsteuererklärung an die Finanzverwaltung möglich.
+          Zur Identifizierung mit dem Freischaltcode benötigen wir Ihr
+          Geburtsdatum und Ihre Steueridentifikationsnummer. Diese geben Sie in
+          den entsprechenden Eingabefeldern ein. Mit erfolgter Bestätigung
+          verschicken wir für Sie elektronisch einen Antrag an die
+          Finanzverwaltung. Die Finanzverwaltung schickt Ihnen per Brief an Ihre
+          Meldeadresse Ihren so genannten Freischaltcode innerhalb von zwei
+          Wochen zu. Diesen müssen Sie in unserer Anwendung angeben. Der
+          Nutzende gilt nur dann als identifiziert, wenn sie / er den
+          Freischaltcode eingegeben hat.
+        </p>
+        <ul className="list-disc ml-24 mb-8">
+          <li>Identifizierung mit dem ELSTER-Konto</li>
+        </ul>
+        <p className="mb-16">
+          Die Identifizierung mit dem ELSTER-Konto wird über die
+          EKONA-Schnittstelle (SAML 2.0) realisiert. Der Nutzende landet auf der
+          Webseite von ELSTER (
+          <a
+            href="https://www.elster.de/ekona/login/softpse"
+            target="_blank"
+            className="underline text-blue-800"
+          >
+            https://www.elster.de/ekona/login/softpse
+          </a>
+          ), auf der er sich in sein ELSTER-Konto einloggen kann. Er lädt sein
+          ELSTER-Zertifikat hoch und gibt sein entsprechendes ELSTER-Passwort
+          ein oder wählt eine andere von ELSTER vorgesehene Login-Möglichkeit
+          aus (Sicherheitsstick, Personalausweis, Signaturkarte etc.). Dem
+          Nutzenden werden die Daten angezeigt, die der DigitalService bekommt
+          (Name, Vorname, Geburtsdatum, Steuer-ID, Anschrift, Geburtsort,
+          Geburtsland, akad. Grad). Nach erfolgter Authentifizierung auf der
+          Webseite von ELSTER bestätigt der Nutzende die Datenweitergabe an den
+          DigitalService. Der DigitalService speichert in den AuditLogs Name,
+          Vorname, Steuer-ID und Anschrift. So ist der Nutzende identifiziert
+          und er wird zurück auf die Seite “Grundsteuererklärung für
+          Privateigentum” weitergeleitet.
         </p>
         <h4 className="text-gray-800 mb-8">
           (4) Ausfüllen und Abgeben der Grundsteuererklärung
@@ -325,13 +355,9 @@ export default function Nutzungsbedingungen() {
             registriert / angemeldet.
           </li>
           <li>
-            Wir identifizieren Nutzer:innen, indem wir anhand ihrer
-            Steueridentifikationsnummer und Ihres Geburtsdatums einen
-            Freischaltcode beantragen. Dieser wird durch das jeweils zuständige
-            Finanzamt an die mit der Steuerlichen Identifikationsnummer
-            assoziierte Meldeadresse verschickt. Sobald die Nutzer:innen den
-            Freischaltcode auf unserer Webseite eingegeben haben, sind sie
-            identifiziert.
+            Wir identifizieren Nutzer:innen über eine der zwei möglichen
+            Identifikationsoptionen: per Brief (Freischaltcode) oder mit dem
+            ELSTER-Zertifikat.
           </li>
           <li>
             Zum Zwecke der Erstellung und Übermittlung ihrer
