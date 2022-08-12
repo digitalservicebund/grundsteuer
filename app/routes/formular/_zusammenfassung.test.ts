@@ -169,7 +169,7 @@ describe("/zusammenfassung loader", () => {
           transferticket: "transfer complete",
           pdf: "PDF",
         });
-        getMockedFunction(userModule, "savePdf", {});
+        getMockedFunction(userModule, "saveDeclaration", {});
       });
 
       it("should remove ericaRequestId and save pdf + transferticket", async () => {
@@ -177,11 +177,7 @@ describe("/zusammenfassung loader", () => {
           userModule,
           "deleteEricaRequestIdSenden"
         );
-        const spyOnSavePdf = jest.spyOn(userModule, "savePdf");
-        const spyOnSaveTransferticket = jest.spyOn(
-          userModule,
-          "saveTransferticket"
-        );
+        const spyOnSaveDeclaration = jest.spyOn(userModule, "saveDeclaration");
 
         await loader(
           await getLoaderArgsWithAuthenticatedSession(
@@ -193,13 +189,10 @@ describe("/zusammenfassung loader", () => {
         expect(spyOnDeleteEricaRequestIdSenden).toHaveBeenCalledWith(
           "existing_user@foo.com"
         );
-        expect(spyOnSavePdf).toHaveBeenCalledWith(
+        expect(spyOnSaveDeclaration).toHaveBeenCalledWith(
           "existing_user@foo.com",
+          "transfer complete",
           "PDF"
-        );
-        expect(spyOnSaveTransferticket).toHaveBeenCalledWith(
-          "existing_user@foo.com",
-          "transfer complete"
         );
       });
 

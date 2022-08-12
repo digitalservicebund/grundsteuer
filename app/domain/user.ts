@@ -165,24 +165,11 @@ export const setUserIdentified = async (email: string, identified: boolean) => {
   }
 };
 
-export const saveTransferticket = async (
+export const saveDeclaration = async (
   email: string,
-  transferticket: string
+  transferticket: string,
+  pdf: string
 ) => {
-  return db.user.update({
-    where: { email: email },
-    data: { transferticket: transferticket },
-  });
-};
-
-export const deleteTransferticket = async (email: string) => {
-  return db.user.update({
-    where: { email: email },
-    data: { transferticket: null },
-  });
-};
-
-export const savePdf = async (email: string, pdf: string) => {
   const pdfBuffer = Buffer.from(pdf, "base64");
   const user = await findUserByEmail(email);
   if (user?.pdf) {
@@ -191,12 +178,20 @@ export const savePdf = async (email: string, pdf: string) => {
   return db.user.update({
     where: { email: email },
     data: {
+      transferticket: transferticket,
       pdf: {
         create: {
           data: pdfBuffer,
         },
       },
     },
+  });
+};
+
+export const deleteTransferticket = async (email: string) => {
+  return db.user.update({
+    where: { email: email },
+    data: { transferticket: null },
   });
 };
 

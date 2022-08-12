@@ -23,9 +23,10 @@ describe("Download transferticket", () => {
   describe("Transferticket set for logged-in user", () => {
     beforeEach(() => {
       cy.login();
-      cy.task("setUserTransferticket", {
+      cy.task("setDeclarationMetadata", {
         userEmail: "foo@bar.com",
         transferticket: "Test-TransferTicket",
+        pdf: "pdf",
       });
     });
 

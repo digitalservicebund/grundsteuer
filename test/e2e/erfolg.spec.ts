@@ -43,13 +43,10 @@ describe("/formular/erfolg page", () => {
 
     describe("pdf and transferticket set for logged-in user", () => {
       beforeEach(() => {
-        cy.task("setUserPdf", {
-          userEmail: "foo@bar.com",
-          pdf: "Test-PDF-Content",
-        });
-        cy.task("setUserTransferticket", {
+        cy.task("setDeclarationMetadata", {
           userEmail: "foo@bar.com",
           transferticket: "Test-Transferticket",
+          pdf: "Test-PDF-Content",
         });
       });
 

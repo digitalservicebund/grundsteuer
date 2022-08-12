@@ -45,9 +45,8 @@ import { transformDataToEricaFormat } from "~/erica/transformData";
 import {
   deleteEricaRequestIdSenden,
   findUserByEmail,
+  saveDeclaration,
   saveEricaRequestIdSenden,
-  savePdf,
-  saveTransferticket,
   setUserInDeclarationProcess,
   User,
 } from "~/domain/user";
@@ -176,11 +175,11 @@ export const loader: LoaderFunction = async ({
     if (successResponseOrErrors) {
       if ("pdf" in successResponseOrErrors) {
         await deleteEricaRequestIdSenden(user.email);
-        await saveTransferticket(
+        await saveDeclaration(
           user.email,
-          successResponseOrErrors.transferticket
+          successResponseOrErrors.transferticket,
+          successResponseOrErrors.pdf
         );
-        await savePdf(user.email, successResponseOrErrors.pdf);
         await saveAuditLog({
           eventName: AuditLogEvent.TAX_DECLARATION_SENT,
           timestamp: Date.now(),

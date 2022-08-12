@@ -18,12 +18,11 @@ import {
   deleteEricaRequestIdFscStornieren,
   deletePdf,
   deleteTransferticket,
+  saveDeclaration,
   saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscBeantragen,
   saveEricaRequestIdFscStornieren,
   saveFscRequest,
-  savePdf,
-  saveTransferticket,
   setUserIdentified,
   setUserInDeclarationProcess,
 } from "../../app/domain/user";
@@ -83,23 +82,18 @@ export default (on, config) => {
       return null;
     },
 
-    setUserTransferticket: async ({ userEmail, transferticket }) => {
-      await saveTransferticket(userEmail, transferticket);
-      return null;
-    },
-
     dbRemoveUserTransferticket: async ({ userEmail }) => {
       await deleteTransferticket(userEmail);
       return null;
     },
 
-    setUserPdf: async ({ userEmail, pdf }) => {
-      await savePdf(userEmail, pdf);
+    dbRemoveUserPdf: async ({ userEmail }) => {
+      await deletePdf(userEmail);
       return null;
     },
 
-    dbRemoveUserPdf: async ({ userEmail }) => {
-      await deletePdf(userEmail);
+    setDeclarationMetadata: async ({ userEmail, transferticket, pdf }) => {
+      await saveDeclaration(userEmail, transferticket, pdf);
       return null;
     },
 

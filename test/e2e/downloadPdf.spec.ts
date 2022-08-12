@@ -23,8 +23,9 @@ describe("Download pdf", () => {
   describe("pdf set for logged-in user", () => {
     beforeEach(() => {
       cy.login();
-      cy.task("setUserPdf", {
+      cy.task("setDeclarationMetadata", {
         userEmail: "foo@bar.com",
+        transferticket: "transferticket",
         pdf: "Test-PDF-Content",
       });
     });

@@ -10,13 +10,12 @@ import {
   deleteTransferticket,
   findUserByEmail,
   findUserById,
+  saveDeclaration,
   saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscBeantragen,
   saveEricaRequestIdFscStornieren,
   saveEricaRequestIdSenden,
   saveFscRequest,
-  savePdf,
-  saveTransferticket,
   setUserIdentified,
   setUserInDeclarationProcess,
   userExists,
@@ -600,14 +599,26 @@ describe("user", () => {
       data: { transferticket: undefined },
     });
   };
+  const unsetPdf = () => {
+    db.user.update({
+      where: { email: "existing@foo.com" },
+      data: { pdf: undefined },
+    });
+  };
 
-  describe("saveTransferticket", () => {
-    beforeEach(unsetTransferticket);
-    afterEach(unsetTransferticket);
+  describe("saveDeclaration", () => {
+    beforeEach(() => {
+      unsetTransferticket();
+      unsetPdf();
+    });
+    afterEach(() => {
+      unsetTransferticket();
+      unsetPdf();
+    });
 
     it("should set transferticket attribute to value", async () => {
       const inputTransferticket = "Transfer complete.";
-      await saveTransferticket("existing@foo.com", inputTransferticket);
+      await saveDeclaration("existing@foo.com", inputTransferticket, "");
 
       const user = await findUserByEmail("existing@foo.com");
 
@@ -615,9 +626,19 @@ describe("user", () => {
       expect(user?.transferticket).toEqual(inputTransferticket);
     });
 
+    it("should set pdf attribute to value", async () => {
+      const inputPdf = "All your data in one (beautiful) pdf.";
+      await saveDeclaration("existing@foo.com", "", inputPdf);
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.pdf?.data).toEqual(Buffer.from(inputPdf, "base64"));
+    });
+
     it("should fail on unknown user", async () => {
       await expect(async () => {
-        await saveTransferticket("unknown@foo.com", "Received.");
+        await saveDeclaration("unknown@foo.com", "Received.", "");
       }).rejects.toThrow("not found");
     });
   });
@@ -645,34 +666,6 @@ describe("user", () => {
     it("should fail on unknown user", async () => {
       await expect(async () => {
         await deleteTransferticket("unknown@foo.com");
-      }).rejects.toThrow("not found");
-    });
-  });
-
-  const unsetPdf = () => {
-    db.user.update({
-      where: { email: "existing@foo.com" },
-      data: { pdf: undefined },
-    });
-  };
-
-  describe("savePdf", () => {
-    beforeEach(unsetPdf);
-    afterEach(unsetPdf);
-
-    it("should set pdf attribute to value", async () => {
-      const inputPdf = "All your data in one (beautiful) pdf.";
-      await savePdf("existing@foo.com", inputPdf);
-
-      const user = await findUserByEmail("existing@foo.com");
-
-      expect(user).toBeTruthy();
-      expect(user?.pdf?.data).toEqual(Buffer.from(inputPdf, "base64"));
-    });
-
-    it("should fail on unknown user", async () => {
-      await expect(async () => {
-        await savePdf("unknown@foo.com", "PDF");
       }).rejects.toThrow("not found");
     });
   });
