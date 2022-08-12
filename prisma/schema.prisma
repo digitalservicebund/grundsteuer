@@ -19,6 +19,8 @@ model User {
   ericaRequestIdFscAktivieren String?
   transferticket              String?
   ericaRequestIdFscStornieren String?
+  identifiedAt                DateTime?
+  lastDeclarationAt           DateTime?
   fscRequest                  FscRequest?
   pdf                         Pdf?
 }
