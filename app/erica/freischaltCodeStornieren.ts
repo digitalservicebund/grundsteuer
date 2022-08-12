@@ -8,14 +8,8 @@ import {
 } from "~/erica/utils";
 import { User } from "~/domain/user";
 
-const createPayloadForRevokeFreischaltCode = (elster_request_id: string) => {
-  return {
-    elsterRequestId: elster_request_id,
-  };
-};
-
-export const revokeFreischaltCode = async (elster_request_id: string) => {
-  const payload = createPayloadForRevokeFreischaltCode(elster_request_id);
+export const revokeFreischaltCode = async (elsterRequestId: string) => {
+  const payload = { elsterRequestId };
   const result = await postToErica("v2/fsc/revocation", payload);
   if ("location" in result) {
     return { location: result.location.split("/").reverse()[0] };

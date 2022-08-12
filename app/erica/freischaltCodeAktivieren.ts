@@ -7,24 +7,14 @@ import {
   ericaUtils,
 } from "~/erica/utils";
 
-const createPayloadForActivateFreischaltCode = (
-  freischalt_code: string,
-  elster_request_id: string
-) => {
-  return {
-    freischaltCode: freischalt_code,
-    elsterRequestId: elster_request_id,
-  };
-};
-
 export const activateFreischaltCode = async (
-  freischalt_code: string,
-  elster_request_id: string
+  freischaltCode: string,
+  elsterRequestId: string
 ) => {
-  const payload = createPayloadForActivateFreischaltCode(
-    freischalt_code,
-    elster_request_id
-  );
+  const payload = {
+    freischaltCode,
+    elsterRequestId,
+  };
   const result = await postToErica("v2/fsc/activation", payload);
   if ("location" in result) {
     return { location: result.location.split("/").reverse()[0] };
