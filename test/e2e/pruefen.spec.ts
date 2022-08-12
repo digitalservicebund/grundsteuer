@@ -35,9 +35,6 @@ describe("Happy Path", () => {
     cy.get(`label[for=garagen-keiner]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.get(`label[for=elster-false]`).click();
-    cy.get(submitBtnSelector).click();
-
     cy.contains(
       "h1",
       "Sie können diesen Online-Dienst für Ihre Grundsteuererklärung nutzen."
