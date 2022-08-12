@@ -539,17 +539,17 @@ describe("user", () => {
   };
 
   describe("setUserIdentified", () => {
-    let dateMock: jest.SpyInstance;
-    const mockDate = new Date();
+    let dateMockIdentified: jest.SpyInstance;
+    const mockDateIdentified = new Date();
     beforeEach(() => {
       unsetEricaRequestIdentified();
-      dateMock = jest
+      dateMockIdentified = jest
         .spyOn(global, "Date")
-        .mockImplementation(() => mockDate as unknown as string);
+        .mockImplementation(() => mockDateIdentified as unknown as string);
     });
     afterEach(() => {
       unsetEricaRequestIdentified();
-      dateMock.mockRestore();
+      dateMockIdentified.mockRestore();
     });
 
     it("should set identified attribute to true if true given as value", async () => {
@@ -566,7 +566,7 @@ describe("user", () => {
 
       const user = await findUserByEmail("existing@foo.com");
       expect(user).toBeTruthy();
-      expect(user?.identifiedAt).toEqual(mockDate);
+      expect(user?.identifiedAt).toEqual(mockDateIdentified);
     });
 
     it("should set identified attribute to false if false given as value", async () => {
@@ -607,13 +607,24 @@ describe("user", () => {
   };
 
   describe("saveDeclaration", () => {
+    let dateMockDeclaration: jest.SpyInstance;
+    const mockDateDeclaration = new Date();
+
     beforeEach(() => {
       unsetTransferticket();
       unsetPdf();
+      dateMockDeclaration = jest
+        .spyOn(global, "Date")
+        .mockImplementation(() => mockDateDeclaration as unknown as string);
     });
+
     afterEach(() => {
       unsetTransferticket();
       unsetPdf();
+    });
+
+    afterAll(() => {
+      dateMockDeclaration.mockRestore();
     });
 
     it("should set transferticket attribute to value", async () => {
@@ -621,7 +632,6 @@ describe("user", () => {
       await saveDeclaration("existing@foo.com", inputTransferticket, "");
 
       const user = await findUserByEmail("existing@foo.com");
-
       expect(user).toBeTruthy();
       expect(user?.transferticket).toEqual(inputTransferticket);
     });
@@ -631,9 +641,16 @@ describe("user", () => {
       await saveDeclaration("existing@foo.com", "", inputPdf);
 
       const user = await findUserByEmail("existing@foo.com");
-
       expect(user).toBeTruthy();
       expect(user?.pdf?.data).toEqual(Buffer.from(inputPdf, "base64"));
+    });
+
+    it("should set lastDeclarationAt attribute to now", async () => {
+      await saveDeclaration("existing@foo.com", "", "");
+
+      const user = await findUserByEmail("existing@foo.com");
+      expect(user).toBeTruthy();
+      expect(user?.lastDeclarationAt).toEqual(mockDateDeclaration);
     });
 
     it("should fail on unknown user", async () => {

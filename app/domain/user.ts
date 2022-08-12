@@ -184,6 +184,7 @@ export const saveDeclaration = async (
           data: pdfBuffer,
         },
       },
+      lastDeclarationAt: new Date(),
     },
   });
 };
