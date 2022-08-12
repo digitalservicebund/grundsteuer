@@ -12,7 +12,6 @@ import ident3 from "~/assets/images/ident-3.png";
 import { ReactNode } from "react";
 import classNames from "classnames";
 import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { authenticator } from "~/auth.server";
 import { findUserByEmail } from "~/domain/user";
 import invariant from "tiny-invariant";
@@ -26,10 +25,6 @@ export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
-
-  if (!testFeaturesEnabled(sessionUser.email)) {
-    return redirect("/fsc");
-  }
 
   if (sessionUser.identified) {
     return redirect("/formular");

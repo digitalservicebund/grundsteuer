@@ -52,7 +52,6 @@ import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import FreischaltcodeHelp from "~/components/form/help/Freischaltcode";
 import ArrowRight from "~/components/icons/mui/ArrowRight";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const isEricaRequestInProgress = (userData: User) => {
   return (
@@ -246,7 +245,6 @@ export const loader: LoaderFunction = async ({ request, context }) => {
       showSpinner:
         ericaActivationRequestIsInProgress ||
         ericaRevocationRequestIsInProgress,
-      showNewIdent: testFeaturesEnabled(userData.email),
     },
     {
       headers: {
@@ -420,24 +418,20 @@ export default function FscEingeben() {
           Freischaltcode neu beantragen
         </a>
       </div>
-      {loaderData.showNewIdent && (
-        <>
-          <p className="mb-32">
-            Personen mit einem ELSTER Konto erhalten in der Regel keinen Brief
-            mit einem Freischaltcode. Sie können Ihre ELSTER Zugangsdaten
-            nutzen, um sich zu identifizieren.
-          </p>
-          <div className="flex items-center">
-            <ArrowRight className="inline-block mr-16" />
-            <a
-              href={"/ekona?index"}
-              className="font-bold underline text-18 text-blue-800"
-            >
-              Mit ELSTER Zugang identifizieren
-            </a>
-          </div>
-        </>
-      )}
+      <p className="mb-32">
+        Personen mit einem ELSTER Konto erhalten in der Regel keinen Brief mit
+        einem Freischaltcode. Sie können Ihre ELSTER Zugangsdaten nutzen, um
+        sich zu identifizieren.
+      </p>
+      <div className="flex items-center">
+        <ArrowRight className="inline-block mr-16" />
+        <a
+          href={"/ekona?index"}
+          className="font-bold underline text-18 text-blue-800"
+        >
+          Mit ELSTER Zugang identifizieren
+        </a>
+      </div>
 
       {showSpinner && (
         <Spinner

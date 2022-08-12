@@ -9,7 +9,6 @@ import {
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { commitSession, getSession } from "~/session.server";
 import { findUserByEmail } from "~/domain/user";
 import invariant from "tiny-invariant";
@@ -22,11 +21,6 @@ export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
-  if (!testFeaturesEnabled(sessionUser.email)) {
-    throw new Response("Not Found", {
-      status: 404,
-    });
-  }
 
   if (!sessionUser.identified) {
     const dbUser = await findUserByEmail(sessionUser.email);

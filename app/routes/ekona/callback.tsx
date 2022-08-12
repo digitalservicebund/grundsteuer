@@ -17,7 +17,6 @@ import {
   EkonaIdentifiedData,
   saveAuditLog,
 } from "~/audit/auditLog";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
 
 const AUTHN_FAILED_STATUS_CODE =
@@ -77,12 +76,6 @@ export const action: ActionFunction = async ({ request, context }) => {
   const userData = await getUserFromEkonaSession(ekonaSession);
   if (!userData) {
     return redirect("/ekona");
-  }
-
-  if (!testFeaturesEnabled(userData.email)) {
-    throw new Response("Not Found", {
-      status: 404,
-    });
   }
 
   let validatedResponse;
