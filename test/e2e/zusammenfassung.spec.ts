@@ -2,15 +2,13 @@
 // @ts-check
 describe("Zusammenfassung route", () => {
   before(() => {
-    cy.task("setUserIdentifiedAttribute", {
+    cy.task("setUserIdentified", {
       userEmail: "foo@bar.com",
-      identified: true,
     });
   });
   after(() => {
-    cy.task("setUserIdentifiedAttribute", {
+    cy.task("setUserUnidentified", {
       userEmail: "foo@bar.com",
-      identified: false,
     });
   });
   beforeEach(() => {
@@ -19,9 +17,8 @@ describe("Zusammenfassung route", () => {
 
   describe("identified user", () => {
     before(() => {
-      cy.task("setUserIdentifiedAttribute", {
+      cy.task("setUserIdentified", {
         userEmail: "foo@bar.com",
-        identified: true,
       });
     });
 
@@ -44,9 +41,8 @@ describe("Zusammenfassung route", () => {
 
     describe("not yet identified user", () => {
       before(() => {
-        cy.task("setUserIdentifiedAttribute", {
+        cy.task("setUserUnidentified", {
           userEmail: "foo@bar.com",
-          identified: false,
         });
       });
       it("should contain fsc section", () => {
@@ -67,9 +63,8 @@ describe("Zusammenfassung route", () => {
 
     describe("identified user", () => {
       before(() => {
-        cy.task("setUserIdentifiedAttribute", {
+        cy.task("setUserIdentified", {
           userEmail: "foo@bar.com",
-          identified: true,
         });
       });
       it("should not contain fsc section", () => {

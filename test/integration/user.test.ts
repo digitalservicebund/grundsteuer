@@ -552,8 +552,8 @@ describe("user", () => {
       dateMockIdentified.mockRestore();
     });
 
-    it("should set identified attribute to true if true given as value", async () => {
-      await setUserIdentified("existing@foo.com", true);
+    it("should set identified attribute to true", async () => {
+      await setUserIdentified("existing@foo.com");
 
       const user = await findUserByEmail("existing@foo.com");
 
@@ -561,34 +561,17 @@ describe("user", () => {
       expect(user?.identified).toEqual(true);
     });
 
-    it("should set identifiedAt attribute to now if true given as value", async () => {
-      await setUserIdentified("existing@foo.com", true);
+    it("should set identifiedAt attribute to now", async () => {
+      await setUserIdentified("existing@foo.com");
 
       const user = await findUserByEmail("existing@foo.com");
       expect(user).toBeTruthy();
       expect(user?.identifiedAt).toEqual(mockDateIdentified);
     });
 
-    it("should set identified attribute to false if false given as value", async () => {
-      await setUserIdentified("existing@foo.com", false);
-
-      const user = await findUserByEmail("existing@foo.com");
-
-      expect(user).toBeTruthy();
-      expect(user?.identified).toEqual(false);
-    });
-
-    it("should unset identifiedAt attribute if false given as value", async () => {
-      await setUserIdentified("existing@foo.com", false);
-
-      const user = await findUserByEmail("existing@foo.com");
-      expect(user).toBeTruthy();
-      expect(user?.identifiedAt).toBeNull();
-    });
-
     it("should fail on unknown user", async () => {
       await expect(async () => {
-        await setUserIdentified("unknown@foo.com", true);
+        await setUserIdentified("unknown@foo.com");
       }).rejects.toThrow("not found");
     });
   });

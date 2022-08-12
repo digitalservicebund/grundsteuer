@@ -93,8 +93,7 @@ describe("Loader", () => {
       );
 
       expect(spyOnSetUserIdentified).toHaveBeenCalledWith(
-        "existing_user@foo.com",
-        true
+        "existing_user@foo.com"
       );
       expect(spyOnDeleteEricaRequestIdFscAktivieren).toHaveBeenCalledWith(
         "existing_user@foo.com"

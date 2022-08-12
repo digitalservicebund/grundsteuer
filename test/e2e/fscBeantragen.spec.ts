@@ -4,9 +4,8 @@ const validSteuerId = "77 819 250 434";
 
 describe("/beantragen", () => {
   before(() => {
-    cy.task("setUserIdentifiedAttribute", {
+    cy.task("setUserUnidentified", {
       userEmail: "foo@bar.com",
-      identified: false,
     });
   });
   beforeEach(() => {

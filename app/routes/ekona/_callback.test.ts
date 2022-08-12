@@ -165,8 +165,7 @@ describe("Action", () => {
       );
 
       expect(spyOnSetUserIdentified).toHaveBeenCalledWith(
-        "existing_user@foo.com",
-        true
+        "existing_user@foo.com"
       );
     });
     spyOnSetUserIdentified.mockClear();
@@ -331,8 +330,7 @@ describe("Action", () => {
           })
         );
         expect(spyOnSetUserIdentified).toHaveBeenCalledWith(
-          "existing_user@foo.com",
-          true
+          "existing_user@foo.com"
         );
         expect(spyOnSaveAuditLog).toHaveBeenCalled();
       });

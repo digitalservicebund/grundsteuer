@@ -13,11 +13,14 @@
 // the project's config changing)
 import { db } from "../../app/db.server";
 import {
+  createUser,
   deleteEricaRequestIdFscAktivieren,
   deleteEricaRequestIdFscBeantragen,
   deleteEricaRequestIdFscStornieren,
+  deleteFscRequest,
   deletePdf,
   deleteTransferticket,
+  findUserByEmail,
   saveDeclaration,
   saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscBeantragen,
@@ -55,7 +58,13 @@ export default (on, config) => {
       await deleteEricaRequestIdFscBeantragen(userEmail);
       await deleteEricaRequestIdFscAktivieren(userEmail);
       await deleteEricaRequestIdFscStornieren(userEmail);
-      await setUserIdentified(userEmail, false);
+      await db.user.update({
+        where: { email: userEmail },
+        data: {
+          identified: false,
+          identifiedAt: null,
+        },
+      });
       await deletePdf(userEmail);
       await deleteTransferticket(userEmail);
       await setUserInDeclarationProcess(userEmail, true);
@@ -77,8 +86,19 @@ export default (on, config) => {
       return null;
     },
 
-    setUserIdentifiedAttribute: async ({ userEmail, identified }) => {
-      await setUserIdentified(userEmail, identified);
+    setUserIdentified: async ({ userEmail }) => {
+      await setUserIdentified(userEmail);
+      return null;
+    },
+
+    setUserUnidentified: async ({ userEmail }) => {
+      await db.user.update({
+        where: { email: userEmail },
+        data: {
+          identified: false,
+          identifiedAt: null,
+        },
+      });
       return null;
     },
 

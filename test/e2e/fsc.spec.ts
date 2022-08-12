@@ -11,9 +11,8 @@ describe("/fsc", () => {
 
   describe("logged-in user", () => {
     beforeEach(() => {
-      cy.task("setUserIdentifiedAttribute", {
+      cy.task("setUserUnidentified", {
         userEmail: "foo@bar.com",
-        identified: false,
       });
       cy.login();
     });
@@ -26,9 +25,8 @@ describe("/fsc", () => {
 
   describe("identified user", () => {
     beforeEach(() => {
-      cy.task("setUserIdentifiedAttribute", {
+      cy.task("setUserIdentified", {
         userEmail: "foo@bar.com",
-        identified: true,
       });
       cy.login();
     });

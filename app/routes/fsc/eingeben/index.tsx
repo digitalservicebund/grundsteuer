@@ -92,7 +92,7 @@ const handleFscActivationProgress = async (
   );
   if (fscActivatedOrError) {
     if ("transferticket" in fscActivatedOrError) {
-      await setUserIdentified(userData.email, true);
+      await setUserIdentified(userData.email);
       session.set(
         "user",
         Object.assign(session.get("user"), { identified: true })

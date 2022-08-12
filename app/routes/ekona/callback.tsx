@@ -99,7 +99,7 @@ export const action: ActionFunction = async ({ request, context }) => {
     "Expected valid response to contain attribute profile"
   );
   const extractedData = extractIdentData(validatedResponse.profile);
-  await setUserIdentified(userData.email, true);
+  await setUserIdentified(userData.email);
   console.log(`User with id ${userData.id} identified via Ekona`);
   await saveAuditLogs(extractedData, clientIp, userData.email);
   await revokeOutstandingFSCRequests(userData);
