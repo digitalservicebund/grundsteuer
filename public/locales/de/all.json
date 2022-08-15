@@ -827,7 +827,7 @@
       },
       "anteil": {
         "headline": "Wie hoch ist der Anteil am Grundstück von Eigentümer:in {{id}}?",
-        "description": "Wenn Sie das Grundstück mit einer anderen Person erworben haben, teilen Sie sich die Anteile der Grundstücksfläche. Den Anteil am Grundstück finden Sie auf einer Seite im Grundbuch unter den Angaben der einzelnen Eigentümer:innen",
+        "description": "Wenn Sie das Grundstück mit einer anderen Person erworben haben, teilen Sie sich die Anteile der Grundstücksfläche. Wenn Ihr Anteil am Grundstück zum Beispiel 1/2 ist, tragen Sie 1 bei Zähler und 2 bei Nenner ein. Den Anteil am Grundstück finden Sie auf einer Seite im Grundbuch unter den Angaben der einzelnen Eigentümer:innen",
         "fields": {
           "zaehler": {
             "label": "Zähler"
