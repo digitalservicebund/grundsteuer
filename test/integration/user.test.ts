@@ -48,7 +48,11 @@ describe("user", () => {
     await db.user.deleteMany({
       where: {
         email: {
-          in: ["existing@foo.com", "existing_with_fsc_request@foo.com"],
+          in: [
+            "existing@foo.com",
+            "existing_with_fsc_request@foo.com",
+            "new@foo.com",
+          ],
         },
       },
     });

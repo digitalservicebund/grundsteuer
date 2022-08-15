@@ -115,7 +115,7 @@ describe("Cron jobs", () => {
     beforeAll(async () => {
       await db.user.create({
         data: {
-          email: "new@foo.com",
+          email: "createdNew@foo.com",
           createdAt: new Date(
             // 3 months ago
             new Date().setMonth(new Date().getMonth() - 3)
@@ -124,7 +124,7 @@ describe("Cron jobs", () => {
       });
       await db.user.create({
         data: {
-          email: "old@foo.com",
+          email: "createdOld@foo.com",
           createdAt: new Date(
             // 4 months ago
             new Date().setMonth(new Date().getMonth() - 4)
@@ -178,8 +178,8 @@ describe("Cron jobs", () => {
         where: {
           email: {
             in: [
-              "new@foo.com",
-              "old@foo.com",
+              "createdNew@foo.com",
+              "createdOld@foo.com",
               "identifiedNew@foo.com",
               "identifiedOld@foo.com",
               "declarationNew@foo.com",
@@ -199,7 +199,7 @@ describe("Cron jobs", () => {
       const afterRows = await db.user.findMany();
       expect(afterRows.length).toEqual(4);
       expect(afterRows[0].email).toEqual("foo@bar.com");
-      expect(afterRows[1].email).toEqual("new@foo.com");
+      expect(afterRows[1].email).toEqual("createdNew@foo.com");
       expect(afterRows[2].email).toEqual("identifiedNew@foo.com");
       expect(afterRows[3].email).toEqual("declarationNew@foo.com");
     });
