@@ -37,11 +37,11 @@ export default function Nutzungsbedingungen() {
         <p className="mb-32">Stand: 15.08.2022</p>
         <h2 className="text-24 mb-24 font-bold">Präambel</h2>
         <p>
-          Die Software Steuerlotse ist eine webbasierte Anwendung („Anwendung“),
-          welche die DigitalService GmbH des Bundes, Prinzessinenstraße 8-14,
-          10969 Berlin („wir“, „uns“, „unser“), im Auftrag der Bundesrepublik
-          Deutschland, vertreten durch das Bundesministerium der Finanzen (BMF),
-          entwickelt hat und betreibt.
+          Die Software „Grundsteuererklärung für Privateigentum“ ist eine
+          webbasierte Anwendung („Anwendung“), welche die DigitalService GmbH
+          des Bundes, Prinzessinenstraße 8-14, 10969 Berlin („wir“, „uns“,
+          „unser“), im Auftrag der Bundesrepublik Deutschland, vertreten durch
+          das Bundesministerium der Finanzen (BMF), entwickelt hat und betreibt.
         </p>
         <p>
           Die Anwendung unterstützt die Nutzer:innen bei der selbstständigen

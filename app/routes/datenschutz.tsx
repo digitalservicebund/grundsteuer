@@ -76,7 +76,8 @@ export default function Datenschutz() {
         <h2>Wer sind Ihre Ansprechpartner:innen?</h2>
         <p>
           Fragen in datenschutzrechtlichen Angelegenheiten können Sie an die für
-          den Steuerlotsen zuständigen Datenschutzbeauftragten richten:
+          „Grundsteuererklärung für Privateigentum“ zuständigen
+          Datenschutzbeauftragten richten:
         </p>
 
         <h3>Verantwortliche Organisation</h3>
