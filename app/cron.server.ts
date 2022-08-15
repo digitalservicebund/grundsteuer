@@ -17,6 +17,14 @@ const schedulePdfCleanup = (cronExpression: string) => {
   schedule(cronExpression, async () => deleteExpiredPdfs());
 };
 
+const scheduleAccountCleanup = (cronExpression: string) => {
+  console.info(
+    "Schedule deleting expired accounts with cron expression: %s",
+    cronExpression
+  );
+  schedule(cronExpression, async () => deleteExpiredAccounts());
+};
+
 export const deleteExpiredFscs = async () => {
   const now = new Date();
   const ninetyDaysAgo = new Date(now.setDate(now.getDate() - 90));
@@ -43,4 +51,41 @@ export const deleteExpiredPdfs = async () => {
   console.log("Deleted %d expired PDFs.", queryResult.count);
 };
 
-export const jobs = { scheduleFscCleanup, schedulePdfCleanup };
+export const deleteExpiredAccounts = async () => {
+  const now = new Date();
+  const fourMonthsAgo = new Date(now.setMonth(now.getMonth() - 4));
+  const queryResult = await db.user.deleteMany({
+    where: {
+      OR: [
+        // Declaration sent
+        {
+          lastDeclarationAt: {
+            lte: fourMonthsAgo,
+          },
+        },
+        // identified
+        {
+          identifiedAt: {
+            lte: fourMonthsAgo,
+          },
+          lastDeclarationAt: null,
+        },
+        // simple account
+        {
+          createdAt: {
+            lte: fourMonthsAgo,
+          },
+          identifiedAt: null,
+          lastDeclarationAt: null,
+        },
+      ],
+    },
+  });
+  console.log("Deleted %d expired Accounts.", queryResult.count);
+};
+
+export const jobs = {
+  scheduleFscCleanup,
+  schedulePdfCleanup,
+  scheduleAccountCleanup,
+};

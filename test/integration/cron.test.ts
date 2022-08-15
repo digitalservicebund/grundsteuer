@@ -1,4 +1,8 @@
-import { deleteExpiredFscs, deleteExpiredPdfs } from "~/cron.server";
+import {
+  deleteExpiredAccounts,
+  deleteExpiredFscs,
+  deleteExpiredPdfs,
+} from "~/cron.server";
 import { db } from "~/db.server";
 
 describe("Cron jobs", () => {
@@ -104,6 +108,100 @@ describe("Cron jobs", () => {
 
       expect(afterRows.length).toEqual(1);
       expect(afterRows[0].data).toEqual(Buffer.from("underOneHourOld"));
+    });
+  });
+
+  describe("deleteExpiredAccounts", () => {
+    beforeAll(async () => {
+      await db.user.create({
+        data: {
+          email: "new@foo.com",
+          createdAt: new Date(
+            // 3 months ago
+            new Date().setMonth(new Date().getMonth() - 3)
+          ),
+        },
+      });
+      await db.user.create({
+        data: {
+          email: "old@foo.com",
+          createdAt: new Date(
+            // 4 months ago
+            new Date().setMonth(new Date().getMonth() - 4)
+          ),
+        },
+      });
+      await db.user.create({
+        data: {
+          email: "identifiedNew@foo.com",
+          identified: true,
+          identifiedAt: new Date(
+            // 3 months ago
+            new Date().setMonth(new Date().getMonth() - 3)
+          ),
+        },
+      });
+      await db.user.create({
+        data: {
+          email: "identifiedOld@foo.com",
+          identified: true,
+          identifiedAt: new Date(
+            // 4 months ago
+            new Date().setMonth(new Date().getMonth() - 4)
+          ),
+        },
+      });
+      await db.user.create({
+        data: {
+          email: "declarationNew@foo.com",
+          transferticket: "tt",
+          lastDeclarationAt: new Date(
+            // 3 months ago
+            new Date().setMonth(new Date().getMonth() - 3)
+          ),
+        },
+      });
+      await db.user.create({
+        data: {
+          email: "declarationOld@foo.com",
+          transferticket: "tt",
+          lastDeclarationAt: new Date(
+            // 4 months ago
+            new Date().setMonth(new Date().getMonth() - 4)
+          ),
+        },
+      });
+    });
+
+    afterAll(async () => {
+      await db.user.deleteMany({
+        where: {
+          email: {
+            in: [
+              "new@foo.com",
+              "old@foo.com",
+              "identifiedNew@foo.com",
+              "identifiedOld@foo.com",
+              "declarationNew@foo.com",
+              "declarationOld@foo.com",
+            ],
+          },
+        },
+      });
+    });
+
+    it("should delete entries over four months old", async () => {
+      const beforeRows = await db.user.findMany();
+      expect(beforeRows.length).toEqual(7); // including seeded 'foo@bar.com'
+
+      await deleteExpiredAccounts();
+
+      const afterRows = await db.user.findMany();
+      expect(afterRows.length).toEqual(4);
+      expect(afterRows[0].email).toEqual("foo@bar.com");
+      expect(afterRows[1].email).toEqual("new@foo.com");
+      expect(afterRows[2].email).toEqual("identifiedNew@foo.com");
+      expect(afterRows[3].email).toEqual("declarationNew@foo.com");
     });
   });
 });
