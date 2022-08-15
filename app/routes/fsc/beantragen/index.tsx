@@ -319,9 +319,20 @@ export default function FscBeantragen() {
         </IntroText>
 
         <Hint>
-          Sie erhalten keinen Brief, wenn Sie bereits ein Konto bei Mein ELSTER
-          aktiviert haben. In diesem Fall können Sie unseren Online-Service
-          leider aktuell nicht verwenden.
+          Wenn Sie bereits ein Konto bei{" "}
+          <a
+            href="https://www.elster.de/eportal/start"
+            target="_blank"
+            className="underline text-blue-800"
+          >
+            MeinELSTER
+          </a>{" "}
+          haben, können Sie sich nicht über einen Freischaltcode identifizieren.
+          Nutzen Sie stattdessen die{" "}
+          <a href="/ekona" className="underline text-blue-800">
+            Identifizierung über ELSTER
+          </a>
+          .
         </Hint>
 
         {showError && !isSubmitting && (
