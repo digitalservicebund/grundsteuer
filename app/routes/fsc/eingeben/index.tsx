@@ -111,11 +111,17 @@ const handleFscActivationProgress = async (
 
       const ericaRequestIdOrError = await revokeFscForUser(userData);
 
-      if ("location" in ericaRequestIdOrError)
+      if ("location" in ericaRequestIdOrError) {
         await saveEricaRequestIdFscStornieren(
           userData.email,
           ericaRequestIdOrError.location
         );
+      } else {
+        console.warn(
+          "Failed to revocate FSC on eingeben with error message: ",
+          ericaRequestIdOrError.error
+        );
+      }
     } else if (fscActivatedOrError?.errorType == "EricaUserInputError") {
       await deleteEricaRequestIdFscAktivieren(userData.email);
       return {

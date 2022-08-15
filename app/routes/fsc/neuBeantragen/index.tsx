@@ -189,6 +189,10 @@ export const action: ActionFunction = async ({
   if (userData.fscRequest) {
     const ericaRequestIdOrError = await revokeFscForUser(userData);
     if ("error" in ericaRequestIdOrError) {
+      console.warn(
+        "Failed to revocate FSC on neu beantragen with error message: ",
+        ericaRequestIdOrError.error
+      );
       return { ericaApiError: ericaRequestIdOrError.error };
     }
     await saveEricaRequestIdFscStornieren(
