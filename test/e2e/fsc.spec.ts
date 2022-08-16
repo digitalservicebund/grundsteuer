@@ -35,6 +35,12 @@ describe("/fsc", () => {
       cy.visit("/fsc", { failOnStatusCode: false });
       cy.url().should("include", "/formular");
     });
+
+    it("should not disable identification menu", () => {
+      cy.visit("/fsc", { failOnStatusCode: false });
+      cy.url().should("include", "/formular");
+      cy.contains("a", "Identifikation");
+    });
   });
 });
 

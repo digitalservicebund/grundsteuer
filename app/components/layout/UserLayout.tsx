@@ -9,27 +9,12 @@ import {
 } from "~/components";
 import LogoutMenu from "~/components/navigation/LogoutMenu";
 
-export default function UserLayout(props: {
-  children: ReactNode;
-  userIsIdentified?: boolean;
-}) {
+export default function UserLayout(props: { children: ReactNode }) {
   return (
     <Layout
       footer={<Footer />}
-      sidebarNavigation={
-        <SidebarNavigation
-          actions={
-            <NavigationActions userIsIdentified={props.userIsIdentified} />
-          }
-        />
-      }
-      topNavigation={
-        <TopNavigation
-          actions={
-            <NavigationActions userIsIdentified={props.userIsIdentified} />
-          }
-        />
-      }
+      sidebarNavigation={<SidebarNavigation actions={<NavigationActions />} />}
+      topNavigation={<TopNavigation actions={<NavigationActions />} />}
       logoutMenu={
         <LogoutMenu
           containerClasses="flex flex-col items-center"

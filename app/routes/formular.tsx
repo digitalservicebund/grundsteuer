@@ -4,10 +4,10 @@ import { getStoredFormData } from "~/formDataStorage.server";
 import {
   Footer,
   FormSidebarNavigation,
-  SidebarNavigation,
   Layout,
   Main,
   NavigationActions,
+  SidebarNavigation,
   TopNavigation,
 } from "~/components";
 import { createFormGraph } from "~/domain";
@@ -28,14 +28,12 @@ export const loader: LoaderFunction = async ({ request }) => {
   return {
     graph,
     currentState: getCurrentStateFromUrl(request.url),
-    userIsIdentified: user.identified,
     userHasFinishedProcess: !user.inDeclarationProcess,
   };
 };
 
 export default function Formular() {
-  const { graph, currentState, userIsIdentified, userHasFinishedProcess } =
-    useLoaderData();
+  const { graph, currentState, userHasFinishedProcess } = useLoaderData();
 
   return (
     <Layout
@@ -44,7 +42,6 @@ export default function Formular() {
         <SidebarNavigation
           actions={
             <NavigationActions
-              userIsIdentified={userIsIdentified}
               userHasFinishedProcess={userHasFinishedProcess}
             />
           }
@@ -61,7 +58,6 @@ export default function Formular() {
         <TopNavigation
           actions={
             <NavigationActions
-              userIsIdentified={userIsIdentified}
               userHasFinishedProcess={userHasFinishedProcess}
             />
           }

@@ -55,6 +55,12 @@ describe("/ekona", () => {
       cy.visit("/ekona", { failOnStatusCode: false });
       cy.url().should("include", "/formular");
     });
+
+    it("should not disable identification menu", () => {
+      cy.visit("/ekona", { failOnStatusCode: false });
+      cy.url().should("include", "/formular");
+      cy.contains("a", "Identifikation");
+    });
   });
 });
 

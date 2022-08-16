@@ -7,7 +7,6 @@ import AddFile from "~/components/icons/mui/AddFile";
 import LogoutMenu from "~/components/navigation/LogoutMenu";
 
 export default function NavigationActions(props: {
-  userIsIdentified?: boolean;
   userHasFinishedProcess?: boolean;
 }) {
   const location = useLocation();
@@ -24,18 +23,15 @@ export default function NavigationActions(props: {
         statusClasses="mb-16 rounded-t py-4"
       />
 
-      {!props.userIsIdentified && (
-        <NavigationLink
-          to="/identifikation"
-          icon={<Lock className="w-24 h-24 fill-blue-800" />}
-          isAllCaps
-          isActive={
-            !!currentLocation.match(/(\/identifikation|\/fsc\/|\/ekona)/)
-          }
-        >
-          Identifikation
-        </NavigationLink>
-      )}
+      <NavigationLink
+        to="/identifikation"
+        icon={<Lock className="w-24 h-24 fill-blue-800" />}
+        isAllCaps
+        isActive={!!currentLocation.match(/(\/identifikation|\/fsc\/|\/ekona)/)}
+      >
+        Identifikation
+      </NavigationLink>
+
       {!props.userHasFinishedProcess && (
         <NavigationLink
           to="/formular/zusammenfassung"

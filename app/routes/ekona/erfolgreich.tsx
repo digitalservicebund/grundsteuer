@@ -1,17 +1,10 @@
 import { json, LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
-import {
-  BreadcrumbNavigation,
-  Button,
-  ContentContainer,
-  Headline,
-  IntroText,
-  SuccessPageLayout,
-} from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
 import { commitSession, getSession } from "~/session.server";
 import { findUserByEmail } from "~/domain/user";
 import invariant from "tiny-invariant";
+import IdentificationSuccess from "~/components/IdentificationSuccess";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erfolgreich identifiziert") };
@@ -50,20 +43,5 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function EkonaErfolgreich() {
-  return (
-    <ContentContainer size="sm">
-      <BreadcrumbNavigation />
-      <SuccessPageLayout>
-        <Headline>Vielen Dank</Headline>
-
-        <IntroText className="mb-80">
-          Wir konnten Sie anhand Ihrer ELSTER-Zugangsdaten erfolgreich
-          identifizieren. Sie können die Erklärung nun nach vollständiger
-          Bearbeitung absenden.
-        </IntroText>
-
-        <Button to="/formular">Weiter zum Formular</Button>
-      </SuccessPageLayout>
-    </ContentContainer>
-  );
+  return <IdentificationSuccess backButton="start" />;
 }

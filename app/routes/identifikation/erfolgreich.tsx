@@ -11,10 +11,9 @@ export const loader: LoaderFunction = async ({ request }) => {
   await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
-
   return {};
 };
 
-export default function FscBeantragenErfolgreich() {
-  return <IdentificationSuccess backButton="summary" />;
+export default function IdentifikationErfolgreich() {
+  return <IdentificationSuccess backButton="start" />;
 }

@@ -16,8 +16,8 @@ export default function UebersichtStep(
     <div className="flex-col lg:flex-row w-full mb-80">
       <div
         className={classNames(
-          "hidden xl:flex justify-end absolute right-0 top-80 w-1/3 mb-0",
-          { "top-[350px]": lowVersion }
+          "hidden xl:flex justify-end absolute right-0 top-128 w-1/3 mb-0",
+          { "top-[22rem]": lowVersion }
         )}
       >
         <img src={imageSrc} alt="" />
