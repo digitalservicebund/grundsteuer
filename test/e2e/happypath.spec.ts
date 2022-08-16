@@ -567,6 +567,8 @@ describe("Happy Path", () => {
     cy.get(`label[for=datenUebernehmen-true]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.contains("Willkommen zurück");
+    cy.contains(
+      "Prüfen Sie in wenigen Schritten, ob Sie unser Tool nutzen können."
+    );
   });
 });

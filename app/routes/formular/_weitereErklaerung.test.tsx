@@ -98,7 +98,7 @@ describe("/weitereErklaerung action", () => {
     });
 
     describe("with datenUebernehmen true", () => {
-      test("redirects to formular start", async () => {
+      test("redirects to pruefen start", async () => {
         const args = await mockActionArgs({
           route: "/formular/weitereErklaerung",
           formData: { datenUebernehmen: "true" },
@@ -109,7 +109,7 @@ describe("/weitereErklaerung action", () => {
 
         expect(result.status).toEqual(302);
         expect(result.headers.get("Location")).toEqual(
-          "/formular/welcome?weitereErklaerung=true"
+          "/pruefen/start?weitereErklaerung=true"
         );
       });
 
@@ -228,7 +228,7 @@ describe("/weitereErklaerung action", () => {
     });
 
     describe("with datenUebernehmen false", () => {
-      test("redirects to formular start if datenUebernehmen is false", async () => {
+      test("redirects to pruefen start", async () => {
         const args = await mockActionArgs({
           route: "/formular/weitereErklaerung",
           formData: { datenUebernehmen: "false" },
@@ -237,7 +237,7 @@ describe("/weitereErklaerung action", () => {
         const result = await action(args);
         expect(result.status).toEqual(302);
         expect(result.headers.get("Location")).toEqual(
-          "/formular/welcome?weitereErklaerung=true"
+          "/pruefen/start?weitereErklaerung=true"
         );
       });
 
