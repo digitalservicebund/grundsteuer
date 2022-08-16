@@ -198,10 +198,15 @@ describe("Cron jobs", () => {
 
       const afterRows = await db.user.findMany();
       expect(afterRows.length).toEqual(4);
-      expect(afterRows[0].email).toEqual("foo@bar.com");
-      expect(afterRows[1].email).toEqual("createdNew@foo.com");
-      expect(afterRows[2].email).toEqual("identifiedNew@foo.com");
-      expect(afterRows[3].email).toEqual("declarationNew@foo.com");
+
+      const remainingEmails = afterRows.map((row) => row.email);
+      const expectedEmails = [
+        "foo@bar.com",
+        "createdNew@foo.com",
+        "identifiedNew@foo.com",
+        "declarationNew@foo.com",
+      ];
+      expect(remainingEmails.sort()).toEqual(expectedEmails.sort());
     });
   });
 });
