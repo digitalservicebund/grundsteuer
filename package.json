@@ -63,7 +63,7 @@
     "i18next-http-backend": "^1.4.1",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
-    "node-cron": "^3.0.1",
+    "node-cron": "^3.0.2",
     "plausible-tracker": "^0.3.8",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
