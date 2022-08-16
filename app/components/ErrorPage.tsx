@@ -36,7 +36,7 @@ export default function ErrorPage(props: ErrorPageProps) {
         </p>
       )}
 
-      <Button to="/" className="mb-64">
+      <Button to="/formular" className="mb-64">
         {t(`${statusCode}.backButton`)}
       </Button>
 
