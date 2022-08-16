@@ -16,8 +16,7 @@ run_tests() {
   trap 'docker_destroy' EXIT
 
   docker_start
-  # wait for postgres startup in container
-  sleep 2
+  npm run build
   npx prisma migrate deploy
   npx prisma db seed
   npm run "$1"
