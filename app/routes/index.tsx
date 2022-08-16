@@ -7,17 +7,21 @@ import {
   Footer,
   BmfLogo,
   BreadcrumbNavigation,
+  Button,
 } from "~/components";
 import germanyMapImage from "~/assets/images/germany-map.svg";
 import HomepageSharing from "~/components/HomepageSharing";
 import { HomepageHeader } from "~/components/navigation/HomepageHeader";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
+import { useLoaderData } from "@remix-run/react";
 
 export const loader: LoaderFunction = async () => {
-  return {};
+  return { showNewFeatures: testFeaturesEnabled() };
 };
 
 export default function Index() {
   const { t } = useTranslation("all");
+  const { showNewFeatures } = useLoaderData();
 
   return (
     <>
@@ -107,6 +111,16 @@ export default function Index() {
               {t("homepage.sharing.headline")}
             </h2>
             <HomepageSharing />
+            {showNewFeatures && (
+              <Button
+                to="/pruefen/start"
+                size="medium"
+                look="primary"
+                className="mt-80"
+              >
+                {t("homepage.start")}
+              </Button>
+            )}
           </div>
         </ContentContainer>
       </main>
