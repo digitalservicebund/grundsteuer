@@ -33,8 +33,8 @@ function HeaderLink({
       {icon && <div className="mr-10 inline-flex items-center">{icon}</div>}
       <a
         href={destination}
-        className={classNames("font-bold", {
-          "underline text-blue-800": !active,
+        className={classNames("text-14 uppercase tracking-1 font-bold", {
+          "underline text-blue-800": active,
         })}
         {...newTabAttributes}
       >
@@ -53,25 +53,27 @@ function HeaderActions({
   showNewFeatures: boolean | undefined;
   skipPruefen?: boolean;
 }) {
+  const { t } = useTranslation("all");
   if (skipPruefen) {
     return (
-      <HeaderLink
-        destination="/anmelden"
-        icon={<Redo className="w-[20px] h-[20px]" />}
-        active={location.includes("/anmelden")}
+      <Button
+        look="ghost"
+        size="large"
+        icon={<Redo />}
+        className="underline pl-0"
+        to="/formular"
       >
-        Fragebogen überspringen
-      </HeaderLink>
+        {t("homepage.skipPruefen")}
+      </Button>
     );
   }
   if (showNewFeatures) {
-    const { t } = useTranslation("all");
     return (
       <Button
-        look={"ghost"}
-        size={"large"}
+        look="ghost"
+        size="large"
         icon={<Edit />}
-        className={"underline pl-0"}
+        className="underline pl-0"
         to="/anmelden"
       >
         {t("homepage.continue.buttonText")}
@@ -166,7 +168,13 @@ function HeaderButtons({
   );
 }
 
-export function HomepageHeader({ skipPruefen, showNewFeatures }: { skipPruefen?: boolean, showNewFeatures?: boolean }) {
+export function HomepageHeader({
+  skipPruefen,
+  showNewFeatures,
+}: {
+  skipPruefen?: boolean;
+  showNewFeatures?: boolean;
+}) {
   const { t } = useTranslation("all");
   const location = useLocation().pathname;
   return (
