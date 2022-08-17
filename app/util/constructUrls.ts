@@ -50,7 +50,8 @@ export const getRedirectUrl = (
     Typestate<any>,
     any
   >,
-  prefix: string
+  prefix: string,
+  searchParams?: URLSearchParams
 ): string => {
   let redirectUrl = `/${prefix}/${state
     .toStrings()
@@ -70,5 +71,7 @@ export const getRedirectUrl = (
       }/`
     );
   }
-  return redirectUrl;
+  return searchParams
+    ? redirectUrl + "?" + searchParams.toString()
+    : redirectUrl;
 };

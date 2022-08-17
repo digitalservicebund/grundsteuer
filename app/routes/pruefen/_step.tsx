@@ -79,6 +79,7 @@ export type LoaderData = {
   isFinalStep: boolean;
   isSuccessStep: boolean;
   currentState: string;
+  weitereErklaerung: string;
   stepDefinition: StepDefinition;
   csrfToken: string;
   testFeaturesEnabled?: boolean;
@@ -152,6 +153,9 @@ export const loader: LoaderFunction = async ({
       isFinalStep,
       isSuccessStep,
       currentState: currentStateFromUrl,
+      weitereErklaerung: new URL(request.url).searchParams.get(
+        "weitereErklaerung"
+      ),
       stepDefinition,
       csrfToken,
       testFeaturesEnabled: testFeaturesEnabled(),
@@ -205,7 +209,11 @@ export const action: ActionFunction = async ({ request }) => {
   const nextState = machine.transition(currentState, {
     type: "NEXT",
   });
-  const nextStepUrl = getRedirectUrl(nextState, PREFIX);
+  const nextStepUrl = getRedirectUrl(
+    nextState,
+    PREFIX,
+    new URL(request.url).searchParams
+  );
 
   return redirect(nextStepUrl, {
     headers: { "Set-Cookie": await saveToPruefenStateCookie(nextState) },
@@ -255,7 +263,14 @@ export function Step() {
               Nutzung prüfen
             </SectionLabel>
             <ContentContainer size="sm-md">
-              <Form method="post" className="mb-16" key={currentState}>
+              <Form
+                method="post"
+                className="mb-16"
+                key={currentState}
+                action={
+                  loaderData.weitereErklaerung ? "?weitereErklaerung=true" : ""
+                }
+              >
                 <CsrfToken value={loaderData.csrfToken} />
                 {headlineIsLegend ? (
                   <>
