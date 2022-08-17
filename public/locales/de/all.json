@@ -50,6 +50,11 @@
       "text": "„Grundsteuererklärung für Privateigentum“ ist für Bundesländer entwickelt, die am Bundesmodell teilnehmen. Das sind folgende 11 Bundesländer:",
       "mapAlt": "Landkarte Deutschlands, in der die teilnehmenden Bundesländer hervorgehoben sind."
     },
+    "helpInfoBox": {
+      "headline": "Im Hilfebereich haben wir Themen zusammentragen",
+      "text": "Hier finden Sie Antworten zu Themen wie zum Beispiel: Anmeldung, Freischaltcode, ELSTER Konto und Felder im Formularbereich.",
+      "linkText": "Zum Hilfebereich"
+    },
     "faq": {
       "headline": "Häufig gestellte Fragen"
     },

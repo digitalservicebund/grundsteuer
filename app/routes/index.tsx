@@ -12,6 +12,7 @@ import {
 import germanyMapImage from "~/assets/images/germany-map.svg";
 import HomepageSharing from "~/components/HomepageSharing";
 import { HomepageHeader } from "~/components/navigation/HomepageHeader";
+import HelpInfoBox from "~/components/HelpInfoBox";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { useLoaderData } from "@remix-run/react";
 
@@ -101,6 +102,11 @@ export default function Index() {
             <h2 className="text-32 leading-40 mb-16 md:mb-32">
               {t("homepage.faq.headline")}
             </h2>
+            {showNewFeatures && (
+              <div className="xl:pr-96">
+                <HelpInfoBox />
+              </div>
+            )}
             <div className="xl:pr-96">
               <FaqAccordion />
             </div>
