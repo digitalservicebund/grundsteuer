@@ -4,7 +4,7 @@ const submitBtnSelector = "#nextButton";
 describe("Happy Path", () => {
   it("Enter full path until success", () => {
     cy.visit("/");
-    cy.contains("a", "Kann ich teilnehmen?").click();
+    cy.contains("a", "Grundsteuererklärung starten").click();
 
     cy.url().should("include", "/pruefen/start");
     cy.contains(
