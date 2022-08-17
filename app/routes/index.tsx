@@ -13,6 +13,7 @@ import germanyMapImage from "~/assets/images/germany-map.svg";
 import HomepageSharing from "~/components/HomepageSharing";
 import { HomepageHeader } from "~/components/navigation/HomepageHeader";
 import HelpInfoBox from "~/components/HelpInfoBox";
+import Edit from "~/components/icons/mui/Edit";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { useLoaderData } from "@remix-run/react";
 
@@ -37,17 +38,39 @@ export default function Index() {
         <BreadcrumbNavigation />
         <ContentContainer>
           <BmfLogo />
-          <h1 className="mb-64 md:mb-96 xl:mb-80">
-            <div className="text-16 leading-26 mb-16 md:text-20 md:leading-20 md:mb-24 lg:mb-32">
-              {t("homepage.kicker")}
+          <div className="mb-64 md:mb-96 xl:mb-80">
+            <h1>
+              <div className="text-16 leading-26 mb-16 md:text-20 md:leading-20 md:mb-24 lg:mb-32">
+                {t("homepage.kicker")}
+              </div>
+              <div className="max-w-[300px] text-32 leading-40 mb-8 md:max-w-[560px] md:text-[3.5rem] md:leading-68 md:mb-24 lg:text-64 lg:mb-8">
+                {t("homepage.headline")}
+              </div>
+              <div className="text-20 leading-26 md:text-28 md:leading-26 lg:text-32 lg:leading-40">
+                {t("homepage.tagline")}
+              </div>
+            </h1>
+            <div className="max-w-[250px] leading-26 md:max-w-[420px] md:leading-26 lg:leading-40 mt-32">
+              <Button className={"w-full"}>{t("homepage.start")}</Button>
             </div>
-            <div className="max-w-[300px] text-32 leading-40 mb-8 md:max-w-[560px] md:text-[3.5rem] md:leading-68 md:mb-24 lg:text-64 lg:mb-8">
-              {t("homepage.headline")}
+            <div className="max-w-[250px] leading-26 md:max-w-[420px] lg:leading-40 mt-32">
+              <h2 className="text-20 leading-26 mb-8">
+                Sie haben bereits ein Konto?
+              </h2>
+              <p className="text-18 leading-26 mb-28">
+                Ich habe meinen Freischaltcode erhalten oder möchte die
+                Bearbeitung fortsetzen.
+              </p>
+              <Button
+                look={"ghost"}
+                size={"large"}
+                icon={<Edit />}
+                className={"underline pl-0"}
+              >
+                Anmelden & Bearbeiten fortsetzen
+              </Button>
             </div>
-            <div className="text-20 leading-26 md:text-28 md:leading-26 lg:text-32 lg:leading-40">
-              {t("homepage.tagline")}
-            </div>
-          </h1>
+          </div>
 
           <div className="mb-64 md:mb-80 lg:mb-96">
             <HomepageFeatures />
