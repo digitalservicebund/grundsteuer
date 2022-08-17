@@ -23,14 +23,18 @@ export default function NavigationActions(props: {
         statusClasses="mb-16 rounded-t py-4"
       />
 
-      <NavigationLink
-        to="/identifikation"
-        icon={<Lock className="w-24 h-24 fill-blue-800" />}
-        isAllCaps
-        isActive={!!currentLocation.match(/(\/identifikation|\/fsc\/|\/ekona)/)}
-      >
-        Identifikation
-      </NavigationLink>
+      {!props.userHasFinishedProcess && (
+        <NavigationLink
+          to="/identifikation"
+          icon={<Lock className="w-24 h-24 fill-blue-800" />}
+          isAllCaps
+          isActive={
+            !!currentLocation.match(/(\/identifikation|\/fsc\/|\/ekona)/)
+          }
+        >
+          Identifikation
+        </NavigationLink>
+      )}
 
       {!props.userHasFinishedProcess && (
         <NavigationLink

@@ -17,10 +17,8 @@ import {
   deleteEricaRequestIdFscAktivieren,
   deleteEricaRequestIdFscBeantragen,
   deleteEricaRequestIdFscStornieren,
-  deleteFscRequest,
   deletePdf,
   deleteTransferticket,
-  findUserByEmail,
   saveDeclaration,
   saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscBeantragen,
@@ -36,6 +34,20 @@ import {
 // eslint-disable-next-line no-unused-vars
 export default (on, config) => {
   on("task", {
+    createUser: async ({ email }) => {
+      await createUser(email);
+      return null;
+    },
+
+    deleteUser: async ({ email }) => {
+      db.user.delete({
+        where: {
+          email: email,
+        },
+      });
+      return null;
+    },
+
     dbRemoveFsc: async (userEmail) => {
       return db.fscRequest.deleteMany({
         where: { User: { email: userEmail } },
