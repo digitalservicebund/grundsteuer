@@ -98,7 +98,20 @@ export const loader: LoaderFunction = async ({
   const currentStateWithoutId = getCurrentStateWithoutId(currentState);
 
   const machine = getMachine({ formData: storedFormData, params });
-  const stateNodeType = machine.getStateNodeByPath(currentStateWithoutId).type;
+
+  let stateNodeType;
+  try {
+    stateNodeType = machine.getStateNodeByPath(currentStateWithoutId).type;
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      /^Child state .* does not exist/.test(error.message)
+    ) {
+      // handle invalid paths
+      throw new Response("Cannot map url to form step.", { status: 404 });
+    }
+    throw error;
+  }
 
   // redirect to first fitting child node
   if (stateNodeType == "compound") {
@@ -106,6 +119,7 @@ export const loader: LoaderFunction = async ({
     const redirectUrl = getRedirectUrl(inititalState, PREFIX);
     return redirect(redirectUrl);
   }
+
   // redirect in case the step is not enabled
   const reachablePaths = getReachablePathsFromGrundData(storedFormData);
   if (!reachablePaths.includes(currentState)) {
