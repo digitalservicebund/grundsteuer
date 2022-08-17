@@ -252,7 +252,7 @@ export function Step() {
   return (
     <>
       <main className="flex-grow mb-56">
-        <HomepageHeader skipPruefen={loaderData.weitereErklaerung} />
+        <HomepageHeader skipPruefen={loaderData.weitereErklaerung} showNewFeatures={loaderData.testFeaturesEnabled}/>
         <ContentContainer>
           <div className="bg-white px-16 md:px-80 py-16 md:py-56">
             <SectionLabel

@@ -7,6 +7,7 @@ import PersonCircle from "~/components/icons/mui/PersonCircle";
 import { useLocation } from "@remix-run/react";
 import OpenTab from "~/components/icons/mui/OpenTab";
 import Redo from "~/components/icons/mui/Redo";
+import Edit from "~/components/icons/mui/Edit";
 
 function HeaderLink({
   destination,
@@ -46,8 +47,10 @@ function HeaderLink({
 function HeaderActions({
   location,
   skipPruefen,
+  showNewFeatures,
 }: {
   location: string;
+  showNewFeatures: boolean | undefined;
   skipPruefen?: boolean;
 }) {
   if (skipPruefen) {
@@ -61,24 +64,39 @@ function HeaderActions({
       </HeaderLink>
     );
   }
-  return (
-    <>
-      <HeaderLink
-        destination="/anmelden"
-        icon={<PersonCircle className="w-[20px] h-[20px]" />}
-        active={location.includes("/anmelden")}
+  if (showNewFeatures) {
+    const { t } = useTranslation("all");
+    return (
+      <Button
+        look={"ghost"}
+        size={"large"}
+        icon={<Edit />}
+        className={"underline pl-0"}
+        to="/anmelden"
       >
-        Anmelden
-      </HeaderLink>
-      <HeaderLink
-        destination="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de"
-        icon={<OpenTab className="w-[20px] h-[20px]" />}
-        newTab
-      >
-        Hilfebereich
-      </HeaderLink>
-    </>
-  );
+        {t("homepage.continue.buttonText")}
+      </Button>
+    );
+  } else {
+    return (
+      <>
+        <HeaderLink
+          destination="/anmelden"
+          icon={<PersonCircle className="w-[20px] h-[20px]" />}
+          active={location.includes("/anmelden")}
+        >
+          Anmelden
+        </HeaderLink>
+        <HeaderLink
+          destination="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de"
+          icon={<OpenTab className="w-[20px] h-[20px]" />}
+          newTab
+        >
+          Hilfebereich
+        </HeaderLink>
+      </>
+    );
+  }
 }
 
 function HeaderButtons({
@@ -148,10 +166,9 @@ function HeaderButtons({
   );
 }
 
-export function HomepageHeader({ skipPruefen }: { skipPruefen?: boolean }) {
+export function HomepageHeader({ skipPruefen, showNewFeatures }: { skipPruefen?: boolean, showNewFeatures?: boolean }) {
   const { t } = useTranslation("all");
   const location = useLocation().pathname;
-
   return (
     <div>
       <div className="bg-white lg:pt-48 lg:pb-56 lg:shadow-[0px_4px_10px_rgba(0,0,0,0.1)] lg:relative lg:z-10">
@@ -161,7 +178,10 @@ export function HomepageHeader({ skipPruefen }: { skipPruefen?: boolean }) {
             <TopNavigation
               actions={
                 <div className="flex flex-col mb-32">
-                  <HeaderActions location={location} />
+                  <HeaderActions
+                    location={location}
+                    showNewFeatures={showNewFeatures}
+                  />
                 </div>
               }
             />
@@ -177,15 +197,21 @@ export function HomepageHeader({ skipPruefen }: { skipPruefen?: boolean }) {
             </div>
             <div className="flex flex-col">
               <div className="flex flex-row-reverse gap-x-32 mb-32">
-                <HeaderActions location={location} skipPruefen={skipPruefen} />
+                <HeaderActions
+                  location={location}
+                  skipPruefen={skipPruefen}
+                  showNewFeatures={showNewFeatures}
+                />
               </div>
             </div>
           </ContentContainer>
         </div>
       </div>
-      <div className="mb-32 md:mb-48 bg-white pb-24 lg:py-24 flex justify-center lg:justify-auto">
-        <HeaderButtons t={t} location={location} />
-      </div>
+      {!showNewFeatures && (
+        <div className="mb-32 md:mb-48 bg-white pb-24 lg:py-24 flex justify-center lg:justify-auto">
+          <HeaderButtons t={t} location={location} />
+        </div>
+      )}
     </div>
   );
 }

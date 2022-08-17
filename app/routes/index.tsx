@@ -33,7 +33,7 @@ export default function Index() {
           </p>
         </ContentContainer>
       </div> */}
-      <HomepageHeader />
+      <HomepageHeader showNewFeatures={showNewFeatures} />
       <main className="flex-grow">
         <BreadcrumbNavigation />
         <ContentContainer>
