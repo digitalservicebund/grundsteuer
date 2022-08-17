@@ -50,26 +50,32 @@ export default function Index() {
                 {t("homepage.tagline")}
               </div>
             </h1>
-            <div className="max-w-[250px] leading-26 md:max-w-[420px] md:leading-26 lg:leading-40 mt-32">
-              <Button className={"w-full"}>{t("homepage.start")}</Button>
-            </div>
-            <div className="max-w-[250px] leading-26 md:max-w-[420px] lg:leading-40 mt-32">
-              <h2 className="text-20 leading-26 mb-8">
-                Sie haben bereits ein Konto?
-              </h2>
-              <p className="text-18 leading-26 mb-28">
-                Ich habe meinen Freischaltcode erhalten oder möchte die
-                Bearbeitung fortsetzen.
-              </p>
-              <Button
-                look={"ghost"}
-                size={"large"}
-                icon={<Edit />}
-                className={"underline pl-0"}
-              >
-                Anmelden & Bearbeiten fortsetzen
-              </Button>
-            </div>
+            {showNewFeatures && (
+              <>
+                <div className="max-w-[250px] leading-26 md:max-w-[420px] md:leading-26 lg:leading-40 mt-32">
+                  <Button className={"w-full"} to="/pruefen/start">
+                    {t("homepage.start")}
+                  </Button>
+                </div>
+                <div className="max-w-[250px] leading-26 md:max-w-[420px] lg:leading-40 mt-32">
+                  <h2 className="text-20 leading-26 mb-8">
+                    {t("homepage.continue.headline")}
+                  </h2>
+                  <p className="text-18 leading-26 mb-28">
+                    {t("homepage.continue.text")}
+                  </p>
+                  <Button
+                    look={"ghost"}
+                    size={"large"}
+                    icon={<Edit />}
+                    className={"underline pl-0"}
+                    to="/anmelden"
+                  >
+                    {t("homepage.continue.buttonText")}
+                  </Button>
+                </div>
+              </>
+            )}
           </div>
 
           <div className="mb-64 md:mb-80 lg:mb-96">

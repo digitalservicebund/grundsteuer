@@ -15,6 +15,11 @@
     "buttonCheck": "Kann ich teilnehmen?",
     "buttonStart": "Grundsteuererklärung abgeben",
     "start": "Grundsteuererklärung starten",
+    "continue": {
+      "headline": "Sie haben bereits ein Konto?",
+      "text": "Ich habe meinen Freischaltcode erhalten oder möchte die Bearbeitung fortsetzen.",
+      "buttonText": "Anmelden & Bearbeiten fortsetzen"
+    },
     "kicker": "Grundsteuerreform",
     "headline": "Grundsteuererklärung für Privateigentum.",
     "tagline": "Schnell. Unkompliziert. Kostenlos.",
