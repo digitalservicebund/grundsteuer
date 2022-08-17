@@ -4,14 +4,14 @@ describe("menu item Identifikation", () => {
     // large screen with visible side menu
     cy.viewport(1200, 1000);
     cy.task("setUserUnidentified", {
-      userEmail: "foo@bar.com",
+      email: "foo@bar.com",
     });
   });
 
   afterEach(() => {
     cy.task("dbRemoveFsc", "foo@bar.com");
     cy.task("setUserUnidentified", {
-      userEmail: "foo@bar.com",
+      email: "foo@bar.com",
     });
   });
 
@@ -25,7 +25,7 @@ describe("menu item Identifikation", () => {
 
   it("should redirect to /fsc/eingeben on user with FSC request", () => {
     cy.task("addFscRequestId", {
-      userEmail: "foo@bar.com",
+      email: "foo@bar.com",
       fscRequestId: "foo",
     });
     cy.login();
@@ -36,7 +36,7 @@ describe("menu item Identifikation", () => {
 
   it("should redirect to /identifikation/erfolgriech on identified user", () => {
     cy.task("setUserIdentified", {
-      userEmail: "foo@bar.com",
+      email: "foo@bar.com",
     });
     cy.login();
     cy.visit("/formular");

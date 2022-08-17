@@ -14,7 +14,6 @@ import { AuditLogEvent } from "~/audit/auditLog";
 import * as csrfModule from "~/util/csrf";
 import { mockActionArgs } from "testUtil/mockActionArgs";
 import { DataFunctionArgs } from "@remix-run/node";
-import * as freischaltCodeBeantragenModule from "~/erica/freischaltCodeBeantragen";
 
 describe("Loader", () => {
   const expectedTransferticket = "foo12345";
@@ -452,7 +451,7 @@ describe("Action", () => {
         route: "/fsc/eingeben",
         formData: { freischaltCode: "XXXX-XXXX-XXXX" },
         context: {},
-        userEmail: "existing_user@foo.com",
+        email: "existing_user@foo.com",
         allData: {},
       });
 
@@ -474,7 +473,7 @@ describe("Action", () => {
         route: "/fsc/eingeben",
         formData: { freischaltCode: "XXXX-XXXX-XXXX" },
         context: {},
-        userEmail: "existing_user@foo.com",
+        email: "existing_user@foo.com",
         allData: {},
       });
 
@@ -505,7 +504,7 @@ describe("Action", () => {
         route: "/fsc/beantragen",
         formData: { freischaltCode: "" },
         context: {},
-        userEmail: "existing_user@foo.com",
+        email: "existing_user@foo.com",
         allData: {},
       });
 
@@ -530,7 +529,7 @@ describe("Action", () => {
           route: "/fsc/eingeben",
           formData: formData,
           context: {},
-          userEmail: "existing_user@foo.com",
+          email: "existing_user@foo.com",
           allData: {},
         });
       });

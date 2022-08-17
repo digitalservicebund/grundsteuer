@@ -8,10 +8,10 @@ describe("/eingeben", () => {
     cy.task("dbRemoveFsc", "foo@bar.com");
     cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
     cy.task("setUserUnidentified", {
-      userEmail: "foo@bar.com",
+      email: "foo@bar.com",
     });
     cy.task("addFscRequestId", {
-      userEmail: "foo@bar.com",
+      email: "foo@bar.com",
       fscRequestId: "foo",
     });
     cy.login();
@@ -22,7 +22,7 @@ describe("/eingeben", () => {
     cy.task("dbRemoveFsc", "foo@bar.com");
     cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
     cy.task("setUserUnidentified", {
-      userEmail: "foo@bar.com",
+      email: "foo@bar.com",
     });
   });
 
@@ -59,7 +59,7 @@ describe("/eingeben", () => {
     cy.request("GET", Cypress.env("ERICA_URL") + "/triggerNoResponse");
     cy.request("POST", Cypress.env("ERICA_URL") + "/v2/fsc/activation");
     cy.task("addEricaRequestIdFscAktivieren", {
-      userEmail: "foo@bar.com",
+      email: "foo@bar.com",
       ericaRequestId: "foo",
     });
     cy.visit("/fsc/eingeben");
@@ -80,7 +80,7 @@ describe("/eingeben", () => {
 
   it("should redirect to success page if it was already successful", () => {
     cy.task("setUserIdentified", {
-      userEmail: "foo@bar.com",
+      email: "foo@bar.com",
     });
     cy.visit("/fsc/eingeben");
     cy.url().should("include", "/fsc/eingeben/erfolgreich");

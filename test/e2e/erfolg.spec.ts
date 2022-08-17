@@ -21,14 +21,14 @@ describe("/formular/erfolg page", () => {
     beforeEach(() => {
       cy.login();
       cy.task("setUserInDeclarationProcessAttribute", {
-        userEmail: "foo@bar.com",
+        email: "foo@bar.com",
         inDeclarationProcess: false,
       });
     });
 
     afterEach(() => {
       cy.task("setUserInDeclarationProcessAttribute", {
-        userEmail: "foo@bar.com",
+        email: "foo@bar.com",
         inDeclarationProcess: true,
       });
     });
@@ -44,7 +44,7 @@ describe("/formular/erfolg page", () => {
     describe("pdf and transferticket set for logged-in user", () => {
       beforeEach(() => {
         cy.task("setDeclarationMetadata", {
-          userEmail: "foo@bar.com",
+          email: "foo@bar.com",
           transferticket: "Test-Transferticket",
           pdf: "Test-PDF-Content",
         });
@@ -52,10 +52,10 @@ describe("/formular/erfolg page", () => {
 
       afterEach(() => {
         cy.task("dbRemoveUserPdf", {
-          userEmail: "foo@bar.com",
+          email: "foo@bar.com",
         });
         cy.task("dbRemoveUserTransferticket", {
-          userEmail: "foo@bar.com",
+          email: "foo@bar.com",
         });
       });
 

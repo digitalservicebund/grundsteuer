@@ -55,7 +55,7 @@ describe("Action", () => {
             SAMLResponse: "PLACEHOLDER_SAML_RESPONSE",
           },
           context: {},
-          userEmail: "existing_user@foo.com",
+          email: "existing_user@foo.com",
           allData: {},
           explicitCookie: await commitEkonaSession(ekonaSession),
         })
@@ -85,7 +85,7 @@ describe("Action", () => {
               SAMLResponse: "<xml>This is just a mock placeholder</xml>",
             },
             context: {},
-            userEmail: "existing_user@foo.com",
+            email: "existing_user@foo.com",
             allData: {},
             explicitCookie: await commitEkonaSession(ekonaSession),
           })
@@ -117,7 +117,7 @@ describe("Action", () => {
             SAMLResponse: "PLACEHOLDER_SAML_RESPONSE",
           },
           context: {},
-          userEmail: "existing_user@foo.com",
+          email: "existing_user@foo.com",
           allData: {},
           explicitCookie: await commitEkonaSession(ekonaSession),
         })
@@ -158,7 +158,7 @@ describe("Action", () => {
             SAMLResponse: "<xml>This is just a mock placeholder</xml>",
           },
           context: {},
-          userEmail: "existing_user@foo.com",
+          email: "existing_user@foo.com",
           allData: {},
           explicitCookie: await commitEkonaSession(ekonaSession),
         })
@@ -201,7 +201,7 @@ describe("Action", () => {
               SAMLResponse: "<xml>This is just a mock placeholder</xml>",
             },
             context: {},
-            userEmail: "existing_user@foo.com",
+            email: "existing_user@foo.com",
             allData: {},
             explicitCookie: await commitEkonaSession(ekonaSession),
           })
@@ -245,7 +245,7 @@ describe("Action", () => {
             SAMLResponse: "<xml>This is just a mock placeholder</xml>",
           },
           context: { clientIp: expectedClientIp },
-          userEmail: "existing_user@foo.com",
+          email: "existing_user@foo.com",
           allData: {},
           explicitCookie: await commitEkonaSession(ekonaSession),
         })
@@ -324,7 +324,7 @@ describe("Action", () => {
               SAMLResponse: "<xml>This is just a mock placeholder</xml>",
             },
             context: {},
-            userEmail: "existing_user@foo.com",
+            email: "existing_user@foo.com",
             allData: {},
             explicitCookie: await commitEkonaSession(ekonaSession),
           })
@@ -370,7 +370,7 @@ describe("Action", () => {
               SAMLResponse: "<xml>This is just a mock placeholder</xml>",
             },
             context: {},
-            userEmail: "existing_user@foo.com",
+            email: "existing_user@foo.com",
             allData: {},
             explicitCookie: await commitEkonaSession(ekonaSession),
           })
@@ -418,7 +418,7 @@ describe("Action", () => {
                 SAMLResponse: "<xml>This is just a mock placeholder</xml>",
               },
               context: {},
-              userEmail: "existing_user@foo.com",
+              email: "existing_user@foo.com",
               allData: {},
               explicitCookie: await commitEkonaSession(ekonaSession),
             })

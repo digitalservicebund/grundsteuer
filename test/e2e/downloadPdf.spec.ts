@@ -24,7 +24,7 @@ describe("Download pdf", () => {
     beforeEach(() => {
       cy.login();
       cy.task("setDeclarationMetadata", {
-        userEmail: "foo@bar.com",
+        email: "foo@bar.com",
         transferticket: "transferticket",
         pdf: "Test-PDF-Content",
       });
@@ -32,7 +32,7 @@ describe("Download pdf", () => {
 
     afterEach(() => {
       cy.task("dbRemoveUserPdf", {
-        userEmail: "foo@bar.com",
+        email: "foo@bar.com",
       });
     });
 

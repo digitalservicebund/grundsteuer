@@ -730,7 +730,7 @@ describe("Action", () => {
         route: "/fsc/neuBeantragen",
         formData: { steuerId: "03352417692", geburtsdatum: "01.01.1985" },
         context: {},
-        userEmail: "existing_user@foo.com",
+        email: "existing_user@foo.com",
         allData: {},
       });
 
@@ -753,7 +753,7 @@ describe("Action", () => {
         route: "/fsc/neuBeantragen",
         formData: { steuerId: "03352417692", geburtsdatum: "01.01.1985" },
         context: {},
-        userEmail: "existing_user@foo.com",
+        email: "existing_user@foo.com",
         allData: {},
       });
 
@@ -783,7 +783,7 @@ describe("Action", () => {
         route: "/fsc/neuBeantragen",
         formData: { steuerId: "", geburtsdatum: "" },
         context: {},
-        userEmail: "existing_user@foo.com",
+        email: "existing_user@foo.com",
         allData: {},
       });
 
@@ -816,7 +816,7 @@ describe("Action", () => {
           route: "/fsc/neuBeantragen",
           formData: formData,
           context: {},
-          userEmail: "existing_user@foo.com",
+          email: "existing_user@foo.com",
           allData: {},
         });
       });
@@ -939,7 +939,7 @@ describe("Action", () => {
         route: "/fsc/neuBeantragen",
         formData: formData,
         context: {},
-        userEmail: "existing_user@foo.com",
+        email: "existing_user@foo.com",
         allData: {},
       });
     });

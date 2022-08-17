@@ -435,7 +435,7 @@ describe("/zusammenfassung action", () => {
       const args = await mockActionArgs({
         formData: {},
         context: {},
-        userEmail: "user@example.com",
+        email: "user@example.com",
         allData: grundModelFactory.full().build(),
       });
 
@@ -449,7 +449,7 @@ describe("/zusammenfassung action", () => {
       const args = await mockActionArgs({
         formData: {},
         context: {},
-        userEmail: "user@example.com",
+        email: "user@example.com",
         allData: grundModelFactory.full().build(),
       });
 
@@ -473,7 +473,7 @@ describe("/zusammenfassung action", () => {
           additional: "Should not be in result",
         },
         context: {},
-        userEmail: "user@example.com",
+        email: "user@example.com",
         allData: previousData,
       });
 
@@ -517,7 +517,7 @@ describe("/zusammenfassung action", () => {
           confirmTermsOfUse: "true",
         },
         context: {},
-        userEmail: "user@example.com",
+        email: "user@example.com",
         allData: grundModelFactory.full().build(),
       });
 
@@ -539,7 +539,7 @@ describe("/zusammenfassung action", () => {
           confirmTermsOfUse: "true",
         },
         context: {},
-        userEmail: "user@example.com",
+        email: "user@example.com",
         allData: grundModelFactory.full().build(),
       });
       sendGrundsteuerMock.mockClear();
@@ -562,7 +562,7 @@ describe("/zusammenfassung action", () => {
           confirmTermsOfUse: "true",
         },
         context: {},
-        userEmail: "user@example.com",
+        email: "user@example.com",
         allData: grundModelFactory.full().build(),
       });
       sendGrundsteuerMock.mockClear();
@@ -592,7 +592,7 @@ describe("/zusammenfassung action", () => {
           confirmTermsOfUse: "true",
         },
         context: {},
-        userEmail: "user@example.com",
+        email: "user@example.com",
         allData: grundModelFactory.full().build(),
       });
       sendGrundsteuerMock.mockClear();

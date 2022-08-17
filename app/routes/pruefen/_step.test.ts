@@ -19,7 +19,7 @@ describe("_step action", () => {
       route: "/eigentuemerTyp",
       formData: {},
       context: {},
-      userEmail: "user@example.com",
+      email: "user@example.com",
       allData: {},
     });
 
@@ -43,7 +43,7 @@ describe("_step action", () => {
         route: "/start",
         formData: {},
         context: {},
-        userEmail: "user@example.com",
+        email: "user@example.com",
         allData: {},
         explicitCookie,
       });
@@ -59,7 +59,7 @@ describe("_step action", () => {
         route: "/start",
         formData: {},
         context: {},
-        userEmail: "user@example.com",
+        email: "user@example.com",
         allData: {},
         explicitCookie,
       });
@@ -79,7 +79,7 @@ describe("_step action", () => {
           additional: "Should not be in result",
         },
         context: {},
-        userEmail: "user@example.com",
+        email: "user@example.com",
         allData: previousData,
         explicitCookie,
       });

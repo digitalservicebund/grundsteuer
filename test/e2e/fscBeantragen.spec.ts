@@ -5,7 +5,7 @@ const validSteuerId = "77 819 250 434";
 describe("/beantragen", () => {
   before(() => {
     cy.task("setUserUnidentified", {
-      userEmail: "foo@bar.com",
+      email: "foo@bar.com",
     });
   });
   beforeEach(() => {
@@ -50,7 +50,7 @@ describe("/beantragen", () => {
     cy.request("GET", Cypress.env("ERICA_URL") + "/triggerNoResponse");
     cy.request("POST", Cypress.env("ERICA_URL") + "/v2/fsc/request");
     cy.task("addEricaRequestIdFscAntrag", {
-      userEmail: "foo@bar.com",
+      email: "foo@bar.com",
       ericaRequestId: "foo",
     });
     cy.visit("/fsc/beantragen");
@@ -80,7 +80,7 @@ describe("/beantragen", () => {
 
   it("should redirect to success page if it was already successful", () => {
     cy.task("addFscRequestId", {
-      userEmail: "foo@bar.com",
+      email: "foo@bar.com",
       fscRequestId: "foo",
     });
     cy.visit("/fsc/beantragen");

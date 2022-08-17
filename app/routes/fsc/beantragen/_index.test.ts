@@ -168,7 +168,7 @@ describe("Action", () => {
         route: "/fsc/beantragen",
         formData: { steuerId: "03 352 417 692", geburtsdatum: "01.01.1985" },
         context: {},
-        userEmail: "existing_user@foo.com",
+        email: "existing_user@foo.com",
         allData: {},
       });
 
@@ -197,7 +197,7 @@ describe("Action", () => {
         route: "/fsc/beantragen",
         formData: { steuerId: "", geburtsdatum: "" },
         context: {},
-        userEmail: "existing_user@foo.com",
+        email: "existing_user@foo.com",
         allData: {},
       });
 
@@ -228,7 +228,7 @@ describe("Action", () => {
           route: "/fsc/beantragen",
           formData: formData,
           context: {},
-          userEmail: "existing_user@foo.com",
+          email: "existing_user@foo.com",
           allData: {},
         });
       });

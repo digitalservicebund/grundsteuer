@@ -15,9 +15,9 @@ jest.mock("~/auth.server", () => {
   };
 });
 
-export const getAuthenticatedSession = async (userMail: string) => {
+export const getAuthenticatedSession = async (email: string) => {
   const session = await getSession();
-  session.set("user", { email: userMail, id: 1 });
+  session.set("user", { email: email, id: 1 });
 
   return session;
 };
@@ -33,17 +33,17 @@ export const mockAuthenticate =
   >;
 
 export const setCookieHeaderWithSessionAndData = async (
-  userEmail: string,
+  email: string,
   formData: GrundModel,
   headers: Headers
 ) => {
   const authenticatedSessionCookie = await commitSession(
-    await getAuthenticatedSession(userEmail)
+    await getAuthenticatedSession(email)
   );
 
   const dataHeaders = (await createHeadersWithFormDataCookie({
     user: {
-      email: userEmail,
+      email,
       id: "1",
       identified: true,
       inDeclarationProcess: true,
@@ -68,14 +68,14 @@ export const setCookieHeaderWithSessionAndData = async (
 
 export const getLoaderArgsWithAuthenticatedSession = async (
   requestUrl: string,
-  userEmail: string,
+  email: string,
   formData?: GrundModel,
   sessionData?: Record<string, any>
 ) => {
   let headers = new Headers();
 
   if (!formData) {
-    const session = await getAuthenticatedSession(userEmail);
+    const session = await getAuthenticatedSession(email);
     if (sessionData) {
       Object.entries(sessionData).forEach(([key, value]) => {
         session.set(key, value);
@@ -84,11 +84,7 @@ export const getLoaderArgsWithAuthenticatedSession = async (
     const authenticatedSessionCookie = await commitSession(session);
     headers.set("Cookie", authenticatedSessionCookie);
   } else {
-    headers = await setCookieHeaderWithSessionAndData(
-      userEmail,
-      formData,
-      headers
-    );
+    headers = await setCookieHeaderWithSessionAndData(email, formData, headers);
   }
 
   return {

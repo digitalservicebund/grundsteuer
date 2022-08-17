@@ -48,64 +48,64 @@ export default (on, config) => {
       return null;
     },
 
-    dbRemoveFsc: async (userEmail) => {
+    dbRemoveFsc: async (email) => {
       return db.fscRequest.deleteMany({
-        where: { User: { email: userEmail } },
+        where: { User: { email: email } },
       });
     },
 
-    addFscRequestId: async ({ userEmail, fscRequestId }) => {
-      await saveFscRequest(userEmail, fscRequestId);
+    addFscRequestId: async ({ email, fscRequestId }) => {
+      await saveFscRequest(email, fscRequestId);
       return null;
     },
 
-    dbRemoveAllEricaRequestIds: async (userEmail) => {
-      await deleteEricaRequestIdFscBeantragen(userEmail);
-      await deleteEricaRequestIdFscAktivieren(userEmail);
-      await deleteEricaRequestIdFscStornieren(userEmail);
+    dbRemoveAllEricaRequestIds: async (email) => {
+      await deleteEricaRequestIdFscBeantragen(email);
+      await deleteEricaRequestIdFscAktivieren(email);
+      await deleteEricaRequestIdFscStornieren(email);
       return null;
     },
 
-    dbResetUser: async (userEmail) => {
-      await deleteEricaRequestIdFscBeantragen(userEmail);
-      await deleteEricaRequestIdFscAktivieren(userEmail);
-      await deleteEricaRequestIdFscStornieren(userEmail);
+    dbResetUser: async (email) => {
+      await deleteEricaRequestIdFscBeantragen(email);
+      await deleteEricaRequestIdFscAktivieren(email);
+      await deleteEricaRequestIdFscStornieren(email);
       await db.user.update({
-        where: { email: userEmail },
+        where: { email: email },
         data: {
           identified: false,
           identifiedAt: null,
         },
       });
-      await deletePdf(userEmail);
-      await deleteTransferticket(userEmail);
-      await setUserInDeclarationProcess(userEmail, true);
+      await deletePdf(email);
+      await deleteTransferticket(email);
+      await setUserInDeclarationProcess(email, true);
       return null;
     },
 
-    addEricaRequestIdFscAntrag: async ({ userEmail, ericaRequestId }) => {
-      await saveEricaRequestIdFscBeantragen(userEmail, ericaRequestId);
+    addEricaRequestIdFscAntrag: async ({ email, ericaRequestId }) => {
+      await saveEricaRequestIdFscBeantragen(email, ericaRequestId);
       return null;
     },
 
-    addEricaRequestIdFscAktivieren: async ({ userEmail, ericaRequestId }) => {
-      await saveEricaRequestIdFscAktivieren(userEmail, ericaRequestId);
+    addEricaRequestIdFscAktivieren: async ({ email, ericaRequestId }) => {
+      await saveEricaRequestIdFscAktivieren(email, ericaRequestId);
       return null;
     },
 
-    addEricaRequestIdFscStornieren: async ({ userEmail, ericaRequestId }) => {
-      await saveEricaRequestIdFscStornieren(userEmail, ericaRequestId);
+    addEricaRequestIdFscStornieren: async ({ email, ericaRequestId }) => {
+      await saveEricaRequestIdFscStornieren(email, ericaRequestId);
       return null;
     },
 
-    setUserIdentified: async ({ userEmail }) => {
-      await setUserIdentified(userEmail);
+    setUserIdentified: async ({ email }) => {
+      await setUserIdentified(email);
       return null;
     },
 
-    setUserUnidentified: async ({ userEmail }) => {
+    setUserUnidentified: async ({ email }) => {
       await db.user.update({
-        where: { email: userEmail },
+        where: { email: email },
         data: {
           identified: false,
           identifiedAt: null,
@@ -114,26 +114,26 @@ export default (on, config) => {
       return null;
     },
 
-    dbRemoveUserTransferticket: async ({ userEmail }) => {
-      await deleteTransferticket(userEmail);
+    dbRemoveUserTransferticket: async ({ email }) => {
+      await deleteTransferticket(email);
       return null;
     },
 
-    dbRemoveUserPdf: async ({ userEmail }) => {
-      await deletePdf(userEmail);
+    dbRemoveUserPdf: async ({ email }) => {
+      await deletePdf(email);
       return null;
     },
 
-    setDeclarationMetadata: async ({ userEmail, transferticket, pdf }) => {
-      await saveDeclaration(userEmail, transferticket, pdf);
+    setDeclarationMetadata: async ({ email, transferticket, pdf }) => {
+      await saveDeclaration(email, transferticket, pdf);
       return null;
     },
 
     setUserInDeclarationProcessAttribute: async ({
-      userEmail,
+      email,
       inDeclarationProcess,
     }) => {
-      await setUserInDeclarationProcess(userEmail, inDeclarationProcess);
+      await setUserInDeclarationProcess(email, inDeclarationProcess);
       return null;
     },
   });

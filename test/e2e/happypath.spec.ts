@@ -183,7 +183,7 @@ export const submitBtnSelector = "#nextButton";
 describe("Happy Path", () => {
   beforeEach(() => {
     cy.task("setUserIdentified", {
-      userEmail: "foo@bar.com",
+      email: "foo@bar.com",
     });
     cy.request("GET", Cypress.env("ERICA_URL") + "/reset");
     cy.request("GET", Cypress.env("ERICA_URL") + "/triggerSuccess");

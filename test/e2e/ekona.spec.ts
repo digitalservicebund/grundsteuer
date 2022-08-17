@@ -11,13 +11,13 @@ describe("/ekona", () => {
   describe("logged-in user but not identified", () => {
     beforeEach(() => {
       cy.task("setUserUnidentified", {
-        userEmail: "foo@bar.com",
+        email: "foo@bar.com",
       });
       cy.login();
     });
     after(() => {
       cy.task("setUserUnidentified", {
-        userEmail: "foo@bar.com",
+        email: "foo@bar.com",
         identified: false,
       });
     });
@@ -46,7 +46,7 @@ describe("/ekona", () => {
   describe("identified user", () => {
     beforeEach(() => {
       cy.task("setUserIdentified", {
-        userEmail: "foo@bar.com",
+        email: "foo@bar.com",
       });
       cy.login();
     });

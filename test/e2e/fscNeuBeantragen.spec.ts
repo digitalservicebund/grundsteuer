@@ -6,7 +6,7 @@ describe("/neuBeantragen", () => {
   beforeEach(() => {
     cy.request("GET", Cypress.env("ERICA_URL") + "/reset");
     cy.task("addFscRequestId", {
-      userEmail: "foo@bar.com",
+      email: "foo@bar.com",
       fscRequestId: "fooRequestId",
     });
     cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
@@ -48,7 +48,7 @@ describe("/neuBeantragen", () => {
     cy.request("GET", Cypress.env("ERICA_URL") + "/triggerNoResponse");
     cy.request("POST", Cypress.env("ERICA_URL") + "/v2/fsc/request");
     cy.task("addEricaRequestIdFscAntrag", {
-      userEmail: "foo@bar.com",
+      email: "foo@bar.com",
       ericaRequestId: "foo",
     });
     cy.visit("/fsc/neuBeantragen");
@@ -60,7 +60,7 @@ describe("/neuBeantragen", () => {
     cy.request("GET", Cypress.env("ERICA_URL") + "/triggerNoResponse");
     cy.request("POST", Cypress.env("ERICA_URL") + "/v2/fsc/revocation");
     cy.task("addEricaRequestIdFscStornieren", {
-      userEmail: "foo@bar.com",
+      email: "foo@bar.com",
       ericaRequestId: "foo",
     });
     cy.visit("/fsc/neuBeantragen");

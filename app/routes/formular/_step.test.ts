@@ -23,7 +23,7 @@ describe("_step action", () => {
       route: "/grundstueck/typ",
       formData: {},
       context: {},
-      userEmail: "user@example.com",
+      email: "user@example.com",
       allData: grundModelFactory.full().build(),
     });
 
@@ -38,7 +38,7 @@ describe("_step action", () => {
       route: "/grundstueck/typ",
       formData: {},
       context: {},
-      userEmail: "user@example.com",
+      email: "user@example.com",
       allData: grundModelFactory.full().build(),
     });
 
@@ -57,7 +57,7 @@ describe("_step action", () => {
         additional: "Should not be in result",
       },
       context: {},
-      userEmail: "user@example.com",
+      email: "user@example.com",
       allData: previousData,
     });
 
@@ -92,7 +92,7 @@ describe("_step action", () => {
       route: route,
       formData: {},
       context: {},
-      userEmail: "user@example.com",
+      email: "user@example.com",
       allData: previousData,
     });
 

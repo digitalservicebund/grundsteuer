@@ -7,10 +7,10 @@ describe("between declaration 1 and 2", () => {
       email: testUserEmail,
     });
     cy.task("setUserIdentified", {
-      userEmail: testUserEmail,
+      email: testUserEmail,
     });
     cy.task("setUserInDeclarationProcessAttribute", {
-      userEmail: testUserEmail,
+      email: testUserEmail,
       inDeclarationProcess: false,
     });
     cy.login(testUserEmail);
@@ -18,7 +18,7 @@ describe("between declaration 1 and 2", () => {
 
   afterEach(() => {
     cy.task("deleteUser", {
-      userEmail: testUserEmail,
+      email: testUserEmail,
     });
   });
 

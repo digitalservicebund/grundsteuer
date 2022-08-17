@@ -12,7 +12,7 @@ describe("/fsc", () => {
   describe("logged-in user", () => {
     beforeEach(() => {
       cy.task("setUserUnidentified", {
-        userEmail: "foo@bar.com",
+        email: "foo@bar.com",
       });
       cy.login();
     });
@@ -26,7 +26,7 @@ describe("/fsc", () => {
   describe("identified user", () => {
     beforeEach(() => {
       cy.task("setUserIdentified", {
-        userEmail: "foo@bar.com",
+        email: "foo@bar.com",
       });
       cy.login();
     });
