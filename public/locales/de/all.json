@@ -673,16 +673,16 @@
     },
     "verheiratet": {
       "headline": "Welcher Beziehungsstatus trifft auf die Eigentümer:innen zu?",
-      "description": "Wenn die Eigentümer:innen verheiratet sind oder in einer eingetragenen Lebenspartnerschaft leben, wird nur ein Steuerbescheid versendet. Wenn dies nicht der Fall ist, erhalten jeweils beide Eigentümer:innen einen Bescheid.",
+      "description": "Wenn die Eigentümer:innen verheiratet oder eingetragene Lebenspartner:innen sind und in einem Haushalt leben, wird nur ein Steuerbescheid versendet. Wenn dies nicht der Fall ist, erhalten jeweils beide Eigentümer:innen einen Bescheid.",
       "fields": {
         "areVerheiratet": {
           "options": {
             "true": {
-              "label": "Die Eigentümer:innen sind verheiratet / in eingetragener Lebenspartnerschaft",
-              "help": "Bei Ehegatten oder Lebenspartner:innen, die in einem Haushalt leben, wird nur ein Steuerbescheid an die gemeinsame Adresse versendet. Wohnen die Ehegatten oder Lebenspartner:innen nicht zusammen, werden zwei Bescheide verschickt. Das hat keine Auswirkung auf die Höhe der Grundsteuer."
+              "label": "Die Eigentümer:innen sind verheiratet/eingetragene Lebenspartner:innen und leben in einem Haushalt",
+              "help": "Bei Ehegatten oder Lebenspartner:innen, die in einem Haushalt leben, wird nur ein Steuerbescheid an die gemeinsame Adresse versendet. Das hat keine Auswirkung auf die Höhe der Grundsteuer."
             },
             "false": {
-              "label": "Die Eigentümer:innen sind nicht verheiratet oder leben dauernd getrennt.",
+              "label": "Die Eigentümer:innen sind nicht verheiratet/eingetragene Lebenspartner:innen oder sie sind verheiratet/eingetragene Lebenspartner:innen — leben aber dauernd getrennt.",
               "help": "In diesem Fall erhalten beide Eigentümer:innen jeweils einen Bescheid an die angegebenen Adressen. Das hat keine Auswirkung auf die Höhe der Grundsteuer."
             }
           }
