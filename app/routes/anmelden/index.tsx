@@ -35,6 +35,7 @@ import { useTranslation } from "react-i18next";
 import { validateEmail, validateRequired } from "~/domain/validation";
 import { removeUndefined } from "~/util/removeUndefined";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -59,6 +60,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     {
       csrfToken,
       error,
+      showNewFeatures: testFeaturesEnabled(),
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -133,22 +135,31 @@ export default function Anmelden() {
           </ErrorBar>
         )}
 
-        <Headline>Herzlich willkommen</Headline>
-        <div className="mb-80">
-          <SubHeadline>Ich bin das erste Mal hier</SubHeadline>
-          <IntroText>
-            Erstellen Sie ein Konto um die Bearbeitung nach Wunsch unterbrechen-
-            und später fortsetzen zu können.
-          </IntroText>
-          <Button to="/registrieren">Konto erstellen</Button>
-        </div>
+        {!loaderData?.showNewFeatures && (
+          <>
+            <Headline>Herzlich willkommen</Headline>
+            <div className="mb-80">
+              <SubHeadline>Ich bin das erste Mal hier</SubHeadline>
+              <IntroText>
+                Erstellen Sie ein Konto um die Bearbeitung nach Wunsch
+                unterbrechen- und später fortsetzen zu können.
+              </IntroText>
+              <Button to="/registrieren">Konto erstellen</Button>
+            </div>
 
-        <SubHeadline>Ich habe bereits ein Konto</SubHeadline>
-        <IntroText>
-          Bitte geben Sie die E-Mail-Adresse ein, mit der Sie sich registriert
-          haben. Wir senden Ihnen einen Link für die Anmeldung. Es wird kein
-          Passwort benötigt.
-        </IntroText>
+            <SubHeadline>Ich habe bereits ein Konto</SubHeadline>
+            <IntroText>
+              Bitte geben Sie die E-Mail-Adresse ein, mit der Sie sich
+              registriert haben. Wir senden Ihnen einen Link für die Anmeldung.
+              Es wird kein Passwort benötigt.
+            </IntroText>
+          </>
+        )}
+        {loaderData?.showNewFeatures && (
+          <>
+            <Headline>Melden Sie sich in Ihrem Nutzerkonto an</Headline>
+          </>
+        )}
         <Hint className="mb-40">
           Die Weiterbearbeitung ist nur mit dem Gerät und dem Browser möglich,
           mit dem das Konto erstellt wurde. Der Grund: Ihre Formulardaten werden
@@ -164,15 +175,29 @@ export default function Anmelden() {
                 name="email"
                 label="E-Mail-Adresse"
                 error={t(errors?.email)}
+                className="mb-80"
               />
             </div>
             <Button
               data-testid="submit"
               icon={<EmailOutlined />}
               disabled={isSubmitting}
+              className="mb-32"
             >
               Login Link senden
             </Button>
+            {loaderData?.showNewFeatures && (
+              <>
+                <p>Sie sind das erste Mal hier?</p>
+                <p>
+                  Hier können Sie die{" "}
+                  <a href="/pruefen/start" className="underline text-blue-800">
+                    Grundsteuererklärung starten
+                  </a>
+                  .
+                </p>
+              </>
+            )}
           </Form>
         </div>
       </ContentContainer>
