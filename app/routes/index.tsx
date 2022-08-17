@@ -16,6 +16,7 @@ import HelpInfoBox from "~/components/HelpInfoBox";
 import Edit from "~/components/icons/mui/Edit";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { useLoaderData } from "@remix-run/react";
+import HomepageAction from "~/components/HomepageAction";
 
 export const loader: LoaderFunction = async () => {
   return { showNewFeatures: testFeaturesEnabled() };
@@ -127,7 +128,7 @@ export default function Index() {
             />
           </div>
 
-          <div className="mb-64" id="faq">
+          <div className="mb-80" id="faq">
             <h2 className="text-32 leading-40 mb-16 md:mb-32">
               {t("homepage.faq.headline")}
             </h2>
@@ -141,20 +142,22 @@ export default function Index() {
             </div>
           </div>
 
-          <div className="mb-0 md:mb-80">
-            <h2 className="text-32 leading-40 mb-16 md:mb-32">
-              {t("homepage.sharing.headline")}
-            </h2>
-            <HomepageSharing />
+          <div className="mb-0 md:mb-160 xl:pr-96">
+            {!showNewFeatures && (
+              <>
+                <h2 className="text-32 leading-40 mb-16 md:mb-32">
+                  {t("homepage.sharing.headline")}
+                </h2>
+                <HomepageSharing />
+              </>
+            )}
             {showNewFeatures && (
-              <Button
-                to="/pruefen/start"
-                size="medium"
-                look="primary"
-                className="mt-80"
-              >
-                {t("homepage.start")}
-              </Button>
+              <>
+                <h2 className="text-32 leading-40 mb-32 md:mb-64">
+                  {t("homepage.action.headline")}
+                </h2>
+                <HomepageAction />
+              </>
             )}
           </div>
         </ContentContainer>
