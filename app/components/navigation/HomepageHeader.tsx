@@ -6,6 +6,7 @@ import { ReactNode } from "react";
 import PersonCircle from "~/components/icons/mui/PersonCircle";
 import { useLocation } from "@remix-run/react";
 import OpenTab from "~/components/icons/mui/OpenTab";
+import Redo from "~/components/icons/mui/Redo";
 
 function HeaderLink({
   destination,
@@ -28,11 +29,11 @@ function HeaderLink({
 
   return (
     <div className="inline-flex py-8">
-      {icon && <div className="mr-10 inline-flex">{icon}</div>}
+      {icon && <div className="mr-10 inline-flex items-center">{icon}</div>}
       <a
         href={destination}
-        className={classNames("text-14 uppercase tracking-1 font-bold", {
-          "underline text-blue-800": active,
+        className={classNames("font-bold", {
+          "underline text-blue-800": !active,
         })}
         {...newTabAttributes}
       >
@@ -42,7 +43,24 @@ function HeaderLink({
   );
 }
 
-function HeaderActions({ location }: { location: string }) {
+function HeaderActions({
+  location,
+  skipPruefen,
+}: {
+  location: string;
+  skipPruefen?: boolean;
+}) {
+  if (skipPruefen) {
+    return (
+      <HeaderLink
+        destination="/anmelden"
+        icon={<Redo className="w-[20px] h-[20px]" />}
+        active={location.includes("/anmelden")}
+      >
+        Fragebogen überspringen
+      </HeaderLink>
+    );
+  }
   return (
     <>
       <HeaderLink
@@ -130,7 +148,7 @@ function HeaderButtons({
   );
 }
 
-export function HomepageHeader() {
+export function HomepageHeader({ skipPruefen }: { skipPruefen?: boolean }) {
   const { t } = useTranslation("all");
   const location = useLocation().pathname;
 
@@ -159,7 +177,7 @@ export function HomepageHeader() {
             </div>
             <div className="flex flex-col">
               <div className="flex flex-row-reverse gap-x-32 mb-32">
-                <HeaderActions location={location} />
+                <HeaderActions location={location} skipPruefen={skipPruefen} />
               </div>
             </div>
           </ContentContainer>

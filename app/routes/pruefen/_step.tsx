@@ -79,7 +79,7 @@ export type LoaderData = {
   isFinalStep: boolean;
   isSuccessStep: boolean;
   currentState: string;
-  weitereErklaerung: string;
+  weitereErklaerung: boolean;
   stepDefinition: StepDefinition;
   csrfToken: string;
   testFeaturesEnabled?: boolean;
@@ -153,7 +153,7 @@ export const loader: LoaderFunction = async ({
       isFinalStep,
       isSuccessStep,
       currentState: currentStateFromUrl,
-      weitereErklaerung: new URL(request.url).searchParams.get(
+      weitereErklaerung: !!new URL(request.url).searchParams.get(
         "weitereErklaerung"
       ),
       stepDefinition,
@@ -252,7 +252,7 @@ export function Step() {
   return (
     <>
       <main className="flex-grow mb-56">
-        <HomepageHeader />
+        <HomepageHeader skipPruefen={loaderData.weitereErklaerung} />
         <ContentContainer>
           <div className="bg-white px-16 md:px-80 py-16 md:py-56">
             <SectionLabel
