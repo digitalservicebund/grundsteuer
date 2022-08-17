@@ -24,27 +24,26 @@ export default function NavigationActions(props: {
       />
 
       {!props.userHasFinishedProcess && (
-        <NavigationLink
-          to="/identifikation"
-          icon={<Lock className="w-24 h-24 fill-blue-800" />}
-          isAllCaps
-          isActive={
-            !!currentLocation.match(/(\/identifikation|\/fsc\/|\/ekona)/)
-          }
-        >
-          Identifikation
-        </NavigationLink>
-      )}
-
-      {!props.userHasFinishedProcess && (
-        <NavigationLink
-          to="/formular/zusammenfassung"
-          icon={<EmailOutlinedIcon className="w-24 h-24 fill-blue-800" />}
-          isAllCaps
-          isActive={!!currentLocation.match(/\/formular\/zusammenfassung/)}
-        >
-          Übersicht & Abgeben
-        </NavigationLink>
+        <>
+          <NavigationLink
+            to="/identifikation"
+            icon={<Lock className="w-24 h-24 fill-blue-800" />}
+            isAllCaps
+            isActive={
+              !!currentLocation.match(/(\/identifikation|\/fsc\/|\/ekona)/)
+            }
+          >
+            Identifikation
+          </NavigationLink>
+          <NavigationLink
+            to="/formular/zusammenfassung"
+            icon={<EmailOutlinedIcon className="w-24 h-24 fill-blue-800" />}
+            isAllCaps
+            isActive={!!currentLocation.match(/\/formular\/zusammenfassung/)}
+          >
+            Übersicht & Abgeben
+          </NavigationLink>
+        </>
       )}
       {props.userHasFinishedProcess && (
         <NavigationLink

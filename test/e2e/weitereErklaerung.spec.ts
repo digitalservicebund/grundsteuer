@@ -1,8 +1,6 @@
 /// <reference types="../../cypress/support" />
 
-const validFreischaltCode = "ABCD-1234-EFGH";
-
-describe("between declration 1 and 2", () => {
+describe("between declaration 1 and 2", () => {
   const testUserEmail = "neitherherenorthere@example.com";
   beforeEach(() => {
     cy.task("createUser", {
