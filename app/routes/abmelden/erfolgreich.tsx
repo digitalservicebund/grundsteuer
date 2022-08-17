@@ -9,14 +9,17 @@ import {
   SuccessPageLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
+import { RootLoaderData } from "~/root";
+import { useLoaderData } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Abmelden erfolgreich") };
 };
 
 export default function AbmeldenErfolgreich() {
+  const loaderData: RootLoaderData = useLoaderData();
   return (
-    <LoggedOutLayout>
+    <LoggedOutLayout showNewFeatures={loaderData.showTestFeatures}>
       <ContentContainer size="sm" className="mb-80">
         <BreadcrumbNavigation />
         <SuccessPageLayout lowVersion>

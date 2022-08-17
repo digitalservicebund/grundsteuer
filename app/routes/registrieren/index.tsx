@@ -34,6 +34,7 @@ import { getSession, commitSession } from "~/session.server";
 import { CsrfToken, verifyCsrfToken, createCsrfToken } from "~/util/csrf";
 import { authenticator } from "~/auth.server";
 import Hint from "~/components/Hint";
+import { RootLoaderData } from "~/root";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -199,7 +200,7 @@ export default function Registrieren() {
   const isSubmitting = Boolean(transition.submission);
 
   return (
-    <LoggedOutLayout>
+    <LoggedOutLayout showNewFeatures={loaderData.showTestFeatures}>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         <Headline>

@@ -36,6 +36,7 @@ import { validateEmail, validateRequired } from "~/domain/validation";
 import { removeUndefined } from "~/util/removeUndefined";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
+import { RootLoaderData } from "~/root";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -119,7 +120,7 @@ export default function Anmelden() {
   const isSubmitting = Boolean(transition.submission);
 
   return (
-    <LoggedOutLayout>
+    <LoggedOutLayout showNewFeatures={loaderData.showTestFeatures}>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         {loaderData?.error === "token" && (

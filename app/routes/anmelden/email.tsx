@@ -1,5 +1,5 @@
 import { MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import {
   BreadcrumbNavigation,
   ContentContainer,
@@ -10,14 +10,16 @@ import {
   SuccessPageLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
+import { RootLoaderData } from "~/root";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Anmeldelink per E-Mail gesendet") };
 };
 
 export default function AnmeldenEmail() {
+  const loaderData: RootLoaderData = useLoaderData();
   return (
-    <LoggedOutLayout>
+    <LoggedOutLayout showNewFeatures={loaderData.showTestFeatures}>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         <SuccessPageLayout lowVersion>

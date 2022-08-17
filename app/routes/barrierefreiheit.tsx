@@ -2,6 +2,8 @@ import { useTranslation } from "react-i18next";
 import { MetaFunction } from "@remix-run/node";
 import { BmfLogo, ContentContainer, LoggedOutLayout } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
+import { RootLoaderData } from "~/root";
+import { useLoaderData } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Nutzungsbedingungen") };
@@ -9,8 +11,9 @@ export const meta: MetaFunction = () => {
 
 export default function Nutzungsbedingungen() {
   const { t } = useTranslation("all");
+  const loaderData: RootLoaderData = useLoaderData();
   return (
-    <LoggedOutLayout>
+    <LoggedOutLayout showNewFeatures={loaderData.showTestFeatures}>
       <div className="mb-32 md:mb-64">
         <BmfLogo />
       </div>
