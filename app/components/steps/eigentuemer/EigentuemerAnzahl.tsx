@@ -24,6 +24,18 @@ const EigentuemerAnzahl: StepComponentFunction = ({
     );
   }
 
+  const anzahl = allData?.eigentuemer?.anzahl?.anzahl;
+
+  if (!anzahl) {
+    return (
+      <ContentContainer size="sm-md">
+        <StepFormFields
+          {...{ stepDefinition, currentState, formData, i18n, errors, allData }}
+        />
+      </ContentContainer>
+    );
+  }
+
   const anzahlProps = {
     anzahl: allData?.eigentuemer?.anzahl?.anzahl,
     maxAnzahl: EIGENTUEMER_ANZAHL_MAX,

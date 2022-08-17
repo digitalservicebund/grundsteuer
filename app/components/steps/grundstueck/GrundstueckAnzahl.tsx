@@ -25,6 +25,18 @@ const GrundstueckAnzahl: StepComponentFunction = ({
     );
   }
 
+  const anzahl = allData?.grundstueck?.anzahl?.anzahl;
+
+  if (!anzahl) {
+    return (
+      <ContentContainer size="sm-md">
+        <StepFormFields
+          {...{ stepDefinition, currentState, formData, i18n, errors, allData }}
+        />
+      </ContentContainer>
+    );
+  }
+
   const anzahlProps = {
     anzahl: allData?.grundstueck?.anzahl?.anzahl,
     maxAnzahl: GRUNDSTUECK_ANZAHL_MAX,

@@ -244,8 +244,8 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/anzahl");
-    cy.get("#increaseAnzahl").click();
-    cy.get(`${submitBtnSelector}:not([disabled])`).click();
+    cy.get("#anzahl").select(inputData.grundstueck.anzahl.anzahl);
+    cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/flurstueck/1/angaben");
     cy.get("#grundbuchblattnummer")
@@ -374,8 +374,8 @@ describe("Happy Path", () => {
     cy.url().should("include", "/formular/eigentuemer");
     cy.contains("h1", "Bereich: Eigentümer:in");
     cy.get(submitBtnSelector).click();
-    cy.get("#increaseAnzahl").click();
-    cy.get(`${submitBtnSelector}:not([disabled])`).click();
+    cy.get("#anzahl").select(inputData.eigentuemer.anzahl.anzahl);
+    cy.get(submitBtnSelector).click();
     cy.get("label[for=areVerheiratet-true]").click();
     cy.get(submitBtnSelector).click();
     // PERSON 1
