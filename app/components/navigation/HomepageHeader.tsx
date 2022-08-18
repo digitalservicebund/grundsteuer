@@ -58,9 +58,9 @@ function HeaderActions({
     return (
       <Button
         look="ghost"
-        size="large"
+        size="small"
         icon={<Redo />}
-        className="underline pl-0"
+        className="underline"
         to="/formular"
       >
         {t("homepage.skipPruefen")}
@@ -71,9 +71,9 @@ function HeaderActions({
     return (
       <Button
         look="ghost"
-        size="large"
+        size="small"
         icon={<EditWithPadding />}
-        className="underline pl-0"
+        className="underline"
         to="/anmelden"
       >
         {t("homepage.continue.buttonText")}
@@ -203,7 +203,7 @@ export function HomepageHeader({
                 <img src={logo} alt="Grundsteuererklärung für Privateigentum" />
               </a>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col justify-center">
               <div className="flex flex-row-reverse gap-x-32">
                 <HeaderActions
                   location={location}
