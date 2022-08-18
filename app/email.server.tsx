@@ -136,7 +136,7 @@ export const sendLoginAttemptEmail = async (options: {
     "Versuchte Anmeldung bei Grundsteuererklärung für Privateigentum";
 
   const registerUrl =
-    "https://www.grundsteuererklaerung-fuer-privateigentum.de/registrieren";
+    "https://www.grundsteuererklaerung-fuer-privateigentum.de/pruefen/start";
 
   const textContent = textGreetings
     .concat([
