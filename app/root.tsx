@@ -20,6 +20,7 @@ import styles from "public/tailwind.css";
 import ogImage from "~/assets/images/og-image.png";
 import { ErrorPage } from "~/components";
 import { withSentry } from "@sentry/remix";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const links: LinksFunction = () => {
   return [
@@ -69,6 +70,7 @@ export interface RootLoaderData {
   env: string;
   sentryDsn: string;
   version: string;
+  showTestFeatures: boolean;
 }
 
 export const loader: LoaderFunction = async () => {
@@ -76,6 +78,7 @@ export const loader: LoaderFunction = async () => {
     env: process.env.APP_ENV as string,
     sentryDsn: process.env.SENTRY_DSN as string,
     version: process.env.APP_VERSION as string,
+    showTestFeatures: testFeaturesEnabled(), // You can access this variable in a component using useRootLoaderData
   });
 };
 
