@@ -324,15 +324,26 @@ export function Step() {
                     )}
                     {loaderData?.isFinalStep && (
                       <>
-                        {loaderData?.isSuccessStep && (
-                          <Button
-                            to="/formular/welcome"
-                            id="nextButton"
-                            className={backUrl ? "" : "flex-grow-0"}
-                          >
-                            {nextButtonLabel}
-                          </Button>
-                        )}
+                        {loaderData?.isSuccessStep &&
+                          !loaderData.weitereErklaerung && (
+                            <Button
+                              to="/registrieren"
+                              id="nextButton"
+                              className={backUrl ? "" : "flex-grow-0"}
+                            >
+                              {nextButtonLabel}
+                            </Button>
+                          )}
+                        {loaderData?.isSuccessStep &&
+                          loaderData.weitereErklaerung && (
+                            <Button
+                              to="/formular/welcome?weitereErklaerung=true"
+                              id="nextButton"
+                              className={backUrl ? "" : "flex-grow-0"}
+                            >
+                              {nextButtonLabel}
+                            </Button>
+                          )}
                         <Button to="/" look="secondary">
                           {i18n.common.backToHomepage}
                         </Button>
