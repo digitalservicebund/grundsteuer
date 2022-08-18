@@ -1,23 +1,29 @@
-import { MetaFunction } from "@remix-run/node";
+import { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import {
   BreadcrumbNavigation,
   ContentContainer,
   Headline,
   IntroText,
-  SubHeadline,
   LoggedOutLayout,
+  SubHeadline,
   SuccessPageLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
-import { RootLoaderData } from "~/root";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Anmeldelink per E-Mail gesendet") };
 };
 
+export const loader: LoaderFunction = async () => {
+  return {
+    showTestFeatures: testFeaturesEnabled(),
+  };
+};
+
 export default function AnmeldenEmail() {
-  const loaderData: RootLoaderData = useLoaderData();
+  const loaderData = useLoaderData();
   return (
     <LoggedOutLayout showNewFeatures={loaderData.showTestFeatures}>
       <ContentContainer size="sm">

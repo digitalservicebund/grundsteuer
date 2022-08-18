@@ -1,9 +1,9 @@
 import {
   ActionFunction,
+  json,
   LoaderFunction,
   MetaFunction,
   redirect,
-  json,
 } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import {
@@ -17,14 +17,14 @@ import {
   BreadcrumbNavigation,
   Button,
   ContentContainer,
+  Headline,
   Input,
   IntroText,
-  SubHeadline,
   LoggedOutLayout,
-  Headline,
+  SubHeadline,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
-import { getSession, commitSession } from "~/session.server";
+import { commitSession, getSession } from "~/session.server";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { userExists } from "~/domain/user";
 import { sendLoginAttemptEmail } from "~/email.server";
@@ -36,7 +36,6 @@ import { validateEmail, validateRequired } from "~/domain/validation";
 import { removeUndefined } from "~/util/removeUndefined";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
-import { RootLoaderData } from "~/root";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||

@@ -35,6 +35,7 @@ import { CsrfToken, verifyCsrfToken, createCsrfToken } from "~/util/csrf";
 import { authenticator } from "~/auth.server";
 import Hint from "~/components/Hint";
 import { RootLoaderData } from "~/root";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -103,6 +104,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json(
     {
       csrfToken,
+      showTestFeatures: testFeaturesEnabled(),
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
