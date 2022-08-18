@@ -39,6 +39,8 @@ import Remove from "~/components/icons/mui/Remove";
 import Send from "~/components/icons/mui/Send";
 import Slash from "~/components/icons/mui/Slash";
 import YellowArrowLeft from "~/components/icons/mui/YellowArrowLeft";
+import EditWithPadding from "~/components/icons/mui/EditWithPadding";
+import OpenTabWithPadding from "~/components/icons/mui/OpenTabWithPadding";
 
 export default function KitchenSinkIcons() {
   return (
@@ -58,6 +60,7 @@ export default function KitchenSinkIcons() {
       <Download />
       <EditOutlined />
       <Edit />
+      <EditWithPadding />
       <EmailOutlined />
       <ExclamationMarkFilled />
       <ExclamationMark />
@@ -73,6 +76,7 @@ export default function KitchenSinkIcons() {
       <Loop />
       <Menu />
       <OpenTab />
+      <OpenTabWithPadding />
       <Paragraph />
       <PersonCircle />
       <Person />

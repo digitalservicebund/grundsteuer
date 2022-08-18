@@ -8,7 +8,7 @@ export default function HelpInfoBox() {
   return (
     <div
       className={
-        "bg-blue-300 flex flex-col md:flex-row items-center py-32 pl-64 pr-64 mb-32"
+        "bg-blue-300 flex flex-col items-stretch md:flex-row items-center py-32 pl-64 pr-64 mb-32"
       }
     >
       <img
@@ -31,6 +31,7 @@ export default function HelpInfoBox() {
           }
           target={"_blank"}
           iconRight={<OpenTabWithPadding />}
+          className={"w-[285px]"}
         >
           {t("homepage.helpInfoBox.linkText")}
         </Button>

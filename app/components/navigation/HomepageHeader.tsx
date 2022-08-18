@@ -7,7 +7,7 @@ import PersonCircle from "~/components/icons/mui/PersonCircle";
 import { useLocation } from "@remix-run/react";
 import OpenTab from "~/components/icons/mui/OpenTab";
 import Redo from "~/components/icons/mui/Redo";
-import Edit from "~/components/icons/mui/Edit";
+import EditWithPadding from "~/components/icons/mui/EditWithPadding";
 
 function HeaderLink({
   destination,
@@ -72,7 +72,7 @@ function HeaderActions({
       <Button
         look="ghost"
         size="large"
-        icon={<Edit />}
+        icon={<EditWithPadding />}
         className="underline pl-0"
         to="/anmelden"
       >

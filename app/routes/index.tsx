@@ -13,7 +13,7 @@ import germanyMapImage from "~/assets/images/germany-map.svg";
 import HomepageSharing from "~/components/HomepageSharing";
 import { HomepageHeader } from "~/components/navigation/HomepageHeader";
 import HelpInfoBox from "~/components/HelpInfoBox";
-import Edit from "~/components/icons/mui/Edit";
+import EditWithPadding from "~/components/icons/mui/EditWithPadding";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { useLoaderData } from "@remix-run/react";
 import HomepageAction from "~/components/HomepageAction";
@@ -41,10 +41,7 @@ export default function Index() {
           <BmfLogo />
           <div className="mb-64 md:mb-96 xl:mb-80">
             <h1>
-              <div className="text-16 leading-26 mb-16 md:text-20 md:leading-20 md:mb-24 lg:mb-32">
-                {t("homepage.kicker")}
-              </div>
-              <div className="max-w-[300px] text-32 leading-40 mb-8 md:max-w-[560px] md:text-[3.5rem] md:leading-68 md:mb-24 lg:text-64 lg:mb-8">
+              <div className="max-w-[300px] text-32 leading-40 mb-8 mt-18 md:max-w-[560px] md:text-[3.5rem] md:leading-68 md:mb-24 lg:text-64 lg:mb-8">
                 {t("homepage.headline")}
               </div>
               <div className="text-20 leading-26 md:text-28 md:leading-26 lg:text-32 lg:leading-40">
@@ -59,16 +56,16 @@ export default function Index() {
                   </Button>
                 </div>
                 <div className="max-w-[250px] leading-26 md:max-w-[420px] lg:leading-40 mt-32">
-                  <h2 className="text-20 leading-26 mb-8">
+                  <h3 className="text-20 leading-26 mb-8">
                     {t("homepage.continue.headline")}
-                  </h2>
+                  </h3>
                   <p className="text-18 leading-26 mb-28">
                     {t("homepage.continue.text")}
                   </p>
                   <Button
                     look={"ghost"}
                     size={"large"}
-                    icon={<Edit />}
+                    icon={<EditWithPadding />}
                     className={"underline pl-0"}
                     to="/anmelden"
                   >
