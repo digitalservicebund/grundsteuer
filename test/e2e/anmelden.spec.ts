@@ -10,6 +10,7 @@ describe("/anmelden", () => {
     cy.get("[name=email]").type("foo@bar.com");
     cy.get("form button").click();
     cy.url().should("include", "/anmelden/email");
+    cy.contains("h1", "Wir haben Ihnen eine E-Mail gesendet.");
   });
 
   it("should succeed with not lowercase mail", () => {
@@ -17,6 +18,7 @@ describe("/anmelden", () => {
     cy.get("[name=email]").type("fOO@bAr.coM");
     cy.get("form button").click();
     cy.url().should("include", "/anmelden/email");
+    cy.contains("h1", "Wir haben Ihnen eine E-Mail gesendet.");
   });
 
   it("should not fail on wrong username", () => {
@@ -24,6 +26,7 @@ describe("/anmelden", () => {
     cy.get("[name=email]").type("bar@bar.com");
     cy.get("form button").click();
     cy.url().should("include", "/anmelden/email");
+    cy.contains("h1", "Wir haben Ihnen eine E-Mail gesendet.");
   });
 });
 

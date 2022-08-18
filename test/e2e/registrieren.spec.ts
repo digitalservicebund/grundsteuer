@@ -9,6 +9,7 @@ describe("/registrieren", () => {
     cy.get("label[for=confirmEligibilityCheck]").click("topLeft");
     cy.get("form button").click();
     cy.url().should("include", "/registrieren/erfolgreich");
+    cy.contains("h1", "Wir haben Ihnen eine E-Mail gesendet.");
   });
 
   it("invalid email address", () => {
@@ -27,6 +28,7 @@ describe("/registrieren", () => {
     cy.get("label[for=confirmEligibilityCheck]").click("topLeft");
     cy.get("form button").click();
     cy.url().should("include", "/registrieren/erfolgreich");
+    cy.contains("h1", "Wir haben Ihnen eine E-Mail gesendet.");
   });
 
   it("should not fail for existing user with capitalized mail", () => {
@@ -38,6 +40,7 @@ describe("/registrieren", () => {
     cy.get("label[for=confirmEligibilityCheck]").click("topLeft");
     cy.get("form button").click();
     cy.url().should("include", "/registrieren/erfolgreich");
+    cy.contains("h1", "Wir haben Ihnen eine E-Mail gesendet.");
   });
 
   it("data privacy not confirmed", () => {
