@@ -11,9 +11,6 @@
     "bmf": "Logo des Bundesministeriums der Finanzen"
   },
   "homepage": {
-    "banner": "Willkommen! Alle Funktionen werden ab 04. Juli 2022 freigeschaltet.",
-    "buttonCheck": "Kann ich teilnehmen?",
-    "buttonStart": "Grundsteuererklärung abgeben",
     "start": "Grundsteuererklärung starten",
     "skipPruefen": "Fragebogen überspringen",
     "continue": {
@@ -62,9 +59,6 @@
     },
     "faq": {
       "headline": "Häufig gestellte Fragen"
-    },
-    "sharing": {
-      "headline": "Empfehlen Sie uns weiter"
     },
     "action": {
       "headline": "Keine weiteren Fragen? Jetzt loslegen!"

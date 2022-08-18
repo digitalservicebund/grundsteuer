@@ -39,7 +39,6 @@ import {
   deleteTransferticket,
   setUserInDeclarationProcess,
 } from "~/domain/user";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticator.isAuthenticated(request, {
@@ -119,12 +118,7 @@ export const action: ActionFunction = async ({ request }) => {
     });
     headers?.append("Set-Cookie", await commitSession(session));
 
-    if (testFeaturesEnabled()) {
-      return redirect("/pruefen/start?weitereErklaerung=true", {
-        headers,
-      });
-    }
-    return redirect("/formular/welcome?weitereErklaerung=true", {
+    return redirect("/pruefen/start?weitereErklaerung=true", {
       headers,
     });
   }

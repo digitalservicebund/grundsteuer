@@ -1,16 +1,16 @@
 import {
   ActionFunction,
+  json,
   LoaderFunction,
   MetaFunction,
-  json,
 } from "@remix-run/node";
 import {
   Form,
-  useLoaderData,
   useActionData,
+  useLoaderData,
   useTransition,
 } from "@remix-run/react";
-import { useTranslation, Trans } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import invariant from "tiny-invariant";
 import { validateEmail, validateRequired } from "~/domain/validation";
 import { createUser, userExists } from "~/domain/user";
@@ -23,19 +23,17 @@ import {
   Headline,
   Input,
   IntroText,
-  SubHeadline,
   LoggedOutLayout,
+  SubHeadline,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 import { removeUndefined } from "~/util/removeUndefined";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
-import { getSession, commitSession } from "~/session.server";
-import { CsrfToken, verifyCsrfToken, createCsrfToken } from "~/util/csrf";
+import { commitSession, getSession } from "~/session.server";
+import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { authenticator } from "~/auth.server";
 import Hint from "~/components/Hint";
-import { RootLoaderData } from "~/root";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -104,7 +102,6 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json(
     {
       csrfToken,
-      showTestFeatures: testFeaturesEnabled(),
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -202,7 +199,7 @@ export default function Registrieren() {
   const isSubmitting = Boolean(transition.submission);
 
   return (
-    <LoggedOutLayout showNewFeatures={loaderData.showTestFeatures}>
+    <LoggedOutLayout>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         <Headline>

@@ -3,13 +3,10 @@ import ContentContainer from "../ContentContainer";
 import Footer from "../Footer";
 import { HomepageHeader } from "~/components/navigation/HomepageHeader";
 
-export default function LoggedOutLayout(props: {
-  children: ReactNode;
-  showNewFeatures?: boolean;
-}) {
+export default function LoggedOutLayout(props: { children: ReactNode }) {
   return (
     <>
-      <HomepageHeader showNewFeatures={props.showNewFeatures} />
+      <HomepageHeader />
       <main className="flex-grow">
         <ContentContainer>{props.children}</ContentContainer>
       </main>

@@ -1,25 +1,18 @@
 import { useTranslation } from "react-i18next";
-import { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { MetaFunction } from "@remix-run/node";
 import { BmfLogo, ContentContainer, LoggedOutLayout } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 import { useLoaderData } from "@remix-run/react";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Barrierefreiheit") };
-};
-
-export const loader: LoaderFunction = async () => {
-  return {
-    showTestFeatures: testFeaturesEnabled(),
-  };
 };
 
 export default function Nutzungsbedingungen() {
   const { t } = useTranslation("all");
   const loaderData = useLoaderData();
   return (
-    <LoggedOutLayout showNewFeatures={loaderData.showTestFeatures}>
+    <LoggedOutLayout>
       <div className="mb-32 md:mb-64">
         <BmfLogo />
       </div>

@@ -1,30 +1,21 @@
-import { LoaderFunction } from "@remix-run/node";
 import { useTranslation } from "react-i18next";
 import {
-  ContentContainer,
-  FaqAccordion,
-  HomepageFeatures,
-  Footer,
   BmfLogo,
   BreadcrumbNavigation,
   Button,
+  ContentContainer,
+  FaqAccordion,
+  Footer,
+  HomepageAction,
+  HomepageFeatures,
 } from "~/components";
 import germanyMapImage from "~/assets/images/germany-map.svg";
-import HomepageSharing from "~/components/HomepageSharing";
 import { HomepageHeader } from "~/components/navigation/HomepageHeader";
 import HelpInfoBox from "~/components/HelpInfoBox";
 import EditWithPadding from "~/components/icons/mui/EditWithPadding";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
-import { useLoaderData } from "@remix-run/react";
-import HomepageAction from "~/components/HomepageAction";
-
-export const loader: LoaderFunction = async () => {
-  return { showNewFeatures: testFeaturesEnabled() };
-};
 
 export default function Index() {
   const { t } = useTranslation("all");
-  const { showNewFeatures } = useLoaderData();
 
   return (
     <>
@@ -34,7 +25,7 @@ export default function Index() {
           </p>
         </ContentContainer>
       </div> */}
-      <HomepageHeader showNewFeatures={showNewFeatures} />
+      <HomepageHeader />
       <main className="flex-grow">
         <BreadcrumbNavigation />
         <ContentContainer>
@@ -48,32 +39,28 @@ export default function Index() {
                 {t("homepage.tagline")}
               </div>
             </h1>
-            {showNewFeatures && (
-              <>
-                <div className="max-w-[250px] leading-26 md:max-w-[420px] md:leading-26 lg:leading-40 mt-32">
-                  <Button className={"w-full"} to="/pruefen/start">
-                    {t("homepage.start")}
-                  </Button>
-                </div>
-                <div className="max-w-[250px] leading-26 md:max-w-[420px] lg:leading-40 mt-32">
-                  <h3 className="text-20 leading-26 mb-8">
-                    {t("homepage.continue.headline")}
-                  </h3>
-                  <p className="text-18 leading-26 mb-28">
-                    {t("homepage.continue.text")}
-                  </p>
-                  <Button
-                    look={"ghost"}
-                    size={"large"}
-                    icon={<EditWithPadding />}
-                    className={"underline pl-0"}
-                    to="/anmelden"
-                  >
-                    {t("homepage.continue.buttonText")}
-                  </Button>
-                </div>
-              </>
-            )}
+            <div className="max-w-[250px] leading-26 md:max-w-[420px] md:leading-26 lg:leading-40 mt-32">
+              <Button className={"w-full"} to="/pruefen/start">
+                {t("homepage.start")}
+              </Button>
+            </div>
+            <div className="max-w-[250px] leading-26 md:max-w-[420px] lg:leading-40 mt-32">
+              <h3 className="text-20 leading-26 mb-8">
+                {t("homepage.continue.headline")}
+              </h3>
+              <p className="text-18 leading-26 mb-28">
+                {t("homepage.continue.text")}
+              </p>
+              <Button
+                look={"ghost"}
+                size={"large"}
+                icon={<EditWithPadding />}
+                className={"underline pl-0"}
+                to="/anmelden"
+              >
+                {t("homepage.continue.buttonText")}
+              </Button>
+            </div>
           </div>
 
           <div className="mb-64 md:mb-80 lg:mb-96">
@@ -129,33 +116,19 @@ export default function Index() {
             <h2 className="text-32 leading-40 mb-16 md:mb-32">
               {t("homepage.faq.headline")}
             </h2>
-            {showNewFeatures && (
-              <div className="xl:pr-96">
-                <HelpInfoBox />
-              </div>
-            )}
+            <div className="xl:pr-96">
+              <HelpInfoBox />
+            </div>
             <div className="xl:pr-96">
               <FaqAccordion />
             </div>
           </div>
 
           <div className="mb-0 md:mb-160 xl:pr-96">
-            {!showNewFeatures && (
-              <>
-                <h2 className="text-32 leading-40 mb-16 md:mb-32">
-                  {t("homepage.sharing.headline")}
-                </h2>
-                <HomepageSharing />
-              </>
-            )}
-            {showNewFeatures && (
-              <>
-                <h2 className="text-32 leading-40 mb-32 md:mb-64">
-                  {t("homepage.action.headline")}
-                </h2>
-                <HomepageAction />
-              </>
-            )}
+            <h2 className="text-32 leading-40 mb-32 md:mb-64">
+              {t("homepage.action.headline")}
+            </h2>
+            <HomepageAction />
           </div>
         </ContentContainer>
       </main>

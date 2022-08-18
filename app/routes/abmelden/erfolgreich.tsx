@@ -1,4 +1,4 @@
-import { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { MetaFunction } from "@remix-run/node";
 import {
   BreadcrumbNavigation,
   Button,
@@ -9,23 +9,14 @@ import {
   SuccessPageLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
-import { useLoaderData } from "@remix-run/react";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Abmelden erfolgreich") };
 };
 
-export const loader: LoaderFunction = async () => {
-  return {
-    showTestFeatures: testFeaturesEnabled(),
-  };
-};
-
 export default function AbmeldenErfolgreich() {
-  const loaderData = useLoaderData();
   return (
-    <LoggedOutLayout showNewFeatures={loaderData.showTestFeatures}>
+    <LoggedOutLayout>
       <ContentContainer size="sm" className="mb-80">
         <BreadcrumbNavigation />
         <SuccessPageLayout lowVersion>

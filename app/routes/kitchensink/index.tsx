@@ -1,9 +1,4 @@
-import {
-  ContentContainer,
-  Footer,
-  HomepageSharing,
-  SectionLabel,
-} from "~/components";
+import { ContentContainer, Footer, SectionLabel } from "~/components";
 
 import CloseIcon from "~/components/icons/mui/Close";
 import AddIcon from "~/components/icons/mui/Add";
@@ -38,8 +33,6 @@ export default function KitchenSinkIndex() {
         </p>
         <p className="font-condensed">font-condensed</p>
       </div>
-
-      <HomepageSharing />
 
       <CloseIcon className="w-24 h-24 fill-current" />
       <AddIcon className="w-24 h-24 fill-blue-500" />

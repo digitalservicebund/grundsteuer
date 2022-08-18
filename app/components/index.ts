@@ -14,7 +14,7 @@ export { default as FormGroup } from "./form/FormGroup";
 export { default as FormSidebarNavigation } from "./navigation/FormSidebarNavigation";
 export { default as Headline } from "./Headline";
 export { default as HomepageFeatures } from "./HomepageFeatures";
-export { default as HomepageSharing } from "./HomepageSharing";
+export { default as HomepageAction } from "./HomepageAction";
 export { default as Input } from "./form/Input";
 export { default as IntroText } from "./IntroText";
 export { default as Label } from "./form/Label";

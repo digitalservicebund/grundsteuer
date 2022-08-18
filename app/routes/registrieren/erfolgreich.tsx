@@ -1,5 +1,5 @@
-import { LoaderFunction, MetaFunction } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { MetaFunction } from "@remix-run/node";
+import { Link } from "@remix-run/react";
 import {
   BreadcrumbNavigation,
   ContentContainer,
@@ -10,22 +10,14 @@ import {
   SuccessPageLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Registrierung erfolgreich") };
 };
 
-export const loader: LoaderFunction = async () => {
-  return {
-    showTestFeatures: testFeaturesEnabled(),
-  };
-};
-
 export default function RegistrierenErfolgreich() {
-  const loaderData = useLoaderData();
   return (
-    <LoggedOutLayout showNewFeatures={loaderData.showTestFeatures}>
+    <LoggedOutLayout>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         <SuccessPageLayout lowVersion>
