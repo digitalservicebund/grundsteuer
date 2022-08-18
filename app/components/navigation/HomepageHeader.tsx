@@ -179,10 +179,10 @@ export function HomepageHeader({
   const location = useLocation().pathname;
   return (
     <div>
-      <div className="bg-white lg:pt-48 lg:pb-56 lg:shadow-[0px_4px_10px_rgba(0,0,0,0.1)] lg:relative lg:z-10">
+      <div className="bg-white lg:py-32 lg:shadow-[0px_4px_10px_rgba(0,0,0,0.1)] lg:relative lg:z-10">
         {/* Mobile Header */}
         <div className="lg:hidden inline-flex flex-col items-center w-full">
-          <div className="mb-24 w-full">
+          <div className="w-full">
             <TopNavigation
               actions={
                 <div className="flex flex-col mb-32">
@@ -204,7 +204,7 @@ export function HomepageHeader({
               </a>
             </div>
             <div className="flex flex-col">
-              <div className="flex flex-row-reverse gap-x-32 mb-32">
+              <div className="flex flex-row-reverse gap-x-32">
                 <HeaderActions
                   location={location}
                   skipPruefen={skipPruefen}
