@@ -5,7 +5,12 @@ export default function HomepageAction() {
   return (
     <div>
       <div className="md:hidden mb-36 flex justify-center">
-        <Button look="primary" size="large" className="w-full max-w-[412px]">
+        <Button
+          look="primary"
+          size="large"
+          className="w-full max-w-[412px]"
+          to="pruefen/start"
+        >
           Grundsteuererklärung starten
         </Button>
       </div>
@@ -21,7 +26,12 @@ export default function HomepageAction() {
             height={227}
           />
           <div className="ml-20 pb-64 hidden md:block">
-            <Button look="primary" size="large" className="w-[412px]">
+            <Button
+              look="primary"
+              size="large"
+              className="w-[412px]"
+              to="pruefen/start"
+            >
               Grundsteuererklärung starten
             </Button>
           </div>

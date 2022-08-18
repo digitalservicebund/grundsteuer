@@ -119,7 +119,7 @@ export default function Anmelden() {
   const isSubmitting = Boolean(transition.submission);
 
   return (
-    <LoggedOutLayout showNewFeatures={loaderData.showTestFeatures}>
+    <LoggedOutLayout showNewFeatures={loaderData.showNewFeatures}>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         {loaderData?.error === "token" && (
