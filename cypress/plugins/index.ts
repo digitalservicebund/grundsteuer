@@ -98,6 +98,17 @@ export default (on, config) => {
       return null;
     },
 
+    setIdentified: async ({ email, identified }) => {
+      await db.user.update({
+        where: { email: email },
+        data: {
+          identified: identified,
+          identifiedAt: identified ? new Date() : null,
+        },
+      });
+      return null;
+    },
+
     setUserIdentified: async ({ email }) => {
       await setUserIdentified(email);
       return null;

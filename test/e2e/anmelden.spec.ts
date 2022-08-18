@@ -1,4 +1,4 @@
-/// <reference types="cypress" />
+/// <reference types="../../cypress/support" />
 // @ts-check
 describe("/anmelden", () => {
   before(() => {
@@ -30,4 +30,52 @@ describe("/anmelden", () => {
   });
 });
 
+describe("/anmelden/erfolg", () => {
+  const email = "foo@bar.com";
+  beforeEach(() => {
+    cy.task("dbResetUser", email);
+  });
+  const cases = [
+    {
+      identified: false,
+      inDeclarationProcess: false,
+      expectedUrl: "/formular/erfolg",
+    },
+    {
+      identified: false,
+      inDeclarationProcess: true,
+      expectedUrl: "/identifikation",
+    },
+    {
+      identified: true,
+      inDeclarationProcess: false,
+      expectedUrl: "/formular/erfolg",
+    },
+    {
+      identified: true,
+      inDeclarationProcess: true,
+      expectedUrl: "/formular/welcome",
+    },
+  ];
+
+  cases.forEach(({ identified, inDeclarationProcess, expectedUrl }) => {
+    it(`identified: ${identified} inDeclarationProcess: ${inDeclarationProcess} should link ${expectedUrl}`, () => {
+      cy.task("setIdentified", {
+        email,
+        identified: identified,
+      });
+
+      cy.task("setUserInDeclarationProcessAttribute", {
+        email,
+        inDeclarationProcess: inDeclarationProcess,
+      });
+
+      cy.login();
+      cy.visit("/anmelden/erfolgreich");
+      cy.contains("h1", "angemeldet");
+      cy.get("[data-testid=continue]").click();
+      cy.location("pathname").should("eq", expectedUrl);
+    });
+  });
+});
 export {};

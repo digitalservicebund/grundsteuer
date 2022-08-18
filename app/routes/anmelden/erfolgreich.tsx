@@ -1,19 +1,25 @@
-import { MetaFunction, LoaderFunction } from "@remix-run/node";
+import { LoaderFunction, MetaFunction } from "@remix-run/node";
 import {
   BreadcrumbNavigation,
+  Button,
   ContentContainer,
   Headline,
   IntroText,
-  UserLayout,
-  Button,
   SuccessPageLayout,
+  UserLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
-import { authenticator } from "~/auth.server";
+import { authenticator, SessionUser } from "~/auth.server";
 import { useLoaderData } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erfolgreich angemeldet.") };
+};
+
+const getNextStepUrl = (user: SessionUser) => {
+  if (!user.inDeclarationProcess) return "/formular/erfolg";
+  if (!user.identified) return "/identifikation";
+  return "/formular";
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -22,15 +28,12 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 
   return {
-    inDeclarationProcess: user.inDeclarationProcess,
+    nextStepUrl: getNextStepUrl(user),
   };
 };
 export default function ErfolgreichAngemeldet() {
-  const { inDeclarationProcess } = useLoaderData();
+  const { nextStepUrl } = useLoaderData();
 
-  const nextStepUrl = !inDeclarationProcess
-    ? "/formular/erfolg"
-    : "/identifikation";
   return (
     <UserLayout>
       <ContentContainer size="sm">
@@ -46,7 +49,9 @@ export default function ErfolgreichAngemeldet() {
             in dem Sie sich registriert haben.
           </IntroText>
 
-          <Button to={nextStepUrl}>Verstanden & Weiter</Button>
+          <Button data-testid="continue" to={nextStepUrl}>
+            Verstanden & Weiter
+          </Button>
         </SuccessPageLayout>
       </ContentContainer>
     </UserLayout>
