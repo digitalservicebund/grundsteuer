@@ -81,6 +81,7 @@ jobs:
       - name: Run E2E tests
         env:
           APP_ENV: gha
+          APP_VERSION: test
           BASE_URL: http://localhost:3000
           DATABASE_URL: postgresql://prisma:prisma@localhost:5433/tests
           SESSION_COOKIE_SECRET: thisaintnosecret
