@@ -14,7 +14,7 @@ export default function HelpInfoBox() {
       <img
         src={FallschirmIcon}
         alt="Person segelt am Fallschirm durch Wolken"
-        className="relative w-[160px] md:w-[200px] lg:w-[230px] lg:mr-48 mb-32"
+        className="relative w-[160px] md:w-[200px] lg:w-[230px] lg:mr-48 mb-32 lg:mb-0"
         width={230}
         height={217}
       />
@@ -22,7 +22,7 @@ export default function HelpInfoBox() {
         <h2 className="text-20 leading-26 mb-24">
           {t("homepage.helpInfoBox.headline")}
         </h2>
-        <p className="grow mb-16">{t("homepage.helpInfoBox.text")}</p>
+        <p className="grow mb-16 lg: mb-0">{t("homepage.helpInfoBox.text")}</p>
         <Button
           size="large"
           look={"tertiary"}
