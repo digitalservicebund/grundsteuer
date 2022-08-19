@@ -286,10 +286,10 @@
               "label": "Nein, ich habe <bold>keine Miteigentumsanteile an einem weiteren Grundstück</bold>, das ich mit dem Hauptgrundstück nutze."
             },
             "privatweg": {
-              "label": "Zu meinem/r Einfamilienhaus / Zweifamilienhaus oder Eigentumswohnung gehört ein Anteil an <br/><bold>· einem Privatweg oder<br/>· einem (Gemeinschafts-)Garten, Grünfläche oder Spielplatz</bold><br/>Diesen teile ich mit Eigentümer:innen anderer Gebäude/Wohnungen. Mir gehört zum Beispiel 1/16 davon. "
+              "label": "Zu meinem/r Einfamilienhaus / Zweifamilienhaus oder Eigentumswohnung gehört ein Anteil an <br/><bold>· einem Privatweg oder<br/> · einem (Gemeinschafts-)Garten, Grünfläche oder Spielplatz</bold><br/> Diesen teile ich mit Eigentümer:innen anderer Gebäude/Wohnungen. Mir gehört zum Beispiel 1/16 davon. "
             },
             "garage": {
-              "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein <bold>Teil eines Parkplatzes oder Garagenhofes</bold>. Diesen teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
+              "label": "Zu meiner Eigentumswohnung oder meinem Einfamilienhaus / Zweifamilienhaus gehört ein <br/><bold>· Stellplatz in einer Tiefgarage oder<br/> · Anteil an einem Garagenhof</bold><br/> Diesen teile ich mit Eigentümer:innen anderer Gebäude/Wohnungen. Mir gehört zum Beispiel 2/10.000 davon."
             },
             "anderer": {
               "label": "Ich weiß, dass ich einen Miteigentumsanteil an einem weiteren Grundstück habe. Mein konkreter Fall ist hier aber nicht aufgelistet."
