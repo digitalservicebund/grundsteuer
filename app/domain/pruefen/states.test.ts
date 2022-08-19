@@ -148,7 +148,7 @@ describe("states", () => {
         ],
       },
       {
-        description: "with later garage",
+        description: "with miteigentum garage",
         context: pruefenModelFactory
           .abgeber({ abgeber: "eigentuemer" })
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
@@ -157,7 +157,7 @@ describe("states", () => {
           .ausland({ ausland: "false" })
           .fremderBoden({ fremderBoden: "false" })
           .beguenstigung({ beguenstigung: "false" })
-          .garagen({ garagen: "hausGarage" })
+          .miteigentum({ miteigentum: "garage" })
           .build(),
         expectedPath: [
           "start",
@@ -167,12 +167,12 @@ describe("states", () => {
           "ausland",
           "fremderBoden",
           "beguenstigung",
-          "garagen",
+          "miteigentum",
           "spaeterNutzung",
         ],
       },
       {
-        description: "with invalid garage",
+        description: "with miteigentum privatweg",
         context: pruefenModelFactory
           .abgeber({ abgeber: "eigentuemer" })
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
@@ -181,7 +181,7 @@ describe("states", () => {
           .ausland({ ausland: "false" })
           .fremderBoden({ fremderBoden: "false" })
           .beguenstigung({ beguenstigung: "false" })
-          .garagen({ garagen: "privatweg" })
+          .miteigentum({ miteigentum: "privatweg" })
           .build(),
         expectedPath: [
           "start",
@@ -191,8 +191,32 @@ describe("states", () => {
           "ausland",
           "fremderBoden",
           "beguenstigung",
-          "garagen",
-          "keineNutzung",
+          "miteigentum",
+          "spaeterNutzung",
+        ],
+      },
+      {
+        description: "with miteigentum anderer",
+        context: pruefenModelFactory
+          .abgeber({ abgeber: "eigentuemer" })
+          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
+          .bundesland({ bundesland: "BE" })
+          .grundstueckArt({ grundstueckArt: "unbebaut" })
+          .ausland({ ausland: "false" })
+          .fremderBoden({ fremderBoden: "false" })
+          .beguenstigung({ beguenstigung: "false" })
+          .miteigentum({ miteigentum: "anderer" })
+          .build(),
+        expectedPath: [
+          "start",
+          "eigentuemerTyp",
+          "bundesland",
+          "grundstueckArt",
+          "ausland",
+          "fremderBoden",
+          "beguenstigung",
+          "miteigentum",
+          "spaeterNutzung",
         ],
       },
     ];
@@ -224,7 +248,7 @@ describe("states", () => {
       "ausland",
       "fremderBoden",
       "beguenstigung",
-      "garagen",
+      "miteigentum",
       "nutzung",
     ];
 

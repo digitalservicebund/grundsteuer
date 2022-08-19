@@ -73,19 +73,11 @@ const isNotBeguenstigung: PruefenCondition = (context) => {
   return context?.beguenstigung?.beguenstigung == "false";
 };
 
-const isEligibleGarage: PruefenCondition = (context) => {
-  const eligibleGaragen = ["wohnung", "keiner"];
+const hasMiteigentum: PruefenCondition = (context) => {
+  const eligibleOptions = ["keine"];
   return !!(
-    context?.garagen?.garagen &&
-    eligibleGaragen.includes(context.garagen.garagen)
-  );
-};
-
-const isLaterGarage: PruefenCondition = (context) => {
-  const eligibleGaragen = ["hausGarage", "wohnungGarage"];
-  return !!(
-    context?.garagen?.garagen &&
-    eligibleGaragen.includes(context.garagen.garagen)
+    context?.miteigentum?.miteigentum &&
+    eligibleOptions.includes(context.miteigentum.miteigentum)
   );
 };
 
@@ -97,6 +89,5 @@ export const pruefenConditions: PruefenConditions = {
   isNotAusland,
   isNotFremderBoden,
   isNotBeguenstigung,
-  isEligibleGarage,
-  isLaterGarage,
+  hasMiteigentum,
 };

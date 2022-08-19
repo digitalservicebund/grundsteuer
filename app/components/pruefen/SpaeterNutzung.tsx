@@ -7,11 +7,11 @@ import { I18nObject } from "~/i18n/getStepI18n";
 import { pruefenConditions } from "~/domain/pruefen/guards";
 
 const getSpaeterReason = (allData: PruefenModel, i18n: I18nObject) => {
-  if (!pruefenConditions.isEligibleGarage(allData))
+  if (!pruefenConditions.hasMiteigentum(allData))
     return {
-      reasonParagraph1: i18n.specifics.garagenParagraph1,
-      reasonParagraph2: i18n.specifics.garagenParagraph2,
-      emailSubject: i18n.specifics.garagenEmailSubject,
+      reasonParagraph1: i18n.specifics.miteigentumParagraph1,
+      reasonParagraph2: i18n.specifics.miteigentumParagraph2,
+      emailSubject: i18n.specifics.miteigentumEmailSubject,
     };
   return { reasonParagraph1: i18n.specifics.explanationFallback };
 };

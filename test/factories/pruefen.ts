@@ -6,7 +6,7 @@ import {
   BundeslandFields,
   EigentuemerTypFields,
   FremderBodenFields,
-  GaragenFields,
+  MiteigentumFields,
   GrundstueckArtFields,
 } from "~/domain/pruefen/model";
 import { PruefenMachineContext } from "~/domain/pruefen/states";
@@ -69,10 +69,10 @@ class PruefenFactory extends Factory<PruefenMachineContext> {
     });
   }
 
-  garagen(fields?: Partial<GaragenFields>) {
+  miteigentum(fields?: Partial<MiteigentumFields>) {
     return this.params({
-      garagen: {
-        garagen: fields?.garagen,
+      miteigentum: {
+        miteigentum: fields?.miteigentum,
       },
     });
   }
@@ -86,7 +86,7 @@ class PruefenFactory extends Factory<PruefenMachineContext> {
         .ausland({ ausland: "false" })
         .fremderBoden({ fremderBoden: "false" })
         .beguenstigung({ beguenstigung: "false" })
-        .garagen({ garagen: "wohnung" })
+        .miteigentum({ miteigentum: "keine" })
         .build()
     );
   }

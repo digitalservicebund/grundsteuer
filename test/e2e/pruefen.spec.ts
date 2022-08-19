@@ -32,7 +32,7 @@ describe("Happy Path", () => {
     cy.get(`label[for=beguenstigung-false]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.get(`label[for=garagen-keiner]`).click();
+    cy.get(`label[for=miteigentum-keine]`).click();
     cy.get(submitBtnSelector).click();
 
     cy.contains(

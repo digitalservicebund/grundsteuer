@@ -276,34 +276,23 @@
         }
       }
     },
-    "garagen": {
-      "headline": "Trifft auf Sie Folgendes zu?",
+    "miteigentum": {
+      "headline": "Haben Sie Miteigentumsanteile an einem weiteren Grundstück/Flurstück, das Sie zusammen mit Ihrem Hauptgrundstück nutzen?",
+      "description": "Hier handelt es sich nicht um die Anteile einzelner Eigentümer:innen an dem Grundvermögen wie beispielsweise 1/2 bei Ehepaaren oder der Miteigentumsanteil an dem Grundstück Ihrer Eigentumswohnung.",
       "fields": {
-        "garagen": {
+        "miteigentum": {
           "options": {
-            "privatweg": {
-              "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein <bold>Teil eines Privatweges</bold>. Den Privatweg teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
+            "keine": {
+              "label": "Nein, ich habe <bold>keine Miteigentumsanteile an einem weiteren Grundstück</bold>, das ich mit dem Hauptgrundstück nutze."
             },
-            "hausGarage": {
+            "privatweg": {
+              "label": "Zu meinem/r Einfamilienhaus / Zweifamilienhaus oder Eigentumswohnung gehört ein Anteil an <br/><bold>· einem Privatweg oder<br/>· einem (Gemeinschafts-)Garten, Grünfläche oder Spielplatz</bold><br/>Diesen teile ich mit Eigentümer:innen anderer Gebäude/Wohnungen. Mir gehört zum Beispiel 1/16 davon. "
+            },
+            "garage": {
               "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein <bold>Teil eines Parkplatzes oder Garagenhofes</bold>. Diesen teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
             },
-            "hausGarten": {
-              "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein <bold>Teil eines Gartens, einer Grün- oder Waldfläche</bold>. Diesen teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
-            },
-            "hausSpielplatz": {
-              "label": "Zu meinem Ein- oder Zweifamilienhaus gehört ein <bold>Teil eines Spielplatzes</bold>. Diesen teile ich mit Eigentümer:innen anderer Gebäude. Mir gehört beispielsweise 1/16 davon."
-            },
-            "wohnung": {
-              "label": "Ich habe eine <bold>Eigentumswohnung</bold> und habe deswegen einen Miteigentumsanteil. Dieser ist beispielsweise 137/10.000."
-            },
-            "wohnungGarage": {
-              "label": "Zu meiner <bold>Eigentumswohnung</bold> gehört ein <bold>Autostellplatz</bold> (Tiefgarage, Garage, Stellplatz im Freien). Mein Miteigentumsanteil an dem Autostellplatz ist beispielsweise 2/10.000."
-            },
             "anderer": {
-              "label": "Ich weiß, dass ich einen Miteigentumsanteil habe. Mein konkreter Fall ist hier aber nicht aufgelistet."
-            },
-            "keiner": {
-              "label": "Nein, auf mich trifft keine der obigen Optionen zu."
+              "label": "Ich weiß, dass ich einen Miteigentumsanteil an einem weiteren Grundstück habe. Mein konkreter Fall ist hier aber nicht aufgelistet."
             }
           }
         }
@@ -381,9 +370,9 @@
     "spaeterNutzung": {
       "headline": "Bald können Sie unseren Online-Dienst nutzen.",
       "specifics": {
-        "garagenParagraph1": "Altuell können wir eine Grundsteuererklärung für Besitzer:innen von Garagengrundstücken und Tiefgaragenstellplätzen nicht anbieten. Wir entwickeln “Grundsteuererklärung für Privateigentum” allerdings ständig weiter und rechnen damit, bis Ende September auch Personen mit diesen Besitzverhältnissen aufnehmen zu können.",
-        "garagenParagraph2": "Schreiben Sie uns eine Email an <emailContactLink>erinnerung@grundsteuererklaerung-fuer-privateigentum.de</emailContactLink>. Wir melden uns bei Ihnen, sobald unser Online-Service für Sie nutzbar ist.",
-        "garagenEmailSubject": "Bitte bei GARAGE Verfügbarkeit benachrichtigen",
+        "miteigentumParagraph1": "Aktuell können wir eine Grundsteuererklärung für Besitzer:innen von weiteren Grundstücken mit Miteigentumsanteilen nicht anbieten. Wir entwickeln “Grundsteuererklärung für Privateigentum” allerdings ständig weiter und rechnen damit, bis Ende September auch Personen mit diesen Besitzverhältnissen aufnehmen zu können.",
+        "miteigentumParagraph2": "Schreiben Sie uns eine Email an <emailContactLink>erinnerung@grundsteuererklaerung-fuer-privateigentum.de</emailContactLink>. Wir melden uns bei Ihnen, sobald unser Online-Service für Sie nutzbar ist.",
+        "miteigentumEmailSubject": "Bitte bei MITEIGENTUM Verfügbarkeit benachrichtigen",
         "explanationFallback": "Sie können unseren Service nutzen, sobald ihr Fall abgebildet wird."
       }
     }

@@ -121,19 +121,15 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
       },
     },
   },
-  garagen: {
+  miteigentum: {
     fields: {
-      garagen: {
+      miteigentum: {
         type: "radio",
         options: [
+          { value: "keine" },
           { value: "privatweg" },
-          { value: "hausGarage" },
-          { value: "hausGarten" },
-          { value: "hausSpielplatz" },
-          { value: "wohnung" },
-          { value: "wohnungGarage" },
+          { value: "garage" },
           { value: "anderer" },
-          { value: "keiner" },
         ],
         validations: {
           required: { msg: "Bitte treffen Sie eine Auswahl" },

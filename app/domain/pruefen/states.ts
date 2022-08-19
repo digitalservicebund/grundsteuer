@@ -73,18 +73,17 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
       on: {
         BACK: { target: "fremderBoden" },
         NEXT: [
-          { target: "garagen", cond: "isNotBeguenstigung" },
+          { target: "miteigentum", cond: "isNotBeguenstigung" },
           { target: "keineNutzung" },
         ],
       },
     },
-    garagen: {
+    miteigentum: {
       on: {
         BACK: { target: "beguenstigung" },
         NEXT: [
-          { target: "nutzung", cond: "isEligibleGarage" },
-          { target: "spaeterNutzung", cond: "isLaterGarage" },
-          { target: "keineNutzung" },
+          { target: "nutzung", cond: "hasMiteigentum" },
+          { target: "spaeterNutzung" },
         ],
       },
     },
@@ -94,7 +93,7 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
     nutzung: {
       type: "final",
       on: {
-        BACK: { target: "garagen" },
+        BACK: { target: "miteigentum" },
       },
     },
     spaeterNutzung: {
