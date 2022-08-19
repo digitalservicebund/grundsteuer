@@ -639,7 +639,7 @@
     },
     "anzahl": {
       "headline": "Wie viele Eigentümer:innen hat das Gründstück/die Eigentumswohnung?",
-      "hint": "<bold>Für Erbengemeinschaften:</bold> Wir decken nur die geteilte Erbengemeinschaft ab. Das bedeutet die Eigentümer:innen sind im Grundbuch namentlich vermerkt und haben einen eignen Miteigentumsanteil am Grundstück. Wenn dies nicht auf Ihre Erbengemeinschaft zutrifft, geben Sie die Grundsteuererklärung bitte über ELSTER ab.",
+      "hint": "<bold>Bei Eigentumswohnungen:</bold> Wenn Sie in einem Mehrfamilienhaus nur eine Wohnung besitzen, geben Sie nur für Ihre Wohnung eine Grundsteuererklärung ab. Die anderen Parteien machen das separat für ihren Besitz. Tragen Sie also nur die Eigentümer:innen für die zu erklärende Wohnung ein.",
       "fields": {
         "anzahl": {
           "label": "Anzahl Eigentümer:innen",
