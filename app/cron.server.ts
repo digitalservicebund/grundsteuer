@@ -1,5 +1,6 @@
 import { schedule } from "node-cron";
 import { db } from "./db.server";
+import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 
 const scheduleFscCleanup = (cronExpression: string) => {
   console.info(
@@ -54,7 +55,7 @@ export const deleteExpiredPdfs = async () => {
 export const deleteExpiredAccounts = async () => {
   const now = new Date();
   const fourMonthsAgo = new Date(now.setMonth(now.getMonth() - 4));
-  const queryResult = await db.user.deleteMany({
+  const accountsToDelete = await db.user.findMany({
     where: {
       OR: [
         // Declaration sent
@@ -79,6 +80,23 @@ export const deleteExpiredAccounts = async () => {
           lastDeclarationAt: null,
         },
       ],
+    },
+  });
+
+  for (const account of accountsToDelete) {
+    await saveAuditLog({
+      eventName: AuditLogEvent.ACCOUNT_DELETED,
+      ipAddress: "cron",
+      timestamp: Date.now(),
+      username: account.email,
+    });
+  }
+
+  const queryResult = await db.user.deleteMany({
+    where: {
+      email: {
+        in: accountsToDelete.map((account) => account.email),
+      },
     },
   });
   console.log("Deleted %d expired Accounts.", queryResult.count);

@@ -112,7 +112,7 @@ describe("Cron jobs", () => {
   });
 
   describe("deleteExpiredAccounts", () => {
-    beforeAll(async () => {
+    beforeEach(async () => {
       await db.user.create({
         data: {
           email: "createdNew@foo.com",
@@ -173,7 +173,8 @@ describe("Cron jobs", () => {
       });
     });
 
-    afterAll(async () => {
+    afterEach(async () => {
+      await db.auditLog.deleteMany({});
       await db.user.deleteMany({
         where: {
           email: {
@@ -207,6 +208,16 @@ describe("Cron jobs", () => {
         "declarationNew@foo.com",
       ];
       expect(remainingEmails.sort()).toEqual(expectedEmails.sort());
+    });
+
+    it("should add audit logs", async () => {
+      const beforeRows = await db.auditLog.findMany();
+      expect(beforeRows.length).toEqual(0);
+
+      await deleteExpiredAccounts();
+
+      const afterRows = await db.auditLog.findMany();
+      expect(afterRows.length).toEqual(3);
     });
   });
 });

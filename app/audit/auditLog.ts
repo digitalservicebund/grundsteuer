@@ -15,6 +15,7 @@ export enum AuditLogEvent {
   CONFIRMED_DATA_PRIVACY_REGISTRATION = "confirmed_data_privacy_on_registration",
   CONFIRMED_TERMS_OF_USE_REGISTRATION = "confirmed_terms_of_use_on_registration",
   CONFIRMED_ELIGIBLE_TO_USE_REGISTRATION = "confirmed_eligibility_to_use_on_registration",
+  ACCOUNT_DELETED = "account_deleted",
 }
 
 export interface AuditLogData {
