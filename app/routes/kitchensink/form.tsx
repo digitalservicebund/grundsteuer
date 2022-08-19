@@ -148,7 +148,7 @@ export default function KitchenSinkForm() {
 
       <ContentContainer size="sm" className="border border-black">
         <ButtonContainer className="mb-32 border border-green-500">
-          <Button>Übernehmen & Weiter</Button>
+          <Button>Übernehmen & weiter</Button>
           <Button look="secondary">Zurück</Button>
         </ButtonContainer>
       </ContentContainer>

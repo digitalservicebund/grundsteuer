@@ -50,7 +50,7 @@ export default function ErfolgreichAngemeldet() {
           </IntroText>
 
           <Button data-testid="continue" to={nextStepUrl}>
-            Verstanden & Weiter
+            Verstanden & weiter
           </Button>
         </SuccessPageLayout>
       </ContentContainer>

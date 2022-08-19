@@ -96,7 +96,7 @@
     "steuernummerGrundbuch": "Grundbuchauszug Steuernummer"
   },
   "common": {
-    "continue": "Übernehmen & Weiter",
+    "continue": "Übernehmen & weiter",
     "back": "Zurück",
     "backToHomepage": "Zurück zur Startseite",
     "backToSummary": "Übernehmen & Zur Übersicht"
@@ -1233,7 +1233,7 @@
       "default": {
         "headline": "Ermitteln Sie den Bodenrichtwert für Ihr gesamtes Grundstück",
         "description": "Einige Finanzverwaltungen schicken mit dem Informationsschreiben auch ein Datenstammblatt mit. Dort können Sie die Daten zu Ihrem Bodenrichtwert ablesen und auf der nächsten Seite eintragen. Haben Sie keinen Brief erhalten, folgen Sie bitte den Links für das jeweilige Bundesland.",
-        "nextButtonLabel": "Verstanden & Weiter",
+        "nextButtonLabel": "Verstanden & weiter",
         "specifics": {
           "explanation": "",
           "portalUrl": "",
