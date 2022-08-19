@@ -31,6 +31,8 @@ Sentry.init({
   ],
 });
 
+const i18nFilename =
+  process.env.NODE_ENV === "production" ? `-${window.APP_VERSION}` : "";
 i18next
   .use(initReactI18next)
   .use(Backend)
@@ -40,7 +42,7 @@ i18next
     fallbackLng: "de",
     react: { useSuspense: false },
     ns: getInitialNamespaces(),
-    backend: { loadPath: "/locales/de/{{ns}}.json" },
+    backend: { loadPath: `/locales/de/{{ns}}${i18nFilename}.json` },
     detection: {
       order: ["htmlTag"],
       caches: [],

@@ -154,7 +154,15 @@ function App() {
           <script
             suppressHydrationWarning
             dangerouslySetInnerHTML={{
-              __html: `window.SENTRY_DSN="${sentryDsn}"; window.APP_ENV="${env}"; window.APP_VERSION="${version}";`,
+              __html: `window.SENTRY_DSN="${sentryDsn}"; window.APP_ENV="${env}";`,
+            }}
+          />
+        )}
+        {version && (
+          <script
+            suppressHydrationWarning
+            dangerouslySetInnerHTML={{
+              __html: `window.APP_VERSION="${version}";`,
             }}
           />
         )}

@@ -1,5 +1,8 @@
 FROM node:16.16.0 as build
 
+ARG COMMIT_SHA
+ENV APP_VERSION=$COMMIT_SHA
+
 # Create app directory
 WORKDIR /src
 # Required files are whitelisted in dockerignore

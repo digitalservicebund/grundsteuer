@@ -16,6 +16,9 @@ Sentry.init({
   integrations: [new Sentry.Integrations.Prisma({ client: db })],
 });
 
+const i18nFilenameSuffix =
+  process.env.NODE_ENV === "production" ? `-${process.env.APP_VERSION}` : "";
+
 export default async function handleRequest(
   request: Request,
   statusCode: number,
@@ -36,7 +39,9 @@ export default async function handleRequest(
       react: { useSuspense: false },
       ns,
       backend: {
-        loadPath: resolve("./public/locales/de/{{ns}}.json"),
+        loadPath: resolve(
+          `./public/locales/de/{{ns}}${i18nFilenameSuffix}.json`
+        ),
       },
     });
 

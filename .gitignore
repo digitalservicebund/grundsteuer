@@ -6,6 +6,9 @@ node_modules
 /build
 /public/build
 /public/tailwind.css
+/public/locales/de/*
+!/public/locales/de/all.json
+
 cypress/screenshots
 
 # IDEs and editors
