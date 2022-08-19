@@ -307,7 +307,17 @@ export default function Registrieren() {
             </Checkbox>
           </div>
 
-          <Button disabled={isSubmitting}>Konto erstellen</Button>
+          <Button disabled={isSubmitting} className="mb-48">
+            Konto erstellen
+          </Button>
+          <p>Sie haben bereits ein Nutzerkonto?</p>
+          <p>
+            Hier können Sie sich{" "}
+            <a href="/anmelden" className="underline text-blue-800 font-bold">
+              anmelden & Bearbeitung fortsetzen
+            </a>
+            .
+          </p>
         </ContentContainer>
       </Form>
     </LoggedOutLayout>
