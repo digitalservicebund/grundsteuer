@@ -22,7 +22,7 @@ export default function HelpInfoBox() {
         <h2 className="text-20 leading-26 mb-24">
           {t("homepage.helpInfoBox.headline")}
         </h2>
-        <p className="grow mb-16 lg: mb-0">{t("homepage.helpInfoBox.text")}</p>
+        <p className="grow mb-16 lg:mb-0">{t("homepage.helpInfoBox.text")}</p>
         <Button
           size="large"
           look={"tertiary"}
