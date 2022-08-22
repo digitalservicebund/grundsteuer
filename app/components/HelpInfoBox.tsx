@@ -1,5 +1,5 @@
 import FallschirmIcon from "~/assets/images/icon_fallschirm.svg";
-import OpenTabWithPadding from "~/components/icons/mui/OpenTabWithPadding";
+import OpenTab from "~/components/icons/mui/OpenTab";
 import Button from "~/components/Button";
 import { useTranslation } from "react-i18next";
 
@@ -30,8 +30,8 @@ export default function HelpInfoBox() {
             "https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de"
           }
           target={"_blank"}
-          iconRight={<OpenTabWithPadding />}
-          className={"w-[285px]"}
+          iconRight={<OpenTab />}
+          className={"w-288"}
         >
           {t("homepage.helpInfoBox.linkText")}
         </Button>

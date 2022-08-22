@@ -28,7 +28,6 @@ import Lock from "~/components/icons/mui/Lock";
 import Logout from "~/components/icons/mui/Logout";
 import Loop from "~/components/icons/mui/Loop";
 import Menu from "~/components/icons/mui/Menu";
-import OpenTab from "~/components/icons/mui/OpenTab";
 import Paragraph from "~/components/icons/mui/Paragraph";
 import Person from "~/components/icons/mui/Person";
 import PersonCircle from "~/components/icons/mui/PersonCircle";
@@ -39,8 +38,7 @@ import Remove from "~/components/icons/mui/Remove";
 import Send from "~/components/icons/mui/Send";
 import Slash from "~/components/icons/mui/Slash";
 import YellowArrowLeft from "~/components/icons/mui/YellowArrowLeft";
-import EditWithPadding from "~/components/icons/mui/EditWithPadding";
-import OpenTabWithPadding from "~/components/icons/mui/OpenTabWithPadding";
+import OpenTab from "~/components/icons/mui/OpenTab";
 
 export default function KitchenSinkIcons() {
   return (
@@ -60,7 +58,6 @@ export default function KitchenSinkIcons() {
       <Download />
       <EditOutlined />
       <Edit />
-      <EditWithPadding />
       <EmailOutlined />
       <ExclamationMarkFilled />
       <ExclamationMark />
@@ -76,7 +73,6 @@ export default function KitchenSinkIcons() {
       <Loop />
       <Menu />
       <OpenTab />
-      <OpenTabWithPadding />
       <Paragraph />
       <PersonCircle />
       <Person />

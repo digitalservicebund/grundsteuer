@@ -12,7 +12,7 @@ import {
 import germanyMapImage from "~/assets/images/germany-map.svg";
 import { HomepageHeader } from "~/components/navigation/HomepageHeader";
 import HelpInfoBox from "~/components/HelpInfoBox";
-import EditWithPadding from "~/components/icons/mui/EditWithPadding";
+import Edit from "~/components/icons/mui/Edit";
 
 export default function Index() {
   const { t } = useTranslation("all");
@@ -54,7 +54,7 @@ export default function Index() {
               <Button
                 look={"ghost"}
                 size={"large"}
-                icon={<EditWithPadding />}
+                icon={<Edit />}
                 className={"underline pl-0"}
                 to="/anmelden"
               >

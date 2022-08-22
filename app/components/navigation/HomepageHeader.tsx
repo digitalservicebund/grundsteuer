@@ -3,7 +3,7 @@ import { Button, ContentContainer, TopNavigation } from "~/components";
 import logo from "~/assets/images/logo.svg";
 import { useLocation } from "@remix-run/react";
 import Redo from "~/components/icons/mui/Redo";
-import EditWithPadding from "~/components/icons/mui/EditWithPadding";
+import Edit from "~/components/icons/mui/Edit";
 
 function HeaderActions({
   skipPruefen,
@@ -29,7 +29,7 @@ function HeaderActions({
     <Button
       look="ghost"
       size="small"
-      icon={<EditWithPadding />}
+      icon={<Edit />}
       className="underline"
       to="/anmelden"
     >
