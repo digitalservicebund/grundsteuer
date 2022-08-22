@@ -6,7 +6,7 @@ import {
   EricaResponse,
   ericaUtils,
 } from "~/erica/utils";
-import { User } from "~/domain/user";
+import { User, UserWithoutPdf } from "~/domain/user";
 
 export const revokeFreischaltCode = async (elsterRequestId: string) => {
   const payload = { elsterRequestId };
@@ -17,7 +17,7 @@ export const revokeFreischaltCode = async (elsterRequestId: string) => {
   return result;
 };
 
-export const revokeFscForUser = async (userData: User) => {
+export const revokeFscForUser = async (userData: User | UserWithoutPdf) => {
   invariant(userData.fscRequest, "expected an fscRequest in database for user");
   return revokeFreischaltCode(userData.fscRequest?.requestId);
 };

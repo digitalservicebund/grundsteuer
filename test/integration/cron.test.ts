@@ -4,6 +4,7 @@ import {
   deleteExpiredPdfs,
 } from "~/cron.server";
 import { db } from "~/db.server";
+import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStornieren";
 
 describe("Cron jobs", () => {
   describe("deleteExpiredFscs", () => {
@@ -115,25 +116,35 @@ describe("Cron jobs", () => {
     beforeEach(async () => {
       await db.user.create({
         data: {
-          email: "createdNew@foo.com",
+          email: "created-new@foo.com",
           createdAt: new Date(
             // 3 months ago
             new Date().setMonth(new Date().getMonth() - 3)
           ),
+          fscRequest: {
+            create: {
+              requestId: "newRequestId",
+            },
+          },
         },
       });
       await db.user.create({
         data: {
-          email: "createdOld@foo.com",
+          email: "created-old@foo.com",
           createdAt: new Date(
             // 4 months ago
             new Date().setMonth(new Date().getMonth() - 4)
           ),
+          fscRequest: {
+            create: {
+              requestId: "oldRequestId",
+            },
+          },
         },
       });
       await db.user.create({
         data: {
-          email: "identifiedNew@foo.com",
+          email: "identified-new@foo.com",
           identified: true,
           identifiedAt: new Date(
             // 3 months ago
@@ -143,7 +154,7 @@ describe("Cron jobs", () => {
       });
       await db.user.create({
         data: {
-          email: "identifiedOld@foo.com",
+          email: "identified-old@foo.com",
           identified: true,
           identifiedAt: new Date(
             // 4 months ago
@@ -153,7 +164,7 @@ describe("Cron jobs", () => {
       });
       await db.user.create({
         data: {
-          email: "declarationNew@foo.com",
+          email: "declaration-new@foo.com",
           transferticket: "tt",
           lastDeclarationAt: new Date(
             // 3 months ago
@@ -163,7 +174,7 @@ describe("Cron jobs", () => {
       });
       await db.user.create({
         data: {
-          email: "declarationOld@foo.com",
+          email: "declaration-old@foo.com",
           transferticket: "tt",
           lastDeclarationAt: new Date(
             // 4 months ago
@@ -174,17 +185,19 @@ describe("Cron jobs", () => {
     });
 
     afterEach(async () => {
+      console.log("AFTER EACH DELETION");
       await db.auditLog.deleteMany({});
+      await db.fscRequest.deleteMany({});
       await db.user.deleteMany({
         where: {
           email: {
             in: [
-              "createdNew@foo.com",
-              "createdOld@foo.com",
-              "identifiedNew@foo.com",
-              "identifiedOld@foo.com",
-              "declarationNew@foo.com",
-              "declarationOld@foo.com",
+              "created-new@foo.com",
+              "created-old@foo.com",
+              "identified-new@foo.com",
+              "identified-old@foo.com",
+              "declaration-new@foo.com",
+              "declaration-old@foo.com",
             ],
           },
         },
@@ -195,7 +208,12 @@ describe("Cron jobs", () => {
       const beforeRows = await db.user.findMany();
       expect(beforeRows.length).toEqual(7); // including seeded 'foo@bar.com'
 
-      await deleteExpiredAccounts();
+      try {
+        await deleteExpiredAccounts();
+      } catch (e) {
+        const afterRows = await db.user.findMany();
+        expect(afterRows.length).toEqual(7);
+      }
 
       const afterRows = await db.user.findMany();
       expect(afterRows.length).toEqual(4);
@@ -203,9 +221,9 @@ describe("Cron jobs", () => {
       const remainingEmails = afterRows.map((row) => row.email);
       const expectedEmails = [
         "foo@bar.com",
-        "createdNew@foo.com",
-        "identifiedNew@foo.com",
-        "declarationNew@foo.com",
+        "created-new@foo.com",
+        "identified-new@foo.com",
+        "declaration-new@foo.com",
       ];
       expect(remainingEmails.sort()).toEqual(expectedEmails.sort());
     });
@@ -218,6 +236,17 @@ describe("Cron jobs", () => {
 
       const afterRows = await db.auditLog.findMany();
       expect(afterRows.length).toEqual(3);
+    });
+
+    it("should revoke existing fsc", async () => {
+      const spyOnRevokeFsc = jest.spyOn(
+        freischaltCodeStornierenModule,
+        "revokeFreischaltCode"
+      );
+      await deleteExpiredAccounts();
+
+      expect(spyOnRevokeFsc).toHaveBeenCalledWith("oldRequestId");
+      expect(spyOnRevokeFsc).toHaveBeenCalledTimes(1);
     });
   });
 });

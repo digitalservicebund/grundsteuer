@@ -5,6 +5,9 @@ import invariant from "tiny-invariant";
 export type User = Prisma.UserGetPayload<{
   include: { fscRequest: true; pdf: true };
 }>;
+export type UserWithoutPdf = Prisma.UserGetPayload<{
+  include: { fscRequest: true };
+}>;
 
 export const createUser = async (email: string) => {
   return db.user.create({

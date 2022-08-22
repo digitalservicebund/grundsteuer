@@ -1,6 +1,8 @@
 import { schedule } from "node-cron";
 import { db } from "./db.server";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
+import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
+import { deleteFscRequest } from "~/domain/user";
 
 const scheduleFscCleanup = (cronExpression: string) => {
   console.info(
@@ -81,15 +83,16 @@ export const deleteExpiredAccounts = async () => {
         },
       ],
     },
+    include: {
+      fscRequest: true,
+    },
   });
 
   for (const account of accountsToDelete) {
-    await saveAuditLog({
-      eventName: AuditLogEvent.ACCOUNT_DELETED,
-      ipAddress: "cron",
-      timestamp: Date.now(),
-      username: account.email,
-    });
+    if (account.fscRequest) {
+      await revokeFscForUser(account);
+      await deleteFscRequest(account.email, account.fscRequest.requestId);
+    }
   }
 
   const queryResult = await db.user.deleteMany({
