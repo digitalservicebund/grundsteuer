@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { forwardRef } from "react";
 import FieldError from "./FieldError";
 
 export interface RadioProps
@@ -6,7 +7,10 @@ export interface RadioProps
   error?: string;
 }
 
-export default function Radio(props: RadioProps) {
+export default forwardRef<HTMLInputElement, RadioProps>(function Radio(
+  props,
+  ref
+) {
   const { children, name, id, error, ...otherProps } = props;
 
   const derivedId = id || `${name}-${props.value}`;
@@ -17,6 +21,7 @@ export default function Radio(props: RadioProps) {
       name={name}
       id={derivedId}
       className="radio__input"
+      ref={ref}
       {...otherProps}
     />
   );
@@ -41,4 +46,4 @@ export default function Radio(props: RadioProps) {
       {errorComponent}
     </>
   );
-}
+});

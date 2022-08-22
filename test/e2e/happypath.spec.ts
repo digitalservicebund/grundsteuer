@@ -438,10 +438,11 @@ describe("Happy Path", () => {
       .type(inputData.eigentuemer.person1.vertreter.adresse.telefonnummer);
     cy.get(submitBtnSelector).click();
     cy.url().should("include", "/formular/eigentuemer/person/1/anteil");
-    cy.get("#zaehler")
+    cy.get("#userInput")
       .clear()
-      .type(inputData.eigentuemer.person1.anteil.zaehler);
-    cy.get("#nenner").clear().type(inputData.eigentuemer.person1.anteil.nenner);
+      .type(
+        `${inputData.eigentuemer.person1.anteil.zaehler}/${inputData.eigentuemer.person1.anteil.nenner}`
+      );
     cy.get(submitBtnSelector).click();
 
     // PERSON 2
@@ -476,10 +477,7 @@ describe("Happy Path", () => {
     cy.get("label[for=hasVertreter-false]").click();
     cy.get(submitBtnSelector).click();
     cy.url().should("include", "/formular/eigentuemer/person/2/anteil");
-    cy.get("#zaehler")
-      .clear()
-      .type(inputData.eigentuemer.person2.anteil.zaehler);
-    cy.get("#nenner").clear().type(inputData.eigentuemer.person2.anteil.nenner);
+    cy.get("label[for='zaehlerNenner-1/2']").click();
     cy.get(submitBtnSelector).click();
 
     cy.get("label[for=hasEmpfangsvollmacht-true]").click();
