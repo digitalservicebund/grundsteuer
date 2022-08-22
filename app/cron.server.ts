@@ -103,6 +103,15 @@ export const deleteExpiredAccounts = async () => {
     },
   });
   console.log("Deleted %d expired Accounts.", queryResult.count);
+
+  for (const account of accountsToDelete) {
+    await saveAuditLog({
+      eventName: AuditLogEvent.ACCOUNT_DELETED,
+      ipAddress: "cron",
+      timestamp: Date.now(),
+      username: account.email,
+    });
+  }
 };
 
 export const jobs = {
