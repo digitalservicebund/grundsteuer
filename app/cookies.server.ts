@@ -36,7 +36,12 @@ export const getFromPruefenStateCookie = async (
 ) => {
   const cookieContent = await pruefenStateCookie.parse(cookieHeader);
   if (!cookieContent) return null;
-  return decryptCookie(Buffer.from(cookieContent, COOKIE_ENCODING));
+  try {
+    return decryptCookie(Buffer.from(cookieContent, COOKIE_ENCODING));
+  } catch (error) {
+    console.warn(error);
+    return {};
+  }
 };
 
 type CreateFormDataCookieNameFunction = (options: {
