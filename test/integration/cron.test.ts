@@ -5,6 +5,7 @@ import {
 } from "~/cron.server";
 import { db } from "~/db.server";
 import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStornieren";
+import { getMockedFunction } from "test/mocks/mockHelper";
 
 describe("Cron jobs", () => {
   describe("deleteExpiredFscs", () => {
@@ -113,7 +114,16 @@ describe("Cron jobs", () => {
   });
 
   describe("deleteExpiredAccounts", () => {
+    let spyOnRevokeFsc: jest.SpyInstance;
+    beforeAll(() => {
+      spyOnRevokeFsc = getMockedFunction(
+        freischaltCodeStornierenModule,
+        "revokeFreischaltCode",
+        { location: "007" }
+      );
+    });
     beforeEach(async () => {
+      spyOnRevokeFsc.mockClear();
       await db.user.create({
         data: {
           email: "created-new@foo.com",
@@ -185,7 +195,6 @@ describe("Cron jobs", () => {
     });
 
     afterEach(async () => {
-      console.log("AFTER EACH DELETION");
       await db.auditLog.deleteMany({});
       await db.fscRequest.deleteMany({});
       await db.user.deleteMany({
@@ -202,6 +211,9 @@ describe("Cron jobs", () => {
           },
         },
       });
+    });
+    afterAll(() => {
+      spyOnRevokeFsc.mockRestore();
     });
 
     it("should delete entries over four months old", async () => {
@@ -239,10 +251,6 @@ describe("Cron jobs", () => {
     });
 
     it("should revoke existing fsc", async () => {
-      const spyOnRevokeFsc = jest.spyOn(
-        freischaltCodeStornierenModule,
-        "revokeFreischaltCode"
-      );
       await deleteExpiredAccounts();
 
       expect(spyOnRevokeFsc).toHaveBeenCalledWith("oldRequestId");
