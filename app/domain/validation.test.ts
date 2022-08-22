@@ -845,25 +845,27 @@ describe("getErrorMessageForSteuerId", () => {
 });
 
 describe("validateSteuerId", () => {
-  it("should succeed with TestSteuerId", () => {
-    expect(validateSteuerId({ value: "04452397687" })).toBeTruthy();
-  });
+  const cases = [
+    { value: "34285296716", valid: true }, // Valid IdNr
+    { value: " 34 285 296 716 ", valid: true }, // Valid IdNr with spaces
+    { value: "04452397687", valid: true }, // Valid Test IdNr
+    { value: "04 452 397 687", valid: true }, // Valid Test IdNr with spaces
+    { value: "34285296719", valid: false }, // Invalid IdNr
+    { value: "A4452397687", valid: false }, // With letters
+    { value: "1234567890", valid: false }, // Too short
+    { value: "123456789012", valid: false }, // Too long
+    { value: "04444397687", valid: false }, // Repeated 4 too often
+    { value: "04152397687", valid: false }, // No repetition
+    { value: "04455397687", valid: false }, // Too many repetitions
+    { value: "04452397680", valid: true }, // Wrong checksum TODO: no checksum implementation yet
+  ];
 
-  it("should succeed with TestSteuerId with spaces", () => {
-    expect(validateSteuerId({ value: "04 452 397 687" })).toBeTruthy();
-  });
-
-  it("should succeed with correct SteuerId", () => {
-    expect(validateSteuerId({ value: "34285296716" })).toBeTruthy();
-  });
-
-  it("should succeed with correct SteuerId with spaces", () => {
-    expect(validateSteuerId({ value: " 34 285 296 716 " })).toBeTruthy();
-  });
-
-  it("should fail with incorrect SteuerId", () => {
-    expect(validateSteuerId({ value: "34285296719" })).toBeFalsy();
-  });
+  test.each(cases)(
+    "Should return $valid if value is '$value'",
+    ({ value, valid }) => {
+      expect(validateSteuerId({ value })).toBe(valid);
+    }
+  );
 });
 
 describe("getErrorMessageForFreischaltcode", () => {
