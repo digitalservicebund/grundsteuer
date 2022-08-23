@@ -34,7 +34,7 @@ describe("Eigentümer:innen anteil step", () => {
   describe("when entering valid Anteil via text field ", () => {
     ["1/2", "1/18", "  123   /   10000"].forEach((input) => {
       it(`should save ${input}`, () => {
-        cy.get("#userInput").clear().type(input);
+        cy.get("#userInput").type(input);
         cy.get("#nextButton").click();
         cy.url().should(
           "include",
@@ -70,7 +70,7 @@ describe("Eigentümer:innen anteil step", () => {
       { input: "  / ", error: errorMessages.zaehlerEmpty },
     ].forEach(({ input, error }) => {
       it(`should show error message '${error}' for ${input}`, () => {
-        cy.get("#userInput").clear().type(input);
+        cy.get("#userInput").type(input);
         cy.get("#nextButton").click();
         cy.url().should("include", "/formular/eigentuemer/person/1/anteil");
         cy.contains(error);

@@ -40,7 +40,7 @@ const EigentuemerAnteil: StepComponentFunction = ({
   const nenner = fieldProps[1].value;
   const userInputChecked =
     !(zaehler === "1" && ["2", "3", "4"].includes(nenner)) &&
-    !(zaehler || nenner);
+    !(!zaehler && !nenner);
 
   const zaehlerErrorMessage =
     errors?.zaehler && `Zähler (vor dem Schrägstrich): ${errors.zaehler}`;
