@@ -1,6 +1,6 @@
 import { schedule } from "node-cron";
 import { db } from "./db.server";
-import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
+import { AuditLogEvent, encryptAuditLogData } from "~/audit/auditLog";
 import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
 import { deleteFscRequest } from "~/domain/user";
 
@@ -103,24 +103,34 @@ export const deleteExpiredAccounts = async () => {
         await deleteFscRequest(account.email, account.fscRequest.requestId);
       }
     }
-
-    const queryResult = await db.user.deleteMany({
+    const deleteAccounts = db.user.deleteMany({
       where: {
         email: {
           in: accountsToDelete.map((account) => account.email),
         },
       },
     });
-    console.log("Deleted %d expired Accounts.", queryResult.count);
 
-    for (const account of accountsToDelete) {
-      await saveAuditLog({
-        eventName: AuditLogEvent.ACCOUNT_DELETED,
-        ipAddress: "cron",
-        timestamp: Date.now(),
-        username: account.email,
-      });
-    }
+    const logsToCreate = accountsToDelete.map((account) => {
+      return {
+        data: encryptAuditLogData({
+          eventName: AuditLogEvent.ACCOUNT_DELETED,
+          ipAddress: "cron",
+          timestamp: Date.now(),
+          username: account.email,
+        }),
+      };
+    });
+
+    const createAuditLogs = db.auditLog.createMany({
+      data: logsToCreate,
+    });
+
+    const [resultDeletedAccounts] = await db.$transaction([
+      deleteAccounts,
+      createAuditLogs,
+    ]);
+    console.log(`Deleted ${resultDeletedAccounts.count} expired accounts`);
   } catch (error) {
     console.error(error);
   }
