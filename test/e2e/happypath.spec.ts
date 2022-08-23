@@ -510,6 +510,7 @@ describe("Happy Path", () => {
         inputData.eigentuemer.empfangsbevollmaechtigter.adresse.telefonnummer
       );
     cy.get(submitBtnSelector).click();
+    cy.url().should("include", "/formular/eigentuemer/abschluss");
     cy.contains("h1", "fast fertig");
     cy.get(submitBtnSelector).click();
 
