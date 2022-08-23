@@ -7,7 +7,7 @@ beforeEach(() => {
   cy.get("#anzahl").select("2");
   cy.get("#nextButton").click();
   cy.visit("/formular/eigentuemer/person/1/anteil");
-  cy.wait(200);
+  cy.contains("h1", "Wie hoch ist der Anteil am Grundstück von Eigentümer:in");
 });
 
 describe("Eigentümer:innen anteil step", () => {
