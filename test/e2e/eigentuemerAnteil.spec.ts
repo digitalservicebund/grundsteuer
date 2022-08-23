@@ -32,19 +32,21 @@ describe("Eigentümer:innen anteil step", () => {
   });
 
   describe("when entering valid Anteil via text field ", () => {
-    ["1/2", "1/18", "  123   /   10000"].forEach((input) => {
-      it(`should save ${input}`, () => {
-        cy.get("#userInput").type(input);
-        cy.get("#nextButton").click();
-        cy.url().should(
-          "include",
-          "/formular/eigentuemer/person/2/persoenlicheAngaben"
-        );
-        cy.visit("/formular/zusammenfassung");
-        cy.contains("summary", "Eigentümer:innen").click();
-        cy.contains("dd", input.replace(/\s/g, "").replace("/", " / "));
-      });
-    });
+    ["1/2", "1/18", "  123   /   10000", "23|100", "90\\100000"].forEach(
+      (input) => {
+        it(`should save ${input}`, () => {
+          cy.get("#userInput").type(input);
+          cy.get("#nextButton").click();
+          cy.url().should(
+            "include",
+            "/formular/eigentuemer/person/2/persoenlicheAngaben"
+          );
+          cy.visit("/formular/zusammenfassung");
+          cy.contains("summary", "Eigentümer:innen").click();
+          cy.contains("dd", input.replace(/\s/g, "").replace(/[/\\|]/, " / "));
+        });
+      }
+    );
   });
 
   const errorMessages = {
@@ -63,10 +65,13 @@ describe("Eigentümer:innen anteil step", () => {
   describe("when entering invalid Anteil via text field ", () => {
     [
       { input: "aaa", error: errorMessages.wrongFormat },
+      { input: "aaa / bbb | ccc", error: errorMessages.wrongFormat },
       { input: " 1 /  ", error: errorMessages.nennerEmpty },
       { input: " 1 / bbb  ", error: errorMessages.nennerNotNumber },
+      { input: " 1 \\ bbb  ", error: errorMessages.nennerNotNumber },
       { input: "  / 34 ", error: errorMessages.zaehlerEmpty },
       { input: " ccc / 34", error: errorMessages.zaehlerNotNumber },
+      { input: " ccc | 34", error: errorMessages.zaehlerNotNumber },
       { input: "  / ", error: errorMessages.zaehlerEmpty },
     ].forEach(({ input, error }) => {
       it(`should show error message '${error}' for ${input}`, () => {
