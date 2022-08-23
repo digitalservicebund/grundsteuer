@@ -7,7 +7,7 @@ beforeEach(() => {
   cy.get("#anzahl").select("2");
   cy.get("#nextButton").click();
   cy.visit("/formular/eigentuemer/person/1/anteil");
-  cy.url().should("include", "/formular/eigentuemer/person/1/anteil");
+  cy.wait(200);
 });
 
 describe("Eigentümer:innen anteil step", () => {
