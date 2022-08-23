@@ -5,10 +5,8 @@ import {
   FormGroup,
   Input,
   Radio,
-  StepFormField,
 } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
-import InputFraction from "~/components/form/InputFraction";
 import AnteilHelp from "~/components/form/help/eigentuemer/Anteil";
 import { ChangeEvent, useRef } from "react";
 import Help from "~/components/form/help/Help";
@@ -18,24 +16,8 @@ const EigentuemerAnteil: StepComponentFunction = ({
   formData,
   i18n,
   errors,
-  testFeaturesEnabled,
 }) => {
   const fieldProps = getFieldProps(stepDefinition, formData, i18n, errors);
-
-  if (!testFeaturesEnabled) {
-    return (
-      <ContentContainer size="sm-md">
-        <FormGroup>
-          <InputFraction
-            zaehler={<StepFormField {...fieldProps[0]} />}
-            nenner={<StepFormField {...fieldProps[1]} />}
-            help={<AnteilHelp />}
-          />
-        </FormGroup>
-      </ContentContainer>
-    );
-  }
-
   const zaehler = fieldProps[0].value;
   const nenner = fieldProps[1].value;
   const userInputChecked =

@@ -1,14 +1,9 @@
 import { ActionFunction } from "@remix-run/node";
 import { action as stepAction } from "~/routes/formular/_step";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export { loader, meta, Step as default } from "~/routes/formular/_step";
 
 export const action: ActionFunction = async (args) => {
-  if (!testFeaturesEnabled) {
-    return stepAction(args);
-  }
-
   const { request } = args;
 
   const formData = Object.fromEntries(await request.clone().formData());

@@ -10,7 +10,7 @@ const AnteilHelp: HelpComponentFunction = () => {
         {
           type: "paragraph",
           value:
-            "Sie finden diese Angabe in Ihrem Grundbuchauszug im Bereich Eigentümer oder in der Teilungserklärung.",
+            "Für andere Anteile benutzen Sie das Textfeld und tragen Sie Ihren Eigentumsanteil mit einem Schrägstrich als Trennung ein.",
         },
         {
           type: "image",
