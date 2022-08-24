@@ -2,6 +2,7 @@ import _ from "lodash";
 import type { GrundModel } from "~/domain/steps";
 import { getReachablePathsFromGrundData } from "~/domain/graph";
 import { PruefenModel } from "~/domain/pruefen/model";
+import { StateMachineContext } from "~/domain/states";
 
 export type StepFormDataValue = string | undefined;
 export type StepFormData = Record<string, StepFormDataValue>;
@@ -26,7 +27,7 @@ export const getStepData = (data: GrundModel | PruefenModel, path: string) => {
 };
 
 export const filterDataForReachablePaths = (
-  completeData: GrundModel
+  completeData: StateMachineContext
 ): GrundModel => {
   const filteredData = {};
 

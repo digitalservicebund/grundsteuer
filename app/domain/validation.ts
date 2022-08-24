@@ -17,6 +17,7 @@ import { PruefenCondition } from "~/domain/pruefen/guards";
 import { PreviousStepsErrors } from "~/routes/formular/zusammenfassung";
 import { PruefenModel } from "~/domain/pruefen/model";
 import { getCurrentStateWithoutId } from "~/util/getCurrentState";
+import { StateMachineContext } from "~/domain/states";
 
 type ValidateFunctionDefault = ({ value }: { value: string }) => boolean;
 
@@ -857,7 +858,7 @@ export const validateStepFormData = async (
 };
 
 export const validateAllStepsData = async (
-  storedFormData: GrundModel
+  storedFormData: StateMachineContext
 ): Promise<PreviousStepsErrors> => {
   const generalErrors = {};
   const reachablePaths = getReachablePathsFromGrundData(storedFormData);

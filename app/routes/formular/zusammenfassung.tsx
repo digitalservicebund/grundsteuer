@@ -62,6 +62,7 @@ import { getSession, commitSession } from "~/session.server";
 import { Trans } from "react-i18next";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 import bcrypt from "bcryptjs";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 type LoaderData = {
   formData: StepFormData;
@@ -164,7 +165,10 @@ export const loader: LoaderFunction = async ({
   const session = await getSession(request.headers.get("Cookie"));
 
   const storedFormData = await getStoredFormData({ request, user });
-  const filteredData = filterDataForReachablePaths(storedFormData);
+  const filteredData = filterDataForReachablePaths({
+    ...storedFormData,
+    testFeaturesEnabled: testFeaturesEnabled(),
+  });
   let previousStepsErrors: PreviousStepsErrors | undefined = undefined;
 
   // Query Erica result
@@ -228,7 +232,10 @@ export const loader: LoaderFunction = async ({
       }
     }
   } else {
-    previousStepsErrors = await validateAllStepsData(filteredData);
+    previousStepsErrors = await validateAllStepsData({
+      ...filteredData,
+      testFeaturesEnabled: testFeaturesEnabled(),
+    });
   }
   const csrfToken = createCsrfToken(session);
 
@@ -307,7 +314,10 @@ export const action: ActionFunction = async ({
   });
 
   // validate all steps' data
-  const previousStepsErrors = await validateAllStepsData(formDataToBeStored);
+  const previousStepsErrors = await validateAllStepsData({
+    ...formDataToBeStored,
+    testFeaturesEnabled: testFeaturesEnabled(),
+  });
   if (Object.keys(previousStepsErrors).length > 0) {
     return json({ previousStepsErrors: previousStepsErrors }, { headers });
   }
@@ -316,7 +326,10 @@ export const action: ActionFunction = async ({
 
   // Send to Erica
   const transformedData = transformDataToEricaFormat(
-    filterDataForReachablePaths(formDataToBeStored)
+    filterDataForReachablePaths({
+      ...formDataToBeStored,
+      testFeaturesEnabled: testFeaturesEnabled(),
+    })
   );
   const ericaRequestIdOrError = await sendNewGrundsteuer(transformedData);
   if ("error" in ericaRequestIdOrError) {

@@ -14,6 +14,7 @@ import { createFormGraph } from "~/domain";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 import { authenticator } from "~/auth.server";
 import LogoutMenu from "~/components/navigation/LogoutMenu";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
@@ -22,7 +23,10 @@ export const loader: LoaderFunction = async ({ request }) => {
   const storedFormData = await getStoredFormData({ request, user });
 
   const graph = createFormGraph({
-    machineContext: storedFormData,
+    machineContext: {
+      ...storedFormData,
+      testFeaturesEnabled: testFeaturesEnabled(),
+    },
   });
 
   return {

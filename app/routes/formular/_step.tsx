@@ -121,7 +121,10 @@ export const loader: LoaderFunction = async ({
   }
 
   // redirect in case the step is not enabled
-  const reachablePaths = getReachablePathsFromGrundData(storedFormData);
+  const reachablePaths = getReachablePathsFromGrundData({
+    ...storedFormData,
+    testFeaturesEnabled: testFeaturesEnabled(),
+  });
   if (!reachablePaths.includes(currentState)) {
     return redirect("/formular/welcome");
   }

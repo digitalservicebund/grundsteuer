@@ -57,7 +57,7 @@ export const createGraph = ({
   }, {});
 };
 
-export const getReachablePathsFromGrundData = (data: GrundModel) => {
+export const getReachablePathsFromGrundData = (data: StateMachineContext) => {
   const graph = createFormGraph({
     machineContext: data,
   });
