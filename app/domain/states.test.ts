@@ -69,6 +69,22 @@ describe("states", () => {
       "grundstueck.flurstueck.1.groesse",
     ];
 
+    const defaultGrundstueckTypGiven = [
+      "grundstueck.uebersicht",
+      "grundstueck.typ",
+      "grundstueck.adresse",
+      "grundstueck.steuernummer",
+      "grundstueck.gemeinde",
+      "grundstueck.bodenrichtwertInfo",
+      "grundstueck.bodenrichtwertAnzahl",
+      "grundstueck.bodenrichtwertEingabe",
+      "grundstueck.miteigentumAuswahlHaus",
+      "grundstueck.anzahl",
+      "grundstueck.flurstueck.1.angaben",
+      "grundstueck.flurstueck.1.flur",
+      "grundstueck.flurstueck.1.groesse",
+    ];
+
     const defaultGebaeude = [
       "gebaeude.uebersicht",
       "gebaeude.ab1949",
@@ -113,10 +129,36 @@ describe("states", () => {
           "grundstueck.bodenrichtwertInfo",
           "grundstueck.bodenrichtwertAnzahl",
           "grundstueck.bodenrichtwertEingabe",
+          "grundstueck.miteigentumAuswahlHaus",
           "grundstueck.anzahl",
           "grundstueck.flurstueck.1.angaben",
           "grundstueck.flurstueck.1.flur",
           "grundstueck.flurstueck.1.groesse",
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
+      {
+        description: "Einfamilienhaus with Miteigentumsanteil",
+        context: grundModelFactory
+          .grundstueckTyp({ typ: "einfamilienhaus" })
+          .build(),
+        expectedPath: [
+          "welcome",
+          "grundstueck.uebersicht",
+          "grundstueck.typ",
+          "grundstueck.adresse",
+          "grundstueck.steuernummer",
+          "grundstueck.gemeinde",
+          "grundstueck.bodenrichtwertInfo",
+          "grundstueck.bodenrichtwertAnzahl",
+          "grundstueck.bodenrichtwertEingabe",
+          "grundstueck.miteigentumAuswahlHaus",
+          "grundstueck.anzahl",
+          "grundstueck.flurstueck.1.angaben",
+          "grundstueck.flurstueck.1.flur",
+          "grundstueck.flurstueck.1.groesse",
+          ...defaultGebaeude,
           ...defaultEigentuemer,
           "zusammenfassung",
         ],
@@ -128,7 +170,7 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "welcome",
-          ...defaultGrundstueck,
+          ...defaultGrundstueckTypGiven,
           ...defaultGebaeude,
           ...defaultEigentuemer,
           "zusammenfassung",
@@ -142,7 +184,7 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "welcome",
-          ...defaultGrundstueck,
+          ...defaultGrundstueckTypGiven,
           "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",
@@ -164,7 +206,7 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "welcome",
-          ...defaultGrundstueck,
+          ...defaultGrundstueckTypGiven,
           "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",
@@ -186,7 +228,7 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "welcome",
-          ...defaultGrundstueck,
+          ...defaultGrundstueckTypGiven,
           "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.kernsaniert",
@@ -210,7 +252,7 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "welcome",
-          ...defaultGrundstueck,
+          ...defaultGrundstueckTypGiven,
           "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",
@@ -236,7 +278,7 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "welcome",
-          ...defaultGrundstueck,
+          ...defaultGrundstueckTypGiven,
           "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",
@@ -261,7 +303,7 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "welcome",
-          ...defaultGrundstueck,
+          ...defaultGrundstueckTypGiven,
           "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",
@@ -288,7 +330,7 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "welcome",
-          ...defaultGrundstueck,
+          ...defaultGrundstueckTypGiven,
           "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",
@@ -317,7 +359,7 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "welcome",
-          ...defaultGrundstueck,
+          ...defaultGrundstueckTypGiven,
           "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",
@@ -388,7 +430,7 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "welcome",
-          ...defaultGrundstueck,
+          ...defaultGrundstueckTypGiven,
           "gebaeude.uebersicht",
           "gebaeude.ab1949",
           "gebaeude.baujahr",
@@ -448,7 +490,7 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "welcome",
-          ...defaultGrundstueck,
+          ...defaultGrundstueckTypGiven,
           ...defaultGebaeude,
           "eigentuemer.uebersicht",
           "eigentuemer.anzahl",
@@ -487,7 +529,7 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "welcome",
-          ...defaultGrundstueck,
+          ...defaultGrundstueckTypGiven,
           ...defaultGebaeude,
           "eigentuemer.uebersicht",
           "eigentuemer.anzahl",
@@ -522,7 +564,7 @@ describe("states", () => {
           .build(),
         expectedPath: [
           "welcome",
-          ...defaultGrundstueck,
+          ...defaultGrundstueckTypGiven,
           ...defaultGebaeude,
           "eigentuemer.uebersicht",
           "eigentuemer.anzahl",

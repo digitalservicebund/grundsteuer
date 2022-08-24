@@ -7,10 +7,29 @@ const isEigentumswohnung: Condition = (context) => {
   return context?.grundstueck?.typ?.typ === "wohnungseigentum";
 };
 
+const isEinfamilienhaus: Condition = (context) => {
+  return context?.grundstueck?.typ?.typ === "einfamilienhaus";
+};
+
 const isZweifamilienhaus: Condition = (context) => {
   return context?.grundstueck?.typ?.typ === "zweifamilienhaus";
 };
 
+const isUnbebaut: Condition = (context) => {
+  return (
+    context?.grundstueck?.typ?.typ === "baureif" ||
+    context?.grundstueck?.typ?.typ === "abweichendeEntwicklung"
+  );
+};
+
+const isHaus: Condition = (context) => {
+  return !!(
+    context?.testFeaturesEnabled &&
+    (isEinfamilienhaus(context) ||
+      isZweifamilienhaus(context) ||
+      isUnbebaut(context))
+  );
+};
 const isBezugsfertigAb1949: Condition = (context) => {
   return isBebaut(context) && context?.gebaeude?.ab1949?.isAb1949 === "true";
 };
@@ -120,6 +139,7 @@ export const conditions: Conditions = {
   hasAbbruchverpflichtung,
   isEigentumswohnung,
   isZweifamilienhaus,
+  isHaus,
   hasWeitereWohnraeume,
   hasGaragen,
   anzahlEigentuemerIsTwo,

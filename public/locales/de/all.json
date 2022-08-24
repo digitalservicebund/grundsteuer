@@ -391,6 +391,7 @@
       "bodenrichtwertInfo": "Bodenrichtwert-Info",
       "bodenrichtwertEingabe": "Bodenrichtwert-Eingabe",
       "bodenrichtwertAnzahl": "Bodenrichtwert-Anzahl",
+      "miteigentumAuswahlHaus": "Auswahl Miteigentum",
       "flurstueck": {
         "angaben": "Grundbuchblatt / Gemarkung",
         "flur": "Flur / Flurstück",
@@ -1389,6 +1390,23 @@
                 "label": "Ja, eine Bodenrichtwertgrenze teilt das Grundstück",
                 "help": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann jedoch vorkommen, dass sich Bodenrichtwertzonen flächenmäßig überlagern. In Ausnahmefällen kann ein Flurstück auch anteilig mehreren Bodenrichtwertzonen zugeordnet werden."
               }
+            }
+          }
+        }
+      }
+    },
+    "miteigentumAuswahlHaus": {
+      "headline": "Haben Sie Miteigentumsanteile an einem Grundstück?",
+      "description": "Sogenanntes Miteigentum kann zum Beispiel an einem Garagengrundstück, einem Spielplatz, einem Gemeinschaftsgarten oder Privatweg bestehen. Schauen Sie dafür in Ihrem Grundbuchauszug auf der Seite “Bestandsverzeichnis” oder im Kaufvertrag nach. In der Regel liegt für jeden Miteigentumsanteil ein eigener Grundbuchauszug vor.",
+      "hint": "Hier handelt es sich <bold>nicht</bold> um die Anteile einzelner Eigentümer:innen an dem Grundvermögen wie beispielsweise 1/2 bei Ehepaaren. Diese Angaben erfolgen an anderer Stelle des Formulars.",
+      "fields": {
+        "hasMiteigentum": {
+          "options": {
+            "false": {
+              "label": "Nein. Ich weiß, dass ich kein Miteigentum besitze. Auch auf meinem Grundbuchauszug findet sich keine Angabe dazu. "
+            },
+            "true": {
+              "label": "Ja. Ich ich habe Miteigentum an einem Grundstück oder finde Angaben dazu im Grundbuchauszug."
             }
           }
         }

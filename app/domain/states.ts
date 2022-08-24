@@ -86,14 +86,26 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
         },
         bodenrichtwertEingabe: {
           on: {
-            NEXT: [{ target: "anzahl" }],
+            NEXT: [
+              { target: "miteigentumAuswahlHaus", cond: "isHaus" },
+              { target: "anzahl" },
+            ],
             BACK: [{ target: "bodenrichtwertAnzahl" }],
+          },
+        },
+        miteigentumAuswahlHaus: {
+          on: {
+            NEXT: [{ target: "anzahl" }],
+            BACK: [{ target: "bodenrichtwertEingabe" }],
           },
         },
         anzahl: {
           on: {
             NEXT: [{ target: "flurstueck" }],
-            BACK: [{ target: "bodenrichtwertEingabe" }],
+            BACK: [
+              { target: "miteigentumAuswahlHaus", cond: "isHaus" },
+              { target: "bodenrichtwertEingabe" },
+            ],
           },
         },
         flurstueck: {

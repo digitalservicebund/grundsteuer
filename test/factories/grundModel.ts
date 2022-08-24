@@ -37,6 +37,7 @@ import { EigentuemerEmpfangsbevollmaechtigterAdresseFields } from "~/domain/step
 import { ZusammenfassungFields } from "~/domain/steps/zusammenfassung";
 import { GrundstueckBodenrichtwertAnzahlFields } from "~/domain/steps/grundstueck/bodenrichtwert/anzahl";
 import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/grundstueck/miteigentumsanteil";
+import { GrundstueckMiteigentumAuswahlHausFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlHaus";
 
 type PersonTransientParams = {
   transient: {
@@ -185,6 +186,18 @@ class GrundModelFactory extends Factory<GrundModel> {
         bodenrichtwertAnzahl: {
           anzahl: "1",
           ...anzahlFields,
+        },
+      },
+    });
+  }
+
+  miteigentumAuswahl(
+    fields?: Partial<GrundstueckMiteigentumAuswahlHausFields>
+  ) {
+    return this.params({
+      grundstueck: {
+        miteigentumAuswahlHaus: {
+          hasMiteigentum: fields ? fields?.hasMiteigentum : "true",
         },
       },
     });
@@ -455,6 +468,9 @@ class GrundModelFactory extends Factory<GrundModel> {
           wirtschaftlicheEinheitNenner: "89",
         })
         .grundstueckBodenrichtwert({ bodenrichtwert: "123" })
+        .miteigentumAuswahl({
+          hasMiteigentum: "false",
+        })
         .flurstueckAnzahl({ anzahl: "2" })
         .grundstueckFlurstueck({
           list: [

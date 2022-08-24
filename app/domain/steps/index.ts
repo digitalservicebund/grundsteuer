@@ -203,6 +203,10 @@ import {
   GrundstueckFlurstueckMiteigentumsanteilFields,
 } from "~/domain/steps/grundstueck/miteigentumsanteil";
 import invariant from "tiny-invariant";
+import {
+  grundstueckMiteigentumAuswahlHaus,
+  GrundstueckMiteigentumAuswahlHausFields,
+} from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlHaus";
 
 export type { GrundstueckBodenrichtwertEingabeFields };
 
@@ -224,6 +228,7 @@ const stepDefinitions = {
     bodenrichtwertInfo: infoStep,
     bodenrichtwertEingabe: grundstueckBodenrichtwertEingabe,
     bodenrichtwertAnzahl: grundstueckBodenrichtwertAnzahl,
+    miteigentumAuswahlHaus: grundstueckMiteigentumAuswahlHaus,
     flurstueck: {
       angaben: grundstueckFlurstueckAngaben,
       flur: grundstueckFlurstueckFlur,
@@ -310,6 +315,7 @@ export type GrundstueckModel = {
   miteigentumsanteil?: GrundstueckFlurstueckMiteigentumsanteilFields;
   bodenrichtwertEingabe?: GrundstueckBodenrichtwertEingabeFields;
   bodenrichtwertAnzahl?: GrundstueckBodenrichtwertAnzahlFields;
+  miteigentumAuswahlHaus?: GrundstueckMiteigentumAuswahlHausFields;
   flurstueck?: Flurstueck[];
 };
 
