@@ -56,6 +56,7 @@ const getMachine = ({
   params: Params;
 }) => {
   const machineContext = { ...formData } as StateMachineContext;
+  machineContext.testFeaturesEnabled = testFeaturesEnabled();
   if (params.personId) {
     machineContext.personId = parseInt(params.personId);
   } else if (params.flurstueckId) {
