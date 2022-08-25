@@ -105,14 +105,27 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
         },
         miteigentumAuswahlWohnung: {
           on: {
-            NEXT: [{ target: "anzahl" }],
+            NEXT: [
+              { target: "miteigentumWohnung", cond: "miteigentumWohnungNone" },
+              { target: "anzahl" },
+            ],
             BACK: [{ target: "bodenrichtwertEingabe" }],
+          },
+        },
+        miteigentumWohnung: {
+          on: {
+            NEXT: [{ target: "anzahl" }],
+            BACK: [{ target: "miteigentumAuswahlWohnung" }],
           },
         },
         anzahl: {
           on: {
             NEXT: [{ target: "flurstueck" }],
             BACK: [
+              {
+                target: "miteigentumWohnung",
+                cond: "miteigentumWohnungNone",
+              },
               {
                 target: "miteigentumAuswahlWohnung",
                 cond: "isEigentumswohnungTest",
