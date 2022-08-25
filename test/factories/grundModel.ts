@@ -38,6 +38,7 @@ import { ZusammenfassungFields } from "~/domain/steps/zusammenfassung";
 import { GrundstueckBodenrichtwertAnzahlFields } from "~/domain/steps/grundstueck/bodenrichtwert/anzahl";
 import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/grundstueck/miteigentumsanteil";
 import { GrundstueckMiteigentumAuswahlHausFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlHaus";
+import { StateMachineContext } from "~/domain/states";
 
 type PersonTransientParams = {
   transient: {
@@ -64,7 +65,7 @@ const ort = _.sample([
   "St. Leon-Rot",
 ]);
 
-class GrundModelFactory extends Factory<GrundModel> {
+class GrundModelFactory extends Factory<StateMachineContext> {
   grundstueckAdresse(fields?: Partial<GrundstueckAdresseFields>) {
     return this.params({
       grundstueck: {
@@ -619,4 +620,6 @@ class GrundModelFactory extends Factory<GrundModel> {
   }
 }
 
-export const grundModelFactory = GrundModelFactory.define(() => ({}));
+export const grundModelFactory = GrundModelFactory.define(() => ({
+  testFeaturesEnabled: true,
+}));

@@ -199,6 +199,10 @@ describe("/weitereErklaerung action", () => {
             adresse: { ort: "Ort", plz: "12345" },
           },
         };
+        const fullExpectedData = grundModelFactory
+          .eigentuemerPerson({ list: [person1ExpectedData] })
+          .build();
+        delete fullExpectedData.testFeaturesEnabled;
         const fullPerson1Data = {
           ...person1ExpectedData,
           ...{ anteil: { zaehler: "2", nenner: "3" } },
@@ -219,11 +223,7 @@ describe("/weitereErklaerung action", () => {
           cookieHeader: result.headers.get("Set-Cookie"),
           user: sessionUserFactory.build({ id: "1" }),
         });
-        expect(decodedCookieData).toEqual(
-          grundModelFactory
-            .eigentuemerPerson({ list: [person1ExpectedData] })
-            .build()
-        );
+        expect(decodedCookieData).toEqual(fullExpectedData);
       });
     });
 
