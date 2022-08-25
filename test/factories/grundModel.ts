@@ -38,7 +38,6 @@ import { GrundstueckBodenrichtwertAnzahlFields } from "~/domain/steps/grundstuec
 import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/grundstueck/miteigentumsanteil";
 import { GrundstueckMiteigentumAuswahlHausFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlHaus";
 import { StateMachineContext } from "~/domain/states";
-import { GrundstueckMiteigentumAuswahlWohnungFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlWohnung";
 
 type PersonTransientParams = {
   transient: {
@@ -165,19 +164,6 @@ class GrundModelFactory extends Factory<StateMachineContext> {
       grundstueck: {
         miteigentumAuswahlHaus: {
           hasMiteigentum: "false",
-          ...fields,
-        },
-      },
-    });
-  }
-
-  miteigentumWohnung(
-    fields?: Partial<GrundstueckMiteigentumAuswahlWohnungFields>
-  ) {
-    return this.params({
-      grundstueck: {
-        miteigentumAuswahlWohnung: {
-          miteigentumTyp: "none",
           ...fields,
         },
       },

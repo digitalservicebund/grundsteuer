@@ -44,10 +44,7 @@ describe("isEigentumswohnung", () => {
     const inputData = grundModelFactory
       .grundstueckTyp({ typ: "wohnungseigentum" })
       .build();
-    const result = conditions.isEigentumswohnung({
-      ...inputData,
-      testFeaturesEnabled: false,
-    });
+    const result = conditions.isEigentumswohnung(inputData);
     expect(result).toEqual(true);
   });
 });

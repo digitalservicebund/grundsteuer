@@ -4,10 +4,7 @@ export type Condition = (context: StateMachineContext | undefined) => boolean;
 export type Conditions = Record<string, Condition>;
 
 const isEigentumswohnung: Condition = (context) => {
-  return (
-    !context?.testFeaturesEnabled &&
-    context?.grundstueck?.typ?.typ === "wohnungseigentum"
-  );
+  return context?.grundstueck?.typ?.typ === "wohnungseigentum";
 };
 
 // TODO remove this and use isEigentumswohnung instead once miteigentum is on production
@@ -39,14 +36,6 @@ const isHaus: Condition = (context) => {
     (isEinfamilienhaus(context) ||
       isZweifamilienhaus(context) ||
       isUnbebaut(context))
-  );
-};
-
-const miteigentumWohnungNone: Condition = (context) => {
-  return !!(
-    context?.testFeaturesEnabled &&
-    context.grundstueck?.typ?.typ === "wohnungseigentum" &&
-    context?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp === "none"
   );
 };
 
@@ -182,7 +171,6 @@ const bundeslandIsNW: Condition = (context) => {
 export const conditions: Conditions = {
   isBezugsfertigAb1949,
   hausMiteigentum,
-  miteigentumWohnungNone,
   flurstueckMiteigentum,
   previousFlurstueckMiteigentum,
   hausMiteigentumAndPreviousFlurstuecke,
