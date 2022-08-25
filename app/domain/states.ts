@@ -424,21 +424,17 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
           {
             target: "#flurstueck.miteigentum",
             cond: "flurstueckMiteigentum",
-            actions: "setFlurstueckIdToMaximum",
           },
           {
             target: "#flurstueck.miteigentum",
             cond: "miteigentumWohnungMixed",
-            actions: "setFlurstueckIdToMaximum",
           },
           {
             target: "#flurstueck.miteigentumAuswahl",
             cond: "hausMiteigentum",
-            actions: "setFlurstueckIdToMaximum",
           },
           {
             target: "#flurstueck.groesse",
-            actions: "setFlurstueckIdToMaximum",
           },
         ],
       },
