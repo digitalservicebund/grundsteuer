@@ -60,7 +60,7 @@ const hausMiteigentum: Condition = (context) => {
 const flurstueckMiteigentum: Condition = (context) => {
   return (
     context?.grundstueck?.flurstueck?.[(context?.flurstueckId || 1) - 1]
-      .miteigentumAuswahl?.hasMiteigentum === "true"
+      ?.miteigentumAuswahl?.hasMiteigentum === "true"
   );
 };
 

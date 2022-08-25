@@ -255,6 +255,19 @@ describe("Happy Path", () => {
     ).click();
     cy.get(submitBtnSelector).click();
 
+    cy.url().should("include", "/formular/grundstueck/miteigentumWohnung");
+    cy.get("#wirtschaftlicheEinheitZaehler")
+      .clear()
+      .type(
+        inputData.grundstueck.miteigentumsanteil.wirtschaftlicheEinheitZaehler
+      );
+    cy.get("#wirtschaftlicheEinheitNenner")
+      .clear()
+      .type(
+        inputData.grundstueck.miteigentumsanteil.wirtschaftlicheEinheitNenner
+      );
+    cy.get(submitBtnSelector).click();
+
     cy.url().should("include", "/formular/grundstueck/anzahl");
     cy.get("#anzahl").select(inputData.grundstueck.anzahl.anzahl);
     cy.get(submitBtnSelector).click();
@@ -319,19 +332,6 @@ describe("Happy Path", () => {
     cy.get("#groesseQm")
       .clear()
       .type(inputData.grundstueck.flurstueck.groesse.groesseQm);
-    cy.get(submitBtnSelector).click();
-
-    cy.url().should("include", "/formular/grundstueck/miteigentumsanteil");
-    cy.get("#wirtschaftlicheEinheitZaehler")
-      .clear()
-      .type(
-        inputData.grundstueck.miteigentumsanteil.wirtschaftlicheEinheitZaehler
-      );
-    cy.get("#wirtschaftlicheEinheitNenner")
-      .clear()
-      .type(
-        inputData.grundstueck.miteigentumsanteil.wirtschaftlicheEinheitNenner
-      );
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/gebaeude/uebersicht");
