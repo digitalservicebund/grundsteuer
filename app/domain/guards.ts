@@ -26,19 +26,10 @@ const isZweifamilienhaus: Condition = (context) => {
   return context?.grundstueck?.typ?.typ === "zweifamilienhaus";
 };
 
-const isUnbebaut: Condition = (context) => {
-  return (
-    context?.grundstueck?.typ?.typ === "baureif" ||
-    context?.grundstueck?.typ?.typ === "abweichendeEntwicklung"
-  );
-};
-
-const isHausOrUnbebaut: Condition = (context) => {
+const isHaus: Condition = (context) => {
   return !!(
     context?.testFeaturesEnabled &&
-    (isEinfamilienhaus(context) ||
-      isZweifamilienhaus(context) ||
-      isUnbebaut(context))
+    (isEinfamilienhaus(context) || isZweifamilienhaus(context))
   );
 };
 
@@ -74,7 +65,7 @@ const wohnungHasMiteigentumNoneOrGarage: Condition = (context) => {
 
 const hausHasMiteigentum: Condition = (context) => {
   return (
-    isHausOrUnbebaut(context) &&
+    isHaus(context) &&
     context?.grundstueck?.miteigentumAuswahlHaus?.hasMiteigentum === "true"
   );
 };
@@ -216,7 +207,7 @@ export const conditions: Conditions = {
   isEigentumswohnung,
   isEigentumswohnungTest,
   isZweifamilienhaus,
-  isHausOrUnbebaut,
+  isHaus,
   hasWeitereWohnraeume,
   hasGaragen,
   anzahlEigentuemerIsTwo,
