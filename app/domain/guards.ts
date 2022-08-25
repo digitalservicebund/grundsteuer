@@ -7,6 +7,14 @@ const isEigentumswohnung: Condition = (context) => {
   return context?.grundstueck?.typ?.typ === "wohnungseigentum";
 };
 
+// TODO remove this and use isEigentumswohnung instead once miteigentum is on production
+const isEigentumswohnungTest: Condition = (context) => {
+  return !!(
+    context?.testFeaturesEnabled &&
+    context?.grundstueck?.typ?.typ === "wohnungseigentum"
+  );
+};
+
 const isEinfamilienhaus: Condition = (context) => {
   return context?.grundstueck?.typ?.typ === "einfamilienhaus";
 };
@@ -169,6 +177,7 @@ export const conditions: Conditions = {
   isKernsaniert,
   hasAbbruchverpflichtung,
   isEigentumswohnung,
+  isEigentumswohnungTest,
   isZweifamilienhaus,
   isHaus,
   hasWeitereWohnraeume,

@@ -392,6 +392,7 @@
       "bodenrichtwertEingabe": "Bodenrichtwert-Eingabe",
       "bodenrichtwertAnzahl": "Bodenrichtwert-Anzahl",
       "miteigentumAuswahlHaus": "Auswahl Miteigentum",
+      "miteigentumAuswahlWohnung": "Auswahl Miteigentum",
       "flurstueck": {
         "angaben": "Grundbuchblatt / Gemarkung",
         "flur": "Flur / Flurstück",
@@ -1437,6 +1438,26 @@
             },
             "true": {
               "label": "Ja. Ich ich habe Miteigentum an einem Grundstück oder finde Angaben dazu im Grundbuchauszug."
+            }
+          }
+        }
+      }
+    },
+    "miteigentumAuswahlWohnung": {
+      "headline": "Welche Option der Miteigentumsanteile treffen auf Sie zu?",
+      "description": "Neben dem sogenannten Miteigentumsanteil, den Sie automatisch mit Ihrer Eigentumswohnung am Grundstück haben, kann Miteigentum zum Beispiel auch noch an einem Garagengrundstück, einem Spielplatz oder Privatweg bestehen. Schauen Sie dafür in Ihrem Grundbuchauszug auf der Seite “Bestandsverzeichnis” oder im Kaufvertrag nach. In der Regel liegt für jeden Miteigentumsanteil ein eigener Grundbuchauszug vor.",
+      "hint": "Hier handelt es sich <bold>nicht</bold> um die Anteile einzelner Eigentümer:innen an dem Grundvermögen wie beispielsweise 1/2 bei Ehepaaren. Diese Angaben erfolgen an anderer Stelle des Formulars.",
+      "fields": {
+        "miteigentumTyp": {
+          "options": {
+            "none": {
+              "label": "Ich besitze eine Eigentumswohnung. Nur diese und keinen weiteren Miteigentumsanteil. Mir liegt nur ein Grundbuchauszug vor."
+            },
+            "garage": {
+              "label": "Ich besitze eine Eigentumswohnung und einen weiteren Miteigentumsanteil an einem Garagenstellplatz oder Tiefgaragenstellplatz. Beides liegt auf demselben Grundstück."
+            },
+            "mixed": {
+              "label": "Ich besitze eine Eigentumswohnung und Miteigentumsanteile an einem oder mehreren Grundstücken. Mir liegt ein- oder mehrere Grundbuchauszüge vor."
             }
           }
         }

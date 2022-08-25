@@ -45,6 +45,9 @@ const inputData = {
     bodenrichtwert: {
       bodenrichtwert: "200",
     },
+    miteigentumAuswahlWohnung: {
+      miteigentumTyp: "none",
+    },
   },
   gebaeude: {
     ab1949: {
@@ -241,6 +244,15 @@ describe("Happy Path", () => {
     cy.get("#bodenrichtwert")
       .clear()
       .type(inputData.grundstueck.bodenrichtwert.bodenrichtwert);
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should(
+      "include",
+      "/formular/grundstueck/miteigentumAuswahlWohnung"
+    );
+    cy.get(
+      `label[for=miteigentumTyp-${inputData.grundstueck.miteigentumAuswahlWohnung.miteigentumTyp}]`
+    ).click();
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/anzahl");

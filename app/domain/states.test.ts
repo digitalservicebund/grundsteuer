@@ -417,6 +417,7 @@ describe("states", () => {
           "grundstueck.bodenrichtwertInfo",
           "grundstueck.bodenrichtwertAnzahl",
           "grundstueck.bodenrichtwertEingabe",
+          "grundstueck.miteigentumAuswahlWohnung",
           "grundstueck.anzahl",
           "grundstueck.flurstueck.1.angaben",
           "grundstueck.flurstueck.1.flur",
