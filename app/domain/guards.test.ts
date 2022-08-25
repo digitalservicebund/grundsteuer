@@ -1,4 +1,4 @@
-import { conditions, previousFlurstueckMiteigentum } from "~/domain/guards";
+import { conditions, previousFlurstueckHasMiteigentum } from "~/domain/guards";
 import { StateMachineContext } from "~/domain/states";
 import { flurstueckFactory, grundModelFactory } from "test/factories";
 import { GrundModel } from "./steps";
@@ -95,9 +95,9 @@ describe("isZweifamilienhaus", () => {
   });
 });
 
-describe("previousFlurstueckMiteigentum", () => {
+describe("previousFlurstueckHasMiteigentum", () => {
   it("returns false if first flurstueck", () => {
-    expect(previousFlurstueckMiteigentum({ flurstueckId: 1 })).toBe(false);
+    expect(previousFlurstueckHasMiteigentum({ flurstueckId: 1 })).toBe(false);
   });
 
   it("returns true if second flurstueck and both flurstueck have miteigentum", () => {
@@ -115,7 +115,7 @@ describe("previousFlurstueckMiteigentum", () => {
       })
       .build();
     expect(
-      previousFlurstueckMiteigentum({ flurstueckId: 2, ...inputData })
+      previousFlurstueckHasMiteigentum({ flurstueckId: 2, ...inputData })
     ).toBe(true);
   });
 
@@ -134,7 +134,7 @@ describe("previousFlurstueckMiteigentum", () => {
       })
       .build();
     expect(
-      previousFlurstueckMiteigentum({ flurstueckId: 2, ...inputData })
+      previousFlurstueckHasMiteigentum({ flurstueckId: 2, ...inputData })
     ).toBe(true);
   });
 });

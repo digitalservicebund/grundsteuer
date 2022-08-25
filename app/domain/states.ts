@@ -91,7 +91,7 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                 target: "miteigentumAuswahlWohnung",
                 cond: "isEigentumswohnungTest",
               },
-              { target: "miteigentumAuswahlHaus", cond: "isHaus" },
+              { target: "miteigentumAuswahlHaus", cond: "isHausOrUnbebaut" },
               { target: "anzahl" },
             ],
             BACK: [{ target: "bodenrichtwertAnzahl" }],
@@ -108,7 +108,7 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
             NEXT: [
               {
                 target: "miteigentumWohnung",
-                cond: "miteigentumWohnungNoneOrGarage",
+                cond: "wohnungHasMiteigentumNoneOrGarage",
               },
               { target: "anzahl" },
             ],
@@ -118,7 +118,10 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
         miteigentumWohnung: {
           on: {
             NEXT: [
-              { target: "miteigentumGarage", cond: "miteigentumWohnungGarage" },
+              {
+                target: "miteigentumGarage",
+                cond: "wohnungHasMiteigentumGarage",
+              },
               { target: "anzahl" },
             ],
             BACK: [{ target: "miteigentumAuswahlWohnung" }],
@@ -136,17 +139,17 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
             BACK: [
               {
                 target: "miteigentumGarage",
-                cond: "miteigentumWohnungGarage",
+                cond: "wohnungHasMiteigentumGarage",
               },
               {
                 target: "miteigentumWohnung",
-                cond: "miteigentumWohnungNone",
+                cond: "wohnungHasMiteigentumNone",
               },
               {
                 target: "miteigentumAuswahlWohnung",
                 cond: "isEigentumswohnungTest",
               },
-              { target: "miteigentumAuswahlHaus", cond: "isHaus" },
+              { target: "miteigentumAuswahlHaus", cond: "isHausOrUnbebaut" },
               { target: "bodenrichtwertEingabe" },
             ],
           },
@@ -161,12 +164,12 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                 BACK: [
                   {
                     target: "miteigentum",
-                    cond: "previousFlurstueckMiteigentum",
+                    cond: "previousFlurstueckHasMiteigentum",
                     actions: ["decrementFlurstueckId"],
                   },
                   {
                     target: "miteigentumAuswahl",
-                    cond: "hausMiteigentumAndPreviousFlurstuecke",
+                    cond: "hausHasMiteigentumAndPreviousFlurstueckeExist",
                     actions: ["decrementFlurstueckId"],
                   },
                   {
@@ -189,11 +192,11 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                 NEXT: [
                   {
                     target: "miteigentumAuswahl",
-                    cond: "hausMiteigentum",
+                    cond: "hausHasMiteigentum",
                   },
                   {
                     target: "miteigentum",
-                    cond: "miteigentumWohnungMixed",
+                    cond: "wohnungHasMiteigentumMixed",
                   },
                 ],
                 BACK: [{ target: "flur" }],
@@ -204,7 +207,7 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                 NEXT: [
                   {
                     target: "miteigentum",
-                    cond: "flurstueckMiteigentum",
+                    cond: "flurstueckHasMiteigentum",
                   },
                 ],
                 BACK: [{ target: "groesse" }],
@@ -216,7 +219,7 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                 BACK: [
                   {
                     target: "groesse",
-                    cond: "miteigentumWohnungMixed",
+                    cond: "wohnungHasMiteigentumMixed",
                   },
                   { target: "miteigentumAuswahl" },
                 ],
@@ -412,15 +415,15 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
           },
           {
             target: "#flurstueck.miteigentum",
-            cond: "flurstueckMiteigentum",
+            cond: "flurstueckHasMiteigentum",
           },
           {
             target: "#flurstueck.miteigentum",
-            cond: "miteigentumWohnungMixed",
+            cond: "wohnungHasMiteigentumMixed",
           },
           {
             target: "#flurstueck.miteigentumAuswahl",
-            cond: "hausMiteigentum",
+            cond: "hausHasMiteigentum",
           },
           {
             target: "#flurstueck.groesse",

@@ -33,7 +33,7 @@ const isUnbebaut: Condition = (context) => {
   );
 };
 
-const isHaus: Condition = (context) => {
+const isHausOrUnbebaut: Condition = (context) => {
   return !!(
     context?.testFeaturesEnabled &&
     (isEinfamilienhaus(context) ||
@@ -42,7 +42,7 @@ const isHaus: Condition = (context) => {
   );
 };
 
-const miteigentumWohnungNone: Condition = (context) => {
+const wohnungHasMiteigentumNone: Condition = (context) => {
   return !!(
     context?.testFeaturesEnabled &&
     context.grundstueck?.typ?.typ === "wohnungseigentum" &&
@@ -50,7 +50,7 @@ const miteigentumWohnungNone: Condition = (context) => {
   );
 };
 
-const miteigentumWohnungGarage: Condition = (context) => {
+const wohnungHasMiteigentumGarage: Condition = (context) => {
   return !!(
     context?.testFeaturesEnabled &&
     context.grundstueck?.typ?.typ === "wohnungseigentum" &&
@@ -58,7 +58,7 @@ const miteigentumWohnungGarage: Condition = (context) => {
   );
 };
 
-const miteigentumWohnungMixed: Condition = (context) => {
+const wohnungHasMiteigentumMixed: Condition = (context) => {
   return !!(
     context?.testFeaturesEnabled &&
     context.grundstueck?.typ?.typ === "wohnungseigentum" &&
@@ -66,25 +66,27 @@ const miteigentumWohnungMixed: Condition = (context) => {
   );
 };
 
-const miteigentumWohnungNoneOrGarage: Condition = (context) => {
-  return miteigentumWohnungNone(context) || miteigentumWohnungGarage(context);
+const wohnungHasMiteigentumNoneOrGarage: Condition = (context) => {
+  return (
+    wohnungHasMiteigentumNone(context) || wohnungHasMiteigentumGarage(context)
+  );
 };
 
-const hausMiteigentum: Condition = (context) => {
+const hausHasMiteigentum: Condition = (context) => {
   return (
-    isHaus(context) &&
+    isHausOrUnbebaut(context) &&
     context?.grundstueck?.miteigentumAuswahlHaus?.hasMiteigentum === "true"
   );
 };
 
-const flurstueckMiteigentum: Condition = (context) => {
+const flurstueckHasMiteigentum: Condition = (context) => {
   return (
     context?.grundstueck?.flurstueck?.[(context?.flurstueckId || 1) - 1]
       ?.miteigentumAuswahl?.hasMiteigentum === "true"
   );
 };
 
-export const previousFlurstueckMiteigentum: Condition = (context) => {
+export const previousFlurstueckHasMiteigentum: Condition = (context) => {
   if (!context?.flurstueckId || context?.flurstueckId == 1) return false;
   return (
     context?.grundstueck?.flurstueck?.[context?.flurstueckId - 2]
@@ -92,8 +94,8 @@ export const previousFlurstueckMiteigentum: Condition = (context) => {
   );
 };
 
-const hausMiteigentumAndPreviousFlurstuecke: Condition = (context) => {
-  return hausMiteigentum(context) && flurstueckIdGreaterThanOne(context);
+const hausHasMiteigentumAndPreviousFlurstueckeExist: Condition = (context) => {
+  return hausHasMiteigentum(context) && flurstueckIdGreaterThanOne(context);
 };
 
 const isBezugsfertigAb1949: Condition = (context) => {
@@ -201,20 +203,20 @@ const bundeslandIsNW: Condition = (context) => {
 
 export const conditions: Conditions = {
   isBezugsfertigAb1949,
-  hausMiteigentum,
-  miteigentumWohnungNone,
-  miteigentumWohnungGarage,
-  miteigentumWohnungMixed,
-  miteigentumWohnungNoneOrGarage,
-  flurstueckMiteigentum,
-  previousFlurstueckMiteigentum,
-  hausMiteigentumAndPreviousFlurstuecke,
+  hausHasMiteigentum,
+  wohnungHasMiteigentumNone,
+  wohnungHasMiteigentumGarage,
+  wohnungHasMiteigentumMixed,
+  wohnungHasMiteigentumNoneOrGarage,
+  flurstueckHasMiteigentum,
+  previousFlurstueckHasMiteigentum,
+  hausHasMiteigentumAndPreviousFlurstueckeExist,
   isKernsaniert,
   hasAbbruchverpflichtung,
   isEigentumswohnung,
   isEigentumswohnungTest,
   isZweifamilienhaus,
-  isHaus,
+  isHausOrUnbebaut,
   hasWeitereWohnraeume,
   hasGaragen,
   anzahlEigentuemerIsTwo,
