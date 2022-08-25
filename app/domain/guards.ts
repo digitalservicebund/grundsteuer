@@ -58,13 +58,21 @@ const miteigentumWohnungGarage: Condition = (context) => {
   );
 };
 
+const miteigentumWohnungMixed: Condition = (context) => {
+  return !!(
+    context?.testFeaturesEnabled &&
+    context.grundstueck?.typ?.typ === "wohnungseigentum" &&
+    context?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp === "mixed"
+  );
+};
+
 const miteigentumWohnungNoneOrGarage: Condition = (context) => {
   return miteigentumWohnungNone(context) || miteigentumWohnungGarage(context);
 };
 
 const hausMiteigentum: Condition = (context) => {
-  return !!(
-    context?.testFeaturesEnabled &&
+  return (
+    isHaus(context) &&
     context?.grundstueck?.miteigentumAuswahlHaus?.hasMiteigentum === "true"
   );
 };
@@ -196,6 +204,7 @@ export const conditions: Conditions = {
   hausMiteigentum,
   miteigentumWohnungNone,
   miteigentumWohnungGarage,
+  miteigentumWohnungMixed,
   miteigentumWohnungNoneOrGarage,
   flurstueckMiteigentum,
   previousFlurstueckMiteigentum,

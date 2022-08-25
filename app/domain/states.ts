@@ -192,6 +192,10 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                     cond: "hausMiteigentum",
                   },
                   {
+                    target: "miteigentum",
+                    cond: "miteigentumWohnungMixed",
+                  },
+                  {
                     target: "angaben",
                     cond: "repeatFlurstueck",
                     actions: ["incrementFlurstueckId"],
@@ -235,7 +239,13 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                   { target: "#steps.gebaeude", cond: "isBebaut" },
                   { target: "#steps.eigentuemer" },
                 ],
-                BACK: [{ target: "miteigentumAuswahl" }],
+                BACK: [
+                  {
+                    target: "groesse",
+                    cond: "miteigentumWohnungMixed",
+                  },
+                  { target: "miteigentumAuswahl" },
+                ],
               },
             },
           },
@@ -414,6 +424,11 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
           {
             target: "#flurstueck.miteigentum",
             cond: "flurstueckMiteigentum",
+            actions: "setFlurstueckIdToMaximum",
+          },
+          {
+            target: "#flurstueck.miteigentum",
+            cond: "miteigentumWohnungMixed",
             actions: "setFlurstueckIdToMaximum",
           },
           {

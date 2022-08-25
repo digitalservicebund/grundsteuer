@@ -494,6 +494,33 @@ describe("states", () => {
         ],
       },
       {
+        description: "Wohnungseigentum with mixed miteigentum",
+        context: grundModelFactory
+          .grundstueckTyp({ typ: "wohnungseigentum" })
+          .miteigentumWohnung({ miteigentumTyp: "mixed" })
+          .build(),
+        expectedPath: [
+          "welcome",
+          "grundstueck.uebersicht",
+          "grundstueck.typ",
+          "grundstueck.adresse",
+          "grundstueck.steuernummer",
+          "grundstueck.gemeinde",
+          "grundstueck.bodenrichtwertInfo",
+          "grundstueck.bodenrichtwertAnzahl",
+          "grundstueck.bodenrichtwertEingabe",
+          "grundstueck.miteigentumAuswahlWohnung",
+          "grundstueck.anzahl",
+          "grundstueck.flurstueck.1.angaben",
+          "grundstueck.flurstueck.1.flur",
+          "grundstueck.flurstueck.1.groesse",
+          "grundstueck.flurstueck.1.miteigentum",
+          ...defaultGebaeude,
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
+      {
         description:
           "Zweifamilienhaus ab 1949 kernsaniert with weitere wohnraeume and garagen",
         context: grundModelFactory
