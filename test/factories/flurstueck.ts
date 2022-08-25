@@ -5,6 +5,8 @@ import {
   GrundstueckFlurstueckFlurFields,
   GrundstueckFlurstueckGroesseFields,
 } from "~/domain/steps";
+import { GrundstueckFlurstueckMiteigentumAuswahlFields } from "~/domain/steps/grundstueck/flurstueck/miteigentumAuswahl";
+import { GrundstueckFlurstueckMiteigentumFields } from "~/domain/steps/grundstueck/flurstueck/miteigentum";
 
 class FlurstueckFactory extends Factory<Flurstueck> {
   angaben(fields?: Partial<GrundstueckFlurstueckAngabenFields>) {
@@ -34,6 +36,27 @@ class FlurstueckFactory extends Factory<Flurstueck> {
         groesseHa: "1",
         groesseA: "2",
         groesseQm: "300",
+        ...fields,
+      },
+    });
+  }
+
+  miteigentumAuswahl(
+    fields?: Partial<GrundstueckFlurstueckMiteigentumAuswahlFields>
+  ) {
+    return this.params({
+      miteigentumAuswahl: {
+        hasMiteigentum: "false",
+        ...fields,
+      },
+    });
+  }
+
+  miteigentum(fields?: Partial<GrundstueckFlurstueckMiteigentumFields>) {
+    return this.params({
+      miteigentum: {
+        wirtschaftlicheEinheitZaehler: "1,2",
+        wirtschaftlicheEinheitNenner: "500",
         ...fields,
       },
     });

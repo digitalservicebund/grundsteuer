@@ -395,7 +395,9 @@
       "flurstueck": {
         "angaben": "Grundbuchblatt / Gemarkung",
         "flur": "Flur / Flurstück",
-        "groesse": "Gesamtgröße"
+        "groesse": "Gesamtgröße",
+        "miteigentumAuswahl": "Auswahl Miteigentum",
+        "miteigentum": "Miteigentumsanteil"
       }
     },
     "gebaeude": {
@@ -1192,6 +1194,34 @@
           },
           "groesseQm": {
             "label": "In m²"
+          }
+        }
+      },
+      "miteigentumAuswahl": {
+        "headline": "Handelt es sich bei Grundstücksfläche {{id}} um einen Miteigentumsanteil?",
+        "description": "Schauen Sie dafür auf die Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs. Miteigentumsanteile sind meistens durch einen Schrägstrich getrennt.",
+        "fields": {
+          "hasMiteigentum": {
+            "options": {
+              "true": {
+                "label": "Ja, bei dieser Grundstücksfläche handelt es sich um einen Miteigentumsanteil"
+              },
+              "false": {
+                "label": "Nein, bei dieser Grundstücksfläche liegt kein Miteigentumsanteil vor"
+              }
+            }
+          }
+        }
+      },
+      "miteigentum": {
+        "headline": "Wie lauten die Miteigentumsanteile?",
+        "description": "Den Miteigentumsanteil an einem anderen Grundstück finden Sie in Ihrem Grundbuchauszug. Übertragen Sie die Angabe als Bruch mit Schrägstrich. Zum Beispiel 1/24.",
+        "fields": {
+          "wirtschaftlicheEinheitZaehler": {
+            "label": "Anteil Zähler"
+          },
+          "wirtschaftlicheEinheitNenner": {
+            "label": "Anteil Nenner"
           }
         }
       }

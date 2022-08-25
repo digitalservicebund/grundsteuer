@@ -1,7 +1,10 @@
-import { conditions } from "~/domain/guards";
+import { conditions, previousFlurstueckMiteigentum } from "~/domain/guards";
 import { StateMachineContext } from "~/domain/states";
-import { grundModelFactory } from "test/factories";
+import { flurstueckFactory, grundModelFactory } from "test/factories";
 import { GrundModel } from "./steps";
+import { render, screen } from "@testing-library/react";
+import MaskedInput from "../components/form/MaskedInput";
+import userEvent from "@testing-library/user-event";
 
 describe("isEigentumswohnung", () => {
   it("Should return false if data is undefined", async () => {
@@ -86,6 +89,50 @@ describe("isZweifamilienhaus", () => {
       .build();
     const result = conditions.isZweifamilienhaus(inputData);
     expect(result).toEqual(true);
+  });
+});
+
+describe("previousFlurstueckMiteigentum", () => {
+  it("returns false if first flurstueck", () => {
+    expect(previousFlurstueckMiteigentum({ flurstueckId: 1 })).toBe(false);
+  });
+
+  it("returns true if second flurstueck and both flurstueck have miteigentum", () => {
+    const inputData = grundModelFactory
+      .grundstueckFlurstueck({
+        list: [
+          flurstueckFactory
+            .miteigentumAuswahl({ hasMiteigentum: "true" })
+            .build(),
+          flurstueckFactory
+            .miteigentumAuswahl({ hasMiteigentum: "true" })
+            .build(),
+        ],
+        count: 2,
+      })
+      .build();
+    expect(
+      previousFlurstueckMiteigentum({ flurstueckId: 2, ...inputData })
+    ).toBe(true);
+  });
+
+  it("returns true if second flurstueck and first flurstueck has miteigentum", () => {
+    const inputData = grundModelFactory
+      .grundstueckFlurstueck({
+        list: [
+          flurstueckFactory
+            .miteigentumAuswahl({ hasMiteigentum: "true" })
+            .build(),
+          flurstueckFactory
+            .miteigentumAuswahl({ hasMiteigentum: "false" })
+            .build(),
+        ],
+        count: 2,
+      })
+      .build();
+    expect(
+      previousFlurstueckMiteigentum({ flurstueckId: 2, ...inputData })
+    ).toBe(true);
   });
 });
 

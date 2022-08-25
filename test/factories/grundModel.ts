@@ -4,7 +4,6 @@ import {
   EigentuemerAnzahlFields,
   EigentuemerPersonGesetzlicherVertreterFields,
   Flurstueck,
-  GrundModel,
   GrundstueckAbweichendeEntwicklungFields,
   GrundstueckAdresseFields,
   GrundstueckAnzahlFields,
@@ -156,6 +155,17 @@ class GrundModelFactory extends Factory<StateMachineContext> {
     return this.params({
       grundstueck: {
         flurstueck: flurstueckList,
+      },
+    });
+  }
+
+  miteigentumHaus(fields?: Partial<GrundstueckMiteigentumAuswahlHausFields>) {
+    return this.params({
+      grundstueck: {
+        miteigentumAuswahlHaus: {
+          hasMiteigentum: "false",
+          ...fields,
+        },
       },
     });
   }

@@ -7,7 +7,7 @@ import {
 } from "~/domain/states";
 import { conditions } from "~/domain/guards";
 import { actions } from "~/domain/actions";
-import { grundModelFactory } from "test/factories";
+import { flurstueckFactory, grundModelFactory } from "test/factories";
 import { getPathsFromState } from "~/util/getPathsFromState";
 import {
   RecursiveStringRecord,
@@ -139,9 +139,23 @@ describe("states", () => {
         ],
       },
       {
-        description: "Einfamilienhaus with Miteigentumsanteil",
+        description: "Einfamilienhaus with partial Miteigentumsanteil",
         context: grundModelFactory
           .grundstueckTyp({ typ: "einfamilienhaus" })
+          .flurstueckAnzahl({ anzahl: "2" })
+          .miteigentumHaus({ hasMiteigentum: "true" })
+          .grundstueckFlurstueck({
+            list: [
+              flurstueckFactory
+                .miteigentumAuswahl({ hasMiteigentum: "false" })
+                .build(),
+              flurstueckFactory
+                .miteigentumAuswahl({ hasMiteigentum: "true" })
+                .miteigentum()
+                .build(),
+            ],
+            count: 2,
+          })
           .build(),
         expectedPath: [
           "welcome",
@@ -158,6 +172,12 @@ describe("states", () => {
           "grundstueck.flurstueck.1.angaben",
           "grundstueck.flurstueck.1.flur",
           "grundstueck.flurstueck.1.groesse",
+          "grundstueck.flurstueck.1.miteigentumAuswahl",
+          "grundstueck.flurstueck.2.angaben",
+          "grundstueck.flurstueck.2.flur",
+          "grundstueck.flurstueck.2.groesse",
+          "grundstueck.flurstueck.2.miteigentumAuswahl",
+          "grundstueck.flurstueck.2.miteigentum",
           ...defaultGebaeude,
           ...defaultEigentuemer,
           "zusammenfassung",

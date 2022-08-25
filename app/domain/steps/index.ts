@@ -207,6 +207,14 @@ import {
   grundstueckMiteigentumAuswahlHaus,
   GrundstueckMiteigentumAuswahlHausFields,
 } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlHaus";
+import {
+  grundstueckFlurstueckMiteigentumAuswahl,
+  GrundstueckFlurstueckMiteigentumAuswahlFields,
+} from "~/domain/steps/grundstueck/flurstueck/miteigentumAuswahl";
+import {
+  grundstueckFlurstueckMiteigentum,
+  GrundstueckFlurstueckMiteigentumFields,
+} from "~/domain/steps/grundstueck/flurstueck/miteigentum";
 
 export type { GrundstueckBodenrichtwertEingabeFields };
 
@@ -233,6 +241,8 @@ const stepDefinitions = {
       angaben: grundstueckFlurstueckAngaben,
       flur: grundstueckFlurstueckFlur,
       groesse: grundstueckFlurstueckGroesse,
+      miteigentumAuswahl: grundstueckFlurstueckMiteigentumAuswahl,
+      miteigentum: grundstueckFlurstueckMiteigentum,
     },
   },
   gebaeude: {
@@ -285,6 +295,8 @@ export type Flurstueck = {
   angaben?: GrundstueckFlurstueckAngabenFields;
   flur?: GrundstueckFlurstueckFlurFields;
   groesse?: GrundstueckFlurstueckGroesseFields;
+  miteigentumAuswahl?: GrundstueckFlurstueckMiteigentumAuswahlFields;
+  miteigentum?: GrundstueckFlurstueckMiteigentumFields;
 };
 
 export type Person = {

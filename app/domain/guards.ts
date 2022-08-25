@@ -30,6 +30,33 @@ const isHaus: Condition = (context) => {
       isUnbebaut(context))
   );
 };
+
+const hausMiteigentum: Condition = (context) => {
+  return !!(
+    context?.testFeaturesEnabled &&
+    context?.grundstueck?.miteigentumAuswahlHaus?.hasMiteigentum === "true"
+  );
+};
+
+const flurstueckMiteigentum: Condition = (context) => {
+  return (
+    context?.grundstueck?.flurstueck?.[(context?.flurstueckId || 1) - 1]
+      .miteigentumAuswahl?.hasMiteigentum === "true"
+  );
+};
+
+export const previousFlurstueckMiteigentum: Condition = (context) => {
+  if (!context?.flurstueckId || context?.flurstueckId == 1) return false;
+  return (
+    context?.grundstueck?.flurstueck?.[context?.flurstueckId - 2]
+      .miteigentumAuswahl?.hasMiteigentum === "true"
+  );
+};
+
+const hausMiteigentumAndPreviousFlurstuecke: Condition = (context) => {
+  return hausMiteigentum(context) && flurstueckIdGreaterThanOne(context);
+};
+
 const isBezugsfertigAb1949: Condition = (context) => {
   return isBebaut(context) && context?.gebaeude?.ab1949?.isAb1949 === "true";
 };
@@ -135,6 +162,10 @@ const bundeslandIsNW: Condition = (context) => {
 
 export const conditions: Conditions = {
   isBezugsfertigAb1949,
+  hausMiteigentum,
+  flurstueckMiteigentum,
+  previousFlurstueckMiteigentum,
+  hausMiteigentumAndPreviousFlurstuecke,
   isKernsaniert,
   hasAbbruchverpflichtung,
   isEigentumswohnung,
