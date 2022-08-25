@@ -35,6 +35,7 @@ import Paragraph from "~/components/icons/mui/Paragraph";
 import ExclamationMarkFilled from "~/components/icons/mui/ExclamationMarkFilled";
 import { EigentuemerBruchteilsgemeinschaftAdresseFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
 import { removeUndefined } from "~/util/removeUndefined";
+import { GrundstueckMiteigentumAuswahlHausFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlHaus";
 
 const isDataEmpty = (
   data: GrundstueckModel | GebaeudeModel | EigentuemerModel
@@ -120,7 +121,18 @@ const resolveFlurstueckGroesse: StepResolver = (value) => {
   });
 };
 
-const resolveBundesland = (value: string | undefined) => {
+const resolveJaNein: FieldResolver = (value) => {
+  switch (value) {
+    case "true":
+      return "Ja";
+    case "false":
+      return "Nein";
+    default:
+      return "";
+  }
+};
+
+const resolveBundesland: FieldResolver = (value) => {
   switch (value) {
     case "BE":
       return "Berlin";
@@ -172,6 +184,17 @@ const resolveBodenrichtwertAnzahl: FieldResolver = (value) => {
       return "Ein Bodenrichtwert";
     case "2":
       return "Zwei Bodenrichtwerte";
+    default:
+      return "";
+  }
+};
+
+const resolveMiteigentumAuswahlHaus: FieldResolver = (value) => {
+  switch (value) {
+    case "false":
+      return "Kein Miteigentum an einem anderen Grundstück";
+    case "true":
+      return "Miteigentum an einem anderen Grundstück";
     default:
       return "";
   }
@@ -366,6 +389,7 @@ type FieldResolver = (field: string | undefined) => string;
 type StepResolver = (
   field:
     | GrundstueckAdresseFields
+    | GrundstueckMiteigentumAuswahlHausFields
     | GrundstueckFlurstueckFlurFields
     | GrundstueckFlurstueckMiteigentumsanteilFields
     | GrundstueckFlurstueckGroesseFields
@@ -558,6 +582,13 @@ export default function ZusammenfassungAccordion({
                 resolver: resolveBodenrichtwertAnzahl,
               },
             ])}
+            {stepItem("grundstueck.miteigentumAuswahlHaus", [
+              {
+                label: "Option Miteigentum",
+                path: "hasMiteigentum",
+                resolver: resolveMiteigentumAuswahlHaus,
+              },
+            ])}
             {stepItem("grundstueck.anzahl", [
               {
                 label: "Anzahl der Grundstücksflächen",
@@ -612,6 +643,29 @@ export default function ZusammenfassungAccordion({
                           resolver: resolveFlurstueckGroesse,
                         },
                       ])}
+                      ,
+                      {stepItem(
+                        `grundstueck.flurstueck.${
+                          index + 1
+                        }.miteigentumAuswahl`,
+                        [
+                          {
+                            label: "Miteigentumsanteil Grundstücksfläche",
+                            path: "hasMiteigentum",
+                            resolver: resolveJaNein,
+                          },
+                        ]
+                      )}
+                      {stepItem(
+                        `grundstueck.flurstueck.${index + 1}.miteigentum`,
+                        [
+                          {
+                            label: "Miteigentumsanteil",
+                            path: "",
+                            resolver: resolveMiteigentumFraction,
+                          },
+                        ]
+                      )}
                     </EnumerationFields>
                   );
                 })}
