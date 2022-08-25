@@ -394,6 +394,7 @@
       "miteigentumAuswahlHaus": "Auswahl Miteigentum",
       "miteigentumAuswahlWohnung": "Auswahl Miteigentum",
       "miteigentumWohnung": "Miteigentumsanteil Wohnung",
+      "miteigentumGarage": "Miteigentumsanteil Garage",
       "flurstueck": {
         "angaben": "Grundbuchblatt / Gemarkung",
         "flur": "Flur / Flurstück",
@@ -1468,6 +1469,18 @@
       "headline": "Wie lautet der Miteigentumsanteil Ihrer Eigentumswohnung?",
       "description": "Hier handelt es sich um den Miteigentumsanteil, den Ihre Wohnung als Teil des gesamten Grundstücks hat. Sie finden diesen auf der Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs oder oft auch im Kaufvertrag.",
       "hint": "Hier handelt es sich <bold>nicht</bold> um die Anteile einzelner Eigentümer:innen an dem Grundvermögen wie beispielsweise 1/2 bei Ehepaaren. Diese Angaben erfolgen an anderer Stelle des Formulars.",
+      "fields": {
+        "wirtschaftlicheEinheitZaehler": {
+          "label": "Zähler"
+        },
+        "wirtschaftlicheEinheitNenner": {
+          "label": "Nenner"
+        }
+      }
+    },
+    "miteigentumGarage": {
+      "headline": "Wie lautet der Miteigentumsanteil Ihres Garagenstellplatzes?",
+      "description": "Hier handelt es sich um den Miteigentumsanteil, den Ihr Garagenstellplatz als Teil des gesamten Grundstücks hat. Sie finden diesen auf der Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs oder oft auch im Kaufvertrag.",
       "fields": {
         "wirtschaftlicheEinheitZaehler": {
           "label": "Zähler"

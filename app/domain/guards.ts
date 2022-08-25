@@ -50,6 +50,18 @@ const miteigentumWohnungNone: Condition = (context) => {
   );
 };
 
+const miteigentumWohnungGarage: Condition = (context) => {
+  return !!(
+    context?.testFeaturesEnabled &&
+    context.grundstueck?.typ?.typ === "wohnungseigentum" &&
+    context?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp === "garage"
+  );
+};
+
+const miteigentumWohnungNoneOrGarage: Condition = (context) => {
+  return miteigentumWohnungNone(context) || miteigentumWohnungGarage(context);
+};
+
 const hausMiteigentum: Condition = (context) => {
   return !!(
     context?.testFeaturesEnabled &&
@@ -183,6 +195,8 @@ export const conditions: Conditions = {
   isBezugsfertigAb1949,
   hausMiteigentum,
   miteigentumWohnungNone,
+  miteigentumWohnungGarage,
+  miteigentumWohnungNoneOrGarage,
   flurstueckMiteigentum,
   previousFlurstueckMiteigentum,
   hausMiteigentumAndPreviousFlurstuecke,

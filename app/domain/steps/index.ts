@@ -223,6 +223,10 @@ import {
   grundstueckFlurstueckMiteigentumWohnung,
   GrundstueckFlurstueckMiteigentumWohnungFields,
 } from "~/domain/steps/grundstueck/miteigentumWohnung";
+import {
+  grundstueckFlurstueckMiteigentumGarage,
+  GrundstueckFlurstueckMiteigentumGarageFields,
+} from "~/domain/steps/grundstueck/miteigentumGarage";
 
 export type { GrundstueckBodenrichtwertEingabeFields };
 
@@ -247,6 +251,7 @@ const stepDefinitions = {
     miteigentumAuswahlHaus: grundstueckMiteigentumAuswahlHaus,
     miteigentumAuswahlWohnung: grundstueckMiteigentumAuswahlWohnung,
     miteigentumWohnung: grundstueckFlurstueckMiteigentumWohnung,
+    miteigentumGarage: grundstueckFlurstueckMiteigentumGarage,
     flurstueck: {
       angaben: grundstueckFlurstueckAngaben,
       flur: grundstueckFlurstueckFlur,
@@ -340,6 +345,7 @@ export type GrundstueckModel = {
   miteigentumAuswahlHaus?: GrundstueckMiteigentumAuswahlHausFields;
   miteigentumAuswahlWohnung?: GrundstueckMiteigentumAuswahlWohnungFields;
   miteigentumWohnung?: GrundstueckFlurstueckMiteigentumWohnungFields;
+  miteigentumGarage?: GrundstueckFlurstueckMiteigentumGarageFields;
   flurstueck?: Flurstueck[];
 };
 
