@@ -195,17 +195,6 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                     target: "miteigentum",
                     cond: "miteigentumWohnungMixed",
                   },
-                  {
-                    target: "angaben",
-                    cond: "repeatFlurstueck",
-                    actions: ["incrementFlurstueckId"],
-                  },
-                  {
-                    target: "#grundstueck.miteigentumsanteil",
-                    cond: "isEigentumswohnung",
-                  },
-                  { target: "#steps.gebaeude", cond: "isBebaut" },
-                  { target: "#steps.eigentuemer" },
                 ],
                 BACK: [{ target: "flur" }],
               },
@@ -217,28 +206,13 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                     target: "miteigentum",
                     cond: "flurstueckMiteigentum",
                   },
-                  {
-                    target: "angaben",
-                    cond: "repeatFlurstueck",
-                    actions: ["incrementFlurstueckId"],
-                  },
-                  { target: "#steps.gebaeude", cond: "isBebaut" },
-                  { target: "#steps.eigentuemer" },
                 ],
                 BACK: [{ target: "groesse" }],
               },
             },
             miteigentum: {
               on: {
-                NEXT: [
-                  {
-                    target: "angaben",
-                    cond: "repeatFlurstueck",
-                    actions: ["incrementFlurstueckId"],
-                  },
-                  { target: "#steps.gebaeude", cond: "isBebaut" },
-                  { target: "#steps.eigentuemer" },
-                ],
+                NEXT: [],
                 BACK: [
                   {
                     target: "groesse",
@@ -248,6 +222,21 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                 ],
               },
             },
+          },
+          on: {
+            NEXT: [
+              {
+                target: "#flurstueck.angaben",
+                cond: "repeatFlurstueck",
+                actions: ["incrementFlurstueckId"],
+              },
+              {
+                target: "#grundstueck.miteigentumsanteil",
+                cond: "isEigentumswohnung",
+              },
+              { target: "#steps.gebaeude", cond: "isBebaut" },
+              { target: "#steps.eigentuemer" },
+            ],
           },
         },
         miteigentumsanteil: {
