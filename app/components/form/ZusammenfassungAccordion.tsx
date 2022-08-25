@@ -545,6 +545,19 @@ export default function ZusammenfassungAccordion({
                 resolver: resolveGemeinde,
               },
             ])}
+            {stepItem("grundstueck.bodenrichtwertEingabe", [
+              {
+                label: "Bodenrichtwert in Euro",
+                path: "bodenrichtwert",
+              },
+            ])}
+            {stepItem("grundstueck.bodenrichtwertAnzahl", [
+              {
+                label: "Anzahl Bodenrichtwert",
+                path: "anzahl",
+                resolver: resolveBodenrichtwertAnzahl,
+              },
+            ])}
             {stepItem("grundstueck.anzahl", [
               {
                 label: "Anzahl der Grundstücksflächen",
@@ -610,19 +623,6 @@ export default function ZusammenfassungAccordion({
                 label: "Miteigentumsanteil",
                 path: "",
                 resolver: resolveMiteigentumFraction,
-              },
-            ])}
-            {stepItem("grundstueck.bodenrichtwertEingabe", [
-              {
-                label: "Bodenrichtwert in Euro",
-                path: "bodenrichtwert",
-              },
-            ])}
-            {stepItem("grundstueck.bodenrichtwertAnzahl", [
-              {
-                label: "Anzahl Bodenrichtwert",
-                path: "anzahl",
-                resolver: resolveBodenrichtwertAnzahl,
               },
             ])}
           </ul>
