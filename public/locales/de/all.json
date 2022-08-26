@@ -1138,8 +1138,8 @@
       }
     },
     "anzahl": {
-      "headline": "Tragen Sie nun Ihre Grundstücksflächen ein. Wie viele Einträge zählen Sie in Ihrem Grundbuchauszug?",
-      "description": "Schauen Sie dazu auf die Seite “Bestandsverzeichnis” und zählen Sie die Einträge durch. Unterstrichene Zeilen bedeuten, dass diese Einträge ungültig sind. Diese werden nicht mitgezählt.",
+      "headline": "Wie viele Einträge zählen Sie in Ihrem Grundbuchauszug?",
+      "description": "Schauen Sie dazu auf die Seite “Bestandsverzeichnis” und zählen Sie die Einträge durch.",
       "hint": "<underline>Unterstrichene Zeilen</underline> im Grundbuchauszug bedeuten, dass diese Einträge <bold>nicht</bold> mehr gültig sind. Diese werden nicht mitgezählt.",
       "fields": {
         "anzahl": {

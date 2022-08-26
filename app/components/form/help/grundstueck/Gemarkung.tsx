@@ -10,7 +10,7 @@ const GemarkungHelp: HelpComponentFunction = () => {
         {
           type: "paragraph",
           value:
-            "Wenn Sie ein Grundbuch haben, finden Sie die Gemarkung im Bestandsverzeichnis vor der Angabe zu Flur und Flurstück.",
+            "Die Gemarkung finden Sie im Bestands-verzeichnis vor der Angabe zu Flur und Flurstück.",
         },
         {
           type: "image",
