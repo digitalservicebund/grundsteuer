@@ -11,12 +11,34 @@ import FlurHelp from "~/components/form/help/grundstueck/Flur";
 import EigentuemerAnzahlHelp from "~/components/form/help/eigentuemer/EigentuemerAnzahl";
 import { BodenrichtwertEingabeHelp } from "~/components/form/help/grundstueck/bodenrichtwert/BodenrichtwertEingabeHelp";
 import SteuerIdHelp from "~/components/form/help/eigentuemer/SteuerId";
+import {
+  MiteigentumAnzahlHausFalseHelp,
+  MiteigentumAnzahlHausTrueHelp,
+} from "~/components/form/help/grundstueck/miteigentum/MiteigentumAnzahlHaus";
+import {
+  MiteigentumAnzahlWohnungGarageHelp,
+  MiteigentumAnzahlWohnungMixedHelp,
+  MiteigentumAnzahlWohnungNoneHelp,
+} from "~/components/form/help/grundstueck/miteigentum/MiteigentumAnzahlWohnung";
 
 export const helpComponents = {
   grundstueck: {
     steuernummer: { steuernummer: SteuernummerHelp },
     anzahl: { anzahl: GrundstueckAnzahlHelp },
     bodenrichtwertEingabe: { bodenrichtwert: BodenrichtwertEingabeHelp },
+    miteigentumAuswahlHaus: {
+      hasMiteigentum: {
+        false: MiteigentumAnzahlHausFalseHelp,
+        true: MiteigentumAnzahlHausTrueHelp,
+      },
+    },
+    miteigentumAuswahlWohnung: {
+      miteigentumTyp: {
+        none: MiteigentumAnzahlWohnungNoneHelp,
+        garage: MiteigentumAnzahlWohnungGarageHelp,
+        mixed: MiteigentumAnzahlWohnungMixedHelp,
+      },
+    },
     flurstueck: {
       angaben: {
         gemarkung: GemarkungHelp,
