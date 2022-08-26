@@ -21,6 +21,9 @@ import {
 import { EigentuemerPersonAdresseFields } from "~/domain/steps/eigentuemer/person/adresse";
 import { EigentuemerPersonAnteilFields } from "~/domain/steps/eigentuemer/person/anteil";
 import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/grundstueck/miteigentumsanteil";
+import { GrundstueckFlurstueckMiteigentumWohnungFields } from "~/domain/steps/grundstueck/miteigentumWohnung";
+import { GrundstueckFlurstueckMiteigentumGarageFields } from "~/domain/steps/grundstueck/miteigentumGarage";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const calculateGroesse = (
   groesse: GrundstueckFlurstueckGroesseFields
@@ -118,6 +121,19 @@ const calculateWohnflaechen = (
     wohnflaechen?.wohnflaeche1,
     wohnflaechen?.wohnflaeche2,
   ]);
+};
+
+export const transformFlurstuecke = (
+  flurstuecke: Flurstueck[] | undefined,
+  miteigentumsanteil: GrundstueckFlurstueckMiteigentumsanteilFields | undefined,
+  miteigentumWohnung: GrundstueckFlurstueckMiteigentumWohnungFields | undefined,
+  miteigentumGarage: GrundstueckFlurstueckMiteigentumGarageFields | undefined,
+  testFeaturesEnabled: boolean
+) => {
+  if (!flurstuecke) return undefined;
+  return flurstuecke.map((value) =>
+    transformFlurstueck(value, miteigentumsanteil)
+  );
 };
 
 export const transformFlurstueck = (
@@ -253,8 +269,12 @@ export const transformDataToEricaFormat = (inputData: GrundModel) => {
       bodenrichtwert: transformBodenrichtwert(
         inputData.grundstueck?.bodenrichtwertEingabe?.bodenrichtwert
       ),
-      flurstueck: inputData.grundstueck?.flurstueck?.map((value) =>
-        transformFlurstueck(value, inputData.grundstueck?.miteigentumsanteil)
+      flurstueck: transformFlurstuecke(
+        inputData.grundstueck?.flurstueck,
+        inputData.grundstueck?.miteigentumsanteil,
+        inputData.grundstueck?.miteigentumWohnung,
+        inputData.grundstueck?.miteigentumGarage,
+        testFeaturesEnabled()
       ),
     },
     gebaeude: {

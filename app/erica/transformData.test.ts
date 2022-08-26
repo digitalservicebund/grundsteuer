@@ -1,4 +1,4 @@
-import { grundModelFactory } from "test/factories";
+import { flurstueckFactory, grundModelFactory } from "test/factories";
 import {
   calculateGroesse,
   fillPostCommaToLength,
@@ -9,6 +9,7 @@ import {
   transformFlurstueck,
   transformBodenrichtwert,
   transformFreitext,
+  transformFlurstuecke,
 } from "~/erica/transformData";
 import { Person } from "~/domain/steps";
 
@@ -752,6 +753,76 @@ describe("transformDate", () => {
       expect(transformDate(date)).toEqual(output);
     }
   );
+});
+
+describe("transformFlurstuecke", () => {
+  it("with testFeaturesEnabled false and no miteigentum", () => {
+    const flurstueckeInput = [
+      flurstueckFactory
+        .angaben({ gemarkung: "Gemarkung", grundbuchblattnummer: "1" })
+        .flur({ flur: "09", flurstueckZaehler: "2", flurstueckNenner: "3" })
+        .groesse({ groesseHa: "", groesseA: "", groesseQm: "45" })
+        .build(),
+    ];
+
+    const result = transformFlurstuecke(
+      flurstueckeInput,
+      undefined,
+      undefined,
+      undefined,
+      false
+    );
+
+    expect(result).toEqual([
+      {
+        angaben: { gemarkung: "Gemarkung", grundbuchblattnummer: "1" },
+        flur: {
+          flur: "9",
+          flurstueckZaehler: "2",
+          flurstueckNenner: "3",
+          wirtschaftlicheEinheitZaehler: undefined,
+          wirtschaftlicheEinheitNenner: undefined,
+        },
+        groesseQm: "45",
+      },
+    ]);
+  });
+
+  it("with testFeaturesEnabled false and miteigentum", () => {
+    const flurstueckeInput = [
+      flurstueckFactory
+        .angaben({ gemarkung: "Gemarkung", grundbuchblattnummer: "1" })
+        .flur({ flur: "09", flurstueckZaehler: "2", flurstueckNenner: "3" })
+        .groesse({ groesseHa: "", groesseA: "", groesseQm: "45" })
+        .build(),
+    ];
+    const miteigentumsanteil = {
+      wirtschaftlicheEinheitZaehler: "123",
+      wirtschaftlicheEinheitNenner: "789",
+    };
+
+    const result = transformFlurstuecke(
+      flurstueckeInput,
+      miteigentumsanteil,
+      undefined,
+      undefined,
+      false
+    );
+
+    expect(result).toEqual([
+      {
+        angaben: { gemarkung: "Gemarkung", grundbuchblattnummer: "1" },
+        flur: {
+          flur: "9",
+          flurstueckZaehler: "2",
+          flurstueckNenner: "3",
+          wirtschaftlicheEinheitZaehler: "123",
+          wirtschaftlicheEinheitNenner: "789",
+        },
+        groesseQm: "45",
+      },
+    ]);
+  });
 });
 
 describe("transformFlurstueck", () => {
