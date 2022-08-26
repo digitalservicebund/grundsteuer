@@ -988,6 +988,84 @@ describe("transformFlurstuecke", () => {
       },
     ]);
   });
+
+  it("wohnung with miteigentumTyp garage", () => {
+    const flurstueckeInput = [
+      flurstueckFactory
+        .angaben({ gemarkung: "Gemarkung1", grundbuchblattnummer: "1" })
+        .flur({ flur: "09", flurstueckZaehler: "2", flurstueckNenner: "3" })
+        .groesse({ groesseHa: "", groesseA: "", groesseQm: "45" })
+        .build(),
+      flurstueckFactory
+        .angaben({ gemarkung: "Gemarkung2", grundbuchblattnummer: "1" })
+        .flur({ flur: "10", flurstueckZaehler: "2", flurstueckNenner: "3" })
+        .groesse({ groesseHa: "", groesseA: "", groesseQm: "50" })
+        .build(),
+    ];
+
+    const result = transformFlurstuecke(
+      flurstueckeInput,
+      undefined,
+      {
+        wirtschaftlicheEinheitZaehler: "123",
+        wirtschaftlicheEinheitNenner: "234",
+      },
+      {
+        wirtschaftlicheEinheitZaehler: "678",
+        wirtschaftlicheEinheitNenner: "789",
+      },
+      true
+    );
+
+    expect(result).toEqual([
+      {
+        angaben: { gemarkung: "Gemarkung1", grundbuchblattnummer: "1" },
+        flur: {
+          flur: "9",
+          flurstueckZaehler: "2",
+          flurstueckNenner: "3",
+          wirtschaftlicheEinheitZaehler: "123",
+          wirtschaftlicheEinheitNenner: "234",
+        },
+        groesseQm: "45",
+      },
+      {
+        angaben: { gemarkung: "Gemarkung2", grundbuchblattnummer: "1" },
+        flur: {
+          flur: "10",
+          flurstueckZaehler: "2",
+          flurstueckNenner: "3",
+          wirtschaftlicheEinheitZaehler: "123",
+          wirtschaftlicheEinheitNenner: "234",
+        },
+        groesseQm: "50",
+      },
+      // flurstuecke should be copied
+      {
+        // grundbuchblatt should be empty
+        angaben: { gemarkung: "Gemarkung1", grundbuchblattnummer: "" },
+        flur: {
+          flur: "9",
+          flurstueckZaehler: "2",
+          flurstueckNenner: "3",
+          wirtschaftlicheEinheitZaehler: "678",
+          wirtschaftlicheEinheitNenner: "789",
+        },
+        groesseQm: "45",
+      },
+      {
+        angaben: { gemarkung: "Gemarkung2", grundbuchblattnummer: "" },
+        flur: {
+          flur: "10",
+          flurstueckZaehler: "2",
+          flurstueckNenner: "3",
+          wirtschaftlicheEinheitZaehler: "678",
+          wirtschaftlicheEinheitNenner: "789",
+        },
+        groesseQm: "50",
+      },
+    ]);
+  });
 });
 
 describe("transformFlurstueck old", () => {

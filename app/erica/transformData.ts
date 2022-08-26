@@ -128,26 +128,44 @@ export const transformFlurstuecke = (
   miteigentumsanteil: GrundstueckFlurstueckMiteigentumsanteilFields | undefined,
   miteigentumWohnung: GrundstueckFlurstueckMiteigentumWohnungFields | undefined,
   miteigentumGarage: GrundstueckFlurstueckMiteigentumGarageFields | undefined,
-  testFeaturesEnabled: boolean
+  showTestFeatures: boolean
 ) => {
-  if (!testFeaturesEnabled) {
+  if (!showTestFeatures) {
     if (!flurstuecke) return undefined;
     return flurstuecke.map((value) =>
-      transformFlurstueck(value, miteigentumsanteil, testFeaturesEnabled)
+      transformFlurstueck(value, miteigentumsanteil, showTestFeatures)
     );
   }
   if (!flurstuecke) return undefined;
-  return flurstuecke.map((value) =>
-    transformFlurstueck(value, miteigentumWohnung, testFeaturesEnabled)
+
+  let transformedGaragenFlurstuecke: object[] = [];
+  if (miteigentumGarage) {
+    transformedGaragenFlurstuecke = flurstuecke.map(
+      (flurstueck: Flurstueck) => {
+        const flurstueckCopy = _.cloneDeep(flurstueck);
+        if (flurstueckCopy.angaben?.grundbuchblattnummer)
+          flurstueckCopy.angaben.grundbuchblattnummer = "";
+        return transformFlurstueck(
+          flurstueckCopy,
+          miteigentumGarage,
+          showTestFeatures
+        );
+      }
+    );
+  }
+
+  const transformedFlurstuecke = flurstuecke.map((value) =>
+    transformFlurstueck(value, miteigentumWohnung, showTestFeatures)
   );
+  return [...transformedFlurstuecke, ...transformedGaragenFlurstuecke];
 };
 
 export const transformFlurstueck = (
   flurstueck: Flurstueck,
   miteigentum: GrundstueckFlurstueckMiteigentumsanteilFields | undefined,
-  testFeaturesEnabled: boolean
+  showTestFeatures: boolean
 ) => {
-  if (!testFeaturesEnabled) {
+  if (!showTestFeatures) {
     return {
       angaben: flurstueck.angaben,
       flur: {
