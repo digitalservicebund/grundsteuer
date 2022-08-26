@@ -12,14 +12,14 @@ import EigentuemerAnzahlHelp from "~/components/form/help/eigentuemer/Eigentueme
 import { BodenrichtwertEingabeHelp } from "~/components/form/help/grundstueck/bodenrichtwert/BodenrichtwertEingabeHelp";
 import SteuerIdHelp from "~/components/form/help/eigentuemer/SteuerId";
 import {
-  MiteigentumAnzahlHausFalseHelp,
-  MiteigentumAnzahlHausTrueHelp,
-} from "~/components/form/help/grundstueck/miteigentum/MiteigentumAnzahlHaus";
+  MiteigentumAuswahlHausFalseHelp,
+  MiteigentumAuswahlHausTrueHelp,
+} from "~/components/form/help/grundstueck/miteigentum/MiteigentumAuswahlHaus";
 import {
-  MiteigentumAnzahlWohnungGarageHelp,
-  MiteigentumAnzahlWohnungMixedHelp,
-  MiteigentumAnzahlWohnungNoneHelp,
-} from "~/components/form/help/grundstueck/miteigentum/MiteigentumAnzahlWohnung";
+  MiteigentumAuswahlWohnungGarageHelp,
+  MiteigentumAuswahlWohnungMixedHelp,
+  MiteigentumAuswahlWohnungNoneHelp,
+} from "~/components/form/help/grundstueck/miteigentum/MiteigentumAuswahlWohnung";
 
 export const helpComponents = {
   grundstueck: {
@@ -28,15 +28,15 @@ export const helpComponents = {
     bodenrichtwertEingabe: { bodenrichtwert: BodenrichtwertEingabeHelp },
     miteigentumAuswahlHaus: {
       hasMiteigentum: {
-        false: MiteigentumAnzahlHausFalseHelp,
-        true: MiteigentumAnzahlHausTrueHelp,
+        false: MiteigentumAuswahlHausFalseHelp,
+        true: MiteigentumAuswahlHausTrueHelp,
       },
     },
     miteigentumAuswahlWohnung: {
       miteigentumTyp: {
-        none: MiteigentumAnzahlWohnungNoneHelp,
-        garage: MiteigentumAnzahlWohnungGarageHelp,
-        mixed: MiteigentumAnzahlWohnungMixedHelp,
+        none: MiteigentumAuswahlWohnungNoneHelp,
+        garage: MiteigentumAuswahlWohnungGarageHelp,
+        mixed: MiteigentumAuswahlWohnungMixedHelp,
       },
     },
     flurstueck: {

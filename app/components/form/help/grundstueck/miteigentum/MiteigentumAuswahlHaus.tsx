@@ -5,7 +5,7 @@ import grundbuchImgFalse from "~/assets/images/help/miteigentum/auswahl-haus-fal
 import grundbuchImgTrue1 from "~/assets/images/help/miteigentum/auswahl-haus-true-1.png";
 import grundbuchImgTrue2 from "~/assets/images/help/miteigentum/auswahl-haus-true-2.png";
 
-export const MiteigentumAnzahlHausFalseHelp: HelpComponentFunction = () => {
+export const MiteigentumAuswahlHausFalseHelp: HelpComponentFunction = () => {
   return (
     <DefaultHelpContent
       elements={[
@@ -25,7 +25,7 @@ export const MiteigentumAnzahlHausFalseHelp: HelpComponentFunction = () => {
   );
 };
 
-export const MiteigentumAnzahlHausTrueHelp: HelpComponentFunction = () => {
+export const MiteigentumAuswahlHausTrueHelp: HelpComponentFunction = () => {
   return (
     <DefaultHelpContent
       elements={[
