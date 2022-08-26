@@ -39,6 +39,7 @@ import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/gr
 import { GrundstueckMiteigentumAuswahlHausFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlHaus";
 import { StateMachineContext } from "~/domain/states";
 import { GrundstueckMiteigentumAuswahlWohnungFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlWohnung";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 type PersonTransientParams = {
   transient: {
@@ -645,5 +646,5 @@ class GrundModelFactory extends Factory<StateMachineContext> {
 }
 
 export const grundModelFactory = GrundModelFactory.define(() => ({
-  testFeaturesEnabled: true,
+  testFeaturesEnabled: testFeaturesEnabled(),
 }));
