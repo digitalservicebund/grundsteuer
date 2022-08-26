@@ -92,6 +92,6 @@ export const getLoaderArgsWithAuthenticatedSession = async (
       headers: headers,
     }),
     params: {},
-    context: {},
+    context: { clientIp: "127.0.0.1" },
   };
 };
