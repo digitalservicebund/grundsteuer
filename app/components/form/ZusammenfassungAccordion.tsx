@@ -36,6 +36,7 @@ import ExclamationMarkFilled from "~/components/icons/mui/ExclamationMarkFilled"
 import { EigentuemerBruchteilsgemeinschaftAdresseFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
 import { removeUndefined } from "~/util/removeUndefined";
 import { GrundstueckMiteigentumAuswahlHausFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlHaus";
+import { GrundstueckMiteigentumAuswahlWohnungFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlWohnung";
 
 const isDataEmpty = (
   data: GrundstueckModel | GebaeudeModel | EigentuemerModel
@@ -194,6 +195,19 @@ const resolveMiteigentumAuswahlHaus: FieldResolver = (value) => {
     case "false":
       return "Kein Miteigentum an einem anderen Grundstück";
     case "true":
+      return "Miteigentum an einem anderen Grundstück";
+    default:
+      return "";
+  }
+};
+
+const resolveMiteigentumAuswahlWohnung: FieldResolver = (value) => {
+  switch (value) {
+    case "none":
+      return "Kein weiteres Miteigentum an einem Grundstück";
+    case "garage":
+      return "Eigentumswohnung und Garage/ Tiefgaragenstellplatz";
+    case "mixed":
       return "Miteigentum an einem anderen Grundstück";
     default:
       return "";
@@ -390,6 +404,7 @@ type StepResolver = (
   field:
     | GrundstueckAdresseFields
     | GrundstueckMiteigentumAuswahlHausFields
+    | GrundstueckMiteigentumAuswahlWohnungFields
     | GrundstueckFlurstueckFlurFields
     | GrundstueckFlurstueckMiteigentumsanteilFields
     | GrundstueckFlurstueckGroesseFields
@@ -587,6 +602,27 @@ export default function ZusammenfassungAccordion({
                 label: "Option Miteigentum",
                 path: "hasMiteigentum",
                 resolver: resolveMiteigentumAuswahlHaus,
+              },
+            ])}
+            {stepItem("grundstueck.miteigentumAuswahlWohnung", [
+              {
+                label: "Option Miteigentum",
+                path: "miteigentumTyp",
+                resolver: resolveMiteigentumAuswahlWohnung,
+              },
+            ])}
+            {stepItem("grundstueck.miteigentumWohnung", [
+              {
+                label: "Miteigentumsanteil Eigentumswohnung",
+                path: "",
+                resolver: resolveMiteigentumFraction,
+              },
+            ])}
+            {stepItem("grundstueck.miteigentumGarage", [
+              {
+                label: "Miteigentumsanteil Garagenstellplatz",
+                path: "",
+                resolver: resolveMiteigentumFraction,
               },
             ])}
             {stepItem("grundstueck.anzahl", [
