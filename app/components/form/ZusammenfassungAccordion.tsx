@@ -643,7 +643,6 @@ export default function ZusammenfassungAccordion({
                           resolver: resolveFlurstueckGroesse,
                         },
                       ])}
-                      ,
                       {stepItem(
                         `grundstueck.flurstueck.${
                           index + 1
