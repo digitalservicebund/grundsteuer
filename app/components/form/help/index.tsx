@@ -20,6 +20,10 @@ import {
   MiteigentumAuswahlWohnungMixedHelp,
   MiteigentumAuswahlWohnungNoneHelp,
 } from "~/components/form/help/grundstueck/miteigentum/MiteigentumAuswahlWohnung";
+import {
+  MiteigentumAuswahlFlurstueckFalseHelp,
+  MiteigentumAuswahlFlurstueckTrueHelp,
+} from "~/components/form/help/grundstueck/miteigentum/MiteigentumAuswahlFlurstueck";
 
 export const helpComponents = {
   grundstueck: {
@@ -46,6 +50,12 @@ export const helpComponents = {
       },
       flur: {
         flur: FlurHelp,
+      },
+      miteigentumAuswahl: {
+        hasMiteigentum: {
+          true: MiteigentumAuswahlFlurstueckTrueHelp,
+          false: MiteigentumAuswahlFlurstueckFalseHelp,
+        },
       },
     },
   },

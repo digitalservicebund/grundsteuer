@@ -11,7 +11,7 @@ export const grundstueckFlurstueckMiteigentumAuswahl: StepDefinition = {
       validations: {
         required: { msg: "Bitte treffen Sie eine Auswahl" },
       },
-      options: [{ value: "false" }, { value: "true" }],
+      options: [{ value: "true" }, { value: "false" }],
     },
   },
 };
