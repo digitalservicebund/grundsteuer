@@ -100,8 +100,19 @@ describe("previousFlurstueckHasMiteigentum", () => {
     expect(previousFlurstueckHasMiteigentum({ flurstueckId: 1 })).toBe(false);
   });
 
+  it("returns false if unbebaut", () => {
+    expect(
+      previousFlurstueckHasMiteigentum({
+        grundstueck: { typ: { typ: "baureif" } },
+        flurstueckId: 1,
+      })
+    ).toBe(false);
+  });
+
   it("returns true if second flurstueck and both flurstueck have miteigentum", () => {
     const inputData = grundModelFactory
+      .grundstueckTyp({ typ: "wohnungseigentum" })
+      .miteigentumWohnung({ miteigentumTyp: "mixed" })
       .grundstueckFlurstueck({
         list: [
           flurstueckFactory
@@ -121,6 +132,8 @@ describe("previousFlurstueckHasMiteigentum", () => {
 
   it("returns true if second flurstueck and first flurstueck has miteigentum", () => {
     const inputData = grundModelFactory
+      .grundstueckTyp({ typ: "einfamilienhaus" })
+      .miteigentumHaus({ hasMiteigentum: "true" })
       .grundstueckFlurstueck({
         list: [
           flurstueckFactory

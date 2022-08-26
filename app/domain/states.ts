@@ -221,7 +221,10 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                     target: "groesse",
                     cond: "wohnungHasMiteigentumMixed",
                   },
-                  { target: "miteigentumAuswahl" },
+                  {
+                    target: "miteigentumAuswahl",
+                    cond: "hausHasMiteigentum",
+                  },
                 ],
               },
             },
