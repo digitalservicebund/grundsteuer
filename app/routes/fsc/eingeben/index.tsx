@@ -277,7 +277,7 @@ export const action: ActionFunction = async ({
   invariant(userData.fscRequest, "expected an fscRequest in database for user");
   const elsterRequestId = userData.fscRequest.requestId;
 
-  if (await wasEricaRequestSuccessful(userData)) {
+  if (wasEricaRequestSuccessful(userData)) {
     return redirect("/fsc/eingeben/erfolgreich");
   }
 
