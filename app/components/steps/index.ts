@@ -18,6 +18,8 @@ import Wohnflaechen from "~/components/steps/gebaeude/Wohnflaechen";
 import EigentuemerAnteil from "~/components/steps/eigentuemer/EigentuemerAnteil";
 import EigentuemerAnzahl from "./eigentuemer/EigentuemerAnzahl";
 import Kernsaniert from "~/components/steps/gebaeude/Kernsaniert.tsx";
+import MiteigentumAuswahlHaus from "~/components/steps/grundstueck/miteigentum/MiteigentumAuswahlHaus";
+import MiteigentumAuswahlWohnung from "~/components/steps/grundstueck/miteigentum/MiteigentumAuswahlWohnung";
 
 export { Default as FallbackStepComponent };
 
@@ -39,6 +41,8 @@ export default {
     bodenrichtwertInfo: BodenrichtwertInfo,
     bodenrichtwertAnzahl: BodenrichtwertAnzahl,
     bodenrichtwertEingabe: BodenrichtwertEingabe,
+    miteigentumAuswahlHaus: MiteigentumAuswahlHaus,
+    miteigentumAuswahlWohnung: MiteigentumAuswahlWohnung,
     anzahl: GrundstueckAnzahl,
     flurstueck: {
       flur: FlurstueckFlur,
