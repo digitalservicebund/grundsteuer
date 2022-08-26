@@ -107,8 +107,8 @@ describe("transformDataToEricaFormat", () => {
             flurstueckZaehler: "23",
             flurstueckNenner: "45",
           },
-          miteigentumsanteil: {
-            wirtschaftlicheEinheitZaehler: "67,1",
+          miteigentum: {
+            wirtschaftlicheEinheitZaehler: "0067,1",
             wirtschaftlicheEinheitNenner: "89",
           },
           groesse: {
@@ -148,10 +148,6 @@ describe("transformDataToEricaFormat", () => {
         .grundstueckAbweichendeEntwicklung({ zustand: "rohbauland" })
         .grundstueckGemeinde({ innerhalbEinerGemeinde: "true" })
         .grundstueckBodenrichtwert({ bodenrichtwert: "123" })
-        .miteigentumsanteil({
-          wirtschaftlicheEinheitZaehler: "0067,1",
-          wirtschaftlicheEinheitNenner: "89",
-        })
         .grundstueckFlurstueck({ list: inputFlurstuecke, count: 2 })
         .build();
       const expectedData = {
@@ -188,8 +184,6 @@ describe("transformDataToEricaFormat", () => {
                 flur: "222",
                 flurstueckZaehler: "34",
                 flurstueckNenner: "56",
-                wirtschaftlicheEinheitZaehler: "67.1",
-                wirtschaftlicheEinheitNenner: "89",
               },
               groesseQm: "12345",
             },
@@ -756,7 +750,77 @@ describe("transformDate", () => {
 });
 
 describe("transformFlurstuecke", () => {
-  it("with testFeaturesEnabled false and no miteigentum", () => {
+  describe("with testFeaturesEnabled false", () => {
+    it("no miteigentum", () => {
+      const flurstueckeInput = [
+        flurstueckFactory
+          .angaben({ gemarkung: "Gemarkung", grundbuchblattnummer: "1" })
+          .flur({ flur: "09", flurstueckZaehler: "2", flurstueckNenner: "3" })
+          .groesse({ groesseHa: "", groesseA: "", groesseQm: "45" })
+          .build(),
+      ];
+
+      const result = transformFlurstuecke(
+        flurstueckeInput,
+        undefined,
+        undefined,
+        undefined,
+        false
+      );
+
+      expect(result).toEqual([
+        {
+          angaben: { gemarkung: "Gemarkung", grundbuchblattnummer: "1" },
+          flur: {
+            flur: "9",
+            flurstueckZaehler: "2",
+            flurstueckNenner: "3",
+            wirtschaftlicheEinheitZaehler: undefined,
+            wirtschaftlicheEinheitNenner: undefined,
+          },
+          groesseQm: "45",
+        },
+      ]);
+    });
+
+    it("with miteigentum", () => {
+      const flurstueckeInput = [
+        flurstueckFactory
+          .angaben({ gemarkung: "Gemarkung", grundbuchblattnummer: "1" })
+          .flur({ flur: "09", flurstueckZaehler: "2", flurstueckNenner: "3" })
+          .groesse({ groesseHa: "", groesseA: "", groesseQm: "45" })
+          .build(),
+      ];
+      const miteigentumsanteil = {
+        wirtschaftlicheEinheitZaehler: "123",
+        wirtschaftlicheEinheitNenner: "789",
+      };
+
+      const result = transformFlurstuecke(
+        flurstueckeInput,
+        miteigentumsanteil,
+        undefined,
+        undefined,
+        false
+      );
+
+      expect(result).toEqual([
+        {
+          angaben: { gemarkung: "Gemarkung", grundbuchblattnummer: "1" },
+          flur: {
+            flur: "9",
+            flurstueckZaehler: "2",
+            flurstueckNenner: "3",
+            wirtschaftlicheEinheitZaehler: "123",
+            wirtschaftlicheEinheitNenner: "789",
+          },
+          groesseQm: "45",
+        },
+      ]);
+    });
+  });
+
+  it("no miteigentum", () => {
     const flurstueckeInput = [
       flurstueckFactory
         .angaben({ gemarkung: "Gemarkung", grundbuchblattnummer: "1" })
@@ -770,7 +834,7 @@ describe("transformFlurstuecke", () => {
       undefined,
       undefined,
       undefined,
-      false
+      true
     );
 
     expect(result).toEqual([
@@ -788,25 +852,25 @@ describe("transformFlurstuecke", () => {
     ]);
   });
 
-  it("with testFeaturesEnabled false and miteigentum", () => {
+  it("one miteigentum flurstueck", () => {
     const flurstueckeInput = [
       flurstueckFactory
         .angaben({ gemarkung: "Gemarkung", grundbuchblattnummer: "1" })
         .flur({ flur: "09", flurstueckZaehler: "2", flurstueckNenner: "3" })
         .groesse({ groesseHa: "", groesseA: "", groesseQm: "45" })
+        .miteigentum({
+          wirtschaftlicheEinheitZaehler: "123",
+          wirtschaftlicheEinheitNenner: "789",
+        })
         .build(),
     ];
-    const miteigentumsanteil = {
-      wirtschaftlicheEinheitZaehler: "123",
-      wirtschaftlicheEinheitNenner: "789",
-    };
 
     const result = transformFlurstuecke(
       flurstueckeInput,
-      miteigentumsanteil,
       undefined,
       undefined,
-      false
+      undefined,
+      true
     );
 
     expect(result).toEqual([
@@ -823,9 +887,110 @@ describe("transformFlurstuecke", () => {
       },
     ]);
   });
+
+  it("multiple flurstuecke, one has miteigentum", () => {
+    const flurstueckeInput = [
+      flurstueckFactory
+        .angaben({ gemarkung: "Gemarkung1", grundbuchblattnummer: "1" })
+        .flur({ flur: "09", flurstueckZaehler: "2", flurstueckNenner: "3" })
+        .groesse({ groesseHa: "", groesseA: "", groesseQm: "45" })
+        .build(),
+      flurstueckFactory
+        .angaben({ gemarkung: "Gemarkung2", grundbuchblattnummer: "1" })
+        .flur({ flur: "10", flurstueckZaehler: "2", flurstueckNenner: "3" })
+        .groesse({ groesseHa: "", groesseA: "", groesseQm: "50" })
+        .miteigentum({
+          wirtschaftlicheEinheitZaehler: "123",
+          wirtschaftlicheEinheitNenner: "789",
+        })
+        .build(),
+    ];
+
+    const result = transformFlurstuecke(
+      flurstueckeInput,
+      undefined,
+      undefined,
+      undefined,
+      true
+    );
+
+    expect(result).toEqual([
+      {
+        angaben: { gemarkung: "Gemarkung1", grundbuchblattnummer: "1" },
+        flur: {
+          flur: "9",
+          flurstueckZaehler: "2",
+          flurstueckNenner: "3",
+        },
+        groesseQm: "45",
+      },
+      {
+        angaben: { gemarkung: "Gemarkung2", grundbuchblattnummer: "1" },
+        flur: {
+          flur: "10",
+          flurstueckZaehler: "2",
+          flurstueckNenner: "3",
+          wirtschaftlicheEinheitZaehler: "123",
+          wirtschaftlicheEinheitNenner: "789",
+        },
+        groesseQm: "50",
+      },
+    ]);
+  });
+
+  it("wohnung with miteigentumTyp none", () => {
+    const flurstueckeInput = [
+      flurstueckFactory
+        .angaben({ gemarkung: "Gemarkung1", grundbuchblattnummer: "1" })
+        .flur({ flur: "09", flurstueckZaehler: "2", flurstueckNenner: "3" })
+        .groesse({ groesseHa: "", groesseA: "", groesseQm: "45" })
+        .build(),
+      flurstueckFactory
+        .angaben({ gemarkung: "Gemarkung2", grundbuchblattnummer: "1" })
+        .flur({ flur: "10", flurstueckZaehler: "2", flurstueckNenner: "3" })
+        .groesse({ groesseHa: "", groesseA: "", groesseQm: "50" })
+        .build(),
+    ];
+
+    const result = transformFlurstuecke(
+      flurstueckeInput,
+      undefined,
+      {
+        wirtschaftlicheEinheitZaehler: "123",
+        wirtschaftlicheEinheitNenner: "789",
+      },
+      undefined,
+      true
+    );
+
+    expect(result).toEqual([
+      {
+        angaben: { gemarkung: "Gemarkung1", grundbuchblattnummer: "1" },
+        flur: {
+          flur: "9",
+          flurstueckZaehler: "2",
+          flurstueckNenner: "3",
+          wirtschaftlicheEinheitZaehler: "123",
+          wirtschaftlicheEinheitNenner: "789",
+        },
+        groesseQm: "45",
+      },
+      {
+        angaben: { gemarkung: "Gemarkung2", grundbuchblattnummer: "1" },
+        flur: {
+          flur: "10",
+          flurstueckZaehler: "2",
+          flurstueckNenner: "3",
+          wirtschaftlicheEinheitZaehler: "123",
+          wirtschaftlicheEinheitNenner: "789",
+        },
+        groesseQm: "50",
+      },
+    ]);
+  });
 });
 
-describe("transformFlurstueck", () => {
+describe("transformFlurstueck old", () => {
   const cases = [
     {
       description: "flur has leading zero",
@@ -836,6 +1001,7 @@ describe("transformFlurstueck", () => {
           flurstueckNenner: "2",
         },
       },
+      miteigentum: undefined,
       result: {
         flur: "123",
         flurstueckZaehler: "1",
@@ -851,6 +1017,7 @@ describe("transformFlurstueck", () => {
           flurstueckNenner: "2",
         },
       },
+      miteigentum: undefined,
       result: {
         flur: "",
         flurstueckZaehler: "1",
@@ -866,18 +1033,42 @@ describe("transformFlurstueck", () => {
           flurstueckNenner: "2",
         },
       },
+      miteigentum: undefined,
       result: {
         flur: "123",
         flurstueckZaehler: "1",
         flurstueckNenner: "2",
       },
     },
+    {
+      description: "with miteigentum set",
+      data: {
+        flur: {
+          flur: "0123",
+          flurstueckZaehler: "1",
+          flurstueckNenner: "2",
+        },
+      },
+      miteigentum: {
+        wirtschaftlicheEinheitZaehler: "23",
+        wirtschaftlicheEinheitNenner: "456",
+      },
+      result: {
+        flur: "123",
+        flurstueckZaehler: "1",
+        flurstueckNenner: "2",
+        wirtschaftlicheEinheitZaehler: "23",
+        wirtschaftlicheEinheitNenner: "456",
+      },
+    },
   ];
 
   test.each(cases)(
     "Should return '$result' if data is '$data' if '$description'",
-    ({ data, result }) => {
-      expect(transformFlurstueck(data, undefined).flur).toEqual(result);
+    ({ data, miteigentum, result }) => {
+      expect(transformFlurstueck(data, miteigentum, false).flur).toEqual(
+        result
+      );
     }
   );
 });

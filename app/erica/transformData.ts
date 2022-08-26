@@ -130,16 +130,50 @@ export const transformFlurstuecke = (
   miteigentumGarage: GrundstueckFlurstueckMiteigentumGarageFields | undefined,
   testFeaturesEnabled: boolean
 ) => {
+  if (!testFeaturesEnabled) {
+    if (!flurstuecke) return undefined;
+    return flurstuecke.map((value) =>
+      transformFlurstueck(value, miteigentumsanteil, testFeaturesEnabled)
+    );
+  }
   if (!flurstuecke) return undefined;
   return flurstuecke.map((value) =>
-    transformFlurstueck(value, miteigentumsanteil)
+    transformFlurstueck(value, miteigentumWohnung, testFeaturesEnabled)
   );
 };
 
 export const transformFlurstueck = (
   flurstueck: Flurstueck,
-  miteigentum: GrundstueckFlurstueckMiteigentumsanteilFields | undefined
+  miteigentum: GrundstueckFlurstueckMiteigentumsanteilFields | undefined,
+  testFeaturesEnabled: boolean
 ) => {
+  if (!testFeaturesEnabled) {
+    return {
+      angaben: flurstueck.angaben,
+      flur: {
+        flur: flurstueck.flur?.flur
+          ? "" + Number.parseInt(flurstueck.flur?.flur)
+          : flurstueck.flur?.flur,
+        flurstueckZaehler: flurstueck.flur?.flurstueckZaehler,
+        flurstueckNenner: flurstueck.flur?.flurstueckNenner,
+        wirtschaftlicheEinheitZaehler: transformWirtschaftlicheEinheitZaehler(
+          miteigentum?.wirtschaftlicheEinheitZaehler
+        ),
+        wirtschaftlicheEinheitNenner: miteigentum?.wirtschaftlicheEinheitNenner,
+      },
+      groesseQm: flurstueck.groesse
+        ? calculateGroesse(flurstueck.groesse)
+        : undefined,
+    };
+  }
+
+  const miteigentumZaehler =
+    flurstueck.miteigentum?.wirtschaftlicheEinheitZaehler ||
+    miteigentum?.wirtschaftlicheEinheitZaehler;
+  const miteigentumNenner =
+    flurstueck.miteigentum?.wirtschaftlicheEinheitNenner ||
+    miteigentum?.wirtschaftlicheEinheitNenner;
+
   return {
     angaben: flurstueck.angaben,
     flur: {
@@ -148,10 +182,9 @@ export const transformFlurstueck = (
         : flurstueck.flur?.flur,
       flurstueckZaehler: flurstueck.flur?.flurstueckZaehler,
       flurstueckNenner: flurstueck.flur?.flurstueckNenner,
-      wirtschaftlicheEinheitZaehler: transformWirtschaftlicheEinheitZaehler(
-        miteigentum?.wirtschaftlicheEinheitZaehler
-      ),
-      wirtschaftlicheEinheitNenner: miteigentum?.wirtschaftlicheEinheitNenner,
+      wirtschaftlicheEinheitZaehler:
+        transformWirtschaftlicheEinheitZaehler(miteigentumZaehler),
+      wirtschaftlicheEinheitNenner: miteigentumNenner,
     },
     groesseQm: flurstueck.groesse
       ? calculateGroesse(flurstueck.groesse)
