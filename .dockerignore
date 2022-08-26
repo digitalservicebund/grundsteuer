@@ -3,6 +3,7 @@
 !audit-decrypt.server.ts
 !audit-export.server.ts
 !build
+!global.d.ts
 !package.json
 !package-lock.json
 !patches
