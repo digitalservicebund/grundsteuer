@@ -83,7 +83,7 @@ export const previousFlurstueckHasMiteigentum: Condition = (context) => {
   return (
     (hausHasMiteigentum(context) || wohnungHasMiteigentumMixed(context)) &&
     context?.grundstueck?.flurstueck?.[context?.flurstueckId - 2]
-      .miteigentumAuswahl?.hasMiteigentum === "true"
+      ?.miteigentumAuswahl?.hasMiteigentum === "true"
   );
 };
 
