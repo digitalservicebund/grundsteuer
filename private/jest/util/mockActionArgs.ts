@@ -48,5 +48,9 @@ export const mockActionArgs: MockActionArgsFunction = async ({
   // @ts-ignore
   request.clone = () => ({ formData: () => Promise.resolve(formDataObject) });
 
-  return { request, context: { clientIp: context.clientIp || "" }, params: {} };
+  return {
+    request,
+    context: { clientIp: context.clientIp || "", online: true },
+    params: {},
+  };
 };

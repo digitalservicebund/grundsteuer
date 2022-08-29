@@ -301,7 +301,7 @@ describe("Loader", () => {
             undefined,
             fscDataForSession
           );
-          args.context = { clientIp: expectedClientIp };
+          args.context.clientIp = expectedClientIp;
           const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
           spyOnSaveAuditLog.mockReset();
           const actualNowImplementation = Date.now;
@@ -618,7 +618,7 @@ describe("Loader", () => {
             undefined,
             fscDataForSession
           );
-          args.context = { clientIp: expectedClientIp };
+          args.context.clientIp = expectedClientIp;
           const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
           spyOnSaveAuditLog.mockReset();
           const actualNowImplementation = Date.now;

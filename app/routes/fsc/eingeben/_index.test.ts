@@ -1,16 +1,16 @@
-import { loader, action } from "~/routes/fsc/eingeben/index";
+import { action, loader } from "~/routes/fsc/eingeben/index";
 import { getSession } from "~/session.server";
 import * as freischaltCodeAktivierenModule from "~/erica/freischaltCodeAktivieren";
 import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStornieren";
 import * as userModule from "~/domain/user";
 import * as auditLogModule from "~/audit/auditLog";
+import { AuditLogEvent } from "~/audit/auditLog";
 import { sessionUserFactory } from "test/factories";
 import {
   getLoaderArgsWithAuthenticatedSession,
   mockIsAuthenticated,
 } from "test/mocks/authenticationMocks";
 import { getMockedFunction } from "test/mocks/mockHelper";
-import { AuditLogEvent } from "~/audit/auditLog";
 import * as csrfModule from "~/util/csrf";
 import { mockActionArgs } from "testUtil/mockActionArgs";
 import { DataFunctionArgs } from "@remix-run/node";
@@ -123,7 +123,7 @@ describe("Loader", () => {
         "/fsc/eingeben",
         "existing_user@foo.com"
       );
-      args.context = { clientIp: expectedClientIp };
+      args.context.clientIp = expectedClientIp;
 
       const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
       const actualNowImplementation = Date.now;
@@ -292,7 +292,7 @@ describe("Loader", () => {
         "/fsc/eingeben",
         "existing_user@foo.com"
       );
-      args.context = { clientIp: expectedClientIp };
+      args.context.clientIp = expectedClientIp;
 
       const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
       const actualNowImplementation = Date.now;

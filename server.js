@@ -10,6 +10,8 @@ const dotenv = require("dotenv-safe");
 
 const BUILD_DIR = path.join(process.cwd(), "build");
 
+let isOnline = true;
+
 // Fail fast on missing configuration parameters
 dotenv.config();
 const app = express();
@@ -65,6 +67,7 @@ app.set("trust proxy", true);
 
 const getLoadContext = (req) => ({
   clientIp: req.ip,
+  online: isOnline,
 });
 
 app.all(
@@ -94,6 +97,7 @@ const server = app.listen(port, () => {
 
 const shutdown = (signal) => {
   console.log(`${signal} received: closing HTTP server gracefully`);
+  isOnline = false;
   server.close(() => {
     console.log("HTTP server closed");
   });

@@ -53,7 +53,7 @@ describe("Loader", () => {
       "/fsc/beantragen",
       "existing_user@foo.com"
     );
-    args.context = { clientIp: expectedClientIp };
+    args.context.clientIp = expectedClientIp;
 
     const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
     const actualNowImplementation = Date.now;
