@@ -415,21 +415,26 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
           {
             target: "#grundstueck.miteigentumsanteil",
             cond: "isEigentumswohnung",
+            actions: ["setFlurstueckIdToMaximum"],
           },
           {
             target: "#flurstueck.miteigentum",
             cond: "flurstueckHasMiteigentum",
+            actions: ["setFlurstueckIdToMaximum"],
           },
           {
             target: "#flurstueck.miteigentum",
             cond: "wohnungHasMiteigentumMixed",
+            actions: ["setFlurstueckIdToMaximum"],
           },
           {
             target: "#flurstueck.miteigentumAuswahl",
             cond: "hausHasMiteigentum",
+            actions: ["setFlurstueckIdToMaximum"],
           },
           {
             target: "#flurstueck.groesse",
+            actions: ["setFlurstueckIdToMaximum"],
           },
         ],
       },
