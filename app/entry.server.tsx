@@ -1,6 +1,6 @@
 import { createInstance } from "i18next";
 import { EntryContext } from "@remix-run/node";
-import { i18Next } from "~/i18n.server";
+import { i18Next, i18nFilenameSuffix } from "~/i18n.server";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import Backend from "i18next-fs-backend";
 import { renderToString } from "react-dom/server";
@@ -15,9 +15,6 @@ Sentry.init({
   release: process.env.APP_VERSION,
   integrations: [new Sentry.Integrations.Prisma({ client: db })],
 });
-
-const i18nFilenameSuffix =
-  process.env.NODE_ENV === "production" ? `-${process.env.APP_VERSION}` : "";
 
 export default async function handleRequest(
   request: Request,

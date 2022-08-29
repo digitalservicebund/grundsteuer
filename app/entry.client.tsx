@@ -32,7 +32,9 @@ Sentry.init({
 });
 
 const i18nFilename =
-  process.env.NODE_ENV === "production" ? `-${window.APP_VERSION}` : "";
+  process.env.NODE_ENV === "production" && window.APP_VERSION
+    ? `-${window.APP_VERSION}`
+    : "";
 i18next
   .use(initReactI18next)
   .use(Backend)
