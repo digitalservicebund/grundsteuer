@@ -489,10 +489,6 @@ class GrundModelFactory extends Factory<StateMachineContext> {
         .grundstueckSteuernummer({ steuernummer: "1234567890" })
         .grundstueckAbweichendeEntwicklung({ zustand: "rohbauland" })
         .grundstueckGemeinde({ innerhalbEinerGemeinde: "true" })
-        .miteigentumsanteil({
-          wirtschaftlicheEinheitZaehler: "67,1",
-          wirtschaftlicheEinheitNenner: "89",
-        })
         .grundstueckBodenrichtwert({ bodenrichtwert: "123" })
         .miteigentumAuswahl({
           hasMiteigentum: "false",

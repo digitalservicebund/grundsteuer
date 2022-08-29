@@ -7,6 +7,7 @@ import {
   decryptCookie,
   encryptCookie,
 } from "~/cookies.server";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const debug = createDebugMessages("formDataStorage");
 
@@ -23,7 +24,22 @@ export const getStoredFormData: GetStoredFormDataFunction = async ({
   debug({ cookieHeader });
 
   if (!cookieHeader) return {};
-  return decodeFormDataCookie({ cookieHeader, user });
+  const decodedData = await decodeFormDataCookie({ cookieHeader, user });
+  // migrate old miteigentumsanteil data to new miteigentumWohnung
+  if (
+    testFeaturesEnabled() &&
+    decodedData?.grundstueck &&
+    decodedData?.grundstueck?.miteigentumsanteil &&
+    !decodedData?.grundstueck?.miteigentumAuswahlWohnung &&
+    !decodedData?.grundstueck?.miteigentumWohnung
+  ) {
+    decodedData.grundstueck.miteigentumAuswahlWohnung = {
+      miteigentumTyp: "none",
+    };
+    decodedData.grundstueck.miteigentumWohnung =
+      decodedData.grundstueck?.miteigentumsanteil;
+  }
+  return decodedData;
 };
 
 export const decodeFormDataCookie = async ({
