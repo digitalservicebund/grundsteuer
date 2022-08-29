@@ -2,7 +2,7 @@ import Default from "~/components/steps/Default";
 import BodenrichtwertInfo from "~/components/steps/grundstueck/BodenrichtwertInfo";
 import FlurstueckFlur from "~/components/steps/grundstueck/flurstueck/FlurstueckFlur";
 import FlurstueckGroesse from "~/components/steps/grundstueck/flurstueck/FlurstueckGroesse";
-import FlurstueckMiteigentumsanteil from "~/components/steps/grundstueck/flurstueck/FlurstueckMiteigentumsanteil";
+import Miteigentumsanteil from "~/components/steps/grundstueck/flurstueck/Miteigentumsanteil";
 import Bruchteilsgemeinschaft from "~/components/steps/eigentuemer/Bruchteilsgemeinschaft";
 import Willkommen from "~/components/steps/Willkommen";
 import GrundstueckUebersicht from "~/components/steps/grundstueck/GrundstueckUebersicht";
@@ -37,16 +37,19 @@ export default {
   grundstueck: {
     uebersicht: GrundstueckUebersicht,
     typ: GrundstueckTyp,
-    miteigentumsanteil: FlurstueckMiteigentumsanteil,
+    miteigentumsanteil: Miteigentumsanteil,
     bodenrichtwertInfo: BodenrichtwertInfo,
     bodenrichtwertAnzahl: BodenrichtwertAnzahl,
     bodenrichtwertEingabe: BodenrichtwertEingabe,
     miteigentumAuswahlHaus: MiteigentumAuswahlHaus,
     miteigentumAuswahlWohnung: MiteigentumAuswahlWohnung,
+    miteigentumWohnung: Miteigentumsanteil,
+    miteigentumGarage: Miteigentumsanteil,
     anzahl: GrundstueckAnzahl,
     flurstueck: {
       flur: FlurstueckFlur,
       groesse: FlurstueckGroesse,
+      miteigentum: Miteigentumsanteil,
     },
   },
   gebaeude: {

@@ -1,16 +1,16 @@
 import DefaultHelpContent, {
   HelpComponentFunction,
 } from "~/components/form/help/Default";
-import grundbuchImg from "~/assets/images/help/help-miteigentum.png";
+import grundbuchImg from "~/assets/images/help/miteigentum/eingabe.png";
 
-const FlurstueckMiteigentumHelp: HelpComponentFunction = () => {
+const MiteigentumHelp: HelpComponentFunction = () => {
   return (
     <DefaultHelpContent
       elements={[
         {
           type: "paragraph",
           value:
-            "Übertragen Sie wieder die Werte vor und nach dem Schrägstrich (wenn vorhanden) in jeweils eines der Felder.",
+            "Übertragen Sie die Werte. Der Zähler steht vor dem Schrägstrich. Der Nenner steht hinter dem Schrägstrich. ",
         },
         {
           type: "image",
@@ -23,4 +23,4 @@ const FlurstueckMiteigentumHelp: HelpComponentFunction = () => {
   );
 };
 
-export default FlurstueckMiteigentumHelp;
+export default MiteigentumHelp;
