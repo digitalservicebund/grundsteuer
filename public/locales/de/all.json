@@ -920,6 +920,7 @@
     "empfangsbevollmaechtigter": {
       "name": {
         "headline": "Wie lauten die persönlichen Daten der empfangsbevollmächtigten Person?",
+        "headlineForBruchteilsgemeinschaft": "Wie lautet die empfangsbevollmächtigte Person Ihrer Bruchteilsgemeinschaft?",
         "fields": {
           "anrede": {
             "label": "Anrede",

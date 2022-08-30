@@ -18,6 +18,7 @@ export type I18nObjectField = {
 export type I18nObject = {
   headline: string;
   headlineWeitereErklaerung?: string;
+  headlineForBruchteilsgemeinschaft?: string;
   headlineOld?: string;
   description?: string;
   hint?: string;

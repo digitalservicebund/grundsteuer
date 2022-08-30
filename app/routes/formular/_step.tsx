@@ -78,6 +78,7 @@ export type LoaderData = {
   currentState?: string;
   stepDefinition: StepDefinition;
   isWeitereErklaerung?: boolean;
+  isBruchteilsgemeinschaft?: boolean;
   redirectToSummary?: boolean;
   csrfToken?: string;
   testFeaturesEnabled?: boolean;
@@ -142,6 +143,8 @@ export const loader: LoaderFunction = async ({
   const isWeitereErklaerung = !!new URL(request.url).searchParams.get(
     "weitereErklaerung"
   );
+  const isBruchteilsgemeinschaft =
+    Number(storedFormData?.eigentuemer?.anzahl?.anzahl) > 1;
 
   const bundesland = storedFormData.grundstueck?.adresse?.bundesland;
 
@@ -165,6 +168,7 @@ export const loader: LoaderFunction = async ({
       redirectToSummary,
       isWeitereErklaerung,
       csrfToken,
+      isBruchteilsgemeinschaft,
       testFeaturesEnabled: testFeaturesEnabled(),
     },
     {
@@ -252,6 +256,7 @@ export function Step() {
     currentState,
     redirectToSummary,
     isWeitereErklaerung,
+    isBruchteilsgemeinschaft,
     csrfToken,
   } = loaderData;
   const StepComponent =
@@ -291,6 +296,7 @@ export function Step() {
               <StepHeadline
                 i18n={i18n}
                 isWeitereErklaerung={isWeitereErklaerung}
+                isBruchteilsgemeinschaft={isBruchteilsgemeinschaft}
                 asLegend
               />
               {actionData?.errors && !isSubmitting && <ErrorBarStandard />}
@@ -303,6 +309,7 @@ export function Step() {
               <StepHeadline
                 i18n={i18n}
                 isWeitereErklaerung={isWeitereErklaerung}
+                isBruchteilsgemeinschaft={isBruchteilsgemeinschaft}
               />
               {actionData?.errors && !isSubmitting && <ErrorBarStandard />}
             </ContentContainer>

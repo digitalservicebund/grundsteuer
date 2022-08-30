@@ -8,15 +8,20 @@ export function StepHeadline({
   asLegend,
   isWeitereErklaerung,
   testFeaturesEnabled,
+  isBruchteilsgemeinschaft,
 }: {
   i18n: I18nObject;
   asLegend?: boolean;
   isWeitereErklaerung?: boolean;
   testFeaturesEnabled?: boolean;
+  isBruchteilsgemeinschaft?: boolean;
 }) {
   let headlineText = isWeitereErklaerung
     ? i18n.headlineWeitereErklaerung
     : i18n.headline;
+  headlineText = isBruchteilsgemeinschaft
+    ? i18n.headlineForBruchteilsgemeinschaft
+    : headlineText;
   if (!testFeaturesEnabled && i18n.headlineOld) {
     headlineText = i18n.headlineOld;
   }
