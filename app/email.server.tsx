@@ -66,11 +66,8 @@ const htmlGreetings = ["<p>Guten Tag!</p>"];
 
 const textFooter = [
   "",
-  "Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail einfach ignorieren.",
-  "Bitte beachten Sie, dass Sie diesen Link nur für eine Sitzung nutzen können. Wenn Sie sich aus dem Online-Dienst abgemeldet haben, und zu einem späteren Zeitpunkt wieder anmelden möchten, gehen Sie bitte auf https://www.grundsteuererklaerung-fuer-privateigentum.de/anmelden und lassen Sie sich einen neuen Anmeldelink per E-Mail zusenden.",
+  "Der Link läuft in 24 Stunden ab. Öffnen Sie den Link mit demselben Browser und Gerät, mit dem Sie ihn bestellt haben. Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail ignorieren. Sie haben Probleme sich anzumelden? Hilfe finden Sie unter https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/1-registrierung-und-anmeldung/22-der-link-funktioniert-nicht-was-soll-ich-tun",
   "",
-  "Vielen Dank",
-  "Ihr Team von „Grundsteuererklärung für Privateigentum“",
   "",
   "-- ", // must be exactly 2 dashes + 1 space!
   "Grundsteuererklärung für Privateigentum",
@@ -85,10 +82,7 @@ const textFooter = [
 ];
 
 const htmlFooter = [
-  "<p>Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail einfach ignorieren.</p>",
-  "<p>Bitte beachten Sie, dass Sie diesen Link nur für eine Sitzung nutzen können. Wenn Sie sich aus dem Online-Dienst abgemeldet haben, und zu einem späteren Zeitpunkt wieder anmelden möchten, gehen Sie bitte auf <a href='https://www.grundsteuererklaerung-fuer-privateigentum.de/anmelden'>https://www.grundsteuererklaerung-fuer-privateigentum.de/anmelden</a> und lassen Sie sich einen neuen Anmeldelink per E-Mail zusenden.</p>",
-  "<p>Vielen Dank<br />",
-  "Ihr Team von „Grundsteuererklärung für Privateigentum“</p>",
+  "<p>Der Link läuft in 24 Stunden ab. Öffnen Sie den Link mit demselben Browser und Gerät, mit dem Sie ihn bestellt haben. Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail ignorieren. Sie haben <a href='https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/1-registrierung-und-anmeldung/22-der-link-funktioniert-nicht-was-soll-ich-tun'>Probleme</a> sich anzumelden?</p>",
   '<hr style="margin-top: 3rem"/>',
   "<p><strong>Grundsteuererklärung für Privateigentum</strong><br />",
   'Support-Team | <a href="https://digitalservice.bund.de">DigitalService</a><br />',
@@ -105,18 +99,13 @@ export const sendMagicLinkEmail: SendEmailFunction<SessionUser> = async (
   const subject = "Anmelden bei „Grundsteuererklärung für Privateigentum“";
 
   const textContent = textGreetings
-    .concat([
-      "Mit dieser E-Mail-Adresse wurde eine Anmeldung bei „Grundsteuererklärung für Privateigentum“ angefordert. Wenn Sie das waren und sich nun anmelden möchten, nutzen Sie bitte diesen Link:",
-      "",
-      options.magicLink,
-    ])
+    .concat(["", options.magicLink, ""])
     .concat(textFooter)
     .join("\n");
 
   const htmlContent = htmlGreetings
     .concat([
-      "<p>Mit dieser E-Mail-Adresse wurde eine Anmeldung bei „Grundsteuererklärung für Privateigentum“ angefordert. Wenn Sie das waren und sich nun anmelden möchten, klicken Sie bitte auf diesen Link:</p>",
-      `<p><strong><a href="${options.magicLink}">Anmelden bei „Grundsteuererklärung für Privateigentum“</a></strong></p>`,
+      `<p><strong><a href="${options.magicLink}">Hier klicken und bei „Grundsteuererklärung für Privateigentum“ anmelden</a></strong></p>`,
     ])
     .concat(htmlFooter)
     .join("");
