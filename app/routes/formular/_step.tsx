@@ -29,12 +29,14 @@ import { conditions } from "~/domain/guards";
 import { validateStepFormData } from "~/domain/validation";
 import { actions } from "~/domain/actions";
 import stepComponents, { FallbackStepComponent } from "~/components/steps";
+import headlineComponents, {
+  FallbackHeadlineComponent,
+} from "~/components/headlines";
 import { getStepDefinition, GrundModel, StepDefinition } from "~/domain/steps";
 import {
   getCurrentStateFromUrl,
   getCurrentStateWithoutId,
 } from "~/util/getCurrentState";
-import { StepHeadline } from "~/components/StepHeadline";
 import { getReachablePathsFromGrundData } from "~/domain";
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
@@ -143,8 +145,6 @@ export const loader: LoaderFunction = async ({
   const isWeitereErklaerung = !!new URL(request.url).searchParams.get(
     "weitereErklaerung"
   );
-  const isBruchteilsgemeinschaft =
-    Number(storedFormData?.eigentuemer?.anzahl?.anzahl) > 1;
 
   const bundesland = storedFormData.grundstueck?.adresse?.bundesland;
 
@@ -168,7 +168,6 @@ export const loader: LoaderFunction = async ({
       redirectToSummary,
       isWeitereErklaerung,
       csrfToken,
-      isBruchteilsgemeinschaft,
       testFeaturesEnabled: testFeaturesEnabled(),
     },
     {
@@ -244,6 +243,14 @@ export type StepComponentFunction = (
   props: LoaderData & ActionData
 ) => JSX.Element;
 
+export type HeadlineComponentFunction = (props: {
+  i18n: I18nObject;
+  formData: StepFormData;
+  allData: GrundModel;
+  asLegend?: boolean;
+  testFeaturesEnabled?: boolean;
+}) => JSX.Element;
+
 export function Step() {
   const loaderData: LoaderData = useLoaderData();
   const actionData: ActionData = useActionData() as ActionData;
@@ -256,9 +263,11 @@ export function Step() {
     currentState,
     redirectToSummary,
     isWeitereErklaerung,
-    isBruchteilsgemeinschaft,
     csrfToken,
   } = loaderData;
+  const HeadlineComponent =
+    _.get(headlineComponents, currentStateWithoutId) ||
+    FallbackHeadlineComponent;
   const StepComponent =
     _.get(stepComponents, currentStateWithoutId) || FallbackStepComponent;
 
@@ -293,10 +302,12 @@ export function Step() {
         {headlineIsLegend ? (
           <fieldset>
             <ContentContainer size="sm-md">
-              <StepHeadline
+              <HeadlineComponent
                 i18n={i18n}
+                allData={loaderData.allData}
+                formData={loaderData.formData}
                 isWeitereErklaerung={isWeitereErklaerung}
-                isBruchteilsgemeinschaft={isBruchteilsgemeinschaft}
+                testFeaturesEnabled={testFeaturesEnabled}
                 asLegend
               />
               {actionData?.errors && !isSubmitting && <ErrorBarStandard />}
@@ -306,10 +317,12 @@ export function Step() {
         ) : (
           <>
             <ContentContainer size="sm-md">
-              <StepHeadline
+              <HeadlineComponent
                 i18n={i18n}
+                allData={loaderData.allData}
+                formData={loaderData.formData}
                 isWeitereErklaerung={isWeitereErklaerung}
-                isBruchteilsgemeinschaft={isBruchteilsgemeinschaft}
+                testFeaturesEnabled={testFeaturesEnabled}
               />
               {actionData?.errors && !isSubmitting && <ErrorBarStandard />}
             </ContentContainer>

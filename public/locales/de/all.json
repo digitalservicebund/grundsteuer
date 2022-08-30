@@ -920,7 +920,8 @@
     "empfangsbevollmaechtigter": {
       "name": {
         "headline": "Wie lauten die persönlichen Daten der empfangsbevollmächtigten Person?",
-        "headlineForBruchteilsgemeinschaft": "Wie lautet die empfangsbevollmächtigte Person Ihrer Bruchteilsgemeinschaft?",
+        "alternativeHeadline": "Wie lautet die empfangsbevollmächtigte Person Ihrer Bruchteilsgemeinschaft?",
+        "alternativeDescription": "An diese Person sendet das Finanzamt die Bescheide Grundsteuerwert- und Grundsteuermessbescheid. Der eigentliche Grundsteuerbescheid wird von der Gemeinde ausgestellt.",
         "fields": {
           "anrede": {
             "label": "Anrede",

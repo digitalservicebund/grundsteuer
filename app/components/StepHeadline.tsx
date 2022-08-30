@@ -5,31 +5,34 @@ import { Trans } from "react-i18next";
 
 export function StepHeadline({
   i18n,
+  headlineText,
+  descriptionText,
   asLegend,
   isWeitereErklaerung,
   testFeaturesEnabled,
-  isBruchteilsgemeinschaft,
 }: {
   i18n: I18nObject;
+  headlineText?: string;
+  descriptionText?: string;
   asLegend?: boolean;
   isWeitereErklaerung?: boolean;
   testFeaturesEnabled?: boolean;
-  isBruchteilsgemeinschaft?: boolean;
 }) {
-  let headlineText = isWeitereErklaerung
-    ? i18n.headlineWeitereErklaerung
-    : i18n.headline;
-  headlineText = isBruchteilsgemeinschaft
-    ? i18n.headlineForBruchteilsgemeinschaft
-    : headlineText;
-  if (!testFeaturesEnabled && i18n.headlineOld) {
-    headlineText = i18n.headlineOld;
+  if (!headlineText) {
+    headlineText = isWeitereErklaerung
+      ? i18n.headlineWeitereErklaerung
+      : i18n.headline;
+    if (!testFeaturesEnabled && i18n.headlineOld) {
+      headlineText = i18n.headlineOld;
+    }
   }
+
+  descriptionText = descriptionText ? descriptionText : i18n.description;
 
   return (
     <>
       <Headline asLegend={asLegend}>{headlineText}</Headline>
-      {i18n.description && <IntroText>{i18n.description}</IntroText>}
+      {descriptionText && <IntroText>{descriptionText}</IntroText>}
       {i18n.hint && (
         <Hint>
           <Trans
