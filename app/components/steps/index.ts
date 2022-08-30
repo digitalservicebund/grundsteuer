@@ -20,6 +20,7 @@ import EigentuemerAnzahl from "./eigentuemer/EigentuemerAnzahl";
 import Kernsaniert from "~/components/steps/gebaeude/Kernsaniert.tsx";
 import MiteigentumAuswahlHaus from "~/components/steps/grundstueck/miteigentum/MiteigentumAuswahlHaus";
 import MiteigentumAuswahlWohnung from "~/components/steps/grundstueck/miteigentum/MiteigentumAuswahlWohnung";
+import EmpfangsbevollmaechtigterName from "~/components/steps/eigentuemer/EmpfangsbevollmaechtigterName";
 
 export { Default as FallbackStepComponent };
 
@@ -32,6 +33,9 @@ export default {
     abschluss: EigentuemerAbschluss,
     person: {
       anteil: EigentuemerAnteil,
+    },
+    empfangsbevollmaechtigter: {
+      name: EmpfangsbevollmaechtigterName,
     },
   },
   grundstueck: {
