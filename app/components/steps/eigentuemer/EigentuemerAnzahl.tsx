@@ -12,18 +12,7 @@ const EigentuemerAnzahl: StepComponentFunction = ({
   formData,
   i18n,
   errors,
-  testFeaturesEnabled,
 }) => {
-  if (!testFeaturesEnabled) {
-    return (
-      <ContentContainer size="sm-md">
-        <StepFormFields
-          {...{ stepDefinition, currentState, formData, i18n, errors, allData }}
-        />
-      </ContentContainer>
-    );
-  }
-
   const anzahl = allData?.eigentuemer?.anzahl?.anzahl;
 
   if (!anzahl) {
