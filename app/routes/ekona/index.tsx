@@ -15,7 +15,7 @@ import ekona2 from "~/assets/images/ekona-2.svg";
 import ekona3 from "~/assets/images/ekona-3.svg";
 import {
   commitEkonaSession,
-  getEkonaSession,
+  createEkonaSession,
 } from "~/ekona/ekonaCookie.server";
 import { authenticator } from "~/auth.server";
 import { pageTitle } from "~/util/pageTitle";
@@ -33,7 +33,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/formular");
   }
 
-  const session = await getEkonaSession(request.headers.get("Cookie"));
+  const session = await createEkonaSession();
   const saml = await createSamlRequest(session);
   session.set("userId", user.id);
 

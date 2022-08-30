@@ -18,6 +18,10 @@ export const sessionStorage = createCookieSessionStorage({
   },
 });
 
+export const createEkonaSession = () => {
+  return sessionStorage.getSession();
+};
+
 export const getEkonaSession = (cookieHeader: string | null) => {
   return sessionStorage.getSession(cookieHeader, {
     decode: (ciphertext) => {
