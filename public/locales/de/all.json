@@ -1052,18 +1052,20 @@
       }
     },
     "steuernummer": {
-      "headline": "Geben Sie das Aktenzeichen/ die Steuernummer Ihres Grundstücks ein",
-      "description": "Es handelt sich nicht um Ihre Steuernummer bei der Einkommensteuer und auch nicht um ihre Steuer-ID. Die Steuernummer / Aktenzeichen Ihres Grundstücks finden Sie beispielsweise auf dem Einheitswertbescheid oder im Informationsschreiben Ihrer Finanzverwaltung zur Grundsteuerreform.",
-      "hint": "Bitte tragen Sie das Aktenzeichen / die Steuernummer ohne Sonderzeichen ein.",
-      "fields": {
-        "steuernummer": {
-          "label": "Aktenzeichen/Steuernummer",
-          "placeholder": "2080353038893"
+      "default": {
+        "headline": "Geben Sie das Aktenzeichen/ die Steuernummer Ihres Grundstücks ein",
+        "description": "Es handelt sich nicht um Ihre Steuernummer bei der Einkommensteuer und auch nicht um ihre Steuer-ID. Die Steuernummer / Aktenzeichen Ihres Grundstücks finden Sie beispielsweise auf dem Einheitswertbescheid oder im Informationsschreiben Ihrer Finanzverwaltung zur Grundsteuerreform.",
+        "hint": "Bitte tragen Sie das Aktenzeichen / die Steuernummer ohne Sonderzeichen ein.",
+        "fields": {
+          "steuernummer": {
+            "label": "Aktenzeichen/Steuernummer",
+            "placeholder": "2080353038893"
+          }
+        },
+        "help": {
+          "heading": "Wo finde ich das Aktenzeichen?",
+          "paragraph": "Sie finden das Aktenzeichen (oder in den Ländern Berlin, Bremen und Schleswig-Holstein die Steuernummer) auf Ihrem letzten Bescheid zur Feststellung des Einheitswerts oder der Festsetzung des Grundsteuermessbetrags. Auch auf dem Grundsteuerbescheid oder sonstigen Bescheiden der Gemeinde können Sie das Aktenzeichen (oder die Steuernummer) finden. Ggf. wurde Ihnen das aktuelle Aktenzeichen (oder die Steuernummer) auch mit einem Informationsschreiben mitgeteilt."
         }
-      },
-      "help": {
-        "heading": "Wo finde ich das Aktenzeichen?",
-        "paragraph": "Sie finden das Aktenzeichen (oder in den Ländern Berlin, Bremen und Schleswig-Holstein die Steuernummer) auf Ihrem letzten Bescheid zur Feststellung des Einheitswerts oder der Festsetzung des Grundsteuermessbetrags. Auch auf dem Grundsteuerbescheid oder sonstigen Bescheiden der Gemeinde können Sie das Aktenzeichen (oder die Steuernummer) finden. Ggf. wurde Ihnen das aktuelle Aktenzeichen (oder die Steuernummer) auch mit einem Informationsschreiben mitgeteilt."
       }
     },
     "typ": {
