@@ -391,8 +391,8 @@
       "bodenrichtwertInfo": "Bodenrichtwert-Info",
       "bodenrichtwertEingabe": "Bodenrichtwert-Eingabe",
       "bodenrichtwertAnzahl": "Bodenrichtwert-Anzahl",
-      "miteigentumAuswahlHaus": "Auswahl Miteigentum",
-      "miteigentumAuswahlWohnung": "Auswahl Miteigentum",
+      "miteigentumAuswahlHaus": "Miteigentum - Auswahl",
+      "miteigentumAuswahlWohnung": "Option Miteigentumsanteil",
       "miteigentumWohnung": "Miteigentumsanteil Wohnung",
       "miteigentumGarage": "Miteigentumsanteil Garage",
       "flurstueck": {
@@ -1459,7 +1459,7 @@
               "label": "Ich besitze eine Eigentumswohnung und einen weiteren Miteigentumsanteil an einem Garagenstellplatz oder Tiefgaragenstellplatz. Beides liegt auf demselben Grundstück."
             },
             "mixed": {
-              "label": "Ich besitze eine Eigentumswohnung und Miteigentumsanteile an einem oder mehreren Grundstücken. Mir liegt ein- oder mehrere Grundbuchauszüge vor."
+              "label": "Ich besitze eine Eigentumswohnung und Miteigentumsanteile an einem oder mehreren Grundstücken. Mir liegt ein oder mehrere Grundbuchauszüge vor."
             }
           }
         }
