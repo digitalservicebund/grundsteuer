@@ -129,10 +129,48 @@ describe("states", () => {
           "grundstueck.bodenrichtwertInfo",
           "grundstueck.bodenrichtwertAnzahl",
           "grundstueck.bodenrichtwertEingabe",
+          "grundstueck.miteigentumAuswahlHaus",
           "grundstueck.anzahl",
           "grundstueck.flurstueck.1.angaben",
           "grundstueck.flurstueck.1.flur",
           "grundstueck.flurstueck.1.groesse",
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
+      {
+        description: "baureif with miteigentum",
+        context: grundModelFactory
+          .grundstueckTyp({ typ: "baureif" })
+          .flurstueckAnzahl({ anzahl: "1" })
+          .miteigentumHaus({ hasMiteigentum: "true" })
+          .grundstueckFlurstueck({
+            list: [
+              flurstueckFactory
+                .miteigentumAuswahl({ hasMiteigentum: "true" })
+                .miteigentum()
+                .build(),
+            ],
+            count: 1,
+          })
+          .build(),
+        expectedPath: [
+          "welcome",
+          "grundstueck.uebersicht",
+          "grundstueck.typ",
+          "grundstueck.adresse",
+          "grundstueck.steuernummer",
+          "grundstueck.gemeinde",
+          "grundstueck.bodenrichtwertInfo",
+          "grundstueck.bodenrichtwertAnzahl",
+          "grundstueck.bodenrichtwertEingabe",
+          "grundstueck.miteigentumAuswahlHaus",
+          "grundstueck.anzahl",
+          "grundstueck.flurstueck.1.angaben",
+          "grundstueck.flurstueck.1.flur",
+          "grundstueck.flurstueck.1.groesse",
+          "grundstueck.flurstueck.1.miteigentumAuswahl",
+          "grundstueck.flurstueck.1.miteigentum",
           ...defaultEigentuemer,
           "zusammenfassung",
         ],

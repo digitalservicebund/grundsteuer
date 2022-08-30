@@ -91,7 +91,7 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                 target: "miteigentumAuswahlWohnung",
                 cond: "isEigentumswohnungTest",
               },
-              { target: "miteigentumAuswahlHaus", cond: "isHaus" },
+              { target: "miteigentumAuswahlHaus", cond: "isHausOrUnbebaut" },
               { target: "anzahl" },
             ],
             BACK: [{ target: "bodenrichtwertAnzahl" }],
@@ -149,7 +149,7 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                 target: "miteigentumAuswahlWohnung",
                 cond: "isEigentumswohnungTest",
               },
-              { target: "miteigentumAuswahlHaus", cond: "isHaus" },
+              { target: "miteigentumAuswahlHaus", cond: "isHausOrUnbebaut" },
               { target: "bodenrichtwertEingabe" },
             ],
           },
@@ -449,6 +449,16 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
             BACK: [
               { target: "#steps.gebaeude.garagenAnzahl", cond: "hasGaragen" },
               { target: "#steps.gebaeude.garagen", cond: "isBebaut" },
+              {
+                target: "#flurstueck.miteigentum",
+                cond: "flurstueckHasMiteigentum",
+                actions: "setFlurstueckIdToMaximum",
+              },
+              {
+                target: "#flurstueck.miteigentumAuswahl",
+                cond: "hausHasMiteigentum",
+                actions: "setFlurstueckIdToMaximum",
+              },
               {
                 target: "#flurstueck.groesse",
                 actions: "setFlurstueckIdToMaximum",
