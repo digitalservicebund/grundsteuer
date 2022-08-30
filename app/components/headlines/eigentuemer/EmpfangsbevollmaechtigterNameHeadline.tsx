@@ -1,5 +1,6 @@
 import { HeadlineComponentFunction } from "~/routes/formular/_step";
 import { StepHeadline } from "~/components/StepHeadline";
+import { isBruchteilsgemeinschaft } from "~/domain/guards";
 
 const EmpfangsbevollmaechtigterNameHeadline: HeadlineComponentFunction = ({
   i18n,
@@ -7,16 +8,12 @@ const EmpfangsbevollmaechtigterNameHeadline: HeadlineComponentFunction = ({
   asLegend,
   testFeaturesEnabled,
 }) => {
-  const isBruchteilsgemeinschaft =
-    Number(allData?.eigentuemer?.anzahl?.anzahl) > 1;
-  const headlineText =
-    isBruchteilsgemeinschaft && testFeaturesEnabled
-      ? i18n.alternativeHeadline
-      : i18n.headline;
-  const descriptionText =
-    isBruchteilsgemeinschaft && testFeaturesEnabled
-      ? i18n.alternativeDescription
-      : undefined;
+  let headlineText = i18n.headline;
+  let descriptionText = i18n.description;
+  if (isBruchteilsgemeinschaft(allData) && testFeaturesEnabled) {
+    headlineText = i18n.alternativeHeadline || headlineText;
+    descriptionText = i18n.alternativeDescription || descriptionText;
+  }
 
   return (
     <StepHeadline
