@@ -1512,7 +1512,7 @@
         "label": "Ich habe die <termsOfUseLink>Nutzungsbedingungen</termsOfUseLink> gelesen und stimme ihnen zu."
       },
       "confirmEligibilityCheck": {
-        "label": "Ich habe unter <pruefenLink>Kann ich teilnehmen?</pruefenLink> den Fragebogen ausgewertet und erfülle alle Voraussetzungen für die Nutzung des Online-Service Grundsteuererklärung für Privateigentum."
+        "label": "Ich habe den Fragebogen <pruefenLink>Nutzung prüfen</pruefenLink> ausgewertet und erfülle alle Voraussetzungen für die Nutzung des Online-Dienstes Grundsteuererklärung für Privateigentum."
       }
     },
     "specifics": {
