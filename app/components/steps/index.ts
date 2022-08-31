@@ -20,6 +20,7 @@ import EigentuemerAnzahl from "./eigentuemer/EigentuemerAnzahl";
 import Kernsaniert from "~/components/steps/gebaeude/Kernsaniert.tsx";
 import MiteigentumAuswahlHaus from "~/components/steps/grundstueck/miteigentum/MiteigentumAuswahlHaus";
 import MiteigentumAuswahlWohnung from "~/components/steps/grundstueck/miteigentum/MiteigentumAuswahlWohnung";
+import MiteigentumsanteilGarage from "~/components/steps/grundstueck/MiteigentumsanteilGarage";
 
 export { Default as FallbackStepComponent };
 
@@ -44,7 +45,7 @@ export default {
     miteigentumAuswahlHaus: MiteigentumAuswahlHaus,
     miteigentumAuswahlWohnung: MiteigentumAuswahlWohnung,
     miteigentumWohnung: Miteigentumsanteil,
-    miteigentumGarage: Miteigentumsanteil,
+    miteigentumGarage: MiteigentumsanteilGarage,
     anzahl: GrundstueckAnzahl,
     flurstueck: {
       flur: FlurstueckFlur,
