@@ -1,6 +1,6 @@
 import { HeadlineComponentFunction } from "~/routes/formular/_step";
 import { StepHeadline } from "~/components/StepHeadline";
-import { isBruchteilsgemeinschaft } from "~/domain/guards";
+import { conditions } from "~/domain/guards";
 
 const EmpfangsbevollmaechtigterNameHeadline: HeadlineComponentFunction = ({
   i18n,
@@ -10,7 +10,7 @@ const EmpfangsbevollmaechtigterNameHeadline: HeadlineComponentFunction = ({
 }) => {
   let headlineText = i18n.headline;
   let descriptionText = i18n.description;
-  if (isBruchteilsgemeinschaft(allData) && testFeaturesEnabled) {
+  if (conditions.isBruchteilsgemeinschaft(allData) && testFeaturesEnabled) {
     headlineText = i18n.alternativeHeadline || headlineText;
     descriptionText = i18n.alternativeDescription || descriptionText;
   }

@@ -2,9 +2,6 @@ import { conditions, previousFlurstueckHasMiteigentum } from "~/domain/guards";
 import { StateMachineContext } from "~/domain/states";
 import { flurstueckFactory, grundModelFactory } from "test/factories";
 import { GrundModel } from "./steps";
-import { render, screen } from "@testing-library/react";
-import MaskedInput from "../components/form/MaskedInput";
-import userEvent from "@testing-library/user-event";
 
 describe("isEigentumswohnung", () => {
   it("Should return false if data is undefined", async () => {
