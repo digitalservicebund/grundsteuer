@@ -24,6 +24,7 @@ import {
   MiteigentumAuswahlFlurstueckFalseHelp,
   MiteigentumAuswahlFlurstueckTrueHelp,
 } from "~/components/form/help/grundstueck/miteigentum/MiteigentumAuswahlFlurstueck";
+import WohnflaecheHelp from "~/components/form/help/gebaeude/Wohnflaeche";
 
 export const helpComponents = {
   grundstueck: {
@@ -57,6 +58,15 @@ export const helpComponents = {
           false: MiteigentumAuswahlFlurstueckFalseHelp,
         },
       },
+    },
+  },
+  gebaeude: {
+    wohnflaeche: {
+      wohnflaeche: WohnflaecheHelp,
+    },
+    wohnflaechen: {
+      wohnflaeche1: WohnflaecheHelp,
+      wohnflaeche2: WohnflaecheHelp,
     },
   },
   eigentuemer: {

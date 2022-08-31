@@ -543,21 +543,21 @@
       }
     },
     "wohnflaeche": {
-      "headline": "Wie groß ist die Wohnfläche in Ihrem Einfamilienhaus / Eigentumswohnung?",
+      "headline": "Wie groß sind die Wohnflächen und Nutzflächen in Ihrem Einfamilienhaus / Ihrer Eigentumswohnung?",
       "fields": {
         "wohnflaeche": {
-          "label": "Wohnfläche in Quadratmetern"
+          "label": "Gesamtfläche in Quadratmetern"
         }
       }
     },
     "wohnflaechen": {
-      "headline": "Wie groß sind die Wohnflächen in Ihrem Zweifamilienhaus?",
+      "headline": "Wie groß sind die Wohnflächen und Nutzflächen in Ihrem Zweifamilienhaus?",
       "fields": {
         "wohnflaeche1": {
-          "label": "Wohnfläche in Quadratmetern"
+          "label": "Gesamtfläche in Quadratmetern"
         },
         "wohnflaeche2": {
-          "label": "Wohnfläche in Quadratmetern"
+          "label": "Gesamtfläche in Quadratmetern"
         }
       }
     },
