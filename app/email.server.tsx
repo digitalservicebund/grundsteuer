@@ -66,7 +66,7 @@ const htmlGreetings = ["<p>Guten Tag!</p>"];
 
 const textFooter = [
   "",
-  "Der Link läuft in 24 Stunden ab. Öffnen Sie den Link mit demselben Browser und Gerät, mit dem Sie ihn bestellt haben. Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail ignorieren. Sie haben Probleme sich anzumelden? Hilfe finden Sie unter https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/1-registrierung-und-anmeldung/22-der-link-funktioniert-nicht-was-soll-ich-tun",
+  "Der Link läuft in 24 Stunden ab. Öffnen Sie den Link mit demselben Browser und Gerät, mit dem Sie ihn bestellt haben. Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail ignorieren. Bei Problemen mit der Anmeldung, kopieren Sie die folgende URL in die Adresszeile Ihres Browsers: https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/1-registrierung-und-anmeldung/22-der-link-funktioniert-nicht-was-soll-ich-tun",
   "",
   "",
   "-- ", // must be exactly 2 dashes + 1 space!
@@ -82,7 +82,7 @@ const textFooter = [
 ];
 
 const htmlFooter = [
-  "<p>Der Link läuft in 24 Stunden ab. Öffnen Sie den Link mit demselben Browser und Gerät, mit dem Sie ihn bestellt haben. Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail ignorieren. Sie haben <a href='https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/1-registrierung-und-anmeldung/22-der-link-funktioniert-nicht-was-soll-ich-tun'>Probleme</a> sich anzumelden?</p>",
+  "<p>Der Link läuft in 24 Stunden ab. Öffnen Sie den Link mit demselben Browser und Gerät, mit dem Sie ihn bestellt haben. Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail ignorieren. Bei Problemen mit der Anmeldung, klicken Sie <a href='https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/1-registrierung-und-anmeldung/22-der-link-funktioniert-nicht-was-soll-ich-tun'>hier</a>.</p>",
   '<hr style="margin-top: 3rem"/>',
   "<p><strong>Grundsteuererklärung für Privateigentum</strong><br />",
   'Support-Team | <a href="https://digitalservice.bund.de">DigitalService</a><br />',
