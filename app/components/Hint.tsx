@@ -21,7 +21,7 @@ export default function Hint(props: {
           {title}
         </p>
       </div>
-      <div>{children}</div>
+      <div data-testid="hint">{children}</div>
     </div>
   );
 }

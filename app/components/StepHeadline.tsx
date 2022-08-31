@@ -32,7 +32,17 @@ export function StepHeadline({
   return (
     <>
       <Headline asLegend={asLegend}>{headlineText}</Headline>
-      {descriptionText && <IntroText>{descriptionText}</IntroText>}
+      {descriptionText && (
+        <IntroText>
+          <Trans
+            components={{
+              bold: <strong />,
+            }}
+          >
+            {descriptionText}
+          </Trans>
+        </IntroText>
+      )}
       {i18n.hint && (
         <Hint>
           <Trans

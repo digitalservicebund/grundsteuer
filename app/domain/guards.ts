@@ -205,6 +205,10 @@ const bundeslandIsNW: Condition = (context) => {
   return context?.grundstueck?.adresse?.bundesland == "NW";
 };
 
+const isGrundstueckBundeslandKnown: Condition = (context) => {
+  return context?.grundstueck?.adresse?.bundesland !== undefined;
+};
+
 export const conditions: Conditions = {
   isBezugsfertigAb1949,
   hausHasMiteigentum,
@@ -239,4 +243,5 @@ export const conditions: Conditions = {
   personIdGreaterThanOne,
   flurstueckIdGreaterThanOne,
   bundeslandIsNW,
+  isGrundstueckBundeslandKnown,
 };

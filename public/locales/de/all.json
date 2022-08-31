@@ -1055,18 +1055,58 @@
     },
     "steuernummer": {
       "default": {
-        "headline": "Geben Sie das Aktenzeichen/ die Steuernummer Ihres Grundstücks ein",
-        "description": "Es handelt sich nicht um Ihre Steuernummer bei der Einkommensteuer und auch nicht um ihre Steuer-ID. Die Steuernummer / Aktenzeichen Ihres Grundstücks finden Sie beispielsweise auf dem Einheitswertbescheid oder im Informationsschreiben Ihrer Finanzverwaltung zur Grundsteuerreform.",
-        "hint": "Bitte tragen Sie das Aktenzeichen / die Steuernummer ohne Sonderzeichen ein.",
+        "headline": "Geben Sie das Aktenzeichen Ihres Grundstücks ein",
+        "description": "Es handelt sich <bold>nicht</bold> um das Kassenzeichen. Das Aktenzeichen Ihres Grundstücks finden Sie beispielsweise auf dem Informationsschreiben Ihrer Landesfinanzverwaltung zur Grundsteuerreform oder auf dem Grundsteuerbescheid.",
+        "hint": "Ihr Aktenzeichen besteht aus 17 Ziffern.",
         "fields": {
           "steuernummer": {
-            "label": "Aktenzeichen/Steuernummer",
-            "placeholder": "2080353038893"
+            "label": "Aktenzeichen des Grundstücks",
+            "placeholder": "XXX/XXX/XXXX/XXX/XXX/X"
           }
-        },
-        "help": {
-          "heading": "Wo finde ich das Aktenzeichen?",
-          "paragraph": "Sie finden das Aktenzeichen (oder in den Ländern Berlin, Bremen und Schleswig-Holstein die Steuernummer) auf Ihrem letzten Bescheid zur Feststellung des Einheitswerts oder der Festsetzung des Grundsteuermessbetrags. Auch auf dem Grundsteuerbescheid oder sonstigen Bescheiden der Gemeinde können Sie das Aktenzeichen (oder die Steuernummer) finden. Ggf. wurde Ihnen das aktuelle Aktenzeichen (oder die Steuernummer) auch mit einem Informationsschreiben mitgeteilt."
+        }
+      },
+      "be": {
+        "headline": "Geben Sie die Steuernummer Ihres Grundstücks ein",
+        "description": "Es handelt sich <bold>nicht</bold> um Ihre Steuernummer der Einkommenssteuer, Ihre Steuer-Identifikationsnummer oder das Kassenzeichen. Die Steuernummer Ihres Grundstücks finden Sie beispielsweise auf dem Grundsteuerbescheid, dem Kontoauszug (insbesondere bei Lastschrift) oder dem Einheitswertbescheid.",
+        "hint": "Die Steuernummer ihres Grundstücks besteht aus 10 Ziffern. Die ersten beiden Ziffern können immer nur: 13, 14, 16, 17, 18, 19, 21, 23, 24, 25, 31 ,32, 33, 34, 35 oder 36 sein. Die Ziffern 3 bis 5 müssen größer als 700 sein. Zum Beispiel: 13/700/XXXX",
+        "fields": {
+          "steuernummer": {
+            "label": "Steuernummer des Grundstücks",
+            "placeholder": "XX/XXX/XXXXX"
+          }
+        }
+      },
+      "hb": {
+        "headline": "Geben Sie die Steuernummer Ihres Grundstücks ein",
+        "description": "Es handelt sich <bold>nicht</bold> um Ihre Steuernummer der Einkommenssteuer, Ihre Steuer-Identifikationsnummer oder das Kassenzeichen. Die Steuernummer Ihres Grundstücks finden Sie beispielsweise auf dem Informationsschreiben des Finanzamtes Bremerhaven. Zudem finden Sie Ihre Steuernummer auf Ihrem Einheitswertbescheid und für ein Grundstück in der Stadtgemeinde Bremen auch auf Ihrem letzten Grundsteuerbescheid.",
+        "hint": "Ihre Steuernummer des Grundstücks besteht aus 10 Ziffern und beginnt mit 57 oder 77.",
+        "fields": {
+          "steuernummer": {
+            "label": "Steuernummer des Grundstücks",
+            "placeholder": "X7/XXX/XXXXX"
+          }
+        }
+      },
+      "nw": {
+        "headline": "Geben Sie das Aktenzeichen Ihres Grundstücks ein",
+        "description": "Es handelt sich <bold>nicht</bold> um das Kassenzeichen. Das Aktenzeichen Ihres Grundstücks finden Sie beispielsweise auf dem Informationsschreiben Ihrer Landesfinanzverwaltung zur Grundsteuerreform oder auf dem Grundsteuerbescheid.",
+        "hint": "Ihr Aktenzeichen besteht aus 13 Ziffern. Die siebte Ziffer ist immer eine 3.",
+        "fields": {
+          "steuernummer": {
+            "label": "Aktenzeichen des Grundstücks",
+            "placeholder": "XXX/XXX-3-XXXXX.X"
+          }
+        }
+      },
+      "sh": {
+        "headline": "Geben Sie die Steuernummer Ihres Grundstücks ein",
+        "description": "Es handelt sich <bold>nicht</bold> um Ihre Steuernummer der Einkommenssteuer, Ihre Steuer-Identifikationsnummer oder das Kassenzeichen. Die Steuernummer Ihres Grundstücks finden Sie beispielsweise auf dem Informationsschreiben des Bundeslandes Schleswig-Holstein zur Grundsteuerreform oder auf dem Grundsteuerbescheid.",
+        "hint": "Ihre Steuernummer besteht immer aus 10 Ziffern und beginnt mit einer 7, 8 oder 9.",
+        "fields": {
+          "steuernummer": {
+            "label": "Steuernummer des Grundstücks",
+            "placeholder": "XX XXX XXXXX"
+          }
         }
       }
     },

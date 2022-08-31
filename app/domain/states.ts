@@ -53,7 +53,10 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
               },
               { target: "typ" },
             ],
-            NEXT: [{ target: "steuernummer" }],
+            NEXT: [
+              { target: "steuernummer", cond: "isGrundstueckBundeslandKnown" },
+              { target: "gemeinde" },
+            ],
           },
         },
         steuernummer: {
@@ -65,7 +68,10 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
         gemeinde: {
           on: {
             NEXT: [{ target: "bodenrichtwertInfo" }],
-            BACK: [{ target: "steuernummer" }],
+            BACK: [
+              { target: "steuernummer", cond: "isGrundstueckBundeslandKnown" },
+              { target: "adresse" },
+            ],
           },
         },
         bodenrichtwertInfo: {
