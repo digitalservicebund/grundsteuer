@@ -1222,7 +1222,7 @@
       },
       "miteigentum": {
         "headline": "Wie lauten die Miteigentumsanteile?",
-        "description": "Den Miteigentumsanteil an einem anderen Grundstück finden Sie in Ihrem Grundbuchauszug. Übertragen Sie die Angabe als Bruch mit Schrägstrich. Zum Beispiel 1/24.",
+        "description": "Den Miteigentumsanteil an einem anderen Grundstück finden Sie in Ihrem Grundbuchauszug auf der Seite Bestandsverzeichnis. Eine Abbildung finden Sie in der Hilfe.",
         "fields": {
           "wirtschaftlicheEinheitZaehler": {
             "label": "Anteil Zähler"
