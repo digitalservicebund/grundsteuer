@@ -307,7 +307,7 @@ export function Step() {
                 allData={loaderData.allData}
                 formData={loaderData.formData}
                 isWeitereErklaerung={isWeitereErklaerung}
-                testFeaturesEnabled={testFeaturesEnabled}
+                testFeaturesEnabled={loaderData.testFeaturesEnabled}
                 asLegend
               />
               {actionData?.errors && !isSubmitting && <ErrorBarStandard />}
@@ -322,7 +322,7 @@ export function Step() {
                 allData={loaderData.allData}
                 formData={loaderData.formData}
                 isWeitereErklaerung={isWeitereErklaerung}
-                testFeaturesEnabled={testFeaturesEnabled}
+                testFeaturesEnabled={loaderData.testFeaturesEnabled}
               />
               {actionData?.errors && !isSubmitting && <ErrorBarStandard />}
             </ContentContainer>
