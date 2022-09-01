@@ -150,6 +150,20 @@ describe("previousFlurstueckHasMiteigentum", () => {
       previousFlurstueckHasMiteigentum({ flurstueckId: 2, ...inputData })
     ).toBe(true);
   });
+
+  it("returns false if previous flurstueck empty", () => {
+    const inputData = grundModelFactory
+      .grundstueckTyp({ typ: "einfamilienhaus" })
+      .miteigentumHaus({ hasMiteigentum: "true" })
+      .grundstueckFlurstueck({
+        list: [],
+        count: 2,
+      })
+      .build();
+    expect(
+      previousFlurstueckHasMiteigentum({ flurstueckId: 2, ...inputData })
+    ).toBe(false);
+  });
 });
 
 describe("isBezugsfertigAb1949", () => {
