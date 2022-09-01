@@ -144,7 +144,7 @@ describe("transformDataToEricaFormat", () => {
           ort: "GST Ort",
           bundesland: "BB",
         })
-        .grundstueckSteuernummer({ steuernummer: "1234567890" })
+        .grundstueckSteuernummer({ steuernummer: "123 456 7890" })
         .grundstueckAbweichendeEntwicklung({ zustand: "rohbauland" })
         .grundstueckGemeinde({ innerhalbEinerGemeinde: "true" })
         .grundstueckBodenrichtwert({ bodenrichtwert: "123" })

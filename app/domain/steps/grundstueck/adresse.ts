@@ -1,24 +1,26 @@
 import { StepDefinition } from "~/domain/steps";
 import { conditions } from "~/domain/guards";
 
+export type Bundesland =
+  | "BE"
+  | "BB"
+  | "HB"
+  | "MV"
+  | "NW"
+  | "RP"
+  | "SL"
+  | "SN"
+  | "ST"
+  | "SH"
+  | "TH";
+
 export type GrundstueckAdresseFields = {
   strasse: string;
   hausnummer: string;
   zusatzangaben: string;
   plz: string;
   ort: string;
-  bundesland:
-    | "BE"
-    | "BB"
-    | "HB"
-    | "MV"
-    | "NW"
-    | "RP"
-    | "SL"
-    | "SN"
-    | "ST"
-    | "SH"
-    | "TH";
+  bundesland: Bundesland;
 };
 
 export const grundstueckAdresse: StepDefinition = {

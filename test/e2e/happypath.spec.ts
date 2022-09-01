@@ -11,7 +11,7 @@ const inputData = {
       bundesland: "BE",
     },
     steuernummer: {
-      steuernummer: "1234567890",
+      steuernummer: "13/898/89074",
     },
     typ: {
       typ: "wohnungseigentum",

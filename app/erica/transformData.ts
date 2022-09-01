@@ -319,7 +319,10 @@ export const transformDataToEricaFormat = (inputData: GrundModel) => {
       typ: inputData.grundstueck?.typ?.typ,
       abweichendeEntwicklung:
         inputData.grundstueck?.abweichendeEntwicklung?.zustand,
-      steuernummer: inputData.grundstueck?.steuernummer?.steuernummer,
+      steuernummer: inputData.grundstueck?.steuernummer?.steuernummer.replace(
+        /\D/g,
+        ""
+      ),
       adresse: {
         ...inputData.grundstueck?.adresse,
         ...separateHausnummerAndZusatz(
