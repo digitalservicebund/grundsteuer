@@ -123,6 +123,28 @@ const calculateWohnflaechen = (
   ]);
 };
 
+const getGarageFlurstuecke = (
+  flurstuecke: Flurstueck[],
+  miteigentumGarage: GrundstueckFlurstueckMiteigentumGarageFields | undefined,
+  showTestFeatures: boolean
+) => {
+  if (miteigentumGarage) {
+    // We duplicate the flurstuecke for the flat as flat and garage have the same flurstuecke and just apply the garage miteigentum
+    return flurstuecke.map((flurstueck: Flurstueck) => {
+      const flurstueckCopy = _.cloneDeep(flurstueck);
+      // The flat and garage are on the same flurstueck but on different grundbuchblaetter. As we only ask for *one* grundguchblattnummer, we disregard the (optional field) grundbuchblattnummer for the garagen flurstueck.
+      if (flurstueckCopy.angaben?.grundbuchblattnummer)
+        flurstueckCopy.angaben.grundbuchblattnummer = "";
+      return transformFlurstueck(
+        flurstueckCopy,
+        miteigentumGarage,
+        showTestFeatures
+      );
+    });
+  }
+  return [];
+};
+
 export const transformFlurstuecke = (
   flurstuecke: Flurstueck[] | undefined,
   miteigentumsanteil: GrundstueckFlurstueckMiteigentumsanteilFields | undefined,
@@ -138,22 +160,11 @@ export const transformFlurstuecke = (
   }
   if (!flurstuecke) return undefined;
 
-  let transformedGaragenFlurstuecke: object[] = [];
-  if (miteigentumGarage) {
-    transformedGaragenFlurstuecke = flurstuecke.map(
-      (flurstueck: Flurstueck) => {
-        const flurstueckCopy = _.cloneDeep(flurstueck);
-        if (flurstueckCopy.angaben?.grundbuchblattnummer)
-          flurstueckCopy.angaben.grundbuchblattnummer = "";
-        return transformFlurstueck(
-          flurstueckCopy,
-          miteigentumGarage,
-          showTestFeatures
-        );
-      }
-    );
-  }
-
+  const transformedGaragenFlurstuecke = getGarageFlurstuecke(
+    flurstuecke,
+    miteigentumGarage,
+    showTestFeatures
+  );
   const transformedFlurstuecke = flurstuecke.map((value) =>
     transformFlurstueck(value, miteigentumWohnung, showTestFeatures)
   );
