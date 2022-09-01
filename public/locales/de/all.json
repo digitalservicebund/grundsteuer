@@ -920,8 +920,8 @@
     "empfangsbevollmaechtigter": {
       "name": {
         "headline": "Wie lauten die persönlichen Daten der empfangsbevollmächtigten Person?",
-        "alternativeHeadline": "Wie lautet die empfangsbevollmächtigte Person Ihrer Bruchteilsgemeinschaft?",
-        "alternativeDescription": "Sie können hier den Namen einer der Eigentümer:innen oder einer anderen Person angeben. An diese Person sendet das Finanzamt die Bescheide im Zusammenhang mit der Grundsteuer.",
+        "alternativeHeadline": "Bitte geben Sie die empfangsbevollmächtigte Person Ihrer Bruchteilsgemeinschaft an",
+        "alternativeDescription": "An diese Person sendet das Finanzamt die Bescheide im Zusammenhang mit der Grundsteuer.  Sie können hier den Namen einer der Eigentümer:innen- oder einer anderen Person angeben.",
         "fields": {
           "anrede": {
             "label": "Anrede",
