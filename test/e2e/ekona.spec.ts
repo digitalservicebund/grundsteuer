@@ -27,7 +27,8 @@ describe("/ekona", () => {
       cy.url().should("include", "/identifikation");
     });
 
-    it("should identify user if correct certificat provided", () => {
+    // TODO re-enable once ekona in test env is fixed
+    it.skip("should identify user if correct certificat provided", () => {
       cy.visit("/ekona/", { failOnStatusCode: false });
       cy.url().should("include", "/ekona");
       cy.get(
