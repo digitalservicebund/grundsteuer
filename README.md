@@ -102,3 +102,14 @@ docker run --rm -it -p 3000:3000 grundsteuer
 ```
 
 This builds and starts your app in production mode.
+
+## The form logic
+
+To construct our forms we use four different structures:
+
+- State machine: The state machine defines the order in which the form is build from steps depending on the user data. This can be found in `app/domain/states.ts`.
+- Step definitions: The fields that are used in a step and further information such as validations is defined through the step definition. These can be found in `app/domain/steps/index.ts`.
+- Step specific components: If a step needs to look different from the DefaultStep, it needs to have a specific StepComponent or StepHeadlineComponent (only title and description). These can be found in `app/components/steps/index.ts` or `app/components/headlines/index.ts`.
+- Step specific texts: Texts for each step (like headlines, descriptions, text in help components) need to be set through localization. These texts can be found in `public/locales/de/all.json`.
+
+These structures are then used in `app/routes/formular/_step.tsx` to construct a step.
