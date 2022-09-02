@@ -4,7 +4,7 @@ import {
   destroyEkonaSession,
   getEkonaSession,
 } from "~/ekona/ekonaCookie.server";
-import { extractIdentData } from "~/ekona/validation";
+import { extractIdentData } from "~/ekona/validation.server";
 import {
   deleteFscRequest,
   findUserById,

@@ -3,7 +3,7 @@ import {
   checkIssuer,
   extractIdentData,
   ValidatedEkonaData,
-} from "~/ekona/validation";
+} from "~/ekona/validation.server";
 
 const ekonaDataInland = {
   issuer: "https://e4k-portal.een.elster.de",
