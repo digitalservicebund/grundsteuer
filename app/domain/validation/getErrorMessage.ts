@@ -55,6 +55,8 @@ import {
 import { validateHausnummer } from "~/domain/validation/validateHausnummer";
 import { validateGrundbuchblattnummer } from "~/domain/validation/validateGrundbuchblattnummer";
 
+const FALLBACK_ERROR_MESSAGE = "Die Eingabe ist ungültig.";
+
 export const getErrorMessage = (
   value: string,
   validationConfig: ValidationConfig,
@@ -134,19 +136,30 @@ export const getErrorMessage = (
         noNewDataAdded,
       })
     ) {
-      if (istBundeslandSpecific(key)) {
-        const selectedBundesland = (allData as GrundModel)?.grundstueck?.adresse
-          ?.bundesland;
-        const bundesland = selectedBundesland || "default";
-        return (
-          validation.msg ||
-          (i18n[key] as Record<string, string>)[bundesland as Bundesland] ||
-          (i18n[key] as Record<string, string>)["default"]
-        );
-      }
-      return validation.msg || (i18n[key] as string);
+      return (
+        validation.msg ||
+        getMsgFromI18n(key, allData, i18n) ||
+        FALLBACK_ERROR_MESSAGE
+      );
     }
   }
+};
+
+const getMsgFromI18n = (
+  key: string,
+  allData: GrundModel | PruefenModel,
+  i18n: Record<string, Record<string, string> | string>
+) => {
+  if (istBundeslandSpecific(key)) {
+    const selectedBundesland = (allData as GrundModel)?.grundstueck?.adresse
+      ?.bundesland;
+    const bundesland = selectedBundesland || "default";
+    return (
+      (i18n[key] as Record<string, string>)[bundesland as Bundesland] ||
+      (i18n[key] as Record<string, string>)["default"]
+    );
+  }
+  return i18n[key] as string;
 };
 
 const istBundeslandSpecific = (key: string) => {
