@@ -9,6 +9,11 @@ type FieldErrorProps = {
 export default function FieldError(props: FieldErrorProps) {
   const { children, className } = props;
   return (
-    <div className={classNames("text-red-800 mt-4", className)}>{children}</div>
+    <div
+      className={classNames("text-red-800 mt-4", className)}
+      data-testid="field-error"
+    >
+      {children}
+    </div>
   );
 }

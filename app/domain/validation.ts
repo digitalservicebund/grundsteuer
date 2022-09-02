@@ -18,6 +18,11 @@ import { PreviousStepsErrors } from "~/routes/formular/zusammenfassung";
 import { PruefenModel } from "~/domain/pruefen/model";
 import { getCurrentStateWithoutId } from "~/util/getCurrentState";
 import { StateMachineContext } from "~/domain/states/states";
+import { Bundesland } from "~/domain/steps/grundstueck/adresse";
+import {
+  ValidateSteuernummer,
+  validateSteuernummer,
+} from "~/domain/validation/validateSteuernummer";
 
 type ValidateFunctionDefault = ({ value }: { value: string }) => boolean;
 
@@ -224,7 +229,8 @@ type ValidateFunction =
   | ValidateFlurstueckGroesseFunction
   | ValidateMinValueFunction
   | ValidateYearAfterBaujahrFunction
-  | ValidateYearInPast;
+  | ValidateYearInPast
+  | ValidateSteuernummer;
 
 export const validateElsterChars: ValidateFunctionDefault = ({ value }) =>
   Array.from(value).every((char) => SUPPORTED_CHARS.includes(char));
@@ -757,6 +763,7 @@ export const getErrorMessage = (
     yearInFuture: validateYearInFuture,
     yearInPast: validateYearInPast,
     dateInPast: validateDateInPast,
+    steuernummer: validateSteuernummer,
   };
 
   if (!validateElsterChars({ value })) {
@@ -799,9 +806,23 @@ export const getErrorMessage = (
         noNewDataAdded,
       })
     ) {
+      if (istBundeslandSpecific(key)) {
+        const selectedBundesland = (allData as GrundModel)?.grundstueck?.adresse
+          ?.bundesland;
+        const bundesland = selectedBundesland || "default";
+        return (
+          validation.msg ||
+          (i18n[key] as Record<string, string>)[bundesland as Bundesland] ||
+          (i18n[key] as Record<string, string>)["default"]
+        );
+      }
       return validation.msg || (i18n[key] as string);
     }
   }
+};
+
+const istBundeslandSpecific = (key: string) => {
+  return ["steuernummer"].includes(key);
 };
 
 export const validateStepFormData = async (
