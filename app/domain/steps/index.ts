@@ -381,17 +381,27 @@ export type EigentuemerModel = {
 export type StepDefinitionField = {
   validations: ValidationConfig;
   htmlAttributes?: Record<string, string | number | boolean>;
+  defaultValue?: string;
 };
 
+type FieldOptionType =
+  | "radio"
+  | "select"
+  | "checkbox"
+  | "textarea"
+  | "steuerId"
+  | "steuernummer";
+
+type FieldOptions = { value: string; defaultOption?: boolean }[];
+
 export type StepDefinitionFieldWithOptions = StepDefinitionField & {
-  type:
-    | "radio"
-    | "select"
-    | "checkbox"
-    | "textarea"
-    | "steuerId"
-    | "steuernummer";
-  options: { value: string; defaultOption?: boolean }[];
+  type: FieldOptionType;
+  options: FieldOptions;
+};
+
+export type StepDefinitionFields = StepDefinitionField & {
+  type?: FieldOptionType;
+  options?: FieldOptions;
 };
 
 export type StepDefinition = {

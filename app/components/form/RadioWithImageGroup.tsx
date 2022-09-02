@@ -1,4 +1,3 @@
-import { ConfigStepFieldOptionsItem } from "~/domain";
 import FieldError from "./FieldError";
 import RadioButtonBild from "~/components/form/RadioButtonBild";
 import {
@@ -11,6 +10,7 @@ import { ReactElement } from "react";
 import { getHelpComponent } from "~/components/form/help";
 import Help from "~/components/form/help/Help";
 import { Trans } from "react-i18next";
+import { RadioOptionProps } from "~/components/form/RadioGroup";
 
 export type RadioWithImageGroupProps = {
   name: string;
@@ -28,12 +28,10 @@ export type RadioWithImageGroupProps = {
 };
 
 const RadioGroupOption = (
-  option: ConfigStepFieldOptionsItem & {
+  option: RadioOptionProps & {
     name: string;
-    checked: boolean;
     image: string;
     imageAltText: string;
-    help?: ReactElement;
   }
 ) => {
   const radioComponent = (

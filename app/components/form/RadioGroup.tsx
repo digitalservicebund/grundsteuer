@@ -1,32 +1,27 @@
-import { ConfigStepFieldOptionsItem } from "~/domain";
 import FieldError from "./FieldError";
 import Radio from "./Radio";
 import { ReactElement } from "react";
 import Help from "~/components/form/help/Help";
 import { Trans } from "react-i18next";
 
+export type RadioOptionProps = {
+  value: string;
+  label: string;
+  checked?: boolean;
+  help?: ReactElement;
+  description?: string;
+};
+
 export type RadioGroupProps = {
   name: string;
   label?: string;
-  options: {
-    value: string;
-    label: string;
-    help?: ReactElement;
-    description?: string;
-  }[];
+  options: RadioOptionProps[];
   value?: string;
   defaultValue?: string;
   error?: string;
 };
 
-const RadioGroupOption = (
-  option: ConfigStepFieldOptionsItem & {
-    name: string;
-    checked: boolean;
-    help?: ReactElement;
-    description?: string;
-  }
-) => {
+const RadioGroupOption = (option: RadioOptionProps & { name: string }) => {
   const radioComponent = (
     <Radio
       defaultChecked={option.checked}

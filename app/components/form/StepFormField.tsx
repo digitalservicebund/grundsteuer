@@ -8,7 +8,7 @@ import { I18nObjectField } from "~/i18n/getStepI18n";
 import { ReactNode } from "react";
 import { getHelpComponent } from "~/components/form/help";
 import MaskedInput from "~/components/form/MaskedInput";
-import { GrundModel } from "~/domain/steps";
+import { GrundModel, StepDefinitionFields } from "~/domain/steps";
 import { Bundesland } from "~/domain/steps/grundstueck/adresse";
 
 export type StepFormFieldProps = {
@@ -16,12 +16,7 @@ export type StepFormFieldProps = {
   value?: string;
   currentState?: string;
   i18n: I18nObjectField;
-  definition: {
-    type?: string;
-    defaultValue?: string;
-    options?: { value: string }[];
-    htmlAttributes?: Record<string, string | number | boolean>;
-  };
+  definition: StepDefinitionFields;
   error?: string;
   allData?: GrundModel;
   children?: ReactNode;

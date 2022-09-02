@@ -19,7 +19,9 @@ describe("ZusammenfassungAccordion component", () => {
       i18n: {
         label: "Freitext",
       },
-      definition: {},
+      definition: {
+        validations: {},
+      },
     },
   };
 

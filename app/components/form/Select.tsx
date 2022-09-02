@@ -1,14 +1,18 @@
 import classNames from "classnames";
-import { ConfigStepFieldOptionsItem } from "~/domain";
 import FieldError from "./FieldError";
 import Label from "./Label";
 import Help from "~/components/form/help/Help";
 import { ReactElement } from "react";
+import { RadioOptionProps } from "~/components/form/RadioGroup";
+
+type SelectOptionProps = RadioOptionProps & {
+  defaultOption?: boolean;
+};
 
 export type SelectProps = {
   name: string;
   label: string;
-  options: ConfigStepFieldOptionsItem[];
+  options: SelectOptionProps[];
   help?: ReactElement;
   value?: string;
   defaultValue?: string;
@@ -19,7 +23,7 @@ export default function Select(props: SelectProps) {
   const { name, label, options, help, value, defaultValue, error } = props;
   const id = name;
 
-  const renderSelectFieldOption = (option: ConfigStepFieldOptionsItem) => {
+  const renderSelectFieldOption = (option: SelectOptionProps) => {
     return (
       <option
         value={option.value}
