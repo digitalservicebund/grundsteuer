@@ -9,7 +9,7 @@ import {
   MiteigentumFields,
   GrundstueckArtFields,
 } from "~/domain/pruefen/model";
-import { PruefenMachineContext } from "~/domain/pruefen/states";
+import { PruefenMachineContext } from "~/domain/pruefen/states.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 class PruefenFactory extends Factory<PruefenMachineContext> {

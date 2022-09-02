@@ -1,4 +1,4 @@
-import { PruefenMachineContext } from "~/domain/pruefen/states";
+import { PruefenMachineContext } from "~/domain/pruefen/states.server";
 
 export type PruefenCondition = (
   context: PruefenMachineContext | undefined

@@ -31,12 +31,12 @@ import { pageTitle } from "~/util/pageTitle";
 import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { CsrfToken, createCsrfToken, verifyCsrfToken } from "~/util/csrf";
-import { getPruefenStepDefinition } from "~/domain/pruefen/steps";
+import { getPruefenStepDefinition } from "~/domain/pruefen/steps.server";
 import {
   getPruefenConfig,
   getReachablePathsFromPruefenData,
   PruefenMachineContext,
-} from "~/domain/pruefen/states";
+} from "~/domain/pruefen/states.server";
 import { pruefenConditions } from "~/domain/pruefen/guards";
 import { PruefenModel } from "~/domain/pruefen/model";
 import { getBackUrl, getRedirectUrl } from "~/util/constructUrls";

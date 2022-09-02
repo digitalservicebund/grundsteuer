@@ -2,7 +2,7 @@ import { StateMachineContext } from "~/domain/states/states";
 import { State } from "xstate/lib/State";
 import { EventObject, StateSchema, Typestate } from "xstate/lib/types";
 import invariant from "tiny-invariant";
-import { PruefenMachineContext } from "~/domain/pruefen/states";
+import { PruefenMachineContext } from "~/domain/pruefen/states.server";
 import { StateMachine } from "xstate";
 
 export const getBackUrl = ({

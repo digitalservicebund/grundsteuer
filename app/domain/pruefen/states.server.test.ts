@@ -9,7 +9,7 @@ import {
   PruefenMachineConfig,
   PruefenMachineContext,
   pruefenStates,
-} from "~/domain/pruefen/states";
+} from "~/domain/pruefen/states.server";
 import { pruefenConditions } from "~/domain/pruefen/guards";
 import { pruefenModelFactory } from "test/factories/pruefen";
 
