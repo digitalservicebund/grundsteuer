@@ -2,7 +2,7 @@ import Default from "~/components/steps/Default";
 import BodenrichtwertInfo from "~/components/steps/grundstueck/BodenrichtwertInfo";
 import FlurstueckFlur from "~/components/steps/grundstueck/flurstueck/FlurstueckFlur";
 import FlurstueckGroesse from "~/components/steps/grundstueck/flurstueck/FlurstueckGroesse";
-import Miteigentumsanteil from "~/components/steps/grundstueck/flurstueck/Miteigentumsanteil";
+import Miteigentumsanteil from "~/components/steps/grundstueck/flurstueck/FlurstueckMiteigentumsanteil";
 import Bruchteilsgemeinschaft from "~/components/steps/eigentuemer/Bruchteilsgemeinschaft";
 import Willkommen from "~/components/steps/Willkommen";
 import GrundstueckUebersicht from "~/components/steps/grundstueck/GrundstueckUebersicht";
@@ -21,6 +21,8 @@ import Kernsaniert from "~/components/steps/gebaeude/Kernsaniert.tsx";
 import MiteigentumAuswahlHaus from "~/components/steps/grundstueck/miteigentum/MiteigentumAuswahlHaus";
 import MiteigentumAuswahlWohnung from "~/components/steps/grundstueck/miteigentum/MiteigentumAuswahlWohnung";
 import MiteigentumsanteilGarage from "~/components/steps/grundstueck/MiteigentumsanteilGarage";
+import FlurstueckMiteigentumsanteil from "~/components/steps/grundstueck/flurstueck/FlurstueckMiteigentumsanteil";
+import MiteigentumsanteilWohnung from "~/components/steps/grundstueck/MiteigentumsanteilWohnung";
 
 export { Default as FallbackStepComponent };
 
@@ -38,19 +40,19 @@ export default {
   grundstueck: {
     uebersicht: GrundstueckUebersicht,
     typ: GrundstueckTyp,
-    miteigentumsanteil: Miteigentumsanteil,
+    miteigentumsanteil: FlurstueckMiteigentumsanteil,
     bodenrichtwertInfo: BodenrichtwertInfo,
     bodenrichtwertAnzahl: BodenrichtwertAnzahl,
     bodenrichtwertEingabe: BodenrichtwertEingabe,
     miteigentumAuswahlHaus: MiteigentumAuswahlHaus,
     miteigentumAuswahlWohnung: MiteigentumAuswahlWohnung,
-    miteigentumWohnung: Miteigentumsanteil,
+    miteigentumWohnung: MiteigentumsanteilWohnung,
     miteigentumGarage: MiteigentumsanteilGarage,
     anzahl: GrundstueckAnzahl,
     flurstueck: {
       flur: FlurstueckFlur,
       groesse: FlurstueckGroesse,
-      miteigentum: Miteigentumsanteil,
+      miteigentum: FlurstueckMiteigentumsanteil,
     },
   },
   gebaeude: {

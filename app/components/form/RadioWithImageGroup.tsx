@@ -10,6 +10,7 @@ import invariant from "tiny-invariant";
 import { ReactElement } from "react";
 import { getHelpComponent } from "~/components/form/help";
 import Help from "~/components/form/help/Help";
+import { Trans } from "react-i18next";
 
 export type RadioWithImageGroupProps = {
   name: string;
@@ -43,7 +44,9 @@ const RadioGroupOption = (
       image={option.image}
       imageAltText={option.imageAltText}
     >
-      {option.label}
+      <Trans components={{ bold: <strong className="contents" /> }}>
+        {option.label}
+      </Trans>
     </RadioButtonBild>
   );
 

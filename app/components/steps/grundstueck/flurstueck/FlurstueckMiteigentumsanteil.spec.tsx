@@ -2,7 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import { getI18nObject } from "test/factories/i18n";
 import { I18nObject } from "~/i18n/getStepI18n";
 import { grundstueckFlurstueckMiteigentumsanteil } from "~/domain/steps/grundstueck/miteigentumsanteil";
-import Miteigentumsanteil from "~/components/steps/grundstueck/flurstueck/Miteigentumsanteil";
+import FlurstueckMiteigentumsanteil from "~/components/steps/grundstueck/flurstueck/FlurstueckMiteigentumsanteil";
 
 describe("Miteigentumsanteil page component", () => {
   const defaultInput = {
@@ -20,13 +20,13 @@ describe("Miteigentumsanteil page component", () => {
   });
 
   it("should render all input fields", () => {
-    render(<Miteigentumsanteil {...defaultInput} />);
+    render(<FlurstueckMiteigentumsanteil {...defaultInput} />);
     expect(screen.getByLabelText("Zähler")).toBeInTheDocument();
     expect(screen.getByLabelText("Nenner")).toBeInTheDocument();
   });
 
   it("should render zähler and nenner in a fieldset with an image", () => {
-    render(<Miteigentumsanteil {...defaultInput} />);
+    render(<FlurstueckMiteigentumsanteil {...defaultInput} />);
     const fieldsets = screen.getAllByRole("group");
     expect(within(fieldsets[0]).getByLabelText("Zähler")).toBeInTheDocument();
     expect(

@@ -2,9 +2,9 @@ import type { StepComponentFunction } from "~/routes/formular/_step";
 import { ContentContainer, FormGroup, StepFormField } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 import InputFraction from "~/components/form/InputFraction";
-import MiteigentumHelp from "~/components/form/help/grundstueck/FlurstueckMiteigentum";
+import FlurstueckMiteigentumHelp from "~/components/form/help/grundstueck/FlurstueckMiteigentum";
 
-const Miteigentumsanteil: StepComponentFunction = ({
+const FlurstueckMiteigentumsanteil: StepComponentFunction = ({
   stepDefinition,
   formData,
   i18n,
@@ -18,11 +18,11 @@ const Miteigentumsanteil: StepComponentFunction = ({
         <InputFraction
           zaehler={<StepFormField {...fieldProps[0]} />}
           nenner={<StepFormField {...fieldProps[1]} />}
-          help={<MiteigentumHelp />}
+          help={<FlurstueckMiteigentumHelp />}
         />
       </FormGroup>
     </ContentContainer>
   );
 };
 
-export default Miteigentumsanteil;
+export default FlurstueckMiteigentumsanteil;

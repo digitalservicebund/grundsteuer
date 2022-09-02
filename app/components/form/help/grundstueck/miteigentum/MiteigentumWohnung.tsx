@@ -1,9 +1,9 @@
 import DefaultHelpContent, {
   HelpComponentFunction,
 } from "~/components/form/help/Default";
-import grundbuchImgGarage2 from "~/assets/images/help/miteigentum/auswahl-wohnung-garage-2.png";
+import grundbuchImgWohnung from "~/assets/images/help/miteigentum/eingabe-wohnung.png";
 
-const MiteigentumGarageHelp: HelpComponentFunction = () => {
+const MiteigentumWohnungHelp: HelpComponentFunction = () => {
   return (
     <DefaultHelpContent
       elements={[
@@ -14,13 +14,13 @@ const MiteigentumGarageHelp: HelpComponentFunction = () => {
         },
         {
           type: "image",
-          source: grundbuchImgGarage2,
+          source: grundbuchImgWohnung,
           altText:
-            "Bildbeispiel eines Grundbuchauszugs eines Garagen- oder Tiefgaragenstellplatzes mit dem hervorgehobenen Wort Miteigentumsanteil",
+            "Bildbeispiel eines Grundbuchauszugs einer Eigentumswohnung mit dem hervorgehobenen Bruch zum Miteigentumsanteil",
         },
       ]}
     />
   );
 };
 
-export default MiteigentumGarageHelp;
+export default MiteigentumWohnungHelp;

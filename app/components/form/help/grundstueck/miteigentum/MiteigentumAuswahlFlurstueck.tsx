@@ -1,8 +1,8 @@
 import DefaultHelpContent, {
   HelpComponentFunction,
 } from "~/components/form/help/Default";
-import grundbuchImgFalse from "~/assets/images/help/miteigentum/auswahl-haus-false.png";
-import grundbuchImgTrue from "~/assets/images/help/miteigentum/auswahl-flurstueck-true.png";
+import grundbuchImgFalse from "~/assets/images/help/miteigentum/auswahl-flurstueck-false.png";
+import grundbuchImgTrue from "~/assets/images/help/miteigentum/eingabe-flurstueck.png";
 
 export const MiteigentumAuswahlFlurstueckTrueHelp: HelpComponentFunction =
   () => {
@@ -12,7 +12,7 @@ export const MiteigentumAuswahlFlurstueckTrueHelp: HelpComponentFunction =
           {
             type: "paragraph",
             value:
-              "Miteigentumsanteile sind im Grundbuchauszug vermerkt. Entweder auf einer eigenen Seite oder zusammen mit den anderen Grundstücksflächen.",
+              "Miteigentumsanteile sind im Grundbuchauszug vermerkt. Entweder auf einer separaten Seite oder zusammen mit den anderen Grundstücksflächen auf einer Seite.",
           },
           {
             type: "image",
@@ -33,7 +33,7 @@ export const MiteigentumAuswahlFlurstueckFalseHelp: HelpComponentFunction =
           {
             type: "paragraph",
             value:
-              "Miteigentumsanteile sind im Grundbuchauszug vermerkt. Entweder auf einer eigenen Seite oder zusammen mit den anderen Grundstücksflächen. In der Regel steht bei den Anteilen das Wort “Miteigentum” dabei. Ist dies nicht der Fall, liegt kein Miteigentum vor.",
+              "Miteigentumsanteile sind im Grundbuchauszug vermerkt. Entweder auf einer eigenen Seite oder zusammen mit den anderen Grundstücksflächen. In der Regel steht bei den Anteilen das Wort “Miteigentum” dabei.",
           },
           {
             type: "image",

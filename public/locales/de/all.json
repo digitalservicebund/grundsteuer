@@ -391,7 +391,7 @@
       "bodenrichtwertInfo": "Bodenrichtwert-Info",
       "bodenrichtwertEingabe": "Bodenrichtwert-Eingabe",
       "bodenrichtwertAnzahl": "Bodenrichtwert-Anzahl",
-      "miteigentumAuswahlHaus": "Miteigentum - Auswahl",
+      "miteigentumAuswahlHaus": "Option Miteigentumsanteil",
       "miteigentumAuswahlWohnung": "Option Miteigentumsanteil",
       "miteigentumWohnung": "Miteigentumsanteil Wohnung",
       "miteigentumGarage": "Miteigentumsanteil Garage",
@@ -399,7 +399,7 @@
         "angaben": "Grundbuchblatt / Gemarkung",
         "flur": "Flur / Flurstück",
         "groesse": "Gesamtgröße",
-        "miteigentumAuswahl": "Auswahl Miteigentum",
+        "miteigentumAuswahl": "Option Miteigentumsanteil",
         "miteigentum": "Miteigentumsanteil"
       }
     },
@@ -1246,7 +1246,7 @@
       },
       "miteigentumAuswahl": {
         "headline": "Handelt es sich bei Grundstücksfläche {{id}} um einen Miteigentumsanteil?",
-        "description": "Schauen Sie dafür auf die Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs. Miteigentumsanteile sind meistens durch einen Schrägstrich getrennt.",
+        "description": "Schauen Sie dafür auf die Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs. Miteigentumsanteile sind durch einen Schrägstrich getrennt.",
         "fields": {
           "hasMiteigentum": {
             "options": {
@@ -1261,8 +1261,8 @@
         }
       },
       "miteigentum": {
-        "headline": "Wie lauten die Miteigentumsanteile?",
-        "description": "Den Miteigentumsanteil an einem anderen Grundstück finden Sie in Ihrem Grundbuchauszug auf der Seite Bestandsverzeichnis. Eine Abbildung finden Sie in der Hilfe.",
+        "headline": "Wie lautet der Miteigentumsanteil von Grundstücksfläche {{id}}?",
+        "description": "Übertragen Sie den Miteigentumsanteil aus Ihrem Grundbuchauszug.",
         "fields": {
           "wirtschaftlicheEinheitZaehler": {
             "label": "Anteil Zähler"
@@ -1480,10 +1480,10 @@
         "hasMiteigentum": {
           "options": {
             "false": {
-              "label": "Nein. Ich weiß, dass ich kein Miteigentum besitze. Auch auf meinem Grundbuchauszug findet sich keine Angabe dazu. "
+              "label": "Nein. Ich besitze <bold>kein Miteigentum</bold> an einem Grundstück. Auf meinem Grundbuchauszug findet sich auch keine Angabe dazu. "
             },
             "true": {
-              "label": "Ja. Ich ich habe Miteigentum an einem Grundstück oder finde Angaben dazu im Grundbuchauszug."
+              "label": "Ja. <bold>Miteigentum trifft auf mich zu.</bold> Ich besitze Miteigentum an einem oder mehreren Grundstücken oder finde Angaben dazu im Grundbuchauszug."
             }
           }
         }

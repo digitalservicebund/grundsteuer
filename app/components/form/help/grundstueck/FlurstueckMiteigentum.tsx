@@ -1,16 +1,16 @@
 import DefaultHelpContent, {
   HelpComponentFunction,
 } from "~/components/form/help/Default";
-import grundbuchImg from "~/assets/images/help/miteigentum/eingabe.png";
+import grundbuchImg from "~/assets/images/help/miteigentum/eingabe-flurstueck.png";
 
-const MiteigentumHelp: HelpComponentFunction = () => {
+const FlurstueckMiteigentumHelp: HelpComponentFunction = () => {
   return (
     <DefaultHelpContent
       elements={[
         {
           type: "paragraph",
           value:
-            "Übertragen Sie die Werte. Der Zähler steht vor dem Schrägstrich. Der Nenner steht hinter dem Schrägstrich. ",
+            "Miteigentumsanteile sind im Grundbuchauszug vermerkt. Entweder auf einer separaten Seite oder zusammen mit den anderen Grundstücksflächen auf einer Seite.",
         },
         {
           type: "image",
@@ -23,4 +23,4 @@ const MiteigentumHelp: HelpComponentFunction = () => {
   );
 };
 
-export default MiteigentumHelp;
+export default FlurstueckMiteigentumHelp;
