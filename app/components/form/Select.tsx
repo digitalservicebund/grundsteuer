@@ -22,6 +22,7 @@ export type SelectProps = {
 export default function Select(props: SelectProps) {
   const { name, label, options, help, value, defaultValue, error } = props;
   const id = name;
+  const defaultOption = options.find((option) => option.defaultOption);
 
   const renderSelectFieldOption = (option: SelectOptionProps) => {
     return (
@@ -29,7 +30,6 @@ export default function Select(props: SelectProps) {
         value={option.value}
         key={option.value}
         disabled={option.defaultOption}
-        selected={option.defaultOption}
       >
         {option.label}
       </option>
@@ -41,7 +41,7 @@ export default function Select(props: SelectProps) {
     <select
       name={name}
       id={id}
-      defaultValue={value || defaultValue}
+      defaultValue={value || defaultValue || defaultOption?.value}
       className={classNames(
         "select block w-full",
         "bg-white text-black",
