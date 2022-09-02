@@ -1,6 +1,6 @@
 import { HeadlineComponentFunction } from "~/routes/formular/_step";
 import { StepHeadline } from "~/components/StepHeadline";
-import { conditions } from "~/domain/guards";
+import { conditions } from "~/domain/states/guards";
 
 const EmpfangsbevollmaechtigterNameHeadline: HeadlineComponentFunction = ({
   i18n,

@@ -1,7 +1,10 @@
-import { conditions, previousFlurstueckHasMiteigentum } from "~/domain/guards";
-import { StateMachineContext } from "~/domain/states";
+import {
+  conditions,
+  previousFlurstueckHasMiteigentum,
+} from "~/domain/states/guards";
+import { StateMachineContext } from "~/domain/states/states";
 import { flurstueckFactory, grundModelFactory } from "test/factories";
-import { GrundModel } from "./steps";
+import { GrundModel } from "../steps";
 
 describe("isEigentumswohnung", () => {
   it("Should return false if data is undefined", async () => {

@@ -1,5 +1,5 @@
 import { MachineConfig } from "xstate";
-import { GrundModel } from "./steps";
+import { GrundModel } from "../steps";
 import { EventObject } from "xstate/lib/types";
 
 export interface StateMachineContext extends GrundModel {

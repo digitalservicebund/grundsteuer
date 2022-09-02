@@ -1,6 +1,6 @@
 import { getStepData, idToIndex, StepFormData } from "~/domain/model";
 import validator from "validator";
-import { Condition } from "~/domain/guards";
+import { Condition } from "~/domain/states/guards";
 import {
   getStepDefinition,
   GrundModel,
@@ -10,14 +10,14 @@ import {
   StepDefinitionField,
   StepDefinitionFieldWithOptions,
 } from "~/domain/steps";
-import { getReachablePathsFromGrundData } from "~/domain/graph";
+import { getReachablePathsFromGrundData } from "~/domain/states/graph";
 import _ from "lodash";
 import { i18Next } from "~/i18n.server";
 import { PruefenCondition } from "~/domain/pruefen/guards";
 import { PreviousStepsErrors } from "~/routes/formular/zusammenfassung";
 import { PruefenModel } from "~/domain/pruefen/model";
 import { getCurrentStateWithoutId } from "~/util/getCurrentState";
-import { StateMachineContext } from "~/domain/states";
+import { StateMachineContext } from "~/domain/states/states";
 
 type ValidateFunctionDefault = ({ value }: { value: string }) => boolean;
 

@@ -1,4 +1,8 @@
-import { createFormGraph, getReachablePaths, Graph } from "~/domain/graph";
+import {
+  createFormGraph,
+  getReachablePaths,
+  Graph,
+} from "~/domain/states/graph";
 
 describe("createFormGraph", () => {
   describe("with empty data", () => {

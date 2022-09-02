@@ -1,4 +1,4 @@
-import { StateMachineContext } from "~/domain/states";
+import { StateMachineContext } from "~/domain/states/states";
 
 export type Condition = (context: StateMachineContext | undefined) => boolean;
 export type Conditions = Record<string, Condition>;

@@ -24,10 +24,10 @@ import {
   getStoredFormData,
 } from "~/formDataStorage.server";
 import { getStepData, setStepData, StepFormData } from "~/domain/model";
-import { getMachineConfig, StateMachineContext } from "~/domain/states";
-import { conditions } from "~/domain/guards";
+import { getMachineConfig, StateMachineContext } from "~/domain/states/states";
+import { conditions } from "~/domain/states/guards";
 import { validateStepFormData } from "~/domain/validation";
-import { actions } from "~/domain/actions";
+import { actions } from "~/domain/states/actions";
 import stepComponents, { FallbackStepComponent } from "~/components/steps";
 import headlineComponents, {
   FallbackHeadlineComponent,

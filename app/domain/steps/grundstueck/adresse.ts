@@ -1,5 +1,5 @@
 import { StepDefinition } from "~/domain/steps";
-import { conditions } from "~/domain/guards";
+import { conditions } from "~/domain/states/guards";
 
 export type Bundesland =
   | "BE"

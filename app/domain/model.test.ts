@@ -17,8 +17,11 @@ describe("filterDataForReachablePaths", () => {
         "path.there",
       ];
       getPathsMock = jest
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        .spyOn(require("~/domain/graph"), "getReachablePathsFromGrundData")
+        .spyOn(
+          // eslint-disable-next-line @typescript-eslint/no-var-requires
+          require("~/domain/states/graph"),
+          "getReachablePathsFromGrundData"
+        )
         .mockImplementation(() => {
           return reachablePaths;
         });
@@ -52,8 +55,11 @@ describe("filterDataForReachablePaths", () => {
     it("returns handles reachable paths with arrays correctly", () => {
       const reachablePaths = ["path.1.here"];
       getPathsMock = jest
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        .spyOn(require("~/domain/graph"), "getReachablePathsFromGrundData")
+        .spyOn(
+          // eslint-disable-next-line @typescript-eslint/no-var-requires
+          require("~/domain/states/graph"),
+          "getReachablePathsFromGrundData"
+        )
         .mockImplementation(() => {
           return reachablePaths;
         });

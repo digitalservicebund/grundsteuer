@@ -1,7 +1,7 @@
 import { getStepData } from "~/domain/model";
 import Finished from "~/components/icons/mui/Finished";
 import Edit from "~/components/icons/mui/Edit";
-import { conditions } from "~/domain/guards";
+import { conditions } from "~/domain/states/guards";
 import { Accordion, SectionLabel, StepFormField } from "~/components";
 import { AccordionItemProps } from "~/components/AccordionItem";
 import {

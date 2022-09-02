@@ -1,8 +1,8 @@
 import _ from "lodash";
 import type { GrundModel } from "~/domain/steps";
-import { getReachablePathsFromGrundData } from "~/domain/graph";
+import { getReachablePathsFromGrundData } from "~/domain/states/graph";
 import { PruefenModel } from "~/domain/pruefen/model";
-import { StateMachineContext } from "~/domain/states";
+import { StateMachineContext } from "~/domain/states/states";
 
 export type StepFormDataValue = string | undefined;
 export type StepFormData = Record<string, StepFormDataValue>;
