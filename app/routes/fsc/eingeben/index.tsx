@@ -23,7 +23,6 @@ import {
   useTransition,
 } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { getErrorMessageForFreischaltcode } from "~/domain/validation";
 import { removeUndefined } from "~/util/removeUndefined";
 import {
   activateFreischaltCode,
@@ -52,6 +51,7 @@ import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import FreischaltcodeHelp from "~/components/form/help/Freischaltcode";
 import ArrowRight from "~/components/icons/mui/ArrowRight";
+import { getErrorMessageForFreischaltcode } from "~/domain/validation/fscValidation";
 
 const isEricaRequestInProgress = (userData: User) => {
   return (

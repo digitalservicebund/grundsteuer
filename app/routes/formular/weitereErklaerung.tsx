@@ -13,7 +13,6 @@ import {
 } from "@remix-run/react";
 import { useTranslation } from "react-i18next";
 import invariant from "tiny-invariant";
-import { validateRequired } from "~/domain/validation";
 import {
   BreadcrumbNavigation,
   Button,
@@ -39,6 +38,7 @@ import {
   deleteTransferticket,
   setUserInDeclarationProcess,
 } from "~/domain/user";
+import { validateRequired } from "~/domain/validation/requiredValidation";
 
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticator.isAuthenticated(request, {

@@ -6,10 +6,6 @@ import {
   Person,
 } from "~/domain/steps";
 import { removeUndefined } from "~/util/removeUndefined";
-import {
-  validateFlurstueckGroesse,
-  validateFlurstueckGroesseRequired,
-} from "~/domain/validation";
 import { GebaeudeWohnflaecheFields } from "~/domain/steps/gebaeude/wohnflaeche";
 import { GebaeudeWohnflaechenFields } from "~/domain/steps/gebaeude/wohnflaechen";
 import _ from "lodash";
@@ -24,6 +20,10 @@ import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/gr
 import { GrundstueckFlurstueckMiteigentumWohnungFields } from "~/domain/steps/grundstueck/miteigentumWohnung";
 import { GrundstueckFlurstueckMiteigentumGarageFields } from "~/domain/steps/grundstueck/miteigentumGarage";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
+import {
+  validateFlurstueckGroesse,
+  validateFlurstueckGroesseRequired,
+} from "~/domain/validation/flurstueckValidation";
 
 export const calculateGroesse = (
   groesse: GrundstueckFlurstueckGroesseFields

@@ -39,10 +39,6 @@ import {
 } from "~/domain/user";
 import invariant from "tiny-invariant";
 import { removeUndefined } from "~/util/removeUndefined";
-import {
-  getErrorMessageForGeburtsdatum,
-  getErrorMessageForSteuerId,
-} from "~/domain/validation";
 import SteuerIdField from "~/components/form/SteuerIdField";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import EnumeratedCard from "~/components/EnumeratedCard";
@@ -54,6 +50,10 @@ import { commitSession, getSession } from "~/session.server";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import Hint from "~/components/Hint";
 import steuerIdImg from "~/assets/images/help/help-steuer-id.png";
+import {
+  getErrorMessageForGeburtsdatum,
+  getErrorMessageForSteuerId,
+} from "~/domain/validation/fscValidation";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);

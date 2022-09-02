@@ -30,9 +30,10 @@ import ErrorBar from "~/components/ErrorBar";
 import EmailOutlined from "~/components/icons/mui/EmailOutlined";
 import Hint from "~/components/Hint";
 import { useTranslation } from "react-i18next";
-import { validateEmail, validateRequired } from "~/domain/validation";
 import { removeUndefined } from "~/util/removeUndefined";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
+import { validateEmail } from "~/domain/validation/validateEmail";
+import { validateRequired } from "~/domain/validation/requiredValidation";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||

@@ -1,5 +1,5 @@
-import { validateIsDate } from "~/domain/validation";
 import invariant from "tiny-invariant";
+import { validateIsDate } from "~/domain/validation/dateValidation";
 
 type EricaResponse = {
   processStatus: "Processing" | "Success" | "Failure";
