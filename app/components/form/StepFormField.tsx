@@ -7,9 +7,8 @@ import Checkbox, { CheckboxProps } from "./Checkbox";
 import { I18nObjectField } from "~/i18n/getStepI18n";
 import { ReactNode } from "react";
 import { getHelpComponent } from "~/components/form/help";
-import MaskedInput from "~/components/form/MaskedInput";
 import { GrundModel, StepDefinitionFields } from "~/domain/steps";
-import { Bundesland } from "~/domain/steps/grundstueck/adresse";
+import SteuernummerField from "~/components/form/SteuernummerField";
 
 export type StepFormFieldProps = {
   name: string;
@@ -20,52 +19,6 @@ export type StepFormFieldProps = {
   error?: string;
   allData?: GrundModel;
   children?: ReactNode;
-};
-
-const getSteuernummerMaskProps = (
-  bundesland: Bundesland | undefined
-): {
-  mask: string;
-  definitions?: Record<string, RegExp>;
-} => {
-  switch (bundesland) {
-    case "BE":
-      return {
-        mask: "XX/XXX/XXXXX",
-        definitions: {
-          X: /[0-9]/,
-        },
-      };
-    case "HB":
-      return {
-        mask: "X7/XXX/XXXXX",
-        definitions: {
-          X: /[0-9]/,
-        },
-      };
-    case "NW":
-      return {
-        mask: "XXX/XXX-3-XXXXX.X",
-        definitions: {
-          X: /[0-9]/,
-        },
-      };
-    case "SH":
-      return {
-        mask: "XX XXX XXXXX",
-        definitions: {
-          X: /[0-9]/,
-        },
-      };
-
-    default:
-      return {
-        mask: "XXX/XXX/XXXX/XXX/XXX/X",
-        definitions: {
-          X: /[0-9]/,
-        },
-      };
-  }
 };
 
 const StepFormField = (props: StepFormFieldProps) => {
@@ -166,15 +119,10 @@ const StepFormField = (props: StepFormFieldProps) => {
   }
 
   if (type === "steuernummer") {
-    const mask = getSteuernummerMaskProps(
-      allData?.grundstueck?.adresse?.bundesland
-    );
     return (
-      <MaskedInput
-        id="steuernummer"
-        name="steuernummer"
-        placeholder={i18n.placeholder}
-        {...mask}
+      <SteuernummerField
+        bundesland={allData?.grundstueck?.adresse?.bundesland}
+        {...textProps}
       />
     );
   }
