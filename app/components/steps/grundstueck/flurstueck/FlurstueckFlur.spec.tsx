@@ -1,6 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import { getI18nObject } from "test/factories/i18n";
-import { grundstueckFlurstueckFlur } from "~/domain/steps/grundstueck/flurstueck/flur";
+import { grundstueckFlurstueckFlur } from "~/domain/steps/grundstueck/flurstueck/flur.server";
 import Flur from "~/components/steps/grundstueck/flurstueck/FlurstueckFlur";
 import { I18nObject } from "~/i18n/getStepI18n";
 

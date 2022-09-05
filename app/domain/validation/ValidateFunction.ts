@@ -1,6 +1,6 @@
 import { Condition } from "~/domain/states/guards";
 import { PruefenCondition } from "~/domain/pruefen/guards";
-import { GrundModel } from "~/domain/steps";
+import { GrundModel } from "~/domain/steps/index.server";
 import { PruefenModel } from "~/domain/pruefen/model";
 import { ValidateSteuernummer } from "~/domain/validation/validateSteuernummer";
 

@@ -1,5 +1,5 @@
 import _ from "lodash";
-import type { GrundModel } from "~/domain/steps";
+import type { GrundModel } from "~/domain/steps/index.server";
 import { getReachablePathsFromGrundData } from "~/domain/states/graph.server";
 import { PruefenModel } from "~/domain/pruefen/model";
 import { StateMachineContext } from "~/domain/states/states.server";

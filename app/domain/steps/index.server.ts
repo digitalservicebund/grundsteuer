@@ -98,72 +98,72 @@ import {
 import {
   grundstueckAdresse,
   GrundstueckAdresseFields,
-} from "./grundstueck/adresse";
+} from "./grundstueck/adresse.server";
 
 export type { GrundstueckAdresseFields };
 
 import {
   grundstueckSteuernummer,
   GrundstueckSteuernummerFields,
-} from "./grundstueck/steuernummer";
+} from "./grundstueck/steuernummer.server";
 
 export type { GrundstueckSteuernummerFields };
 
-import { grundstueckTyp, GrundstueckTypFields } from "./grundstueck/typ";
+import { grundstueckTyp, GrundstueckTypFields } from "./grundstueck/typ.server";
 
 export type { GrundstueckTypFields };
 
 import {
   grundstueckAbweichendeEntwicklung,
   GrundstueckAbweichendeEntwicklungFields,
-} from "./grundstueck/abweichendeEntwicklung";
+} from "./grundstueck/abweichendeEntwicklung.server";
 
 export type { GrundstueckAbweichendeEntwicklungFields };
 
 import {
   grundstueckGemeinde,
   GrundstueckGemeindeFields,
-} from "./grundstueck/gemeinde";
+} from "./grundstueck/gemeinde.server";
 
 export type { GrundstueckGemeindeFields };
 
 import {
   grundstueckAnzahl,
   GrundstueckAnzahlFields,
-} from "./grundstueck/anzahl";
+} from "./grundstueck/anzahl.server";
 
 export type { GrundstueckAnzahlFields };
 
 import {
   grundstueckFlurstueckAngaben,
   GrundstueckFlurstueckAngabenFields,
-} from "./grundstueck/flurstueck/angaben";
+} from "./grundstueck/flurstueck/angaben.server";
 
 export type { GrundstueckFlurstueckAngabenFields };
 
 import {
   grundstueckFlurstueckFlur,
   GrundstueckFlurstueckFlurFields,
-} from "./grundstueck/flurstueck/flur";
+} from "./grundstueck/flurstueck/flur.server";
 
 export type { GrundstueckFlurstueckFlurFields };
 
 import {
   grundstueckFlurstueckGroesse,
   GrundstueckFlurstueckGroesseFields,
-} from "./grundstueck/flurstueck/groesse";
+} from "./grundstueck/flurstueck/groesse.server";
 
 export type { GrundstueckFlurstueckGroesseFields };
 
 import {
   grundstueckBodenrichtwertEingabe,
   GrundstueckBodenrichtwertEingabeFields,
-} from "./grundstueck/bodenrichtwert/eingabe";
+} from "./grundstueck/bodenrichtwert/eingabe.server";
 
 import {
   grundstueckBodenrichtwertAnzahl,
   GrundstueckBodenrichtwertAnzahlFields,
-} from "~/domain/steps/grundstueck/bodenrichtwert/anzahl";
+} from "~/domain/steps/grundstueck/bodenrichtwert/anzahl.server";
 
 import {
   eigentuemerBruchteilsgemeinschaft,
@@ -196,37 +196,37 @@ import {
 import {
   zusammenfassung,
   ZusammenfassungFields,
-} from "~/domain/steps/zusammenfassung";
+} from "~/domain/steps/zusammenfassung.server";
 import { ValidationConfig } from "~/domain/validation";
 import {
   grundstueckFlurstueckMiteigentumsanteil,
   GrundstueckFlurstueckMiteigentumsanteilFields,
-} from "~/domain/steps/grundstueck/miteigentumsanteil";
+} from "~/domain/steps/grundstueck/miteigentumsanteil.server";
 import invariant from "tiny-invariant";
 import {
   grundstueckMiteigentumAuswahlHaus,
   GrundstueckMiteigentumAuswahlHausFields,
-} from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlHaus";
+} from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlHaus.server";
 import {
   grundstueckFlurstueckMiteigentumAuswahl,
   GrundstueckFlurstueckMiteigentumAuswahlFields,
-} from "~/domain/steps/grundstueck/flurstueck/miteigentumAuswahl";
+} from "~/domain/steps/grundstueck/flurstueck/miteigentumAuswahl.server";
 import {
   grundstueckFlurstueckMiteigentum,
   GrundstueckFlurstueckMiteigentumFields,
-} from "~/domain/steps/grundstueck/flurstueck/miteigentum";
+} from "~/domain/steps/grundstueck/flurstueck/miteigentum.server";
 import {
   grundstueckMiteigentumAuswahlWohnung,
   GrundstueckMiteigentumAuswahlWohnungFields,
-} from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlWohnung";
+} from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlWohnung.server";
 import {
   grundstueckFlurstueckMiteigentumWohnung,
   GrundstueckFlurstueckMiteigentumWohnungFields,
-} from "~/domain/steps/grundstueck/miteigentumWohnung";
+} from "~/domain/steps/grundstueck/miteigentumWohnung.server";
 import {
   grundstueckFlurstueckMiteigentumGarage,
   GrundstueckFlurstueckMiteigentumGarageFields,
-} from "~/domain/steps/grundstueck/miteigentumGarage";
+} from "~/domain/steps/grundstueck/miteigentumGarage.server";
 
 export type { GrundstueckBodenrichtwertEingabeFields };
 

@@ -1,5 +1,5 @@
 import createDebugMessages from "debug";
-import { GrundModel } from "~/domain/steps";
+import { GrundModel } from "~/domain/steps/index.server";
 import { SessionUser } from "./auth.server";
 import {
   COOKIE_ENCODING,

@@ -1,5 +1,8 @@
 import { StepFormData } from "~/domain/model";
-import { GrundModel, GrundstueckFlurstueckGroesseFields } from "~/domain/steps";
+import {
+  GrundModel,
+  GrundstueckFlurstueckGroesseFields,
+} from "~/domain/steps/index.server";
 import { PruefenModel } from "~/domain/pruefen/model";
 import { ValidateFunction } from "~/domain/validation/ValidateFunction";
 import { validateFreischaltCode } from "~/domain/validation/fscValidation";
@@ -17,7 +20,7 @@ import {
   OnlyDecimalValidation,
   RequiredIfConditionValidation,
 } from "~/domain/validation/Validation";
-import { Bundesland } from "~/domain/steps/grundstueck/adresse";
+import { Bundesland } from "~/domain/steps/grundstueck/adresse.server";
 import { ValidationConfig } from "~/domain/validation";
 import {
   validateBiggerThan,

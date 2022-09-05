@@ -3,7 +3,7 @@ import {
   createHeadersWithFormDataCookie,
 } from "~/formDataStorage.server";
 import { SessionUser } from "./auth.server";
-import { GrundModel } from "./domain/steps";
+import { GrundModel } from "./domain/steps/index.server";
 import { createFormDataCookie, encryptCookie } from "~/cookies.server";
 
 jest.mock("~/util/useSecureCookie", () => {

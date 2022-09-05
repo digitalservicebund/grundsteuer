@@ -7,7 +7,7 @@ import imgDefault from "~/assets/images/help/steuernummer/help-steuernummer-defa
 import imgNw from "~/assets/images/help/steuernummer/help-steuernummer-nw.png";
 import imgSh from "~/assets/images/help/steuernummer/help-steuernummer-sh.png";
 
-import { GrundModel } from "~/domain/steps";
+import { GrundModel } from "~/domain/steps/index.server";
 
 const SteuernummerHelp: HelpComponentFunction = ({ allData }) => {
   const bundesland = (allData as GrundModel)?.grundstueck?.adresse?.bundesland;

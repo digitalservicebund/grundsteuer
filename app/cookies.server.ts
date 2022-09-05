@@ -2,7 +2,7 @@ import { Cookie, createCookie } from "@remix-run/node";
 import { useSecureCookie } from "~/util/useSecureCookie";
 import invariant from "tiny-invariant";
 import crypto from "crypto";
-import { GrundModel } from "~/domain/steps";
+import { GrundModel } from "~/domain/steps/index.server";
 
 const KEY_VERSION = "v01";
 export const COOKIE_ENCODING = "base64";

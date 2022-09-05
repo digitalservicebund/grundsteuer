@@ -4,7 +4,7 @@ import {
   ValidateUniqueSteuerIdFunction,
 } from "~/domain/validation/ValidateFunction";
 import { validateOnlyDecimal } from "~/domain/validation/numericValidation";
-import { Person } from "~/domain/steps";
+import { Person } from "~/domain/steps/index.server";
 
 export const validateSteuerId: ValidateFunctionDefault = ({ value }) => {
   const normalizedSteuerId = value.split(" ").join("");

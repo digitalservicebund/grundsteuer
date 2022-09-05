@@ -1,2 +1,2 @@
-export { stepDefinition as eigentuemerPersonVertreterAdresse } from "../../../shared/adresse";
-export type { AdresseFields as EigentuemerPersonVertreterAdresseFields } from "../../../shared/adresse";
+export { stepDefinition as eigentuemerPersonVertreterAdresse } from "../../../shared/adresse.server";
+export type { AdresseFields as EigentuemerPersonVertreterAdresseFields } from "../../../shared/adresse.server";

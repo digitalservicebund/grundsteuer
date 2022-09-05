@@ -1,4 +1,4 @@
-import { StepDefinition } from "~/domain/steps";
+import { StepDefinition } from "~/domain/steps/index.server";
 
 export type GebaeudeAbbruchverpflichtungFields = {
   hasAbbruchverpflichtung: "true" | "false";

@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { GrundModel } from "~/domain/steps";
+import { GrundModel } from "~/domain/steps/index.server";
 import { PruefenModel } from "~/domain/pruefen/model";
 import { I18nObjectField } from "~/i18n/getStepI18n";
 

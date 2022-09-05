@@ -1,6 +1,6 @@
 import { InputProps } from "~/components/form/Input";
 import MaskedInput from "~/components/form/MaskedInput";
-import { Bundesland } from "~/domain/steps/grundstueck/adresse";
+import { Bundesland } from "~/domain/steps/grundstueck/adresse.server";
 
 const getSteuernummerMaskProps = (
   bundesland?: Bundesland

@@ -1,4 +1,4 @@
-import { StepDefinition } from "~/domain/steps";
+import { StepDefinition } from "~/domain/steps/index.server";
 
 export type EigentuemerAnzahlFields = {
   anzahl: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10";

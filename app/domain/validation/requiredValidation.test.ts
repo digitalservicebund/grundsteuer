@@ -5,7 +5,7 @@ import {
   validateRequiredIf,
   validateRequiredIfCondition,
 } from "~/domain/validation/requiredValidation";
-import { GrundModel } from "~/domain/steps";
+import { GrundModel } from "~/domain/steps/index.server";
 
 describe("validateRequired", () => {
   const cases = [

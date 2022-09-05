@@ -4,7 +4,7 @@ import {
 } from "~/domain/states/guards";
 import { StateMachineContext } from "~/domain/states/states.server";
 import { flurstueckFactory, grundModelFactory } from "test/factories";
-import { GrundModel } from "../steps";
+import { GrundModel } from "../steps/index.server";
 
 describe("isEigentumswohnung", () => {
   it("Should return false if data is undefined", async () => {

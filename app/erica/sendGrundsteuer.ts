@@ -1,6 +1,6 @@
 import { getFromErica, postToErica } from "~/erica/ericaClient";
 import invariant from "tiny-invariant";
-import { GrundModel } from "~/domain/steps";
+import { GrundModel } from "~/domain/steps/index.server";
 import {
   EricaError,
   EricaResponse,

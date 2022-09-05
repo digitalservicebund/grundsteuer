@@ -11,7 +11,7 @@ import {
   transformFreitext,
   transformFlurstuecke,
 } from "~/erica/transformData";
-import { Person } from "~/domain/steps";
+import { Person } from "~/domain/steps/index.server";
 
 describe("transformDataToEricaFormat", () => {
   const twoPersonList: Person[] = [

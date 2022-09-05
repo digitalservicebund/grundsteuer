@@ -5,7 +5,7 @@ import {
   StepDefinition,
   StepDefinitionField,
   StepDefinitionFieldWithOptions,
-} from "~/domain/steps";
+} from "~/domain/steps/index.server";
 import { getReachablePathsFromGrundData } from "~/domain/states/graph.server";
 import _ from "lodash";
 import { i18Next } from "~/i18n.server";

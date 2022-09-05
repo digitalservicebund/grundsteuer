@@ -14,7 +14,7 @@ import st from "~/assets/images/help/boris/eingabe-st.png";
 import th from "~/assets/images/help/boris/eingabe-th.png";
 import mehrereWerte from "~/assets/images/help/boris/eingabe-mehrere-werte.png";
 
-import { GrundModel } from "~/domain/steps";
+import { GrundModel } from "~/domain/steps/index.server";
 
 const BBEingabeHelp: HelpComponentFunction = () => {
   return (

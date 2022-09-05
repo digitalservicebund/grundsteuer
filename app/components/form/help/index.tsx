@@ -1,6 +1,6 @@
 import SteuernummerHelp from "~/components/form/help/grundstueck/Steuernummer";
 import _ from "lodash";
-import { GrundModel } from "~/domain/steps";
+import { GrundModel } from "~/domain/steps/index.server";
 import { I18nObjectField } from "~/i18n/getStepI18n";
 import DefaultHelpContent from "~/components/form/help/Default";
 import GrundstueckAnzahlHelp from "~/components/form/help/grundstueck/GrundstueckAnzahl";

@@ -1,4 +1,4 @@
-import { GrundModel } from "~/domain/steps";
+import { GrundModel } from "~/domain/steps/index.server";
 
 export type ValidateSteuernummer = ({
   value,

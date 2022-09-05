@@ -1,6 +1,6 @@
 import { grundModelFactory } from "test/factories";
 import { validateSteuernummer } from "~/domain/validation/validateSteuernummer";
-import { Bundesland } from "~/domain/steps/grundstueck/adresse";
+import { Bundesland } from "~/domain/steps/grundstueck/adresse.server";
 
 describe("validate steuernummer/aktenzeichen", () => {
   describe("BE", () => {

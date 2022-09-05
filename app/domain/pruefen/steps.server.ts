@@ -1,4 +1,4 @@
-import { infoStep, StepDefinition } from "~/domain/steps";
+import { infoStep, StepDefinition } from "~/domain/steps/index.server";
 import _ from "lodash";
 import invariant from "tiny-invariant";
 

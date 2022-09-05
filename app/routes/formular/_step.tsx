@@ -35,7 +35,11 @@ import stepComponents, { FallbackStepComponent } from "~/components/steps";
 import headlineComponents, {
   FallbackHeadlineComponent,
 } from "~/components/headlines";
-import { getStepDefinition, GrundModel, StepDefinition } from "~/domain/steps";
+import {
+  getStepDefinition,
+  GrundModel,
+  StepDefinition,
+} from "~/domain/steps/index.server";
 import {
   getCurrentStateFromUrl,
   getCurrentStateWithoutId,

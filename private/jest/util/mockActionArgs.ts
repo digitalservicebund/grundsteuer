@@ -3,7 +3,7 @@ process.env.FORM_COOKIE_ENC_SECRET = "26d011bcbb9db8c4673b7fcd90c9ec6d";
 
 import { DataFunctionArgs } from "@remix-run/server-runtime";
 import { setCookieHeaderWithSessionAndData } from "test/mocks/authenticationMocks";
-import { GrundModel } from "~/domain/steps";
+import { GrundModel } from "~/domain/steps/index.server";
 
 type MockActionArgsFunction = (options: {
   route?: string;

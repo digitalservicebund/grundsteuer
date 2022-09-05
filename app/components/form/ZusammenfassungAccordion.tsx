@@ -12,7 +12,7 @@ import {
   GrundstueckFlurstueckFlurFields,
   GrundstueckFlurstueckGroesseFields,
   GrundstueckModel,
-} from "~/domain/steps";
+} from "~/domain/steps/index.server";
 import { I18nObject } from "~/i18n/getStepI18n";
 import { PreviousStepsErrors } from "~/routes/formular/zusammenfassung";
 import House from "~/components/icons/mui/House";
@@ -21,7 +21,7 @@ import Person from "~/components/icons/mui/Person";
 import classNames from "classnames";
 import _ from "lodash";
 import invariant from "tiny-invariant";
-import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/grundstueck/miteigentumsanteil";
+import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/grundstueck/miteigentumsanteil.server";
 import {
   calculateGroesse,
   transformBruchteilsgemeinschaftAdresse,
@@ -35,8 +35,8 @@ import Paragraph from "~/components/icons/mui/Paragraph";
 import ExclamationMarkFilled from "~/components/icons/mui/ExclamationMarkFilled";
 import { EigentuemerBruchteilsgemeinschaftAdresseFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
 import { removeUndefined } from "~/util/removeUndefined";
-import { GrundstueckMiteigentumAuswahlHausFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlHaus";
-import { GrundstueckMiteigentumAuswahlWohnungFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlWohnung";
+import { GrundstueckMiteigentumAuswahlHausFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlHaus.server";
+import { GrundstueckMiteigentumAuswahlWohnungFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlWohnung.server";
 
 const isDataEmpty = (
   data: GrundstueckModel | GebaeudeModel | EigentuemerModel

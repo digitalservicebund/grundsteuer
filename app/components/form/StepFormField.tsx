@@ -7,7 +7,7 @@ import Checkbox, { CheckboxProps } from "./Checkbox";
 import { I18nObjectField } from "~/i18n/getStepI18n";
 import { ReactNode } from "react";
 import { getHelpComponent } from "~/components/form/help";
-import { GrundModel, StepDefinitionFields } from "~/domain/steps";
+import { GrundModel, StepDefinitionFields } from "~/domain/steps/index.server";
 import SteuernummerField from "~/components/form/SteuernummerField";
 
 export type StepFormFieldProps = {

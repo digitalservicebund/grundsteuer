@@ -1,7 +1,7 @@
 import StepFormField from "./StepFormField";
 import { I18nObjectField } from "~/i18n/getStepI18n";
 import FormGroup from "./FormGroup";
-import { GrundModel, StepDefinition } from "~/domain/steps";
+import { GrundModel, StepDefinition } from "~/domain/steps/index.server";
 
 export type StepFormFieldsProps = {
   stepDefinition?: StepDefinition;

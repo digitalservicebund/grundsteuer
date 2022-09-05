@@ -16,7 +16,11 @@ import {
   createHeadersWithFormDataCookie,
   getStoredFormData,
 } from "~/formDataStorage.server";
-import { getStepDefinition, GrundModel, StepDefinition } from "~/domain/steps";
+import {
+  getStepDefinition,
+  GrundModel,
+  StepDefinition,
+} from "~/domain/steps/index.server";
 import { pageTitle } from "~/util/pageTitle";
 import {
   filterDataForReachablePaths,
@@ -24,7 +28,7 @@ import {
   setStepData,
   StepFormData,
 } from "~/domain/model";
-import { zusammenfassung } from "~/domain/steps/zusammenfassung";
+import { zusammenfassung } from "~/domain/steps/zusammenfassung.server";
 import {
   Button,
   ContentContainer,

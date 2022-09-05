@@ -24,7 +24,7 @@ import { getStepData, setStepData, StepFormData } from "~/domain/model";
 import { validateStepFormData } from "~/domain/validation";
 import { FallbackStepComponent } from "~/components/steps";
 import stepComponents from "~/components/pruefen";
-import { StepDefinition } from "~/domain/steps";
+import { StepDefinition } from "~/domain/steps/index.server";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 import { StepHeadline } from "~/components/StepHeadline";
 import { pageTitle } from "~/util/pageTitle";

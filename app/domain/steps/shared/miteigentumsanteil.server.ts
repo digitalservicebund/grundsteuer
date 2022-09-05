@@ -1,11 +1,11 @@
-import { StepDefinition } from "~/domain/steps";
+import { StepDefinition } from "~/domain/steps/index.server";
 
-export type GrundstueckFlurstueckMiteigentumFields = {
+export type MiteigentumsanteilFields = {
   wirtschaftlicheEinheitZaehler: string;
   wirtschaftlicheEinheitNenner: string;
 };
 
-export const grundstueckFlurstueckMiteigentum: StepDefinition = {
+export const stepDefinition: StepDefinition = {
   fields: {
     wirtschaftlicheEinheitZaehler: {
       validations: {

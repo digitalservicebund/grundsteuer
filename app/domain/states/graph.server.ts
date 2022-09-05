@@ -9,7 +9,7 @@ import {
   StateMachineContext,
 } from "~/domain/states/states.server";
 import { getPathsFromState } from "~/util/getPathsFromState";
-import { GrundModel } from "~/domain/steps";
+import { GrundModel } from "~/domain/steps/index.server";
 import { PruefenModel } from "~/domain/pruefen/model";
 import { EventObject, StateSchema } from "xstate/lib/types";
 
