@@ -3,7 +3,12 @@ import {
   GrundModel,
   GrundstueckAdresseFields,
   GrundstueckFlurstueckGroesseFields,
+  GrundstueckFlurstueckMiteigentumGarageFields,
+  GrundstueckFlurstueckMiteigentumWohnungFields,
+  GrundstueckFlurstueckMiteigentumsanteilFields,
   Person,
+  EigentuemerPersonAdresseFields,
+  EigentuemerPersonAnteilFields,
 } from "~/domain/steps/index.server";
 import { removeUndefined } from "~/util/removeUndefined";
 import { GebaeudeWohnflaecheFields } from "~/domain/steps/gebaeude/wohnflaeche";
@@ -14,11 +19,6 @@ import {
   EigentuemerBruchteilsgemeinschaftAdresseFields,
   EigentuemerBruchteilsgemeinschaftAngabenFields,
 } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
-import { EigentuemerPersonAdresseFields } from "~/domain/steps/eigentuemer/person/adresse";
-import { EigentuemerPersonAnteilFields } from "~/domain/steps/eigentuemer/person/anteil";
-import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/grundstueck/miteigentumsanteil.server";
-import { GrundstueckFlurstueckMiteigentumWohnungFields } from "~/domain/steps/grundstueck/miteigentumWohnung.server";
-import { GrundstueckFlurstueckMiteigentumGarageFields } from "~/domain/steps/grundstueck/miteigentumGarage.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import {
   validateFlurstueckGroesse,

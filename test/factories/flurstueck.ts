@@ -4,9 +4,9 @@ import {
   GrundstueckFlurstueckAngabenFields,
   GrundstueckFlurstueckFlurFields,
   GrundstueckFlurstueckGroesseFields,
+  GrundstueckFlurstueckMiteigentumAuswahlFields,
+  GrundstueckFlurstueckMiteigentumFields,
 } from "~/domain/steps/index.server";
-import { GrundstueckFlurstueckMiteigentumAuswahlFields } from "~/domain/steps/grundstueck/flurstueck/miteigentumAuswahl.server";
-import { GrundstueckFlurstueckMiteigentumFields } from "~/domain/steps/grundstueck/flurstueck/miteigentum.server";
 
 class FlurstueckFactory extends Factory<Flurstueck> {
   angaben(fields?: Partial<GrundstueckFlurstueckAngabenFields>) {

@@ -1,5 +1,7 @@
-import { ZusammenfassungFields } from "~/domain/steps/zusammenfassung.server";
-import { StepDefinition } from "~/domain/steps/index.server";
+import {
+  StepDefinition,
+  ZusammenfassungFields,
+} from "~/domain/steps/index.server";
 import { I18nObject } from "~/i18n/getStepI18n";
 
 export const getFieldProps = (

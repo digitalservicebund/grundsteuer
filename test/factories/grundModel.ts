@@ -11,6 +11,8 @@ import {
   GrundstueckGemeindeFields,
   GrundstueckSteuernummerFields,
   GrundstueckTypFields,
+  GrundstueckFlurstueckMiteigentumsanteilFields,
+  GrundstueckMiteigentumAuswahlHausFields,
   Person,
 } from "~/domain/steps/index.server";
 import { GebaeudeAb1949Fields } from "~/domain/steps/gebaeude/ab1949";
@@ -35,8 +37,8 @@ import { EigentuemerEmpfangsbevollmaechtigterNameFields } from "~/domain/steps/e
 import { EigentuemerEmpfangsbevollmaechtigterAdresseFields } from "~/domain/steps/eigentuemer/empfangsbevollmaechtigter/adresse";
 import { ZusammenfassungFields } from "~/domain/steps/zusammenfassung.server";
 import { GrundstueckBodenrichtwertAnzahlFields } from "~/domain/steps/grundstueck/bodenrichtwert/anzahl.server";
-import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/grundstueck/miteigentumsanteil.server";
-import { GrundstueckMiteigentumAuswahlHausFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlHaus.server";
+import {} from "~/domain/steps/grundstueck/miteigentumsanteil.server";
+import {} from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlHaus.server";
 import { StateMachineContext } from "~/domain/states/states.server";
 import { GrundstueckMiteigentumAuswahlWohnungFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlWohnung.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";

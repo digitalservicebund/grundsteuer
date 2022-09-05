@@ -53,11 +53,13 @@ import {
   EigentuemerPersonAdresseFields,
 } from "~/domain/steps/eigentuemer/person/adresse";
 
+export type { EigentuemerPersonAdresseFields };
 import {
   eigentuemerPersonAnteil,
   EigentuemerPersonAnteilFields,
 } from "~/domain/steps/eigentuemer/person/anteil";
 
+export type { EigentuemerPersonAnteilFields };
 import {
   eigentuemerPersonGesetzlicherVertreter,
   EigentuemerPersonGesetzlicherVertreterFields,
@@ -98,9 +100,10 @@ import {
 import {
   grundstueckAdresse,
   GrundstueckAdresseFields,
+  Bundesland,
 } from "./grundstueck/adresse.server";
 
-export type { GrundstueckAdresseFields };
+export type { GrundstueckAdresseFields, Bundesland };
 
 import {
   grundstueckSteuernummer,
@@ -160,6 +163,8 @@ import {
   GrundstueckBodenrichtwertEingabeFields,
 } from "./grundstueck/bodenrichtwert/eingabe.server";
 
+export type { GrundstueckBodenrichtwertEingabeFields };
+
 import {
   grundstueckBodenrichtwertAnzahl,
   GrundstueckBodenrichtwertAnzahlFields,
@@ -197,24 +202,33 @@ import {
   zusammenfassung,
   ZusammenfassungFields,
 } from "~/domain/steps/zusammenfassung.server";
+
+export type { ZusammenfassungFields };
 import { ValidationConfig } from "~/domain/validation";
 import {
   grundstueckFlurstueckMiteigentumsanteil,
   GrundstueckFlurstueckMiteigentumsanteilFields,
 } from "~/domain/steps/grundstueck/miteigentumsanteil.server";
+
+export type { GrundstueckFlurstueckMiteigentumsanteilFields };
+
 import invariant from "tiny-invariant";
 import {
   grundstueckMiteigentumAuswahlHaus,
   GrundstueckMiteigentumAuswahlHausFields,
 } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlHaus.server";
+export type { GrundstueckMiteigentumAuswahlHausFields };
 import {
   grundstueckFlurstueckMiteigentumAuswahl,
   GrundstueckFlurstueckMiteigentumAuswahlFields,
 } from "~/domain/steps/grundstueck/flurstueck/miteigentumAuswahl.server";
+export type { GrundstueckFlurstueckMiteigentumAuswahlFields };
 import {
   grundstueckFlurstueckMiteigentum,
   GrundstueckFlurstueckMiteigentumFields,
 } from "~/domain/steps/grundstueck/flurstueck/miteigentum.server";
+
+export type { GrundstueckFlurstueckMiteigentumFields };
 import {
   grundstueckMiteigentumAuswahlWohnung,
   GrundstueckMiteigentumAuswahlWohnungFields,
@@ -223,12 +237,15 @@ import {
   grundstueckFlurstueckMiteigentumWohnung,
   GrundstueckFlurstueckMiteigentumWohnungFields,
 } from "~/domain/steps/grundstueck/miteigentumWohnung.server";
+
+export type { GrundstueckFlurstueckMiteigentumWohnungFields };
+
 import {
   grundstueckFlurstueckMiteigentumGarage,
   GrundstueckFlurstueckMiteigentumGarageFields,
 } from "~/domain/steps/grundstueck/miteigentumGarage.server";
 
-export type { GrundstueckBodenrichtwertEingabeFields };
+export type { GrundstueckFlurstueckMiteigentumGarageFields };
 
 export const infoStep: StepDefinition = {
   fields: {},

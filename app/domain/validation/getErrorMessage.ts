@@ -1,6 +1,7 @@
 import { StepFormData } from "~/domain/model";
 import {
   GrundModel,
+  Bundesland,
   GrundstueckFlurstueckGroesseFields,
 } from "~/domain/steps/index.server";
 import { PruefenModel } from "~/domain/pruefen/model";
@@ -20,7 +21,6 @@ import {
   OnlyDecimalValidation,
   RequiredIfConditionValidation,
 } from "~/domain/validation/Validation";
-import { Bundesland } from "~/domain/steps/grundstueck/adresse.server";
 import { ValidationConfig } from "~/domain/validation";
 import {
   validateBiggerThan,
