@@ -49,7 +49,6 @@ describe("/grundstueck/steuernummer", () => {
   data.forEach(({ key, title, description, hint, invalidValue, error }) => {
     it(`should render correct text for speical bundesland: ${key}`, () => {
       cy.bundesland(key);
-      cy.wait(500);
 
       cy.visit("/formular/grundstueck/steuernummer");
       cy.url().should("contain", "steuernummer");
@@ -60,7 +59,6 @@ describe("/grundstueck/steuernummer", () => {
 
     it(`should display correct validation error message for bundesland: ${key}`, () => {
       cy.bundesland(key);
-      cy.wait(500);
 
       cy.get("[name=steuernummer]").type(invalidValue);
       cy.get("#nextButton").click();
@@ -71,7 +69,6 @@ describe("/grundstueck/steuernummer", () => {
   ["BB", "MV", "RP", "SL", "SN", "ST", "TH"].forEach((key) => {
     it(`should render correct text for default bundesland: ${key}`, () => {
       cy.bundesland(key);
-      cy.wait(500);
 
       cy.visit("/formular/grundstueck/steuernummer");
       cy.url().should("contain", "steuernummer");
@@ -86,13 +83,51 @@ describe("/grundstueck/steuernummer", () => {
 
     it(`should display correct validation error message for bundesland: ${key}`, () => {
       cy.bundesland(key);
-      cy.wait(500);
 
       cy.get("[name=steuernummer]").type("123/456/7890/987/65/3");
       cy.get("#nextButton").click();
       cy.get("[data-testid=field-error]").contains(
         "Es kann sich bei Ihrer Eingabe nicht um das Aktenzeichen Ihres Grundstücks handeln. Ihr Aktenzeichen besteht aus 17 Ziffern."
       );
+    });
+  });
+
+  const successCases = [
+    {
+      key: "BE",
+      values: ["13/700/01234", "1370001234", "/13//700/.// 01234//"],
+    },
+    {
+      key: "HB",
+      values: ["57/789/01234", "5778901234", "//57//789 / 01.234"],
+    },
+    {
+      key: "NW",
+      values: ["123/456-3-78901.2", "1234563789012", "/12-3//456--3- 78901..2"],
+    },
+    {
+      key: "SH",
+      values: ["70 123 45678", "7012345678", ".70/123///456 78"],
+    },
+    {
+      key: "MV",
+      values: [
+        "123/456/7890/987/656/3",
+        "12345678909876563",
+        "///123 //456/7890/987/656//.3",
+      ],
+    },
+  ];
+
+  successCases.forEach(({ key, values }) => {
+    values.forEach((value) => {
+      it(`should successfully enter value: ${value} for bundesland: ${key}`, () => {
+        cy.bundesland(key);
+
+        cy.get("[name=steuernummer]").type(value);
+        cy.get("#nextButton").click();
+        cy.url().should("include", "/formular/grundstueck/gemeinde");
+      });
     });
   });
 });
