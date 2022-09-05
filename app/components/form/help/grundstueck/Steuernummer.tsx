@@ -22,7 +22,6 @@ const SteuernummerHelp: HelpComponentFunction = ({ allData }) => {
               intro:
                 "Sie finden die Steuernummer des Grundstücks in der Regel auf dem:",
               items: [
-                "Informationsschreiben Ihrer Landesfinanzverwaltung",
                 "Einheitswertbescheid",
                 "Bescheid zur Festsetzung des Grundsteuermessbetrags",
                 "Grundsteuerbescheid",
@@ -47,7 +46,7 @@ const SteuernummerHelp: HelpComponentFunction = ({ allData }) => {
               intro:
                 "Sie finden die Steuernummer des Grundstücks in der Regel auf dem:",
               items: [
-                "Informationsschreiben des Finanzamtes Bremerhaven",
+                "Informationsschreiben der Landesfinanzverwaltung",
                 "Einheitswertbescheid",
                 "Grundsteuerbescheid, sofern sich Ihr Grundstück in der Stadtgemeinde Bremen befindet.",
               ],

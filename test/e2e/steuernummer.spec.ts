@@ -19,7 +19,7 @@ describe("/grundstueck/steuernummer", () => {
       key: "HB",
       title: "Geben Sie die Steuernummer Ihres Grundstücks ein",
       description:
-        "Es handelt sich nicht um Ihre Steuernummer der Einkommenssteuer, Ihre Steuer-Identifikationsnummer oder das Kassenzeichen. Die Steuernummer Ihres Grundstücks finden Sie beispielsweise auf dem Informationsschreiben des Finanzamtes Bremerhaven. Zudem finden Sie Ihre Steuernummer auf Ihrem Einheitswertbescheid und für ein Grundstück in der Stadtgemeinde Bremen auch auf Ihrem letzten Grundsteuerbescheid.",
+        "Es handelt sich nicht um Ihre Steuernummer der Einkommenssteuer, Ihre Steuer-Identifikationsnummer oder das Kassenzeichen. Die Steuernummer Ihres Grundstücks finden Sie beispielsweise auf dem Informationsschreiben der Landesfinanzverwaltung. Zudem finden Sie Ihre Steuernummer auf Ihrem Einheitswertbescheid und für ein Grundstück in der Stadtgemeinde Bremen auch auf Ihrem letzten Grundsteuerbescheid.",
       hint: "Ihre Steuernummer des Grundstücks besteht aus 10 Ziffern und beginnt mit 57 oder 77.",
       invalidValue: "56/700/01234",
       error:
