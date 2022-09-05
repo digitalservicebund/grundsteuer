@@ -389,7 +389,7 @@
     "grundstueck": {
       "uebersicht": "Übersicht",
       "adresse": "Adresse",
-      "steuernummer": "Steuernummer",
+      "steuernummer": "Aktenzeichen / Steuernummer",
       "typ": "Grundstücksart",
       "abweichendeEntwicklung": "Abweichende Entwicklung",
       "gemeinde": "Innerhalb einer Gemeinde?",
