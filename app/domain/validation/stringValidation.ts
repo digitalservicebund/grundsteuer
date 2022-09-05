@@ -4,6 +4,7 @@ import {
   ValidateMaxLengthFunction,
   ValidateMinLengthFunction,
 } from "~/domain/validation/ValidateFunction";
+import validator from "validator";
 
 const SUPPORTED_CHARS = [
   "\n",
@@ -230,6 +231,9 @@ export const validateMaxLength: ValidateMaxLengthFunction = ({
   const valueWithoutExceptions = removeAllExceptions(value, exceptions);
   return valueWithoutExceptions.trim().length <= maxLength;
 };
+
+export const validateEmail: ValidateFunctionDefault = ({ value }) =>
+  validator.isEmail(value);
 
 const removeAllExceptions = (value: string, exceptions?: string[]) => {
   exceptions?.forEach((exception) => (value = value.split(exception).join("")));

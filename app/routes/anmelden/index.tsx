@@ -32,8 +32,8 @@ import Hint from "~/components/Hint";
 import { useTranslation } from "react-i18next";
 import { removeUndefined } from "~/util/removeUndefined";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
-import { validateEmail } from "~/domain/validation/validateEmail";
 import { validateRequired } from "~/domain/validation/requiredValidation";
+import { validateEmail } from "~/domain/validation/stringValidation";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||

@@ -33,8 +33,8 @@ import { commitSession, getSession } from "~/session.server";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { authenticator } from "~/auth.server";
 import Hint from "~/components/Hint";
-import { validateEmail } from "~/domain/validation/validateEmail";
 import { validateRequired } from "~/domain/validation/requiredValidation";
+import { validateEmail } from "~/domain/validation/stringValidation";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||

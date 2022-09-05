@@ -28,6 +28,7 @@ import {
 } from "~/domain/validation/numericValidation";
 import {
   validateElsterChars,
+  validateEmail,
   validateMaxLength,
   validateMaxLengthFloat,
   validateMinLength,
@@ -44,7 +45,6 @@ import {
   validateFlurstueckGroesseLength,
   validateFlurstueckGroesseRequired,
 } from "~/domain/validation/flurstueckValidation";
-import { validateEmail } from "~/domain/validation/validateEmail";
 import {
   validateEitherOr,
   validateForbiddenIf,
