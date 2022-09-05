@@ -10,7 +10,7 @@ describe("/grundstueck/steuernummer", () => {
       title: "Geben Sie die Steuernummer Ihres Grundstücks ein",
       description:
         "Es handelt sich nicht um Ihre Steuernummer der Einkommenssteuer, Ihre Steuer-Identifikationsnummer oder das Kassenzeichen. Die Steuernummer Ihres Grundstücks finden Sie beispielsweise auf dem Grundsteuerbescheid, dem Kontoauszug (insbesondere bei Lastschrift) oder dem Einheitswertbescheid.",
-      hint: "Die Steuernummer ihres Grundstücks besteht aus 10 Ziffern. Die ersten beiden Ziffern können immer nur: 13, 14, 16, 17, 18, 19, 21, 23, 24, 25, 31 ,32, 33, 34, 35 oder 36 sein. Die Ziffern 3 bis 5 müssen größer als 700 sein. Zum Beispiel: 13/700/XXXXX",
+      hint: "Die Steuernummer ihres Grundstücks besteht aus 10 Ziffern. Die ersten beiden Ziffern können immer nur: 13, 14, 16, 17, 18, 19, 21, 23, 24, 25, 31 ,32, 33, 34, 35 oder 36 sein. Die Ziffern 3 bis 5 müssen mindestens 700 sein. Zum Beispiel: 13/700/XXXXX",
       invalidValue: "15/700/01234",
       error:
         "Es kann sich bei Ihrer Eingabe nicht um die Steuernummer Ihres Grundstücks handeln. Die Steuernummer Ihres Grundstücks besteht aus 10 Ziffern. Ihre Steuernummer muss im folgenden Format eingegeben werden: XX/XXX/XXXXX. Die ersten beiden Ziffern können immer nur: 13, 14, 16, 17, 18, 19, 21, 23, 24, 25, 31 ,32, 33, 34, 35 oder 36 sein. Die Ziffern 3 bis 5 müssen größer als 700 sein.",
