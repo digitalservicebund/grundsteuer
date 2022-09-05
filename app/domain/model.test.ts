@@ -19,7 +19,7 @@ describe("filterDataForReachablePaths", () => {
       getPathsMock = jest
         .spyOn(
           // eslint-disable-next-line @typescript-eslint/no-var-requires
-          require("~/domain/states/graph"),
+          require("~/domain/states/graph.server"),
           "getReachablePathsFromGrundData"
         )
         .mockImplementation(() => {
@@ -57,7 +57,7 @@ describe("filterDataForReachablePaths", () => {
       getPathsMock = jest
         .spyOn(
           // eslint-disable-next-line @typescript-eslint/no-var-requires
-          require("~/domain/states/graph"),
+          require("~/domain/states/graph.server"),
           "getReachablePathsFromGrundData"
         )
         .mockImplementation(() => {

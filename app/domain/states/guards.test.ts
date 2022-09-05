@@ -2,7 +2,7 @@ import {
   conditions,
   previousFlurstueckHasMiteigentum,
 } from "~/domain/states/guards";
-import { StateMachineContext } from "~/domain/states/states";
+import { StateMachineContext } from "~/domain/states/states.server";
 import { flurstueckFactory, grundModelFactory } from "test/factories";
 import { GrundModel } from "../steps";
 

@@ -2,7 +2,7 @@ import {
   createFormGraph,
   getReachablePaths,
   Graph,
-} from "~/domain/states/graph";
+} from "~/domain/states/graph.server";
 
 describe("createFormGraph", () => {
   describe("with empty data", () => {

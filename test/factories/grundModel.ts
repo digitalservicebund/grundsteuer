@@ -37,7 +37,7 @@ import { ZusammenfassungFields } from "~/domain/steps/zusammenfassung";
 import { GrundstueckBodenrichtwertAnzahlFields } from "~/domain/steps/grundstueck/bodenrichtwert/anzahl";
 import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/grundstueck/miteigentumsanteil";
 import { GrundstueckMiteigentumAuswahlHausFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlHaus";
-import { StateMachineContext } from "~/domain/states/states";
+import { StateMachineContext } from "~/domain/states/states.server";
 import { GrundstueckMiteigentumAuswahlWohnungFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlWohnung";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 

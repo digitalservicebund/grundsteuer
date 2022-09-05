@@ -6,13 +6,13 @@ import {
   StepDefinitionField,
   StepDefinitionFieldWithOptions,
 } from "~/domain/steps";
-import { getReachablePathsFromGrundData } from "~/domain/states/graph";
+import { getReachablePathsFromGrundData } from "~/domain/states/graph.server";
 import _ from "lodash";
 import { i18Next } from "~/i18n.server";
 import { PreviousStepsErrors } from "~/routes/formular/zusammenfassung";
 import { PruefenModel } from "~/domain/pruefen/model";
 import { getCurrentStateWithoutId } from "~/util/getCurrentState";
-import { StateMachineContext } from "~/domain/states/states";
+import { StateMachineContext } from "~/domain/states/states.server";
 import { Validation } from "~/domain/validation/Validation";
 import { getErrorMessage } from "~/domain/validation/getErrorMessage";
 

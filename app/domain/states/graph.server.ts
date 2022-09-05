@@ -3,8 +3,11 @@ import { getShortestPaths } from "@xstate/graph";
 import _ from "lodash";
 import { getStepData, idToIndex } from "~/domain/model";
 import { conditions } from "~/domain/states/guards";
-import { actions } from "~/domain/states/actions";
-import { getMachineConfig, StateMachineContext } from "~/domain/states/states";
+import { actions } from "~/domain/states/actions.server";
+import {
+  getMachineConfig,
+  StateMachineContext,
+} from "~/domain/states/states.server";
 import { getPathsFromState } from "~/util/getPathsFromState";
 import { GrundModel } from "~/domain/steps";
 import { PruefenModel } from "~/domain/pruefen/model";

@@ -4,9 +4,9 @@ import {
   states,
   StateMachineConfig,
   StateMachineContext,
-} from "~/domain/states/states";
+} from "~/domain/states/states.server";
 import { conditions } from "~/domain/states/guards";
-import { actions } from "~/domain/states/actions";
+import { actions } from "~/domain/states/actions.server";
 import { flurstueckFactory, grundModelFactory } from "test/factories";
 import { getPathsFromState } from "~/util/getPathsFromState";
 import {

@@ -1,5 +1,5 @@
 import { assign } from "xstate";
-import { StateMachineContext } from "~/domain/states/states";
+import { StateMachineContext } from "~/domain/states/states.server";
 
 export const actions = {
   incrementPersonId: assign({

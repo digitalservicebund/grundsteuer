@@ -1,4 +1,4 @@
-import { StateMachineContext } from "~/domain/states/states";
+import { StateMachineContext } from "~/domain/states/states.server";
 import { State } from "xstate/lib/State";
 import { EventObject, StateSchema, Typestate } from "xstate/lib/types";
 import invariant from "tiny-invariant";
