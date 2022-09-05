@@ -34,8 +34,6 @@ export const validateSteuernummer: ValidateSteuernummer = ({
   const bundesland = allData.grundstueck?.adresse?.bundesland;
   if (!bundesland) return false;
 
-  console.log(bundesland);
-
   switch (bundesland) {
     case "BE":
       if (steuernummer.length !== 10) return false;
@@ -60,7 +58,6 @@ export const validateSteuernummer: ValidateSteuernummer = ({
 
     default:
       if (steuernummer.length !== 17) return false;
-      console.log(steuernummer.length);
       return true;
   }
 };

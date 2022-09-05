@@ -150,7 +150,7 @@ const getMsgFromI18n = (
   allData: GrundModel | PruefenModel,
   i18n: Record<string, Record<string, string> | string>
 ) => {
-  if (istBundeslandSpecific(key)) {
+  if (isBundeslandSpecific(key)) {
     const selectedBundesland = (allData as GrundModel)?.grundstueck?.adresse
       ?.bundesland;
     const bundesland = selectedBundesland || "default";
@@ -162,6 +162,6 @@ const getMsgFromI18n = (
   return i18n[key] as string;
 };
 
-const istBundeslandSpecific = (key: string) => {
+const isBundeslandSpecific = (key: string) => {
   return ["steuernummer"].includes(key);
 };

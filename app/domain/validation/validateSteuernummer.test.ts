@@ -2,7 +2,7 @@ import { grundModelFactory } from "test/factories";
 import { validateSteuernummer } from "~/domain/validation/validateSteuernummer";
 import { Bundesland } from "~/domain/steps/grundstueck/adresse";
 
-describe("valudate steuernummer/aktenzeichen", () => {
+describe("validate steuernummer/aktenzeichen", () => {
   describe("BE", () => {
     const allData = grundModelFactory
       .grundstueckAdresse({ bundesland: "BE" })
