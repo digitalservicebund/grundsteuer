@@ -31,7 +31,7 @@ const SteuernummerHelp: HelpComponentFunction = ({ allData }) => {
               type: "image",
               source: imgBe,
               altText:
-                "Bildbeispiel für ein Informationsschreiben mit der Steuernummer eines Grundstücks",
+                "Bildbeispiel für einen Grundsteuerbescheid mit der Steuernummer eines Grundstücks",
             },
           ]}
         />
