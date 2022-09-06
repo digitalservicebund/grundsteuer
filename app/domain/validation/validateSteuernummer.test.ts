@@ -63,6 +63,16 @@ describe("validate steuernummer/aktenzeichen", () => {
         valid: false,
         msg: "too short",
       },
+      {
+        value: "1370001234",
+        valid: true,
+        msg: "valid steuernummer with no special characters",
+      },
+      {
+        value: "/ 13 -70..001 234 -.",
+        valid: true,
+        msg: "valid steuernummer with extra special characters",
+      },
     ];
     test.each(cases)(
       "Should return $valid if value is '$value' representing: $msg",
@@ -115,6 +125,16 @@ describe("validate steuernummer/aktenzeichen", () => {
         valid: false,
         msg: "too short",
       },
+      {
+        value: "5778901234",
+        valid: true,
+        msg: "valid steuernummer with no special characters",
+      },
+      {
+        value: "57// /.789012  -34",
+        valid: true,
+        msg: "valid steuernummer with extra special characters",
+      },
     ];
     test.each(cases)(
       "Should return $valid if value is '$value' representing: $msg",
@@ -154,6 +174,16 @@ describe("validate steuernummer/aktenzeichen", () => {
         value: "123/456-3-78901.2",
         valid: true,
         msg: "valid aktenzeichen",
+      },
+      {
+        value: "1234563789012",
+        valid: true,
+        msg: "valid aktenzeichen with no special characters",
+      },
+      {
+        value: "123// -456..37890 12",
+        valid: true,
+        msg: "valid aktenzeichen with extra special characters",
       },
     ];
     test.each(cases)(
@@ -204,6 +234,16 @@ describe("validate steuernummer/aktenzeichen", () => {
         valid: true,
         msg: "valid steuernummer",
       },
+      {
+        value: "7012345678",
+        valid: true,
+        msg: "valid steuernummer with no special characters",
+      },
+      {
+        value: "70/1234567 8/-.",
+        valid: true,
+        msg: "valid steuernummer with extra special characters",
+      },
     ];
     test.each(cases)(
       "Should return $valid if value is '$value' representing: $msg",
@@ -235,6 +275,16 @@ describe("validate steuernummer/aktenzeichen", () => {
           value: "123/456/7890/987/654/3",
           valid: true,
           msg: "valid aktenzeichen",
+        },
+        {
+          value: "12345678909876543",
+          valid: true,
+          msg: "valid aktenzeichen with no special characters",
+        },
+        {
+          value: "///12345678909876543/..-/",
+          valid: true,
+          msg: "valid aktenzeichen with extra special characters",
         },
       ];
       test.each(cases)(
