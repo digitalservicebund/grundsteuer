@@ -151,3 +151,18 @@ export const sendLoginAttemptEmail = async (options: {
     htmlContent,
   });
 };
+
+export const getStatusDummy = (messageId: string) => {
+  if (
+    [
+      "request",
+      "deferred",
+      "delivered",
+      "soft_bounce",
+      "hard_bounce",
+      "blocked",
+    ].includes(messageId)
+  )
+    return { email: "foo@bar.com", status: messageId, message: "" };
+  return null;
+};
