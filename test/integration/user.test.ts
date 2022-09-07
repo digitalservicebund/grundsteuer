@@ -10,6 +10,7 @@ import {
   deleteTransferticket,
   findUserByEmail,
   findUserById,
+  getAllEricaRequestIds,
   saveDeclaration,
   saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscBeantragen,
@@ -740,6 +741,85 @@ describe("user", () => {
       await expect(async () => {
         await setUserInDeclarationProcess("unknown@foo.com", true);
       }).rejects.toThrow("not found");
+    });
+  });
+
+  describe("getAllEricaRequestIds", () => {
+    afterEach(async () => {
+      await db.user.deleteMany({
+        where: {
+          email: {
+            in: [
+              "existing-erica-id-beantragen-1@foo.com",
+              "existing-erica-id-beantragen-2@foo.com",
+              "existing-erica-id-aktivieren@foo.com",
+              "existing-erica-id-stornieren@foo.com",
+              "non-existing-erica-id@foo.com",
+            ],
+          },
+        },
+      });
+    });
+
+    it("returns all existing ericaRequestIds", async () => {
+      await createUser("non-existing-erica-id@foo.com");
+      await createUser("existing-erica-id-beantragen-1@foo.com");
+      await saveEricaRequestIdFscBeantragen(
+        "existing-erica-id-beantragen-1@foo.com",
+        "foo"
+      );
+      await createUser("existing-erica-id-beantragen-2@foo.com");
+      await saveEricaRequestIdFscBeantragen(
+        "existing-erica-id-beantragen-2@foo.com",
+        "bar"
+      );
+      await createUser("existing-erica-id-aktivieren@foo.com");
+      await saveEricaRequestIdFscAktivieren(
+        "existing-erica-id-aktivieren@foo.com",
+        "dudu"
+      );
+      await createUser("existing-erica-id-stornieren@foo.com");
+      await saveEricaRequestIdFscStornieren(
+        "existing-erica-id-stornieren@foo.com",
+        "dada"
+      );
+
+      const result = await getAllEricaRequestIds();
+      expect(result.sort((a, b) => (a.email < b.email ? -1 : 1))).toEqual(
+        [
+          {
+            email: "existing-erica-id-beantragen-1@foo.com",
+            ericaRequestIdFscBeantragen: "foo",
+            ericaRequestIdFscAktivieren: null,
+            ericaRequestIdFscStornieren: null,
+          },
+          {
+            email: "existing-erica-id-beantragen-2@foo.com",
+            ericaRequestIdFscBeantragen: "bar",
+            ericaRequestIdFscAktivieren: null,
+            ericaRequestIdFscStornieren: null,
+          },
+          {
+            email: "existing-erica-id-aktivieren@foo.com",
+            ericaRequestIdFscBeantragen: null,
+            ericaRequestIdFscAktivieren: "dudu",
+            ericaRequestIdFscStornieren: null,
+          },
+          {
+            email: "existing-erica-id-stornieren@foo.com",
+            ericaRequestIdFscBeantragen: null,
+            ericaRequestIdFscAktivieren: null,
+            ericaRequestIdFscStornieren: "dada",
+          },
+        ].sort((a, b) => (a.email < b.email ? -1 : 1))
+      );
+    });
+
+    it("returns empty list if no erica request id exists", async () => {
+      await createUser("non-existing-erica-id@foo.com");
+
+      const result = await getAllEricaRequestIds();
+      expect(result).toEqual([]);
     });
   });
 });

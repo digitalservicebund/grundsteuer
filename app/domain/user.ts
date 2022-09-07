@@ -215,3 +215,20 @@ export const setUserInDeclarationProcess = async (
     data: { inDeclarationProcess: inDeclarationProcess },
   });
 };
+export const getAllEricaRequestIds = async () => {
+  return db.user.findMany({
+    select: {
+      email: true,
+      ericaRequestIdFscBeantragen: true,
+      ericaRequestIdFscAktivieren: true,
+      ericaRequestIdFscStornieren: true,
+    },
+    where: {
+      OR: [
+        { NOT: [{ ericaRequestIdFscBeantragen: null }] },
+        { NOT: [{ ericaRequestIdFscAktivieren: null }] },
+        { NOT: [{ ericaRequestIdFscStornieren: null }] },
+      ],
+    },
+  });
+};
