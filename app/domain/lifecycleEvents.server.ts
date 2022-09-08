@@ -122,3 +122,54 @@ export const saveSuccessfulFscActivationData = async (
     }
   }
 };
+
+export const saveSuccessfulFscRevocationData = async (
+  email: string,
+  ericaRequestIdFscStornieren: string,
+  clientIp: string,
+  transferticket: string
+) => {
+  const user = await findUserByEmail(email);
+  if (!user) {
+    throw new Error("User not found.");
+  }
+
+  const _deleteEricaRequestIdFscStornieren = () => {
+    return db.user.updateMany({
+      where: {
+        id: user.id,
+        ericaRequestIdFscStornieren,
+      },
+      data: { ericaRequestIdFscStornieren: null },
+    });
+  };
+
+  try {
+    await db.$transaction(async () => {
+      const updatedUsersWithEricaId =
+        await _deleteEricaRequestIdFscStornieren();
+
+      if (updatedUsersWithEricaId.count != 1) {
+        throw Error("ericaRequestId of user does not match");
+      }
+
+      await saveAuditLog({
+        eventName: AuditLogEvent.FSC_REVOKED,
+        timestamp: Date.now(),
+        ipAddress: clientIp,
+        username: email,
+        eventData: {
+          transferticket: transferticket,
+        },
+      });
+    });
+  } catch (error) {
+    if (
+      !("message" in (error as object)) ||
+      (error as { message: string }).message !==
+        "ericaRequestId of user does not match"
+    ) {
+      throw error;
+    }
+  }
+};
