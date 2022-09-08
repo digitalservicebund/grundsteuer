@@ -1,4 +1,4 @@
-import { checkRateLimit, redis } from "~/ekona/rateLimiting.server";
+import { applyRateLimit, redis } from "~/ekona/rateLimiting.server";
 
 describe("addUserToCurrentLimit", () => {
   const currentDate = Date.UTC(2022, 0, 1, 0, 0, 12);
@@ -22,30 +22,30 @@ describe("addUserToCurrentLimit", () => {
   });
   describe("when called once per second", () => {
     it("should return true", async () => {
-      expect(await checkRateLimit()).toBe(true);
+      expect(await applyRateLimit()).toBe(true);
     });
 
     it("should set expiry", async () => {
-      await checkRateLimit();
+      await applyRateLimit();
       expect(await redis.expiretime(mockedCurrentSeconds)).toBeGreaterThan(0);
     });
   });
 
   describe("when already called four times per second", () => {
     beforeEach(async () => {
-      await checkRateLimit();
-      await checkRateLimit();
-      await checkRateLimit();
-      await checkRateLimit();
+      await applyRateLimit();
+      await applyRateLimit();
+      await applyRateLimit();
+      await applyRateLimit();
     });
 
     it("should return true if called once", async () => {
-      expect(await checkRateLimit()).toBe(true);
+      expect(await applyRateLimit()).toBe(true);
     });
 
     it("should return false if called twice", async () => {
-      await checkRateLimit();
-      expect(await checkRateLimit()).toBe(false);
+      await applyRateLimit();
+      expect(await applyRateLimit()).toBe(false);
     });
   });
 });
