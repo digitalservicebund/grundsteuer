@@ -6,11 +6,10 @@ const EmpfangsbevollmaechtigterNameHeadline: HeadlineComponentFunction = ({
   i18n,
   allData,
   asLegend,
-  testFeaturesEnabled,
 }) => {
   let headlineText = i18n.headline;
   let descriptionText = i18n.description;
-  if (conditions.isBruchteilsgemeinschaft(allData) && testFeaturesEnabled) {
+  if (conditions.isBruchteilsgemeinschaft(allData)) {
     headlineText = i18n.alternativeHeadline || headlineText;
     descriptionText = i18n.alternativeDescription || descriptionText;
   }

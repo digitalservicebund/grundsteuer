@@ -135,7 +135,7 @@ const anzahlEigentuemerIsTwo: Condition = (context) => {
   return context?.eigentuemer?.anzahl?.anzahl === "2";
 };
 
-export const isBruchteilsgemeinschaft: Condition = (context) => {
+const isBruchteilsgemeinschaft: Condition = (context) => {
   return (
     Number(context?.eigentuemer?.anzahl?.anzahl) > 2 ||
     (Number(context?.eigentuemer?.anzahl?.anzahl) == 2 &&
