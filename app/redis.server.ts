@@ -18,12 +18,12 @@ const del = async (key: string) => {
   await ioredis.del(key);
 };
 
-const expiretime = async (key: string) => {
-  return ioredis.expiretime(key);
+const ttl = async (key: string) => {
+  return ioredis.ttl(key);
 };
 
 const quit = async () => {
   await ioredis.quit();
 };
 
-export const redis = { set, get, incr, del, expiretime, quit };
+export const redis = { set, get, incr, del, ttl, quit };

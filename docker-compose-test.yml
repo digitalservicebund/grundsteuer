@@ -13,7 +13,7 @@ services:
       POSTGRES_DB: tests
 
   redis:
-    image: redis:alpine
+    image: redis:5-alpine
     restart: always
     container_name: integration-tests-redis
     ports:

@@ -28,7 +28,9 @@ describe("addUserToCurrentLimit", () => {
 
     it("should set expiry", async () => {
       await applyRateLimit();
-      expect(await redis.expiretime(mockedCurrentSeconds)).toBeGreaterThan(0);
+      const ttl = await redis.ttl(mockedCurrentSeconds);
+      expect(ttl).toBeGreaterThan(0);
+      expect(ttl).toBeLessThan(60);
     });
   });
 
