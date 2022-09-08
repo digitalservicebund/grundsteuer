@@ -1,10 +1,8 @@
-import Redis from "ioredis";
-
-export const redis = new Redis();
+import { redis } from "~/redis.server";
 
 const incrementCurrentLimit = async () => {
   const currentSecond = new Date().getSeconds().toString();
-  await redis.multi().incr(currentSecond).expire(currentSecond, 59).exec();
+  await redis.incr(currentSecond, 59);
 };
 
 export const applyRateLimit = async () => {

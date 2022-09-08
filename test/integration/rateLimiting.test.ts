@@ -1,4 +1,5 @@
-import { applyRateLimit, redis } from "~/ekona/rateLimiting.server";
+import { applyRateLimit } from "~/ekona/rateLimiting.server";
+import { redis } from "~/redis.server";
 
 describe("addUserToCurrentLimit", () => {
   const currentDate = Date.UTC(2022, 0, 1, 0, 0, 12);
@@ -17,7 +18,7 @@ describe("addUserToCurrentLimit", () => {
 
   afterAll(async () => {
     await redis.del(mockedCurrentSeconds);
-    redis.quit();
+    await redis.quit();
     jest.resetAllMocks();
   });
   describe("when called once per second", () => {
