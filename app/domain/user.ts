@@ -2,6 +2,8 @@ import { db } from "~/db.server";
 import { Prisma } from "@prisma/client";
 import invariant from "tiny-invariant";
 
+const normalizeEmail = (email: string) => email.trim().toLowerCase();
+
 export type User = Prisma.UserGetPayload<{
   include: { fscRequest: true; pdf: true };
 }>;
@@ -10,22 +12,23 @@ export type UserWithoutPdf = Prisma.UserGetPayload<{
 }>;
 
 export const createUser = async (email: string) => {
+  const normalizedEmail = normalizeEmail(email);
   return db.user.create({
     data: {
-      email: email,
+      email: normalizedEmail,
     },
   });
 };
 
 export const userExists = async (email: string) => {
   const user = await db.user.findFirst({
-    where: { email: email },
+    where: { email: normalizeEmail(email) },
   });
   return !!user;
 };
 
 export const findUserByEmail = async (email: string): Promise<User | null> => {
-  const normalizedEmail = email.trim().toLowerCase();
+  const normalizedEmail = normalizeEmail(email);
   return db.user.findUnique({
     where: {
       email: normalizedEmail,
@@ -58,7 +61,7 @@ export const saveFscRequest = async (email: string, requestId: string) => {
   await db.fscRequest.create({
     data: {
       requestId: requestId,
-      User: { connect: { email: email } },
+      User: { connect: { email: user.email } },
     },
   });
 };
@@ -85,14 +88,14 @@ export const saveEricaRequestIdFscBeantragen = async (
   ericaRequestId: string
 ) => {
   return db.user.update({
-    where: { email: email },
+    where: { email: normalizeEmail(email) },
     data: { ericaRequestIdFscBeantragen: ericaRequestId },
   });
 };
 
 export const deleteEricaRequestIdFscBeantragen = async (email: string) => {
   return db.user.update({
-    where: { email: email },
+    where: { email: normalizeEmail(email) },
     data: { ericaRequestIdFscBeantragen: null },
   });
 };
@@ -102,14 +105,14 @@ export const saveEricaRequestIdFscAktivieren = async (
   ericaRequestId: string
 ) => {
   return db.user.update({
-    where: { email: email },
+    where: { email: normalizeEmail(email) },
     data: { ericaRequestIdFscAktivieren: ericaRequestId },
   });
 };
 
 export const deleteEricaRequestIdFscAktivieren = async (email: string) => {
   return db.user.update({
-    where: { email: email },
+    where: { email: normalizeEmail(email) },
     data: { ericaRequestIdFscAktivieren: null },
   });
 };
@@ -119,14 +122,14 @@ export const saveEricaRequestIdFscStornieren = async (
   ericaRequestId: string
 ) => {
   return db.user.update({
-    where: { email: email },
+    where: { email: normalizeEmail(email) },
     data: { ericaRequestIdFscStornieren: ericaRequestId },
   });
 };
 
 export const deleteEricaRequestIdFscStornieren = async (email: string) => {
   return db.user.update({
-    where: { email: email },
+    where: { email: normalizeEmail(email) },
     data: { ericaRequestIdFscStornieren: null },
   });
 };
@@ -136,21 +139,21 @@ export const saveEricaRequestIdSenden = async (
   ericaRequestId: string
 ) => {
   return db.user.update({
-    where: { email: email },
+    where: { email: normalizeEmail(email) },
     data: { ericaRequestIdSenden: ericaRequestId },
   });
 };
 
 export const deleteEricaRequestIdSenden = async (email: string) => {
   return db.user.update({
-    where: { email: email },
+    where: { email: normalizeEmail(email) },
     data: { ericaRequestIdSenden: null },
   });
 };
 
 export const setUserIdentified = async (email: string) => {
   return db.user.update({
-    where: { email: email },
+    where: { email: normalizeEmail(email) },
     data: {
       identified: true,
       identifiedAt: new Date(),
@@ -169,7 +172,7 @@ export const saveDeclaration = async (
     await deletePdf(email);
   }
   return db.user.update({
-    where: { email: email },
+    where: { email: normalizeEmail(email) },
     data: {
       transferticket: transferticket,
       pdf: {
@@ -184,7 +187,7 @@ export const saveDeclaration = async (
 
 export const deleteTransferticket = async (email: string) => {
   return db.user.update({
-    where: { email: email },
+    where: { email: normalizeEmail(email) },
     data: { transferticket: null },
   });
 };
@@ -196,7 +199,7 @@ export const deletePdf = async (email: string) => {
   // prisma does not support deleteIfExists yet and throws an error on missing record
   if (user?.pdf) {
     return db.user.update({
-      where: { email: email },
+      where: { email: normalizeEmail(email) },
       data: {
         pdf: {
           delete: true,
@@ -211,7 +214,7 @@ export const setUserInDeclarationProcess = async (
   inDeclarationProcess: boolean
 ) => {
   return db.user.update({
-    where: { email: email },
+    where: { email: normalizeEmail(email) },
     data: { inDeclarationProcess: inDeclarationProcess },
   });
 };
