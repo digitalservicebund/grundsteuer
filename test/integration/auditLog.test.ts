@@ -5,11 +5,15 @@ import { decryptData } from "~/audit/crypto";
 import { db } from "~/db.server";
 import { AuditLog } from "@prisma/client";
 
-const PRIVATE_KEY = Buffer.from(
+export const PRIVATE_KEY = Buffer.from(
   fs.readFileSync("test/resources/audit/private.pem", { encoding: "utf-8" })
 );
 
 describe("auditLog", () => {
+  afterEach(async () => {
+    await db.auditLog.deleteMany({});
+  })
+
   it("should encrypt audit log data correctly.", async () => {
     const data: AuditLogData = {
       eventName: AuditLogEvent.FSC_REQUESTED,
