@@ -12,7 +12,7 @@ export const PRIVATE_KEY = Buffer.from(
 describe("auditLog", () => {
   afterEach(async () => {
     await db.auditLog.deleteMany({});
-  })
+  });
 
   it("should encrypt audit log data correctly.", async () => {
     const data: AuditLogData = {
