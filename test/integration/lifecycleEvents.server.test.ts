@@ -1,11 +1,16 @@
 import {
   createUser,
   findUserByEmail,
+  saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscBeantragen,
   saveFscRequest,
+  setUserIdentified,
 } from "~/domain/user";
 import { db } from "~/db.server";
-import { saveSuccessfullFscRequestData } from "~/domain/lifecycleEvents.server";
+import {
+  saveSuccessfulFscActivationData,
+  saveSuccessfullFscRequestData,
+} from "~/domain/lifecycleEvents.server";
 import { PRIVATE_KEY } from "test/integration/auditLog.test";
 import { decryptData } from "~/audit/crypto";
 import { AuditLogEvent } from "~/audit/auditLog";
@@ -19,7 +24,12 @@ const cleanUpDatabase = async () => {
   await db.user.deleteMany({
     where: {
       email: {
-        in: ["existing_fsc_request@foo.com", "without_fsc_request@foo.com"],
+        in: [
+          "existing_fsc_request@foo.com",
+          "without_fsc_request@foo.com",
+          "not_identified@foo.com",
+          "identified@foo.com",
+        ],
       },
     },
   });
@@ -209,6 +219,147 @@ describe("saveSuccessfullFscRequestData", () => {
 
       const auditLogs = await db.auditLog.findMany();
       expect(auditLogs.length).toBe(0);
+    });
+  });
+});
+
+describe("saveSuccessfullFscActivationData", () => {
+  const currentDate = Date.UTC(2022, 0, 1, 0, 0, 12);
+  const actualDateNowImplementation = Date.now;
+
+  beforeAll(() => {
+    Date.now = jest.fn(() => currentDate);
+  });
+
+  afterEach(async () => {
+    await cleanUpDatabase();
+  });
+
+  afterAll(() => {
+    Date.now = actualDateNowImplementation;
+  });
+
+  describe("with an unidentified user", () => {
+    beforeEach(async () => {
+      await cleanUpDatabase();
+
+      await createUser("not_identified@foo.com");
+      await saveEricaRequestIdFscAktivieren(
+        "not_identified@foo.com",
+        "iAmAnId"
+      );
+    });
+
+    it("should update user with correct erica id", async () => {
+      await saveSuccessfulFscActivationData(
+        "not_identified@foo.com",
+        "iAmAnId",
+        "localhost",
+        "transferticket007"
+      );
+
+      const updatedUser = await findUserByEmail("not_identified@foo.com");
+
+      expect(updatedUser?.identified).toBe(true);
+      expect(updatedUser?.ericaRequestIdFscAktivieren).toBeNull();
+    });
+
+    it("should not update user with incorrect Erica id", async () => {
+      await saveSuccessfulFscActivationData(
+        "not_identified@foo.com",
+        "INCORRECT",
+        "localhost",
+        "transferticket007"
+      );
+
+      const updatedUser = await findUserByEmail("not_identified@foo.com");
+
+      expect(updatedUser?.identified).toBe(false);
+      expect(updatedUser?.ericaRequestIdFscAktivieren).toBe("iAmAnId");
+    });
+
+    it("should add an audit log entry", async () => {
+      await saveSuccessfulFscActivationData(
+        "not_identified@foo.com",
+        "iAmAnId",
+        "localhost",
+        "transferticket007"
+      );
+
+      const auditLogs = await db.auditLog.findMany();
+      const lastAuditLog = JSON.parse(
+        decryptData(auditLogs[auditLogs.length - 1].data, PRIVATE_KEY)
+      );
+
+      expect(lastAuditLog).toEqual({
+        eventName: AuditLogEvent.FSC_ACTIVATED,
+        timestamp: Date.now(),
+        ipAddress: "localhost",
+        username: "not_identified@foo.com",
+        eventData: {
+          transferticket: "transferticket007",
+        },
+      });
+    });
+
+    it("should not add an audit log entry if incorrect Erica id", async () => {
+      await saveSuccessfulFscActivationData(
+        "not_identified@foo.com",
+        "Incorrect",
+        "localhost",
+        "transferticket007"
+      );
+
+      const auditLogs = await db.auditLog.findMany();
+      expect(auditLogs.length).toBe(0);
+    });
+  });
+
+  describe("with an identified user", () => {
+    beforeEach(async () => {
+      await cleanUpDatabase();
+
+      await createUser("identified@foo.com");
+      await setUserIdentified("identified@foo.com");
+      await saveEricaRequestIdFscAktivieren("identified@foo.com", "iAmAnId");
+    });
+
+    it("should update user with correct erica id", async () => {
+      await saveSuccessfulFscActivationData(
+        "identified@foo.com",
+        "iAmAnId",
+        "localhost",
+        "transferticket007"
+      );
+
+      const updatedUser = await findUserByEmail("identified@foo.com");
+
+      expect(updatedUser?.identified).toBe(true);
+      expect(updatedUser?.ericaRequestIdFscAktivieren).toBeNull();
+    });
+
+    it("should add an audit log entry", async () => {
+      await saveSuccessfulFscActivationData(
+        "identified@foo.com",
+        "iAmAnId",
+        "localhost",
+        "transferticket007"
+      );
+
+      const auditLogs = await db.auditLog.findMany();
+      const lastAuditLog = JSON.parse(
+        decryptData(auditLogs[auditLogs.length - 1].data, PRIVATE_KEY)
+      );
+
+      expect(lastAuditLog).toEqual({
+        eventName: AuditLogEvent.FSC_ACTIVATED,
+        timestamp: Date.now(),
+        ipAddress: "localhost",
+        username: "identified@foo.com",
+        eventData: {
+          transferticket: "transferticket007",
+        },
+      });
     });
   });
 });
