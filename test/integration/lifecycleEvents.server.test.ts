@@ -10,8 +10,8 @@ import {
 import { db } from "~/db.server";
 import {
   saveSuccessfulFscActivationData,
+  saveSuccessfulFscRequestData,
   saveSuccessfulFscRevocationData,
-  saveSuccessfullFscRequestData,
 } from "~/domain/lifecycleEvents.server";
 import { PRIVATE_KEY } from "test/integration/auditLog.test";
 import { decryptData } from "~/audit/crypto";
@@ -66,7 +66,7 @@ describe("saveSuccessfullFscRequestData", () => {
     });
 
     it("should update user with correct erica id", async () => {
-      await saveSuccessfullFscRequestData(
+      await saveSuccessfulFscRequestData(
         "existing_fsc_request@foo.com",
         "iAmAnId1234",
         "localhost",
@@ -82,7 +82,7 @@ describe("saveSuccessfullFscRequestData", () => {
     });
 
     it("should not update User with incorrect Erica id", async () => {
-      await saveSuccessfullFscRequestData(
+      await saveSuccessfulFscRequestData(
         "existing_fsc_request@foo.com",
         "INCORRECT",
         "localhost",
@@ -98,7 +98,7 @@ describe("saveSuccessfullFscRequestData", () => {
     });
 
     it("should add an audit log entry", async () => {
-      await saveSuccessfullFscRequestData(
+      await saveSuccessfulFscRequestData(
         "existing_fsc_request@foo.com",
         "iAmAnId1234",
         "localhost",
@@ -125,7 +125,7 @@ describe("saveSuccessfullFscRequestData", () => {
     });
 
     it("should not add an audit log entry if incorrect Erica id", async () => {
-      await saveSuccessfullFscRequestData(
+      await saveSuccessfulFscRequestData(
         "existing_fsc_request@foo.com",
         "Incorrect",
         "localhost",
@@ -151,7 +151,7 @@ describe("saveSuccessfullFscRequestData", () => {
     });
 
     it("should update user with correct erica id", async () => {
-      await saveSuccessfullFscRequestData(
+      await saveSuccessfulFscRequestData(
         "without_fsc_request@foo.com",
         "iAmAnIdToo",
         "localhost",
@@ -167,7 +167,7 @@ describe("saveSuccessfullFscRequestData", () => {
     });
 
     it("should not update user with incorrect Erica id", async () => {
-      await saveSuccessfullFscRequestData(
+      await saveSuccessfulFscRequestData(
         "without_fsc_request@foo.com",
         "INCORRECT",
         "localhost",
@@ -183,7 +183,7 @@ describe("saveSuccessfullFscRequestData", () => {
     });
 
     it("should add an audit log entry", async () => {
-      await saveSuccessfullFscRequestData(
+      await saveSuccessfulFscRequestData(
         "without_fsc_request@foo.com",
         "iAmAnIdToo",
         "localhost",
@@ -210,7 +210,7 @@ describe("saveSuccessfullFscRequestData", () => {
     });
 
     it("should not add an audit log entry if incorrect Erica id", async () => {
-      await saveSuccessfullFscRequestData(
+      await saveSuccessfulFscRequestData(
         "without_fsc_request@foo.com",
         "Incorrect",
         "localhost",

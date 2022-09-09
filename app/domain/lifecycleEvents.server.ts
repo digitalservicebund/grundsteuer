@@ -2,7 +2,7 @@ import { db } from "~/db.server";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import { findUserByEmail, setUserIdentified } from "~/domain/user";
 
-export const saveSuccessfullFscRequestData = async (
+export const saveSuccessfulFscRequestData = async (
   email: string,
   ericaRequestIdFscBeantragen: string,
   clientIp: string,
