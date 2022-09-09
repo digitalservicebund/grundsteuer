@@ -12,7 +12,7 @@ import {
 import { pageTitle } from "~/util/pageTitle";
 
 export const meta: MetaFunction = () => {
-  return { title: pageTitle("Registrierung erfolgreich") };
+  return { title: pageTitle("Registrierung erfolgreich"), robots: "noIndex" };
 };
 
 export default function RegistrierenErfolgreich() {
