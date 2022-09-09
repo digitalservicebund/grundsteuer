@@ -11,6 +11,7 @@ import { mockActionArgs } from "testUtil/mockActionArgs";
 import * as csrfModule from "~/util/csrf";
 import SpyInstance = jest.SpyInstance;
 import { DataFunctionArgs } from "@remix-run/node";
+import * as lifecycleModule from "~/domain/lifecycleEvents.server";
 
 describe("Loader", () => {
   beforeAll(async () => {
@@ -574,6 +575,7 @@ describe("Loader", () => {
       describe("with fsc request succeeded", () => {
         const fscRequestTransferticket = "FscRequestTransferticket";
         const antragsId = "bar";
+        const taxIdNumber = "123";
 
         beforeAll(async () => {
           getMockedFunction(
@@ -582,7 +584,7 @@ describe("Loader", () => {
             {
               transferticket: fscRequestTransferticket,
               elsterRequestId: antragsId,
-              taxIdNumber: "123",
+              taxIdNumber,
             }
           );
         });
@@ -610,7 +612,6 @@ describe("Loader", () => {
         });
 
         it("saves audit log", async () => {
-          const timestamp = 1652887920227;
           const expectedClientIp = "123.007";
           const args = await getLoaderArgsWithAuthenticatedSession(
             "/fsc/neuBeantragen",
@@ -619,62 +620,23 @@ describe("Loader", () => {
             fscDataForSession
           );
           args.context.clientIp = expectedClientIp;
-          const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
-          spyOnSaveAuditLog.mockReset();
-          const actualNowImplementation = Date.now;
+          const spyOnLifecycleEvent = jest.spyOn(
+            lifecycleModule,
+            "saveSuccessfulFscRequestData"
+          );
+          spyOnLifecycleEvent.mockReset();
 
-          try {
-            Date.now = jest.fn(() => timestamp);
-            await loader(args);
+          await loader(args);
 
-            expect(spyOnSaveAuditLog).toHaveBeenCalledTimes(1);
-            expect(spyOnSaveAuditLog).toHaveBeenCalledWith({
-              eventName: AuditLogEvent.FSC_REQUESTED,
-              timestamp: Date.now(),
-              ipAddress: expectedClientIp,
-              username: "existing_user@foo.com",
-              eventData: {
-                steuerId: "123",
-                transferticket: fscRequestTransferticket,
-              },
-            });
-          } finally {
-            Date.now = actualNowImplementation;
-          }
-        });
-
-        it("stores new elsterRequestId and deletes ericaRequestId", async () => {
-          const args = await getLoaderArgsWithAuthenticatedSession(
-            "/fsc/neuBeantragen",
+          expect(spyOnLifecycleEvent).toHaveBeenCalledTimes(1);
+          expect(spyOnLifecycleEvent).toHaveBeenCalledWith(
             "existing_user@foo.com",
-            undefined,
-            fscDataForSession
+            "beantragen-id",
+            expectedClientIp,
+            antragsId,
+            fscRequestTransferticket,
+            taxIdNumber
           );
-          const deleteBeantragenMock = getMockedFunction(
-            userModule,
-            "deleteEricaRequestIdFscBeantragen",
-            Promise.resolve()
-          );
-          const setFscRequestIdMock = getMockedFunction(
-            userModule,
-            "saveFscRequest",
-            Promise.resolve()
-          );
-
-          try {
-            await loader(args);
-
-            expect(deleteBeantragenMock).toHaveBeenCalledWith(
-              "existing_user@foo.com"
-            );
-            expect(setFscRequestIdMock).toHaveBeenCalledWith(
-              "existing_user@foo.com",
-              antragsId
-            );
-          } finally {
-            deleteBeantragenMock.mockClear();
-            setFscRequestIdMock.mockClear();
-          }
         });
       });
     });

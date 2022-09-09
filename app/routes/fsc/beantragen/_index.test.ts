@@ -5,6 +5,7 @@ import {
 import { sessionUserFactory } from "test/factories";
 import * as freischaltCodeBeantragenModule from "~/erica/freischaltCodeBeantragen";
 import * as auditLogModule from "~/audit/auditLog";
+import * as lifecycleModule from "~/domain/lifecycleEvents.server";
 import * as userModule from "~/domain/user";
 import { getMockedFunction } from "test/mocks/mockHelper";
 import { loader, action } from "~/routes/fsc/beantragen/index";
@@ -16,6 +17,7 @@ import { DataFunctionArgs } from "@remix-run/node";
 describe("Loader", () => {
   const expectedTransferticket = "foo12345";
   const expectedTaxIdNumber = "007";
+  const expectedEricaRequestId = "foo";
 
   beforeAll(() => {
     mockIsAuthenticated.mockImplementation(() =>
@@ -32,7 +34,7 @@ describe("Loader", () => {
     jest.clearAllMocks();
     getMockedFunction(userModule, "findUserByEmail", {
       email: "existing_user@foo.com",
-      ericaRequestIdFscBeantragen: "foo",
+      ericaRequestIdFscBeantragen: expectedEricaRequestId,
       fscRequest: null,
     });
   });
@@ -41,44 +43,38 @@ describe("Loader", () => {
     jest.clearAllMocks();
   });
 
-  it("should save audit log if erica sends request success", async () => {
+  it("should call lifecycle event if erica sends request success", async () => {
     getMockedFunction(freischaltCodeBeantragenModule, "retrieveAntragsId", {
-      elsterRequestId: "foo",
+      elsterRequestId: "elsterRequestID",
       transferticket: expectedTransferticket,
       taxIdNumber: expectedTaxIdNumber,
     });
-    const timestamp = 1652887920227;
     const expectedClientIp = "123.007";
     const args = await getLoaderArgsWithAuthenticatedSession(
       "/fsc/beantragen",
       "existing_user@foo.com"
     );
     args.context.clientIp = expectedClientIp;
+    const spyOnLifecycleEvent = jest.spyOn(
+      lifecycleModule,
+      "saveSuccessfulFscRequestData"
+    );
+    spyOnLifecycleEvent.mockReset();
 
-    const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
-    const actualNowImplementation = Date.now;
+    await loader(args);
 
-    try {
-      Date.now = jest.fn(() => timestamp);
-
-      await loader(args);
-
-      expect(spyOnSaveAuditLog).toHaveBeenCalledWith({
-        eventName: AuditLogEvent.FSC_REQUESTED,
-        timestamp: Date.now(),
-        ipAddress: expectedClientIp,
-        username: "existing_user@foo.com",
-        eventData: {
-          steuerId: expectedTaxIdNumber,
-          transferticket: expectedTransferticket,
-        },
-      });
-    } finally {
-      Date.now = actualNowImplementation;
-    }
+    expect(spyOnLifecycleEvent).toHaveBeenCalledTimes(1);
+    expect(spyOnLifecycleEvent).toHaveBeenCalledWith(
+      "existing_user@foo.com",
+      expectedEricaRequestId,
+      expectedClientIp,
+      "elsterRequestID",
+      expectedTransferticket,
+      expectedTaxIdNumber
+    );
   });
 
-  it("should not save audit log if erica fsc request sends unexpected error", async () => {
+  it("should not call lifecycle event if erica fsc request sends unexpected error", async () => {
     getMockedFunction(freischaltCodeBeantragenModule, "retrieveAntragsId", {
       errorType: "GeneralEricaError",
       errorMessage: "We found some problem",
@@ -87,11 +83,16 @@ describe("Loader", () => {
       "/fsc/beantragen",
       "existing_user@foo.com"
     );
-    const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
+    const spyOnLifecycleEvent = jest.spyOn(
+      lifecycleModule,
+      "saveSuccessfulFscRequestData"
+    );
+
     try {
       await loader(args);
+      expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
     } catch {
-      expect(spyOnSaveAuditLog).not.toHaveBeenCalled();
+      expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
     }
   });
 

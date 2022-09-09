@@ -31,16 +31,13 @@ import {
 
 import {
   deleteEricaRequestIdFscBeantragen,
-  deleteFscRequest,
   findUserByEmail,
   saveEricaRequestIdFscBeantragen,
-  saveFscRequest,
   User,
 } from "~/domain/user";
 import invariant from "tiny-invariant";
 import { removeUndefined } from "~/util/removeUndefined";
 import SteuerIdField from "~/components/form/SteuerIdField";
-import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import EnumeratedCard from "~/components/EnumeratedCard";
 import lohnsteuerbescheinigungImage from "~/assets/images/lohnsteuerbescheinigung_idnr.svg";
 import fscLetterImage from "~/assets/images/fsc-letter.svg";
@@ -54,6 +51,7 @@ import {
   getErrorMessageForGeburtsdatum,
   getErrorMessageForSteuerId,
 } from "~/domain/validation/fscValidation";
+import { saveSuccessfulFscRequestData } from "~/domain/lifecycleEvents.server";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -76,30 +74,19 @@ export const handleFscRequestInProgress = async (
   clientIp: string,
   successLoggingMessage?: string
 ) => {
-  const elsterRequestResultOrError = await retrieveAntragsId(
-    await getEricaRequestIdFscBeantragen(userData)
-  );
+  const ericaRequestId = await getEricaRequestIdFscBeantragen(userData);
+  const elsterRequestResultOrError = await retrieveAntragsId(ericaRequestId);
   if (elsterRequestResultOrError) {
     if ("elsterRequestId" in elsterRequestResultOrError) {
-      await saveAuditLog({
-        eventName: AuditLogEvent.FSC_REQUESTED,
-        timestamp: Date.now(),
-        ipAddress: clientIp,
-        username: userData.email,
-        eventData: {
-          transferticket: elsterRequestResultOrError.transferticket,
-          steuerId: elsterRequestResultOrError.taxIdNumber,
-        },
-      });
-      if (userData.fscRequest) {
-        await deleteFscRequest(userData.email, userData.fscRequest.requestId);
-      }
-      await saveFscRequest(
+      await saveSuccessfulFscRequestData(
         userData.email,
-        elsterRequestResultOrError.elsterRequestId
+        ericaRequestId,
+        clientIp,
+        elsterRequestResultOrError.elsterRequestId,
+        elsterRequestResultOrError.transferticket,
+        elsterRequestResultOrError.taxIdNumber
       );
       console.log(`${successLoggingMessage}`);
-      await deleteEricaRequestIdFscBeantragen(userData.email);
     } else if (elsterRequestResultOrError?.errorType == "EricaUserInputError") {
       await deleteEricaRequestIdFscBeantragen(userData.email);
       return {
