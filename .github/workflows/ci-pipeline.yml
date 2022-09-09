@@ -72,6 +72,7 @@ jobs:
       - name: Run integration tests
         env:
           DATABASE_URL: postgresql://prisma:prisma@localhost:5433/tests
+          REDIS_URL: redis://localhost:6380/0
         run: npm run test:integration -- --json ----outputFile=webapp-integration-test-report.log
 
       - name: Archive unit test logs
