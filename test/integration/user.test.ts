@@ -763,22 +763,30 @@ describe("user", () => {
 
     it("returns all existing ericaRequestIds", async () => {
       await createUser("non-existing-erica-id@foo.com");
-      await createUser("existing-erica-id-beantragen-1@foo.com");
+      const userBeantragen1 = await createUser(
+        "existing-erica-id-beantragen-1@foo.com"
+      );
       await saveEricaRequestIdFscBeantragen(
         "existing-erica-id-beantragen-1@foo.com",
         "foo"
       );
-      await createUser("existing-erica-id-beantragen-2@foo.com");
+      const userBeantragen2 = await createUser(
+        "existing-erica-id-beantragen-2@foo.com"
+      );
       await saveEricaRequestIdFscBeantragen(
         "existing-erica-id-beantragen-2@foo.com",
         "bar"
       );
-      await createUser("existing-erica-id-aktivieren@foo.com");
+      const userAktivieren = await createUser(
+        "existing-erica-id-aktivieren@foo.com"
+      );
       await saveEricaRequestIdFscAktivieren(
         "existing-erica-id-aktivieren@foo.com",
         "dudu"
       );
-      await createUser("existing-erica-id-stornieren@foo.com");
+      const userStornieren = await createUser(
+        "existing-erica-id-stornieren@foo.com"
+      );
       await saveEricaRequestIdFscStornieren(
         "existing-erica-id-stornieren@foo.com",
         "dada"
@@ -788,24 +796,28 @@ describe("user", () => {
       expect(result.sort((a, b) => (a.email < b.email ? -1 : 1))).toEqual(
         [
           {
+            id: userBeantragen1.id,
             email: "existing-erica-id-beantragen-1@foo.com",
             ericaRequestIdFscBeantragen: "foo",
             ericaRequestIdFscAktivieren: null,
             ericaRequestIdFscStornieren: null,
           },
           {
+            id: userBeantragen2.id,
             email: "existing-erica-id-beantragen-2@foo.com",
             ericaRequestIdFscBeantragen: "bar",
             ericaRequestIdFscAktivieren: null,
             ericaRequestIdFscStornieren: null,
           },
           {
+            id: userAktivieren.id,
             email: "existing-erica-id-aktivieren@foo.com",
             ericaRequestIdFscBeantragen: null,
             ericaRequestIdFscAktivieren: "dudu",
             ericaRequestIdFscStornieren: null,
           },
           {
+            id: userStornieren.id,
             email: "existing-erica-id-stornieren@foo.com",
             ericaRequestIdFscBeantragen: null,
             ericaRequestIdFscAktivieren: null,

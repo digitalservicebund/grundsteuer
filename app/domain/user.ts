@@ -221,6 +221,7 @@ export const setUserInDeclarationProcess = async (
 export const getAllEricaRequestIds = async () => {
   return db.user.findMany({
     select: {
+      id: true,
       email: true,
       ericaRequestIdFscBeantragen: true,
       ericaRequestIdFscAktivieren: true,
