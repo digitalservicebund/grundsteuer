@@ -4,6 +4,7 @@ import * as freischaltCodeAktivierenModule from "~/erica/freischaltCodeAktiviere
 import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStornieren";
 import * as userModule from "~/domain/user";
 import * as auditLogModule from "~/audit/auditLog";
+import * as lifecycleModule from "~/domain/lifecycleEvents.server";
 import { AuditLogEvent } from "~/audit/auditLog";
 import { sessionUserFactory } from "test/factories";
 import {
@@ -54,7 +55,7 @@ describe("Loader", () => {
       getMockedFunction(userModule, "findUserByEmail", {
         email: "existing_user@foo.com",
         ericaRequestIdFscAktivieren: "foo",
-        fscRequest: { requestId: "foo" },
+        fscRequest: { requestId: "elster-request-id" },
       });
     });
 
@@ -70,36 +71,25 @@ describe("Loader", () => {
       expect(jsonResponse.showSpinner).toBe(true);
     });
 
-    it("should set user fields correctly if erica sends activation success", async () => {
-      const spyOnSetUserIdentified = jest.spyOn(
-        userModule,
-        "setUserIdentified"
+    it("should call lifecycle event if erica sends activation success", async () => {
+      const expectedClientIp = "123.007";
+      const spyOnLifecycleEvent = jest.spyOn(
+        lifecycleModule,
+        "saveSuccessfulFscActivationData"
       );
-      const spyOnDeleteEricaRequestIdFscAktivieren = jest.spyOn(
-        userModule,
-        "deleteEricaRequestIdFscAktivieren"
-      );
-      const spyOnSaveEricaRequestIdFscStornieren = jest.spyOn(
-        userModule,
-        "saveEricaRequestIdFscStornieren"
-      );
-
-      await loader(
-        await getLoaderArgsWithAuthenticatedSession(
-          "/fsc/eingeben",
-          "existing_user@foo.com"
-        )
-      );
-
-      expect(spyOnSetUserIdentified).toHaveBeenCalledWith(
+      const args = await getLoaderArgsWithAuthenticatedSession(
+        "/fsc/eingeben",
         "existing_user@foo.com"
       );
-      expect(spyOnDeleteEricaRequestIdFscAktivieren).toHaveBeenCalledWith(
-        "existing_user@foo.com"
-      );
-      expect(spyOnSaveEricaRequestIdFscStornieren).toHaveBeenCalledWith(
+      args.context.clientIp = expectedClientIp;
+
+      await loader(args);
+
+      expect(spyOnLifecycleEvent).toHaveBeenCalledWith(
         "existing_user@foo.com",
-        "007"
+        "foo",
+        expectedClientIp,
+        expectedTransferticket
       );
     });
 
@@ -116,38 +106,7 @@ describe("Loader", () => {
       expect(session.get("user").identified).toBe(true);
     });
 
-    it("should save audit log if erica sends activation success", async () => {
-      const timestamp = 1652887920227;
-      const expectedClientIp = "123.007";
-      const args = await getLoaderArgsWithAuthenticatedSession(
-        "/fsc/eingeben",
-        "existing_user@foo.com"
-      );
-      args.context.clientIp = expectedClientIp;
-
-      const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
-      const actualNowImplementation = Date.now;
-
-      try {
-        Date.now = jest.fn(() => timestamp);
-
-        await loader(args);
-
-        expect(spyOnSaveAuditLog).toHaveBeenCalledWith({
-          eventName: AuditLogEvent.FSC_ACTIVATED,
-          timestamp: Date.now(),
-          ipAddress: expectedClientIp,
-          username: "existing_user@foo.com",
-          eventData: {
-            transferticket: expectedTransferticket,
-          },
-        });
-      } finally {
-        Date.now = actualNowImplementation;
-      }
-    });
-
-    it("should not save audit log if erica activation sends unexpected error", async () => {
+    it("should not call lifecycle event if erica activation sends unexpected error", async () => {
       getMockedFunction(
         freischaltCodeAktivierenModule,
         "checkFreischaltcodeActivation",
@@ -160,11 +119,15 @@ describe("Loader", () => {
         "/fsc/eingeben",
         "existing_user@foo.com"
       );
-      const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
+      const spyOnLifecycleEvent = jest.spyOn(
+        lifecycleModule,
+        "saveSuccessfulFscActivationData"
+      );
+
       try {
         await loader(args);
       } catch {
-        expect(spyOnSaveAuditLog).not.toHaveBeenCalled();
+        expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
       }
     });
 

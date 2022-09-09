@@ -35,7 +35,6 @@ import {
   findUserByEmail,
   saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscStornieren,
-  setUserIdentified,
   User,
 } from "~/domain/user";
 import { authenticator } from "~/auth.server";
@@ -52,6 +51,7 @@ import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import FreischaltcodeHelp from "~/components/form/help/Freischaltcode";
 import ArrowRight from "~/components/icons/mui/ArrowRight";
 import { getErrorMessageForFreischaltcode } from "~/domain/validation/fscValidation";
+import { saveSuccessfulFscActivationData } from "~/domain/lifecycleEvents.server";
 
 const isEricaRequestInProgress = (userData: User) => {
   return (
@@ -86,26 +86,24 @@ const handleFscActivationProgress = async (
   clientIp: string,
   successLoggingMessage?: string
 ) => {
+  const ericaRequestIdFscAktivieren = await getEricaRequestIdFscAktivieren(
+    userData
+  );
   const fscActivatedOrError = await checkFreischaltcodeActivation(
-    await getEricaRequestIdFscAktivieren(userData)
+    ericaRequestIdFscAktivieren
   );
   if (fscActivatedOrError) {
     if ("transferticket" in fscActivatedOrError) {
-      await setUserIdentified(userData.email);
+      await saveSuccessfulFscActivationData(
+        userData.email,
+        ericaRequestIdFscAktivieren,
+        clientIp,
+        fscActivatedOrError.transferticket
+      );
       session.set(
         "user",
         Object.assign(session.get("user"), { identified: true })
       );
-      await deleteEricaRequestIdFscAktivieren(userData.email);
-      await saveAuditLog({
-        eventName: AuditLogEvent.FSC_ACTIVATED,
-        timestamp: Date.now(),
-        ipAddress: clientIp,
-        username: userData.email,
-        eventData: {
-          transferticket: fscActivatedOrError.transferticket,
-        },
-      });
       console.log(`${successLoggingMessage}`);
 
       const ericaRequestIdOrError = await revokeFscForUser(userData);
