@@ -18,10 +18,15 @@ import { decryptData } from "~/audit/crypto";
 import { AuditLogEvent } from "~/audit/auditLog";
 
 const cleanUpDatabase = async () => {
-  const user1 = await findUserByEmail("existing_fsc_request@foo.com");
-  const user2 = await findUserByEmail("without_fsc_request@foo.com");
+  const user1Id =
+    (await findUserByEmail("existing_fsc_request@foo.com"))?.id || "None";
+  const user2Id =
+    (await findUserByEmail("without_fsc_request@foo.com"))?.id || "None";
+  const user3Id = (await findUserByEmail("identified@foo.com"))?.id || "None";
+  const user4Id =
+    (await findUserByEmail("not_identified@foo.com"))?.id || "None";
   await db.fscRequest.deleteMany({
-    where: { userId: { in: [user1?.id || "None", user2?.id || "None"] } },
+    where: { userId: { in: [user1Id, user2Id, user3Id, user4Id] } },
   });
   await db.user.deleteMany({
     where: {
@@ -391,6 +396,10 @@ describe("saveSuccessfullFscRevocationData", () => {
         "not_identified@foo.com",
         "iAmAnId"
       );
+      await saveFscRequest(
+        "not_identified@foo.com",
+        "alreadyExistingFscRequest"
+      );
     });
 
     it("should update user with correct erica id", async () => {
@@ -405,6 +414,7 @@ describe("saveSuccessfullFscRevocationData", () => {
 
       expect(updatedUser?.identified).toBe(false);
       expect(updatedUser?.ericaRequestIdFscStornieren).toBeNull();
+      expect(updatedUser?.fscRequest).toBeNull();
     });
 
     it("should not update user with incorrect Erica id", async () => {
@@ -419,6 +429,9 @@ describe("saveSuccessfullFscRevocationData", () => {
 
       expect(updatedUser?.identified).toBe(false);
       expect(updatedUser?.ericaRequestIdFscStornieren).toBe("iAmAnId");
+      expect(updatedUser?.fscRequest?.requestId).toBe(
+        "alreadyExistingFscRequest"
+      );
     });
 
     it("should add an audit log entry", async () => {
@@ -465,6 +478,7 @@ describe("saveSuccessfullFscRevocationData", () => {
       await createUser("identified@foo.com");
       await setUserIdentified("identified@foo.com");
       await saveEricaRequestIdFscStornieren("identified@foo.com", "iAmAnId");
+      await saveFscRequest("identified@foo.com", "alreadyExistingFscRequest");
     });
 
     it("should update user with correct erica id", async () => {
@@ -479,6 +493,7 @@ describe("saveSuccessfullFscRevocationData", () => {
 
       expect(updatedUser?.identified).toBe(true);
       expect(updatedUser?.ericaRequestIdFscStornieren).toBeNull();
+      expect(updatedUser?.fscRequest).toBeNull();
     });
 
     it("should add an audit log entry", async () => {

@@ -144,6 +144,15 @@ export const saveSuccessfulFscRevocationData = async (
     });
   };
 
+  const _deleteFscRequest = () => {
+    return db.fscRequest.deleteMany({
+      where: {
+        userId: user.id,
+        requestId: user.fscRequest?.requestId,
+      },
+    });
+  };
+
   try {
     await db.$transaction(async () => {
       const updatedUsersWithEricaId =
@@ -152,6 +161,8 @@ export const saveSuccessfulFscRevocationData = async (
       if (updatedUsersWithEricaId.count != 1) {
         throw Error("ericaRequestId of user does not match");
       }
+
+      await _deleteFscRequest();
 
       await saveAuditLog({
         eventName: AuditLogEvent.FSC_REVOKED,
