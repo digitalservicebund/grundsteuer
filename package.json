@@ -63,6 +63,7 @@
     "i18next-fs-backend": "^1.1.5",
     "i18next-http-backend": "^1.4.1",
     "ioredis": "^5.2.3",
+    "ip-range-check": "^0.2.0",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
     "node-cron": "^3.0.2",

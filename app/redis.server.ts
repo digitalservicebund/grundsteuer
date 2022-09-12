@@ -1,33 +1,40 @@
 import Redis from "ioredis";
 
-const ioredis = new Redis(process.env.REDIS_URL as string);
+let ioredis: Redis;
+
+function getClient() {
+  if (!ioredis) {
+    ioredis = new Redis(process.env.REDIS_URL as string);
+  }
+  return ioredis;
+}
 
 const get = async (key: string) => {
-  return ioredis.get(key);
+  return getClient().get(key);
 };
 
 const set = async (key: string, value: string, ttlInSeconds = 600) => {
-  await ioredis.multi().set(key, value).expire(key, ttlInSeconds).exec();
+  await getClient().multi().set(key, value).expire(key, ttlInSeconds).exec();
 };
 
 const incr = async (key: string, ttlInSeconds = 600) => {
-  await ioredis.multi().incr(key).expire(key, ttlInSeconds).exec();
+  await getClient().multi().incr(key).expire(key, ttlInSeconds).exec();
 };
 
 const del = async (key: string) => {
-  await ioredis.del(key);
+  await getClient().del(key);
 };
 
 const flushAll = async () => {
-  await ioredis.flushall();
+  await getClient().flushall();
 };
 
 const ttl = async (key: string) => {
-  return ioredis.ttl(key);
+  return getClient().ttl(key);
 };
 
 const quit = async () => {
-  await ioredis.quit();
+  await getClient().quit();
 };
 
 export const redis = { set, get, incr, del, flushAll, ttl, quit };

@@ -3,6 +3,7 @@
 import sdk from "sib-api-v3-sdk";
 import type { SendEmailFunction } from "remix-auth-email-link";
 import type { SessionUser } from "~/auth.server";
+import { EmailStatus, getEmailStatus } from "~/routes/api/sendinblue";
 
 export const sendToSendinblue = (options: {
   subject: string;
@@ -150,6 +151,12 @@ export const sendLoginAttemptEmail = async (options: {
     textContent,
     htmlContent,
   });
+};
+
+export const getStatus = async (
+  hashedMessageId: string
+): Promise<EmailStatus | null> => {
+  return getEmailStatus(hashedMessageId);
 };
 
 export const getStatusDummy = (messageId: string) => {

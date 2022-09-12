@@ -8,6 +8,7 @@ import { GrundModel } from "~/domain/steps/index.server";
 type MockActionArgsFunction = (options: {
   route?: string;
   formData?: Record<string, string>;
+  json?: Record<string, string | number>;
   context: { clientIp?: string };
   email?: string;
   allData?: GrundModel;
@@ -17,6 +18,7 @@ type MockActionArgsFunction = (options: {
 export const mockActionArgs: MockActionArgsFunction = async ({
   route,
   formData,
+  json,
   context,
   email,
   allData,
@@ -38,6 +40,7 @@ export const mockActionArgs: MockActionArgsFunction = async ({
   const request = new Request(`http://localhost${route || "/"}`, {
     method: "POST",
     headers,
+    body: JSON.stringify(json),
   });
   const formDataObject = new FormData();
   Object.entries(formData || {}).forEach(([key, value]) => {
