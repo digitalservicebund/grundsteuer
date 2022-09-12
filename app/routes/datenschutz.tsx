@@ -87,7 +87,7 @@ export default function Datenschutz() {
         </p>
         <p>
           DigitalService GmbH des Bundes
-          <br /> Prinzessinenstraße 8-14 <br />
+          <br /> Prinzessinnenstraße 8-14 <br />
           10969 Berlin
           <br />
           Handelsregister: HRB 212879 B<br /> Registergericht: Charlottenburg

@@ -36,7 +36,7 @@ export default function Impressum() {
         <p>
           DigitalService GmbH des Bundes
           <br />
-          Prinzessinenstraße 8-14
+          Prinzessinnenstraße 8-14
           <br /> 10969 Berlin
           <br />
           Deutschland
