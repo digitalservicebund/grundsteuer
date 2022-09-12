@@ -60,6 +60,14 @@ export default function KitchenSink() {
         >
           Icons
         </Button>
+        <Button
+          to="/kitchensink/emailStatus"
+          look="tertiary"
+          size="small"
+          className="mr-16 my-16"
+        >
+          EmailStatus
+        </Button>
       </ContentContainer>
       <hr className="border-b border-b-gray-800 mb-32" />
       <Outlet />

@@ -39,6 +39,9 @@ import Send from "~/components/icons/mui/Send";
 import Slash from "~/components/icons/mui/Slash";
 import YellowArrowLeft from "~/components/icons/mui/YellowArrowLeft";
 import OpenTab from "~/components/icons/mui/OpenTab";
+import WarningAmber from "~/components/icons/mui/WarningAmber";
+import Schedule from "~/components/icons/mui/Schedule";
+import TaskAlt from "~/components/icons/mui/TaskAlt";
 
 export default function KitchenSinkIcons() {
   return (
@@ -80,8 +83,11 @@ export default function KitchenSinkIcons() {
       <QuestionMark />
       <Refresh />
       <Remove />
+      <Schedule />
       <Send />
       <Slash />
+      <TaskAlt />
+      <WarningAmber />
       <YellowArrowLeft />
     </ContentContainer>
   );
