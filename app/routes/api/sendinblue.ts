@@ -74,6 +74,8 @@ const assertValidEvent = (payload: SendinbluePayload) => {
 const update = async (payload: SendinbluePayload) => {
   assertValidEvent(payload);
 
+  console.log("received payload: " + JSON.stringify(payload));
+
   const data: EmailStatus = {
     event: payload.event as StatusEvent,
     email: payload.email,
@@ -89,6 +91,12 @@ const update = async (payload: SendinbluePayload) => {
   );
 
   if (!existingRecord || hasPrecedence(existingRecord.event, data.event)) {
+    console.log(
+      "storing record: " +
+        redisKey(hashedMessageId) +
+        ": " +
+        JSON.stringify(data)
+    );
     await redis.set(
       redisKey(hashedMessageId),
       JSON.stringify(data),
