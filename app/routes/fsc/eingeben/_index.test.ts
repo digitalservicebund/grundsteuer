@@ -5,7 +5,6 @@ import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStorniere
 import * as userModule from "~/domain/user";
 import * as auditLogModule from "~/audit/auditLog";
 import * as lifecycleModule from "~/domain/lifecycleEvents.server";
-import { AuditLogEvent } from "~/audit/auditLog";
 import { sessionUserFactory } from "test/factories";
 import {
   getLoaderArgsWithAuthenticatedSession,
@@ -203,7 +202,7 @@ describe("Loader", () => {
       });
     });
 
-    it("should delete fscRequestId if erica sends revocation success", async () => {
+    it("should call revocation lifecycle event", async () => {
       getMockedFunction(
         freischaltCodeStornierenModule,
         "checkFreischaltcodeRevocation",
@@ -216,70 +215,30 @@ describe("Loader", () => {
         userModule,
         "setUserIdentified"
       );
-      const spyOnDeleteEricaRequestIdFscStornieren = jest.spyOn(
-        userModule,
-        "deleteEricaRequestIdFscStornieren"
+      const spyOnLifecycleEvent = jest.spyOn(
+        lifecycleModule,
+        "saveSuccessfulFscRevocationData"
       );
       const spyOnDeleteFscRequest = jest.spyOn(userModule, "deleteFscRequest");
 
-      await loader(
-        await getLoaderArgsWithAuthenticatedSession(
-          "/fsc/eingeben",
-          "existing_user@foo.com"
-        )
-      );
-
-      expect(spyOnSetUserIdentified).not.toHaveBeenCalled();
-      expect(spyOnDeleteEricaRequestIdFscStornieren).toHaveBeenCalledWith(
-        "existing_user@foo.com"
-      );
-      expect(spyOnDeleteFscRequest).toHaveBeenCalledWith(
-        "existing_user@foo.com",
-        "foo"
-      );
-    });
-
-    it("should save audit log if erica sends revocation success", async () => {
-      getMockedFunction(
-        freischaltCodeStornierenModule,
-        "checkFreischaltcodeRevocation",
-        {
-          transferticket: expectedTransferticket,
-          taxIdNumber: expectedTaxIdNumber,
-        }
-      );
-
-      const timestamp = 1652887920227;
       const expectedClientIp = "123.007";
       const args = await getLoaderArgsWithAuthenticatedSession(
         "/fsc/eingeben",
         "existing_user@foo.com"
       );
       args.context.clientIp = expectedClientIp;
+      await loader(args);
 
-      const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
-      const actualNowImplementation = Date.now;
-
-      try {
-        Date.now = jest.fn(() => timestamp);
-
-        await loader(args);
-
-        expect(spyOnSaveAuditLog).toHaveBeenCalledWith({
-          eventName: AuditLogEvent.FSC_REVOKED,
-          timestamp: Date.now(),
-          ipAddress: expectedClientIp,
-          username: "existing_user@foo.com",
-          eventData: {
-            transferticket: expectedTransferticket,
-          },
-        });
-      } finally {
-        Date.now = actualNowImplementation;
-      }
+      expect(spyOnSetUserIdentified).not.toHaveBeenCalled();
+      expect(spyOnLifecycleEvent).toHaveBeenCalledWith(
+        "existing_user@foo.com",
+        "foo",
+        expectedClientIp,
+        expectedTransferticket
+      );
     });
 
-    it("should not save audit log if erica revocation sends expected error", async () => {
+    it("should not call revocation lifecycle event if erica revocation sends expected error", async () => {
       getMockedFunction(
         freischaltCodeStornierenModule,
         "checkFreischaltcodeRevocation",
@@ -292,12 +251,15 @@ describe("Loader", () => {
         "/fsc/eingeben",
         "existing_user@foo.com"
       );
-      const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
+      const spyOnLifecycleEvent = jest.spyOn(
+        lifecycleModule,
+        "saveSuccessfulFscRevocationData"
+      );
       await loader(args);
-      expect(spyOnSaveAuditLog).not.toHaveBeenCalled();
+      expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
     });
 
-    it("should not save audit log if erica revocation sends unexpected error", async () => {
+    it("should not call revocation lifecycle event if erica revocation sends unexpected error", async () => {
       getMockedFunction(
         freischaltCodeStornierenModule,
         "checkFreischaltcodeRevocation",
@@ -310,12 +272,15 @@ describe("Loader", () => {
         "/fsc/eingeben",
         "existing_user@foo.com"
       );
-      const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
+      const spyOnLifecycleEvent = jest.spyOn(
+        lifecycleModule,
+        "saveSuccessfulFscRevocationData"
+      );
       await loader(args);
-      expect(spyOnSaveAuditLog).not.toHaveBeenCalled();
+      expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
     });
 
-    it("should not delete fscRequestId if erica sends revocation failure", async () => {
+    it("should not call revocation lifecycle event if erica sends revocation failure", async () => {
       getMockedFunction(
         freischaltCodeStornierenModule,
         "checkFreischaltcodeRevocation",
@@ -332,7 +297,10 @@ describe("Loader", () => {
         userModule,
         "deleteEricaRequestIdFscStornieren"
       );
-      const spyOnDeleteFscRequest = jest.spyOn(userModule, "deleteFscRequest");
+      const spyOnLifecycleEvent = jest.spyOn(
+        lifecycleModule,
+        "saveSuccessfulFscRevocationData"
+      );
 
       await loader(
         await getLoaderArgsWithAuthenticatedSession(
@@ -345,9 +313,9 @@ describe("Loader", () => {
       expect(spyOnDeleteEricaRequestIdFscStornieren).toHaveBeenCalledWith(
         "existing_user@foo.com"
       );
-      expect(spyOnDeleteFscRequest).not.toHaveBeenCalled();
+      expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
 
-      spyOnDeleteFscRequest.mockClear();
+      spyOnLifecycleEvent.mockClear();
     });
 
     it("should delete erica request id if erica sends not found error for stornieren", async () => {

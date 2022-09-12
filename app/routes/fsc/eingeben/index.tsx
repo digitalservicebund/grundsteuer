@@ -31,7 +31,6 @@ import {
 import {
   deleteEricaRequestIdFscAktivieren,
   deleteEricaRequestIdFscStornieren,
-  deleteFscRequest,
   findUserByEmail,
   saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscStornieren,
@@ -46,12 +45,14 @@ import {
   revokeFscForUser,
 } from "~/erica/freischaltCodeStornieren";
 import ErrorBar from "~/components/ErrorBar";
-import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import FreischaltcodeHelp from "~/components/form/help/Freischaltcode";
 import ArrowRight from "~/components/icons/mui/ArrowRight";
 import { getErrorMessageForFreischaltcode } from "~/domain/validation/fscValidation";
-import { saveSuccessfulFscActivationData } from "~/domain/lifecycleEvents.server";
+import {
+  saveSuccessfulFscActivationData,
+  saveSuccessfulFscRevocationData,
+} from "~/domain/lifecycleEvents.server";
 
 const isEricaRequestInProgress = (userData: User) => {
   return (
@@ -147,23 +148,21 @@ export const handleFscRevocationInProgress = async (
   clientIp: string,
   successLoggingMessage?: string
 ) => {
+  const ericaRequestIdFscStornieren = await getEricaRequestIdFscStornieren(
+    userData
+  );
   const fscRevocatedOrError = await checkFreischaltcodeRevocation(
-    await getEricaRequestIdFscStornieren(userData)
+    ericaRequestIdFscStornieren
   );
   if (fscRevocatedOrError) {
     if ("transferticket" in fscRevocatedOrError) {
       invariant(userData.fscRequest, "expected fscRequest to be present");
-      await deleteFscRequest(userData.email, userData.fscRequest.requestId);
-      await deleteEricaRequestIdFscStornieren(userData.email);
-      await saveAuditLog({
-        eventName: AuditLogEvent.FSC_REVOKED,
-        timestamp: Date.now(),
-        ipAddress: clientIp,
-        username: userData.email,
-        eventData: {
-          transferticket: fscRevocatedOrError.transferticket,
-        },
-      });
+      await saveSuccessfulFscRevocationData(
+        userData.email,
+        ericaRequestIdFscStornieren,
+        clientIp,
+        fscRevocatedOrError.transferticket
+      );
       console.log(`${successLoggingMessage}`);
       return { finished: true };
     } else if (fscRevocatedOrError?.errorType == "EricaUserInputError") {

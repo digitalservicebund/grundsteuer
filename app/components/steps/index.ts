@@ -2,7 +2,6 @@ import Default from "~/components/steps/Default";
 import BodenrichtwertInfo from "~/components/steps/grundstueck/BodenrichtwertInfo";
 import FlurstueckFlur from "~/components/steps/grundstueck/flurstueck/FlurstueckFlur";
 import FlurstueckGroesse from "~/components/steps/grundstueck/flurstueck/FlurstueckGroesse";
-import Miteigentumsanteil from "~/components/steps/grundstueck/flurstueck/FlurstueckMiteigentumsanteil";
 import Bruchteilsgemeinschaft from "~/components/steps/eigentuemer/Bruchteilsgemeinschaft";
 import Willkommen from "~/components/steps/Willkommen";
 import GrundstueckUebersicht from "~/components/steps/grundstueck/GrundstueckUebersicht";

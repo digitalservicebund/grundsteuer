@@ -4,7 +4,6 @@ import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStorniere
 import * as freischaltCodeBeantragenModule from "~/erica/freischaltCodeBeantragen";
 import * as userModule from "~/domain/user";
 import * as auditLogModule from "~/audit/auditLog";
-import { AuditLogEvent } from "~/audit/auditLog";
 import { getLoaderArgsWithAuthenticatedSession } from "test/mocks/authenticationMocks";
 import { getMockedFunction } from "test/mocks/mockHelper";
 import { mockActionArgs } from "testUtil/mockActionArgs";
@@ -293,8 +292,7 @@ describe("Loader", () => {
           ).toEqual(fscDataForSession["fscData"]);
         });
 
-        it("saves audit log", async () => {
-          const timestamp = 1652887920227;
+        it("should call correct lifecycle event", async () => {
           const expectedClientIp = "123.007";
           const args = await getLoaderArgsWithAuthenticatedSession(
             "/fsc/neuBeantragen",
@@ -303,27 +301,22 @@ describe("Loader", () => {
             fscDataForSession
           );
           args.context.clientIp = expectedClientIp;
-          const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
-          spyOnSaveAuditLog.mockReset();
-          const actualNowImplementation = Date.now;
+          const spyOnLifecycleEvent = jest.spyOn(
+            lifecycleModule,
+            "saveSuccessfulFscRevocationData"
+          );
+          spyOnLifecycleEvent.mockReset();
 
-          try {
-            Date.now = jest.fn(() => timestamp);
-            await loader(args);
+          await loader(args);
 
-            expect(spyOnSaveAuditLog).toHaveBeenCalledTimes(1);
-            expect(spyOnSaveAuditLog).toHaveBeenCalledWith({
-              eventName: AuditLogEvent.FSC_REVOKED,
-              timestamp: Date.now(),
-              ipAddress: expectedClientIp,
-              username: "existing_user@foo.com",
-              eventData: {
-                transferticket: revocationTransferticket,
-              },
-            });
-          } finally {
-            Date.now = actualNowImplementation;
-          }
+          expect(spyOnLifecycleEvent).toHaveBeenCalledTimes(1);
+          expect(spyOnLifecycleEvent).toHaveBeenCalledWith(
+            "existing_user@foo.com",
+            "storno-id",
+            expectedClientIp,
+            revocationTransferticket
+          );
+          spyOnLifecycleEvent.mockReset();
         });
 
         it("starts beantragen process", async () => {
