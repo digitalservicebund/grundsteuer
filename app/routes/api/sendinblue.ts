@@ -30,7 +30,7 @@ interface SendinbluePayload {
 }
 
 export enum StatusEvent {
-  SENT = "sent",
+  SENT = "request",
   DEFERRED = "deferred",
   DELIVERED = "delivered",
   SOFT_BOUNCE = "soft_bounce",
@@ -56,8 +56,8 @@ export const getEmailStatus: (
 };
 
 // overwrite existing record if and only if:
-// old status is sent, or
-// old status is deferred and new status is not sent
+// old status is request (equivalent to SENT), or
+// old status is deferred and new status is not request
 const hasPrecedence = (oldEvent: StatusEvent, newEvent: StatusEvent) => {
   if (oldEvent === StatusEvent.SENT) return true;
   return oldEvent === StatusEvent.DEFERRED && newEvent !== StatusEvent.SENT;
