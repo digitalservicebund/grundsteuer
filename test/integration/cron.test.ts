@@ -10,6 +10,12 @@ import { getMockedFunction } from "test/mocks/mockHelper";
 describe("Cron jobs", () => {
   describe("deleteExpiredFscs", () => {
     beforeAll(async () => {
+      await db.auditLog.deleteMany({});
+      await db.fscRequest.deleteMany({});
+      await db.pdf.deleteMany({});
+      await db.user.deleteMany({
+        where: { email: { in: ["one@foo.com", "two@foo.com"] } },
+      });
       await db.user.create({
         data: {
           email: "one@foo.com",
@@ -43,6 +49,7 @@ describe("Cron jobs", () => {
       await db.fscRequest.deleteMany({
         where: { requestId: { in: ["over90daysold", "under90daysold"] } },
       });
+      await db.pdf.deleteMany({});
       await db.user.deleteMany({
         where: { email: { in: ["one@foo.com", "two@foo.com"] } },
       });
@@ -201,6 +208,7 @@ describe("Cron jobs", () => {
       afterEach(async () => {
         await db.auditLog.deleteMany({});
         await db.fscRequest.deleteMany({});
+        await db.pdf.deleteMany({});
         await db.user.deleteMany({
           where: {
             email: {
