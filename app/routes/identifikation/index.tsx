@@ -63,10 +63,10 @@ export default function IdentifikationIndex() {
         <IdentCard
           image={ident2}
           imageAltText="Bildbeispiel Freischaltcode"
-          heading="Identifikation mit Brief"
+          heading="Identifikation mit Freischaltcode"
           subheading="Empfohlen für Nutzer:innen ohne ELSTER-Konto."
-          text="Sie erhalten einen Freischaltcode an Ihre Meldeadresse. Sie können die Erklärung ausfüllen und nach Erhalt des Codes abschicken."
-          buttonLabel="Freischaltcode beantragen"
+          text="Sie erhalten einen Brief mit einem Freischaltcode an Ihre Meldeadresse. Sie können die Erklärung ausfüllen und nach Erhalt des Codes abschicken."
+          buttonLabel="Identifikation mit Freischaltcode"
           url="/fsc"
           className="mb-16"
         />
