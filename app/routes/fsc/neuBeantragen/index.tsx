@@ -70,13 +70,15 @@ const wasProcessSuccessful = async (userData: User, session: Session) => {
 
 const startNewFscRequestProcess = async (
   userEmail: string,
-  session: Session
+  session: Session,
+  clientIp: string
 ) => {
   const fscData = await session.get("fscData");
   const ericaApiError = await requestNewFsc(
     fscData.steuerId,
     fscData.geburtsdatum,
-    userEmail
+    userEmail,
+    clientIp
   );
   session.unset("startedNeuBeantragen");
   if (ericaApiError) return { ericaApiError };
@@ -116,7 +118,11 @@ export const loader: LoaderFunction = async ({
       if (fscRevocationResult.failure) {
         throw new Error(`FSC Revocation request not found`);
       }
-      const result = await startNewFscRequestProcess(userData.email, session);
+      const result = await startNewFscRequestProcess(
+        userData.email,
+        session,
+        clientIp
+      );
       if (result) return result;
     }
   }
@@ -142,7 +148,11 @@ export const loader: LoaderFunction = async ({
     !ericaFscRevocationIsInProgress &&
     !ericaFscRequestIsInProgress
   ) {
-    const result = await startNewFscRequestProcess(userData.email, session);
+    const result = await startNewFscRequestProcess(
+      userData.email,
+      session,
+      clientIp
+    );
     ericaFscRequestIsInProgress = true;
     if (result) return result;
   }
@@ -179,7 +189,9 @@ type NeuBeantragenActionData = {
 
 export const action: ActionFunction = async ({
   request,
+  context,
 }): Promise<NeuBeantragenActionData | Response> => {
+  const { clientIp } = context;
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
@@ -222,7 +234,8 @@ export const action: ActionFunction = async ({
     const ericaApiError = await requestNewFsc(
       normalizedSteuerId,
       normalizedGeburtsdatum,
-      userData.email
+      userData.email,
+      clientIp
     );
     if (ericaApiError) return { ericaApiError };
   }
