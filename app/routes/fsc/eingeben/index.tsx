@@ -263,7 +263,9 @@ type EingebenActionData = {
 
 export const action: ActionFunction = async ({
   request,
+  context,
 }): Promise<EingebenActionData | Response> => {
+  const { clientIp } = context;
   await verifyCsrfToken(request);
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
@@ -311,6 +313,10 @@ export const action: ActionFunction = async ({
     await saveEricaRequestIdFscAktivieren(
       user.email,
       ericaRequestIdOrError.location
+    );
+    await ericaUtils.setClientIpForEricaRequest(
+      ericaRequestIdOrError.location,
+      clientIp
     );
   } else {
     return { ericaApiError: ericaRequestIdOrError.error };
