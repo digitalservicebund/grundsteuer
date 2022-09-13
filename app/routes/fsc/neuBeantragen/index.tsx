@@ -60,11 +60,26 @@ const isEricaRevocationInProgress = (userData: User) => {
 
 const wasProcessSuccessful = async (userData: User, session: Session) => {
   return (
+    !(await session.get("startedNeuBeantragen")) &&
     Boolean(await session.get("fscData")) &&
     Boolean(userData.fscRequest) &&
     !isEricaRequestInProgress(userData) &&
     !isEricaRevocationInProgress(userData)
   );
+};
+
+const startNewFscRequestProcess = async (
+  userEmail: string,
+  session: Session
+) => {
+  const fscData = await session.get("fscData");
+  const ericaApiError = await requestNewFsc(
+    fscData.steuerId,
+    fscData.geburtsdatum,
+    userEmail
+  );
+  session.unset("startedNeuBeantragen");
+  if (ericaApiError) return { ericaApiError };
 };
 
 type NeuBeantragenLoaderData = {
@@ -88,9 +103,8 @@ export const loader: LoaderFunction = async ({
     userData,
     "expected a matching user in the database from a user in a cookie session"
   );
-
   const ericaFscRevocationIsInProgress = isEricaRevocationInProgress(userData);
-  const ericaFscRequestIsInProgress = isEricaRequestInProgress(userData);
+  let ericaFscRequestIsInProgress = isEricaRequestInProgress(userData);
 
   if (ericaFscRevocationIsInProgress) {
     const fscRevocationResult = await handleFscRevocationInProgress(
@@ -102,13 +116,8 @@ export const loader: LoaderFunction = async ({
       if (fscRevocationResult.failure) {
         throw new Error(`FSC Revocation request not found`);
       }
-      const fscData = await session.get("fscData");
-      const ericaApiError = await requestNewFsc(
-        fscData.steuerId,
-        fscData.geburtsdatum,
-        userData.email
-      );
-      if (ericaApiError) return { ericaApiError };
+      const result = await startNewFscRequestProcess(userData.email, session);
+      if (result) return result;
     }
   }
 
@@ -126,6 +135,16 @@ export const loader: LoaderFunction = async ({
         },
       });
     }
+  }
+
+  if (
+    session.get("startedNeuBeantragen") &&
+    !ericaFscRevocationIsInProgress &&
+    !ericaFscRequestIsInProgress
+  ) {
+    const result = await startNewFscRequestProcess(userData.email, session);
+    ericaFscRequestIsInProgress = true;
+    if (result) return result;
   }
 
   if (await wasProcessSuccessful(userData, session)) {
@@ -212,6 +231,7 @@ export const action: ActionFunction = async ({
     steuerId: normalizedSteuerId,
     geburtsdatum: normalizedGeburtsdatum,
   });
+  session.set("startedNeuBeantragen", true);
 
   return json(
     {},

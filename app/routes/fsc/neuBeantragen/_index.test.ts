@@ -820,6 +820,15 @@ describe("Action", () => {
           ).toEqual(normalizedFormData);
         });
 
+        test("sets startedNeuBeantragen into cookie", async () => {
+          const result = await action(correctArgs);
+          expect(
+            (await getSession(result.headers.get("Set-Cookie"))).get(
+              "startedNeuBeantragen"
+            )
+          ).toBe(true);
+        });
+
         test("returns no data", async () => {
           const result = await action(correctArgs);
           expect(await result.json()).toEqual({});

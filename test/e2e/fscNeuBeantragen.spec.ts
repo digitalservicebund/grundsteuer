@@ -5,18 +5,19 @@ const validSteuerId = "77 819 250 434";
 describe("/neuBeantragen", () => {
   beforeEach(() => {
     cy.request("GET", Cypress.env("ERICA_URL") + "/reset");
+    cy.task("dbResetUser", "foo@bar.com");
     cy.task("addFscRequestId", {
       email: "foo@bar.com",
       fscRequestId: "fooRequestId",
     });
-    cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
+
     cy.login();
   });
 
   afterEach(() => {
     cy.request("GET", Cypress.env("ERICA_URL") + "/reset");
     cy.task("dbRemoveFsc", "foo@bar.com");
-    cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
+    cy.task("dbResetUser", "foo@bar.com");
   });
 
   it("should show spinner if data is correct and mockErica returns no result", () => {
@@ -86,6 +87,33 @@ describe("/neuBeantragen", () => {
     cy.get("form[action='/fsc/neuBeantragen?index'] button").click();
     cy.contains("Bitte überprüfen Sie Ihre Angaben.");
     cy.contains("Ihr Freischaltcode wird beantragt.").should("not.exist");
+  });
+
+  it("should show spinner and request new fsc if ericaStornierenRequestId was deleted during process", () => {
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerNoResponse");
+    cy.visit("/fsc/neuBeantragen");
+    cy.get("[name=steuerId]").type(validSteuerId);
+    cy.get("[name=geburtsdatum]").type("01.08.1991");
+    cy.get("form[action='/fsc/neuBeantragen?index'] button").click();
+    cy.contains("Ihr Freischaltcode wird beantragt.");
+
+    //Simulate another task processing the erica request faster
+    cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
+    cy.task("dbRemoveFsc", "foo@bar.com");
+    cy.task("getUser", "foo@bar.com").then((user) => {
+      expect(user[0].ericaRequestIdFscStornieren).to.be.null;
+    });
+    cy.task("getFscRequest", "foo@bar.com").then((fscRequest) => {
+      expect(fscRequest[0]).to.be.undefined;
+    });
+    cy.contains("Ihr Freischaltcode wird beantragt.");
+
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDirectResponse");
+
+    cy.url().should("include", "/fsc/neuBeantragen/erfolgreich");
+    cy.task("getFscRequest", "foo@bar.com").then((fscRequest) => {
+      expect(fscRequest[0]).not.to.be.undefined;
+    });
   });
 
   it("should show 500 page if failure and unexpected error", () => {

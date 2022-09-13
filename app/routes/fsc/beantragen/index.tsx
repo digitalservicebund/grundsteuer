@@ -69,6 +69,8 @@ const getEricaRequestIdFscBeantragen = async (userData: User) => {
   return userData.ericaRequestIdFscBeantragen;
 };
 
+// This function would return an error if the request could not be found.
+// An update of the database through another process would not affect this error.
 export const handleFscRequestInProgress = async (
   userData: User,
   clientIp: string,

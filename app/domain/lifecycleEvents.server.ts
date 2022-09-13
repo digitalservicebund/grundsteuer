@@ -15,7 +15,7 @@ export const saveSuccessfulFscRequestData = async (
     throw new Error("User not found.");
   }
 
-  const _deleteEricaRequestIdFscBeantragen = () => {
+  const deleteEricaRequestIdFscBeantragen = () => {
     return db.user.updateMany({
       where: {
         id: user.id,
@@ -25,7 +25,7 @@ export const saveSuccessfulFscRequestData = async (
     });
   };
 
-  const _createNewFscRequest = async () => {
+  const createNewFscRequest = async () => {
     await db.fscRequest.deleteMany({
       where: {
         userId: user.id,
@@ -41,14 +41,13 @@ export const saveSuccessfulFscRequestData = async (
 
   try {
     await db.$transaction(async () => {
-      const updatedUsersWithEricaId =
-        await _deleteEricaRequestIdFscBeantragen();
+      const updatedUsersWithEricaId = await deleteEricaRequestIdFscBeantragen();
 
       if (updatedUsersWithEricaId.count != 1) {
         throw Error("ericaRequestId of user does not match");
       }
 
-      await _createNewFscRequest();
+      await createNewFscRequest();
       await saveAuditLog({
         eventName: AuditLogEvent.FSC_REQUESTED,
         timestamp: Date.now(),
@@ -61,11 +60,7 @@ export const saveSuccessfulFscRequestData = async (
       });
     });
   } catch (error) {
-    if (
-      !("message" in (error as object)) ||
-      (error as { message: string }).message !==
-        "ericaRequestId of user does not match"
-    ) {
+    if (shouldThrowError(error as object)) {
       throw error;
     }
   }
@@ -82,7 +77,7 @@ export const saveSuccessfulFscActivationData = async (
     throw new Error("User not found.");
   }
 
-  const _deleteEricaRequestIdFscAktivieren = () => {
+  const deleteEricaRequestIdFscAktivieren = () => {
     return db.user.updateMany({
       where: {
         id: user.id,
@@ -94,8 +89,7 @@ export const saveSuccessfulFscActivationData = async (
 
   try {
     await db.$transaction(async () => {
-      const updatedUsersWithEricaId =
-        await _deleteEricaRequestIdFscAktivieren();
+      const updatedUsersWithEricaId = await deleteEricaRequestIdFscAktivieren();
 
       if (updatedUsersWithEricaId.count != 1) {
         throw Error("ericaRequestId of user does not match");
@@ -113,11 +107,7 @@ export const saveSuccessfulFscActivationData = async (
       });
     });
   } catch (error) {
-    if (
-      !("message" in (error as object)) ||
-      (error as { message: string }).message !==
-        "ericaRequestId of user does not match"
-    ) {
+    if (shouldThrowError(error as object)) {
       throw error;
     }
   }
@@ -134,7 +124,7 @@ export const saveSuccessfulFscRevocationData = async (
     throw new Error("User not found.");
   }
 
-  const _deleteEricaRequestIdFscStornieren = () => {
+  const deleteEricaRequestIdFscStornieren = () => {
     return db.user.updateMany({
       where: {
         id: user.id,
@@ -144,7 +134,7 @@ export const saveSuccessfulFscRevocationData = async (
     });
   };
 
-  const _deleteFscRequest = () => {
+  const deleteFscRequest = () => {
     return db.fscRequest.deleteMany({
       where: {
         userId: user.id,
@@ -155,14 +145,13 @@ export const saveSuccessfulFscRevocationData = async (
 
   try {
     await db.$transaction(async () => {
-      const updatedUsersWithEricaId =
-        await _deleteEricaRequestIdFscStornieren();
+      const updatedUsersWithEricaId = await deleteEricaRequestIdFscStornieren();
 
       if (updatedUsersWithEricaId.count != 1) {
         throw Error("ericaRequestId of user does not match");
       }
 
-      await _deleteFscRequest();
+      await deleteFscRequest();
 
       await saveAuditLog({
         eventName: AuditLogEvent.FSC_REVOKED,
@@ -175,12 +164,16 @@ export const saveSuccessfulFscRevocationData = async (
       });
     });
   } catch (error) {
-    if (
-      !("message" in (error as object)) ||
-      (error as { message: string }).message !==
-        "ericaRequestId of user does not match"
-    ) {
+    if (shouldThrowError(error as object)) {
       throw error;
     }
   }
+};
+
+const shouldThrowError = (error: object) => {
+  return (
+    !("message" in (error as object)) ||
+    (error as { message: string }).message !==
+      "ericaRequestId of user does not match"
+  );
 };

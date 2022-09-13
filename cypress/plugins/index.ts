@@ -98,6 +98,18 @@ export default (on, config) => {
       return null;
     },
 
+    getFscRequest: async ({ email }) => {
+      return db.fscRequest.findMany({
+        where: { User: { email: email } },
+      });
+    },
+
+    getUser: async ({ email }) => {
+      return db.user.findMany({
+        where: { email: email },
+      });
+    },
+
     setIdentified: async ({ email, identified }) => {
       await db.user.update({
         where: { email: email },
