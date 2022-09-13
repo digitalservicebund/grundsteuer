@@ -7,8 +7,8 @@ import {
 import { checkFreischaltcodeActivation } from "~/erica/freischaltCodeAktivieren";
 import { retrieveAntragsId } from "~/erica/freischaltCodeBeantragen";
 import { checkFreischaltcodeRevocation } from "~/erica/freischaltCodeStornieren";
-import { redis } from "~/redis.server";
 import { db } from "~/db.server";
+import { ericaUtils } from "~/erica/utils";
 
 export const updateOpenEricaRequests = async () => {
   let countOfProcessedEricaRequests = 0;
@@ -23,7 +23,7 @@ export const updateOpenEricaRequests = async () => {
         user.ericaRequestIdFscBeantragen
       );
       if (ericaResponse && "elsterRequestId" in ericaResponse) {
-        const clientIp = await getClientIpForEricaRequest(
+        const clientIp = await ericaUtils.getClientIpForEricaRequest(
           user.ericaRequestIdFscBeantragen
         );
         if (clientIp) {
@@ -54,7 +54,7 @@ export const updateOpenEricaRequests = async () => {
         user.ericaRequestIdFscAktivieren
       );
       if (ericaResponse && "transferticket" in ericaResponse) {
-        const clientIp = await getClientIpForEricaRequest(
+        const clientIp = await ericaUtils.getClientIpForEricaRequest(
           user.ericaRequestIdFscAktivieren
         );
         if (clientIp) {
@@ -83,7 +83,7 @@ export const updateOpenEricaRequests = async () => {
         user.ericaRequestIdFscStornieren
       );
       if (ericaResponse && "transferticket" in ericaResponse) {
-        const clientIp = await getClientIpForEricaRequest(
+        const clientIp = await ericaUtils.getClientIpForEricaRequest(
           user.ericaRequestIdFscStornieren
         );
         if (clientIp) {
@@ -112,10 +112,6 @@ export const updateOpenEricaRequests = async () => {
   console.log(
     `Finished updating open erica requests: elapsedSeconds: ${elapsedSeconds}, countOfProcessedEricaRequests: ${countOfProcessedEricaRequests}, countOfProcessedEricaActivations: ${countOfProcessedEricaActivations}, countOfProcessedEricaRevocations: ${countOfProcessedEricaRevocations}`
   );
-};
-
-const getClientIpForEricaRequest = (ericaRequestId: string) => {
-  return redis.get(`clientIp:${ericaRequestId}`);
 };
 
 const removeEricaRequestIdFscBeantragen = (
