@@ -3,6 +3,7 @@ import { db } from "./db.server";
 import { AuditLogEvent, encryptAuditLogData } from "~/audit/auditLog";
 import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
 import { deleteFscRequest } from "~/domain/user";
+import { updateOpenEricaRequests } from "~/erica/updateOpenEricaRequests.server";
 
 const scheduleFscCleanup = (cronExpression: string) => {
   console.info(
@@ -136,8 +137,17 @@ export const deleteExpiredAccounts = async () => {
   }
 };
 
+const scheduleUpdateEricaRequest = (cronExpression: string) => {
+  console.info(
+    "Schedule deleting updating open erica requests",
+    cronExpression
+  );
+  schedule(cronExpression, async () => updateOpenEricaRequests());
+};
+
 export const jobs = {
   scheduleFscCleanup,
   schedulePdfCleanup,
   scheduleAccountCleanup,
+  scheduleUpdateEricaRequest,
 };
