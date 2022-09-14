@@ -70,8 +70,12 @@ export const isEricaRevocationRequestInProgress = (userData: User) => {
   return Boolean(userData.ericaRequestIdFscStornieren);
 };
 
-const wasEricaRequestSuccessful = (userData: User) => {
-  return userData.identified && !isEricaRevocationRequestInProgress(userData);
+const wasEricaRequestSuccessful = async (userData: User, session: Session) => {
+  return (
+    !session.get("startedFscEingeben") &&
+    userData.identified &&
+    !isEricaRevocationRequestInProgress(userData)
+  );
 };
 
 const getEricaRequestIdFscAktivieren = async (userData: User) => {
@@ -108,23 +112,7 @@ const handleFscActivationProgress = async (
       );
       console.log(`${successLoggingMessage}`);
 
-      const ericaRequestIdOrError = await revokeFscForUser(userData);
-
-      if ("location" in ericaRequestIdOrError) {
-        await saveEricaRequestIdFscStornieren(
-          userData.email,
-          ericaRequestIdOrError.location
-        );
-        await ericaUtils.setClientIpForEricaRequest(
-          ericaRequestIdOrError.location,
-          clientIp
-        );
-      } else {
-        console.warn(
-          "Failed to revocate FSC on eingeben with error message: ",
-          ericaRequestIdOrError.error
-        );
-      }
+      await startNewFscRevocationProcess(userData, clientIp);
     } else if (fscActivatedOrError?.errorType == "EricaUserInputError") {
       await deleteEricaRequestIdFscAktivieren(userData.email);
       return {
@@ -137,6 +125,34 @@ const handleFscActivationProgress = async (
         `${fscActivatedOrError?.errorType}: ${fscActivatedOrError?.errorMessage}`
       );
     }
+  }
+};
+
+const startNewFscRevocationProcess = async (
+  userData: User,
+  clientIp: string
+) => {
+  let ericaRequestIdOrError;
+  try {
+    ericaRequestIdOrError = await revokeFscForUser(userData);
+  } catch {
+    console.warn("Failed to revoke fsc");
+    return;
+  }
+  if (ericaRequestIdOrError && "location" in ericaRequestIdOrError) {
+    await saveEricaRequestIdFscStornieren(
+      userData.email,
+      ericaRequestIdOrError.location
+    );
+    await ericaUtils.setClientIpForEricaRequest(
+      ericaRequestIdOrError.location,
+      clientIp
+    );
+  } else {
+    console.warn(
+      "Failed to revocate FSC on eingeben with error message: ",
+      ericaRequestIdOrError.error
+    );
   }
 };
 
@@ -198,21 +214,20 @@ export const loader: LoaderFunction = async ({ request, context }) => {
     failureRedirect: "/anmelden",
   });
   const userData: User | null = await findUserByEmail(user.email);
+  const session = await getSession(request.headers.get("Cookie"));
   invariant(
     userData,
     "expected a matching user in the database from a user in a cookie session"
   );
 
   const ericaActivationRequestIsInProgress =
-    await isEricaActivationRequestInProgress(userData);
-  const ericaRevocationRequestIsInProgress =
-    await isEricaRevocationRequestInProgress(userData);
+    isEricaActivationRequestInProgress(userData);
+  let ericaRevocationRequestIsInProgress =
+    isEricaRevocationRequestInProgress(userData);
 
-  if (await wasEricaRequestSuccessful(userData)) {
+  if (await wasEricaRequestSuccessful(userData, session)) {
     return redirect("/fsc/eingeben/erfolgreich");
   }
-
-  const session = await getSession(request.headers.get("Cookie"));
 
   if (ericaActivationRequestIsInProgress) {
     const fscActivationData = await handleFscActivationProgress(
@@ -236,6 +251,15 @@ export const loader: LoaderFunction = async ({ request, context }) => {
     if (fscRevocationData?.finished && fscRevocationData?.failure) {
       return fscRevocationData;
     }
+  }
+  if (
+    session.get("startedFscEingeben") &&
+    !ericaActivationRequestIsInProgress &&
+    !ericaRevocationRequestIsInProgress
+  ) {
+    await startNewFscRevocationProcess(userData, clientIp);
+    session.unset("startedFscEingeben");
+    ericaRevocationRequestIsInProgress = true;
   }
 
   const csrfToken = createCsrfToken(session);
@@ -271,6 +295,8 @@ export const action: ActionFunction = async ({
     failureRedirect: "/anmelden",
   });
   const userData: User | null = await findUserByEmail(user.email);
+  const session = await getSession(request.headers.get("Cookie"));
+
   invariant(
     userData,
     "expected a matching user in the database from a user in a cookie session"
@@ -281,7 +307,7 @@ export const action: ActionFunction = async ({
   invariant(userData.fscRequest, "expected an fscRequest in database for user");
   const elsterRequestId = userData.fscRequest.requestId;
 
-  if (wasEricaRequestSuccessful(userData)) {
+  if (await wasEricaRequestSuccessful(userData, session)) {
     return redirect("/fsc/eingeben/erfolgreich");
   }
 
@@ -318,11 +344,19 @@ export const action: ActionFunction = async ({
       ericaRequestIdOrError.location,
       clientIp
     );
+    session.set("startedFscEingeben", true);
   } else {
     return { ericaApiError: ericaRequestIdOrError.error };
   }
 
-  return {};
+  return json(
+    {},
+    {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    }
+  );
 };
 
 export default function FscEingeben() {

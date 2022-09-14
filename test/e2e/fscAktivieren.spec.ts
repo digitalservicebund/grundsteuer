@@ -86,6 +86,28 @@ describe("/eingeben", () => {
     cy.url().should("include", "/fsc/eingeben/erfolgreich");
   });
 
+  it("should show spinner and revoke fsc if ericaAktivierenRequestId was deleted during process", () => {
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerNoResponse");
+    cy.visit("/fsc/eingeben");
+    cy.get("[name=freischaltCode]").type(validFreischaltCode);
+    cy.get("form[action='/fsc/eingeben?index'] button").click();
+    cy.contains("Ihr Freischaltcode wird überprüft.");
+
+    //Simulate another task processing the erica request faster
+    cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
+    cy.task("setIdentified", { email: "foo@bar.com", identified: true });
+    cy.contains("Ihr Freischaltcode wird überprüft.");
+
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDirectResponse");
+
+    cy.url().should("include", "/fsc/eingeben/erfolgreich");
+    cy.contains("Sie haben sich erfolgreich identifiziert.");
+
+    cy.task("getFscRequest", "foo@bar.com").then((fscRequest) => {
+      expect(fscRequest[0]).to.be.undefined;
+    });
+  });
+
   it("should show 500 page if failure and unexpected error", () => {
     //Because we do not reload the page we need to intercept the call in the background
     cy.intercept(

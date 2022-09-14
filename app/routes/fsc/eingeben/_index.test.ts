@@ -500,9 +500,18 @@ describe("Action", () => {
           );
         });
 
+        test("sets startedFscEingeben into cookie", async () => {
+          const result = await action(correctArgs);
+          expect(
+            (await getSession(result.headers.get("Set-Cookie"))).get(
+              "startedFscEingeben"
+            )
+          ).toBe(true);
+        });
+
         test("returns no data", async () => {
           const result = await action(correctArgs);
-          expect(await result).toEqual({});
+          expect(await result.json()).toEqual({});
         });
       });
 
