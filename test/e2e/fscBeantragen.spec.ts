@@ -87,6 +87,28 @@ describe("/beantragen", () => {
     cy.url().should("include", "/fsc/beantragen/erfolgreich");
   });
 
+  it("should show successful result if ericaBeantragenRequestId was deleted during process", () => {
+    cy.request("GET", Cypress.env("ERICA_URL") + "/triggerNoResponse");
+    cy.visit("/fsc/beantragen");
+    cy.get("[name=steuerId]").type(validSteuerId);
+    cy.get("[name=geburtsdatum]").type("01.08.1991");
+    cy.get("form[action='/fsc/beantragen?index'] button").click();
+    cy.contains("Ihr Freischaltcode wird beantragt.");
+
+    //Simulate another task processing the erica request faster
+    cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
+    cy.task("addFscRequestId", {
+      email: "foo@bar.com",
+      fscRequestId: "fooRequestId",
+    });
+    cy.contains("Ihr Freischaltcode wird beantragt.");
+
+    cy.url().should("include", "/fsc/beantragen/erfolgreich");
+    cy.task("getFscRequest", "foo@bar.com").then((fscRequest) => {
+      expect(fscRequest[0]).not.to.be.undefined;
+    });
+  });
+
   it("should show 500 page if failure and unexpected error", () => {
     //Because we do not reload the page we need to intercept the call in the background
     cy.intercept(
