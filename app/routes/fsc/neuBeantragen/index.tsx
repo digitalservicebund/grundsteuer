@@ -217,6 +217,7 @@ export const action: ActionFunction = async ({
     geburtsdatum: normalizedGeburtsdatum,
   });
   if (validationErrors) return validationErrors;
+  const session = await getSession(request.headers.get("Cookie"));
 
   if (userData.fscRequest) {
     const ericaRequestIdOrError = await revokeFscForUser(userData);
@@ -235,6 +236,7 @@ export const action: ActionFunction = async ({
       ericaRequestIdOrError.location,
       clientIp
     );
+    session.set("startedNeuBeantragen", true);
   } else {
     const ericaApiError = await requestNewFsc(
       normalizedSteuerId,
@@ -243,13 +245,12 @@ export const action: ActionFunction = async ({
       clientIp
     );
     if (ericaApiError) return { ericaApiError };
+    session.unset("startedNeuBeantragen");
   }
-  const session = await getSession(request.headers.get("Cookie"));
   session.set("fscData", {
     steuerId: normalizedSteuerId,
     geburtsdatum: normalizedGeburtsdatum,
   });
-  session.set("startedNeuBeantragen", true);
 
   return json(
     {},
