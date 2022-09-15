@@ -82,7 +82,7 @@
     "tsconfig-paths": "^4.1.0",
     "uuid": "^8.3.2",
     "validator": "^13.7.0",
-    "xstate": "^4.33.5"
+    "xstate": "^4.33.6"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.7.0",
@@ -107,7 +107,7 @@
     "@types/uuid": "^8.3.4",
     "@types/validator": "^13.7.6",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
-    "@typescript-eslint/parser": "^5.36.2",
+    "@typescript-eslint/parser": "^5.37.0",
     "copy-env-cli": "^1.0.0",
     "cypress": "^10.7.0",
     "esbuild": "^0.15.7",
