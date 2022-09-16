@@ -6,7 +6,6 @@ const { createRequestHandler } = require("@remix-run/express");
 const path = require("path");
 const helmet = require("helmet");
 const dotenv = require("dotenv-safe");
-const { createHttpTerminator } = require("http-terminator");
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 const BUILD_DIR = path.join(process.cwd(), "build");
@@ -96,15 +95,14 @@ const server = app.listen(port, () => {
   console.log(`Express server listening on port ${port}`);
 });
 
-const httpTerminator = createHttpTerminator({
-  server,
-});
-
 const shutdown = async (signal) => {
   console.log(`${signal} received: closing HTTP server gracefully`);
   isOnline = false;
-  await httpTerminator.terminate();
-  console.log("HTTP server closed");
+  server.closeIdleConnections();
+  server.close(() => {
+    console.log("Http server closed.");
+  });
+  server.closeAllConnections();
 };
 
 const SIGINT = "SIGINT";
