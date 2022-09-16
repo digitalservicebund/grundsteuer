@@ -101,7 +101,6 @@ const shutdown = async (signal: string) => {
   server.close(() => {
     console.log("Http server closed.");
   });
-  server.closeAllConnections();
 };
 
 const SIGINT = "SIGINT";
