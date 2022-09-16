@@ -6,6 +6,7 @@ const { createRequestHandler } = require("@remix-run/express");
 const path = require("path");
 const helmet = require("helmet");
 const dotenv = require("dotenv-safe");
+const { createHttpTerminator } = require("http-terminator");
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 const BUILD_DIR = path.join(process.cwd(), "build");
@@ -95,18 +96,21 @@ const server = app.listen(port, () => {
   console.log(`Express server listening on port ${port}`);
 });
 
-const shutdown = (signal) => {
+const httpTerminator = createHttpTerminator({
+  server,
+});
+
+const shutdown = async (signal) => {
   console.log(`${signal} received: closing HTTP server gracefully`);
   isOnline = false;
-  server.close(() => {
-    console.log("HTTP server closed");
-  });
+  await httpTerminator.terminate();
+  console.log("HTTP server closed");
 };
 
 const SIGINT = "SIGINT";
 const SIGTERM = "SIGTERM";
-process.on(SIGINT, () => shutdown(SIGINT));
-process.on(SIGTERM, () => shutdown(SIGTERM));
+process.on(SIGINT, async () => await shutdown(SIGINT));
+process.on(SIGTERM, async () => await shutdown(SIGTERM));
 
 function purgeRequireCache() {
   // purge require cache on requests for "server side HMR" this won't let
