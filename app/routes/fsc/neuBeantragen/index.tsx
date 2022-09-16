@@ -49,7 +49,6 @@ import lohnsteuerbescheinigungImage from "~/assets/images/lohnsteuerbescheinigun
 import fscLetterImage from "~/assets/images/fsc-letter.svg";
 import fscInputImage from "~/assets/images/fsc-input.svg";
 import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
-import { ericaUtils } from "~/erica/utils";
 
 const isEricaRequestInProgress = (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -230,10 +229,6 @@ export const action: ActionFunction = async ({
     await saveEricaRequestIdFscStornieren(
       userData.email,
       ericaRequestIdOrError.location
-    );
-    await ericaUtils.setClientIpForEricaRequest(
-      ericaRequestIdOrError.location,
-      clientIp
     );
   } else {
     const ericaApiError = await requestNewFsc(

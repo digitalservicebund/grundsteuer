@@ -53,7 +53,6 @@ import {
   saveSuccessfulFscActivationData,
   saveSuccessfulFscRevocationData,
 } from "~/domain/lifecycleEvents.server";
-import { ericaUtils } from "~/erica/utils";
 
 const isEricaRequestInProgress = (userData: User) => {
   return (
@@ -114,10 +113,6 @@ const handleFscActivationProgress = async (
         await saveEricaRequestIdFscStornieren(
           userData.email,
           ericaRequestIdOrError.location
-        );
-        await ericaUtils.setClientIpForEricaRequest(
-          ericaRequestIdOrError.location,
-          clientIp
         );
       } else {
         console.warn(
