@@ -95,20 +95,18 @@ const server = app.listen(port, () => {
   console.log(`Express server listening on port ${port}`);
 });
 
-const shutdown = async (signal) => {
+const shutdown = (signal) => {
   console.log(`${signal} received: closing HTTP server gracefully`);
   isOnline = false;
-  server.closeIdleConnections();
   server.close(() => {
-    console.log("Http server closed.");
+    console.log("HTTP server closed");
   });
-  server.closeAllConnections();
 };
 
 const SIGINT = "SIGINT";
 const SIGTERM = "SIGTERM";
-process.on(SIGINT, async () => await shutdown(SIGINT));
-process.on(SIGTERM, async () => await shutdown(SIGTERM));
+process.on(SIGINT, () => shutdown(SIGINT));
+process.on(SIGTERM, () => shutdown(SIGTERM));
 
 function purgeRequireCache() {
   // purge require cache on requests for "server side HMR" this won't let
