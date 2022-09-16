@@ -58,11 +58,25 @@ const saveAuditLogs = async (
   });
 };
 
+// This happens mostly when the user navigates away from the elster login page using methods other than
+// clicking the dedicated cancel button on the page (e.g. through the browser back button) and later triggers
+// the creation of a fresh ekona cookie by visiting /ekona again (easiest way to reproduce: go to /ekona,
+// click the "go to elster" button, click browser back, reload page, click the "go to elster" button). Starting
+// ekona ident in this state leads to the ID in our own cookie not to match the one stored in the elster session
+// cookie (i.e the cookie stored by the elster website), hence this (very frequent) error.
+//
+// This is a rather hacky solution designed around the assumption that the above-mentioned scenario constitutes
+// almost all cases of this error on production.
+const indicatesSessionDrift = (validationError: string) => {
+  return validationError.toString().includes("InResponseTo is not valid");
+};
+
 const redirectIfUserInterruption = (validationError: any) => {
   if (
-    "xmlStatus" in validationError &&
-    validationError.xmlStatus.includes(AUTHN_FAILED_STATUS_CODE) &&
-    validationError.xmlStatus.includes(USER_INTERRUPTION_MESSAGE)
+    indicatesSessionDrift(validationError) ||
+    ("xmlStatus" in validationError &&
+      validationError.xmlStatus.includes(AUTHN_FAILED_STATUS_CODE) &&
+      validationError.xmlStatus.includes(USER_INTERRUPTION_MESSAGE))
   ) {
     return redirect("/ekona");
   }
