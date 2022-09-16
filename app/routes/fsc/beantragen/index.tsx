@@ -52,7 +52,6 @@ import {
   getErrorMessageForSteuerId,
 } from "~/domain/validation/fscValidation";
 import { saveSuccessfulFscRequestData } from "~/domain/lifecycleEvents.server";
-import { ericaUtils } from "~/erica/utils";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -148,8 +147,7 @@ export const validateBeantragenData = async ({
 export const requestNewFsc = async (
   normalizedSteuerId: string,
   normalizedGeburtsdatum: string,
-  email: string,
-  clientIp: string
+  email: string
 ) => {
   const ericaRequestIdOrError = await requestNewFreischaltCode(
     normalizedSteuerId,
@@ -159,10 +157,6 @@ export const requestNewFsc = async (
     await saveEricaRequestIdFscBeantragen(
       email,
       ericaRequestIdOrError.location
-    );
-    await ericaUtils.setClientIpForEricaRequest(
-      ericaRequestIdOrError.location,
-      clientIp
     );
   } else {
     return ericaRequestIdOrError.error;
@@ -219,9 +213,7 @@ type BeantragenActionData = {
 
 export const action: ActionFunction = async ({
   request,
-  context,
 }): Promise<BeantragenActionData | Response> => {
-  const { clientIp } = context;
   await verifyCsrfToken(request);
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
@@ -249,8 +241,7 @@ export const action: ActionFunction = async ({
   const ericaApiError = await requestNewFsc(
     normalizedSteuerId,
     normalizedGeburtsdatum,
-    userData.email,
-    clientIp
+    userData.email
   );
   if (ericaApiError) {
     return { ericaApiError };
