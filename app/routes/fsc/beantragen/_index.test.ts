@@ -9,10 +9,10 @@ import * as lifecycleModule from "~/domain/lifecycleEvents.server";
 import * as userModule from "~/domain/user";
 import { getMockedFunction } from "test/mocks/mockHelper";
 import { loader, action } from "~/routes/fsc/beantragen/index";
-import { AuditLogEvent } from "~/audit/auditLog";
 import * as csrfModule from "~/util/csrf";
 import { mockActionArgs } from "testUtil/mockActionArgs";
 import { DataFunctionArgs } from "@remix-run/node";
+import { redis } from "~/redis.server";
 
 describe("Loader", () => {
   const expectedTransferticket = "foo12345";
@@ -28,6 +28,9 @@ describe("Loader", () => {
         })
       )
     );
+    jest
+      .spyOn(redis, "set")
+      .mockImplementation(jest.fn(() => Promise.resolve({})) as jest.Mock);
   });
 
   beforeEach(async () => {
@@ -149,6 +152,9 @@ describe("Loader", () => {
 
 describe("Action", () => {
   beforeAll(async () => {
+    jest
+      .spyOn(redis, "set")
+      .mockImplementation(jest.fn(() => Promise.resolve({})) as jest.Mock);
     getMockedFunction(csrfModule, "verifyCsrfToken", Promise.resolve());
     mockIsAuthenticated.mockImplementation(() =>
       Promise.resolve(
@@ -157,6 +163,10 @@ describe("Action", () => {
         })
       )
     );
+  });
+
+  afterAll(() => {
+    jest.resetAllMocks();
   });
 
   test("Returns no data if beantragen in progress", async () => {

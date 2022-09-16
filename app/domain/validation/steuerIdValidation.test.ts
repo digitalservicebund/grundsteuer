@@ -3,7 +3,6 @@ import {
   validateUniqueSteuerId,
 } from "~/domain/validation/steuerIdValidation";
 import { grundModelFactory } from "test/factories";
-import { GrundModel } from "~/domain/steps/index.server";
 
 describe("validateSteuerId", () => {
   const cases = [

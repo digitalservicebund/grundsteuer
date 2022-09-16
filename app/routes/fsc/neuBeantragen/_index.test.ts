@@ -11,6 +11,7 @@ import * as csrfModule from "~/util/csrf";
 import SpyInstance = jest.SpyInstance;
 import { DataFunctionArgs } from "@remix-run/node";
 import * as lifecycleModule from "~/domain/lifecycleEvents.server";
+import { redis } from "~/redis.server";
 
 describe("Loader", () => {
   beforeAll(async () => {
@@ -18,6 +19,9 @@ describe("Loader", () => {
       email: "existing_user@foo.com",
       fscRequest: { requestId: "foo" },
     });
+    jest
+      .spyOn(redis, "set")
+      .mockImplementation(jest.fn(() => Promise.resolve({})) as jest.Mock);
   });
 
   afterAll(async () => {
@@ -671,7 +675,14 @@ describe("Loader", () => {
 
 describe("Action", () => {
   beforeAll(async () => {
+    jest
+      .spyOn(redis, "set")
+      .mockImplementation(jest.fn(() => Promise.resolve({})) as jest.Mock);
     getMockedFunction(csrfModule, "verifyCsrfToken", Promise.resolve());
+  });
+
+  afterAll(() => {
+    jest.resetAllMocks();
   });
 
   test("Returns no data if revocation in progress", async () => {

@@ -14,6 +14,7 @@ import { getMockedFunction } from "test/mocks/mockHelper";
 import * as csrfModule from "~/util/csrf";
 import { mockActionArgs } from "testUtil/mockActionArgs";
 import { DataFunctionArgs } from "@remix-run/node";
+import { redis } from "~/redis.server";
 
 describe("Loader", () => {
   const expectedTransferticket = "foo12345";
@@ -28,6 +29,9 @@ describe("Loader", () => {
         })
       )
     );
+    jest
+      .spyOn(redis, "set")
+      .mockImplementation(jest.fn(() => Promise.resolve({})) as jest.Mock);
   });
 
   beforeEach(() => {
@@ -219,7 +223,7 @@ describe("Loader", () => {
         lifecycleModule,
         "saveSuccessfulFscRevocationData"
       );
-      const spyOnDeleteFscRequest = jest.spyOn(userModule, "deleteFscRequest");
+      jest.spyOn(userModule, "deleteFscRequest");
 
       const expectedClientIp = "123.007";
       const args = await getLoaderArgsWithAuthenticatedSession(
@@ -362,6 +366,9 @@ describe("Loader", () => {
 
 describe("Action", () => {
   beforeAll(async () => {
+    jest
+      .spyOn(redis, "set")
+      .mockImplementation(jest.fn(() => Promise.resolve({})) as jest.Mock);
     getMockedFunction(csrfModule, "verifyCsrfToken", Promise.resolve());
     mockIsAuthenticated.mockImplementation(() =>
       Promise.resolve(
@@ -370,6 +377,9 @@ describe("Action", () => {
         })
       )
     );
+  });
+  afterAll(() => {
+    jest.resetAllMocks();
   });
 
   test("Returns no data if storno in progress", async () => {
