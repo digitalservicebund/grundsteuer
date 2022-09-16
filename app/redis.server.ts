@@ -1,6 +1,6 @@
 import Redis from "ioredis";
 
-let ioredis: Redis;
+let ioredis: Redis | undefined;
 
 function getClient() {
   if (!ioredis) {
@@ -35,6 +35,7 @@ const ttl = async (key: string) => {
 
 const quit = async () => {
   await getClient().quit();
+  ioredis = undefined;
 };
 
 export const redis = { set, get, incr, del, flushAll, ttl, quit };
