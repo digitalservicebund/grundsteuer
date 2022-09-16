@@ -1,11 +1,12 @@
-import path from "path";
-import helmet from "helmet";
-import dotenv from "dotenv-safe";
-import express from "express";
-import compression from "compression";
-import morgan from "morgan";
-import { createRequestHandler } from "@remix-run/express";
-import { redis } from "~/redis.server";
+/* eslint-disable @typescript-eslint/no-var-requires */
+const express = require("express");
+const compression = require("compression");
+const morgan = require("morgan");
+const { createRequestHandler } = require("@remix-run/express");
+const path = require("path");
+const helmet = require("helmet");
+const dotenv = require("dotenv-safe");
+/* eslint-enable @typescript-eslint/no-var-requires */
 
 const BUILD_DIR = path.join(process.cwd(), "build");
 
@@ -64,7 +65,7 @@ app.use(morgan("tiny"));
 
 app.set("trust proxy", true);
 
-const getLoadContext = (req: express.Request) => ({
+const getLoadContext = (req) => ({
   clientIp: req.ip,
   online: isOnline,
 });
@@ -94,13 +95,14 @@ const server = app.listen(port, () => {
   console.log(`Express server listening on port ${port}`);
 });
 
-const shutdown = async (signal: string) => {
+const shutdown = async (signal) => {
   console.log(`${signal} received: closing HTTP server gracefully`);
   isOnline = false;
-  await redis.quit();
+  server.closeIdleConnections();
   server.close(() => {
     console.log("Http server closed.");
   });
+  server.closeAllConnections();
 };
 
 const SIGINT = "SIGINT";
