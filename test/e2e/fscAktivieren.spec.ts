@@ -26,10 +26,6 @@ describe("/eingeben", () => {
     });
   });
 
-  after(() => {
-    cy.task("redisQuit");
-  });
-
   it("should redirect to success page if mockErica returns success", () => {
     cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDirectResponse");
     cy.request("GET", Cypress.env("ERICA_URL") + "/triggerSuccess");

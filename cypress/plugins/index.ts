@@ -27,7 +27,6 @@ import {
   setUserIdentified,
   setUserInDeclarationProcess,
 } from "../../app/domain/user";
-import { redis } from "../../app/redis.server";
 
 /**
  * @type {Cypress.PluginConfig}
@@ -158,11 +157,6 @@ export default (on, config) => {
       inDeclarationProcess,
     }) => {
       await setUserInDeclarationProcess(email, inDeclarationProcess);
-      return null;
-    },
-
-    redisQuit: async () => {
-      await redis.quit();
       return null;
     },
   });

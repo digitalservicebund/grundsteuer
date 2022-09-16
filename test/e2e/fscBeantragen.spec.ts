@@ -21,10 +21,6 @@ describe("/beantragen", () => {
     cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
   });
 
-  after(() => {
-    cy.task("redisQuit");
-  });
-
   it("should show spinner if data is correct and mockErica returns no result", () => {
     cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDelayedResponse");
     cy.visit("/fsc/beantragen");
