@@ -34,7 +34,10 @@ const ttl = async (key: string) => {
 };
 
 const quit = async () => {
-  await getClient().quit();
+  if (ioredis) {
+    await getClient().quit();
+    ioredis = undefined;
+  }
 };
 
 export const redis = { set, get, incr, del, flushAll, ttl, quit };
