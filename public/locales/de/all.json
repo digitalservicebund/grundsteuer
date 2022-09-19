@@ -310,7 +310,7 @@
       }
     },
     "fremderBoden": {
-      "headline": "Steht Ihr Gebäude (oder Eigentumswohnung) auf fremdem Grund und Boden oder besteht ein Erbbaurecht?",
+      "headline": "Steht Ihr Gebäude auf fremdem Grund und Boden oder besteht ein Erbbaurecht?",
       "description": "In der Regel finden sich Angaben dazu im Kaufvertrag oder lassen sich bei der Hausverwaltung einholen.",
       "fields": {
         "fremderBoden": {
