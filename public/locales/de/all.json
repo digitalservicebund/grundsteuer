@@ -310,19 +310,19 @@
       }
     },
     "fremderBoden": {
-      "headline": "Haben das Grundstück und das Gebäude dieselben Eigentümer:innen?",
-      "description": "Wir fragen dies, um herauszufinden, ob Ihr Gebäude auf fremden Grund und Boden steht oder ob das Erbbaurecht an dem Grundstück auf Sie zutrifft.",
+      "headline": "Steht Ihr Gebäude (oder Eigentumswohnung) auf fremdem Grund und Boden oder besteht ein Erbbaurecht?",
+      "description": "In der Regel finden sich Angaben dazu im Kaufvertrag oder lassen sich bei der Hausverwaltung einholen.",
       "fields": {
         "fremderBoden": {
           "options": {
             "false": {
-              "label": "Ja, das Gebäude und das Grundstück haben dieselben Eigentümer:innen"
+              "label": "Nein, es besteht kein Erbbaurecht an meinem Gebäude (oder meiner Eigentumswohnung) und es steht nicht auf fremdem Grund und Boden."
             },
             "true": {
-              "label": "Nein, das Gebäude und das Grundstück haben unterschiedliche Eigentümer:innen"
+              "label": "Ja, an meinem Gebäude (oder meiner Eigentumswohnung) besteht Erbbaurecht oder es befindet auf fremdem Grund und Boden."
             },
             "noBuilding": {
-              "label": "Keine der Optionen — Es gibt kein Gebäude auf dem Grundstück"
+              "label": "Keine der Optionen. Es handelt sich um ein unbebautes Grundstück."
             }
           }
         }
