@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant";
 import { validateIsDate } from "~/domain/validation/dateValidation";
-import { redis } from "~/redis.server";
+import { Feature, redis } from "~/redis.server";
 
 type EricaResponse = {
   processStatus: "Processing" | "Success" | "Failure";
@@ -92,9 +92,9 @@ const isEricaRequestProcessed = (ericaResponse: EricaResponse) => {
 const setClientIpForEricaRequest = async (
   ericaRequestId: string,
   clientIp: string
-) => redis.set(`clientIp:${ericaRequestId}`, clientIp);
+) => redis.set(Feature.CLIENT_IP, ericaRequestId, clientIp);
 const getClientIpForEricaRequest = async (ericaRequestId: string) =>
-  redis.get(`clientIp:${ericaRequestId}`);
+  redis.get(Feature.CLIENT_IP, ericaRequestId);
 export type {
   EricaResponse,
   EricaFreischaltcodeRequestResponseData,

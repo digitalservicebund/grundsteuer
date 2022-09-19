@@ -1,5 +1,5 @@
 import { applyRateLimit } from "~/ekona/rateLimiting.server";
-import { redis } from "~/redis.server";
+import { Feature, redis } from "~/redis.server";
 
 describe("addUserToCurrentLimit", () => {
   const currentDate = Date.UTC(2022, 0, 1, 0, 0, 12);
@@ -13,11 +13,11 @@ describe("addUserToCurrentLimit", () => {
   });
 
   beforeEach(async () => {
-    await redis.del(mockedCurrentSeconds);
+    await redis.del(Feature.RATE_LIMIT, mockedCurrentSeconds);
   });
 
   afterAll(async () => {
-    await redis.del(mockedCurrentSeconds);
+    await redis.del(Feature.RATE_LIMIT, mockedCurrentSeconds);
     await redis.quit();
     jest.resetAllMocks();
   });
@@ -28,7 +28,7 @@ describe("addUserToCurrentLimit", () => {
 
     it("should set expiry", async () => {
       await applyRateLimit();
-      const ttl = await redis.ttl(mockedCurrentSeconds);
+      const ttl = await redis.ttl(Feature.RATE_LIMIT, mockedCurrentSeconds);
       expect(ttl).toBeGreaterThan(0);
       expect(ttl).toBeLessThan(60);
     });

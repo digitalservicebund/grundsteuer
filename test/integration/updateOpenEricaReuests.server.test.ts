@@ -9,7 +9,7 @@ import {
   saveFscRequest,
 } from "~/domain/user";
 import { db } from "~/db.server";
-import { redis } from "~/redis.server";
+import { Feature, redis } from "~/redis.server";
 import { PRIVATE_KEY } from "test/integration/auditLog.test";
 import { decryptData } from "~/audit/crypto";
 import { AuditLogEvent } from "~/audit/auditLog";
@@ -53,7 +53,8 @@ describe("updateOpenEricaRequests", () => {
       "erica-request-id"
     );
     await redis.set(
-      "clientIp:erica-request-id",
+      Feature.CLIENT_IP,
+      "erica-request-id",
       "testIpAddress:erica-request-id",
       600
     );
@@ -63,7 +64,8 @@ describe("updateOpenEricaRequests", () => {
       "erica-activation-id"
     );
     await redis.set(
-      "clientIp:erica-activation-id",
+      Feature.CLIENT_IP,
+      "erica-activation-id",
       "testIpAddress:erica-activation-id",
       600
     );
@@ -77,7 +79,8 @@ describe("updateOpenEricaRequests", () => {
       "alreadyExistingFscRequest"
     );
     await redis.set(
-      "clientIp:erica-revocation-id",
+      Feature.CLIENT_IP,
+      "erica-revocation-id",
       "testIpAddress:erica-revocation-id",
       600
     );
@@ -190,9 +193,9 @@ describe("updateOpenEricaRequests", () => {
   });
 
   it("should perform no update if no client Ip address", async () => {
-    await redis.del("clientIp:erica-request-id");
-    await redis.del("clientIp:erica-activation-id");
-    await redis.del("clientIp:erica-revocation-id");
+    await redis.del(Feature.CLIENT_IP, "erica-request-id");
+    await redis.del(Feature.CLIENT_IP, "erica-activation-id");
+    await redis.del(Feature.CLIENT_IP, "erica-revocation-id");
 
     await updateOpenEricaRequests();
 

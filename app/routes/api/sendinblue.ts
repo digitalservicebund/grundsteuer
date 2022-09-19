@@ -1,7 +1,7 @@
 import { ActionFunction, json, LoaderFunction } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import ipRangeCheck from "ip-range-check";
-import { redis } from "~/redis.server";
+import { Feature, redis } from "~/redis.server";
 import * as crypto from "crypto";
 
 // outgoing webhook requests from Sendinblue will be sent from these ranges:
@@ -9,11 +9,6 @@ const SENDINBLUE_IP_RANGES = ["185.107.232.0/24", "1.179.112.0/20"];
 
 // keep records for 24 hours
 const TTL_IN_SECONDS = 24 * 60 * 60;
-
-const redisKey = (hashedMessageId: string) => {
-  invariant(hashedMessageId, "hashedMessageId undefined");
-  return "message:" + hashedMessageId;
-};
 
 export const hashMessageId = (messageId: string) => {
   invariant(messageId, "messageId undefined");
@@ -48,7 +43,7 @@ export interface EmailStatus {
 export const getEmailStatus: (
   hashedMessageId: string
 ) => Promise<null | EmailStatus> = async (hashedMessageId: string) => {
-  const record = await redis.get(redisKey(hashedMessageId));
+  const record = await redis.get(Feature.EMAIL, hashedMessageId);
   if (!record) {
     return null;
   }
@@ -90,7 +85,8 @@ const update = async (payload: SendinbluePayload) => {
 
   if (!existingRecord || hasPrecedence(existingRecord.event, data.event)) {
     await redis.set(
-      redisKey(hashedMessageId),
+      Feature.EMAIL,
+      hashedMessageId,
       JSON.stringify(data),
       TTL_IN_SECONDS
     );

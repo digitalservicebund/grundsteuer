@@ -5,7 +5,7 @@ import {
   hashMessageId,
   StatusEvent,
 } from "~/routes/api/sendinblue";
-import { redis } from "~/redis.server";
+import { Feature, redis } from "~/redis.server";
 import { mockActionArgs } from "testUtil/mockActionArgs";
 import * as crypto from "crypto";
 
@@ -26,7 +26,7 @@ async function createRequest(payload: {
 
 describe("/sendinblue", () => {
   afterEach(async () => {
-    await redis.del("message:" + hashMessageId(MESSAGE_ID));
+    await redis.del(Feature.EMAIL, hashMessageId(MESSAGE_ID));
   });
   afterAll(async () => {
     await redis.quit();
