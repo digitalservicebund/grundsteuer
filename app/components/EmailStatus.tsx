@@ -8,24 +8,16 @@ import TaskAlt from "./icons/mui/TaskAlt";
 import WarningAmber from "./icons/mui/WarningAmber";
 import loopGif from "~/assets/images/loader-gray-bg.gif";
 import image from "~/assets/images/email-status.svg";
-
-type Status =
-  | "request"
-  | "deferred"
-  | "delivered"
-  | "address_problem"
-  | "spam_blocker"
-  | "mailbox_full"
-  | "generic_error";
+import type { UiStatus } from "~/email.server";
 
 type EmailStatusProps = {
   email: string;
-  currentStatus: Status;
+  currentStatus: UiStatus;
   actionPath: string;
   actionLabel: string;
 };
 
-const statusText = (status: Status) => {
+const statusText = (status: UiStatus) => {
   return {
     request: "Die E-Mail wird von unserem E-Mail Server versendet.",
     deferred: "Die Zustellung verzögert sich. ",
@@ -40,7 +32,7 @@ const statusText = (status: Status) => {
   }[status];
 };
 
-const statusTextColor = (status: Status) => {
+const statusTextColor = (status: UiStatus) => {
   if (status === "request") {
     return "text-black";
   } else if (status === "delivered") {
@@ -50,7 +42,7 @@ const statusTextColor = (status: Status) => {
   }
 };
 
-const statusIcon = (status: Status) => {
+const statusIcon = (status: UiStatus) => {
   const iconProps = {
     className: "w-[1.25rem] h-[1.25rem] mt-2 mr-10 flex-shrink-0",
   };
@@ -66,15 +58,15 @@ const statusIcon = (status: Status) => {
   }
 };
 
-const showStatusAction = (status: Status) => {
+const showStatusAction = (status: UiStatus) => {
   return !["request", "delivered", "deferred"].includes(status);
 };
 
-const showSpinner = (status: Status) => {
+const showSpinner = (status: UiStatus) => {
   return ["request", "deferred"].includes(status);
 };
 
-const statusAdvice = (status: Status) => {
+const statusAdvice = (status: UiStatus) => {
   return {
     request: null,
     deferred:

@@ -1,21 +1,59 @@
-import { MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
+import { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { Link, useLoaderData } from "@remix-run/react";
 import {
   BreadcrumbNavigation,
   ContentContainer,
+  EmailStatus,
   Headline,
   IntroText,
   LoggedOutLayout,
   SubHeadline,
   SuccessPageLayout,
 } from "~/components";
+import { getStatus, getUiStatus } from "~/email.server";
 import { pageTitle } from "~/util/pageTitle";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Registrierung erfolgreich"), robots: "noIndex" };
 };
 
+export const loader: LoaderFunction = async ({ request, params }) => {
+  const url = new URL(request.url);
+  const messageId = url.searchParams.get("message");
+
+  if (!messageId) {
+    // old behavior
+    return {};
+  }
+
+  const status = await getStatus(messageId);
+
+  if (!status) {
+    throw new Response("Not found", { status: 404 });
+  }
+
+  const uiStatus = getUiStatus(status.event, status.reason);
+
+  return { email: status.email, uiStatus };
+};
+
 export default function RegistrierenErfolgreich() {
+  const { email, uiStatus } = useLoaderData();
+
+  if (email) {
+    return (
+      <LoggedOutLayout>
+        <BreadcrumbNavigation />
+        <EmailStatus
+          email={email}
+          currentStatus={uiStatus}
+          actionPath="/registrieren"
+          actionLabel="Zurück zur Registrierung"
+        />
+      </LoggedOutLayout>
+    );
+  }
+
   return (
     <LoggedOutLayout>
       <ContentContainer size="sm">
