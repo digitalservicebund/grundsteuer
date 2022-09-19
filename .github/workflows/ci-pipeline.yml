@@ -202,6 +202,17 @@ jobs:
           pathspec_error_handling: exitImmediately
           push: true
 
+      - name: Trigger Argo CD sync
+        shell: bash
+        run: |
+          set -ex
+          curl -sSL -o argocd https://${{ secrets.ARGOCD_SERVER }}/download/argocd-linux-amd64
+          chmod +x argocd
+          ./argocd login ${{ secrets.ARGOCD_SERVER }} --username pipeline --password ${{ secrets.ARGOCD_PIPELINE_PASSWORD }} --grpc-web
+          ./argocd app wait grundsteuer-staging --sync --timeout 120 --grpc-web
+          ./argocd app get --refresh grundsteuer-staging --grpc-web > /dev/null
+          ./argocd app wait grundsteuer-staging --sync --health --timeout 120 --grpc-web
+
       - name: Register deployment with Sentry
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -209,9 +220,11 @@ jobs:
           npx --package @sentry/cli --yes sentry-cli releases deploys --org digitalservice --project grundsteuer ${{ github.sha }} new -e staging
 
       - name: Report Deployment
-        uses: satak/webrequest-action@6127ff14e9269df0d49bcaec84f948dc8b50df1f
+        uses: digitalservicebund/github-actions/track-deployment@b51920b9fdeeb0c8721c210853aee955bd7cefc0
         with:
-          url: ${{ secrets.METRICS_DEPLOYMENT_WEBHOOK_URL }}
-          method: POST
-          payload: '{"project": "grundsteuer", "version_identifier": "${{ github.sha }}", "environment": "staging", "link": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"}'
-          headers: '{"Authorization": "Token ${{ secrets.METRICS_WEBHOOK_TOKEN }}"}'
+          project: grundsteuer
+          environment: staging
+          metrics_deployment_webhook_url: ${{ secrets.METRICS_DEPLOYMENT_WEBHOOK_URL }}
+          metrics_webhook_token: ${{ secrets.METRICS_WEBHOOK_TOKEN }}
+
+
