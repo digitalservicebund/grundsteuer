@@ -138,7 +138,8 @@ export default function EmailStatus(props: EmailStatusProps) {
                 {statusText(currentStatus)}
 
                 {isJavaScriptEnabled &&
-                  "Lassen Sie dieses Fenster geöffnet, bis Sie eine Bestätigung erhalten."}
+                  showSpinner(currentStatus) &&
+                  " Lassen Sie dieses Fenster geöffnet, bis Sie eine Bestätigung erhalten."}
               </p>
             </div>
 
