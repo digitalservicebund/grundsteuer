@@ -8,7 +8,7 @@ export default function KitchenSinkEmailStatus() {
   };
   return (
     <ContentContainer>
-      <EmailStatus {...defaultProps} currentStatus="sent" />
+      <EmailStatus {...defaultProps} currentStatus="request" />
       <EmailStatus {...defaultProps} currentStatus="delivered" />
       <EmailStatus {...defaultProps} currentStatus="deferred" />
       <EmailStatus {...defaultProps} currentStatus="address_problem" />

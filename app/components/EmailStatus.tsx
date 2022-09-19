@@ -10,7 +10,7 @@ import loopGif from "~/assets/images/loader-gray-bg.gif";
 import image from "~/assets/images/email-status.svg";
 
 type Status =
-  | "sent"
+  | "request"
   | "deferred"
   | "delivered"
   | "address_problem"
@@ -27,7 +27,7 @@ type EmailStatusProps = {
 
 const statusText = (status: Status) => {
   return {
-    sent: "Die E-Mail wird von unserem E-Mail Server versendet.",
+    request: "Die E-Mail wird von unserem E-Mail Server versendet.",
     deferred: "Die Zustellung verzögert sich. ",
     delivered: "Die E-Mail wurde in Ihr Postfach zugestellt.",
     address_problem:
@@ -41,7 +41,7 @@ const statusText = (status: Status) => {
 };
 
 const statusTextColor = (status: Status) => {
-  if (status === "sent") {
+  if (status === "request") {
     return "text-black";
   } else if (status === "delivered") {
     return "text-darkGreen";
@@ -55,7 +55,7 @@ const statusIcon = (status: Status) => {
     className: "w-[1.25rem] h-[1.25rem] mt-2 mr-10 flex-shrink-0",
   };
 
-  if (status === "sent") {
+  if (status === "request") {
     return null;
   } else if (status === "delivered") {
     return <TaskAlt {...iconProps} />;
@@ -67,16 +67,16 @@ const statusIcon = (status: Status) => {
 };
 
 const showStatusAction = (status: Status) => {
-  return !["sent", "delivered", "deferred"].includes(status);
+  return !["request", "delivered", "deferred"].includes(status);
 };
 
 const showSpinner = (status: Status) => {
-  return ["sent", "deferred"].includes(status);
+  return ["request", "deferred"].includes(status);
 };
 
 const statusAdvice = (status: Status) => {
   return {
-    sent: null,
+    request: null,
     deferred:
       "Zur Spam-Vermeidung hat Ihr E-Mail-Server unsere E-Mail temporär zurückgestellt.",
     delivered:
@@ -142,7 +142,7 @@ export default function EmailStatus(props: EmailStatusProps) {
               </p>
             </div>
 
-            {currentStatus !== "sent" && (
+            {currentStatus !== "request" && (
               <p className="mb-16 md:mb-40">{statusAdvice(currentStatus)}</p>
             )}
 
