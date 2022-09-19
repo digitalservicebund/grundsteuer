@@ -17,7 +17,7 @@ export const meta: MetaFunction = () => {
   return { title: pageTitle("Registrierung erfolgreich"), robots: "noIndex" };
 };
 
-export const loader: LoaderFunction = async ({ request, params }) => {
+export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
   const messageId = url.searchParams.get("message");
 
