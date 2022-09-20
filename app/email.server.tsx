@@ -3,7 +3,13 @@
 import sdk from "sib-api-v3-sdk";
 import type { SendEmailFunction } from "remix-auth-email-link";
 import type { SessionUser } from "~/auth.server";
-import { EmailStatus, getEmailStatus } from "~/routes/api/sendinblue";
+import {
+  EmailStatus,
+  getEmailStatus,
+  hashMessageId,
+} from "~/routes/api/sendinblue";
+import { Feature, redis } from "./redis.server";
+import { testFeaturesEnabled } from "./util/testFeaturesEnabled";
 
 export const sendToSendinblue = (options: {
   subject: string;
@@ -51,6 +57,14 @@ export const sendToSendinblue = (options: {
           "Sendinblue API called successfully. Message ID: " +
             JSON.stringify(data)
         );
+        if (testFeaturesEnabled()) {
+          redis.set(
+            Feature.MESSAGE_ID,
+            options.to,
+            hashMessageId(data.messageId),
+            600
+          );
+        }
       },
       function (error: any) {
         console.error(error);

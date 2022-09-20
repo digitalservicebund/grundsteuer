@@ -1,6 +1,7 @@
 import Redis from "ioredis";
 
 export enum Feature {
+  MESSAGE_ID = "email",
   EMAIL = "message",
   RATE_LIMIT = "rate",
   CLIENT_IP = "clientIp",
