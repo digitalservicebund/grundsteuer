@@ -34,6 +34,7 @@ import { removeUndefined } from "~/util/removeUndefined";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { validateRequired } from "~/domain/validation/requiredValidation";
 import { validateEmail } from "~/domain/validation/stringValidation";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -92,18 +93,26 @@ export const action: ActionFunction = async ({ request }) => {
     };
   }
 
+  let successRedirect = "/anmelden/email";
+  if (testFeaturesEnabled()) {
+    successRedirect = `/email/dispatcher/anmelden/${normalizedEmail}`;
+  }
+  if (process.env.SKIP_AUTH === "true") {
+    successRedirect = "/formular";
+  }
+
   if (await userExists(normalizedEmail)) {
     return authenticator.authenticate(
       process.env.SKIP_AUTH === "true" ? "form" : "email-link",
       request,
       {
-        successRedirect: "/anmelden/email",
+        successRedirect,
       }
     );
   } else {
     await sendLoginAttemptEmail({ emailAddress: normalizedEmail });
     console.log("unknown email!");
-    return redirect("/anmelden/email");
+    return redirect(successRedirect);
   }
 };
 

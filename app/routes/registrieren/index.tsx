@@ -35,6 +35,7 @@ import { authenticator } from "~/auth.server";
 import Hint from "~/components/Hint";
 import { validateRequired } from "~/domain/validation/requiredValidation";
 import { validateEmail } from "~/domain/validation/stringValidation";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -172,11 +173,19 @@ export const action: ActionFunction = async ({ request, context }) => {
       console.log(`Registered new user with id ${newUser?.id}`);
     }
 
+    let successRedirect = "/registrieren/erfolgreich";
+    if (testFeaturesEnabled()) {
+      successRedirect = `/email/dispatcher/registrieren/${normalizedEmail}`;
+    }
+    if (process.env.SKIP_AUTH === "true") {
+      successRedirect = "/formular";
+    }
+
     return authenticator.authenticate(
       process.env.SKIP_AUTH === "true" ? "form" : "email-link",
       request,
       {
-        successRedirect: "/registrieren/erfolgreich",
+        successRedirect,
         throwOnError: true,
       }
     );
