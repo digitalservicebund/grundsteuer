@@ -1,6 +1,6 @@
 /// <reference types="../../cypress/support" />
 // @ts-check
-describe("/anmelden", () => {
+xdescribe("/anmelden", () => {
   before(() => {
     cy.task("dbResetUser", "foo@bar.com");
   });

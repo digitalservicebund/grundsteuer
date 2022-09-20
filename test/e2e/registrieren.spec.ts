@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 // @ts-check
 describe("/registrieren", () => {
-  it("simple success path", () => {
+  xit("simple success path", () => {
     cy.visit("/registrieren");
     cy.get("[name=email]").type("user@example.com");
     cy.get("label[for=confirmDataPrivacy]").click("topLeft");
@@ -19,7 +19,7 @@ describe("/registrieren", () => {
     cy.contains("Bitte überprüfen Sie die Schreibweise der E-Mail-Adresse.");
   });
 
-  it("should not fail for existing user", () => {
+  xit("should not fail for existing user", () => {
     const email = "foo@bar.com";
     cy.visit("/registrieren");
     cy.get("[name=email]").type(email);
@@ -31,7 +31,7 @@ describe("/registrieren", () => {
     cy.contains("h1", "Wir haben Ihnen eine E-Mail gesendet.");
   });
 
-  it("should not fail for existing user with capitalized mail", () => {
+  xit("should not fail for existing user with capitalized mail", () => {
     const email = "fOO@bAr.cOm";
     cy.visit("/registrieren");
     cy.get("[name=email]").type(email);
