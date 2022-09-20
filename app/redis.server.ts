@@ -1,5 +1,4 @@
 import Redis from "ioredis";
-import invariant from "tiny-invariant";
 
 export enum Feature {
   MESSAGE_ID = "email",
@@ -14,7 +13,10 @@ declare global {
 }
 
 export function getClient() {
-  invariant(global.ioredis, "Expected redis connection to be present");
+  if (!global.ioredis) {
+    global.ioredis = new Redis(process.env.REDIS_URL as string);
+    console.log("Redis connection opened");
+  }
   return global.ioredis;
 }
 
