@@ -319,7 +319,7 @@
               "label": "Nein, es besteht kein Erbbaurecht an meinem Gebäude (oder meiner Eigentumswohnung) und es steht nicht auf fremdem Grund und Boden."
             },
             "true": {
-              "label": "Ja, an meinem Gebäude (oder meiner Eigentumswohnung) besteht Erbbaurecht oder es befindet auf fremdem Grund und Boden."
+              "label": "Ja, an meinem Gebäude (oder meiner Eigentumswohnung) besteht Erbbaurecht oder es befindet sich auf fremdem Grund und Boden."
             },
             "noBuilding": {
               "label": "Keine der Optionen. Es handelt sich um ein unbebautes Grundstück."
