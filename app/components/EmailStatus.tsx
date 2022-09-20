@@ -93,7 +93,7 @@ export default function EmailStatus(props: EmailStatusProps) {
   });
 
   return (
-    <div className="pb-80 relative overflow-hidden">
+    <div className="pb-80 relative">
       <div
         className="
    hidden lg:flex justify-end absolute -right-64 top-64 w-1/2 mb-0"
