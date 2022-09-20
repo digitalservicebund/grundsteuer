@@ -94,10 +94,6 @@ describe("updateOpenEricaRequests", () => {
     jest.resetAllMocks();
   });
 
-  afterAll(async () => {
-    await redis.quit();
-  });
-
   it("should perform update if success returned from erica", async () => {
     jest.spyOn(ericaClientModule, "getFromErica").mockImplementation(
       jest.fn((requestUrl: string) => {

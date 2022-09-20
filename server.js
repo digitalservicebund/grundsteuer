@@ -7,6 +7,7 @@ const path = require("path");
 const helmet = require("helmet");
 const dotenv = require("dotenv-safe");
 const { createHttpTerminator } = require("http-terminator");
+const Redis = require("ioredis");
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 const BUILD_DIR = path.join(process.cwd(), "build");
@@ -99,6 +100,11 @@ const server = app.listen(port, () => {
 const httpTerminator = createHttpTerminator({
   server,
 });
+
+if (!global.ioredis) {
+  global.ioredis = new Redis(process.env.REDIS_URL);
+  console.log("Redis connection opened");
+}
 
 const shutdown = async (signal) => {
   console.log(`${signal} received: closing HTTP server gracefully`);

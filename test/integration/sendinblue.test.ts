@@ -28,9 +28,6 @@ describe("/sendinblue", () => {
   afterEach(async () => {
     await redis.del(Feature.EMAIL, hashMessageId(MESSAGE_ID));
   });
-  afterAll(async () => {
-    await redis.quit();
-  });
 
   it("should generate sha1 hash from messageId", async () => {
     const payload = {

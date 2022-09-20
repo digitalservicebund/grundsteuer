@@ -18,7 +18,6 @@ describe("addUserToCurrentLimit", () => {
 
   afterAll(async () => {
     await redis.del(Feature.RATE_LIMIT, mockedCurrentSeconds);
-    await redis.quit();
     jest.resetAllMocks();
   });
   describe("when called once per second", () => {

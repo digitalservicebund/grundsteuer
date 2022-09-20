@@ -7,10 +7,6 @@ describe("redis wrapper", () => {
     await redis.flushAll();
   });
 
-  afterAll(async () => {
-    await redis.quit();
-  });
-
   it("set should append key to feature prefix", async () => {
     await redis.set(Feature.EMAIL, "foo", "bar");
 

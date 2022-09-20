@@ -1,4 +1,5 @@
 import Redis from "ioredis";
+import invariant from "tiny-invariant";
 
 export enum Feature {
   MESSAGE_ID = "email",
@@ -13,9 +14,7 @@ declare global {
 }
 
 export function getClient() {
-  if (!global.ioredis) {
-    global.ioredis = new Redis(process.env.REDIS_URL as string);
-  }
+  invariant(global.ioredis, "Expected redis connection to be present");
   return global.ioredis;
 }
 
@@ -62,11 +61,4 @@ const ttl = async (feature: Feature, key: string) => {
   return getClient().ttl(appendKey(feature, key));
 };
 
-const quit = async () => {
-  if (global.ioredis) {
-    await global.ioredis.quit();
-    global.ioredis = undefined;
-  }
-};
-
-export const redis = { set, get, incr, del, flushAll, ttl, quit };
+export const redis = { set, get, incr, del, flushAll, ttl };
