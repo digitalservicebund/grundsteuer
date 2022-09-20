@@ -30,7 +30,7 @@ Cypress.Commands.add("login", (email) => {
   cy.visit("/anmelden");
   cy.get("[name=email]").type(email ? email : "foo@bar.com");
   cy.get("[data-testid=submit").click();
-  cy.url().should("contain", "/anmelden/email");
+  cy.url().should("contain", "/formular");
 });
 
 Cypress.Commands.add("bundesland", (bundesland) => {
