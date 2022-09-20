@@ -105,6 +105,11 @@ const shutdown = async (signal) => {
   isOnline = false;
   await httpTerminator.terminate();
   console.log("HTTP server closed");
+  if (global.ioredis) {
+    await global.ioredis.quit();
+    global.ioredis = undefined;
+    console.log("Redis connection closed");
+  }
 };
 
 const SIGINT = "SIGINT";

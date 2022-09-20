@@ -7,13 +7,16 @@ export enum Feature {
   CLIENT_IP = "clientIp",
 }
 
-let ioredis: Redis | undefined;
+declare global {
+  // eslint-disable-next-line
+  var ioredis: Redis | undefined;
+}
 
 export function getClient() {
-  if (!ioredis) {
-    ioredis = new Redis(process.env.REDIS_URL as string);
+  if (!global.ioredis) {
+    global.ioredis = new Redis(process.env.REDIS_URL as string);
   }
-  return ioredis;
+  return global.ioredis;
 }
 
 function appendKey(feature: Feature, key: string) {
@@ -60,9 +63,9 @@ const ttl = async (feature: Feature, key: string) => {
 };
 
 const quit = async () => {
-  if (ioredis) {
-    await getClient().quit();
-    ioredis = undefined;
+  if (global.ioredis) {
+    await global.ioredis.quit();
+    global.ioredis = undefined;
   }
 };
 
