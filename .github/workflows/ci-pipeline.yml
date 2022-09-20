@@ -202,17 +202,6 @@ jobs:
           pathspec_error_handling: exitImmediately
           push: true
 
-      - name: Trigger Argo CD sync
-        shell: bash
-        run: |
-          set -ex
-          curl -sSL -o argocd https://${{ secrets.ARGOCD_SERVER }}/download/argocd-linux-amd64
-          chmod +x argocd
-          ./argocd login ${{ secrets.ARGOCD_SERVER }} --username pipeline --password ${{ secrets.ARGOCD_PIPELINE_PASSWORD }} --grpc-web
-          ./argocd app wait grundsteuer-staging --sync --timeout 180 --grpc-web
-          ./argocd app get --refresh grundsteuer-staging --grpc-web > /dev/null
-          ./argocd app wait grundsteuer-staging --sync --health --timeout 300 --grpc-web
-
       - name: Register deployment with Sentry
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
