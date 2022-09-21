@@ -107,14 +107,16 @@ if (!global.ioredis) {
 }
 
 const shutdown = async (signal) => {
-  console.log(`${signal} received: closing HTTP server gracefully`);
-  isOnline = false;
-  await httpTerminator.terminate();
-  console.log("HTTP server closed");
-  if (global.ioredis) {
-    await global.ioredis.quit();
-    global.ioredis = undefined;
-    console.log("Redis connection closed");
+  if (server.listening) {
+    console.log(`${signal} received: closing HTTP server gracefully`);
+    isOnline = false;
+    await httpTerminator.terminate();
+    console.log("HTTP server closed");
+    if (global.ioredis) {
+      await global.ioredis.quit();
+      global.ioredis = undefined;
+      console.log("Redis connection closed");
+    }
   }
 };
 
