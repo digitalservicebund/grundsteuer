@@ -39,5 +39,5 @@ Cypress.Commands.add("bundesland", (bundesland) => {
   cy.get("#ort").clear().type("baz");
   cy.get("#bundesland").select(bundesland);
   cy.get("#nextButton").click();
-  cy.wait(1000);
+  cy.wait(500);
 });
