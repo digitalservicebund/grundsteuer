@@ -598,27 +598,27 @@
       }
     },
     "garagen": {
-      "headline": "Gibt es einen oder mehrere Garagenstellplätze, die zu Ihrer Wohneinheit gehören?",
-      "description": "Hierunter fallen allgemein alle Garagen- und Tiefgaragenstellplätze. Nicht aber Carports und Stellplätze im Freien. Diese müssen nicht berücksichtigt werden. In der Regel findet man Angaben dazu im Kaufvertrag.",
+      "headline": "Besitzen Sie eine oder mehrere Garagen?",
+      "description": "Überdacht und mit festen Wänden: Hiermit sind alle Garagen- und Tiefgaragen gemeint. Egal ob am Haus oder auf einem Miteigentums-Garagengrundstück. Carports werden nicht berücksichtigt.",
       "fields": {
         "hasGaragen": {
           "options": {
             "false": {
-              "label": "Nein, es gibt keine Garagenstellplätze"
+              "label": "Nein, ich habe keine Garagen"
             },
             "true": {
-              "label": "Ja, es gibt einen oder mehrere Garagenstellplätze"
+              "label": "Ja, ich bin Eingetümer:in einer oder mehrerer Garagen"
             }
           }
         }
       }
     },
     "garagenAnzahl": {
-      "headline": "Wie viele Garagenstellplätze gehören zu Ihrem Gebäude / Ihrer Wohneinheit? ",
+      "headline": "Wie viele Garagenstellplätze besitzen Sie?",
+      "description": "In der Regel ist 1 Auto = 1 Stellplatz. Eine Doppelgarage = 2 Stellplätze. Nicht gezählt werden Carports und Stellplätze im Freien. Die Größe ist irrelevant, da Garagenstellplätze pauschal besteuert werden.",
       "fields": {
         "anzahlGaragen": {
-          "label": "Anzahl der Garagenstellplätze",
-          "help": "Geben Sie hier die Anzahl der Garagenstellplätze an. Dazu gehören auch Tiefgaragenstellplätze."
+          "label": "Anzahl der Garagenstellplätze"
         }
       }
     }
