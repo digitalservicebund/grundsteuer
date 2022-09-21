@@ -4,6 +4,10 @@
 beforeEach(() => {
   cy.login();
   cy.visit("/formular/eigentuemer/anzahl");
+  cy.contains(
+    "h1",
+    "Wie viele Eigentümer:innen hat das Gründstück/die Eigentumswohnung?"
+  );
   cy.get("#anzahl").select("2");
   cy.get("#nextButton").click();
   cy.url().should("include", "/formular/eigentuemer/verheiratet");

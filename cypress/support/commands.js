@@ -30,7 +30,7 @@ Cypress.Commands.add("login", (email) => {
   cy.visit("/anmelden");
   cy.get("[name=email]").type(email ? email : "foo@bar.com");
   cy.get("[data-testid=submit").click();
-  cy.url().should("contain", "/formular");
+  cy.url().should("contain", "/formular/welcome");
 });
 
 Cypress.Commands.add("bundesland", (bundesland) => {
@@ -39,5 +39,5 @@ Cypress.Commands.add("bundesland", (bundesland) => {
   cy.get("#ort").clear().type("baz");
   cy.get("#bundesland").select(bundesland);
   cy.get("#nextButton").click();
-  cy.wait(500);
+  cy.wait(1000);
 });
