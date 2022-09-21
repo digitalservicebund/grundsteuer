@@ -1254,6 +1254,7 @@
       "miteigentumAuswahl": {
         "headline": "Handelt es sich bei Grundstücksfläche {{id}} um einen Miteigentumsanteil?",
         "description": "Schauen Sie dafür auf die Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs. Miteigentumsanteile sind durch einen Schrägstrich getrennt.",
+        "hint": "Hier handelt es sich <bold>nicht</bold> um die Anteile einzelner Eigentümer:innen an dem Grundvermögen wie beispielsweise 1/2 bei Ehepaaren. Diese Angaben erfolgen an anderer Stelle des Formulars.",
         "fields": {
           "hasMiteigentum": {
             "options": {
