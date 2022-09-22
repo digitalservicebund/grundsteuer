@@ -138,11 +138,14 @@ export const deleteExpiredAccounts = async () => {
 };
 
 const scheduleUpdateEricaRequest = (cronExpression: string) => {
-  console.info(
-    "Schedule deleting updating open erica requests",
-    cronExpression
-  );
-  schedule(cronExpression, async () => updateOpenEricaRequests());
+  console.info("Schedule updating open erica requests", cronExpression);
+  schedule(cronExpression, async () => {
+    try {
+      await updateOpenEricaRequests();
+    } catch (e) {
+      console.error("Failed to update erica requests", e);
+    }
+  });
 };
 
 export const jobs = {
