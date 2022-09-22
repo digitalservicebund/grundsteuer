@@ -10,7 +10,7 @@ const FlurstueckMiteigentumHelp: HelpComponentFunction = () => {
         {
           type: "paragraph",
           value:
-            "Miteigentumsanteile sind im Grundbuchauszug vermerkt. Entweder auf einer separaten Seite oder zusammen mit den anderen Grundstücksflächen auf einer Seite.",
+            "Miteigentumsanteile sind im Grundbuchauszug vermerkt. Entweder auf einer separaten Seite oder zusammen mit den anderen Flurstücken auf einer Seite.",
         },
         {
           type: "image",

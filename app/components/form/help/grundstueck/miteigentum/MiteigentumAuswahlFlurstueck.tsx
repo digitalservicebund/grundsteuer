@@ -12,7 +12,7 @@ export const MiteigentumAuswahlFlurstueckTrueHelp: HelpComponentFunction =
           {
             type: "paragraph",
             value:
-              "Miteigentumsanteile sind im Grundbuchauszug vermerkt. Entweder auf einer separaten Seite oder zusammen mit den anderen Grundstücksflächen auf einer Seite.",
+              "Miteigentumsanteile sind im Grundbuchauszug vermerkt. Entweder auf einer separaten Seite oder gebündelt mit den anderen Flurstücken. In der Regel steht bei den Anteilen das Wort “Miteigentum” dabei.",
           },
           {
             type: "image",
@@ -33,7 +33,7 @@ export const MiteigentumAuswahlFlurstueckFalseHelp: HelpComponentFunction =
           {
             type: "paragraph",
             value:
-              "Miteigentumsanteile sind im Grundbuchauszug vermerkt. Entweder auf einer eigenen Seite oder zusammen mit den anderen Grundstücksflächen. In der Regel steht bei den Anteilen das Wort “Miteigentum” dabei.",
+              "Miteigentumsanteile sind im Grundbuchauszug vermerkt. Entweder auf einer separaten Seite oder gebündelt mit den anderen Flurstücken. In der Regel steht bei den Anteilen das Wort “Miteigentum” dabei.",
           },
           {
             type: "image",

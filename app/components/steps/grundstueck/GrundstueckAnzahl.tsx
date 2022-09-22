@@ -29,12 +29,12 @@ const GrundstueckAnzahl: StepComponentFunction = ({
   const anzahlProps = {
     anzahl: allData?.grundstueck?.anzahl?.anzahl,
     maxAnzahl: GRUNDSTUECK_ANZAHL_MAX,
-    itemLabelTemplate: "Grundstücksfläche [ID]",
+    itemLabelTemplate: "Flurstück [ID]",
     itemEditPathTemplate: "/formular/grundstueck/flurstueck/[ID]/angaben",
-    increaseButtonLabel: "Grundstücksfläche hinzufügen",
+    increaseButtonLabel: "Flurstück hinzufügen",
     attributes: [
       {
-        label: "Flurstück",
+        label: "Flurstück Zähler / Nenner",
         values: allData.grundstueck?.flurstueck?.map((flurstueck) =>
           [
             flurstueck?.flur?.flurstueckZaehler,

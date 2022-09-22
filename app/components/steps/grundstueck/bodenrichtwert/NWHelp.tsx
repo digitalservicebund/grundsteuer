@@ -18,7 +18,7 @@ export const NWHelp = () => {
         imageAltText="Bildbeispiel von Schritt 2 des Datenstammblatts Nordrhein-Westfalen"
         number="2"
         heading="Bodenrichtwert ablesen"
-        text="Gehen Sie in die Tabelle des Datenstammblatts. Dort können Sie den Bodenrichtwert in Euro pro Quadratmeter je Grundstücksfläche ablesen."
+        text="Gehen Sie in die Tabelle des Datenstammblatts. Dort können Sie den Bodenrichtwert in Euro pro Quadratmeter je Flurstück ablesen."
         className="mb-16"
       />
     </>

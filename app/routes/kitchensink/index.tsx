@@ -59,7 +59,7 @@ export default function KitchenSinkIndex() {
 
       <div className="bg-blue-200 py-24">
         <SectionLabel background="white" icon={<House />}>
-          Grundstücksfläche 1 (SectionLabel)
+          Furstück 1 (SectionLabel)
         </SectionLabel>
       </div>
 

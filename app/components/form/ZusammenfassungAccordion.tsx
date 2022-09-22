@@ -627,7 +627,7 @@ export default function ZusammenfassungAccordion({
             ])}
             {stepItem("grundstueck.anzahl", [
               {
-                label: "Anzahl der Grundstücksflächen",
+                label: "Anzahl der Flurstücke",
                 path: "anzahl",
               },
             ])}
@@ -642,7 +642,7 @@ export default function ZusammenfassungAccordion({
                   return (
                     <EnumerationFields
                       index={index}
-                      label="Angaben zu Grundstücksfläche"
+                      label="Angaben zu Flurstück"
                       icon={<House />}
                       key={flurstueckKey}
                       id={flurstueckKey}
@@ -667,7 +667,7 @@ export default function ZusammenfassungAccordion({
                           path: "flur",
                         },
                         {
-                          label: "Flurstück",
+                          label: "Flurstück Zähler / Nenner",
                           path: "",
                           resolver: resolveFlurstueckFraction,
                         },
@@ -685,7 +685,7 @@ export default function ZusammenfassungAccordion({
                         }.miteigentumAuswahl`,
                         [
                           {
-                            label: "Miteigentumsanteil Grundstücksfläche",
+                            label: "Miteigentumsanteil Flurstücke",
                             path: "hasMiteigentum",
                             resolver: resolveJaNein,
                           },

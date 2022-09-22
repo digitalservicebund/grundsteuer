@@ -11,7 +11,7 @@ const GrundstueckAnzahlHelp: HelpComponentFunction = () => {
           type: "image",
           source: grundbuchImg,
           altText:
-            "Bildbeispiel eines Grundbuchauszug in dem Grundstücksflächen hervorgehoben sind",
+            "Bildbeispiel eines Grundbuchauszug in dem Flurstücke hervorgehoben sind",
         },
       ]}
     />
