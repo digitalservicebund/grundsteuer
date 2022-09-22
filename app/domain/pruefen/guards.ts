@@ -1,4 +1,5 @@
 import { PruefenMachineContext } from "~/domain/pruefen/states.server";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export type PruefenCondition = (
   context: PruefenMachineContext | undefined
@@ -81,6 +82,16 @@ const hasMiteigentum: PruefenCondition = (context) => {
   );
 };
 
+// TODO remove after removing miteigentum from pruefen states
+const isNotBeguestigungWithTestFeaturesEnabled: PruefenCondition = (
+  context
+) => {
+  return areTestFeaturesEnabled(context) && isNotBeguenstigung(context);
+};
+const areTestFeaturesEnabled: PruefenCondition = () => {
+  return testFeaturesEnabled();
+};
+
 export const pruefenConditions: PruefenConditions = {
   isPrivatperson,
   isEigentuemer,
@@ -90,4 +101,6 @@ export const pruefenConditions: PruefenConditions = {
   isNotFremderBoden,
   isNotBeguenstigung,
   hasMiteigentum,
+  isNotBeguestigungWithTestFeaturesEnabled,
+  areTestFeaturesEnabled,
 };

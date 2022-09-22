@@ -73,6 +73,10 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
       on: {
         BACK: { target: "fremderBoden" },
         NEXT: [
+          {
+            target: "nutzung",
+            cond: "isNotBeguestigungWithTestFeaturesEnabled",
+          },
           { target: "miteigentum", cond: "isNotBeguenstigung" },
           { target: "keineNutzung" },
         ],
@@ -93,7 +97,10 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
     nutzung: {
       type: "final",
       on: {
-        BACK: { target: "miteigentum" },
+        BACK: [
+          { target: "beguenstigung", cond: "areTestFeaturesEnabled" },
+          { target: "miteigentum" },
+        ],
       },
     },
     spaeterNutzung: {

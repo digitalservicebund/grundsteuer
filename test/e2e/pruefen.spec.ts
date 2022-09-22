@@ -32,9 +32,6 @@ describe("Happy Path", () => {
     cy.get(`label[for=beguenstigung-false]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.get(`label[for=miteigentum-keine]`).click();
-    cy.get(submitBtnSelector).click();
-
     cy.contains(
       "h1",
       "Sie können diesen Online-Dienst für Ihre Grundsteuererklärung nutzen."
