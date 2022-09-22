@@ -1,5 +1,5 @@
 import { LoaderFunction, MetaFunction } from "@remix-run/node";
-import { Link, useFetcher, useLoaderData } from "@remix-run/react";
+import { useFetcher, useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import invariant from "tiny-invariant";
 import {
@@ -8,6 +8,7 @@ import {
   LoggedOutLayout,
 } from "~/components";
 import { getStatus, getUiStatus } from "~/email.server";
+import { Feature, redis } from "~/redis.server";
 import { pageTitle } from "~/util/pageTitle";
 
 export const meta: MetaFunction = () => {
@@ -15,15 +16,15 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const { origin, email, messageId } = params;
+  const { origin, hashedEmail, messageId } = params;
 
   invariant(
     typeof origin === "string",
     "Expected 'origin' to be included in params."
   );
   invariant(
-    typeof email === "string",
-    "Expected 'email' to be included in params."
+    typeof hashedEmail === "string",
+    "Expected 'hashedEmail' to be included in params."
   );
   invariant(
     typeof messageId === "string",
@@ -34,13 +35,17 @@ export const loader: LoaderFunction = async ({ params }) => {
     "Expected origin to be 'registrieren' or 'anmelden'."
   );
 
+  const stringifiedData = await redis.get(Feature.MESSAGE_ID, hashedEmail);
+  const email = stringifiedData && JSON.parse(stringifiedData)?.email;
+
   const status = await getStatus(messageId);
   const uiStatus = status
     ? getUiStatus(status.event, status.reason)
     : "request";
 
   return {
-    email,
+    hashedEmail,
+    email: status?.email || email,
     messageId,
     origin,
     uiStatus,
@@ -59,7 +64,15 @@ export default function AnmeldenEmail() {
   const [fetchInProgress, setFetchInProgress] = useState(false);
   const [data, setData] = useState(loaderData);
 
-  const { email, uiStatus, messageId, origin, actionPath, actionLabel } = data;
+  const {
+    hashedEmail,
+    email,
+    uiStatus,
+    messageId,
+    origin,
+    actionPath,
+    actionLabel,
+  } = data;
 
   useEffect(() => {
     if (fetcher.data) {
@@ -71,7 +84,7 @@ export default function AnmeldenEmail() {
     const interval = setInterval(() => {
       if (!fetchInProgress && ["request", "deferred"].includes(uiStatus)) {
         setFetchInProgress(true);
-        fetcher.load(`/email/status/${origin}/${email}/${messageId}`);
+        fetcher.load(`/email/status/${origin}/${hashedEmail}/${messageId}`);
         setFetchInProgress(false);
       }
     }, 5000);
