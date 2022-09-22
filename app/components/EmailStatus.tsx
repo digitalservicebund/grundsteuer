@@ -19,15 +19,15 @@ type EmailStatusProps = {
 
 const statusText = (status: UiStatus) => {
   return {
-    request: "Die E-Mail wird von unserem E-Mail Server versendet.",
-    deferred: "Die Zustellung verzögert sich. ",
+    request: "Die E-Mail wird gerade von unserem E-Mail-Server versendet.",
+    deferred: "Die Zustellung verzögert sich.",
     delivered: "Die E-Mail wurde in Ihr Postfach zugestellt.",
     address_problem:
-      "Die von Ihnen eingegebene E-Mail-Adresse existiert nicht.",
+      "Die von Ihnen eingegebene E-Mail-Adresse scheint es nicht zu geben.",
     spam_blocker:
-      "Leider konnten wir Ihnen die E-Mail nicht zustellen, da der empfangende Mailserver die E-Mail fälschlicherweise als unerwünschte Werbung (Spam) eingestuft und abgelehnt hat.",
+      "Leider konnten wir Ihnen die E-Mail nicht zustellen, da der empfangende E-Mail-Server die E-Mail fälschlicherweise als unerwünschte Werbung (Spam) eingestuft und abgelehnt hat.",
     mailbox_full:
-      "Ihr E-Mail-Postfach ist voll und hat keinen Speicherplatz mehr – wir konnten Ihnen leider keine E-Mail zustellen.",
+      "Ihr E-Mail-Postfach ist voll und hat keinen Speicherplatz mehr frei – wir konnten Ihnen daher leider keine E-Mail zustellen.",
     generic_error: "Leider konnten wir Ihnen die E-Mail nicht zustellen.",
   }[status];
 };
@@ -70,17 +70,17 @@ const statusAdvice = (status: UiStatus) => {
   return {
     request: null,
     deferred:
-      "Zur Spam-Vermeidung hat Ihr E-Mail-Server unsere E-Mail temporär zurückgestellt.",
+      "Ihr E-Mail-Provider verwendet eine Technik zur Abwehr unerwünschter Werbung (Spam), bei der verdächtige E-Mails beim ersten Zustellversuch zunächst abgelehnt werden. Leider ist auch unsere E-Mail betroffen. Wir unternehmen in Kürze einen weiteren Zustellversuch.",
     delivered:
-      "Bitte schauen Sie in Ihr E-Mail Postfach und klicken Sie auf den Link in der E-Mail. Damit werden Sie angemeldet. Bitte schauen Sie in ihrem Spam-Ordner nach, falls sie den Anmeldelink nicht finden können.",
+      "Bitte schauen Sie in Ihr E-Mail-Postfach und klicken Sie auf den Anmeldelink in der E-Mail. Damit werden Sie angemeldet. Bitte schauen Sie in ihrem Spam-Ordner nach, falls sie die E-Mail mit den Anmeldelink nicht finden können.",
     address_problem:
-      "Bitte prüfen Sie die Schreibweise und melden Sie sich dann mit der korrigierten Adresse erneut an.",
+      "Bitte prüfen Sie die Schreibweise und melden Sie sich dann mit der korrigierten E-Mail-Adresse erneut an.",
     spam_blocker:
-      "Kontaktieren Sie Ihren E-Mail-Provider bzw. Ihre IT-Administration oder verwenden Sie eine andere E-Mailadresse für die Beantragung des Anmeldelinks.",
+      "Kontaktieren Sie Ihren E-Mail-Provider bzw. Ihre IT-Administration oder verwenden Sie eine andere E-Mail-Adresse für die Beantragung des Anmeldelinks.",
     mailbox_full:
-      "Bitte geben Sie zunächst Speicherplatz frei oder erweitern Sie den Speicherplatz. Melden Sie sich danach erneut an. Wenden Sie sich mit Fragen dazu an Ihren E-Mail-Provider oder Ihre IT-Administration. Wenn Speicherplatz für Ihr Postfach freigegeben ist, beantragen Sie erneut einen Anmeldlink mit Ihrer E-Mailadresse.",
+      "Bitte geben Sie zunächst Speicherplatz frei oder erweitern Sie den Speicherplatz. Wenden Sie sich mit Fragen dazu an Ihren E-Mail-Provider oder Ihre IT-Administration. Sobald wieder Speicherplatz in Ihrem Postfach verfügbar ist, beantragen Sie erneut einen Anmeldelink mit Ihrer E-Mail-Adresse.",
     generic_error:
-      "Bitte prüfen Sie die Schreibweise der E-Mail-Adresse und melden Sie sich dann ggf. mit der korrigierten Adresse erneut an. Wenn die E-Mail trotz korrekter Schreibweise nicht ankommt, verwenden Sie bitte eine andere Adresse oder kontaktieren Sie Ihren E-Mail-Provider oder Ihre IT-Administration.",
+      "Bitte prüfen Sie die Schreibweise der E-Mail-Adresse und melden Sie sich dann ggf. mit der korrigierten E-Mail-Adresse erneut an. Tritt dieser Fehler trotz korrekter Schreibweise weiterhin auf, verwenden Sie bitte eine andere E-Mail-Adresse oder kontaktieren Sie Ihren E-Mail-Provider oder Ihre IT-Administration.",
   }[status];
 };
 
