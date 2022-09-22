@@ -6,6 +6,7 @@ import {
   EricaFreischaltcodeRequestResponseData,
 } from "~/erica/utils";
 import invariant from "tiny-invariant";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const createPayloadForNewFreischaltCode = (
   taxIdNumber: string,
@@ -79,7 +80,9 @@ export const extractAntragsId = (
 export const retrieveAntragsId = async (ericaRequestId: string) => {
   console.log("requesting erica for erica id", ericaRequestId);
   const ericaResponse = await checkNewFreischaltCodeRequest(ericaRequestId);
-  console.log("raw erica response", ericaResponse);
+  if (testFeaturesEnabled()) {
+    console.log("raw erica response", ericaResponse);
+  }
   if (ericaResponse && "errorType" in ericaResponse) {
     return ericaResponse;
   } else if (

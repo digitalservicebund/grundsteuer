@@ -9,6 +9,7 @@ import { retrieveAntragsId } from "~/erica/freischaltCodeBeantragen";
 import { checkFreischaltcodeRevocation } from "~/erica/freischaltCodeStornieren";
 import { db } from "~/db.server";
 import { ericaUtils } from "~/erica/utils";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const updateOpenEricaRequests = async () => {
   console.log("Started updating FSC requests");
@@ -17,7 +18,9 @@ export const updateOpenEricaRequests = async () => {
   let countOfProcessedEricaRevocations = 0;
   const startTime = Date.now();
   const usersWithOpenEricaRequests = await getAllEricaRequestIds();
-  console.log("returned users:", JSON.stringify(usersWithOpenEricaRequests));
+  if (testFeaturesEnabled()) {
+    console.log("returned users:", JSON.stringify(usersWithOpenEricaRequests));
+  }
 
   for (const user of usersWithOpenEricaRequests) {
     if (user.ericaRequestIdFscBeantragen) {
@@ -25,12 +28,16 @@ export const updateOpenEricaRequests = async () => {
       const ericaResponse = await retrieveAntragsId(
         user.ericaRequestIdFscBeantragen
       );
-      console.log("erica response: ", JSON.stringify(ericaResponse));
+      if (testFeaturesEnabled()) {
+        console.log("erica response: ", JSON.stringify(ericaResponse));
+      }
       if (ericaResponse && "elsterRequestId" in ericaResponse) {
         const clientIp = await ericaUtils.getClientIpForEricaRequest(
           user.ericaRequestIdFscBeantragen
         );
-        console.log("client IP", clientIp);
+        if (testFeaturesEnabled()) {
+          console.log("client IP", clientIp);
+        }
         if (clientIp) {
           await saveSuccessfulFscRequestData(
             user.email,
