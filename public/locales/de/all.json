@@ -1205,7 +1205,7 @@
     },
     "flurstueck": {
       "angaben": {
-        "headline": "Wie lautet die Nummer des Grundbuchblatts und die Gemarkung für Flurstück {{id}}?",
+        "headline": "Flurstück {{id}}: Wie lautet die Nummer des Grundbuchblatts und die Gemarkung?",
         "description": "Sie finden die Nummer des Grundbuchblatts und Gemarkung auf dem Deckblatt und auf den Innenseiten des Grundbuchauszugs. Viele Angaben stellen auch einige der Bodenrichtwert-Portale bereit.",
         "fields": {
           "gemarkung": {
@@ -1219,7 +1219,7 @@
         }
       },
       "flur": {
-        "headline": "Wie lauten Flur und Flurstück zu Flurstück {{id}}?",
+        "headline": "Flurstück {{id}}: Wie lauten Flur und Flurstück?",
         "description": "Schauen Sie auf die Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs. In der Tabelle finden Sie die benötigten Nummern. Viele Angaben stellen auch einige der Bodenrichtwert-Portale bereit.",
         "fields": {
           "flur": {
@@ -1237,7 +1237,7 @@
         }
       },
       "groesse": {
-        "headline": "Tragen Sie die Größe für Flurstück {{id}} ein",
+        "headline": "Flurstück {{id}}: Tragen Sie die Größe ein",
         "description": "Auf der Seite “Bestandsverzeichnis” finden Sie den Eintrag über die Größe Ihres Flurstücks. Meistens ist diese in Hektar, Ar und Quadratmeter angegeben. Oft auch nur in Quadratmeter. Übertragen Sie die Zahlen so, wie Sie sie vorfinden. Auch einige Bodenrichtwert-Portale stellen diese Angaben bereit.",
         "fields": {
           "groesseHa": {
