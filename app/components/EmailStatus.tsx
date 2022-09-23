@@ -25,7 +25,7 @@ const statusText = (status: UiStatus) => {
     address_problem:
       "Die von Ihnen eingegebene E-Mail-Adresse scheint es nicht zu geben.",
     spam_blocker:
-      "Leider konnten wir Ihnen die E-Mail nicht zustellen, da der empfangende E-Mail-Server die E-Mail fälschlicherweise als unerwünschte Werbung (Spam) eingestuft und abgelehnt hat.",
+      "Leider konnten wir Ihnen die E-Mail nicht zustellen, da der empfangende Mailserver die E-Mail fälschlicherweise als unerwünschte Werbung (Spam) eingestuft und abgelehnt hat.",
     mailbox_full:
       "Ihr E-Mail-Postfach ist voll und hat keinen Speicherplatz mehr frei – wir konnten Ihnen daher leider keine E-Mail zustellen.",
     generic_error: "Leider konnten wir Ihnen die E-Mail nicht zustellen.",
@@ -70,17 +70,16 @@ const statusAdvice = (status: UiStatus) => {
   return {
     request: null,
     deferred:
-      "Ihr E-Mail-Provider verwendet eine Technik zur Abwehr unerwünschter Werbung (Spam), bei der verdächtige E-Mails beim ersten Zustellversuch zunächst abgelehnt werden. Leider ist auch unsere E-Mail betroffen. Wir unternehmen in Kürze einen weiteren Zustellversuch.",
+      "Zur Spam-Vermeidung hat Ihr E-Mail-Server unsere E-Mail temporär zurückgestellt. Wir versuchen die Zustellung gleich noch einmal.",
     delivered:
       "Bitte schauen Sie in Ihr E-Mail-Postfach und klicken Sie auf den Anmeldelink in der E-Mail. Damit werden Sie angemeldet. Bitte schauen Sie in ihrem Spam-Ordner nach, falls sie die E-Mail mit den Anmeldelink nicht finden können.",
     address_problem:
       "Bitte prüfen Sie die Schreibweise und melden Sie sich dann mit der korrigierten E-Mail-Adresse erneut an.",
     spam_blocker:
-      "Kontaktieren Sie Ihren E-Mail-Provider bzw. Ihre IT-Administration oder verwenden Sie eine andere E-Mail-Adresse für die Beantragung des Anmeldelinks.",
+      "Kontaktieren Sie Ihren E-Mail-Provider oder Ihre IT-Administration. Oder verwenden Sie eine andere E-Mail-Adresse für die Beantragung des Anmeldelinks.",
     mailbox_full:
       "Bitte geben Sie zunächst Speicherplatz frei oder erweitern Sie den Speicherplatz. Wenden Sie sich mit Fragen dazu an Ihren E-Mail-Provider oder Ihre IT-Administration. Sobald wieder Speicherplatz in Ihrem Postfach verfügbar ist, beantragen Sie erneut einen Anmeldelink mit Ihrer E-Mail-Adresse.",
-    generic_error:
-      "Bitte prüfen Sie die Schreibweise der E-Mail-Adresse und melden Sie sich dann ggf. mit der korrigierten E-Mail-Adresse erneut an. Tritt dieser Fehler trotz korrekter Schreibweise weiterhin auf, verwenden Sie bitte eine andere E-Mail-Adresse oder kontaktieren Sie Ihren E-Mail-Provider oder Ihre IT-Administration.",
+    generic_error: null,
   }[status];
 };
 
@@ -135,8 +134,20 @@ export default function EmailStatus(props: EmailStatusProps) {
               </p>
             </div>
 
-            {currentStatus !== "request" && (
+            {!["request", "generic_error"].includes(currentStatus) && (
               <p className="mb-16 md:mb-40">{statusAdvice(currentStatus)}</p>
+            )}
+
+            {currentStatus === "generic_error" && (
+              <ul className="list-disc pl-16 mb-16 md:mb-40">
+                <li>Überprüfen Sie die Schreibweise der E-Mail-Adresse</li>
+                <li>Melden Sie sich mit der korrigierten Adresse erneut an</li>
+                <li>Verwenden Sie alternativ eine andere E-Mail-Adresse</li>
+                <li>
+                  Oder kontaktieren Sie Ihren E-Mail-Provider oder Ihre
+                  IT-Administration.
+                </li>
+              </ul>
             )}
 
             {showStatusAction(currentStatus) && (
