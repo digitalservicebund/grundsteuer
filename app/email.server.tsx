@@ -53,13 +53,13 @@ export const sendToSendinblue = (options: {
     email.headers = { "X-List-Unsub": "disabled" };
 
     apiInstance.sendTransacEmail(email).then(
-      function (data: any) {
+      async function (data: any) {
         console.log(
           "Sendinblue API called successfully. Message ID: " +
             JSON.stringify(data)
         );
         if (testFeaturesEnabled()) {
-          redis.set(
+          await redis.set(
             Feature.MESSAGE_ID,
             crypto.createHash("sha1").update(options.to).digest("hex"),
             JSON.stringify({

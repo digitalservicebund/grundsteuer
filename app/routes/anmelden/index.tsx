@@ -34,7 +34,6 @@ import { removeUndefined } from "~/util/removeUndefined";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { validateRequired } from "~/domain/validation/requiredValidation";
 import { validateEmail } from "~/domain/validation/stringValidation";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import * as crypto from "crypto";
 
 const validateInputEmail = (normalizedEmail: string) =>
@@ -94,13 +93,10 @@ export const action: ActionFunction = async ({ request }) => {
     };
   }
 
-  let successRedirect = "/anmelden/email";
-  if (testFeaturesEnabled()) {
-    successRedirect = `/email/dispatcher/anmelden/${crypto
-      .createHash("sha1")
-      .update(normalizedEmail)
-      .digest("hex")}`;
-  }
+  let successRedirect = `/email/dispatcher/anmelden/${crypto
+    .createHash("sha1")
+    .update(normalizedEmail)
+    .digest("hex")}`;
   if (process.env.SKIP_AUTH === "true") {
     successRedirect = "/formular";
   }
