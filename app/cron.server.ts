@@ -4,6 +4,7 @@ import { AuditLogEvent, encryptAuditLogData } from "~/audit/auditLog";
 import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
 import { deleteFscRequest } from "~/domain/user";
 import { updateOpenEricaRequests } from "~/erica/updateOpenEricaRequests.server";
+import * as remixNode from "@remix-run/node";
 
 const scheduleFscCleanup = (cronExpression: string) => {
   console.info(
@@ -141,6 +142,7 @@ const scheduleUpdateEricaRequest = (cronExpression: string) => {
   console.info("Schedule updating open erica requests", cronExpression);
   schedule(cronExpression, async () => {
     try {
+      remixNode.installGlobals();
       await updateOpenEricaRequests();
     } catch (e) {
       console.error("Failed to update erica requests", e);
