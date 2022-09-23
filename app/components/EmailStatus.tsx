@@ -25,7 +25,7 @@ const statusText = (status: UiStatus) => {
     address_problem:
       "Die von Ihnen eingegebene E-Mail-Adresse scheint es nicht zu geben.",
     spam_blocker:
-      "Leider konnten wir Ihnen die E-Mail nicht zustellen, da der empfangende E-Mail-Server die E-Mail fälschlicherweise als unerwünschte Werbung (Spam) eingestuft und abgelehnt hat.",
+      "Leider konnten wir Ihnen die E-Mail nicht zustellen, da der empfangende Mailserver die E-Mail fälschlicherweise als unerwünschte Werbung (Spam) eingestuft und abgelehnt hat.",
     mailbox_full:
       "Ihr E-Mail-Postfach ist voll und hat keinen Speicherplatz mehr frei – wir konnten Ihnen daher leider keine E-Mail zustellen.",
     generic_error: "Leider konnten wir Ihnen die E-Mail nicht zustellen.",
