@@ -25,7 +25,8 @@ export const loader: LoaderFunction = async ({ params }) => {
   const messageId = stringifiedData && JSON.parse(stringifiedData)?.messageId;
 
   if (!messageId) {
-    throw new Error("No messageId found in Redis. Cannot show email status.");
+    console.log("No messageId found in Redis. Cannot show email status.");
+    return redirect("/email/erfolg");
   }
 
   return redirect(`/email/status/${origin}/${hashedEmail}/${messageId}`);
