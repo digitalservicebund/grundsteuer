@@ -12,10 +12,7 @@ import { Feature, redis } from "~/redis.server";
 import { pageTitle } from "~/util/pageTitle";
 
 export const meta: MetaFunction = () => {
-  return {
-    title: pageTitle("Anmeldelink per E-Mail versendet"),
-    robots: "noIndex",
-  };
+  return { title: pageTitle("Anmeldelink per E-Mail versendet") };
 };
 
 export const loader: LoaderFunction = async ({ params }) => {
