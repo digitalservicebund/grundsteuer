@@ -78,11 +78,7 @@ export const extractAntragsId = (
 };
 
 export const retrieveAntragsId = async (ericaRequestId: string) => {
-  console.log("requesting erica for erica id", ericaRequestId);
   const ericaResponse = await checkNewFreischaltCodeRequest(ericaRequestId);
-  if (testFeaturesEnabled()) {
-    console.log("raw erica response", ericaResponse);
-  }
   if (ericaResponse && "errorType" in ericaResponse) {
     return ericaResponse;
   } else if (
