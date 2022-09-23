@@ -5,6 +5,7 @@ import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
 import { deleteFscRequest } from "~/domain/user";
 import { updateOpenEricaRequests } from "~/erica/updateOpenEricaRequests.server";
 import * as remixNode from "@remix-run/node";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const scheduleFscCleanup = (cronExpression: string) => {
   console.info(
@@ -139,15 +140,17 @@ export const deleteExpiredAccounts = async () => {
 };
 
 const scheduleUpdateEricaRequest = (cronExpression: string) => {
-  console.info("Schedule updating open erica requests", cronExpression);
-  schedule(cronExpression, async () => {
-    try {
-      remixNode.installGlobals();
-      await updateOpenEricaRequests();
-    } catch (e) {
-      console.error("Failed to update erica requests", e);
-    }
-  });
+  if (testFeaturesEnabled()) {
+    console.info("Schedule updating open erica requests", cronExpression);
+    schedule(cronExpression, async () => {
+      try {
+        remixNode.installGlobals();
+        await updateOpenEricaRequests();
+      } catch (e) {
+        console.error("Failed to update erica requests", e);
+      }
+    });
+  }
 };
 
 export const jobs = {
