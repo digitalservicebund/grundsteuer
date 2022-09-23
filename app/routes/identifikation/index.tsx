@@ -30,6 +30,10 @@ export const loader: LoaderFunction = async ({ request }) => {
     "expected a matching user in the database from a user in a cookie session"
   );
 
+  if (dbUser.identified) {
+    return redirect("/identifikation/erfolgreich");
+  }
+
   const hasFscRequest = dbUser.fscRequest;
   if (hasFscRequest) {
     return redirect("/fsc/eingeben");
