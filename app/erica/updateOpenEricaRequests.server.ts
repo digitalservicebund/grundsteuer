@@ -9,12 +9,12 @@ import { retrieveAntragsId } from "~/erica/freischaltCodeBeantragen";
 import { checkFreischaltcodeRevocation } from "~/erica/freischaltCodeStornieren";
 import { db } from "~/db.server";
 import { ericaUtils } from "~/erica/utils";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const updateOpenEricaRequests = async () => {
   let countOfProcessedEricaRequests = 0;
   let countOfProcessedEricaActivations = 0;
   let countOfProcessedEricaRevocations = 0;
+  let countOfErroneousRequests = 0;
   const startTime = Date.now();
   const usersWithOpenEricaRequests = await getAllEricaRequestIds();
 
@@ -48,6 +48,8 @@ export const updateOpenEricaRequests = async () => {
           user.id,
           user.ericaRequestIdFscBeantragen
         );
+      } else if (ericaResponse && "errorType" in ericaResponse) {
+        countOfErroneousRequests += 1;
       }
     }
     if (user.ericaRequestIdFscAktivieren) {
@@ -77,6 +79,8 @@ export const updateOpenEricaRequests = async () => {
           user.id,
           user.ericaRequestIdFscAktivieren
         );
+      } else if (ericaResponse && "errorType" in ericaResponse) {
+        countOfErroneousRequests += 1;
       }
     }
     if (user.ericaRequestIdFscStornieren) {
@@ -106,12 +110,14 @@ export const updateOpenEricaRequests = async () => {
           user.id,
           user.ericaRequestIdFscStornieren
         );
+      } else if (ericaResponse && "errorType" in ericaResponse) {
+        countOfErroneousRequests += 1;
       }
     }
   }
   const elapsedSeconds = (Date.now() - startTime) / 1000;
   console.log(
-    `Finished updating open erica requests: elapsedSeconds: ${elapsedSeconds}, countOfProcessedEricaRequests: ${countOfProcessedEricaRequests}, countOfProcessedEricaActivations: ${countOfProcessedEricaActivations}, countOfProcessedEricaRevocations: ${countOfProcessedEricaRevocations}`
+    `Finished updating open erica requests: elapsedSeconds: ${elapsedSeconds}, countOfProcessedEricaRequests: ${countOfProcessedEricaRequests}, countOfProcessedEricaActivations: ${countOfProcessedEricaActivations}, countOfProcessedEricaRevocations: ${countOfProcessedEricaRevocations}, countOfErroneousRequests: ${countOfErroneousRequests}`
   );
 };
 
