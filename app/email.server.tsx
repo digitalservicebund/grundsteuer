@@ -9,7 +9,6 @@ import {
   hashMessageId,
 } from "~/routes/api/sendinblue";
 import { Feature, redis } from "./redis.server";
-import { testFeaturesEnabled } from "./util/testFeaturesEnabled";
 import * as crypto from "crypto";
 
 export const sendToSendinblue = (options: {
@@ -58,17 +57,15 @@ export const sendToSendinblue = (options: {
           "Sendinblue API called successfully. Message ID: " +
             JSON.stringify(data)
         );
-        if (testFeaturesEnabled()) {
-          await redis.set(
-            Feature.MESSAGE_ID,
-            crypto.createHash("sha1").update(options.to).digest("hex"),
-            JSON.stringify({
-              email: options.to,
-              messageId: hashMessageId(data.messageId),
-            }),
-            24 * 60 * 60
-          );
-        }
+        await redis.set(
+          Feature.MESSAGE_ID,
+          crypto.createHash("sha1").update(options.to).digest("hex"),
+          JSON.stringify({
+            email: options.to,
+            messageId: hashMessageId(data.messageId),
+          }),
+          24 * 60 * 60
+        );
       },
       function (error: any) {
         console.error(error);
