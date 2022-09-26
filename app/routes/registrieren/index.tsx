@@ -35,7 +35,6 @@ import { authenticator } from "~/auth.server";
 import Hint from "~/components/Hint";
 import { validateRequired } from "~/domain/validation/requiredValidation";
 import { validateEmail } from "~/domain/validation/stringValidation";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import * as crypto from "crypto";
 
 const validateInputEmail = (normalizedEmail: string) =>
@@ -174,13 +173,10 @@ export const action: ActionFunction = async ({ request, context }) => {
       console.log(`Registered new user with id ${newUser?.id}`);
     }
 
-    let successRedirect = "/registrieren/erfolgreich";
-    if (testFeaturesEnabled()) {
-      successRedirect = `/email/dispatcher/registrieren/${crypto
-        .createHash("sha1")
-        .update(normalizedEmail)
-        .digest("hex")}`;
-    }
+    let successRedirect = `/email/dispatcher/registrieren/${crypto
+      .createHash("sha1")
+      .update(normalizedEmail)
+      .digest("hex")}`;
     if (process.env.SKIP_AUTH === "true") {
       successRedirect = "/formular";
     }
