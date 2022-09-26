@@ -1,6 +1,7 @@
 import { ContentContainer } from "~/components";
 import Add from "~/components/icons/mui/Add";
 import AddFile from "~/components/icons/mui/AddFile";
+import AnnouncementOutlined from "~/components/icons/mui/AnnouncementOutlined";
 import ArrowBack from "~/components/icons/mui/ArrowBack";
 import ArrowRight from "~/components/icons/mui/ArrowRight";
 import { ArrowRightLong } from "~/components/icons/mui/ArrowRightLong";
@@ -48,6 +49,7 @@ export default function KitchenSinkIcons() {
     <ContentContainer className="stack">
       <AddFile />
       <Add />
+      <AnnouncementOutlined />
       <ArrowBack />
       <ArrowRightLong />
       <ArrowRight />
