@@ -36,16 +36,18 @@ export const loader: LoaderFunction = async ({ params }) => {
   );
 
   const stringifiedData = await redis.get(Feature.MESSAGE_ID, hashedEmail);
-  const email = stringifiedData && JSON.parse(stringifiedData)?.email;
+  let email = stringifiedData && JSON.parse(stringifiedData)?.email;
 
-  const status = await getStatus(messageId);
-  const uiStatus = status
-    ? getUiStatus(status.event, status.reason)
-    : "request";
+  let uiStatus = "unknown";
+  if (messageId !== "none") {
+    const status = await getStatus(messageId);
+    uiStatus = status ? getUiStatus(status.event, status.reason) : "request";
+    if (status) email = status.email;
+  }
 
   return {
     hashedEmail,
-    email: status?.email || email,
+    email: email,
     messageId,
     origin,
     uiStatus,

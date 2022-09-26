@@ -11,7 +11,7 @@ import image from "~/assets/images/email-status.svg";
 import type { UiStatus } from "~/email.server";
 
 type EmailStatusProps = {
-  email: string;
+  email?: string;
   currentStatus: UiStatus;
   actionPath: string;
   actionLabel: string;
@@ -29,11 +29,13 @@ const statusText = (status: UiStatus) => {
     mailbox_full:
       "Ihr E-Mail-Postfach ist voll und hat keinen Speicherplatz mehr frei – wir konnten Ihnen daher leider keine E-Mail zustellen.",
     generic_error: "Leider konnten wir Ihnen die E-Mail nicht zustellen.",
+    unknown:
+      "Die E-Mail wird gerade von unserem E-Mail-Server versendet. Leider ist bei dieser E-Mail die Sendungsverfolgung nicht möglich. In der Regel wird die E-Mail trotzdem zugestellt.",
   }[status];
 };
 
 const statusTextColor = (status: UiStatus) => {
-  if (status === "request") {
+  if (["request", "unknown"].includes(status)) {
     return "text-black";
   } else if (status === "delivered") {
     return "text-darkGreen";
@@ -47,7 +49,7 @@ const statusIcon = (status: UiStatus) => {
     className: "w-[1.25rem] h-[1.25rem] mt-2 mr-10 flex-shrink-0",
   };
 
-  if (status === "request") {
+  if (["request", "unknown"].includes(status)) {
     return null;
   } else if (status === "delivered") {
     return <TaskAlt {...iconProps} />;
@@ -80,6 +82,8 @@ const statusAdvice = (status: UiStatus) => {
     mailbox_full:
       "Bitte geben Sie zunächst Speicherplatz frei oder erweitern Sie den Speicherplatz. Wenden Sie sich mit Fragen dazu an Ihren E-Mail-Provider oder Ihre IT-Administration. Sobald wieder Speicherplatz in Ihrem Postfach verfügbar ist, beantragen Sie erneut einen Anmeldelink mit Ihrer E-Mail-Adresse.",
     generic_error: null,
+    unknown:
+      "Bitte schauen Sie in Ihr E-Mail-Postfach und klicken Sie auf den Anmeldelink in der E-Mail. Damit werden Sie angemeldet. Bitte schauen Sie in ihrem Spam-Ordner nach, falls sie die E-Mail mit den Anmeldelink nicht finden können. Sollte die E-Mail auch nach mehreren Minuten nicht eintreffen, prüfen Sie bitte die Schreibweise der E-Mail-Adresse und versuchen Sie es ggf. erneut.",
   }[status];
 };
 
@@ -111,12 +115,16 @@ export default function EmailStatus(props: EmailStatusProps) {
             <img src={image} alt="" />
           </div>
           <h1 className="mb-16 text-30 leading-36 md:mb-24">
-            Eine E-Mail mit Anmeldelink wird versendet an:
+            {email
+              ? "Eine E-Mail mit Anmeldelink wird versendet an:"
+              : "Eine E-Mail mit Anmeldelink wird versendet."}
           </h1>
         </ContentContainer>
-        <p className="inline-block bg-white py-14 px-24 mb-16 md:py-20 md:mb-24">
-          {email}
-        </p>
+        {email && (
+          <p className="inline-block bg-white py-14 px-24 mb-16 md:py-20 md:mb-24">
+            {email}
+          </p>
+        )}
         <ContentContainer size="sm">
           <div aria-live="polite">
             <div

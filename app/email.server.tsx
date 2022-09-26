@@ -184,7 +184,8 @@ export type UiStatus =
   | "address_problem"
   | "spam_blocker"
   | "mailbox_full"
-  | "generic_error";
+  | "generic_error"
+  | "unknown";
 
 export const getUiStatus = (event: string, reason?: string) => {
   if (["request", "deferred", "delivered"].includes(event)) {

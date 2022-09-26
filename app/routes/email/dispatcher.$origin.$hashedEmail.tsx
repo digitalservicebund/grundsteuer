@@ -20,16 +20,17 @@ export const loader: LoaderFunction = async ({ params }) => {
     "Expected origin to be 'registrieren' or 'anmelden'."
   );
 
-  await delay(1000); // :/
+  await delay(2000); // :/
   const stringifiedData = await redis.get(Feature.MESSAGE_ID, hashedEmail);
   const messageId = stringifiedData && JSON.parse(stringifiedData)?.messageId;
 
   if (!messageId) {
     console.log("No messageId found in Redis. Cannot show email status.");
-    return redirect("/email/erfolg");
   }
 
-  return redirect(`/email/status/${origin}/${hashedEmail}/${messageId}`);
+  return redirect(
+    `/email/status/${origin}/${hashedEmail}/${messageId ? messageId : "none"}`
+  );
 };
 
 export default function EmailDispatcher() {
