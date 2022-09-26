@@ -2,8 +2,6 @@ import { LoaderFunction, redirect } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { Feature, redis } from "~/redis.server";
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 export const loader: LoaderFunction = async ({ params }) => {
   const { origin, hashedEmail } = params;
 
@@ -20,7 +18,6 @@ export const loader: LoaderFunction = async ({ params }) => {
     "Expected origin to be 'registrieren' or 'anmelden'."
   );
 
-  await delay(2000); // :/
   const stringifiedData = await redis.get(Feature.MESSAGE_ID, hashedEmail);
   const messageId = stringifiedData && JSON.parse(stringifiedData)?.messageId;
 

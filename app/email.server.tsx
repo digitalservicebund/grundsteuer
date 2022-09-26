@@ -11,7 +11,7 @@ import {
 import { Feature, redis } from "./redis.server";
 import * as crypto from "crypto";
 
-export const sendToSendinblue = (options: {
+export const sendToSendinblue = async (options: {
   subject: string;
   htmlContent: string;
   textContent: string;
@@ -51,26 +51,25 @@ export const sendToSendinblue = (options: {
     // disable List-Unsubscribe header
     email.headers = { "X-List-Unsub": "disabled" };
 
-    apiInstance.sendTransacEmail(email).then(
-      async function (data: any) {
-        console.log(
-          "Sendinblue API called successfully. Message ID: " +
-            JSON.stringify(data)
-        );
-        await redis.set(
-          Feature.MESSAGE_ID,
-          crypto.createHash("sha1").update(options.to).digest("hex"),
-          JSON.stringify({
-            email: options.to,
-            messageId: hashMessageId(data.messageId),
-          }),
-          24 * 60 * 60
-        );
-      },
-      function (error: any) {
-        console.error(error);
-      }
-    );
+    try {
+      const data = await apiInstance.sendTransacEmail(email);
+
+      console.log(
+        "Sendinblue API called successfully. Message ID: " +
+          JSON.stringify(data)
+      );
+      await redis.set(
+        Feature.MESSAGE_ID,
+        crypto.createHash("sha1").update(options.to).digest("hex"),
+        JSON.stringify({
+          email: options.to,
+          messageId: hashMessageId(data.messageId),
+        }),
+        24 * 60 * 60
+      );
+    } catch (error) {
+      console.error(error);
+    }
   } else {
     console.log("Email sent! (not really, actually)", options);
   }
@@ -126,7 +125,7 @@ export const sendMagicLinkEmail: SendEmailFunction<SessionUser> = async (
     .concat(htmlFooter)
     .join("");
 
-  sendToSendinblue({
+  await sendToSendinblue({
     to: options.emailAddress,
     subject,
     textContent,
@@ -160,7 +159,7 @@ export const sendLoginAttemptEmail = async (options: {
     .concat(htmlFooter)
     .join("");
 
-  sendToSendinblue({
+  await sendToSendinblue({
     to: options.emailAddress,
     subject,
     textContent,
