@@ -11,6 +11,8 @@ import {
 import { Feature, redis } from "./redis.server";
 import * as crypto from "crypto";
 
+const SENDINBLUE_API_CONSIDERED_SLOW_MS = 2000;
+
 export const sendToSendinblue = async (options: {
   subject: string;
   htmlContent: string;
@@ -51,27 +53,42 @@ export const sendToSendinblue = async (options: {
     // disable List-Unsubscribe header
     email.headers = { "X-List-Unsub": "disabled" };
 
+    const hashedEmail = crypto
+      .createHash("sha1")
+      .update(options.to)
+      .digest("hex");
+
     try {
+      const startApiCall = new Date();
       const data = await apiInstance.sendTransacEmail(email);
+      const endApiCall = new Date();
+      const durationInMs = endApiCall.valueOf() - startApiCall.valueOf();
+      const messageId = data.messageId;
+      const hashedMessageId = hashMessageId(messageId);
+      const apiCallWasSlow = durationInMs > SENDINBLUE_API_CONSIDERED_SLOW_MS;
 
       console.log(
-        "Sendinblue API called successfully. Message ID: " +
-          JSON.stringify(data)
+        `[email]${
+          apiCallWasSlow ? "[slow]" : ""
+        } Sendinblue API call was successful and took ${durationInMs}ms. MessageId: ${messageId} - Hashed messageId: ${hashedMessageId} - Hashed email: ${hashedEmail}`
       );
+
       await redis.set(
         Feature.MESSAGE_ID,
-        crypto.createHash("sha1").update(options.to).digest("hex"),
+        hashedEmail,
         JSON.stringify({
           email: options.to,
-          messageId: hashMessageId(data.messageId),
+          messageId: hashedMessageId,
         }),
         24 * 60 * 60
       );
     } catch (error) {
-      console.error(error);
+      console.error(
+        `[email][error] Hashed email: ${hashedEmail} - Error: ${error}`
+      );
     }
   } else {
-    console.log("Email sent! (not really, actually)", options);
+    console.log("[email][not production] Would have sent this email:", options);
   }
 };
 

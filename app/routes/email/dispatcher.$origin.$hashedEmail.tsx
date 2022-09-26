@@ -25,7 +25,9 @@ export const loader: LoaderFunction = async ({ params }) => {
   const messageId = stringifiedData && JSON.parse(stringifiedData)?.messageId;
 
   if (!messageId) {
-    console.log("No messageId found in Redis. Cannot show email status.");
+    console.log(
+      `[email][dispatcher] No messageId found in Redis. Cannot show email status. Hashed email: ${hashedEmail} - ${stringifiedData}`
+    );
   }
 
   return redirect(
