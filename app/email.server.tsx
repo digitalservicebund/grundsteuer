@@ -86,6 +86,7 @@ export const sendToSendinblue = async (options: {
       console.error(
         `[email][error] Hashed email: ${hashedEmail} - Error: ${error}`
       );
+      throw error;
     }
   } else {
     console.log("[email][not production] Would have sent this email:", options);
