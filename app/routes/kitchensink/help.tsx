@@ -50,7 +50,7 @@ export default function KitchenSinkHelp() {
           turpis quis ligula lacinia aliquet. Mauris ipsum.{" "}
         </p>
       </Help>
-      <HintBubble className="mt-32">Hinweis 1</HintBubble>
+      <HintBubble index="1" className="mt-32" />
       <FormGroup>
         <Input
           name="email"

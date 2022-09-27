@@ -454,9 +454,9 @@
     "zusammenfassung": "Zusammenfassung"
   },
   "welcome": {
-    "headline": "Herzlich willkommen bei Ihrer Grundsteuererklärung für Privateigentum!",
+    "headline": "Herzlich willkommen!<p>Bevor es los geht, hier ein paar Hinweise:</p>",
     "headlineWeitereErklaerung": "Willkommen zurück! Hier starten Sie Ihre neue Erkärung",
-    "nextButtonLabel": "Los geht's"
+    "nextButtonLabel": "Alles klar & weiter"
   },
   "gebaeude": {
     "uebersicht": {

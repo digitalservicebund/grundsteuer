@@ -1,67 +1,77 @@
 import { StepComponentFunction } from "~/routes/formular/_step";
-import IntroText from "../IntroText";
 import SubHeadline from "../SubHeadline";
 import UebersichtStep from "~/components/form/UebersichtStep";
 import welcomeImage from "~/assets/images/uebersicht-willkommen.svg";
-import welcomeImageSmall from "~/assets/images/uebersicht-willkommen-small.svg";
 import { ContentContainer } from "~/components";
+import HintBubble from "~/components/HintBubble";
+import datenstammblat from "~/assets/images/willkommen-datenstammblatt.png";
+import grundbuchauszug from "~/assets/images/willkommen-grundbuchauszug.png";
 
 const Willkommen: StepComponentFunction = () => {
   return (
-    <ContentContainer size="sm-md">
-      <UebersichtStep imageSrc={welcomeImage} smallImageSrc={welcomeImageSmall}>
-        <IntroText>
-          Wir führen Sie mit einfachen Fragen und Hilfestellungen auf jeder
-          Seite durch Ihre Erklärung zur Feststellung des Grundsteuerwerts.
-        </IntroText>
+    <>
+      <ContentContainer size="sm-md">
+        <UebersichtStep imageSrc={welcomeImage}>
+          <HintBubble index="1" className="mt-16" />
+          <SubHeadline>Welche Unterlagen brauchen Sie?</SubHeadline>
+          <ul className="list-disc pl-24">
+            <li className="mb-16">
+              Informationsschreiben Ihres Bundeslandes mit beigefügtem Beiblatt
+              oder Datenstammblatt
+            </li>
+            <li>
+              Optional: Grundbuchauszug, Einheitswertbescheid, Kauf- oder
+              Schenkungsvertrag, Teilungserklärung bei Wohnungseigentum oder
+              Bau- oder Vermessungsunterlagen
+            </li>
+          </ul>
 
-        <SubHeadline>Welche Unterlagen brauchen Sie?</SubHeadline>
-        <ul className="font-bold list-disc pl-24">
-          <li className="mb-16">
-            Informationsschreiben Ihres Bundeslandes ggf. mit beigefügtem
-            Beiblatt oder Datenstammblatt
-          </li>
-          <li className="mb-16">
-            Grundsteuerportal (Geodatenportal) Ihres Bundeslandes
-          </li>
-          <li className="mb-48">
-            Optional: Grundbuchauszug, Einheitswertbescheid,
-            Kauf-/Schenkungsvertrag, Teilungserklärung bei Wohnungseigentum oder
-            Bau-/Vermessungsunterlagen
-          </li>
-        </ul>
-
-        <SubHeadline>Wichtige Hinweise:</SubHeadline>
-        <ol className="mb-32 ml-[15px]">
-          <li className="mb-16 flex">
-            <div className="mr-16 enumerate-icon">1</div>
-            <div>
-              Alle Angaben beziehen sich auf den Zustand Ihres Grundstücks am
-              01.01.2022. Fragen Sie sich bei den Angaben also zum Beispiel “Wie
-              sah mein Grundstück am 01.01.2022 aus?”
-            </div>
-          </li>
-          <li className="mb-16 flex">
-            <div className="mr-16 enumerate-icon">2</div>
-            <div>
-              Sie können die Bearbeitung unterbrechen und zu einem späteren
-              Zeitpunkt fortführen. Bitte beachten Sie, dass die Bearbeitung nur
-              mit dem Gerät und Browser möglich ist, mit denen Sie sich
-              angemeldet haben.
-            </div>
-          </li>
-          <li className="mb-16 flex">
-            <div className="mr-16 enumerate-icon">3</div>
-            <div>
-              Für jedes Grundstück müssen Sie eine eigene Grundsteuererklärung
-              abgeben. Unter Grundstück versteht man zusammengehörende
-              Grundstücksflächen, wie zum Beispiel direkt nebeneinanderliegende
-              Haus- und Gartengründstücke.
-            </div>
-          </li>
-        </ol>
-      </UebersichtStep>
-    </ContentContainer>
+          <HintBubble index="2" className="mt-40" />
+          <SubHeadline>
+            Was ist ein Flurstück und wie erkenne ich, dass es zu meinem
+            Grundstück gehört?
+          </SubHeadline>
+          <p>
+            In Ihrem Grundbuchauszug (oder wenn vorhanden Datenstammblatt) sind
+            sogenannte Flurstücke aufgelistet. Jede Zeile im Grundbuchauszug
+            steht für ein eigenes Flurstück. Zusammen ergeben Flurstücke ein
+            Grundstück oder fachlich ausgedrückt, eine “wirtschaftliche
+            Einheit”. Manchmal sind Flurstücke auf einem- oder mehreren
+            Grundbuchauszügen vermerkt. In der Regel gilt: Nutzen Sie die
+            Flurstücke zusammen -Zum Beispiel Garage, Zufahrt und Haus- dann
+            bilden diese eine wirtschaftliche Einheit, für die Sie diese
+            Erklärung abgeben.
+          </p>
+        </UebersichtStep>
+      </ContentContainer>
+      <div className="flex flex-col flex-grow-0 lg:flex-row mb-96">
+        <div>
+          <img
+            src={datenstammblat}
+            alt="Beispiel für ein Datenstammblatt"
+            className="mr-24"
+          />
+        </div>
+        <div>
+          <img
+            src={grundbuchauszug}
+            alt="Beispiel für ein Grundbuchauszug"
+            className="mr-24"
+          />
+        </div>
+      </div>
+      <div className="mb-32">
+        Bei Fragen oder Unsicherheiten, schauen Sie gern in unserem{" "}
+        <a
+          href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de"
+          className="underline font-bold"
+          target="_blank"
+        >
+          Hilfebereich
+        </a>{" "}
+        nach.
+      </div>
+    </>
   );
 };
 

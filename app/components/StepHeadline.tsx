@@ -31,7 +31,15 @@ export function StepHeadline({
 
   return (
     <>
-      <Headline asLegend={asLegend}>{headlineText}</Headline>
+      <Headline asLegend={asLegend}>
+        <Trans
+          components={{
+            p: <p />,
+          }}
+        >
+          {headlineText}
+        </Trans>
+      </Headline>
       {descriptionText && (
         <IntroText>
           <Trans

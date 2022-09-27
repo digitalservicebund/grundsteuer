@@ -4,7 +4,7 @@ import classNames from "classnames";
 type UebersichtStepProps = {
   children: ReactNode;
   imageSrc: string;
-  smallImageSrc: string;
+  smallImageSrc?: string;
   lowVersion?: boolean;
 };
 
@@ -22,9 +22,11 @@ export default function UebersichtStep(
       >
         <img src={imageSrc} alt="" />
       </div>
-      <div className="flex mb-56 xl:hidden">
-        <img src={smallImageSrc} alt="" />
-      </div>
+      {smallImageSrc && (
+        <div className="flex mb-56 xl:hidden">
+          <img src={smallImageSrc} alt="" />
+        </div>
+      )}
       <div>{children}</div>
     </div>
   );
