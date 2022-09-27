@@ -242,31 +242,31 @@
           "options": {
             "einfamilienhaus": {
               "label": "Einfamilienhaus",
-              "description": "Das Gebäude hat eine Wohnung mit einem Eingang"
+              "description": "Das Gebäude hat eine Wohnung mit einem Eingang. Das trifft zum Beispiel auf viele Reihenhäuser zu."
             },
             "zweifamilienhaus": {
               "label": "Zweifamilienhaus",
-              "description": "Das Gebäude hat zwei Wohnungen mit separaten Eingängen"
-            },
-            "eigentumswohnung": {
-              "label": "Eigentumswohnung",
-              "description": ""
+              "description": "Das Gebäude hat zwei Wohnungen mit separaten Eingängen."
             },
             "mehrfamilienhaus": {
               "label": "Mehrfamilienhaus",
-              "description": "Das Gebäude hat mehr als zwei Wohnungen"
+              "description": "Das Gebäude hat mehr als zwei Wohnungen."
+            },
+            "eigentumswohnung": {
+              "label": "Eigentumswohnung",
+              "description": "Eine baulich getrennte und in sich abgeschlossene Wohneinheit mit eigenem Zugang."
             },
             "nichtWohn": {
               "label": "Nicht-Wohngrundstück",
-              "description": "Hier sind Geschäftsgrundstücke, Teileigentum, alleinstehende Garagen, Wochenendgrundstücke oder gemischt genutzte Grundstücke gemeint"
+              "description": "Hiermit sind separate Garagen, Geschäftsgrundstücke, Werkstätten,  Wochenendgrundstücke oder gemischt genutzte Grundstücke (das sind Grundstücke, die beispielsweise zu mehr als 80% geschäftlich genutzt werden) gemeint."
             },
             "unbebaut": {
               "label": "Unbebautes Grundstück",
-              "description": ""
+              "description": "Ihr Grundstück ist unbebaut, wenn sich darauf keine benutzbaren Gebäude befinden und es keine land- und forstwirtschaftliche Fläche ist. Grundstücke mit zerstörten oder verfallenen Gebäuden gelten ebenfalls als unbebaut."
             },
             "landUndForst": {
               "label": "Betrieb der Land- und/oder Forstwirtschaft",
-              "description": ""
+              "description": "Hierzu zählen land- und forstwirtschaftliche Flurstücke wie Acker und Wiesen (verpachtet, unentgeltlich überlassen oder ungenutzt). Gemeint sind hier beispielsweise auch Betriebe des Wein- und Gartenbaus sowie Fischereibetriebe (Wasserflächen),  Kleingarten- und Dauerkleingartenland."
             }
           }
         }
