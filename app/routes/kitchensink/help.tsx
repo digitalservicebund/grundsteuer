@@ -13,6 +13,7 @@ import Help from "~/components/form/help/Help";
 import AngabenGrundbuch from "~/assets/images/angaben-grundbuch-page-medium.png";
 import DefaultHelpContent from "~/components/form/help/Default";
 import Hint from "~/components/Hint";
+import HintBubble from "~/components/HintBubble";
 
 export default function KitchenSinkHelp() {
   return (
@@ -49,6 +50,7 @@ export default function KitchenSinkHelp() {
           turpis quis ligula lacinia aliquet. Mauris ipsum.{" "}
         </p>
       </Help>
+      <HintBubble className="mt-32">Hinweis 1</HintBubble>
       <FormGroup>
         <Input
           name="email"
