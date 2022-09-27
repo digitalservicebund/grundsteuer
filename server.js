@@ -63,7 +63,16 @@ app.use(
 // more aggressive with this caching.
 app.use(express.static("public", { maxAge: "1h" }));
 
-app.use(morgan("tiny"));
+app.use(
+  morgan("tiny", {
+    skip:
+      process.env.LOG_SUCCESSFUL_REQUESTS === "true"
+        ? false
+        : function (req, res) {
+            return res.statusCode < 400;
+          },
+  })
+);
 
 app.set("trust proxy", true);
 
