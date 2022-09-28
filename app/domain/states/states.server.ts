@@ -95,7 +95,7 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
             NEXT: [
               {
                 target: "miteigentumAuswahlWohnung",
-                cond: "isEigentumswohnungTest",
+                cond: "isEigentumswohnung",
               },
               { target: "miteigentumAuswahlHaus", cond: "isHausOrUnbebaut" },
               { target: "anzahl" },
@@ -153,7 +153,7 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
               },
               {
                 target: "miteigentumAuswahlWohnung",
-                cond: "isEigentumswohnungTest",
+                cond: "isEigentumswohnung",
               },
               { target: "miteigentumAuswahlHaus", cond: "isHausOrUnbebaut" },
               { target: "bodenrichtwertEingabe" },
@@ -242,26 +242,8 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                 cond: "repeatFlurstueck",
                 actions: ["incrementFlurstueckId"],
               },
-              {
-                target: "#grundstueck.miteigentumsanteil",
-                cond: "isEigentumswohnung",
-              },
               { target: "#steps.gebaeude", cond: "isBebaut" },
               { target: "#steps.eigentuemer" },
-            ],
-          },
-        },
-        miteigentumsanteil: {
-          on: {
-            NEXT: [
-              { target: "#steps.gebaeude", cond: "isBebaut" },
-              { target: "#steps.eigentuemer" },
-            ],
-            BACK: [
-              {
-                target: "#flurstueck.groesse",
-                actions: "setFlurstueckIdToMaximum",
-              },
             ],
           },
         },
@@ -418,11 +400,6 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
       on: {
         NEXT: "eigentuemer",
         BACK: [
-          {
-            target: "#grundstueck.miteigentumsanteil",
-            cond: "isEigentumswohnung",
-            actions: ["setFlurstueckIdToMaximum"],
-          },
           {
             target: "#flurstueck.miteigentum",
             cond: "flurstueckHasMiteigentum",

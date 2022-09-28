@@ -19,7 +19,6 @@ import {
   EigentuemerBruchteilsgemeinschaftAdresseFields,
   EigentuemerBruchteilsgemeinschaftAngabenFields,
 } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import {
   validateFlurstueckGroesse,
   validateFlurstueckGroesseRequired,
@@ -125,8 +124,7 @@ const calculateWohnflaechen = (
 
 const getGarageFlurstuecke = (
   flurstuecke: Flurstueck[],
-  miteigentumGarage: GrundstueckFlurstueckMiteigentumGarageFields | undefined,
-  showTestFeatures: boolean
+  miteigentumGarage: GrundstueckFlurstueckMiteigentumGarageFields | undefined
 ) => {
   if (miteigentumGarage) {
     // We duplicate the flurstuecke for the flat as flat and garage have the same flurstuecke and just apply the garage miteigentum
@@ -135,11 +133,7 @@ const getGarageFlurstuecke = (
       // The flat and garage are on the same flurstueck but on different grundbuchblaetter. As we only ask for *one* grundguchblattnummer, we disregard the (optional field) grundbuchblattnummer for the garagen flurstueck.
       if (flurstueckCopy.angaben?.grundbuchblattnummer)
         flurstueckCopy.angaben.grundbuchblattnummer = "";
-      return transformFlurstueck(
-        flurstueckCopy,
-        miteigentumGarage,
-        showTestFeatures
-      );
+      return transformFlurstueck(flurstueckCopy, miteigentumGarage);
     });
   }
   return [];
@@ -147,55 +141,25 @@ const getGarageFlurstuecke = (
 
 export const transformFlurstuecke = (
   flurstuecke: Flurstueck[] | undefined,
-  miteigentumsanteil: GrundstueckFlurstueckMiteigentumsanteilFields | undefined,
   miteigentumWohnung: GrundstueckFlurstueckMiteigentumWohnungFields | undefined,
-  miteigentumGarage: GrundstueckFlurstueckMiteigentumGarageFields | undefined,
-  showTestFeatures: boolean
+  miteigentumGarage: GrundstueckFlurstueckMiteigentumGarageFields | undefined
 ) => {
-  if (!showTestFeatures) {
-    if (!flurstuecke) return undefined;
-    return flurstuecke.map((value) =>
-      transformFlurstueck(value, miteigentumsanteil, showTestFeatures)
-    );
-  }
   if (!flurstuecke) return undefined;
 
   const transformedGaragenFlurstuecke = getGarageFlurstuecke(
     flurstuecke,
-    miteigentumGarage,
-    showTestFeatures
+    miteigentumGarage
   );
   const transformedFlurstuecke = flurstuecke.map((value) =>
-    transformFlurstueck(value, miteigentumWohnung, showTestFeatures)
+    transformFlurstueck(value, miteigentumWohnung)
   );
   return [...transformedFlurstuecke, ...transformedGaragenFlurstuecke];
 };
 
 export const transformFlurstueck = (
   flurstueck: Flurstueck,
-  miteigentum: GrundstueckFlurstueckMiteigentumsanteilFields | undefined,
-  showTestFeatures: boolean
+  miteigentum: GrundstueckFlurstueckMiteigentumsanteilFields | undefined
 ) => {
-  if (!showTestFeatures) {
-    return {
-      angaben: flurstueck.angaben,
-      flur: {
-        flur: flurstueck.flur?.flur
-          ? "" + Number.parseInt(flurstueck.flur?.flur)
-          : flurstueck.flur?.flur,
-        flurstueckZaehler: flurstueck.flur?.flurstueckZaehler,
-        flurstueckNenner: flurstueck.flur?.flurstueckNenner,
-        wirtschaftlicheEinheitZaehler: transformWirtschaftlicheEinheitZaehler(
-          miteigentum?.wirtschaftlicheEinheitZaehler
-        ),
-        wirtschaftlicheEinheitNenner: miteigentum?.wirtschaftlicheEinheitNenner,
-      },
-      groesseQm: flurstueck.groesse
-        ? calculateGroesse(flurstueck.groesse)
-        : undefined,
-    };
-  }
-
   const miteigentumZaehler =
     flurstueck.miteigentum?.wirtschaftlicheEinheitZaehler ||
     miteigentum?.wirtschaftlicheEinheitZaehler;
@@ -336,10 +300,8 @@ export const transformDataToEricaFormat = (inputData: GrundModel) => {
       ),
       flurstueck: transformFlurstuecke(
         inputData.grundstueck?.flurstueck,
-        inputData.grundstueck?.miteigentumsanteil,
         inputData.grundstueck?.miteigentumWohnung,
-        inputData.grundstueck?.miteigentumGarage,
-        testFeaturesEnabled()
+        inputData.grundstueck?.miteigentumGarage
       ),
     },
     gebaeude: {

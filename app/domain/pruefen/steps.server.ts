@@ -121,22 +121,6 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
       },
     },
   },
-  miteigentum: {
-    fields: {
-      miteigentum: {
-        type: "radio",
-        options: [
-          { value: "keine" },
-          { value: "privatweg" },
-          { value: "garage" },
-          { value: "anderer" },
-        ],
-        validations: {
-          required: { msg: "Bitte treffen Sie eine Auswahl" },
-        },
-      },
-    },
-  },
   elster: {
     fields: {
       elster: {
@@ -150,7 +134,6 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
   },
   nutzung: infoStep,
   keineNutzung: infoStep,
-  spaeterNutzung: infoStep,
 };
 
 export const getPruefenStepDefinition = ({

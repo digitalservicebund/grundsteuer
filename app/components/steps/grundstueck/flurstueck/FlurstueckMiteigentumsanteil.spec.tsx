@@ -16,23 +16,29 @@ describe("Miteigentumsanteil page component", () => {
   };
 
   beforeEach(async () => {
-    defaultInput.i18n = await getI18nObject("grundstueck.miteigentumsanteil");
+    defaultInput.i18n = await getI18nObject(
+      "grundstueck.flurstueck.miteigentum"
+    );
   });
 
   it("should render all input fields", () => {
     render(<FlurstueckMiteigentumsanteil {...defaultInput} />);
-    expect(screen.getByLabelText("Zähler")).toBeInTheDocument();
-    expect(screen.getByLabelText("Nenner")).toBeInTheDocument();
+    expect(screen.getByLabelText("Anteil Zähler")).toBeInTheDocument();
+    expect(screen.getByLabelText("Anteil Nenner")).toBeInTheDocument();
   });
 
   it("should render zähler and nenner in a fieldset with an image", () => {
     render(<FlurstueckMiteigentumsanteil {...defaultInput} />);
     const fieldsets = screen.getAllByRole("group");
-    expect(within(fieldsets[0]).getByLabelText("Zähler")).toBeInTheDocument();
+    expect(
+      within(fieldsets[0]).getByLabelText("Anteil Zähler")
+    ).toBeInTheDocument();
     expect(
       within(fieldsets[0]).getByLabelText("Schrägstrich")
     ).toBeInTheDocument();
-    expect(within(fieldsets[0]).getByLabelText("Nenner")).toBeInTheDocument();
+    expect(
+      within(fieldsets[0]).getByLabelText("Anteil Nenner")
+    ).toBeInTheDocument();
   });
 });
 

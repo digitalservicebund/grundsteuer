@@ -57,10 +57,6 @@ export type BeguenstigungFields = {
   beguenstigung: "true" | "false";
 };
 
-export type MiteigentumFields = {
-  miteigentum: "keine" | "privatweg" | "garage" | "anderer";
-};
-
 export type PruefenModel = {
   start?: AbgeberFields;
   eigentuemerTyp?: EigentuemerTypFields;
@@ -69,5 +65,4 @@ export type PruefenModel = {
   ausland?: AuslandFields;
   fremderBoden?: FremderBodenFields;
   beguenstigung?: BeguenstigungFields;
-  miteigentum?: MiteigentumFields;
 };

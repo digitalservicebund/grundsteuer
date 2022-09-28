@@ -9,7 +9,6 @@ describe("guards", () => {
     { guard: pruefenConditions.isNotAusland },
     { guard: pruefenConditions.isNotFremderBoden },
     { guard: pruefenConditions.isNotBeguenstigung },
-    { guard: pruefenConditions.hasMiteigentum },
   ];
 
   test.each(cases)(

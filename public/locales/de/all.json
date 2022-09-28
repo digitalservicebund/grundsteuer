@@ -272,28 +272,6 @@
         }
       }
     },
-    "miteigentum": {
-      "headline": "Haben Sie Miteigentumsanteile an einem weiteren Grundstück/Flurstück, das Sie zusammen mit Ihrem Hauptgrundstück nutzen?",
-      "description": "Hier handelt es sich nicht um die Anteile einzelner Eigentümer:innen an dem Grundvermögen wie beispielsweise 1/2 bei Ehepaaren oder der Miteigentumsanteil an dem Grundstück Ihrer Eigentumswohnung.",
-      "fields": {
-        "miteigentum": {
-          "options": {
-            "keine": {
-              "label": "Nein, ich habe <bold>keine Miteigentumsanteile an einem weiteren Grundstück</bold>, das ich mit dem Hauptgrundstück nutze."
-            },
-            "privatweg": {
-              "label": "Zu meinem/r Einfamilienhaus / Zweifamilienhaus oder Eigentumswohnung gehört ein Anteil an <br/><bold>· einem Privatweg oder<br/> · einem (Gemeinschafts-)Garten, Grünfläche oder Spielplatz</bold><br/> Diesen teile ich mit Eigentümer:innen anderer Gebäude/Wohnungen. Mir gehört zum Beispiel 1/16 davon. "
-            },
-            "garage": {
-              "label": "Zu meiner Eigentumswohnung oder meinem Einfamilienhaus / Zweifamilienhaus gehört ein <br/><bold>· Stellplatz in einer Tiefgarage oder<br/> · Anteil an einem Garagenhof</bold><br/> Diesen teile ich mit Eigentümer:innen anderer Gebäude/Wohnungen. Mir gehört zum Beispiel 2/10.000 davon."
-            },
-            "anderer": {
-              "label": "Ich weiß, dass ich einen Miteigentumsanteil an einem weiteren Grundstück habe. Mein konkreter Fall ist hier aber nicht aufgelistet."
-            }
-          }
-        }
-      }
-    },
     "ausland": {
       "headline": "Haben Sie als Eigentümer:in einen Wohnsitz in Deutschland?",
       "fields": {
@@ -361,15 +339,6 @@
       "nextButtonLabel": "Zur Grundsteuererklärung",
       "specifics": {
         "explanation": "Starten Sie jetzt Ihre Grundsteuererklärung zur Feststellung des Grundsteuerwerts."
-      }
-    },
-    "spaeterNutzung": {
-      "headline": "Bald können Sie unseren Online-Dienst nutzen.",
-      "specifics": {
-        "miteigentumParagraph1": "Aktuell können wir eine Grundsteuererklärung für Besitzer:innen von weiteren Grundstücken mit Miteigentumsanteilen nicht anbieten. Wir entwickeln “Grundsteuererklärung für Privateigentum” allerdings ständig weiter und rechnen damit, bis Ende September auch Personen mit diesen Besitzverhältnissen aufnehmen zu können.",
-        "miteigentumParagraph2": "Schreiben Sie uns eine Email an <emailContactLink>erinnerung@grundsteuererklaerung-fuer-privateigentum.de</emailContactLink>. Wir melden uns bei Ihnen, sobald unser Online-Service für Sie nutzbar ist.",
-        "miteigentumEmailSubject": "Bitte bei MITEIGENTUM Verfügbarkeit benachrichtigen",
-        "explanationFallback": "Sie können unseren Service nutzen, sobald ihr Fall abgebildet wird."
       }
     }
   },
@@ -1277,18 +1246,6 @@
           "wirtschaftlicheEinheitNenner": {
             "label": "Anteil Nenner"
           }
-        }
-      }
-    },
-    "miteigentumsanteil": {
-      "headline": "Übertragen Sie die Angaben aus dem Grundbuchblatt zum Miteigentumsanteil",
-      "description": "Auf der Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs oder oft auch im Kaufvertrag finden Sie die Angaben über Ihren Miteigentumsanteil am Grundstück.",
-      "fields": {
-        "wirtschaftlicheEinheitZaehler": {
-          "label": "Zähler"
-        },
-        "wirtschaftlicheEinheitNenner": {
-          "label": "Nenner"
         }
       }
     },

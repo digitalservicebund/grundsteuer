@@ -7,7 +7,6 @@ import {
   decryptCookie,
   encryptCookie,
 } from "~/cookies.server";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const debug = createDebugMessages("formDataStorage");
 
@@ -27,7 +26,6 @@ export const getStoredFormData: GetStoredFormDataFunction = async ({
   const decodedData = await decodeFormDataCookie({ cookieHeader, user });
   // migrate old miteigentumsanteil data to new miteigentumWohnung
   if (
-    testFeaturesEnabled() &&
     decodedData?.grundstueck &&
     decodedData?.grundstueck?.miteigentumsanteil &&
     !decodedData?.grundstueck?.miteigentumAuswahlWohnung &&

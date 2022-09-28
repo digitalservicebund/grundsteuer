@@ -11,7 +11,6 @@ import {
   GrundstueckGemeindeFields,
   GrundstueckSteuernummerFields,
   GrundstueckTypFields,
-  GrundstueckFlurstueckMiteigentumsanteilFields,
   GrundstueckMiteigentumAuswahlHausFields,
   Person,
 } from "~/domain/steps/index.server";
@@ -37,8 +36,6 @@ import { EigentuemerEmpfangsbevollmaechtigterNameFields } from "~/domain/steps/e
 import { EigentuemerEmpfangsbevollmaechtigterAdresseFields } from "~/domain/steps/eigentuemer/empfangsbevollmaechtigter/adresse";
 import { ZusammenfassungFields } from "~/domain/steps/zusammenfassung.server";
 import { GrundstueckBodenrichtwertAnzahlFields } from "~/domain/steps/grundstueck/bodenrichtwert/anzahl.server";
-import {} from "~/domain/steps/grundstueck/miteigentumsanteil.server";
-import {} from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlHaus.server";
 import { StateMachineContext } from "~/domain/states/states.server";
 import { GrundstueckMiteigentumAuswahlWohnungFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlWohnung.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
@@ -181,20 +178,6 @@ class GrundModelFactory extends Factory<StateMachineContext> {
       grundstueck: {
         miteigentumAuswahlWohnung: {
           miteigentumTyp: "none",
-          ...fields,
-        },
-      },
-    });
-  }
-
-  miteigentumsanteil(
-    fields?: Partial<GrundstueckFlurstueckMiteigentumsanteilFields>
-  ) {
-    return this.params({
-      grundstueck: {
-        miteigentumsanteil: {
-          wirtschaftlicheEinheitZaehler: "1",
-          wirtschaftlicheEinheitNenner: "234",
           ...fields,
         },
       },

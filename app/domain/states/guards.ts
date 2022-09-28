@@ -4,18 +4,7 @@ export type Condition = (context: StateMachineContext | undefined) => boolean;
 export type Conditions = Record<string, Condition>;
 
 const isEigentumswohnung: Condition = (context) => {
-  return (
-    !context?.testFeaturesEnabled &&
-    context?.grundstueck?.typ?.typ === "wohnungseigentum"
-  );
-};
-
-// TODO remove this and use isEigentumswohnung instead once miteigentum is on production
-const isEigentumswohnungTest: Condition = (context) => {
-  return !!(
-    context?.testFeaturesEnabled &&
-    context?.grundstueck?.typ?.typ === "wohnungseigentum"
-  );
+  return context?.grundstueck?.typ?.typ === "wohnungseigentum";
 };
 
 const isEinfamilienhaus: Condition = (context) => {
@@ -36,34 +25,30 @@ const isUnbebaut: Condition = (context) => {
 };
 
 const isHausOrUnbebaut: Condition = (context) => {
-  return !!(
-    context?.testFeaturesEnabled &&
-    (isEinfamilienhaus(context) ||
-      isZweifamilienhaus(context) ||
-      isUnbebaut(context))
+  return (
+    isEinfamilienhaus(context) ||
+    isZweifamilienhaus(context) ||
+    isUnbebaut(context)
   );
 };
 
 const wohnungHasMiteigentumNone: Condition = (context) => {
-  return !!(
-    context?.testFeaturesEnabled &&
-    context.grundstueck?.typ?.typ === "wohnungseigentum" &&
+  return (
+    context?.grundstueck?.typ?.typ === "wohnungseigentum" &&
     context?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp === "none"
   );
 };
 
 const wohnungHasMiteigentumGarage: Condition = (context) => {
-  return !!(
-    context?.testFeaturesEnabled &&
-    context.grundstueck?.typ?.typ === "wohnungseigentum" &&
+  return (
+    context?.grundstueck?.typ?.typ === "wohnungseigentum" &&
     context?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp === "garage"
   );
 };
 
 const wohnungHasMiteigentumMixed: Condition = (context) => {
-  return !!(
-    context?.testFeaturesEnabled &&
-    context.grundstueck?.typ?.typ === "wohnungseigentum" &&
+  return (
+    context?.grundstueck?.typ?.typ === "wohnungseigentum" &&
     context?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp === "mixed"
   );
 };
@@ -222,7 +207,6 @@ export const conditions: Conditions = {
   isKernsaniert,
   hasAbbruchverpflichtung,
   isEigentumswohnung,
-  isEigentumswohnungTest,
   isZweifamilienhaus,
   isHausOrUnbebaut,
   hasWeitereWohnraeume,

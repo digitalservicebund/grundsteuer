@@ -145,18 +145,6 @@ export default function Nutzungsbedingungen() {
             Anwendung nicht abgegeben werden.
           </li>
           <li>
-            <strong>Miteigentumsanteile</strong>: Eigentumswohnungen haben immer
-            Miteigentumsanteile am Grundstück und sind von diesem Service
-            abgedeckt. Andere Formen von Miteigentum (Feld “Zur wirschaftlichen
-            Einheit gehörender Anteil: Zähler” und “Zur wirschaftlichen Einheit
-            gehörender Anteil: Nenner”) wie Eigentumswohnungen mit
-            Autostellplätzen, Teile von Privatwegen, Teile von Gärten, Teile von
-            Garagenhöfen oder Parkplätzen, Teile von Spielplätzen, Teile von
-            Bootsstegen sind von diesem Service nicht abgebildet. Wichtig: Dabei
-            geht es nicht um die Anteile einzelner Eigentümer:innen an dem
-            Grundvermögen wie beispielsweise 1/2 bei Ehepaaren.
-          </li>
-          <li>
             <strong>Gebäude auf fremdem Grund und Boden / Erbbaurecht</strong>:
             Wenn für das Grundstück ein Erbbaurecht bestellt wurde, es sich um
             ein Gebäude auf fremdem Grund und Boden oder mit einem Erbbaurecht

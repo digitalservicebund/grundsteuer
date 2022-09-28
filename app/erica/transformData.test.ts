@@ -750,76 +750,6 @@ describe("transformDate", () => {
 });
 
 describe("transformFlurstuecke", () => {
-  describe("with testFeaturesEnabled false", () => {
-    it("no miteigentum", () => {
-      const flurstueckeInput = [
-        flurstueckFactory
-          .angaben({ gemarkung: "Gemarkung", grundbuchblattnummer: "1" })
-          .flur({ flur: "09", flurstueckZaehler: "2", flurstueckNenner: "3" })
-          .groesse({ groesseHa: "", groesseA: "", groesseQm: "45" })
-          .build(),
-      ];
-
-      const result = transformFlurstuecke(
-        flurstueckeInput,
-        undefined,
-        undefined,
-        undefined,
-        false
-      );
-
-      expect(result).toEqual([
-        {
-          angaben: { gemarkung: "Gemarkung", grundbuchblattnummer: "1" },
-          flur: {
-            flur: "9",
-            flurstueckZaehler: "2",
-            flurstueckNenner: "3",
-            wirtschaftlicheEinheitZaehler: undefined,
-            wirtschaftlicheEinheitNenner: undefined,
-          },
-          groesseQm: "45",
-        },
-      ]);
-    });
-
-    it("with miteigentum", () => {
-      const flurstueckeInput = [
-        flurstueckFactory
-          .angaben({ gemarkung: "Gemarkung", grundbuchblattnummer: "1" })
-          .flur({ flur: "09", flurstueckZaehler: "2", flurstueckNenner: "3" })
-          .groesse({ groesseHa: "", groesseA: "", groesseQm: "45" })
-          .build(),
-      ];
-      const miteigentumsanteil = {
-        wirtschaftlicheEinheitZaehler: "123",
-        wirtschaftlicheEinheitNenner: "789",
-      };
-
-      const result = transformFlurstuecke(
-        flurstueckeInput,
-        miteigentumsanteil,
-        undefined,
-        undefined,
-        false
-      );
-
-      expect(result).toEqual([
-        {
-          angaben: { gemarkung: "Gemarkung", grundbuchblattnummer: "1" },
-          flur: {
-            flur: "9",
-            flurstueckZaehler: "2",
-            flurstueckNenner: "3",
-            wirtschaftlicheEinheitZaehler: "123",
-            wirtschaftlicheEinheitNenner: "789",
-          },
-          groesseQm: "45",
-        },
-      ]);
-    });
-  });
-
   it("no miteigentum", () => {
     const flurstueckeInput = [
       flurstueckFactory
@@ -829,13 +759,7 @@ describe("transformFlurstuecke", () => {
         .build(),
     ];
 
-    const result = transformFlurstuecke(
-      flurstueckeInput,
-      undefined,
-      undefined,
-      undefined,
-      true
-    );
+    const result = transformFlurstuecke(flurstueckeInput, undefined, undefined);
 
     expect(result).toEqual([
       {
@@ -865,13 +789,7 @@ describe("transformFlurstuecke", () => {
         .build(),
     ];
 
-    const result = transformFlurstuecke(
-      flurstueckeInput,
-      undefined,
-      undefined,
-      undefined,
-      true
-    );
+    const result = transformFlurstuecke(flurstueckeInput, undefined, undefined);
 
     expect(result).toEqual([
       {
@@ -906,13 +824,7 @@ describe("transformFlurstuecke", () => {
         .build(),
     ];
 
-    const result = transformFlurstuecke(
-      flurstueckeInput,
-      undefined,
-      undefined,
-      undefined,
-      true
-    );
+    const result = transformFlurstuecke(flurstueckeInput, undefined, undefined);
 
     expect(result).toEqual([
       {
@@ -954,13 +866,11 @@ describe("transformFlurstuecke", () => {
 
     const result = transformFlurstuecke(
       flurstueckeInput,
-      undefined,
       {
         wirtschaftlicheEinheitZaehler: "123",
         wirtschaftlicheEinheitNenner: "789",
       },
-      undefined,
-      true
+      undefined
     );
 
     expect(result).toEqual([
@@ -1005,7 +915,6 @@ describe("transformFlurstuecke", () => {
 
     const result = transformFlurstuecke(
       flurstueckeInput,
-      undefined,
       {
         wirtschaftlicheEinheitZaehler: "123",
         wirtschaftlicheEinheitNenner: "234",
@@ -1013,8 +922,7 @@ describe("transformFlurstuecke", () => {
       {
         wirtschaftlicheEinheitZaehler: "678",
         wirtschaftlicheEinheitNenner: "789",
-      },
-      true
+      }
     );
 
     expect(result).toEqual([
@@ -1144,9 +1052,7 @@ describe("transformFlurstueck old", () => {
   test.each(cases)(
     "Should return '$result' if data is '$data' if '$description'",
     ({ data, miteigentum, result }) => {
-      expect(transformFlurstueck(data, miteigentum, false).flur).toEqual(
-        result
-      );
+      expect(transformFlurstueck(data, miteigentum).flur).toEqual(result);
     }
   );
 });

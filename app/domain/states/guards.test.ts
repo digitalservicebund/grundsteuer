@@ -46,7 +46,6 @@ describe("isEigentumswohnung", () => {
       .build();
     const result = conditions.isEigentumswohnung({
       ...inputData,
-      testFeaturesEnabled: false,
     });
     expect(result).toEqual(true);
   });

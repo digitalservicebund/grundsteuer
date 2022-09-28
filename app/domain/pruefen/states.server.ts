@@ -75,19 +75,9 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
         NEXT: [
           {
             target: "nutzung",
-            cond: "isNotBeguestigungWithTestFeaturesEnabled",
+            cond: "isNotBeguenstigung",
           },
-          { target: "miteigentum", cond: "isNotBeguenstigung" },
           { target: "keineNutzung" },
-        ],
-      },
-    },
-    miteigentum: {
-      on: {
-        BACK: { target: "beguenstigung" },
-        NEXT: [
-          { target: "nutzung", cond: "hasMiteigentum" },
-          { target: "spaeterNutzung" },
         ],
       },
     },
@@ -97,14 +87,8 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
     nutzung: {
       type: "final",
       on: {
-        BACK: [
-          { target: "beguenstigung", cond: "areTestFeaturesEnabled" },
-          { target: "miteigentum" },
-        ],
+        BACK: [{ target: "beguenstigung" }],
       },
-    },
-    spaeterNutzung: {
-      type: "final",
     },
   },
 };

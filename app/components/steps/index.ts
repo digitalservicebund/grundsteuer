@@ -39,7 +39,6 @@ export default {
   grundstueck: {
     uebersicht: GrundstueckUebersicht,
     typ: GrundstueckTyp,
-    miteigentumsanteil: FlurstueckMiteigentumsanteil,
     bodenrichtwertInfo: BodenrichtwertInfo,
     bodenrichtwertAnzahl: BodenrichtwertAnzahl,
     bodenrichtwertEingabe: BodenrichtwertEingabe,
