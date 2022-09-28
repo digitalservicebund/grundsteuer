@@ -6,7 +6,6 @@ import {
   EricaFreischaltcodeRequestResponseData,
 } from "~/erica/utils";
 import invariant from "tiny-invariant";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const createPayloadForNewFreischaltCode = (
   taxIdNumber: string,
