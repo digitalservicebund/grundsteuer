@@ -13,11 +13,13 @@ const Willkommen: StepComponentFunction = () => {
       <ContentContainer size="sm-md">
         <UebersichtStep imageSrc={welcomeImage}>
           <HintBubble index="1" className="mt-16" />
-          <SubHeadline>Welche Unterlagen brauchen Sie?</SubHeadline>
+          <SubHeadline>
+            Diese Unterlagen helfen Ihnen beim Ausfüllen der Erklärung
+          </SubHeadline>
           <ul className="list-disc pl-24">
             <li className="mb-16">
-              Informationsschreiben Ihres Bundeslandes mit beigefügtem Beiblatt
-              oder Datenstammblatt
+              Falls erhalten: Informationsschreiben Ihres Bundeslandes mit
+              beigefügtem Beiblatt oder Datenstammblatt
             </li>
             <li>
               Optional: Grundbuchauszug, Einheitswertbescheid, Kauf- oder
@@ -38,7 +40,7 @@ const Willkommen: StepComponentFunction = () => {
             Grundstück oder fachlich ausgedrückt, eine “wirtschaftliche
             Einheit”. Manchmal sind Flurstücke auf einem- oder mehreren
             Grundbuchauszügen vermerkt. In der Regel gilt: Nutzen Sie die
-            Flurstücke zusammen -Zum Beispiel Garage, Zufahrt und Haus- dann
+            Flurstücke zusammen – zum Beispiel Garage, Zufahrt und Haus – dann
             bilden diese eine wirtschaftliche Einheit, für die Sie diese
             Erklärung abgeben.
           </p>
@@ -63,7 +65,7 @@ const Willkommen: StepComponentFunction = () => {
       <div className="mb-32">
         Bei Fragen oder Unsicherheiten, schauen Sie gern in unserem{" "}
         <a
-          href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de"
+          href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/4-allgemeines-zur-grundsteuererklarung/145-wie-viele-erklarungen-gebe-ich-wann-ab"
           className="underline font-bold"
           target="_blank"
         >
