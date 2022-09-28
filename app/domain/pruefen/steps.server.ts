@@ -121,17 +121,6 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
       },
     },
   },
-  elster: {
-    fields: {
-      elster: {
-        type: "radio",
-        options: [{ value: "false" }, { value: "true" }],
-        validations: {
-          required: { msg: "Bitte treffen Sie eine Auswahl" },
-        },
-      },
-    },
-  },
   nutzung: infoStep,
   keineNutzung: infoStep,
 };
