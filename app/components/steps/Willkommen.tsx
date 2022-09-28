@@ -32,7 +32,7 @@ const Willkommen: StepComponentFunction = () => {
             Grundstück gehört?
           </SubHeadline>
           <p>
-            In Ihrem Grundbuchauszug (oder wenn vorhanden Datenstammblatt) sind
+            In Ihrem Grundbuchauszug (oder falls erhalten Datenstammblatt) sind
             sogenannte Flurstücke aufgelistet. Jede Zeile im Grundbuchauszug
             steht für ein eigenes Flurstück. Zusammen ergeben Flurstücke ein
             Grundstück oder fachlich ausgedrückt, eine “wirtschaftliche
