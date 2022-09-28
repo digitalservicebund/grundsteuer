@@ -93,10 +93,14 @@ export const action: ActionFunction = async ({ request }) => {
     };
   }
 
-  let successRedirect = `/email/dispatcher/anmelden/${crypto
+  const hashedEmail = crypto
     .createHash("sha1")
     .update(normalizedEmail)
-    .digest("hex")}`;
+    .digest("hex");
+
+  console.log(`[email][mapping] ${hashedEmail} ${normalizedEmail}`); // temporarily log email addresses to debug dispatcher issue
+
+  let successRedirect = `/email/dispatcher/anmelden/${hashedEmail}`;
   if (process.env.SKIP_AUTH === "true") {
     successRedirect = "/formular";
   }
