@@ -19,12 +19,16 @@ export default function Index() {
 
   return (
     <>
-      {/*<div className="flex-shrink-0 bg-yellow-300 border-l-[9px] border-l-yellow-500 py-16">
+      <div className="flex-shrink-0 bg-yellow-300 border-l-[9px] border-l-yellow-500 py-16">
         <ContentContainer>
           <p className="text-14 leading-20 lg:text-18 lg:leading-24">
+            Für Eigentümer:innen einer Eigentumswohnung mit Garage in
+            Nordrhein-Westfalen: aktuell kann aus technischen Gründen die
+            Grundbuchblattnummer nicht angegeben werden. Wir arbeiten an einer
+            Lösung.
           </p>
         </ContentContainer>
-      </div> */}
+      </div>
       <HomepageHeader />
       <main className="flex-grow">
         <BreadcrumbNavigation />
