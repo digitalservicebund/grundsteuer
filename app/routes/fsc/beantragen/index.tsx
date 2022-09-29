@@ -335,11 +335,40 @@ export default function FscBeantragen() {
 
         {showError && !isSubmitting && (
           <ErrorBar className="mb-32">
-            Bitte überprüfen Sie Ihre Angaben. <br />
-            Die Steuer-Identifikationsnummer und Geburtsdatum müssen zur selben
-            Person gehören. <br />
-            Nach 5 falschen Eingaben der Daten können Sie erst wieder in 7 Tagen
-            einen Freischaltcode beantragen.
+            <p className="mb-16">
+              Es ist ein Fehler aufgetreten.
+              <br />
+              Bitte überprüfen Sie Ihre Angaben.
+            </p>
+            <p>
+              <em>Mögliche Ursachen:</em>
+            </p>
+            <ul className="list-disc mb-16 pl-20">
+              <li>
+                Steuer-Identifikationsnummer und/oder Geburtsdatum sind nicht
+                korrekt
+              </li>
+              <li>
+                mit der gleichen Steuer-Identifikationsnummer wurde bereits ein
+                Freischaltcode von einem anderen Konto aus beantragt
+              </li>
+              <li>
+                nach 5 Falscheingaben kann ein erneuter Versuch erst wieder nach
+                7 Tagen erfolgen
+              </li>
+            </ul>
+            <p>
+              Weitere Informationen finden Sie in unserem{" "}
+              <a
+                href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/7/54"
+                rel="noopener"
+                target="_blank"
+                className="underline"
+              >
+                Hilfebereich
+              </a>
+              .
+            </p>
           </ErrorBar>
         )}
         {actionData?.ericaApiError && (
