@@ -131,8 +131,9 @@ const getGarageFlurstuecke = (
     return flurstuecke.map((flurstueck: Flurstueck) => {
       const flurstueckCopy = _.cloneDeep(flurstueck);
       // The flat and garage are on the same flurstueck but on different grundbuchblaetter. As we only ask for *one* grundguchblattnummer, we disregard the (optional field) grundbuchblattnummer for the garagen flurstueck.
-      if (flurstueckCopy.angaben?.grundbuchblattnummer)
-        flurstueckCopy.angaben.grundbuchblattnummer = "";
+      // QUICKFIX: NRW needs Grundbuchblattnummer
+      // if (flurstueckCopy.angaben?.grundbuchblattnummer)
+      //   flurstueckCopy.angaben.grundbuchblattnummer = "";
       return transformFlurstueck(flurstueckCopy, miteigentumGarage);
     });
   }

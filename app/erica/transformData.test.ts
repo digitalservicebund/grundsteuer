@@ -950,8 +950,8 @@ describe("transformFlurstuecke", () => {
       },
       // flurstuecke should be copied
       {
-        // grundbuchblatt should be empty
-        angaben: { gemarkung: "Gemarkung1", grundbuchblattnummer: "" },
+        // grundbuchblatt should be empty QUICKFIX for NRW (not empty)
+        angaben: { gemarkung: "Gemarkung1", grundbuchblattnummer: "1" },
         flur: {
           flur: "9",
           flurstueckZaehler: "2",
@@ -962,7 +962,7 @@ describe("transformFlurstuecke", () => {
         groesseQm: "45",
       },
       {
-        angaben: { gemarkung: "Gemarkung2", grundbuchblattnummer: "" },
+        angaben: { gemarkung: "Gemarkung2", grundbuchblattnummer: "1" },
         flur: {
           flur: "10",
           flurstueckZaehler: "2",
