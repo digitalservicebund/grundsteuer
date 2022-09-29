@@ -73,7 +73,7 @@ export const sendToSendinblue = async (options: {
         } Sendinblue API call was successful and took ${durationInMs}ms. MessageId: ${messageId} - Hashed messageId: ${hashedMessageId} - Hashed email: ${hashedEmail}`
       );
 
-      await redis.set(
+      const redisResponse = await redis.set(
         Feature.MESSAGE_ID,
         hashedEmail,
         JSON.stringify({
@@ -81,6 +81,9 @@ export const sendToSendinblue = async (options: {
           messageId: hashedMessageId,
         }),
         24 * 60 * 60
+      );
+      console.log(
+        `[email][redis] ${hashedEmail} ${JSON.stringify(redisResponse)}`
       );
     } catch (error) {
       console.error(

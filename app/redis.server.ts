@@ -35,7 +35,7 @@ const set = async (
   ttlInSeconds = 600
 ) => {
   const appendedKey = appendKey(feature, key);
-  await getClient()
+  return await getClient()
     .multi()
     .set(appendedKey, value)
     .expire(appendedKey, ttlInSeconds)
