@@ -124,16 +124,17 @@ const calculateWohnflaechen = (
 
 const getGarageFlurstuecke = (
   flurstuecke: Flurstueck[],
-  miteigentumGarage: GrundstueckFlurstueckMiteigentumGarageFields | undefined
+  miteigentumGarage: GrundstueckFlurstueckMiteigentumGarageFields | undefined,
+  isNrw: boolean
 ) => {
   if (miteigentumGarage) {
     // We duplicate the flurstuecke for the flat as flat and garage have the same flurstuecke and just apply the garage miteigentum
     return flurstuecke.map((flurstueck: Flurstueck) => {
       const flurstueckCopy = _.cloneDeep(flurstueck);
       // The flat and garage are on the same flurstueck but on different grundbuchblaetter. As we only ask for *one* grundguchblattnummer, we disregard the (optional field) grundbuchblattnummer for the garagen flurstueck.
-      // QUICKFIX: NRW needs Grundbuchblattnummer
-      // if (flurstueckCopy.angaben?.grundbuchblattnummer)
-      //   flurstueckCopy.angaben.grundbuchblattnummer = "";
+      // For NRW we need a Grundbuchblattnummer (we reuse the one from the flat for the garage)
+      if (flurstueckCopy.angaben?.grundbuchblattnummer && !isNrw)
+        flurstueckCopy.angaben.grundbuchblattnummer = "";
       return transformFlurstueck(flurstueckCopy, miteigentumGarage);
     });
   }
@@ -143,13 +144,15 @@ const getGarageFlurstuecke = (
 export const transformFlurstuecke = (
   flurstuecke: Flurstueck[] | undefined,
   miteigentumWohnung: GrundstueckFlurstueckMiteigentumWohnungFields | undefined,
-  miteigentumGarage: GrundstueckFlurstueckMiteigentumGarageFields | undefined
+  miteigentumGarage: GrundstueckFlurstueckMiteigentumGarageFields | undefined,
+  isNrw: boolean
 ) => {
   if (!flurstuecke) return undefined;
 
   const transformedGaragenFlurstuecke = getGarageFlurstuecke(
     flurstuecke,
-    miteigentumGarage
+    miteigentumGarage,
+    isNrw
   );
   const transformedFlurstuecke = flurstuecke.map((value) =>
     transformFlurstueck(value, miteigentumWohnung)
@@ -302,7 +305,8 @@ export const transformDataToEricaFormat = (inputData: GrundModel) => {
       flurstueck: transformFlurstuecke(
         inputData.grundstueck?.flurstueck,
         inputData.grundstueck?.miteigentumWohnung,
-        inputData.grundstueck?.miteigentumGarage
+        inputData.grundstueck?.miteigentumGarage,
+        inputData.grundstueck?.adresse?.bundesland === "NW"
       ),
     },
     gebaeude: {
