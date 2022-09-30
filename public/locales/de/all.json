@@ -16,9 +16,9 @@
     "continue": {
       "headline": "Sie haben bereits ein Konto?",
       "text": "Ich habe meinen Freischaltcode erhalten oder möchte die Bearbeitung fortsetzen.",
-      "buttonText": "Anmelden & Bearbeitung fortsetzen"
+      "buttonText": "Bearbeitung fortsetzen"
     },
-    "headline": "Grundsteuererklärung für Privateigentum.",
+    "headline": "Grundsteuererklärung für Privateigentum",
     "tagline": "Schnell. Unkompliziert. Kostenlos.",
     "features": {
       "1": {
