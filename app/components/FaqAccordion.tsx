@@ -514,9 +514,9 @@ export default function FaqAccordion() {
           <p>
             Überprüfen Sie unter “
             <a href="/pruefen/start" className="underline text-blue-800">
-              Kann ich teilnehmen?
+              Nutzung prüfen
             </a>
-            ”, ob die Nutzung für Sie infrage kommt.
+            ”, ob unser Online-Dienst für Sie in Frage kommt.
           </p>
         </>
       ),
@@ -565,9 +565,9 @@ export default function FaqAccordion() {
             </a>
             . Überprüfen Sie unter “
             <a href="/pruefen/start" className="underline text-blue-800">
-              Kann ich teilnehmen?
+              Nutzung prüfen
             </a>
-            ”, ob die Nutzung von unserem Service für Sie infrage kommt.
+            ”, ob unser Online-Dienst für Sie in Frage kommt.
           </p>
         </>
       ),
@@ -659,7 +659,7 @@ export default function FaqAccordion() {
       id: "kostenlos",
       content: (
         <>
-          <p>Ja, unser Service ist kostenlos.</p>
+          <p>Ja, unser Online-Dienst ist kostenlos.</p>
         </>
       ),
     },
