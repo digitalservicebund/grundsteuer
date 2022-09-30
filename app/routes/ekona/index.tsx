@@ -92,7 +92,7 @@ export default function EkonaIndex() {
             imageAltText="Illustration Bestätigung der Datenweitergabe"
             number="2"
             heading="Bestätigung der Datenweitergabe"
-            text="Folgen Sie den Anweisungen der Seite und bestätigen Sie nach erfolgreicher Anmeldung, dass die Daten an unseren Service übermittelt werden dürfen. Danach werden Sie zurück zu unserem Online-Dienst geleitet."
+            text="Folgen Sie den Anweisungen der Seite und bestätigen Sie nach erfolgreicher Anmeldung, dass die Daten an unseren Online-Dienst übermittelt werden dürfen. Danach werden Sie zurück zu unserem Online-Dienst geleitet."
             className="mb-16"
           />
           <EnumeratedCard

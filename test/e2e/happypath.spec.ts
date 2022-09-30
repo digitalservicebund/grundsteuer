@@ -579,7 +579,7 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
 
     cy.contains(
-      "Prüfen Sie in wenigen Schritten, ob Sie unser Tool nutzen können."
+      "Prüfen Sie in wenigen Schritten, ob Sie unseren Online-Dienst nutzen können."
     );
   });
 });

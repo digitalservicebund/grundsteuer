@@ -275,8 +275,8 @@ export function Step() {
                   <>
                     {currentState == START_STEP && (
                       <h1 className="text-30 leading-36 font-bold mb-16">
-                        Prüfen Sie in wenigen Schritten, ob Sie unser Tool
-                        nutzen können.
+                        Prüfen Sie in wenigen Schritten, ob Sie unseren
+                        Online-Dienst nutzen können.
                       </h1>
                     )}
                     <fieldset>

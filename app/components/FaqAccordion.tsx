@@ -647,9 +647,10 @@ export default function FaqAccordion() {
       content: (
         <>
           <p>
-            Nein, Sie brauchen kein ELSTER-Konto, um den Service
+            Nein, Sie brauchen kein ELSTER-Konto, um den Online-Dienst
             „Grundsteuererklärung für Privateigentum“ nutzen zu können. Wenn Sie
-            bereits ein ELSTER-Konto haben, können Sie den Service auch nutzen.
+            bereits ein ELSTER-Konto haben, können Sie den Online-Dienst auch
+            nutzen.
           </p>
         </>
       ),

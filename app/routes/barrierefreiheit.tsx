@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 import { MetaFunction } from "@remix-run/node";
 import { BmfLogo, ContentContainer, LoggedOutLayout } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
-import { useLoaderData } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Barrierefreiheit") };
@@ -10,7 +9,6 @@ export const meta: MetaFunction = () => {
 
 export default function Nutzungsbedingungen() {
   const { t } = useTranslation("all");
-  const loaderData = useLoaderData();
   return (
     <LoggedOutLayout>
       <div className="mb-32 md:mb-64">
@@ -22,7 +20,7 @@ export default function Nutzungsbedingungen() {
           {t("barrierefreiheit.headline")}
         </h1>
         <p className="mb-24">
-          Der Online-Service “Grundsteuererklärung für Privateigentum” ist
+          Der Online-Dienst “Grundsteuererklärung für Privateigentum” ist
           bemüht, seine Website im Einklang mit den nationalen
           Rechtsvorschriften zur Umsetzung der Richtlinie (EU) 2016/2102 des
           Europäischen Parlaments und des Rates barrierefrei zugänglich zu
@@ -39,13 +37,14 @@ export default function Nutzungsbedingungen() {
 
         <h2 className="text-24 mb-16">Wie barrierefrei ist das Angebot?</h2>
         <p>
-          Dieser Service wurde neu entwickelt. Das Team hat ein Accessibility
-          Training absolviert, in dem die meisten Bereiche des Online-Services
-          auf Barrierefreiheit überprüft wurden. Der Service ist größtenteils
-          barrierefrei. An den unten aufgeführten Mängeln wird gearbeitet.
+          Dieser Online-Dienst wurde neu entwickelt. Das Team hat ein
+          Accessibility Training absolviert, in dem die meisten Bereiche des
+          Online-Dienstes auf Barrierefreiheit überprüft wurden. Der
+          Online-Dienst ist größtenteils barrierefrei. An den unten aufgeführten
+          Mängeln wird gearbeitet.
         </p>
         <p className="mb-24">
-          Der Online-Service “Grundsteuererklärung für Privateigentum” wird
+          Der Online-Dienst “Grundsteuererklärung für Privateigentum” wird
           außerdem in den kommenden Wochen kontinuierlich auf Basis der
           Testergebnisse und der Rückmeldung der Nutzer:innen weiterentwickelt.
         </p>

@@ -23,7 +23,7 @@
     "features": {
       "1": {
         "headline": "Bis wann kann ich die Grundsteuererklärung abgeben?",
-        "text": "Sie können bis zum <bold>31.Oktober 2022</bold> mit unserem Online-Service „Grundsteuererklärung für Privateigentum“ Ihre Erklärung digital abgeben."
+        "text": "Sie können Ihre Erklärung bis zum <bold>31.Oktober 2022</bold> mit unserem Online-Dienst „Grundsteuererklärung für Privateigentum“ digital abgeben."
       },
       "2": {
         "headline": "Wie kann ich mich vorbereiten?",
@@ -44,8 +44,8 @@
     },
     "about": {
       "headline": "Worum geht es?",
-      "text1": "„Grundsteuererklärung für Privateigentum“ – ein Online-Service im Auftrag des Bundesfinanzministerium – ist auf Standardfälle von Privatbesitzer:innen zugeschnitten und dadurch deutlich vereinfacht im Vergleich zu ELSTER. Das Ziel ist die Abgabe der Grundsteuererklärung für Eigentümer:innen so stressfrei wie möglich zu machen.",
-      "text2": "Mit unserem Service können private Eigentümer:innen von Ein- und Zweifamilienhäusern, Eigentumswohnungen und unbebauten Grundstücken ihre Grundsteuererklärung einfach und kostenlos online abgeben!"
+      "text1": "„Grundsteuererklärung für Privateigentum“ – ein Online-Dienst im Auftrag des Bundesfinanzministerium – ist auf Standardfälle von Privatbesitzer:innen zugeschnitten und dadurch deutlich vereinfacht im Vergleich zu ELSTER. Das Ziel ist die Abgabe der Grundsteuererklärung für Eigentümer:innen so stressfrei wie möglich zu machen.",
+      "text2": "Mit unserem Online-Dienst können private Eigentümer:innen von Ein- und Zweifamilienhäusern, Eigentumswohnungen und unbebauten Grundstücken ihre Grundsteuererklärung einfach und kostenlos online abgeben!"
     },
     "states": {
       "headline": "Teilnehmende Bundesländer",
@@ -324,9 +324,9 @@
     "keineNutzung": {
       "headline": "Tut uns leid, Sie können unseren Online-Dienst leider nicht nutzen",
       "specifics": {
-        "explanationFallback": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Tool machen können. „Grundsteuererklärung für Privateigentum“ ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
-        "noEigentuemer": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Unser Service ist speziell für Privatpersonen entwickelt, die zum Stichtag am 01.01.2022 Eigentümer:innen des Grundstücks waren. <break/><break/>Wenn Sie das Grundstück nach dem 01.01.2022 erworben haben, müssen Sie derzeit keine Erklärung abgeben.<break/><break/>Rechtsberatende Berufe können wir leider nicht abdecken.",
-        "noPrivatperson": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Unser Service ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben. <break/><break/>Auch Erbengemeinschaften bilden wir aktuell nicht ab. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
+        "explanationFallback": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Online-Dienst machen können. „Grundsteuererklärung für Privateigentum“ ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
+        "noEigentuemer": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Unser Online-Dienst ist speziell für Privatpersonen entwickelt, die zum Stichtag am 01.01.2022 Eigentümer:innen des Grundstücks waren. <break/><break/>Wenn Sie das Grundstück nach dem 01.01.2022 erworben haben, müssen Sie derzeit keine Erklärung abgeben.<break/><break/>Rechtsberatende Berufe können wir leider nicht abdecken.",
+        "noPrivatperson": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Unser Online-Dienst ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben. <break/><break/>Auch Erbengemeinschaften bilden wir aktuell nicht ab. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
         "invalidBundesland": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Ihr ausgewähltes Bundesland nimmt nicht am Bundesmodell teil, sondern hat ein eigenes Grundsteuermodell eingeführt. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
         "invalidGrundstueckArt": "Aktuell können nur Eigentümer:innen von Einfamilien- und Zweifamilienhäusern, Eigentumswohnungen und unbebauten Grundstücken „Grundsteuererklärung für Privateigentum“ nutzen. Für alle anderen bietet sich alternativ eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
         "ausland": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Online-Dienst machen können. Im Moment können wir nur Personen, die in Deutschland einen Wohnsitz haben, eine Abgabe mit “Grundsteuererklärung für Privateigentum” ermöglichen. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
@@ -987,7 +987,7 @@
         },
         "bundesland": {
           "label": "Bundesland",
-          "help": "Wählen Sie das Bundesland in dem sich das Grundstück befindet. Wenn Sie Ihr Bundesland nicht in der Auswahl finden, können Sie unseren Online-Service leider nicht nutzen. Ihr Bundesland nimmt dann nicht am sogenannten Bundesmodell für die Grundsteuer teil. Geben Sie Ihre Grundsteuererklärung in diesem Fall bitte beispielsweise über ELSTER ab.",
+          "help": "Wählen Sie das Bundesland in dem sich das Grundstück befindet. Wenn Sie Ihr Bundesland nicht in der Auswahl finden, können Sie unseren Online-Dienst leider nicht nutzen. Ihr Bundesland nimmt dann nicht am sogenannten Bundesmodell für die Grundsteuer teil. Geben Sie Ihre Grundsteuererklärung in diesem Fall bitte beispielsweise über ELSTER ab.",
           "options": {
             "default": {
               "label": "Bundesland auswählen"

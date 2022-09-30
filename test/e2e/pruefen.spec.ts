@@ -9,7 +9,7 @@ describe("Happy Path", () => {
     cy.url().should("include", "/pruefen/start");
     cy.contains(
       "h1",
-      "Prüfen Sie in wenigen Schritten, ob Sie unser Tool nutzen können."
+      "Prüfen Sie in wenigen Schritten, ob Sie unseren Online-Dienst nutzen können."
     );
     cy.get(`label[for=abgeber-eigentuemer]`).click();
     cy.get(submitBtnSelector).click();
@@ -44,7 +44,7 @@ describe("Order Enforcing", () => {
     cy.visit("/pruefen/nutzung");
     cy.contains(
       "h1",
-      "Prüfen Sie in wenigen Schritten, ob Sie unser Tool nutzen können."
+      "Prüfen Sie in wenigen Schritten, ob Sie unseren Online-Dienst nutzen können."
     );
   });
 
@@ -52,7 +52,7 @@ describe("Order Enforcing", () => {
     cy.visit("/pruefen/bundesland");
     cy.contains(
       "h1",
-      "Prüfen Sie in wenigen Schritten, ob Sie unser Tool nutzen können."
+      "Prüfen Sie in wenigen Schritten, ob Sie unseren Online-Dienst nutzen können."
     );
   });
 

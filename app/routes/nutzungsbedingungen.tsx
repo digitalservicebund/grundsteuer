@@ -52,7 +52,7 @@ export default function Nutzungsbedingungen() {
           Grundsteuererklärung verpflichteten Eigentümer:innen von privaten
           wirtschaftlichen Einheiten (“Grundstücke”) vereinfachen soll, dieser
           Pflicht nachzukommen. Es wird diesen vollständig kostenlos zur
-          Verfügung gestellt. Es handelt sich um einen Service, den wir im
+          Verfügung gestellt. Es handelt sich um einen Online-Dienst, den wir im
           Auftrag des Bundesministeriums der Finanzen, aber in eigenem Namen
           erbringen. Aus diesen Nutzungsbedingungen berechtigt und verpflichtet
           werden im Verhältnis zu den Nutzer:innen allein wir.
@@ -88,7 +88,8 @@ export default function Nutzungsbedingungen() {
         </h3>
         <p>
           Bitte beachten Sie, dass Sie Ihre Grundsteuererklärung mit diesem
-          Service machen können, nur wenn auf Ihr Eigentum Folgendes zutrifft:
+          Online-Dienst nur machen können, wenn auf Ihr Eigentum Folgendes
+          zutrifft:
         </p>
         <ul className="list-disc ml-24 mb-16">
           <li>
