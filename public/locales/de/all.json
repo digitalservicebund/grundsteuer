@@ -1159,7 +1159,7 @@
     },
     "anzahl": {
       "headline": "Wie viele Flurstücke umfasst Ihr Grundstück?",
-      "description": "Schauen Sie dazu auf die Seite “Bestandsverzeichnis”. Jede Zeile steht für ein Flurstück. Falls Ihnen ein Datenstammblatt vorliegt, zählen Sie die Zeilen darin.",
+      "description": "Schauen Sie dazu auf die Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs. Jede Zeile steht für ein Flurstück. Falls Ihnen ein Datenstammblatt vorliegt, zählen Sie die Zeilen darin.",
       "hint": "<underline>Unterstrichene Zeilen</underline> im Grundbuchauszug bedeuten, dass diese Einträge <bold>nicht</bold> mehr gültig sind. Diese werden nicht mitgezählt.",
       "fields": {
         "anzahl": {
@@ -1210,13 +1210,13 @@
         "description": "Auf der Seite “Bestandsverzeichnis” finden Sie den Eintrag über die Größe Ihres Flurstücks. Meistens ist diese in Hektar, Ar und Quadratmeter angegeben. Oft auch nur in Quadratmeter. Übertragen Sie die Zahlen so, wie Sie sie vorfinden. Auch einige Bodenrichtwert-Portale stellen diese Angaben bereit.",
         "fields": {
           "groesseHa": {
-            "label": "In ha"
+            "label": "in ha"
           },
           "groesseA": {
-            "label": "In a"
+            "label": "in a"
           },
           "groesseQm": {
-            "label": "In m²"
+            "label": "in m²"
           }
         }
       },
@@ -1375,7 +1375,7 @@
         "fields": {
           "bodenrichtwert": {
             "label": "Bodenrichtwert in € / m²",
-            "placeholder": "234"
+            "placeholder": "Zum Beispiel: 234"
           }
         },
         "specifics": {
