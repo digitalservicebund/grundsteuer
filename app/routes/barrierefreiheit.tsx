@@ -11,7 +11,7 @@ export default function Nutzungsbedingungen() {
   const { t } = useTranslation("all");
   return (
     <LoggedOutLayout>
-      <div className="mb-32 md:mb-64">
+      <div className="mt-32 mb-32 md:mb-64">
         <BmfLogo />
       </div>
 
@@ -32,7 +32,8 @@ export default function Nutzungsbedingungen() {
           >
             www.grundsteuererklaerung-fuer-privateigentum.de
           </a>
-          . Sie wurde am 04.07.2022 erstellt.
+          . Sie wurde am 04.07.2022 erstellt und am 30.09.2022 zuletzt
+          aktualisiert.
         </p>
 
         <h2 className="text-24 mb-16">Wie barrierefrei ist das Angebot?</h2>
@@ -53,11 +54,6 @@ export default function Nutzungsbedingungen() {
           Welche Bereiche sind nicht barrierefrei?
         </h2>
         <ul className="mb-24 list-disc ml-[15px]">
-          <li>
-            Fehlermeldungen: Aktuell können die Fehlermeldungen vom Screenreader
-            nicht vorgelesen werden. Wir haben uns als Ziel gesetzt, dieses
-            Problem möglichst schnell zu beheben.
-          </li>
           <li>
             PDF-Download: Die PDF-Datei zur Vorbereitung ist zurzeit nicht
             barrierefrei.
@@ -100,8 +96,10 @@ export default function Nutzungsbedingungen() {
           Schlichtung stellen. Sie können den Antrag auch in Leichter Sprache
           oder in Deutscher Gebärdensprache stellen.
         </p>
-        <p>Sie erreichen die Schlichtungsstelle unter folgender Adresse:</p>
-        <div className="bg-blue-300 p-16 mb-64">
+        <h3 className="text-20 mb-16">
+          Sie erreichen die Schlichtungsstelle unter folgender Adresse:
+        </h3>
+        <div className="bg-blue-300 p-16 mb-128">
           <p>
             Schlichtungsstelle nach dem Behindertengleichstellungsgesetz bei dem
             Beauftragten der Bundesregierung für die Belange von Menschen mit
