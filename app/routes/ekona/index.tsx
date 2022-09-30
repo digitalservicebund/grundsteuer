@@ -19,9 +19,6 @@ import {
 } from "~/ekona/ekonaCookie.server";
 import { authenticator } from "~/auth.server";
 import { pageTitle } from "~/util/pageTitle";
-import { applyRateLimit } from "~/ekona/rateLimiting.server";
-import illustration from "~/assets/images/ekona-busy.svg";
-import Loop from "~/components/icons/mui/Loop";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation mit Elster") };
@@ -34,11 +31,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   if (user.identified) {
     return redirect("/formular");
-  }
-
-  if (!(await applyRateLimit())) {
-    console.log("Ekona rate limit exceeded at " + new Date().toISOString());
-    return { rateLimitExceeded: true };
   }
 
   const session = await createEkonaSession();
@@ -59,12 +51,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function EkonaIndex() {
-  const { context, entryPoint, rateLimitExceeded } = useLoaderData();
-
-  if (rateLimitExceeded) {
-    return <RateLimitingExceeded />;
-  }
-
+  const { context, entryPoint } = useLoaderData();
   return (
     <>
       <ContentContainer size="sm" className="mb-80">
@@ -119,27 +106,5 @@ export default function EkonaIndex() {
         </div>
       </ContentContainer>
     </>
-  );
-}
-
-function RateLimitingExceeded(): JSX.Element {
-  return (
-    <ContentContainer size="sm" className="mb-80">
-      <Headline>
-        Zu viele Zugriffe.
-        <p>Seite bitte neu laden.</p>
-      </Headline>
-      <IntroText>
-        Aktuell scheint es zu viele Zugriffe über die ELSTER Schnittstelle zu
-        geben. Keine Sorge — Ihre Daten sind sicher. Bitte laden Sie die Seite
-        einfach noch einmal.
-      </IntroText>
-      <div className="mt-64">
-        <Button look="primary" size="medium" icon={<Loop />} to=".">
-          Seite neu laden
-        </Button>
-      </div>
-      <img src={illustration} alt="" role="presentation" className="mt-48" />
-    </ContentContainer>
   );
 }
