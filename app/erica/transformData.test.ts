@@ -1044,8 +1044,8 @@ describe("transformFlurstuecke", () => {
       },
       // flurstuecke should be copied
       {
-        // grundbuchblatt should not be empty (NRW)
-        angaben: { gemarkung: "Gemarkung1", grundbuchblattnummer: "1" },
+        // grundbuchblatt should not be empty, but set to "0" = invalid (NRW temp. workaround)
+        angaben: { gemarkung: "Gemarkung1", grundbuchblattnummer: "0" },
         flur: {
           flur: "9",
           flurstueckZaehler: "2",
@@ -1056,7 +1056,7 @@ describe("transformFlurstuecke", () => {
         groesseQm: "45",
       },
       {
-        angaben: { gemarkung: "Gemarkung2", grundbuchblattnummer: "1" },
+        angaben: { gemarkung: "Gemarkung2", grundbuchblattnummer: "0" },
         flur: {
           flur: "10",
           flurstueckZaehler: "2",
