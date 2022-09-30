@@ -76,7 +76,7 @@
     "react-imask": "^6.4.2",
     "remix-auth": "^3.2.2",
     "remix-auth-email-link": "^1.4.2",
-    "remix-auth-form": "^1.1.2",
+    "remix-auth-form": "^1.2.0",
     "remix-i18next": "^4.1.1",
     "sib-api-v3-sdk": "^8.4.2",
     "tiny-invariant": "^1.2.0",
