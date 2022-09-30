@@ -36,35 +36,36 @@ export default function Index() {
           <BmfLogo />
           <div className="mb-64 md:mb-96 xl:mb-80">
             <h1>
-              <div className="max-w-[300px] text-32 leading-40 mb-8 mt-18 md:max-w-[560px] md:text-[3.5rem] md:leading-68 md:mb-24 lg:text-64 lg:mb-8">
+              <div className="max-w-[300px] text-32 leading-40 mb-8 mt-18 sm:max-w-[560px] sm:text-[3.5rem] sm:leading-68 md:mb-24 lg:text-64 lg:mb-8">
                 {t("homepage.headline")}
               </div>
-              <div className="text-20 leading-26 md:text-28 md:leading-26 lg:text-32 lg:leading-40">
+              <div className="text-20 leading-26 sm:text-28 sm:leading-26 lg:text-32 lg:leading-40">
                 {t("homepage.tagline")}
               </div>
             </h1>
-            <div className="max-w-[250px] leading-26 md:max-w-[420px] md:leading-26 lg:leading-40 mt-32">
-              <Button className={"w-full"} to="/pruefen/start">
-                {t("homepage.start")}
-              </Button>
-            </div>
-            <div className="max-w-[250px] leading-26 md:max-w-[420px] lg:leading-40 mt-32">
-              <h3 className="text-20 leading-26 mb-8">
+            <Button
+              className={"w-full max-w-[44ch] mt-32 sm:mt-40"}
+              to="/pruefen/start"
+            >
+              {t("homepage.start")}
+            </Button>
+            <div className="max-w-[250px] leading-26 sm:max-w-[420px] lg:leading-40 mt-32 sm:mt-64">
+              <h3 className="text-20 leading-26 mb-8 sm:text-24">
                 {t("homepage.continue.headline")}
               </h3>
-              <p className="text-18 leading-26 mb-28">
+              <p className="text-18 leading-26 mb-16">
                 {t("homepage.continue.text")}
               </p>
-              <Button
-                look={"ghost"}
-                size={"large"}
-                icon={<Edit />}
-                className={"underline pl-0"}
-                to="/anmelden"
-              >
-                {t("homepage.continue.buttonText")}
-              </Button>
             </div>
+            <Button
+              look={"ghost"}
+              size={"large"}
+              icon={<Edit />}
+              className={"underline pl-0"}
+              to="/anmelden"
+            >
+              {t("homepage.continue.buttonText")}
+            </Button>
           </div>
 
           <div className="mb-64 md:mb-80 lg:mb-96">
