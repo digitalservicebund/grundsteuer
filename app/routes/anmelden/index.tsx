@@ -126,6 +126,14 @@ export default function Anmelden() {
 
   return (
     <LoggedOutLayout>
+      <div className="flex-shrink-0 bg-yellow-300 border-l-[9px] border-l-yellow-500 py-16">
+        <ContentContainer>
+          <p className="text-14 leading-20 lg:text-18 lg:leading-24">
+            Aktuell haben wir Probleme beim Versenden von E-Mails mit
+            Anmelde-Link. Wir arbeiten an einer Lösung.
+          </p>
+        </ContentContainer>
+      </div>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         {loaderData?.error === "token" && (
