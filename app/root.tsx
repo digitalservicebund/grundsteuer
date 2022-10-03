@@ -62,7 +62,7 @@ export const meta: MetaFunction = () => {
     "twitter:title": title,
     "twitter:description": description,
     "twitter:card": "summary_large_image",
-    "twitter:site": "@DigitalServ4Ger",
+    "twitter:site": "@DigitalServBund",
   };
 };
 
