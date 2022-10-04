@@ -2,7 +2,7 @@ import { defineConfig } from "cypress";
 import plugins from "./cypress/plugins/index";
 
 export default defineConfig({
-  defaultCommandTimeout: 20000,
+  defaultCommandTimeout: 60000,
   video: false,
   e2e: {
     // We've imported your old cypress plugins here.
