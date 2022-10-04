@@ -42,14 +42,23 @@ describe("/ekona", () => {
       });
     });
 
-    it("should enforce rate limiting", () => {
-      cy.visit("/ekona/", { failOnStatusCode: false });
+    it(
+      "should enforce rate limiting",
+      {
+        retries: {
+          runMode: 3,
+          openMode: 3,
+        },
+      },
+      () => {
+        cy.visit("/ekona/", { failOnStatusCode: false });
 
-      for (let i = 0; i < 5; i++) {
-        cy.reload();
+        for (let i = 0; i < 5; i++) {
+          cy.reload();
+        }
+        cy.contains("h1", "Zu viele Zugriffe.");
       }
-      cy.contains("h1", "Zu viele Zugriffe.");
-    });
+    );
   });
 
   describe("identified user", () => {
