@@ -44,9 +44,9 @@
   "dependencies": {
     "@node-saml/node-saml": "node-saml/node-saml#d8bf6b55a70044d98eb767123bcf717808d7369d",
     "@prisma/client": "^4.3.1",
-    "@remix-run/express": "^1.7.1",
-    "@remix-run/node": "^1.7.1",
-    "@remix-run/react": "^1.7.1",
+    "@remix-run/express": "^1.7.2",
+    "@remix-run/node": "^1.7.2",
+    "@remix-run/react": "^1.7.2",
     "@sentry/remix": "^7.14.0",
     "@tailwindcss/typography": "^0.5.7",
     "@xstate/graph": "^1.4.2",
@@ -86,8 +86,8 @@
     "xstate": "^4.33.6"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.7.1",
-    "@remix-run/eslint-config": "^1.7.1",
+    "@remix-run/dev": "^1.7.2",
+    "@remix-run/eslint-config": "^1.7.2",
     "@testing-library/dom": "^8.18.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
@@ -101,7 +101,7 @@
     "@types/lodash": "^4.14.185",
     "@types/lru-cache": "^7.10.10",
     "@types/morgan": "^1.9.3",
-    "@types/node": "^18.7.18",
+    "@types/node": "^18.8.2",
     "@types/node-cron": "^3.0.4",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
