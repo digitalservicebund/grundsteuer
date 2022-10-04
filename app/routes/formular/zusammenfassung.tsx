@@ -363,6 +363,7 @@ export default function Zusammenfassung() {
   const [showSpinner, setShowSpinner] = useState(loaderData.showSpinner);
   const [ericaErrors, setEricaErrors] = useState(loaderData.ericaErrors);
   const [fetchInProgress, setFetchInProgress] = useState(false);
+  const [startTime] = useState(Date.now());
   const transition = useTransition();
   const isSubmitting = Boolean(transition.submission);
 
@@ -524,7 +525,7 @@ export default function Zusammenfassung() {
           </Button>
         </Form>
       </ContentContainer>
-      {showSpinner && <Spinner />}
+      {showSpinner && <Spinner startTime={startTime} />}
     </>
   );
 }
