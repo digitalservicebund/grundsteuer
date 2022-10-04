@@ -172,12 +172,12 @@ export const transformFlurstueck = (
     flurstueck.miteigentum?.wirtschaftlicheEinheitNenner ||
     miteigentum?.wirtschaftlicheEinheitNenner;
 
+  const trimmedFlur = flurstueck.flur?.flur.trim();
+
   return {
     angaben: flurstueck.angaben,
     flur: {
-      flur: flurstueck.flur?.flur
-        ? "" + Number.parseInt(flurstueck.flur?.flur)
-        : flurstueck.flur?.flur,
+      flur: trimmedFlur ? "" + Number.parseInt(trimmedFlur) : trimmedFlur,
       flurstueckZaehler: flurstueck.flur?.flurstueckZaehler,
       flurstueckNenner: flurstueck.flur?.flurstueckNenner,
       wirtschaftlicheEinheitZaehler:

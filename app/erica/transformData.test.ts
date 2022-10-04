@@ -1105,6 +1105,22 @@ describe("transformFlurstueck old", () => {
       },
     },
     {
+      description: "flur is space",
+      data: {
+        flur: {
+          flur: " ",
+          flurstueckZaehler: "1",
+          flurstueckNenner: "2",
+        },
+      },
+      miteigentum: undefined,
+      result: {
+        flur: "",
+        flurstueckZaehler: "1",
+        flurstueckNenner: "2",
+      },
+    },
+    {
       description: "flur without leading",
       data: {
         flur: {
