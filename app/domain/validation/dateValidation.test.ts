@@ -13,6 +13,7 @@ describe("validateIsDate", () => {
     { value: "", valid: true },
     { value: " 12.06.2020 ", valid: true },
     { value: "12.06.2020", valid: true },
+    { value: "12.06.2020.20", valid: false },
     { value: "2.6.2020", valid: false }, // sad.
     { value: "12/06/2020", valid: false },
     { value: "12.06.20", valid: false },

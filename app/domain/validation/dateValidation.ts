@@ -8,11 +8,12 @@ import validator from "validator";
 
 export const validateIsDate: ValidateFunctionDefault = ({ value }) =>
   !value ||
-  validator.isDate(value.trim(), {
-    format: "DD.MM.YYYY",
-    strictMode: true,
-    delimiters: ["."],
-  });
+  (value.trim().length == "DD.MM.YYYY".length && // include this check as long as this is not merged: https://github.com/validatorjs/validator.js/pull/2056
+    validator.isDate(value.trim(), {
+      format: "DD.MM.YYYY",
+      strictMode: true,
+      delimiters: ["."],
+    }));
 
 export const validateYearAfterBaujahr: ValidateYearAfterBaujahrFunction = ({
   value,
