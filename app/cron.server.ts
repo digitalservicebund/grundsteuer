@@ -22,6 +22,14 @@ const schedulePdfCleanup = (cronExpression: string) => {
   schedule(cronExpression, async () => deleteExpiredPdfs());
 };
 
+const scheduleTransferticketCleanup = (cronExpression: string) => {
+  console.info(
+    "Schedule deleting expired transfertickets with cron expression: %s",
+    cronExpression
+  );
+  schedule(cronExpression, async () => deleteExpiredTransfertickets());
+};
+
 const scheduleAccountCleanup = (cronExpression: string) => {
   console.info(
     "Schedule deleting expired accounts with cron expression: %s",
@@ -59,6 +67,25 @@ export const deleteExpiredPdfs = async () => {
       },
     });
     console.log("Deleted %d expired PDFs.", queryResult.count);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteExpiredTransfertickets = async () => {
+  try {
+    const now = new Date();
+    const oneDayAgo = new Date(now.setUTCDate(now.getUTCDate() - 1));
+    const queryResult = await db.user.updateMany({
+      where: {
+        NOT: { transferticket: null },
+        lastDeclarationAt: {
+          lte: oneDayAgo,
+        },
+      },
+      data: { transferticket: null },
+    });
+    console.log("Deleted %d expired transfertickets.", queryResult.count);
   } catch (error) {
     console.error(error);
   }
@@ -153,6 +180,7 @@ const scheduleUpdateEricaRequest = (cronExpression: string) => {
 export const jobs = {
   scheduleFscCleanup,
   schedulePdfCleanup,
+  scheduleTransferticketCleanup,
   scheduleAccountCleanup,
   scheduleUpdateEricaRequest,
 };

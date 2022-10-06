@@ -2,6 +2,7 @@ import {
   deleteExpiredAccounts,
   deleteExpiredFscs,
   deleteExpiredPdfs,
+  deleteExpiredTransfertickets,
 } from "~/cron.server";
 import { db } from "~/db.server";
 import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStornieren";
@@ -107,7 +108,7 @@ describe("Cron jobs", () => {
       });
     });
 
-    it("should delete entry over 24 hours old", async () => {
+    it("should delete pdf over 24 hours old", async () => {
       const beforeRows = await db.pdf.findMany();
       expect(beforeRows.length).toEqual(2);
 
@@ -117,6 +118,58 @@ describe("Cron jobs", () => {
 
       expect(afterRows.length).toEqual(1);
       expect(afterRows[0].data).toEqual(Buffer.from("under24HoursOld"));
+    });
+  });
+
+  describe("deleteExpiredTransfertickets", () => {
+    beforeAll(async () => {
+      await db.user.create({
+        data: {
+          email: "one@foo.com",
+          transferticket: "one",
+          lastDeclarationAt: new Date(
+            // 24 hours ago
+            new Date(Date.now() - 24 * 60 * 60 * 1000)
+          ),
+        },
+      });
+      await db.user.create({
+        data: {
+          email: "two@foo.com",
+          transferticket: "two",
+          lastDeclarationAt: new Date(
+            // 23 hours and 59 minutes ago
+            new Date(Date.now() - 24 * 60 * 60 * 1000 + 60 * 1000)
+          ),
+        },
+      });
+    });
+
+    afterAll(async () => {
+      await db.user.deleteMany({
+        where: { email: { in: ["one@foo.com", "two@foo.com"] } },
+      });
+    });
+
+    it("should delete transfertickets over 24 hours old", async () => {
+      const beforeRows = await db.user.findMany({
+        where: {
+          NOT: { transferticket: null },
+        },
+      });
+
+      expect(beforeRows.length).toEqual(2);
+
+      await deleteExpiredTransfertickets();
+
+      const afterRows = await db.user.findMany({
+        where: {
+          NOT: { transferticket: null },
+        },
+      });
+
+      expect(afterRows.length).toEqual(1);
+      expect(afterRows[0].transferticket).toEqual("two");
     });
   });
 

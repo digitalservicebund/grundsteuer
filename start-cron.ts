@@ -8,6 +8,7 @@ invariant(process.env.ERICA_URL, "ERICA_URL is not set.");
 // run once every hour
 jobs.scheduleFscCleanup("0 * * * *");
 jobs.schedulePdfCleanup("30 * * * *");
+jobs.scheduleTransferticketCleanup("31 * * * *");
 // run once every day
 jobs.scheduleAccountCleanup("0 8 * * *");
 // run every minute
