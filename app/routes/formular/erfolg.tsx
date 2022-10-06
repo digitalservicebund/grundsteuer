@@ -138,7 +138,7 @@ export default function Erfolg() {
             Transferticket als .txt herunterladen
           </Button>
           <Hint className="mb-0">
-            Sie können das Transferticket nur innerhalb der ersten 60 Minuten
+            Sie können das Transferticket nur innerhalb der ersten 24 Stunden
             nach Erstellung herunterladen.
           </Hint>
         </DownloadCard>
@@ -162,7 +162,7 @@ export default function Erfolg() {
           </Button>
           <Hint className="mb-0">
             Sie können die Grundsteuererklärung als PDF nur innerhalb der ersten
-            60 Minuten nach Erstellung herunterladen.
+            24 Stunden nach Erstellung herunterladen.
           </Hint>
         </DownloadCard>
 

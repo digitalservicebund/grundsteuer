@@ -50,11 +50,11 @@ export const deleteExpiredFscs = async () => {
 export const deleteExpiredPdfs = async () => {
   try {
     const now = new Date();
-    const oneHourAgo = new Date(now.setHours(now.getHours() - 1));
+    const oneDayAgo = new Date(now.setUTCDate(now.getUTCDate() - 1));
     const queryResult = await db.pdf.deleteMany({
       where: {
         createdAt: {
-          lte: oneHourAgo,
+          lte: oneDayAgo,
         },
       },
     });
