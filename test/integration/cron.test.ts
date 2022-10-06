@@ -76,10 +76,10 @@ describe("Cron jobs", () => {
           email: "one@foo.com",
           pdf: {
             create: {
-              data: Buffer.from("overOneHourOld"),
+              data: Buffer.from("over24HoursOld"),
               createdAt: new Date(
-                // 60 minutes ago
-                new Date().setMinutes(new Date().getMinutes() - 60)
+                // 24 hours ago
+                new Date(Date.now() - 24 * 60 * 60 * 1000)
               ),
             },
           },
@@ -90,10 +90,10 @@ describe("Cron jobs", () => {
           email: "two@foo.com",
           pdf: {
             create: {
-              data: Buffer.from("underOneHourOld"),
+              data: Buffer.from("under24HoursOld"),
               createdAt: new Date(
-                // 59 minutes ago
-                new Date().setMinutes(new Date().getMinutes() - 59)
+                // 23 hours and 59 minutes ago
+                new Date(Date.now() - 24 * 60 * 60 * 1000 + 60 * 1000)
               ),
             },
           },
@@ -107,7 +107,7 @@ describe("Cron jobs", () => {
       });
     });
 
-    it("should delete entry over one hour old", async () => {
+    it("should delete entry over 24 hours old", async () => {
       const beforeRows = await db.pdf.findMany();
       expect(beforeRows.length).toEqual(2);
 
@@ -116,7 +116,7 @@ describe("Cron jobs", () => {
       const afterRows = await db.pdf.findMany();
 
       expect(afterRows.length).toEqual(1);
-      expect(afterRows[0].data).toEqual(Buffer.from("underOneHourOld"));
+      expect(afterRows[0].data).toEqual(Buffer.from("under24HoursOld"));
     });
   });
 
