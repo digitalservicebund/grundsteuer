@@ -87,8 +87,8 @@ export default function Erfolg() {
             Ihre Grundsteuererklärung als PDF
           </h3>
           <p className="mb-24">
-            Wir haben Ihre Angaben für den Versand an ELSTER aufbereitet. Das
-            PDF enthält auch das Transferticket.
+            Hier finden Sie eine Zusammenfassung Ihrer Daten, die wir an ELSTER
+            übermittelt haben. Das PDF enthält auch das Transferticket.
           </p>
           <Button
             target={"_blank"}
@@ -101,7 +101,7 @@ export default function Erfolg() {
             Erklärung als PDF herunterladen
           </Button>
           <Hint className="mb-0">
-            Auch Sicherheitsgründen können Sie die PDF der Grundsteuererklärung
+            Aus Sicherheitsgründen können Sie die PDF der Grundsteuererklärung
             nur innerhalb von 24 Stunden nach Erstellung herunterladen.
           </Hint>
         </DownloadCard>
@@ -132,7 +132,7 @@ export default function Erfolg() {
             Transferticket als .txt herunterladen
           </Button>
           <Hint className="mb-0">
-            Auch Sicherheitsgründen können Sie das Transferticket nur innerhalb
+            Aus Sicherheitsgründen können Sie das Transferticket nur innerhalb
             von 24 Stunden nach Erstellung herunterladen.
           </Hint>
         </DownloadCard>
