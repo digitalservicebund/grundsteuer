@@ -54,6 +54,7 @@ import {
   saveSuccessfulFscRevocationData,
 } from "~/domain/lifecycleEvents.server";
 import { ericaUtils } from "~/erica/utils";
+import { fetchInDynamicInterval } from "~/routes/fsc/_utils";
 
 const isEricaRequestInProgress = (userData: User) => {
   return (
@@ -389,14 +390,21 @@ export default function FscEingeben() {
   }, [loaderData]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (showSpinner && !fetchInProgress) {
-        setFetchInProgress(true);
-        fetcher.load("/fsc/eingeben?index");
-        setFetchInProgress(false);
+    let interval: NodeJS.Timer | null = null;
+    interval = fetchInDynamicInterval(
+      showSpinner,
+      fetchInProgress,
+      setFetchInProgress,
+      fetcher,
+      interval,
+      startTime,
+      "/fsc/eingeben?index"
+    );
+    return () => {
+      if (interval) {
+        clearInterval(interval);
       }
-    }, 1000);
-    return () => clearInterval(interval);
+    };
   }, [fetcher, showSpinner]);
 
   return (
