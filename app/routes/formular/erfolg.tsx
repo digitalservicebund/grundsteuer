@@ -101,8 +101,8 @@ export default function Erfolg() {
             Erklärung als PDF herunterladen
           </Button>
           <Hint className="mb-0">
-            Aus Sicherheitsgründen können Sie die PDF der Grundsteuererklärung
-            nur innerhalb von 24 Stunden nach Erstellung herunterladen.
+            Laden Sie sich das PDF für Ihre Unterlagen herunter. Zum Schutz
+            Ihrer persönlichen Daten ist dies nur 24 Stunden möglich.
           </Hint>
         </DownloadCard>
 
@@ -132,8 +132,8 @@ export default function Erfolg() {
             Transferticket als .txt herunterladen
           </Button>
           <Hint className="mb-0">
-            Aus Sicherheitsgründen können Sie das Transferticket nur innerhalb
-            von 24 Stunden nach Erstellung herunterladen.
+            Laden Sie sich das Transferticket für Ihre Unterlagen herunter. Zum
+            Schutz Ihrer persönlichen Daten ist dies nur 24 Stunden möglich.
           </Hint>
         </DownloadCard>
 
