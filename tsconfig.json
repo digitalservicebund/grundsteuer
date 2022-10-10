@@ -1,6 +1,11 @@
 {
   "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["test/e2e/**/*.ts", "cypress", "cypress.config.ts", "useid-eservice-sdk/*"],
+  "exclude": [
+    "test/e2e/**/*.ts",
+    "cypress",
+    "cypress.config.ts",
+    "useid-eservice-sdk/*"
+  ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
     "isolatedModules": true,
