@@ -33,6 +33,7 @@ app.use(
           "'unsafe-inline'",
           process.env.USEID_DOMAIN,
         ],
+        frameSrc: [process.env.USEID_DOMAIN],
         "form-action":
           process.env.USE_TEST_CSP === "true"
             ? "self localhost:3000 https://grund-stag.dev.ds4g.net e4k-portal.een.elster.de"
