@@ -205,12 +205,6 @@ import {
 
 export type { ZusammenfassungFields };
 import { ValidationConfig } from "~/domain/validation";
-import {
-  grundstueckFlurstueckMiteigentumsanteil,
-  GrundstueckFlurstueckMiteigentumsanteilFields,
-} from "~/domain/steps/grundstueck/miteigentumsanteil.server";
-
-export type { GrundstueckFlurstueckMiteigentumsanteilFields };
 
 import invariant from "tiny-invariant";
 import {
@@ -224,11 +218,11 @@ import {
 } from "~/domain/steps/grundstueck/flurstueck/miteigentumAuswahl.server";
 export type { GrundstueckFlurstueckMiteigentumAuswahlFields };
 import {
-  grundstueckFlurstueckMiteigentum,
-  GrundstueckFlurstueckMiteigentumFields,
+  grundstueckFlurstueckMiteigentumsanteil,
+  GrundstueckFlurstueckMiteigentumsanteilFields,
 } from "~/domain/steps/grundstueck/flurstueck/miteigentum.server";
 
-export type { GrundstueckFlurstueckMiteigentumFields };
+export type { GrundstueckFlurstueckMiteigentumsanteilFields };
 import {
   grundstueckMiteigentumAuswahlWohnung,
   GrundstueckMiteigentumAuswahlWohnungFields,
@@ -261,7 +255,6 @@ const stepDefinitions = {
     abweichendeEntwicklung: grundstueckAbweichendeEntwicklung,
     gemeinde: grundstueckGemeinde,
     anzahl: grundstueckAnzahl,
-    miteigentumsanteil: grundstueckFlurstueckMiteigentumsanteil,
     bodenrichtwertInfo: infoStep,
     bodenrichtwertEingabe: grundstueckBodenrichtwertEingabe,
     bodenrichtwertAnzahl: grundstueckBodenrichtwertAnzahl,
@@ -274,7 +267,7 @@ const stepDefinitions = {
       flur: grundstueckFlurstueckFlur,
       groesse: grundstueckFlurstueckGroesse,
       miteigentumAuswahl: grundstueckFlurstueckMiteigentumAuswahl,
-      miteigentum: grundstueckFlurstueckMiteigentum,
+      miteigentum: grundstueckFlurstueckMiteigentumsanteil,
     },
   },
   gebaeude: {
@@ -328,7 +321,7 @@ export type Flurstueck = {
   flur?: GrundstueckFlurstueckFlurFields;
   groesse?: GrundstueckFlurstueckGroesseFields;
   miteigentumAuswahl?: GrundstueckFlurstueckMiteigentumAuswahlFields;
-  miteigentum?: GrundstueckFlurstueckMiteigentumFields;
+  miteigentum?: GrundstueckFlurstueckMiteigentumsanteilFields;
 };
 
 export type Person = {
@@ -356,7 +349,6 @@ export type GrundstueckModel = {
   abweichendeEntwicklung?: GrundstueckAbweichendeEntwicklungFields;
   gemeinde?: GrundstueckGemeindeFields;
   anzahl?: GrundstueckAnzahlFields;
-  miteigentumsanteil?: GrundstueckFlurstueckMiteigentumsanteilFields;
   bodenrichtwertEingabe?: GrundstueckBodenrichtwertEingabeFields;
   bodenrichtwertAnzahl?: GrundstueckBodenrichtwertAnzahlFields;
   miteigentumAuswahlHaus?: GrundstueckMiteigentumAuswahlHausFields;

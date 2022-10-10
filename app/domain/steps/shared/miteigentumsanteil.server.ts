@@ -5,7 +5,7 @@ export type MiteigentumsanteilFields = {
   wirtschaftlicheEinheitNenner: string;
 };
 
-export const stepDefinition: StepDefinition = {
+export const miteigentumsanteil: StepDefinition = {
   fields: {
     wirtschaftlicheEinheitZaehler: {
       validations: {

@@ -21,7 +21,7 @@ import Person from "~/components/icons/mui/Person";
 import classNames from "classnames";
 import _ from "lodash";
 import invariant from "tiny-invariant";
-import { GrundstueckFlurstueckMiteigentumsanteilFields } from "~/domain/steps/grundstueck/miteigentumsanteil.server";
+import { MiteigentumsanteilFields } from "~/domain/steps/shared/miteigentumsanteil.server";
 import {
   calculateGroesse,
   transformBruchteilsgemeinschaftAdresse,
@@ -406,7 +406,7 @@ type StepResolver = (
     | GrundstueckMiteigentumAuswahlHausFields
     | GrundstueckMiteigentumAuswahlWohnungFields
     | GrundstueckFlurstueckFlurFields
-    | GrundstueckFlurstueckMiteigentumsanteilFields
+    | MiteigentumsanteilFields
     | GrundstueckFlurstueckGroesseFields
     | EigentuemerPersonPersoenlicheAngabenFields
     | EigentuemerPersonAdresseFields

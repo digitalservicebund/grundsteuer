@@ -5,7 +5,7 @@ import {
   GrundstueckFlurstueckFlurFields,
   GrundstueckFlurstueckGroesseFields,
   GrundstueckFlurstueckMiteigentumAuswahlFields,
-  GrundstueckFlurstueckMiteigentumFields,
+  GrundstueckFlurstueckMiteigentumsanteilFields,
 } from "~/domain/steps/index.server";
 
 class FlurstueckFactory extends Factory<Flurstueck> {
@@ -52,7 +52,7 @@ class FlurstueckFactory extends Factory<Flurstueck> {
     });
   }
 
-  miteigentum(fields?: Partial<GrundstueckFlurstueckMiteigentumFields>) {
+  miteigentum(fields?: Partial<GrundstueckFlurstueckMiteigentumsanteilFields>) {
     return this.params({
       miteigentum: {
         wirtschaftlicheEinheitZaehler: "1,2",
