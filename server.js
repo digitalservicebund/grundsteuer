@@ -21,11 +21,18 @@ const app = express();
 // Set security-related http headers
 app.use(
   helmet({
+    //We have to disable this for embedding the useid widget
+    crossOriginEmbedderPolicy: false,
     contentSecurityPolicy: {
       directives: {
         // unfortunately we have to allow unsafe inline scripts, as otherwise Remix does not work;
         // issue is tracked here: https://github.com/remix-run/remix/issues/183
-        scriptSrc: ["'self'", "*.sentry.io", "'unsafe-inline'"],
+        scriptSrc: [
+          "'self'",
+          "*.sentry.io",
+          "'unsafe-inline'",
+          process.env.USEID_DOMAIN,
+        ],
         "form-action":
           process.env.USE_TEST_CSP === "true"
             ? "self localhost:3000 https://grund-stag.dev.ds4g.net e4k-portal.een.elster.de"
@@ -42,7 +49,7 @@ app.use(
     },
     referrerPolicy: {
       // keep referrer for "internal" traffic to facilitate plausible tracking
-      policy: "same-origin",
+      policy: "strict-origin-when-cross-origin",
     },
   })
 );
