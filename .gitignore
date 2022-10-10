@@ -11,6 +11,8 @@ node_modules
 
 cypress/screenshots
 
+.prettierignore
+
 # IDEs and editors
 .idea
 *.iml
