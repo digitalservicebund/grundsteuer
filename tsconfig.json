@@ -4,7 +4,7 @@
     "test/e2e/**/*.ts",
     "cypress",
     "cypress.config.ts",
-    "useid-eservice-sdk/*"
+    "useid-eservice-sdk-base/*"
   ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2019"],

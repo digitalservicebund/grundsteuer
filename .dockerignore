@@ -17,9 +17,9 @@
 !.env.example
 !start.sh
 !start-cron.ts
-!useid-eservice-sdk
-useid-eservice-sdk/node_modules
-useid-eservice-sdk/dist
+!useid-eservice-sdk-base
+useid-eservice-sdk-base/node_modules
+useid-eservice-sdk-base/dist
 **/*.spec.*
 **/*.test.*
 /public/build/
