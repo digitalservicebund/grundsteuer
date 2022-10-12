@@ -98,14 +98,15 @@ const resolveGemeinde: FieldResolver = (value) => {
 
 const resolveMiteigentumFraction: StepResolver = (value) => {
   if (!value || Object.keys(value).length == 0) return undefined;
-  invariant(
-    "wirtschaftlicheEinheitZaehler" in value,
-    "Only use for miteigentumsanteil fields"
-  );
+
   return (
-    value.wirtschaftlicheEinheitZaehler +
+    ("wirtschaftlicheEinheitZaehler" in value
+      ? value.wirtschaftlicheEinheitZaehler
+      : "") +
     " / " +
-    value.wirtschaftlicheEinheitNenner
+    ("wirtschaftlicheEinheitNenner" in value
+      ? value.wirtschaftlicheEinheitNenner
+      : "")
   );
 };
 
