@@ -5,19 +5,14 @@ import {
   getEkonaSession,
 } from "~/ekona/ekonaCookie.server";
 import { extractIdentData } from "~/ekona/validation.server";
-import {
-  deleteFscRequest,
-  findUserById,
-  setUserIdentified,
-  User,
-} from "~/domain/user";
+import { findUserById, setUserIdentified, User } from "~/domain/user";
 import invariant from "tiny-invariant";
 import {
   AuditLogEvent,
   EkonaIdentifiedData,
   saveAuditLog,
 } from "~/audit/auditLog";
-import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
+import { revokeOutstandingFSCRequests } from "~/domain/lifecycleEvents.server";
 
 const AUTHN_FAILED_STATUS_CODE =
   '<StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:AuthnFailed"/>';
@@ -35,13 +30,6 @@ const getUserFromEkonaSession = async (
   const user = await findUserById(userId);
   invariant(user, "Expected to find a user");
   return user;
-};
-
-const revokeOutstandingFSCRequests = async (user: User) => {
-  if (user.fscRequest) {
-    await revokeFscForUser(user);
-    await deleteFscRequest(user.email, user.fscRequest.requestId);
-  }
 };
 
 const saveAuditLogs = async (

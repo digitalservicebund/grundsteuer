@@ -1,6 +1,12 @@
 import { db } from "~/db.server";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
-import { findUserByEmail, setUserIdentified } from "~/domain/user";
+import {
+  deleteFscRequest,
+  findUserByEmail,
+  setUserIdentified,
+  User,
+} from "~/domain/user";
+import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
 
 export const saveSuccessfulFscRequestData = async (
   email: string,
@@ -176,4 +182,11 @@ const shouldThrowError = (error: object) => {
     (error as { message: string }).message !==
       "ericaRequestId of user does not match"
   );
+};
+
+export const revokeOutstandingFSCRequests = async (user: User) => {
+  if (user.fscRequest) {
+    await revokeFscForUser(user);
+    await deleteFscRequest(user.email, user.fscRequest.requestId);
+  }
 };
