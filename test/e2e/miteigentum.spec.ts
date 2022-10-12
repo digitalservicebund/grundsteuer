@@ -4,7 +4,7 @@ describe("miteigentum", () => {
     cy.login();
   });
 
-  it("should not display grundbuchblattnummer per flurstueck on miteigentum wohnung option 1", () => {
+  it("should not display grundbuchblattnummer per flurstueck on miteigentum wohnung option none", () => {
     cy.visit("/formular/grundstueck/typ");
     cy.get(`label[for=typ-wohnungseigentum]`).click();
     cy.get("#nextButton").click();
@@ -30,7 +30,7 @@ describe("miteigentum", () => {
     cy.get("#grundbuchblattnummer").should("not.exist");
   });
 
-  it("should not display grundbuchblattnummer per flurstueck on miteigentum wohnung option 2", () => {
+  it("should not display grundbuchblattnummer per flurstueck on miteigentum wohnung option garage", () => {
     cy.visit("/formular/grundstueck/typ");
     cy.get(`label[for=typ-wohnungseigentum]`).click();
     cy.get("#nextButton").click();
@@ -66,7 +66,7 @@ describe("miteigentum", () => {
     cy.get("#grundbuchblattnummer").should("not.exist");
   });
 
-  it("should display grundbuchblattnummer per flurstueck on miteigentum wohnung option 3", () => {
+  it("should display grundbuchblattnummer per flurstueck on miteigentum wohnung option mixed", () => {
     cy.visit("/formular/grundstueck/typ");
     cy.get(`label[for=typ-wohnungseigentum]`).click();
     cy.get("#nextButton").click();
