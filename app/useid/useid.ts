@@ -1,5 +1,5 @@
-import { UseIdAPI } from "useid-eservice-sdk";
 import invariant from "tiny-invariant";
+import { DataGroup, Place, UseIdAPI } from "useid-eservice-sdk";
 
 let useIdAPIConnection: UseIdAPI;
 
@@ -28,8 +28,62 @@ const getTcTokenUrl = async () => {
   return useIdResponse.tcTokenUrl;
 };
 
+const getIdentity = async (sessionId: string) => {
+  return await getUseIdApi().getIdentity(sessionId);
+};
+
 const getIdentityData = async (sessionId: string) => {
-  await getUseIdApi().getIdentity(sessionId);
+  const identity = await getIdentity(sessionId);
+  const address = (identity.get(DataGroup.PlaceOfResidence) as Place)
+    ?.structuredPlace;
+  const extractedData = {
+    firstName: identity.get(DataGroup.GivenNames) as string | undefined,
+    lastName: identity.get(DataGroup.FamilyNames) as string | undefined,
+    street: address?.street,
+    postalCode: address?.zipCode,
+    city: address?.city,
+    country: address?.country,
+  };
+  return checkDataForAttributes(extractedData);
+};
+
+const checkDataForAttributes = (
+  extracedData: Partial<BundesIdentIdentifiedData>
+) => {
+  invariant(
+    extracedData.firstName,
+    "Validated BundesIdent data did not contain firstName"
+  );
+  invariant(
+    extracedData.lastName,
+    "Validated BundesIdent data did not contain lastName"
+  );
+  invariant(
+    extracedData.street,
+    "Validated BundesIdent data did not contain street"
+  );
+  invariant(
+    extracedData.postalCode,
+    "Validated BundesIdent data did not contain postalCode"
+  );
+  invariant(
+    extracedData.city,
+    "Validated BundesIdent data did not contain city"
+  );
+  invariant(
+    extracedData.country,
+    "Validated BundesIdent data did not contain country"
+  );
+  return extracedData as BundesIdentIdentifiedData;
+};
+
+export type BundesIdentIdentifiedData = {
+  firstName: string;
+  lastName: string;
+  street: string;
+  postalCode: string;
+  city: string;
+  country: string;
 };
 
 export const useId = {
