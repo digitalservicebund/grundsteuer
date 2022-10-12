@@ -1,14 +1,14 @@
 import {
+  EigentuemerPersonAdresseFields,
+  EigentuemerPersonAnteilFields,
   Flurstueck,
   GrundModel,
   GrundstueckAdresseFields,
   GrundstueckFlurstueckGroesseFields,
+  GrundstueckFlurstueckMiteigentumsanteilFields,
   GrundstueckMiteigentumGarageFields,
   GrundstueckMiteigentumWohnungFields,
-  GrundstueckFlurstueckMiteigentumsanteilFields,
   Person,
-  EigentuemerPersonAdresseFields,
-  EigentuemerPersonAnteilFields,
 } from "~/domain/steps/index.server";
 import { removeUndefined } from "~/util/removeUndefined";
 import { GebaeudeWohnflaecheFields } from "~/domain/steps/gebaeude/wohnflaeche";
@@ -122,16 +122,15 @@ const calculateWohnflaechen = (
   ]);
 };
 
-const getNoneGarageFlurstuecke = (
+const getRegularFlurstuecke = (
   flurstuecke: Flurstueck[],
   miteigentumWohnung: GrundstueckMiteigentumWohnungFields | undefined
 ) => {
   return flurstuecke.map((flurstueck: Flurstueck) => {
-    const flurstueckCopy = _.cloneDeep(flurstueck);
-    if (miteigentumWohnung && flurstueckCopy.angaben)
-      flurstueckCopy.angaben.grundbuchblattnummer =
+    if (miteigentumWohnung && flurstueck.angaben)
+      flurstueck.angaben.grundbuchblattnummer =
         miteigentumWohnung.grundbuchblattnummer;
-    return transformFlurstueck(flurstueckCopy, miteigentumWohnung);
+    return transformFlurstueck(flurstueck, miteigentumWohnung);
   });
 };
 
@@ -163,7 +162,7 @@ export const transformFlurstuecke = (
     flurstuecke,
     miteigentumGarage
   );
-  const transformedFlurstuecke = getNoneGarageFlurstuecke(
+  const transformedFlurstuecke = getRegularFlurstuecke(
     flurstuecke,
     miteigentumWohnung
   );
