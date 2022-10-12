@@ -1175,9 +1175,10 @@
     "flurstueck": {
       "angaben": {
         "default": {
-          "headline": "Flurstück {{id}}: Wie lautet die Nummer des Grundbuchblatts und die Gemarkung?",
+          "headline": "Flurstück {{id}}: Wie lautet die Gemarkung und die Nummer des Grundbuchblatts?",
           "alternativeHeadline": "Flurstück {{id}}: Wie lautet die Gemarkung?",
           "description": "Sie finden die Nummer des Grundbuchblatts und Gemarkung auf dem Deckblatt und auf den Innenseiten des Grundbuchauszugs. Viele Angaben stellen auch einige der Bodenrichtwert-Portale bereit.",
+          "alternativeDescription": "Sie finden die Gemarkung auf dem Deckblatt und auf den Innenseiten des Grundbuchauszugs. Viele Angaben stellen auch einige der Bodenrichtwert-Portale bereit.",
           "fields": {
             "gemarkung": {
               "label": "Name Gemarkung",
