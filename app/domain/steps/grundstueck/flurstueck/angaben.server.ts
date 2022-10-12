@@ -21,7 +21,7 @@ export const grundstueckFlurstueckAngaben: StepDefinition = {
       validations: {
         grundbuchblattnummer: {},
         requiredIfCondition: {
-          condition: conditions.bundeslandIsNW,
+          condition: conditions.isExplicitFlurstueckGrundbuchblattnummer,
           msg: "Für Grundstücke in Nordrhein-Westfalen muss immer ein Grundbuchblatt angegeben werden.",
         },
       },

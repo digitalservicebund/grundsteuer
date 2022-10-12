@@ -190,6 +190,16 @@ const bundeslandIsNW: Condition = (context) => {
   return context?.grundstueck?.adresse?.bundesland == "NW";
 };
 
+const isExplicitFlurstueckGrundbuchblattnummer: Condition = (context) => {
+  const grundstueckTyp = context?.grundstueck?.typ?.typ;
+  const miteigentumTyp =
+    context?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp;
+  if (context?.grundstueck?.adresse?.bundesland == "NW") {
+    return grundstueckTyp !== "wohnungseigentum" || miteigentumTyp === "mixed";
+  }
+  return false;
+};
+
 const isGrundstueckBundeslandKnown: Condition = (context) => {
   return context?.grundstueck?.adresse?.bundesland !== undefined;
 };
@@ -227,5 +237,6 @@ export const conditions: Conditions = {
   personIdGreaterThanOne,
   flurstueckIdGreaterThanOne,
   bundeslandIsNW,
+  isExplicitFlurstueckGrundbuchblattnummer,
   isGrundstueckBundeslandKnown,
 };

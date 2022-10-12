@@ -974,3 +974,53 @@ describe("bundeslandIsNW", () => {
     expect(result).toEqual(true);
   });
 });
+
+describe("isExplicitFlurstueckGrundbuchblattnummer", () => {
+  it("Should return false on wohnungseigentum type none", async () => {
+    const context = grundModelFactory
+      .grundstueckAdresse({ bundesland: "NW" })
+      .grundstueckTyp({ typ: "wohnungseigentum" })
+      .miteigentumWohnung({ miteigentumTyp: "none" })
+      .build();
+
+    const result = conditions.isExplicitFlurstueckGrundbuchblattnummer(context);
+
+    expect(result).toEqual(false);
+  });
+
+  it("Should return false on wohnungseigentum type garage", async () => {
+    const context = grundModelFactory
+      .grundstueckAdresse({ bundesland: "NW" })
+      .grundstueckTyp({ typ: "wohnungseigentum" })
+      .miteigentumWohnung({ miteigentumTyp: "garage" })
+      .build();
+
+    const result = conditions.isExplicitFlurstueckGrundbuchblattnummer(context);
+
+    expect(result).toEqual(false);
+  });
+
+  it("Should return true on wohnungseigentum type mixed", async () => {
+    const context = grundModelFactory
+      .grundstueckAdresse({ bundesland: "NW" })
+      .grundstueckTyp({ typ: "wohnungseigentum" })
+      .miteigentumWohnung({ miteigentumTyp: "mixed" })
+      .build();
+
+    const result = conditions.isExplicitFlurstueckGrundbuchblattnummer(context);
+
+    expect(result).toEqual(true);
+  });
+
+  it("Should return true on einfamilienhaus", async () => {
+    const context = grundModelFactory
+      .grundstueckAdresse({ bundesland: "NW" })
+      .grundstueckTyp({ typ: "einfamilienhaus" })
+      .miteigentumHaus({ hasMiteigentum: "true" })
+      .build();
+
+    const result = conditions.isExplicitFlurstueckGrundbuchblattnummer(context);
+
+    expect(result).toEqual(true);
+  });
+});
