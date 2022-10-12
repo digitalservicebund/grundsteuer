@@ -1524,7 +1524,7 @@
     },
     "miteigentumGarage": {
       "default": {
-        "headline": "Wie lautet der Miteigentumsanteil und die Nummer des Grundbuchblatts Ihrer Eigentumswohnung?",
+        "headline": "Wie lautet der Miteigentumsanteil und die Nummer des Grundbuchblatts Ihres Garagenstellplatzes?",
         "description": "Hier handelt es sich um den Miteigentumsanteil, den Ihr Garagenstellplatz als Teil des gesamten Grundstücks hat. Sie finden diesen auf der Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs oder oft auch im Kaufvertrag.",
         "fields": {
           "wirtschaftlicheEinheitZaehler": {

@@ -13,6 +13,10 @@ describe("miteigentum", () => {
     cy.get("#nextButton").click();
 
     cy.url().should("include", "/formular/grundstueck/miteigentumWohnung");
+    cy.contains(
+      "h1",
+      "Wie lautet der Miteigentumsanteil und die Nummer des Grundbuchblatts Ihrer Eigentumswohnung?"
+    );
     cy.get("#wirtschaftlicheEinheitZaehler").clear().type("1");
     cy.get("#wirtschaftlicheEinheitNenner").clear().type("2");
     cy.get("#grundbuchblattnummer").clear().type("123");
@@ -35,12 +39,20 @@ describe("miteigentum", () => {
     cy.get("#nextButton").click();
 
     cy.url().should("include", "/formular/grundstueck/miteigentumWohnung");
+    cy.contains(
+      "h1",
+      "Wie lautet der Miteigentumsanteil und die Nummer des Grundbuchblatts Ihrer Eigentumswohnung?"
+    );
     cy.get("#wirtschaftlicheEinheitZaehler").clear().type("1");
     cy.get("#wirtschaftlicheEinheitNenner").clear().type("2");
     cy.get("#grundbuchblattnummer").clear().type("123");
     cy.get("#nextButton").click();
 
     cy.url().should("include", "/formular/grundstueck/miteigentumGarage");
+    cy.contains(
+      "h1",
+      "Wie lautet der Miteigentumsanteil und die Nummer des Grundbuchblatts Ihres Garagenstellplatzes?"
+    );
     cy.get("#wirtschaftlicheEinheitZaehler").clear().type("2");
     cy.get("#wirtschaftlicheEinheitNenner").clear().type("3");
     cy.get("#grundbuchblattnummer").clear().type("456");
@@ -109,6 +121,10 @@ describe("miteigentum", () => {
       cy.get("#nextButton").click();
 
       cy.url().should("include", "grundstueck/miteigentumWohnung");
+      cy.contains(
+        "h1",
+        "Wie lautet der Miteigentumsanteil und die Nummer des Grundbuchblatts Ihrer Eigentumswohnung?"
+      );
       cy.get("#wirtschaftlicheEinheitZaehler").clear().type("1");
       cy.get("#wirtschaftlicheEinheitNenner").clear().type("2");
       cy.get("#nextButton").click();
@@ -128,12 +144,20 @@ describe("miteigentum", () => {
       cy.get("#nextButton").click();
 
       cy.url().should("include", "/formular/grundstueck/miteigentumWohnung");
+      cy.contains(
+        "h1",
+        "Wie lautet der Miteigentumsanteil und die Nummer des Grundbuchblatts Ihrer Eigentumswohnung?"
+      );
       cy.get("#wirtschaftlicheEinheitZaehler").clear().type("1");
       cy.get("#wirtschaftlicheEinheitNenner").clear().type("2");
       cy.get("#grundbuchblattnummer").clear().type("123");
       cy.get("#nextButton").click();
 
       cy.url().should("include", "/formular/grundstueck/miteigentumGarage");
+      cy.contains(
+        "h1",
+        "Wie lautet der Miteigentumsanteil und die Nummer des Grundbuchblatts Ihres Garagenstellplatzes?"
+      );
       cy.get("#wirtschaftlicheEinheitZaehler").clear().type("2");
       cy.get("#wirtschaftlicheEinheitNenner").clear().type("3");
       cy.get("#nextButton").click();
