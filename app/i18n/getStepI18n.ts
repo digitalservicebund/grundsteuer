@@ -50,7 +50,12 @@ const getStepSpecificI18n = (
       "grundstueck.flurstueck.angaben",
     ].includes(stepI18nKey)
   ) {
-    return getBundeslandTranslations(stepI18nKey, tFunction, bundesland);
+    return getBundeslandTranslations(
+      stepI18nKey,
+      tFunction,
+      bundesland,
+      stepI18nParams
+    );
   } else {
     const key = prefix ? prefix + "." + stepI18nKey : stepI18nKey;
     return {
@@ -62,16 +67,20 @@ const getStepSpecificI18n = (
 const getBundeslandTranslations = (
   stepI18nKey: string,
   tFunction: TFunction,
-  bundesland: string
+  bundesland: string,
+  stepI18nParams?: { id?: string }
 ) => {
   const defaultKey = `${stepI18nKey}.default`;
-  const defaultTranslations = tFunction(defaultKey) as object;
+  const defaultTranslations = tFunction(defaultKey, stepI18nParams) as object;
 
   if (bundesland === "default") {
     return { ...defaultTranslations };
   } else {
     const bundeslandKey = `${stepI18nKey}.${bundesland.toLowerCase()}`;
-    let bundeslandTranslations = tFunction(bundeslandKey) as object;
+    let bundeslandTranslations = tFunction(
+      bundeslandKey,
+      stepI18nParams
+    ) as object;
 
     // if no specific bundesland key is defined to override default, we do not want the fallback value
     // from tFunction (which is equal to the key itself, e.g. grundstueck.steuernummer.bb) to be merged
