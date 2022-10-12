@@ -78,7 +78,7 @@ describe("miteigentum", () => {
   ];
 
   cases.forEach((typ) => {
-    it("should display grundbuchblattnummer per flurstueck on no wohnungseigentum option 1 and 2", () => {
+    it(`should display grundbuchblattnummer per flurstueck for ${typ}`, () => {
       cy.visit("/formular/grundstueck/typ");
       cy.get(`label[for=typ-${typ}]`).click();
       cy.get("#nextButton").click();
@@ -113,7 +113,7 @@ describe("miteigentum", () => {
       cy.get("#wirtschaftlicheEinheitNenner").clear().type("2");
       cy.get("#nextButton").click();
 
-      cy.get("[data-testid=field-error").should(
+      cy.get("[data-testid=field-error]").should(
         "contain",
         "Für Grundstücke in Nordrhein-Westfalen muss immer ein Grundbuchblatt angegeben werden."
       );
@@ -138,7 +138,7 @@ describe("miteigentum", () => {
       cy.get("#wirtschaftlicheEinheitNenner").clear().type("3");
       cy.get("#nextButton").click();
 
-      cy.get("[data-testid=field-error").should(
+      cy.get("[data-testid=field-error]").should(
         "contain",
         "Für Grundstücke in Nordrhein-Westfalen muss immer ein Grundbuchblatt angegeben werden."
       );
@@ -160,7 +160,7 @@ describe("miteigentum", () => {
       cy.get("#gemarkung").type("foo");
       cy.get("#nextButton").click();
 
-      cy.get("[data-testid=field-error").should(
+      cy.get("[data-testid=field-error]").should(
         "contain",
         "Für Grundstücke in Nordrhein-Westfalen muss immer ein Grundbuchblatt angegeben werden."
       );
