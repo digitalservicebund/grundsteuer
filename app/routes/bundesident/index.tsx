@@ -31,13 +31,14 @@ export const loader: LoaderFunction = async ({ request }) => {
     {
       widgetSrc: useId.getWidgetSrc(),
       tcTokenUrl: await useId.getTcTokenUrl(),
+      useIdDomain: process.env.USEID_DOMAIN,
     },
     {}
   );
 };
 
 export default function BundesidIndex() {
-  const { tcTokenUrl } = useLoaderData();
+  const { tcTokenUrl, useIdDomain } = useLoaderData();
   return (
     <>
       <ContentContainer size="sm" className="mb-80">
@@ -49,7 +50,7 @@ export default function BundesidIndex() {
 
       <ContentContainer size="lg">
         <iframe
-          src={`https://useid.dev.ds4g.net/widget?hostname=localhost#tcTokenURL=${encodeURIComponent(
+          src={`${useIdDomain}/widget?hostname=localhost#tcTokenURL=${encodeURIComponent(
             tcTokenUrl
           )}`}
           style={{ width: "100%", minHeight: "600px" }}
