@@ -214,6 +214,33 @@ const resolveMiteigentumAuswahlWohnung: FieldResolver = (value) => {
   }
 };
 
+const resolveGrundbuchblattnummerWohnung: FieldResolver = (value, allData) => {
+  const typ = allData?.grundstueck?.typ?.typ;
+  const miteigentumAuswahl =
+    allData?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp;
+  if (typ !== "wohnungseigentum" || miteigentumAuswahl === "mixed") return "";
+  return value || "";
+};
+
+const resolveGrundbuchblattnummerGarage: FieldResolver = (value, allData) => {
+  const typ = allData?.grundstueck?.typ?.typ;
+  const miteigentumAuswahl =
+    allData?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp;
+  if (typ !== "wohnungseigentum" || miteigentumAuswahl !== "garage") return "";
+  return value || "";
+};
+
+const resolveGrundbuchblattnummerFlurstueck: FieldResolver = (
+  value,
+  allData
+) => {
+  const typ = allData?.grundstueck?.typ?.typ;
+  const miteigentumAuswahl =
+    allData?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp;
+  if (typ === "wohnungseigentum" && miteigentumAuswahl !== "mixed") return "";
+  return value || "";
+};
+
 const resolveFlurstueckFraction: StepResolver = (value) => {
   if (!value || Object.keys(value).length == 0) return undefined;
   invariant("flurstueckZaehler" in value, "Only use for flur fields");
@@ -399,7 +426,10 @@ export type ZusammenfassungAccordionProps = {
   freitextFieldProps: StepFormFieldProps;
 };
 
-type FieldResolver = (field: string | undefined) => string;
+type FieldResolver = (
+  field: string | undefined,
+  allData?: GrundModel
+) => string;
 type StepResolver = (
   field:
     | GrundstueckAdresseFields
@@ -617,12 +647,22 @@ export default function ZusammenfassungAccordion({
                 path: "",
                 resolver: resolveMiteigentumFraction,
               },
+              {
+                label: "Grundbuchblattnummer",
+                path: "grundbuchblattnummer",
+                resolver: resolveGrundbuchblattnummerWohnung,
+              },
             ])}
             {stepItem("grundstueck.miteigentumGarage", [
               {
                 label: "Miteigentumsanteil Garagenstellplatz",
                 path: "",
                 resolver: resolveMiteigentumFraction,
+              },
+              {
+                label: "Grundbuchblattnummer",
+                path: "grundbuchblattnummer",
+                resolver: resolveGrundbuchblattnummerGarage,
               },
             ])}
             {stepItem("grundstueck.anzahl", [
@@ -653,6 +693,7 @@ export default function ZusammenfassungAccordion({
                           {
                             label: "Nummer Grundbuchblatt",
                             path: "grundbuchblattnummer",
+                            resolver: resolveGrundbuchblattnummerFlurstueck,
                           },
                           {
                             label: "Gemarkung",

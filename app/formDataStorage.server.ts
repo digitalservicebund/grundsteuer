@@ -37,6 +37,28 @@ export const getStoredFormData: GetStoredFormDataFunction = async ({
     decodedData.grundstueck.miteigentumWohnung =
       decodedData.grundstueck?.miteigentumsanteil;
   }
+
+  // migrate grundbuchblattnummer for wohnung option 1 & 2
+  if (
+    decodedData?.grundstueck &&
+    decodedData?.grundstueck.typ &&
+    decodedData?.grundstueck.typ.typ === "wohnungseigentum" &&
+    decodedData?.grundstueck.miteigentumAuswahlWohnung
+  ) {
+    const miteigentumOption =
+      decodedData.grundstueck.miteigentumAuswahlWohnung.miteigentumTyp;
+    if (
+      (miteigentumOption === "none" || miteigentumOption == "garage") &&
+      decodedData.grundstueck.flurstueck &&
+      decodedData.grundstueck.flurstueck[0]?.angaben?.grundbuchblattnummer
+    ) {
+      if (!decodedData.grundstueck.miteigentumWohnung) {
+        decodedData.grundstueck.miteigentumWohnung = {};
+      }
+      decodedData.grundstueck.miteigentumWohnung.grundbuchblattnummer =
+        decodedData.grundstueck.flurstueck[0]?.angaben?.grundbuchblattnummer;
+    }
+  }
   return decodedData;
 };
 

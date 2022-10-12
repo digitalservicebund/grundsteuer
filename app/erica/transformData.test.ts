@@ -759,12 +759,7 @@ describe("transformFlurstuecke", () => {
         .build(),
     ];
 
-    const result = transformFlurstuecke(
-      flurstueckeInput,
-      undefined,
-      undefined,
-      false
-    );
+    const result = transformFlurstuecke(flurstueckeInput, undefined, undefined);
 
     expect(result).toEqual([
       {
@@ -794,12 +789,7 @@ describe("transformFlurstuecke", () => {
         .build(),
     ];
 
-    const result = transformFlurstuecke(
-      flurstueckeInput,
-      undefined,
-      undefined,
-      false
-    );
+    const result = transformFlurstuecke(flurstueckeInput, undefined, undefined);
 
     expect(result).toEqual([
       {
@@ -834,12 +824,7 @@ describe("transformFlurstuecke", () => {
         .build(),
     ];
 
-    const result = transformFlurstuecke(
-      flurstueckeInput,
-      undefined,
-      undefined,
-      false
-    );
+    const result = transformFlurstuecke(flurstueckeInput, undefined, undefined);
 
     expect(result).toEqual([
       {
@@ -884,14 +869,14 @@ describe("transformFlurstuecke", () => {
       {
         wirtschaftlicheEinheitZaehler: "123",
         wirtschaftlicheEinheitNenner: "789",
+        grundbuchblattnummer: "456",
       },
-      undefined,
-      false
+      undefined
     );
 
     expect(result).toEqual([
       {
-        angaben: { gemarkung: "Gemarkung1", grundbuchblattnummer: "1" },
+        angaben: { gemarkung: "Gemarkung1", grundbuchblattnummer: "456" },
         flur: {
           flur: "9",
           flurstueckZaehler: "2",
@@ -902,7 +887,7 @@ describe("transformFlurstuecke", () => {
         groesseQm: "45",
       },
       {
-        angaben: { gemarkung: "Gemarkung2", grundbuchblattnummer: "1" },
+        angaben: { gemarkung: "Gemarkung2", grundbuchblattnummer: "456" },
         flur: {
           flur: "10",
           flurstueckZaehler: "2",
@@ -934,17 +919,18 @@ describe("transformFlurstuecke", () => {
       {
         wirtschaftlicheEinheitZaehler: "123",
         wirtschaftlicheEinheitNenner: "234",
+        grundbuchblattnummer: "45",
       },
       {
         wirtschaftlicheEinheitZaehler: "678",
         wirtschaftlicheEinheitNenner: "789",
-      },
-      false
+        grundbuchblattnummer: "67",
+      }
     );
 
     expect(result).toEqual([
       {
-        angaben: { gemarkung: "Gemarkung1", grundbuchblattnummer: "1" },
+        angaben: { gemarkung: "Gemarkung1", grundbuchblattnummer: "45" },
         flur: {
           flur: "9",
           flurstueckZaehler: "2",
@@ -955,7 +941,7 @@ describe("transformFlurstuecke", () => {
         groesseQm: "45",
       },
       {
-        angaben: { gemarkung: "Gemarkung2", grundbuchblattnummer: "1" },
+        angaben: { gemarkung: "Gemarkung2", grundbuchblattnummer: "45" },
         flur: {
           flur: "10",
           flurstueckZaehler: "2",
@@ -967,8 +953,7 @@ describe("transformFlurstuecke", () => {
       },
       // flurstuecke should be copied
       {
-        // grundbuchblatt should be empty (not NRW)
-        angaben: { gemarkung: "Gemarkung1", grundbuchblattnummer: "" },
+        angaben: { gemarkung: "Gemarkung1", grundbuchblattnummer: "67" },
         flur: {
           flur: "9",
           flurstueckZaehler: "2",
@@ -979,84 +964,7 @@ describe("transformFlurstuecke", () => {
         groesseQm: "45",
       },
       {
-        angaben: { gemarkung: "Gemarkung2", grundbuchblattnummer: "" },
-        flur: {
-          flur: "10",
-          flurstueckZaehler: "2",
-          flurstueckNenner: "3",
-          wirtschaftlicheEinheitZaehler: "678",
-          wirtschaftlicheEinheitNenner: "789",
-        },
-        groesseQm: "50",
-      },
-    ]);
-  });
-
-  it("wohnung with miteigentumTyp garage in NRW", () => {
-    const flurstueckeInput = [
-      flurstueckFactory
-        .angaben({ gemarkung: "Gemarkung1", grundbuchblattnummer: "1" })
-        .flur({ flur: "09", flurstueckZaehler: "2", flurstueckNenner: "3" })
-        .groesse({ groesseHa: "", groesseA: "", groesseQm: "45" })
-        .build(),
-      flurstueckFactory
-        .angaben({ gemarkung: "Gemarkung2", grundbuchblattnummer: "1" })
-        .flur({ flur: "10", flurstueckZaehler: "2", flurstueckNenner: "3" })
-        .groesse({ groesseHa: "", groesseA: "", groesseQm: "50" })
-        .build(),
-    ];
-
-    const result = transformFlurstuecke(
-      flurstueckeInput,
-      {
-        wirtschaftlicheEinheitZaehler: "123",
-        wirtschaftlicheEinheitNenner: "234",
-      },
-      {
-        wirtschaftlicheEinheitZaehler: "678",
-        wirtschaftlicheEinheitNenner: "789",
-      },
-      true
-    );
-
-    expect(result).toEqual([
-      {
-        angaben: { gemarkung: "Gemarkung1", grundbuchblattnummer: "1" },
-        flur: {
-          flur: "9",
-          flurstueckZaehler: "2",
-          flurstueckNenner: "3",
-          wirtschaftlicheEinheitZaehler: "123",
-          wirtschaftlicheEinheitNenner: "234",
-        },
-        groesseQm: "45",
-      },
-      {
-        angaben: { gemarkung: "Gemarkung2", grundbuchblattnummer: "1" },
-        flur: {
-          flur: "10",
-          flurstueckZaehler: "2",
-          flurstueckNenner: "3",
-          wirtschaftlicheEinheitZaehler: "123",
-          wirtschaftlicheEinheitNenner: "234",
-        },
-        groesseQm: "50",
-      },
-      // flurstuecke should be copied
-      {
-        // grundbuchblatt should not be empty, but set to "0" = invalid (NRW temp. workaround)
-        angaben: { gemarkung: "Gemarkung1", grundbuchblattnummer: "0" },
-        flur: {
-          flur: "9",
-          flurstueckZaehler: "2",
-          flurstueckNenner: "3",
-          wirtschaftlicheEinheitZaehler: "678",
-          wirtschaftlicheEinheitNenner: "789",
-        },
-        groesseQm: "45",
-      },
-      {
-        angaben: { gemarkung: "Gemarkung2", grundbuchblattnummer: "0" },
+        angaben: { gemarkung: "Gemarkung2", grundbuchblattnummer: "67" },
         flur: {
           flur: "10",
           flurstueckZaehler: "2",

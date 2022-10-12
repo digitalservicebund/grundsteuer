@@ -22,6 +22,7 @@ import MiteigentumAuswahlWohnung from "~/components/steps/grundstueck/miteigentu
 import MiteigentumsanteilGarage from "~/components/steps/grundstueck/MiteigentumsanteilGarage";
 import FlurstueckMiteigentumsanteil from "~/components/steps/grundstueck/flurstueck/FlurstueckMiteigentumsanteil";
 import MiteigentumsanteilWohnung from "~/components/steps/grundstueck/MiteigentumsanteilWohnung";
+import FlurstueckAngaben from "~/components/steps/grundstueck/flurstueck/FlurstueckAngaben";
 
 export { Default as FallbackStepComponent };
 
@@ -48,6 +49,7 @@ export default {
     miteigentumGarage: MiteigentumsanteilGarage,
     anzahl: GrundstueckAnzahl,
     flurstueck: {
+      angaben: FlurstueckAngaben,
       flur: FlurstueckFlur,
       groesse: FlurstueckGroesse,
       miteigentum: FlurstueckMiteigentumsanteil,

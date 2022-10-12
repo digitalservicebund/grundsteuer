@@ -3,6 +3,8 @@ import { ContentContainer, FormGroup, StepFormField } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 import InputFraction from "~/components/form/InputFraction";
 import MiteigentumWohnungHelp from "~/components/form/help/grundstueck/miteigentum/MiteigentumWohnung";
+import GrundbuchblattHelp from "~/components/form/help/grundstueck/Grundbuchblatt";
+import Help from "~/components/form/help/Help";
 
 const MiteigentumsanteilWohnung: StepComponentFunction = ({
   stepDefinition,
@@ -20,6 +22,12 @@ const MiteigentumsanteilWohnung: StepComponentFunction = ({
           nenner={<StepFormField {...fieldProps[1]} />}
           help={<MiteigentumWohnungHelp />}
         />
+      </FormGroup>
+      <FormGroup>
+        <StepFormField {...fieldProps[2]} />
+        <Help>
+          <GrundbuchblattHelp />
+        </Help>
       </FormGroup>
     </ContentContainer>
   );

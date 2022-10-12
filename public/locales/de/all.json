@@ -372,7 +372,7 @@
       "miteigentumWohnung": "Miteigentumsanteil Wohnung",
       "miteigentumGarage": "Miteigentumsanteil Garage",
       "flurstueck": {
-        "angaben": "Grundbuchblatt / Gemarkung",
+        "angaben": "Gemarkung",
         "flur": "Flur / Flurstück",
         "groesse": "Gesamtgröße",
         "miteigentumAuswahl": "Option Miteigentumsanteil",
@@ -977,7 +977,7 @@
         },
         "zusatzangaben": {
           "label": "Zusatzangaben (Optional)",
-          "placeholder": "Zum Beispiel: Wohnung Nr. 78, Hinterhaus etc."
+          "placeholder": "zum Beispiel: Wohnung Nr. 78, Hinterhaus etc."
         },
         "plz": {
           "label": "Postleitzahl"
@@ -1174,16 +1174,30 @@
     },
     "flurstueck": {
       "angaben": {
-        "headline": "Flurstück {{id}}: Wie lautet die Nummer des Grundbuchblatts und die Gemarkung?",
-        "description": "Sie finden die Nummer des Grundbuchblatts und Gemarkung auf dem Deckblatt und auf den Innenseiten des Grundbuchauszugs. Viele Angaben stellen auch einige der Bodenrichtwert-Portale bereit.",
-        "fields": {
-          "gemarkung": {
-            "label": "Name Gemarkung",
-            "placeholder": "zum Beispiel: Nordkirchen"
-          },
-          "grundbuchblattnummer": {
-            "label": "Nummer Grundbuchblatt (Optional)",
-            "placeholder": "12216"
+        "default": {
+          "headline": "Flurstück {{id}}: Wie lautet die Nummer des Grundbuchblatts und die Gemarkung?",
+          "description": "Sie finden die Nummer des Grundbuchblatts und Gemarkung auf dem Deckblatt und auf den Innenseiten des Grundbuchauszugs. Viele Angaben stellen auch einige der Bodenrichtwert-Portale bereit.",
+          "fields": {
+            "gemarkung": {
+              "label": "Name Gemarkung",
+              "placeholder": "zum Beispiel: Nordkirchen"
+            },
+            "grundbuchblattnummer": {
+              "label": "Nummer Grundbuchblatt (Optional)",
+              "placeholder": "zum Beispiel: 12216"
+            }
+          }
+        },
+        "nw": {
+          "fields": {
+            "gemarkung": {
+              "label": "Name Gemarkung",
+              "placeholder": "zum Beispiel: Nordkirchen"
+            },
+            "grundbuchblattnummer": {
+              "label": "Nummer Grundbuchblatt",
+              "placeholder": "zum Beispiel: 12216"
+            }
           }
         }
       },
@@ -1377,7 +1391,7 @@
         "fields": {
           "bodenrichtwert": {
             "label": "Bodenrichtwert in € / m²",
-            "placeholder": "Zum Beispiel: 234"
+            "placeholder": "zum Beispiel: 234"
           }
         },
         "specifics": {
@@ -1476,27 +1490,67 @@
       }
     },
     "miteigentumWohnung": {
-      "headline": "Wie lautet der Miteigentumsanteil Ihrer Eigentumswohnung?",
-      "description": "Hier handelt es sich um den Miteigentumsanteil, den Ihre Wohnung als Teil des gesamten Grundstücks hat. Sie finden diesen auf der Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs oder oft auch im Kaufvertrag.",
-      "hint": "Hier handelt es sich <bold>nicht</bold> um die Anteile einzelner Eigentümer:innen an dem Grundvermögen wie beispielsweise 1/2 bei Ehepaaren. Diese Angaben erfolgen an anderer Stelle des Formulars.",
-      "fields": {
-        "wirtschaftlicheEinheitZaehler": {
-          "label": "Zähler"
-        },
-        "wirtschaftlicheEinheitNenner": {
-          "label": "Nenner"
+      "default": {
+        "headline": "Wie lautet der Miteigentumsanteil und die Nummer des Grundbuchblatts Ihrer Eigentumswohnung?",
+        "description": "Hier handelt es sich um den Miteigentumsanteil, den Ihre Wohnung als Teil des gesamten Grundstücks hat. Sie finden diesen auf der Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs oder oft auch im Kaufvertrag.",
+        "hint": "Hier handelt es sich <bold>nicht</bold> um die Anteile einzelner Eigentümer:innen an dem Grundvermögen wie beispielsweise 1/2 bei Ehepaaren. Diese Angaben erfolgen an anderer Stelle des Formulars.",
+        "fields": {
+          "wirtschaftlicheEinheitZaehler": {
+            "label": "Zähler"
+          },
+          "wirtschaftlicheEinheitNenner": {
+            "label": "Nenner"
+          },
+          "grundbuchblattnummer": {
+            "label": "Nummer Grundbuchblatt (Optional)",
+            "placeholder": "zum Beispiel: 12216"
+          }
+        }
+      },
+      "nw": {
+        "fields": {
+          "wirtschaftlicheEinheitZaehler": {
+            "label": "Zähler"
+          },
+          "wirtschaftlicheEinheitNenner": {
+            "label": "Nenner"
+          },
+          "grundbuchblattnummer": {
+            "label": "Nummer Grundbuchblatt",
+            "placeholder": "zum Beispiel: 12216"
+          }
         }
       }
     },
     "miteigentumGarage": {
-      "headline": "Wie lautet der Miteigentumsanteil Ihres Garagenstellplatzes?",
-      "description": "Hier handelt es sich um den Miteigentumsanteil, den Ihr Garagenstellplatz als Teil des gesamten Grundstücks hat. Sie finden diesen auf der Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs oder oft auch im Kaufvertrag.",
-      "fields": {
-        "wirtschaftlicheEinheitZaehler": {
-          "label": "Zähler"
-        },
-        "wirtschaftlicheEinheitNenner": {
-          "label": "Nenner"
+      "default": {
+        "headline": "Wie lautet der Miteigentumsanteil und die Nummer des Grundbuchblatts Ihrer Eigentumswohnung?",
+        "description": "Hier handelt es sich um den Miteigentumsanteil, den Ihr Garagenstellplatz als Teil des gesamten Grundstücks hat. Sie finden diesen auf der Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs oder oft auch im Kaufvertrag.",
+        "fields": {
+          "wirtschaftlicheEinheitZaehler": {
+            "label": "Zähler"
+          },
+          "wirtschaftlicheEinheitNenner": {
+            "label": "Nenner"
+          },
+          "grundbuchblattnummer": {
+            "label": "Nummer Grundbuchblatt (Optional)",
+            "placeholder": "zum Beispiel: 12216"
+          }
+        }
+      },
+      "nw": {
+        "fields": {
+          "wirtschaftlicheEinheitZaehler": {
+            "label": "Zähler"
+          },
+          "wirtschaftlicheEinheitNenner": {
+            "label": "Nenner"
+          },
+          "grundbuchblattnummer": {
+            "label": "Nummer Grundbuchblatt",
+            "placeholder": "zum Beispiel: 12216"
+          }
         }
       }
     }

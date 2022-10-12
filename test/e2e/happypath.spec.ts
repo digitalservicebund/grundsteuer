@@ -38,15 +38,16 @@ const inputData = {
         groesseQm: "30",
       },
     },
-    miteigentumsanteil: {
-      wirtschaftlicheEinheitZaehler: "1",
-      wirtschaftlicheEinheitNenner: "234",
-    },
     bodenrichtwert: {
       bodenrichtwert: "200",
     },
     miteigentumAuswahlWohnung: {
       miteigentumTyp: "none",
+    },
+    miteigentumsanteilWohnung: {
+      wirtschaftlicheEinheitZaehler: "1",
+      wirtschaftlicheEinheitNenner: "234",
+      grundbuchblattnummer: "654",
     },
   },
   gebaeude: {
@@ -259,12 +260,19 @@ describe("Happy Path", () => {
     cy.get("#wirtschaftlicheEinheitZaehler")
       .clear()
       .type(
-        inputData.grundstueck.miteigentumsanteil.wirtschaftlicheEinheitZaehler
+        inputData.grundstueck.miteigentumsanteilWohnung
+          .wirtschaftlicheEinheitZaehler
       );
     cy.get("#wirtschaftlicheEinheitNenner")
       .clear()
       .type(
-        inputData.grundstueck.miteigentumsanteil.wirtschaftlicheEinheitNenner
+        inputData.grundstueck.miteigentumsanteilWohnung
+          .wirtschaftlicheEinheitNenner
+      );
+    cy.get("#grundbuchblattnummer")
+      .clear()
+      .type(
+        inputData.grundstueck.miteigentumsanteilWohnung.grundbuchblattnummer
       );
     cy.get(submitBtnSelector).click();
 
@@ -273,9 +281,6 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/flurstueck/1/angaben");
-    cy.get("#grundbuchblattnummer")
-      .clear()
-      .type(inputData.grundstueck.flurstueck.angaben.grundbuchblattnummer);
     cy.get("#gemarkung")
       .clear()
       .type(inputData.grundstueck.flurstueck.angaben.gemarkung);
@@ -304,9 +309,6 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
 
     cy.url().should("include", "/formular/grundstueck/flurstueck/2/angaben");
-    cy.get("#grundbuchblattnummer")
-      .clear()
-      .type(inputData.grundstueck.flurstueck.angaben.grundbuchblattnummer);
     cy.get("#gemarkung")
       .clear()
       .type(inputData.grundstueck.flurstueck.angaben.gemarkung);

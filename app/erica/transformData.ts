@@ -3,8 +3,8 @@ import {
   GrundModel,
   GrundstueckAdresseFields,
   GrundstueckFlurstueckGroesseFields,
-  GrundstueckFlurstueckMiteigentumGarageFields,
-  GrundstueckFlurstueckMiteigentumWohnungFields,
+  GrundstueckMiteigentumGarageFields,
+  GrundstueckMiteigentumWohnungFields,
   GrundstueckFlurstueckMiteigentumsanteilFields,
   Person,
   EigentuemerPersonAdresseFields,
@@ -122,20 +122,30 @@ const calculateWohnflaechen = (
   ]);
 };
 
+const getNoneGarageFlurstuecke = (
+  flurstuecke: Flurstueck[],
+  miteigentumWohnung: GrundstueckMiteigentumWohnungFields | undefined
+) => {
+  return flurstuecke.map((flurstueck: Flurstueck) => {
+    const flurstueckCopy = _.cloneDeep(flurstueck);
+    if (miteigentumWohnung && flurstueckCopy.angaben)
+      flurstueckCopy.angaben.grundbuchblattnummer =
+        miteigentumWohnung.grundbuchblattnummer;
+    return transformFlurstueck(flurstueckCopy, miteigentumWohnung);
+  });
+};
+
 const getGarageFlurstuecke = (
   flurstuecke: Flurstueck[],
-  miteigentumGarage: GrundstueckFlurstueckMiteigentumGarageFields | undefined,
-  isNrw: boolean
+  miteigentumGarage: GrundstueckMiteigentumGarageFields | undefined
 ) => {
   if (miteigentumGarage) {
     // We duplicate the flurstuecke for the flat as flat and garage have the same flurstuecke and just apply the garage miteigentum
     return flurstuecke.map((flurstueck: Flurstueck) => {
       const flurstueckCopy = _.cloneDeep(flurstueck);
-      // The flat and garage are on the same flurstueck but on different grundbuchblaetter. As we only ask for *one* grundguchblattnummer, we disregard the (optional field) grundbuchblattnummer for the garagen flurstueck.
-      // For NRW we need a Grundbuchblattnummer (we set it to "0" to make clear it's invalid)
-      // temporary workaround
-      if (flurstueckCopy.angaben?.grundbuchblattnummer)
-        flurstueckCopy.angaben.grundbuchblattnummer = isNrw ? "0" : "";
+      if (flurstueckCopy.angaben)
+        flurstueckCopy.angaben.grundbuchblattnummer =
+          miteigentumGarage.grundbuchblattnummer;
       return transformFlurstueck(flurstueckCopy, miteigentumGarage);
     });
   }
@@ -144,19 +154,18 @@ const getGarageFlurstuecke = (
 
 export const transformFlurstuecke = (
   flurstuecke: Flurstueck[] | undefined,
-  miteigentumWohnung: GrundstueckFlurstueckMiteigentumWohnungFields | undefined,
-  miteigentumGarage: GrundstueckFlurstueckMiteigentumGarageFields | undefined,
-  isNrw: boolean
+  miteigentumWohnung: GrundstueckMiteigentumWohnungFields | undefined,
+  miteigentumGarage: GrundstueckMiteigentumGarageFields | undefined
 ) => {
   if (!flurstuecke) return undefined;
 
   const transformedGaragenFlurstuecke = getGarageFlurstuecke(
     flurstuecke,
-    miteigentumGarage,
-    isNrw
+    miteigentumGarage
   );
-  const transformedFlurstuecke = flurstuecke.map((value) =>
-    transformFlurstueck(value, miteigentumWohnung)
+  const transformedFlurstuecke = getNoneGarageFlurstuecke(
+    flurstuecke,
+    miteigentumWohnung
   );
   return [...transformedFlurstuecke, ...transformedGaragenFlurstuecke];
 };
@@ -306,8 +315,7 @@ export const transformDataToEricaFormat = (inputData: GrundModel) => {
       flurstueck: transformFlurstuecke(
         inputData.grundstueck?.flurstueck,
         inputData.grundstueck?.miteigentumWohnung,
-        inputData.grundstueck?.miteigentumGarage,
-        inputData.grundstueck?.adresse?.bundesland === "NW"
+        inputData.grundstueck?.miteigentumGarage
       ),
     },
     gebaeude: {

@@ -45,6 +45,9 @@ const getStepSpecificI18n = (
       "grundstueck.bodenrichtwertAnzahl",
       "grundstueck.bodenrichtwertEingabe",
       "grundstueck.steuernummer",
+      "grundstueck.miteigentumWohnung",
+      "grundstueck.miteigentumGarage",
+      "grundstueck.flurstueck.angaben",
     ].includes(stepI18nKey)
   ) {
     return getBundeslandTranslations(stepI18nKey, tFunction, bundesland);

@@ -228,18 +228,16 @@ import {
   GrundstueckMiteigentumAuswahlWohnungFields,
 } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlWohnung.server";
 import {
-  grundstueckFlurstueckMiteigentumWohnung,
-  GrundstueckFlurstueckMiteigentumWohnungFields,
-} from "~/domain/steps/grundstueck/miteigentumWohnung.server";
-
-export type { GrundstueckFlurstueckMiteigentumWohnungFields };
+  grundstueckMiteigentumGarage,
+  GrundstueckMiteigentumGarageFields,
+} from "~/domain/steps/grundstueck/miteigentumGarage.server";
+export type { GrundstueckMiteigentumGarageFields };
 
 import {
-  grundstueckFlurstueckMiteigentumGarage,
-  GrundstueckFlurstueckMiteigentumGarageFields,
-} from "~/domain/steps/grundstueck/miteigentumGarage.server";
-
-export type { GrundstueckFlurstueckMiteigentumGarageFields };
+  grundstueckMiteigentumWohnung,
+  GrundstueckMiteigentumWohnungFields,
+} from "~/domain/steps/grundstueck/miteigentumWohnung.server";
+export type { GrundstueckMiteigentumWohnungFields };
 
 export const infoStep: StepDefinition = {
   fields: {},
@@ -260,8 +258,8 @@ const stepDefinitions = {
     bodenrichtwertAnzahl: grundstueckBodenrichtwertAnzahl,
     miteigentumAuswahlHaus: grundstueckMiteigentumAuswahlHaus,
     miteigentumAuswahlWohnung: grundstueckMiteigentumAuswahlWohnung,
-    miteigentumWohnung: grundstueckFlurstueckMiteigentumWohnung,
-    miteigentumGarage: grundstueckFlurstueckMiteigentumGarage,
+    miteigentumWohnung: grundstueckMiteigentumWohnung,
+    miteigentumGarage: grundstueckMiteigentumGarage,
     flurstueck: {
       angaben: grundstueckFlurstueckAngaben,
       flur: grundstueckFlurstueckFlur,
@@ -353,8 +351,8 @@ export type GrundstueckModel = {
   bodenrichtwertAnzahl?: GrundstueckBodenrichtwertAnzahlFields;
   miteigentumAuswahlHaus?: GrundstueckMiteigentumAuswahlHausFields;
   miteigentumAuswahlWohnung?: GrundstueckMiteigentumAuswahlWohnungFields;
-  miteigentumWohnung?: GrundstueckFlurstueckMiteigentumWohnungFields;
-  miteigentumGarage?: GrundstueckFlurstueckMiteigentumGarageFields;
+  miteigentumWohnung?: GrundstueckMiteigentumWohnungFields;
+  miteigentumGarage?: GrundstueckMiteigentumGarageFields;
   flurstueck?: Flurstueck[];
 };
 
