@@ -71,8 +71,13 @@ const getBundeslandTranslations = (
     return { ...defaultTranslations };
   } else {
     const bundeslandKey = `${stepI18nKey}.${bundesland.toLowerCase()}`;
-    const bundeslandTranslations = tFunction(bundeslandKey) as object;
+    let bundeslandTranslations = tFunction(bundeslandKey) as object;
 
+    // if no specific bundesland key is defined to override default, we do not want the fallback value
+    // from tFunction (which is equal to the key itself, e.g. grundstueck.steuernummer.bb) to be merged
+    if (bundeslandKey === bundeslandTranslations.toString()) {
+      bundeslandTranslations = {};
+    }
     return _.merge({ ...defaultTranslations }, { ...bundeslandTranslations });
   }
 };
