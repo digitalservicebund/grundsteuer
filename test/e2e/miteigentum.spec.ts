@@ -15,6 +15,7 @@ describe("miteigentum", () => {
     cy.contains("legend", "welche Art");
     cy.get(`label[for=typ-wohnungseigentum]`).click();
     cy.get("#nextButton").click();
+    cy.url().should("contain", "/adresse");
     cy.visit("/formular/grundstueck/miteigentumAuswahlWohnung");
     cy.url().should(
       "include",
@@ -98,6 +99,14 @@ describe("miteigentum", () => {
       cy.contains("legend", "welche Art");
       cy.get(`label[for=typ-${typ}]`).click();
       cy.get("#nextButton").click();
+      if (typ === "abweichendeEntwicklung") {
+        cy.url().should(
+          "contain",
+          "/formular/grundstueck/abweichendeEntwicklung"
+        );
+      } else {
+        cy.url().should("include", "/formular/grundstueck/adresse");
+      }
       cy.visit("/formular/grundstueck/miteigentumAuswahlHaus");
       cy.url().should(
         "include",
