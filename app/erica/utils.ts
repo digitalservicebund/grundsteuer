@@ -105,22 +105,10 @@ export type {
   EricaError,
 };
 
-const calculateFetchSleep = (startTime: number) => {
-  const timeDifference = Date.now() - startTime;
-  if (timeDifference < 10000) {
-    return 1000;
-  } else if (timeDifference < 60000) {
-    return 5000;
-  } else {
-    return 10000;
-  }
-};
-
 export const ericaUtils = {
   createDateStringForErica,
   isEricaRequestProcessed,
   extractResultFromEricaResponse,
   setClientIpForEricaRequest,
   getClientIpForEricaRequest,
-  calculateFetchSleep,
 };

@@ -53,7 +53,6 @@ import {
 } from "~/domain/validation/fscValidation";
 import { saveSuccessfulFscRequestData } from "~/domain/lifecycleEvents.server";
 import { ericaUtils } from "~/erica/utils";
-import { fetchInDynamicInterval } from "~/routes/fsc/_utils";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -287,21 +286,14 @@ export default function FscBeantragen() {
   }, [loaderData]);
 
   useEffect(() => {
-    let interval: NodeJS.Timer | null = null;
-    interval = fetchInDynamicInterval(
-      showSpinner,
-      fetchInProgress,
-      setFetchInProgress,
-      fetcher,
-      interval,
-      startTime,
-      "/fsc/beantragen?index"
-    );
-    return () => {
-      if (interval) {
-        clearInterval(interval);
+    const interval = setInterval(() => {
+      if (showSpinner && !fetchInProgress) {
+        setFetchInProgress(true);
+        fetcher.load("/fsc/beantragen?index");
+        setFetchInProgress(false);
       }
-    };
+    }, 2000);
+    return () => clearInterval(interval);
   }, [fetcher, showSpinner]);
 
   return (
