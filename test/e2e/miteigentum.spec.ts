@@ -1,22 +1,34 @@
 /// <reference types="../../cypress/support" />
+import { GrundstueckMiteigentumAuswahlWohnungFields } from "app/domain/steps/grundstueck/miteigentum/miteigentumAuswahlWohnung.server";
+
 describe("miteigentum", () => {
   beforeEach(() => {
     cy.login();
   });
 
-  it("should not display grundbuchblattnummer per flurstueck on miteigentum wohnung option none", () => {
+  function selectMiteigentumWohnung(
+    miteigentumTyp: GrundstueckMiteigentumAuswahlWohnungFields
+  ) {
+    const typ = miteigentumTyp.miteigentumTyp;
     cy.visit("/formular/grundstueck/typ");
+    cy.contains("legend", "welche Art");
     cy.get(`label[for=typ-wohnungseigentum]`).click();
     cy.get("#nextButton").click();
     cy.visit("/formular/grundstueck/miteigentumAuswahlWohnung");
-    cy.get(`label[for=miteigentumTyp-none]`).click();
+    cy.contains("legend", "Miteigentumsanteile");
+    cy.get(`label[for=miteigentumTyp-${typ}]`).click();
     cy.get("#nextButton").click();
+    if (typ === "none" || typ === "garage") {
+      cy.url().should("include", "/formular/grundstueck/miteigentumWohnung");
+      cy.contains(
+        "h1",
+        "Wie lautet der Miteigentumsanteil und die Nummer des Grundbuchblatts Ihrer Eigentumswohnung?"
+      );
+    }
+  }
 
-    cy.url().should("include", "/formular/grundstueck/miteigentumWohnung");
-    cy.contains(
-      "h1",
-      "Wie lautet der Miteigentumsanteil und die Nummer des Grundbuchblatts Ihrer Eigentumswohnung?"
-    );
+  it("should not display grundbuchblattnummer per flurstueck on miteigentum wohnung option none", () => {
+    selectMiteigentumWohnung({ miteigentumTyp: "none" });
     cy.get("#wirtschaftlicheEinheitZaehler").clear().type("1");
     cy.get("#wirtschaftlicheEinheitNenner").clear().type("2");
     cy.get("#grundbuchblattnummer").clear().type("123");
@@ -31,18 +43,8 @@ describe("miteigentum", () => {
   });
 
   it("should not display grundbuchblattnummer per flurstueck on miteigentum wohnung option garage", () => {
-    cy.visit("/formular/grundstueck/typ");
-    cy.get(`label[for=typ-wohnungseigentum]`).click();
-    cy.get("#nextButton").click();
-    cy.visit("/formular/grundstueck/miteigentumAuswahlWohnung");
-    cy.get(`label[for=miteigentumTyp-garage]`).click();
-    cy.get("#nextButton").click();
+    selectMiteigentumWohnung({ miteigentumTyp: "garage" });
 
-    cy.url().should("include", "/formular/grundstueck/miteigentumWohnung");
-    cy.contains(
-      "h1",
-      "Wie lautet der Miteigentumsanteil und die Nummer des Grundbuchblatts Ihrer Eigentumswohnung?"
-    );
     cy.get("#wirtschaftlicheEinheitZaehler").clear().type("1");
     cy.get("#wirtschaftlicheEinheitNenner").clear().type("2");
     cy.get("#grundbuchblattnummer").clear().type("123");
@@ -67,12 +69,7 @@ describe("miteigentum", () => {
   });
 
   it("should display grundbuchblattnummer per flurstueck on miteigentum wohnung option mixed", () => {
-    cy.visit("/formular/grundstueck/typ");
-    cy.get(`label[for=typ-wohnungseigentum]`).click();
-    cy.get("#nextButton").click();
-    cy.visit("/formular/grundstueck/miteigentumAuswahlWohnung");
-    cy.get(`label[for=miteigentumTyp-mixed]`).click();
-    cy.get("#nextButton").click();
+    selectMiteigentumWohnung({ miteigentumTyp: "mixed" });
 
     cy.url().should("include", "/formular/grundstueck/anzahl");
     cy.get("#anzahl").select("1");
@@ -92,9 +89,11 @@ describe("miteigentum", () => {
   cases.forEach((typ) => {
     it(`should display grundbuchblattnummer per flurstueck for ${typ}`, () => {
       cy.visit("/formular/grundstueck/typ");
+      cy.contains("legend", "welche Art");
       cy.get(`label[for=typ-${typ}]`).click();
       cy.get("#nextButton").click();
       cy.visit("/formular/grundstueck/miteigentumAuswahlHaus");
+      cy.contains("legend", "Miteigentumsanteile");
       cy.get(`label[for=hasMiteigentum-true]`).click();
       cy.get("#nextButton").click();
 
@@ -113,18 +112,8 @@ describe("miteigentum", () => {
     });
 
     it("should require grundbuchblattnummer on grundstueck/miteigentumWohnung", () => {
-      cy.visit("/formular/grundstueck/typ");
-      cy.get(`label[for=typ-wohnungseigentum]`).click();
-      cy.get("#nextButton").click();
-      cy.visit("/formular/grundstueck/miteigentumAuswahlWohnung");
-      cy.get(`label[for=miteigentumTyp-none]`).click();
-      cy.get("#nextButton").click();
+      selectMiteigentumWohnung({ miteigentumTyp: "none" });
 
-      cy.url().should("include", "grundstueck/miteigentumWohnung");
-      cy.contains(
-        "h1",
-        "Wie lautet der Miteigentumsanteil und die Nummer des Grundbuchblatts Ihrer Eigentumswohnung?"
-      );
       cy.get("#wirtschaftlicheEinheitZaehler").clear().type("1");
       cy.get("#wirtschaftlicheEinheitNenner").clear().type("2");
       cy.get("#nextButton").click();
@@ -136,18 +125,8 @@ describe("miteigentum", () => {
     });
 
     it("should require grundbuchblattnummer on grundstueck/miteigentumGarage", () => {
-      cy.visit("/formular/grundstueck/typ");
-      cy.get(`label[for=typ-wohnungseigentum]`).click();
-      cy.get("#nextButton").click();
-      cy.visit("/formular/grundstueck/miteigentumAuswahlWohnung");
-      cy.get(`label[for=miteigentumTyp-garage]`).click();
-      cy.get("#nextButton").click();
+      selectMiteigentumWohnung({ miteigentumTyp: "garage" });
 
-      cy.url().should("include", "/formular/grundstueck/miteigentumWohnung");
-      cy.contains(
-        "h1",
-        "Wie lautet der Miteigentumsanteil und die Nummer des Grundbuchblatts Ihrer Eigentumswohnung?"
-      );
       cy.get("#wirtschaftlicheEinheitZaehler").clear().type("1");
       cy.get("#wirtschaftlicheEinheitNenner").clear().type("2");
       cy.get("#grundbuchblattnummer").clear().type("123");
@@ -169,12 +148,7 @@ describe("miteigentum", () => {
     });
 
     it("should require grundbuchblattnummer on flurstueck/x/angaben", () => {
-      cy.visit("/formular/grundstueck/typ");
-      cy.get(`label[for=typ-wohnungseigentum]`).click();
-      cy.get("#nextButton").click();
-      cy.visit("/formular/grundstueck/miteigentumAuswahlWohnung");
-      cy.get(`label[for=miteigentumTyp-mixed]`).click();
-      cy.get("#nextButton").click();
+      selectMiteigentumWohnung({ miteigentumTyp: "mixed" });
 
       cy.url().should("include", "/formular/grundstueck/anzahl");
       cy.get("#anzahl").select("1");
