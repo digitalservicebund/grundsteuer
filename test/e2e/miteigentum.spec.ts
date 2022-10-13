@@ -11,10 +11,15 @@ describe("miteigentum", () => {
   ) {
     const typ = miteigentumTyp.miteigentumTyp;
     cy.visit("/formular/grundstueck/typ");
+    cy.url().should("include", "/formular/grundstueck/typ");
     cy.contains("legend", "welche Art");
     cy.get(`label[for=typ-wohnungseigentum]`).click();
     cy.get("#nextButton").click();
     cy.visit("/formular/grundstueck/miteigentumAuswahlWohnung");
+    cy.url().should(
+      "include",
+      "/formular/grundstueck/miteigentumAuswahlWohnung"
+    );
     cy.contains("legend", "Miteigentumsanteile");
     cy.get(`label[for=miteigentumTyp-${typ}]`).click();
     cy.get("#nextButton").click();
@@ -89,10 +94,15 @@ describe("miteigentum", () => {
   cases.forEach((typ) => {
     it(`should display grundbuchblattnummer per flurstueck for ${typ}`, () => {
       cy.visit("/formular/grundstueck/typ");
+      cy.url().should("include", "/formular/grundstueck/typ");
       cy.contains("legend", "welche Art");
       cy.get(`label[for=typ-${typ}]`).click();
       cy.get("#nextButton").click();
       cy.visit("/formular/grundstueck/miteigentumAuswahlHaus");
+      cy.url().should(
+        "include",
+        "/formular/grundstueck/miteigentumAuswahlHaus"
+      );
       cy.contains("legend", "Miteigentumsanteile");
       cy.get(`label[for=hasMiteigentum-true]`).click();
       cy.get("#nextButton").click();
