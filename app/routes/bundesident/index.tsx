@@ -29,6 +29,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   return json(
     {
+      host: new URL(request.url).hostname,
       widgetSrc: useId.getWidgetSrc(),
       tcTokenUrl: await useId.getTcTokenUrl(),
       useIdDomain: process.env.USEID_DOMAIN,
@@ -38,7 +39,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function BundesidIndex() {
-  const { tcTokenUrl, useIdDomain } = useLoaderData();
+  const { tcTokenUrl, useIdDomain, host } = useLoaderData();
   return (
     <>
       <ContentContainer size="sm" className="mb-80">
@@ -50,7 +51,7 @@ export default function BundesidIndex() {
 
       <ContentContainer size="lg">
         <iframe
-          src={`${useIdDomain}/widget?hostname=localhost#tcTokenURL=${encodeURIComponent(
+          src={`${useIdDomain}/widget?hostname=${host}#tcTokenURL=${encodeURIComponent(
             tcTokenUrl
           )}`}
           style={{ width: "100%", minHeight: "600px" }}
