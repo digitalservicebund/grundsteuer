@@ -373,7 +373,6 @@ export default function FscEingeben() {
   const [showSpinner, setShowSpinner] = useState(loaderData?.showSpinner);
   const [showError, setShowError] = useState(loaderData?.showError);
   const [fetchInProgress, setFetchInProgress] = useState(false);
-  const [startTime] = useState(Date.now());
 
   useEffect(() => {
     if (fetcher.data) {
@@ -493,7 +492,6 @@ export default function FscEingeben() {
           longerWaitingText={
             "Wir überprüfen weiter Ihren Freischaltcode. Bitte verlassen Sie diese Seite nicht."
           }
-          startTime={startTime}
         />
       )}
     </ContentContainer>

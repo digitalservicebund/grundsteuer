@@ -8,9 +8,8 @@ export default function Spinner(props: {
   initialText?: string;
   waitingText?: string;
   longerWaitingText?: string;
-  startTime?: number;
 }) {
-  const { initialText, waitingText, longerWaitingText, startTime } = props;
+  const { initialText, waitingText, longerWaitingText } = props;
   const [text, setText] = useState(
     initialText ? initialText : "Anfrage wird verarbeitet."
   );
@@ -18,21 +17,6 @@ export default function Spinner(props: {
 
   useEffect(() => {
     setIsJavaScriptEnabled(true);
-    if (startTime) {
-      if (Date.now() - startTime > 30000) {
-        setText(
-          longerWaitingText
-            ? longerWaitingText
-            : "Wir bearbeiten weiter Ihre Anfrage. Bitte verlassen Sie diese Seite nicht."
-        );
-      } else if (Date.now() - startTime > 8000) {
-        setText(
-          waitingText
-            ? waitingText
-            : "Ihre Anfrage dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
-        );
-      }
-    }
     const timer1 = setTimeout(() => {
       setText(
         waitingText
@@ -58,11 +42,7 @@ export default function Spinner(props: {
       <div className="bg-black opacity-40 absolute inset-0" />
       <div className="bg-white rounded-3xl p-32 relative">
         <div className="flex items-center justify-center">
-          <img
-            className="w-48 h-48 shrink-0 mr-16"
-            src={loopGif}
-            alt={"Endlosschleife, die sich im Kreis dreht"}
-          />
+          <img className="w-48 h-48 shrink-0 mr-16" src={loopGif} />
           <p className="text-18">{text}</p>
         </div>
         {!isJavaScriptEnabled && (
