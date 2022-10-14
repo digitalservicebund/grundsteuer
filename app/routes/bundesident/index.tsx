@@ -9,6 +9,7 @@ import {
   ContentContainer,
   Headline,
 } from "~/components";
+import invariant from "tiny-invariant";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifizieren Sie sich mit Ihrem Ausweis") };
@@ -26,7 +27,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (user.identified) {
     return redirect("/formular");
   }
-
+  const tcTokenUrl = await useId.getTcTokenUrl();
+  invariant(tcTokenUrl, "Expected to receive a tcTokenUrl from useId");
   return json(
     {
       host: new URL(request.url).hostname,
