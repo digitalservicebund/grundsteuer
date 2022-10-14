@@ -382,7 +382,7 @@ describe("Action", () => {
     jest.resetAllMocks();
   });
 
-  test("Returns no data if storno in progress", async () => {
+  test("Returns startTime if storno in progress", async () => {
     const userMock = getMockedFunction(userModule, "findUserByEmail", {
       email: "existing_user@foo.com",
       ericaRequestIdFscStornieren: "storno-id",
@@ -404,7 +404,7 @@ describe("Action", () => {
     }
   });
 
-  test("Returns no data if eingeben in progress", async () => {
+  test("Returns startTime if eingeben in progress", async () => {
     const userMock = getMockedFunction(userModule, "findUserByEmail", {
       email: "existing_user@foo.com",
       ericaRequestIdFscAktivieren: "eingeben-id",
@@ -509,9 +509,9 @@ describe("Action", () => {
           ).toBe(true);
         });
 
-        test("returns no data", async () => {
+        test("returns startTime", async () => {
           const result = await action(correctArgs);
-          expect(await result.json()).toEqual({});
+          expect((await result.json()).startTime).not.toBeUndefined();
         });
       });
 

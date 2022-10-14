@@ -185,6 +185,7 @@ export const loader: LoaderFunction = async ({
 
 type NeuBeantragenActionData = {
   errors?: Record<string, string>;
+  startTime?: number;
   ericaApiError?: string;
 };
 
@@ -253,7 +254,7 @@ export const action: ActionFunction = async ({
   });
 
   return json(
-    {},
+    { startTime: Date.now() },
     {
       headers: {
         "Set-Cookie": await commitSession(session),
@@ -275,6 +276,15 @@ export default function FscNeuBeantragen() {
   const [showSpinner, setShowSpinner] = useState(loaderData?.showSpinner);
   const [showError, setShowError] = useState(loaderData?.showError);
   const [fetchInProgress, setFetchInProgress] = useState(false);
+  const [startTime, setStartTime] = useState(
+    actionData?.startTime || Date.now()
+  );
+
+  useEffect(() => {
+    if (actionData?.startTime) {
+      setStartTime(actionData.startTime);
+    }
+  }, [actionData]);
 
   useEffect(() => {
     if (fetcher.data) {
@@ -406,6 +416,7 @@ export default function FscNeuBeantragen() {
             longerWaitingText={
               "Wir beantragen weiter Ihren Freischaltcode. Bitte verlassen Sie diese Seite nicht."
             }
+            startTime={startTime}
           />
         )}
       </ContentContainer>

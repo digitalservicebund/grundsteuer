@@ -214,6 +214,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
 
 type BeantragenActionData = {
   ericaApiError?: string;
+  startTime?: number;
   errors?: Record<string, string>;
 };
 
@@ -255,7 +256,9 @@ export const action: ActionFunction = async ({
   if (ericaApiError) {
     return { ericaApiError };
   }
-  return {};
+  return {
+    startTime: Date.now(),
+  };
 };
 
 export default function FscBeantragen() {
@@ -270,6 +273,15 @@ export default function FscBeantragen() {
   const [showSpinner, setShowSpinner] = useState(loaderData?.showSpinner);
   const [showError, setShowError] = useState(loaderData?.showError);
   const [fetchInProgress, setFetchInProgress] = useState(false);
+  const [startTime, setStartTime] = useState(
+    actionData?.startTime || Date.now()
+  );
+
+  useEffect(() => {
+    if (actionData?.startTime) {
+      setStartTime(actionData.startTime);
+    }
+  }, [actionData]);
 
   useEffect(() => {
     if (fetcher.data) {
@@ -436,6 +448,7 @@ export default function FscBeantragen() {
             longerWaitingText={
               "Wir beantragen weiter Ihren Freischaltcode. Bitte verlassen Sie diese Seite nicht."
             }
+            startTime={startTime}
           />
         )}
       </ContentContainer>

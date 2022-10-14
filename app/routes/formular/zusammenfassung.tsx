@@ -341,7 +341,7 @@ export const action: ActionFunction = async ({
   }
   await saveEricaRequestIdSenden(user.email, ericaRequestIdOrError.location);
 
-  return json({}, { headers });
+  return json({ startTime: Date.now() }, { headers });
 };
 
 export const meta: MetaFunction = () => {
@@ -363,8 +363,17 @@ export default function Zusammenfassung() {
   const [showSpinner, setShowSpinner] = useState(loaderData.showSpinner);
   const [ericaErrors, setEricaErrors] = useState(loaderData.ericaErrors);
   const [fetchInProgress, setFetchInProgress] = useState(false);
+  const [startTime, setStartTime] = useState(
+    actionData?.startTime || Date.now()
+  );
   const transition = useTransition();
   const isSubmitting = Boolean(transition.submission);
+
+  useEffect(() => {
+    if (actionData?.startTime) {
+      setStartTime(actionData.startTime);
+    }
+  }, [actionData]);
 
   useEffect(() => {
     if (fetcher.data) {
@@ -524,7 +533,7 @@ export default function Zusammenfassung() {
           </Button>
         </Form>
       </ContentContainer>
-      {showSpinner && <Spinner />}
+      {showSpinner && <Spinner startTime={startTime} />}
     </>
   );
 }

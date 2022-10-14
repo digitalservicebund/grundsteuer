@@ -269,9 +269,9 @@ describe("Action", () => {
           );
         });
 
-        test("returns no data", async () => {
+        test("returns startTime", async () => {
           const result = await action(correctArgs);
-          expect(await result).toEqual({});
+          expect(result?.startTime).not.toBeUndefined();
         });
       });
 

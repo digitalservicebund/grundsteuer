@@ -282,6 +282,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
 
 type EingebenActionData = {
   ericaApiError?: string;
+  startTime?: number;
   errors?: Record<string, string>;
 };
 
@@ -350,7 +351,7 @@ export const action: ActionFunction = async ({
   }
 
   return json(
-    {},
+    { startTime: Date.now() },
     {
       headers: {
         "Set-Cookie": await commitSession(session),
@@ -372,6 +373,15 @@ export default function FscEingeben() {
   const [showSpinner, setShowSpinner] = useState(loaderData?.showSpinner);
   const [showError, setShowError] = useState(loaderData?.showError);
   const [fetchInProgress, setFetchInProgress] = useState(false);
+  const [startTime, setStartTime] = useState(
+    actionData?.startTime || Date.now()
+  );
+
+  useEffect(() => {
+    if (actionData?.startTime) {
+      setStartTime(actionData.startTime);
+    }
+  }, [actionData]);
 
   useEffect(() => {
     if (fetcher.data) {
@@ -484,6 +494,7 @@ export default function FscEingeben() {
           longerWaitingText={
             "Wir überprüfen weiter Ihren Freischaltcode. Bitte verlassen Sie diese Seite nicht."
           }
+          startTime={startTime}
         />
       )}
     </ContentContainer>

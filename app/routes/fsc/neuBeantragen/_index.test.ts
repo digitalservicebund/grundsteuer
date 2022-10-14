@@ -840,9 +840,9 @@ describe("Action", () => {
           ).toBe(true);
         });
 
-        test("returns no data", async () => {
+        test("returns startTime", async () => {
           const result = await action(correctArgs);
-          expect(await result.json()).toEqual({});
+          expect((await result.json()).startTime).not.toBeUndefined();
         });
       });
 
@@ -978,9 +978,9 @@ describe("Action", () => {
         ).toEqual(normalizedFormData);
       });
 
-      test("returns no data", async () => {
+      test("returns startTime", async () => {
         const result = await action(correctArgs);
-        expect(await result.json()).toEqual({});
+        expect((await result.json()).startTime).not.toBeUndefined();
       });
     });
 
