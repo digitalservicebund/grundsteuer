@@ -84,3 +84,39 @@ describe("isEricaRequestProcessed", () => {
     ).toBeFalsy();
   });
 });
+
+describe("calculateFetchSleep", () => {
+  let standardDateNowImplementation: () => number;
+  const currentDate = Date.UTC(2022, 11, 31, 0, 0, 61);
+  beforeAll(() => {
+    standardDateNowImplementation = Date.now;
+    Date.now = jest.fn(() => currentDate);
+  });
+
+  afterAll(() => {
+    Date.now = standardDateNowImplementation;
+  });
+
+  it("should return 1 second if time difference below 10s", () => {
+    const startTime = Date.UTC(2022, 11, 31, 0, 0, 60);
+
+    const calculatedSleepTime = ericaUtils.calculateFetchSleep(startTime);
+
+    expect(calculatedSleepTime).toBe(1000);
+  });
+  it("should return 5 second if time difference below 60s", () => {
+    const startTime = Date.UTC(2022, 11, 31, 0, 0, 51);
+
+    const calculatedSleepTime = ericaUtils.calculateFetchSleep(startTime);
+
+    expect(calculatedSleepTime).toBe(5000);
+  });
+
+  it("should return 10 second if time difference above 60s", () => {
+    const startTime = Date.UTC(2022, 11, 31, 0, 0, 1);
+
+    const calculatedSleepTime = ericaUtils.calculateFetchSleep(startTime);
+
+    expect(calculatedSleepTime).toBe(10000);
+  });
+});

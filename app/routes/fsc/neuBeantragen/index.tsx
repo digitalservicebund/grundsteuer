@@ -50,6 +50,7 @@ import fscLetterImage from "~/assets/images/fsc-letter.svg";
 import fscInputImage from "~/assets/images/fsc-input.svg";
 import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
 import { ericaUtils } from "~/erica/utils";
+import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
 
 const isEricaRequestInProgress = (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -301,14 +302,22 @@ export default function FscNeuBeantragen() {
   }, [loaderData]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (showSpinner && !fetchInProgress) {
-        setFetchInProgress(true);
-        fetcher.load("/fsc/neuBeantragen?index");
-        setFetchInProgress(false);
+    const interval: IntervalInstance = { timer: null, stoppedFetching: false };
+    interval.timer = fetchInDynamicInterval(
+      showSpinner as boolean,
+      fetchInProgress,
+      setFetchInProgress,
+      fetcher,
+      interval,
+      startTime,
+      "/fsc/neuBeantragen?index"
+    );
+    return () => {
+      if (interval.timer) {
+        clearInterval(interval.timer);
+        interval.stoppedFetching = true;
       }
-    }, 1000);
-    return () => clearInterval(interval);
+    };
   }, [fetcher, showSpinner]);
 
   return (

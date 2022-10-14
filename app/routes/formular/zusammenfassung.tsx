@@ -67,6 +67,7 @@ import { Trans } from "react-i18next";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 import bcrypt from "bcryptjs";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
+import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
 
 type LoaderData = {
   formData: StepFormData;
@@ -390,15 +391,22 @@ export default function Zusammenfassung() {
   }, [loaderData]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (showSpinner && !fetchInProgress) {
-        setFetchInProgress(true);
-        fetcher.load("/formular/zusammenfassung");
-        setFetchInProgress(false);
+    const interval: IntervalInstance = { timer: null, stoppedFetching: false };
+    interval.timer = fetchInDynamicInterval(
+      showSpinner as boolean,
+      fetchInProgress,
+      setFetchInProgress,
+      fetcher,
+      interval,
+      startTime,
+      "/formular/zusammenfassung"
+    );
+    return () => {
+      if (interval.timer) {
+        clearInterval(interval.timer);
+        interval.stoppedFetching = true;
       }
-    }, 1000);
-
-    return () => clearInterval(interval);
+    };
   }, [fetcher, showSpinner, ericaErrors]);
 
   return (
