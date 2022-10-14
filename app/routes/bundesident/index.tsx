@@ -29,6 +29,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
   const tcTokenUrl = await useId.getTcTokenUrl();
   invariant(tcTokenUrl, "Expected to receive a tcTokenUrl from useId");
+  console.log("Started bundesIdent flow");
   return json(
     {
       host: new URL(request.url).hostname,
