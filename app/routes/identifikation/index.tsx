@@ -22,6 +22,7 @@ import PhotoCameraFront from "~/components/icons/mui/PhotoCameraFront";
 import { useLoaderData } from "@remix-run/react";
 import Bolt from "~/components/icons/mui/Bolt";
 import { pageTitle } from "~/util/pageTitle";
+import { isMobileUserAgent } from "~/routes/bundesident/index";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifizierung mit Ausweis") };
@@ -51,11 +52,14 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/fsc/eingeben");
   }
 
-  return { useUseId: process.env.USE_USE_ID == "true" };
+  return {
+    useUseId: process.env.USE_USE_ID == "true",
+    isMobile: isMobileUserAgent(request),
+  };
 };
 
 export default function IdentifikationIndex() {
-  const { useUseId } = useLoaderData();
+  const { useUseId, isMobile } = useLoaderData();
   return (
     <>
       <ContentContainer size="sm-md">
@@ -91,7 +95,7 @@ export default function IdentifikationIndex() {
           url="/fsc"
           className="mb-16"
         />
-        {useUseId && (
+        {useUseId && isMobile && (
           <IdentCard
             image=""
             imageAltText="Bildbeispiel Ausweis"
@@ -110,7 +114,7 @@ export default function IdentifikationIndex() {
           image={ident3}
           imageAltText="Illustration Später Identifizieren"
           icon={<WavingHand className="mr-4" />}
-          optionCount={useUseId ? 4 : 3}
+          optionCount={useUseId && isMobile ? 4 : 3}
           heading="Später identifizieren"
           subheading="Hinweis: Ein Versand ohne Identifikation ist nicht möglich. "
           text="Füllen Sie das Formular aus und identifizieren Sie sich später vor dem Versand. Hinweis: Ein Versand ohne Identifikation ist nicht möglich."
