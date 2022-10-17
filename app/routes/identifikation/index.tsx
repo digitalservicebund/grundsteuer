@@ -25,7 +25,7 @@ import { pageTitle } from "~/util/pageTitle";
 import { isMobileUserAgent } from "~/routes/bundesident/index";
 
 export const meta: MetaFunction = () => {
-  return { title: pageTitle("Identifizierung mit Ausweis") };
+  return { title: pageTitle("Identifikation mit Ausweis") };
 };
 
 export const loader: LoaderFunction = async ({ request }) => {

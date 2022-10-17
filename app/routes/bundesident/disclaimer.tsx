@@ -6,7 +6,7 @@ import pinbriefImage from "~/assets/images/pinbrief.png";
 import Bolt from "~/components/icons/mui/Bolt";
 
 export const meta: MetaFunction = () => {
-  return { title: pageTitle("Identifizierung mit Ausweis") };
+  return { title: pageTitle("Identifikation mit Ausweis") };
 };
 
 export const loader: LoaderFunction = async ({ request }) => {

@@ -346,7 +346,7 @@ export default function FscNeuBeantragen() {
           haben, können Sie sich nicht über einen Freischaltcode identifizieren.
           Nutzen Sie stattdessen die{" "}
           <a href="/ekona" className="underline text-blue-800">
-            Identifizierung über ELSTER
+            Identifikation über ELSTER
           </a>
           .
         </Hint>

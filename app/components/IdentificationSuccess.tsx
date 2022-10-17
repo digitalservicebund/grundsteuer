@@ -39,7 +39,7 @@ export default function IdentificationSuccess(
           <p>Hinweis:</p>
           <ul className="ml-32 list-disc">
             <li className="mb-16">
-              Die Identifizierung findet nur einmal statt. Sie brauchen sich
+              Die Identifikation findet nur einmal statt. Sie brauchen sich
               nicht für die Abgabe einer weiteren Erklärung neu identifizieren.
             </li>
             <li>

@@ -327,7 +327,7 @@ export default function FscBeantragen() {
         </Headline>
 
         <IntroText>
-          Den Freischaltcode nutzen wir zur Identifizierung der abgebenden
+          Den Freischaltcode nutzen wir zur Identifikation der abgebenden
           Person. Zur Beantragung benötigen Sie die Steuer-Identifikationsnummer
           und Geburtsdatum.
         </IntroText>
@@ -349,7 +349,7 @@ export default function FscBeantragen() {
           haben, können Sie sich nicht über einen Freischaltcode identifizieren.
           Nutzen Sie stattdessen die{" "}
           <a href="/ekona" className="underline text-blue-800">
-            Identifizierung über ELSTER
+            Identifikation über ELSTER
           </a>
           .
         </Hint>

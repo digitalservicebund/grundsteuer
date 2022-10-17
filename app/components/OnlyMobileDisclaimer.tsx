@@ -9,7 +9,7 @@ export default function OnlyMobileDisclaimer() {
           Auf diese Seite können Sie nur über ein mobiles Gerät zugreifen
         </Headline>
         <IntroText>
-          Die Identifizierung mit dem Personalausweis über die BundesIdent App
+          Die Identifikation mit dem Personalausweis über die BundesIdent App
           ist nur auf mobilen Geräten möglich. Für eine andere Identifikation
           kehren Sie zurück zur Auswahl.
         </IntroText>
