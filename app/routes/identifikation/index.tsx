@@ -17,7 +17,10 @@ import invariant from "tiny-invariant";
 import SectionLabel from "../../components/navigation/SectionLabel";
 import LetterIcon from "~/components/icons/mui/LetterIcon";
 import WavingHand from "~/components/icons/mui/WavingHand";
+import EdgeSensorHigh from "~/components/icons/mui/EdgeSensorHigh";
 import PhotoCameraFront from "~/components/icons/mui/PhotoCameraFront";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
+import { useLoaderData } from "@remix-run/react";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
@@ -43,10 +46,11 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/fsc/eingeben");
   }
 
-  return {};
+  return { showTestFeatures: testFeaturesEnabled() };
 };
 
 export default function IdentifikationIndex() {
+  const { showTestFeatures } = useLoaderData();
   return (
     <>
       <ContentContainer size="sm-md">
@@ -82,6 +86,20 @@ export default function IdentifikationIndex() {
           url="/fsc"
           className="mb-16"
         />
+        {showTestFeatures && (
+          <IdentCard
+            image=""
+            imageAltText="Bildbeispiel Ausweis"
+            icon={<EdgeSensorHigh className="mr-4" />}
+            optionCount={3}
+            heading="Identifikation mit Ihrem Ausweis"
+            subheading="Empfohlen für digitalaffine Nutzer:innen, die sich elektronisch mit Ihrem Ausweis identifizieren möchten."
+            text=""
+            buttonLabel="Identifikation mit Ausweis"
+            url="/bundesident"
+            className="mb-16"
+          />
+        )}
         <IdentCard
           image={ident3}
           imageAltText="Illustration Später Identifizieren"
