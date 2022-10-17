@@ -16,6 +16,7 @@ export default function SectionLabel(props: SectionLabelProps) {
       "bg-white": props.background === "white-full",
       "bg-blue-200": props.background === "blue",
       "bg-gray-300": props.background === "gray",
+      "bg-yellow-emph": props.background === "yellow",
     },
     props.className
   );

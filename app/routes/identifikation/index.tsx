@@ -20,6 +20,7 @@ import WavingHand from "~/components/icons/mui/WavingHand";
 import EdgeSensorHigh from "~/components/icons/mui/EdgeSensorHigh";
 import PhotoCameraFront from "~/components/icons/mui/PhotoCameraFront";
 import { useLoaderData } from "@remix-run/react";
+import Bolt from "~/components/icons/mui/Bolt";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
@@ -90,6 +91,7 @@ export default function IdentifikationIndex() {
             image=""
             imageAltText="Bildbeispiel Ausweis"
             icon={<EdgeSensorHigh className="mr-4" />}
+            betaTag={true}
             optionCount={3}
             heading="Identifikation mit Ihrem Ausweis"
             subheading="Empfohlen für digitalaffine Nutzer:innen, die sich elektronisch mit Ihrem Ausweis identifizieren möchten."
@@ -105,6 +107,7 @@ export default function IdentifikationIndex() {
           icon={<WavingHand className="mr-4" />}
           optionCount={useUseId ? 4 : 3}
           heading="Später identifizieren"
+          subheading="Hinweis: Ein Versand ohne Identifikation ist nicht möglich. "
           text="Füllen Sie das Formular aus und identifizieren Sie sich später vor dem Versand. Hinweis: Ein Versand ohne Identifikation ist nicht möglich."
           buttonLabel="Zum Formular"
           url="/formular"
@@ -117,18 +120,24 @@ export default function IdentifikationIndex() {
 
 function OptionLabel(props: {
   icon: ReactNode;
-  optionCount: number;
   emphasised?: boolean;
+  className?: string;
+  children: ReactNode;
 }) {
   const background: string = props.emphasised ? "yellow" : "white-full";
   return (
-    <div className="relative h-[36px] top-[-36px] mb-[-36px] md:hidden">
+    <div
+      className={classNames(
+        props.className,
+        "relative h-[36px] top-[-36px] mb-[-36px] md:hidden"
+      )}
+    >
       <SectionLabel
         background={background as "yellow" | "white-full"}
         icon={props.icon}
         className="h-[36px]"
       >
-        Option {props.optionCount}
+        {props.children}
       </SectionLabel>
     </div>
   );
@@ -137,6 +146,7 @@ function OptionLabel(props: {
 function IdentCard(props: {
   image: string;
   icon: ReactNode;
+  betaTag?: boolean;
   optionCount: number;
   imageAltText: string;
   heading: ReactNode | string;
@@ -153,7 +163,16 @@ function IdentCard(props: {
         props.className
       )}
     >
-      <OptionLabel icon={props.icon} optionCount={props.optionCount} />
+      <OptionLabel icon={props.icon}>Option {props.optionCount} </OptionLabel>
+      {props.betaTag && (
+        <OptionLabel
+          icon={<Bolt className="mr-4" />}
+          emphasised={true}
+          className="float-right"
+        >
+          Beta-Status
+        </OptionLabel>
+      )}
       <img
         src={props.image}
         alt={props.imageAltText}

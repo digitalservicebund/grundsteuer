@@ -89,6 +89,7 @@ module.exports = {
         700: "#e5ce5c",
         800: "#dac23c",
         900: "#c3a91e",
+        emph: "#f5e05d",
       },
       darkGreen: "#01854A",
     },
