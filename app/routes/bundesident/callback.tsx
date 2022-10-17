@@ -6,7 +6,6 @@ import { authenticator } from "~/auth.server";
 import { findUserByEmail, setUserIdentified } from "~/domain/user";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import { revokeOutstandingFSCRequests } from "~/domain/lifecycleEvents.server";
-import { Params } from "@sentry/remix/types/utils/types";
 import { commitSession, getSession } from "~/session.server";
 
 export const meta: MetaFunction = () => {
@@ -27,13 +26,15 @@ const saveAuditLogs = async (
   });
 };
 
-const getSessionId = (params: Params<string>) => {
-  const sessionId = params.sessionId;
+const getSessionId = (request: Request) => {
+  const params = new URL(request.url).searchParams;
+  const sessionId = params.get("sessionId");
+  console.log("PARAMS", JSON.stringify(params));
   invariant(sessionId, "sessionId was not given");
   return sessionId;
 };
 
-export const loader: LoaderFunction = async ({ context, request, params }) => {
+export const loader: LoaderFunction = async ({ context, request }) => {
   if (process.env.USE_USE_ID !== "true") {
     throw new Response("Not Found", {
       status: 404,
@@ -46,7 +47,7 @@ export const loader: LoaderFunction = async ({ context, request, params }) => {
   const session = await getSession(request.headers.get("Cookie"));
   const userData = await findUserByEmail(user.email);
   invariant(userData, "should find user for user email");
-  const sessionId = getSessionId(params);
+  const sessionId = getSessionId(request);
 
   const identityData = await useId.getIdentityData(sessionId);
 
