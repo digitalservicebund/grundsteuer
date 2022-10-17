@@ -84,7 +84,7 @@ export default function BundesidIndex() {
         src={`${useIdDomain}/widget?hostname=${host}#tcTokenURL=${encodeURIComponent(
           tcTokenUrl
         )}`}
-        style={{ width: "100%" }}
+        style={{ width: "100%", minHeight: "500px" }}
       />
       <ButtonContainer className="mt-24">
         <Button look={"secondary"} to="/bundesident/disclaimer">

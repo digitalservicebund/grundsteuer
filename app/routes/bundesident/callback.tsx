@@ -29,7 +29,6 @@ const saveAuditLogs = async (
 const getSessionId = (request: Request) => {
   const params = new URL(request.url).searchParams;
   const sessionId = params.get("sessionId");
-  console.log("PARAMS", JSON.stringify(params));
   invariant(sessionId, "sessionId was not given");
   return sessionId;
 };
