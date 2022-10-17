@@ -6,10 +6,13 @@ import { useLoaderData } from "@remix-run/react";
 import {
   BreadcrumbNavigation,
   Button,
+  ButtonContainer,
   ContentContainer,
   Headline,
+  SectionLabel,
 } from "~/components";
 import invariant from "tiny-invariant";
+import Bolt from "~/components/icons/mui/Bolt";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifizieren Sie sich mit Ihrem Ausweis") };
@@ -45,22 +48,28 @@ export default function BundesidIndex() {
   const { tcTokenUrl, useIdDomain, host } = useLoaderData();
   return (
     <>
-      <ContentContainer size="sm" className="mb-80">
-        <BreadcrumbNavigation />
-        <Headline>
-          Identifizieren Sie sich mit Ihrem Ausweis und der BundesIdent App
-        </Headline>
-      </ContentContainer>
+      <SectionLabel
+        icon={<Bolt className="mr-4" />}
+        background="yellow"
+        className="mb-16"
+      >
+        Beta-Status
+      </SectionLabel>
+      <Headline>
+        Identifizieren Sie sich mit Ihrem Ausweis und der BundesIdent App
+      </Headline>
 
-      <ContentContainer size="lg">
-        <iframe
-          src={`${useIdDomain}/widget?hostname=${host}#tcTokenURL=${encodeURIComponent(
-            tcTokenUrl
-          )}`}
-          style={{ width: "100%", minHeight: "600px" }}
-        />
-        <Button look={"secondary"}>Zurück zu den Voraussetzungen</Button>
-      </ContentContainer>
+      <iframe
+        src={`${useIdDomain}/widget?hostname=${host}#tcTokenURL=${encodeURIComponent(
+          tcTokenUrl
+        )}`}
+        style={{ width: "100%", minHeight: "600px" }}
+      />
+      <ButtonContainer className="mt-16">
+        <Button look={"secondary"} to="/bundesident/disclaimer">
+          Zurück zur Voraussetzung
+        </Button>
+      </ButtonContainer>
     </>
   );
 }
