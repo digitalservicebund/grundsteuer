@@ -10,7 +10,7 @@ import ident2 from "~/assets/images/ident-2.png";
 import ident3 from "~/assets/images/ident-3.png";
 import { ReactNode } from "react";
 import classNames from "classnames";
-import { LoaderFunction, redirect } from "@remix-run/node";
+import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
 import { authenticator } from "~/auth.server";
 import { findUserByEmail } from "~/domain/user";
 import invariant from "tiny-invariant";
@@ -21,6 +21,11 @@ import EdgeSensorHigh from "~/components/icons/mui/EdgeSensorHigh";
 import PhotoCameraFront from "~/components/icons/mui/PhotoCameraFront";
 import { useLoaderData } from "@remix-run/react";
 import Bolt from "~/components/icons/mui/Bolt";
+import { pageTitle } from "~/util/pageTitle";
+
+export const meta: MetaFunction = () => {
+  return { title: pageTitle("Identifizierung mit Ausweis") };
+};
 
 export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
@@ -97,7 +102,7 @@ export default function IdentifikationIndex() {
             subheading="Empfohlen für digitalaffine Nutzer:innen, die sich elektronisch mit Ihrem Ausweis identifizieren möchten."
             text=""
             buttonLabel="Identifikation mit Ausweis"
-            url="/bundesident"
+            url="/bundesident/disclaimer"
             className="mb-16"
           />
         )}
