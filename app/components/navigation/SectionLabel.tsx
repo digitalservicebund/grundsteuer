@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import classNames from "classnames";
 
 type SectionLabelProps = {
-  background: "white" | "blue" | "gray";
+  background: "white" | "white-full" | "blue" | "gray" | "yellow";
   icon?: ReactNode;
   children: ReactNode;
   className?: string;
@@ -13,6 +13,7 @@ export default function SectionLabel(props: SectionLabelProps) {
     "pl-8 py-4 pr-16 rounded inline-flex items-center text-gray-900 uppercase tracking-1 text-11 leading-16 font-bold",
     {
       "bg-white/75": props.background === "white",
+      "bg-white": props.background === "white-full",
       "bg-blue-200": props.background === "blue",
       "bg-gray-300": props.background === "gray",
     },

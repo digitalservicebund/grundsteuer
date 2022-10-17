@@ -14,6 +14,10 @@ import { LoaderFunction, redirect } from "@remix-run/node";
 import { authenticator } from "~/auth.server";
 import { findUserByEmail } from "~/domain/user";
 import invariant from "tiny-invariant";
+import SectionLabel from "../../components/navigation/SectionLabel";
+import LetterIcon from "~/components/icons/mui/LetterIcon";
+import WavingHand from "~/components/icons/mui/WavingHand";
+import PhotoCameraFront from "~/components/icons/mui/PhotoCameraFront";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
@@ -57,6 +61,8 @@ export default function IdentifikationIndex() {
         <IdentCard
           image={ident1}
           imageAltText="Bildbeispiel der Oberfläche für ELSTER Zugang"
+          icon={<PhotoCameraFront className="mr-4" />}
+          optionCount={1}
           heading="Identifikation mit ELSTER"
           subheading="Empfohlen für Nutzer:innen mit einem ELSTER-Konto."
           text="Identifizieren Sie sich mit den Zugangsdaten für Ihr ELSTER‑Konto, um die Grundsteuererklärung abzuschicken."
@@ -67,6 +73,8 @@ export default function IdentifikationIndex() {
         <IdentCard
           image={ident2}
           imageAltText="Bildbeispiel Freischaltcode"
+          icon={<LetterIcon fill="#4E596A" className="mr-4" />}
+          optionCount={2}
           heading="Identifikation mit Freischaltcode"
           subheading="Empfohlen für Nutzer:innen ohne ELSTER-Konto."
           text="Sie erhalten einen Brief mit einem Freischaltcode an Ihre Meldeadresse. Sie können die Erklärung ausfüllen und nach Erhalt des Codes abschicken."
@@ -77,6 +85,8 @@ export default function IdentifikationIndex() {
         <IdentCard
           image={ident3}
           imageAltText="Illustration Später Identifizieren"
+          icon={<WavingHand className="mr-4" />}
+          optionCount={4}
           heading="Später identifizieren"
           text="Füllen Sie das Formular aus und identifizieren Sie sich später vor dem Versand. Hinweis: Ein Versand ohne Identifikation ist nicht möglich."
           buttonLabel="Zum Formular"
@@ -88,8 +98,29 @@ export default function IdentifikationIndex() {
   );
 }
 
+function OptionLabel(props: {
+  icon: ReactNode;
+  optionCount: number;
+  emphasised?: boolean;
+}) {
+  const background: string = props.emphasised ? "yellow" : "white-full";
+  return (
+    <div className="relative h-[36px] top-[-36px] mb-[-36px] md:hidden">
+      <SectionLabel
+        background={background as "yellow" | "white-full"}
+        icon={props.icon}
+        className="h-[36px]"
+      >
+        Option {props.optionCount}
+      </SectionLabel>
+    </div>
+  );
+}
+
 function IdentCard(props: {
   image: string;
+  icon: ReactNode;
+  optionCount: number;
   imageAltText: string;
   heading: ReactNode | string;
   subheading?: string;
@@ -101,31 +132,34 @@ function IdentCard(props: {
   return (
     <div
       className={classNames(
-        "py-24 lg:px-32 px-24 enumerate-card flex-col md:flex-row max-w-[970px]",
+        "mt-48 md:mt-0 p-16 lg:py-24 lg:px-32 bg-blue-300 lg:enumerate-card flex-col lg:flex-row max-w-[970px]",
         props.className
       )}
     >
+      <OptionLabel icon={props.icon} optionCount={props.optionCount} />
       <img
         src={props.image}
         alt={props.imageAltText}
-        className="mr-24 md:w-[300px] w-full"
+        className="hidden lg:flex mr-24 md:w-[300px] w-full"
       />
       <div className="flex flex-col">
         <ContentContainer size="sm">
           <dl>
-            <div className="flex flex-row mt-24 md:mt-0">
+            <div className="flex flex-row mt-16 md:mt-0">
               <dt className="mb-8 font-bold text-18">{props.heading}</dt>
             </div>
             <div className="flex flex-row mt-8 lg:mt-0">
-              <dd>
+              <dd className="w-full md:w-fit">
                 {props.subheading && (
-                  <p className="font-bold text-blue-800">{props.subheading}</p>
+                  <p className="md:font-bold text-blue-800 mb-16 md:mb-0">
+                    {props.subheading}
+                  </p>
                 )}
-                <p className="mb-24">{props.text}</p>
+                <p className="hidden md:flex mb-24">{props.text}</p>
                 <Button
                   look="primary"
                   size="medium"
-                  className="min-w-[248px]"
+                  className="w-full md:w-fit min-w-[248px]"
                   to={props.url}
                 >
                   {props.buttonLabel}
