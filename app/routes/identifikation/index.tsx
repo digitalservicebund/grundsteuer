@@ -19,7 +19,6 @@ import LetterIcon from "~/components/icons/mui/LetterIcon";
 import WavingHand from "~/components/icons/mui/WavingHand";
 import EdgeSensorHigh from "~/components/icons/mui/EdgeSensorHigh";
 import PhotoCameraFront from "~/components/icons/mui/PhotoCameraFront";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { useLoaderData } from "@remix-run/react";
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -46,11 +45,11 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/fsc/eingeben");
   }
 
-  return { showTestFeatures: testFeaturesEnabled() };
+  return { useUseId: process.env.USE_USE_ID == "true" };
 };
 
 export default function IdentifikationIndex() {
-  const { showTestFeatures } = useLoaderData();
+  const { useUseId } = useLoaderData();
   return (
     <>
       <ContentContainer size="sm-md">
@@ -86,7 +85,7 @@ export default function IdentifikationIndex() {
           url="/fsc"
           className="mb-16"
         />
-        {showTestFeatures && (
+        {useUseId && (
           <IdentCard
             image=""
             imageAltText="Bildbeispiel Ausweis"
@@ -104,7 +103,7 @@ export default function IdentifikationIndex() {
           image={ident3}
           imageAltText="Illustration Später Identifizieren"
           icon={<WavingHand className="mr-4" />}
-          optionCount={showTestFeatures ? 4 : 3}
+          optionCount={useUseId ? 4 : 3}
           heading="Später identifizieren"
           text="Füllen Sie das Formular aus und identifizieren Sie sich später vor dem Versand. Hinweis: Ein Versand ohne Identifikation ist nicht möglich."
           buttonLabel="Zum Formular"
