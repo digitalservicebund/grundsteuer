@@ -104,7 +104,7 @@ export default function IdentifikationIndex() {
           image={ident3}
           imageAltText="Illustration Später Identifizieren"
           icon={<WavingHand className="mr-4" />}
-          optionCount={4}
+          optionCount={showTestFeatures ? 4 : 3}
           heading="Später identifizieren"
           text="Füllen Sie das Formular aus und identifizieren Sie sich später vor dem Versand. Hinweis: Ein Versand ohne Identifikation ist nicht möglich."
           buttonLabel="Zum Formular"
