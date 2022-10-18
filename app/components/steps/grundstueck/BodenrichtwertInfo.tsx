@@ -19,13 +19,13 @@ const BodenrichtwertInfo: StepComponentFunction = ({ allData, i18n }) => {
   return (
     <div className="mb-80">
       <ContentContainer size="sm-md" className="mb-80">
-        {i18n.specifics.explanation && (
-          <p className="text-18 mb-32">{i18n.specifics.explanation}</p>
-        )}
         {i18n.specifics.portalUrl && (
           <ExternalLinkButton url={i18n.specifics.portalUrl} border={true}>
             {i18n.specifics.portalLabel}
           </ExternalLinkButton>
+        )}
+        {i18n.specifics.explanation && (
+          <p className="text-18 mt-32">{i18n.specifics.explanation}</p>
         )}
         {bundesland === "HB" && (
           <p className="mt-48">
