@@ -14,7 +14,12 @@ export const stepDefinition: StepDefinition = {
       validations: {
         required: {},
       },
-      options: [{ value: "no_anrede" }, { value: "frau" }, { value: "herr" }],
+      options: [
+        { value: "Bitte auswählen", defaultOption: true },
+        { value: "no_anrede" },
+        { value: "frau" },
+        { value: "herr" },
+      ],
     },
     titel: {
       validations: {
