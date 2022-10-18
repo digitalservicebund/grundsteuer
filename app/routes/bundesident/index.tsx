@@ -87,7 +87,7 @@ export default function BundesidIndex() {
     <>
       <SectionLabel
         icon={<Bolt className="mr-4" />}
-        background="yellow"
+        backgroundColor="yellow"
         className="mb-16"
       >
         Beta-Status

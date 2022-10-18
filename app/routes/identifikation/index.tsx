@@ -142,7 +142,7 @@ function OptionLabel(props: {
       )}
     >
       <SectionLabel
-        background={background as "yellow" | "white-full"}
+        backgroundColor={background as "yellow" | "white-full"}
         icon={props.icon}
         className="h-[36px]"
       >

@@ -29,7 +29,7 @@ export default function BundesIdentDisclaimer() {
     <div>
       <SectionLabel
         icon={<Bolt className="mr-4" />}
-        background="yellow"
+        backgroundColor="yellow"
         className="mb-16"
       >
         Beta-Status

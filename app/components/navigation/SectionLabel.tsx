@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import classNames from "classnames";
 
 type SectionLabelProps = {
-  background: "white" | "white-full" | "blue" | "gray" | "yellow";
+  backgroundColor: "white" | "white-full" | "blue" | "gray" | "yellow";
   icon?: ReactNode;
   children: ReactNode;
   className?: string;
@@ -12,11 +12,11 @@ export default function SectionLabel(props: SectionLabelProps) {
   const cssClassNames = classNames(
     "pl-8 py-4 pr-16 rounded inline-flex items-center text-gray-900 uppercase tracking-1 text-11 leading-16 font-bold",
     {
-      "bg-white/75": props.background === "white",
-      "bg-white": props.background === "white-full",
-      "bg-blue-200": props.background === "blue",
-      "bg-gray-300": props.background === "gray",
-      "bg-yellow-emph": props.background === "yellow",
+      "bg-white/75": props.backgroundColor === "white",
+      "bg-white": props.backgroundColor === "white-full",
+      "bg-blue-200": props.backgroundColor === "blue",
+      "bg-gray-300": props.backgroundColor === "gray",
+      "bg-yellow-emph": props.backgroundColor === "yellow",
     },
     props.className
   );

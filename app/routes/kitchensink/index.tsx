@@ -53,12 +53,12 @@ export default function KitchenSinkIndex() {
       </ErrorBar>
       <ErrorBarStandard />
 
-      <SectionLabel background="blue" className="mb-24" icon={<Person />}>
+      <SectionLabel backgroundColor="blue" className="mb-24" icon={<Person />}>
         Eigentümer:in 1 (SectionLabel)
       </SectionLabel>
 
       <div className="bg-blue-200 py-24">
-        <SectionLabel background="white" icon={<House />}>
+        <SectionLabel backgroundColor="white" icon={<House />}>
           Furstück 1 (SectionLabel)
         </SectionLabel>
       </div>

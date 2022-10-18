@@ -398,7 +398,7 @@ const EnumerationFields = ({
 }) => {
   return (
     <div id={id}>
-      <SectionLabel icon={icon} background="gray" className="my-16">
+      <SectionLabel icon={icon} backgroundColor="gray" className="my-16">
         <h3>{label + " " + (index + 1)}</h3>
       </SectionLabel>
       <ul className="ml-64">{children}</ul>

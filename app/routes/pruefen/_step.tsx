@@ -269,7 +269,7 @@ export function Step() {
         <ContentContainer>
           <div className="bg-white px-16 md:px-80 py-16 md:py-56">
             <SectionLabel
-              background="gray"
+              backgroundColor="gray"
               icon={<Communication />}
               className="mb-32"
             >

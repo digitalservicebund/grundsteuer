@@ -30,7 +30,7 @@ const Anzahl = (props: {
       return (
         <div key={id} className="p-24 bg-white">
           <SectionLabel
-            background="blue"
+            backgroundColor="blue"
             icon={props.labelIcon}
             className="mb-16"
           >
