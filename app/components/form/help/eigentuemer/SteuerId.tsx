@@ -10,7 +10,7 @@ const SteuerIdHelp: HelpComponentFunction = () => {
         {
           type: "paragraph",
           value:
-            "Bei der Steuer-Identifikationsnummer handelt es sich nicht um die Steuernummer Ihres Grundstücks. Sie finden die Steuer-Identifikationsnummer zum Beispiel auf Ihrem letzten Einkommensteuerbescheid oder suchen Sie in Ihren Unterlagen nach einem Brief vom Bundeszentralamt für Steuern. Die 11-stellige Nummer steht oben rechts groß auf dem Brief.",
+            "Bei der Steuer-Identifikationsnummer handelt es sich nicht um die Steuernummer Ihres Grundstücks.",
         },
         {
           type: "image",
