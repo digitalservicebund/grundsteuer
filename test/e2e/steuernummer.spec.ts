@@ -9,7 +9,7 @@ describe("/grundstueck/steuernummer", () => {
       key: "BE",
       title: "Geben Sie die Steuernummer Ihres Grundstücks ein",
       description:
-        "Es handelt sich nicht um Ihre Steuernummer der Einkommenssteuer, Ihre Steuer-Identifikationsnummer oder das Kassenzeichen. Die Steuernummer Ihres Grundstücks finden Sie beispielsweise auf dem Grundsteuerbescheid, dem Kontoauszug (insbesondere bei Lastschrift) oder dem Einheitswertbescheid.",
+        "Es handelt sich nicht um Ihre Steuernummer der Grunderwerbssteuer, Ihre Steuernummer der Einkommenssteuer, Ihre Steuer-Identifikationsnummer oder das Kassenzeichen. Die Steuernummer Ihres Grundstücks finden Sie beispielsweise auf dem Grundsteuerbescheid, dem Kontoauszug (insbesondere bei Lastschrift) oder dem Einheitswertbescheid.",
       hint: "Die Steuernummer ihres Grundstücks besteht aus 10 Ziffern. Die ersten beiden Ziffern können immer nur: 13, 14, 16, 17, 18, 19, 21, 23, 24, 25, 31 ,32, 33, 34, 35 oder 36 sein. Die Ziffern 3 bis 5 müssen mindestens 700 sein. Zum Beispiel: 13/700/XXXXX",
       invalidValue: "15/700/01234",
       error:
@@ -19,7 +19,7 @@ describe("/grundstueck/steuernummer", () => {
       key: "HB",
       title: "Geben Sie die Steuernummer Ihres Grundstücks ein",
       description:
-        "Es handelt sich nicht um Ihre Steuernummer der Einkommenssteuer, Ihre Steuer-Identifikationsnummer oder das Kassenzeichen. Die Steuernummer Ihres Grundstücks finden Sie beispielsweise auf dem Informationsschreiben der Landesfinanzverwaltung. Zudem finden Sie Ihre Steuernummer auf Ihrem Einheitswertbescheid und für ein Grundstück in der Stadtgemeinde Bremen auch auf Ihrem letzten Grundsteuerbescheid.",
+        "Es handelt sich nicht um Ihre Steuernummer der Grunderwerbssteuer, Ihre Steuernummer der Einkommenssteuer, Ihre Steuer-Identifikationsnummer oder das Kassenzeichen. Die Steuernummer Ihres Grundstücks finden Sie beispielsweise auf dem Informationsschreiben der Landesfinanzverwaltung. Zudem finden Sie Ihre Steuernummer auf Ihrem Einheitswertbescheid und für ein Grundstück in der Stadtgemeinde Bremen auch auf Ihrem letzten Grundsteuerbescheid.",
       hint: "Ihre Steuernummer des Grundstücks besteht aus 10 Ziffern und beginnt mit 57 oder 77.",
       invalidValue: "56/700/01234",
       error:
@@ -39,7 +39,7 @@ describe("/grundstueck/steuernummer", () => {
       key: "SH",
       title: "Geben Sie die Steuernummer Ihres Grundstücks ein",
       description:
-        "Es handelt sich nicht um Ihre Steuernummer der Einkommenssteuer, Ihre Steuer-Identifikationsnummer oder das Kassenzeichen. Die Steuernummer Ihres Grundstücks finden Sie beispielsweise auf dem Informationsschreiben des Bundeslandes Schleswig-Holstein zur Grundsteuerreform oder auf dem Grundsteuerbescheid.",
+        "Es handelt sich nicht um Ihre Steuernummer der Grunderwerbssteuer, Ihre Steuernummer der Einkommenssteuer, Ihre Steuer-Identifikationsnummer oder das Kassenzeichen. Die Steuernummer Ihres Grundstücks finden Sie beispielsweise auf dem Informationsschreiben des Bundeslandes Schleswig-Holstein zur Grundsteuerreform oder auf dem Grundsteuerbescheid.",
       hint: "Ihre Steuernummer besteht immer aus 10 Ziffern und beginnt mit einer 7, 8 oder 9.",
       invalidValue: "60 123 45678",
       error:
