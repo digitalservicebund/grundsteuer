@@ -78,6 +78,7 @@ export type LoaderData = {
   allData: PruefenModel;
   i18n: I18nObject;
   backUrl: string | null;
+  isStartStep: boolean;
   isFinalStep: boolean;
   isSuccessStep: boolean;
   isFailureStep: boolean;
@@ -104,7 +105,7 @@ const redirectIfStateNotReachable = (
 ) => {
   if (!state) {
     return resetFlow();
-  } else if (state.value != currentStateFromUrl) {
+  } else if (state.value !== currentStateFromUrl) {
     const reachablePaths = getReachablePathsFromPruefenData(state.context);
     if (!reachablePaths.includes(currentStateFromUrl)) {
       return resetFlow();
@@ -133,9 +134,10 @@ export const loader: LoaderFunction = async ({
     testFeaturesEnabled: testFeaturesEnabled(),
   });
   const isFinalStep =
-    machine.getStateNodeByPath(currentStateFromUrl).type == "final";
-  const isSuccessStep = isFinalStep && currentStateFromUrl == SUCCESS_STEP;
-  const isFailureStep = isFinalStep && currentStateFromUrl == FAILURE_STEP;
+    machine.getStateNodeByPath(currentStateFromUrl).type === "final";
+  const isSuccessStep = isFinalStep && currentStateFromUrl === SUCCESS_STEP;
+  const isFailureStep = isFinalStep && currentStateFromUrl === FAILURE_STEP;
+  const isStartStep = currentStateFromUrl === START_STEP;
   const backUrl = getBackUrl({
     machine,
     currentStateWithoutId: currentStateFromUrl,
@@ -154,6 +156,7 @@ export const loader: LoaderFunction = async ({
       allData: storedFormData,
       i18n: await getStepI18n(currentStateFromUrl, {}, "default", PREFIX),
       backUrl,
+      isStartStep,
       isFinalStep,
       isSuccessStep,
       isFailureStep,
@@ -327,6 +330,12 @@ export function Step() {
                             {i18n.common.back}
                           </Button>
                         )}
+                        {loaderData?.isStartStep &&
+                          !loaderData.weitereErklaerung && (
+                            <Button to="/" look="secondary">
+                              Zur Startseite
+                            </Button>
+                          )}
                       </>
                     )}
                     {loaderData?.isFinalStep && (
