@@ -102,6 +102,8 @@ jobs:
           EKONA_ENC_KEY: "${{ secrets.EKONA_ENC_KEY }}"
           EKONA_SIGNING_KEY: "${{ secrets.EKONA_SIGNING_KEY }}"
           REDIS_URL: redis://localhost:6380/0
+          USEID_DOMAIN: "https://useid.dev.ds4g.net/"
+          USE_USE_ID: true
           NO_COLOR: 1
         run: |
           npm run test:e2e | tee webapp-e2e-test-report.log
