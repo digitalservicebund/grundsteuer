@@ -456,7 +456,7 @@
       "fields": {
         "baujahr": {
           "label": "Baujahr",
-          "placeholder": "JJJJ",
+          "placeholder": "zum Beispiel: 1932",
           "help": "Sollten Sie das Baujahr in Ihren Unterlagen nicht finden, können Sie es in der Bauakte beim Bauamt, Grundbuchamt, Bauarchiv, Stadt- oder Landesarchiv der jeweiligen Gemeinde nachsehen oder erfragen. Das Jahr der Fertigstellung gilt als Baujahr. Tragen Sie bitte immer das Jahr der erstmaligen Bezugsfertigkeit ein, auch wenn das Gebäude später durch Anbauten oder Aufstockungen erweitert wurde."
         }
       }
@@ -485,7 +485,7 @@
       "fields": {
         "kernsanierungsjahr": {
           "label": "Jahr der Kernsanierung",
-          "placeholder": "JJJJ",
+          "placeholder": "zum Beispiel: 1983",
           "help": "Angaben zum Jahr der Kernsanierung finden Sie ggf. im Kaufvertrag oder in Niederschriften der Eigentümerversammlungen. Vielleicht können Ihnen auch die Voreigentümer:innen oder die Hausverwaltung Auskunft geben."
         }
       }
@@ -514,7 +514,7 @@
       "fields": {
         "abbruchverpflichtungsjahr": {
           "label": "Jahr der Abbruchverpflichtung",
-          "placeholder": "JJJJ"
+          "placeholder": "zum Beispiel: 2024"
         }
       }
     },
