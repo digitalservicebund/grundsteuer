@@ -609,8 +609,11 @@ export default function FaqAccordion() {
       content: (
         <>
           <p>
-            Sie können Ihre Grundsteuererklärung bis zum 31. Oktober 2022
-            abgeben.
+            Die Abgabefrist läuft nach derzeitigem Stand bis zum 31. Januar
+            2023.
+            <br />
+            Die Länder werden die rechtzeitige und vollständige Erklärungsabgabe
+            mit weiteren Informationen unterstützen.
           </p>
         </>
       ),
