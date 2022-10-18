@@ -576,7 +576,7 @@
               "label": "Nein, ich habe keine Garagen"
             },
             "true": {
-              "label": "Ja, ich bin Eingetümer:in einer oder mehrerer Garagen"
+              "label": "Ja, ich bin Eigentümer:in einer oder mehrerer Garagen"
             }
           }
         }
