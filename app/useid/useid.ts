@@ -8,8 +8,8 @@ const getUseIdApi = () => {
     invariant(process.env.USEID_API_KEY, "USEID_API_KEY is not set.");
     invariant(process.env.USEID_DOMAIN, "USEID_DOMAIN is not set.");
     useIdAPIConnection = new UseIdAPI(
-      process.env.USEID_API_KEY as string,
-      process.env.USEID_DOMAIN as string
+      process.env.USEID_API_KEY,
+      process.env.USEID_DOMAIN
     );
   }
   return useIdAPIConnection;
@@ -30,7 +30,7 @@ const getTcTokenUrl = async () => {
 
 // Only exporting for testing purposes. Use getIdentityData instead.
 export const getIdentity = async (sessionId: string) => {
-  return await getUseIdApi().getIdentity(sessionId);
+  return getUseIdApi().getIdentity(sessionId);
 };
 
 const getIdentityData = async (sessionId: string) => {

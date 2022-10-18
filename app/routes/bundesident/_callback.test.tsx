@@ -47,7 +47,7 @@ describe("Loader", () => {
     };
 
     beforeAll(() => {
-      useidModule.useId.getIdentityData = (sessionId) =>
+      useidModule.useId.getIdentityData = () =>
         Promise.resolve(correctUseIdData);
     });
 
