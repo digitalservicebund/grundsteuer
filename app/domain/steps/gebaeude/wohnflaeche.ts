@@ -9,7 +9,9 @@ export const gebaeudeWohnflaeche: StepDefinition = {
     wohnflaeche: {
       validations: {
         required: {},
-        onlyDecimal: {},
+        onlyDecimal: {
+          msg: "Darf nur Ziffern enthalten. Runden Sie die Flächenangabe auf oder ab.",
+        },
         noZero: {},
         maxLength: {
           maxLength: 6,
