@@ -492,7 +492,7 @@
     },
     "abbruchverpflichtung": {
       "headline": "Liegt eine Abbruchverpflichtung für das Gebäude vor?",
-      "description": "Beispiele wären hier, wenn ein Gebäude nach einer Naturkatastrophe nicht mehr kernsaniert werden kann und eine Behörde den Abbruch angeordnet hat. In diesem Fall haben Sie ein Schreiben von der Behörde bekommen.",
+      "description": "Eine Abbruchverpflichtung liegt vor, wenn ein Gebäude nach einer Naturkatastrophe nicht mehr kernsaniert werden kann und eine Behörde den Abbruch angeordnet hat. Dies kann auch angeordnet werden, wenn auf Ihrem Grundstück widerrechtlich ein Gebäude errichtet wurde oder das Gebäude einsturzgefährdet ist.",
       "fields": {
         "hasAbbruchverpflichtung": {
           "options": {
