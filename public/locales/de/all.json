@@ -600,6 +600,9 @@
         "anzahl": {
           "label": "Anzahl Eigentümer:innen",
           "options": {
+            "default": {
+              "label": "Anzahl auswählen"
+            },
             "1": {
               "label": "1 Eigentümer:in"
             },
