@@ -157,7 +157,6 @@ export default function Anmelden() {
                 name="email"
                 label="E-Mail-Adresse"
                 error={t(errors?.email)}
-                className="mb-80"
               />
             </div>
             <Button
