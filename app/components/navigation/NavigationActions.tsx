@@ -35,14 +35,16 @@ export default function NavigationActions(props: {
           >
             Identifikation
           </NavigationLink>
-          <NavigationLink
-            to="/formular/zusammenfassung"
-            icon={<EmailOutlinedIcon className="w-24 h-24 fill-blue-800" />}
-            isAllCaps
-            isActive={!!currentLocation.match(/\/formular\/zusammenfassung/)}
-          >
-            Übersicht & Abgeben
-          </NavigationLink>
+          {!currentLocation.match(/anmelden\/erfolgreich/) && (
+            <NavigationLink
+              to="/formular/zusammenfassung"
+              icon={<EmailOutlinedIcon className="w-24 h-24 fill-blue-800" />}
+              isAllCaps
+              isActive={!!currentLocation.match(/\/formular\/zusammenfassung/)}
+            >
+              Übersicht & Abgeben
+            </NavigationLink>
+          )}
         </>
       )}
       {props.userHasFinishedProcess && (
