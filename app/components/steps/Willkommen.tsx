@@ -46,7 +46,7 @@ const Willkommen: StepComponentFunction = () => {
           </p>
         </UebersichtStep>
       </ContentContainer>
-      <div className="flex flex-col flex-grow-0 lg:flex-row mb-96">
+      <div className="flex flex-col gap-y-64 flex-grow-0 lg:flex-row mb-96">
         <div>
           <img
             src={datenstammblat}
