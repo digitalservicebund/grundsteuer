@@ -11,7 +11,7 @@ export const gebaeudeKernsaniert: StepDefinition = {
       validations: {
         required: { msg: "Bitte treffen Sie eine Auswahl" },
       },
-      options: [{ value: "true" }, { value: "false" }],
+      options: [{ value: "false" }, { value: "true" }],
     },
   },
 };
