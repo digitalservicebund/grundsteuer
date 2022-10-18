@@ -463,7 +463,7 @@
     },
     "kernsaniert": {
       "headline": "Wurde das Gebäude kernsaniert?",
-      "description": "Kernsaniert wird relativ selten — meistens liegt eher eine Sanierung oder Modernisierung vor. Bei der Kernsaniserung eines Gebäudes wird alles bis auf die Grundmauern entfernt und komplett erneuert. Die Entfernung von Schimmel oder einen nassen Keller trocken legen, gilt hingegen als Sanierung.",
+      "description": "Kernsaniert wird relativ selten — meistens liegt eher eine Sanierung oder Modernisierung vor. Bei der Kernsaniserung eines Gebäudes wird alles bis auf die Grundmauern entfernt und komplett erneuert. Die Entfernung von Schimmel oder einen nassen Keller trockenlegen, gilt hingegen als Sanierung.",
       "fields": {
         "isKernsaniert": {
           "options": {
