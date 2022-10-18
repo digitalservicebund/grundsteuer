@@ -10,6 +10,9 @@ import OnlyMobileDisclaimer from "~/components/OnlyMobileDisclaimer";
 import { deviceDetect } from "react-device-detect";
 import { useEffect, useState } from "react";
 import EnableJsDisclaimer from "~/components/EnableJsDisclaimer";
+import { applyRateLimit } from "~/redis/rateLimiting.server";
+import RateLimitExceeded from "~/components/RateLimitExceeded";
+import { Feature } from "~/redis/redis.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifizieren Sie sich mit Ihrem Ausweis") };
@@ -36,6 +39,14 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (user.identified) {
     return redirect("/formular");
   }
+
+  if (!(await applyRateLimit(Feature.BUNDES_IDENT_RATE_LIMIT))) {
+    console.log(
+      "BundesIdent rate limit exceeded at " + new Date().toISOString()
+    );
+    return { rateLimitExceeded: true, isMobile: isMobileUserAgent(request) };
+  }
+
   const tcTokenUrl = await useId.getTcTokenUrl();
   invariant(tcTokenUrl, "Expected to receive a tcTokenUrl from useId");
   console.log("Started bundesIdent flow");
@@ -53,7 +64,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function BundesidIndex() {
-  const { tcTokenUrl, useIdDomain, host, isMobile } = useLoaderData();
+  const { tcTokenUrl, useIdDomain, host, isMobile, rateLimitExceeded } =
+    useLoaderData();
   if (!isMobile) {
     return <OnlyMobileDisclaimer />;
   }
@@ -65,6 +77,10 @@ export default function BundesidIndex() {
 
   if (!isJavaScriptEnabled) {
     return <EnableJsDisclaimer />;
+  }
+
+  if (rateLimitExceeded) {
+    return <RateLimitExceeded service="BundesIdent" />;
   }
 
   return (

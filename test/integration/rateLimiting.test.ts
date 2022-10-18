@@ -14,12 +14,15 @@ describe("addUserToCurrentLimit", () => {
 
   beforeEach(async () => {
     await redis.del(Feature.RATE_LIMIT, mockedCurrentSeconds);
+    await redis.del(Feature.BUNDES_IDENT_RATE_LIMIT, mockedCurrentSeconds);
   });
 
   afterAll(async () => {
     await redis.del(Feature.RATE_LIMIT, mockedCurrentSeconds);
+    await redis.del(Feature.BUNDES_IDENT_RATE_LIMIT, mockedCurrentSeconds);
     jest.resetAllMocks();
   });
+
   describe("when called once per second", () => {
     it("should return true", async () => {
       expect(await applyRateLimit(Feature.RATE_LIMIT)).toBe(true);
@@ -48,6 +51,43 @@ describe("addUserToCurrentLimit", () => {
     it("should return false if called twice", async () => {
       await applyRateLimit(Feature.RATE_LIMIT);
       expect(await applyRateLimit(Feature.RATE_LIMIT)).toBe(false);
+    });
+  });
+
+  describe("when called with multiple features", () => {
+    beforeEach(async () => {
+      await applyRateLimit(Feature.RATE_LIMIT);
+      await applyRateLimit(Feature.RATE_LIMIT);
+      await applyRateLimit(Feature.BUNDES_IDENT_RATE_LIMIT);
+      await applyRateLimit(Feature.BUNDES_IDENT_RATE_LIMIT);
+    });
+
+    it("should return true if called once with feature 1", async () => {
+      expect(await applyRateLimit(Feature.RATE_LIMIT)).toBe(true);
+    });
+
+    it("should return true if called once with feature 2", async () => {
+      expect(await applyRateLimit(Feature.BUNDES_IDENT_RATE_LIMIT)).toBe(true);
+    });
+  });
+
+  describe("when already called four times with multiple features", () => {
+    beforeEach(async () => {
+      await applyRateLimit(Feature.BUNDES_IDENT_RATE_LIMIT);
+      await applyRateLimit(Feature.BUNDES_IDENT_RATE_LIMIT);
+      await applyRateLimit(Feature.RATE_LIMIT);
+      await applyRateLimit(Feature.RATE_LIMIT);
+      await applyRateLimit(Feature.BUNDES_IDENT_RATE_LIMIT);
+      await applyRateLimit(Feature.BUNDES_IDENT_RATE_LIMIT);
+    });
+
+    it("should return true if called once again", async () => {
+      expect(await applyRateLimit(Feature.BUNDES_IDENT_RATE_LIMIT)).toBe(true);
+    });
+
+    it("should return false if called twice", async () => {
+      await applyRateLimit(Feature.BUNDES_IDENT_RATE_LIMIT);
+      expect(await applyRateLimit(Feature.BUNDES_IDENT_RATE_LIMIT)).toBe(false);
     });
   });
 });
