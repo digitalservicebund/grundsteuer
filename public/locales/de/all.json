@@ -1145,12 +1145,10 @@
         "innerhalbEinerGemeinde": {
           "options": {
             "true": {
-              "label": "Ja, es liegt innerhalb einer Gemeinde",
-              "help": "In der Regel liegen Grundstücke innerhalb einer Gemeinde."
+              "label": "Ja, es liegt innerhalb einer Gemeinde"
             },
             "false": {
-              "label": "Nein, es läuft über mehrere Gemeindegrenzen",
-              "help": "Liegt ihr Grundstück auf der Gemeindegrenze, dann bestätigen Sie dieses Feld."
+              "label": "Nein, es läuft über mehrere Gemeindegrenzen"
             }
           }
         }
