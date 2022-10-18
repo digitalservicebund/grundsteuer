@@ -49,10 +49,12 @@ import {
 import { commitSession, getSession } from "~/session.server";
 import { HomepageHeader } from "~/components/navigation/HomepageHeader";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
+import { useEffect, useState } from "react";
 
 const PREFIX = "pruefen";
 const START_STEP = "start";
 const SUCCESS_STEP = "nutzung";
+const FAILURE_STEP = "keineNutzung";
 
 export const getMachine = ({
   formData,
@@ -78,6 +80,7 @@ export type LoaderData = {
   backUrl: string | null;
   isFinalStep: boolean;
   isSuccessStep: boolean;
+  isFailureStep: boolean;
   currentState: string;
   weitereErklaerung: boolean;
   stepDefinition: StepDefinition;
@@ -132,6 +135,7 @@ export const loader: LoaderFunction = async ({
   const isFinalStep =
     machine.getStateNodeByPath(currentStateFromUrl).type == "final";
   const isSuccessStep = isFinalStep && currentStateFromUrl == SUCCESS_STEP;
+  const isFailureStep = isFinalStep && currentStateFromUrl == FAILURE_STEP;
   const backUrl = getBackUrl({
     machine,
     currentStateWithoutId: currentStateFromUrl,
@@ -152,6 +156,7 @@ export const loader: LoaderFunction = async ({
       backUrl,
       isFinalStep,
       isSuccessStep,
+      isFailureStep,
       currentState: currentStateFromUrl,
       weitereErklaerung: !!new URL(request.url).searchParams.get(
         "weitereErklaerung"
@@ -248,6 +253,12 @@ export function Step() {
     "type" in firstFieldDefinition &&
     firstFieldDefinition.type === "radio";
 
+  const [isJavaScriptEnabled, setIsJavaScriptEnabled] = useState(false);
+
+  useEffect(() => {
+    setIsJavaScriptEnabled(true);
+  });
+
   return (
     <>
       <main className="flex-grow mb-56">
@@ -340,9 +351,23 @@ export function Step() {
                               {nextButtonLabel}
                             </Button>
                           )}
-                        <Button to="/" look="secondary">
+                        <Button
+                          to="/"
+                          look={
+                            loaderData?.isFailureStep ? "ghost" : "secondary"
+                          }
+                        >
                           {i18n.common.backToHomepage}
                         </Button>
+                        {loaderData?.isFailureStep && isJavaScriptEnabled && (
+                          <Button
+                            href="#"
+                            onClick={() => history.back()}
+                            look="secondary"
+                          >
+                            {i18n.common.back}
+                          </Button>
+                        )}
                       </>
                     )}
                   </ButtonContainer>
