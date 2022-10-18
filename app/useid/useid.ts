@@ -28,7 +28,8 @@ const getTcTokenUrl = async () => {
   return useIdResponse.tcTokenUrl;
 };
 
-const getIdentity = async (sessionId: string) => {
+// Only exporting for testing purposes. Use getIdentityData instead.
+export const getIdentity = async (sessionId: string) => {
   return await getUseIdApi().getIdentity(sessionId);
 };
 
