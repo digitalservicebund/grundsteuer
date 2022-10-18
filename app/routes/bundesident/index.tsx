@@ -96,12 +96,14 @@ export default function BundesidIndex() {
         Identifizieren Sie sich mit Ihrem Ausweis und der BundesIdent App
       </Headline>
 
-      <iframe
-        src={`${useIdDomain}/widget?hostname=${host}#tcTokenURL=${encodeURIComponent(
-          tcTokenUrl
-        )}`}
-        style={{ width: "100%", minHeight: "500px" }}
-      />
+      <div className="h-[500px]">
+        <iframe
+          src={`${useIdDomain}/widget?hostname=${host}#tcTokenURL=${encodeURIComponent(
+            tcTokenUrl
+          )}`}
+          style={{ width: "100%", height: "100%" }}
+        />
+      </div>
       <ButtonContainer className="mt-24">
         <Button look={"secondary"} to="/bundesident/disclaimer">
           Zurück zur Voraussetzung
