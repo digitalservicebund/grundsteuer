@@ -463,14 +463,14 @@ export default function FscEingeben() {
           </Button>
         </ButtonContainer>
       </Form>
-      <h2 className="mt-80 mb-32 text-24 font-bold">
+      <h2 className="mt-80 mb-16 text-24 font-bold">
         Keinen Freischaltcode erhalten?
       </h2>
-      <p className="mb-32">
+      <p className="mb-8">
         Zwei Wochen sind um und Sie haben noch keinen Brief mit dem
         Freischaltcode erhalten?
       </p>
-      <div className="flex items-center mb-48">
+      <div className="flex items-center mb-32">
         <ArrowRight className="inline-block mr-16" />
         <a
           href="/fsc/neuBeantragen?index"
@@ -479,7 +479,7 @@ export default function FscEingeben() {
           Freischaltcode neu beantragen
         </a>
       </div>
-      <p className="mb-32">
+      <p className="mb-8">
         Personen mit einem ELSTER Konto erhalten in der Regel keinen Brief mit
         einem Freischaltcode. Sie können Ihre ELSTER Zugangsdaten nutzen, um
         sich zu identifizieren.
