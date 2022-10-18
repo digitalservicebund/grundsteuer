@@ -360,15 +360,12 @@ export function Step() {
                               {nextButtonLabel}
                             </Button>
                           )}
-                        <Button
-                          to="/"
-                          look={
-                            loaderData?.isFailureStep ? "ghost" : "secondary"
-                          }
-                        >
-                          {i18n.common.backToHomepage}
-                        </Button>
-                        {loaderData?.isFailureStep && isJavaScriptEnabled && (
+                        {loaderData?.isFailureStep && (
+                          <Button to="/" look="ghost">
+                            {i18n.common.backToHomepage}
+                          </Button>
+                        )}
+                        {isJavaScriptEnabled && (
                           <Button
                             href="#"
                             onClick={() => history.back()}
