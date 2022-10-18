@@ -439,12 +439,10 @@
         "isAb1949": {
           "options": {
             "false": {
-              "label": "Vor 1949",
-              "help": "Das Baujahr finden Sie in der Regel im Kaufvertrag oder in der Bauakte beim Bauamt."
+              "label": "Vor 1949"
             },
             "true": {
-              "label": "Ab 1949",
-              "help": "Bei Eigentumswohnungen geht es hier um das Baujahr des ganzen Mehrfamilienhauses. Wenn Sie dieses nicht kennen, schauen Sie im Kaufvertrag nach oder fragen Sie Ihre Hausverwaltung."
+              "label": "Ab 1949"
             }
           }
         }
@@ -497,12 +495,10 @@
         "hasAbbruchverpflichtung": {
           "options": {
             "false": {
-              "label": "Nein, es liegt keine Abbruchverpflichtung vor",
-              "help": "Sie haben kein Schreiben mit einer Abbruchverpflichtung erhalten."
+              "label": "Nein, es liegt keine Abbruchverpflichtung vor"
             },
             "true": {
-              "label": "Ja, es liegt eine Abbruchverpflichtung vor",
-              "help": "Ob das Gebäude abgerissen werden muss, wird behördlich angeordnet. Zum Beispiel, wenn auf Ihrem Grundstück widerrechtlich ein Gebäude errichtet wurde oder das Gebäude einsturzgefährdet ist."
+              "label": "Ja, es liegt eine Abbruchverpflichtung vor"
             }
           }
         }
