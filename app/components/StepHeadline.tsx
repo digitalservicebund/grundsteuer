@@ -45,6 +45,7 @@ export function StepHeadline({
           <Trans
             components={{
               bold: <strong />,
+              break: <br />,
             }}
           >
             {descriptionText}

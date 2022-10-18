@@ -434,7 +434,7 @@
     },
     "ab1949": {
       "headline": "Wann wurde das Gebäude gebaut?",
-      "description": "Mit dem Baujahr ist das Jahr gemeint, in dem das Gebäude erstmals bezugsfertig wurde. Ein Gebäude ist bezugsfertig, sobald es bestimmungsgemäß genutzt werden kann. Eine Abnahme durch die Bauaufsichtsbehörde ist dabei nicht entscheidend.",
+      "description": "Mit dem Baujahr ist das Jahr gemeint, in dem das Gebäude erstmals bezugsfertig wurde – sobald man darin wohnen kann. Eine Abnahme durch die Bauaufsichtsbehörde ist dabei nicht entscheidend.<break/>Bei Eigentumswohnungen geht es um das Baujahr des ganzen Mehrfamilienhauses. Wenn Sie dieses nicht kennen, schauen Sie im Kaufvertrag oder der Bauakte nach oder fragen Sie Ihre Hausverwaltung.",
       "fields": {
         "isAb1949": {
           "options": {
