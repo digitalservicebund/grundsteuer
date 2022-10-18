@@ -1159,7 +1159,7 @@
     },
     "anzahl": {
       "headline": "Wie viele Flurstücke umfasst Ihr Grundstück?",
-      "description": "Schauen Sie dazu auf die Seite “Bestandsverzeichnis” Ihres Grundbuchauszugs und zählen Sie die Einträge durch.",
+      "description": "Die Anzahl der Flurstücke entnehmen Sie dem Grundbuchauszug oder dem Datenstammblatt. In Ihrem Grundbuchauszug entspricht in der Regel jede Zeile einem Flurstück.",
       "hint": "<underline>Unterstrichene Zeilen</underline> im Grundbuchauszug bedeuten, dass diese Einträge <bold>nicht</bold> mehr gültig sind. Diese werden nicht mitgezählt.",
       "fields": {
         "anzahl": {
