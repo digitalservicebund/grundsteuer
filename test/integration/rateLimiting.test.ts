@@ -1,4 +1,4 @@
-import { applyRateLimit } from "~/ekona/rateLimiting.server";
+import { applyRateLimit } from "~/redis/rateLimiting.server";
 import { Feature, redis } from "~/redis/redis.server";
 
 describe("addUserToCurrentLimit", () => {
@@ -22,11 +22,11 @@ describe("addUserToCurrentLimit", () => {
   });
   describe("when called once per second", () => {
     it("should return true", async () => {
-      expect(await applyRateLimit()).toBe(true);
+      expect(await applyRateLimit(Feature.RATE_LIMIT)).toBe(true);
     });
 
     it("should set expiry", async () => {
-      await applyRateLimit();
+      await applyRateLimit(Feature.RATE_LIMIT);
       const ttl = await redis.ttl(Feature.RATE_LIMIT, mockedCurrentSeconds);
       expect(ttl).toBeGreaterThan(0);
       expect(ttl).toBeLessThan(60);
@@ -35,19 +35,19 @@ describe("addUserToCurrentLimit", () => {
 
   describe("when already called four times per second", () => {
     beforeEach(async () => {
-      await applyRateLimit();
-      await applyRateLimit();
-      await applyRateLimit();
-      await applyRateLimit();
+      await applyRateLimit(Feature.RATE_LIMIT);
+      await applyRateLimit(Feature.RATE_LIMIT);
+      await applyRateLimit(Feature.RATE_LIMIT);
+      await applyRateLimit(Feature.RATE_LIMIT);
     });
 
     it("should return true if called once", async () => {
-      expect(await applyRateLimit()).toBe(true);
+      expect(await applyRateLimit(Feature.RATE_LIMIT)).toBe(true);
     });
 
     it("should return false if called twice", async () => {
-      await applyRateLimit();
-      expect(await applyRateLimit()).toBe(false);
+      await applyRateLimit(Feature.RATE_LIMIT);
+      expect(await applyRateLimit(Feature.RATE_LIMIT)).toBe(false);
     });
   });
 });

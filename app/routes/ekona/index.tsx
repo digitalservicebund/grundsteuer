@@ -19,8 +19,9 @@ import {
 } from "~/ekona/ekonaCookie.server";
 import { authenticator } from "~/auth.server";
 import { pageTitle } from "~/util/pageTitle";
-import { applyRateLimit } from "~/ekona/rateLimiting.server";
+import { applyRateLimit } from "~/redis/rateLimiting.server";
 import RateLimitExceeded from "~/components/RateLimitExceeded";
+import { Feature } from "~/redis/redis.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation mit Elster") };
@@ -35,7 +36,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/formular");
   }
 
-  if (!(await applyRateLimit())) {
+  if (!(await applyRateLimit(Feature.RATE_LIMIT))) {
     console.log("Ekona rate limit exceeded at " + new Date().toISOString());
     return { rateLimitExceeded: true };
   }
