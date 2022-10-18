@@ -337,7 +337,7 @@ export function Step() {
           </>
         )}
         <ContentContainer size="sm-md">
-          <ButtonContainer className="input-width">
+          <ButtonContainer className="input-width" singleButton={!backUrl}>
             <Button
               id="nextButton"
               className={backUrl ? "" : "flex-grow-0"}
