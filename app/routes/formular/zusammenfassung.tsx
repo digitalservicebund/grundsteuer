@@ -479,19 +479,17 @@ export default function Zusammenfassung() {
             </div>
           )}
 
-          <ContentContainer size="sm-md">
-            <h2 className="mb-24 mt-48 text-24 leading-30">
-              {i18n.specifics.confirmationHeading}
-            </h2>
-            <p className="mb-16">{i18n.specifics.confirmationText}</p>
-            <p className="font-bold mb-32">{i18n.specifics.pdfDisclaimer}</p>
-          </ContentContainer>
-          <ContentContainer size="sm-md" className="bg-white p-16 mb-16">
+          <h2 className="mb-24 mt-48 text-24 leading-30">
+            {i18n.specifics.confirmationHeading}
+          </h2>
+          <p className="mb-16">{i18n.specifics.confirmationText}</p>
+          <p className="font-bold mb-32">{i18n.specifics.pdfDisclaimer}</p>
+          <div className="bg-white p-16 mb-16">
             <StepFormField {...fieldProps[1]}>
               {i18n.fields.confirmCompleteCorrect.label}
             </StepFormField>
-          </ContentContainer>
-          <ContentContainer size="sm-md" className="bg-white p-16 mb-16">
+          </div>
+          <div className="bg-white p-16 mb-16">
             <StepFormField {...{ ...fieldProps[2] }}>
               <Trans
                 components={{
@@ -514,8 +512,8 @@ export default function Zusammenfassung() {
                 {i18n.fields.confirmDataPrivacy.label}
               </Trans>
             </StepFormField>
-          </ContentContainer>
-          <ContentContainer size="sm-md" className="bg-white p-16 mb-80">
+          </div>
+          <div className="bg-white p-16 mb-80">
             <StepFormField {...fieldProps[3]}>
               <Trans
                 components={{
@@ -531,7 +529,7 @@ export default function Zusammenfassung() {
                 {i18n.fields.confirmTermsOfUse.label}
               </Trans>
             </StepFormField>
-          </ContentContainer>
+          </div>
           <Button
             id="nextButton"
             disabled={!isIdentified || isSubmitting}
