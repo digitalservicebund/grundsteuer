@@ -12,7 +12,7 @@ import { loader, action } from "~/routes/fsc/beantragen/index";
 import * as csrfModule from "~/util/csrf";
 import { mockActionArgs } from "testUtil/mockActionArgs";
 import { DataFunctionArgs } from "@remix-run/node";
-import { redis } from "~/redis.server";
+import { redis } from "~/redis/redis.server";
 
 describe("Loader", () => {
   const expectedTransferticket = "foo12345";

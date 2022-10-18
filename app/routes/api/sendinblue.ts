@@ -1,7 +1,7 @@
 import { ActionFunction, json, LoaderFunction } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import ipRangeCheck from "ip-range-check";
-import { Feature, redis } from "~/redis.server";
+import { Feature, redis } from "~/redis/redis.server";
 import * as crypto from "crypto";
 
 // outgoing webhook requests from Sendinblue will be sent from these ranges:

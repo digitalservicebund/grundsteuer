@@ -8,7 +8,7 @@ import {
   LoggedOutLayout,
 } from "~/components";
 import { getStatus, getUiStatus } from "~/email.server";
-import { Feature, redis } from "~/redis.server";
+import { Feature, redis } from "~/redis/redis.server";
 import { pageTitle } from "~/util/pageTitle";
 
 export const meta: MetaFunction = () => {

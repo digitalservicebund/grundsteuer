@@ -1,5 +1,5 @@
 import { applyRateLimit } from "~/ekona/rateLimiting.server";
-import { Feature, redis } from "~/redis.server";
+import { Feature, redis } from "~/redis/redis.server";
 
 describe("addUserToCurrentLimit", () => {
   const currentDate = Date.UTC(2022, 0, 1, 0, 0, 12);

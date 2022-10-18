@@ -1,4 +1,4 @@
-import { Feature, redis } from "~/redis.server";
+import { Feature, redis } from "~/redis/redis.server";
 
 const incrementCurrentLimit = async () => {
   const currentSecond = new Date().getSeconds().toString();

@@ -1,4 +1,4 @@
-import { Feature, getClient, redis } from "~/redis.server";
+import { Feature, getClient, redis } from "~/redis/redis.server";
 
 describe("redis wrapper", () => {
   const rawClient = getClient();

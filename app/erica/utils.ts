@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant";
 import { validateIsDate } from "~/domain/validation/dateValidation";
-import { Feature, redis } from "~/redis.server";
+import { Feature, redis } from "~/redis/redis.server";
 
 type EricaResponse = {
   processStatus: "Processing" | "Success" | "Failure";

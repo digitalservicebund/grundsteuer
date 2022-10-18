@@ -9,7 +9,7 @@ import {
   saveFscRequest,
 } from "~/domain/user";
 import { db } from "~/db.server";
-import { Feature, redis } from "~/redis.server";
+import { Feature, redis } from "~/redis/redis.server";
 import { PRIVATE_KEY } from "test/integration/auditLog.test";
 import { decryptData } from "~/audit/crypto";
 import { AuditLogEvent } from "~/audit/auditLog";

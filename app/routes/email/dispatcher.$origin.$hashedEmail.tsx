@@ -1,6 +1,6 @@
 import { LoaderFunction, redirect } from "@remix-run/node";
 import invariant from "tiny-invariant";
-import { Feature, redis } from "~/redis.server";
+import { Feature, redis } from "~/redis/redis.server";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

@@ -11,7 +11,7 @@ import * as csrfModule from "~/util/csrf";
 import SpyInstance = jest.SpyInstance;
 import { DataFunctionArgs } from "@remix-run/node";
 import * as lifecycleModule from "~/domain/lifecycleEvents.server";
-import { redis } from "~/redis.server";
+import { redis } from "~/redis/redis.server";
 
 describe("Loader", () => {
   beforeAll(async () => {

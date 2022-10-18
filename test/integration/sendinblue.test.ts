@@ -5,7 +5,7 @@ import {
   hashMessageId,
   StatusEvent,
 } from "~/routes/api/sendinblue";
-import { Feature, redis } from "~/redis.server";
+import { Feature, redis } from "~/redis/redis.server";
 import { mockActionArgs } from "testUtil/mockActionArgs";
 import * as crypto from "crypto";
 

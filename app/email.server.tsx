@@ -8,7 +8,7 @@ import {
   getEmailStatus,
   hashMessageId,
 } from "~/routes/api/sendinblue";
-import { Feature, redis } from "./redis.server";
+import { Feature, redis } from "./redis/redis.server";
 import * as crypto from "crypto";
 
 const SENDINBLUE_API_CONSIDERED_SLOW_MS = 2000;
