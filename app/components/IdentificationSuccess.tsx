@@ -32,8 +32,8 @@ export default function IdentificationSuccess(
 
         <IntroText className="mb-80">
           <p className="mb-24">
-            Damit konnte sichergestellt werden, das Sie die Person sind, die die
-            Grundsteuererklärung übermittelt. Sie können die vollständige
+            Damit konnte sichergestellt werden, dass Sie die Person sind, die
+            die Grundsteuererklärung übermittelt. Sie können die vollständige
             Erklärung nun jederzeit absenden.
           </p>
           <p>Hinweis:</p>
