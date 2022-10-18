@@ -19,3 +19,16 @@ export const getThrowingMockedFunction = (
       throw error;
     }) as jest.Mock
   );
+
+export const callWithMockedTime = async (
+  timestamp: number,
+  callback: () => void
+) => {
+  const actualNowImplementation = Date.now;
+  try {
+    Date.now = jest.fn(() => timestamp);
+    await callback();
+  } finally {
+    Date.now = actualNowImplementation;
+  }
+};

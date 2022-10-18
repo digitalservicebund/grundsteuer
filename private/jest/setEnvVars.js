@@ -3,6 +3,7 @@ process.env.AUDIT_PUBLIC_KEY =
 process.env.SESSION_COOKIE_SECRET = "s3cr3t";
 process.env.MAGIC_LINK_SECRET = "not_a_secret";
 process.env.TEST_FEATURES_ENABLED = "true";
+process.env.USE_USE_ID = "true";
 process.env.FORM_COOKIE_ENC_SECRET = "26d011bcbb9db8c4673b7fcd90c9ec6d";
 process.env.FORM_COOKIE_SECRET = "secret";
 process.env.HASHED_LOGGING_SALT = "$2a$10$7hclYwYcZY5qCfmedLQx/u";

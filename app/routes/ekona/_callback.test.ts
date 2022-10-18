@@ -3,6 +3,7 @@ import * as userModule from "~/domain/user";
 import * as samlServerModule from "~/ekona/saml.server";
 import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStornieren";
 import {
+  callWithMockedTime,
   getMockedFunction,
   getThrowingMockedFunction,
 } from "test/mocks/mockHelper";
@@ -14,15 +15,6 @@ import {
   getEkonaSession,
 } from "~/ekona/ekonaCookie.server";
 
-const callWithMockedTime = async (timestamp: number, callback: () => void) => {
-  const actualNowImplementation = Date.now;
-  try {
-    Date.now = jest.fn(() => timestamp);
-    await callback();
-  } finally {
-    Date.now = actualNowImplementation;
-  }
-};
 let userMock: jest.SpyInstance;
 
 describe("Action", () => {
