@@ -21,7 +21,7 @@ export default class ErrorBar extends React.Component<ErrorBarProps> {
       <div
         ref={this.rootRef}
         className={classNames(
-          "bg-red-200 border-l-[8px] border-l-red-900 pl-16 pr-32 py-16 mb-8 flex flex-row",
+          "bg-red-200 border-l-[8px] border-l-red-900 pl-16 pr-32 py-16 flex flex-row",
           this.props.className
         )}
       >

@@ -49,7 +49,7 @@ const Layout = ({
       </header>
       <div className="flex flex-col flex-grow">
         {banners?.ekonaDown && (
-          <ErrorBar heading={t("banners.ekonaDownHeading")}>
+          <ErrorBar heading={t("banners.ekonaDownHeading")} className="mb-8">
             {t("banners.ekonaDownBody")}
           </ErrorBar>
         )}
