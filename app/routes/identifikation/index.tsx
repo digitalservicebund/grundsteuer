@@ -23,6 +23,7 @@ import { useLoaderData } from "@remix-run/react";
 import Bolt from "~/components/icons/mui/Bolt";
 import { pageTitle } from "~/util/pageTitle";
 import { isMobileUserAgent } from "~/routes/bundesident/index";
+import { flags } from "~/flags.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation mit Ausweis") };
@@ -55,11 +56,12 @@ export const loader: LoaderFunction = async ({ request }) => {
   return {
     useUseId: process.env.USE_USE_ID == "true",
     isMobile: isMobileUserAgent(request),
+    ekonaDown: flags.isEkonaDown(),
   };
 };
 
 export default function IdentifikationIndex() {
-  const { useUseId, isMobile } = useLoaderData();
+  const { useUseId, isMobile, ekonaDown } = useLoaderData();
   return (
     <>
       <ContentContainer size="sm-md">
@@ -80,6 +82,7 @@ export default function IdentifikationIndex() {
           subheading="Empfohlen für Nutzer:innen mit einem ELSTER-Konto."
           text="Identifizieren Sie sich mit den Zugangsdaten für Ihr ELSTER‑Konto, um die Grundsteuererklärung abzuschicken."
           buttonLabel="Identifikation mit ELSTER-Konto"
+          buttonDisabled={ekonaDown}
           url="/ekona"
           className="mb-16"
         />
@@ -162,9 +165,13 @@ function IdentCard(props: {
   subheading?: string;
   text: ReactNode | string;
   buttonLabel: string;
+  buttonDisabled?: boolean;
   url: string;
   className?: string;
 }) {
+  const statusProps = props.buttonDisabled
+    ? { disabled: true }
+    : { to: props.url };
   return (
     <div
       className={classNames(
@@ -205,7 +212,7 @@ function IdentCard(props: {
                   look="primary"
                   size="medium"
                   className="w-full md:w-fit min-w-[248px]"
-                  to={props.url}
+                  {...statusProps}
                 >
                   {props.buttonLabel}
                 </Button>

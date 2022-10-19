@@ -22,6 +22,7 @@ import { pageTitle } from "~/util/pageTitle";
 import { applyRateLimit } from "~/redis/rateLimiting.server";
 import RateLimitExceeded from "~/components/RateLimitExceeded";
 import { Feature } from "~/redis/redis.server";
+import { flags } from "~/flags.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation mit Elster") };
@@ -34,6 +35,10 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   if (user.identified) {
     return redirect("/formular");
+  }
+
+  if (flags.isEkonaDown()) {
+    return { ekonaDown: true };
   }
 
   if (!(await applyRateLimit(Feature.RATE_LIMIT))) {
@@ -59,7 +64,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function EkonaIndex() {
-  const { context, entryPoint, rateLimitExceeded } = useLoaderData();
+  const { context, entryPoint, rateLimitExceeded, ekonaDown } = useLoaderData();
 
   if (rateLimitExceeded) {
     return <RateLimitExceeded service="ELSTER" />;
@@ -79,7 +84,7 @@ export default function EkonaIndex() {
         <form method="post" action={entryPoint}>
           <input type="hidden" name="SAMLRequest" value={context} />
           <ButtonContainer>
-            <Button data-testid="submit" type="submit">
+            <Button data-testid="submit" type="submit" disabled={ekonaDown}>
               Zur Identifikation mit ELSTER-Konto
             </Button>
             <Button look="secondary" to="/identifikation">

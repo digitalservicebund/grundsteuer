@@ -3,13 +3,17 @@ import {
   Footer,
   Layout,
   Main,
+  NavigationActions,
   SidebarNavigation,
   TopNavigation,
-  NavigationActions,
 } from "~/components";
 import LogoutMenu from "~/components/navigation/LogoutMenu";
+import { Banners } from "~/components/layout/Layout";
 
-export default function UserLayout(props: { children: ReactNode }) {
+export default function UserLayout(props: {
+  children: ReactNode;
+  banners?: Banners;
+}) {
   return (
     <Layout
       footer={<Footer />}
@@ -21,6 +25,7 @@ export default function UserLayout(props: { children: ReactNode }) {
           statusClasses="mb-8"
         />
       }
+      banners={props.banners}
     >
       <Main>{props.children}</Main>
     </Layout>

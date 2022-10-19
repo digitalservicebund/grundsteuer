@@ -1,7 +1,8 @@
-import { Outlet } from "@remix-run/react";
+import { Outlet, useLoaderData } from "@remix-run/react";
 import { UserLayout } from "~/components";
 import { LoaderFunction, redirect } from "@remix-run/node";
 import { authenticator } from "~/auth.server";
+import { flags } from "~/flags.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
@@ -12,12 +13,17 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/ekona/erfolgreich");
   }
 
+  if (flags.isEkonaDown()) {
+    return { ekonaDown: true };
+  }
+
   return {};
 };
 
 export default function Ekona() {
+  const { ekonaDown } = useLoaderData();
   return (
-    <UserLayout>
+    <UserLayout banners={ekonaDown ? { ekonaDown: true } : {}}>
       <Outlet />
     </UserLayout>
   );

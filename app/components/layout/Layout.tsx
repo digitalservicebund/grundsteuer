@@ -1,17 +1,22 @@
 import { ReactNode } from "react";
+import ErrorBar from "~/components/ErrorBar";
+
+export interface Banners {
+  ekonaDown?: boolean;
+}
 
 export interface LayoutProps {
   /**
-     The main content
-     */
+   * The main content
+   */
   children: ReactNode;
   /**
-     The top navigation which is only visible on smaller screens
-     */
+   * The top navigation which is only visible on smaller screens
+   */
   topNavigation: ReactNode;
   /**
-     The sidebar navigation which is only visible on larger screens
-     */
+   * The sidebar navigation which is only visible on larger screens
+   */
   sidebarNavigation: ReactNode;
 
   /**
@@ -19,9 +24,11 @@ export interface LayoutProps {
    */
   logoutMenu: ReactNode;
   /**
-     The footer
-     */
+   * The footer
+   */
   footer: ReactNode;
+
+  banners?: Banners;
 }
 
 const Layout = ({
@@ -30,6 +37,7 @@ const Layout = ({
   sidebarNavigation,
   logoutMenu,
   topNavigation,
+  banners,
 }: LayoutProps) => {
   return (
     <div className="flex items-stretch min-h-screen">
@@ -37,6 +45,12 @@ const Layout = ({
         <div className="h-full bg-white">{sidebarNavigation}</div>
       </header>
       <div className="flex flex-col flex-grow">
+        {banners?.ekonaDown && (
+          <ErrorBar heading="Eine Identifikation mit ELSTER ist aktuell aus technischen Gründen nicht möglich.">
+            Wir arbeiten an einer Lösung. Sie können in der Zeit eine andere Art
+            der Identifizierung nutzen oder kommen Sie später wieder.
+          </ErrorBar>
+        )}
         <header className="flex-shrink-0 bg-white lg:hidden">
           {topNavigation}
         </header>
