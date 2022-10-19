@@ -1,7 +1,7 @@
 import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
 import { pageTitle } from "~/util/pageTitle";
 import invariant from "tiny-invariant";
-import { useId, BundesIdentIdentifiedData } from "~/useid/useid";
+import { useid, BundesIdentIdentifiedData } from "~/useid/useid";
 import { authenticator } from "~/auth.server";
 import { findUserByEmail, setUserIdentified } from "~/domain/user";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
@@ -49,7 +49,7 @@ const checkIfErrorState = (request: Request) => {
 };
 
 export const loader: LoaderFunction = async ({ context, request }) => {
-  if (process.env.USE_USE_ID !== "true") {
+  if (process.env.USE_USEID !== "true") {
     throw new Response("Not Found", {
       status: 404,
     });
@@ -66,7 +66,7 @@ export const loader: LoaderFunction = async ({ context, request }) => {
   if (errorState) return errorState;
 
   const sessionId = getSessionId(request);
-  const identityData = await useId.getIdentityData(sessionId);
+  const identityData = await useid.getIdentityData(sessionId);
 
   await setUserIdentified(user.email);
 

@@ -67,7 +67,7 @@ describe("Loader", () => {
     });
 
     describe("with correct data returned", () => {
-      const originalGetIdentityData = useidModule.useId.getIdentityData;
+      const originalGetIdentityData = useidModule.useid.getIdentityData;
       const correctUseIdData = {
         firstName: "Rubeus",
         lastName: "Hagrid",
@@ -78,12 +78,12 @@ describe("Loader", () => {
       };
 
       beforeAll(() => {
-        useidModule.useId.getIdentityData = () =>
+        useidModule.useid.getIdentityData = () =>
           Promise.resolve(correctUseIdData);
       });
 
       afterAll(() => {
-        useidModule.useId.getIdentityData = originalGetIdentityData;
+        useidModule.useid.getIdentityData = originalGetIdentityData;
       });
 
       it("sets user identified", async () => {

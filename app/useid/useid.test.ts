@@ -1,5 +1,5 @@
-import { useId } from "~/useid/useid";
-import * as useIdModule from "~/useid/useid";
+import { useid } from "~/useid/useid";
+import * as useidModule from "~/useid/useid";
 import { getMockedFunction } from "test/mocks/mockHelper";
 import { Identity } from "useid-eservice-sdk/dist/Identity";
 
@@ -20,7 +20,7 @@ describe("With valid data returned", () => {
   });
 
   beforeAll(() => {
-    getMockedFunction(useIdModule, "getIdentity", correctUseIdReturnData);
+    getMockedFunction(useidModule, "getIdentity", correctUseIdReturnData);
   });
 
   afterAll(() => {
@@ -37,7 +37,7 @@ describe("With valid data returned", () => {
       country: "Great Britain",
     };
 
-    const result = await useId.getIdentityData("42");
+    const result = await useid.getIdentityData("42");
 
     expect(result).toEqual(expectedParsedData);
   });
@@ -145,9 +145,9 @@ describe("With incomplete data returned", () => {
   ];
 
   test.each(cases)("Should throw error if '$description'", async ({ data }) => {
-    getMockedFunction(useIdModule, "getIdentity", data);
+    getMockedFunction(useidModule, "getIdentity", data);
     await expect(
-      async () => await useId.getIdentityData("42")
+      async () => await useid.getIdentityData("42")
     ).rejects.toThrow();
   });
 });

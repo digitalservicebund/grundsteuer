@@ -1,7 +1,7 @@
 import { json, LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
 import { authenticator } from "~/auth.server";
 import { pageTitle } from "~/util/pageTitle";
-import { useId } from "~/useid/useid";
+import { useid } from "~/useid/useid";
 import { useLoaderData } from "@remix-run/react";
 import { Button, ButtonContainer, Headline, SectionLabel } from "~/components";
 import invariant from "tiny-invariant";
@@ -28,7 +28,7 @@ export const isMobileUserAgent = (request: Request) => {
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  if (process.env.USE_USE_ID !== "true") {
+  if (process.env.USE_USEID !== "true") {
     throw new Response("Not Found", {
       status: 404,
     });
@@ -47,8 +47,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     return { rateLimitExceeded: true, isMobile: isMobileUserAgent(request) };
   }
 
-  const tcTokenUrl = await useId.getTcTokenUrl();
-  invariant(tcTokenUrl, "Expected to receive a tcTokenUrl from useId");
+  const tcTokenUrl = await useid.getTcTokenUrl();
+  invariant(tcTokenUrl, "Expected to receive a tcTokenUrl from useid");
 
   const isErrorState = new URL(request.url).searchParams.get("errorState");
   if (isErrorState) {
@@ -60,9 +60,9 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json(
     {
       host: new URL(request.url).hostname,
-      widgetSrc: useId.getWidgetSrc(),
-      tcTokenUrl: await useId.getTcTokenUrl(),
-      useIdDomain: process.env.USEID_DOMAIN,
+      widgetSrc: useid.getWidgetSrc(),
+      tcTokenUrl: await useid.getTcTokenUrl(),
+      useidDomain: process.env.USEID_DOMAIN,
       isMobile: isMobileUserAgent(request),
     },
     {}
@@ -70,7 +70,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function BundesIdentIndex() {
-  const { tcTokenUrl, useIdDomain, host, isMobile, rateLimitExceeded } =
+  const { tcTokenUrl, useidDomain, host, isMobile, rateLimitExceeded } =
     useLoaderData();
   if (!isMobile) {
     return <OnlyMobileDisclaimer />;
@@ -104,7 +104,7 @@ export default function BundesIdentIndex() {
 
       <div className="h-[520px]">
         <iframe
-          src={`${useIdDomain}/widget?hostname=${host}#tcTokenURL=${encodeURIComponent(
+          src={`${useidDomain}/widget?hostname=${host}#tcTokenURL=${encodeURIComponent(
             tcTokenUrl
           )}`}
           style={{ width: "100%", height: "100%" }}

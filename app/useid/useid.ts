@@ -1,36 +1,36 @@
 import invariant from "tiny-invariant";
 import { DataGroup, Place, UseIdAPI } from "useid-eservice-sdk";
 
-let useIdAPIConnection: UseIdAPI;
+let useidAPIConnection: UseIdAPI;
 
-const getUseIdApi = () => {
-  if (!useIdAPIConnection) {
+const getUseidApi = () => {
+  if (!useidAPIConnection) {
     invariant(process.env.USEID_API_KEY, "USEID_API_KEY is not set.");
     invariant(process.env.USEID_DOMAIN, "USEID_DOMAIN is not set.");
-    useIdAPIConnection = new UseIdAPI(
+    useidAPIConnection = new UseIdAPI(
       process.env.USEID_API_KEY,
       process.env.USEID_DOMAIN
     );
   }
-  return useIdAPIConnection;
+  return useidAPIConnection;
 };
 
 const getDomain = () => {
-  return getUseIdApi().domain;
+  return getUseidApi().domain;
 };
 
 const getWidgetSrc = () => {
-  return getUseIdApi().widgetSrc;
+  return getUseidApi().widgetSrc;
 };
 
 const getTcTokenUrl = async () => {
-  const useIdResponse = await getUseIdApi().startSession();
-  return useIdResponse.tcTokenUrl;
+  const useidResponse = await getUseidApi().startSession();
+  return useidResponse.tcTokenUrl;
 };
 
 // Only exporting for testing purposes. Use getIdentityData instead.
 export const getIdentity = async (sessionId: string) => {
-  return getUseIdApi().getIdentity(sessionId);
+  return getUseidApi().getIdentity(sessionId);
 };
 
 const getIdentityData = async (sessionId: string) => {
@@ -87,8 +87,8 @@ export type BundesIdentIdentifiedData = {
   country: string;
 };
 
-export const useId = {
-  getUseIdApi,
+export const useid = {
+  getUseIdApi: getUseidApi,
   getDomain,
   getWidgetSrc,
   getTcTokenUrl,

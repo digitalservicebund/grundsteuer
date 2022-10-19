@@ -10,7 +10,7 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  if (process.env.USE_USE_ID !== "true") {
+  if (process.env.USE_USEID !== "true") {
     throw new Response("Not Found", {
       status: 404,
     });
