@@ -24,7 +24,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return {};
 };
 
-export default function BundesIdentDisclaimer() {
+export default function BundesIdentVoraussetzung() {
   return (
     <div>
       <SectionLabel

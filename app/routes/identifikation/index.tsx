@@ -109,7 +109,7 @@ export default function IdentifikationIndex() {
             subheading="Empfohlen für digitalaffine Nutzer:innen, die sich elektronisch mit Ihrem Ausweis identifizieren möchten."
             text=""
             buttonLabel="Identifikation mit Ausweis"
-            url="/bundesident/disclaimer"
+            url="/bundesident/voraussetzung"
             className="mb-16"
           />
         )}
