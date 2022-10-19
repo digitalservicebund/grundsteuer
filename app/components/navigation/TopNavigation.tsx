@@ -28,7 +28,7 @@ export default function TopNavigation(props: TopNavigationProps) {
         className="sr-only peer"
       />
 
-      <div className="peer-checked:fixed z-10 top-0 left-0 w-full bg-white flex justify-between">
+      <div className="peer-checked:fixed z-10 top-0 left-0 w-full bg-white flex justify-between relative shadow-[0px_2px_5px_rgba(0,0,0,0.1)]">
         <NavigationLogo className="py-16 px-24 text-14 leading-16" />
         <label
           htmlFor="top-navigation"

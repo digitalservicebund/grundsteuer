@@ -40,9 +40,7 @@ const Layout = ({
         <header className="flex-shrink-0 bg-white lg:hidden">
           {topNavigation}
         </header>
-        <div className="flex justify-end mr-48 hidden lg:flex">
-          {logoutMenu}
-        </div>
+        <div className="justify-end mr-48 hidden lg:flex">{logoutMenu}</div>
         <main className="flex-grow">{children}</main>
         <footer className="flex-shrink-0 pl-2">{footer}</footer>
       </div>
