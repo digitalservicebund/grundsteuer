@@ -1385,7 +1385,7 @@
     },
     "bodenrichtwertEingabe": {
       "default": {
-        "headline": "Geben Sie den Bodenrichtwert für Ihr Grundstück ein",
+        "headline": "Geben Sie den Bodenrichtwert für Ihr Flurstück ein",
         "description": "Den Wert konnten Sie dem Bodenrichtwert-Portal Ihres Bundeslandes entnehmen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
         "fields": {
           "bodenrichtwert": {
