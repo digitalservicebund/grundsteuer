@@ -18,11 +18,11 @@ const Kernsaniert: StepComponentFunction = ({
   const fieldProps = getFieldProps(stepDefinition, formData, i18n, errors)[0];
   const imagesAndAltTexts = [
     {
-      image: kernsaniertIcon,
+      image: nichtKernsaniertIcon,
       imageAltText: "",
     },
     {
-      image: nichtKernsaniertIcon,
+      image: kernsaniertIcon,
       imageAltText: "",
     },
   ];
