@@ -1,7 +1,8 @@
 import { LoaderFunction, redirect } from "@remix-run/node";
-import { Outlet } from "@remix-run/react";
+import { Outlet, useLoaderData, useLocation } from "@remix-run/react";
 import { authenticator } from "~/auth.server";
 import { UserLayout } from "~/components";
+import { flags } from "~/flags.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
@@ -15,12 +16,15 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/formular");
   }
 
-  return {};
+  return { ericaDown: flags.isEricaDown() };
 };
 
 export default function Fsc() {
+  const { ericaDown } = useLoaderData();
+  const location = useLocation();
+
   return (
-    <UserLayout>
+    <UserLayout banners={{ ericaDown: ericaDown }} path={location.pathname}>
       <Outlet />
     </UserLayout>
   );

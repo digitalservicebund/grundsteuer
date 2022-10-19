@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData } from "@remix-run/react";
+import { Outlet, useLoaderData, useLocation } from "@remix-run/react";
 import { UserLayout } from "~/components";
 import { LoaderFunction, redirect } from "@remix-run/node";
 import { authenticator } from "~/auth.server";
@@ -22,8 +22,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function Ekona() {
   const { ekonaDown } = useLoaderData();
+  const location = useLocation();
   return (
-    <UserLayout banners={ekonaDown ? { ekonaDown: true } : {}}>
+    <UserLayout banners={{ ekonaDown: ekonaDown }} path={location.pathname}>
       <Outlet />
     </UserLayout>
   );

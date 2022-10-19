@@ -12,6 +12,7 @@ import { Banners } from "~/components/layout/Layout";
 
 export default function UserLayout(props: {
   children: ReactNode;
+  path?: string;
   banners?: Banners;
 }) {
   return (
@@ -26,6 +27,7 @@ export default function UserLayout(props: {
         />
       }
       banners={props.banners}
+      path={props.path}
     >
       <Main>{props.children}</Main>
     </Layout>

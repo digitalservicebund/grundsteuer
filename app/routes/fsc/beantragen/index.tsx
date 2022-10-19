@@ -54,6 +54,7 @@ import {
 import { saveSuccessfulFscRequestData } from "~/domain/lifecycleEvents.server";
 import { ericaUtils } from "~/erica/utils";
 import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
+import { flags } from "~/flags.server";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -206,6 +207,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
       showError: false,
       showSpinner: ericaRequestInProgress,
       csrfToken,
+      ericaDown: flags.isEricaDown(),
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -440,7 +442,9 @@ export default function FscBeantragen() {
             </FormGroup>
           </div>
           <ButtonContainer>
-            <Button disabled={isSubmitting || showSpinner}>
+            <Button
+              disabled={isSubmitting || showSpinner || loaderData.ericaDown}
+            >
               Freischaltcode beantragen
             </Button>
             <Button look="secondary" to="/identifikation">

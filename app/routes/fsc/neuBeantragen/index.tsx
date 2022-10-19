@@ -51,6 +51,7 @@ import fscInputImage from "~/assets/images/fsc-input.svg";
 import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
 import { ericaUtils } from "~/erica/utils";
 import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
+import { flags } from "~/flags.server";
 
 const isEricaRequestInProgress = (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -91,6 +92,7 @@ type NeuBeantragenLoaderData = {
   showError?: boolean;
   showSpinner?: boolean;
   ericaApiError?: string;
+  ericaDown?: boolean;
 };
 
 export const loader: LoaderFunction = async ({
@@ -175,6 +177,7 @@ export const loader: LoaderFunction = async ({
       showError: false,
       showSpinner:
         ericaFscRevocationIsInProgress || ericaFscRequestIsInProgress,
+      ericaDown: flags.isEricaDown(),
     },
     {
       headers: {
@@ -408,7 +411,9 @@ export default function FscNeuBeantragen() {
             </FormGroup>
           </div>
           <ButtonContainer className="mb-80">
-            <Button disabled={isSubmitting || showSpinner}>
+            <Button
+              disabled={isSubmitting || showSpinner || loaderData.ericaDown}
+            >
               Freischaltcode neu beantragen
             </Button>
             <Button look="secondary" to="/formular">

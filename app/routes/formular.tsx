@@ -1,5 +1,5 @@
 import { LoaderFunction } from "@remix-run/node";
-import { Outlet, useLoaderData } from "@remix-run/react";
+import { Outlet, useLoaderData, useLocation } from "@remix-run/react";
 import { getStoredFormData } from "~/formDataStorage.server";
 import {
   Footer,
@@ -15,6 +15,7 @@ import { getCurrentStateFromUrl } from "~/util/getCurrentState";
 import { authenticator } from "~/auth.server";
 import LogoutMenu from "~/components/navigation/LogoutMenu";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
+import { flags } from "~/flags.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
@@ -33,11 +34,15 @@ export const loader: LoaderFunction = async ({ request }) => {
     graph,
     currentState: getCurrentStateFromUrl(request.url),
     userHasFinishedProcess: !user.inDeclarationProcess,
+    ericaDown: flags.isEricaDown(),
   };
 };
 
 export default function Formular() {
-  const { graph, currentState, userHasFinishedProcess } = useLoaderData();
+  const { graph, currentState, userHasFinishedProcess, ericaDown } =
+    useLoaderData();
+
+  const location = useLocation();
 
   return (
     <Layout
@@ -80,6 +85,8 @@ export default function Formular() {
           statusClasses="mb-8"
         />
       }
+      banners={{ ericaDown: ericaDown }}
+      path={location.pathname}
     >
       <Main>
         <Outlet />

@@ -68,6 +68,7 @@ import ErrorBarStandard from "~/components/ErrorBarStandard";
 import bcrypt from "bcryptjs";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
+import { flags } from "~/flags.server";
 
 type LoaderData = {
   formData: StepFormData;
@@ -79,6 +80,7 @@ type LoaderData = {
   ericaErrors: string[];
   showSpinner: boolean;
   csrfToken?: string;
+  ericaDown?: boolean;
 };
 
 export const getEricaErrorMessagesFromResponse = (
@@ -255,6 +257,7 @@ export const loader: LoaderFunction = async ({
       previousStepsErrors: previousStepsErrors || {},
       ericaErrors,
       showSpinner: !!ericaRequestId,
+      ericadown: flags.isEricaDown(),
     },
     {
       headers: {
@@ -351,7 +354,8 @@ export const meta: MetaFunction = () => {
 
 export default function Zusammenfassung() {
   const loaderData = useLoaderData<LoaderData>();
-  const { formData, allData, i18n, stepDefinition, isIdentified } = loaderData;
+  const { formData, allData, i18n, stepDefinition, isIdentified, ericaDown } =
+    loaderData;
   const actionData = useActionData();
   const errors = actionData?.errors;
   const previousStepsErrors =
@@ -532,7 +536,7 @@ export default function Zusammenfassung() {
           </div>
           <Button
             id="nextButton"
-            disabled={!isIdentified || isSubmitting}
+            disabled={!isIdentified || isSubmitting || ericaDown}
             iconRight={<Send className="h-[10px]" />}
           >
             {i18n.specifics.submitbutton}

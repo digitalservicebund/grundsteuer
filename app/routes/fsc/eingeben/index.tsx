@@ -55,6 +55,7 @@ import {
 } from "~/domain/lifecycleEvents.server";
 import { ericaUtils } from "~/erica/utils";
 import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
+import { flags } from "~/flags.server";
 
 const isEricaRequestInProgress = (userData: User) => {
   return (
@@ -272,6 +273,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
       showSpinner:
         ericaActivationRequestIsInProgress ||
         ericaRevocationRequestIsInProgress,
+      ericaDown: flags.isEricaDown(),
     },
     {
       headers: {
@@ -455,7 +457,9 @@ export default function FscEingeben() {
           </FormGroup>
         </div>
         <ButtonContainer>
-          <Button disabled={isSubmitting || showSpinner}>
+          <Button
+            disabled={isSubmitting || showSpinner || loaderData.ericaDown}
+          >
             Freischaltcode speichern
           </Button>
           <Button look="secondary" to="/formular/zusammenfassung">

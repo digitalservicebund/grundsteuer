@@ -57,11 +57,12 @@ export const loader: LoaderFunction = async ({ request }) => {
     useUseId: process.env.USE_USEID == "true",
     isMobile: isMobileUserAgent(request),
     ekonaDown: flags.isEkonaDown(),
+    ericaDown: flags.isEricaDown(),
   };
 };
 
 export default function IdentifikationIndex() {
-  const { useUseId, isMobile, ekonaDown } = useLoaderData();
+  const { useUseId, isMobile, ekonaDown, ericaDown } = useLoaderData();
   return (
     <>
       <ContentContainer size="sm-md">
@@ -95,6 +96,7 @@ export default function IdentifikationIndex() {
           subheading="Empfohlen für Nutzer:innen ohne ELSTER-Konto."
           text="Sie erhalten einen Brief mit einem Freischaltcode an Ihre Meldeadresse. Sie können die Erklärung ausfüllen und nach Erhalt des Codes abschicken."
           buttonLabel="Identifikation mit Freischaltcode"
+          buttonDisabled={ericaDown}
           url="/fsc"
           className="mb-16"
         />

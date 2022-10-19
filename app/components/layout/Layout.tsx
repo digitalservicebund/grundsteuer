@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 export interface Banners {
   ekonaDown?: boolean;
+  ericaDown?: boolean;
 }
 
 export interface LayoutProps {
@@ -30,6 +31,7 @@ export interface LayoutProps {
   footer: ReactNode;
 
   banners?: Banners;
+  path?: string;
 }
 
 const Layout = ({
@@ -39,6 +41,7 @@ const Layout = ({
   logoutMenu,
   topNavigation,
   banners,
+  path,
 }: LayoutProps) => {
   const { t } = useTranslation("all");
 
@@ -48,11 +51,27 @@ const Layout = ({
         <div className="h-full bg-white">{sidebarNavigation}</div>
       </header>
       <div className="flex flex-col flex-grow">
-        {banners?.ekonaDown && (
-          <ErrorBar heading={t("banners.ekonaDownHeading")} className="mb-8">
-            {t("banners.ekonaDownBody")}
+        {banners?.ericaDown &&
+          path &&
+          (path.includes("/fsc") || path === "/identifikation") && (
+            <ErrorBar heading={t("banners.ericaDownHeading")} className="mb-8">
+              {t("banners.ericaDownBody")}
+            </ErrorBar>
+          )}
+        {banners?.ericaDown && path === "/formular/zusammenfassung" && (
+          <ErrorBar
+            heading={t("banners.ericaDownZusammenfassungHeading")}
+            className="mb-8"
+          >
+            {t("banners.ericaDownZusammenfassungBody")}
           </ErrorBar>
         )}
+        {banners?.ekonaDown &&
+          (path === "/ekona" || path === "/identifikation") && (
+            <ErrorBar heading={t("banners.ekonaDownHeading")} className="mb-8">
+              {t("banners.ekonaDownBody")}
+            </ErrorBar>
+          )}
         <header className="flex-shrink-0 bg-white lg:hidden">
           {topNavigation}
         </header>
