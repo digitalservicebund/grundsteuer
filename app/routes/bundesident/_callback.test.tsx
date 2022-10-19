@@ -24,96 +24,128 @@ describe("Loader", () => {
     userMock.mockRestore();
   });
 
-  it("throws error if no session id given in url", async () => {
-    await expect(async () => {
-      await loader(
-        await getLoaderArgsWithAuthenticatedSession(
-          "/bundesident/callback",
-          "existing_user@foo.com"
-        )
-      );
-    }).rejects.toThrowError("Invariant failed: sessionId was not given");
+  it("returns error if no resultMajor given in url", async () => {
+    const result = await loader(
+      await getLoaderArgsWithAuthenticatedSession(
+        "/bundesident/callback",
+        "existing_user@foo.com"
+      )
+    );
+    expect(result).toEqual({ errorState: true });
   });
 
-  describe("with correct data returned", () => {
-    const originalGetIdentityData = useidModule.useId.getIdentityData;
-    const correctUseIdData = {
-      firstName: "Rubeus",
-      lastName: "Hagrid",
-      street: "Hogwartsroad",
-      postalCode: "77777",
-      city: "Hogsmeade",
-      country: "Great Britain",
-    };
+  it("returns error if resultMajor is error", async () => {
+    const result = await loader(
+      await getLoaderArgsWithAuthenticatedSession(
+        "/bundesident/callback?ResultMajor=error",
+        "existing_user@foo.com"
+      )
+    );
+    expect(result).toEqual({ errorState: true });
+  });
 
-    beforeAll(() => {
-      useidModule.useId.getIdentityData = () =>
-        Promise.resolve(correctUseIdData);
-    });
+  it("returns error if resultMajor is warning", async () => {
+    const result = await loader(
+      await getLoaderArgsWithAuthenticatedSession(
+        "/bundesident/callback?ResultMajor=warning",
+        "existing_user@foo.com"
+      )
+    );
+    expect(result).toEqual({ errorState: true });
+  });
 
-    afterAll(() => {
-      useidModule.useId.getIdentityData = originalGetIdentityData;
-    });
-
-    it("sets user identified", async () => {
-      const identifiedMock = jest.spyOn(userModule, "setUserIdentified");
-      await loader(
-        await getLoaderArgsWithAuthenticatedSession(
-          "/bundesident/callback?sessionId=42",
-          "existing_user@foo.com"
-        )
-      );
-      expect(identifiedMock).toHaveBeenCalledWith("existing_user@foo.com");
-    });
-
-    it("revokes outstanding fsc requests", async () => {
-      const revokeFscMock = jest.spyOn(
-        lifecycleEventsModule,
-        "revokeOutstandingFSCRequests"
-      );
-      await loader(
-        await getLoaderArgsWithAuthenticatedSession(
-          "/bundesident/callback?sessionId=42",
-          "existing_user@foo.com"
-        )
-      );
-      expect(revokeFscMock).toHaveBeenCalledWith({
-        email: "existing_user@foo.com",
-        userId: "1234",
-      });
-    });
-
-    it("stores audit log", async () => {
-      const saveAuditMock = jest.spyOn(auditLogModule, "saveAuditLog");
-
-      await callWithMockedTime(1652887920227, async () => {
+  describe("with resultMajor being ok", () => {
+    it("throws error if no session id given in url", async () => {
+      await expect(async () => {
         await loader(
           await getLoaderArgsWithAuthenticatedSession(
-            "/bundesident/callback?sessionId=42",
+            "/bundesident/callback?ResultMajor=ok",
             "existing_user@foo.com"
           )
         );
-      });
-      expect(saveAuditMock).toHaveBeenCalledWith({
-        eventData: correctUseIdData,
-        eventName: AuditLogEvent.IDENTIFIED_VIA_BUNDESIDENT,
-        ipAddress: "127.0.0.1",
-        timestamp: 1652887920227,
-        username: "existing_user@foo.com",
-      });
+      }).rejects.toThrowError("Invariant failed: sessionId was not given");
     });
 
-    it("redirects to erfolgreich page", async () => {
-      const result = await loader(
-        await getLoaderArgsWithAuthenticatedSession(
-          "/bundesident/callback?sessionId=42",
-          "existing_user@foo.com"
-        )
-      );
-      expect(result.status).toEqual(302);
-      expect(result.headers.get("Location")).toEqual(
-        "/bundesident/erfolgreich"
-      );
+    describe("with correct data returned", () => {
+      const originalGetIdentityData = useidModule.useId.getIdentityData;
+      const correctUseIdData = {
+        firstName: "Rubeus",
+        lastName: "Hagrid",
+        street: "Hogwartsroad",
+        postalCode: "77777",
+        city: "Hogsmeade",
+        country: "Great Britain",
+      };
+
+      beforeAll(() => {
+        useidModule.useId.getIdentityData = () =>
+          Promise.resolve(correctUseIdData);
+      });
+
+      afterAll(() => {
+        useidModule.useId.getIdentityData = originalGetIdentityData;
+      });
+
+      it("sets user identified", async () => {
+        const identifiedMock = jest.spyOn(userModule, "setUserIdentified");
+        await loader(
+          await getLoaderArgsWithAuthenticatedSession(
+            "/bundesident/callback?ResultMajor=ok&sessionId=42",
+            "existing_user@foo.com"
+          )
+        );
+        expect(identifiedMock).toHaveBeenCalledWith("existing_user@foo.com");
+      });
+
+      it("revokes outstanding fsc requests", async () => {
+        const revokeFscMock = jest.spyOn(
+          lifecycleEventsModule,
+          "revokeOutstandingFSCRequests"
+        );
+        await loader(
+          await getLoaderArgsWithAuthenticatedSession(
+            "/bundesident/callback?ResultMajor=ok&sessionId=42",
+            "existing_user@foo.com"
+          )
+        );
+        expect(revokeFscMock).toHaveBeenCalledWith({
+          email: "existing_user@foo.com",
+          userId: "1234",
+        });
+      });
+
+      it("stores audit log", async () => {
+        const saveAuditMock = jest.spyOn(auditLogModule, "saveAuditLog");
+
+        await callWithMockedTime(1652887920227, async () => {
+          await loader(
+            await getLoaderArgsWithAuthenticatedSession(
+              "/bundesident/callback?ResultMajor=ok&sessionId=42",
+              "existing_user@foo.com"
+            )
+          );
+        });
+        expect(saveAuditMock).toHaveBeenCalledWith({
+          eventData: correctUseIdData,
+          eventName: AuditLogEvent.IDENTIFIED_VIA_BUNDESIDENT,
+          ipAddress: "127.0.0.1",
+          timestamp: 1652887920227,
+          username: "existing_user@foo.com",
+        });
+      });
+
+      it("redirects to erfolgreich page", async () => {
+        const result = await loader(
+          await getLoaderArgsWithAuthenticatedSession(
+            "/bundesident/callback?ResultMajor=ok&sessionId=42",
+            "existing_user@foo.com"
+          )
+        );
+        expect(result.status).toEqual(302);
+        expect(result.headers.get("Location")).toEqual(
+          "/bundesident/erfolgreich"
+        );
+      });
     });
   });
 });

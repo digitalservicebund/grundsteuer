@@ -49,7 +49,13 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const tcTokenUrl = await useId.getTcTokenUrl();
   invariant(tcTokenUrl, "Expected to receive a tcTokenUrl from useId");
-  console.log("Started bundesIdent flow");
+
+  const isErrorState = new URL(request.url).searchParams.get("errorState");
+  if (isErrorState) {
+    console.log("Started new bundesIdent flow after error");
+  } else {
+    console.log("Started bundesIdent flow");
+  }
 
   return json(
     {
@@ -63,7 +69,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   );
 };
 
-export default function BundesidIndex() {
+export default function BundesIdentIndex() {
   const { tcTokenUrl, useIdDomain, host, isMobile, rateLimitExceeded } =
     useLoaderData();
   if (!isMobile) {
