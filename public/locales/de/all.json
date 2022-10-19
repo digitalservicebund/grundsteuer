@@ -90,6 +90,10 @@
     "backToHomepage": "Zurück zur Startseite",
     "backToSummary": "Übernehmen & Zur Übersicht"
   },
+  "banners": {
+    "ekonaDownHeading": "Eine Identifikation mit ELSTER ist aktuell aus technischen Gründen nicht möglich.",
+    "ekonaDownBody": "Wir arbeiten an einer Lösung. Sie können in der Zeit eine andere Art der Identifizierung nutzen oder kommen Sie später wieder."
+  },
   "errors": {
     "elsterChars": "Das Feld enthält ein Zeichen, das nicht unterstützt wird.",
     "required": "Bitte füllen Sie dieses Feld aus.",

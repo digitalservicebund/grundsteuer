@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import ErrorBar from "~/components/ErrorBar";
+import { useTranslation } from "react-i18next";
 
 export interface Banners {
   ekonaDown?: boolean;
@@ -39,6 +40,8 @@ const Layout = ({
   topNavigation,
   banners,
 }: LayoutProps) => {
+  const { t } = useTranslation("all");
+
   return (
     <div className="flex items-stretch min-h-screen">
       <header className="w-[256px] flex-shrink-0 hidden lg:block">
@@ -46,9 +49,8 @@ const Layout = ({
       </header>
       <div className="flex flex-col flex-grow">
         {banners?.ekonaDown && (
-          <ErrorBar heading="Eine Identifikation mit ELSTER ist aktuell aus technischen Gründen nicht möglich.">
-            Wir arbeiten an einer Lösung. Sie können in der Zeit eine andere Art
-            der Identifizierung nutzen oder kommen Sie später wieder.
+          <ErrorBar heading={t("banners.ekonaDownHeading")}>
+            {t("banners.ekonaDownBody")}
           </ErrorBar>
         )}
         <header className="flex-shrink-0 bg-white lg:hidden">
