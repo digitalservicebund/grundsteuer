@@ -1,5 +1,5 @@
 /// <reference types="../../cypress/support" />
-// @ts-checkdescribe("Boris pages", () => {
+// @ts-check
 describe("/grundstueck/steuernummer", () => {
   beforeEach(() => {
     cy.login();
