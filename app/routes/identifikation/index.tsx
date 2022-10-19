@@ -22,7 +22,7 @@ import PhotoCameraFront from "~/components/icons/mui/PhotoCameraFront";
 import { useLoaderData } from "@remix-run/react";
 import Bolt from "~/components/icons/mui/Bolt";
 import { pageTitle } from "~/util/pageTitle";
-import { isMobileUserAgent } from "~/routes/bundesident/index";
+import { isMobileUserAgent } from "~/routes/bundesIdent/index";
 import { flags } from "~/flags.server";
 
 export const meta: MetaFunction = () => {
@@ -109,7 +109,7 @@ export default function IdentifikationIndex() {
             subheading="Empfohlen für digitalaffine Nutzer:innen, die sich elektronisch mit Ihrem Ausweis identifizieren möchten."
             text=""
             buttonLabel="Identifikation mit Ausweis"
-            url="/bundesident/voraussetzung"
+            url="/bundesIdent/voraussetzung"
             className="mb-16"
           />
         )}

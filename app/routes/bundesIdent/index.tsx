@@ -111,7 +111,7 @@ export default function BundesIdentIndex() {
         />
       </div>
       <ButtonContainer className="mt-24">
-        <Button look={"secondary"} to="/bundesident/voraussetzung">
+        <Button look={"secondary"} to="/bundesIdent/voraussetzung">
           Zurück zur Voraussetzung
         </Button>
       </ButtonContainer>

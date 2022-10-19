@@ -12,7 +12,7 @@ describe("Identifikation option", () => {
     });
   });
 
-  it("should show bundesident option on mobile", () => {
+  it("should show bundesIdent option on mobile", () => {
     cy.login();
     cy.visit("/identifikation", {
       headers: {
@@ -22,7 +22,7 @@ describe("Identifikation option", () => {
     cy.contains("dt", "Identifikation mit Ihrem Ausweis");
   });
 
-  it("should not show bundesident option on desktop", () => {
+  it("should not show bundesIdent option on desktop", () => {
     cy.login();
     cy.visit("/identifikation", {
       headers: {
@@ -33,7 +33,7 @@ describe("Identifikation option", () => {
   });
 });
 
-describe("bundesident flow", () => {
+describe("bundesIdent flow", () => {
   beforeEach(() => {
     cy.task("setUserUnidentified", {
       email: "foo@bar.com",
@@ -50,8 +50,8 @@ describe("bundesident flow", () => {
     cy.contains("a", "Identifikation mit Ausweis").click();
     cy.contains("h1", "Voraussetzung für die Identifikation mit Ihrem Ausweis");
     cy.contains("a", "Verstanden & weiter").click();
-    cy.url().should("include", "/bundesident");
-    cy.visit("/bundesident", {
+    cy.url().should("include", "/bundesIdent");
+    cy.visit("/bundesIdent", {
       headers: {
         "user-agent": mobileUserAgent,
       },

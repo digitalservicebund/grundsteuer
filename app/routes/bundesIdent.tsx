@@ -8,8 +8,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     failureRedirect: "/anmelden",
   });
 
-  if (sessionUser.identified && request.url.includes("/bundesident/callback")) {
-    return redirect("/bundesident/erfolgreich");
+  if (sessionUser.identified && request.url.includes("/bundesIdent/callback")) {
+    return redirect("/bundesIdent/erfolgreich");
   }
 
   return {};

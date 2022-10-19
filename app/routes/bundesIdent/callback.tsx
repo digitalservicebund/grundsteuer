@@ -19,7 +19,7 @@ const saveAuditLogs = async (
   userEmail: string
 ) => {
   await saveAuditLog({
-    eventName: AuditLogEvent.IDENTIFIED_VIA_BUNDESIDENT,
+    eventName: AuditLogEvent.IDENTIFIED_VIA_BUNDES_IDENT,
     timestamp: Date.now(),
     ipAddress: clientIp,
     username: userEmail,
@@ -74,7 +74,7 @@ export const loader: LoaderFunction = async ({ context, request }) => {
   await saveAuditLogs(identityData, clientIp, userData.email);
   await revokeOutstandingFSCRequests(userData);
 
-  return redirect("/bundesident/erfolgreich", {
+  return redirect("/bundesIdent/erfolgreich", {
     headers: {
       "Set-Cookie": await commitSession(session),
     },
@@ -87,7 +87,7 @@ export default function BundesIdentCallback() {
       <ContentContainer size="sm">
         <Headline>Das hat leider nicht geklappt</Headline>
         <IntroText>Bitte versuchen Sie es erneut.</IntroText>
-        <Button to="/bundesident?errorState=true">
+        <Button to="/bundesIdent?errorState=true">
           Zurück zur Identifikation
         </Button>
       </ContentContainer>

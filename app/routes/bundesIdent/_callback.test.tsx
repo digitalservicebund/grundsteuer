@@ -3,7 +3,7 @@ import * as lifecycleEventsModule from "~/domain/lifecycleEvents.server";
 import * as useidModule from "~/useid/useid";
 import * as auditLogModule from "~/audit/auditLog";
 import { callWithMockedTime, getMockedFunction } from "test/mocks/mockHelper";
-import { loader } from "~/routes/bundesident/callback";
+import { loader } from "~/routes/bundesIdent/callback";
 import { getLoaderArgsWithAuthenticatedSession } from "test/mocks/authenticationMocks";
 import { AuditLogEvent } from "~/audit/auditLog";
 
@@ -27,7 +27,7 @@ describe("Loader", () => {
   it("returns error if no resultMajor given in url", async () => {
     const result = await loader(
       await getLoaderArgsWithAuthenticatedSession(
-        "/bundesident/callback",
+        "/bundesIdent/callback",
         "existing_user@foo.com"
       )
     );
@@ -37,7 +37,7 @@ describe("Loader", () => {
   it("returns error if resultMajor is error", async () => {
     const result = await loader(
       await getLoaderArgsWithAuthenticatedSession(
-        "/bundesident/callback?ResultMajor=error",
+        "/bundesIdent/callback?ResultMajor=error",
         "existing_user@foo.com"
       )
     );
@@ -47,7 +47,7 @@ describe("Loader", () => {
   it("returns error if resultMajor is warning", async () => {
     const result = await loader(
       await getLoaderArgsWithAuthenticatedSession(
-        "/bundesident/callback?ResultMajor=warning",
+        "/bundesIdent/callback?ResultMajor=warning",
         "existing_user@foo.com"
       )
     );
@@ -59,7 +59,7 @@ describe("Loader", () => {
       await expect(async () => {
         await loader(
           await getLoaderArgsWithAuthenticatedSession(
-            "/bundesident/callback?ResultMajor=ok",
+            "/bundesIdent/callback?ResultMajor=ok",
             "existing_user@foo.com"
           )
         );
@@ -90,7 +90,7 @@ describe("Loader", () => {
         const identifiedMock = jest.spyOn(userModule, "setUserIdentified");
         await loader(
           await getLoaderArgsWithAuthenticatedSession(
-            "/bundesident/callback?ResultMajor=ok&sessionId=42",
+            "/bundesIdent/callback?ResultMajor=ok&sessionId=42",
             "existing_user@foo.com"
           )
         );
@@ -104,7 +104,7 @@ describe("Loader", () => {
         );
         await loader(
           await getLoaderArgsWithAuthenticatedSession(
-            "/bundesident/callback?ResultMajor=ok&sessionId=42",
+            "/bundesIdent/callback?ResultMajor=ok&sessionId=42",
             "existing_user@foo.com"
           )
         );
@@ -120,14 +120,14 @@ describe("Loader", () => {
         await callWithMockedTime(1652887920227, async () => {
           await loader(
             await getLoaderArgsWithAuthenticatedSession(
-              "/bundesident/callback?ResultMajor=ok&sessionId=42",
+              "/bundesIdent/callback?ResultMajor=ok&sessionId=42",
               "existing_user@foo.com"
             )
           );
         });
         expect(saveAuditMock).toHaveBeenCalledWith({
           eventData: correctUseIdData,
-          eventName: AuditLogEvent.IDENTIFIED_VIA_BUNDESIDENT,
+          eventName: AuditLogEvent.IDENTIFIED_VIA_BUNDES_IDENT,
           ipAddress: "127.0.0.1",
           timestamp: 1652887920227,
           username: "existing_user@foo.com",
@@ -137,13 +137,13 @@ describe("Loader", () => {
       it("redirects to erfolgreich page", async () => {
         const result = await loader(
           await getLoaderArgsWithAuthenticatedSession(
-            "/bundesident/callback?ResultMajor=ok&sessionId=42",
+            "/bundesIdent/callback?ResultMajor=ok&sessionId=42",
             "existing_user@foo.com"
           )
         );
         expect(result.status).toEqual(302);
         expect(result.headers.get("Location")).toEqual(
-          "/bundesident/erfolgreich"
+          "/bundesIdent/erfolgreich"
         );
       });
     });

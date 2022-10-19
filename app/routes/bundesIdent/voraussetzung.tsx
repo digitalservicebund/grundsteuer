@@ -55,7 +55,7 @@ export default function BundesIdentVoraussetzung() {
         />
       </div>
       <ButtonContainer>
-        <Button to="/bundesident">Verstanden & weiter</Button>
+        <Button to="/bundesIdent">Verstanden & weiter</Button>
         <Button to="/identifikation" look="secondary">
           Zurück zu Identifikationsoptionen
         </Button>

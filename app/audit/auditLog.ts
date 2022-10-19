@@ -8,7 +8,7 @@ export enum AuditLogEvent {
   FSC_ACTIVATED = "fsc_activated",
   FSC_REVOKED = "fsc_revoked",
   IDENTIFIED_VIA_EKONA = "identified_via_ekona",
-  IDENTIFIED_VIA_BUNDESIDENT = "identified_via_bundesident",
+  IDENTIFIED_VIA_BUNDES_IDENT = "identified_via_bundes_ident",
   TAX_DECLARATION_SENT = "tax_declaration_submitted",
   CONFIRMED_COMPLETE_CORRECT = "confirmed_data_complete_correct",
   CONFIRMED_DATA_PRIVACY = "confirmed_data_privacy",
