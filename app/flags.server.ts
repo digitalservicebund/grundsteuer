@@ -4,6 +4,15 @@ export type FlagFunctions = {
   isEkonaDown: FlagFunction;
   isEricaDown: FlagFunction;
   isSendinblueDown: FlagFunction;
+  isZammadDown: FlagFunction;
+  getAllFlags: () => Flags;
+};
+
+export type Flags = {
+  ekonaDown?: boolean;
+  ericaDown?: boolean;
+  sendinblueDown?: boolean;
+  zammadDown?: boolean;
 };
 
 const isServiceDown = (flag: string | undefined) => {
@@ -22,8 +31,23 @@ const isSendinblueDown = () => {
   return isServiceDown(process.env.SENDINBLUE_DOWN);
 };
 
+const isZammadDown = () => {
+  return isServiceDown(process.env.ZAMMAD_DOWN);
+};
+
+const getAllFlags = () => {
+  return {
+    ekonaDown: isEkonaDown(),
+    ericaDown: isEricaDown(),
+    sendinblueDown: isSendinblueDown(),
+    zammadDown: isZammadDown(),
+  };
+};
+
 export const flags: FlagFunctions = {
   isEkonaDown,
   isEricaDown,
   isSendinblueDown,
+  isZammadDown,
+  getAllFlags,
 };

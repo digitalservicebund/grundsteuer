@@ -34,12 +34,12 @@ export const loader: LoaderFunction = async ({ request }) => {
     graph,
     currentState: getCurrentStateFromUrl(request.url),
     userHasFinishedProcess: !user.inDeclarationProcess,
-    ericaDown: flags.isEricaDown(),
+    flags: flags.getAllFlags(),
   };
 };
 
 export default function Formular() {
-  const { graph, currentState, userHasFinishedProcess, ericaDown } =
+  const { graph, currentState, userHasFinishedProcess, flags } =
     useLoaderData();
 
   const location = useLocation();
@@ -85,7 +85,7 @@ export default function Formular() {
           statusClasses="mb-8"
         />
       }
-      banners={{ ericaDown: ericaDown }}
+      flags={flags}
       path={location.pathname}
     >
       <Main>

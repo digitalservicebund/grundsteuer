@@ -3,19 +3,24 @@ import ContentContainer from "../ContentContainer";
 import Footer from "../Footer";
 import { HomepageHeader } from "~/components/navigation/HomepageHeader";
 import ErrorBanner from "~/components/ErrorBanner";
-import { Banners } from "~/components/layout/Layout";
 import { useTranslation } from "react-i18next";
+import { Flags } from "~/flags.server";
 
 export default function LoggedOutLayout(props: {
   children: ReactNode;
-  banners?: Banners;
+  flags?: Flags;
 }) {
   const { t } = useTranslation();
   return (
     <>
-      {props.banners?.sendinblueDown && (
+      {props.flags?.sendinblueDown && (
         <ErrorBanner heading={t("banners.sendinblueDownHeading")}>
           <div> {t("banners.sendinblueDownBody")} </div>
+        </ErrorBanner>
+      )}
+      {props.flags?.zammadDown && (
+        <ErrorBanner style="warning" heading={t("banners.zammadDownHeading")}>
+          <div> {t("banners.zammadDownBody")} </div>
         </ErrorBanner>
       )}
       <HomepageHeader />

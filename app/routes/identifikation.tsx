@@ -13,15 +13,14 @@ export const loader: LoaderFunction = async ({ request }) => {
   await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
-  return { ericaDown: flags.isEricaDown(), ekonaDown: flags.isEkonaDown() };
+  return { flags: flags.getAllFlags() };
 };
 
 export default function Identifikation() {
-  const { ekonaDown, ericaDown } = useLoaderData();
-  const banners = { ericaDown, ekonaDown };
+  const { flags } = useLoaderData();
   const location = useLocation();
   return (
-    <UserLayout banners={banners} path={location.pathname}>
+    <UserLayout flags={flags} path={location.pathname}>
       <Outlet />
     </UserLayout>
   );

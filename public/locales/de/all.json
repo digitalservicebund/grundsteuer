@@ -98,7 +98,9 @@
     "ericaDownZusammenfassungHeading": "Es gibt im Moment Einschränkungen beim Versenden der Grundsteuererklärung",
     "ericaDownZusammenfassungBody": "Wir arbeiten an einer Lösung und sind bald wieder für Sie verfügbar.",
     "sendinblueDownHeading": "Es gibt ein technisches Problem. Aktuell gibt es Probleme bei der Anmeldung.",
-    "sendinblueDownBody": "Wir können im Moment keine Anmelde-Links versenden. Wir arbeiten an einer Lösung und sind bald wieder für Sie da."
+    "sendinblueDownBody": "Wir können im Moment keine Anmelde-Links versenden. Wir arbeiten an einer Lösung und sind bald wieder für Sie da.",
+    "zammadDownHeading": "Es gibt ein technisches Problem. Aktuell können Sie unseren Support und den Hilfebereich nicht erreichen.",
+    "zammadDownBody": "Wir arbeiten an einer Lösung und sind bald wieder für Sie da."
   },
   "errors": {
     "elsterChars": "Das Feld enthält ein Zeichen, das nicht unterstützt wird.",

@@ -19,22 +19,23 @@ import { flags } from "~/flags.server";
 import { useLoaderData } from "@remix-run/react";
 
 export const loader: LoaderFunction = () => {
-  if (flags.isSendinblueDown()) {
-    return { sendinblueDown: true };
-  }
-
-  return {};
+  return { flags: flags.getAllFlags() };
 };
 
 export default function Index() {
-  const { sendinblueDown } = useLoaderData();
+  const { flags } = useLoaderData();
   const { t } = useTranslation("all");
 
   return (
     <>
-      {sendinblueDown && (
+      {flags.sendinblueDown && (
         <ErrorBanner heading={t("banners.sendinblueDownHeading")}>
           <div> {t("banners.sendinblueDownBody")} </div>
+        </ErrorBanner>
+      )}
+      {flags.zammadDown && (
+        <ErrorBanner style="warning" heading={t("banners.zammadDownHeading")}>
+          <div> {t("banners.zammadDownBody")} </div>
         </ErrorBanner>
       )}
       <HomepageHeader />

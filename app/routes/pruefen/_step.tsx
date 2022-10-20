@@ -51,7 +51,7 @@ import { HomepageHeader } from "~/components/navigation/HomepageHeader";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { useEffect, useState } from "react";
 import ErrorBanner from "~/components/ErrorBanner";
-import { flags } from "~/flags.server";
+import { Flags, flags } from "~/flags.server";
 import { useTranslation } from "react-i18next";
 
 const PREFIX = "pruefen";
@@ -89,7 +89,7 @@ export type LoaderData = {
   weitereErklaerung: boolean;
   stepDefinition: StepDefinition;
   csrfToken: string;
-  sendinblueDown?: boolean;
+  flags: Flags;
   testFeaturesEnabled?: boolean;
 };
 
@@ -170,7 +170,7 @@ export const loader: LoaderFunction = async ({
       ),
       stepDefinition,
       csrfToken,
-      sendinblueDown: flags.isSendinblueDown(),
+      flags: flags.getAllFlags(),
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -246,7 +246,7 @@ export function Step() {
   const { t } = useTranslation();
   const transition = useTransition();
   const isSubmitting = Boolean(transition.submission);
-  const { i18n, backUrl, currentState, sendinblueDown } = loaderData;
+  const { i18n, backUrl, currentState, flags } = loaderData;
   const StepComponent =
     _.get(stepComponents, currentState) || FallbackStepComponent;
 
@@ -271,9 +271,14 @@ export function Step() {
   return (
     <>
       <main className="flex-grow mb-56">
-        {sendinblueDown && (
+        {flags.sendinblueDown && (
           <ErrorBanner heading={t("banners.sendinblueDownHeading")}>
             <div> {t("banners.sendinblueDownBody")} </div>
+          </ErrorBanner>
+        )}
+        {flags.zammadDown && (
+          <ErrorBanner style="warning" heading={t("banners.zammadDownHeading")}>
+            <div> {t("banners.zammadDownBody")} </div>
           </ErrorBanner>
         )}
         <HomepageHeader skipPruefen={loaderData.weitereErklaerung} />

@@ -30,14 +30,14 @@ describe("Loader", () => {
       jest.clearAllMocks();
     });
 
-    it("returns erica status", async () => {
+    it("returns flags", async () => {
       const result = await loader(
         await getLoaderArgsWithAuthenticatedSession(
           "/fsc",
           "existing_user@foo.com"
         )
       );
-      expect(result).toHaveProperty("ericaDown");
+      expect(result).toHaveProperty("flags");
     });
   });
 
@@ -74,14 +74,14 @@ describe("Loader", () => {
       expect(result.headers.get("Location")).toEqual("/formular");
     });
 
-    it("returns erica status for fsc/eingeben/erfolgreich", async () => {
+    it("returns flags for fsc/eingeben/erfolgreich", async () => {
       const result = await loader(
         await getLoaderArgsWithAuthenticatedSession(
           "/fsc/eingeben/erfolgreich",
           "existing_user@foo.com"
         )
       );
-      expect(result).toHaveProperty("ericaDown");
+      expect(result).toHaveProperty("flags");
     });
   });
 });

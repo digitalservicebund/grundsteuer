@@ -60,7 +60,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     {
       csrfToken,
       error,
-      sendinblueDown: flags.isSendinblueDown(),
+      flags: flags.getAllFlags(),
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -127,7 +127,7 @@ export default function Anmelden() {
   const isSubmitting = Boolean(transition.submission);
 
   return (
-    <LoggedOutLayout banners={{ sendinblueDown: loaderData.sendinblueDown }}>
+    <LoggedOutLayout flags={loaderData.flags}>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         {loaderData?.error === "token" && (

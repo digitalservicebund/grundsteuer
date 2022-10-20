@@ -8,12 +8,12 @@ import {
   TopNavigation,
 } from "~/components";
 import LogoutMenu from "~/components/navigation/LogoutMenu";
-import { Banners } from "~/components/layout/Layout";
+import { Flags } from "~/flags.server";
 
 export default function UserLayout(props: {
   children: ReactNode;
   path?: string;
-  banners?: Banners;
+  flags?: Flags;
 }) {
   return (
     <Layout
@@ -26,7 +26,7 @@ export default function UserLayout(props: {
           statusClasses="mb-8"
         />
       }
-      banners={props.banners}
+      flags={props.flags}
       path={props.path}
     >
       <Main>{props.children}</Main>

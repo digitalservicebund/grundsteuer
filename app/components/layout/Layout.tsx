@@ -1,12 +1,7 @@
 import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import ErrorBanner from "~/components/ErrorBanner";
-
-export interface Banners {
-  ekonaDown?: boolean;
-  ericaDown?: boolean;
-  sendinblueDown?: boolean;
-}
+import { Flags } from "~/flags.server";
 
 export interface LayoutProps {
   /**
@@ -31,7 +26,7 @@ export interface LayoutProps {
    */
   footer: ReactNode;
 
-  banners?: Banners;
+  flags?: Flags;
   path?: string;
 }
 
@@ -41,7 +36,7 @@ const Layout = ({
   sidebarNavigation,
   logoutMenu,
   topNavigation,
-  banners,
+  flags,
   path,
 }: LayoutProps) => {
   const { t } = useTranslation("all");
@@ -53,27 +48,32 @@ const Layout = ({
       </header>
       <div className="flex flex-col flex-grow">
         <div className="flex flex-col gap-y-4">
-          {banners?.ericaDown &&
+          {flags?.ericaDown &&
             path &&
             (path.includes("/fsc") || path === "/identifikation") && (
               <ErrorBanner heading={t("banners.ericaDownHeading")}>
                 {t("banners.ericaDownBody")}
               </ErrorBanner>
             )}
-          {banners?.ericaDown && path === "/formular/zusammenfassung" && (
-            <ErrorBanner
-              heading={t("banners.ericaDownZusammenfassungHeading")}
-              className="mb-8"
-            >
+          {flags?.ericaDown && path === "/formular/zusammenfassung" && (
+            <ErrorBanner heading={t("banners.ericaDownZusammenfassungHeading")}>
               {t("banners.ericaDownZusammenfassungBody")}
             </ErrorBanner>
           )}
-          {banners?.ekonaDown &&
+          {flags?.ekonaDown &&
             (path === "/ekona" || path === "/identifikation") && (
               <ErrorBanner heading={t("banners.ekonaDownHeading")}>
                 {t("banners.ekonaDownBody")}
               </ErrorBanner>
             )}
+          {flags?.zammadDown && (
+            <ErrorBanner
+              style="warning"
+              heading={t("banners.zammadDownHeading")}
+            >
+              <div> {t("banners.zammadDownBody")} </div>
+            </ErrorBanner>
+          )}
         </div>
         <header className="flex-shrink-0 bg-white lg:hidden">
           {topNavigation}

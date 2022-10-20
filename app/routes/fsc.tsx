@@ -16,15 +16,15 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/formular");
   }
 
-  return { ericaDown: flags.isEricaDown() };
+  return { flags: flags.getAllFlags() };
 };
 
 export default function Fsc() {
-  const { ericaDown } = useLoaderData();
+  const { flags } = useLoaderData();
   const location = useLocation();
 
   return (
-    <UserLayout banners={{ ericaDown: ericaDown }} path={location.pathname}>
+    <UserLayout flags={flags} path={location.pathname}>
       <Outlet />
     </UserLayout>
   );
