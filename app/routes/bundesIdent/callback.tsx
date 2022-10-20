@@ -8,6 +8,7 @@ import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import { revokeOutstandingFSCRequests } from "~/domain/lifecycleEvents.server";
 import { commitSession, getSession } from "~/session.server";
 import { Button, ContentContainer, Headline, IntroText } from "~/components";
+import illustrationImage500 from "~/assets/images/500.svg";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation mit BundesId") };
@@ -86,10 +87,15 @@ export default function BundesIdentCallback() {
     <div className="mt-16 sm:mt-32">
       <ContentContainer size="sm">
         <Headline>Das hat leider nicht geklappt</Headline>
-        <IntroText>Bitte versuchen Sie es erneut.</IntroText>
-        <Button to="/bundesIdent?errorState=true">
+        <IntroText>
+          Die Identifikation mit Ausweis befindet sich aktuell noch in der
+          Beta-Phase, es kann daher vermehrt zu Fehlern kommen. Versuchen Sie es
+          gerne erneut.
+        </IntroText>
+        <Button to="/bundesIdent?errorState=true" className="mb-48">
           Zurück zur Identifikation
         </Button>
+        <img src={illustrationImage500} alt="" role="presentation" />
       </ContentContainer>
     </div>
   );
