@@ -25,7 +25,7 @@ export default class ErrorBar extends React.Component<ErrorBarProps> {
           this.props.className
         )}
       >
-        <ExclamationMark className="mt-4 mr-10 min-w-[20px] text-red-900 text-white" />
+        <ExclamationMark className="mt-4 mr-10 min-w-[20px] text-red-900" />
         <div className="flex flex-col" aria-live="polite">
           <strong>{heading}</strong>
           {this.props.children}

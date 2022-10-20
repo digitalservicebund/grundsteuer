@@ -1,9 +1,9 @@
 import {
   ActionFunction,
+  json,
   LoaderFunction,
   MetaFunction,
   redirect,
-  json,
 } from "@remix-run/node";
 import {
   Form,
@@ -30,7 +30,7 @@ import { StepHeadline } from "~/components/StepHeadline";
 import { pageTitle } from "~/util/pageTitle";
 import { getStepI18n, I18nObject } from "~/i18n/getStepI18n";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
-import { CsrfToken, createCsrfToken, verifyCsrfToken } from "~/util/csrf";
+import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { getPruefenStepDefinition } from "~/domain/pruefen/steps.server";
 import {
   getPruefenConfig,
@@ -50,6 +50,9 @@ import { commitSession, getSession } from "~/session.server";
 import { HomepageHeader } from "~/components/navigation/HomepageHeader";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { useEffect, useState } from "react";
+import ErrorBanner from "~/components/ErrorBanner";
+import { flags } from "~/flags.server";
+import { useTranslation } from "react-i18next";
 
 const PREFIX = "pruefen";
 const START_STEP = "start";
@@ -86,6 +89,7 @@ export type LoaderData = {
   weitereErklaerung: boolean;
   stepDefinition: StepDefinition;
   csrfToken: string;
+  sendinblueDown?: boolean;
   testFeaturesEnabled?: boolean;
 };
 
@@ -166,6 +170,7 @@ export const loader: LoaderFunction = async ({
       ),
       stepDefinition,
       csrfToken,
+      sendinblueDown: flags.isSendinblueDown(),
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -238,9 +243,10 @@ export type StepComponentFunction = (
 export function Step() {
   const loaderData: LoaderData = useLoaderData();
   const actionData: ActionData = useActionData() as ActionData;
+  const { t } = useTranslation();
   const transition = useTransition();
   const isSubmitting = Boolean(transition.submission);
-  const { i18n, backUrl, currentState } = loaderData;
+  const { i18n, backUrl, currentState, sendinblueDown } = loaderData;
   const StepComponent =
     _.get(stepComponents, currentState) || FallbackStepComponent;
 
@@ -265,6 +271,11 @@ export function Step() {
   return (
     <>
       <main className="flex-grow mb-56">
+        {sendinblueDown && (
+          <ErrorBanner heading={t("banners.sendinblueDownHeading")}>
+            <div> {t("banners.sendinblueDownBody")} </div>
+          </ErrorBanner>
+        )}
         <HomepageHeader skipPruefen={loaderData.weitereErklaerung} />
         <ContentContainer>
           <div className="bg-white px-16 md:px-80 py-16 md:py-56">

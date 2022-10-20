@@ -1,10 +1,11 @@
 import { ReactNode } from "react";
-import ErrorBar from "~/components/ErrorBar";
 import { useTranslation } from "react-i18next";
+import ErrorBanner from "~/components/ErrorBanner";
 
 export interface Banners {
   ekonaDown?: boolean;
   ericaDown?: boolean;
+  sendinblueDown?: boolean;
 }
 
 export interface LayoutProps {
@@ -51,27 +52,29 @@ const Layout = ({
         <div className="h-full bg-white">{sidebarNavigation}</div>
       </header>
       <div className="flex flex-col flex-grow">
-        {banners?.ericaDown &&
-          path &&
-          (path.includes("/fsc") || path === "/identifikation") && (
-            <ErrorBar heading={t("banners.ericaDownHeading")} className="mb-8">
-              {t("banners.ericaDownBody")}
-            </ErrorBar>
+        <div className="flex flex-col gap-y-4">
+          {banners?.ericaDown &&
+            path &&
+            (path.includes("/fsc") || path === "/identifikation") && (
+              <ErrorBanner heading={t("banners.ericaDownHeading")}>
+                {t("banners.ericaDownBody")}
+              </ErrorBanner>
+            )}
+          {banners?.ericaDown && path === "/formular/zusammenfassung" && (
+            <ErrorBanner
+              heading={t("banners.ericaDownZusammenfassungHeading")}
+              className="mb-8"
+            >
+              {t("banners.ericaDownZusammenfassungBody")}
+            </ErrorBanner>
           )}
-        {banners?.ericaDown && path === "/formular/zusammenfassung" && (
-          <ErrorBar
-            heading={t("banners.ericaDownZusammenfassungHeading")}
-            className="mb-8"
-          >
-            {t("banners.ericaDownZusammenfassungBody")}
-          </ErrorBar>
-        )}
-        {banners?.ekonaDown &&
-          (path === "/ekona" || path === "/identifikation") && (
-            <ErrorBar heading={t("banners.ekonaDownHeading")} className="mb-8">
-              {t("banners.ekonaDownBody")}
-            </ErrorBar>
-          )}
+          {banners?.ekonaDown &&
+            (path === "/ekona" || path === "/identifikation") && (
+              <ErrorBanner heading={t("banners.ekonaDownHeading")}>
+                {t("banners.ekonaDownBody")}
+              </ErrorBanner>
+            )}
+        </div>
         <header className="flex-shrink-0 bg-white lg:hidden">
           {topNavigation}
         </header>

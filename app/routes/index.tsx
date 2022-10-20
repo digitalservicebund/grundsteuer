@@ -13,22 +13,30 @@ import germanyMapImage from "~/assets/images/germany-map.svg";
 import { HomepageHeader } from "~/components/navigation/HomepageHeader";
 import HelpInfoBox from "~/components/HelpInfoBox";
 import Edit from "~/components/icons/mui/Edit";
+import ErrorBanner from "~/components/ErrorBanner";
+import { LoaderFunction } from "@remix-run/node";
+import { flags } from "~/flags.server";
+import { useLoaderData } from "@remix-run/react";
+
+export const loader: LoaderFunction = () => {
+  if (flags.isSendinblueDown()) {
+    return { sendinblueDown: true };
+  }
+
+  return {};
+};
 
 export default function Index() {
+  const { sendinblueDown } = useLoaderData();
   const { t } = useTranslation("all");
 
   return (
     <>
-      {/*<div className="flex-shrink-0 bg-yellow-300 border-l-[9px] border-l-yellow-500 py-16">
-        <ContentContainer>
-          <p className="text-14 leading-20 lg:text-18 lg:leading-24">
-            Für Eigentümer:innen einer Eigentumswohnung mit Garage in
-            Nordrhein-Westfalen: aktuell kann aus technischen Gründen die
-            Grundbuchblattnummer nicht angegeben werden. Wir arbeiten an einer
-            Lösung.
-          </p>
-        </ContentContainer>
-      </div> */}
+      {sendinblueDown && (
+        <ErrorBanner heading={t("banners.sendinblueDownHeading")}>
+          <div> {t("banners.sendinblueDownBody")} </div>
+        </ErrorBanner>
+      )}
       <HomepageHeader />
       <main className="flex-grow">
         <BreadcrumbNavigation />

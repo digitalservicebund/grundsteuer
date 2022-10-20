@@ -36,6 +36,7 @@ import Hint from "~/components/Hint";
 import { validateRequired } from "~/domain/validation/requiredValidation";
 import { validateEmail } from "~/domain/validation/stringValidation";
 import * as crypto from "crypto";
+import { flags } from "~/flags.server";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -104,6 +105,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json(
     {
       csrfToken,
+      sendinblueDown: flags.isSendinblueDown(),
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -209,7 +211,7 @@ export default function Registrieren() {
   const isSubmitting = Boolean(transition.submission);
 
   return (
-    <LoggedOutLayout>
+    <LoggedOutLayout banners={{ sendinblueDown: loaderData.sendinblueDown }}>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         <Headline>

@@ -35,6 +35,7 @@ import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { validateRequired } from "~/domain/validation/requiredValidation";
 import { validateEmail } from "~/domain/validation/stringValidation";
 import * as crypto from "crypto";
+import { flags } from "~/flags.server";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -59,6 +60,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     {
       csrfToken,
       error,
+      sendinblueDown: flags.isSendinblueDown(),
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -125,7 +127,7 @@ export default function Anmelden() {
   const isSubmitting = Boolean(transition.submission);
 
   return (
-    <LoggedOutLayout>
+    <LoggedOutLayout banners={{ sendinblueDown: loaderData.sendinblueDown }}>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         {loaderData?.error === "token" && (
