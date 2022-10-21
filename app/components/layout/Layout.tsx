@@ -79,7 +79,7 @@ const Layout = ({
           {topNavigation}
         </header>
         <div className="justify-end mr-48 hidden lg:flex">{logoutMenu}</div>
-        <main className="flex-grow">{children}</main>
+        <main className="flex-grow relative">{children}</main>
         <footer className="flex-shrink-0 pl-2">{footer}</footer>
       </div>
     </div>
