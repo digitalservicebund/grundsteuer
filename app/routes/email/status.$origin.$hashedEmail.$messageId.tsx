@@ -10,6 +10,7 @@ import {
 import { getStatus, getUiStatus } from "~/email.server";
 import { Feature, redis } from "~/redis/redis.server";
 import { pageTitle } from "~/util/pageTitle";
+import { flags } from "~/flags.server";
 
 export const meta: MetaFunction = () => {
   return {
@@ -59,6 +60,7 @@ export const loader: LoaderFunction = async ({ params }) => {
       registrieren: "zurück zur Registrierung",
       anmelden: "zurück zur Anmeldung",
     }[origin],
+    flags: flags.getAllFlags(),
   };
 };
 
@@ -77,6 +79,7 @@ export default function AnmeldenEmail() {
     origin,
     actionPath,
     actionLabel,
+    flags,
   } = data;
 
   useEffect(() => {
@@ -97,7 +100,7 @@ export default function AnmeldenEmail() {
   }, [fetcher]);
 
   return (
-    <LoggedOutLayout>
+    <LoggedOutLayout flags={flags}>
       <BreadcrumbNavigation />
       <EmailStatus
         email={email}

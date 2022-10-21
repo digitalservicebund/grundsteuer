@@ -11,6 +11,7 @@ import {
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator, SessionUser } from "~/auth.server";
 import { useLoaderData } from "@remix-run/react";
+import { flags } from "~/flags.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erfolgreich angemeldet.") };
@@ -29,13 +30,14 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   return {
     nextStepUrl: getNextStepUrl(user),
+    flags: flags.getAllFlags(),
   };
 };
 export default function ErfolgreichAngemeldet() {
-  const { nextStepUrl } = useLoaderData();
+  const { nextStepUrl, flags } = useLoaderData();
 
   return (
-    <UserLayout>
+    <UserLayout flags={flags}>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         <SuccessPageLayout>
