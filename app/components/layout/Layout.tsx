@@ -47,7 +47,7 @@ const Layout = ({
         <div className="h-full bg-white">{sidebarNavigation}</div>
       </header>
       <div className="flex flex-col flex-grow">
-        <div className="flex flex-col gap-y-4">
+        <div className="flex flex-col">
           {flags?.ericaDown &&
             path &&
             (path.includes("/fsc") || path === "/identifikation") && (
