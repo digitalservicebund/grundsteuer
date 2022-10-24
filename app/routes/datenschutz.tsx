@@ -1,15 +1,23 @@
 import { useTranslation } from "react-i18next";
-import { MetaFunction } from "@remix-run/node";
+import { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { BmfLogo, Button, SimplePageLayout } from "~/components";
 import ArrowBackIcon from "~/components/icons/mui/ArrowBack";
 import { pageTitle } from "~/util/pageTitle";
+import { useLoaderData } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Datenschutzerklärung") };
 };
 
+export const loader: LoaderFunction = async () => {
+  return {
+    useUseid: process.env.USE_USEID === "true",
+  };
+};
+
 export default function Datenschutz() {
   const { t } = useTranslation("all");
+  const { useUseid } = useLoaderData();
   return (
     <SimplePageLayout>
       <Button
@@ -30,7 +38,7 @@ export default function Datenschutz() {
       </h1>
 
       <div className="prose prose-xl mb-64">
-        <p>Zuletzt aktualisiert: 04.07.2022</p>
+        <p>Zuletzt aktualisiert: 24.10.2022</p>
         <p>
           Mit dem Online-Dienst <i>Grundsteuererklärung für Privateigentum</i>{" "}
           möchten wir es Ihnen als Eigentümer:in einfacher machen, Ihre
@@ -124,7 +132,12 @@ export default function Datenschutz() {
         <p>
           Um Sie zu registrieren und anzumelden, nutzen wir Ihre Email-Adresse.
         </p>
-        <p>Für die Identifizierung bieten wir zwei Optionen an:</p>
+        {useUseid && (
+          <p>Für die Identifizierung bieten wir drei Optionen an:</p>
+        )}
+        {!useUseid && (
+          <p>Für die Identifizierung bieten wir zwei Optionen an:</p>
+        )}
         <ul>
           <li>Identifizierung mit Freischaltcode</li>
         </ul>
@@ -157,15 +170,61 @@ export default function Datenschutz() {
           Registrierungsprozess auf dieser Webseite. Der DigitalService
           speichert in den AuditLogs Name, Vorname, Steuer-ID und Anschrift.
         </p>
+        {useUseid && (
+          <>
+            <ul>
+              <li>
+                Identifizierung mit dem Personalausweis über BundesIdent App
+              </li>
+            </ul>
+            <p>
+              Die Identifizierung mit dem Personalausweis wird über die App
+              BundesIdent realisiert, die an einen eID-Server angebunden ist.
+              Die Identifizierung läuft in zwei Schritten:
+            </p>
+            <ol>
+              <li>
+                Der Nutzende lädt die BundesIdent App herunter und richtet die
+                Online-Ausweisfunktion seines Ausweises (bei Bedarf) ein.
+              </li>
+              <li>
+                Danach muss der Nutzende aus dem Online-Service
+                “Grundsteuererklärung für Privateigentum” heraus einen Link zur
+                Identifizierung bei BundesIdent anklicken. So landet er in einer
+                bereits heruntergeladenen App und kann sich ausweisen. Dafür
+                muss er bestätigen, dass folgende Daten an den Online-Service
+                “Grundsteuererklärung für Privateigentum” weitergegeben werden
+                dürfen: Vorname, Familienname und Anschrift. Dann hält er seinen
+                Personalausweis an den NFC-Chip vom Smartphone und die Daten
+                werden ausgelesen.
+              </li>
+            </ol>
+            <p>
+              Die ausgelesenen Daten werden allerdings nicht in der App oder auf
+              dem Smartphone gespeichert. Sie werden direkt vom eID-Server an
+              den Online-Service “Grundsteuererklärung für Privateigentum”
+              übermittelt. Der Online-Service “Grundsteuererklärung für
+              Privateigentum” speichert in den AuditLogs Vorname, Familienname
+              und Anschrift. So ist der Nutzende identifiziert und er wird
+              zurück auf die Seite “Grundsteuererklärung für Privateigentum”
+              weitergeleitet. Die Datenschutzerklärung der BundesIdent App ist
+              hier zu finden:{" "}
+              <a href="https://digitalservice.bund.de/datenschutzerklaerung-bundesident">
+                https://digitalservice.bund.de/datenschutzerklaerung-bundesident
+              </a>
+            </p>
+          </>
+        )}
+
         <p>
-          Sollten Sie eine Grundsteuererklärung über den Steuerlotsen
-          abschicken, speichern wir kurzzeitig (60 Minuten) auch eine
-          Zusammenfassung Ihrer Angaben, insbesondere Daten über Ihr Grundstück
-          und Gebäude und die Kontaktdaten sowie steuerliche
+          Sollten Sie eine Grundsteuererklärung über “Grundsteuererklärung für
+          Privateigentum” abschicken, speichern wir kurzzeitig (24 Stunden) auch
+          eine Zusammenfassung Ihrer Angaben, insbesondere Daten über Ihr
+          Grundstück und Gebäude und die Kontaktdaten sowie steuerliche
           Identifikationsnummer von Eigentümer:innen. Diese Zusammenfassung
           wird, nachdem wir Sie Ihnen für Ihre Unterlagen in der pdf-Datei
-          bereitstellen, zeitnah wieder gelöscht. Die betroffenen Daten sind für
-          die Abgabe einer Grundsteuererklärung zwingend notwendig.
+          bereitstellen, wieder gelöscht. Die betroffenen Daten sind für die
+          Abgabe einer Grundsteuererklärung zwingend notwendig.
         </p>
         <p>
           Nehmen Sie unter der auf unserer Website angegebenen E-Mail-Adresse
@@ -201,7 +260,7 @@ export default function Datenschutz() {
           seinen Sitz in Deutschland hat.
         </p>
 
-        <h2> Auf welcher Grundlage werden die Daten verarbeitet?</h2>
+        <h2>Auf welcher Grundlage werden die Daten verarbeitet?</h2>
         <p>
           Grundlage für die Datenverarbeitung bei der Registrierung und
           Identifizierung sowie die Übermittlung der Steuerdaten ist Art. 6 Abs.
@@ -242,7 +301,7 @@ export default function Datenschutz() {
         </p>
         <p>
           Nach dem Verschicken der Steuererklärung werden die personenbezogenen
-          Daten 60 Minuten lang bei uns gespeichert, um Ihnen eine
+          Daten 24 Stunden lang bei uns gespeichert, um Ihnen eine
           Zusammenfassung der übermittelten Daten bereitzustellen. Da danach der
           Zweck der Verarbeitung dieser Daten erfüllt ist, löschen wir sie gemäß
           Art. 5 der Datenschutz-Grundverordnung (DSGVO).
@@ -260,10 +319,13 @@ export default function Datenschutz() {
           Rechenzentrum in Deutschland gespeichert.
         </p>
         <p>
-          Ihre E-Mails und Kontaktaufnahmen speichern wir so lange, wie es zur
-          Bearbeitung Ihrer Anfrage erforderlich ist und speichern Sie
-          anschließend maximal für den Zeitraum von 12 Monaten, falls Sie sich
-          bezugnehmend auf Ihre ursprüngliche Frage noch einmal an uns wenden.
+          Für die Bearbeitung der Support-Anfragen nutzen wir als
+          Auftragsverarbeiter den Dienstleister Zammad GmbH, Marienstraße 18,
+          10117 Berlin. Ihre E-Mails und Kontaktaufnahmen speichern wir so
+          lange, wie es zur Bearbeitung Ihrer Anfrage erforderlich ist und
+          speichern Sie anschließend maximal für den Zeitraum von 12 Monaten,
+          falls Sie sich bezugnehmend auf Ihre ursprüngliche Frage noch einmal
+          an uns wenden.
         </p>
 
         <h2>Werden Webanalyse-Dienste oder Cookies eingesetzt?</h2>
