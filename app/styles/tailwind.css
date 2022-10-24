@@ -343,8 +343,4 @@
   details > summary::-webkit-details-marker /* Safari */ {
     display: none;
   }
-
-  .overview-page-checkbox .input-width {
-    max-width: 100%;
-  }
 }

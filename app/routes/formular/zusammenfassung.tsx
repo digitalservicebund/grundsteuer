@@ -487,12 +487,12 @@ export default function Zusammenfassung() {
           </h2>
           <p className="mb-16">{i18n.specifics.confirmationText}</p>
           <p className="font-bold mb-32">{i18n.specifics.pdfDisclaimer}</p>
-          <div className="overview-page-checkbox bg-white p-16 mb-16">
+          <div className="bg-white p-16 mb-16">
             <StepFormField {...fieldProps[0]}>
               {i18n.fields.confirmCompleteCorrect.label}
             </StepFormField>
           </div>
-          <div className="overview-page-checkbox bg-white p-16 mb-16">
+          <div className="bg-white p-16 mb-16">
             <StepFormField {...{ ...fieldProps[1] }}>
               <Trans
                 components={{
@@ -516,7 +516,7 @@ export default function Zusammenfassung() {
               </Trans>
             </StepFormField>
           </div>
-          <div className="overview-page-checkbox bg-white p-16 mb-80">
+          <div className="bg-white p-16 mb-80">
             <StepFormField {...fieldProps[2]}>
               <Trans
                 components={{
