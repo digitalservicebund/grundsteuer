@@ -28,6 +28,7 @@ export interface LayoutProps {
 
   flags?: Flags;
   path?: string;
+  useUseid?: boolean;
 }
 
 const Layout = ({
@@ -38,6 +39,7 @@ const Layout = ({
   topNavigation,
   flags,
   path,
+  useUseid,
 }: LayoutProps) => {
   const { t } = useTranslation("all");
 

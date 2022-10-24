@@ -13,14 +13,17 @@ export const loader: LoaderFunction = async ({ request }) => {
   await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
-  return { flags: flags.getAllFlags() };
+  return {
+    flags: flags.getAllFlags(),
+    useUseId: process.env.USE_USEID === "true",
+  };
 };
 
 export default function Identifikation() {
-  const { flags } = useLoaderData();
+  const { flags, useUseId } = useLoaderData();
   const location = useLocation();
   return (
-    <UserLayout flags={flags} path={location.pathname}>
+    <UserLayout flags={flags} path={location.pathname} useUseid={useUseId}>
       <Outlet />
     </UserLayout>
   );

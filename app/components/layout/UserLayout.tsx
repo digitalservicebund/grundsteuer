@@ -14,6 +14,7 @@ export default function UserLayout(props: {
   children: ReactNode;
   path?: string;
   flags?: Flags;
+  useUseid?: boolean;
 }) {
   return (
     <Layout
@@ -28,6 +29,7 @@ export default function UserLayout(props: {
       }
       flags={props.flags}
       path={props.path}
+      useUseid={props.useUseid}
     >
       <Main>{props.children}</Main>
     </Layout>
