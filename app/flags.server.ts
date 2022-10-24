@@ -3,6 +3,7 @@ export type FlagFunction = () => boolean;
 export type FlagFunctions = {
   isEkonaDown: FlagFunction;
   isEricaDown: FlagFunction;
+  isBundesIdentDown: FlagFunction;
   isSendinblueDown: FlagFunction;
   isZammadDown: FlagFunction;
   getAllFlags: () => Flags;
@@ -11,6 +12,7 @@ export type FlagFunctions = {
 export type Flags = {
   ekonaDown?: boolean;
   ericaDown?: boolean;
+  bundesIdentDown?: boolean;
   sendinblueDown?: boolean;
   zammadDown?: boolean;
 };
@@ -27,6 +29,10 @@ const isEricaDown = () => {
   return isServiceDown(process.env.ERICA_DOWN);
 };
 
+const isBundesIdentDown = () => {
+  return isServiceDown(process.env.BUNDES_IDENT_DOWN);
+};
+
 const isSendinblueDown = () => {
   return isServiceDown(process.env.SENDINBLUE_DOWN);
 };
@@ -39,6 +45,7 @@ const getAllFlags = () => {
   return {
     ekonaDown: isEkonaDown(),
     ericaDown: isEricaDown(),
+    bundesIdentDown: isBundesIdentDown(),
     sendinblueDown: isSendinblueDown(),
     zammadDown: isZammadDown(),
   };
@@ -47,6 +54,7 @@ const getAllFlags = () => {
 export const flags: FlagFunctions = {
   isEkonaDown,
   isEricaDown,
+  isBundesIdentDown,
   isSendinblueDown,
   isZammadDown,
   getAllFlags,

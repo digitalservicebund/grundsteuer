@@ -68,6 +68,13 @@ const Layout = ({
                 {t("banners.ekonaDownBody")}
               </ErrorBanner>
             )}
+          {useUseid &&
+            flags?.bundesIdentDown &&
+            (path === "/bundesident" || path === "/identifikation") && (
+              <ErrorBanner heading={t("banners.bundesIdentDownHeading")}>
+                {t("banners.bundesIdentDownBody")}
+              </ErrorBanner>
+            )}
           {flags?.zammadDown && (
             <ErrorBanner
               style="warning"
