@@ -969,7 +969,7 @@
     },
     "abschluss": {
       "headline": "Super, Sie sind fast fertig! Möchten Sie noch ergänzende Angaben machen?",
-      "description": "Wenn Sie hier Angaben ergänzen, wird Ihre Erklärung von den Mitarbeitenden des Finanzamts bearbeitet und nicht maschinell. Machen Sie diese Eintragung nur, wenn über die Angaben im Formular hinaus weitere oder abweichende Angaben oder Sachverhalte berücksichtigt werden sollen.",
+      "description": "Wenn Sie hier Angaben ergänzen, wird Ihre Erklärung von den Mitarbeitenden des Finanzamts und nicht maschinell bearbeitet. Machen Sie diese Eintragung nur, wenn über die Angaben im Formular hinaus weitere oder abweichende Angaben oder Sachverhalte berücksichtigt werden sollen.",
       "fields": {
         "freitext": {
           "label": "Nachricht (max. Zeichen 900)"
