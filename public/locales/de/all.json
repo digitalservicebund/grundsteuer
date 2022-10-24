@@ -1575,10 +1575,6 @@
   "zusammenfassung": {
     "headline": "Bitte überprüfen Sie Ihre Angaben vor dem Versand",
     "fields": {
-      "freitext": {
-        "label": "Nachricht (max. Zeichen 999)",
-        "help": "Wenn Sie hier Angaben ergänzen, wird Ihre Erklärung von den Mitarbeitenden des Finanzamts bearbeitet und nicht maschinell. Machen Sie diese Eintragung nur, wenn über die Angaben im Formular hinaus weitere oder abweichende Angaben oder Sachverhalte berücksichtigt werden sollen."
-      },
       "confirmCompleteCorrect": {
         "label": "Hiermit bestätige ich, dass die Angaben überprüft wurden und dass sie vollständig und richtig sind."
       },
