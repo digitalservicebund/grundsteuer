@@ -469,7 +469,6 @@ describe("/zusammenfassung action", () => {
           confirmCompleteCorrect: "true",
           confirmDataPrivacy: "true",
           confirmTermsOfUse: "true",
-          freitext: "Freitext",
           additional: "Should not be in result",
         },
         context: {},
@@ -487,7 +486,6 @@ describe("/zusammenfassung action", () => {
           confirmCompleteCorrect: "true",
           confirmDataPrivacy: "true",
           confirmTermsOfUse: "true",
-          freitext: "Freitext",
         }
       );
     });

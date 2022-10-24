@@ -14,24 +14,13 @@ describe("ZusammenfassungAccordion component", () => {
       },
     } as unknown as I18nObject,
     errors: undefined,
-    freitextFieldProps: {
-      name: "freitext",
-      i18n: {
-        label: "Freitext",
-      },
-      definition: {
-        validations: {},
-      },
-    },
   };
 
   describe("with no errors set", () => {
-    it("should display freitext field", () => {
+    it("should display freitext area", () => {
       render(<ZusammenfassungAccordion {...defaultProps} />);
 
       expect(screen.getByText("Ergänzende Angaben")).toBeInTheDocument();
-      screen.getByText("Ergänzende Angaben").click();
-      expect(screen.getByRole("textbox")).toBeInTheDocument();
     });
 
     it("should display eigentuemer and grundstueck areas", () => {
@@ -80,6 +69,11 @@ describe("ZusammenfassungAccordion component", () => {
         screen.getByText("Eigentümer:innen").click();
         expect(
           within(screen.getByTestId("eigentuemer-area")).getByRole("link")
+        ).toBeInTheDocument();
+
+        screen.getByText("Ergänzende Angaben").click();
+        expect(
+          within(screen.getByTestId("freitext-area")).getByRole("link")
         ).toBeInTheDocument();
       });
     });
@@ -147,6 +141,27 @@ describe("ZusammenfassungAccordion component", () => {
           within(screen.getByTestId("gebaeude-area")).getByText(
             "sectionUnfilled"
           )
+        ).toBeInTheDocument();
+      });
+    });
+
+    describe("with freitext filled", () => {
+      beforeEach(() => {
+        defaultProps.allData = grundModelFactory
+          .freitext({ freitext: "Some text." })
+          .build();
+      });
+
+      afterEach(() => {
+        defaultProps.allData = {};
+      });
+
+      it("should display entered freitext", () => {
+        render(<ZusammenfassungAccordion {...defaultProps} />);
+
+        screen.getByText("Grundstück").click();
+        expect(
+          within(screen.getByTestId("freitext-area")).queryByText("Some text.")
         ).toBeInTheDocument();
       });
     });

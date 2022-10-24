@@ -526,13 +526,11 @@ describe("Happy Path", () => {
     cy.get(submitBtnSelector).click();
     cy.url().should("include", "/formular/eigentuemer/abschluss");
     cy.contains("h1", "fast fertig");
+    cy.get("#freitext").clear().type(inputData.freitext);
     cy.get(submitBtnSelector).click();
 
     // ZUSAMMENFASSUNG
     cy.url().should("include", "/formular/zusammenfassung");
-
-    cy.contains("summary", "Ergänzende Angaben").click();
-    cy.get("#freitext").clear().type(inputData.freitext);
 
     // unpack accordion items
     cy.contains("summary", "Grundstück").click();
@@ -559,6 +557,9 @@ describe("Happy Path", () => {
       "#empfangsbevollmaechtigter",
       inputData.eigentuemer.empfangsbevollmaechtigter.adresse.strasse
     );
+
+    cy.contains("summary", "Ergänzende Angaben").click();
+    cy.contains("#freitext-area", inputData.freitext);
 
     cy.get("label[for=confirmCompleteCorrect]").click("left");
     cy.get("label[for=confirmDataPrivacy]").click("left");

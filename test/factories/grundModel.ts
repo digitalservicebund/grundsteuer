@@ -39,6 +39,7 @@ import { GrundstueckBodenrichtwertAnzahlFields } from "~/domain/steps/grundstuec
 import { StateMachineContext } from "~/domain/states/states.server";
 import { GrundstueckMiteigentumAuswahlWohnungFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlWohnung.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
+import { EigentuemerAbschlussFields } from "~/domain/steps/eigentuemer/abschluss";
 
 type PersonTransientParams = {
   transient: {
@@ -452,10 +453,12 @@ class GrundModelFactory extends Factory<StateMachineContext> {
     });
   }
 
-  freitext(fields?: Partial<ZusammenfassungFields>) {
+  freitext(fields?: Partial<EigentuemerAbschlussFields>) {
     return this.params({
-      zusammenfassung: {
-        freitext: fields?.freitext,
+      eigentuemer: {
+        abschluss: {
+          freitext: fields?.freitext,
+        },
       },
     });
   }

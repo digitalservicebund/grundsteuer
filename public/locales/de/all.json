@@ -966,9 +966,13 @@
       }
     },
     "abschluss": {
-      "headline": "Super, Sie sind fast fertig!",
-      "description": "Bevor Sie Ihre Grundsteuererklärung an das Finanzamt übermitteln, überprüfen Sie bitte Ihre Angaben in der Übersicht.",
-      "nextButtonLabel": "Zur Übersicht"
+      "headline": "Super, Sie sind fast fertig! Möchten Sie noch ergänzende Angaben machen?",
+      "description": "Wenn Sie hier Angaben ergänzen, wird Ihre Erklärung von den Mitarbeitenden des Finanzamts bearbeitet und nicht maschinell. Machen Sie diese Eintragung nur, wenn über die Angaben im Formular hinaus weitere oder abweichende Angaben oder Sachverhalte berücksichtigt werden sollen.",
+      "fields": {
+        "freitext": {
+          "label": "Nachricht (max. Zeichen 900)"
+        }
+      }
     }
   },
   "grundstueck": {

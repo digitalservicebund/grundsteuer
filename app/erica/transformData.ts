@@ -362,7 +362,7 @@ export const transformDataToEricaFormat = (inputData: GrundModel) => {
       },
     },
     freitext: transformFreitext(
-      inputData.zusammenfassung?.freitext,
+      inputData.eigentuemer?.abschluss?.freitext,
       inputData.grundstueck?.bodenrichtwertAnzahl?.anzahl === "2"
     ),
   };

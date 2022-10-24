@@ -2,7 +2,7 @@ import { getStepData } from "~/domain/model";
 import Finished from "~/components/icons/mui/Finished";
 import Edit from "~/components/icons/mui/Edit";
 import { conditions } from "~/domain/states/guards";
-import { Accordion, SectionLabel, StepFormField } from "~/components";
+import { Accordion, SectionLabel } from "~/components";
 import { AccordionItemProps } from "~/components/AccordionItem";
 import {
   EigentuemerModel,
@@ -30,7 +30,6 @@ import {
 import { EigentuemerPersonPersoenlicheAngabenFields } from "~/domain/steps/eigentuemer/person/persoenlicheAngaben";
 import { EigentuemerPersonAdresseFields } from "~/domain/steps/eigentuemer/person/adresse";
 import { EigentuemerPersonAnteilFields } from "~/domain/steps/eigentuemer/person/anteil";
-import { StepFormFieldProps } from "~/components/form/StepFormField";
 import Paragraph from "~/components/icons/mui/Paragraph";
 import ExclamationMarkFilled from "~/components/icons/mui/ExclamationMarkFilled";
 import { EigentuemerBruchteilsgemeinschaftAdresseFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
@@ -424,7 +423,6 @@ export type ZusammenfassungAccordionProps = {
   allData: GrundModel;
   i18n: I18nObject;
   errors?: PreviousStepsErrors;
-  freitextFieldProps: StepFormFieldProps;
 };
 
 type FieldResolver = (
@@ -451,7 +449,6 @@ export default function ZusammenfassungAccordion({
   allData,
   i18n,
   errors,
-  freitextFieldProps,
 }: ZusammenfassungAccordionProps) {
   const editLink = (editUrl: string) => {
     return (
@@ -1097,14 +1094,13 @@ export default function ZusammenfassungAccordion({
         </div>
       ),
       content: (
-        <div className="max-w-[400px]">
-          <p className="text-16 pb-24">
-            Wenn Sie hier Angaben ergänzen, wird Ihre Erklärung von den
-            Mitarbeitenden des Finanzamts bearbeitet und nicht maschinell.
-            Machen Sie eine Eintragung nur, wenn weitere oder abweichende
-            Angaben oder Sachverhalte berücksichtigt werden sollen.
-          </p>
-          <StepFormField {...freitextFieldProps} />
+        <div
+          id="freitext-area"
+          data-testid="freitext-area"
+          className="flex justify-between items-start"
+        >
+          <p className="text-16">{allData?.eigentuemer?.abschluss?.freitext}</p>
+          {editLink("eigentuemer/abschluss")}
         </div>
       ),
     };

@@ -82,7 +82,6 @@ describe("_step action", () => {
     },
     { route: "/gebaeude/uebersicht", path: "gebaeude.uebersicht" },
     { route: "/eigentuemer/uebersicht", path: "eigentuemer.uebersicht" },
-    { route: "/eigentuemer/abschluss", path: "eigentuemer.abschluss" },
   ];
 
   test.each(cases)("Updates data on info step", async ({ route, path }) => {

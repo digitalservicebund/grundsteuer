@@ -91,7 +91,7 @@ export const validateAllStepsData = async (
         true
       );
       fieldErrors = errors || {};
-    } else {
+    } else if (!stepDefinition.optional) {
       Object.keys(stepDefinition.fields).forEach(
         (field) => (fieldErrors[field] = "Bitte ergänzen")
       );

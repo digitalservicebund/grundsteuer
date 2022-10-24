@@ -237,6 +237,10 @@ import {
   grundstueckMiteigentumWohnung,
   GrundstueckMiteigentumWohnungFields,
 } from "~/domain/steps/grundstueck/miteigentumWohnung.server";
+import {
+  eigentuemerAbschluss,
+  EigentuemerAbschlussFields,
+} from "./eigentuemer/abschluss";
 export type { GrundstueckMiteigentumWohnungFields };
 
 export const infoStep: StepDefinition = {
@@ -307,7 +311,7 @@ const stepDefinitions = {
       name: eigentuemerEmpfangsbevollmaechtigterName,
       adresse: eigentuemerEmpfangsbevollmaechtigterAdresse,
     },
-    abschluss: infoStep,
+    abschluss: eigentuemerAbschluss,
   },
   zusammenfassung: zusammenfassung,
 };
@@ -383,6 +387,7 @@ export type EigentuemerModel = {
     name?: EigentuemerEmpfangsbevollmaechtigterNameFields;
     adresse?: EigentuemerEmpfangsbevollmaechtigterAdresseFields;
   };
+  abschluss?: EigentuemerAbschlussFields;
 };
 
 export type StepDefinitionField = {
@@ -412,6 +417,7 @@ export type StepDefinitionFields = StepDefinitionField & {
 };
 
 export type StepDefinition = {
+  optional?: boolean;
   fields: Record<string, StepDefinitionField | StepDefinitionFieldWithOptions>;
 };
 
