@@ -10,11 +10,6 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  if (process.env.USE_USEID !== "true") {
-    throw new Response("Not Found", {
-      status: 404,
-    });
-  }
   const sessionUser = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });

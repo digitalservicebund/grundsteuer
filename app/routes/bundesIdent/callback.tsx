@@ -49,11 +49,6 @@ const checkIfErrorState = (request: Request) => {
 };
 
 export const loader: LoaderFunction = async ({ context, request }) => {
-  if (process.env.USE_USEID !== "true") {
-    throw new Response("Not Found", {
-      status: 404,
-    });
-  }
   const { clientIp } = context;
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",

@@ -28,11 +28,6 @@ export const isMobileUserAgent = (request: Request) => {
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  if (process.env.USE_USEID !== "true") {
-    throw new Response("Not Found", {
-      status: 404,
-    });
-  }
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
