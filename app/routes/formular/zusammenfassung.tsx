@@ -257,7 +257,7 @@ export const loader: LoaderFunction = async ({
       previousStepsErrors: previousStepsErrors || {},
       ericaErrors,
       showSpinner: !!ericaRequestId,
-      ericadown: flags.isEricaDown(),
+      ericaDown: flags.isEricaDown(),
     },
     {
       headers: {
