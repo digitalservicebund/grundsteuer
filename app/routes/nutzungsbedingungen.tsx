@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { MetaFunction } from "@remix-run/node";
+import { LoaderFunction, MetaFunction } from "@remix-run/node";
 import {
   BmfLogo,
   Button,
@@ -8,13 +8,21 @@ import {
 } from "~/components";
 import ArrowBackIcon from "~/components/icons/mui/ArrowBack";
 import { pageTitle } from "~/util/pageTitle";
+import { useLoaderData } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Nutzungsbedingungen") };
 };
 
+export const loader: LoaderFunction = async () => {
+  return {
+    useUseid: process.env.USE_USEID === "true",
+  };
+};
+
 export default function Nutzungsbedingungen() {
   const { t } = useTranslation("all");
+  const { useUseid } = useLoaderData();
   return (
     <SimplePageLayout>
       <Button
@@ -34,7 +42,7 @@ export default function Nutzungsbedingungen() {
         {t("termsOfUse.headline")}
       </h1>
       <ContentContainer size="md">
-        <p className="mb-32">Stand: 15.08.2022</p>
+        <p className="mb-32">Stand: 24.10.2022</p>
         <h2 className="text-24 mb-24 font-bold">Präambel</h2>
         <p>
           Die Software „Grundsteuererklärung für Privateigentum“ ist eine
@@ -166,15 +174,6 @@ export default function Nutzungsbedingungen() {
             Grundsteuererklärung mit unserer Anwendung nicht abgegeben werden.
           </li>
         </ul>
-        <p className="mb-32">
-          Um zu prüfen, ob Sie Ihre Grundsteuererklärung mit
-          “Grundsteuererklärung für Privateigentum” machen können, nutzen Sie
-          bitte den dafür vorgesehenen Fragebogen unter{" "}
-          <a href="/pruefen/start" className="text-blue-800 underline">
-            www.grundsteuererklaerung-fuer-privateigentum.de/pruefen/start
-          </a>
-          .
-        </p>
 
         <h3 className="text-18 mb-8 text-blue-900 font-bold">Prozess</h3>
         <p>Unsere Anwendung besteht aus folgenden vier Schritten:</p>
@@ -213,7 +212,7 @@ export default function Nutzungsbedingungen() {
           haben, müssen Sie dies bestätigen. Mit erfolgter Bestätigung
           verschicken wir an Sie eine Email mit einem für Sie persönlich
           generierten Link (“Magic Link”). Wenn Sie auf diesen Link klicken,
-          werden sie auf die Seite von “Grundsteuererklärung für Privateigentum“
+          werden Sie auf die Seite von “Grundsteuererklärung für Privateigentum“
           geleitet, die die erfolgreiche Registrierung bestätigt. Die
           rechtsverbindliche Registrierung erfolgt erst mit dem Klick auf den
           Magic Link in der Mail.
@@ -236,7 +235,12 @@ export default function Nutzungsbedingungen() {
           Identifizierung ist jederzeit möglich: am Anfang des Prozesses, am
           Ende des Prozesses oder auch zwischendurch.
         </p>
-        <p className="mb-16">Es gibt zwei Identifizierungsmöglichkeiten:</p>
+        {useUseid && (
+          <p className="mb-16">Es gibt drei Identifizierungsmöglichkeiten:</p>
+        )}
+        {!useUseid && (
+          <p className="mb-16">Es gibt zwei Identifizierungsmöglichkeiten:</p>
+        )}
         <ul className="list-disc ml-24 mb-8">
           <li>Identifizierung per Brief (Freischaltcode)</li>
         </ul>
@@ -278,6 +282,47 @@ export default function Nutzungsbedingungen() {
           und er wird zurück auf die Seite “Grundsteuererklärung für
           Privateigentum” weitergeleitet.
         </p>
+        {useUseid && (
+          <>
+            <ul className="list-disc ml-24 mb-8">
+              <li>
+                Identifizierung mit dem Personalausweis über BundesIdent App
+              </li>
+            </ul>
+            <p className="mb-8">
+              Die Identifizierung mit dem Personalausweis wird über die App
+              BundesIdent realisiert, die an einen eID-Server angebunden ist.
+              Die Identifizierung läuft in zwei Schritten:
+            </p>
+            <ol className="list-decimal ml-24 mb-8">
+              <li>
+                Der Nutzende lädt die BundesIdent App herunter und richtet die
+                Online-Ausweisfunktion seines Ausweises (bei Bedarf) ein.
+              </li>
+              <li>
+                Danach muss der Nutzende aus dem Online-Service
+                “Grundsteuererklärung für Privateigentum” heraus einen Link zur
+                Identifizierung bei BundesIdent anklicken. So landet er in einer
+                bereits heruntergeladenen App und kann sich ausweisen. Dafür
+                muss er bestätigen, dass folgende Daten an den Online-Service
+                “Grundsteuererklärung für Privateigetum” weitergegeben werden
+                dürfen: Vorname, Familienname und Anschrift. Dann hält er seinen
+                Personalausweis an den NFC-Chip vom Smartphone und die Daten
+                werden ausgelesen.
+              </li>
+            </ol>
+            <p className="mb-16">
+              Die ausgelesenen Daten werden allerdings nicht in der App oder auf
+              dem Smartphone gespeichert. Sie werden direkt vom eID-Server an
+              den Online-Service “Grundsteuererklärung für Privateigentum”
+              übermittelt. Der Online-Service “Grundsteuererklärung für
+              Privateigentum” speichert in den AuditLogs Vorname, Familienname
+              und Anschrift. So ist der Nutzende identifiziert und er wird
+              zurück auf die Seite “Grundsteuererklärung für Privateigentum”
+              weitergeleitet.
+            </p>
+          </>
+        )}
         <h4 className="text-gray-800 mb-8">
           (4) Ausfüllen und Abgeben der Grundsteuererklärung
         </h4>
@@ -343,11 +388,21 @@ export default function Nutzungsbedingungen() {
             Magic Link in der erhaltenen Email-Nachricht klicken, sind sie
             registriert / angemeldet.
           </li>
-          <li>
-            Wir identifizieren Nutzer:innen über eine der zwei möglichen
-            Identifikationsoptionen: per Brief (Freischaltcode) oder mit dem
-            ELSTER-Zertifikat.
-          </li>
+          {useUseid && (
+            <li>
+              Wir identifizieren Nutzer:innen über eine der drei möglichen
+              Identifikationsoptionen: per Brief (Freischaltcode), mit dem
+              ELSTER-Zertifikat oder mit dem Personalausweis über die
+              BundesIdent App.
+            </li>
+          )}
+          {!useUseid && (
+            <li>
+              Wir identifizieren Nutzer:innen über eine der zwei möglichen
+              Identifikationsoptionen: per Brief (Freischaltcode) oder mit dem
+              ELSTER-Zertifikat.
+            </li>
+          )}
           <li>
             Zum Zwecke der Erstellung und Übermittlung ihrer
             Grundsteuererklärung stellen wir den Nutzer:innen eine vereinfachte
