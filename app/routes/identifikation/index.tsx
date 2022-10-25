@@ -58,11 +58,13 @@ export const loader: LoaderFunction = async ({ request }) => {
     isMobile: isMobileUserAgent(request),
     ekonaDown: flags.isEkonaDown(),
     ericaDown: flags.isEricaDown(),
+    bundesIdentDown: flags.isBundesIdentDown(),
   };
 };
 
 export default function IdentifikationIndex() {
-  const { useUseId, isMobile, ekonaDown, ericaDown } = useLoaderData();
+  const { useUseId, isMobile, ekonaDown, ericaDown, bundesIdentDown } =
+    useLoaderData();
   return (
     <>
       <ContentContainer size="sm-md">
@@ -111,6 +113,7 @@ export default function IdentifikationIndex() {
             subheading="Empfohlen für digitalaffine Nutzer:innen, die sich elektronisch mit Ihrem Ausweis identifizieren möchten."
             text=""
             buttonLabel="Identifikation mit Ausweis"
+            buttonDisabled={bundesIdentDown}
             url="/bundesIdent/voraussetzung"
             className="mb-16"
           />
