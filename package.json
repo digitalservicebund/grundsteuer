@@ -82,6 +82,7 @@
     "sib-api-v3-sdk": "^8.4.2",
     "tiny-invariant": "^1.3.1",
     "tsconfig-paths": "^4.1.0",
+    "unleash-client": "^3.16.0",
     "useid-eservice-sdk": "^1.8.1",
     "uuid": "^9.0.0",
     "validator": "^13.7.0",

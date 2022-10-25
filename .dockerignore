@@ -9,6 +9,7 @@
 !patches
 !prisma
 !public
+!unleash
 !remix.config.js
 !tailwind.config.js
 !remix.env.d.ts

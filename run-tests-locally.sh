@@ -38,4 +38,9 @@ elif [[ $1 == "integration" ]]; then
 fi
 
 
-DATABASE_URL=postgresql://prisma:prisma@localhost:5433/tests ERICA_URL=http://localhost:8001 REDIS_URL=redis://localhost:6380/0 APP_VERSION=test run_tests $command
+DATABASE_URL=postgresql://prisma:prisma@localhost:5433/tests \
+ERICA_URL=http://localhost:8001 REDIS_URL=redis://localhost:6380/0 \
+APP_VERSION=test \
+UNLEASH_HOST=http://localhost:4243 \
+UNLEASH_API_TOKEN=default:development.unleash-insecure-api-token \
+run_tests $command

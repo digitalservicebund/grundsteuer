@@ -13,6 +13,8 @@ On first install:
 ```
 npm install
 npx prisma migrate dev
+cd unleash
+./create-local-unleash.sh
 ```
 
 To start the app:
