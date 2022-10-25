@@ -33,7 +33,7 @@ services:
       # LOG_LEVEL: "debug"
     depends_on:
       - db
-    command: [ "./wait-for", "db:5432", "--", "node", "index.js" ]
+    command: ["./wait-for", "db:5432", "--", "node", "index.js"]
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://localhost:4242/health || exit 1
       interval: 1s
@@ -50,7 +50,14 @@ services:
       # trust incoming connections blindly (DON'T DO THIS IN PRODUCTION!)
       POSTGRES_HOST_AUTH_METHOD: "trust"
     healthcheck:
-      test: [ "CMD", "pg_isready", "--username=postgres", "--host=127.0.0.1", "--port=5432" ]
+      test:
+        [
+          "CMD",
+          "pg_isready",
+          "--username=postgres",
+          "--host=127.0.0.1",
+          "--port=5432",
+        ]
       interval: 2s
       timeout: 1m
       retries: 5
