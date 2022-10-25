@@ -22,8 +22,8 @@ import PhotoCameraFront from "~/components/icons/mui/PhotoCameraFront";
 import { useLoaderData } from "@remix-run/react";
 import Bolt from "~/components/icons/mui/Bolt";
 import { pageTitle } from "~/util/pageTitle";
-import { isMobileUserAgent } from "~/routes/bundesIdent/index";
 import { flags } from "~/flags.server";
+import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation mit Ausweis") };

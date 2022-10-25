@@ -7,24 +7,15 @@ import { Button, ButtonContainer, Headline, SectionLabel } from "~/components";
 import invariant from "tiny-invariant";
 import Bolt from "~/components/icons/mui/Bolt";
 import OnlyMobileDisclaimer from "~/components/OnlyMobileDisclaimer";
-import { deviceDetect } from "react-device-detect";
 import { useEffect, useState } from "react";
 import EnableJsDisclaimer from "~/components/EnableJsDisclaimer";
 import { applyRateLimit } from "~/redis/rateLimiting.server";
 import RateLimitExceeded from "~/components/RateLimitExceeded";
 import { Feature } from "~/redis/redis.server";
+import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifizieren Sie sich mit Ihrem Ausweis") };
-};
-
-export const isMobileUserAgent = (request: Request) => {
-  let isMobile = false;
-  const userAgent = request.headers.get("User-Agent");
-  if (userAgent) {
-    isMobile = deviceDetect(userAgent).isMobile;
-  }
-  return isMobile;
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
