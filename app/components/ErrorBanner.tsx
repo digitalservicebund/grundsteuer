@@ -3,10 +3,12 @@ import ExclamationMark from "~/components/icons/mui/ExclamationMark";
 import classNames from "classnames";
 import SettingsOutlined from "~/components/icons/mui/SettingsOutlined";
 import { ContentContainer } from "~/components/index";
+import { Service } from "~/flags.server";
 
 type ErrorBannerProps = {
   heading?: ReactNode | string;
   children: ReactNode;
+  service: Service;
   style?: "error" | "warning";
   className?: string;
 };
@@ -26,6 +28,7 @@ export default class ErrorBanner extends React.Component<ErrorBannerProps> {
             : "bg-red-200 border-l-red-900",
           this.props.className
         )}
+        data-testid={this.props.service + "-banner"}
       >
         <ContentContainer>
           <div className="flex flex-row gap-4 lg:ml-[-25px]">

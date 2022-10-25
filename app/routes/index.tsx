@@ -29,12 +29,19 @@ export default function Index() {
   return (
     <>
       {flags.sendinblueDown && (
-        <ErrorBanner heading={t("banners.sendinblueDownHeading")}>
+        <ErrorBanner
+          heading={t("banners.sendinblueDownHeading")}
+          service="sendinblue"
+        >
           <div> {t("banners.sendinblueDownBody")} </div>
         </ErrorBanner>
       )}
       {flags.zammadDown && (
-        <ErrorBanner style="warning" heading={t("banners.zammadDownHeading")}>
+        <ErrorBanner
+          style="warning"
+          heading={t("banners.zammadDownHeading")}
+          service="zammad"
+        >
           <div> {t("banners.zammadDownBody")} </div>
         </ErrorBanner>
       )}

@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/// <reference types="node" />
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
 //
@@ -12,6 +13,7 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 import { db } from "../../app/db.server";
+import fetch from "node-fetch";
 import {
   createUser,
   deleteEricaRequestIdFscAktivieren,
@@ -157,6 +159,36 @@ export default (on, config) => {
       inDeclarationProcess,
     }) => {
       await setUserInDeclarationProcess(email, inDeclarationProcess);
+      return null;
+    },
+
+    enableFlag: async ({ name }) => {
+      await fetch(
+        `${process.env.UNLEASH_HOST}/api/admin/projects/default/features/${name}` +
+          "/environments/development/on",
+        {
+          method: "post",
+          headers: {
+            Authorization: process.env.UNLEASH_ADMIN_TOKEN,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return null;
+    },
+
+    disableFlag: async ({ name }) => {
+      await fetch(
+        `${process.env.UNLEASH_HOST}/api/admin/projects/default/features/${name}` +
+          "/environments/development/off",
+        {
+          method: "post",
+          headers: {
+            Authorization: process.env.UNLEASH_ADMIN_TOKEN,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       return null;
     },
   });

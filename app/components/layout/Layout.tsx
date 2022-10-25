@@ -55,18 +55,27 @@ const Layout = ({
           {flags?.ericaDown &&
             path &&
             (path.includes("/fsc") || path === "/identifikation") && (
-              <ErrorBanner heading={t("banners.ericaDownHeading")}>
+              <ErrorBanner
+                heading={t("banners.ericaDownHeading")}
+                service="erica"
+              >
                 {t("banners.ericaDownBody")}
               </ErrorBanner>
             )}
           {flags?.ericaDown && path === "/formular/zusammenfassung" && (
-            <ErrorBanner heading={t("banners.ericaDownZusammenfassungHeading")}>
+            <ErrorBanner
+              heading={t("banners.ericaDownZusammenfassungHeading")}
+              service="erica"
+            >
               {t("banners.ericaDownZusammenfassungBody")}
             </ErrorBanner>
           )}
           {flags?.ekonaDown &&
             (path === "/ekona" || path === "/identifikation") && (
-              <ErrorBanner heading={t("banners.ekonaDownHeading")}>
+              <ErrorBanner
+                heading={t("banners.ekonaDownHeading")}
+                service="ekona"
+              >
                 {t("banners.ekonaDownBody")}
               </ErrorBanner>
             )}
@@ -75,7 +84,10 @@ const Layout = ({
             flags?.bundesIdentDown &&
             path &&
             (path.includes("/bundesIdent") || path === "/identifikation") && (
-              <ErrorBanner heading={t("banners.bundesIdentDownHeading")}>
+              <ErrorBanner
+                heading={t("banners.bundesIdentDownHeading")}
+                service="bundesident"
+              >
                 {t("banners.bundesIdentDownBody")}
               </ErrorBanner>
             )}
@@ -83,6 +95,7 @@ const Layout = ({
             <ErrorBanner
               style="warning"
               heading={t("banners.zammadDownHeading")}
+              service="zammad"
             >
               <div> {t("banners.zammadDownBody")} </div>
             </ErrorBanner>

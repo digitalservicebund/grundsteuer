@@ -19,6 +19,7 @@ run_tests() {
   npm run build
   npx prisma migrate deploy
   npx prisma db seed
+  ./unleash/create-flags.sh http://localhost:4243 "*:*.unleash-insecure-admin-token"
   npm run "$1"
   exit 0
 }
@@ -43,4 +44,6 @@ ERICA_URL=http://localhost:8001 REDIS_URL=redis://localhost:6380/0 \
 APP_VERSION=test \
 UNLEASH_HOST=http://localhost:4243 \
 UNLEASH_API_TOKEN=default:development.unleash-insecure-api-token \
+UNLEASH_ADMIN_TOKEN=*:*.unleash-insecure-admin-token \
+UNLEASH_REFRESH_INTERVAL=500 \
 run_tests $command

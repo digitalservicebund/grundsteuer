@@ -1,3 +1,5 @@
+import { unleash } from "~/unleash.server";
+
 export type FlagFunction = () => boolean;
 
 export type FlagFunctions = {
@@ -17,28 +19,36 @@ export type Flags = {
   zammadDown?: boolean;
 };
 
-const isServiceDown = (flag: string | undefined) => {
-  return flag === "true" || false;
+export type Service =
+  | "bundesident"
+  | "ekona"
+  | "erica"
+  | "sendinblue"
+  | "zammad";
+
+const isServiceDown = (service: Service | undefined) => {
+  if (service === undefined) return false;
+  return unleash.isEnabled("grundsteuer." + service + "_down") || false;
 };
 
 const isEkonaDown = () => {
-  return isServiceDown(process.env.EKONA_DOWN);
+  return isServiceDown("ekona");
 };
 
 const isEricaDown = () => {
-  return isServiceDown(process.env.ERICA_DOWN);
+  return isServiceDown("erica");
 };
 
 const isBundesIdentDown = () => {
-  return isServiceDown(process.env.BUNDES_IDENT_DOWN);
+  return isServiceDown("bundesident");
 };
 
 const isSendinblueDown = () => {
-  return isServiceDown(process.env.SENDINBLUE_DOWN);
+  return isServiceDown("sendinblue");
 };
 
 const isZammadDown = () => {
-  return isServiceDown(process.env.ZAMMAD_DOWN);
+  return isServiceDown("zammad");
 };
 
 const getAllFlags = () => {

@@ -11,6 +11,7 @@ const unleashConfig: UnleashConfig = {
     Authorization: process.env.UNLEASH_API_TOKEN as string,
   },
   disableMetrics: true,
+  refreshInterval: Number(process.env.UNLEASH_REFRESH_INTERVAL) || 15000,
 };
 
 declare global {
