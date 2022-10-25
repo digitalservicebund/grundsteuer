@@ -1,6 +1,6 @@
 /// <reference types="../../cypress/support" />
 
-describe("error banners", () => {
+describe.skip("error banners", () => {
   before(() => {
     cy.task("dbResetUser", "foo@bar.com");
   });
@@ -267,7 +267,7 @@ describe("error banners", () => {
       cy.get(bannerId).should("exist");
     });
 
-    it("should show nanner /identifikation", () => {
+    it("should show banner /identifikation", () => {
       cy.login();
       cy.visit("/identifikation");
       cy.url().should("include", "/identifikation");
