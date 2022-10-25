@@ -39,7 +39,7 @@
     "cypress": "cypress run --browser chrome --headless",
     "cypress:open": "cypress open",
     "docker:up": "docker-compose -f ./docker-compose-test.yml -p grundsteuer-test up -d",
-    "docker:down": "docker-compose -f ./docker-compose-test.yml -p grundsteuer-test down"
+    "docker:down": "docker-compose -f ./docker-compose-test.yml -p grundsteuer-test down -v"
   },
   "dependencies": {
     "@node-saml/node-saml": "node-saml/node-saml#d8bf6b55a70044d98eb767123bcf717808d7369d",
