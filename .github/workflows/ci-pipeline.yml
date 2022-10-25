@@ -57,12 +57,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up test db and mock erica
+      - name: Set up postgres, erica, redis, unleash
         run: docker-compose -f ./docker-compose-test.yml -p grundsteuer-test up -d
 
-      - name: Set up unleash
-        working-directory: ./unleash
-        run: ./create-local-unleash.sh
+      - name: Wait for test db to rise and shine
+        run: sleep 2
         shell: bash
 
       - name: Migrate test db
@@ -70,11 +69,16 @@ jobs:
           DATABASE_URL: postgresql://prisma:prisma@localhost:5433/tests
         run: npx prisma migrate deploy && npx prisma db seed
 
+      - name: Create Unleash toggles
+        working-directory: ./unleash
+        run: ./create-flags.sh http://localhost:4243 '*:*.unleash-insecure-admin-token'
+        shell: bash
+
       - name: Run integration tests
         env:
           DATABASE_URL: postgresql://prisma:prisma@localhost:5433/tests
           REDIS_URL: redis://localhost:6380/0
-          UNLEASH_HOST: http://localhost:4242
+          UNLEASH_HOST: http://localhost:4243
           UNLEASH_API_TOKEN: default:development.unleash-insecure-api-token
         run: npm run test:integration -- --json ----outputFile=webapp-integration-test-report.log
 
@@ -105,7 +109,7 @@ jobs:
           EKONA_ENC_KEY: "${{ secrets.EKONA_ENC_KEY }}"
           EKONA_SIGNING_KEY: "${{ secrets.EKONA_SIGNING_KEY }}"
           REDIS_URL: redis://localhost:6380/0
-          UNLEASH_HOST: http://localhost:4242
+          UNLEASH_HOST: http://localhost:4243
           UNLEASH_API_TOKEN: default:development.unleash-insecure-api-token
           USEID_DOMAIN: "https://useid.dev.ds4g.net"
           USEID_API_KEY: "${{ secrets.USEID_API_KEY }}"
