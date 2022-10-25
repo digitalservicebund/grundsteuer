@@ -29,6 +29,7 @@ export interface LayoutProps {
   flags?: Flags;
   path?: string;
   useUseid?: boolean;
+  isMobile?: boolean;
 }
 
 const Layout = ({
@@ -40,6 +41,7 @@ const Layout = ({
   flags,
   path,
   useUseid,
+  isMobile,
 }: LayoutProps) => {
   const { t } = useTranslation("all");
 
@@ -69,8 +71,10 @@ const Layout = ({
               </ErrorBanner>
             )}
           {useUseid &&
+            isMobile &&
             flags?.bundesIdentDown &&
-            (path === "/bundesident" || path === "/identifikation") && (
+            path &&
+            (path.includes("/bundesIdent") || path === "/identifikation") && (
               <ErrorBanner heading={t("banners.bundesIdentDownHeading")}>
                 {t("banners.bundesIdentDownBody")}
               </ErrorBanner>

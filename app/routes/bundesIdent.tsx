@@ -3,6 +3,7 @@ import { UserLayout } from "~/components";
 import { LoaderFunction, redirect } from "@remix-run/node";
 import { authenticator } from "~/auth.server";
 import { flags } from "~/flags.server";
+import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 
 export const loader: LoaderFunction = async ({ request }) => {
   if (process.env.USE_USEID !== "true") {
@@ -20,15 +21,21 @@ export const loader: LoaderFunction = async ({ request }) => {
   return {
     flags: flags.getAllFlags(),
     useUseid: process.env.USE_USEID === "true",
+    isMobile: isMobileUserAgent(request),
   };
 };
 
 export default function BundesIdent() {
-  const { flags, useUseid } = useLoaderData();
+  const { flags, useUseid, isMobile } = useLoaderData();
   const location = useLocation();
 
   return (
-    <UserLayout flags={flags} path={location.pathname} useUseid={useUseid}>
+    <UserLayout
+      flags={flags}
+      path={location.pathname}
+      useUseid={useUseid}
+      isMobile={isMobile}
+    >
       <Outlet />
     </UserLayout>
   );
