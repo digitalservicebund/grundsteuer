@@ -7,6 +7,14 @@ if (!global.ioredis) {
   console.log("Redis connection opened");
 }
 
+global.__unleash = {
+  isEnabled: () => {
+    return false;
+  },
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  on: () => {},
+};
+
 // eslint-disable-next-line no-undef
 afterAll(async () => {
   if (global.ioredis) {
