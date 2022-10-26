@@ -230,6 +230,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
     "expected a matching user in the database from a user in a cookie session"
   );
 
+  const fscEingebenProcessStarted = isFscEingebenProcessStarted(userData);
   const ericaActivationRequestIsInProgress =
     isEricaActivationRequestInProgress(userData);
   const ericaRevocationRequestIsInProgress =
@@ -261,6 +262,17 @@ export const loader: LoaderFunction = async ({ request, context }) => {
     if (fscRevocationData?.finished && fscRevocationData?.failure) {
       return fscRevocationData;
     }
+  }
+
+  // The cronjob was faster with handling the activation request
+  if (
+    fscEingebenProcessStarted &&
+    !ericaActivationRequestIsInProgress &&
+    !ericaRevocationRequestIsInProgress &&
+    userData.identified
+  ) {
+    await startNewFscRevocationProcess(userData, clientIp);
+    await setUserInFscEingebenProcess(userData.email, false);
   }
 
   const csrfToken = createCsrfToken(session);
