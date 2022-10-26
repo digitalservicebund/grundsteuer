@@ -5,10 +5,10 @@ export type EigentuemerPersonSteuerIdFields = {
 };
 
 export const eigentuemerPersonSteuerId: StepDefinition = {
+  optional: true,
   fields: {
     steuerId: {
       validations: {
-        required: {},
         onlyDecimal: {
           exceptions: [" "],
         },
