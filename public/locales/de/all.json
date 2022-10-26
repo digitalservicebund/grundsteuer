@@ -734,7 +734,7 @@
         "description": "Schauen Sie dafür auf Ihren letzten Einkommensteuerbescheid oder suchen Sie in Ihren Unterlagen nach einem Brief vom Bundeszentralamt für Steuern. Die 11-stellige Nummer steht oben auf dem Brief.",
         "fields": {
           "steuerId": {
-            "label": "Steuer-Identifikationsnummer (Optional)",
+            "label": "Steuer-Identifikationsnummer",
             "placeholder": "99 999 999 999"
           }
         }
