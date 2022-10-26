@@ -10,7 +10,7 @@ describe("error banners", () => {
       cy.task("enableFlag", {
         name: "grundsteuer.ekona_down",
       });
-      cy.wait(2000);
+      cy.wait(1000);
     });
     after(() => {
       cy.task("disableFlag", {
@@ -83,7 +83,7 @@ describe("error banners", () => {
       cy.task("enableFlag", {
         name: "grundsteuer.erica_down",
       });
-      cy.wait(2000);
+      cy.wait(1000);
     });
     after(() => {
       cy.task("disableFlag", {
@@ -173,7 +173,7 @@ describe("error banners", () => {
       cy.task("enableFlag", {
         name: "grundsteuer.sendinblue_down",
       });
-      cy.wait(2000);
+      cy.wait(1000);
     });
     after(() => {
       cy.task("disableFlag", {
@@ -234,7 +234,7 @@ describe("error banners", () => {
       cy.task("enableFlag", {
         name: "grundsteuer.zammad_down",
       });
-      cy.wait(2000);
+      cy.wait(1000);
     });
     after(() => {
       cy.task("disableFlag", {
