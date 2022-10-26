@@ -3,7 +3,6 @@ import { getSession } from "~/session.server";
 import * as freischaltCodeAktivierenModule from "~/erica/freischaltCodeAktivieren";
 import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStornieren";
 import * as userModule from "~/domain/user";
-import * as auditLogModule from "~/audit/auditLog";
 import * as lifecycleModule from "~/domain/lifecycleEvents.server";
 import { sessionUserFactory } from "test/factories";
 import {
@@ -36,17 +35,6 @@ describe("Loader", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    getMockedFunction(
-      freischaltCodeAktivierenModule,
-      "checkFreischaltcodeActivation",
-      {
-        transferticket: expectedTransferticket,
-        taxIdNumber: expectedTaxIdNumber,
-      }
-    );
-    getMockedFunction(freischaltCodeStornierenModule, "revokeFreischaltCode", {
-      location: "007",
-    });
   });
 
   afterAll(() => {
@@ -62,137 +50,175 @@ describe("Loader", () => {
       });
     });
 
-    it("should be inProgress if erica sends activation success", async () => {
-      const response = await loader(
-        await getLoaderArgsWithAuthenticatedSession(
+    describe("erica activation sends success", () => {
+      beforeAll(() => {
+        getMockedFunction(
+          freischaltCodeAktivierenModule,
+          "checkFreischaltcodeActivation",
+          {
+            transferticket: expectedTransferticket,
+            taxIdNumber: expectedTaxIdNumber,
+          }
+        );
+      });
+
+      it("should be inProgress", async () => {
+        const response = await loader(
+          await getLoaderArgsWithAuthenticatedSession(
+            "/fsc/eingeben",
+            "existing_user@foo.com"
+          )
+        );
+        const jsonResponse = await response.json();
+
+        expect(jsonResponse.showSpinner).toBe(true);
+      });
+
+      it("should call lifecycle event", async () => {
+        const expectedClientIp = "123.007";
+        const spyOnLifecycleEvent = jest.spyOn(
+          lifecycleModule,
+          "saveSuccessfulFscActivationData"
+        );
+        const args = await getLoaderArgsWithAuthenticatedSession(
           "/fsc/eingeben",
           "existing_user@foo.com"
-        )
-      );
-      const jsonResponse = await response.json();
+        );
+        args.context.clientIp = expectedClientIp;
 
-      expect(jsonResponse.showSpinner).toBe(true);
+        await loader(args);
+
+        expect(spyOnLifecycleEvent).toHaveBeenCalledWith(
+          "existing_user@foo.com",
+          "foo",
+          expectedClientIp,
+          expectedTransferticket
+        );
+      });
+
+      it("should set identified in session", async () => {
+        const response = await loader(
+          await getLoaderArgsWithAuthenticatedSession(
+            "/fsc/eingeben",
+            "existing_user@foo.com"
+          )
+        );
+
+        const session = await getSession(response.headers.get("Set-Cookie"));
+
+        expect(session.get("user").identified).toBe(true);
+      });
     });
 
-    it("should call lifecycle event if erica sends activation success", async () => {
-      const expectedClientIp = "123.007";
-      const spyOnLifecycleEvent = jest.spyOn(
-        lifecycleModule,
-        "saveSuccessfulFscActivationData"
-      );
-      const args = await getLoaderArgsWithAuthenticatedSession(
-        "/fsc/eingeben",
-        "existing_user@foo.com"
-      );
-      args.context.clientIp = expectedClientIp;
+    describe("erica activation sends unexpected error", () => {
+      beforeAll(() => {
+        getMockedFunction(
+          freischaltCodeAktivierenModule,
+          "checkFreischaltcodeActivation",
+          {
+            errorType: "GeneralEricaError",
+            errorMessage: "We found some problem",
+          }
+        );
+      });
 
-      await loader(args);
-
-      expect(spyOnLifecycleEvent).toHaveBeenCalledWith(
-        "existing_user@foo.com",
-        "foo",
-        expectedClientIp,
-        expectedTransferticket
-      );
-    });
-
-    it("should set identified in session if erica sends activation success", async () => {
-      const response = await loader(
-        await getLoaderArgsWithAuthenticatedSession(
+      it("should throw error", async () => {
+        const args = await getLoaderArgsWithAuthenticatedSession(
           "/fsc/eingeben",
           "existing_user@foo.com"
-        )
-      );
+        );
 
-      const session = await getSession(response.headers.get("Set-Cookie"));
+        await expect(async () => await loader(args)).rejects.toThrow(
+          "We found some problem"
+        );
+      });
 
-      expect(session.get("user").identified).toBe(true);
+      it("should not call lifecycle event", async () => {
+        const args = await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/eingeben",
+          "existing_user@foo.com"
+        );
+        const spyOnLifecycleEvent = jest.spyOn(
+          lifecycleModule,
+          "saveSuccessfulFscActivationData"
+        );
+
+        try {
+          await loader(args);
+        } catch {
+          expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
+        }
+      });
     });
 
-    it("should not call lifecycle event if erica activation sends unexpected error", async () => {
-      getMockedFunction(
-        freischaltCodeAktivierenModule,
-        "checkFreischaltcodeActivation",
-        {
-          errorType: "GeneralEricaError",
-          errorMessage: "We found some problem",
-        }
-      );
-      const args = await getLoaderArgsWithAuthenticatedSession(
-        "/fsc/eingeben",
-        "existing_user@foo.com"
-      );
-      const spyOnLifecycleEvent = jest.spyOn(
-        lifecycleModule,
-        "saveSuccessfulFscActivationData"
-      );
+    describe("erica activation sends expected error", () => {
+      beforeAll(() => {
+        getMockedFunction(
+          freischaltCodeAktivierenModule,
+          "checkFreischaltcodeActivation",
+          {
+            errorType: "EricaUserInputError",
+            errorMessage: "ELSTER_REQUEST_ID_UNKNOWN",
+          }
+        );
+      });
 
-      try {
-        await loader(args);
-      } catch {
-        expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
-      }
+      it("should not call lifecycle event", async () => {
+        const args = await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/eingeben",
+          "existing_user@foo.com"
+        );
+        const spyOnLifecycleEvent = jest.spyOn(
+          lifecycleModule,
+          "saveSuccessfulFscActivationData"
+        );
+
+        try {
+          await loader(args);
+        } catch {
+          expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
+        }
+      });
     });
 
-    it("should not save audit log if erica activation sends expected error", async () => {
-      getMockedFunction(
-        freischaltCodeAktivierenModule,
-        "checkFreischaltcodeActivation",
-        {
-          errorType: "EricaUserInputError",
-          errorMessage: "ELSTER_REQUEST_ID_UNKNOWN",
-        }
-      );
-      const args = await getLoaderArgsWithAuthenticatedSession(
-        "/fsc/eingeben",
-        "existing_user@foo.com"
-      );
-      const spyOnSaveAuditLog = jest.spyOn(auditLogModule, "saveAuditLog");
-      await loader(args);
-      expect(spyOnSaveAuditLog).not.toHaveBeenCalled();
-    });
+    describe("erica activation sends not found error", () => {
+      beforeAll(() => {
+        getMockedFunction(
+          freischaltCodeAktivierenModule,
+          "checkFreischaltcodeActivation",
+          {
+            errorType: "EricaRequestNotFound",
+            errorMessage: "Could not find request",
+          }
+        );
+      });
 
-    it("should delete erica request id if erica sends not found error for aktivieren", async () => {
-      getMockedFunction(
-        freischaltCodeAktivierenModule,
-        "checkFreischaltcodeActivation",
-        {
-          errorType: "EricaRequestNotFound",
-          errorMessage: "Could not find request",
-        }
-      );
-      const args = await getLoaderArgsWithAuthenticatedSession(
-        "/fsc/beantragen",
-        "existing_user@foo.com"
-      );
-      const spyOnDeleteEricaRequestId = jest.spyOn(
-        userModule,
-        "deleteEricaRequestIdFscAktivieren"
-      );
-      await expect(async () => {
-        await loader(args);
-      }).rejects.toThrow();
-      expect(spyOnDeleteEricaRequestId).toHaveBeenCalled();
+      it("should delete erica request id", async () => {
+        const args = await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/beantragen",
+          "existing_user@foo.com"
+        );
+        const spyOnDeleteEricaRequestId = jest.spyOn(
+          userModule,
+          "deleteEricaRequestIdFscAktivieren"
+        );
+        await expect(async () => {
+          await loader(args);
+        }).rejects.toThrow();
+        expect(spyOnDeleteEricaRequestId).toHaveBeenCalled();
 
-      spyOnDeleteEricaRequestId.mockClear();
-    });
+        spyOnDeleteEricaRequestId.mockClear();
+      });
 
-    it("should throw if erica sends not found error for aktivieren", async () => {
-      getMockedFunction(
-        freischaltCodeAktivierenModule,
-        "checkFreischaltcodeActivation",
-        {
-          errorType: "EricaRequestNotFound",
-          errorMessage: "Could not find request",
-        }
-      );
-      const args = await getLoaderArgsWithAuthenticatedSession(
-        "/fsc/beantragen",
-        "existing_user@foo.com"
-      );
-      await expect(async () => {
-        await loader(args);
-      }).rejects.toThrow();
+      it("should throw", async () => {
+        const args = await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/beantragen",
+          "existing_user@foo.com"
+        );
+        await expect(async () => {
+          await loader(args);
+        }).rejects.toThrow();
+      });
     });
   });
 
@@ -206,160 +232,171 @@ describe("Loader", () => {
       });
     });
 
-    it("should call revocation lifecycle event", async () => {
-      getMockedFunction(
-        freischaltCodeStornierenModule,
-        "checkFreischaltcodeRevocation",
-        {
-          transferticket: expectedTransferticket,
-          taxIdNumber: expectedTaxIdNumber,
-        }
-      );
-      const spyOnSetUserIdentified = jest.spyOn(
-        userModule,
-        "setUserIdentified"
-      );
-      const spyOnLifecycleEvent = jest.spyOn(
-        lifecycleModule,
-        "saveSuccessfulFscRevocationData"
-      );
-      jest.spyOn(userModule, "deleteFscRequest");
+    describe("erica revocation sends success", () => {
+      let mockedStornierenCheck: jest.SpyInstance;
+      beforeAll(() => {
+        mockedStornierenCheck = getMockedFunction(
+          freischaltCodeStornierenModule,
+          "checkFreischaltcodeRevocation",
+          {
+            transferticket: expectedTransferticket,
+            taxIdNumber: expectedTaxIdNumber,
+          }
+        );
+      });
 
-      const expectedClientIp = "123.007";
-      const args = await getLoaderArgsWithAuthenticatedSession(
-        "/fsc/eingeben",
-        "existing_user@foo.com"
-      );
-      args.context.clientIp = expectedClientIp;
-      await loader(args);
+      afterAll(() => {
+        mockedStornierenCheck.mockClear();
+      });
 
-      expect(spyOnSetUserIdentified).not.toHaveBeenCalled();
-      expect(spyOnLifecycleEvent).toHaveBeenCalledWith(
-        "existing_user@foo.com",
-        "foo",
-        expectedClientIp,
-        expectedTransferticket
-      );
-    });
+      it("should call revocation lifecycle event", async () => {
+        const spyOnSetUserIdentified = jest.spyOn(
+          userModule,
+          "setUserIdentified"
+        );
+        const spyOnLifecycleEvent = jest.spyOn(
+          lifecycleModule,
+          "saveSuccessfulFscRevocationData"
+        );
+        jest.spyOn(userModule, "deleteFscRequest");
 
-    it("should not call revocation lifecycle event if erica revocation sends expected error", async () => {
-      getMockedFunction(
-        freischaltCodeStornierenModule,
-        "checkFreischaltcodeRevocation",
-        {
-          errorType: "EricaUserInputError",
-          errorMessage: "ELSTER_REQUEST_ID_UNKNOWN",
-        }
-      );
-      const args = await getLoaderArgsWithAuthenticatedSession(
-        "/fsc/eingeben",
-        "existing_user@foo.com"
-      );
-      const spyOnLifecycleEvent = jest.spyOn(
-        lifecycleModule,
-        "saveSuccessfulFscRevocationData"
-      );
-      await loader(args);
-      expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
-    });
-
-    it("should not call revocation lifecycle event if erica revocation sends unexpected error", async () => {
-      getMockedFunction(
-        freischaltCodeStornierenModule,
-        "checkFreischaltcodeRevocation",
-        {
-          errorType: "GeneralEricaError",
-          errorMessage: "We found some problem",
-        }
-      );
-      const args = await getLoaderArgsWithAuthenticatedSession(
-        "/fsc/eingeben",
-        "existing_user@foo.com"
-      );
-      const spyOnLifecycleEvent = jest.spyOn(
-        lifecycleModule,
-        "saveSuccessfulFscRevocationData"
-      );
-      await loader(args);
-      expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
-    });
-
-    it("should not call revocation lifecycle event if erica sends revocation failure", async () => {
-      getMockedFunction(
-        freischaltCodeStornierenModule,
-        "checkFreischaltcodeRevocation",
-        {
-          errorType: "GeneralEricaError",
-          errorMessage: "We found some problem",
-        }
-      );
-      const spyOnSetUserIdentified = jest.spyOn(
-        userModule,
-        "setUserIdentified"
-      );
-      const spyOnDeleteEricaRequestIdFscStornieren = jest.spyOn(
-        userModule,
-        "deleteEricaRequestIdFscStornieren"
-      );
-      const spyOnLifecycleEvent = jest.spyOn(
-        lifecycleModule,
-        "saveSuccessfulFscRevocationData"
-      );
-
-      await loader(
-        await getLoaderArgsWithAuthenticatedSession(
+        const expectedClientIp = "123.007";
+        const args = await getLoaderArgsWithAuthenticatedSession(
           "/fsc/eingeben",
           "existing_user@foo.com"
-        )
-      );
+        );
+        args.context.clientIp = expectedClientIp;
+        await loader(args);
 
-      expect(spyOnSetUserIdentified).not.toHaveBeenCalled();
-      expect(spyOnDeleteEricaRequestIdFscStornieren).toHaveBeenCalledWith(
-        "existing_user@foo.com"
-      );
-      expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
-
-      spyOnLifecycleEvent.mockClear();
+        expect(spyOnSetUserIdentified).not.toHaveBeenCalled();
+        expect(spyOnLifecycleEvent).toHaveBeenCalledWith(
+          "existing_user@foo.com",
+          "foo",
+          expectedClientIp,
+          expectedTransferticket
+        );
+      });
     });
 
-    it("should delete erica request id if erica sends not found error for stornieren", async () => {
-      getMockedFunction(
-        freischaltCodeStornierenModule,
-        "checkFreischaltcodeRevocation",
-        {
-          errorType: "EricaRequestNotFound",
-          errorMessage: "Could not find request",
-        }
-      );
-      const args = await getLoaderArgsWithAuthenticatedSession(
-        "/fsc/beantragen",
-        "existing_user@foo.com"
-      );
-      const spyOnDeleteEricaRequestId = jest.spyOn(
-        userModule,
-        "deleteEricaRequestIdFscStornieren"
-      );
-      await loader(args);
-      expect(spyOnDeleteEricaRequestId).toHaveBeenCalled();
+    describe("erica revocation sends expected error", () => {
+      let mockedStornierenCheck: jest.SpyInstance;
+      beforeAll(() => {
+        mockedStornierenCheck = getMockedFunction(
+          freischaltCodeStornierenModule,
+          "checkFreischaltcodeRevocation",
+          {
+            errorType: "EricaUserInputError",
+            errorMessage: "ELSTER_REQUEST_ID_UNKNOWN",
+          }
+        );
+      });
 
-      spyOnDeleteEricaRequestId.mockClear();
+      afterAll(() => {
+        mockedStornierenCheck.mockClear();
+      });
+
+      it("should not call revocation lifecycle event", async () => {
+        const args = await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/eingeben",
+          "existing_user@foo.com"
+        );
+        const spyOnLifecycleEvent = jest.spyOn(
+          lifecycleModule,
+          "saveSuccessfulFscRevocationData"
+        );
+        await loader(args);
+        expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
+      });
     });
 
-    it("should return not spinning if erica sends not found error for stornieren", async () => {
-      getMockedFunction(
-        freischaltCodeStornierenModule,
-        "checkFreischaltcodeRevocation",
-        {
-          errorType: "EricaRequestNotFound",
-          errorMessage: "Could not find request",
-        }
-      );
-      const args = await getLoaderArgsWithAuthenticatedSession(
-        "/fsc/beantragen",
-        "existing_user@foo.com"
-      );
-      const result = await loader(args);
-      expect(result.showSpinner).toEqual(false);
+    describe("erica revocation sends unexpected error", () => {
+      let mockedStornierenCheck: jest.SpyInstance;
+      beforeAll(() => {
+        mockedStornierenCheck = getMockedFunction(
+          freischaltCodeStornierenModule,
+          "checkFreischaltcodeRevocation",
+          {
+            errorType: "GeneralEricaError",
+            errorMessage: "We found some problem",
+          }
+        );
+      });
+
+      afterAll(() => {
+        mockedStornierenCheck.mockClear();
+      });
+
+      it("should not call revocation lifecycle event", async () => {
+        const spyOnSetUserIdentified = jest.spyOn(
+          userModule,
+          "setUserIdentified"
+        );
+        const spyOnDeleteEricaRequestIdFscStornieren = jest.spyOn(
+          userModule,
+          "deleteEricaRequestIdFscStornieren"
+        );
+        const spyOnLifecycleEvent = jest.spyOn(
+          lifecycleModule,
+          "saveSuccessfulFscRevocationData"
+        );
+
+        await loader(
+          await getLoaderArgsWithAuthenticatedSession(
+            "/fsc/eingeben",
+            "existing_user@foo.com"
+          )
+        );
+
+        expect(spyOnSetUserIdentified).not.toHaveBeenCalled();
+        expect(spyOnDeleteEricaRequestIdFscStornieren).toHaveBeenCalledWith(
+          "existing_user@foo.com"
+        );
+        expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
+        spyOnLifecycleEvent.mockClear();
+      });
+    });
+
+    describe("erica sends not found error for stornieren", () => {
+      let mockedStornierenCheck: jest.SpyInstance;
+      beforeAll(() => {
+        mockedStornierenCheck = getMockedFunction(
+          freischaltCodeStornierenModule,
+          "checkFreischaltcodeRevocation",
+          {
+            errorType: "EricaRequestNotFound",
+            errorMessage: "Could not find request",
+          }
+        );
+      });
+
+      afterAll(() => {
+        mockedStornierenCheck.mockClear();
+      });
+
+      it("should delete erica request id", async () => {
+        const args = await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/beantragen",
+          "existing_user@foo.com"
+        );
+        const spyOnDeleteEricaRequestId = jest.spyOn(
+          userModule,
+          "deleteEricaRequestIdFscStornieren"
+        );
+
+        await loader(args);
+
+        expect(spyOnDeleteEricaRequestId).toHaveBeenCalled();
+        spyOnDeleteEricaRequestId.mockReset();
+      });
+
+      it("should return not spinning", async () => {
+        const args = await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/beantragen",
+          "existing_user@foo.com"
+        );
+        const result = await loader(args);
+        expect(result.showSpinner).toEqual(false);
+      });
     });
   });
 });
