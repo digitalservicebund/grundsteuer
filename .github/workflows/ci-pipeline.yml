@@ -80,6 +80,7 @@ jobs:
           REDIS_URL: redis://localhost:6380/0
           UNLEASH_HOST: http://localhost:4243
           UNLEASH_API_TOKEN: default:development.unleash-insecure-api-token
+          UNLEASH_ADMIN_TOKEN: *:*.unleash-insecure-admin-token
         run: npm run test:integration -- --json ----outputFile=webapp-integration-test-report.log
 
       - name: Archive unit test logs
@@ -111,6 +112,7 @@ jobs:
           REDIS_URL: redis://localhost:6380/0
           UNLEASH_HOST: http://localhost:4243
           UNLEASH_API_TOKEN: default:development.unleash-insecure-api-token
+          UNLEASH_ADMIN_TOKEN: *:*.unleash-insecure-admin-token
           USEID_DOMAIN: "https://useid.dev.ds4g.net"
           USEID_API_KEY: "${{ secrets.USEID_API_KEY }}"
           USE_USEID: true

@@ -1,6 +1,6 @@
 /// <reference types="../../cypress/support" />
 
-describe.skip("error banners", () => {
+describe("error banners", () => {
   before(() => {
     cy.task("dbResetUser", "foo@bar.com");
   });
