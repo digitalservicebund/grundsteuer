@@ -19,6 +19,8 @@ import {
   saveFscRequest,
   setUserIdentified,
   setUserInDeclarationProcess,
+  setUserInFscEingebenProcess,
+  setUserInFscNeuBeantragenProcess,
   userExists,
 } from "~/domain/user";
 import invariant from "tiny-invariant";
@@ -740,6 +742,78 @@ describe("user", () => {
     it("should fail on unknown user", async () => {
       await expect(async () => {
         await setUserInDeclarationProcess("unknown@foo.com", true);
+      }).rejects.toThrow("not found");
+    });
+  });
+
+  const unsetUserInFscEingebenProcess = () => {
+    db.user.update({
+      where: { email: "existing@foo.com" },
+      data: { inFscEingebenProcess: false },
+    });
+  };
+
+  describe("setUserInFscEingebenProcess", () => {
+    beforeEach(unsetUserInFscEingebenProcess);
+    afterEach(unsetUserInFscEingebenProcess);
+
+    it("should set inFscEingebenProcess attribute to true if true given as value", async () => {
+      await setUserInFscEingebenProcess("existing@foo.com", true);
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.inFscEingebenProcess).toEqual(true);
+    });
+
+    it("should set inFscEingebenProcess attribute to false if false given as value", async () => {
+      await setUserInFscEingebenProcess("existing@foo.com", false);
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.inFscEingebenProcess).toEqual(false);
+    });
+
+    it("should fail on unknown user", async () => {
+      await expect(async () => {
+        await setUserInFscEingebenProcess("unknown@foo.com", true);
+      }).rejects.toThrow("not found");
+    });
+  });
+
+  const unsetUserInFscNeuBeantragenProcess = () => {
+    db.user.update({
+      where: { email: "existing@foo.com" },
+      data: { inFscNeuBeantragenProcess: false },
+    });
+  };
+
+  describe("setUserInFscNeuBeantragenProcess", () => {
+    beforeEach(unsetUserInFscNeuBeantragenProcess);
+    afterEach(unsetUserInFscNeuBeantragenProcess);
+
+    it("should set inFscNeuBeantragenProcess attribute to true if true given as value", async () => {
+      await setUserInFscNeuBeantragenProcess("existing@foo.com", true);
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.inFscNeuBeantragenProcess).toEqual(true);
+    });
+
+    it("should set inFscNeuBeantragenProcess attribute to false if false given as value", async () => {
+      await setUserInFscNeuBeantragenProcess("existing@foo.com", false);
+
+      const user = await findUserByEmail("existing@foo.com");
+
+      expect(user).toBeTruthy();
+      expect(user?.inFscNeuBeantragenProcess).toEqual(false);
+    });
+
+    it("should fail on unknown user", async () => {
+      await expect(async () => {
+        await setUserInFscNeuBeantragenProcess("unknown@foo.com", true);
       }).rejects.toThrow("not found");
     });
   });

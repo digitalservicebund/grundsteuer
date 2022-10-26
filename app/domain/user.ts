@@ -218,6 +218,27 @@ export const setUserInDeclarationProcess = async (
     data: { inDeclarationProcess: inDeclarationProcess },
   });
 };
+
+export const setUserInFscEingebenProcess = async (
+  email: string,
+  inFscEingebenProcess: boolean
+) => {
+  return db.user.update({
+    where: { email: normalizeEmail(email) },
+    data: { inFscEingebenProcess: inFscEingebenProcess },
+  });
+};
+
+export const setUserInFscNeuBeantragenProcess = async (
+  email: string,
+  inFscNeuBeantragenProcess: boolean
+) => {
+  return db.user.update({
+    where: { email: normalizeEmail(email) },
+    data: { inFscNeuBeantragenProcess: inFscNeuBeantragenProcess },
+  });
+};
+
 export const getAllEricaRequestIds = async () => {
   return db.user.findMany({
     select: {
