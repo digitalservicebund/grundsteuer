@@ -34,6 +34,7 @@ import {
   findUserByEmail,
   saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscStornieren,
+  setUserInFscEingebenProcess,
   User,
 } from "~/domain/user";
 import { authenticator } from "~/auth.server";
@@ -64,6 +65,10 @@ const isEricaRequestInProgress = (userData: User) => {
   );
 };
 
+const isFscEingebenProcessStarted = (userData: User) => {
+  return userData.inFscEingebenProcess;
+};
+
 const isEricaActivationRequestInProgress = (userData: User) => {
   return Boolean(userData.ericaRequestIdFscAktivieren);
 };
@@ -72,9 +77,9 @@ export const isEricaRevocationRequestInProgress = (userData: User) => {
   return Boolean(userData.ericaRequestIdFscStornieren);
 };
 
-const wasEricaRequestSuccessful = async (userData: User, session: Session) => {
+const wasEricaRequestSuccessful = async (userData: User) => {
   return (
-    !session.get("startedFscEingeben") &&
+    !isFscEingebenProcessStarted(userData) &&
     userData.identified &&
     !isEricaRevocationRequestInProgress(userData)
   );
@@ -115,14 +120,17 @@ const handleFscActivationProgress = async (
       console.log(`${successLoggingMessage}`);
 
       await startNewFscRevocationProcess(userData, clientIp);
+      await setUserInFscEingebenProcess(userData.email, false);
     } else if (fscActivatedOrError?.errorType == "EricaUserInputError") {
       await deleteEricaRequestIdFscAktivieren(userData.email);
+      await setUserInFscEingebenProcess(userData.email, false);
       return {
         showError: true,
         showSpinner: false,
       };
     } else {
       await deleteEricaRequestIdFscAktivieren(userData.email);
+      await setUserInFscEingebenProcess(userData.email, false);
       throw new Error(
         `${fscActivatedOrError?.errorType}: ${fscActivatedOrError?.errorMessage}`
       );
@@ -224,10 +232,10 @@ export const loader: LoaderFunction = async ({ request, context }) => {
 
   const ericaActivationRequestIsInProgress =
     isEricaActivationRequestInProgress(userData);
-  let ericaRevocationRequestIsInProgress =
+  const ericaRevocationRequestIsInProgress =
     isEricaRevocationRequestInProgress(userData);
 
-  if (await wasEricaRequestSuccessful(userData, session)) {
+  if (await wasEricaRequestSuccessful(userData)) {
     return redirect("/fsc/eingeben/erfolgreich");
   }
 
@@ -254,25 +262,23 @@ export const loader: LoaderFunction = async ({ request, context }) => {
       return fscRevocationData;
     }
   }
-  if (
-    session.get("startedFscEingeben") &&
-    !ericaActivationRequestIsInProgress &&
-    !ericaRevocationRequestIsInProgress
-  ) {
-    await startNewFscRevocationProcess(userData, clientIp);
-    session.unset("startedFscEingeben");
-    ericaRevocationRequestIsInProgress = true;
-  }
 
   const csrfToken = createCsrfToken(session);
+
+  const updatedUserData = await findUserByEmail(user.email);
+  invariant(updatedUserData, "Expected to find user again");
+
+  if (await wasEricaRequestSuccessful(updatedUserData)) {
+    return redirect("/fsc/eingeben/erfolgreich");
+  }
 
   return json(
     {
       csrfToken,
       showError: false,
       showSpinner:
-        ericaActivationRequestIsInProgress ||
-        ericaRevocationRequestIsInProgress,
+        isEricaActivationRequestInProgress(updatedUserData) ||
+        isEricaRevocationRequestInProgress(updatedUserData),
       ericaDown: flags.isEricaDown(),
     },
     {
@@ -311,7 +317,7 @@ export const action: ActionFunction = async ({
   invariant(userData.fscRequest, "expected an fscRequest in database for user");
   const elsterRequestId = userData.fscRequest.requestId;
 
-  if (await wasEricaRequestSuccessful(userData, session)) {
+  if (await wasEricaRequestSuccessful(userData)) {
     return redirect("/fsc/eingeben/erfolgreich");
   }
 
@@ -348,7 +354,7 @@ export const action: ActionFunction = async ({
       ericaRequestIdOrError.location,
       clientIp
     );
-    session.set("startedFscEingeben", true);
+    await setUserInFscEingebenProcess(userData.email, true);
   } else {
     return { ericaApiError: ericaRequestIdOrError.error };
   }
