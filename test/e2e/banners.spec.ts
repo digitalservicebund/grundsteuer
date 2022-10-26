@@ -168,6 +168,67 @@ describe("error banners", () => {
     });
   });
 
+  describe("grundsteuer is down", () => {
+    before(() => {
+      cy.task("enableFlag", {
+        name: "grundsteuer.grundsteuer_down",
+      });
+      cy.wait(1000);
+    });
+    after(() => {
+      cy.task("disableFlag", {
+        name: "grundsteuer.grundsteuer_down",
+      });
+    });
+
+    const bannerId = "[data-testid=grundsteuer-banner]";
+
+    it("should show banner on home", () => {
+      cy.visit("/");
+      cy.get(bannerId).should("exist");
+    });
+
+    it("should have no effect on /anmelden", () => {
+      cy.visit("/anmelden");
+      cy.url().should("include", "/anmelden");
+      cy.get(bannerId).should("not.exist");
+    });
+
+    it("should have no effect on /registrieren", () => {
+      cy.visit("/registrieren");
+      cy.url().should("include", "/registrieren");
+      cy.get(bannerId).should("not.exist");
+    });
+
+    it("should have not effect on /pruefen", () => {
+      cy.visit("/pruefen/start");
+      cy.url().should("include", "/pruefen/start");
+      cy.get(bannerId).should("not.exist");
+    });
+
+    it("should have no effect on /identifikation", () => {
+      cy.login();
+      cy.visit("/identifikation");
+      cy.url().should("include", "/identifikation");
+
+      cy.get(bannerId).should("not.exist");
+    });
+
+    it("should have no effect on /formular", () => {
+      cy.login();
+      cy.visit("/formular");
+      cy.url().should("include", "/formular/welcome");
+      cy.get(bannerId).should("not.exist");
+    });
+
+    it("should have no effect on /formular/zusammenfassung", () => {
+      cy.login();
+      cy.visit("/formular/zusammenfassung");
+      cy.url().should("include", "/formular/zusammenfassung");
+      cy.get(bannerId).should("not.exist");
+    });
+  });
+
   describe("sendinblue is down", () => {
     before(() => {
       cy.task("enableFlag", {

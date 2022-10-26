@@ -12,7 +12,7 @@ fi
 host=$1
 token=$2
 
-flags=("grundsteuer.bundesident_down" "grundsteuer.ekona_down" "grundsteuer.erica_down" "grundsteuer.sendinblue_down" "grundsteuer.zammad_down")
+flags=("grundsteuer.bundesident_down" "grundsteuer.ekona_down" "grundsteuer.erica_down" "grundsteuer.grundsteuer_down" "grundsteuer.sendinblue_down" "grundsteuer.zammad_down")
 
 for flag in "${flags[@]}"
 do

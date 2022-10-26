@@ -91,14 +91,16 @@
     "backToSummary": "Übernehmen & Zur Übersicht"
   },
   "banners": {
+    "bundesIdentDownHeading": "Eine Identifikation mit BundesIdent ist aktuell aus technischen Gründen nicht möglich.",
+    "bundesIdentDownBody": "Wir arbeiten an einer Lösung. Sie können alternativ eine andere Option zur Identifizierung nutzen oder kommen Sie später wieder.",
     "ekonaDownHeading": "Eine Identifikation mit ELSTER ist aktuell aus technischen Gründen nicht möglich.",
     "ekonaDownBody": "Wir arbeiten an einer Lösung. Sie können alternativ eine andere Option zur Identifizierung nutzen oder kommen Sie später wieder.",
     "ericaDownHeading": "Es gibt im Moment Einschränkungen mit der Identifikation per Freischaltcode",
     "ericaDownBody": "Wir arbeiten an einer Lösung.  Nutzen Sie die Option “Später Identifizieren” um die Erklärung schon einmal zu starten und versuchen Sie die Beantragung zu einem späteren Zeitpunkt noch einmal.",
     "ericaDownZusammenfassungHeading": "Es gibt im Moment Einschränkungen beim Versenden der Grundsteuererklärung",
     "ericaDownZusammenfassungBody": "Wir arbeiten an einer Lösung und sind bald wieder für Sie verfügbar.",
-    "bundesIdentDownHeading": "Eine Identifikation mit BundesIdent ist aktuell aus technischen Gründen nicht möglich.",
-    "bundesIdentDownBody": "Wir arbeiten an einer Lösung. Sie können alternativ eine andere Option zur Identifizierung nutzen oder kommen Sie später wieder.",
+    "grundsteuerDownHeading": "Unser Online-Dienst ist momentan eingeschränkt erreichbar.",
+    "grundsteuerDownBody": "Wir arbeiten an einer Lösung und sind bald wieder erreichbar.",
     "sendinblueDownHeading": "Es gibt ein technisches Problem. Aktuell gibt es Probleme bei der Anmeldung.",
     "sendinblueDownBody": "Wir können im Moment keine Anmelde-Links versenden. Wir arbeiten an einer Lösung und sind bald wieder für Sie da.",
     "zammadDownHeading": "Es gibt ein technisches Problem. Aktuell können Sie unseren Support und den Hilfebereich nicht erreichen.",

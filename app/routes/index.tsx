@@ -28,6 +28,15 @@ export default function Index() {
 
   return (
     <>
+      {flags.grundsteuerDown && (
+        <ErrorBanner
+          style="warning"
+          heading={t("banners.grundsteuerDownHeading")}
+          service="grundsteuer"
+        >
+          <div> {t("banners.grundsteuerDownBody")} </div>
+        </ErrorBanner>
+      )}
       {flags.sendinblueDown && (
         <ErrorBanner
           heading={t("banners.sendinblueDownHeading")}

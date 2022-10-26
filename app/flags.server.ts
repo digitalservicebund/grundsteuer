@@ -3,18 +3,20 @@ import { unleash } from "~/unleash.server";
 export type FlagFunction = () => boolean;
 
 export type FlagFunctions = {
+  isBundesIdentDown: FlagFunction;
   isEkonaDown: FlagFunction;
   isEricaDown: FlagFunction;
-  isBundesIdentDown: FlagFunction;
+  isGrundsteuerDown: FlagFunction;
   isSendinblueDown: FlagFunction;
   isZammadDown: FlagFunction;
   getAllFlags: () => Flags;
 };
 
 export type Flags = {
+  bundesIdentDown?: boolean;
   ekonaDown?: boolean;
   ericaDown?: boolean;
-  bundesIdentDown?: boolean;
+  grundsteuerDown?: boolean;
   sendinblueDown?: boolean;
   zammadDown?: boolean;
 };
@@ -23,6 +25,7 @@ export type Service =
   | "bundesident"
   | "ekona"
   | "erica"
+  | "grundsteuer"
   | "sendinblue"
   | "zammad";
 
@@ -43,6 +46,10 @@ const isBundesIdentDown = () => {
   return isServiceDown("bundesident");
 };
 
+const isGrundsteuerDown = () => {
+  return isServiceDown("grundsteuer");
+};
+
 const isSendinblueDown = () => {
   return isServiceDown("sendinblue");
 };
@@ -53,18 +60,20 @@ const isZammadDown = () => {
 
 const getAllFlags = () => {
   return {
+    bundesIdentDown: isBundesIdentDown(),
     ekonaDown: isEkonaDown(),
     ericaDown: isEricaDown(),
-    bundesIdentDown: isBundesIdentDown(),
+    grundsteuerDown: isGrundsteuerDown(),
     sendinblueDown: isSendinblueDown(),
     zammadDown: isZammadDown(),
   };
 };
 
 export const flags: FlagFunctions = {
+  isBundesIdentDown,
   isEkonaDown,
   isEricaDown,
-  isBundesIdentDown,
+  isGrundsteuerDown,
   isSendinblueDown,
   isZammadDown,
   getAllFlags,
