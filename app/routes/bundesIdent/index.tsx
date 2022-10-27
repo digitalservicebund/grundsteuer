@@ -17,6 +17,15 @@ export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifizieren Sie sich mit Ihrem Ausweis") };
 };
 
+const checkIfRateLimitExceeded = async (request: Request) => {
+  if (!(await applyRateLimit(Feature.BUNDES_IDENT_RATE_LIMIT))) {
+    console.log(
+      "BundesIdent rate limit exceeded at " + new Date().toISOString()
+    );
+    return { rateLimitExceeded: true, isMobile: isMobileUserAgent(request) };
+  }
+};
+
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
@@ -25,13 +34,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/formular");
   }
 
-  if (!(await applyRateLimit(Feature.BUNDES_IDENT_RATE_LIMIT))) {
-    console.log(
-      "BundesIdent rate limit exceeded at " + new Date().toISOString()
-    );
-    return { rateLimitExceeded: true, isMobile: isMobileUserAgent(request) };
-  }
-
+  const rateLimitExceeded = await checkIfRateLimitExceeded(request);
+  if (rateLimitExceeded) return rateLimitExceeded;
   const isErrorState = new URL(request.url).searchParams.get("errorState");
   if (isErrorState) {
     console.log("Started new bundesIdent flow after error");
