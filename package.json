@@ -47,7 +47,7 @@
     "@remix-run/express": "^1.7.2",
     "@remix-run/node": "^1.7.2",
     "@remix-run/react": "^1.7.2",
-    "@sentry/remix": "^7.15.0",
+    "@sentry/remix": "^7.17.1",
     "@tailwindcss/typography": "^0.5.7",
     "@xstate/graph": "^1.4.2",
     "bcryptjs": "^2.4.3",
