@@ -15,10 +15,6 @@ const getUseidApi = () => {
   return useidAPIConnection;
 };
 
-const getDomain = () => {
-  return getUseidApi().domain;
-};
-
 const getWidgetSrc = () => {
   return getUseidApi().widgetSrc;
 };
@@ -89,7 +85,6 @@ export type BundesIdentIdentifiedData = {
 
 export const useid = {
   getUseIdApi: getUseidApi,
-  getDomain,
   getWidgetSrc,
   getTcTokenUrl,
   getIdentityData,
