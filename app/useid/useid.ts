@@ -16,11 +16,17 @@ const getUseidApi = () => {
 };
 
 const getWidgetSrc = () => {
-  return getUseidApi().widgetSrc;
+  const widgetSrc = getUseidApi().widgetSrc;
+  invariant(widgetSrc, "Expected to receive a widgetSrc from useid");
+  return widgetSrc;
 };
 
 const getTcTokenUrl = async () => {
   const useidResponse = await getUseidApi().startSession();
+  invariant(
+    useidResponse.tcTokenUrl,
+    "Expected to receive a tcTokenUrl from useid"
+  );
   return useidResponse.tcTokenUrl;
 };
 

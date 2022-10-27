@@ -4,7 +4,6 @@ import { pageTitle } from "~/util/pageTitle";
 import { useid } from "~/useid/useid";
 import { useLoaderData } from "@remix-run/react";
 import { Button, ButtonContainer, Headline, SectionLabel } from "~/components";
-import invariant from "tiny-invariant";
 import Bolt from "~/components/icons/mui/Bolt";
 import OnlyMobileDisclaimer from "~/components/OnlyMobileDisclaimer";
 import { useEffect, useState } from "react";
@@ -32,9 +31,6 @@ export const loader: LoaderFunction = async ({ request }) => {
     );
     return { rateLimitExceeded: true, isMobile: isMobileUserAgent(request) };
   }
-
-  const tcTokenUrl = await useid.getTcTokenUrl();
-  invariant(tcTokenUrl, "Expected to receive a tcTokenUrl from useid");
 
   const isErrorState = new URL(request.url).searchParams.get("errorState");
   if (isErrorState) {
