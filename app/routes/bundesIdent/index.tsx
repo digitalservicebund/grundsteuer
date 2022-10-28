@@ -88,7 +88,7 @@ export default function BundesIdentIndex() {
         Identifizieren Sie sich mit Ihrem Ausweis und der BundesIdent App
       </Headline>
 
-      <div className="h-[520px]">
+      <div className="h-[476px] pt-16">
         <iframe
           src={`${useidDomain}/widget?hostname=${host}#tcTokenURL=${encodeURIComponent(
             tcTokenUrl
