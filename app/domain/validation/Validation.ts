@@ -27,7 +27,7 @@ export interface MinValueValidation extends DefaultValidation {
   minValue: number;
 }
 
-interface YearInPastValidation extends DefaultValidation {
+export interface YearInPastValidation extends DefaultValidation {
   excludingCurrentYear?: boolean;
 }
 

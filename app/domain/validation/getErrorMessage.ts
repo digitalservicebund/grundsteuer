@@ -20,6 +20,7 @@ import {
   MinValueValidation,
   OnlyDecimalValidation,
   RequiredIfConditionValidation,
+  YearInPastValidation,
 } from "~/domain/validation/Validation";
 import { ValidationConfig } from "~/domain/validation";
 import {
@@ -116,6 +117,8 @@ export const getErrorMessage = (
     const postComma = (validation as MinLengthFloatValidation).postComma;
     const condition = (validation as RequiredIfConditionValidation).condition;
     const exceptions = (validation as OnlyDecimalValidation).exceptions;
+    const excludingCurrentYear = (validation as YearInPastValidation)
+      .excludingCurrentYear;
     const valueHa = (formData as GrundstueckFlurstueckGroesseFields).groesseHa;
     const valueA = (formData as GrundstueckFlurstueckGroesseFields).groesseA;
     const valueQm = (formData as GrundstueckFlurstueckGroesseFields).groesseQm;
@@ -137,6 +140,7 @@ export const getErrorMessage = (
         valueA,
         valueQm,
         noNewDataAdded,
+        excludingCurrentYear,
       })
     ) {
       return (
