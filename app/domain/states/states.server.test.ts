@@ -593,6 +593,41 @@ describe("states", () => {
         ],
       },
       {
+        description:
+          "Wohnungseigentum with mixed miteigentum and mixed miteigentumsanteil",
+        context: grundModelFactory
+          .grundstueckTyp({ typ: "wohnungseigentum" })
+          .miteigentumWohnung({ miteigentumTyp: "mixed" })
+          .flurstueckAnzahl({ anzahl: "2" })
+          .miteigentumAuswahlFlurstueck(0, { hasMiteigentum: "true" })
+          .miteigentumAuswahlFlurstueck(1, { hasMiteigentum: "false" })
+          .build(),
+        expectedPath: [
+          "welcome",
+          "grundstueck.uebersicht",
+          "grundstueck.typ",
+          "grundstueck.adresse",
+          "grundstueck.gemeinde",
+          "grundstueck.bodenrichtwertInfo",
+          "grundstueck.bodenrichtwertAnzahl",
+          "grundstueck.bodenrichtwertEingabe",
+          "grundstueck.miteigentumAuswahlWohnung",
+          "grundstueck.anzahl",
+          "grundstueck.flurstueck.1.angaben",
+          "grundstueck.flurstueck.1.flur",
+          "grundstueck.flurstueck.1.groesse",
+          "grundstueck.flurstueck.1.miteigentumAuswahl",
+          "grundstueck.flurstueck.1.miteigentum",
+          "grundstueck.flurstueck.2.angaben",
+          "grundstueck.flurstueck.2.flur",
+          "grundstueck.flurstueck.2.groesse",
+          "grundstueck.flurstueck.2.miteigentumAuswahl",
+          ...defaultGebaeude,
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
+      {
         description: "grundstueck without bundesland",
         context: grundModelFactory.grundstueckAdresse(undefined).build(),
         expectedPath: [
