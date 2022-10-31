@@ -8,6 +8,7 @@ const helmet = require("helmet");
 const dotenv = require("dotenv-safe");
 const { createHttpTerminator } = require("http-terminator");
 const Redis = require("ioredis");
+const { wrapExpressCreateRequestHandler } = require("@sentry/remix");
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 const BUILD_DIR = path.join(process.cwd(), "build");
@@ -89,19 +90,22 @@ const getLoadContext = (req) => ({
   online: isOnline,
 });
 
+const createSentryRequestHandler =
+  wrapExpressCreateRequestHandler(createRequestHandler);
+
 app.all(
   "*",
   process.env.NODE_ENV === "development"
     ? (req, res, next) => {
         purgeRequireCache();
 
-        return createRequestHandler({
+        return createSentryRequestHandler({
           build: require(BUILD_DIR),
           getLoadContext,
           mode: process.env.NODE_ENV,
         })(req, res, next);
       }
-    : createRequestHandler({
+    : createSentryRequestHandler({
         build: require(BUILD_DIR),
         getLoadContext,
         mode: process.env.NODE_ENV,
