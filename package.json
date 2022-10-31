@@ -114,7 +114,7 @@
     "@typescript-eslint/parser": "^5.41.0",
     "copy-env-cli": "^1.0.0",
     "cypress": "^10.10.0",
-    "esbuild": "^0.15.11",
+    "esbuild": "^0.15.12",
     "eslint": "^8.25.0",
     "eslint-config-prettier": "^8.5.0",
     "fishery": "^2.2.2",
