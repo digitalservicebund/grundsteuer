@@ -13,6 +13,7 @@ import {
   GrundstueckTypFields,
   GrundstueckMiteigentumAuswahlHausFields,
   Person,
+  GrundstueckFlurstueckMiteigentumAuswahlFields,
 } from "~/domain/steps/index.server";
 import { GebaeudeAb1949Fields } from "~/domain/steps/gebaeude/ab1949";
 import { GebaeudeKernsaniertFields } from "~/domain/steps/gebaeude/kernsaniert";
@@ -34,7 +35,6 @@ import { GebaeudeGaragenAnzahlFields } from "~/domain/steps/gebaeude/garagenAnza
 import { EigentuemerBruchteilsgemeinschaftAngabenFields } from "~/domain/steps/eigentuemer/bruchteilsgemeinschaftangaben/angaben";
 import { EigentuemerEmpfangsbevollmaechtigterNameFields } from "~/domain/steps/eigentuemer/empfangsbevollmaechtigter/name";
 import { EigentuemerEmpfangsbevollmaechtigterAdresseFields } from "~/domain/steps/eigentuemer/empfangsbevollmaechtigter/adresse";
-import { ZusammenfassungFields } from "~/domain/steps/zusammenfassung.server";
 import { GrundstueckBodenrichtwertAnzahlFields } from "~/domain/steps/grundstueck/bodenrichtwert/anzahl.server";
 import { StateMachineContext } from "~/domain/states/states.server";
 import { GrundstueckMiteigentumAuswahlWohnungFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlWohnung.server";
@@ -203,13 +203,30 @@ class GrundModelFactory extends Factory<StateMachineContext> {
     });
   }
 
-  miteigentumAuswahl(
+  miteigentumAuswahlHaus(
     fields?: Partial<GrundstueckMiteigentumAuswahlHausFields>
   ) {
     return this.params({
       grundstueck: {
         miteigentumAuswahlHaus: {
           hasMiteigentum: fields ? fields?.hasMiteigentum : "true",
+        },
+      },
+    });
+  }
+
+  miteigentumAuswahlFlurstueck(
+    index?: number,
+    fields?: Partial<GrundstueckFlurstueckMiteigentumAuswahlFields>
+  ) {
+    return this.params({
+      grundstueck: {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        flurstueck: {
+          [index || 0]: {
+            miteigentumAuswahl: fields,
+          },
         },
       },
     });
@@ -478,7 +495,7 @@ class GrundModelFactory extends Factory<StateMachineContext> {
         .grundstueckAbweichendeEntwicklung({ zustand: "rohbauland" })
         .grundstueckGemeinde({ innerhalbEinerGemeinde: "true" })
         .grundstueckBodenrichtwert({ bodenrichtwert: "123" })
-        .miteigentumAuswahl({
+        .miteigentumAuswahlHaus({
           hasMiteigentum: "false",
         })
         .flurstueckAnzahl({ anzahl: "2" })

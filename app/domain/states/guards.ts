@@ -66,9 +66,13 @@ const hausHasMiteigentum: Condition = (context) => {
   );
 };
 
+const grundstueckHasMiteigentum: Condition = (context) => {
+  return hausHasMiteigentum(context) || wohnungHasMiteigentumMixed(context);
+};
+
 const flurstueckHasMiteigentum: Condition = (context) => {
   return (
-    (hausHasMiteigentum(context) || wohnungHasMiteigentumMixed(context)) &&
+    grundstueckHasMiteigentum(context) &&
     context?.grundstueck?.flurstueck?.[(context?.flurstueckId || 1) - 1]
       ?.miteigentumAuswahl?.hasMiteigentum === "true"
   );
@@ -77,14 +81,18 @@ const flurstueckHasMiteigentum: Condition = (context) => {
 export const previousFlurstueckHasMiteigentum: Condition = (context) => {
   if (!context?.flurstueckId || context?.flurstueckId == 1) return false;
   return (
-    (hausHasMiteigentum(context) || wohnungHasMiteigentumMixed(context)) &&
+    grundstueckHasMiteigentum(context) &&
     context?.grundstueck?.flurstueck?.[context?.flurstueckId - 2]
       ?.miteigentumAuswahl?.hasMiteigentum === "true"
   );
 };
 
-const hausHasMiteigentumAndPreviousFlurstueckeExist: Condition = (context) => {
-  return hausHasMiteigentum(context) && flurstueckIdGreaterThanOne(context);
+const grundstueckHasMiteigentumAndPreviousFlurstueckeExist: Condition = (
+  context
+) => {
+  return (
+    grundstueckHasMiteigentum(context) && flurstueckIdGreaterThanOne(context)
+  );
 };
 
 const isBezugsfertigAb1949: Condition = (context) => {
@@ -211,9 +219,10 @@ export const conditions: Conditions = {
   wohnungHasMiteigentumGarage,
   wohnungHasMiteigentumMixed,
   wohnungHasMiteigentumNoneOrGarage,
+  grundstueckHasMiteigentum,
   flurstueckHasMiteigentum,
   previousFlurstueckHasMiteigentum,
-  hausHasMiteigentumAndPreviousFlurstueckeExist,
+  grundstueckHasMiteigentumAndPreviousFlurstueckeExist,
   isKernsaniert,
   hasAbbruchverpflichtung,
   isEigentumswohnung,

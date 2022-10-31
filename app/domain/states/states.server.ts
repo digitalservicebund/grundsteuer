@@ -175,7 +175,7 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                   },
                   {
                     target: "miteigentumAuswahl",
-                    cond: "hausHasMiteigentumAndPreviousFlurstueckeExist",
+                    cond: "grundstueckHasMiteigentumAndPreviousFlurstueckeExist",
                     actions: ["decrementFlurstueckId"],
                   },
                   {
@@ -198,7 +198,7 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                 NEXT: [
                   {
                     target: "miteigentumAuswahl",
-                    cond: "hausHasMiteigentum",
+                    cond: "grundstueckHasMiteigentum",
                   },
                   {
                     target: "miteigentum",
@@ -224,12 +224,12 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
                 NEXT: [],
                 BACK: [
                   {
-                    target: "groesse",
-                    cond: "wohnungHasMiteigentumMixed",
+                    target: "miteigentumAuswahl",
+                    cond: "grundstueckHasMiteigentum",
                   },
                   {
-                    target: "miteigentumAuswahl",
-                    cond: "hausHasMiteigentum",
+                    target: "groesse",
+                    cond: "wohnungHasMiteigentumMixed",
                   },
                 ],
               },
@@ -406,13 +406,8 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
             actions: ["setFlurstueckIdToMaximum"],
           },
           {
-            target: "#flurstueck.miteigentum",
-            cond: "wohnungHasMiteigentumMixed",
-            actions: ["setFlurstueckIdToMaximum"],
-          },
-          {
             target: "#flurstueck.miteigentumAuswahl",
-            cond: "hausHasMiteigentum",
+            cond: "grundstueckHasMiteigentum",
             actions: ["setFlurstueckIdToMaximum"],
           },
           {
@@ -439,7 +434,7 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
               },
               {
                 target: "#flurstueck.miteigentumAuswahl",
-                cond: "hausHasMiteigentum",
+                cond: "grundstueckHasMiteigentum",
                 actions: "setFlurstueckIdToMaximum",
               },
               {
