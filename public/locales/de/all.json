@@ -1502,7 +1502,7 @@
               "label": "Ich besitze eine Eigentumswohnung und einen weiteren Miteigentumsanteil an einem Garagenstellplatz oder Tiefgaragenstellplatz. Beides liegt auf demselben Grundstück."
             },
             "mixed": {
-              "label": "Ich besitze eine Eigentumswohnung und Miteigentumsanteile an einem oder mehreren Grundstücken. Mir liegt ein oder mehrere Grundbuchauszüge vor."
+              "label": "Ich besitze eine Eigentumswohnung und weitere Flurstücke — mit Miteigentumsanteilen oder auch ohne. Mir liegt ein oder mehrere Grundbuchauszüge vor."
             }
           }
         }
