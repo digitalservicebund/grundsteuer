@@ -19,6 +19,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/bundesIdent/erfolgreich");
   }
   return {
+    email: sessionUser.email,
     flags: flags.getAllFlags(),
     useUseid: process.env.USE_USEID === "true",
     isMobile: isMobileUserAgent(request),
@@ -26,11 +27,12 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function BundesIdent() {
-  const { flags, useUseid, isMobile } = useLoaderData();
+  const { email, flags, useUseid, isMobile } = useLoaderData();
   const location = useLocation();
 
   return (
     <UserLayout
+      email={email}
       flags={flags}
       path={location.pathname}
       useUseid={useUseid}

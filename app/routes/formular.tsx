@@ -31,6 +31,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 
   return {
+    email: user.email,
     graph,
     currentState: getCurrentStateFromUrl(request.url),
     userHasFinishedProcess: !user.inDeclarationProcess,
@@ -39,7 +40,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function Formular() {
-  const { graph, currentState, userHasFinishedProcess, flags } =
+  const { email, graph, currentState, userHasFinishedProcess, flags } =
     useLoaderData();
 
   const location = useLocation();
@@ -51,6 +52,7 @@ export default function Formular() {
         <SidebarNavigation
           actions={
             <NavigationActions
+              email={email}
               userHasFinishedProcess={userHasFinishedProcess}
             />
           }
@@ -67,6 +69,7 @@ export default function Formular() {
         <TopNavigation
           actions={
             <NavigationActions
+              email={email}
               userHasFinishedProcess={userHasFinishedProcess}
             />
           }
@@ -81,6 +84,7 @@ export default function Formular() {
       }
       logoutMenu={
         <LogoutMenu
+          email={email}
           containerClasses="flex flex-col items-center"
           statusClasses="mb-8"
         />

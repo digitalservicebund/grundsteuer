@@ -29,15 +29,16 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 
   return {
+    email: user.email,
     nextStepUrl: getNextStepUrl(user),
     flags: flags.getAllFlags(),
   };
 };
 export default function ErfolgreichAngemeldet() {
-  const { nextStepUrl, flags } = useLoaderData();
+  const { email, nextStepUrl, flags } = useLoaderData();
 
   return (
-    <UserLayout flags={flags}>
+    <UserLayout email={email} flags={flags}>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         <SuccessPageLayout>

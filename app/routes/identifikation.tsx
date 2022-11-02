@@ -11,10 +11,11 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  await authenticator.isAuthenticated(request, {
+  const sessionUser = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
   return {
+    email: sessionUser.email,
     flags: flags.getAllFlags(),
     useUseId: process.env.USE_USEID === "true",
     isMobile: isMobileUserAgent(request),
@@ -22,10 +23,11 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function Identifikation() {
-  const { flags, useUseId, isMobile } = useLoaderData();
+  const { email, flags, useUseId, isMobile } = useLoaderData();
   const location = useLocation();
   return (
     <UserLayout
+      email={email}
       flags={flags}
       path={location.pathname}
       useUseid={useUseId}

@@ -7,6 +7,7 @@ import AddFile from "~/components/icons/mui/AddFile";
 import LogoutMenu from "~/components/navigation/LogoutMenu";
 
 export default function NavigationActions(props: {
+  email: string;
   userHasFinishedProcess?: boolean;
 }) {
   const location = useLocation();
@@ -19,6 +20,7 @@ export default function NavigationActions(props: {
   return (
     <div className="px-8 mb-32">
       <LogoutMenu
+        email={props.email}
         containerClasses="lg:hidden"
         statusClasses="mb-16 rounded-t py-4"
       />

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { AccountCircle } from "~/components/icons/mui/AccountCircle";
 
-export const UserLoggedIn = (props: { className?: string }) => {
+export const UserLoggedIn = (props: { email: string; className?: string }) => {
   return (
     <div
       className={classNames(
@@ -9,8 +9,10 @@ export const UserLoggedIn = (props: { className?: string }) => {
         props.className
       )}
     >
-      <AccountCircle />
-      <div>Sie sind angemeldet</div>
+      <AccountCircle className="flex-shrink-0" />
+      <div title={props.email} className="overflow-hidden overflow-ellipsis">
+        {props.email}
+      </div>
     </div>
   );
 };

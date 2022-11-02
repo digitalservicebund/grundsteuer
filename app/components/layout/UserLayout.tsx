@@ -12,6 +12,7 @@ import { Flags } from "~/flags.server";
 
 export default function UserLayout(props: {
   children: ReactNode;
+  email: string;
   path?: string;
   flags?: Flags;
   useUseid?: boolean;
@@ -20,10 +21,17 @@ export default function UserLayout(props: {
   return (
     <Layout
       footer={<Footer />}
-      sidebarNavigation={<SidebarNavigation actions={<NavigationActions />} />}
-      topNavigation={<TopNavigation actions={<NavigationActions />} />}
+      sidebarNavigation={
+        <SidebarNavigation
+          actions={<NavigationActions email={props.email} />}
+        />
+      }
+      topNavigation={
+        <TopNavigation actions={<NavigationActions email={props.email} />} />
+      }
       logoutMenu={
         <LogoutMenu
+          email={props.email}
           containerClasses="flex flex-col items-center"
           statusClasses="mb-8"
         />

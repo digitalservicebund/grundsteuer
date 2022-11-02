@@ -12,14 +12,14 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (sessionUser.identified && request.url.includes("/ekona/callback")) {
     return redirect("/ekona/erfolgreich");
   }
-  return { flags: flags.getAllFlags() };
+  return { email: sessionUser.email, flags: flags.getAllFlags() };
 };
 
 export default function Ekona() {
-  const { flags } = useLoaderData();
+  const { email, flags } = useLoaderData();
   const location = useLocation();
   return (
-    <UserLayout flags={flags} path={location.pathname}>
+    <UserLayout email={email} flags={flags} path={location.pathname}>
       <Outlet />
     </UserLayout>
   );

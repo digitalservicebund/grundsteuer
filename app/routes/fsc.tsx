@@ -16,15 +16,15 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/formular");
   }
 
-  return { flags: flags.getAllFlags() };
+  return { email: sessionUser.email, flags: flags.getAllFlags() };
 };
 
 export default function Fsc() {
-  const { flags } = useLoaderData();
+  const { email, flags } = useLoaderData();
   const location = useLocation();
 
   return (
-    <UserLayout flags={flags} path={location.pathname}>
+    <UserLayout email={email} flags={flags} path={location.pathname}>
       <Outlet />
     </UserLayout>
   );
