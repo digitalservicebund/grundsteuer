@@ -331,12 +331,12 @@ export default function FscBeantragen() {
         <IntroText>
           Den Freischaltcode nutzen wir zur Identifikation der abgebenden
           Person. Zur Beantragung benötigen Sie die Steuer-Identifikationsnummer
-          und Geburtsdatum.
+          und das dazugehörige Geburtsdatum.
         </IntroText>
 
         <IntroText>
           Der Freischaltcode wird von Ihrem technischen Finanzamt als Brief an
-          Ihre Meldeadresse versendet. Dies dauert in der Regel 7 bis 14 Tage.
+          Ihre Meldeadresse versendet. Dies dauert in der Regel 3 Wochen.
         </IntroText>
 
         <Hint>
@@ -361,7 +361,8 @@ export default function FscBeantragen() {
             <p className="mb-16">
               Es ist ein Fehler aufgetreten.
               <br />
-              Bitte überprüfen Sie Ihre Angaben.
+              Bitte überprüfen Sie Ihre Angaben. Nach 5 Falscheingaben kann ein
+              erneuter Versuch erst wieder nach 7 Tagen erfolgen.
             </p>
             <p>
               <em>Mögliche Ursachen:</em>
@@ -372,12 +373,12 @@ export default function FscBeantragen() {
                 korrekt
               </li>
               <li>
-                mit der gleichen Steuer-Identifikationsnummer wurde bereits ein
-                Freischaltcode von einem anderen Konto aus beantragt
-              </li>
-              <li>
-                nach 5 Falscheingaben kann ein erneuter Versuch erst wieder nach
-                7 Tagen erfolgen
+                Mit der gleichen Steuer-Identifikationsnummer wurde bereits ein
+                Freischaltcode von einem anderen Konto aus beantragt.
+                Vergleichen Sie die E-Mail-Adresse des ersten Anmeldelinks mit
+                der E-Mail-Adresse oben rechts im grünen Kasten. Melden Sie sich
+                mit der E-Mail-Adresse wieder an, die Sie zur Beantragung des
+                Freischaltcode genutzt haben.
               </li>
             </ul>
             <p>
@@ -479,7 +480,7 @@ export default function FscBeantragen() {
         imageAltText="Bildbeispiel des Freischaltcode Brief"
         number="2"
         heading="Sie bekommen einen Brief vom Finanzamt"
-        text="Der Freischaltcode wird von Ihrem technischen Finanzamt als Brief an Ihre Meldeadresse versendet. Dies dauert in der Regel 7 bis 14 Tage. Sie können aber schon vor dem Erhalt des Codes Ihre Grundsteuererklärung ausfüllen."
+        text="Der Freischaltcode wird von Ihrem technischen Finanzamt als Brief an Ihre Meldeadresse versendet. Dies dauert in der Regel 3 Wochen. Sie können aber schon vor dem Erhalt des Codes Ihre Grundsteuererklärung ausfüllen."
         className="mb-16"
       />
       <EnumeratedCard

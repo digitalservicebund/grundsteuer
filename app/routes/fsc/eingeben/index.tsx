@@ -443,7 +443,7 @@ export default function FscEingeben() {
       <Headline>Bitte geben Sie Ihren Freischaltcode ein</Headline>
       <IntroText>
         Wir haben einen Freischaltcode für Sie beantragt. Dieser wird per Post
-        innerhalb von 7 - 14 Tagen an Ihre Adresse versendet. Nach Erhalt des
+        innerhalb von 3 Wochen an Ihre Adresse versendet. Nach Erhalt des
         Briefes, finden Sie den Freischaltcode auf der letzten Seite. Er besteht
         aus 12 Zeichen.
       </IntroText>

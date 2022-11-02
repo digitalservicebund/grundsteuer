@@ -30,7 +30,7 @@ export default function FscNeuBeantragenErfolgreich() {
 
         <IntroText>
           Sie haben Ihren persönlichen Freischaltcode beantragt. Diesen erhalten
-          Sie in den nächsten 14 Tagen per Post. Sie können jetzt die
+          Sie in den nächsten 3 Wochen per Post. Sie können jetzt die
           Feststellungserklärung ausfüllen und zu einem späteren Zeitpunkt den
           Freischaltcode eingeben.
         </IntroText>
