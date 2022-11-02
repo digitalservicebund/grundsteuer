@@ -32,7 +32,7 @@ export default function UserLayout(props: {
       logoutMenu={
         <LogoutMenu
           email={props.email}
-          containerClasses="flex flex-col items-center"
+          containerClasses="flex flex-col items-end"
           statusClasses="mb-8"
         />
       }

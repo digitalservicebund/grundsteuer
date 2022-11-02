@@ -85,7 +85,7 @@ export default function Formular() {
       logoutMenu={
         <LogoutMenu
           email={email}
-          containerClasses="flex flex-col items-center"
+          containerClasses="flex flex-col items-end"
           statusClasses="mb-8"
         />
       }
