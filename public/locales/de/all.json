@@ -274,7 +274,7 @@
             },
             "nichtWohn": {
               "label": "Nicht-Wohngrundstück",
-              "description": "Hiermit sind separate Garagen, Geschäftsgrundstücke, Werkstätten,  Wochenendgrundstücke oder gemischt genutzte Grundstücke (das sind Grundstücke, die beispielsweise zu mehr als 80% geschäftlich genutzt werden) gemeint."
+              "description": "Hiermit sind separate Garagen, Geschäftsgrundstücke, Werkstätten,  Wochenendgrundstücke oder gemischt genutzte Grundstücke gemeint. Nicht-Wohngrundstücke sind Grundstücke, bei denen mehr als 20% der Fläche als Nutzfläche (zum Beispiel Büro oder Werkstatt) genutzt werden."
             },
             "unbebaut": {
               "label": "Unbebautes Grundstück",
@@ -470,7 +470,7 @@
       "fields": {
         "baujahr": {
           "label": "Baujahr",
-          "placeholder": "zum Beispiel: 1932",
+          "placeholder": "zum Beispiel: 1957",
           "help": "Sollten Sie das Baujahr in Ihren Unterlagen nicht finden, können Sie es in der Bauakte beim Bauamt, Grundbuchamt, Bauarchiv, Stadt- oder Landesarchiv der jeweiligen Gemeinde nachsehen oder erfragen. Das Jahr der Fertigstellung gilt als Baujahr. Tragen Sie bitte immer das Jahr der erstmaligen Bezugsfertigkeit ein, auch wenn das Gebäude später durch Anbauten oder Aufstockungen erweitert wurde."
         }
       }
@@ -1405,7 +1405,7 @@
     },
     "bodenrichtwertEingabe": {
       "default": {
-        "headline": "Geben Sie den Bodenrichtwert für Ihr Flurstück ein",
+        "headline": "Geben Sie den Bodenrichtwert für Ihr Grundstück ein",
         "description": "Den Wert konnten Sie dem Bodenrichtwert-Portal Ihres Bundeslandes entnehmen. Wenn noch nicht geschehen, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
         "fields": {
           "bodenrichtwert": {
@@ -1414,7 +1414,7 @@
           }
         },
         "specifics": {
-          "zweiBodenrichtwerteHinweis": "Haben Sie mehr als einen Bodenrichtwert für Ihr Flurstück ermittelt? Tragen Sie hier den ein, der der größten Fläche entspricht. Flächenanteile müssen Sie nicht zuordnen. Die Angaben werden vom Finanzamt überprüft."
+          "zweiBodenrichtwerteHinweis": "Haben Sie mehr als einen Bodenrichtwert für Ihr Grundstück ermittelt? Tragen Sie hier den ein, der der größten Fläche entspricht. Flächenanteile müssen Sie nicht zuordnen. Die Angaben werden vom Finanzamt überprüft."
         }
       },
       "bb": {
