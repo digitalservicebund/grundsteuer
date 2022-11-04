@@ -243,7 +243,7 @@ export const action: ActionFunction = async ({ params, request }) => {
 };
 
 export const meta: MetaFunction = ({ data }) => {
-  return { title: pageTitle(data?.i18n?.headline) };
+  return { title: pageTitle(data?.i18n?.pageTitle || data?.i18n?.headline) };
 };
 
 export type StepComponentFunction = (
