@@ -1,13 +1,12 @@
 import { IMaskMixin } from "react-imask";
 import invariant from "tiny-invariant";
-import { ReactElement } from "react-imask/dist/mixin";
 import Input, { InputProps } from "./Input";
 
 const InputWithMixin = IMaskMixin<
   IMask.AnyMaskedOptions,
   false,
   string,
-  ReactElement
+  HTMLInputElement
 >(({ inputRef, ...props }) => {
   const { name, value, defaultValue, ...rest } = props;
   invariant(typeof name == "string");
