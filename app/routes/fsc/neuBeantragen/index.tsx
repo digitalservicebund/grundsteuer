@@ -329,7 +329,7 @@ export default function FscNeuBeantragen() {
         <BreadcrumbNavigation />
         <Headline>Freischaltcode neu beantragen</Headline>
         <IntroText>
-          Falls der Brief nach zwei Wochen bei Ihnen nicht angekommen ist,
+          Falls der Brief nach 3 Wochen bei Ihnen nicht angekommen ist,
           empfehlen wir Ihnen, den Freischaltcode neu zu beantragen.
         </IntroText>
         <IntroText>
@@ -449,7 +449,7 @@ export default function FscNeuBeantragen() {
           imageAltText="Bildbeispiel des Freischaltcode Brief"
           number="2"
           heading="Sie bekommen einen Brief vom Finanzamt"
-          text="Der Freischaltcode wird von Ihrem technischen Finanzamt als Brief an Ihre Meldeadresse versendet. Dies dauert in der Regel 3 Wochen. Sie können aber schon vor dem Erhalt des Codes Ihre Grundsteuererklärung ausfüllen."
+          text="Der Freischaltcode wird von Ihrem technischen Finanzamt als Brief an Ihre Meldeadresse versendet. Dies kann bis zu 3 Wochen dauern. Sie können aber schon vor dem Erhalt des Codes Ihre Grundsteuererklärung ausfüllen."
           className="mb-16"
         />
         <EnumeratedCard

@@ -442,10 +442,9 @@ export default function FscEingeben() {
       <BreadcrumbNavigation />
       <Headline>Bitte geben Sie Ihren Freischaltcode ein</Headline>
       <IntroText>
-        Wir haben einen Freischaltcode für Sie beantragt. Dieser wird per Post
-        innerhalb von 3 Wochen an Ihre Adresse versendet. Nach Erhalt des
-        Briefes, finden Sie den Freischaltcode auf der letzten Seite. Er besteht
-        aus 12 Zeichen.
+        Wir haben einen Freischaltcode für Sie beantragt. Diesen erhalten Sie
+        innerhalb von 3 Wochen per Post. Nach Erhalt des Briefes, finden Sie den
+        Freischaltcode auf der letzten Seite. Er besteht aus 12 Zeichen.
       </IntroText>
 
       {showError && !isSubmitting && (
@@ -489,8 +488,8 @@ export default function FscEingeben() {
         Keinen Freischaltcode erhalten?
       </h2>
       <p className="mb-8">
-        Zwei Wochen sind um und Sie haben noch keinen Brief mit dem
-        Freischaltcode erhalten?
+        3 Wochen sind um und Sie haben noch keinen Brief mit dem Freischaltcode
+        erhalten?
       </p>
       <div className="flex items-center mb-32">
         <ArrowRight className="inline-block mr-16" />
