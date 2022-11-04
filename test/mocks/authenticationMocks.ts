@@ -1,7 +1,8 @@
 process.env.FORM_COOKIE_SECRET = "secret";
 
+import { Session } from "@remix-run/server-runtime";
 import { commitSession, getSession } from "~/session.server";
-import { authenticator } from "~/auth.server";
+import { authenticator, SessionUser } from "~/auth.server";
 import { GrundModel } from "~/domain/steps/index.server";
 import { createHeadersWithFormDataCookie } from "~/formDataStorage.server";
 
@@ -22,10 +23,16 @@ export const getAuthenticatedSession = async (email: string) => {
   return session;
 };
 
+type IsAuthenticatedFunction = (
+  request: Request | Session,
+  options: {
+    successRedirect?: never;
+    failureRedirect: string;
+  }
+) => Promise<SessionUser>;
+
 export const mockIsAuthenticated =
-  authenticator.isAuthenticated as jest.MockedFunction<
-    typeof authenticator.isAuthenticated
-  >;
+  authenticator.isAuthenticated as IsAuthenticatedFunction as jest.MockedFunction<IsAuthenticatedFunction>;
 
 export const mockAuthenticate =
   authenticator.authenticate as jest.MockedFunction<
