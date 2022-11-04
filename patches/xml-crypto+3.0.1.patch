@@ -1,13 +1,9 @@
 diff --git a/node_modules/xml-crypto/lib/signed-xml.js b/node_modules/xml-crypto/lib/signed-xml.js
-index 7b23694..f771003 100644
+index 7b23694..b1a459a 100644
 --- a/node_modules/xml-crypto/lib/signed-xml.js
 +++ b/node_modules/xml-crypto/lib/signed-xml.js
-@@ -122,10 +122,14 @@ function RSASHA256() {
-   * Sign the given string using the given key
-   *
-   */
--  this.getSignature = function(signedInfo, signingKey, callback) {
-+  this.getSignature = function (signedInfo, signingKey, callback) {
+@@ -125,7 +125,11 @@ function RSASHA256() {
+   this.getSignature = function(signedInfo, signingKey, callback) {
      var signer = crypto.createSign("RSA-SHA256")
      signer.update(signedInfo)
 -    var res = signer.sign(signingKey, 'base64')
@@ -19,12 +15,8 @@ index 7b23694..f771003 100644
      if (callback) callback(null, res)
      return res
    }
-@@ -134,16 +138,20 @@ function RSASHA256() {
-   * Verify the given signature of the given string using key
-   *
-   */
--  this.verifySignature = function(str, key, signatureValue, callback) {
-+  this.verifySignature = function (str, key, signatureValue, callback) {
+@@ -137,13 +141,17 @@ function RSASHA256() {
+   this.verifySignature = function(str, key, signatureValue, callback) {
      var verifier = crypto.createVerify("RSA-SHA256")
      verifier.update(str)
 -    var res = verifier.verify(key, signatureValue, 'base64')

@@ -1,8 +1,8 @@
-diff --git a/node_modules/@node-saml/node-saml/node_modules/xml-encryption/lib/xmlenc.js b/node_modules/@node-saml/node-saml/node_modules/xml-encryption/lib/xmlenc.js
-index 0ec08dd..78bad0d 100644
---- a/node_modules/@node-saml/node-saml/node_modules/xml-encryption/lib/xmlenc.js
-+++ b/node_modules/@node-saml/node-saml/node_modules/xml-encryption/lib/xmlenc.js
-@@ -242,7 +242,7 @@ function decryptKeyInfo(doc, options) {
+diff --git a/node_modules/xml-encryption/lib/xmlenc.js b/node_modules/xml-encryption/lib/xmlenc.js
+index 7491744..2dca5f4 100644
+--- a/node_modules/xml-encryption/lib/xmlenc.js
++++ b/node_modules/xml-encryption/lib/xmlenc.js
+@@ -245,7 +245,7 @@ function decryptKeyInfo(doc, options) {
      xpath.select("//*[local-name(.)='CipherValue']", keyInfo)[0];
  
    switch (keyEncryptionAlgorithm) {
@@ -11,7 +11,7 @@ index 0ec08dd..78bad0d 100644
        return decryptKeyInfoWithScheme(encryptedKey, options, 'RSA-OAEP');
      case 'http://www.w3.org/2001/04/xmlenc#rsa-1_5':
        utils.warnInsecureAlgorithm(keyEncryptionAlgorithm, options.warnInsecureAlgorithm);
-@@ -255,7 +255,7 @@ function decryptKeyInfo(doc, options) {
+@@ -258,7 +258,7 @@ function decryptKeyInfo(doc, options) {
  function decryptKeyInfoWithScheme(encryptedKey, options, scheme) {
    var padding = scheme === 'RSA-OAEP' ? crypto.constants.RSA_PKCS1_OAEP_PADDING : crypto.constants.RSA_PKCS1_PADDING;
    var key = Buffer.from(encryptedKey.textContent, 'base64');
