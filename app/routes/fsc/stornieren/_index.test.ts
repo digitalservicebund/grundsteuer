@@ -4,6 +4,7 @@ import * as userModule from "~/domain/user";
 import { getMockedFunction } from "test/mocks/mockHelper";
 import { mockActionArgs } from "testUtil/mockActionArgs";
 import * as csrfModule from "~/util/csrf";
+import { redis } from "~/redis/redis.server";
 
 describe("action", () => {
   beforeAll(async () => {
@@ -12,6 +13,9 @@ describe("action", () => {
       email: "existing_user@foo.com",
       fscRequest: { requestId: "foo" },
     });
+    jest
+      .spyOn(redis, "set")
+      .mockImplementation(jest.fn(() => Promise.resolve({})) as jest.Mock);
   });
 
   afterAll(() => {
