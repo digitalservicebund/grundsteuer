@@ -57,6 +57,7 @@ import {
 import { ericaUtils } from "~/erica/utils";
 import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
 import { flags } from "~/flags.server";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const isEricaRequestInProgress = (userData: User) => {
   return (
@@ -292,6 +293,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
         isEricaActivationRequestInProgress(updatedUserData) ||
         isEricaRevocationRequestInProgress(updatedUserData),
       ericaDown: flags.isEricaDown(),
+      testFeaturesEnabled: testFeaturesEnabled(),
     },
     {
       headers: {
@@ -494,7 +496,11 @@ export default function FscEingeben() {
       <div className="flex items-center mb-32">
         <ArrowRight className="inline-block mr-16" />
         <a
-          href="/fsc/neuBeantragen?index"
+          href={
+            loaderData?.testFeaturesEnabled
+              ? "/fsc/stornieren"
+              : "/fsc/neuBeantragen?index"
+          }
           className="font-bold underline text-18 text-blue-800"
         >
           Freischaltcode neu beantragen
