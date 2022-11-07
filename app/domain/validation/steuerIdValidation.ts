@@ -7,6 +7,7 @@ import { validateOnlyDecimal } from "~/domain/validation/numericValidation";
 import { Person } from "~/domain/steps/index.server";
 
 export const validateSteuerId: ValidateFunctionDefault = ({ value }) => {
+  if (!value) return true;
   const normalizedSteuerId = value.split(" ").join("");
   if (value.charAt(0) != "0") {
     return validator.isTaxID(normalizedSteuerId, "de-DE");

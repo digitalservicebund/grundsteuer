@@ -109,9 +109,6 @@ const inputData = {
         ort: "London",
         telefonnummer: "555-2368",
       },
-      steuerId: {
-        steuerId: "04452397687",
-      },
       gesetzlicherVertreter: {
         hasVertreter: "true",
       },
@@ -416,9 +413,7 @@ describe("Happy Path", () => {
       .type(inputData.eigentuemer.person1.adresse.telefonnummer);
     cy.get(submitBtnSelector).click();
     cy.url().should("include", "/person/1/steuerId");
-    cy.get("#steuerId")
-      .clear()
-      .type(inputData.eigentuemer.person1.steuerId.steuerId);
+    cy.get("#steuerId").should("exist");
     cy.get(submitBtnSelector).click();
     cy.get("label[for=hasVertreter-true]").click();
     cy.get(submitBtnSelector).click();

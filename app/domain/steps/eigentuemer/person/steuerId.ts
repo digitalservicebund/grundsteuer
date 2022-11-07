@@ -8,7 +8,6 @@ export const eigentuemerPersonSteuerId: StepDefinition = {
   fields: {
     steuerId: {
       validations: {
-        required: {},
         onlyDecimal: {
           exceptions: [" "],
         },
