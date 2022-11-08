@@ -6,7 +6,6 @@ export enum Feature {
   RATE_LIMIT = "rate",
   BUNDES_IDENT_RATE_LIMIT = "bundesIdentRate",
   CLIENT_IP = "clientIp",
-  FORM_DATA = "formData",
 }
 
 declare global {

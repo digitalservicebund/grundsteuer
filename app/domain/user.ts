@@ -239,6 +239,13 @@ export const setUserInFscNeuBeantragenProcess = async (
   });
 };
 
+export const saveFormData = async (id: string, formData: object) => {
+  return db.user.update({
+    where: { id },
+    data: { formData },
+  });
+};
+
 export const getAllEricaRequestIds = async () => {
   return db.user.findMany({
     select: {

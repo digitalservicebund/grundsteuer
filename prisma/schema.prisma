@@ -26,6 +26,7 @@ model User {
   lastDeclarationAt           DateTime?
   fscRequest                  FscRequest?
   pdf                         Pdf?
+  formData                    Json?
 }
 
 model Pdf {

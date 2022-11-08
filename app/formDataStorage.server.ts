@@ -7,8 +7,8 @@ import {
   decryptCookie,
   encryptCookie,
 } from "~/cookies.server";
-import { Feature, redis } from "~/redis/redis.server";
 import { testFeaturesEnabled } from "./util/testFeaturesEnabled";
+import { findUserById, saveFormData } from "./domain/user";
 
 const debug = createDebugMessages("formDataStorage");
 
@@ -22,9 +22,9 @@ export const getStoredFormData: GetStoredFormDataFunction = async ({
   user,
 }) => {
   if (testFeaturesEnabled() && process.env.NODE_ENV !== "test") {
-    const data = await redis.get(Feature.FORM_DATA, user.id);
-    if (data) {
-      return JSON.parse(data);
+    const dbUser = await findUserById(user.id);
+    if (dbUser?.formData) {
+      return dbUser.formData;
     }
   }
 
@@ -118,14 +118,7 @@ export const storeFormData = async (options: {
   user: SessionUser;
 }) => {
   if (testFeaturesEnabled() && process.env.NODE_ENV !== "test") {
-    const { data, user } = options;
-    const ttlInSeconds = 3 * 30 * 24 * 60 * 60; // 3 months
-    return redis.set(
-      Feature.FORM_DATA,
-      user.id,
-      JSON.stringify(data),
-      ttlInSeconds
-    );
+    return saveFormData(options.user.id, options.data);
   }
 };
 
