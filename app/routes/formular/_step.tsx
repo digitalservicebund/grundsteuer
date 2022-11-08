@@ -22,6 +22,7 @@ import {
 import {
   createHeadersWithFormDataCookie,
   getStoredFormData,
+  storeFormData,
 } from "~/formDataStorage.server";
 import { getStepData, setStepData, StepFormData } from "~/domain/model";
 import {
@@ -219,6 +220,9 @@ export const action: ActionFunction = async ({ params, request }) => {
     currentState,
     validatedStepData
   ) as GrundModel;
+
+  await storeFormData({ data: formDataToBeStored, user });
+
   const headers = await createHeadersWithFormDataCookie({
     data: formDataToBeStored,
     user,

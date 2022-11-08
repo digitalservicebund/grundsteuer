@@ -31,6 +31,7 @@ import Hint from "~/components/Hint";
 import {
   createHeadersWithFormDataCookie,
   getStoredFormData,
+  storeFormData,
 } from "~/formDataStorage.server";
 import { authenticator } from "~/auth.server";
 import {
@@ -112,6 +113,9 @@ export const action: ActionFunction = async ({ request }) => {
         },
       };
     }
+
+    await storeFormData({ data: formDataToBeStored, user });
+
     const headers = await createHeadersWithFormDataCookie({
       data: formDataToBeStored,
       user,

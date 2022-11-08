@@ -3,6 +3,7 @@ import _ from "lodash";
 import {
   createHeadersWithFormDataCookie,
   getStoredFormData,
+  storeFormData,
 } from "~/formDataStorage.server";
 import { authenticator } from "~/auth.server";
 import { verifyCsrfToken } from "~/util/csrf";
@@ -101,6 +102,8 @@ export const action: ActionFunction = async (args) => {
       listOfItems
     );
   }
+
+  await storeFormData({ data: formDataToBeStored, user });
 
   const headers = await createHeadersWithFormDataCookie({
     data: formDataToBeStored,
