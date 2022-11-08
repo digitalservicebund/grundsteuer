@@ -611,6 +611,7 @@ describe("transformDataToEricaFormat", () => {
 
 describe("calculateGroesse", () => {
   const cases = [
+    { groesseHa: "", groesseA: "", groesseQm: "0", result: "0" },
     { groesseHa: "", groesseA: "", groesseQm: "123", result: "123" },
     { groesseHa: "", groesseA: "1", groesseQm: "23", result: "123" },
     { groesseHa: "", groesseA: "1", groesseQm: "2", result: "102" },
@@ -620,6 +621,7 @@ describe("calculateGroesse", () => {
     { groesseHa: " ", groesseA: "  ", groesseQm: " 05 ", result: "5" },
     { groesseHa: "0", groesseA: "0", groesseQm: "5", result: "5" },
     { groesseHa: "1", groesseA: "", groesseQm: "", result: "10000" },
+    { groesseHa: "", groesseA: "", groesseQm: "1 1", result: "11" },
   ];
 
   test.each(cases)(
@@ -632,7 +634,6 @@ describe("calculateGroesse", () => {
   );
 
   const errorCases = [
-    { groesseHa: "", groesseA: "", groesseQm: "0" },
     { groesseHa: "", groesseA: "1", groesseQm: "123" },
     { groesseHa: "1", groesseA: "", groesseQm: "123" },
   ];

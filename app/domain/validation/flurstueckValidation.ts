@@ -11,7 +11,7 @@ export const validateFlurstueckGroesse: ValidateFlurstueckGroesseFunction = ({
   if (!isZeroOrEmpty(valueA)) {
     return valueQm.trim().length <= 2;
   }
-  return !isZeroOrEmpty(valueQm);
+  return !isEmpty(valueQm) || !isEmpty(valueHa) || !isEmpty(valueA);
 };
 
 export const validateFlurstueckGroesseLength: ValidateFlurstueckGroesseFunction =
@@ -23,9 +23,13 @@ export const validateFlurstueckGroesseLength: ValidateFlurstueckGroesseFunction 
 
 export const validateFlurstueckGroesseRequired: ValidateFlurstueckGroesseFunction =
   ({ valueHa, valueA, valueQm }) => {
-    return ![valueHa, valueA, valueQm].every((value) => isZeroOrEmpty(value));
+    return ![valueHa, valueA, valueQm].every((value) => isEmpty(value));
   };
 
 const isZeroOrEmpty = (value: string) => {
   return /^[0 ]*$/.test(value);
+};
+
+const isEmpty = (value: string) => {
+  return /^[ ]*$/.test(value);
 };

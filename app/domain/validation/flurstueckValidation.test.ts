@@ -15,8 +15,12 @@ describe("validateFlurstueckGroesse", () => {
     { valueHa: "", valueA: "", valueQm: "123", valid: true },
     { valueHa: "0", valueA: "", valueQm: "123", valid: true },
     { valueHa: "", valueA: "0000", valueQm: "123", valid: true },
-    { valueHa: "", valueA: "", valueQm: "0", valid: false },
-    { valueHa: "0", valueA: "0", valueQm: "0", valid: false },
+    { valueHa: "", valueA: "", valueQm: "0", valid: true },
+    { valueHa: "0", valueA: "0", valueQm: "0", valid: true },
+    { valueHa: "0", valueA: "", valueQm: "0", valid: true },
+    { valueHa: "0", valueA: "0", valueQm: "", valid: true },
+    { valueHa: "0", valueA: "", valueQm: "", valid: true },
+    { valueHa: "1 1", valueA: "", valueQm: "", valid: true },
   ];
 
   test.each(cases)(
@@ -55,10 +59,10 @@ describe("validateFlurstueckGroesseLength", () => {
 describe("validateFlurstueckGroesseRequired", () => {
   const cases = [
     { valueHa: "", valueA: "", valueQm: "", valid: false },
-    { valueHa: "", valueA: "", valueQm: "0", valid: false },
-    { valueHa: "", valueA: "", valueQm: "00", valid: false },
-    { valueHa: "", valueA: "", valueQm: "0 0", valid: false },
-    { valueHa: "0", valueA: "0", valueQm: "0", valid: false },
+    { valueHa: "", valueA: "", valueQm: "0", valid: true },
+    { valueHa: "", valueA: "", valueQm: "00", valid: true },
+    { valueHa: "", valueA: "", valueQm: "0 0", valid: true },
+    { valueHa: "0", valueA: "0", valueQm: "0", valid: true },
     { valueHa: "", valueA: "", valueQm: "1", valid: true },
     { valueHa: "", valueA: "", valueQm: "a", valid: true },
     { valueHa: "", valueA: "1", valueQm: "", valid: true },
