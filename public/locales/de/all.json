@@ -1415,7 +1415,7 @@
           }
         },
         "specifics": {
-          "zweiBodenrichtwerteHinweis": "Haben Sie mehr als einen Bodenrichtwert für Ihr Grundstück ermittelt? Tragen Sie hier den ein, der der größten Fläche entspricht. Flächenanteile müssen Sie nicht zuordnen. Die Angaben werden vom Finanzamt überprüft."
+          "zweiBodenrichtwerteHinweis": "Wenn Sie mehr als einen Bodenrichtwert für Ihr Grundstück ermittelt haben, tragen Sie hier den größeren Wert ein. Dieser Wert wird nicht der ganzen Fläche zugerechnet. Die Erklärung wird manuell von Mitarbeitenden des Finanzamts bearbeitet. Dort werden die Teilflächen zugeordnet."
         }
       },
       "bb": {
