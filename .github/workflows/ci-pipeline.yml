@@ -210,7 +210,7 @@ jobs:
           kustomize edit set image ghcr.io/digitalservicebund/grundsteuer-migrate:${{ github.sha }}
 
       - name: Commit and push
-        uses: EndBug/add-and-commit@050a66787244b10a4874a2a5f682130263edc192
+        uses: EndBug/add-and-commit@61a88be553afe4206585b31aa72387c64295d08b
         with:
           add: "manifests/overlays/staging/kustomization.yaml"
           message: "Update staging image to ${{ github.sha }}"
