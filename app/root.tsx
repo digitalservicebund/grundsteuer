@@ -10,6 +10,7 @@ import {
   Meta,
   Outlet,
   Scripts,
+  useCatch,
   useLoaderData,
   useLocation,
 } from "@remix-run/react";
@@ -107,6 +108,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
 }
 
 export function CatchBoundary() {
+  const caught = useCatch();
   return (
     <html lang="de">
       <head>
@@ -115,7 +117,7 @@ export function CatchBoundary() {
         <Links />
       </head>
       <body>
-        <ErrorPage statusCode={404} />
+        <ErrorPage statusCode={caught.status} statusText={caught.statusText} />
         <script
           suppressHydrationWarning
           dangerouslySetInnerHTML={{

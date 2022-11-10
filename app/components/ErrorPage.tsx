@@ -4,10 +4,15 @@ import illustrationImage404 from "~/assets/images/404.svg";
 import illustrationImage500 from "~/assets/images/500.svg";
 
 type ErrorPageProps = {
-  statusCode: 404 | 500;
+  statusCode: number;
+  statusText?: string;
 };
 
-const texts = {
+type Texts = Record<
+  number,
+  { backButton: string; headline: string; body: string; smallprint?: string }
+>;
+const texts: Texts = {
   404: {
     backButton: "Zur Startseite",
     headline: "Seite konnte nicht gefunden werden.",
@@ -23,21 +28,26 @@ const texts = {
 };
 
 export default function ErrorPage(props: ErrorPageProps) {
-  const { statusCode } = props;
+  const { statusCode, statusText } = props;
+
+  const statusCodeTexts =
+    statusCode in texts
+      ? texts[statusCode]
+      : { headline: statusText || "", body: "", backButton: "Zur Startseite" };
 
   return (
     <SimplePageLayout>
       <h1 className="text-32 leading-40 mb-32 max-w-screen-sm md:text-64 md:leading-68 md:mb-48">
         {statusCode}
         <br />
-        {texts[statusCode].headline}
+        {statusCodeTexts.headline}
       </h1>
 
       <p className="text-20 leading-26 md:text-32 md:leading-40 max-w-screen-md mb-24 md:mb-32">
-        {texts[statusCode].body}
+        {statusCodeTexts.body}
       </p>
 
-      {statusCode === 404 && (
+      {statusCodeTexts.smallprint && (
         <p className="max-w-screen-md mb-64 md:mb-96">
           <Trans
             components={{
@@ -45,13 +55,13 @@ export default function ErrorPage(props: ErrorPageProps) {
               nowrap: <span className="whitespace-nowrap" />,
             }}
           >
-            {texts[statusCode].smallprint}
+            {statusCodeTexts.smallprint}
           </Trans>
         </p>
       )}
 
       <Button to="/formular" className="mb-64">
-        {texts[statusCode].backButton}
+        {statusCodeTexts.backButton}
       </Button>
 
       <img
