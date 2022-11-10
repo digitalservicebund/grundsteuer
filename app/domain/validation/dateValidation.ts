@@ -27,10 +27,7 @@ export const validateYearAfterBaujahr: ValidateYearAfterBaujahrFunction = ({
 export const validateYearInFuture: ValidateFunctionDefault = ({ value }) => {
   if (!validateOnlyDecimal({ value })) return true;
   if (value.length != 4) return true;
-  return (
-    new Date(+value, 11, 31).getTime() >=
-    new Date(Date.now()).setHours(0, 0, 0, 0)
-  );
+  return +value >= new Date(Date.now()).getFullYear();
 };
 
 export const validateYearInPast: ValidateYearInPast = ({
