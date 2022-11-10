@@ -25,6 +25,12 @@ const texts: Texts = {
     headline: "Übertragungsfehler",
     body: "Es tut uns leid. Bei der Datenübertragung zum Server ist etwas schief gelaufen. Der Server konnte die Anfrage daher nicht bearbeiten. Bitte laden Sie die Seite neu und versuchen Sie es erneut.",
   },
+  429: {
+    // TODO adapt texts + change to "reload" button?
+    backButton: "Zur Startseite",
+    headline: "Seite konnte nicht gefunden werden.",
+    body: "Es tut uns leid. Diese Seite scheint es nicht zu geben. Sie wurde vielleicht entfernt, im Namen geändert oder ist auf andere Weise nicht erreichbar.",
+  },
   500: {
     backButton: "Zur Startseite",
     headline: "Ein unerwarteter Fehler ist aufgetreten.",

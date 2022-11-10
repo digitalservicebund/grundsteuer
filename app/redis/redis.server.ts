@@ -5,6 +5,7 @@ export enum Feature {
   EMAIL = "message",
   RATE_LIMIT = "rate",
   BUNDES_IDENT_RATE_LIMIT = "bundesIdentRate",
+  IP_RATE_LIMIT = "ipRate",
   CLIENT_IP = "clientIp",
 }
 

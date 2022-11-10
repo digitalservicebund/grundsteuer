@@ -8,3 +8,4 @@ process.env.FORM_COOKIE_ENC_SECRET = "26d011bcbb9db8c4673b7fcd90c9ec6d";
 process.env.FORM_COOKIE_SECRET = "secret";
 process.env.HASHED_LOGGING_SALT = "$2a$10$7hclYwYcZY5qCfmedLQx/u";
 process.env.EKONA_ISSUER_URL = "https://e4k-portal.een.elster.de";
+process.env.HASHED_IP_LIMIT_SALT = "$2a$10$yJxhxwR11gk3SH/AuERp/O";
