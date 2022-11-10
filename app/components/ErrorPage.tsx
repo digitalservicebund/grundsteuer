@@ -20,6 +20,12 @@ const texts: Texts = {
     smallprint:
       "Wenn Sie die URL direkt eingegeben haben, überprüfen Sie die Schreibweise.",
   },
+  400: {
+    // TODO adapt texts + change to "reload" button?
+    backButton: "Zur Startseite",
+    headline: "Fehlerhafte Anfrage",
+    body: "Es tut uns leid. In Ihrer Anfrage waren Werte (nicht) enthalten, die dazu führen, dass die Anfrage nicht verarbeitet werden kann. Bitte laden Sie die Seite neu und versuchen Sie es erneut.",
+  },
   500: {
     backButton: "Zur Startseite",
     headline: "Ein unerwarteter Fehler ist aufgetreten.",
