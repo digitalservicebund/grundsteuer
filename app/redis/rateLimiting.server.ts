@@ -34,7 +34,7 @@ const incrementCurrentIpLimit = async (route: string, hashedIpKey: string) => {
   await redis.incr(Feature.IP_RATE_LIMIT, hashedIpKey, 59);
 };
 
-export const applyIpRateLimit = async (
+const applyIpRateLimit = async (
   limitedRoute: string,
   ip: string,
   limit = 10

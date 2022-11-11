@@ -1,16 +1,12 @@
 import {
-  applyIpRateLimit,
   applyRateLimit,
   throwErrorIfRateLimitReached,
 } from "~/redis/rateLimiting.server";
 import { Feature, redis } from "~/redis/redis.server";
-import bcrypt from "bcryptjs";
-import invariant from "tiny-invariant";
 
 describe("ratelimiting", () => {
   const currentDate = Date.UTC(2022, 0, 1, 0, 0, 12);
   const mockedCurrentSeconds = new Date(currentDate).getSeconds().toString();
-  const mockedCurrentMinute = new Date(currentDate).getMinutes().toString();
   const mockDateOneMinuteLater = new Date(Date.UTC(2022, 0, 1, 0, 1, 12));
   const mockDate = new Date(currentDate);
 
@@ -112,148 +108,66 @@ describe("ratelimiting", () => {
     });
   });
 
-  describe("applyIpRatelimit", () => {
+  describe("throwErrorIfRateLimitReached", () => {
     let originalSkipRatelimitValue: string;
-    const ipAddress = "123.012.234.122";
+    const ipAddressSeenMultipleTimes = "098.765.432.123";
+    const ipAddressSeenOnlyOnce = "123.456.789.012";
     const route1 = "this/is/the/way";
     const route2 = "this/is/not/the";
-
-    let redisKey1: string;
-    let redisKey2: string;
-
     beforeAll(async () => {
       if (process.env.SKIP_RATELIMIT) {
         originalSkipRatelimitValue = process.env.SKIP_RATELIMIT;
         process.env.SKIP_RATELIMIT = "false";
       }
-      invariant(
-        process.env.HASHED_IP_LIMIT_SALT,
-        "Environment variable HASHED_IP_LIMIT_SALT is not defined"
-      );
-      redisKey1 =
-        route1 +
-        (await bcrypt.hash(ipAddress, process.env.HASHED_IP_LIMIT_SALT)) +
-        mockedCurrentMinute;
-      redisKey2 =
-        route2 +
-        (await bcrypt.hash(ipAddress, process.env.HASHED_IP_LIMIT_SALT)) +
-        mockedCurrentMinute;
     });
-
-    beforeEach(async () => {
-      await redis.del(Feature.IP_RATE_LIMIT, redisKey1);
-      await redis.del(Feature.IP_RATE_LIMIT, redisKey2);
-    });
-
     afterAll(async () => {
       if (originalSkipRatelimitValue) {
         process.env.SKIP_RATELIMIT = "true";
       }
-      await redis.del(Feature.IP_RATE_LIMIT, redisKey1);
-      await redis.del(Feature.IP_RATE_LIMIT, redisKey2);
-      jest.resetAllMocks();
+      await redis.flushAll();
     });
 
-    describe("when called once per second", () => {
-      it("should return true", async () => {
-        expect(await applyIpRateLimit(route1, ipAddress)).toBe(true);
-      });
-
-      it("should set expiry", async () => {
-        await applyIpRateLimit(route1, ipAddress);
-        const ttl = await redis.ttl(Feature.IP_RATE_LIMIT, redisKey1);
-        expect(ttl).toBeGreaterThan(0);
-        expect(ttl).toBeLessThan(60);
-      });
+    beforeEach(async () => {
+      await redis.flushAll();
     });
 
-    describe("when already called four times per second", () => {
-      beforeEach(async () => {
-        await applyIpRateLimit(route1, ipAddress, 5);
-        await applyIpRateLimit(route1, ipAddress, 5);
-        await applyIpRateLimit(route1, ipAddress, 5);
-        await applyIpRateLimit(route1, ipAddress, 5);
-      });
-
-      it("should return true if called once", async () => {
-        expect(await applyIpRateLimit(route1, ipAddress, 5)).toBe(true);
-      });
-
-      it("should return false if called twice", async () => {
-        await applyIpRateLimit(route1, ipAddress);
-        expect(await applyIpRateLimit(route1, ipAddress, 5)).toBe(false);
-      });
+    it("should throw no error if first occurrence of ip address", async () => {
+      await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
     });
 
-    describe("when called with multiple routes", () => {
-      beforeEach(async () => {
-        await applyIpRateLimit(route1, ipAddress, 5);
-        await applyIpRateLimit(route1, ipAddress, 5);
-        await applyIpRateLimit(route2, ipAddress, 5);
-        await applyIpRateLimit(route2, ipAddress, 5);
-      });
-
-      it("should return true if called once with route 1", async () => {
-        expect(await applyIpRateLimit(route1, ipAddress, 5)).toBe(true);
-      });
-
-      it("should return true if called once with route 2", async () => {
-        expect(await applyIpRateLimit(route2, ipAddress, 5)).toBe(true);
-      });
+    it("should throw error if limit reached for ip address", async () => {
+      await throwErrorIfRateLimitReached(ipAddressSeenMultipleTimes, route1, 5);
+      await throwErrorIfRateLimitReached(ipAddressSeenMultipleTimes, route1, 5);
+      await throwErrorIfRateLimitReached(ipAddressSeenMultipleTimes, route1, 5);
+      await throwErrorIfRateLimitReached(ipAddressSeenMultipleTimes, route1, 5);
+      await throwErrorIfRateLimitReached(ipAddressSeenMultipleTimes, route1, 5);
+      await expect(
+        throwErrorIfRateLimitReached(ipAddressSeenMultipleTimes, route1, 5)
+      ).rejects.toMatchObject(
+        new Response("Too many requests", { status: 429 })
+      );
     });
 
-    describe("when already called four times with multiple routes", () => {
-      beforeEach(async () => {
-        await applyIpRateLimit(route1, ipAddress, 5);
-        await applyIpRateLimit(route1, ipAddress, 5);
-        await applyIpRateLimit(route2, ipAddress, 5);
-        await applyIpRateLimit(route2, ipAddress, 5);
-        await applyIpRateLimit(route1, ipAddress, 5);
-        await applyIpRateLimit(route1, ipAddress, 5);
-      });
+    it("should throw no error if first occurrence for route 2", async () => {
+      await throwErrorIfRateLimitReached(ipAddressSeenMultipleTimes, route1, 5);
+      await throwErrorIfRateLimitReached(ipAddressSeenMultipleTimes, route1, 5);
+      await throwErrorIfRateLimitReached(ipAddressSeenMultipleTimes, route1, 5);
+      await throwErrorIfRateLimitReached(ipAddressSeenMultipleTimes, route1, 5);
+      await throwErrorIfRateLimitReached(ipAddressSeenMultipleTimes, route1, 5);
 
-      it("should return true if called once again", async () => {
-        expect(await applyIpRateLimit(route1, ipAddress, 5)).toBe(true);
-      });
-
-      it("should return false if called twice", async () => {
-        await applyIpRateLimit(route1, ipAddress);
-        expect(await applyIpRateLimit(route1, ipAddress, 5)).toBe(false);
-      });
+      await throwErrorIfRateLimitReached(ipAddressSeenMultipleTimes, route2, 5);
     });
 
-    describe("throwErrorIfRateLimitReached", () => {
-      const ipAddressSeenMultipleTimes = "098.765.432.123";
-      const ipAddressSeenOnlyOnce = "123.456.789.012";
-      const route1 = "this/is/the/way";
-      const route2 = "this/is/not/the";
-
-      afterAll(async () => {
-        await redis.flushAll();
+    describe("with changed time between increases", () => {
+      afterAll(() => {
+        const actualNowImplementation = Date.now;
+        jest
+          .spyOn(global, "Date")
+          .mockImplementation(() => mockDate as unknown as string);
+        Date.now = actualNowImplementation;
       });
 
-      beforeEach(async () => {
-        await redis.flushAll();
-      });
-
-      it("should throw no error if first occurrence of ip address", async () => {
-        await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
-      });
-
-      it("should throw error if limit reached for ip address", async () => {
-        await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
-        await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
-        await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
-        await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
-        await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
-        await expect(
-          throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5)
-        ).rejects.toMatchObject(
-          new Response("Too many requests", { status: 429 })
-        );
-      });
-
-      it("should throw no error if first occurrence for route 2", async () => {
+      it("should throw no error if first occurrence for this minute", async () => {
         await throwErrorIfRateLimitReached(
           ipAddressSeenMultipleTimes,
           route1,
@@ -279,92 +193,19 @@ describe("ratelimiting", () => {
           route1,
           5
         );
-
-        await throwErrorIfRateLimitReached(
-          ipAddressSeenMultipleTimes,
-          route2,
-          5
-        );
-      });
-
-      it("should throw no error if first occurrence for route 2", async () => {
-        await throwErrorIfRateLimitReached(
-          ipAddressSeenMultipleTimes,
-          route1,
-          5
-        );
-        await throwErrorIfRateLimitReached(
-          ipAddressSeenMultipleTimes,
-          route1,
-          5
-        );
-        await throwErrorIfRateLimitReached(
-          ipAddressSeenMultipleTimes,
-          route1,
-          5
-        );
-        await throwErrorIfRateLimitReached(
-          ipAddressSeenMultipleTimes,
-          route1,
-          5
-        );
-
-        await throwErrorIfRateLimitReached(
-          ipAddressSeenMultipleTimes,
-          route2,
-          5
-        );
-      });
-
-      describe("with changed time between increases", () => {
-        afterAll(() => {
-          const actualNowImplementation = Date.now;
-          jest
-            .spyOn(global, "Date")
-            .mockImplementation(() => mockDate as unknown as string);
-          Date.now = actualNowImplementation;
-        });
-
-        it("should throw no error if first occurrence for this minute", async () => {
-          await throwErrorIfRateLimitReached(
-            ipAddressSeenMultipleTimes,
-            route1,
-            5
+        const actualNowImplementation = Date.now;
+        jest
+          .spyOn(global, "Date")
+          .mockImplementation(
+            () => mockDateOneMinuteLater as unknown as string
           );
-          await throwErrorIfRateLimitReached(
-            ipAddressSeenMultipleTimes,
-            route1,
-            5
-          );
-          await throwErrorIfRateLimitReached(
-            ipAddressSeenMultipleTimes,
-            route1,
-            5
-          );
-          await throwErrorIfRateLimitReached(
-            ipAddressSeenMultipleTimes,
-            route1,
-            5
-          );
-          await throwErrorIfRateLimitReached(
-            ipAddressSeenMultipleTimes,
-            route1,
-            5
-          );
-          const actualNowImplementation = Date.now;
-          jest
-            .spyOn(global, "Date")
-            .mockImplementation(
-              () => mockDateOneMinuteLater as unknown as string
-            );
-          Date.now = actualNowImplementation;
+        Date.now = actualNowImplementation;
 
-          await throwErrorIfRateLimitReached(
-            ipAddressSeenMultipleTimes,
-            route1,
-            5
-          );
-        });
+        await throwErrorIfRateLimitReached(
+          ipAddressSeenMultipleTimes,
+          route1,
+          5
+        );
       });
     });
   });
