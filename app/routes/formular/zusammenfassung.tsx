@@ -69,6 +69,7 @@ import bcrypt from "bcryptjs";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
 import { flags } from "~/flags.server";
+import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
 
 type LoaderData = {
   formData: StepFormData;
@@ -282,6 +283,7 @@ export const action: ActionFunction = async ({
   context,
 }): Promise<ActionData | Response> => {
   const { clientIp } = context;
+  await throwErrorIfRateLimitReached(clientIp, "zusammenfassung", 120);
   await verifyCsrfToken(request);
 
   const user = await authenticator.isAuthenticated(request, {

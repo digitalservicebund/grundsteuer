@@ -34,6 +34,7 @@ import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
 import { ericaUtils } from "~/erica/utils";
 import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
 import { flags } from "~/flags.server";
+import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
 
 type LoaderData = {
   csrfToken?: string;
@@ -90,6 +91,7 @@ export const action: ActionFunction = async ({
   context,
 }): Promise<ActionData | Response> => {
   const { clientIp } = context;
+  await throwErrorIfRateLimitReached(clientIp, "fsc", 120);
   const sessionUser = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });

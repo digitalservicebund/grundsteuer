@@ -55,6 +55,7 @@ import { saveSuccessfulFscRequestData } from "~/domain/lifecycleEvents.server";
 import { ericaUtils } from "~/erica/utils";
 import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
 import { flags } from "~/flags.server";
+import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -226,6 +227,7 @@ export const action: ActionFunction = async ({
   context,
 }): Promise<BeantragenActionData | Response> => {
   const { clientIp } = context;
+  await throwErrorIfRateLimitReached(clientIp, "fsc", 120);
   await verifyCsrfToken(request);
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",

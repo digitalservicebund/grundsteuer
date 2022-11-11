@@ -37,6 +37,7 @@ import { validateRequired } from "~/domain/validation/requiredValidation";
 import { validateEmail } from "~/domain/validation/stringValidation";
 import * as crypto from "crypto";
 import { flags } from "~/flags.server";
+import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -115,6 +116,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ request, context }) => {
   const { clientIp } = context;
+  await throwErrorIfRateLimitReached(clientIp, "registrieren", 20);
   await verifyCsrfToken(request);
 
   // clone request before accessing formData, as remix-auth also needs the formData

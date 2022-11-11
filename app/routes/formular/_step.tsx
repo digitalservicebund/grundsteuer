@@ -54,8 +54,7 @@ import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { getBackUrl, getRedirectUrl } from "~/util/constructUrls";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
-import { applyIpRateLimit, applyRateLimit } from "~/redis/rateLimiting.server";
-import { Feature } from "~/redis/redis.server";
+import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
 
 export const PREFIX = "formular";
 
@@ -191,11 +190,7 @@ export type ActionData = {
 
 export const action: ActionFunction = async ({ context, params, request }) => {
   const { clientIp } = context;
-  // TODO adapt limit? Add to other places wher rate limit is required (e.g. "zusammenfassung" + "_anzahlAction"?)
-  if (!(await applyIpRateLimit(Feature.IP_RATE_LIMIT, clientIp, 120))) {
-    console.log("Rate limit exceeded at " + new Date().toISOString());
-    throw new Response("Too many requests", { status: 429 });
-  }
+  await throwErrorIfRateLimitReached(clientIp, "formular", 120);
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });

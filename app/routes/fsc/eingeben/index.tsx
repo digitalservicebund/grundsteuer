@@ -58,6 +58,7 @@ import { ericaUtils } from "~/erica/utils";
 import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
 import { flags } from "~/flags.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
+import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
 
 const isEricaRequestInProgress = (userData: User) => {
   return (
@@ -314,6 +315,7 @@ export const action: ActionFunction = async ({
   context,
 }): Promise<EingebenActionData | Response> => {
   const { clientIp } = context;
+  await throwErrorIfRateLimitReached(clientIp, "fsc", 120);
   await verifyCsrfToken(request);
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
