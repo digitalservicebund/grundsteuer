@@ -115,8 +115,8 @@ export type ValidateMinValueFunction = ({
 
 export type ValidateYearInPast = ({
   value,
-  excludingCurrentYear,
+  excludingVeranlagungszeitraum,
 }: {
   value: string;
-  excludingCurrentYear?: boolean;
+  excludingVeranlagungszeitraum?: boolean;
 }) => boolean;

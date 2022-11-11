@@ -2,8 +2,8 @@ import {
   validateDateInPast,
   validateIsDate,
   validateYearAfterBaujahr,
-  validateYearInFuture,
-  validateYearInPast,
+  validateYearInFutureOfVeranlagungszeitraum,
+  validateYearInPastOfVeranlagungszeitraum,
 } from "~/domain/validation/dateValidation";
 import { grundModelFactory } from "test/factories";
 
@@ -63,7 +63,9 @@ describe("validateYearInFuture", () => {
       const actualNowImplementation = Date.now;
       try {
         Date.now = jest.fn(() => new Date(currentDate).valueOf());
-        expect(validateYearInFuture({ value })).toBe(valid);
+        expect(validateYearInFutureOfVeranlagungszeitraum({ value })).toBe(
+          valid
+        );
       } finally {
         Date.now = actualNowImplementation;
       }
@@ -135,7 +137,12 @@ describe("validateYearInPast", () => {
       const actualNowImplementation = Date.now;
       try {
         Date.now = jest.fn(() => new Date(currentDate).valueOf());
-        expect(validateYearInPast({ value, excludingCurrentYear })).toBe(valid);
+        expect(
+          validateYearInPastOfVeranlagungszeitraum({
+            value,
+            excludingVeranlagungszeitraum: excludingCurrentYear,
+          })
+        ).toBe(valid);
       } finally {
         Date.now = actualNowImplementation;
       }

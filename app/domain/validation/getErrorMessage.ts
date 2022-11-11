@@ -40,8 +40,8 @@ import {
   validateDateInPast,
   validateIsDate,
   validateYearAfterBaujahr,
-  validateYearInFuture,
-  validateYearInPast,
+  validateYearInFutureOfVeranlagungszeitraum,
+  validateYearInPastOfVeranlagungszeitraum,
 } from "~/domain/validation/dateValidation";
 import {
   validateFlurstueckGroesse,
@@ -93,8 +93,8 @@ export const getErrorMessage = (
     flurstueckGroesse: validateFlurstueckGroesse,
     flurstueckGroesseLength: validateFlurstueckGroesseLength,
     flurstueckGroesseRequired: validateFlurstueckGroesseRequired,
-    yearInFuture: validateYearInFuture,
-    yearInPast: validateYearInPast,
+    yearInFuture: validateYearInFutureOfVeranlagungszeitraum,
+    yearInPast: validateYearInPastOfVeranlagungszeitraum,
     dateInPast: validateDateInPast,
     steuernummer: validateSteuernummer,
   };
@@ -135,7 +135,7 @@ export const getErrorMessage = (
         valueA,
         valueQm,
         noNewDataAdded,
-        excludingCurrentYear,
+        excludingVeranlagungszeitraum: excludingCurrentYear,
       })
     ) {
       return (

@@ -24,23 +24,24 @@ export const validateYearAfterBaujahr: ValidateYearAfterBaujahrFunction = ({
   return +value >= +baujahr;
 };
 
-export const validateYearInFuture: ValidateFunctionDefault = ({ value }) => {
-  if (!validateOnlyDecimal({ value })) return true;
-  if (value.length != 4) return true;
-  return +value >= new Date(Date.now()).getFullYear();
-};
+export const validateYearInFutureOfVeranlagungszeitraum: ValidateFunctionDefault =
+  ({ value }) => {
+    if (!validateOnlyDecimal({ value })) return true;
+    if (value.length != 4) return true;
+    return +value >= 2022;
+  };
 
-export const validateYearInPast: ValidateYearInPast = ({
+export const validateYearInPastOfVeranlagungszeitraum: ValidateYearInPast = ({
   value,
-  excludingCurrentYear,
+  excludingVeranlagungszeitraum,
 }) => {
   if (!validateOnlyDecimal({ value })) return true;
   if (value.length != 4) return true;
 
-  if (excludingCurrentYear) {
-    return +value < new Date(Date.now()).getFullYear();
+  if (excludingVeranlagungszeitraum) {
+    return +value < 2022;
   } else {
-    return +value <= new Date(Date.now()).getFullYear();
+    return +value <= 2022;
   }
 };
 
