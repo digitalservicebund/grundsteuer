@@ -21,11 +21,11 @@ const getHashedIpKey = async (route: string, ip: string) => {
     process.env.HASHED_IP_LIMIT_SALT,
     "Environment variable HASHED_IP_LIMIT_SALT is not defined"
   );
-  const currentSecond = new Date().getSeconds().toString();
+  const currentMinute = new Date().getMinutes().toString();
   return (
     route +
     (await bcrypt.hash(ip, process.env.HASHED_IP_LIMIT_SALT)) +
-    currentSecond
+    currentMinute
   );
 };
 

@@ -10,8 +10,11 @@ import invariant from "tiny-invariant";
 describe("ratelimiting", () => {
   const currentDate = Date.UTC(2022, 0, 1, 0, 0, 12);
   const mockedCurrentSeconds = new Date(currentDate).getSeconds().toString();
+  const mockedCurrentMinute = new Date(currentDate).getMinutes().toString();
+  const mockDateOneMinuteLater = new Date(Date.UTC(2022, 0, 1, 0, 1, 12));
+  const mockDate = new Date(currentDate);
+
   beforeAll(() => {
-    const mockDate = new Date(currentDate);
     const actualNowImplementation = Date.now;
     jest
       .spyOn(global, "Date")
@@ -130,11 +133,11 @@ describe("ratelimiting", () => {
       redisKey1 =
         route1 +
         (await bcrypt.hash(ipAddress, process.env.HASHED_IP_LIMIT_SALT)) +
-        mockedCurrentSeconds;
+        mockedCurrentMinute;
       redisKey2 =
         route2 +
         (await bcrypt.hash(ipAddress, process.env.HASHED_IP_LIMIT_SALT)) +
-        mockedCurrentSeconds;
+        mockedCurrentMinute;
     });
 
     beforeEach(async () => {
@@ -250,7 +253,12 @@ describe("ratelimiting", () => {
         );
       });
 
-      it("should throw no error if first occurence for route 2", async () => {
+      it("should throw no error if first occurrence for route 2", async () => {
+        await throwErrorIfRateLimitReached(
+          ipAddressSeenMultipleTimes,
+          route1,
+          5
+        );
         await throwErrorIfRateLimitReached(
           ipAddressSeenMultipleTimes,
           route1,
@@ -277,6 +285,86 @@ describe("ratelimiting", () => {
           route2,
           5
         );
+      });
+
+      it("should throw no error if first occurrence for route 2", async () => {
+        await throwErrorIfRateLimitReached(
+          ipAddressSeenMultipleTimes,
+          route1,
+          5
+        );
+        await throwErrorIfRateLimitReached(
+          ipAddressSeenMultipleTimes,
+          route1,
+          5
+        );
+        await throwErrorIfRateLimitReached(
+          ipAddressSeenMultipleTimes,
+          route1,
+          5
+        );
+        await throwErrorIfRateLimitReached(
+          ipAddressSeenMultipleTimes,
+          route1,
+          5
+        );
+
+        await throwErrorIfRateLimitReached(
+          ipAddressSeenMultipleTimes,
+          route2,
+          5
+        );
+      });
+
+      describe("with changed time between increases", () => {
+        afterAll(() => {
+          const actualNowImplementation = Date.now;
+          jest
+            .spyOn(global, "Date")
+            .mockImplementation(() => mockDate as unknown as string);
+          Date.now = actualNowImplementation;
+        });
+
+        it("should throw no error if first occurrence for this minute", async () => {
+          await throwErrorIfRateLimitReached(
+            ipAddressSeenMultipleTimes,
+            route1,
+            5
+          );
+          await throwErrorIfRateLimitReached(
+            ipAddressSeenMultipleTimes,
+            route1,
+            5
+          );
+          await throwErrorIfRateLimitReached(
+            ipAddressSeenMultipleTimes,
+            route1,
+            5
+          );
+          await throwErrorIfRateLimitReached(
+            ipAddressSeenMultipleTimes,
+            route1,
+            5
+          );
+          await throwErrorIfRateLimitReached(
+            ipAddressSeenMultipleTimes,
+            route1,
+            5
+          );
+          const actualNowImplementation = Date.now;
+          jest
+            .spyOn(global, "Date")
+            .mockImplementation(
+              () => mockDateOneMinuteLater as unknown as string
+            );
+          Date.now = actualNowImplementation;
+
+          await throwErrorIfRateLimitReached(
+            ipAddressSeenMultipleTimes,
+            route1,
+            5
+          );
+        });
       });
     });
   });
