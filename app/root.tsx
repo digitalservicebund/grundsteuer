@@ -112,18 +112,20 @@ export function CatchBoundary() {
   return (
     <html lang="de">
       <head>
-        <title>{pageTitle("Seite konnte nicht gefunden werden")}</title>
+        <title>{pageTitle("Es ist ein Fehler aufgetreten.")}</title>
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Links />
       </head>
       <body>
         <ErrorPage statusCode={caught.status} statusText={caught.statusText} />
-        <script
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{
-            __html: `window.plausible && window.plausible("404",{ props: { path: document.location.pathname } });`,
-          }}
-        />
+        {caught.status === 404 && (
+          <script
+            suppressHydrationWarning
+            dangerouslySetInnerHTML={{
+              __html: `window.plausible && window.plausible("404",{ props: { path: document.location.pathname } });`,
+            }}
+          />
+        )}
       </body>
     </html>
   );

@@ -10,8 +10,9 @@ type ErrorPageProps = {
 
 type Texts = Record<
   number,
-  { backButton: string; headline: string; body: string; smallprint?: string }
+  { backButton?: string; headline: string; body: string; smallprint?: string }
 >;
+
 const texts: Texts = {
   404: {
     backButton: "Zur Startseite",
@@ -21,10 +22,8 @@ const texts: Texts = {
       "Wenn Sie die URL direkt eingegeben haben, überprüfen Sie die Schreibweise.",
   },
   400: {
-    // TODO adapt texts + change to "reload" button?
-    backButton: "Zur Startseite",
-    headline: "Fehlerhafte Anfrage",
-    body: "Es tut uns leid. In Ihrer Anfrage waren Werte (nicht) enthalten, die dazu führen, dass die Anfrage nicht verarbeitet werden kann. Bitte laden Sie die Seite neu und versuchen Sie es erneut.",
+    headline: "Übertragungsfehler",
+    body: "Es tut uns leid. Bei der Datenübertragung zum Server ist etwas schief gelaufen. Der Server konnte die Anfrage daher nicht bearbeiten. Bitte laden Sie die Seite neu und versuchen Sie es erneut.",
   },
   500: {
     backButton: "Zur Startseite",
@@ -39,7 +38,11 @@ export default function ErrorPage(props: ErrorPageProps) {
   const statusCodeTexts =
     statusCode in texts
       ? texts[statusCode]
-      : { headline: statusText || "", body: "", backButton: "Zur Startseite" };
+      : {
+          headline: statusText || "Es ist ein Fehler aufgetreten.",
+          body: "",
+          backButton: "Zur Startseite",
+        };
 
   return (
     <SimplePageLayout>
@@ -66,9 +69,11 @@ export default function ErrorPage(props: ErrorPageProps) {
         </p>
       )}
 
-      <Button to="/formular" className="mb-64">
-        {statusCodeTexts.backButton}
-      </Button>
+      {statusCodeTexts.backButton && (
+        <Button to="/formular" className="mb-64">
+          {statusCodeTexts.backButton}
+        </Button>
+      )}
 
       <img
         src={statusCode === 404 ? illustrationImage404 : illustrationImage500}
