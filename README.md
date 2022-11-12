@@ -106,6 +106,16 @@ docker run --rm -it -p 3000:3000 grundsteuer
 
 This builds and starts your app in production mode.
 
+## Console
+
+### Usage
+
+`npm run console` gives you a Node.js REPL with some app modules added to its context. See `<PROJECT_ROOT>/console.ts` for details.
+
+### Development
+
+Please run `npm run build:console` after changes to `<PROJECT_ROOT>/console.ts`.
+
 ## The form logic
 
 To construct our forms we use four different structures:
