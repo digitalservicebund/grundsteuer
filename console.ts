@@ -57,6 +57,7 @@ replServer.defineCommand("examples", {
   > env
   > lodash.times(10)
   > await user.findUserByEmail("foo@bar.com")
+  > await user.deleteUserByEmail("foo@bar.com")
   > await getRedisClient().keys("*")
 
   Please read <PROJECT_ROOT>/console.ts to

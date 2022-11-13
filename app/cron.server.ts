@@ -1,8 +1,6 @@
 import { schedule } from "node-cron";
 import { db } from "./db.server";
-import { AuditLogEvent, encryptAuditLogData } from "~/audit/auditLog";
-import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
-import { deleteFscRequest } from "~/domain/user";
+import { deleteManyUsers } from "~/domain/user";
 import { updateOpenEricaRequests } from "~/erica/updateOpenEricaRequests.server";
 import * as remixNode from "@remix-run/node";
 
@@ -126,40 +124,8 @@ export const deleteExpiredAccounts = async () => {
       },
     });
 
-    for (const account of accountsToDelete) {
-      if (account.fscRequest) {
-        await revokeFscForUser(account);
-        await deleteFscRequest(account.email, account.fscRequest.requestId);
-      }
-    }
-    const deleteAccounts = db.user.deleteMany({
-      where: {
-        email: {
-          in: accountsToDelete.map((account) => account.email),
-        },
-      },
-    });
-
-    const logsToCreate = accountsToDelete.map((account) => {
-      return {
-        data: encryptAuditLogData({
-          eventName: AuditLogEvent.ACCOUNT_DELETED,
-          ipAddress: "cron",
-          timestamp: Date.now(),
-          username: account.email,
-        }),
-      };
-    });
-
-    const createAuditLogs = db.auditLog.createMany({
-      data: logsToCreate,
-    });
-
-    const [resultDeletedAccounts] = await db.$transaction([
-      deleteAccounts,
-      createAuditLogs,
-    ]);
-    console.log(`Deleted ${resultDeletedAccounts.count} expired accounts`);
+    const count = await deleteManyUsers(accountsToDelete);
+    console.log(`Deleted ${count} expired accounts`);
   } catch (error) {
     console.error(error);
   }

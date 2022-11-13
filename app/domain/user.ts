@@ -1,6 +1,8 @@
 import { db } from "~/db.server";
 import { Prisma } from "@prisma/client";
 import invariant from "tiny-invariant";
+import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
+import { AuditLogEvent, encryptAuditLogData } from "~/audit/auditLog";
 
 const normalizeEmail = (email: string) => email.trim().toLowerCase();
 
@@ -256,4 +258,54 @@ export const getAllEricaRequestIds = async () => {
       ],
     },
   });
+};
+
+export const deleteManyUsers = async (users: UserWithoutPdf[]) => {
+  for (const user of users) {
+    if (user.fscRequest) {
+      await revokeFscForUser(user);
+      await deleteFscRequest(user.email, user.fscRequest.requestId);
+    }
+  }
+  const deleteAccounts = db.user.deleteMany({
+    where: {
+      email: {
+        in: users.map((user) => user.email),
+      },
+    },
+  });
+
+  const logsToCreate = users.map((user) => {
+    return {
+      data: encryptAuditLogData({
+        eventName: AuditLogEvent.ACCOUNT_DELETED,
+        ipAddress: "cron",
+        timestamp: Date.now(),
+        username: user.email,
+      }),
+    };
+  });
+
+  const createAuditLogs = db.auditLog.createMany({
+    data: logsToCreate,
+  });
+
+  const [deletedAccounts] = await db.$transaction([
+    deleteAccounts,
+    createAuditLogs,
+  ]);
+
+  return deletedAccounts.count;
+};
+
+export const deleteUser = async (user: UserWithoutPdf) => {
+  return deleteManyUsers([user]);
+};
+
+export const deleteUserByEmail = async (email: string) => {
+  const user = await findUserByEmail(email);
+  if (user) {
+    return deleteUser(user);
+  }
+  return 0;
 };
