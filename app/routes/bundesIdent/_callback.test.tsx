@@ -68,7 +68,7 @@ describe("Loader", () => {
 
     describe("with correct data returned", () => {
       const originalGetIdentityData = useidModule.useid.getIdentityData;
-      const correctUseIdData = {
+      const correctUseidData = {
         firstName: "Rubeus",
         lastName: "Hagrid",
         street: "Hogwartsroad",
@@ -79,7 +79,7 @@ describe("Loader", () => {
 
       beforeAll(() => {
         useidModule.useid.getIdentityData = () =>
-          Promise.resolve(correctUseIdData);
+          Promise.resolve(correctUseidData);
       });
 
       afterAll(() => {
@@ -126,7 +126,7 @@ describe("Loader", () => {
           );
         });
         expect(saveAuditMock).toHaveBeenCalledWith({
-          eventData: correctUseIdData,
+          eventData: correctUseidData,
           eventName: AuditLogEvent.IDENTIFIED_VIA_BUNDES_IDENT,
           ipAddress: "127.0.0.1",
           timestamp: 1652887920227,

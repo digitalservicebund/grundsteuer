@@ -4,7 +4,7 @@ import { getMockedFunction } from "test/mocks/mockHelper";
 import { Identity } from "useid-eservice-sdk/dist/Identity";
 
 describe("With valid data returned", () => {
-  const correctUseIdReturnData = new Identity({
+  const correctUseidReturnData = new Identity({
     personalData: {
       placeOfResidence: {
         structuredPlace: {
@@ -20,7 +20,7 @@ describe("With valid data returned", () => {
   });
 
   beforeAll(() => {
-    getMockedFunction(useidModule, "getIdentity", correctUseIdReturnData);
+    getMockedFunction(useidModule, "getIdentity", correctUseidReturnData);
   });
 
   afterAll(() => {

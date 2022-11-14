@@ -90,7 +90,6 @@ export type BundesIdentIdentifiedData = {
 };
 
 export const useid = {
-  getUseIdApi: getUseidApi,
   getWidgetSrc,
   getTcTokenUrl,
   getIdentityData,

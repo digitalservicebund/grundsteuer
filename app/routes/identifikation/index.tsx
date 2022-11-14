@@ -54,7 +54,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 
   return {
-    useUseId: !flags.isBundesIdentDisabled(),
+    useUseid: !flags.isBundesIdentDisabled(),
     isMobile: isMobileUserAgent(request),
     ekonaDown: flags.isEkonaDown(),
     ericaDown: flags.isEricaDown(),
@@ -63,7 +63,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function IdentifikationIndex() {
-  const { useUseId, isMobile, ekonaDown, ericaDown, bundesIdentDown } =
+  const { useUseid, isMobile, ekonaDown, ericaDown, bundesIdentDown } =
     useLoaderData();
   return (
     <>
@@ -102,7 +102,7 @@ export default function IdentifikationIndex() {
           url="/fsc"
           className="mb-16"
         />
-        {useUseId && isMobile && (
+        {useUseid && isMobile && (
           <IdentCard
             image=""
             imageAltText="Bildbeispiel Ausweis"
@@ -122,7 +122,7 @@ export default function IdentifikationIndex() {
           image={ident3}
           imageAltText="Illustration Später Identifizieren"
           icon={<WavingHand className="mr-4" />}
-          optionCount={useUseId && isMobile ? 4 : 3}
+          optionCount={useUseid && isMobile ? 4 : 3}
           heading="Später identifizieren"
           subheading="Hinweis: Ein Versand ohne Identifikation ist nicht möglich. "
           text="Füllen Sie das Formular aus und identifizieren Sie sich später vor dem Versand. Hinweis: Ein Versand ohne Identifikation ist nicht möglich."
