@@ -9,6 +9,7 @@ import {
 import ArrowBackIcon from "~/components/icons/mui/ArrowBack";
 import { pageTitle } from "~/util/pageTitle";
 import { useLoaderData } from "@remix-run/react";
+import { flags } from "~/flags.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Nutzungsbedingungen") };
@@ -16,7 +17,7 @@ export const meta: MetaFunction = () => {
 
 export const loader: LoaderFunction = async () => {
   return {
-    useUseid: process.env.USE_USEID === "true",
+    useUseid: !flags.isBundesIdentDisabled(),
   };
 };
 

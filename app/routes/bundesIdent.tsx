@@ -6,7 +6,7 @@ import { flags } from "~/flags.server";
 import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  if (process.env.USE_USEID !== "true") {
+  if (flags.isBundesIdentDisabled()) {
     throw new Response("Not Found", {
       status: 404,
     });
@@ -21,13 +21,12 @@ export const loader: LoaderFunction = async ({ request }) => {
   return {
     email: sessionUser.email,
     flags: flags.getAllFlags(),
-    useUseid: process.env.USE_USEID === "true",
     isMobile: isMobileUserAgent(request),
   };
 };
 
 export default function BundesIdent() {
-  const { email, flags, useUseid, isMobile } = useLoaderData();
+  const { email, flags, isMobile } = useLoaderData();
   const location = useLocation();
 
   return (
@@ -35,7 +34,6 @@ export default function BundesIdent() {
       email={email}
       flags={flags}
       path={location.pathname}
-      useUseid={useUseid}
       isMobile={isMobile}
     >
       <Outlet />

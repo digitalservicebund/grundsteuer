@@ -28,7 +28,6 @@ export interface LayoutProps {
 
   flags?: Flags;
   path?: string;
-  useUseid?: boolean;
   isMobile?: boolean;
 }
 
@@ -40,7 +39,6 @@ const Layout = ({
   topNavigation,
   flags,
   path,
-  useUseid,
   isMobile,
 }: LayoutProps) => {
   const { t } = useTranslation("all");
@@ -79,7 +77,7 @@ const Layout = ({
                 {t("banners.ekonaDownBody")}
               </ErrorBanner>
             )}
-          {useUseid &&
+          {!flags?.bundesIdentDisabled &&
             isMobile &&
             flags?.bundesIdentDown &&
             path &&

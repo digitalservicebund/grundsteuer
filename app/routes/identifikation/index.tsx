@@ -54,7 +54,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 
   return {
-    useUseId: process.env.USE_USEID == "true",
+    useUseId: !flags.isBundesIdentDisabled(),
     isMobile: isMobileUserAgent(request),
     ekonaDown: flags.isEkonaDown(),
     ericaDown: flags.isEricaDown(),

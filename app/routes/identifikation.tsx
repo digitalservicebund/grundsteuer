@@ -17,20 +17,18 @@ export const loader: LoaderFunction = async ({ request }) => {
   return {
     email: sessionUser.email,
     flags: flags.getAllFlags(),
-    useUseId: process.env.USE_USEID === "true",
     isMobile: isMobileUserAgent(request),
   };
 };
 
 export default function Identifikation() {
-  const { email, flags, useUseId, isMobile } = useLoaderData();
+  const { email, flags, isMobile } = useLoaderData();
   const location = useLocation();
   return (
     <UserLayout
       email={email}
       flags={flags}
       path={location.pathname}
-      useUseid={useUseId}
       isMobile={isMobile}
     >
       <Outlet />

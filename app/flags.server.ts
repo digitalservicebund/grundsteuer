@@ -3,6 +3,7 @@ import { unleash } from "~/unleash.server";
 export type FlagFunction = () => boolean;
 
 export type FlagFunctions = {
+  isBundesIdentDisabled: FlagFunction;
   isBundesIdentDown: FlagFunction;
   isEkonaDown: FlagFunction;
   isEricaDown: FlagFunction;
@@ -13,6 +14,7 @@ export type FlagFunctions = {
 };
 
 export type Flags = {
+  bundesIdentDisabled?: boolean;
   bundesIdentDown?: boolean;
   ekonaDown?: boolean;
   ericaDown?: boolean;
@@ -34,16 +36,20 @@ const isServiceDown = (service: Service | undefined) => {
   return unleash.isEnabled("grundsteuer." + service + "_down") || false;
 };
 
+const isBundesIdentDisabled = () => {
+  return unleash.isEnabled("grundsteuer.bundesident_disabled") || false;
+};
+
+const isBundesIdentDown = () => {
+  return isServiceDown("bundesident");
+};
+
 const isEkonaDown = () => {
   return isServiceDown("ekona");
 };
 
 const isEricaDown = () => {
   return isServiceDown("erica");
-};
-
-const isBundesIdentDown = () => {
-  return isServiceDown("bundesident");
 };
 
 const isGrundsteuerDown = () => {
@@ -60,6 +66,7 @@ const isZammadDown = () => {
 
 const getAllFlags = () => {
   return {
+    bundesIdentDisabled: isBundesIdentDisabled(),
     bundesIdentDown: isBundesIdentDown(),
     ekonaDown: isEkonaDown(),
     ericaDown: isEricaDown(),
@@ -70,6 +77,7 @@ const getAllFlags = () => {
 };
 
 export const flags: FlagFunctions = {
+  isBundesIdentDisabled,
   isBundesIdentDown,
   isEkonaDown,
   isEricaDown,
