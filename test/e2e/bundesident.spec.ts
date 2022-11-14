@@ -6,7 +6,6 @@ const desktopUserAgent =
 
 describe("Identifikation option", () => {
   beforeEach(() => {
-    Cypress.config().userAgent = mobileUserAgent;
     cy.task("setUserUnidentified", {
       email: "foo@bar.com",
     });
@@ -63,6 +62,44 @@ describe("bundesIdent flow", () => {
     cy.contains("a", "Zurück zur Voraussetzung").click();
     cy.contains("a", "Zurück zu Identifikationsoptionen").click();
     cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
+  });
+});
+
+describe("with kill switch enabled", () => {
+  before(() => {
+    cy.task("setUserUnidentified", {
+      email: "foo@bar.com",
+    });
+    cy.task("enableFlag", {
+      name: "grundsteuer.bundesident_disabled",
+    });
+    cy.wait(1000);
+  });
+  after(() => {
+    cy.task("disableFlag", {
+      name: "grundsteuer.bundesident_disabled",
+    });
+  });
+
+  it("should not show bundesIdent option on /identifikation", () => {
+    cy.login();
+    cy.visit("/identifikation", {
+      headers: {
+        "user-agent": mobileUserAgent,
+      },
+    });
+    cy.contains("dt", "Identifikation mit Ihrem Ausweis").should("not.exist");
+  });
+
+  it("should receive 404 on /bundesIdent", () => {
+    cy.login();
+    cy.visit("/bundesIdent", {
+      headers: {
+        "user-agent": mobileUserAgent,
+      },
+      failOnStatusCode: false,
+    });
+    cy.contains("h1", "404");
   });
 });
 
