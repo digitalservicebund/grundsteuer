@@ -168,6 +168,138 @@ describe("error banners", () => {
     });
   });
 
+  describe("bundesIdent is down", () => {
+    const mobileUserAgent =
+      "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Mobile Safari/537.36";
+
+    before(() => {
+      cy.task("enableFlag", {
+        name: "grundsteuer.bundesident_down",
+      });
+      cy.wait(1000);
+    });
+    after(() => {
+      cy.task("disableFlag", {
+        name: "grundsteuer.bundesident_down",
+      });
+    });
+
+    const bannerId = "[data-testid=bundesident-banner]";
+    const buttonLabel = "Ausweis";
+
+    it("should have no effect on home", () => {
+      cy.visit("/", {
+        headers: {
+          "user-agent": mobileUserAgent,
+        },
+      });
+      cy.get(bannerId).should("not.exist");
+    });
+
+    it("should have no effect on /anmelden", () => {
+      cy.visit("/anmelden", {
+        headers: {
+          "user-agent": mobileUserAgent,
+        },
+      });
+      cy.url().should("include", "/anmelden");
+      cy.get(bannerId).should("not.exist");
+    });
+
+    it("should have no effect on /registrieren", () => {
+      cy.visit("/registrieren", {
+        headers: {
+          "user-agent": mobileUserAgent,
+        },
+      });
+      cy.url().should("include", "/registrieren");
+      cy.get(bannerId).should("not.exist");
+    });
+
+    it("should have no effect on /ekona", () => {
+      cy.login();
+      cy.visit("/ekona", {
+        headers: {
+          "user-agent": mobileUserAgent,
+        },
+      });
+      cy.url().should("include", "/ekona");
+
+      cy.get(bannerId).should("not.exist");
+      cy.contains("button", "ELSTER").should("be.enabled");
+    });
+
+    it("should show banner and disable button on /identifikation", () => {
+      cy.login();
+      cy.visit("/identifikation", {
+        headers: {
+          "user-agent": mobileUserAgent,
+        },
+      });
+      cy.url().should("include", "/identifikation");
+
+      cy.get(bannerId).should("exist");
+      cy.contains("button", buttonLabel).should("be.disabled");
+    });
+
+    it("should show banner on /bundesIdent/voraussetzung", () => {
+      cy.login();
+      cy.visit("/bundesIdent/voraussetzung", {
+        headers: {
+          "user-agent": mobileUserAgent,
+        },
+      });
+      cy.url().should("include", "/bundesIdent/voraussetzung");
+
+      cy.get(bannerId).should("exist");
+    });
+
+    it("should show banner on /bundesIdent", () => {
+      cy.login();
+      cy.visit("/bundesIdent", {
+        headers: {
+          "user-agent": mobileUserAgent,
+        },
+      });
+      cy.url().should("include", "/bundesIdent");
+
+      cy.get(bannerId).should("exist");
+    });
+
+    it("should have no effect on /fsc", () => {
+      cy.login();
+      cy.visit("/fsc", {
+        headers: {
+          "user-agent": mobileUserAgent,
+        },
+      });
+      cy.url().should("include", "/fsc");
+      cy.get(bannerId).should("not.exist");
+    });
+
+    it("should have no effect on /formular", () => {
+      cy.login();
+      cy.visit("/formular", {
+        headers: {
+          "user-agent": mobileUserAgent,
+        },
+      });
+      cy.url().should("include", "/formular/welcome");
+      cy.get(bannerId).should("not.exist");
+    });
+
+    it("should have no effect on /formular/zusammenfassung", () => {
+      cy.login();
+      cy.visit("/formular/zusammenfassung", {
+        headers: {
+          "user-agent": mobileUserAgent,
+        },
+      });
+      cy.url().should("include", "/formular/zusammenfassung");
+      cy.get(bannerId).should("not.exist");
+    });
+  });
+
   describe("grundsteuer is down", () => {
     before(() => {
       cy.task("enableFlag", {
