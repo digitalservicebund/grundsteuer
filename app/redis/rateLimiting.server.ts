@@ -16,33 +16,47 @@ export const applyRateLimit = async (feature: Feature, limit = 5) => {
   return false;
 };
 
-const getHashedIpKey = async (ip: string) => {
+const getHashedIpKey = async (route: string, ip: string) => {
   invariant(
     process.env.HASHED_IP_LIMIT_SALT,
     "Environment variable HASHED_IP_LIMIT_SALT is not defined"
   );
   const currentSecond = new Date().getSeconds().toString();
   return (
-    (await bcrypt.hash(ip, process.env.HASHED_IP_LIMIT_SALT)) + currentSecond
+    route +
+    (await bcrypt.hash(ip, process.env.HASHED_IP_LIMIT_SALT)) +
+    currentSecond
   );
 };
 
-const incrementCurrentIpLimit = async (feature: Feature, ip: string) => {
-  await redis.incr(feature, await getHashedIpKey(ip), 59);
+const incrementCurrentIpLimit = async (route: string, hashedIpKey: string) => {
+  await redis.incr(Feature.IP_RATE_LIMIT, hashedIpKey, 59);
 };
 
 export const applyIpRateLimit = async (
-  feature: Feature,
+  limitedRoute: string,
   ip: string,
   limit = 10
 ) => {
   if (process.env.SKIP_RATELIMIT == "true") {
     return true;
   }
-  const currRate = await redis.get(feature, await getHashedIpKey(ip));
+  const hashedIpKey = await getHashedIpKey(limitedRoute, ip);
+  const currRate = await redis.get(Feature.IP_RATE_LIMIT, hashedIpKey);
   if (!currRate || Number.parseInt(currRate) < limit) {
-    await incrementCurrentIpLimit(feature, ip);
+    await incrementCurrentIpLimit(limitedRoute, hashedIpKey);
     return true;
   }
   return false;
+};
+
+export const throwErrorIfRateLimitReached = async (
+  ipAddress: string,
+  limitedRoute: string,
+  limit = 10
+) => {
+  if (!(await applyIpRateLimit(limitedRoute, ipAddress, limit))) {
+    console.log("Rate limit exceeded at " + new Date().toISOString());
+    throw new Response("Too many requests", { status: 429 });
+  }
 };
