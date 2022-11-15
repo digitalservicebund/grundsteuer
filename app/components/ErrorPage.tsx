@@ -1,7 +1,9 @@
 import { Trans } from "react-i18next";
+import { useLocation } from "react-router-dom";
 import { Button, SimplePageLayout } from "~/components";
 import illustrationImage404 from "~/assets/images/404.svg";
 import illustrationImage500 from "~/assets/images/500.svg";
+import RefreshIcon from "./icons/mui/Refresh";
 
 type ErrorPageProps = {
   statusCode: number;
@@ -26,10 +28,10 @@ const texts: Texts = {
     body: "Es tut uns leid. Bei der Datenübertragung zum Server ist etwas schief gelaufen. Der Server konnte die Anfrage daher nicht bearbeiten. Bitte laden Sie die Seite neu und versuchen Sie es erneut.",
   },
   429: {
-    // TODO adapt texts + change to "reload" button?
+    // TODO change to "reload" button?
     backButton: "Zur Startseite",
-    headline: "Seite konnte nicht gefunden werden.",
-    body: "Es tut uns leid. Diese Seite scheint es nicht zu geben. Sie wurde vielleicht entfernt, im Namen geändert oder ist auf andere Weise nicht erreichbar.",
+    headline: "Es gab zu viele Anfragen.",
+    body: "Es tut uns leid. Für diese Seite scheint es in letzter Zeit von Ihrer IP-Adresse zu viele Anfragen gegeben haben. Bitte warten Sie eine Minute und probieren Sie es dann erneut.",
   },
   500: {
     backButton: "Zur Startseite",
@@ -40,6 +42,8 @@ const texts: Texts = {
 
 export default function ErrorPage(props: ErrorPageProps) {
   const { statusCode, statusText } = props;
+
+  const currentLocation = useLocation();
 
   const statusCodeTexts =
     statusCode in texts
@@ -75,9 +79,19 @@ export default function ErrorPage(props: ErrorPageProps) {
         </p>
       )}
 
-      {statusCodeTexts.backButton && (
+      {statusCodeTexts.backButton && statusCode !== 429 && (
         <Button to="/formular" className="mb-64">
           {statusCodeTexts.backButton}
+        </Button>
+      )}
+
+      {statusCode === 429 && (
+        <Button
+          to={currentLocation.pathname}
+          icon={<RefreshIcon />}
+          className="mb-64"
+        >
+          Seite aktualisieren
         </Button>
       )}
 
