@@ -218,56 +218,66 @@ describe("ratelimiting", () => {
         expect(await applyIpRateLimit(route1, ipAddress, 5)).toBe(false);
       });
     });
-  });
 
-  describe("throwErrorIfRateLimitReached", () => {
-    const ipAddressSeenMultipleTimes = "098.765.432.123";
-    const ipAddressSeenOnlyOnce = "123.456.789.012";
-    const route1 = "this/is/the/way";
-    const route2 = "this/is/not/the";
+    describe("throwErrorIfRateLimitReached", () => {
+      const ipAddressSeenMultipleTimes = "098.765.432.123";
+      const ipAddressSeenOnlyOnce = "123.456.789.012";
+      const route1 = "this/is/the/way";
+      const route2 = "this/is/not/the";
 
-    beforeAll(async () => {
-      const mockDate = new Date(Date.UTC(2022, 0, 1, 0, 0, 12));
-      const actualNowImplementation = Date.now;
-      jest
-        .spyOn(global, "Date")
-        .mockImplementation(() => mockDate as unknown as string);
-      Date.now = actualNowImplementation;
-    });
+      afterAll(async () => {
+        await redis.flushAll();
+      });
 
-    afterAll(async () => {
-      await redis.flushAll();
-      jest.resetAllMocks();
-    });
+      beforeEach(async () => {
+        await redis.flushAll();
+      });
 
-    beforeEach(async () => {
-      await redis.flushAll();
-    });
+      it("should throw no error if first occurrence of ip address", async () => {
+        await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
+      });
 
-    it("should throw no error if first occurrence of ip address", async () => {
-      await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
-    });
+      it("should throw error if limit reached for ip address", async () => {
+        await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
+        await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
+        await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
+        await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
+        await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
+        await expect(
+          throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5)
+        ).rejects.toMatchObject(
+          new Response("Too many requests", { status: 429 })
+        );
+      });
 
-    it("should throw error if limit reached for ip address", async () => {
-      await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
-      await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
-      await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
-      await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
-      await throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5);
-      await expect(
-        throwErrorIfRateLimitReached(ipAddressSeenOnlyOnce, route1, 5)
-      ).rejects.toMatchObject(
-        new Response("Too many requests", { status: 429 })
-      );
-    });
+      it("should throw no error if first occurence for route 2", async () => {
+        await throwErrorIfRateLimitReached(
+          ipAddressSeenMultipleTimes,
+          route1,
+          5
+        );
+        await throwErrorIfRateLimitReached(
+          ipAddressSeenMultipleTimes,
+          route1,
+          5
+        );
+        await throwErrorIfRateLimitReached(
+          ipAddressSeenMultipleTimes,
+          route1,
+          5
+        );
+        await throwErrorIfRateLimitReached(
+          ipAddressSeenMultipleTimes,
+          route1,
+          5
+        );
 
-    it("should throw no error if first occurence for route 2", async () => {
-      await throwErrorIfRateLimitReached(ipAddressSeenMultipleTimes, route1, 5);
-      await throwErrorIfRateLimitReached(ipAddressSeenMultipleTimes, route1, 5);
-      await throwErrorIfRateLimitReached(ipAddressSeenMultipleTimes, route1, 5);
-      await throwErrorIfRateLimitReached(ipAddressSeenMultipleTimes, route1, 5);
-
-      await throwErrorIfRateLimitReached(ipAddressSeenMultipleTimes, route2, 5);
+        await throwErrorIfRateLimitReached(
+          ipAddressSeenMultipleTimes,
+          route2,
+          5
+        );
+      });
     });
   });
 });
