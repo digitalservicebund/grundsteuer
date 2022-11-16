@@ -10,6 +10,7 @@ export type FlagFunctions = {
   isGrundsteuerDown: FlagFunction;
   isSendinblueDown: FlagFunction;
   isZammadDown: FlagFunction;
+  isRatelimitingDisabled: FlagFunction;
   getAllFlags: () => Flags;
 };
 
@@ -21,6 +22,7 @@ export type Flags = {
   grundsteuerDown?: boolean;
   sendinblueDown?: boolean;
   zammadDown?: boolean;
+  ratelimitingDisabled?: boolean;
 };
 
 export type Service =
@@ -29,7 +31,8 @@ export type Service =
   | "erica"
   | "grundsteuer"
   | "sendinblue"
-  | "zammad";
+  | "zammad"
+  | "ratelimiting";
 
 const isServiceDown = (service: Service | undefined) => {
   if (service === undefined) return false;
@@ -64,6 +67,10 @@ const isZammadDown = () => {
   return isServiceDown("zammad");
 };
 
+const isRatelimitingDisabled = () => {
+  return unleash.isEnabled("grundsteuer.ratelimiting_disabled") || false;
+};
+
 const getAllFlags = () => {
   return {
     bundesIdentDisabled: isBundesIdentDisabled(),
@@ -73,6 +80,7 @@ const getAllFlags = () => {
     grundsteuerDown: isGrundsteuerDown(),
     sendinblueDown: isSendinblueDown(),
     zammadDown: isZammadDown(),
+    ratelimitingDisabled: isRatelimitingDisabled(),
   };
 };
 
@@ -84,5 +92,6 @@ export const flags: FlagFunctions = {
   isGrundsteuerDown,
   isSendinblueDown,
   isZammadDown,
+  isRatelimitingDisabled,
   getAllFlags,
 };
