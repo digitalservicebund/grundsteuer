@@ -9,3 +9,4 @@ process.env.FORM_COOKIE_SECRET = "secret";
 process.env.HASHED_LOGGING_SALT = "$2a$10$7hclYwYcZY5qCfmedLQx/u";
 process.env.EKONA_ISSUER_URL = "https://e4k-portal.een.elster.de";
 process.env.HASHED_IP_LIMIT_SALT = "$2a$10$yJxhxwR11gk3SH/AuERp/O";
+process.env.SKIP_RATELIMIT = "true"; // Do not rate limit for unit tests

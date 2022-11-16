@@ -36,6 +36,9 @@ export const applyIpRateLimit = async (
   ip: string,
   limit = 10
 ) => {
+  if (process.env.SKIP_RATELIMIT == "true") {
+    return true;
+  }
   const currRate = await redis.get(feature, await getHashedIpKey(ip));
   if (!currRate || Number.parseInt(currRate) < limit) {
     await incrementCurrentIpLimit(feature, ip);
