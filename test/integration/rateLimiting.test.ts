@@ -9,9 +9,11 @@ describe("applyRatelimit", () => {
 
   beforeAll(() => {
     const mockDate = new Date(currentDate);
+    const actualNowImplementation = Date.now;
     jest
       .spyOn(global, "Date")
       .mockImplementation(() => mockDate as unknown as string);
+    Date.now = actualNowImplementation;
   });
 
   beforeEach(async () => {
@@ -98,10 +100,16 @@ describe("applyIpRatelimit", () => {
   const currentDate = Date.UTC(2022, 0, 1, 0, 0, 12);
   const mockedCurrentSeconds = new Date(currentDate).getSeconds().toString();
   const ipAddress = "123.012.234.122";
+  let originalSkipRatelimitValue: string;
 
   let redisKey: string;
 
   beforeAll(async () => {
+    if (process.env.SKIP_RATELIMIT) {
+      originalSkipRatelimitValue = process.env.SKIP_RATELIMIT;
+      process.env.SKIP_RATELIMIT = "false";
+    }
+
     const mockDate = new Date(currentDate);
     const actualNowImplementation = Date.now;
     jest
@@ -123,6 +131,9 @@ describe("applyIpRatelimit", () => {
   });
 
   afterAll(async () => {
+    if (originalSkipRatelimitValue) {
+      process.env.SKIP_RATELIMIT = "true";
+    }
     await redis.del(Feature.RATE_LIMIT, redisKey);
     await redis.del(Feature.IP_RATE_LIMIT, redisKey);
     jest.resetAllMocks();
