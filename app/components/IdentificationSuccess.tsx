@@ -3,7 +3,6 @@ import {
   Button,
   ContentContainer,
   Headline,
-  IntroText,
   UebersichtStep,
 } from "~/components/index";
 import imageSrc from "~/assets/images/identified-medium.svg";
@@ -30,7 +29,7 @@ export default function IdentificationSuccess(
       <UebersichtStep imageSrc={imageSrc} smallImageSrc={smallImageSrc}>
         <Headline>Sie haben sich erfolgreich identifiziert.</Headline>
 
-        <IntroText className="mb-80">
+        <div className="mb-80 text-18 leading-26">
           <p className="mb-24">
             Damit konnte sichergestellt werden, dass Sie die Person sind, die
             die Grundsteuererklärung übermittelt. Sie können die vollständige
@@ -47,7 +46,7 @@ export default function IdentificationSuccess(
               möglich. Sie geben die Erklärungen nacheinander ab.
             </li>
           </ul>
-        </IntroText>
+        </div>
         {renderBackButton(props.backButton)}
       </UebersichtStep>
     </ContentContainer>
