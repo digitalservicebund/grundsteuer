@@ -19,7 +19,7 @@ describe("ratelimiting", () => {
   });
 
   afterAll(async () => {
-    jest.resetAllMocks();
+    jest.restoreAllMocks();
   });
 
   describe("applyRatelimit", () => {

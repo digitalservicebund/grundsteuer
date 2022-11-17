@@ -517,7 +517,7 @@ describe("Action", () => {
     );
   });
   afterAll(() => {
-    jest.resetAllMocks();
+    jest.restoreAllMocks();
   });
 
   test("Returns startTime if storno in progress", async () => {

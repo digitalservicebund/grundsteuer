@@ -19,7 +19,7 @@ describe("action", () => {
   });
 
   afterAll(() => {
-    jest.resetAllMocks();
+    jest.restoreAllMocks();
   });
 
   describe("when starting revocation succeeds", () => {

@@ -166,7 +166,7 @@ describe("Action", () => {
   });
 
   afterAll(() => {
-    jest.resetAllMocks();
+    jest.restoreAllMocks();
   });
 
   test("Returns no data if beantragen in progress", async () => {

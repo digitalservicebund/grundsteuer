@@ -25,7 +25,7 @@ describe("Loader", () => {
   });
 
   afterAll(async () => {
-    jest.resetAllMocks();
+    jest.restoreAllMocks();
   });
 
   describe("with user with open fsc request", () => {
@@ -682,7 +682,7 @@ describe("Action", () => {
   });
 
   afterAll(() => {
-    jest.resetAllMocks();
+    jest.restoreAllMocks();
   });
 
   test("Returns no data if revocation in progress", async () => {
