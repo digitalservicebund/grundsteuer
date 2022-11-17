@@ -67,4 +67,14 @@ describe("Order Enforcing", () => {
   });
 });
 
+describe("Double-check with returning user before starting", () => {
+  it("Redirects to /pruefen/nachfrage", () => {
+    cy.setCookie("remember_logged_in_emails", "<hashed_emails>");
+    cy.visit("/pruefen/start");
+    cy.url().should("include", "/pruefen/nachfrage");
+    cy.get("[href='/pruefen/start?continue=1']").click();
+    cy.url().should("include", "/pruefen/start");
+  });
+});
+
 export {};

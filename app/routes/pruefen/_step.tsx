@@ -53,6 +53,7 @@ import { useEffect, useState } from "react";
 import ErrorBanner from "~/components/ErrorBanner";
 import { Flags, flags } from "~/flags.server";
 import { useTranslation } from "react-i18next";
+import { rememberCookieExists } from "~/rememberLoggedInEmails.server";
 
 const PREFIX = "pruefen";
 const START_STEP = "start";
@@ -120,6 +121,7 @@ const redirectIfStateNotReachable = (
 export const loader: LoaderFunction = async ({
   request,
 }): Promise<LoaderData | Response> => {
+  const session = await getSession(request.headers.get("Cookie"));
   const currentStateFromUrl = getCurrentStateFromUrl(request.url);
   const cookieHeader = request.headers.get("Cookie");
   const state = (await getFromPruefenStateCookie(cookieHeader)) || undefined;
@@ -132,6 +134,10 @@ export const loader: LoaderFunction = async ({
     return potentialRedirect;
   }
 
+  const weitereErklaerung = !!new URL(request.url).searchParams.get(
+    "weitereErklaerung"
+  );
+
   const storedFormData = state.context;
   const machine = getMachine({
     formData: storedFormData,
@@ -139,9 +145,31 @@ export const loader: LoaderFunction = async ({
   });
   const isFinalStep =
     machine.getStateNodeByPath(currentStateFromUrl).type === "final";
+  const isStartStep = currentStateFromUrl === START_STEP;
+
+  if (testFeaturesEnabled()) {
+    // on starting the prüfen flow check for a remembered logged-in email
+    // so we can double-check with the user, if they really want to create
+    // a new account
+    if (isStartStep && !session.get("user") && !weitereErklaerung) {
+      const URL_PARAM_NAME_WHEN_USER_WANTS_TO_CONTINUE = "continue";
+      const currentUrl = new URL(request.url);
+      const userWantsToContinue = currentUrl.searchParams.get(
+        URL_PARAM_NAME_WHEN_USER_WANTS_TO_CONTINUE
+      );
+
+      if (!userWantsToContinue) {
+        const cookieHeader = request.headers.get("Cookie");
+        const cookieExists = await rememberCookieExists({ cookieHeader });
+        if (cookieExists) {
+          return redirect("/pruefen/nachfrage");
+        }
+      }
+    }
+  }
+
   const isSuccessStep = isFinalStep && currentStateFromUrl === SUCCESS_STEP;
   const isFailureStep = isFinalStep && currentStateFromUrl === FAILURE_STEP;
-  const isStartStep = currentStateFromUrl === START_STEP;
   const backUrl = getBackUrl({
     machine,
     currentStateWithoutId: currentStateFromUrl,
@@ -151,7 +179,6 @@ export const loader: LoaderFunction = async ({
     currentState: currentStateFromUrl,
   });
 
-  const session = await getSession(request.headers.get("Cookie"));
   const csrfToken = createCsrfToken(session);
 
   return json(
@@ -159,15 +186,13 @@ export const loader: LoaderFunction = async ({
       formData: getStepData(storedFormData, currentStateFromUrl),
       allData: storedFormData,
       i18n: await getStepI18n(currentStateFromUrl, {}, "default", PREFIX),
-      backUrl,
+      backUrl: backUrl === "/pruefen/start" ? `${backUrl}?continue=1` : backUrl,
       isStartStep,
       isFinalStep,
       isSuccessStep,
       isFailureStep,
       currentState: currentStateFromUrl,
-      weitereErklaerung: !!new URL(request.url).searchParams.get(
-        "weitereErklaerung"
-      ),
+      weitereErklaerung,
       stepDefinition,
       csrfToken,
       flags: flags.getAllFlags(),

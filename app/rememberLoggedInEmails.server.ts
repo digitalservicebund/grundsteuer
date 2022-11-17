@@ -4,6 +4,8 @@ import { useSecureCookie } from "./util/useSecureCookie";
 import { uniq } from "lodash";
 import invariant from "tiny-invariant";
 
+const COOKIE_NAME = "remember_logged_in_emails";
+
 const getHashedEmail = (email: string) =>
   crypto.createHash("sha1").update(email).digest("hex");
 
@@ -15,7 +17,7 @@ const getRememberCookie = () => {
 
   const MAX_AGE_IN_MONTHS = 4;
 
-  return createCookie("remember_logged_in_emails", {
+  return createCookie(COOKIE_NAME, {
     path: "/",
     maxAge: 24 * 60 * 60 * 30 * MAX_AGE_IN_MONTHS,
     httpOnly: true,
@@ -46,7 +48,7 @@ export const appendEmailToRememberCookie = async (options: {
 export const rememberCookieExists = async (options: {
   cookieHeader: string | null;
 }) => {
-  return Boolean(await getRememberCookie().parse(options.cookieHeader));
+  return Boolean(options.cookieHeader?.includes(COOKIE_NAME));
 };
 
 export const emailIsInRememberCookie = async (options: {
