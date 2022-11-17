@@ -1473,24 +1473,24 @@
       }
     },
     "miteigentumAuswahlHaus": {
-      "headline": "Haben Sie Miteigentumsanteile an einem Flurstück?",
+      "headline": "Welche Option der Miteigentumsanteile trifft zu?",
       "description": "Sogenanntes Miteigentum kann zum Beispiel an einem Garagengrundstück, einem Spielplatz, einem Gemeinschaftsgarten oder Privatweg bestehen. Schauen Sie dafür in Ihrem Grundbuchauszug auf der Seite “Bestandsverzeichnis” oder im Kaufvertrag nach. In der Regel liegt für jeden Miteigentumsanteil ein eigener Grundbuchauszug vor.",
       "hint": "Hier handelt es sich <bold>nicht</bold> um die Anteile einzelner Eigentümer:innen an dem Grundvermögen wie beispielsweise 1/2 bei Ehepaaren. Diese Angaben erfolgen an anderer Stelle des Formulars.",
       "fields": {
         "hasMiteigentum": {
           "options": {
             "false": {
-              "label": "Nein. Ich besitze <bold>kein Miteigentum</bold> an einem Grundstück. Auf meinem Grundbuchauszug findet sich auch keine Angabe dazu. "
+              "label": "Ich habe <bold>keine Miteigentumsanteile</bold> an den Flurstücken, die zu meinem Grundstück gehören."
             },
             "true": {
-              "label": "Ja. <bold>Miteigentum trifft auf mich zu.</bold> Ich besitze Miteigentum an einem oder mehreren Grundstücken oder finde Angaben dazu im Grundbuchauszug."
+              "label": "<bold>Ich habe Miteigentumsanteile</bold> an einem oder mehreren Flurstücken, die zu meinem Grundstück gehören."
             }
           }
         }
       }
     },
     "miteigentumAuswahlWohnung": {
-      "headline": "Welche Option der Miteigentumsanteile treffen auf Sie zu?",
+      "headline": "Welche Option der Miteigentumsanteile trifft auf Sie zu?",
       "description": "Neben dem sogenannten Miteigentumsanteil, den Sie automatisch mit Ihrer Eigentumswohnung am Grundstück haben, kann Miteigentum zum Beispiel auch noch an einem Garagengrundstück, einem Spielplatz oder Privatweg bestehen. Schauen Sie dafür in Ihrem Grundbuchauszug auf der Seite “Bestandsverzeichnis” oder im Kaufvertrag nach. In der Regel liegt für jeden Miteigentumsanteil ein eigener Grundbuchauszug vor.",
       "hint": "Hier handelt es sich <bold>nicht</bold> um die Anteile einzelner Eigentümer:innen an dem Grundvermögen wie beispielsweise 1/2 bei Ehepaaren. Diese Angaben erfolgen an anderer Stelle des Formulars.",
       "fields": {
