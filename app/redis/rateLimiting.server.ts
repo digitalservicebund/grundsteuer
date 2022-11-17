@@ -31,7 +31,7 @@ const getHashedIpKey = async (route: string, ip: string) => {
   );
 };
 
-const incrementCurrentIpLimit = async (route: string, hashedIpKey: string) => {
+const incrementCurrentIpLimit = async (hashedIpKey: string) => {
   await redis.incr(Feature.IP_RATE_LIMIT, hashedIpKey, 59);
 };
 
@@ -46,7 +46,7 @@ const applyIpRateLimit = async (
   const hashedIpKey = await getHashedIpKey(limitedRoute, ip);
   const currRate = await redis.get(Feature.IP_RATE_LIMIT, hashedIpKey);
   if (!currRate || Number.parseInt(currRate) < limit) {
-    await incrementCurrentIpLimit(limitedRoute, hashedIpKey);
+    await incrementCurrentIpLimit(hashedIpKey);
     return true;
   }
   return false;
