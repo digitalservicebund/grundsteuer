@@ -1,7 +1,6 @@
 import { Feature, redis } from "~/redis/redis.server";
 import bcrypt from "bcryptjs";
 import invariant from "tiny-invariant";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { flags } from "~/flags.server";
 
 const incrementCurrentLimit = async (feature: Feature) => {
@@ -57,7 +56,7 @@ export const throwErrorIfRateLimitReached = async (
   limitedRoute: string,
   limit = 10
 ) => {
-  if (testFeaturesEnabled() && !flags.isRatelimitingDisabled()) {
+  if (!flags.isRatelimitingDisabled()) {
     if (!(await applyIpRateLimit(limitedRoute, ipAddress, limit))) {
       console.log("Rate limit exceeded at " + new Date().toISOString());
       throw new Response("Too many requests", { status: 429 });
