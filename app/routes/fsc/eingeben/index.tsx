@@ -224,7 +224,7 @@ export const handleFscRevocationInProgress = async (
 
 const getRemainingDays = (antragDate: Date | undefined) => {
   if (!antragDate) {
-    return null;
+    return undefined;
   }
 
   const expirationDate = new Date(
