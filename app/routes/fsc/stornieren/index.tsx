@@ -178,14 +178,13 @@ export default function FscStornieren() {
   }, [fetcher, showSpinner]);
 
   return (
-    <div className="lg:pr-[10%]">
+    <div>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
-        <Headline>Sie wollen einen neuen Freischaltcode beantragen?</Headline>
+        <Headline>Freischaltcode stornieren?</Headline>
         <IntroText>
-          Dazu müssen Sie erst den Freischaltcode, den Sie zuvor beantragt
-          haben, stornieren. Dieser wird dadurch ungültig. Im Anschluss können
-          Sie einen neuen Freischaltcode beantragen.
+          Um einen neuen Freischaltcode beantragen zu können, muss die aktuelle
+          Beantragung storniert werden.
         </IntroText>
 
         {actionData?.ericaApiError && (
@@ -200,9 +199,9 @@ export default function FscStornieren() {
             <Button
               disabled={isSubmitting || showSpinner || loaderData.ericaDown}
             >
-              Freischaltcode stornieren
+              Freischaltcode stornieren & weiter
             </Button>
-            <Button look="secondary" to="/formular">
+            <Button look="secondary" to="/fsc/eingeben">
               Zurück
             </Button>
           </ButtonContainer>

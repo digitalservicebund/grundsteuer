@@ -58,11 +58,13 @@ export default function Spinner(props: {
       <div className="bg-black opacity-40 absolute inset-0" />
       <div className="bg-white rounded-3xl p-32 relative">
         <div className="flex items-center justify-center">
-          <img
-            className="w-48 h-48 shrink-0 mr-16"
-            src={loopGif}
-            alt={"Endlosschleife, die sich im Kreis dreht"}
-          />
+          {isJavaScriptEnabled && (
+            <img
+              className="w-48 h-48 shrink-0 mr-16"
+              src={loopGif}
+              alt={"Endlosschleife, die sich im Kreis dreht"}
+            />
+          )}
           <p className="text-18">{text}</p>
         </div>
         {!isJavaScriptEnabled && (

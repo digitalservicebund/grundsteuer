@@ -28,18 +28,19 @@ export default function FscStornierenErfolgreich() {
       <SuccessPageLayout>
         <Headline>Freischaltcode erfolgreich storniert</Headline>
 
-        <IntroText className="mb-80">
-          Ihr vorher beantragter Freischaltcode wurde erfolgreich storniert.
-          Bitte beachten Sie, dass es trotzdem passieren kann, dass Ihnen der
-          Freischaltcode noch per Post zugestellt wird. Dieser ist dann aber
-          ungültig.
+        <IntroText>
+          Bitte beachten Sie, dass Ihnen der stornierte Freischaltcode trotzdem
+          noch per Post zugestellt werden kann, wenn sich dieser bereits in der
+          Zusendung befand. Dieser ist allerdings ungültig und kann nicht
+          verwendet werden.
         </IntroText>
 
-        <h2 className="mb-32 text-24 font-bold">
-          Sie können jetzt einen neuen Freischaltcode beantragen:
-        </h2>
+        <IntroText className="mb-64">
+          Bitte warten Sie, bis Ihnen der neue Freischaltcode zugestellt wird.
+          Prüfen Sie dafür auch das Antragsdatum.
+        </IntroText>
 
-        <Button to="/fsc/beantragen">Freischaltcode beantragen</Button>
+        <Button to="/fsc/beantragen">Freischaltcode neu beantragen</Button>
       </SuccessPageLayout>
     </ContentContainer>
   );
