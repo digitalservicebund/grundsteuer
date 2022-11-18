@@ -17,7 +17,7 @@ export const applyRateLimit = async (feature: Feature, limit = 5) => {
   return false;
 };
 
-const getHashedIpKey = async (route: string, ip: string) => {
+const generateIpRateLimitKey = async (route: string, ip: string) => {
   invariant(
     process.env.HASHED_IP_LIMIT_SALT,
     "Environment variable HASHED_IP_LIMIT_SALT is not defined"
@@ -42,7 +42,7 @@ const applyIpRateLimit = async (
   if (process.env.SKIP_RATELIMIT == "true") {
     return true;
   }
-  const hashedIpKey = await getHashedIpKey(limitedRoute, ip);
+  const hashedIpKey = await generateIpRateLimitKey(limitedRoute, ip);
   const currRate = await redis.get(Feature.IP_RATE_LIMIT, hashedIpKey);
   if (!currRate || Number.parseInt(currRate) < limit) {
     await incrementCurrentIpLimit(hashedIpKey);
