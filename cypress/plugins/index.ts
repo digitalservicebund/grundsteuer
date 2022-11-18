@@ -56,8 +56,8 @@ export default (on, config) => {
       });
     },
 
-    addFscRequestId: async ({ email, fscRequestId }) => {
-      await saveFscRequest(email, fscRequestId);
+    addFscRequestId: async ({ email, fscRequestId, createdAt }) => {
+      await saveFscRequest(email, fscRequestId, createdAt);
       return null;
     },
 

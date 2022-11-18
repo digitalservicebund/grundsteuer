@@ -1,17 +1,11 @@
 import DefaultHelpContent, {
   HelpComponentFunction,
 } from "~/components/form/help/Default";
-import freischaltcodeImg from "~/assets/images/help/freischaltcode.png";
 
 const FreischaltcodeHelp: HelpComponentFunction = () => {
   return (
     <DefaultHelpContent
       elements={[
-        {
-          type: "image",
-          source: freischaltcodeImg,
-          altText: "Beispiel Freischaltcode Brief",
-        },
         {
           type: "paragraph",
           value:

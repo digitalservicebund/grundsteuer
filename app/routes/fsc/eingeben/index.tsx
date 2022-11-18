@@ -59,6 +59,8 @@ import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
 import { flags } from "~/flags.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
+import Hint from "~/components/Hint";
+import letter from "~/assets/images/fsc-letter-eingeben.png";
 
 const isEricaRequestInProgress = (userData: User) => {
   return (
@@ -220,6 +222,20 @@ export const handleFscRevocationInProgress = async (
   }
 };
 
+const getRemainingDays = (antragDate: Date | undefined) => {
+  if (!antragDate) {
+    return null;
+  }
+
+  const expirationDate = new Date(
+    new Date().setTime(antragDate.getTime() + 90 * 24 * 60 * 60 * 1000)
+  );
+
+  return Math.ceil(
+    (expirationDate.getTime() - new Date().getTime()) / (24 * 60 * 60 * 1000)
+  );
+};
+
 export const loader: LoaderFunction = async ({ request, context }) => {
   const { clientIp } = context;
   const user = await authenticator.isAuthenticated(request, {
@@ -286,6 +302,9 @@ export const loader: LoaderFunction = async ({ request, context }) => {
     return redirect("/fsc/eingeben/erfolgreich");
   }
 
+  const antragDate = userData.fscRequest?.createdAt;
+  const remainingDays = getRemainingDays(antragDate);
+
   return json(
     {
       csrfToken,
@@ -294,6 +313,10 @@ export const loader: LoaderFunction = async ({ request, context }) => {
         isEricaActivationRequestInProgress(updatedUserData) ||
         isEricaRevocationRequestInProgress(updatedUserData),
       ericaDown: flags.isEricaDown(),
+      antragDate: antragDate
+        ? antragDate.toLocaleDateString("de-DE")
+        : undefined,
+      remainingDays,
       testFeaturesEnabled: testFeaturesEnabled(),
     },
     {
@@ -387,6 +410,7 @@ export const action: ActionFunction = async ({
 
 export default function FscEingeben() {
   const loaderData = useLoaderData();
+  const { antragDate, remainingDays } = loaderData;
   const actionData: EingebenActionData | undefined = useActionData();
   const errors = actionData?.errors;
 
@@ -441,100 +465,141 @@ export default function FscEingeben() {
     };
   }, [fetcher, showSpinner]);
 
-  return (
-    <ContentContainer size="sm">
-      <BreadcrumbNavigation />
-      <Headline>Bitte geben Sie Ihren Freischaltcode ein</Headline>
-      <IntroText>
-        Wir haben einen Freischaltcode für Sie beantragt. Diesen erhalten Sie
-        innerhalb von 3 Wochen per Post. Nach Erhalt des Briefes, finden Sie den
-        Freischaltcode auf der letzten Seite. Er besteht aus 12 Zeichen.
-      </IntroText>
-
-      {showError && !isSubmitting && (
-        <ErrorBar className="mb-32">
-          Der eingegebene Freischaltcode ist nicht gültig. Sie haben insgesamt 5
-          Versuche. Danach müssen Sie einen neuen Freischaltcode beantragen.
-        </ErrorBar>
-      )}
-      {actionData?.ericaApiError && (
-        <ErrorBar className="mb-32">
-          Der eingegebene Freischaltcode hat kein gültiges Format. Prüfen Sie
-          Ihre Eingabe.
-        </ErrorBar>
-      )}
-
-      <Form method="post" action={"/fsc/eingeben?index"}>
-        <CsrfToken value={loaderData.csrfToken} />
-        <div>
-          <FormGroup>
-            <FreischaltCodeInput
-              name="freischaltCode"
-              label="Freischaltcode"
-              placeholder="XXXX-XXXX-XXXX"
-              error={errors?.freischaltCode}
-              help={<FreischaltcodeHelp />}
-            />
-          </FormGroup>
-        </div>
-        <ButtonContainer>
-          <Button
-            disabled={isSubmitting || showSpinner || loaderData.ericaDown}
-          >
-            Freischaltcode speichern
-          </Button>
-          <Button look="secondary" to="/formular/zusammenfassung">
-            Zurück zur Übersicht
-          </Button>
-        </ButtonContainer>
-      </Form>
-      <h2 className="mt-80 mb-16 text-24 font-bold">
-        Keinen Freischaltcode erhalten?
-      </h2>
-      <p className="mb-8">
-        3 Wochen sind um und Sie haben noch keinen Brief mit dem Freischaltcode
-        erhalten?
-      </p>
-      <div className="flex items-center mb-32">
-        <ArrowRight className="inline-block mr-16" />
-        <a
-          href={
-            loaderData?.testFeaturesEnabled
-              ? "/fsc/stornieren"
-              : "/fsc/neuBeantragen?index"
-          }
-          className="font-bold underline text-18 text-blue-800"
-        >
-          Freischaltcode neu beantragen
-        </a>
-      </div>
-      <p className="mb-8">
-        Personen mit einem ELSTER Konto erhalten in der Regel keinen Brief mit
-        einem Freischaltcode. Sie können Ihre ELSTER Zugangsdaten nutzen, um
-        sich zu identifizieren.
-      </p>
-      <div className="flex items-center">
-        <ArrowRight className="inline-block mr-16" />
-        <a
-          href={"/ekona?index"}
-          className="font-bold underline text-18 text-blue-800"
-        >
-          Mit ELSTER Zugang identifizieren
-        </a>
-      </div>
-
-      {showSpinner && (
-        <Spinner
-          initialText={"Ihr Freischaltcode wird überprüft."}
-          waitingText={
-            "Das Überprüfen dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
-          }
-          longerWaitingText={
-            "Wir überprüfen weiter Ihren Freischaltcode. Bitte verlassen Sie diese Seite nicht."
-          }
-          startTime={startTime}
+  if (remainingDays === undefined || remainingDays > 0) {
+    return (
+      <ContentContainer size="sm-md">
+        <BreadcrumbNavigation />
+        <Headline>Haben Sie Ihren Freischaltcode schon erhalten?</Headline>
+        {antragDate && (
+          <Hint type="status">
+            Ihr Freischaltcode wurde am {antragDate} beantragt. Ihr Code läuft
+            in {remainingDays} {remainingDays === 1 ? "Tag" : "Tagen"} ab.
+          </Hint>
+        )}
+        <IntroText>
+          Ihren Freischaltcode finden Sie in dem Brief, den Sie von Ihrem
+          Finanzamt erhalten haben. Der Code steht auf der letzten Seite.
+        </IntroText>
+        <img
+          src={letter}
+          alt="Bildbeispiel des Freischaltcode Brief"
+          className="mb-32"
         />
-      )}
-    </ContentContainer>
-  );
+
+        {showError && !isSubmitting && (
+          <ErrorBar className="mb-32">
+            Der eingegebene Freischaltcode ist nicht gültig. Sie haben insgesamt
+            5 Versuche. Danach müssen Sie einen neuen Freischaltcode beantragen.
+          </ErrorBar>
+        )}
+        {actionData?.ericaApiError && (
+          <ErrorBar className="mb-32">
+            Der eingegebene Freischaltcode hat kein gültiges Format. Prüfen Sie
+            Ihre Eingabe.
+          </ErrorBar>
+        )}
+
+        <Form method="post" action={"/fsc/eingeben?index"}>
+          <CsrfToken value={loaderData.csrfToken} />
+          <div>
+            <FormGroup>
+              <FreischaltCodeInput
+                name="freischaltCode"
+                label="Freischaltcode"
+                placeholder="XXXX-XXXX-XXXX"
+                error={errors?.freischaltCode}
+                help={<FreischaltcodeHelp />}
+              />
+            </FormGroup>
+          </div>
+          <ButtonContainer className="flex-col">
+            <Button
+              disabled={isSubmitting || showSpinner || loaderData.ericaDown}
+            >
+              Freischaltcode speichern
+            </Button>
+            <Button look="secondary" to="/formular/zusammenfassung">
+              Zurück zur Übersicht
+            </Button>
+          </ButtonContainer>
+        </Form>
+        <h2 className="mt-80 mb-16 text-24 font-bold">
+          Keinen Freischaltcode erhalten?
+        </h2>
+        <p className="mb-8">
+          3 Wochen sind um und Sie haben noch keinen Brief mit dem
+          Freischaltcode erhalten?
+        </p>
+        <div className="flex items-center mb-32">
+          <ArrowRight className="inline-block mr-16" />
+          <a
+            href={
+              loaderData?.testFeaturesEnabled
+                ? "/fsc/stornieren"
+                : "/fsc/neuBeantragen?index"
+            }
+            className="font-bold underline text-18 text-blue-800"
+          >
+            Freischaltcode neu beantragen
+          </a>
+        </div>
+        <p className="mb-8">
+          Personen mit einem ELSTER Konto erhalten in der Regel keinen Brief mit
+          einem Freischaltcode. Sie können Ihre ELSTER Zugangsdaten nutzen, um
+          sich zu identifizieren.
+        </p>
+        <div className="flex items-center">
+          <ArrowRight className="inline-block mr-16" />
+          <a
+            href={"/ekona?index"}
+            className="font-bold underline text-18 text-blue-800"
+          >
+            Mit ELSTER Zugang identifizieren
+          </a>
+        </div>
+
+        {showSpinner && (
+          <Spinner
+            initialText={"Ihr Freischaltcode wird überprüft."}
+            waitingText={
+              "Das Überprüfen dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
+            }
+            longerWaitingText={
+              "Wir überprüfen weiter Ihren Freischaltcode. Bitte verlassen Sie diese Seite nicht."
+            }
+            startTime={startTime}
+          />
+        )}
+      </ContentContainer>
+    );
+  } else {
+    return (
+      <ContentContainer size="sm-md">
+        <BreadcrumbNavigation />
+        <Headline>Ihr Freischaltcode ist leider abgelaufen.</Headline>
+
+        <Hint type="status">
+          Ihr Code hat nach 90 Tagen seine Gültigkeit verloren. Beantragen Sie
+          bitte einen neuen Freischaltcode.
+        </Hint>
+
+        <Form method="post" action={"/fsc/eingeben?index"}>
+          <ButtonContainer className="flex-col">
+            <Button
+              to={
+                loaderData?.testFeaturesEnabled
+                  ? "/fsc/stornieren"
+                  : "/fsc/neuBeantragen?index"
+              }
+            >
+              Freischaltcode neu beantragen
+            </Button>
+            <Button look="secondary" to="/formular/zusammenfassung">
+              Zurück zur Übersicht
+            </Button>
+          </ButtonContainer>
+        </Form>
+      </ContentContainer>
+    );
+  }
 }

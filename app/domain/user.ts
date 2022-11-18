@@ -54,7 +54,11 @@ export const findUserById = async (userId: string): Promise<User | null> => {
   });
 };
 
-export const saveFscRequest = async (email: string, requestId: string) => {
+export const saveFscRequest = async (
+  email: string,
+  requestId: string,
+  createdAt: Date = new Date()
+) => {
   const user = await findUserByEmail(email);
   if (!user) {
     throw new Error("User not found.");
@@ -63,6 +67,7 @@ export const saveFscRequest = async (email: string, requestId: string) => {
   await db.fscRequest.create({
     data: {
       requestId: requestId,
+      createdAt: createdAt,
       User: { connect: { email: user.email } },
     },
   });

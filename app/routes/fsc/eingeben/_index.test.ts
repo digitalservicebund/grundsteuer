@@ -42,12 +42,59 @@ describe("Loader", () => {
   });
 
   describe("with unidentified user", () => {
-    beforeEach(async () => {
-      getMockedFunction(userModule, "findUserByEmail", {
-        email: "existing_user@foo.com",
-        ericaRequestIdFscAktivieren: "foo",
-        fscRequest: { requestId: "elster-request-id" },
+    describe("FscRequest createdAt", () => {
+      beforeAll(() => {
+        getMockedFunction(
+          freischaltCodeAktivierenModule,
+          "checkFreischaltcodeActivation",
+          {
+            transferticket: expectedTransferticket,
+            taxIdNumber: expectedTaxIdNumber,
+          }
+        );
       });
+
+      const cases = [
+        {
+          createdAt: new Date(),
+          description: "same day",
+          expectedRemainingDays: 90,
+        },
+        {
+          createdAt: new Date(new Date().setDate(new Date().getDate() - 89)),
+          description: "89 days ago",
+          expectedRemainingDays: 1,
+        },
+        {
+          createdAt: new Date(new Date().setDate(new Date().getDate() - 90)), // 90 days ago
+          description: "90 days ago",
+          expectedRemainingDays: 0,
+        },
+      ];
+
+      test.each(cases)(
+        "should return $expectedRemainingDays remaining days on $description",
+        async ({ createdAt, expectedRemainingDays }) => {
+          getMockedFunction(userModule, "findUserByEmail", {
+            email: "existing_user@foo.com",
+            ericaRequestIdFscAktivieren: "foo",
+            fscRequest: {
+              requestId: "elster-request-id",
+              createdAt: createdAt,
+            },
+          });
+
+          const response = await loader(
+            await getLoaderArgsWithAuthenticatedSession(
+              "/fsc/eingeben",
+              "existing_user@foo.com"
+            )
+          );
+          const jsonResponse = await response.json();
+
+          expect(jsonResponse.remainingDays).toBe(expectedRemainingDays);
+        }
+      );
     });
 
     describe("erica activation sends success", () => {
@@ -60,6 +107,14 @@ describe("Loader", () => {
             taxIdNumber: expectedTaxIdNumber,
           }
         );
+      });
+
+      beforeEach(async () => {
+        getMockedFunction(userModule, "findUserByEmail", {
+          email: "existing_user@foo.com",
+          ericaRequestIdFscAktivieren: "foo",
+          fscRequest: { requestId: "elster-request-id" },
+        });
       });
 
       it("should be inProgress", async () => {
@@ -153,6 +208,14 @@ describe("Loader", () => {
         );
       });
 
+      beforeEach(async () => {
+        getMockedFunction(userModule, "findUserByEmail", {
+          email: "existing_user@foo.com",
+          ericaRequestIdFscAktivieren: "foo",
+          fscRequest: { requestId: "elster-request-id" },
+        });
+      });
+
       it("should throw error", async () => {
         const args = await getLoaderArgsWithAuthenticatedSession(
           "/fsc/eingeben",
@@ -227,6 +290,14 @@ describe("Loader", () => {
             errorMessage: "ELSTER_REQUEST_ID_UNKNOWN",
           }
         );
+      });
+
+      beforeEach(async () => {
+        getMockedFunction(userModule, "findUserByEmail", {
+          email: "existing_user@foo.com",
+          ericaRequestIdFscAktivieren: "foo",
+          fscRequest: { requestId: "elster-request-id" },
+        });
       });
 
       it("should not call lifecycle event", async () => {

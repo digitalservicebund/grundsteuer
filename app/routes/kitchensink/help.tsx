@@ -22,6 +22,10 @@ export default function KitchenSinkHelp() {
         Bitte tragen Sie das Aktenzeichen / die Steuernummer ohne Sonderzeichen
         ein.
       </Hint>
+      <Hint type="status">
+        Ihr Freischaltcode wurde am 23.09. beantragt. Ihr Code läuft in 34 Tagen
+        ab
+      </Hint>
       <Help>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
