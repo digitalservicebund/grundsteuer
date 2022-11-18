@@ -533,11 +533,7 @@ export default function FscEingeben() {
         <div className="flex items-center mb-32">
           <ArrowRight className="inline-block mr-16" />
           <a
-            href={
-              loaderData?.testFeaturesEnabled
-                ? "/fsc/stornieren"
-                : "/fsc/neuBeantragen?index"
-            }
+            href="/fsc/stornieren"
             className="font-bold underline text-18 text-blue-800"
           >
             Freischaltcode neu beantragen
@@ -583,22 +579,12 @@ export default function FscEingeben() {
           bitte einen neuen Freischaltcode.
         </Hint>
 
-        <Form method="post" action={"/fsc/eingeben?index"}>
-          <ButtonContainer className="flex-col">
-            <Button
-              to={
-                loaderData?.testFeaturesEnabled
-                  ? "/fsc/stornieren"
-                  : "/fsc/neuBeantragen?index"
-              }
-            >
-              Freischaltcode neu beantragen
-            </Button>
-            <Button look="secondary" to="/formular/zusammenfassung">
-              Zurück zur Übersicht
-            </Button>
-          </ButtonContainer>
-        </Form>
+        <ButtonContainer className="flex-col">
+          <Button to="/fsc/stornieren">Freischaltcode neu beantragen</Button>
+          <Button look="secondary" to="/formular/zusammenfassung">
+            Zurück zur Übersicht
+          </Button>
+        </ButtonContainer>
       </ContentContainer>
     );
   }
