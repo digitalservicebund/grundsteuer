@@ -19,8 +19,10 @@ import {
   deleteEricaRequestIdFscAktivieren,
   deleteEricaRequestIdFscBeantragen,
   deleteEricaRequestIdFscStornieren,
+  deleteFscRequest,
   deletePdf,
   deleteTransferticket,
+  findUserByEmail,
   saveDeclaration,
   saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscBeantragen,
@@ -69,6 +71,7 @@ export default (on, config) => {
     },
 
     dbResetUser: async (email) => {
+      const user = await findUserByEmail(email);
       await deleteEricaRequestIdFscBeantragen(email);
       await deleteEricaRequestIdFscAktivieren(email);
       await deleteEricaRequestIdFscStornieren(email);
@@ -79,6 +82,9 @@ export default (on, config) => {
           identifiedAt: null,
         },
       });
+      if (user.fscRequest) {
+        await deleteFscRequest(email, user.fscRequest.requestId);
+      }
       await deletePdf(email);
       await deleteTransferticket(email);
       await setUserInDeclarationProcess(email, true);

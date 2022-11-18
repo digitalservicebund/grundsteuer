@@ -137,11 +137,17 @@ describe("error banners", () => {
     });
 
     it("should show banner and disable button on /fsc/eingeben", () => {
+      cy.task("addFscRequestId", {
+        email: "foo@bar.com",
+        fscRequestId: "foo",
+      });
       cy.login();
       cy.visit("/fsc/eingeben");
       cy.url().should("include", "/fsc/eingeben");
       cy.get(bannerId).should("exist");
       cy.contains("button", "Freischaltcode").should("be.disabled");
+
+      cy.task("dbResetUser", "foo@bar.com");
     });
 
     it("should show banner and disable button on /fsc/neuBeantragen", () => {
