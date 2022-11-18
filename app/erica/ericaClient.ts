@@ -1,4 +1,5 @@
 import invariant from "tiny-invariant";
+import fetch from "cross-fetch";
 import { EricaResponse } from "~/erica/utils";
 
 type ericaRequestDto = {

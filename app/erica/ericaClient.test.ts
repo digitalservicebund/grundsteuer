@@ -1,4 +1,12 @@
+import * as fetchModule from "cross-fetch";
 import { getFromErica, postToErica } from "./ericaClient";
+
+jest.mock("cross-fetch", () => {
+  return {
+    __esModule: true,
+    default: jest.fn(() => "mocked!"),
+  };
+});
 
 const mockFetchReturn201 = jest.fn(() =>
   Promise.resolve({
@@ -40,7 +48,7 @@ describe("postToErica", () => {
     });
 
     it("should fetch from correct ericaURl", async () => {
-      jest.spyOn(global, "fetch").mockImplementation(mockFetchReturn201);
+      jest.spyOn(fetchModule, "default").mockImplementation(mockFetchReturn201);
       await postToErica("someEndpoint", {});
       expect(mockFetchReturn201.mock.calls[0][0]).toEqual(
         process.env.ERICA_URL + "/someEndpoint"
@@ -48,20 +56,20 @@ describe("postToErica", () => {
     });
 
     it("should return location if receives a 201 from endpoint", async () => {
-      jest.spyOn(global, "fetch").mockImplementation(mockFetchReturn201);
+      jest.spyOn(fetchModule, "default").mockImplementation(mockFetchReturn201);
       const result = await postToErica("someEndpoint", {});
       expect(result).toEqual({ location: "createdLocation" });
     });
 
     it("should throw error if receives a 201 from endpoint without location", async () => {
       jest
-        .spyOn(global, "fetch")
+        .spyOn(fetchModule, "default")
         .mockImplementation(mockFetchReturn201NoLocation);
       await expect(postToErica("someEndpoint", {})).rejects.toThrow();
     });
 
     it("should send correctly constructed data as JSON string to endpoint", async () => {
-      jest.spyOn(global, "fetch").mockImplementation(mockFetchReturn201);
+      jest.spyOn(fetchModule, "default").mockImplementation(mockFetchReturn201);
       const actualDataToSend = { name: "Batman", friend: "Robin" };
       await postToErica("someEndpoint", actualDataToSend);
       expect(mockFetchReturn201.mock.calls[0][1]?.body).toEqual(
@@ -73,7 +81,7 @@ describe("postToErica", () => {
     });
 
     it("should return an error if receives a 422 from endpoint", async () => {
-      jest.spyOn(global, "fetch").mockImplementation(
+      jest.spyOn(fetchModule, "default").mockImplementation(
         jest.fn(() =>
           Promise.resolve({
             status: 422,
@@ -87,7 +95,7 @@ describe("postToErica", () => {
     });
 
     it("should throw an error if receives a 500 from endpoint", async () => {
-      jest.spyOn(global, "fetch").mockImplementation(
+      jest.spyOn(fetchModule, "default").mockImplementation(
         jest.fn(() =>
           Promise.resolve({
             status: 500,
@@ -154,7 +162,7 @@ describe("getFromErica", () => {
     });
 
     it("should fetch from correct ericaURl", async () => {
-      jest.spyOn(global, "fetch").mockImplementation(mockFetchReturn200);
+      jest.spyOn(fetchModule, "default").mockImplementation(mockFetchReturn200);
       await getFromErica("someEndpoint");
       expect(mockFetchReturn200.mock.calls[0][0]).toEqual(
         process.env.ERICA_URL + "/someEndpoint"
@@ -162,13 +170,13 @@ describe("getFromErica", () => {
     });
 
     it("should return json result if receives a 200 from endpoint", async () => {
-      jest.spyOn(global, "fetch").mockImplementation(mockFetchReturn200);
+      jest.spyOn(fetchModule, "default").mockImplementation(mockFetchReturn200);
       const result = await getFromErica("someEndpoint");
       expect(result).toEqual(successObject);
     });
 
     it("should return not found error if receives a 404 from endpoint", async () => {
-      jest.spyOn(global, "fetch").mockImplementation(mockFetchReturn404);
+      jest.spyOn(fetchModule, "default").mockImplementation(mockFetchReturn404);
       const result = await getFromErica("someEndpoint");
       expect(result).toEqual({
         errorType: "EricaRequestNotFound",
