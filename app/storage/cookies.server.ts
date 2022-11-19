@@ -3,8 +3,8 @@ import { useSecureCookie } from "~/storage/useSecureCookie";
 import invariant from "tiny-invariant";
 import crypto from "crypto";
 import { GrundModel } from "~/domain/steps/index.server";
+import encryption from "./services/encryption";
 
-const KEY_VERSION = "v01";
 export const COOKIE_ENCODING = "base64";
 
 export type PruefenCookieData = any;
@@ -52,39 +52,14 @@ export const createFormDataCookie: CreateFormDataCookieFunction = ({
   });
 };
 
-export const encryptCookie = (
-  cookie: { userId: string; data?: GrundModel } | PruefenCookieData
-) => {
-  const key = Buffer.from(process.env.FORM_COOKIE_ENC_SECRET as string);
-  const iv = crypto.randomBytes(16);
-  const cipher = crypto.createCipheriv("aes-256-gcm", key, iv);
-  const stringifiedData = JSON.stringify(cookie);
-  const encryptedCookie = Buffer.concat([
-    Buffer.from(KEY_VERSION),
-    iv,
-    cipher.update(stringifiedData),
-    cipher.final(),
-    cipher.getAuthTag(),
-  ]);
-  return encryptedCookie.toString(COOKIE_ENCODING);
+export const encryptCookie = (data: any) => {
+  const key = process.env.FORM_COOKIE_ENC_SECRET as string;
+  const serializedData = Buffer.from(JSON.stringify(data), "utf-8");
+  return encryption(key).encrypt(serializedData).toString(COOKIE_ENCODING);
 };
 
-export const decryptCookie = (
-  encryptedCookie: Buffer
-): { userId: string; data?: GrundModel } | PruefenCookieData => {
-  const key = Buffer.from(process.env.FORM_COOKIE_ENC_SECRET as string);
-  // ignoring key version for now since no key rotation is implemented
-  const iv = encryptedCookie.subarray(3, 16 + 3);
-  const ciphertext = encryptedCookie.subarray(
-    16 + 3,
-    encryptedCookie.length - 16
-  );
-  const authTag = encryptedCookie.subarray(encryptedCookie.length - 16);
-  const decipher = crypto.createDecipheriv("aes-256-gcm", key, iv);
-  decipher.setAuthTag(authTag);
-  const decryptedCookie = Buffer.concat([
-    decipher.update(ciphertext),
-    decipher.final(),
-  ]);
-  return JSON.parse(decryptedCookie.toString("utf-8"));
+export const decryptCookie = (encryptedData: Buffer) => {
+  const key = process.env.FORM_COOKIE_ENC_SECRET as string;
+  const decryptedData = encryption(key).decrypt(encryptedData);
+  return JSON.parse(decryptedData.toString("utf-8"));
 };
