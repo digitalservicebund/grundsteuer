@@ -150,14 +150,6 @@ describe("error banners", () => {
       cy.task("dbResetUser", "foo@bar.com");
     });
 
-    it("should show banner and disable button on /fsc/neuBeantragen", () => {
-      cy.login();
-      cy.visit("/fsc/neuBeantragen");
-      cy.url().should("include", "/fsc/neuBeantragen");
-      cy.get(bannerId).should("exist");
-      cy.contains("button", "Freischaltcode").should("be.disabled");
-    });
-
     it("should have no effect on /formular", () => {
       cy.login();
       cy.visit("/formular");
