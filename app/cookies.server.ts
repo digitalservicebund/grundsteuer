@@ -3,7 +3,7 @@ import { useSecureCookie } from "~/util/useSecureCookie";
 import invariant from "tiny-invariant";
 import crypto from "crypto";
 import { GrundModel } from "~/domain/steps/index.server";
-import encryption from "./services/encryption";
+import { encrypt, decrypt } from "./services/encryption";
 
 export const COOKIE_ENCODING = "base64";
 
@@ -90,11 +90,11 @@ export const createFormDataCookie: CreateFormDataCookieFunction = ({
 export const encryptCookie = (data: any) => {
   const key = process.env.FORM_COOKIE_ENC_SECRET as string;
   const serializedData = Buffer.from(JSON.stringify(data), "utf-8");
-  return encryption(key).encrypt(serializedData).toString(COOKIE_ENCODING);
+  return encrypt({ data: serializedData, key }).toString(COOKIE_ENCODING);
 };
 
 export const decryptCookie = (encryptedData: Buffer) => {
   const key = process.env.FORM_COOKIE_ENC_SECRET as string;
-  const decryptedData = encryption(key).decrypt(encryptedData);
+  const decryptedData = decrypt({ data: encryptedData, key });
   return JSON.parse(decryptedData.toString("utf-8"));
 };
