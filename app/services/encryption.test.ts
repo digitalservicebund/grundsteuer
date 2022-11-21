@@ -1,8 +1,8 @@
-import encryption from "./encryption";
+import { encrypt, decrypt } from "./encryption";
 
-const KEY = "0123456789_0123456789_0123456789";
+const key = "0123456789_0123456789_0123456789";
 const data = Buffer.from("hallo welt!", "utf8");
-const encryptedData = encryption(KEY).encrypt(data);
+const encryptedData = encrypt({ data, key });
 
 describe("encryption", () => {
   describe("encrypt", () => {
@@ -13,7 +13,7 @@ describe("encryption", () => {
 
   describe("decrypt", () => {
     it("returns decrypted data", () => {
-      expect(encryption(KEY).decrypt(encryptedData)).toEqual(data);
+      expect(decrypt({ data: encryptedData, key })).toEqual(data);
     });
   });
 });
