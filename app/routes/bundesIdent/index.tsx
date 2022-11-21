@@ -18,7 +18,7 @@ export const meta: MetaFunction = () => {
 };
 
 const checkIfRateLimitExceeded = async (request: Request) => {
-  if (!(await applyRateLimit(Feature.BUNDES_IDENT_RATE_LIMIT))) {
+  if (!(await applyRateLimit(Feature.BUNDES_IDENT_RATE_LIMIT, 1))) {
     console.log(
       "BundesIdent rate limit exceeded at " + new Date().toISOString()
     );
