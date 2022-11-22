@@ -5,6 +5,7 @@ import {
   decryptCookie,
   encryptCookie,
 } from "~/cookies.server";
+import env from "~/env";
 
 export const sessionStorage = createCookieSessionStorage({
   cookie: {
@@ -14,7 +15,7 @@ export const sessionStorage = createCookieSessionStorage({
     httpOnly: true,
     sameSite: "none", //We need to set sameSite none, because we explicitly want that this cookie is also sent with CrossSiteRequests
     secure: true,
-    secrets: [process.env.SESSION_COOKIE_SECRET as string],
+    secrets: [env.SESSION_COOKIE_SECRET],
   },
 });
 

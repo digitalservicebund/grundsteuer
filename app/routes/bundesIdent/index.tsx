@@ -12,6 +12,7 @@ import { applyRateLimit } from "~/redis/rateLimiting.server";
 import RateLimitExceeded from "~/components/RateLimitExceeded";
 import { Feature } from "~/redis/redis.server";
 import { isMobileUserAgent } from "~/util/isMobileUserAgent";
+import env from "~/env";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifizieren Sie sich mit Ihrem Ausweis") };
@@ -48,7 +49,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       host: new URL(request.url).hostname,
       widgetSrc: useid.getWidgetSrc(),
       tcTokenUrl: await useid.getTcTokenUrl(),
-      useidDomain: process.env.USEID_DOMAIN,
+      useidDomain: env.USEID_DOMAIN,
       isMobile: isMobileUserAgent(request),
     },
     {}

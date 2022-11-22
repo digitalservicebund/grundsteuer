@@ -1,7 +1,7 @@
 import { Feature, redis } from "~/redis/redis.server";
 import bcrypt from "bcryptjs";
-import invariant from "tiny-invariant";
 import { flags } from "~/flags.server";
+import env from "~/env";
 
 const incrementCurrentLimit = async (feature: Feature) => {
   const currentSecond = new Date().getSeconds().toString();
@@ -9,7 +9,7 @@ const incrementCurrentLimit = async (feature: Feature) => {
 };
 
 export const applyRateLimit = async (feature: Feature, limit = 5) => {
-  if (process.env.SKIP_RATELIMIT == "true") {
+  if (env.SKIP_RATELIMIT) {
     return true;
   }
   const currRate = await redis.get(feature, new Date().getSeconds().toString());
@@ -21,15 +21,9 @@ export const applyRateLimit = async (feature: Feature, limit = 5) => {
 };
 
 const generateIpRateLimitKey = async (route: string, ip: string) => {
-  invariant(
-    process.env.HASHED_IP_LIMIT_SALT,
-    "Environment variable HASHED_IP_LIMIT_SALT is not defined"
-  );
   const currentMinute = new Date().getMinutes().toString();
   return (
-    route +
-    (await bcrypt.hash(ip, process.env.HASHED_IP_LIMIT_SALT)) +
-    currentMinute
+    route + (await bcrypt.hash(ip, env.HASHED_IP_LIMIT_SALT)) + currentMinute
   );
 };
 
@@ -42,7 +36,7 @@ const applyIpRateLimit = async (
   ip: string,
   limit = 10
 ) => {
-  if (process.env.SKIP_RATELIMIT == "true") {
+  if (env.SKIP_RATELIMIT) {
     return true;
   }
   const hashedIpKey = await generateIpRateLimitKey(limitedRoute, ip);

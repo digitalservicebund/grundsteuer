@@ -70,6 +70,7 @@ import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
 import { flags } from "~/flags.server";
 import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
+import env from "~/env";
 
 type LoaderData = {
   formData: StepFormData;
@@ -199,10 +200,6 @@ export const loader: LoaderFunction = async ({
           username: userData.email,
           eventData: { transferticket: successResponseOrErrors.transferticket },
         });
-        invariant(
-          process.env.HASHED_LOGGING_SALT,
-          "Environment variable HASHED_LOGGING_SALT is not defined"
-        );
         console.log(
           `Tax declaration filed for user with id ${userData.id} for state ${
             filteredData.grundstueck?.adresse?.bundesland
@@ -210,7 +207,7 @@ export const loader: LoaderFunction = async ({
             filteredData.grundstueck?.steuernummer?.steuernummer
               ? await bcrypt.hash(
                   filteredData.grundstueck?.steuernummer?.steuernummer,
-                  process.env.HASHED_LOGGING_SALT
+                  env.HASHED_LOGGING_SALT
                 )
               : "no steuernummer given"
           }`

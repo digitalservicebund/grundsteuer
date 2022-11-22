@@ -1,6 +1,7 @@
 import invariant from "tiny-invariant";
 import fetch from "cross-fetch";
 import { EricaResponse } from "~/erica/utils";
+import env from "~/env";
 
 type ericaRequestDto = {
   clientIdentifier: string;
@@ -15,17 +16,12 @@ export const postToErica = async (
   endpoint: string,
   dataToSend: object
 ): Promise<PostToEricaResponse> => {
-  invariant(
-    typeof process.env.ERICA_URL !== "undefined",
-    "environment variable ERICA_URL is not set"
-  );
-
   const ericaRequestData: ericaRequestDto = {
     clientIdentifier: ericaClientIdentifier,
     payload: dataToSend,
   };
 
-  const url = `${process.env.ERICA_URL}/${endpoint}`;
+  const url = `${env.ERICA_URL}/${endpoint}`;
   console.log(`Making erica request to ${url}`);
   const response = await fetch(url, {
     method: "POST",
@@ -54,12 +50,7 @@ export const postToErica = async (
 };
 
 export const getFromErica = async (endpoint: string) => {
-  invariant(
-    process.env.ERICA_URL !== undefined,
-    "environment variable ERICA_URL is not set"
-  );
-
-  const url = `${process.env.ERICA_URL}/${endpoint}`;
+  const url = `${env.ERICA_URL}/${endpoint}`;
   const response = await fetch(url);
 
   if (response.status == 200) {

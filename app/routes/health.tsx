@@ -1,10 +1,11 @@
 import { LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import env from "~/env";
 
 type SystemStatus = { env: string };
 
 export const loader: LoaderFunction = async () => {
-  return { env: process.env.APP_ENV };
+  return { env: env.APP_ENV };
 };
 
 export default function Health() {

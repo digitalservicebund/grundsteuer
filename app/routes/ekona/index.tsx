@@ -23,6 +23,7 @@ import { applyRateLimit } from "~/redis/rateLimiting.server";
 import RateLimitExceeded from "~/components/RateLimitExceeded";
 import { Feature } from "~/redis/redis.server";
 import { flags } from "~/flags.server";
+import env from "~/env";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation mit Elster") };
@@ -53,7 +54,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json(
     {
       context: saml,
-      entryPoint: process.env.EKONA_ENTRY_POINT,
+      entryPoint: env.EKONA_ENTRY_POINT,
     },
     {
       headers: {

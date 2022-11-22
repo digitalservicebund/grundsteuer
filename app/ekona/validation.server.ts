@@ -1,4 +1,5 @@
 import invariant from "tiny-invariant";
+import env from "~/env";
 
 export type ValidatedEkonaData = {
   issuer: string;
@@ -17,7 +18,7 @@ export type ValidatedEkonaData = {
 
 export const checkIssuer = (validatedData: Partial<ValidatedEkonaData>) => {
   invariant(
-    validatedData.issuer == process.env.EKONA_ISSUER_URL,
+    validatedData.issuer == env.EKONA_ISSUER_URL,
     "Validated ekona data needs to have correct issued"
   );
 };

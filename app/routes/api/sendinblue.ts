@@ -3,6 +3,7 @@ import invariant from "tiny-invariant";
 import ipRangeCheck from "ip-range-check";
 import { Feature, redis } from "~/redis/redis.server";
 import * as crypto from "crypto";
+import env from "~/env";
 
 // outgoing webhook requests from Sendinblue will be sent from these ranges:
 const SENDINBLUE_IP_RANGES = ["185.107.232.0/24", "1.179.112.0/20"];
@@ -102,7 +103,7 @@ export const action: ActionFunction = async ({ request, context }) => {
     return json({ message: "Method not allowed" }, 405);
   }
 
-  if (process.env.APP_ENV === "production") {
+  if (env.APP_ENV === "production") {
     const { clientIp } = context;
     invariant(clientIp, "Missing clientIp");
 
