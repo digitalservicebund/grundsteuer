@@ -113,7 +113,7 @@ describe("Loader", () => {
         getMockedFunction(userModule, "findUserByEmail", {
           email: "existing_user@foo.com",
           ericaRequestIdFscAktivieren: "foo",
-          fscRequest: { requestId: "elster-request-id" },
+          fscRequest: { requestId: "elster-request-id", createdAt: new Date() },
         });
       });
 
@@ -212,7 +212,7 @@ describe("Loader", () => {
         getMockedFunction(userModule, "findUserByEmail", {
           email: "existing_user@foo.com",
           ericaRequestIdFscAktivieren: "foo",
-          fscRequest: { requestId: "elster-request-id" },
+          fscRequest: { requestId: "elster-request-id", createdAt: new Date() },
         });
       });
 
@@ -296,7 +296,7 @@ describe("Loader", () => {
         getMockedFunction(userModule, "findUserByEmail", {
           email: "existing_user@foo.com",
           ericaRequestIdFscAktivieren: "foo",
-          fscRequest: { requestId: "elster-request-id" },
+          fscRequest: { requestId: "elster-request-id", createdAt: new Date() },
         });
       });
 
@@ -399,7 +399,7 @@ describe("Loader", () => {
       getMockedFunction(userModule, "findUserByEmail", {
         email: "existing_user@foo.com",
         ericaRequestIdFscStornieren: "foo",
-        fscRequest: { requestId: "foo" },
+        fscRequest: { requestId: "foo", createdAt: new Date() },
         identified: true,
       });
     });

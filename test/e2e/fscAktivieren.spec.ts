@@ -30,6 +30,13 @@ describe("/eingeben", () => {
     });
   });
 
+  describe("no FSC request", () => {
+    it("should redirect to /identifikation", () => {
+      cy.visit("/fsc/eingeben");
+      cy.url().should("include", "/identifikation");
+    });
+  });
+
   describe("erica interactions", () => {
     beforeEach(() => {
       createFscRequest();

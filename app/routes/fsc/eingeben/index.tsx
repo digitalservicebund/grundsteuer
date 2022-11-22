@@ -62,6 +62,16 @@ import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
 import Hint from "~/components/Hint";
 import letter from "~/assets/images/fsc-letter-eingeben.png";
 
+type LoaderData = {
+  csrfToken?: string;
+  showError: boolean;
+  showSpinner: boolean;
+  remainingDays: number;
+  antragDate: string;
+  ekonaDown?: boolean;
+  ericaDown?: boolean;
+};
+
 const isEricaRequestInProgress = (userData: User) => {
   return (
     isEricaActivationRequestInProgress(userData) ||
@@ -222,11 +232,7 @@ export const handleFscRevocationInProgress = async (
   }
 };
 
-const getRemainingDays = (antragDate: Date | undefined) => {
-  if (!antragDate) {
-    return undefined;
-  }
-
+const getRemainingDays = (antragDate: Date) => {
   const expirationDate = new Date(
     new Date().setTime(antragDate.getTime() + 90 * 24 * 60 * 60 * 1000)
   );
@@ -236,7 +242,10 @@ const getRemainingDays = (antragDate: Date | undefined) => {
   );
 };
 
-export const loader: LoaderFunction = async ({ request, context }) => {
+export const loader: LoaderFunction = async ({
+  request,
+  context,
+}): Promise<LoaderData | Response> => {
   const { clientIp } = context;
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
@@ -247,6 +256,15 @@ export const loader: LoaderFunction = async ({ request, context }) => {
     userData,
     "expected a matching user in the database from a user in a cookie session"
   );
+
+  if (!userData.fscRequest) {
+    return redirect("/identifikation");
+  }
+
+  const antragDate = userData.fscRequest.createdAt.toLocaleDateString("de-DE");
+  const remainingDays = getRemainingDays(userData.fscRequest.createdAt);
+
+  const antragStatus = { antragDate, remainingDays };
 
   const fscEingebenProcessStarted = isFscEingebenProcessStarted(userData);
   const ericaActivationRequestIsInProgress =
@@ -266,7 +284,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
       `FSC activated for user with id ${userData?.id}`
     );
     if (fscActivationData) {
-      return fscActivationData;
+      return { ...fscActivationData, ...antragStatus };
     }
   }
 
@@ -278,7 +296,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
       `FSC revoked after activation for user with id ${userData.id}`
     );
     if (fscRevocationData?.finished && fscRevocationData?.failure) {
-      return fscRevocationData;
+      return { ...fscRevocationData, ...antragStatus };
     }
   }
 
@@ -302,9 +320,6 @@ export const loader: LoaderFunction = async ({ request, context }) => {
     return redirect("/fsc/eingeben/erfolgreich");
   }
 
-  const antragDate = userData.fscRequest?.createdAt;
-  const remainingDays = getRemainingDays(antragDate);
-
   return json(
     {
       csrfToken,
@@ -313,10 +328,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
         isEricaActivationRequestInProgress(updatedUserData) ||
         isEricaRevocationRequestInProgress(updatedUserData),
       ericaDown: flags.isEricaDown(),
-      antragDate: antragDate
-        ? antragDate.toLocaleDateString("de-DE")
-        : undefined,
-      remainingDays,
+      ...antragStatus,
       testFeaturesEnabled: testFeaturesEnabled(),
     },
     {
@@ -409,7 +421,7 @@ export const action: ActionFunction = async ({
 };
 
 export default function FscEingeben() {
-  const loaderData = useLoaderData();
+  const loaderData = useLoaderData<LoaderData>();
   const { antragDate, remainingDays } = loaderData;
   const actionData: EingebenActionData | undefined = useActionData();
   const errors = actionData?.errors;
@@ -465,17 +477,16 @@ export default function FscEingeben() {
     };
   }, [fetcher, showSpinner]);
 
-  if (remainingDays === undefined || remainingDays > 0) {
+  if (remainingDays > 0) {
     return (
       <ContentContainer size="sm-md">
         <BreadcrumbNavigation />
         <Headline>Haben Sie Ihren Freischaltcode schon erhalten?</Headline>
-        {antragDate && (
-          <Hint type="status">
-            Ihr Freischaltcode wurde am {antragDate} beantragt. Ihr Code läuft
-            in {remainingDays} {remainingDays === 1 ? "Tag" : "Tagen"} ab.
-          </Hint>
-        )}
+        <Hint type="status">
+          Ihr Freischaltcode wurde am {antragDate} beantragt. Ihr Code läuft in{" "}
+          {remainingDays} {remainingDays === 1 ? "Tag" : "Tagen"} ab.
+        </Hint>
+
         <IntroText>
           Ihren Freischaltcode finden Sie in dem Brief, den Sie von Ihrem
           Finanzamt erhalten haben. Der Code steht auf der letzten Seite.
