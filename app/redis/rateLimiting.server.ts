@@ -9,6 +9,9 @@ const incrementCurrentLimit = async (feature: Feature) => {
 };
 
 export const applyRateLimit = async (feature: Feature, limit = 5) => {
+  if (process.env.SKIP_RATELIMIT == "true") {
+    return true;
+  }
   const currRate = await redis.get(feature, new Date().getSeconds().toString());
   if (!currRate || Number.parseInt(currRate) < limit) {
     await incrementCurrentLimit(feature);

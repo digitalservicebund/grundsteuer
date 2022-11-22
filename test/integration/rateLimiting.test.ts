@@ -9,8 +9,13 @@ describe("ratelimiting", () => {
   const mockedCurrentSeconds = new Date(currentDate).getSeconds().toString();
   const mockDateOneMinuteLater = new Date(Date.UTC(2022, 0, 1, 0, 1, 12));
   const mockDate = new Date(currentDate);
+  let originalSkipRatelimitValue: string;
 
   beforeAll(() => {
+    if (process.env.SKIP_RATELIMIT) {
+      originalSkipRatelimitValue = process.env.SKIP_RATELIMIT;
+      process.env.SKIP_RATELIMIT = "false";
+    }
     const actualNowImplementation = Date.now;
     jest
       .spyOn(global, "Date")
@@ -19,6 +24,9 @@ describe("ratelimiting", () => {
   });
 
   afterAll(async () => {
+    if (originalSkipRatelimitValue) {
+      process.env.SKIP_RATELIMIT = "true";
+    }
     jest.restoreAllMocks();
   });
 
@@ -109,21 +117,12 @@ describe("ratelimiting", () => {
   });
 
   describe("throwErrorIfRateLimitReached", () => {
-    let originalSkipRatelimitValue: string;
     const ipAddressSeenMultipleTimes = "098.765.432.123";
     const ipAddressSeenOnlyOnce = "123.456.789.012";
     const route1 = "this/is/the/way";
     const route2 = "this/is/not/the";
-    beforeAll(async () => {
-      if (process.env.SKIP_RATELIMIT) {
-        originalSkipRatelimitValue = process.env.SKIP_RATELIMIT;
-        process.env.SKIP_RATELIMIT = "false";
-      }
-    });
+
     afterAll(async () => {
-      if (originalSkipRatelimitValue) {
-        process.env.SKIP_RATELIMIT = "true";
-      }
       await redis.flushAll();
     });
 
