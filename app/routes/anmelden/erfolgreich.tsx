@@ -13,7 +13,7 @@ import { authenticator, SessionUser } from "~/auth.server";
 import { useLoaderData } from "@remix-run/react";
 import { flags } from "~/flags.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
-import { rememberCookie } from "~/rememberLoggedInEmails.server";
+import { rememberCookie } from "~/rememberLogin.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erfolgreich angemeldet.") };

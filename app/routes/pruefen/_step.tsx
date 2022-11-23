@@ -53,7 +53,7 @@ import { useEffect, useState } from "react";
 import ErrorBanner from "~/components/ErrorBanner";
 import { Flags, flags } from "~/flags.server";
 import { useTranslation } from "react-i18next";
-import { rememberCookieExists } from "~/rememberLoggedInEmails.server";
+import { rememberCookieExists } from "~/rememberLogin.server";
 
 const PREFIX = "pruefen";
 const START_STEP = "start";

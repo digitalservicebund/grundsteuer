@@ -1,7 +1,4 @@
-import {
-  rememberCookie,
-  rememberCookieExists,
-} from "~/rememberLoggedInEmails.server";
+import { rememberCookie, rememberCookieExists } from "~/rememberLogin.server";
 
 const SAMPLE = {
   cookie: "login=MQ%3D%3D; Max-Age=10368000; Path=/; HttpOnly; SameSite=Lax",
