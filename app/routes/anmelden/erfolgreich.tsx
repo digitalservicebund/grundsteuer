@@ -13,7 +13,7 @@ import { authenticator, SessionUser } from "~/auth.server";
 import { useLoaderData } from "@remix-run/react";
 import { flags } from "~/flags.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
-import { appendEmailToRememberCookie } from "~/rememberLoggedInEmails.server";
+import { rememberCookie } from "~/rememberLoggedInEmails.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erfolgreich angemeldet.") };
@@ -31,7 +31,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 
   if (testFeaturesEnabled()) {
-    // save the "remember logged-in email address" cookie
+    // save the "remember login" cookie
     const URL_PARAM_NAME_WHEN_COOKIE_IS_SET = "r";
     const currentUrl = new URL(request.url);
     const cookieIsSet = currentUrl.searchParams.get(
@@ -39,14 +39,9 @@ export const loader: LoaderFunction = async ({ request }) => {
     );
 
     if (!cookieIsSet) {
-      const cookieHeader = request.headers.get("Cookie");
       const redirectUrl = `${currentUrl.pathname}?${URL_PARAM_NAME_WHEN_COOKIE_IS_SET}=1`;
-      const cookieWithEmailAppended = await appendEmailToRememberCookie({
-        email: user.email,
-        cookieHeader,
-      });
       return redirect(redirectUrl, {
-        headers: { "Set-Cookie": cookieWithEmailAppended },
+        headers: { "Set-Cookie": await rememberCookie() },
       });
     }
   }
