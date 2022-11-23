@@ -3,7 +3,6 @@ import {
   json,
   LoaderFunction,
   MetaFunction,
-  redirect,
 } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import {
@@ -25,7 +24,6 @@ import { pageTitle } from "~/util/pageTitle";
 import { commitSession, getSession } from "~/session.server";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { userExists } from "~/domain/user";
-import { sendLoginAttemptEmail } from "~/email.server";
 import ErrorBar from "~/components/ErrorBar";
 import EmailOutlined from "~/components/icons/mui/EmailOutlined";
 import Hint from "~/components/Hint";
@@ -37,10 +35,13 @@ import { validateEmail } from "~/domain/validation/stringValidation";
 import * as crypto from "crypto";
 import { flags } from "~/flags.server";
 import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
+import Help from "~/components/form/help/Help";
+import DefaultHelpContent from "~/components/form/help/Default";
 
-const validateInputEmail = (normalizedEmail: string) =>
+const validateInputEmail = async (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
-  (!validateEmail({ value: normalizedEmail }) && "errors.email.wrongFormat");
+  (!validateEmail({ value: normalizedEmail }) && "errors.email.wrongFormat") ||
+  (!(await userExists(normalizedEmail)) && "errors.email.unknown");
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Anmelden") };
@@ -89,7 +90,7 @@ export const action: ActionFunction = async ({ request, context }) => {
   const normalizedEmail = email.trim().toLowerCase();
 
   const errors = {
-    email: validateInputEmail(normalizedEmail),
+    email: await validateInputEmail(normalizedEmail),
   };
   const errorsExist = Object.keys(removeUndefined(errors)).length > 0;
   if (errorsExist) {
@@ -106,19 +107,13 @@ export const action: ActionFunction = async ({ request, context }) => {
     successRedirect = "/formular";
   }
 
-  if (await userExists(normalizedEmail)) {
-    return authenticator.authenticate(
-      process.env.SKIP_AUTH === "true" ? "form" : "email-link",
-      request,
-      {
-        successRedirect,
-      }
-    );
-  } else {
-    await sendLoginAttemptEmail({ emailAddress: normalizedEmail });
-    console.log("unknown email!");
-    return redirect(successRedirect);
-  }
+  return authenticator.authenticate(
+    process.env.SKIP_AUTH === "true" ? "form" : "email-link",
+    request,
+    {
+      successRedirect,
+    }
+  );
 };
 
 export default function Anmelden() {
@@ -146,7 +141,7 @@ export default function Anmelden() {
           </ErrorBar>
         )}
 
-        <Headline>Melden Sie sich in Ihrem Nutzerkonto an</Headline>
+        <Headline>Willkomen zurück!</Headline>
         <Hint className="mb-40">
           Die Weiterbearbeitung ist nur mit dem Gerät und dem Browser möglich,
           mit dem das Konto erstellt wurde. Der Grund: Ihre Formulardaten werden
@@ -163,6 +158,30 @@ export default function Anmelden() {
                 label="E-Mail-Adresse"
                 error={t(errors?.email)}
               />
+              <Help>
+                <ul className="list-disc px-16">
+                  <li>
+                    Nutzen Sie die E-Mail Adresse, mit der Sie sich{" "}
+                    <strong>registriert</strong> haben
+                  </li>
+                  <li>
+                    Prüfen Sie die eingegebene Adresse auf Tippfehler und die
+                    richtige Schreibweise
+                  </li>
+                  {/* no article yet <li>
+                    Wenn Sie Ihr Konto länger als 4 Monate nicht genutzt haben,
+                    wurde es gelöscht. Was Sie jetzt tun können, lesen Sie in
+                    unserem{" "}
+                    <a
+                      href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/"
+                      className="underline font-bold"
+                      target="_blank"
+                    >
+                      Hilfebereich
+                    </a>
+                  </li> */}
+                </ul>
+              </Help>
             </div>
             <Button
               data-testid="submit"
@@ -170,17 +189,35 @@ export default function Anmelden() {
               disabled={isSubmitting}
               className="mb-32"
             >
-              Login Link senden
+              Anmelde-Link senden
             </Button>
-            <p>Sie sind das erste Mal hier?</p>
-            <p>
-              Hier können Sie die{" "}
-              <a href="/pruefen/start" className="underline text-blue-800">
-                Grundsteuererklärung starten
-              </a>
-              .
-            </p>
           </Form>
+        </div>
+        <div className="mb-56 text-18">
+          <p className="mb-8">
+            Hier können Sie die Registrierung für ein neues Nutzerkonto starten.
+          </p>
+          <a
+            href="/pruefen/start"
+            className="underline text-blue-800 font-bold"
+          >
+            Neues Konto erstellen
+          </a>
+        </div>
+
+        <div className="mb-192 text-18">
+          {/* no article yet
+          <p className="mb-8">
+            Keine Adresse funktioniert? In unserem Hilfebereich finden Sie einen
+            Artikel mit Lösungsvorschlägen.
+          </p>
+          <a
+            href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/"
+            className="underline text-blue-800 font-bold"
+            target="_blank"
+          >
+            Zum Hilfebereich
+          </a> */}
         </div>
       </ContentContainer>
     </LoggedOutLayout>

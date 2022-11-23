@@ -154,40 +154,6 @@ export const sendMagicLinkEmail: SendEmailFunction<SessionUser> = async (
   });
 };
 
-export const sendLoginAttemptEmail = async (options: {
-  emailAddress: string;
-}) => {
-  const subject =
-    "Versuchte Anmeldung bei Grundsteuererklärung für Privateigentum";
-
-  const registerUrl =
-    "https://www.grundsteuererklaerung-fuer-privateigentum.de/pruefen/start";
-
-  const textContent = textGreetings
-    .concat([
-      "Mit dieser E-Mail-Adresse wurde eine Anmeldung bei Grundsteuererklärung für Privateigentum angefordert. Bitte registrieren Sie sich zunächst. Nutzen Sie dazu den folgenden Link:",
-      "",
-      registerUrl,
-    ])
-    .concat(textFooter)
-    .join("\n");
-
-  const htmlContent = htmlGreetings
-    .concat([
-      "<p>Mit dieser E-Mail-Adresse wurde eine Anmeldung bei Grundsteuererklärung für Privateigentum angefordert. Bitte registrieren Sie sich zunächst. Klicken Sie dazu auf den folgenden Link:</p>",
-      `<p><strong><a href="${registerUrl}">Registrieren bei „Grundsteuererklärung für Privateigentum“</a></strong></p>`,
-    ])
-    .concat(htmlFooter)
-    .join("");
-
-  await sendToSendinblue({
-    to: options.emailAddress,
-    subject,
-    textContent,
-    htmlContent,
-  });
-};
-
 export const getStatus = async (
   hashedMessageId: string
 ): Promise<EmailStatus | null> => {

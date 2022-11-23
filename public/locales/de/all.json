@@ -110,7 +110,8 @@
     "elsterChars": "Das Feld enthält ein Zeichen, das nicht unterstützt wird.",
     "required": "Bitte füllen Sie dieses Feld aus.",
     "email": {
-      "wrongFormat": "Bitte überprüfen Sie die Schreibweise der E-Mail-Adresse."
+      "wrongFormat": "Bitte überprüfen Sie die Schreibweise der E-Mail-Adresse.",
+      "unknown": "Die eingegebene E-Mail-Adresse kann keinem Konto zugeordnet werden."
     },
     "onlyDecimal": "Darf nur Ziffern beinhalten",
     "isDate": "Kein valides Datenformat. Benötigtes Format: TT.MM.JJJJ",

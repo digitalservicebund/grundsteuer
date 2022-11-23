@@ -44,6 +44,13 @@ describe("/anmelden action", () => {
         },
         errors: { email: "errors.email.wrongFormat" },
       },
+      {
+        description: "email is unknown",
+        formData: {
+          email: "user@example.com",
+        },
+        errors: { email: "errors.email.unknown" },
+      },
     ];
 
     test.each(cases)(
@@ -53,16 +60,5 @@ describe("/anmelden action", () => {
         expect(await action(args)).toEqual({ errors });
       }
     );
-  });
-
-  it("Succeeds with correct mail address", async () => {
-    const args = await mockActionArgs({
-      formData: {
-        email: "user@example.de",
-      },
-      context: {},
-    });
-    const response = await action(args);
-    expect(response.status).toEqual(302);
   });
 });
