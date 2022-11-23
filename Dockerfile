@@ -7,7 +7,7 @@ ENV APP_VERSION=$COMMIT_SHA
 WORKDIR /src
 # Required files are whitelisted in dockerignore
 COPY . ./
-RUN npm set-script prepare "" && npm ci && npm run build && npm prune --production && \
+RUN npm pkg delete scripts.prepare && npm ci && npm run build && npm prune --production && \
     curl https://dbs-download.obs.otc.t-systems.com/rds/ca-bundle.pem -o /opt/rds-ca-bundle.pem
 
 FROM node:16.18.1-alpine3.16
