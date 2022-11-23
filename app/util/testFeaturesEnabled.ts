@@ -1,7 +1,5 @@
-import env from "~/env";
-
-export const testFeaturesEnabled = (email?: string) => {
-  if (env.TEST_FEATURES_ENABLED) return true;
+export const testFeaturesEnabled = (email?: string): boolean => {
+  if (process.env.TEST_FEATURES_ENABLED === "true") return true;
   if (email) return /@digitalservice.bund.de/.test(email);
   return false;
 };

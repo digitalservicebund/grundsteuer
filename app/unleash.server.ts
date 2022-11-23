@@ -1,17 +1,17 @@
 import { Unleash, UnleashConfig } from "unleash-client";
-import env from "~/env";
 
 let unleash: Unleash;
 
 const unleashConfig: UnleashConfig = {
-  url: `${env.UNLEASH_HOST}/api/`,
+  url: process.env.UNLEASH_HOST + "/api/",
   appName: "grundsteuer",
-  environment: env.APP_ENV === "production" ? "production" : "development",
+  environment:
+    process.env.APP_ENV === "production" ? "production" : "development",
   customHeaders: {
-    Authorization: env.UNLEASH_API_TOKEN,
+    Authorization: process.env.UNLEASH_API_TOKEN as string,
   },
   disableMetrics: true,
-  refreshInterval: env.UNLEASH_REFRESH_INTERVAL,
+  refreshInterval: Number(process.env.UNLEASH_REFRESH_INTERVAL) || 15000,
 };
 
 declare global {
@@ -19,7 +19,7 @@ declare global {
   var __unleash: Unleash | undefined;
 }
 
-if (env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production") {
   unleash = new Unleash(unleashConfig);
 } else {
   if (!global.__unleash) {

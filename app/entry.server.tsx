@@ -8,16 +8,13 @@ import { RemixServer } from "@remix-run/react";
 import { resolve } from "node:path";
 import * as Sentry from "@sentry/remix";
 import { db } from "~/db.server";
-import env from "~/env";
 
-if (env.SENTRY_DSN) {
-  Sentry.init({
-    dsn: env.SENTRY_DSN,
-    environment: env.APP_ENV,
-    release: env.APP_VERSION,
-    integrations: [new Sentry.Integrations.Prisma({ client: db })],
-  });
-}
+Sentry.init({
+  dsn: process.env.SENTRY_DSN,
+  environment: process.env.APP_ENV,
+  release: process.env.APP_VERSION,
+  integrations: [new Sentry.Integrations.Prisma({ client: db })],
+});
 
 export default async function handleRequest(
   request: Request,

@@ -10,7 +10,6 @@ import {
 } from "~/routes/api/sendinblue";
 import { Feature, redis } from "./redis/redis.server";
 import * as crypto from "crypto";
-import env from "~/env";
 
 const SENDINBLUE_API_CONSIDERED_SLOW_MS = 2000;
 
@@ -22,10 +21,10 @@ export const sendToSendinblue = async (options: {
 }) => {
   // send emails only on production system or when using a digitalservice email address
   if (
-    env.APP_ENV === "production" ||
+    process.env.APP_ENV === "production" ||
     options.to.match(/@digitalservice.bund.de/)
   ) {
-    const sendinblueApiKey = env.SENDINBLUE_API_KEY;
+    const sendinblueApiKey = process.env.SENDINBLUE_API_KEY;
     const client = sdk.ApiClient.instance;
     const apiKey = client.authentications["api-key"];
     apiKey.apiKey = sendinblueApiKey;

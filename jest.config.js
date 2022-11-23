@@ -8,7 +8,6 @@ module.exports = {
   },
   testPathIgnorePatterns: ["<rootDir>/test/e2e"],
   setupFiles: [
-    "dotenv/config",
     "<rootDir>/private/jest/setup.ts",
     "<rootDir>/private/jest/setEnvVars.js",
   ],

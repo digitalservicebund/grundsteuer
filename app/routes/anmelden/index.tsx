@@ -37,7 +37,6 @@ import { validateEmail } from "~/domain/validation/stringValidation";
 import * as crypto from "crypto";
 import { flags } from "~/flags.server";
 import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
-import env from "~/env";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -103,13 +102,13 @@ export const action: ActionFunction = async ({ request, context }) => {
     .createHash("sha1")
     .update(normalizedEmail)
     .digest("hex")}`;
-  if (env.SKIP_AUTH) {
+  if (process.env.SKIP_AUTH === "true") {
     successRedirect = "/formular";
   }
 
   if (await userExists(normalizedEmail)) {
     return authenticator.authenticate(
-      env.SKIP_AUTH ? "form" : "email-link",
+      process.env.SKIP_AUTH === "true" ? "form" : "email-link",
       request,
       {
         successRedirect,

@@ -4,9 +4,8 @@ import * as cron from "./app/cron.server";
 import { db } from "./app/db.server";
 import * as user from "./app/domain/user";
 import { getClient, redis } from "./app/redis/redis.server";
-import env from "~/env";
 
-const { APP_ENV, APP_VERSION } = env;
+const { APP_ENV, APP_VERSION } = process.env;
 
 if (APP_ENV === "production") {
   console.warn(`
@@ -32,7 +31,7 @@ console.log(`
 const replServer = repl.start({ prompt: `${APP_ENV}> ` });
 
 const initializeContext = (context: any) => {
-  context.env = env;
+  context.env = process.env;
   context.lodash = _;
   context.db = db;
   context.user = user;
@@ -56,7 +55,6 @@ replServer.defineCommand("examples", {
   Some examples to get you started:
 
   > env
-  > process.env
   > lodash.times(10)
   > await user.findUserByEmail("foo@bar.com")
   > await user.deleteUserByEmail("foo@bar.com")

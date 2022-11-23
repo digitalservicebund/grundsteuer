@@ -1,6 +1,6 @@
 import { db } from "~/db.server";
 import { encryptData } from "~/audit/crypto";
-import env from "~/env";
+import invariant from "tiny-invariant";
 
 export enum AuditLogEvent {
   USER_REGISTERED = "user_registered",
@@ -78,6 +78,10 @@ export const saveAuditLog = async (data: AuditLogData) => {
 };
 
 export const encryptAuditLogData = (data: AuditLogData) => {
-  const publicKey = Buffer.from(env.AUDIT_PUBLIC_KEY);
+  invariant(
+    process.env.AUDIT_PUBLIC_KEY,
+    "Environemnt variable AUDIT_PUBLIC_KEY is not set."
+  );
+  const publicKey = Buffer.from(process.env.AUDIT_PUBLIC_KEY);
   return encryptData(JSON.stringify(data), publicKey);
 };

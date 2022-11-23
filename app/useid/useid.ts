@@ -1,12 +1,16 @@
 import invariant from "tiny-invariant";
 import { DataGroup, Place, UseIdAPI } from "useid-eservice-sdk";
-import env from "~/env";
 
 let useidAPIConnection: UseIdAPI;
 
 const getUseidApi = () => {
   if (!useidAPIConnection) {
-    useidAPIConnection = new UseIdAPI(env.USEID_API_KEY, env.USEID_DOMAIN);
+    invariant(process.env.USEID_API_KEY, "USEID_API_KEY is not set.");
+    invariant(process.env.USEID_DOMAIN, "USEID_DOMAIN is not set.");
+    useidAPIConnection = new UseIdAPI(
+      process.env.USEID_API_KEY,
+      process.env.USEID_DOMAIN
+    );
   }
   return useidAPIConnection;
 };

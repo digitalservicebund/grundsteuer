@@ -2,7 +2,7 @@ import * as crypto from "crypto";
 import { createCookie } from "@remix-run/node";
 import { useSecureCookie } from "./util/useSecureCookie";
 import { uniq } from "lodash";
-import env from "~/env";
+import invariant from "tiny-invariant";
 
 const COOKIE_NAME = "remember_logged_in_emails";
 
@@ -10,6 +10,11 @@ const getHashedEmail = (email: string) =>
   crypto.createHash("sha1").update(email).digest("hex");
 
 const getRememberCookie = () => {
+  invariant(
+    typeof process.env.FORM_COOKIE_SECRET === "string",
+    "environment variable FORM_COOKIE_SECRET is not set"
+  );
+
   const MAX_AGE_IN_MONTHS = 4;
 
   return createCookie(COOKIE_NAME, {
@@ -18,7 +23,7 @@ const getRememberCookie = () => {
     httpOnly: true,
     sameSite: "lax",
     secure: useSecureCookie,
-    secrets: [env.FORM_COOKIE_SECRET],
+    secrets: [process.env.FORM_COOKIE_SECRET],
   });
 };
 

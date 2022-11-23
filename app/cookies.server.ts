@@ -1,8 +1,8 @@
 import { Cookie, createCookie } from "@remix-run/node";
 import { useSecureCookie } from "~/util/useSecureCookie";
+import invariant from "tiny-invariant";
 import crypto from "crypto";
 import { GrundModel } from "~/domain/steps/index.server";
-import env from "~/env";
 
 const KEY_VERSION = "v01";
 export const COOKIE_ENCODING = "base64";
@@ -10,13 +10,18 @@ export const COOKIE_ENCODING = "base64";
 type PruefenCookieData = any;
 
 const getPruefenStateCookie = () => {
+  invariant(
+    typeof process.env.FORM_COOKIE_SECRET === "string",
+    "environment variable FORM_COOKIE_SECRET is not set"
+  );
+
   return createCookie("pruefen_state", {
     path: "/",
     maxAge: 604_800 * 13, // 13 weeks (1/4 year)
     httpOnly: true,
     sameSite: "lax",
     secure: useSecureCookie,
-    secrets: [env.FORM_COOKIE_SECRET],
+    secrets: [process.env.FORM_COOKIE_SECRET],
   });
 };
 const pruefenStateCookie = getPruefenStateCookie();
@@ -67,6 +72,10 @@ export const createFormDataCookie: CreateFormDataCookieFunction = ({
   userId,
   index,
 }) => {
+  invariant(
+    typeof process.env.FORM_COOKIE_SECRET === "string",
+    "environment variable FORM_COOKIE_SECRET is not set"
+  );
   const name = createFormDataCookieName({ userId, index });
   return createCookie(name, {
     path: "/",
@@ -74,14 +83,14 @@ export const createFormDataCookie: CreateFormDataCookieFunction = ({
     httpOnly: true,
     sameSite: "strict",
     secure: useSecureCookie,
-    secrets: [env.FORM_COOKIE_SECRET],
+    secrets: [process.env.FORM_COOKIE_SECRET],
   });
 };
 
 export const encryptCookie = (
   cookie: { userId: string; data?: GrundModel } | PruefenCookieData
 ) => {
-  const key = Buffer.from(env.FORM_COOKIE_ENC_SECRET);
+  const key = Buffer.from(process.env.FORM_COOKIE_ENC_SECRET as string);
   const iv = crypto.randomBytes(16);
   const cipher = crypto.createCipheriv("aes-256-gcm", key, iv);
   const stringifiedData = JSON.stringify(cookie);
@@ -98,7 +107,7 @@ export const encryptCookie = (
 export const decryptCookie = (
   encryptedCookie: Buffer
 ): { userId: string; data?: GrundModel } | PruefenCookieData => {
-  const key = Buffer.from(env.FORM_COOKIE_ENC_SECRET);
+  const key = Buffer.from(process.env.FORM_COOKIE_ENC_SECRET as string);
   // ignoring key version for now since no key rotation is implemented
   const iv = encryptedCookie.subarray(3, 16 + 3);
   const ciphertext = encryptedCookie.subarray(

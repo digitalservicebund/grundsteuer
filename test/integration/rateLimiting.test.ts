@@ -4,24 +4,18 @@ import {
 } from "~/redis/rateLimiting.server";
 import { Feature, redis } from "~/redis/redis.server";
 
-jest.mock("~/env", () => {
-  const originalModule = jest.requireActual("~/env");
-  return {
-    __esModule: true,
-    default: {
-      ...originalModule.default,
-      SKIP_RATELIMIT: false,
-    },
-  };
-});
-
 describe("ratelimiting", () => {
   const currentDate = Date.UTC(2022, 0, 1, 0, 0, 12);
   const mockedCurrentSeconds = new Date(currentDate).getSeconds().toString();
   const mockDateOneMinuteLater = new Date(Date.UTC(2022, 0, 1, 0, 1, 12));
   const mockDate = new Date(currentDate);
+  let originalSkipRatelimitValue: string;
 
   beforeAll(() => {
+    if (process.env.SKIP_RATELIMIT) {
+      originalSkipRatelimitValue = process.env.SKIP_RATELIMIT;
+      process.env.SKIP_RATELIMIT = "false";
+    }
     const actualNowImplementation = Date.now;
     jest
       .spyOn(global, "Date")
@@ -30,6 +24,9 @@ describe("ratelimiting", () => {
   });
 
   afterAll(async () => {
+    if (originalSkipRatelimitValue) {
+      process.env.SKIP_RATELIMIT = "true";
+    }
     jest.restoreAllMocks();
   });
 

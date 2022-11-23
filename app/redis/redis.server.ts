@@ -1,5 +1,4 @@
 import Redis from "ioredis";
-import env from "~/env";
 
 export enum Feature {
   MESSAGE_ID = "email",
@@ -17,7 +16,7 @@ declare global {
 
 export function getClient() {
   if (!global.ioredis) {
-    global.ioredis = new Redis(env.REDIS_URL);
+    global.ioredis = new Redis(process.env.REDIS_URL as string);
     console.log("Redis connection opened");
   }
   return global.ioredis;
