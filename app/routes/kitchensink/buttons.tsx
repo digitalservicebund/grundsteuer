@@ -172,6 +172,10 @@ export default function KitchenSinkButtons() {
         Button is a Remix Link
       </Button>
       <br />
+      <Button size="medium" to="/" className="mb-4" disabled>
+        Button is a disabled Remix Link
+      </Button>
+      <br />
       <Button size="small" disabled icon={<CloseIcon />} className="mb-4">
         Button is a button
       </Button>

@@ -15,9 +15,13 @@ export interface ButtonProps
 
 export interface ButtonLinkProps
   extends React.ComponentPropsWithoutRef<"a">,
-    VisualProps {}
+    VisualProps {
+  disabled?: boolean;
+}
 
-export interface ButtonRemixLinkProps extends LinkProps, VisualProps {}
+export interface ButtonRemixLinkProps extends LinkProps, VisualProps {
+  disabled?: boolean;
+}
 
 function Button(props: ButtonProps): JSX.Element;
 function Button(props: ButtonLinkProps): JSX.Element;
@@ -37,7 +41,12 @@ function Button(props: any) {
   const iconLeft = children && icon;
   const iconOnly = !children && icon;
 
+  const isFakeDisabledButton =
+    ((props as ButtonLinkProps).href || (props as ButtonRemixLinkProps).to) &&
+    props.disabled;
+
   const Component =
+    (isFakeDisabledButton && "button") ||
     ((props as ButtonLinkProps).href && "a") ||
     ((props as ButtonRemixLinkProps).to && Link) ||
     "button";
@@ -98,8 +107,10 @@ function Button(props: any) {
     ? React.cloneElement(icon, { className: iconClassName })
     : null;
 
+  const restProps = isFakeDisabledButton ? { disabled: true } : rest;
+
   return (
-    <Component className={buttonClassName} {...rest}>
+    <Component className={buttonClassName} {...restProps}>
       {iconLeftElement}
       {children ? <div className={textClassName}>{children}</div> : ""}
       {iconRightElement}
