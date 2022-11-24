@@ -587,7 +587,7 @@
     },
     "garagen": {
       "headline": "Besitzen Sie eine oder mehrere Garagen?",
-      "description": "Überdacht und mit festen Wänden: Hiermit sind alle Garagen- und Tiefgaragen gemeint. Egal ob am Haus oder auf einem Miteigentums-Garagengrundstück. Carports werden nicht berücksichtigt.",
+      "description": "Überdacht und mit festen Wänden: Hiermit sind alle Garagen- und Tiefgaragen gemeint. Egal ob am Haus, auf einem Miteigentums-Garagengrundstück oder verbunden mit dem Sondernutzungsrecht. Carports werden nicht berücksichtigt.",
       "fields": {
         "hasGaragen": {
           "options": {

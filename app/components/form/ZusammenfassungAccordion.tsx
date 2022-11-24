@@ -207,6 +207,8 @@ const resolveMiteigentumAuswahlWohnung: FieldResolver = (value) => {
       return "Kein weiteres Miteigentum an einem Grundstück";
     case "garage":
       return "Eigentumswohnung und Garage/ Tiefgaragenstellplatz";
+    case "sondernutzung":
+      return "Eigentumswohnung mit Sondernutzungsrechten";
     case "mixed":
       return "Miteigentum an einem anderen Grundstück";
     default:
