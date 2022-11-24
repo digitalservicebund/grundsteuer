@@ -19,6 +19,7 @@ import {
   MiteigentumAuswahlWohnungGarageHelp,
   MiteigentumAuswahlWohnungMixedHelp,
   MiteigentumAuswahlWohnungNoneHelp,
+  MiteigentumAuswahlWohnungSondernutzungHelp,
 } from "~/components/form/help/grundstueck/miteigentum/MiteigentumAuswahlWohnung";
 import {
   MiteigentumAuswahlFlurstueckFalseHelp,
@@ -41,6 +42,7 @@ export const helpComponents = {
       miteigentumTyp: {
         none: MiteigentumAuswahlWohnungNoneHelp,
         garage: MiteigentumAuswahlWohnungGarageHelp,
+        sondernutzung: MiteigentumAuswahlWohnungSondernutzungHelp,
         mixed: MiteigentumAuswahlWohnungMixedHelp,
       },
     },

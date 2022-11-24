@@ -24,7 +24,7 @@ describe("miteigentum", () => {
     cy.contains("legend", "Miteigentumsanteile");
     cy.get(`label[for=miteigentumTyp-${typ}]`).click();
     cy.get("#nextButton").click();
-    if (typ === "none" || typ === "garage") {
+    if (typ === "none" || typ === "garage" || typ === "sondernutzung") {
       cy.url().should("include", "/formular/grundstueck/miteigentumWohnung");
       cy.contains(
         "h1",
@@ -64,6 +64,21 @@ describe("miteigentum", () => {
     cy.get("#wirtschaftlicheEinheitZaehler").clear().type("2");
     cy.get("#wirtschaftlicheEinheitNenner").clear().type("3");
     cy.get("#grundbuchblattnummer").clear().type("456");
+    cy.get("#nextButton").click();
+
+    cy.url().should("include", "/formular/grundstueck/anzahl");
+    cy.get("#anzahl").select("1");
+    cy.get("#nextButton").click();
+
+    cy.url().should("include", "/formular/grundstueck/flurstueck/1/angaben");
+    cy.get("#grundbuchblattnummer").should("not.exist");
+  });
+
+  it("should not display grundbuchblattnummer per flurstueck on miteigentum wohnung option sondernutzung", () => {
+    selectMiteigentumWohnung({ miteigentumTyp: "sondernutzung" });
+    cy.get("#wirtschaftlicheEinheitZaehler").clear().type("1");
+    cy.get("#wirtschaftlicheEinheitNenner").clear().type("2");
+    cy.get("#grundbuchblattnummer").clear().type("123");
     cy.get("#nextButton").click();
 
     cy.url().should("include", "/formular/grundstueck/anzahl");

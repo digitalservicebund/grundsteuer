@@ -1502,10 +1502,13 @@
         "miteigentumTyp": {
           "options": {
             "none": {
-              "label": "Ich besitze eine Eigentumswohnung. Nur diese und keinen weiteren Miteigentumsanteil. Mir liegt nur ein Grundbuchauszug vor."
+              "label": "Ich besitze eine Eigentumswohnung. Nur diese und <bold>keinen weiteren Miteigentumsanteil.</bold> Mir liegt nur ein Grundbuchauszug vor."
             },
             "garage": {
-              "label": "Ich besitze eine Eigentumswohnung und einen weiteren Miteigentumsanteil an einem Garagenstellplatz oder Tiefgaragenstellplatz. Beides liegt auf demselben Grundstück."
+              "label": "Ich besitze eine Eigentumswohnung und einen <bold>weiteren Miteigentumsanteil</bold> an einem <bold>Garagenstellplatz oder Tiefgaragenstellplatz.</bold> Beides liegt auf demselben Grundstück."
+            },
+            "sondernutzung": {
+              "label": "Ich besitze eine Eigentumswohnung und habe <bold>Sondernutzungsrechte</bold> zum Beispiel an einer Garage. Mir liegt nur ein Grundbuchauszug mit einem Miteigentumsanteil vor."
             },
             "mixed": {
               "label": "Ich besitze eine Eigentumswohnung und weitere Flurstücke — mit Miteigentumsanteilen oder auch ohne. Mir liegt ein oder mehrere Grundbuchauszüge vor."

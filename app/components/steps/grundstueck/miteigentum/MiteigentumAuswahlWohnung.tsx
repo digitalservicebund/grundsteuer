@@ -7,6 +7,7 @@ import { getFieldProps } from "~/util/getFieldProps";
 import miteigentumNone from "~/assets/images/miteigentum/miteigentum-none.svg";
 import miteigentumGarage from "~/assets/images/miteigentum/miteigentum-garage.svg";
 import miteigentumMixed from "~/assets/images/miteigentum/miteigentum-mixed.svg";
+import miteigentumSondernutzung from "~/assets/images/miteigentum/miteigentum-sondernutzung.svg";
 import invariant from "tiny-invariant";
 
 const MiteigentumAuswahlWohnung: StepComponentFunction = ({
@@ -25,6 +26,10 @@ const MiteigentumAuswahlWohnung: StepComponentFunction = ({
     {
       image: miteigentumGarage,
       imageAltText: "Bildbeispiel für eine Wohnung mit zugehöriger Garage",
+    },
+    {
+      image: miteigentumSondernutzung,
+      imageAltText: "Bildbeispiel für eine Wohnung mit Sondernutzungsrechten",
     },
     {
       image: miteigentumMixed,

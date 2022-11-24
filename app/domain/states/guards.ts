@@ -32,11 +32,12 @@ const isHausOrUnbebaut: Condition = (context) => {
   );
 };
 
+// sondernutzung is treated like "none"
 const wohnungHasMiteigentumNone: Condition = (context) => {
-  return (
-    context?.grundstueck?.typ?.typ === "wohnungseigentum" &&
-    context?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp === "none"
-  );
+  if (context?.grundstueck?.typ?.typ !== "wohnungseigentum") return false;
+  const miteigentumTyp =
+    context?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp;
+  return miteigentumTyp === "none" || miteigentumTyp === "sondernutzung";
 };
 
 const wohnungHasMiteigentumGarage: Condition = (context) => {

@@ -4,6 +4,7 @@ import DefaultHelpContent, {
 import grundbuchImgNone from "~/assets/images/help/miteigentum/auswahl-wohnung-none.png";
 import grundbuchImgGarage1 from "~/assets/images/help/miteigentum/auswahl-wohnung-garage-1.png";
 import grundbuchImgGarage2 from "~/assets/images/help/miteigentum/auswahl-wohnung-garage-2.png";
+import grundbuchImgSondernutzung from "~/assets/images/help/miteigentum/auswahl-wohnung-sondernutzung.png";
 import grundbuchImgMixed from "~/assets/images/help/miteigentum/auswahl-wohnung-mixed.png";
 
 export const MiteigentumAuswahlWohnungNoneHelp: HelpComponentFunction = () => {
@@ -47,6 +48,27 @@ export const MiteigentumAuswahlWohnungGarageHelp: HelpComponentFunction =
             source: grundbuchImgGarage2,
             altText:
               "Bildbeispiel eines Grundbuchauszugs eines Garagen- oder Tiefgaragenstellplatzes mit dem hervorgehobenen Wort Miteigentumsanteil",
+          },
+        ]}
+      />
+    );
+  };
+
+export const MiteigentumAuswahlWohnungSondernutzungHelp: HelpComponentFunction =
+  () => {
+    return (
+      <DefaultHelpContent
+        elements={[
+          {
+            type: "paragraph",
+            value:
+              "Sie haben eine Eigentumswohnung. An einer Garage oder anderen Fläche haben Sie Sondernutzungsrechte.",
+          },
+          {
+            type: "image",
+            source: grundbuchImgSondernutzung,
+            altText:
+              "Bildbeispiel eines Grundbuchauszugs einer Eigentumswohnung mit einem Miteigentumsanteil und dem hervorgehobenen Wort Sondernutzungsrecht",
           },
         ]}
       />
