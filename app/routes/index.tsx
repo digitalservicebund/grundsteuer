@@ -11,6 +11,7 @@ import {
 } from "~/components";
 import germanyMapImage from "~/assets/images/germany-map.svg";
 import { HomepageHeader } from "~/components/navigation/HomepageHeader";
+import TeaserBox from "~/components/TeaserBox";
 import HelpInfoBox from "~/components/HelpInfoBox";
 import Edit from "~/components/icons/mui/Edit";
 import ErrorBanner from "~/components/ErrorBanner";
@@ -91,6 +92,10 @@ export default function Index() {
             >
               {t("homepage.continue.buttonText")}
             </Button>
+          </div>
+
+          <div className="mb-64 md:mb-80 lg:mb-96">
+            <TeaserBox />
           </div>
 
           <div className="mb-64 md:mb-80 lg:mb-96">
