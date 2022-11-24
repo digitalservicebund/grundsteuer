@@ -69,7 +69,7 @@ describe("Order Enforcing", () => {
 
 describe("Double-check with returning user before starting", () => {
   it("Redirects to /pruefen/nachfrage", () => {
-    cy.setCookie("remember_logged_in_emails", "<hashed_emails>");
+    cy.setCookie("login", "1");
     cy.visit("/pruefen/start");
     cy.url().should("include", "/pruefen/nachfrage");
     cy.get("[href='/pruefen/start?continue=1']").click();
