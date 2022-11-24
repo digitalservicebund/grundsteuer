@@ -1,4 +1,5 @@
 import UhrIcon from "~/assets/images/icon_uhr.svg";
+import Button from "~/components/Button";
 import { useTranslation } from "react-i18next";
 
 export default function TeaserBox() {
@@ -20,7 +21,18 @@ export default function TeaserBox() {
         <h2 className="text-20 leading-26 mb-24">
           {t("homepage.teaser.headline")}
         </h2>
-        <p className="grow mb-16 lg:mb-0">{t("homepage.teaser.text")}</p>
+        <p className="grow mb-16 lg:mb-12">{t("homepage.teaser.text")}</p>
+        <Button
+          size="large"
+          look={"tertiary"}
+          href={
+            "https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/28-fragen-zur-abgabefrist-31-januar-2023"
+          }
+          target={"_blank"}
+          className={"w-288"}
+        >
+          {t("homepage.teaser.linkText")}
+        </Button>
       </div>
     </div>
   );
