@@ -13,9 +13,9 @@ export default function TeaserBox() {
       <img
         src={UhrIcon}
         alt="Person sitzt vor grüner Uhr und stellt diese auf 8 Uhr 18 ein."
-        className="relative w-[160px] md:w-[200px] lg:w-[230px] lg:mr-48 mb-32 lg:mb-0"
-        width={230}
-        height={217}
+        className="relative w-[160px] h-[150px] md:w-[200px] md:h-[187px] lg:w-[222px] lg:h-[208px] lg:mr-48 mb-32 lg:mb-0"
+        width={222}
+        height={208}
       />
       <div className="flex flex-col">
         <h2 className="text-20 leading-26 mb-24">
