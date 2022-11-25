@@ -141,7 +141,7 @@ export default function Anmelden() {
           </ErrorBar>
         )}
 
-        <Headline>Willkomen zurück!</Headline>
+        <Headline>Willkommen zurück!</Headline>
         <Hint className="mb-40">
           Die Weiterbearbeitung ist nur mit dem Gerät und dem Browser möglich,
           mit dem das Konto erstellt wurde. Der Grund: Ihre Formulardaten werden
