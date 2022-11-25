@@ -609,11 +609,17 @@ export default function FaqAccordion() {
       content: (
         <>
           <p>
-            Die Abgabefrist läuft nach derzeitigem Stand bis zum 31. Januar
-            2023.
-            <br />
-            Die Länder werden die rechtzeitige und vollständige Erklärungsabgabe
-            mit weiteren Informationen unterstützen.
+            Als Eigentümer:in sind Sie dazu verpflichtet, Ihre
+            Grundsteuererklärung bis zum 31. Januar 2023 abgeben. Weitere
+            Informationen finden Sie hier:{" "}
+            <a
+              className={"underline"}
+              href={
+                "https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/28-fragen-zur-abgabefrist-31-januar-2023"
+              }
+            >
+              Abgabefrist
+            </a>
           </p>
         </>
       ),
