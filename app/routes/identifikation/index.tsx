@@ -24,6 +24,7 @@ import Bolt from "~/components/icons/mui/Bolt";
 import { pageTitle } from "~/util/pageTitle";
 import { flags } from "~/flags.server";
 import { isMobileUserAgent } from "~/util/isMobileUserAgent";
+import TeaserIdentCard from "~/components/TeaserIdentCard";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation mit Ausweis") };
@@ -89,6 +90,7 @@ export default function IdentifikationIndex() {
           url="/ekona"
           className="mb-16"
         />
+        <TeaserIdentCard className="mb-16" />
         <IdentCard
           image={ident2}
           imageAltText="Bildbeispiel Freischaltcode"
