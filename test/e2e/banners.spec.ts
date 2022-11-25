@@ -318,24 +318,6 @@ describe("error banners", () => {
       cy.get(bannerId).should("exist");
     });
 
-    it("should have no effect on /anmelden", () => {
-      cy.visit("/anmelden");
-      cy.url().should("include", "/anmelden");
-      cy.get(bannerId).should("not.exist");
-    });
-
-    it("should have no effect on /registrieren", () => {
-      cy.visit("/registrieren");
-      cy.url().should("include", "/registrieren");
-      cy.get(bannerId).should("not.exist");
-    });
-
-    it("should have not effect on /pruefen", () => {
-      cy.visit("/pruefen/start");
-      cy.url().should("include", "/pruefen/start");
-      cy.get(bannerId).should("not.exist");
-    });
-
     it("should have no effect on /identifikation", () => {
       cy.login();
       cy.visit("/identifikation");
