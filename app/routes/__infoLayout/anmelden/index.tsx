@@ -18,7 +18,6 @@ import {
   ContentContainer,
   Headline,
   Input,
-  LoggedOutLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 import { commitSession, getSession } from "~/session.server";
@@ -33,10 +32,8 @@ import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { validateRequired } from "~/domain/validation/requiredValidation";
 import { validateEmail } from "~/domain/validation/stringValidation";
 import * as crypto from "crypto";
-import { flags } from "~/flags.server";
 import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
 import Help from "~/components/form/help/Help";
-import DefaultHelpContent from "~/components/form/help/Default";
 
 const validateInputEmail = async (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -62,7 +59,6 @@ export const loader: LoaderFunction = async ({ request }) => {
     {
       csrfToken,
       error,
-      flags: flags.getAllFlags(),
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -125,7 +121,7 @@ export default function Anmelden() {
   const isSubmitting = Boolean(transition.submission);
 
   return (
-    <LoggedOutLayout flags={loaderData.flags}>
+    <ContentContainer>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         {loaderData?.error === "token" && (
@@ -220,6 +216,6 @@ export default function Anmelden() {
           </a> */}
         </div>
       </ContentContainer>
-    </LoggedOutLayout>
+    </ContentContainer>
   );
 }

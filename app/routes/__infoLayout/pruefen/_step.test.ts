@@ -1,7 +1,7 @@
 import { mockActionArgs } from "testUtil/mockActionArgs";
 import * as csrfModule from "~/util/csrf";
 import * as modelModule from "~/domain/model";
-import { action, getMachine } from "~/routes/pruefen/_step";
+import { action, getMachine } from "./_step";
 import { saveToPruefenStateCookie } from "~/cookies.server";
 
 describe("_step action", () => {

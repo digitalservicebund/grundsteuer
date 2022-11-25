@@ -4,13 +4,12 @@ import { useEffect, useState } from "react";
 import invariant from "tiny-invariant";
 import {
   BreadcrumbNavigation,
+  ContentContainer,
   EmailStatus,
-  LoggedOutLayout,
 } from "~/components";
 import { getStatus, getUiStatus } from "~/email.server";
 import { Feature, redis } from "~/redis/redis.server";
 import { pageTitle } from "~/util/pageTitle";
-import { flags } from "~/flags.server";
 
 export const meta: MetaFunction = () => {
   return {
@@ -60,7 +59,6 @@ export const loader: LoaderFunction = async ({ params }) => {
       registrieren: "zurück zur Registrierung",
       anmelden: "zurück zur Anmeldung",
     }[origin],
-    flags: flags.getAllFlags(),
   };
 };
 
@@ -79,7 +77,6 @@ export default function AnmeldenEmail() {
     origin,
     actionPath,
     actionLabel,
-    flags,
   } = data;
 
   useEffect(() => {
@@ -100,7 +97,7 @@ export default function AnmeldenEmail() {
   }, [fetcher]);
 
   return (
-    <LoggedOutLayout flags={flags}>
+    <ContentContainer>
       <BreadcrumbNavigation />
       <EmailStatus
         email={email}
@@ -108,6 +105,6 @@ export default function AnmeldenEmail() {
         actionPath={actionPath}
         actionLabel={actionLabel}
       />
-    </LoggedOutLayout>
+    </ContentContainer>
   );
 }

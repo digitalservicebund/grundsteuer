@@ -1,12 +1,4 @@
-import { useTranslation } from "react-i18next";
 import { LoaderFunction, MetaFunction } from "@remix-run/node";
-import {
-  BmfLogo,
-  Button,
-  ContentContainer,
-  SimplePageLayout,
-} from "~/components";
-import ArrowBackIcon from "~/components/icons/mui/ArrowBack";
 import { pageTitle } from "~/util/pageTitle";
 import { useLoaderData } from "@remix-run/react";
 import { flags } from "~/flags.server";
@@ -22,27 +14,14 @@ export const loader: LoaderFunction = async () => {
 };
 
 export default function Nutzungsbedingungen() {
-  const { t } = useTranslation("all");
   const { useUseid } = useLoaderData();
+
   return (
-    <SimplePageLayout>
-      <Button
-        to="/"
-        look="secondary"
-        icon={<ArrowBackIcon />}
-        className="mb-32"
-      >
-        {t("termsOfUse.backButton")}
-      </Button>
-
-      <div className="mb-32 md:mb-64">
-        <BmfLogo />
-      </div>
-
+    <>
       <h1 className="text-32 leading-40 mb-32 max-w-screen-sm md:text-64 md:leading-68 md:mb-48">
-        {t("termsOfUse.headline")}
+        Nutzungsbedingungen
       </h1>
-      <ContentContainer size="md">
+      <div className="prose prose-xl mb-64">
         <p className="mb-32">Stand: 24.10.2022</p>
         <h2 className="text-24 mb-24 font-bold">Präambel</h2>
         <p>
@@ -715,13 +694,13 @@ export default function Nutzungsbedingungen() {
           Ort ihres gewöhnlichen Aufenthalts, das ohne diese Klausel anzuwenden
           wäre.
         </p>
-        <p className="mb-80">
+        <p>
           Sollten einzelne Klauseln dieser Bedingungen ganz oder teilweise
           unwirksam sein oder werden, so bleiben diese Bedingungen im Übrigen
           wirksam. Im Falle einer solchen Unwirksamkeit wird die unwirksame
           Regelung durch die gesetzliche Bestimmung ersetzt.
         </p>
-      </ContentContainer>
-    </SimplePageLayout>
+      </div>
+    </>
   );
 }

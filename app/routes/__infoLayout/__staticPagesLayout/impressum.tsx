@@ -1,34 +1,17 @@
-import { useTranslation } from "react-i18next";
 import { MetaFunction } from "@remix-run/node";
-import { BmfLogo, Button, SimplePageLayout } from "~/components";
-import ArrowBackIcon from "~/components/icons/mui/ArrowBack";
+import { Link } from "@remix-run/react";
 import { pageTitle } from "~/util/pageTitle";
 import Hint from "~/components/Hint";
-import { Link } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Impressum") };
 };
 
 export default function Impressum() {
-  const { t } = useTranslation("all");
   return (
-    <SimplePageLayout>
-      <Button
-        to="/"
-        look="secondary"
-        icon={<ArrowBackIcon />}
-        className="mb-32"
-      >
-        {t("imprint.backButton")}
-      </Button>
-
-      <div className="mb-32 md:mb-64">
-        <BmfLogo />
-      </div>
-
+    <>
       <h1 className="text-32 leading-40 mb-32 max-w-screen-sm md:text-64 md:leading-68 md:mb-48">
-        {t("imprint.headline")}
+        Impressum
       </h1>
 
       <div className="prose prose-xl mb-64">
@@ -159,6 +142,6 @@ export default function Impressum() {
           <br /> 10969 Berlin
         </p>
       </div>
-    </SimplePageLayout>
+    </>
   );
 }

@@ -40,5 +40,4 @@ export { default as Textarea } from "./form/Textarea";
 export { default as TopNavigation } from "./navigation/TopNavigation";
 export { default as UebersichtStep } from "./form/UebersichtStep";
 export { default as UserLayout } from "./layout/UserLayout";
-export { default as LoggedOutLayout } from "./layout/LoggedOutLayout";
 export { default as SectionLabel } from "./navigation/SectionLabel";

@@ -22,7 +22,6 @@ import {
   Headline,
   Input,
   IntroText,
-  LoggedOutLayout,
   SubHeadline,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
@@ -36,7 +35,6 @@ import Hint from "~/components/Hint";
 import { validateRequired } from "~/domain/validation/requiredValidation";
 import { validateEmail } from "~/domain/validation/stringValidation";
 import * as crypto from "crypto";
-import { flags } from "~/flags.server";
 import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
 
 const validateInputEmail = (normalizedEmail: string) =>
@@ -106,7 +104,6 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json(
     {
       csrfToken,
-      flags: flags.getAllFlags(),
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -213,7 +210,7 @@ export default function Registrieren() {
   const isSubmitting = Boolean(transition.submission);
 
   return (
-    <LoggedOutLayout flags={loaderData.flags}>
+    <ContentContainer>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         <Headline>
@@ -334,6 +331,6 @@ export default function Registrieren() {
           </p>
         </ContentContainer>
       </Form>
-    </LoggedOutLayout>
+    </ContentContainer>
   );
 }

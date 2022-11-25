@@ -1,15 +1,12 @@
-import { LoaderFunction, MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { MetaFunction } from "@remix-run/node";
 import {
   BreadcrumbNavigation,
   Button,
   ContentContainer,
   Headline,
   IntroText,
-  LoggedOutLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
-import { flags } from "~/flags.server";
 
 export const meta: MetaFunction = () => {
   return {
@@ -18,17 +15,9 @@ export const meta: MetaFunction = () => {
   };
 };
 
-export const loader: LoaderFunction = async () => {
-  return {
-    flags: flags.getAllFlags(),
-  };
-};
-
 export default function PruefenNachfrage() {
-  const loaderData = useLoaderData();
-
   return (
-    <LoggedOutLayout flags={loaderData?.flags}>
+    <ContentContainer>
       <BreadcrumbNavigation />
       <ContentContainer size="sm">
         <Headline className="mb-24">
@@ -57,6 +46,6 @@ export default function PruefenNachfrage() {
           Zur Anmeldung im Nutzerkonto
         </Button>
       </ContentContainer>
-    </LoggedOutLayout>
+    </ContentContainer>
   );
 }

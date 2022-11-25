@@ -1,7 +1,4 @@
-import { useTranslation } from "react-i18next";
 import { LoaderFunction, MetaFunction } from "@remix-run/node";
-import { BmfLogo, Button, SimplePageLayout } from "~/components";
-import ArrowBackIcon from "~/components/icons/mui/ArrowBack";
 import { pageTitle } from "~/util/pageTitle";
 import { useLoaderData } from "@remix-run/react";
 import { flags } from "~/flags.server";
@@ -17,25 +14,11 @@ export const loader: LoaderFunction = async () => {
 };
 
 export default function Datenschutz() {
-  const { t } = useTranslation("all");
   const { useUseid } = useLoaderData();
   return (
-    <SimplePageLayout>
-      <Button
-        to="/"
-        look="secondary"
-        icon={<ArrowBackIcon />}
-        className="mb-32"
-      >
-        {t("dataProtection.backButton")}
-      </Button>
-
-      <div className="mb-32 md:mb-64">
-        <BmfLogo />
-      </div>
-
+    <>
       <h1 className="text-32 leading-40 mb-32 max-w-screen-sm md:text-64 md:leading-68 md:mb-48">
-        {t("dataProtection.headline")}
+        Datenschutzerklärung
       </h1>
 
       <div className="prose prose-xl mb-64">
@@ -471,6 +454,6 @@ export default function Datenschutz() {
           </a>
         </p>
       </div>
-    </SimplePageLayout>
+    </>
   );
 }

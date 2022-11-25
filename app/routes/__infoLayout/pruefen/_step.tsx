@@ -17,7 +17,6 @@ import {
   Button,
   ButtonContainer,
   ContentContainer,
-  Footer,
   SectionLabel,
 } from "~/components";
 import { getStepData, setStepData, StepFormData } from "~/domain/model";
@@ -47,12 +46,9 @@ import {
   saveToPruefenStateCookie,
 } from "~/cookies.server";
 import { commitSession, getSession } from "~/session.server";
-import { HomepageHeader } from "~/components/navigation/HomepageHeader";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { useEffect, useState } from "react";
-import ErrorBanner from "~/components/ErrorBanner";
 import { Flags, flags } from "~/flags.server";
-import { useTranslation } from "react-i18next";
 import { rememberCookieExists } from "~/rememberLogin.server";
 
 const PREFIX = "pruefen";
@@ -266,10 +262,9 @@ export type StepComponentFunction = (
 export function Step() {
   const loaderData: LoaderData = useLoaderData();
   const actionData: ActionData = useActionData() as ActionData;
-  const { t } = useTranslation();
   const transition = useTransition();
   const isSubmitting = Boolean(transition.submission);
-  const { i18n, backUrl, currentState, flags } = loaderData;
+  const { i18n, backUrl, currentState } = loaderData;
   const StepComponent =
     _.get(stepComponents, currentState) || FallbackStepComponent;
 
@@ -293,143 +288,120 @@ export function Step() {
 
   return (
     <>
-      <main className="flex-grow mb-56">
-        {flags.sendinblueDown && (
-          <ErrorBanner
-            heading={t("banners.sendinblueDownHeading")}
-            service="sendinblue"
+      <ContentContainer>
+        <div className="bg-white px-16 md:px-80 py-16 md:py-56">
+          <SectionLabel
+            backgroundColor="gray"
+            icon={<Communication />}
+            className="mb-32"
           >
-            <div> {t("banners.sendinblueDownBody")} </div>
-          </ErrorBanner>
-        )}
-        {flags.zammadDown && (
-          <ErrorBanner
-            style="warning"
-            heading={t("banners.zammadDownHeading")}
-            service="zammad"
-          >
-            <div> {t("banners.zammadDownBody")} </div>
-          </ErrorBanner>
-        )}
-        <HomepageHeader skipPruefen={loaderData.weitereErklaerung} />
-        <ContentContainer>
-          <div className="bg-white px-16 md:px-80 py-16 md:py-56">
-            <SectionLabel
-              backgroundColor="gray"
-              icon={<Communication />}
-              className="mb-32"
+            Nutzung prüfen
+          </SectionLabel>
+          <ContentContainer size="sm-md">
+            <Form
+              method="post"
+              className="mb-16"
+              key={currentState}
+              action={
+                loaderData.weitereErklaerung ? "?weitereErklaerung=true" : ""
+              }
             >
-              Nutzung prüfen
-            </SectionLabel>
-            <ContentContainer size="sm-md">
-              <Form
-                method="post"
-                className="mb-16"
-                key={currentState}
-                action={
-                  loaderData.weitereErklaerung ? "?weitereErklaerung=true" : ""
-                }
-              >
-                <CsrfToken value={loaderData.csrfToken} />
-                {headlineIsLegend ? (
-                  <>
-                    {currentState == START_STEP && (
-                      <h1 className="text-30 leading-36 font-bold mb-16">
-                        Prüfen Sie in wenigen Schritten, ob Sie unseren
-                        Online-Dienst nutzen können.
-                      </h1>
-                    )}
-                    <fieldset>
-                      <StepHeadline
-                        i18n={i18n}
-                        testFeaturesEnabled={loaderData.testFeaturesEnabled}
-                        asLegend
-                      />
-                      {actionData?.errors && !isSubmitting && (
-                        <ErrorBarStandard />
-                      )}
-                      <StepComponent {...loaderData} {...actionData} />
-                    </fieldset>
-                  </>
-                ) : (
-                  <>
-                    <StepHeadline i18n={i18n} />
+              <CsrfToken value={loaderData.csrfToken} />
+              {headlineIsLegend ? (
+                <>
+                  {currentState == START_STEP && (
+                    <h1 className="text-30 leading-36 font-bold mb-16">
+                      Prüfen Sie in wenigen Schritten, ob Sie unseren
+                      Online-Dienst nutzen können.
+                    </h1>
+                  )}
+                  <fieldset>
+                    <StepHeadline
+                      i18n={i18n}
+                      testFeaturesEnabled={loaderData.testFeaturesEnabled}
+                      asLegend
+                    />
                     {actionData?.errors && !isSubmitting && (
                       <ErrorBarStandard />
                     )}
                     <StepComponent {...loaderData} {...actionData} />
-                  </>
-                )}
-                <ContentContainer size="sm">
-                  <ButtonContainer>
-                    {!loaderData?.isFinalStep && (
-                      <>
-                        <Button
-                          id="nextButton"
-                          className={backUrl ? "" : "flex-grow-0"}
-                          disabled={isSubmitting}
-                        >
-                          {nextButtonLabel}
+                  </fieldset>
+                </>
+              ) : (
+                <>
+                  <StepHeadline i18n={i18n} />
+                  {actionData?.errors && !isSubmitting && <ErrorBarStandard />}
+                  <StepComponent {...loaderData} {...actionData} />
+                </>
+              )}
+              <ContentContainer size="sm">
+                <ButtonContainer>
+                  {!loaderData?.isFinalStep && (
+                    <>
+                      <Button
+                        id="nextButton"
+                        className={backUrl ? "" : "flex-grow-0"}
+                        disabled={isSubmitting}
+                      >
+                        {nextButtonLabel}
+                      </Button>
+                      {backUrl && (
+                        <Button to={backUrl} look="secondary">
+                          {i18n.common.back}
                         </Button>
-                        {backUrl && (
-                          <Button to={backUrl} look="secondary">
-                            {i18n.common.back}
+                      )}
+                      {loaderData?.isStartStep &&
+                        !loaderData.weitereErklaerung && (
+                          <Button to="/" look="secondary">
+                            Zur Startseite
                           </Button>
                         )}
-                        {loaderData?.isStartStep &&
-                          !loaderData.weitereErklaerung && (
-                            <Button to="/" look="secondary">
-                              Zur Startseite
-                            </Button>
-                          )}
-                      </>
-                    )}
-                    {loaderData?.isFinalStep && (
-                      <>
-                        {loaderData?.isSuccessStep &&
-                          !loaderData.weitereErklaerung && (
-                            <Button
-                              to="/registrieren"
-                              id="nextButton"
-                              className={backUrl ? "" : "flex-grow-0"}
-                            >
-                              {nextButtonLabel}
-                            </Button>
-                          )}
-                        {loaderData?.isSuccessStep &&
-                          loaderData.weitereErklaerung && (
-                            <Button
-                              to="/formular/welcome?weitereErklaerung=true"
-                              id="nextButton"
-                              className={backUrl ? "" : "flex-grow-0"}
-                            >
-                              {nextButtonLabel}
-                            </Button>
-                          )}
-                        {loaderData?.isFailureStep && (
-                          <Button to="/" look="ghost">
-                            {i18n.common.backToHomepage}
-                          </Button>
-                        )}
-                        {isJavaScriptEnabled && (
+                    </>
+                  )}
+                  {loaderData?.isFinalStep && (
+                    <>
+                      {loaderData?.isSuccessStep &&
+                        !loaderData.weitereErklaerung && (
                           <Button
-                            href="#"
-                            onClick={() => history.back()}
-                            look="secondary"
+                            to="/registrieren"
+                            id="nextButton"
+                            className={backUrl ? "" : "flex-grow-0"}
                           >
-                            {i18n.common.back}
+                            {nextButtonLabel}
                           </Button>
                         )}
-                      </>
-                    )}
-                  </ButtonContainer>
-                </ContentContainer>
-              </Form>
-            </ContentContainer>
-          </div>
-        </ContentContainer>
-      </main>
-      <Footer />
+                      {loaderData?.isSuccessStep &&
+                        loaderData.weitereErklaerung && (
+                          <Button
+                            to="/formular/welcome?weitereErklaerung=true"
+                            id="nextButton"
+                            className={backUrl ? "" : "flex-grow-0"}
+                          >
+                            {nextButtonLabel}
+                          </Button>
+                        )}
+                      {loaderData?.isFailureStep && (
+                        <Button to="/" look="ghost">
+                          {i18n.common.backToHomepage}
+                        </Button>
+                      )}
+                      {isJavaScriptEnabled && (
+                        <Button
+                          href="#"
+                          onClick={() => history.back()}
+                          look="secondary"
+                        >
+                          {i18n.common.back}
+                        </Button>
+                      )}
+                    </>
+                  )}
+                </ButtonContainer>
+              </ContentContainer>
+            </Form>
+          </ContentContainer>
+        </div>
+      </ContentContainer>
     </>
   );
 }

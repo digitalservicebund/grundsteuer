@@ -1,4 +1,4 @@
-import { getMachine } from "~/routes/pruefen/_step";
+import { getMachine } from "~/routes/__infoLayout/pruefen/_step";
 import {
   COOKIE_ENCODING,
   createFormDataCookieName,
