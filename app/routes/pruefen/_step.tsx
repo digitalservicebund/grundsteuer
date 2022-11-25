@@ -147,23 +147,21 @@ export const loader: LoaderFunction = async ({
     machine.getStateNodeByPath(currentStateFromUrl).type === "final";
   const isStartStep = currentStateFromUrl === START_STEP;
 
-  if (testFeaturesEnabled()) {
-    // on starting the prüfen flow check for a remembered logged-in email
-    // so we can double-check with the user, if they really want to create
-    // a new account
-    if (isStartStep && !session.get("user") && !weitereErklaerung) {
-      const URL_PARAM_NAME_WHEN_USER_WANTS_TO_CONTINUE = "continue";
-      const currentUrl = new URL(request.url);
-      const userWantsToContinue = currentUrl.searchParams.get(
-        URL_PARAM_NAME_WHEN_USER_WANTS_TO_CONTINUE
-      );
+  // on starting the prüfen flow check for login on this browser in the past
+  // so we can double-check with the user, if they really want to create
+  // a new account
+  if (isStartStep && !session.get("user") && !weitereErklaerung) {
+    const URL_PARAM_NAME_WHEN_USER_WANTS_TO_CONTINUE = "continue";
+    const currentUrl = new URL(request.url);
+    const userWantsToContinue = currentUrl.searchParams.get(
+      URL_PARAM_NAME_WHEN_USER_WANTS_TO_CONTINUE
+    );
 
-      if (!userWantsToContinue) {
-        const cookieHeader = request.headers.get("Cookie");
-        const cookieExists = await rememberCookieExists({ cookieHeader });
-        if (cookieExists) {
-          return redirect("/pruefen/nachfrage");
-        }
+    if (!userWantsToContinue) {
+      const cookieHeader = request.headers.get("Cookie");
+      const cookieExists = await rememberCookieExists({ cookieHeader });
+      if (cookieExists) {
+        return redirect("/pruefen/nachfrage");
       }
     }
   }

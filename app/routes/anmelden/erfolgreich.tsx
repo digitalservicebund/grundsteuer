@@ -12,7 +12,6 @@ import { pageTitle } from "~/util/pageTitle";
 import { authenticator, SessionUser } from "~/auth.server";
 import { useLoaderData } from "@remix-run/react";
 import { flags } from "~/flags.server";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { rememberCookie } from "~/rememberLogin.server";
 
 export const meta: MetaFunction = () => {
@@ -30,20 +29,18 @@ export const loader: LoaderFunction = async ({ request }) => {
     failureRedirect: "/anmelden",
   });
 
-  if (testFeaturesEnabled()) {
-    // save the "remember login" cookie
-    const URL_PARAM_NAME_WHEN_COOKIE_IS_SET = "r";
-    const currentUrl = new URL(request.url);
-    const cookieIsSet = currentUrl.searchParams.get(
-      URL_PARAM_NAME_WHEN_COOKIE_IS_SET
-    );
+  // save the "remember login" cookie
+  const URL_PARAM_NAME_WHEN_COOKIE_IS_SET = "r";
+  const currentUrl = new URL(request.url);
+  const cookieIsSet = currentUrl.searchParams.get(
+    URL_PARAM_NAME_WHEN_COOKIE_IS_SET
+  );
 
-    if (!cookieIsSet) {
-      const redirectUrl = `${currentUrl.pathname}?${URL_PARAM_NAME_WHEN_COOKIE_IS_SET}=1`;
-      return redirect(redirectUrl, {
-        headers: { "Set-Cookie": await rememberCookie() },
-      });
-    }
+  if (!cookieIsSet) {
+    const redirectUrl = `${currentUrl.pathname}?${URL_PARAM_NAME_WHEN_COOKIE_IS_SET}=1`;
+    return redirect(redirectUrl, {
+      headers: { "Set-Cookie": await rememberCookie() },
+    });
   }
 
   return {
