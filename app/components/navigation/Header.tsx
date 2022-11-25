@@ -11,7 +11,7 @@ import Edit from "~/components/icons/mui/Edit";
 import { UserLoggedIn } from "../UserLoggedIn";
 import { Link } from "@remix-run/react";
 
-export function HomepageHeader({ email }: { email?: string }) {
+export default function Header({ email }: { email?: string }) {
   return (
     <header>
       <div className="lg:hidden">

@@ -1,9 +1,9 @@
 import { LoaderFunction } from "@remix-run/node";
-import { Outlet, useLoaderData, useMatches } from "@remix-run/react";
+import { Outlet, useLoaderData } from "@remix-run/react";
 import { useTranslation } from "react-i18next";
 import { Footer } from "~/components";
 import ErrorBanner from "~/components/ErrorBanner";
-import { HomepageHeader } from "~/components/navigation/HomepageHeader";
+import Header from "~/components/navigation/Header";
 import { flags } from "~/flags.server";
 import { getSession } from "~/session.server";
 
@@ -44,7 +44,7 @@ export default function InfoLayout() {
           <div> {t("banners.zammadDownBody")} </div>
         </ErrorBanner>
       )}
-      <HomepageHeader email={user?.email} />
+      <Header email={user?.email} />
       <main className="flex-grow">
         <Outlet />
       </main>
