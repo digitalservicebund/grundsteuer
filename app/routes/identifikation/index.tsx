@@ -90,7 +90,7 @@ export default function IdentifikationIndex() {
           url="/ekona"
           className="mb-16"
         />
-        <TeaserIdentCard className="mb-16" />
+        <TeaserIdentCard />
         <IdentCard
           image={ident2}
           imageAltText="Bildbeispiel Freischaltcode"

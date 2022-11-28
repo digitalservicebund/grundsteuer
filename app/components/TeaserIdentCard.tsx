@@ -13,7 +13,7 @@ export default function TeaserIdentCard(props: { className?: string }) {
       <img
         src={ClockIcon}
         alt={"Weißer Wekcer mit blauem Display"}
-        className="hidden lg:flex mr-36 md:w-[71px] w-full"
+        className="hidden lg:flex mr-36 md:h-[87px] md:w-[71px] w-full"
       />
       <div className="flex flex-col">
         <ContentContainer size="sm-md">
