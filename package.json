@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@node-saml/node-saml": "node-saml/node-saml#3618410143053521b7bcd9a9b8326bcc056691a5",
-    "@prisma/client": "^4.5.0",
+    "@prisma/client": "^4.6.1",
     "@remix-run/express": "^1.7.6",
     "@remix-run/node": "^1.7.6",
     "@remix-run/react": "^1.7.6",
