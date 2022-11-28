@@ -92,27 +92,27 @@ export const deleteExpiredTransfertickets = async () => {
 export const deleteExpiredAccounts = async () => {
   try {
     const now = new Date();
-    const fourMonthsAgo = new Date(now.setMonth(now.getMonth() - 7));
+    const sevenMonthsAgo = new Date(now.setMonth(now.getMonth() - 7));
     const accountsToDelete = await db.user.findMany({
       where: {
         OR: [
           // Declaration sent
           {
             lastDeclarationAt: {
-              lte: fourMonthsAgo,
+              lte: sevenMonthsAgo,
             },
           },
           // identified
           {
             identifiedAt: {
-              lte: fourMonthsAgo,
+              lte: sevenMonthsAgo,
             },
             lastDeclarationAt: null,
           },
           // simple account
           {
             createdAt: {
-              lte: fourMonthsAgo,
+              lte: sevenMonthsAgo,
             },
             identifiedAt: null,
             lastDeclarationAt: null,
