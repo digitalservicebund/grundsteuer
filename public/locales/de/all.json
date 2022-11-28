@@ -11,13 +11,6 @@
     "bmf": "Logo des Bundesministeriums der Finanzen"
   },
   "homepage": {
-    "start": "Grundsteuererklärung starten",
-    "skipPruefen": "Fragebogen überspringen",
-    "continue": {
-      "headline": "Sie haben bereits ein Konto?",
-      "text": "Ich habe meinen Freischaltcode erhalten oder möchte die Bearbeitung fortsetzen.",
-      "buttonText": "Bearbeitung fortsetzen"
-    },
     "headline": "Grundsteuererklärung für Privateigentum",
     "tagline": "Schnell. Unkompliziert. Kostenlos.",
     "teaser": {

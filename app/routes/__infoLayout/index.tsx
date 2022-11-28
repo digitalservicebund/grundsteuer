@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 import {
   BmfLogo,
   BreadcrumbNavigation,
-  Button,
   ContentContainer,
   FaqAccordion,
   HomepageAction,
@@ -11,9 +10,24 @@ import {
 import germanyMapImage from "~/assets/images/germany-map.svg";
 import TeaserBox from "~/components/TeaserBox";
 import HelpInfoBox from "~/components/HelpInfoBox";
-import Edit from "~/components/icons/mui/Edit";
+import HomepageCallToAction from "~/components/HomepageCallToAction";
+import { json, LoaderFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { getSession } from "~/session.server";
+import { rememberCookieExists } from "~/rememberLogin.server";
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const cookieHeader = request.headers.get("Cookie");
+  const session = await getSession(cookieHeader);
+
+  return json({
+    userIsLoggedIn: !!session.get("user"),
+    userWasLoggedIn: await rememberCookieExists({ cookieHeader }),
+  });
+};
 
 export default function Index() {
+  const { userIsLoggedIn, userWasLoggedIn } = useLoaderData();
   const { t } = useTranslation("all");
 
   return (
@@ -22,7 +36,7 @@ export default function Index() {
       <ContentContainer>
         <BmfLogo />
         <div className="mb-64 md:mb-96 xl:mb-80">
-          <h1>
+          <h1 className="mb-24">
             <div className="max-w-[300px] text-32 leading-40 mb-8 mt-18 sm:max-w-[560px] sm:text-[3.5rem] sm:leading-68 md:mb-24 lg:text-64 lg:mb-8">
               {t("homepage.headline")}
             </div>
@@ -30,29 +44,13 @@ export default function Index() {
               {t("homepage.tagline")}
             </div>
           </h1>
-          <Button
-            className={"w-full max-w-[44ch] mt-32 sm:mt-40"}
-            to="/pruefen/start"
-          >
-            {t("homepage.start")}
-          </Button>
-          <div className="max-w-[250px] leading-26 sm:max-w-[420px] lg:leading-40 mt-32 sm:mt-64">
-            <h3 className="text-20 leading-26 mb-8 sm:text-24">
-              {t("homepage.continue.headline")}
-            </h3>
-            <p className="text-18 leading-26 mb-16">
-              {t("homepage.continue.text")}
-            </p>
-          </div>
-          <Button
-            look={"ghost"}
-            size={"large"}
-            icon={<Edit />}
-            className={"underline pl-0"}
-            to="/anmelden"
-          >
-            {t("homepage.continue.buttonText")}
-          </Button>
+
+          <ContentContainer size="sm">
+            <HomepageCallToAction
+              userIsLoggedIn={userIsLoggedIn}
+              userWasLoggedIn={userWasLoggedIn}
+            />
+          </ContentContainer>
         </div>
 
         <div className="mb-64 md:mb-80 lg:mb-96">
@@ -120,12 +118,16 @@ export default function Index() {
           </div>
         </div>
 
-        <div className="mb-0 md:mb-160 xl:pr-96">
-          <h2 className="text-32 leading-40 mb-32 md:mb-64">
-            {t("homepage.action.headline")}
-          </h2>
-          <HomepageAction />
-        </div>
+        {userIsLoggedIn ? (
+          ""
+        ) : (
+          <div className="mb-0 md:mb-160 xl:pr-96">
+            <h2 className="text-32 leading-40 mb-32 md:mb-64">
+              {t("homepage.action.headline")}
+            </h2>
+            <HomepageAction />
+          </div>
+        )}
       </ContentContainer>
     </>
   );
