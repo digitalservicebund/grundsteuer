@@ -26,18 +26,6 @@ describe("error banners", () => {
       cy.get(bannerId).should("not.exist");
     });
 
-    it("should have no effect on /anmelden", () => {
-      cy.visit("/anmelden");
-      cy.url().should("include", "/anmelden");
-      cy.get(bannerId).should("not.exist");
-    });
-
-    it("should have no effect on /registrieren", () => {
-      cy.visit("/registrieren");
-      cy.url().should("include", "/registrieren");
-      cy.get(bannerId).should("not.exist");
-    });
-
     it("should show banner and disable button on /identifikation", () => {
       cy.login();
       cy.visit("/identifikation");
@@ -95,18 +83,6 @@ describe("error banners", () => {
 
     it("should have no effect on home", () => {
       cy.visit("/");
-      cy.get(bannerId).should("not.exist");
-    });
-
-    it("should have no effect on /anmelden", () => {
-      cy.visit("/anmelden");
-      cy.url().should("include", "/anmelden");
-      cy.get(bannerId).should("not.exist");
-    });
-
-    it("should have no effect on /registrieren", () => {
-      cy.visit("/registrieren");
-      cy.url().should("include", "/registrieren");
       cy.get(bannerId).should("not.exist");
     });
 
@@ -191,26 +167,6 @@ describe("error banners", () => {
           "user-agent": mobileUserAgent,
         },
       });
-      cy.get(bannerId).should("not.exist");
-    });
-
-    it("should have no effect on /anmelden", () => {
-      cy.visit("/anmelden", {
-        headers: {
-          "user-agent": mobileUserAgent,
-        },
-      });
-      cy.url().should("include", "/anmelden");
-      cy.get(bannerId).should("not.exist");
-    });
-
-    it("should have no effect on /registrieren", () => {
-      cy.visit("/registrieren", {
-        headers: {
-          "user-agent": mobileUserAgent,
-        },
-      });
-      cy.url().should("include", "/registrieren");
       cy.get(bannerId).should("not.exist");
     });
 
@@ -361,24 +317,6 @@ describe("error banners", () => {
       cy.get(bannerId).should("exist");
     });
 
-    it("should show banner on /anmelden", () => {
-      cy.visit("/anmelden");
-      cy.url().should("include", "/anmelden");
-      cy.get(bannerId).should("exist");
-    });
-
-    it("should show banner on /registrieren", () => {
-      cy.visit("/registrieren");
-      cy.url().should("include", "/registrieren");
-      cy.get(bannerId).should("exist");
-    });
-
-    it("should show banner on /pruefen", () => {
-      cy.visit("/pruefen/start");
-      cy.url().should("include", "/pruefen/start");
-      cy.get(bannerId).should("exist");
-    });
-
     it("should have no effect on /identifikation", () => {
       cy.login();
       cy.visit("/identifikation");
@@ -419,24 +357,6 @@ describe("error banners", () => {
 
     it("should show banner on home", () => {
       cy.visit("/");
-      cy.get(bannerId).should("exist");
-    });
-
-    it("should show banner on /anmelden", () => {
-      cy.visit("/anmelden");
-      cy.url().should("include", "/anmelden");
-      cy.get(bannerId).should("exist");
-    });
-
-    it("should show banner on /registrieren", () => {
-      cy.visit("/registrieren");
-      cy.url().should("include", "/registrieren");
-      cy.get(bannerId).should("exist");
-    });
-
-    it("should show banner on /pruefen", () => {
-      cy.visit("/pruefen/start");
-      cy.url().should("include", "/pruefen/start");
       cy.get(bannerId).should("exist");
     });
 
