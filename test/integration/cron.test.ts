@@ -192,8 +192,8 @@ describe("Cron jobs", () => {
           data: {
             email: "created-new@foo.com",
             createdAt: new Date(
-              // 3 months ago
-              new Date().setMonth(new Date().getMonth() - 3)
+              // 6 months ago
+              new Date().setMonth(new Date().getMonth() - 6)
             ),
             fscRequest: {
               create: {
@@ -206,8 +206,8 @@ describe("Cron jobs", () => {
           data: {
             email: "created-old@foo.com",
             createdAt: new Date(
-              // 4 months ago
-              new Date().setMonth(new Date().getMonth() - 4)
+              // 7 months ago
+              new Date().setMonth(new Date().getMonth() - 7)
             ),
             fscRequest: {
               create: {
@@ -221,8 +221,8 @@ describe("Cron jobs", () => {
             email: "identified-new@foo.com",
             identified: true,
             identifiedAt: new Date(
-              // 3 months ago
-              new Date().setMonth(new Date().getMonth() - 3)
+              // 6 months ago
+              new Date().setMonth(new Date().getMonth() - 6)
             ),
           },
         });
@@ -231,8 +231,8 @@ describe("Cron jobs", () => {
             email: "identified-old@foo.com",
             identified: true,
             identifiedAt: new Date(
-              // 4 months ago
-              new Date().setMonth(new Date().getMonth() - 4)
+              // 7 months ago
+              new Date().setMonth(new Date().getMonth() - 7)
             ),
           },
         });
@@ -241,8 +241,8 @@ describe("Cron jobs", () => {
             email: "declaration-new@foo.com",
             transferticket: "tt",
             lastDeclarationAt: new Date(
-              // 3 months ago
-              new Date().setMonth(new Date().getMonth() - 3)
+              // 6 months ago
+              new Date().setMonth(new Date().getMonth() - 6)
             ),
           },
         });
@@ -251,8 +251,8 @@ describe("Cron jobs", () => {
             email: "declaration-old@foo.com",
             transferticket: "tt",
             lastDeclarationAt: new Date(
-              // 4 months ago
-              new Date().setMonth(new Date().getMonth() - 4)
+              // 7 months ago
+              new Date().setMonth(new Date().getMonth() - 7)
             ),
           },
         });
@@ -327,8 +327,8 @@ describe("Cron jobs", () => {
           data: {
             email: "created-new@foo.com",
             createdAt: new Date(
-              // 3 months ago
-              new Date().setMonth(new Date().getMonth() - 3)
+              // 6 months ago
+              new Date().setMonth(new Date().getMonth() - 6)
             ),
           },
         });
@@ -336,8 +336,8 @@ describe("Cron jobs", () => {
           data: {
             email: "created-old@foo.com",
             createdAt: new Date(
-              // 4 months ago
-              new Date().setMonth(new Date().getMonth() - 4)
+              // 7 months ago
+              new Date().setMonth(new Date().getMonth() - 7)
             ),
             fscRequest: {
               create: {
@@ -351,8 +351,8 @@ describe("Cron jobs", () => {
           data: {
             email: "created-old-with-pdf@foo.com",
             createdAt: new Date(
-              // 4 months ago
-              new Date().setMonth(new Date().getMonth() - 4)
+              // 7 months ago
+              new Date().setMonth(new Date().getMonth() - 7)
             ),
             pdf: {
               create: {
