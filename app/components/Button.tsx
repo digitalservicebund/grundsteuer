@@ -7,6 +7,7 @@ interface VisualProps {
   size?: "large" | "medium" | "small";
   icon?: ReactElement;
   iconRight?: ReactElement;
+  fullWidth?: boolean;
 }
 
 export interface ButtonProps
@@ -34,6 +35,7 @@ function Button(props: any) {
     children,
     icon,
     iconRight,
+    fullWidth = false,
     className,
     ...rest
   } = props;
@@ -77,13 +79,17 @@ function Button(props: any) {
         look === "tertiary",
       "text-blue-800 hover:shadow-[inset_0_0_0_2px_#b8bdc3] focus:shadow-[inset_0_0_0_2px_#b8bdc3] active:shadow-[inset_0_0_0_2px_#b8bdc3] disabled:shadow-none disabled:text-gray-600":
         look === "ghost",
+      "w-full justify-center": fullWidth,
     },
     className
   );
 
   const textClassName = classNames(
-    "w-full min-w-0 break-word",
-    size === "large" ? "py-6" : "py-1"
+    "min-w-0 break-word",
+    size === "large" ? "py-6" : "py-1",
+    {
+      "w-full": !fullWidth,
+    }
   );
 
   const iconClassName = classNames(
