@@ -34,7 +34,7 @@ export default function NavigationActions(props: {
         <NavigationLink
           to="/formular"
           isAllCaps
-          icon={<Edit className="w-24 h-24 fill-blue-800" />}
+          icon={<Edit className="w-24 h-24 text-blue-800" />}
         >
           Zum Formular
         </NavigationLink>
@@ -45,7 +45,7 @@ export default function NavigationActions(props: {
       <NavigationLink
         to="/anmelden"
         isAllCaps
-        icon={<Edit className="w-24 h-24 fill-blue-800" />}
+        icon={<Edit className="w-24 h-24 text-blue-800" />}
       >
         Bearbeitung fortsetzen
       </NavigationLink>

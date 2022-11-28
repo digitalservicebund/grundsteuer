@@ -30,7 +30,7 @@ export default function Header({ email }: { email?: string }) {
               <Button
                 look="ghost"
                 size="small"
-                icon={<Edit />}
+                icon={<Edit className="text-blue-800" />}
                 className="underline"
                 to="/anmelden"
               >
@@ -46,7 +46,7 @@ export default function Header({ email }: { email?: string }) {
               <div className="flex pt-16">
                 <NavigationLink
                   to="/formular"
-                  icon={<Edit className="w-24 h-24 fill-blue-800" />}
+                  icon={<Edit className="w-24 h-24 text-blue-800" />}
                   isAllCaps
                 >
                   Zum Formular
