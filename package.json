@@ -121,7 +121,7 @@
     "eslint": "^8.25.0",
     "eslint-config-prettier": "^8.5.0",
     "fishery": "^2.2.2",
-    "husky": "^8.0.1",
+    "husky": "^8.0.2",
     "is-ci": "^3.0.1",
     "jest": "^27.5.1",
     "jest-mock-extended": "^3.0.1",
