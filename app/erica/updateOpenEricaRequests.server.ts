@@ -42,7 +42,7 @@ export const updateOpenEricaRequests = async () => {
       if (
         ericaResponse &&
         "errorType" in ericaResponse &&
-        ericaResponse.errorType == "EricaRequestNotFound"
+        ericaResponse.errorType === "EricaRequestNotFound"
       ) {
         await removeEricaRequestIdFscBeantragen(
           user.id,
@@ -73,7 +73,7 @@ export const updateOpenEricaRequests = async () => {
       if (
         ericaResponse &&
         "errorType" in ericaResponse &&
-        ericaResponse.errorType == "EricaRequestNotFound"
+        ericaResponse.errorType === "EricaRequestNotFound"
       ) {
         await removeEricaRequestIdFscAktivieren(
           user.id,
@@ -106,10 +106,10 @@ export const updateOpenEricaRequests = async () => {
           user.id,
           user.ericaRequestIdFscStornieren
         );
-        if (ericaResponse.errorType == "EricaUserInputError") {
+        if (ericaResponse.errorType === "EricaUserInputError") {
           await deleteFscRequest(user.email);
         }
-        if (ericaResponse.errorType != "EricaRequestNotFound") {
+        if (ericaResponse.errorType !== "EricaRequestNotFound") {
           countOfErroneousRequests += 1;
         }
       }
