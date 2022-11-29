@@ -164,18 +164,6 @@ export default function Anmelden() {
                     Prüfen Sie die eingegebene Adresse auf Tippfehler und die
                     richtige Schreibweise
                   </li>
-                  {/* no article yet <li>
-                    Wenn Sie Ihr Konto länger als 4 Monate nicht genutzt haben,
-                    wurde es gelöscht. Was Sie jetzt tun können, lesen Sie in
-                    unserem{" "}
-                    <a
-                      href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/"
-                      className="underline font-bold"
-                      target="_blank"
-                    >
-                      Hilfebereich
-                    </a>
-                  </li> */}
                 </ul>
               </Help>
             </div>
