@@ -1,4 +1,4 @@
-import { getAllEricaRequestIds } from "~/domain/user";
+import { deleteFscRequest, getAllEricaRequestIds } from "~/domain/user";
 import {
   saveSuccessfulFscActivationData,
   saveSuccessfulFscRequestData,
@@ -101,17 +101,17 @@ export const updateOpenEricaRequests = async () => {
           countOfProcessedEricaRevocations += 1;
         }
       }
-      if (
-        ericaResponse &&
-        "errorType" in ericaResponse &&
-        ericaResponse.errorType == "EricaRequestNotFound"
-      ) {
+      if (ericaResponse && "errorType" in ericaResponse) {
         await removeEricaRequestIdFscStornieren(
           user.id,
           user.ericaRequestIdFscStornieren
         );
-      } else if (ericaResponse && "errorType" in ericaResponse) {
-        countOfErroneousRequests += 1;
+        if (ericaResponse.errorType == "EricaUserInputError") {
+          await deleteFscRequest(user.email);
+        }
+        if (ericaResponse.errorType != "EricaRequestNotFound") {
+          countOfErroneousRequests += 1;
+        }
       }
     }
   }

@@ -75,19 +75,26 @@ export const saveFscRequest = async (
 
 export const deleteFscRequest = async (
   email: string,
-  requestIdToDelete: string
+  requestIdToDelete?: string
 ) => {
   const user = await findUserByEmail(email);
   if (!user) {
     throw new Error("User not found.");
   }
-
-  await db.fscRequest.deleteMany({
-    where: {
-      userId: user.id,
-      requestId: requestIdToDelete,
-    },
-  });
+  if (requestIdToDelete) {
+    await db.fscRequest.deleteMany({
+      where: {
+        userId: user.id,
+        requestId: requestIdToDelete,
+      },
+    });
+  } else {
+    await db.fscRequest.deleteMany({
+      where: {
+        userId: user.id,
+      },
+    });
+  }
 };
 
 export const saveEricaRequestIdFscBeantragen = async (

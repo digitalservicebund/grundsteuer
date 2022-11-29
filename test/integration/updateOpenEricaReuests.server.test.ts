@@ -254,7 +254,7 @@ describe("updateOpenEricaRequests", () => {
     );
   });
 
-  it("should perform no update if an error from erica", async () => {
+  it("should perform no update except for revocation request id if an error from erica ", async () => {
     const ericaErrorResponse = {
       errorType: "GENERAL_ERICA_ERROR",
       errorMessage: "Some error ocurred",
@@ -279,9 +279,7 @@ describe("updateOpenEricaRequests", () => {
       "erica-activation-id"
     );
     expect(activatingUser?.fscRequest).toBeNull();
-    expect(revocatingUser?.ericaRequestIdFscStornieren).toEqual(
-      "erica-revocation-id"
-    );
+    expect(revocatingUser?.ericaRequestIdFscStornieren).toBeNull();
     expect(revocatingUser?.fscRequest?.requestId).toBe(
       "alreadyExistingFscRequest"
     );
