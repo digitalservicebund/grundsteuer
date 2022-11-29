@@ -174,7 +174,7 @@ const startNewFscRevocationProcess = async (
     );
   } else {
     console.warn(
-      "Failed to revocate FSC on eingeben with error message: ",
+      "Failed to revoke FSC on eingeben with error message: ",
       ericaRequestIdOrError.error
     );
   }
@@ -196,28 +196,28 @@ export const handleFscRevocationInProgress = async (
   const ericaRequestIdFscStornieren = await getEricaRequestIdFscStornieren(
     userData
   );
-  const fscRevocatedOrError = await checkFreischaltcodeRevocation(
+  const fscRevokedOrError = await checkFreischaltcodeRevocation(
     ericaRequestIdFscStornieren
   );
-  if (fscRevocatedOrError) {
-    if ("transferticket" in fscRevocatedOrError) {
+  if (fscRevokedOrError) {
+    if ("transferticket" in fscRevokedOrError) {
       invariant(userData.fscRequest, "expected fscRequest to be present");
       await saveSuccessfulFscRevocationData(
         userData.email,
         ericaRequestIdFscStornieren,
         clientIp,
-        fscRevocatedOrError.transferticket
+        fscRevokedOrError.transferticket
       );
       console.log(`${successLoggingMessage}`);
       return { finished: true };
-    } else if (fscRevocatedOrError?.errorType == "EricaUserInputError") {
+    } else if (fscRevokedOrError?.errorType == "EricaUserInputError") {
       await deleteEricaRequestIdFscStornieren(userData.email);
       return {
         finished: true,
         showError: true,
         showSpinner: false,
       };
-    } else if (fscRevocatedOrError?.errorType == "EricaRequestNotFound") {
+    } else if (fscRevokedOrError?.errorType == "EricaRequestNotFound") {
       await deleteEricaRequestIdFscStornieren(userData.email);
       return {
         finished: true,
@@ -289,7 +289,7 @@ export const loader: LoaderFunction = async ({
   }
 
   if (ericaRevocationRequestIsInProgress) {
-    // We only try to revocate. If it does not succeed, we do not want to show an error to the user
+    // We only try to revoke. If it does not succeed, we do not want to show an error to the user
     const fscRevocationData = await handleFscRevocationInProgress(
       userData,
       clientIp,

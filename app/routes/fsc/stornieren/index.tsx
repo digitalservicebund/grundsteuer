@@ -107,7 +107,7 @@ export const action: ActionFunction = async ({
 
   if ("error" in ericaRequestIdOrError) {
     console.warn(
-      "Failed to revocate FSC on neu beantragen with error message: ",
+      "Failed to revoke FSC on neu beantragen with error message: ",
       ericaRequestIdOrError.error
     );
     return json({ ericaApiError: ericaRequestIdOrError.error });
