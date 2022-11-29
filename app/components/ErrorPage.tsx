@@ -80,7 +80,7 @@ export default function ErrorPage(props: ErrorPageProps) {
       )}
 
       {statusCodeTexts.backButton && statusCode !== 429 && (
-        <Button to="/formular" className="mb-64">
+        <Button to="/" className="mb-64">
           {statusCodeTexts.backButton}
         </Button>
       )}
