@@ -11,7 +11,13 @@ import Edit from "~/components/icons/mui/Edit";
 import { UserLoggedIn } from "../UserLoggedIn";
 import { Link } from "@remix-run/react";
 
-export default function Header({ email }: { email?: string }) {
+export default function Header({
+  email,
+  noLoginLink,
+}: {
+  email?: string;
+  noLoginLink?: boolean;
+}) {
   return (
     <header>
       <div className="lg:hidden">
@@ -25,7 +31,7 @@ export default function Header({ email }: { email?: string }) {
           <Link to="/" className="block py-32">
             <img src={logo} alt="Grundsteuererklärung für Privateigentum" />
           </Link>
-          {!email ? (
+          {!email && !noLoginLink ? (
             <div className="flex items-center">
               <Button
                 look="ghost"

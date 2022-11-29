@@ -1,5 +1,6 @@
 import { LoaderFunction } from "@remix-run/node";
-import { Outlet, useLoaderData } from "@remix-run/react";
+import { Outlet, useLoaderData, useLocation } from "@remix-run/react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Footer } from "~/components";
 import ErrorBanner from "~/components/ErrorBanner";
@@ -15,6 +16,12 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function InfoLayout() {
   const { flags, user } = useLoaderData();
   const { t } = useTranslation();
+  const location = useLocation();
+  const [isHomepage, setIsHomepage] = useState(location.pathname === "/");
+
+  useEffect(() => {
+    setIsHomepage(location.pathname === "/");
+  }, [location]);
 
   return (
     <>
@@ -44,7 +51,7 @@ export default function InfoLayout() {
           <div> {t("banners.zammadDownBody")} </div>
         </ErrorBanner>
       )}
-      <Header email={user?.email} />
+      <Header email={user?.email} noLoginLink={isHomepage} />
       <main className="flex-grow">
         <Outlet />
       </main>
