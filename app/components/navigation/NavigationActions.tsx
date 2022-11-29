@@ -24,6 +24,7 @@ export default function NavigationActions(props: {
   if (props.email) {
     itemsToRender.push(
       <LogoutMenu
+        key="logout-menu"
         email={props.email as string}
         containerClasses="lg:hidden"
         statusClasses="mb-16 rounded-t py-4"
@@ -32,6 +33,7 @@ export default function NavigationActions(props: {
     if (props.formularLink) {
       itemsToRender.push(
         <NavigationLink
+          key="formular-link"
           to="/formular"
           isAllCaps
           icon={<Edit className="w-24 h-24 text-blue-800" />}
@@ -43,6 +45,7 @@ export default function NavigationActions(props: {
   } else {
     itemsToRender.push(
       <NavigationLink
+        key="login-link"
         to="/anmelden"
         isAllCaps
         icon={<Edit className="w-24 h-24 text-blue-800" />}
@@ -56,6 +59,7 @@ export default function NavigationActions(props: {
     if (props.userHasFinishedProcess) {
       itemsToRender.push(
         <NavigationLink
+          key="another-declaration-link"
           to="/formular/weitereErklaerung"
           icon={<AddFile className="w-24 h-24 fill-blue-800" />}
           isAllCaps
@@ -67,6 +71,7 @@ export default function NavigationActions(props: {
     } else {
       itemsToRender.push(
         <NavigationLink
+          key="identification-link"
           to="/identifikation"
           icon={<Lock className="w-24 h-24 fill-blue-800" />}
           isAllCaps
@@ -81,6 +86,7 @@ export default function NavigationActions(props: {
       if (!currentLocation.match(/anmelden\/erfolgreich/)) {
         itemsToRender.push(
           <NavigationLink
+            key="summary-link"
             to="/formular/zusammenfassung"
             icon={<EmailOutlinedIcon className="w-24 h-24 fill-blue-800" />}
             isAllCaps
