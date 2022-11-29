@@ -31,7 +31,6 @@ import {
   validateOnlyDecimal,
 } from "~/domain/validation/numericValidation";
 import {
-  validateElsterChars,
   validateEmail,
   validateMaxLength,
   validateMaxLengthFloat,
@@ -99,10 +98,6 @@ export const getErrorMessage = (
     dateInPast: validateDateInPast,
     steuernummer: validateSteuernummer,
   };
-
-  if (!validateElsterChars({ value })) {
-    return i18n.elsterChars as string;
-  }
 
   for (const [key, validation] of Object.entries(validationConfig)) {
     const validateFunction = validatorMapping[key];

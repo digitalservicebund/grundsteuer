@@ -55,6 +55,7 @@ import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { getBackUrl, getRedirectUrl } from "~/util/constructUrls";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
+import { sanitizeStepFormData } from "~/util/sanitizeStepFormData";
 
 export const PREFIX = "formular";
 
@@ -207,9 +208,12 @@ export const action: ActionFunction = async ({ context, params, request }) => {
   ) as unknown as StepFormData;
   const stepFormDataWithoutCsrf = _.cloneDeep(stepFormData);
   delete stepFormDataWithoutCsrf.csrf;
+  const sanitizedStepData = sanitizeStepFormData(
+    stepFormData as Record<string, string>
+  );
   const { errors, validatedStepData } = await validateStepFormData(
     getStepDefinition({ currentStateWithoutId }),
-    stepFormData,
+    sanitizedStepData,
     storedFormData,
     JSON.stringify(stepFormDataWithoutCsrf) ==
       JSON.stringify(getStepData(storedFormData, currentState))
