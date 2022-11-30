@@ -102,7 +102,7 @@ export default function IdentifikationIndex() {
           buttonLabel="Identifikation mit Freischaltcode"
           buttonDisabled={ericaDown}
           url="/fsc"
-          className="mb-16"
+          className="mb-16 mt-0"
         />
         {useUseid && isMobile && (
           <IdentCard
