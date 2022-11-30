@@ -4,6 +4,7 @@ import * as cron from "./app/cron.server";
 import { db } from "./app/db.server";
 import * as user from "./app/domain/user";
 import { getClient, redis } from "./app/redis/redis.server";
+import * as services from "./app/services";
 
 const { APP_ENV, APP_VERSION } = process.env;
 
@@ -38,6 +39,7 @@ const initializeContext = (context: any) => {
   context.redis = redis;
   context.cron = cron;
   context.getRedisClient = getClient;
+  context.services = services;
 };
 
 initializeContext(replServer.context);
