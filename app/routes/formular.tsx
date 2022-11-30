@@ -53,7 +53,7 @@ export default function Formular() {
           actions={
             <NavigationActions
               email={email}
-              userHasFinishedProcess={userHasFinishedProcess}
+              newDeclarationLink={userHasFinishedProcess}
             />
           }
         >
@@ -70,7 +70,7 @@ export default function Formular() {
           actions={
             <NavigationActions
               email={email}
-              userHasFinishedProcess={userHasFinishedProcess}
+              newDeclarationLink={userHasFinishedProcess}
             />
           }
         >

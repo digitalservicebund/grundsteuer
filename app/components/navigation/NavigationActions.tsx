@@ -10,7 +10,7 @@ import Edit from "../icons/mui/Edit";
 export default function NavigationActions(props: {
   email?: string;
   formularLink?: boolean;
-  userHasFinishedProcess?: boolean;
+  newDeclarationLink?: boolean;
 }) {
   const location = useLocation();
   const [currentLocation, setCurrentLocation] = useState(location.pathname);
@@ -55,47 +55,43 @@ export default function NavigationActions(props: {
     );
   }
 
-  if (typeof props.userHasFinishedProcess !== "undefined") {
-    if (props.userHasFinishedProcess) {
-      itemsToRender.push(
-        <NavigationLink
-          key="another-declaration-link"
-          to="/formular/weitereErklaerung"
-          icon={<AddFile className="w-24 h-24 fill-blue-800" />}
-          isAllCaps
-          isActive={!!currentLocation.match(/\/formular\/weitereErklaerung/)}
-        >
-          Weitere Erklärung abgeben
-        </NavigationLink>
-      );
-    } else {
-      itemsToRender.push(
-        <NavigationLink
-          key="identification-link"
-          to="/identifikation"
-          icon={<Lock className="w-24 h-24 fill-blue-800" />}
-          isAllCaps
-          isActive={
-            !!currentLocation.match(/(\/identifikation|\/fsc\/|\/ekona)/)
-          }
-        >
-          Identifikation
-        </NavigationLink>
-      );
+  if (props.newDeclarationLink) {
+    itemsToRender.push(
+      <NavigationLink
+        key="another-declaration-link"
+        to="/formular/weitereErklaerung"
+        icon={<AddFile className="w-24 h-24 fill-blue-800" />}
+        isAllCaps
+        isActive={!!currentLocation.match(/\/formular\/weitereErklaerung/)}
+      >
+        Weitere Erklärung abgeben
+      </NavigationLink>
+    );
+  } else {
+    itemsToRender.push(
+      <NavigationLink
+        key="identification-link"
+        to="/identifikation"
+        icon={<Lock className="w-24 h-24 fill-blue-800" />}
+        isAllCaps
+        isActive={!!currentLocation.match(/(\/identifikation|\/fsc\/|\/ekona)/)}
+      >
+        Identifikation
+      </NavigationLink>
+    );
 
-      if (!currentLocation.match(/anmelden\/erfolgreich/)) {
-        itemsToRender.push(
-          <NavigationLink
-            key="summary-link"
-            to="/formular/zusammenfassung"
-            icon={<EmailOutlinedIcon className="w-24 h-24 fill-blue-800" />}
-            isAllCaps
-            isActive={!!currentLocation.match(/\/formular\/zusammenfassung/)}
-          >
-            Übersicht & Abgeben
-          </NavigationLink>
-        );
-      }
+    if (!currentLocation.match(/anmelden\/erfolgreich/)) {
+      itemsToRender.push(
+        <NavigationLink
+          key="summary-link"
+          to="/formular/zusammenfassung"
+          icon={<EmailOutlinedIcon className="w-24 h-24 fill-blue-800" />}
+          isAllCaps
+          isActive={!!currentLocation.match(/\/formular\/zusammenfassung/)}
+        >
+          Übersicht & Abgeben
+        </NavigationLink>
+      );
     }
   }
 
