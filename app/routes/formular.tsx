@@ -54,6 +54,7 @@ export default function Formular() {
             <NavigationActions
               email={email}
               newDeclarationLink={userHasFinishedProcess}
+              appLinks
             />
           }
         >
@@ -71,6 +72,7 @@ export default function Formular() {
             <NavigationActions
               email={email}
               newDeclarationLink={userHasFinishedProcess}
+              appLinks
             />
           }
         >

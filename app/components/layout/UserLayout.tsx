@@ -22,11 +22,13 @@ export default function UserLayout(props: {
       footer={<Footer />}
       sidebarNavigation={
         <SidebarNavigation
-          actions={<NavigationActions email={props.email} />}
+          actions={<NavigationActions email={props.email} appLinks />}
         />
       }
       topNavigation={
-        <TopNavigation actions={<NavigationActions email={props.email} />} />
+        <TopNavigation
+          actions={<NavigationActions email={props.email} appLinks />}
+        />
       }
       logoutMenu={
         <LogoutMenu

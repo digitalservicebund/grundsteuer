@@ -11,6 +11,7 @@ export default function NavigationActions(props: {
   email?: string;
   formularLink?: boolean;
   newDeclarationLink?: boolean;
+  appLinks?: boolean;
 }) {
   const location = useLocation();
   const [currentLocation, setCurrentLocation] = useState(location.pathname);
@@ -67,7 +68,7 @@ export default function NavigationActions(props: {
         Weitere Erklärung abgeben
       </NavigationLink>
     );
-  } else {
+  } else if (props.appLinks) {
     itemsToRender.push(
       <NavigationLink
         key="identification-link"
