@@ -14,13 +14,11 @@ export default function TeaserIdentCard(props: { className?: string }) {
         <img
           src={ClockIcon}
           alt={"Weißer Wecker mit blauem Display"}
-          className="h-[42px] lg:flex mr-36 lg:h-auto lg:w-full"
+          className="h-[42px] lg:flex mr-16 lg:mr-36 lg:h-auto lg:w-full"
         />
-        <div className="flex">
-          <p className="mb-8 text-18 lg:hidden">
-            <strong className="inline-block  align-center">
-              Abgabefrist ist der 31.01.2023.
-            </strong>
+        <div className="flex items-center">
+          <p className="text-18 lg:hidden inline-block align-middle">
+            <strong>Abgabefrist ist der 31.01.2023.</strong>
           </p>
         </div>
       </div>
@@ -28,7 +26,7 @@ export default function TeaserIdentCard(props: { className?: string }) {
       <div className="lg:flex lg:flex-col">
         <ContentContainer size="sm-md">
           <div className="mt-16 lg:mt-0">
-            <p className="mb-8 text-18">
+            <p className="mb-24 lg:mb-8 text-18">
               <strong className="hidden lg:inline">
                 Abgabefrist ist der 31.01.2023.
               </strong>{" "}
