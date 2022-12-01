@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
+    <title>{{ subject }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <p>{{ greetings }}</p>
+
+    {% block content %}{% endblock %}
+
+    <hr style="margin-top: 3rem" />
+    <p>
+      <strong>{{ productName }}</strong><br />
+      {{ signature }} |
+      <a href="{{ company.website.url }}">{{ company.shortName }}</a><br />
+      <a href="{{ company.twitter.url }}">{{ company.twitter.label }}</a> |
+      <a href="{{ company.linkedIn.url }}">{{ company.linkedIn.label }}</a
+      ><br />
+      {{ company.name }}<br />
+      {{ company.street }}, {{ company.zip }} {{ company.city }}<br />
+      {{ company.vatId}} | {{ company.directors }}<br />
+      {{ company.registerNumber }}| {{ company.registerCourt }}
+    </p>
+  </body>
+</html>

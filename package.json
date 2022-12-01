@@ -72,6 +72,7 @@
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
     "node-cron": "^3.0.2",
+    "nunjucks": "^3.2.3",
     "plausible-tracker": "^0.3.8",
     "react": "^17.0.2",
     "react-device-detect": "^2.2.2",
@@ -110,6 +111,7 @@
     "@types/morgan": "^1.9.3",
     "@types/node": "^18.11.9",
     "@types/node-cron": "^3.0.6",
+    "@types/nunjucks": "^3.2.1",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
     "@types/uuid": "^8.3.4",
@@ -139,7 +141,7 @@
   },
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint --cache --fix",
-    "*.{js,ts,tsx,md}": "prettier --write"
+    "*.{js,ts,tsx,md,html.njk}": "prettier --write"
   },
   "engines": {
     "node": ">=14"

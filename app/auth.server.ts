@@ -1,10 +1,11 @@
 import { Authenticator } from "remix-auth";
 import { FormStrategy } from "remix-auth-form";
-import { EmailLinkStrategy } from "remix-auth-email-link";
+import { EmailLinkStrategy, SendEmailFunction } from "remix-auth-email-link";
 import invariant from "tiny-invariant";
 import { sessionStorage } from "./session.server";
-import { sendMagicLinkEmail } from "~/email.server";
 import { findUserByEmail } from "~/domain/user";
+import { createLoginMail } from "./mails";
+import { sendMail } from "./services/sendMail";
 
 export type SessionUser = {
   email: string;
@@ -32,12 +33,19 @@ const login = async (email: string): Promise<SessionUser> => {
   throw new Error("unknown user!");
 };
 
+const sendEmail: SendEmailFunction<SessionUser> = async ({
+  magicLink,
+  emailAddress,
+}) => {
+  return sendMail({ mail: createLoginMail({ magicLink }), to: emailAddress });
+};
+
 authenticator.use(
   process.env.SKIP_AUTH === "true"
     ? new FormStrategy(async ({ form }) => login(form.get("email") as string))
     : new EmailLinkStrategy(
         {
-          sendEmail: sendMagicLinkEmail,
+          sendEmail,
           secret: magicLinkSecret,
           linkExpirationTime: 86400000, // 24 hours
           callbackURL: "/anmelden/bestaetigen",

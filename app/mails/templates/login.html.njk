@@ -1,0 +1,6 @@
+{% extends "baseLayout.html.njk" %} {% block content %}
+<p>
+  <strong><a href="{{ magicLink }}">{{ login.htmlText }}</a></strong>
+</p>
+<p>{{ expiry }} {{ sameDevice }} {{ ignore }} {{ knowledgeBase.htmlText }}</p>
+{% endblock %}
