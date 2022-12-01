@@ -6,6 +6,7 @@ import { sessionStorage } from "./session.server";
 import { findUserByEmail } from "~/domain/user";
 import { createLoginMail } from "./mails";
 import { sendMail } from "./services/sendMail";
+import { flow } from "lodash";
 
 export type SessionUser = {
   email: string;
@@ -36,8 +37,10 @@ const login = async (email: string): Promise<SessionUser> => {
 const sendEmail: SendEmailFunction<SessionUser> = async ({
   magicLink,
   emailAddress,
+  form,
 }) => {
-  return sendMail({ mail: createLoginMail({ magicLink }), to: emailAddress });
+  // TODO: use "form" to distinguish login and register
+  return flow([createLoginMail, sendMail])({ magicLink, to: emailAddress });
 };
 
 authenticator.use(

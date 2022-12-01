@@ -4,6 +4,7 @@ describe("createLoginMail", () => {
   it("creates login mail with given magic link", () => {
     expect(
       createLoginMail({
+        to: "chewbacca@examle.com",
         magicLink:
           "https://www.grundsteuererklaerung-fuer-privateigentum.de/anmelden/bestaetigen?token=foobar",
       })
@@ -37,7 +38,7 @@ describe("createLoginMail", () => {
             DigitalService GmbH des Bundes<br />
             Prinzessinenstraße 8-14, 10969 Berlin<br />
             Ust-IdNr.: DE327075535 | Geschäftsführung: Christina Lang & Philipp Möser<br />
-            Handelsregisternummer: HRB 212879 B| Registergericht: Berlin Charlottenburg
+            Handelsregisternummer: HRB 212879 B | Registergericht: Berlin Charlottenburg
           </p>
         </body>
       </html>
@@ -61,8 +62,9 @@ describe("createLoginMail", () => {
       DigitalService GmbH des Bundes
       Prinzessinenstraße 8-14, 10969 Berlin
       Ust-IdNr.: DE327075535 | Geschäftsführung: Christina Lang & Philipp Möser
-      Handelsregisternummer: HRB 212879 B| Registergericht: Berlin Charlottenburg
+      Handelsregisternummer: HRB 212879 B | Registergericht: Berlin Charlottenburg
       ",
+        "to": "chewbacca@examle.com",
       }
     `);
   });

@@ -23,8 +23,15 @@ const props = {
   },
 };
 
-export const createLoginMail = ({ magicLink }: { magicLink: string }) => {
+export const createLoginMail = ({
+  magicLink,
+  to,
+}: {
+  magicLink: string;
+  to: string;
+}) => {
   return {
+    to,
     subject,
     textContent: renderTemplate({
       template: `${TEMPLATE}.plain`,
