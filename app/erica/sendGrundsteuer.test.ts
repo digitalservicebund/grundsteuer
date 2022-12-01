@@ -44,7 +44,8 @@ describe("sendNewGrundsteuer", () => {
         ) as jest.Mock
       );
     const expectedData = grundModelFactory
-      .grundstueckTyp({ typ: "zweifamilienhaus" })
+      .bebaut({ bebaut: "bebaut" })
+      .haustyp({ haustyp: "zweifamilienhaus" })
       .build();
 
     await sendNewGrundsteuer(expectedData);

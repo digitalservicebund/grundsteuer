@@ -56,7 +56,33 @@ const resolveAnrede = (value: string | undefined) => {
   return "";
 };
 
-const resolveGrundstueckTyp = (value: string | undefined) => {
+const resolveBebaut = (value: string | undefined) => {
+  switch (value) {
+    case "bebaut":
+      return "Bebaut";
+    case "baureif":
+      return "Unbebaut";
+    case "abweichendeEntwicklung":
+      return "Unbebaut";
+    default:
+      return "";
+  }
+};
+
+const resolveGrundstuecktyp = (value: string | undefined) => {
+  switch (value) {
+    case "baureif":
+      return "Baureif";
+    case "bauerwartungsland":
+      return "Bauerwartungsland";
+    case "rohbauland":
+      return "Rohbauland";
+    default:
+      return "";
+  }
+};
+
+const resolveHaustyp = (value: string | undefined) => {
   switch (value) {
     case "einfamilienhaus":
       return "Einfamilienhaus";
@@ -64,21 +90,6 @@ const resolveGrundstueckTyp = (value: string | undefined) => {
       return "Zweifamilienhaus";
     case "wohnungseigentum":
       return "Eigentumswohnung";
-    case "baureif":
-      return "Baureif";
-    case "abweichendeEntwicklung":
-      return "Abweichende Entwicklung";
-    default:
-      return "";
-  }
-};
-
-const resolveAbweichendeEntwicklung = (value: string | undefined) => {
-  switch (value) {
-    case "rohbauland":
-      return "Rohbauland";
-    case "bauerwartungsland":
-      return "Bauerwartungsland";
     default:
       return "";
   }
@@ -217,18 +228,20 @@ const resolveMiteigentumAuswahlWohnung: FieldResolver = (value) => {
 };
 
 const resolveGrundbuchblattnummerWohnung: FieldResolver = (value, allData) => {
-  const typ = allData?.grundstueck?.typ?.typ;
+  const haustyp = allData?.grundstueck?.haustyp?.haustyp;
   const miteigentumAuswahl =
     allData?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp;
-  if (typ !== "wohnungseigentum" || miteigentumAuswahl === "mixed") return "";
+  if (haustyp !== "wohnungseigentum" || miteigentumAuswahl === "mixed")
+    return "";
   return value || "";
 };
 
 const resolveGrundbuchblattnummerGarage: FieldResolver = (value, allData) => {
-  const typ = allData?.grundstueck?.typ?.typ;
+  const haustyp = allData?.grundstueck?.haustyp?.haustyp;
   const miteigentumAuswahl =
     allData?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp;
-  if (typ !== "wohnungseigentum" || miteigentumAuswahl !== "garage") return "";
+  if (haustyp !== "wohnungseigentum" || miteigentumAuswahl !== "garage")
+    return "";
   return value || "";
 };
 
@@ -236,10 +249,11 @@ const resolveGrundbuchblattnummerFlurstueck: FieldResolver = (
   value,
   allData
 ) => {
-  const typ = allData?.grundstueck?.typ?.typ;
+  const haustyp = allData?.grundstueck?.haustyp?.haustyp;
   const miteigentumAuswahl =
     allData?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp;
-  if (typ === "wohnungseigentum" && miteigentumAuswahl !== "mixed") return "";
+  if (haustyp === "wohnungseigentum" && miteigentumAuswahl !== "mixed")
+    return "";
   return value || "";
 };
 
@@ -458,7 +472,7 @@ export default function ZusammenfassungAccordion({
         href={editUrl}
         className="text-14 font-bold underline flex flex-row items-center"
       >
-        <Edit className="mr-10 ml-8 w-24 h-24 text-blue-800" />
+        <Edit className="mr-10 ml-8 w-24 h-24" />
         Ändern
       </a>
     );
@@ -570,21 +584,28 @@ export default function ZusammenfassungAccordion({
         <div id="grundstueck-area" data-testid="grundstueck-area">
           <ul>
             {stepItem(
-              "grundstueck.typ",
+              "grundstueck.bebaut",
               [
                 {
-                  label: "Art des Grundstücks",
-                  path: "typ",
-                  resolver: resolveGrundstueckTyp,
+                  label: "Bebaut oder unbebaut",
+                  path: "bebaut",
+                  resolver: resolveBebaut,
                 },
               ],
               true
             )}
-            {stepItem("grundstueck.abweichendeEntwicklung", [
+            {stepItem("grundstueck.grundstuecktyp", [
               {
-                label: "Zustand Abweichende Entwicklung",
-                path: "zustand",
-                resolver: resolveAbweichendeEntwicklung,
+                label: "Art des Grundstücks",
+                path: "grundstuecktyp",
+                resolver: resolveGrundstuecktyp,
+              },
+            ])}
+            {stepItem("grundstueck.haustyp", [
+              {
+                label: "Art des Grundstücks",
+                path: "haustyp",
+                resolver: resolveHaustyp,
               },
             ])}
             {stepItem("grundstueck.adresse", [

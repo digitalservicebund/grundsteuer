@@ -54,7 +54,7 @@ describe("validateRequiredIfCondition", () => {
     "Should return $valid if value is '$value' and condition is '$condition'",
     ({ value, condition, valid }) => {
       const allData: GrundModel = {
-        grundstueck: { typ: { typ: "einfamilienhaus" } },
+        grundstueck: { haustyp: { haustyp: "einfamilienhaus" } },
       };
       condition.mockClear();
 

@@ -12,10 +12,10 @@ const FlurstueckAngaben: StepComponentFunction = ({
 }) => {
   const fieldProps = getFieldProps(stepDefinition, formData, i18n, errors);
 
-  const typ = allData.grundstueck?.typ?.typ;
+  const haustyp = allData.grundstueck?.haustyp?.haustyp;
 
   const shouldDisplayGrundbuchblattnummer =
-    typ !== "wohnungseigentum" ||
+    haustyp !== "wohnungseigentum" ||
     allData.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp === "mixed";
 
   return (

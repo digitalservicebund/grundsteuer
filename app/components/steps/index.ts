@@ -9,7 +9,7 @@ import GrundstueckAnzahl from "~/components/steps/grundstueck/GrundstueckAnzahl"
 import GebaeudeUebersicht from "~/components/steps/gebaeude/GebaeudeUebersicht";
 import EigentuemerUebersicht from "~/components/steps/eigentuemer/EigentuemerUebersicht";
 import EigentuemerAbschluss from "~/components/steps/eigentuemer/EigentuemerAbschluss";
-import GrundstueckTyp from "~/components/steps/grundstueck/GrundstueckTyp";
+import Grundstuecktyp from "~/components/steps/grundstueck/Grundstuecktyp";
 import BodenrichtwertAnzahl from "~/components/steps/grundstueck/BodenrichtwertAnzahl";
 import BodenrichtwertEingabe from "~/components/steps/grundstueck/BodenrichtwertEingabe";
 import Wohnflaeche from "~/components/steps/gebaeude/Wohnflaeche";
@@ -23,6 +23,8 @@ import MiteigentumsanteilGarage from "~/components/steps/grundstueck/Miteigentum
 import FlurstueckMiteigentumsanteil from "~/components/steps/grundstueck/flurstueck/FlurstueckMiteigentumsanteil";
 import MiteigentumsanteilWohnung from "~/components/steps/grundstueck/MiteigentumsanteilWohnung";
 import FlurstueckAngaben from "~/components/steps/grundstueck/flurstueck/FlurstueckAngaben";
+import Haustyp from "~/components/steps/grundstueck/Haustyp";
+import GrundstueckBebaut from "~/components/steps/grundstueck/GrundstueckBebaut";
 
 export { Default as FallbackStepComponent };
 
@@ -39,7 +41,9 @@ export default {
   },
   grundstueck: {
     uebersicht: GrundstueckUebersicht,
-    typ: GrundstueckTyp,
+    bebaut: GrundstueckBebaut,
+    grundstuecktyp: Grundstuecktyp,
+    haustyp: Haustyp,
     bodenrichtwertInfo: BodenrichtwertInfo,
     bodenrichtwertAnzahl: BodenrichtwertAnzahl,
     bodenrichtwertEingabe: BodenrichtwertEingabe,

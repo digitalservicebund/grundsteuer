@@ -12,7 +12,7 @@ import { ContentContainer, FormGroup } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 import invariant from "tiny-invariant";
 
-const GrundstueckTyp: StepComponentFunction = ({
+const Grundstuecktyp: StepComponentFunction = ({
   stepDefinition,
   currentState,
   formData,
@@ -61,4 +61,4 @@ const GrundstueckTyp: StepComponentFunction = ({
   );
 };
 
-export default GrundstueckTyp;
+export default Grundstuecktyp;

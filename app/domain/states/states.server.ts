@@ -23,35 +23,43 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
       states: {
         uebersicht: {
           on: {
-            NEXT: [{ target: "typ" }],
+            NEXT: [{ target: "bebaut" }],
           },
         },
-        typ: {
+        bebaut: {
           on: {
             NEXT: [
               {
-                target: "abweichendeEntwicklung",
-                cond: "isAbweichendeEntwicklung",
+                target: "grundstuecktyp",
+                cond: "isUnbebaut",
               },
+              { target: "haustyp", cond: "isBebaut" },
               { target: "adresse" },
             ],
             BACK: [{ target: "uebersicht" }],
           },
         },
-        abweichendeEntwicklung: {
+        grundstuecktyp: {
           on: {
             NEXT: [{ target: "adresse" }],
-            BACK: [{ target: "typ" }],
+            BACK: [{ target: "bebaut" }],
+          },
+        },
+        haustyp: {
+          on: {
+            NEXT: [{ target: "adresse" }],
+            BACK: [{ target: "bebaut" }],
           },
         },
         adresse: {
           on: {
             BACK: [
               {
-                target: "abweichendeEntwicklung",
-                cond: "isAbweichendeEntwicklung",
+                target: "grundstuecktyp",
+                cond: "isUnbebaut",
               },
-              { target: "typ" },
+              { target: "haustyp", cond: "isBebaut" },
+              { target: "bebaut" },
             ],
             NEXT: [
               { target: "steuernummer", cond: "isGrundstueckBundeslandKnown" },

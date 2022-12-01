@@ -112,16 +112,12 @@ import {
 
 export type { GrundstueckSteuernummerFields };
 
-import { grundstueckTyp, GrundstueckTypFields } from "./grundstueck/typ.server";
-
-export type { GrundstueckTypFields };
-
 import {
-  grundstueckAbweichendeEntwicklung,
-  GrundstueckAbweichendeEntwicklungFields,
-} from "./grundstueck/abweichendeEntwicklung.server";
+  grundstuecktyp,
+  GrundstuecktypFields,
+} from "./grundstueck/grundstuecktyp.server";
 
-export type { GrundstueckAbweichendeEntwicklungFields };
+export type { GrundstuecktypFields };
 
 import {
   grundstueckGemeinde,
@@ -241,6 +237,11 @@ import {
   eigentuemerAbschluss,
   EigentuemerAbschlussFields,
 } from "./eigentuemer/abschluss";
+import { bebaut, BebautFields } from "~/domain/steps/grundstueck/bebaut.server";
+import {
+  haustyp,
+  HaustypFields,
+} from "~/domain/steps/grundstueck/haustyp.server";
 export type { GrundstueckMiteigentumWohnungFields };
 
 export const infoStep: StepDefinition = {
@@ -253,8 +254,9 @@ const stepDefinitions = {
     uebersicht: infoStep,
     adresse: grundstueckAdresse,
     steuernummer: grundstueckSteuernummer,
-    typ: grundstueckTyp,
-    abweichendeEntwicklung: grundstueckAbweichendeEntwicklung,
+    bebaut: bebaut,
+    grundstuecktyp: grundstuecktyp,
+    haustyp: haustyp,
     gemeinde: grundstueckGemeinde,
     anzahl: grundstueckAnzahl,
     bodenrichtwertInfo: infoStep,
@@ -347,8 +349,9 @@ export type GrundModel = {
 export type GrundstueckModel = {
   adresse?: GrundstueckAdresseFields;
   steuernummer?: GrundstueckSteuernummerFields;
-  typ?: GrundstueckTypFields;
-  abweichendeEntwicklung?: GrundstueckAbweichendeEntwicklungFields;
+  bebaut?: BebautFields;
+  grundstuecktyp?: GrundstuecktypFields;
+  haustyp?: HaustypFields;
   gemeinde?: GrundstueckGemeindeFields;
   anzahl?: GrundstueckAnzahlFields;
   bodenrichtwertEingabe?: GrundstueckBodenrichtwertEingabeFields;

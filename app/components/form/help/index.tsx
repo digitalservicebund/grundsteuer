@@ -26,9 +26,17 @@ import {
   MiteigentumAuswahlFlurstueckTrueHelp,
 } from "~/components/form/help/grundstueck/miteigentum/MiteigentumAuswahlFlurstueck";
 import WohnflaecheHelp from "~/components/form/help/gebaeude/Wohnflaeche";
+import { EinfamilienhausHelp } from "~/components/form/help/grundstueck/haustyp/Einfamilienhaus";
+import { ZweifamilienhausHelp } from "~/components/form/help/grundstueck/haustyp/Zweifamilienhaus";
 
 export const helpComponents = {
   grundstueck: {
+    haustyp: {
+      haustyp: {
+        einfamilienhaus: EinfamilienhausHelp,
+        zweifamilienhaus: ZweifamilienhausHelp,
+      },
+    },
     steuernummer: { steuernummer: SteuernummerHelp },
     anzahl: { anzahl: GrundstueckAnzahlHelp },
     bodenrichtwertEingabe: { bodenrichtwert: BodenrichtwertEingabeHelp },

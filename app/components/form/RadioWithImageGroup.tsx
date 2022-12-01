@@ -18,6 +18,7 @@ export type RadioWithImageGroupProps = {
   options: {
     value: string;
     label: string;
+    description?: string;
     help?: ReactElement;
     image: string;
     imageAltText: string;
@@ -32,6 +33,7 @@ const RadioGroupOption = (
     name: string;
     image: string;
     imageAltText: string;
+    description?: string;
   }
 ) => {
   const radioComponent = (
@@ -45,9 +47,16 @@ const RadioGroupOption = (
       <Trans components={{ bold: <strong className="contents" /> }}>
         {option.label}
       </Trans>
+      {option.description && (
+        <>
+          <br />
+          <Trans components={{ bold: <strong className="contents" /> }}>
+            {option.description}
+          </Trans>
+        </>
+      )}
     </RadioButtonBild>
   );
-
   return (
     <div key={option.value} data-testid={`option-${option.value}`}>
       {radioComponent}
@@ -82,6 +91,7 @@ export default function RadioWithImageGroup(props: RadioWithImageGroupProps) {
                 imageAltText: option.imageAltText,
                 value: option.value,
                 label: option.label,
+                description: option.description,
                 help: option.help,
               }}
             />
@@ -126,10 +136,9 @@ export const extractRadioWithImageGroupProps = (
   const options = (fieldProps.definition as StepDefinitionFieldWithOptions)
     .options;
   const optionsWithImages = [];
-
   invariant(
     options.length <= imagesAndAltTexts.length,
-    "Expected at least on image per option to exist"
+    "Expected at least one image per option to exist"
   );
   for (let i = 0; i < options.length; ++i) {
     const option = options[i];
@@ -145,6 +154,7 @@ export const extractRadioWithImageGroupProps = (
     return {
       ...option,
       label: optionI18n?.label || option.value,
+      description: optionI18n?.description,
       help: helpComponent,
     };
   });

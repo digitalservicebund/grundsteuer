@@ -1,17 +1,12 @@
 import { StepDefinition } from "~/domain/steps/index.server";
 
-export type GrundstueckTypFields = {
-  typ:
-    | "einfamilienhaus"
-    | "zweifamilienhaus"
-    | "wohnungseigentum"
-    | "baureif"
-    | "abweichendeEntwicklung";
+export type HaustypFields = {
+  haustyp: "einfamilienhaus" | "zweifamilienhaus" | "wohnungseigentum";
 };
 
-export const grundstueckTyp: StepDefinition = {
+export const haustyp: StepDefinition = {
   fields: {
-    typ: {
+    haustyp: {
       type: "radio",
       validations: {
         required: { msg: "Bitte treffen Sie eine Auswahl" },
@@ -20,8 +15,6 @@ export const grundstueckTyp: StepDefinition = {
         { value: "einfamilienhaus" },
         { value: "zweifamilienhaus" },
         { value: "wohnungseigentum" },
-        { value: "baureif" },
-        { value: "abweichendeEntwicklung" },
       ],
     },
   },

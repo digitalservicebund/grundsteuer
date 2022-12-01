@@ -13,8 +13,11 @@ const inputData = {
     steuernummer: {
       steuernummer: "13/898/89074",
     },
-    typ: {
-      typ: "wohnungseigentum",
+    bebaut: {
+      bebaut: "bebaut",
+    },
+    haustyp: {
+      haustyp: "wohnungseigentum",
     },
     gemeinde: {
       innerhalbEinerGemeinde: "true",
@@ -198,8 +201,14 @@ describe("Happy Path", () => {
     cy.contains("h1", "Grundstück");
     cy.get(submitBtnSelector).click();
 
-    cy.url().should("include", "/formular/grundstueck/typ");
-    cy.get(`label[for=typ-${inputData.grundstueck.typ.typ}]`).click();
+    cy.url().should("include", "/formular/grundstueck/bebaut");
+    cy.get(`label[for=bebaut-${inputData.grundstueck.bebaut.bebaut}]`).click();
+    cy.get(submitBtnSelector).click();
+
+    cy.url().should("include", "/formular/grundstueck/haustyp");
+    cy.get(
+      `label[for=haustyp-${inputData.grundstueck.haustyp.haustyp}]`
+    ).click();
     cy.get(submitBtnSelector).click();
 
     cy.contains("h1", "Geben Sie die Adresse Ihres Grundstücks ein");

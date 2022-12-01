@@ -4,23 +4,26 @@ export type Condition = (context: StateMachineContext | undefined) => boolean;
 export type Conditions = Record<string, Condition>;
 
 const isEigentumswohnung: Condition = (context) => {
-  return context?.grundstueck?.typ?.typ === "wohnungseigentum";
+  return context?.grundstueck?.haustyp?.haustyp === "wohnungseigentum";
 };
 
 const isEinfamilienhaus: Condition = (context) => {
-  return context?.grundstueck?.typ?.typ === "einfamilienhaus";
+  return context?.grundstueck?.haustyp?.haustyp === "einfamilienhaus";
 };
 
 const isZweifamilienhaus: Condition = (context) => {
-  return context?.grundstueck?.typ?.typ === "zweifamilienhaus";
+  return context?.grundstueck?.haustyp?.haustyp === "zweifamilienhaus";
+};
+
+const isBebaut: Condition = (context) => {
+  const bebautValue = context?.grundstueck?.bebaut?.bebaut;
+  return !!bebautValue && ["bebaut"].includes(bebautValue);
 };
 
 const isUnbebaut: Condition = (context) => {
+  const bebautValue = context?.grundstueck?.bebaut?.bebaut;
   return (
-    !!context?.grundstueck?.typ?.typ &&
-    ["baureif", "abweichendeEntwicklung"].includes(
-      context?.grundstueck?.typ?.typ
-    )
+    !!bebautValue && ["baureif", "abweichendeEntwicklung"].includes(bebautValue)
   );
 };
 
@@ -34,7 +37,8 @@ const isHausOrUnbebaut: Condition = (context) => {
 
 // sondernutzung is treated like "none"
 const wohnungHasMiteigentumNone: Condition = (context) => {
-  if (context?.grundstueck?.typ?.typ !== "wohnungseigentum") return false;
+  if (context?.grundstueck?.haustyp?.haustyp !== "wohnungseigentum")
+    return false;
   const miteigentumTyp =
     context?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp;
   return miteigentumTyp === "none" || miteigentumTyp === "sondernutzung";
@@ -42,14 +46,14 @@ const wohnungHasMiteigentumNone: Condition = (context) => {
 
 const wohnungHasMiteigentumGarage: Condition = (context) => {
   return (
-    context?.grundstueck?.typ?.typ === "wohnungseigentum" &&
+    context?.grundstueck?.haustyp?.haustyp === "wohnungseigentum" &&
     context?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp === "garage"
   );
 };
 
 const wohnungHasMiteigentumMixed: Condition = (context) => {
   return (
-    context?.grundstueck?.typ?.typ === "wohnungseigentum" &&
+    context?.grundstueck?.haustyp?.haustyp === "wohnungseigentum" &&
     context?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp === "mixed"
   );
 };
@@ -176,17 +180,6 @@ const repeatFlurstueck: Condition = (context) => {
   );
 };
 
-const isBebaut: Condition = (context) => {
-  const typ = context?.grundstueck?.typ?.typ;
-  return typ
-    ? ["einfamilienhaus", "zweifamilienhaus", "wohnungseigentum"].includes(typ)
-    : false;
-};
-
-const isAbweichendeEntwicklung: Condition = (context) => {
-  return context?.grundstueck?.typ?.typ === "abweichendeEntwicklung";
-};
-
 const personIdGreaterThanOne: Condition = (context) => {
   return Number(context?.personId) > 1;
 };
@@ -200,11 +193,11 @@ const bundeslandIsNW: Condition = (context) => {
 };
 
 const isExplicitFlurstueckGrundbuchblattnummer: Condition = (context) => {
-  const grundstueckTyp = context?.grundstueck?.typ?.typ;
+  const grundstuecktyp = context?.grundstueck?.haustyp?.haustyp;
   const miteigentumTyp =
     context?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp;
   if (context?.grundstueck?.adresse?.bundesland == "NW") {
-    return grundstueckTyp !== "wohnungseigentum" || miteigentumTyp === "mixed";
+    return grundstuecktyp !== "wohnungseigentum" || miteigentumTyp === "mixed";
   }
   return false;
 };
@@ -228,6 +221,8 @@ export const conditions: Conditions = {
   hasAbbruchverpflichtung,
   isEigentumswohnung,
   isZweifamilienhaus,
+  isUnbebaut,
+  isBebaut,
   isHausOrUnbebaut,
   hasWeitereWohnraeume,
   hasGaragen,
@@ -242,8 +237,6 @@ export const conditions: Conditions = {
   hasNotGesetzlicherVertreterAndRepeatPerson: (context) => {
     return !hasGesetzlicherVertreter(context) && repeatPerson(context);
   },
-  isBebaut,
-  isAbweichendeEntwicklung,
   personIdGreaterThanOne,
   flurstueckIdGreaterThanOne,
   bundeslandIsNW,

@@ -4,13 +4,11 @@ import {
   EigentuemerAnzahlFields,
   EigentuemerPersonGesetzlicherVertreterFields,
   Flurstueck,
-  GrundstueckAbweichendeEntwicklungFields,
   GrundstueckAdresseFields,
   GrundstueckAnzahlFields,
   GrundstueckBodenrichtwertEingabeFields,
   GrundstueckGemeindeFields,
   GrundstueckSteuernummerFields,
-  GrundstueckTypFields,
   GrundstueckMiteigentumAuswahlHausFields,
   Person,
   GrundstueckFlurstueckMiteigentumAuswahlFields,
@@ -40,6 +38,9 @@ import { StateMachineContext } from "~/domain/states/states.server";
 import { GrundstueckMiteigentumAuswahlWohnungFields } from "~/domain/steps/grundstueck/miteigentum/miteigentumAuswahlWohnung.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { EigentuemerAbschlussFields } from "~/domain/steps/eigentuemer/abschluss";
+import { BebautFields } from "~/domain/steps/grundstueck/bebaut.server";
+import { HaustypFields } from "~/domain/steps/grundstueck/haustyp.server";
+import { GrundstuecktypFields } from "~/domain/steps/grundstueck/grundstuecktyp.server";
 
 type PersonTransientParams = {
   transient: {
@@ -93,29 +94,67 @@ class GrundModelFactory extends Factory<StateMachineContext> {
     });
   }
 
-  grundstueckTyp(fields?: Partial<GrundstueckTypFields>) {
+  bebaut(fields?: Partial<BebautFields>) {
     return this.params({
       grundstueck: {
-        typ: {
-          typ: fields ? fields.typ : "einfamilienhaus",
+        bebaut: {
+          bebaut: fields ? fields.bebaut : "bebaut",
           ...fields,
         },
       },
     });
   }
 
-  grundstueckAbweichendeEntwicklung(
-    fields?: Partial<GrundstueckAbweichendeEntwicklungFields>
-  ) {
+  grundstuecktyp(fields?: Partial<GrundstuecktypFields>) {
     return this.params({
       grundstueck: {
-        abweichendeEntwicklung: {
-          zustand: "bauerwartungsland",
+        grundstuecktyp: {
+          grundstuecktyp: fields ? fields.grundstuecktyp : "baureif",
           ...fields,
         },
       },
     });
   }
+
+  haustyp(fields?: Partial<HaustypFields>) {
+    return this.params({
+      grundstueck: {
+        haustyp: {
+          haustyp: fields ? fields.haustyp : "einfamilienhaus",
+          ...fields,
+        },
+      },
+    });
+  }
+
+  /*grundstuecktypComplete(fields?: GrundstuecktypFields | HaustypFields) {
+    if (fields?.grundstuecktyp){
+      return this.params({
+        grundstueck: {
+          bebaut: {
+            bebaut: "baureif",
+          },
+          grundstuecktyp: {
+            grundstuecktyp: fields ? fields.grundstuecktyp : "baureif",
+            ...fields,
+          },
+        },
+      });
+    }else{
+      return this.params({
+        grundstueck: {
+          bebaut: {
+            bebaut: "bebaut",
+          },
+          haustyp: {
+            haustyp: fields ? fields.haustyp : "einfamilienhaus",
+            ...fields,
+          },
+        },
+      });
+    }
+
+  }*/
 
   grundstueckGemeinde(fields?: Partial<GrundstueckGemeindeFields>) {
     return this.params({
@@ -482,7 +521,8 @@ class GrundModelFactory extends Factory<StateMachineContext> {
 
   full() {
     return this.params(
-      this.grundstueckTyp({ typ: "einfamilienhaus" })
+      this.bebaut({ bebaut: "bebaut" })
+        .haustyp({ haustyp: "einfamilienhaus" })
         .grundstueckAdresse({
           strasse: "GST Strasse",
           hausnummer: "2GST",
@@ -492,7 +532,6 @@ class GrundModelFactory extends Factory<StateMachineContext> {
           bundesland: "BB",
         })
         .grundstueckSteuernummer({ steuernummer: "123/456/7890/987/654/3" })
-        .grundstueckAbweichendeEntwicklung({ zustand: "rohbauland" })
         .grundstueckGemeinde({ innerhalbEinerGemeinde: "true" })
         .grundstueckBodenrichtwert({ bodenrichtwert: "123" })
         .miteigentumAuswahlHaus({

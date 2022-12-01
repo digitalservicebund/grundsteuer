@@ -81,7 +81,7 @@ describe("ZusammenfassungAccordion component", () => {
     describe("with grundstueck partly filled", () => {
       beforeEach(() => {
         defaultProps.allData = grundModelFactory
-          .grundstueckTyp({ typ: "baureif" })
+          .grundstuecktyp({ grundstuecktyp: "baureif" })
           .build();
       });
 
@@ -115,12 +115,29 @@ describe("ZusammenfassungAccordion component", () => {
     describe("with grundstueck typ bebaut", () => {
       beforeEach(() => {
         defaultProps.allData = grundModelFactory
-          .grundstueckTyp({ typ: "einfamilienhaus" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "einfamilienhaus" })
           .build();
       });
 
       afterEach(() => {
         defaultProps.allData = {};
+      });
+
+      it("should display grundstueck fields", () => {
+        render(<ZusammenfassungAccordion {...defaultProps} />);
+
+        screen.getByText("Grundstück").click();
+        expect(
+          within(screen.getByTestId("grundstueck-area")).queryByText(
+            "sectionUnfilled"
+          )
+        ).not.toBeInTheDocument();
+        expect(
+          within(screen.getByTestId("grundstueck-area")).queryByText(
+            "Art des Grundstücks"
+          )
+        ).toBeInTheDocument();
       });
 
       it("should display gebaeude and eigentuemer areas with disclaimer", () => {
@@ -174,8 +191,8 @@ describe("ZusammenfassungAccordion component", () => {
         .build();
       defaultProps.errors = {
         grundstueck: {
-          typ: {
-            typ: "error in typ",
+          grundstuecktyp: {
+            grundstuecktyp: "error in grundstuecktyp",
           },
         },
       };
@@ -208,7 +225,7 @@ describe("ZusammenfassungAccordion component", () => {
         screen.getByText("Grundstück").click();
         expect(
           within(screen.getByTestId("grundstueck-area")).getByText(
-            "error in typ"
+            "error in grundstuecktyp"
           )
         ).toBeInTheDocument();
       });
@@ -218,7 +235,7 @@ describe("ZusammenfassungAccordion component", () => {
       beforeEach(() => {
         defaultProps.allData = grundModelFactory
           .grundstueckSteuernummer({ steuernummer: "12345678900" })
-          .grundstueckTyp({ typ: "einfamilienhaus" })
+          .haustyp({ haustyp: "einfamilienhaus" })
           .build();
       });
 
@@ -232,7 +249,7 @@ describe("ZusammenfassungAccordion component", () => {
         screen.getByText("Grundstück").click();
         expect(
           within(screen.getByTestId("grundstueck-area")).getByText(
-            "error in typ"
+            "error in grundstuecktyp"
           )
         ).toBeInTheDocument();
       });

@@ -56,7 +56,7 @@ describe("states", () => {
 
     const defaultGrundstueck = [
       "grundstueck.uebersicht",
-      "grundstueck.typ",
+      "grundstueck.bebaut",
       "grundstueck.adresse",
       "grundstueck.gemeinde",
       "grundstueck.bodenrichtwertInfo",
@@ -70,7 +70,8 @@ describe("states", () => {
 
     const defaultGrundstueckTypGiven = [
       "grundstueck.uebersicht",
-      "grundstueck.typ",
+      "grundstueck.bebaut",
+      "grundstueck.haustyp",
       "grundstueck.adresse",
       "grundstueck.gemeinde",
       "grundstueck.bodenrichtwertInfo",
@@ -114,13 +115,13 @@ describe("states", () => {
       {
         description: "abweichende Entwicklung",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "abweichendeEntwicklung" })
+          .bebaut({ bebaut: "abweichendeEntwicklung" })
           .build(),
         expectedPath: [
           "welcome",
           "grundstueck.uebersicht",
-          "grundstueck.typ",
-          "grundstueck.abweichendeEntwicklung",
+          "grundstueck.bebaut",
+          "grundstueck.grundstuecktyp",
           "grundstueck.adresse",
           "grundstueck.gemeinde",
           "grundstueck.bodenrichtwertInfo",
@@ -138,7 +139,8 @@ describe("states", () => {
       {
         description: "baureif with miteigentum",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "baureif" })
+          .bebaut({ bebaut: "baureif" })
+          .grundstuecktyp({ grundstuecktyp: "baureif" })
           .flurstueckAnzahl({ anzahl: "1" })
           .miteigentumHaus({ hasMiteigentum: "true" })
           .grundstueckFlurstueck({
@@ -154,7 +156,8 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           "grundstueck.uebersicht",
-          "grundstueck.typ",
+          "grundstueck.bebaut",
+          "grundstueck.grundstuecktyp",
           "grundstueck.adresse",
           "grundstueck.gemeinde",
           "grundstueck.bodenrichtwertInfo",
@@ -174,7 +177,8 @@ describe("states", () => {
       {
         description: "Einfamilienhaus with partial Miteigentumsanteil",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "einfamilienhaus" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "einfamilienhaus" })
           .flurstueckAnzahl({ anzahl: "2" })
           .miteigentumHaus({ hasMiteigentum: "true" })
           .grundstueckFlurstueck({
@@ -193,7 +197,8 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           "grundstueck.uebersicht",
-          "grundstueck.typ",
+          "grundstueck.bebaut",
+          "grundstueck.haustyp",
           "grundstueck.adresse",
           "grundstueck.gemeinde",
           "grundstueck.bodenrichtwertInfo",
@@ -218,7 +223,8 @@ describe("states", () => {
       {
         description: "Einfamilienhaus vor 1949 no frills",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "einfamilienhaus" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "einfamilienhaus" })
           .build(),
         expectedPath: [
           "welcome",
@@ -231,7 +237,8 @@ describe("states", () => {
       {
         description: "Einfamilienhaus ab 1949 no frills",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "einfamilienhaus" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "einfamilienhaus" })
           .gebaeudeAb1949()
           .build(),
         expectedPath: [
@@ -252,7 +259,8 @@ describe("states", () => {
       {
         description: "Einfamilienhaus ab 1949 kernsaniert",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "einfamilienhaus" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "einfamilienhaus" })
           .gebaeudeAb1949()
           .kernsaniert()
           .build(),
@@ -275,7 +283,8 @@ describe("states", () => {
       {
         description: "Einfamilienhaus vor 1949 kernsaniert",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "einfamilienhaus" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "einfamilienhaus" })
           .kernsaniert()
           .build(),
         expectedPath: [
@@ -297,7 +306,8 @@ describe("states", () => {
         description:
           "Einfamilienhaus ab 1949 with weitere wohnraeume and garagen",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "einfamilienhaus" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "einfamilienhaus" })
           .gebaeudeAb1949()
           .withWeitereWohnraeume()
           .withGaragen()
@@ -323,7 +333,8 @@ describe("states", () => {
         description:
           "Einfamilienhaus ab 1949 kernsaniert with weitere wohnraeume",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "einfamilienhaus" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "einfamilienhaus" })
           .gebaeudeAb1949()
           .kernsaniert()
           .withWeitereWohnraeume()
@@ -348,7 +359,8 @@ describe("states", () => {
       {
         description: "Einfamilienhaus ab 1949 kernsaniert with garagen",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "einfamilienhaus" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "einfamilienhaus" })
           .gebaeudeAb1949()
           .kernsaniert()
           .withGaragen()
@@ -374,7 +386,8 @@ describe("states", () => {
         description:
           "Einfamilienhaus ab 1949 kernsaniert with weitere wohnraeume and garagen",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "einfamilienhaus" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "einfamilienhaus" })
           .gebaeudeAb1949()
           .kernsaniert()
           .withWeitereWohnraeume()
@@ -402,7 +415,8 @@ describe("states", () => {
         description:
           "Einfamilienhaus ab 1949 kernsaniert with weitere wohnraeume, abbruchverpflichtung and garagen",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "einfamilienhaus" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "einfamilienhaus" })
           .gebaeudeAb1949()
           .kernsaniert()
           .abbruchverpflichtung()
@@ -432,7 +446,8 @@ describe("states", () => {
         description:
           "Wohnungseigentum ab 1949 kernsaniert with weitere wohnraeume, abbruchverpflichtung and garagen",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "wohnungseigentum" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "wohnungseigentum" })
           .gebaeudeAb1949()
           .kernsaniert()
           .abbruchverpflichtung()
@@ -442,7 +457,8 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           "grundstueck.uebersicht",
-          "grundstueck.typ",
+          "grundstueck.bebaut",
+          "grundstueck.haustyp",
           "grundstueck.adresse",
           "grundstueck.gemeinde",
           "grundstueck.bodenrichtwertInfo",
@@ -472,13 +488,15 @@ describe("states", () => {
       {
         description: "Wohnungseigentum with simple Miteigentumsanteil",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "wohnungseigentum" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "wohnungseigentum" })
           .miteigentumWohnung({ miteigentumTyp: "none" })
           .build(),
         expectedPath: [
           "welcome",
           "grundstueck.uebersicht",
-          "grundstueck.typ",
+          "grundstueck.bebaut",
+          "grundstueck.haustyp",
           "grundstueck.adresse",
           "grundstueck.gemeinde",
           "grundstueck.bodenrichtwertInfo",
@@ -498,13 +516,15 @@ describe("states", () => {
       {
         description: "Wohnungseigentum with garage",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "wohnungseigentum" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "wohnungseigentum" })
           .miteigentumWohnung({ miteigentumTyp: "garage" })
           .build(),
         expectedPath: [
           "welcome",
           "grundstueck.uebersicht",
-          "grundstueck.typ",
+          "grundstueck.bebaut",
+          "grundstueck.haustyp",
           "grundstueck.adresse",
           "grundstueck.gemeinde",
           "grundstueck.bodenrichtwertInfo",
@@ -526,7 +546,8 @@ describe("states", () => {
         description:
           "Wohnungseigentum with mixed miteigentum and no miteigentumsanteil",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "wohnungseigentum" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "wohnungseigentum" })
           .miteigentumWohnung({ miteigentumTyp: "mixed" })
           .flurstueckAnzahl({ anzahl: "2" })
           .miteigentumAuswahlFlurstueck(0, { hasMiteigentum: "false" })
@@ -535,7 +556,8 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           "grundstueck.uebersicht",
-          "grundstueck.typ",
+          "grundstueck.bebaut",
+          "grundstueck.haustyp",
           "grundstueck.adresse",
           "grundstueck.gemeinde",
           "grundstueck.bodenrichtwertInfo",
@@ -560,7 +582,8 @@ describe("states", () => {
         description:
           "Wohnungseigentum with mixed miteigentum and miteigentumsanteil",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "wohnungseigentum" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "wohnungseigentum" })
           .miteigentumWohnung({ miteigentumTyp: "mixed" })
           .flurstueckAnzahl({ anzahl: "2" })
           .miteigentumAuswahlFlurstueck(0, { hasMiteigentum: "true" })
@@ -569,7 +592,8 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           "grundstueck.uebersicht",
-          "grundstueck.typ",
+          "grundstueck.bebaut",
+          "grundstueck.haustyp",
           "grundstueck.adresse",
           "grundstueck.gemeinde",
           "grundstueck.bodenrichtwertInfo",
@@ -596,7 +620,8 @@ describe("states", () => {
         description:
           "Wohnungseigentum with mixed miteigentum and mixed miteigentumsanteil",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "wohnungseigentum" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "wohnungseigentum" })
           .miteigentumWohnung({ miteigentumTyp: "mixed" })
           .flurstueckAnzahl({ anzahl: "2" })
           .miteigentumAuswahlFlurstueck(0, { hasMiteigentum: "true" })
@@ -605,7 +630,8 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           "grundstueck.uebersicht",
-          "grundstueck.typ",
+          "grundstueck.bebaut",
+          "grundstueck.haustyp",
           "grundstueck.adresse",
           "grundstueck.gemeinde",
           "grundstueck.bodenrichtwertInfo",
@@ -633,7 +659,7 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           "grundstueck.uebersicht",
-          "grundstueck.typ",
+          "grundstueck.bebaut",
           "grundstueck.adresse",
           "grundstueck.gemeinde",
           "grundstueck.bodenrichtwertInfo",
@@ -655,7 +681,7 @@ describe("states", () => {
         expectedPath: [
           "welcome",
           "grundstueck.uebersicht",
-          "grundstueck.typ",
+          "grundstueck.bebaut",
           "grundstueck.adresse",
           "grundstueck.steuernummer",
           "grundstueck.gemeinde",
@@ -674,7 +700,8 @@ describe("states", () => {
         description:
           "Zweifamilienhaus ab 1949 kernsaniert with weitere wohnraeume and garagen",
         context: grundModelFactory
-          .grundstueckTyp({ typ: "zweifamilienhaus" })
+          .bebaut({ bebaut: "bebaut" })
+          .haustyp({ haustyp: "zweifamilienhaus" })
           .gebaeudeAb1949()
           .kernsaniert()
           .withWeitereWohnraeume()
@@ -725,7 +752,8 @@ describe("states", () => {
       {
         description: "with 3 eigentuemer people (2 with vertreter)",
         context: grundModelFactory
-          .grundstueckTyp()
+          .bebaut()
+          .haustyp()
           .eigentuemerAnzahl({ anzahl: "3" })
           .eigentuemerPersonGesetzlicherVertreter(
             { hasVertreter: "true" },
@@ -775,7 +803,8 @@ describe("states", () => {
       {
         description: "with bruchteilsgemeinschaft angaben",
         context: grundModelFactory
-          .grundstueckTyp()
+          .bebaut()
+          .haustyp()
           .eigentuemerAnzahl({ anzahl: "3" })
           .eigentuemerBruchteilsgemeinschaft({ predefinedData: "false" })
           .build(),
@@ -811,7 +840,8 @@ describe("states", () => {
       {
         description: "with empfangsbevollmaechtigter",
         context: grundModelFactory
-          .grundstueckTyp()
+          .bebaut()
+          .haustyp()
           .eigentuemerEmpfangsvollmacht({ hasEmpfangsvollmacht: "true" })
           .build(),
         expectedPath: [

@@ -67,6 +67,29 @@ describe("getStoredFormData", () => {
       it("returns stored data", async () => {
         const data = encryptCookie({
           userId: user.id,
+          data: { grundstueck: { haustyp: { haustyp: "einfamilienhaus" } } },
+        });
+        const cookie = await createFormDataCookie({
+          userId: user.id,
+          index: 0,
+        }).serialize("1" + data);
+        const request = new Request("http://localhost/", {
+          headers: {
+            Cookie: cookie,
+          },
+        });
+        const retrievedData = await getStoredFormData({
+          request,
+          user,
+        });
+        expect(retrievedData).toEqual({
+          grundstueck: { haustyp: { haustyp: "einfamilienhaus" } },
+        });
+      });
+
+      it("migrates old grundstueck data", async () => {
+        const data = encryptCookie({
+          userId: user.id,
           data: { grundstueck: { typ: { typ: "einfamilienhaus" } } },
         });
         const cookie = await createFormDataCookie({
@@ -83,7 +106,43 @@ describe("getStoredFormData", () => {
           user,
         });
         expect(retrievedData).toEqual({
-          grundstueck: { typ: { typ: "einfamilienhaus" } },
+          grundstueck: {
+            bebaut: { bebaut: "bebaut" },
+            haustyp: { haustyp: "einfamilienhaus" },
+          },
+        });
+      });
+
+      it("does not overwrite new grundstueck data", async () => {
+        const data = encryptCookie({
+          userId: user.id,
+          data: {
+            grundstueck: {
+              typ: { typ: "baureif" },
+              bebaut: { bebaut: "bebaut" },
+              haustyp: { haustyp: "einfamilienhaus" },
+            },
+          },
+        });
+        const cookie = await createFormDataCookie({
+          userId: user.id,
+          index: 0,
+        }).serialize("1" + data);
+        const request = new Request("http://localhost/", {
+          headers: {
+            Cookie: cookie,
+          },
+        });
+        const retrievedData = await getStoredFormData({
+          request,
+          user,
+        });
+        expect(retrievedData).toEqual({
+          grundstueck: {
+            typ: { typ: "baureif" },
+            bebaut: { bebaut: "bebaut" },
+            haustyp: { haustyp: "einfamilienhaus" },
+          },
         });
       });
 
@@ -91,7 +150,7 @@ describe("getStoredFormData", () => {
         it("returns stored data", async () => {
           const data = encryptCookie({
             userId: user.id,
-            data: { grundstueck: { typ: { typ: "einfamilienhaus" } } },
+            data: { grundstueck: { haustyp: { haustyp: "einfamilienhaus" } } },
           });
           const cookie = await createFormDataCookie({
             userId: user.id,
@@ -115,7 +174,7 @@ describe("getStoredFormData", () => {
             user,
           });
           expect(retrievedData).toEqual({
-            grundstueck: { typ: { typ: "einfamilienhaus" } },
+            grundstueck: { haustyp: { haustyp: "einfamilienhaus" } },
           });
         });
 
@@ -123,7 +182,9 @@ describe("getStoredFormData", () => {
           it("returns empty object", async () => {
             const data = encryptCookie({
               userId: user.id,
-              data: { grundstueck: { typ: { typ: "einfamilienhaus" } } },
+              data: {
+                grundstueck: { haustyp: { haustyp: "einfamilienhaus" } },
+              },
             });
             const cookie = await createFormDataCookie({
               userId: user.id,
@@ -150,7 +211,9 @@ describe("getStoredFormData", () => {
           it("ignores left-over cookie and returns stored data", async () => {
             const data = encryptCookie({
               userId: user.id,
-              data: { grundstueck: { typ: { typ: "einfamilienhaus" } } },
+              data: {
+                grundstueck: { haustyp: { haustyp: "einfamilienhaus" } },
+              },
             });
             const cookie = await createFormDataCookie({
               userId: user.id,
@@ -176,7 +239,7 @@ describe("getStoredFormData", () => {
               user,
             });
             expect(retrievedData).toEqual({
-              grundstueck: { typ: { typ: "einfamilienhaus" } },
+              grundstueck: { haustyp: { haustyp: "einfamilienhaus" } },
             });
           });
         });

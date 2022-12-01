@@ -373,8 +373,9 @@
       "uebersicht": "Übersicht",
       "adresse": "Adresse",
       "steuernummer": "Aktenzeichen / Steuernummer",
-      "typ": "Grundstücksart",
-      "abweichendeEntwicklung": "Abweichende Entwicklung",
+      "bebaut": "Bebaut oder unbebaut",
+      "grundstuecktyp": "Art oder Zustand",
+      "haustyp": "Art oder Zustand",
       "gemeinde": "Innerhalb einer Gemeinde?",
       "anzahl": "Anzahl der Flurstücke",
       "miteigentumsanteil": "Miteigentum",
@@ -1104,57 +1105,68 @@
         }
       }
     },
-    "typ": {
-      "headline": "Um welche Art Grundstück handelt es sich?",
+    "bebaut": {
+      "headline": "War Ihr Grundstück am 01.01.2022 bebaut?",
       "fields": {
-        "typ": {
+        "bebaut": {
           "options": {
-            "einfamilienhaus": {
-              "label": "Grundstück mit Einfamilienhaus",
-              "help": "Hat Ihr Gebäude einen eigenen Eingang, zum Beispiel bei einer Doppelhaushälfte, handelt es sich um ein Einfamilienhaus. Ein ausgebauter Dachboden mit separatem Eingang zählt als weitere Wohnung. Das Gebäude ist dann ein Zweifamilienhaus."
-            },
-            "zweifamilienhaus": {
-              "label": "Grundstück mit Zweifamilienhaus",
-              "help": "Zweifamilienhäuser sind Gebäude, die zwei Wohnungen enthalten. Jede Wohnung bedarf eines eigenen Zugangs zu den Wohnräumen. Bewohnen Sie eine Doppelhaushälfte, handelt es sich um ein Einfamilienhaus."
-            },
-            "wohnungseigentum": {
-              "label": "Eigentumswohnung",
-              "help": "Eine Eigentumswohnung liegt vor, wenn Wohneigentum gebildet wurde und die Wohnung ein eigenes Grundbuchblatt hat."
+            "bebaut": {
+              "label": "Ja, mein Grundstück war zu diesem Zeitpunkt bebaut"
             },
             "baureif": {
-              "label": "Unbebautes baureifes Land",
-              "help": "Ein unbebautes Grundstück ist ein Grundstück, auf dem sich keine benutzbaren Gebäude befinden. Baureif ist ein Grundstück, wenn dies in einem Bebauungsplan definiert ist oder das Grundstück sofort bebaut werden kann."
+              "label": "Nein, mein Grundstück war zu diesem Zeitpunkt unbebaut"
             },
             "abweichendeEntwicklung": {
-              "label": "Unbebautes Grundstück in einem abweichenden Entwicklungszustand",
-              "help": "Ein unbebautes Grundstück in einem abweichenden Entwicklungszustand ist ein Grundstück, das noch nicht baureif ist und auf dem sich keine benutzbaren Gebäude befinden. Es ist im Bebauungsplan noch nicht als Bauland ausgewiesen."
+              "label": "Jein, auf meinem Grundstück stand ein verfallenes Gebäude"
             }
           }
         }
       }
     },
-    "abweichendeEntwicklung": {
-      "headline": "Welcher Zustand trifft auf Ihr Grundstück zu?",
-      "description": "Ob ihr Grundstück Bauerwartungsland oder Rohbauland ist, richtet sich danach, ob das Grundstück durch die Gemeinde bereits für eine mögliche Bebauung vorgesehen ist.",
+    "grundstuecktyp": {
+      "headline": "Welcher Zustand traf am 01.01.2022 auf Ihr unbebautes Grundstück zu?",
       "fields": {
-        "zustand": {
+        "grundstuecktyp": {
           "options": {
+            "baureif": {
+              "label": "<bold>Baureifes Land</bold>",
+              "description": "Grundstück ohne Gebäude oder mit verfallenem Gebäude",
+              "help": "Ein unbebautes Grundstück ist ein Grundstück, auf dem sich keine benutzbaren Gebäude befinden. Baureif ist ein Grundstück, wenn dies in einem Bebauungsplan definiert ist oder das Grundstück sofort bebaut werden kann."
+            },
             "bauerwartungsland": {
-              "label": "Bauerwartungsland",
+              "label": "<bold>Bauerwartungsland</bold>",
+              "description": "Fläche, die in naher Zukunft Baluand ist",
               "help": "Als Bauerwartungsland wird eine Fläche bezeichnet, die zwar noch kein offizielles Bauland ist, aber es wahrscheinlich in der näheren Zukunft sein wird. Im Flächennutzungsplan ist das Grundstück häufig bereits als Bauland ausgewiesen."
             },
             "rohbauland": {
-              "label": "Rohbauland",
+              "label": "<bold>Rohbauland</bold>",
+              "description": "Unerschlossenes Grundstück",
               "help": "Als Rohbauland wird ein größeres, unerschlossenes Grundstück bezeichnet, das in der Regel bereits in einem Bebauungsplan als Bauland vorgesehen ist. Sein Zustand reicht für eine Bebauung noch nicht aus, weil beispielsweise Abwasserzugänge oder Zugänge zu einer Straße fehlen."
             }
           }
         }
-      },
-      "help": {
-        "heading": "Bauerwartungsland oder Rohbauland",
-        "paragraph1": "Handelt es sich bei dem unbebauten Grundstück um Bauerwartungsland oder Rohbauland?",
-        "paragraph2": "<bold>Bauerwartungsland</bold> sind Flächen, die planungsrechtlich noch nicht bebaut werden können, bei denen aber damit zu rechnen ist, dass dies in absehbarer Zeit so sein wird.",
-        "paragraph3": "<bold>Rohbauland</bold> sind Flächen, die für eine Bebauung bestimmt sind, aber deren Erschließung noch nicht gesichert ist oder die nach Lage, Form oder Größe für eine Bebauung unzureichend sind. Im Regelfall handelt es sich hierbei um größere, unerschlossene Grundstücksflächen, die kein land- und forstwirtschaftliches Vermögen mehr sind, selbst wenn sie noch so genutzt werden."
+      }
+    },
+    "haustyp": {
+      "headline": "Welche Art Gebäude stand am 01.01.2022 auf Ihrem Grundstück?",
+      "fields": {
+        "haustyp": {
+          "options": {
+            "einfamilienhaus": {
+              "label": "<bold>Einfamilienhaus</bold>",
+              "description": "Ein Haus mit genau einer Wohnung"
+            },
+            "zweifamilienhaus": {
+              "label": "<bold>Zweifamilienhaus</bold>",
+              "description": "Ein Haus mit genau zwei Wohnungen"
+            },
+            "wohnungseigentum": {
+              "label": "<bold>Eigentumswohnung</bold>",
+              "description": "Eine Wohnung in einem Mehrfamilienhaus",
+              "help": "Wenn Ihnen aber das ganze Mehrfamilienhaus gehört, geben Sie Ihre Erklärung über ELSTER ab."
+            }
+          }
+        }
       }
     },
     "gemeinde": {

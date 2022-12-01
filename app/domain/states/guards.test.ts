@@ -16,24 +16,19 @@ describe("isEigentumswohnung", () => {
     const inputData = grundModelFactory
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      .grundstueckTyp({ typ: "INVALID" })
+      .haustyp({ haustyp: "INVALID" })
       .build();
     const result = conditions.isEigentumswohnung(inputData);
     expect(result).toEqual(false);
   });
 
   it("Should return false if typ is not wohnungseigentum", async () => {
-    const wrongValues = [
-      "einfamilienhaus",
-      "zweifamilienhaus",
-      "baureif",
-      "abweichendeEntwicklung",
-    ];
+    const wrongValues = ["einfamilienhaus", "zweifamilienhaus"];
     wrongValues.forEach((wrongValue) => {
       const inputData = grundModelFactory
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        .grundstueckTyp({ typ: wrongValue })
+        .grundstuecktyp({ typ: wrongValue })
         .build();
       const result = conditions.isEigentumswohnung(inputData);
       expect(result).toEqual(false);
@@ -42,7 +37,8 @@ describe("isEigentumswohnung", () => {
 
   it("Should return true if typ is wohnungseigentum", async () => {
     const inputData = grundModelFactory
-      .grundstueckTyp({ typ: "wohnungseigentum" })
+      .bebaut({ bebaut: "bebaut" })
+      .haustyp({ haustyp: "wohnungseigentum" })
       .build();
     const result = conditions.isEigentumswohnung({
       ...inputData,
@@ -61,7 +57,7 @@ describe("isZweifamilienhaus", () => {
     const inputData = grundModelFactory
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      .grundstueckTyp({ typ: "INVALID" })
+      .grundstuecktyp({ typ: "INVALID" })
       .build();
     const result = conditions.isZweifamilienhaus(inputData);
     expect(result).toEqual(false);
@@ -78,7 +74,7 @@ describe("isZweifamilienhaus", () => {
       const inputData = grundModelFactory
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        .grundstueckTyp({ typ: wrongValue })
+        .grundstuecktyp({ typ: wrongValue })
         .build();
       const result = conditions.isZweifamilienhaus(inputData);
       expect(result).toEqual(false);
@@ -87,7 +83,8 @@ describe("isZweifamilienhaus", () => {
 
   it("Should return true if typ is zweifamilienhaus", async () => {
     const inputData = grundModelFactory
-      .grundstueckTyp({ typ: "zweifamilienhaus" })
+      .bebaut({ bebaut: "bebaut" })
+      .haustyp({ haustyp: "zweifamilienhaus" })
       .build();
     const result = conditions.isZweifamilienhaus(inputData);
     expect(result).toEqual(true);
@@ -102,7 +99,10 @@ describe("previousFlurstueckHasMiteigentum", () => {
   it("returns false if unbebaut", () => {
     expect(
       previousFlurstueckHasMiteigentum({
-        grundstueck: { typ: { typ: "baureif" } },
+        grundstueck: {
+          bebaut: { bebaut: "baureif" },
+          grundstuecktyp: { grundstuecktyp: "baureif" },
+        },
         flurstueckId: 1,
       })
     ).toBe(false);
@@ -110,7 +110,8 @@ describe("previousFlurstueckHasMiteigentum", () => {
 
   it("returns true if second flurstueck and both flurstueck have miteigentum", () => {
     const inputData = grundModelFactory
-      .grundstueckTyp({ typ: "wohnungseigentum" })
+      .bebaut({ bebaut: "bebaut" })
+      .haustyp({ haustyp: "wohnungseigentum" })
       .miteigentumWohnung({ miteigentumTyp: "mixed" })
       .grundstueckFlurstueck({
         list: [
@@ -131,7 +132,8 @@ describe("previousFlurstueckHasMiteigentum", () => {
 
   it("returns true if second flurstueck and first flurstueck has miteigentum", () => {
     const inputData = grundModelFactory
-      .grundstueckTyp({ typ: "einfamilienhaus" })
+      .bebaut({ bebaut: "bebaut" })
+      .haustyp({ haustyp: "einfamilienhaus" })
       .miteigentumHaus({ hasMiteigentum: "true" })
       .grundstueckFlurstueck({
         list: [
@@ -152,7 +154,8 @@ describe("previousFlurstueckHasMiteigentum", () => {
 
   it("returns false if previous flurstueck empty", () => {
     const inputData = grundModelFactory
-      .grundstueckTyp({ typ: "einfamilienhaus" })
+      .bebaut({ bebaut: "bebaut" })
+      .haustyp({ haustyp: "einfamilienhaus" })
       .miteigentumHaus({ hasMiteigentum: "true" })
       .grundstueckFlurstueck({
         list: [],
@@ -177,7 +180,7 @@ describe("isBezugsfertigAb1949", () => {
       const inputData = grundModelFactory
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        .grundstueckTyp({ typ: unbebautValue })
+        .grundstuecktyp({ typ: unbebautValue })
         .build();
       const result = conditions.isBezugsfertigAb1949(inputData);
       expect(result).toEqual(false);
@@ -195,7 +198,10 @@ describe("isBezugsfertigAb1949", () => {
         const inputData = grundModelFactory
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          .grundstueckTyp({ typ: bebautValue })
+          .bebaut({ bebaut: "bebaut" })
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          .haustyp({ haustyp: bebautValue })
           .gebaeudeAb1949({ isAb1949: "true" })
           .build();
         const result = conditions.isBezugsfertigAb1949(inputData);
@@ -213,7 +219,10 @@ describe("isBezugsfertigAb1949", () => {
         const inputData = grundModelFactory
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          .grundstueckTyp({ typ: bebautValue })
+          .bebaut({ bebaut: "bebaut" })
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          .haustyp({ haustyp: bebautValue })
           .gebaeudeAb1949({ isAb1949: "false" })
           .build();
         const result = conditions.isBezugsfertigAb1949(inputData);
@@ -235,7 +244,7 @@ describe("isKernsaniert", () => {
       const inputData = grundModelFactory
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        .grundstueckTyp({ typ: unbebautValue })
+        .grundstuecktyp({ typ: unbebautValue })
         .build();
       const result = conditions.isKernsaniert(inputData);
       expect(result).toEqual(false);
@@ -253,7 +262,10 @@ describe("isKernsaniert", () => {
         const inputData = grundModelFactory
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          .grundstueckTyp({ typ: bebautValue })
+          .bebaut({ bebaut: "bebaut" })
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          .haustyp({ haustyp: bebautValue })
           .kernsaniert({ isKernsaniert: "true" })
           .build();
         const result = conditions.isKernsaniert(inputData);
@@ -271,7 +283,7 @@ describe("isKernsaniert", () => {
         const inputData = grundModelFactory
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          .grundstueckTyp({ typ: bebautValue })
+          .grundstuecktyp({ typ: bebautValue })
           .kernsaniert({ isKernsaniert: "false" })
           .build();
         const result = conditions.isKernsaniert(inputData);
@@ -293,7 +305,7 @@ describe("hasAbbruchverpflichtung", () => {
       const inputData = grundModelFactory
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        .grundstueckTyp({ typ: unbebautValue })
+        .grundstuecktyp({ typ: unbebautValue })
         .build();
       const result = conditions.hasAbbruchverpflichtung(inputData);
       expect(result).toEqual(false);
@@ -311,7 +323,10 @@ describe("hasAbbruchverpflichtung", () => {
         const inputData = grundModelFactory
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          .grundstueckTyp({ typ: bebautValue })
+          .bebaut({ bebaut: "bebaut" })
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          .haustyp({ haustyp: bebautValue })
           .abbruchverpflichtung()
           .build();
         const result = conditions.hasAbbruchverpflichtung(inputData);
@@ -329,7 +344,7 @@ describe("hasAbbruchverpflichtung", () => {
         const inputData = grundModelFactory
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          .grundstueckTyp({ typ: bebautValue })
+          .grundstuecktyp({ typ: bebautValue })
           .abbruchverpflichtung({ hasAbbruchverpflichtung: "false" })
           .build();
         const result = conditions.hasAbbruchverpflichtung(inputData);
@@ -351,7 +366,7 @@ describe("hasWeitereWohnraeume", () => {
       const inputData = grundModelFactory
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        .grundstueckTyp({ typ: unbebautValue })
+        .grundstuecktyp({ typ: unbebautValue })
         .build();
       const result = conditions.hasWeitereWohnraeume(inputData);
       expect(result).toEqual(false);
@@ -369,7 +384,10 @@ describe("hasWeitereWohnraeume", () => {
         const inputData = grundModelFactory
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          .grundstueckTyp({ typ: bebautValue })
+          .bebaut({ bebaut: "bebaut" })
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          .haustyp({ haustyp: bebautValue })
           .withWeitereWohnraeume({ hasWeitereWohnraeume: "true" })
           .build();
         const result = conditions.hasWeitereWohnraeume(inputData);
@@ -387,7 +405,7 @@ describe("hasWeitereWohnraeume", () => {
         const inputData = grundModelFactory
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          .grundstueckTyp({ typ: bebautValue })
+          .grundstuecktyp({ typ: bebautValue })
           .withWeitereWohnraeume({ hasWeitereWohnraeume: "false" })
           .build();
         const result = conditions.hasWeitereWohnraeume(inputData);
@@ -409,7 +427,7 @@ describe("hasGaragen", () => {
       const inputData = grundModelFactory
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        .grundstueckTyp({ typ: unbebautValue })
+        .grundstuecktyp({ typ: unbebautValue })
         .build();
       const result = conditions.hasGaragen(inputData);
       expect(result).toEqual(false);
@@ -427,7 +445,10 @@ describe("hasGaragen", () => {
         const inputData = grundModelFactory
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          .grundstueckTyp({ typ: bebautValue })
+          .bebaut({ bebaut: "bebaut" })
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          .haustyp({ haustyp: bebautValue })
           .withGaragen({ hasGaragen: "true" })
           .build();
         const result = conditions.hasGaragen(inputData);
@@ -445,7 +466,7 @@ describe("hasGaragen", () => {
         const inputData = grundModelFactory
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          .grundstueckTyp({ typ: bebautValue })
+          .grundstuecktyp({ typ: bebautValue })
           .withGaragen({ hasGaragen: "false" })
           .build();
         const result = conditions.hasGaragen(inputData);
@@ -795,7 +816,7 @@ describe("isBebaut", () => {
     const inputData = grundModelFactory
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      .grundstueckTyp({ typ: "INVALID" })
+      .grundstuecktyp({ typ: "INVALID" })
       .build();
     const result = conditions.isBebaut(inputData);
     expect(result).toEqual(false);
@@ -803,23 +824,22 @@ describe("isBebaut", () => {
 
   it("Should return false if typ is abweichendeEntwicklung", async () => {
     const inputData = grundModelFactory
-      .grundstueckTyp({ typ: "abweichendeEntwicklung" })
+      .bebaut({ bebaut: "abweichendeEntwicklung" })
       .build();
     const result = conditions.isBebaut(inputData);
     expect(result).toEqual(false);
   });
 
   it("Should return false if typ is baureif", async () => {
-    const inputData = grundModelFactory
-      .grundstueckTyp({ typ: "baureif" })
-      .build();
+    const inputData = grundModelFactory.bebaut({ bebaut: "baureif" }).build();
     const result = conditions.isBebaut(inputData);
     expect(result).toEqual(false);
   });
 
   it("Should return true if typ is einfamilienhaus", async () => {
     const inputData = grundModelFactory
-      .grundstueckTyp({ typ: "einfamilienhaus" })
+      .bebaut({ bebaut: "bebaut" })
+      .haustyp({ haustyp: "einfamilienhaus" })
       .build();
     const result = conditions.isBebaut(inputData);
     expect(result).toEqual(true);
@@ -827,7 +847,8 @@ describe("isBebaut", () => {
 
   it("Should return true if typ is zweifamilienhaus", async () => {
     const inputData = grundModelFactory
-      .grundstueckTyp({ typ: "zweifamilienhaus" })
+      .bebaut({ bebaut: "bebaut" })
+      .haustyp({ haustyp: "zweifamilienhaus" })
       .build();
     const result = conditions.isBebaut(inputData);
     expect(result).toEqual(true);
@@ -835,38 +856,12 @@ describe("isBebaut", () => {
 
   it("Should return true if typ is wohnungseigentum", async () => {
     const inputData = grundModelFactory
-      .grundstueckTyp({ typ: "wohnungseigentum" })
+      .bebaut({ bebaut: "bebaut" })
+      .haustyp({ haustyp: "wohnungseigentum" })
       .build();
     const result = conditions.isBebaut(inputData);
     expect(result).toEqual(true);
   });
-});
-
-describe("isAbweichendeEntwicklung", () => {
-  it("Should return false if data undefined", async () => {
-    const result = conditions.isAbweichendeEntwicklung(undefined);
-    expect(result).toEqual(false);
-  });
-
-  const cases = [
-    { typ: "INVALID", expectedValue: false },
-    { typ: "abweichendeEntwicklung", expectedValue: true },
-    { typ: "baureif", expectedValue: false },
-    { typ: "einfamilienhaus", expectedValue: false },
-    { typ: "zweifamilienhaus", expectedValue: false },
-    { typ: "wohnungseigentum", expectedValue: false },
-  ];
-
-  test.each(cases)(
-    "Should return $expectedValue if typ is $typ",
-    ({ typ, expectedValue }) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const inputData = grundModelFactory.grundstueckTyp({ typ }).build();
-      const result = conditions.isAbweichendeEntwicklung(inputData);
-      expect(result).toEqual(expectedValue);
-    }
-  );
 });
 
 describe("personIdGreaterThanOne", () => {
@@ -979,7 +974,8 @@ describe("isExplicitFlurstueckGrundbuchblattnummer", () => {
   it("Should return false on wohnungseigentum type none", async () => {
     const context = grundModelFactory
       .grundstueckAdresse({ bundesland: "NW" })
-      .grundstueckTyp({ typ: "wohnungseigentum" })
+      .bebaut({ bebaut: "bebaut" })
+      .haustyp({ haustyp: "wohnungseigentum" })
       .miteigentumWohnung({ miteigentumTyp: "none" })
       .build();
 
@@ -991,7 +987,8 @@ describe("isExplicitFlurstueckGrundbuchblattnummer", () => {
   it("Should return false on wohnungseigentum type garage", async () => {
     const context = grundModelFactory
       .grundstueckAdresse({ bundesland: "NW" })
-      .grundstueckTyp({ typ: "wohnungseigentum" })
+      .bebaut({ bebaut: "bebaut" })
+      .haustyp({ haustyp: "wohnungseigentum" })
       .miteigentumWohnung({ miteigentumTyp: "garage" })
       .build();
 
@@ -1003,7 +1000,8 @@ describe("isExplicitFlurstueckGrundbuchblattnummer", () => {
   it("Should return true on wohnungseigentum type mixed", async () => {
     const context = grundModelFactory
       .grundstueckAdresse({ bundesland: "NW" })
-      .grundstueckTyp({ typ: "wohnungseigentum" })
+      .bebaut({ bebaut: "bebaut" })
+      .haustyp({ haustyp: "wohnungseigentum" })
       .miteigentumWohnung({ miteigentumTyp: "mixed" })
       .build();
 
@@ -1015,7 +1013,8 @@ describe("isExplicitFlurstueckGrundbuchblattnummer", () => {
   it("Should return true on einfamilienhaus", async () => {
     const context = grundModelFactory
       .grundstueckAdresse({ bundesland: "NW" })
-      .grundstueckTyp({ typ: "einfamilienhaus" })
+      .bebaut({ bebaut: "bebaut" })
+      .haustyp({ haustyp: "einfamilienhaus" })
       .miteigentumHaus({ hasMiteigentum: "true" })
       .build();
 

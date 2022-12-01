@@ -20,7 +20,7 @@ describe("_step action", () => {
 
   test("Returns error if fields not filled", async () => {
     const args = await mockActionArgs({
-      route: "/grundstueck/typ",
+      route: "/grundstueck/grundstuecktyp",
       formData: {},
       context: {},
       email: "user@example.com",
@@ -35,7 +35,7 @@ describe("_step action", () => {
   test("Does not update data if fields not filled", async () => {
     const spyOnSetStepData = jest.spyOn(modelModule, "setStepData");
     const args = await mockActionArgs({
-      route: "/grundstueck/typ",
+      route: "/grundstueck/grundstuecktyp",
       formData: {},
       context: {},
       email: "user@example.com",
@@ -51,9 +51,9 @@ describe("_step action", () => {
     const spyOnSetStepData = jest.spyOn(modelModule, "setStepData");
     const previousData = grundModelFactory.full().build();
     const args = await mockActionArgs({
-      route: "/grundstueck/typ",
+      route: "/grundstueck/grundstuecktyp",
       formData: {
-        typ: "einfamilienhaus",
+        grundstuecktyp: "rohbau",
         additional: "Should not be in result",
       },
       context: {},
@@ -66,9 +66,9 @@ describe("_step action", () => {
     expect(spyOnSetStepData).toHaveBeenCalledTimes(1);
     expect(spyOnSetStepData).toHaveBeenCalledWith(
       previousData,
-      "grundstueck.typ",
+      "grundstueck.grundstuecktyp",
       {
-        typ: "einfamilienhaus",
+        grundstuecktyp: "rohbau",
       }
     );
   });

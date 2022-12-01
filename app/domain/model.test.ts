@@ -90,7 +90,7 @@ describe("filterDataForReachablePaths", () => {
 
   it("removes gebaeude data if grundstueck not bebaut", () => {
     const completeData = grundModelFactory
-      .grundstueckTyp({ typ: "baureif" })
+      .grundstuecktyp({ grundstuecktyp: "baureif" })
       .gebaeudeBaujahr({ baujahr: "1990" })
       .build();
 

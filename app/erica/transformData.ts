@@ -290,12 +290,45 @@ export const transformFreitext = (
   return freitextWithoutNewLines;
 };
 
+const transformGrundstuecktyp = (inputData: string | undefined) => {
+  switch (inputData) {
+    case "baureif":
+      return "baureif";
+    case "bauerwartungsland":
+      return "abweichendeEntwicklung";
+    case "rohbauland":
+      return "abweichendeEntwicklung";
+    default:
+      return undefined;
+  }
+};
+
+const transformAbweichendeEntwicklung = (inputData: string | undefined) => {
+  switch (inputData) {
+    case "bauerwartungsland":
+      return "bauerwartungsland";
+    case "rohbauland":
+      return "rohbauland";
+    default:
+      return undefined;
+  }
+};
+
 export const transformDataToEricaFormat = (inputData: GrundModel) => {
   const dataEricaFormat = {
     grundstueck: {
-      typ: inputData.grundstueck?.typ?.typ,
+      typ:
+        inputData.grundstueck?.bebaut?.bebaut === "bebaut"
+          ? inputData.grundstueck?.haustyp?.haustyp
+          : transformGrundstuecktyp(
+              inputData.grundstueck?.grundstuecktyp?.grundstuecktyp
+            ),
       abweichendeEntwicklung:
-        inputData.grundstueck?.abweichendeEntwicklung?.zustand,
+        inputData.grundstueck?.bebaut?.bebaut !== "bebaut"
+          ? transformAbweichendeEntwicklung(
+              inputData.grundstueck?.grundstuecktyp?.grundstuecktyp
+            )
+          : undefined,
       steuernummer: inputData.grundstueck?.steuernummer?.steuernummer.replace(
         /\D/g,
         ""

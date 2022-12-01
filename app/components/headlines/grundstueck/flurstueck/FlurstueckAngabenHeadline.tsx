@@ -6,10 +6,10 @@ const FlurstueckAngabenHeadline: HeadlineComponentFunction = ({
   allData,
   asLegend,
 }) => {
-  const typ = allData.grundstueck?.typ?.typ;
+  const haustyp = allData.grundstueck?.haustyp?.haustyp;
 
   const shouldDisplayGrundbuchblattnummer =
-    typ !== "wohnungseigentum" ||
+    haustyp !== "wohnungseigentum" ||
     allData.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp === "mixed";
 
   const headlineText = shouldDisplayGrundbuchblattnummer

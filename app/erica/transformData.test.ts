@@ -135,7 +135,8 @@ describe("transformDataToEricaFormat", () => {
         },
       ];
       const inputData = grundModelFactory
-        .grundstueckTyp({ typ: "einfamilienhaus" })
+        .bebaut({ bebaut: "bebaut" })
+        .haustyp({ haustyp: "einfamilienhaus" })
         .grundstueckAdresse({
           strasse: "GST Strasse",
           hausnummer: "2GST",
@@ -145,7 +146,6 @@ describe("transformDataToEricaFormat", () => {
           bundesland: "BB",
         })
         .grundstueckSteuernummer({ steuernummer: "123 456 7890" })
-        .grundstueckAbweichendeEntwicklung({ zustand: "rohbauland" })
         .grundstueckGemeinde({ innerhalbEinerGemeinde: "true" })
         .grundstueckBodenrichtwert({ bodenrichtwert: "123" })
         .grundstueckFlurstueck({ list: inputFlurstuecke, count: 2 })
@@ -163,7 +163,107 @@ describe("transformDataToEricaFormat", () => {
             bundesland: "BB",
           },
           steuernummer: "1234567890",
+          innerhalbEinerGemeinde: "true",
+          bodenrichtwert: "123,00",
+          flurstueck: [
+            {
+              angaben: inputFlurstuecke[0].angaben,
+              flur: {
+                flur: "123",
+                flurstueckZaehler: "23",
+                flurstueckNenner: "45",
+                wirtschaftlicheEinheitZaehler: "67.1",
+                wirtschaftlicheEinheitNenner: "89",
+              },
+              groesseQm: "1234",
+            },
+            {
+              angaben: inputFlurstuecke[1].angaben,
+              flur: {
+                flur: "222",
+                flurstueckZaehler: "34",
+                flurstueckNenner: "56",
+              },
+              groesseQm: "12345",
+            },
+          ],
+        },
+      };
+
+      const result = transformDataToEricaFormat(inputData);
+
+      expect(result).toEqual(expectedData);
+    });
+
+    it("should move object keys to correct place", () => {
+      const inputFlurstuecke = [
+        {
+          angaben: {
+            grundbuchblattnummer: "1",
+            gemarkung: "2",
+          },
+          flur: {
+            flur: "123",
+            flurstueckZaehler: "23",
+            flurstueckNenner: "45",
+          },
+          miteigentum: {
+            wirtschaftlicheEinheitZaehler: "0067,1",
+            wirtschaftlicheEinheitNenner: "89",
+          },
+          groesse: {
+            groesseHa: "",
+            groesseA: "",
+            groesseQm: "1234",
+          },
+        },
+        {
+          angaben: {
+            grundbuchblattnummer: "2",
+            gemarkung: "3",
+          },
+          flur: {
+            flur: "222",
+            flurstueckZaehler: "34",
+            flurstueckNenner: "56",
+          },
+          groesse: {
+            groesseHa: "",
+            groesseA: "123",
+            groesseQm: "45",
+          },
+        },
+      ];
+      const inputData = grundModelFactory
+        .bebaut({ bebaut: "abweichendeEntwicklung" })
+        .grundstuecktyp({ grundstuecktyp: "rohbauland" })
+        .grundstueckAdresse({
+          strasse: "GST Strasse",
+          hausnummer: "2GST",
+          zusatzangaben: "GST Zusatzangaben",
+          plz: "GST PLZ",
+          ort: "GST Ort",
+          bundesland: "BB",
+        })
+        .grundstueckSteuernummer({ steuernummer: "123 456 7890" })
+        .grundstueckGemeinde({ innerhalbEinerGemeinde: "true" })
+        .grundstueckBodenrichtwert({ bodenrichtwert: "123" })
+        .grundstueckFlurstueck({ list: inputFlurstuecke, count: 2 })
+        .build();
+      const expectedData = {
+        grundstueck: {
+          typ: "abweichendeEntwicklung",
           abweichendeEntwicklung: "rohbauland",
+          adresse: {
+            strasse: "GST Strasse",
+            hausnummer: "2",
+            hausnummerzusatz: "GST",
+            zusatzangaben: "GST Zusatzangaben",
+            plz: "GST PLZ",
+            ort: "GST Ort",
+            bundesland: "BB",
+          },
+          steuernummer: "1234567890",
           innerhalbEinerGemeinde: "true",
           bodenrichtwert: "123,00",
           flurstueck: [
