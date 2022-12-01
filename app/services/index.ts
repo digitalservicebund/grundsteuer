@@ -1,3 +1,3 @@
 export { printHello, type PrintHelloArgs } from "./printHello";
 export { jobStatus } from "./jobStatus";
-export { renderTemplate } from "./renderTemplate";
+export { renderMailTemplate } from "./renderMailTemplate";

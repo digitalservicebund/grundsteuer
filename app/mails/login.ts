@@ -1,5 +1,5 @@
 import { defaultProps } from "./defaultProps";
-import { renderTemplate } from "~/services";
+import { renderMailTemplate } from "~/services";
 
 const TEMPLATE = "login";
 const subject = `Anmelden bei ${defaultProps.productNameApostrophized}`;
@@ -33,11 +33,11 @@ export const createLoginMail = ({
   return {
     to,
     subject,
-    textContent: renderTemplate({
+    textContent: renderMailTemplate({
       template: `${TEMPLATE}.plain`,
       props: { ...defaultProps, ...props, magicLink },
     }),
-    htmlContent: renderTemplate({
+    htmlContent: renderMailTemplate({
       template: `${TEMPLATE}.html`,
       props: { ...defaultProps, ...props, magicLink },
     }),

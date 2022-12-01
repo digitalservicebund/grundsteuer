@@ -4,7 +4,7 @@ nunjucks.configure("app/mails/templates", {
   autoescape: false,
 });
 
-export const renderTemplate = ({
+export const renderMailTemplate = ({
   template,
   props,
 }: {
