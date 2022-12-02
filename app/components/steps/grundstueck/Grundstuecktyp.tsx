@@ -3,11 +3,9 @@ import RadioWithImageGroup, {
   extractRadioWithImageGroupProps,
 } from "~/components/form/RadioWithImageGroup";
 
-import einfamilienhausIcon from "~/assets/images/icon_einfamilienhaus.svg";
-import zweifamilienhausIcon from "~/assets/images/icon_zweifamilienhaus.svg";
-import eigentumswohnungIcon from "~/assets/images/icon_eigentumswohnung.svg";
 import baureifIcon from "~/assets/images/icon_baureif.svg";
 import unbebautIcon from "~/assets/images/icon_unbebaut.svg";
+import rohbaulandIcon from "~/assets/images/icon_rohbauland.svg";
 import { ContentContainer, FormGroup } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
 import invariant from "tiny-invariant";
@@ -22,18 +20,6 @@ const Grundstuecktyp: StepComponentFunction = ({
   const fieldProps = getFieldProps(stepDefinition, formData, i18n, errors)[0];
   const imagesAndAltTexts = [
     {
-      image: einfamilienhausIcon,
-      imageAltText: "Grafische Darstellung eines Einfamilienhauses",
-    },
-    {
-      image: zweifamilienhausIcon,
-      imageAltText: "Grafische Darstellung eines Zweifamilienhauses",
-    },
-    {
-      image: eigentumswohnungIcon,
-      imageAltText: "Grafische Darstellung eines Mehrfamilienhauses",
-    },
-    {
       image: baureifIcon,
       imageAltText:
         "Grafische Darstellung eines Geländes, auf dem Platz für ein Haus ist",
@@ -42,6 +28,16 @@ const Grundstuecktyp: StepComponentFunction = ({
       image: unbebautIcon,
       imageAltText:
         "Grafische Darstellung eines unbebauten Geländes mit Bäumen",
+    },
+    {
+      image: unbebautIcon,
+      imageAltText:
+        "Grafische Darstellung eines unbebauten Geländes mit Bäumen",
+    },
+    {
+      image: rohbaulandIcon,
+      imageAltText:
+        "Grafische Darstellung eines unerschlossenen Geländes mit unebenem Boden und Bäumen",
     },
   ];
 

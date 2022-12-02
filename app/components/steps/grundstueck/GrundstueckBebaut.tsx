@@ -24,14 +24,14 @@ const GrundstueckBebaut: StepComponentFunction = ({
       imageAltText: "Grafische Darstellung eines Einfamilienhauses",
     },
     {
-      image: baureifIcon,
-      imageAltText:
-        "Grafische Darstellung eines Geländes, auf dem Platz für ein Haus ist",
-    },
-    {
       image: unbebautIcon,
       imageAltText:
         "Grafische Darstellung eines unbebauten Geländes mit Bäumen",
+    },
+    {
+      image: baureifIcon,
+      imageAltText:
+        "Grafische Darstellung eines Geländes, auf dem Platz für ein Haus ist",
     },
   ];
 

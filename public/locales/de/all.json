@@ -1135,7 +1135,7 @@
             },
             "bauerwartungsland": {
               "label": "<bold>Bauerwartungsland</bold>",
-              "description": "Fläche, die in naher Zukunft Baluand ist",
+              "description": "Fläche, die in naher Zukunft Bauland ist",
               "help": "Als Bauerwartungsland wird eine Fläche bezeichnet, die zwar noch kein offizielles Bauland ist, aber es wahrscheinlich in der näheren Zukunft sein wird. Im Flächennutzungsplan ist das Grundstück häufig bereits als Bauland ausgewiesen."
             },
             "rohbauland": {

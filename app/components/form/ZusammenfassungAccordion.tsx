@@ -596,7 +596,7 @@ export default function ZusammenfassungAccordion({
             )}
             {stepItem("grundstueck.grundstuecktyp", [
               {
-                label: "Art des Grundstücks",
+                label: "Entwicklungszustand",
                 path: "grundstuecktyp",
                 resolver: resolveGrundstuecktyp,
               },
