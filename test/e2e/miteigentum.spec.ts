@@ -121,7 +121,7 @@ describe("miteigentum", () => {
         cy.url().should("include", "/formular/grundstueck/haustyp");
         cy.get(`label[for=haustyp-${typ[1]}]`).click();
         cy.get("#nextButton").click();
-      } else if (typ[0] === "unbebaut"){
+      } else if (typ[0] === "unbebaut") {
         cy.url().should("include", "/formular/grundstueck/grundstuecktyp");
         cy.get(`label[for=grundstuecktyp-${typ[1]}]`).click();
         cy.get("#nextButton").click();
