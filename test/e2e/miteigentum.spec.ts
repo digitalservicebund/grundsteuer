@@ -10,10 +10,12 @@ describe("miteigentum", () => {
     miteigentumTyp: GrundstueckMiteigentumAuswahlWohnungFields
   ) {
     const typ = miteigentumTyp.miteigentumTyp;
-    cy.visit("/formular/grundstueck/typ");
-    cy.url().should("include", "/formular/grundstueck/typ");
-    cy.contains("legend", "welche Art");
-    cy.get(`label[for=typ-wohnungseigentum]`).click();
+    cy.visit("/formular/grundstueck/bebaut");
+    cy.url().should("include", "/formular/grundstueck/bebaut");
+    cy.get(`label[for=bebaut-bebaut]`).click();
+    cy.get("#nextButton").click();
+    cy.url().should("include", "/formular/grundstueck/haustyp");
+    cy.get(`label[for=haustyp-wohnungseigentum]`).click();
     cy.get("#nextButton").click();
     cy.url().should("contain", "/adresse");
     cy.visit("/formular/grundstueck/miteigentumAuswahlWohnung");
@@ -101,27 +103,29 @@ describe("miteigentum", () => {
   });
 
   const cases = [
-    "einfamilienhaus",
-    "zweifamilienhaus",
-    "baureif",
-    "abweichendeEntwicklung",
+    ["bebaut","einfamilienhaus"],
+    ["bebaut","zweifamilienhaus"],
+    ["baureif","baureif"],
+    ["baureif","rohbauland"],
+    ["abweichendeEntwicklung","bauerwartungsland"],
   ];
 
   cases.forEach((typ) => {
-    it(`should display grundbuchblattnummer per flurstueck for ${typ}`, () => {
-      cy.visit("/formular/grundstueck/typ");
-      cy.url().should("include", "/formular/grundstueck/typ");
-      cy.contains("legend", "welche Art");
-      cy.get(`label[for=typ-${typ}]`).click();
+    it(`should display grundbuchblattnummer per flurstueck for ${typ[1]}`, () => {
+      cy.visit("/formular/grundstueck/bebaut");
+      cy.url().should("include", "/formular/grundstueck/bebaut");
+      cy.get(`label[for=bebaut-${typ[0]}]`).click();
       cy.get("#nextButton").click();
-      if (typ === "abweichendeEntwicklung") {
-        cy.url().should(
-          "contain",
-          "/formular/grundstueck/abweichendeEntwicklung"
-        );
-      } else {
-        cy.url().should("include", "/formular/grundstueck/adresse");
+      if (typ[0] === "bebaut") {
+        cy.url().should("include", "/formular/grundstueck/haustyp");
+        cy.get(`label[for=haustyp-${typ[1]}]`).click();
+        cy.get("#nextButton").click();
+      }else{
+        cy.url().should("include", "/formular/grundstueck/grundstuecktyp");
+        cy.get(`label[for=grundstuecktyp-${typ[1]}]`).click();
+        cy.get("#nextButton").click();
       }
+      cy.url().should("include", "/formular/grundstueck/adresse");
       cy.visit("/formular/grundstueck/miteigentumAuswahlHaus");
       cy.url().should(
         "include",

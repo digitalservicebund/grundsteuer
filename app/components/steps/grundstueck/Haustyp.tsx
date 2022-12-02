@@ -17,7 +17,6 @@ const Haustyp: StepComponentFunction = ({
   i18n,
   errors,
 }) => {
-  console.log(i18n);
   const fieldProps = getFieldProps(stepDefinition, formData, i18n, errors)[0];
   const imagesAndAltTexts = [
     {

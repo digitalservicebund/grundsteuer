@@ -26,7 +26,6 @@ export const getStoredFormData: GetStoredFormDataFunction = async ({
   if (!cookieHeader) return {};
   const decodedData = await decodeFormDataCookie({ cookieHeader, user });
   // migrate old grundstuecktyp data to new grundstuecktyp or haustyp
-  console.log(decodedData);
   if (testFeaturesEnabled()) {
     if (
       decodedData?.grundstueck &&

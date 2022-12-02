@@ -6,8 +6,8 @@ describe("CSRF protection", () => {
       cy.login();
       cy.request({
         method: "POST",
-        url: "/formular/grundstueck/typ",
-        body: "typ=baureif",
+        url: "/formular/grundstueck/bebaut",
+        body: "typ=bebaut",
         form: true,
         failOnStatusCode: false,
       }).then((response) => {
@@ -17,14 +17,14 @@ describe("CSRF protection", () => {
 
     it("should succeed on user submitting form", () => {
       cy.login();
-      cy.visit("/formular/grundstueck/typ");
+      cy.visit("/formular/grundstueck/bebaut");
       cy.get("input[name='csrf']")
         .invoke("val")
         .then((csrfToken) => {
           cy.request({
             method: "POST",
-            url: "/formular/grundstueck/typ",
-            body: `csrf=${csrfToken}&typ=baureif`,
+            url: "/formular/grundstueck/bebaut",
+            body: `csrf=${csrfToken}&typ=bebaut`,
             form: true,
             failOnStatusCode: false,
           }).then((response) => {

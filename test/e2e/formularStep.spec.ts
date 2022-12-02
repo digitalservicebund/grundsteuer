@@ -35,8 +35,12 @@ describe("Formular step path handling", () => {
 
     it("should redirect /formular/gebaeude to /formular/gebaeude/uebersicht", () => {
       // Match precondition
-      cy.visit("/formular/grundstueck/typ");
-      cy.get(`label[for=typ-einfamilienhaus]`).click();
+      cy.visit("/formular/grundstueck/bebaut");
+      cy.get(`label[for=bebaut-bebaut]`).click();
+      cy.get("#nextButton").click();
+      cy.url().should("include", "/grundstueck/haustyp");
+      cy.visit("/formular/grundstueck/haustyp");
+      cy.get(`label[for=haustyp-einfamilienhaus]`).click();
       cy.get("#nextButton").click();
       cy.url().should("include", "/grundstueck/adresse");
 
