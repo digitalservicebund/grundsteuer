@@ -60,10 +60,10 @@ const resolveBebaut = (value: string | undefined) => {
   switch (value) {
     case "bebaut":
       return "Bebaut";
+    case "unbebaut":
+      return "Unbebaut";
     case "baureif":
-      return "Unbebaut";
-    case "abweichendeEntwicklung":
-      return "Unbebaut";
+      return "Grundstück mit verfallenem Gebäude";
     default:
       return "";
   }

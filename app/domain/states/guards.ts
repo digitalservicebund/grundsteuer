@@ -20,10 +20,17 @@ const isBebaut: Condition = (context) => {
   return !!bebautValue && ["bebaut"].includes(bebautValue);
 };
 
+const isUnbebautOhneHaus: Condition = (context) => {
+  const bebautValue = context?.grundstueck?.bebaut?.bebaut;
+  return (
+    !!bebautValue && ["unbebaut"].includes(bebautValue)
+  );
+};
+
 const isUnbebaut: Condition = (context) => {
   const bebautValue = context?.grundstueck?.bebaut?.bebaut;
   return (
-    !!bebautValue && ["baureif", "abweichendeEntwicklung"].includes(bebautValue)
+    !!bebautValue && ["baureif", "unbebaut"].includes(bebautValue)
   );
 };
 
@@ -222,6 +229,7 @@ export const conditions: Conditions = {
   isEigentumswohnung,
   isZweifamilienhaus,
   isUnbebaut,
+  isUnbebautOhneHaus,
   isBebaut,
   isHausOrUnbebaut,
   hasWeitereWohnraeume,

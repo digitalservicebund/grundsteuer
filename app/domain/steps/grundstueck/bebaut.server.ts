@@ -1,7 +1,7 @@
 import { StepDefinition } from "~/domain/steps/index.server";
 
 export type BebautFields = {
-  bebaut: "bebaut" | "baureif" | "abweichendeEntwicklung";
+  bebaut: "bebaut" | "unbebaut" | "baureif";
 };
 
 export const bebaut: StepDefinition = {
@@ -13,8 +13,8 @@ export const bebaut: StepDefinition = {
       },
       options: [
         { value: "bebaut" },
+        { value: "unbebaut" },
         { value: "baureif" },
-        { value: "abweichendeEntwicklung" },
       ],
     },
   },

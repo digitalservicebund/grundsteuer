@@ -1113,10 +1113,10 @@
             "bebaut": {
               "label": "Ja, mein Grundstück war zu diesem Zeitpunkt bebaut"
             },
-            "baureif": {
+            "unbebaut": {
               "label": "Nein, mein Grundstück war zu diesem Zeitpunkt unbebaut"
             },
-            "abweichendeEntwicklung": {
+            "baureif": {
               "label": "Jein, auf meinem Grundstück stand ein verfallenes Gebäude"
             }
           }
@@ -1130,7 +1130,7 @@
           "options": {
             "baureif": {
               "label": "<bold>Baureifes Land</bold>",
-              "description": "Grundstück ohne Gebäude oder mit verfallenem Gebäude",
+              "description": "Grundstück ohne Gebäude",
               "help": "Ein unbebautes Grundstück ist ein Grundstück, auf dem sich keine benutzbaren Gebäude befinden. Baureif ist ein Grundstück, wenn dies in einem Bebauungsplan definiert ist oder das Grundstück sofort bebaut werden kann."
             },
             "bauerwartungsland": {

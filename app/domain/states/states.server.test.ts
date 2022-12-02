@@ -113,9 +113,9 @@ describe("states", () => {
         ],
       },
       {
-        description: "abweichende Entwicklung",
+        description: "unbebaut",
         context: grundModelFactory
-          .bebaut({ bebaut: "abweichendeEntwicklung" })
+          .bebaut({ bebaut: "unbebaut" })
           .build(),
         expectedPath: [
           "welcome",
@@ -136,10 +136,34 @@ describe("states", () => {
           "zusammenfassung",
         ],
       },
+
+      {
+        description: "baureif",
+        context: grundModelFactory
+          .bebaut({ bebaut: "baureif" })
+          .build(),
+        expectedPath: [
+          "welcome",
+          "grundstueck.uebersicht",
+          "grundstueck.bebaut",
+          "grundstueck.adresse",
+          "grundstueck.gemeinde",
+          "grundstueck.bodenrichtwertInfo",
+          "grundstueck.bodenrichtwertAnzahl",
+          "grundstueck.bodenrichtwertEingabe",
+          "grundstueck.miteigentumAuswahlHaus",
+          "grundstueck.anzahl",
+          "grundstueck.flurstueck.1.angaben",
+          "grundstueck.flurstueck.1.flur",
+          "grundstueck.flurstueck.1.groesse",
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
       {
         description: "baureif with miteigentum",
         context: grundModelFactory
-          .bebaut({ bebaut: "baureif" })
+          .bebaut({ bebaut: "unbebaut" })
           .grundstuecktyp({ grundstuecktyp: "baureif" })
           .flurstueckAnzahl({ anzahl: "1" })
           .miteigentumHaus({ hasMiteigentum: "true" })

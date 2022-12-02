@@ -1,5 +1,5 @@
 /// <reference types="../../cypress/support" />
-import { GrundstueckMiteigentumAuswahlWohnungFields } from "app/domain/steps/grundstueck/miteigentum/miteigentumAuswahlWohnung.server";
+import { GrundstueckMiteigentumAuswahlWohnungFields } from "../../app/domain/steps/grundstueck/miteigentum/miteigentumAuswahlWohnung.server";
 
 describe("miteigentum", () => {
   beforeEach(() => {
@@ -105,9 +105,10 @@ describe("miteigentum", () => {
   const cases = [
     ["bebaut", "einfamilienhaus"],
     ["bebaut", "zweifamilienhaus"],
-    ["baureif", "baureif"],
-    ["baureif", "rohbauland"],
-    ["abweichendeEntwicklung", "bauerwartungsland"],
+    ["unbebaut", "baureif"],
+    ["unbebaut", "rohbauland"],
+    ["unbebaut", "bauerwartungsland"],
+    ["baureif", "baureif direkte Eingabe"],
   ];
 
   cases.forEach((typ) => {
@@ -120,7 +121,7 @@ describe("miteigentum", () => {
         cy.url().should("include", "/formular/grundstueck/haustyp");
         cy.get(`label[for=haustyp-${typ[1]}]`).click();
         cy.get("#nextButton").click();
-      } else {
+      } else if (typ[0] === "unbebaut"){
         cy.url().should("include", "/formular/grundstueck/grundstuecktyp");
         cy.get(`label[for=grundstuecktyp-${typ[1]}]`).click();
         cy.get("#nextButton").click();

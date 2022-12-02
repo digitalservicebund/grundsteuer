@@ -31,7 +31,7 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
             NEXT: [
               {
                 target: "grundstuecktyp",
-                cond: "isUnbebaut",
+                cond: "isUnbebautOhneHaus",
               },
               { target: "haustyp", cond: "isBebaut" },
               { target: "adresse" },
@@ -56,7 +56,7 @@ export const states: MachineConfig<StateMachineContext, any, EventObject> = {
             BACK: [
               {
                 target: "grundstuecktyp",
-                cond: "isUnbebaut",
+                cond: "isUnbebautOhneHaus",
               },
               { target: "haustyp", cond: "isBebaut" },
               { target: "bebaut" },

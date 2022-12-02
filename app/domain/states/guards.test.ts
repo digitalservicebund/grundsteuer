@@ -68,7 +68,7 @@ describe("isZweifamilienhaus", () => {
       "einfamilienhaus",
       "wohnungseigentum",
       "baureif",
-      "abweichendeEntwicklung",
+      "unbebaut",
     ];
     wrongValues.forEach((wrongValue) => {
       const inputData = grundModelFactory
@@ -175,7 +175,7 @@ describe("isBezugsfertigAb1949", () => {
   });
 
   it("Should return false if unbebaut", async () => {
-    const unbebautValues = ["baureif", "abweichendeEntwicklung"];
+    const unbebautValues = ["baureif", "unbebaut"];
     unbebautValues.forEach((unbebautValue) => {
       const inputData = grundModelFactory
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -239,7 +239,7 @@ describe("isKernsaniert", () => {
   });
 
   it("Should return false if unbebaut", async () => {
-    const unbebautValues = ["baureif", "abweichendeEntwicklung"];
+    const unbebautValues = ["baureif", "unbebaut"];
     unbebautValues.forEach((unbebautValue) => {
       const inputData = grundModelFactory
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -300,7 +300,7 @@ describe("hasAbbruchverpflichtung", () => {
   });
 
   it("Should return false if unbebaut", async () => {
-    const unbebautValues = ["baureif", "abweichendeEntwicklung"];
+    const unbebautValues = ["baureif", "unbebaut"];
     unbebautValues.forEach((unbebautValue) => {
       const inputData = grundModelFactory
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -361,7 +361,7 @@ describe("hasWeitereWohnraeume", () => {
   });
 
   it("Should return false if unbebaut", async () => {
-    const unbebautValues = ["baureif", "abweichendeEntwicklung"];
+    const unbebautValues = ["baureif", "unbebaut"];
     unbebautValues.forEach((unbebautValue) => {
       const inputData = grundModelFactory
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -422,7 +422,7 @@ describe("hasGaragen", () => {
   });
 
   it("Should return false if unbebaut", async () => {
-    const unbebautValues = ["baureif", "abweichendeEntwicklung"];
+    const unbebautValues = ["baureif", "unbebaut"];
     unbebautValues.forEach((unbebautValue) => {
       const inputData = grundModelFactory
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -822,9 +822,9 @@ describe("isBebaut", () => {
     expect(result).toEqual(false);
   });
 
-  it("Should return false if typ is abweichendeEntwicklung", async () => {
+  it("Should return false if typ is unbebaut", async () => {
     const inputData = grundModelFactory
-      .bebaut({ bebaut: "abweichendeEntwicklung" })
+      .bebaut({ bebaut: "unbebaut" })
       .build();
     const result = conditions.isBebaut(inputData);
     expect(result).toEqual(false);
