@@ -114,9 +114,7 @@ describe("states", () => {
       },
       {
         description: "unbebaut",
-        context: grundModelFactory
-          .bebaut({ bebaut: "unbebaut" })
-          .build(),
+        context: grundModelFactory.bebaut({ bebaut: "unbebaut" }).build(),
         expectedPath: [
           "welcome",
           "grundstueck.uebersicht",
@@ -139,9 +137,7 @@ describe("states", () => {
 
       {
         description: "baureif",
-        context: grundModelFactory
-          .bebaut({ bebaut: "baureif" })
-          .build(),
+        context: grundModelFactory.bebaut({ bebaut: "baureif" }).build(),
         expectedPath: [
           "welcome",
           "grundstueck.uebersicht",

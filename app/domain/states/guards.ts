@@ -22,16 +22,12 @@ const isBebaut: Condition = (context) => {
 
 const isUnbebautOhneHaus: Condition = (context) => {
   const bebautValue = context?.grundstueck?.bebaut?.bebaut;
-  return (
-    !!bebautValue && ["unbebaut"].includes(bebautValue)
-  );
+  return !!bebautValue && ["unbebaut"].includes(bebautValue);
 };
 
 const isUnbebaut: Condition = (context) => {
   const bebautValue = context?.grundstueck?.bebaut?.bebaut;
-  return (
-    !!bebautValue && ["baureif", "unbebaut"].includes(bebautValue)
-  );
+  return !!bebautValue && ["baureif", "unbebaut"].includes(bebautValue);
 };
 
 const isHausOrUnbebaut: Condition = (context) => {

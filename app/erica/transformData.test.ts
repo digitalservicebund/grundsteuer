@@ -395,7 +395,6 @@ describe("transformDataToEricaFormat", () => {
       expect(result).toEqual(expectedData);
     });
 
-
     it("should move object keys to correct place", () => {
       const inputFlurstuecke = [
         {

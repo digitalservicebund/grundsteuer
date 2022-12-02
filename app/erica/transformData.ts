@@ -320,7 +320,9 @@ export const transformDataToEricaFormat = (inputData: GrundModel) => {
       typ:
         inputData.grundstueck?.bebaut?.bebaut === "bebaut"
           ? inputData.grundstueck?.haustyp?.haustyp
-          : inputData.grundstueck?.bebaut?.bebaut === "baureif" ? "baureif" : transformGrundstuecktyp(
+          : inputData.grundstueck?.bebaut?.bebaut === "baureif"
+          ? "baureif"
+          : transformGrundstuecktyp(
               inputData.grundstueck?.grundstuecktyp?.grundstuecktyp
             ),
       abweichendeEntwicklung:

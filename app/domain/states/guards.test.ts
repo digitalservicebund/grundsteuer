@@ -823,9 +823,7 @@ describe("isBebaut", () => {
   });
 
   it("Should return false if typ is unbebaut", async () => {
-    const inputData = grundModelFactory
-      .bebaut({ bebaut: "unbebaut" })
-      .build();
+    const inputData = grundModelFactory.bebaut({ bebaut: "unbebaut" }).build();
     const result = conditions.isBebaut(inputData);
     expect(result).toEqual(false);
   });
