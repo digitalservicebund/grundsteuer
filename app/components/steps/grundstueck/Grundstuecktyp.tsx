@@ -30,11 +30,6 @@ const Grundstuecktyp: StepComponentFunction = ({
         "Grafische Darstellung eines unbebauten Geländes mit Bäumen",
     },
     {
-      image: unbebautIcon,
-      imageAltText:
-        "Grafische Darstellung eines unbebauten Geländes mit Bäumen",
-    },
-    {
       image: rohbaulandIcon,
       imageAltText:
         "Grafische Darstellung eines unerschlossenen Geländes mit unebenem Boden und Bäumen",
