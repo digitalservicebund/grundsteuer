@@ -123,9 +123,7 @@ const httpTerminator = createHttpTerminator({
 });
 
 if (!global.ioredis) {
-  global.ioredis = new Redis(process.env.REDIS_URL, {
-    maxRetriesPerRequest: null,
-  });
+  global.ioredis = new Redis(process.env.REDIS_URL);
   console.log("Redis connection opened");
 }
 
@@ -135,14 +133,6 @@ const shutdown = async (signal) => {
     isOnline = false;
     await httpTerminator.terminate();
     console.log("HTTP server closed");
-    if (global.__registeredQueues) {
-      const names = Object.keys(global.__registeredQueues);
-      for (const name of names) {
-        const worker = global.__registeredQueues[name].worker;
-        await worker.close();
-        console.log(`Worker ${name} stopped`);
-      }
-    }
     if (global.ioredis) {
       await global.ioredis.quit();
       global.ioredis = undefined;

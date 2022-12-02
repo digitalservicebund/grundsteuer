@@ -7,7 +7,6 @@ export enum Feature {
   BUNDES_IDENT_RATE_LIMIT = "bundesIdentRate",
   IP_RATE_LIMIT = "ipRate",
   CLIENT_IP = "clientIp",
-  JOB_QUEUE = "bull",
 }
 
 declare global {
@@ -17,9 +16,7 @@ declare global {
 
 export function getClient() {
   if (!global.ioredis) {
-    global.ioredis = new Redis(process.env.REDIS_URL as string, {
-      maxRetriesPerRequest: null,
-    });
+    global.ioredis = new Redis(process.env.REDIS_URL as string);
     console.log("Redis connection opened");
   }
   return global.ioredis;
@@ -31,10 +28,6 @@ function appendKey(feature: Feature, key: string) {
 
 const get = async (feature: Feature, key: string) => {
   return getClient().get(appendKey(feature, key));
-};
-
-const hgetall = async (feature: Feature, key: string) => {
-  return getClient().hgetall(appendKey(feature, key));
 };
 
 const set = async (
@@ -72,4 +65,4 @@ const ttl = async (feature: Feature, key: string) => {
   return getClient().ttl(appendKey(feature, key));
 };
 
-export const redis = { set, get, hgetall, incr, del, flushAll, ttl };
+export const redis = { set, get, incr, del, flushAll, ttl };
