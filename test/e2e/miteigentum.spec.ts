@@ -103,11 +103,11 @@ describe("miteigentum", () => {
   });
 
   const cases = [
-    ["bebaut","einfamilienhaus"],
-    ["bebaut","zweifamilienhaus"],
-    ["baureif","baureif"],
-    ["baureif","rohbauland"],
-    ["abweichendeEntwicklung","bauerwartungsland"],
+    ["bebaut", "einfamilienhaus"],
+    ["bebaut", "zweifamilienhaus"],
+    ["baureif", "baureif"],
+    ["baureif", "rohbauland"],
+    ["abweichendeEntwicklung", "bauerwartungsland"],
   ];
 
   cases.forEach((typ) => {
@@ -120,7 +120,7 @@ describe("miteigentum", () => {
         cy.url().should("include", "/formular/grundstueck/haustyp");
         cy.get(`label[for=haustyp-${typ[1]}]`).click();
         cy.get("#nextButton").click();
-      }else{
+      } else {
         cy.url().should("include", "/formular/grundstueck/grundstuecktyp");
         cy.get(`label[for=grundstuecktyp-${typ[1]}]`).click();
         cy.get("#nextButton").click();
