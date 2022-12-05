@@ -113,6 +113,31 @@ describe("getStoredFormData", () => {
         });
       });
 
+      it("migrates old grundstueck data for abweichende Entwicklung", async () => {
+        const data = encryptCookie({
+          userId: user.id,
+          data: { grundstueck: { typ: { typ: "abweichendeEntwicklung" } } },
+        });
+        const cookie = await createFormDataCookie({
+          userId: user.id,
+          index: 0,
+        }).serialize("1" + data);
+        const request = new Request("http://localhost/", {
+          headers: {
+            Cookie: cookie,
+          },
+        });
+        const retrievedData = await getStoredFormData({
+          request,
+          user,
+        });
+        expect(retrievedData).toEqual({
+          grundstueck: {
+            bebaut: { bebaut: "unbebaut" },
+          },
+        });
+      });
+
       it("does not overwrite new grundstueck data", async () => {
         const data = encryptCookie({
           userId: user.id,

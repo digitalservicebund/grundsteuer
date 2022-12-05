@@ -51,17 +51,21 @@ export const getStoredFormData: GetStoredFormDataFunction = async ({
       };
       delete decodedData.grundstueck.typ;
     } else if (decodedData.grundstueck.typ.typ === "abweichendeEntwicklung") {
-      decodedData.grundstueck.grundstuecktyp = {
-        grundstuecktyp:
-          decodedData.grundstueck.abweichendeEntwicklung
-            ?.abweichendeEntwicklung,
-      };
       decodedData.grundstueck.bebaut = {
         bebaut: "unbebaut",
       };
       delete decodedData.grundstueck.typ;
-      delete decodedData.grundstueck.abweichendeEntwicklung
-        .abweichendeEntwicklung;
+      if (
+        decodedData.grundstueck.abweichendeEntwicklung?.abweichendeEntwicklung
+      ) {
+        decodedData.grundstueck.grundstuecktyp = {
+          grundstuecktyp:
+            decodedData.grundstueck.abweichendeEntwicklung
+              ?.abweichendeEntwicklung,
+        };
+        delete decodedData.grundstueck.abweichendeEntwicklung
+          .abweichendeEntwicklung;
+      }
     }
   }
 
