@@ -290,47 +290,59 @@ export const transformFreitext = (
   return freitextWithoutNewLines;
 };
 
-const transformGrundstuecktyp = (inputData: string | undefined) => {
-  switch (inputData) {
-    case "baureif":
-      return "baureif";
-    case "bauerwartungsland":
-      return "abweichendeEntwicklung";
-    case "rohbauland":
-      return "abweichendeEntwicklung";
-    default:
-      return undefined;
+const transformGrundstuecktyp = (
+  bebautData: string | undefined,
+  grundstuecktyp: string | undefined,
+  haustyp: string | undefined
+) => {
+  if (bebautData === "bebaut") {
+    return haustyp;
+  } else if (bebautData === "baureif") {
+    return "baureif";
+  } else {
+    switch (grundstuecktyp) {
+      case "baureif":
+        return "baureif";
+      case "bauerwartungsland":
+        return "abweichendeEntwicklung";
+      case "rohbauland":
+        return "abweichendeEntwicklung";
+      default:
+        return undefined;
+    }
   }
 };
 
-const transformAbweichendeEntwicklung = (inputData: string | undefined) => {
-  switch (inputData) {
-    case "bauerwartungsland":
-      return "bauerwartungsland";
-    case "rohbauland":
-      return "rohbauland";
-    default:
-      return undefined;
+const transformAbweichendeEntwicklung = (
+  bebautData: string | undefined,
+  grundstuecktyp: string | undefined
+) => {
+  if (bebautData === "unbebaut") {
+    switch (grundstuecktyp) {
+      case "bauerwartungsland":
+        return "bauerwartungsland";
+      case "rohbauland":
+        return "rohbauland";
+      default:
+        return undefined;
+    }
+  } else {
+    return undefined;
   }
 };
 
 export const transformDataToEricaFormat = (inputData: GrundModel) => {
   const dataEricaFormat = {
     grundstueck: {
-      typ:
-        inputData.grundstueck?.bebaut?.bebaut === "bebaut"
-          ? inputData.grundstueck?.haustyp?.haustyp
-          : inputData.grundstueck?.bebaut?.bebaut === "baureif"
-          ? "baureif"
-          : transformGrundstuecktyp(
-              inputData.grundstueck?.grundstuecktyp?.grundstuecktyp
-            ),
-      abweichendeEntwicklung:
-        inputData.grundstueck?.bebaut?.bebaut === "unbebaut"
-          ? transformAbweichendeEntwicklung(
-              inputData.grundstueck?.grundstuecktyp?.grundstuecktyp
-            )
-          : undefined,
+      typ: transformGrundstuecktyp(
+        inputData.grundstueck?.bebaut?.bebaut,
+        inputData.grundstueck?.grundstuecktyp?.grundstuecktyp,
+        inputData.grundstueck?.haustyp?.haustyp
+      ),
+      abweichendeEntwicklung: transformAbweichendeEntwicklung(
+        inputData.grundstueck?.bebaut?.bebaut,
+        inputData.grundstueck?.grundstuecktyp?.grundstuecktyp
+      ),
       steuernummer: inputData.grundstueck?.steuernummer?.steuernummer.replace(
         /\D/g,
         ""

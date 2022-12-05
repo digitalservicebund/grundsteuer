@@ -7,7 +7,6 @@ import {
   decryptCookie,
   encryptCookie,
 } from "~/cookies.server";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 const debug = createDebugMessages("formDataStorage");
 
@@ -26,47 +25,42 @@ export const getStoredFormData: GetStoredFormDataFunction = async ({
   if (!cookieHeader) return {};
   const decodedData = await decodeFormDataCookie({ cookieHeader, user });
   // migrate old grundstuecktyp data to new grundstuecktyp or haustyp
-  if (testFeaturesEnabled()) {
+  if (
+    decodedData?.grundstueck &&
+    decodedData?.grundstueck?.typ &&
+    !decodedData?.grundstueck?.bebaut
+  ) {
     if (
-      decodedData?.grundstueck &&
-      decodedData?.grundstueck?.typ &&
-      !decodedData?.grundstueck?.bebaut
+      ["einfamilienhaus", "zweifamilienhaus", "wohnungseigentum"].includes(
+        decodedData.grundstueck.typ.typ
+      )
     ) {
-      if (
-        ["einfamilienhaus", "zweifamilienhaus", "wohnungseigentum"].includes(
-          decodedData.grundstueck.typ.typ
-        )
-      ) {
-        decodedData.grundstueck.haustyp = {
-          haustyp: decodedData.grundstueck.typ.typ,
-        };
-        decodedData.grundstueck.bebaut = {
-          bebaut: "bebaut",
-        };
-        delete decodedData.grundstueck.typ;
-      } else if (["baureif"].includes(decodedData.grundstueck.typ.typ)) {
-        decodedData.grundstueck.grundstuecktyp = {
-          grundstuecktyp: decodedData.grundstueck.typ.typ,
-        };
-        decodedData.grundstueck.bebaut = {
-          bebaut: "baureif",
-        };
-        delete decodedData.grundstueck.typ;
-      } else if (
-        ["abweichendeEntwicklung"].includes(decodedData.grundstueck.typ.typ)
-      ) {
-        decodedData.grundstueck.grundstuecktyp = {
-          grundstuecktyp:
-            decodedData.grundstueck.abweichendeEntwicklung
-              .abweichendeEntwicklung,
-        };
-        decodedData.grundstueck.bebaut = {
-          bebaut: "abweichendeEntwicklung",
-        };
-        delete decodedData.grundstueck.typ;
-        delete decodedData.grundstueck.abweichendeEntwicklung
-          .abweichendeEntwicklung;
-      }
+      decodedData.grundstueck.haustyp = {
+        haustyp: decodedData.grundstueck.typ.typ,
+      };
+      decodedData.grundstueck.bebaut = {
+        bebaut: "bebaut",
+      };
+      delete decodedData.grundstueck.typ;
+    } else if (decodedData.grundstueck.typ.typ === "baureif") {
+      decodedData.grundstueck.grundstuecktyp = {
+        grundstuecktyp: decodedData.grundstueck.typ.typ,
+      };
+      decodedData.grundstueck.bebaut = {
+        bebaut: "unbebaut",
+      };
+      delete decodedData.grundstueck.typ;
+    } else if (decodedData.grundstueck.typ.typ === "abweichendeEntwicklung") {
+      decodedData.grundstueck.grundstuecktyp = {
+        grundstuecktyp:
+          decodedData.grundstueck.abweichendeEntwicklung.abweichendeEntwicklung,
+      };
+      decodedData.grundstueck.bebaut = {
+        bebaut: "unbebaut",
+      };
+      delete decodedData.grundstueck.typ;
+      delete decodedData.grundstueck.abweichendeEntwicklung
+        .abweichendeEntwicklung;
     }
   }
 

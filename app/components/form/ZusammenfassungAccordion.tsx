@@ -472,7 +472,7 @@ export default function ZusammenfassungAccordion({
         href={editUrl}
         className="text-14 font-bold underline flex flex-row items-center"
       >
-        <Edit className="mr-10 ml-8 w-24 h-24" />
+        <Edit className="mr-10 ml-8 w-24 h-24 text-blue-800" />
         Ändern
       </a>
     );
