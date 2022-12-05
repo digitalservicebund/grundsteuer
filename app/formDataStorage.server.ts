@@ -53,7 +53,8 @@ export const getStoredFormData: GetStoredFormDataFunction = async ({
     } else if (decodedData.grundstueck.typ.typ === "abweichendeEntwicklung") {
       decodedData.grundstueck.grundstuecktyp = {
         grundstuecktyp:
-          decodedData.grundstueck.abweichendeEntwicklung.abweichendeEntwicklung,
+          decodedData.grundstueck.abweichendeEntwicklung
+            ?.abweichendeEntwicklung,
       };
       decodedData.grundstueck.bebaut = {
         bebaut: "unbebaut",
