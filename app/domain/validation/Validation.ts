@@ -28,7 +28,7 @@ export interface MinValueValidation extends DefaultValidation {
 }
 
 export interface YearInPastValidation extends DefaultValidation {
-  excludingCurrentYear?: boolean;
+  excludingVeranlagungszeitraum?: boolean;
 }
 
 export interface DependentValidation extends DefaultValidation {

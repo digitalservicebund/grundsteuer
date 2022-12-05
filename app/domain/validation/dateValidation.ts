@@ -24,11 +24,13 @@ export const validateYearAfterBaujahr: ValidateYearAfterBaujahrFunction = ({
   return +value >= +baujahr;
 };
 
+const currentVeranlagungszeitraum = 2022;
+
 export const validateYearInFutureOfVeranlagungszeitraum: ValidateFunctionDefault =
   ({ value }) => {
     if (!validateOnlyDecimal({ value })) return true;
     if (value.length != 4) return true;
-    return +value >= 2022;
+    return +value >= currentVeranlagungszeitraum;
   };
 
 export const validateYearInPastOfVeranlagungszeitraum: ValidateYearInPast = ({
@@ -39,9 +41,9 @@ export const validateYearInPastOfVeranlagungszeitraum: ValidateYearInPast = ({
   if (value.length != 4) return true;
 
   if (excludingVeranlagungszeitraum) {
-    return +value < 2022;
+    return +value < currentVeranlagungszeitraum;
   } else {
-    return +value <= 2022;
+    return +value <= currentVeranlagungszeitraum;
   }
 };
 

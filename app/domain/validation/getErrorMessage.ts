@@ -112,8 +112,8 @@ export const getErrorMessage = (
     const postComma = (validation as MinLengthFloatValidation).postComma;
     const condition = (validation as RequiredIfConditionValidation).condition;
     const exceptions = (validation as OnlyDecimalValidation).exceptions;
-    const excludingCurrentYear = (validation as YearInPastValidation)
-      .excludingCurrentYear;
+    const excludingVeranlagungszeitraum = (validation as YearInPastValidation)
+      .excludingVeranlagungszeitraum;
     const valueHa = (formData as GrundstueckFlurstueckGroesseFields).groesseHa;
     const valueA = (formData as GrundstueckFlurstueckGroesseFields).groesseA;
     const valueQm = (formData as GrundstueckFlurstueckGroesseFields).groesseQm;
@@ -135,7 +135,7 @@ export const getErrorMessage = (
         valueA,
         valueQm,
         noNewDataAdded,
-        excludingVeranlagungszeitraum: excludingCurrentYear,
+        excludingVeranlagungszeitraum: excludingVeranlagungszeitraum,
       })
     ) {
       return (

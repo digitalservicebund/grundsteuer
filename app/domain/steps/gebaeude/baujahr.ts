@@ -19,7 +19,7 @@ export const gebaeudeBaujahr: StepDefinition = {
           msg: "Die Jahreszahl muss aus genau vier Ziffern bestehen",
         },
         yearInPast: {
-          excludingCurrentYear: true,
+          excludingVeranlagungszeitraum: true,
           msg: "Das Baujahr muss vor dem Veranlagungszeitraum liegen - also vor 2022 gebaut worden sein",
         },
         minValue: {

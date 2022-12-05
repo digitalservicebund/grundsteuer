@@ -78,69 +78,69 @@ describe("validateYearInPast", () => {
     {
       value: "",
       currentDate: Date.UTC(2022, 0, 1),
-      excludingCurrentYear: undefined,
+      excludingVeranlagungszeitraum: undefined,
       valid: true,
     },
     {
       value: "2021",
       currentDate: Date.UTC(2022, 0, 1),
-      excludingCurrentYear: undefined,
+      excludingVeranlagungszeitraum: undefined,
       valid: true,
     },
     {
       value: "2022",
       currentDate: Date.UTC(2022, 0, 1),
-      excludingCurrentYear: undefined,
+      excludingVeranlagungszeitraum: undefined,
       valid: true,
     },
     {
       value: "2022",
       currentDate: Date.UTC(2022, 11, 31),
-      excludingCurrentYear: undefined,
+      excludingVeranlagungszeitraum: undefined,
       valid: true,
     },
     {
       value: "2023",
       currentDate: Date.UTC(2022, 0, 1),
-      excludingCurrentYear: undefined,
+      excludingVeranlagungszeitraum: undefined,
       valid: false,
     },
     {
       value: "2022",
       currentDate: Date.UTC(2022, 0, 1),
-      excludingCurrentYear: false,
+      excludingVeranlagungszeitraum: false,
       valid: true,
     },
     {
       value: "2022",
       currentDate: Date.UTC(2022, 11, 31),
-      excludingCurrentYear: false,
+      excludingVeranlagungszeitraum: false,
       valid: true,
     },
     {
       value: "2022",
       currentDate: Date.UTC(2022, 0, 1),
-      excludingCurrentYear: true,
+      excludingVeranlagungszeitraum: true,
       valid: false,
     },
     {
       value: "2022",
       currentDate: Date.UTC(2022, 11, 31),
-      excludingCurrentYear: true,
+      excludingVeranlagungszeitraum: true,
       valid: false,
     },
   ];
 
   test.each(cases)(
-    "Should return $valid if value is '$value', current date is '$currentDate' and exclude current year '$excludingCurrentYear",
-    ({ value, currentDate, excludingCurrentYear, valid }) => {
+    "Should return $valid if value is '$value', current date is '$currentDate' and exclude current year '$excludingVeranlagungszeitraum",
+    ({ value, currentDate, excludingVeranlagungszeitraum, valid }) => {
       const actualNowImplementation = Date.now;
       try {
         Date.now = jest.fn(() => new Date(currentDate).valueOf());
         expect(
           validateYearInPastOfVeranlagungszeitraum({
             value,
-            excludingVeranlagungszeitraum: excludingCurrentYear,
+            excludingVeranlagungszeitraum: excludingVeranlagungszeitraum,
           })
         ).toBe(valid);
       } finally {
