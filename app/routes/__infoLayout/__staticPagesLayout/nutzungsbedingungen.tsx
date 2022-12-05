@@ -418,8 +418,11 @@ export default function Nutzungsbedingungen() {
             Steuerangaben erfolgt nicht.
           </li>
           <li>
-            Das Nutzer:innenkonto wird nach Abschicken der Grundsteuererklärung
-            oder nach Inaktivität automatisch nach 4 Monaten gelöscht.
+            Das Nutzer:innenkonto wird automatisch gelöscht. Das geschieht 7
+            Monate seit dem Zeitpunkt der letzten von folgenden Aktionen:
+            Registrierung, erfolgreiche Identifizierung oder Abgabe der
+            Erklärung. Der Zeitraum 7 Monate ist begründet durch die gesetzliche
+            Abgabefrist (Juli 2022 - Januar 2023).
           </li>
           <li>
             Nach Abschicken der Grundsteuererklärung kann diese nicht mehr über
