@@ -39,7 +39,12 @@ import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
-  (!validateEmail({ value: normalizedEmail }) && "errors.email.wrongFormat");
+  (!validateEmail({ value: normalizedEmail }) && "errors.email.wrongFormat") ||
+  (!(
+    process.env.APP_ENV === "production" ||
+    /@digitalservice.bund.de/.test(normalizedEmail)
+  ) &&
+    "errors.email.notAllowed");
 
 export const saveAuditLogs = async (
   clientIp: string,

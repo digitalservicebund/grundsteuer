@@ -24,7 +24,10 @@ const validFormData = {
 };
 
 describe("/registrieren action", () => {
+  const originalEnv = process.env;
+
   beforeAll(() => {
+    process.env = { ...originalEnv };
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     mockAuthenticate.mockImplementation(() =>
@@ -40,10 +43,15 @@ describe("/registrieren action", () => {
   beforeEach(async () => {
     const csrfMock = jest.spyOn(csrfModule, "verifyCsrfToken");
     csrfMock.mockImplementation(() => Promise.resolve());
+    process.env.APP_ENV = "production";
   });
 
   afterEach(async () => {
     jest.restoreAllMocks();
+  });
+
+  afterAll(() => {
+    process.env = originalEnv;
   });
 
   describe('"succeeds"', () => {
@@ -197,5 +205,31 @@ describe("/registrieren action", () => {
         expect(await action(args)).toEqual({ errors });
       }
     );
+
+    describe("non-production environment", () => {
+      test("with error when non-digitalservice-email is used", async () => {
+        process.env.APP_ENV = "staging";
+        const args = await mockActionArgs({
+          formData: validFormData,
+          context: {},
+        });
+        expect(await action(args)).toEqual({
+          errors: { email: "errors.email.notAllowed" },
+        });
+      });
+      test("without error when digitalservice-email is used", async () => {
+        process.env.APP_ENV = "staging";
+        const args = await mockActionArgs({
+          formData: {
+            ...validFormData,
+            email: "does.not.exist@digitalservice.bund.de",
+          },
+          context: {},
+        });
+        expect((await action(args)).headers.get("Location")).toBe(
+          "/registrieren/erfolgreich"
+        );
+      });
+    });
   });
 });

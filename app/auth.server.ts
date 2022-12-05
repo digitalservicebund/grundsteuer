@@ -5,8 +5,7 @@ import invariant from "tiny-invariant";
 import { sessionStorage } from "./session.server";
 import { findUserByEmail } from "~/domain/user";
 import { createLoginMail } from "./mails";
-import { sendMail } from "./services/sendMail";
-import { flow } from "lodash";
+import { sendMail, storeMessageId } from "./services";
 
 export type SessionUser = {
   email: string;
@@ -40,7 +39,8 @@ const sendEmail: SendEmailFunction<SessionUser> = async ({
   form,
 }) => {
   // TODO: use "form" to distinguish login and register
-  return flow([createLoginMail, sendMail])({ magicLink, to: emailAddress });
+  const mail = createLoginMail({ magicLink, to: emailAddress });
+  storeMessageId(await sendMail(mail));
 };
 
 authenticator.use(

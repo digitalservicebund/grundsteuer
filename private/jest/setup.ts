@@ -23,6 +23,7 @@ if (!process.env.INTEGRATION_TEST) {
 
   jest.mock("ioredis");
   jest.mock("bullmq");
+  jest.mock("cross-fetch");
 }
 
 // Add globals to be able to access Request/Response etc. in the tests

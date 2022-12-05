@@ -108,7 +108,8 @@
     "required": "Bitte füllen Sie dieses Feld aus.",
     "email": {
       "wrongFormat": "Bitte überprüfen Sie die Schreibweise der E-Mail-Adresse.",
-      "unknown": "Die eingegebene E-Mail-Adresse kann keinem Konto zugeordnet werden."
+      "unknown": "Die eingegebene E-Mail-Adresse kann keinem Konto zugeordnet werden.",
+      "notAllowed": "Die Registrierung dieser E-Mail-Adresse ist im Testsystem nicht möglich."
     },
     "onlyDecimal": "Darf nur Ziffern beinhalten",
     "isDate": "Kein valides Datenformat. Benötigtes Format: TT.MM.JJJJ",
