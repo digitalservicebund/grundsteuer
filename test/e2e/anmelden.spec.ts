@@ -39,43 +39,62 @@ describe("/anmelden/erfolg", () => {
     {
       identified: false,
       inDeclarationProcess: false,
+      fscRequest: false,
       expectedUrl: "/formular/erfolg",
     },
     {
       identified: false,
       inDeclarationProcess: true,
+      fscRequest: false,
       expectedUrl: "/identifikation",
+    },
+    {
+      identified: false,
+      inDeclarationProcess: true,
+      fscRequest: true,
+      expectedUrl: "/formular/welcome",
     },
     {
       identified: true,
       inDeclarationProcess: false,
+      fscRequest: false,
       expectedUrl: "/formular/erfolg",
     },
     {
       identified: true,
       inDeclarationProcess: true,
+      fscRequest: false,
       expectedUrl: "/formular/welcome",
     },
   ];
 
-  cases.forEach(({ identified, inDeclarationProcess, expectedUrl }) => {
-    it(`identified: ${identified} inDeclarationProcess: ${inDeclarationProcess} should link ${expectedUrl}`, () => {
-      cy.task("setIdentified", {
-        email,
-        identified: identified,
-      });
+  cases.forEach(
+    ({ identified, inDeclarationProcess, fscRequest, expectedUrl }) => {
+      it(`identified: ${identified} inDeclarationProcess: ${inDeclarationProcess} fscRequest: ${fscRequest} should link ${expectedUrl}`, () => {
+        cy.task("setIdentified", {
+          email,
+          identified: identified,
+        });
 
-      cy.task("setUserInDeclarationProcessAttribute", {
-        email,
-        inDeclarationProcess: inDeclarationProcess,
-      });
+        cy.task("setUserInDeclarationProcessAttribute", {
+          email,
+          inDeclarationProcess: inDeclarationProcess,
+        });
 
-      cy.login();
-      cy.visit("/anmelden/erfolgreich");
-      cy.contains("h1", "angemeldet");
-      cy.get("[data-testid=continue]").click();
-      cy.location("pathname").should("eq", expectedUrl);
-    });
-  });
+        if (fscRequest) {
+          cy.task("addFscRequestId", {
+            email,
+            fscRequestId: "foo",
+          });
+        }
+
+        cy.login();
+        cy.visit("/anmelden/erfolgreich");
+        cy.contains("h1", "angemeldet");
+        cy.get("[data-testid=continue]").click();
+        cy.location("pathname").should("eq", expectedUrl);
+      });
+    }
+  );
 });
 export {};

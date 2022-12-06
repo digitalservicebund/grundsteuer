@@ -14,6 +14,7 @@ import {
   Headline,
   IntroText,
   Spinner,
+  UebersichtStep,
 } from "~/components";
 import {
   Form,
@@ -61,6 +62,9 @@ import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
 import Hint from "~/components/Hint";
 import letter from "~/assets/images/fsc-letter-eingeben.png";
+import letterImg from "~/assets/images/letter-medium.svg";
+import letterImgSmall from "~/assets/images/letter-small.svg";
+import { FscRequest } from "~/domain/fscRequest";
 
 type LoaderData = {
   csrfToken?: string;
@@ -68,6 +72,7 @@ type LoaderData = {
   showSpinner: boolean;
   remainingDays: number;
   antragDate: string;
+  letterArrivalDate: string;
   ekonaDown?: boolean;
   ericaDown?: boolean;
 };
@@ -232,16 +237,6 @@ export const handleFscRevocationInProgress = async (
   }
 };
 
-const getRemainingDays = (antragDate: Date) => {
-  const expirationDate = new Date(
-    new Date().setTime(antragDate.getTime() + 90 * 24 * 60 * 60 * 1000)
-  );
-
-  return Math.ceil(
-    (expirationDate.getTime() - new Date().getTime()) / (24 * 60 * 60 * 1000)
-  );
-};
-
 export const loader: LoaderFunction = async ({
   request,
   context,
@@ -261,10 +256,12 @@ export const loader: LoaderFunction = async ({
     return redirect("/identifikation");
   }
 
-  const antragDate = userData.fscRequest.createdAt.toLocaleDateString("de-DE");
-  const remainingDays = getRemainingDays(userData.fscRequest.createdAt);
+  const fscRequest = new FscRequest(userData.fscRequest);
+  const antragDate = fscRequest.creationDate();
+  const letterArrivalDate = fscRequest.estLatestArrivalDate();
+  const remainingDays = fscRequest.remainingValidityInDays();
 
-  const antragStatus = { antragDate, remainingDays };
+  const antragStatus = { antragDate, letterArrivalDate, remainingDays };
 
   const fscEingebenProcessStarted = isFscEingebenProcessStarted(userData);
   const ericaActivationRequestIsInProgress =
@@ -422,7 +419,7 @@ export const action: ActionFunction = async ({
 
 export default function FscEingeben() {
   const loaderData = useLoaderData<LoaderData>();
-  const { antragDate, remainingDays } = loaderData;
+  const { antragDate, letterArrivalDate, remainingDays } = loaderData;
   const actionData: EingebenActionData | undefined = useActionData();
   const errors = actionData?.errors;
 
@@ -477,7 +474,26 @@ export default function FscEingeben() {
     };
   }, [fetcher, showSpinner]);
 
-  if (remainingDays > 0) {
+  if (remainingDays >= 90) {
+    return (
+      <ContentContainer size="sm">
+        <BreadcrumbNavigation />
+        <UebersichtStep imageSrc={letterImg} smallImageSrc={letterImgSmall}>
+          <Headline>Ihr Freischaltcode wurde beantragt</Headline>
+          <Hint type="status">
+            Ihr Freischaltcode wurde am {antragDate}. beantragt. Ihr Brief kommt
+            voraussichtlich bis zum {letterArrivalDate} an.
+          </Hint>
+          <IntroText>
+            Sie erhalten Ihren Freischaltcode voraussichtlich in den nächsten 3
+            Wochen per Post. Sie können jetzt die Grundsteuererklärung ausfüllen
+            und zu einem späteren Zeitpunkt den Freischaltcode eingeben.
+          </IntroText>
+          <Button to="/formular">Weiter zum Formular</Button>;
+        </UebersichtStep>
+      </ContentContainer>
+    );
+  } else if (remainingDays > 0) {
     return (
       <ContentContainer size="sm-md">
         <BreadcrumbNavigation />

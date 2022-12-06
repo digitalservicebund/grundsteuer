@@ -9,23 +9,27 @@ import {
   UserLayout,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
-import { authenticator, SessionUser } from "~/auth.server";
+import { authenticator } from "~/auth.server";
 import { useLoaderData } from "@remix-run/react";
 import { flags } from "~/flags.server";
 import { rememberCookie } from "~/rememberLogin.server";
+import { findUserByEmail, User } from "~/domain/user";
+import invariant from "tiny-invariant";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erfolgreich angemeldet.") };
 };
 
-const getNextStepUrl = (user: SessionUser) => {
+const getNextStepUrl = (user: User) => {
   if (!user.inDeclarationProcess) return "/formular/erfolg";
-  if (!user.identified) return "/identifikation";
+  if (!user.identified && !user.fscRequest) {
+    return "/identifikation";
+  }
   return "/formular";
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const user = await authenticator.isAuthenticated(request, {
+  const sessionUser = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
 
@@ -43,8 +47,14 @@ export const loader: LoaderFunction = async ({ request }) => {
     });
   }
 
+  const user: User | null = await findUserByEmail(sessionUser.email);
+  invariant(
+    user,
+    "expected a matching user in the database from a user in a cookie session"
+  );
+
   return {
-    email: user.email,
+    email: sessionUser.email,
     nextStepUrl: getNextStepUrl(user),
     flags: flags.getAllFlags(),
   };

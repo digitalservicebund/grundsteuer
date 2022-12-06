@@ -1,7 +1,7 @@
 /// <reference types="../../cypress/support" />
 
 describe("error banners", () => {
-  before(() => {
+  beforeEach(() => {
     cy.task("dbResetUser", "foo@bar.com");
   });
 
@@ -116,6 +116,7 @@ describe("error banners", () => {
       cy.task("addFscRequestId", {
         email: "foo@bar.com",
         fscRequestId: "foo",
+        createdAt: new Date(new Date().setDate(new Date().getDate() - 2)),
       });
       cy.login();
       cy.visit("/fsc/eingeben");

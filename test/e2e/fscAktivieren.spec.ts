@@ -3,7 +3,9 @@
 const validFreischaltCode = "ABCD-1234-EFGH";
 
 describe("/eingeben", () => {
-  function createFscRequest(createdAt?: Date) {
+  function createFscRequest(
+    createdAt: Date = new Date(new Date().setDate(new Date().getDate() - 2))
+  ) {
     cy.task("addFscRequestId", {
       email: "foo@bar.com",
       fscRequestId: "foo",
@@ -144,15 +146,25 @@ describe("/eingeben", () => {
   });
 
   describe("rendered page", () => {
-    it("should display remainig days on valid request", () => {
+    it("should not display text field duriing the first 24 hours", () => {
       createFscRequest(new Date());
+
+      cy.visit("/fsc/eingeben");
+
+      cy.contains("h1", "Ihr Freischaltcode wurde beantragt");
+      cy.get("[name=freischaltCode]").should("not.exist");
+    });
+
+    it("should display remainig days on valid request", () => {
+      const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+      createFscRequest(yesterday);
       cy.visit("/fsc/eingeben");
 
       cy.get("[data-testid=hint-box]").should(
         "contain",
-        `Ihr Freischaltcode wurde am ${new Date().toLocaleDateString(
+        `Ihr Freischaltcode wurde am ${yesterday.toLocaleDateString(
           "de-DE"
-        )} beantragt. Ihr Code läuft in 90 Tagen ab.`
+        )} beantragt. Ihr Code läuft in 89 Tagen ab.`
       );
     });
 
