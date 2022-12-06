@@ -20,7 +20,7 @@ export const gebaeudeBaujahr: StepDefinition = {
         },
         yearInPast: {
           excludingVeranlagungszeitraum: true,
-          msg: "Das Baujahr muss vor dem Veranlagungszeitraum liegen - also vor 2022 gebaut worden sein",
+          msg: "Das Baujahr muss vor dem Stichtag der Hauptfeststellung liegen - also vor dem 01.01.2022.",
         },
         minValue: {
           minValue: 1949,

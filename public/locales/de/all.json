@@ -122,7 +122,7 @@
     "flurstueckGroesse": "Geben Sie entweder die volle Flurstückgröße bei m2 an oder teilen Sie die Zahl in drei Einheiten auf. Beides ist nicht zulässig",
     "flurstueckGroesseLength": "Die Länge darf insgesamt 9 Ziffern nicht überschreiten",
     "flurstueckGroesseRequired": "Es muss mindestens ein Wert angegeben werden",
-    "yearInFuture": "Das Jahr muss in der Zukunft liegen",
+    "yearInFuture": "Das Jahr muss größer als 2021 sein, da der Stichtag der Hauptfeststellung 01.01.2022 ist.",
     "yearInPast": "Das Jahr muss in der Vergangenheit liegen",
     "dateInPast": "Das Datum muss in der Vergangenheit liegen",
     "uniqueSteuerId": "Steuer-Identifikationsnummern sind spezifisch für eine Person und dürfen nicht für mehrere Personen verwendet werden",
