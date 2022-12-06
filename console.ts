@@ -42,7 +42,6 @@ const initializeContext = (context: any) => {
   context.getRedisClient = getClient;
   context.services = services;
   context.mails = mails;
-  context.services = services;
 };
 
 initializeContext(replServer.context);
