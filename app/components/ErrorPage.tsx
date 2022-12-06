@@ -28,8 +28,6 @@ const texts: Texts = {
     body: "Es tut uns leid. Bei der Datenübertragung zum Server ist etwas schief gelaufen. Der Server konnte die Anfrage daher nicht bearbeiten. Bitte laden Sie die Seite neu und versuchen Sie es erneut.",
   },
   429: {
-    // TODO change to "reload" button?
-    backButton: "Zur Startseite",
     headline: "Es gab zu viele Anfragen.",
     body: "Es tut uns leid. Für diese Seite scheint es in letzter Zeit von Ihrer IP-Adresse zu viele Anfragen gegeben haben. Bitte warten Sie eine Minute und probieren Sie es dann erneut.",
   },
@@ -79,7 +77,7 @@ export default function ErrorPage(props: ErrorPageProps) {
         </p>
       )}
 
-      {statusCodeTexts.backButton && statusCode !== 429 && (
+      {statusCodeTexts.backButton && (
         <Button to="/" className="mb-64">
           {statusCodeTexts.backButton}
         </Button>
