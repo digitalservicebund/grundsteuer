@@ -9,13 +9,11 @@ describe("ratelimiting", () => {
   const mockedCurrentSeconds = new Date(currentDate).getSeconds().toString();
   const mockDateOneMinuteLater = new Date(Date.UTC(2022, 0, 1, 0, 1, 12));
   const mockDate = new Date(currentDate);
-  let originalSkipRatelimitValue: string;
+  let originalSkipRatelimitValue: string | undefined;
 
   beforeAll(() => {
-    if (process.env.SKIP_RATELIMIT) {
-      originalSkipRatelimitValue = process.env.SKIP_RATELIMIT;
-      process.env.SKIP_RATELIMIT = "false";
-    }
+    originalSkipRatelimitValue = process.env.SKIP_RATELIMIT;
+    process.env.SKIP_RATELIMIT = "false";
     const actualNowImplementation = Date.now;
     jest
       .spyOn(global, "Date")
@@ -24,9 +22,7 @@ describe("ratelimiting", () => {
   });
 
   afterAll(async () => {
-    if (originalSkipRatelimitValue) {
-      process.env.SKIP_RATELIMIT = "true";
-    }
+    process.env.SKIP_RATELIMIT = originalSkipRatelimitValue;
     jest.restoreAllMocks();
   });
 
