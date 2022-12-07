@@ -407,7 +407,7 @@ type FieldOptionType =
   | "steuerId"
   | "steuernummer";
 
-type FieldOptions = { value: string; defaultOption?: boolean }[];
+export type FieldOptions = { value: string; defaultOption?: boolean }[];
 
 export type StepDefinitionFieldWithOptions = StepDefinitionField & {
   type: FieldOptionType;

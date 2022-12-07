@@ -10,7 +10,7 @@ import { action as stepAction, PREFIX } from "~/routes/formular/_step";
 import invariant from "tiny-invariant";
 import { Flurstueck, Person } from "~/domain/steps/index.server";
 
-export const GRUNDSTUECK_ANZAHL_MAX = 20;
+export const GRUNDSTUECK_ANZAHL_MAX = 45;
 export const EIGENTUEMER_ANZAHL_MAX = 10;
 
 export const action: ActionFunction = async (args) => {
