@@ -183,9 +183,10 @@ export const createHeadersWithFormDataCookie: CreateHeadersWithFormDataCookie =
       encryptedCookie.length / CONTENT_LENGTH_PER_COOKIE
     );
 
-    if (slicesCount > 20) {
+    // Expect slicesCount to be 1-3, but just in case (later we assume it is one digit).
+    if (slicesCount > 9) {
       throw new Error(
-        "Storing data across more than 20 cookies is not supported."
+        "Storing data across more than 9 cookies is not supported."
       );
     }
 
