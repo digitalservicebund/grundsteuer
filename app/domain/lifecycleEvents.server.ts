@@ -7,6 +7,8 @@ import {
   User,
 } from "~/domain/user";
 import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
+import { sendFscRequestCreatedMail } from "~/jobs";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const saveSuccessfulFscRequestData = async (
   email: string,
@@ -65,6 +67,12 @@ export const saveSuccessfulFscRequestData = async (
         },
       });
     });
+    if (testFeaturesEnabled()) {
+      await sendFscRequestCreatedMail({
+        to: user.email,
+        createdAt: new Date(),
+      });
+    }
   } catch (error) {
     if (shouldThrowError(error as object)) {
       throw error;
