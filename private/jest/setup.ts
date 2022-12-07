@@ -20,6 +20,9 @@ if (!process.env.INTEGRATION_TEST) {
       return mockDeep<OriginalPrismaClient>();
     },
   }));
+
+  jest.mock("ioredis");
+  jest.mock("bullmq");
 }
 
 // Add globals to be able to access Request/Response etc. in the tests

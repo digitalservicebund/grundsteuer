@@ -35,7 +35,7 @@
     "prepare": "is-ci || husky install",
     "postinstall": "patch-package",
     "start": "cross-env NODE_ENV=production node --max-http-header-size=65536 ./server.js",
-    "test": "cross-env NODE_OPTIONS=--no-warnings jest --testPathPattern=/app/ --maxWorkers=50% --forceExit",
+    "test": "cross-env NODE_OPTIONS=--no-warnings jest --testPathPattern=/app/ --maxWorkers=50%",
     "test:e2e": "cross-env SKIP_AUTH=true SKIP_RATELIMIT=true start-server-and-test start http://localhost:3000 cypress",
     "test:integration": "cross-env INTEGRATION_TEST=1 jest --testPathPattern=/test/integration/ --runInBand --forceExit",
     "cypress": "cypress run --browser chrome --headless",
