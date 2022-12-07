@@ -3,7 +3,9 @@ require("@testing-library/jest-dom");
 const Redis = require("ioredis");
 
 if (!global.ioredis) {
-  global.ioredis = new Redis(process.env.REDIS_URL);
+  global.ioredis = new Redis(process.env.REDIS_URL, {
+    maxRetriesPerRequest: null,
+  });
   console.log("Redis connection opened");
 }
 
