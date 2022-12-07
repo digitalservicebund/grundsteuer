@@ -21,10 +21,25 @@ describe("createLoginMail", () => {
           <p>Guten Tag!</p>
 
           
+
       <p>
-        <strong><a href=\\"https://www.grundsteuererklaerung-fuer-privateigentum.de/anmelden/bestaetigen?token=foobar\\">Hier klicken und bei „Grundsteuererklärung für Privateigentum“ anmelden</a></strong>
+        <strong>
+          <a href=\\"https://www.grundsteuererklaerung-fuer-privateigentum.de/anmelden/bestaetigen?token=foobar\\">
+            Hier klicken und bei „Grundsteuererklärung für Privateigentum“ anmelden
+          </a>
+        </strong>
       </p>
-      <p>Der Link läuft in 24 Stunden ab. Öffnen Sie den Link mit demselben Browser und Gerät, mit dem Sie ihn bestellt haben. Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail ignorieren. Bei Problemen mit der Anmeldung, finden Sie weitere Informationen im <a href=\\"https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/34-anmeldung/22-der-link-funktioniert-nicht-was-soll-ich-tun\\">Hilfebereich</a>.</p>
+
+      <p>
+      Der Link läuft in 24 Stunden ab.
+
+      Öffnen Sie den Link mit demselben Browser und Gerät, mit dem Sie ihn bestellt haben.
+
+      Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail ignorieren.
+
+      Bei Problemen mit der Anmeldung, finden Sie weitere Informationen im <a href=\\"https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/34-anmeldung/22-der-link-funktioniert-nicht-was-soll-ich-tun\\">Hilfebereich</a>.
+      </p>
+
 
 
           <hr style=\\"margin-top: 3rem\\" />
@@ -46,24 +61,25 @@ describe("createLoginMail", () => {
         "subject": "Anmelden bei „Grundsteuererklärung für Privateigentum“",
         "textContent": "Guten Tag!
 
-      Auf folgenden Link klicken und bei „Grundsteuererklärung für Privateigentum“ anmelden:
-      https://www.grundsteuererklaerung-fuer-privateigentum.de/anmelden/bestaetigen?token=foobar
+      Hier klicken und bei „Grundsteuererklärung für Privateigentum“ anmelden
+      [https://www.grundsteuererklaerung-fuer-privateigentum.de/anmelden/bestaetigen?token=foobar]
 
-      Der Link läuft in 24 Stunden ab. Öffnen Sie den Link mit demselben Browser und Gerät, mit dem Sie ihn bestellt haben. Wenn Sie den Link nicht angefordert haben, können Sie diese E-Mail ignorieren. Bei Problemen mit der Anmeldung, finden Sie weitere Informationen im Hilfebereich:
-      https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/34-anmeldung/22-der-link-funktioniert-nicht-was-soll-ich-tun
+      Der Link läuft in 24 Stunden ab. Öffnen Sie den Link mit demselben Browser und
+      Gerät, mit dem Sie ihn bestellt haben. Wenn Sie den Link nicht angefordert
+      haben, können Sie diese E-Mail ignorieren. Bei Problemen mit der Anmeldung,
+      finden Sie weitere Informationen im Hilfebereich
+      [https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/34-anmeldung/22-der-link-funktioniert-nicht-was-soll-ich-tun].
 
+      --------------------------------------------------------------------------------
 
-      -- 
       Grundsteuererklärung für Privateigentum
-      Support-Team | DigitalService
-      Website: https://digitalservice.bund.de
-      Twitter: https://twitter.com/DigitalServBund
-      LinkedIn: https://www.linkedin.com/company/digitalservicebund
+      Support-Team | DigitalService [https://digitalservice.bund.de]
+      Twitter [https://twitter.com/DigitalServBund] | LinkedIn
+      [https://www.linkedin.com/company/digitalservicebund]
       DigitalService GmbH des Bundes
       Prinzessinenstraße 8-14, 10969 Berlin
       Ust-IdNr.: DE327075535 | Geschäftsführung: Christina Lang & Philipp Möser
-      Handelsregisternummer: HRB 212879 B | Registergericht: Berlin Charlottenburg
-      ",
+      Handelsregisternummer: HRB 212879 B | Registergericht: Berlin Charlottenburg",
         "to": "chewbacca@examle.com",
       }
     `);
