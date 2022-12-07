@@ -1111,13 +1111,13 @@
         "bebaut": {
           "options": {
             "bebaut": {
-              "label": "Ja, mein Grundstück war zu diesem Zeitpunkt bebaut"
+              "label": "Ja, mein Grundstück war zu diesem Zeitpunkt bebaut und bezugsfertig"
             },
             "unbebaut": {
               "label": "Nein, mein Grundstück war zu diesem Zeitpunkt unbebaut"
             },
             "baureif": {
-              "label": "Jein, auf meinem Grundstück stand ein verfallenes Gebäude"
+              "label": "Jein, das Gebäude befand sich noch im Bau oder auf meinem Grundstück stand ein verfallenes Gebäude."
             }
           }
         }
