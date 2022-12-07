@@ -13,14 +13,23 @@ export const loader: LoaderFunction = async ({ request }) => {
   return { user: session.get("user"), flags: flags.getAllFlags() };
 };
 
+const locationIsHomepage = (location: { pathname: string }) =>
+  location.pathname === "/";
+const locationIsQuestionnaire = (location: { pathname: string }) =>
+  /^\/pruefen\//.test(location.pathname);
+
 export default function InfoLayout() {
   const { flags, user } = useLoaderData();
   const { t } = useTranslation();
   const location = useLocation();
-  const [isHomepage, setIsHomepage] = useState(location.pathname === "/");
+  const [isHomepage, setIsHomepage] = useState(locationIsHomepage(location));
+  const [isQuestionnaire, setIsQuestionnaire] = useState(
+    locationIsQuestionnaire(location)
+  );
 
   useEffect(() => {
-    setIsHomepage(location.pathname === "/");
+    setIsHomepage(locationIsHomepage(location));
+    setIsQuestionnaire(locationIsQuestionnaire(location));
   }, [location]);
 
   return (
@@ -51,7 +60,7 @@ export default function InfoLayout() {
           <div> {t("banners.zammadDownBody")} </div>
         </ErrorBanner>
       )}
-      <Header email={user?.email} noLoginLink={isHomepage} />
+      <Header email={user?.email} noLoginLink={isHomepage || isQuestionnaire} />
       <main className="flex-grow">
         <Outlet />
       </main>
