@@ -4,7 +4,7 @@ import { useSecureCookie } from "./util/useSecureCookie";
 const COOKIE_NAME = "login";
 
 const getRememberCookie = () => {
-  const MAX_AGE_IN_MONTHS = 4;
+  const MAX_AGE_IN_MONTHS = 7;
 
   return createCookie(COOKIE_NAME, {
     path: "/",
