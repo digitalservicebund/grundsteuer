@@ -13,7 +13,7 @@ import { mockActionArgs } from "testUtil/mockActionArgs";
 import {
   commitEkonaSession,
   getEkonaSession,
-} from "~/ekona/ekonaCookie.server";
+} from "~/storage/ekonaCookie.server";
 
 let userMock: jest.SpyInstance;
 

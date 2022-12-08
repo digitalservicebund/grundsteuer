@@ -3,7 +3,7 @@ import { validateSamlResponse } from "~/ekona/saml.server";
 import {
   destroyEkonaSession,
   getEkonaSession,
-} from "~/ekona/ekonaCookie.server";
+} from "~/storage/ekonaCookie.server";
 import { extractIdentData } from "~/ekona/validation.server";
 import { findUserById, setUserIdentified, User } from "~/domain/user";
 import invariant from "tiny-invariant";

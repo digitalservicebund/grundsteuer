@@ -44,7 +44,7 @@ import Communication from "~/components/icons/mui/Communication";
 import {
   getFromPruefenStateCookie,
   saveToPruefenStateCookie,
-} from "~/domain/pruefen/pruefenCookie.server";
+} from "~/storage/pruefenCookie.server";
 import { commitSession, getSession } from "~/session.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { useEffect, useState } from "react";

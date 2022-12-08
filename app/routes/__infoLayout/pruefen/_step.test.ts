@@ -2,7 +2,7 @@ import { mockActionArgs } from "testUtil/mockActionArgs";
 import * as csrfModule from "~/util/csrf";
 import * as modelModule from "~/domain/model";
 import { action, getMachine } from "./_step";
-import { saveToPruefenStateCookie } from "~/domain/pruefen/pruefenCookie.server";
+import { saveToPruefenStateCookie } from "~/storage/pruefenCookie.server";
 
 describe("_step action", () => {
   beforeEach(async () => {
