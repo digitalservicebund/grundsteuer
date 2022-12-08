@@ -1,12 +1,12 @@
 import createDebugMessages from "debug";
 import { GrundModel } from "~/domain/steps/index.server";
-import { SessionUser } from "./auth.server";
+import { SessionUser } from "~/auth.server";
 import {
   COOKIE_ENCODING,
   createFormDataCookie,
   decryptCookie,
   encryptCookie,
-} from "~/cookies.server";
+} from "~/storage/cookies.server";
 
 const debug = createDebugMessages("formDataStorage");
 

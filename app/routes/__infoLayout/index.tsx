@@ -14,7 +14,7 @@ import HomepageCallToAction from "~/components/HomepageCallToAction";
 import { json, LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { getSession } from "~/session.server";
-import { rememberCookieExists } from "~/rememberLogin.server";
+import { rememberCookieExists } from "~/storage/rememberLogin.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const cookieHeader = request.headers.get("Cookie");

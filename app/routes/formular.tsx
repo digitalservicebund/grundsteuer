@@ -1,6 +1,6 @@
 import { LoaderFunction } from "@remix-run/node";
 import { Outlet, useLoaderData, useLocation } from "@remix-run/react";
-import { getStoredFormData } from "~/formDataStorage.server";
+import { getStoredFormData } from "~/storage/formDataStorage.server";
 import {
   Footer,
   FormSidebarNavigation,

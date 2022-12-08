@@ -12,7 +12,7 @@ import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
 import { useLoaderData } from "@remix-run/react";
 import { flags } from "~/flags.server";
-import { rememberCookie } from "~/rememberLogin.server";
+import { rememberCookie } from "~/storage/rememberLogin.server";
 import { findUserByEmail, User } from "~/domain/user";
 import invariant from "tiny-invariant";
 

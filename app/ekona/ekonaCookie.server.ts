@@ -1,10 +1,10 @@
 import { createCookieSessionStorage, Session } from "@remix-run/node";
-import { useSecureCookie } from "~/util/useSecureCookie";
+import { useSecureCookie } from "~/storage/useSecureCookie";
 import {
   COOKIE_ENCODING,
   decryptCookie,
   encryptCookie,
-} from "~/cookies.server";
+} from "~/storage/cookies.server";
 
 export const sessionStorage = createCookieSessionStorage({
   cookie: {

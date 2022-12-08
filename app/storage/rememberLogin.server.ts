@@ -1,5 +1,5 @@
 import { createCookie } from "@remix-run/node";
-import { useSecureCookie } from "./util/useSecureCookie";
+import { useSecureCookie } from "~/storage/useSecureCookie";
 
 const COOKIE_NAME = "login";
 

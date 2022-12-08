@@ -2,7 +2,7 @@ import { mockActionArgs } from "testUtil/mockActionArgs";
 import { mockIsAuthenticated } from "test/mocks/authenticationMocks";
 import { grundModelFactory, sessionUserFactory } from "test/factories";
 import * as csrfModule from "~/util/csrf";
-import * as formDataStorageModule from "~/formDataStorage.server";
+import * as formDataStorageModule from "~/storage/formDataStorage.server";
 import * as stepModule from "~/routes/formular/_step";
 import {
   action,

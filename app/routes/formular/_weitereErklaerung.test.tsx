@@ -3,7 +3,7 @@ import { grundModelFactory, sessionUserFactory } from "test/factories";
 import * as csrfModule from "~/util/csrf";
 import { mockActionArgs } from "testUtil/mockActionArgs";
 import { action } from "~/routes/formular/weitereErklaerung";
-import { decodeFormDataCookie } from "~/formDataStorage.server";
+import { decodeFormDataCookie } from "~/storage/formDataStorage.server";
 import { getMockedFunction } from "test/mocks/mockHelper";
 import * as userModule from "~/domain/user";
 import { getSession } from "~/session.server";

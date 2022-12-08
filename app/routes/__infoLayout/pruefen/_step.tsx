@@ -44,12 +44,12 @@ import Communication from "~/components/icons/mui/Communication";
 import {
   getFromPruefenStateCookie,
   saveToPruefenStateCookie,
-} from "~/cookies.server";
+} from "~/storage/cookies.server";
 import { commitSession, getSession } from "~/session.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { useEffect, useState } from "react";
 import { Flags, flags } from "~/flags.server";
-import { rememberCookieExists } from "~/rememberLogin.server";
+import { rememberCookieExists } from "~/storage/rememberLogin.server";
 
 const PREFIX = "pruefen";
 const START_STEP = "start";

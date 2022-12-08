@@ -6,10 +6,10 @@ import {
   encryptCookie,
   getFromPruefenStateCookie,
   saveToPruefenStateCookie,
-} from "~/cookies.server";
+} from "~/storage/cookies.server";
 import { SessionUser } from "~/auth.server";
 
-jest.mock("~/util/useSecureCookie", () => {
+jest.mock("~/storage/useSecureCookie", () => {
   return {
     __esModule: true,
     useSecureCookie: true,

@@ -1,12 +1,12 @@
 import {
   getStoredFormData,
   createHeadersWithFormDataCookie,
-} from "~/formDataStorage.server";
-import { SessionUser } from "./auth.server";
-import { GrundModel } from "./domain/steps/index.server";
-import { createFormDataCookie, encryptCookie } from "~/cookies.server";
+} from "~/storage/formDataStorage.server";
+import { SessionUser } from "~/auth.server";
+import { GrundModel } from "~/domain/steps/index.server";
+import { createFormDataCookie, encryptCookie } from "~/storage/cookies.server";
 
-jest.mock("~/util/useSecureCookie", () => {
+jest.mock("~/storage/useSecureCookie", () => {
   return {
     __esModule: true,
     useSecureCookie: true,

@@ -4,7 +4,7 @@ import { Session } from "@remix-run/server-runtime";
 import { commitSession, getSession } from "~/session.server";
 import { authenticator, SessionUser } from "~/auth.server";
 import { GrundModel } from "~/domain/steps/index.server";
-import { createHeadersWithFormDataCookie } from "~/formDataStorage.server";
+import { createHeadersWithFormDataCookie } from "~/storage/formDataStorage.server";
 
 jest.mock("~/auth.server", () => {
   return {
