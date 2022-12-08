@@ -1,11 +1,8 @@
-import { getMachine } from "~/routes/__infoLayout/pruefen/_step";
 import {
   COOKIE_ENCODING,
   createFormDataCookieName,
   decryptCookie,
   encryptCookie,
-  getFromPruefenStateCookie,
-  saveToPruefenStateCookie,
 } from "~/storage/cookies.server";
 import { SessionUser } from "~/auth.server";
 
@@ -41,15 +38,5 @@ describe("encryptCookie / decryptCookie", () => {
     const encrypted = encryptCookie(input);
     const decrypted = decryptCookie(Buffer.from(encrypted, COOKIE_ENCODING));
     expect(decrypted).toEqual(input);
-  });
-});
-
-describe("saveToPruefenStateCookie / getFromPruefenStateCookie", () => {
-  it("encodes/decodes correctly", async () => {
-    const state = getMachine({ formData: {} }).getInitialState("start");
-    const encodedCookie = await saveToPruefenStateCookie(state);
-    const decodedCookie = await getFromPruefenStateCookie(encodedCookie);
-    expect(decodedCookie.value).toEqual(state.value);
-    expect(decodedCookie.context).toEqual(state.context);
   });
 });
