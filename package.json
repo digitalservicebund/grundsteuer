@@ -40,8 +40,8 @@
     "test:integration": "cross-env INTEGRATION_TEST=1 jest --testPathPattern=/test/integration/ --runInBand --forceExit",
     "cypress": "cypress run --browser chrome --headless",
     "cypress:open": "cypress open",
-    "docker:up": "docker-compose -f ./docker-compose-test.yml -p grundsteuer-test up -d",
-    "docker:down": "docker-compose -f ./docker-compose-test.yml -p grundsteuer-test down -v"
+    "docker:up": "docker-compose -f ./test/docker-compose-test.yml -p grundsteuer-test up -d",
+    "docker:down": "docker-compose -f ./test/docker-compose-test.yml -p grundsteuer-test down -v"
   },
   "dependencies": {
     "@node-saml/node-saml": "^4.0.2",
