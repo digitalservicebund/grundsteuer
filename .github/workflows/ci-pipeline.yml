@@ -58,7 +58,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up postgres, erica, redis, unleash
-        run: docker-compose -f ./docker-compose-test.yml -p grundsteuer-test up -d
+        run: docker-compose -f ./test/docker-compose-test.yml -p grundsteuer-test up -d
 
       - name: Wait for test db to rise and shine
         run: sleep 2
