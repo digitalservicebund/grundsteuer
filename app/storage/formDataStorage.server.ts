@@ -7,6 +7,7 @@ import {
   decryptCookie,
   encryptCookie,
 } from "~/storage/cookies.server";
+import { migrateData } from "~/storage/dataMigration.server";
 
 const debug = createDebugMessages("formDataStorage");
 
@@ -24,87 +25,8 @@ export const getStoredFormData: GetStoredFormDataFunction = async ({
 
   if (!cookieHeader) return {};
   const decodedData = await decodeFormDataCookie({ cookieHeader, user });
-  // migrate old grundstuecktyp data to new grundstuecktyp or haustyp
-  if (
-    decodedData?.grundstueck &&
-    decodedData?.grundstueck?.typ &&
-    !decodedData?.grundstueck?.bebaut
-  ) {
-    if (
-      ["einfamilienhaus", "zweifamilienhaus", "wohnungseigentum"].includes(
-        decodedData.grundstueck.typ.typ
-      )
-    ) {
-      decodedData.grundstueck.haustyp = {
-        haustyp: decodedData.grundstueck.typ.typ,
-      };
-      decodedData.grundstueck.bebaut = {
-        bebaut: "bebaut",
-      };
-      delete decodedData.grundstueck.typ;
-    } else if (decodedData.grundstueck.typ.typ === "baureif") {
-      decodedData.grundstueck.grundstuecktyp = {
-        grundstuecktyp: decodedData.grundstueck.typ.typ,
-      };
-      decodedData.grundstueck.bebaut = {
-        bebaut: "unbebaut",
-      };
-      delete decodedData.grundstueck.typ;
-    } else if (decodedData.grundstueck.typ.typ === "abweichendeEntwicklung") {
-      decodedData.grundstueck.bebaut = {
-        bebaut: "unbebaut",
-      };
-      delete decodedData.grundstueck.typ;
-      if (
-        decodedData.grundstueck.abweichendeEntwicklung?.abweichendeEntwicklung
-      ) {
-        decodedData.grundstueck.grundstuecktyp = {
-          grundstuecktyp:
-            decodedData.grundstueck.abweichendeEntwicklung
-              ?.abweichendeEntwicklung,
-        };
-        delete decodedData.grundstueck.abweichendeEntwicklung
-          .abweichendeEntwicklung;
-      }
-    }
-  }
 
-  // migrate old miteigentumsanteil data to new miteigentumWohnung
-  if (
-    decodedData?.grundstueck &&
-    decodedData?.grundstueck?.miteigentumsanteil &&
-    !decodedData?.grundstueck?.miteigentumAuswahlWohnung &&
-    !decodedData?.grundstueck?.miteigentumWohnung
-  ) {
-    decodedData.grundstueck.miteigentumAuswahlWohnung = {
-      miteigentumTyp: "none",
-    };
-    decodedData.grundstueck.miteigentumWohnung =
-      decodedData.grundstueck?.miteigentumsanteil;
-  }
-
-  // migrate grundbuchblattnummer for wohnung option 1 & 2
-  if (
-    decodedData?.grundstueck &&
-    decodedData?.grundstueck.typ &&
-    decodedData?.grundstueck.typ.typ === "wohnungseigentum" &&
-    decodedData?.grundstueck.miteigentumAuswahlWohnung
-  ) {
-    const miteigentumOption =
-      decodedData.grundstueck.miteigentumAuswahlWohnung.miteigentumTyp;
-    if (
-      (miteigentumOption === "none" || miteigentumOption == "garage") &&
-      decodedData.grundstueck.flurstueck &&
-      decodedData.grundstueck.flurstueck[0]?.angaben?.grundbuchblattnummer
-    ) {
-      if (!decodedData.grundstueck.miteigentumWohnung) {
-        decodedData.grundstueck.miteigentumWohnung = {};
-      }
-      decodedData.grundstueck.miteigentumWohnung.grundbuchblattnummer =
-        decodedData.grundstueck.flurstueck[0]?.angaben?.grundbuchblattnummer;
-    }
-  }
-  return decodedData;
+  return migrateData(decodedData);
 };
 
 export const decodeFormDataCookie = async ({
