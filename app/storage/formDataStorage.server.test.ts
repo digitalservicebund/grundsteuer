@@ -1,10 +1,12 @@
 import {
-  getStoredFormData,
   createHeadersWithFormDataCookie,
+  createSetCookieSlices,
+  getStoredFormData,
 } from "~/storage/formDataStorage.server";
 import { SessionUser } from "~/auth.server";
-import { GrundModel } from "~/domain/steps/index.server";
+import { Flurstueck, GrundModel } from "~/domain/steps/index.server";
 import { createFormDataCookie, encryptCookie } from "~/storage/cookies.server";
+import { flurstueckFactory, grundModelFactory } from "test/factories";
 
 jest.mock("~/storage/useSecureCookie", () => {
   return {
@@ -269,6 +271,82 @@ describe("getStoredFormData", () => {
           });
         });
       });
+
+      describe("migration logic", () => {
+        it("should migrate single cookie", async () => {
+          const data: GrundModel = {
+            grundstueck: { haustyp: { haustyp: "einfamilienhaus" } },
+          };
+          const slices = await createSetCookieSlices(data, user, true);
+
+          expect(slices.length).toEqual(1);
+
+          const request = new Request("http://localhost/", {
+            headers: {
+              Cookie: slices[0],
+            },
+          });
+          const retrievedData = await getStoredFormData({
+            request,
+            user,
+          });
+
+          expect(retrievedData).toEqual({
+            grundstueck: { haustyp: { haustyp: "einfamilienhaus" } },
+          });
+        });
+
+        it("should migrate mutliple cookies", async () => {
+          const builder = grundModelFactory
+            .full()
+            .flurstueckAnzahl({ anzahl: "30" });
+          const flurstuecke: Flurstueck[] = [];
+          for (let i = 1; i <= 30; i++) {
+            const flurstueck = flurstueckFactory
+              .angaben({
+                gemarkung: "Gemarkung " + i,
+                grundbuchblattnummer: random(1, 999),
+              })
+              .flur({
+                flur: random(1, 999),
+                flurstueckZaehler: "1",
+                flurstueckNenner: random(2, 100),
+              })
+              .groesse({
+                groesseA: "0",
+                groesseHa: "0",
+                groesseQm: random(1, 200),
+              })
+              .miteigentumAuswahl({ hasMiteigentum: "true" })
+              .miteigentum({
+                wirtschaftlicheEinheitZaehler: "1",
+                wirtschaftlicheEinheitNenner: random(2, 50),
+              })
+              .build();
+            flurstuecke.push(flurstueck);
+          }
+
+          const largeData = builder
+            .grundstueckFlurstueck({ list: flurstuecke, count: 30 })
+            .build();
+          const slices = await createSetCookieSlices(largeData, user, true);
+
+          expect(slices.length).toBeGreaterThan(1);
+          expect(slices.length).toBeLessThan(10);
+
+          const request = new Request("http://localhost/", {
+            headers: {
+              Cookie: slices.join(";"),
+            },
+          });
+          const retrievedData = await getStoredFormData({
+            request,
+            user,
+          });
+
+          expect(retrievedData).toEqual({ ...largeData });
+        });
+      });
     });
 
     describe("user id inside cookie does not match given user id", () => {
@@ -347,3 +425,7 @@ describe("createHeadersWithFormDataCookie", () => {
     });
   });
 });
+
+function random(min: number, max: number) {
+  return String(Math.floor(Math.random() * (max - min + 1) + min));
+}
