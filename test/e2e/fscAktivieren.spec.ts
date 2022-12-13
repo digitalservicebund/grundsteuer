@@ -96,12 +96,24 @@ describe("/eingeben", () => {
       cy.contains("Ihr Freischaltcode wird überprüft.").should("not.exist");
     });
 
-    it("should redirect to success page if it was already successful", () => {
+    it("should redirect to success page if it was already successful and revocation still running", () => {
+      cy.task("setUserIdentified", {
+        email: "foo@bar.com",
+      });
+      cy.task("addEricaRequestIdFscStornieren", {
+        email: "foo@bar.com",
+        ericaRequestId: "foo",
+      });
+      cy.visit("/fsc/eingeben");
+      cy.url().should("include", "/identifikation/erfolgreich");
+    });
+
+    it("should redirect to identification success page if user already ientified", () => {
       cy.task("setUserIdentified", {
         email: "foo@bar.com",
       });
       cy.visit("/fsc/eingeben");
-      cy.url().should("include", "/fsc/eingeben/erfolgreich");
+      cy.url().should("include", "/identifikation/erfolgreich");
     });
 
     it("should show spinner and revoke fsc if ericaAktivierenRequestId was deleted during process", () => {
@@ -118,13 +130,15 @@ describe("/eingeben", () => {
 
       cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDirectResponse");
 
-      cy.url().should("include", "/fsc/eingeben/erfolgreich");
-      cy.contains("Sie haben sich erfolgreich identifiziert.");
-
       cy.task("getUser", "foo@bar.com").then((user) => {
-        console.log(JSON.stringify(user));
         expect(user[0].ericaRequestIdFscStornieren).not.to.be.undefined;
       });
+      cy.task("getUser", "foo@bar.com").then((user) => {
+        expect(user[0].identified).to.equal(true);
+      });
+
+      cy.url().should("include", "/identifikation/erfolgreich");
+      cy.contains("Sie haben sich erfolgreich identifiziert.");
     });
 
     it("should show 500 page if failure and unexpected error", () => {

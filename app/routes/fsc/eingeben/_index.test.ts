@@ -411,9 +411,7 @@ describe("Loader", () => {
       );
       const result = await loader(args);
       expect(result.status).toEqual(302);
-      expect(result.headers.get("Location")).toEqual(
-        "/fsc/eingeben/erfolgreich"
-      );
+      expect(result.headers.get("Location")).toEqual("/identifikation");
     });
   });
 });

@@ -13,10 +13,12 @@ export const hasValidOpenFscRequest = (user: User) => {
   );
 };
 
-export const hasValidFscRequest = (user: User) => {
-  return user.fscRequest && new FscRequest(user.fscRequest).isValid();
+export const canEnterFsc = (user: User) => {
+  return (
+    !user.identified && !user.ericaRequestIdFscStornieren && user.fscRequest
+  );
 };
 
-export const hasStartedIdentification = (user: User) => {
-  return user.identified || user.fscRequest;
+export const needsToStartIdentification = (user: User) => {
+  return !user.identified && !user.fscRequest;
 };

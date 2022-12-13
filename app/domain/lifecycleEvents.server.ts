@@ -9,7 +9,6 @@ import {
 import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
 import { sendFscRequestCreatedMail } from "~/jobs";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
-import { hasValidOpenFscRequest } from "~/domain/identificationStatus";
 
 export const saveSuccessfulFscRequestData = async (
   email: string,
@@ -194,7 +193,7 @@ const shouldThrowError = (error: object) => {
 };
 
 export const revokeOutstandingFSCRequests = async (user: User) => {
-  if (hasValidOpenFscRequest(user) && user.fscRequest) {
+  if (user.fscRequest) {
     await revokeFscForUser(user);
     await deleteFscRequest(user.email, user.fscRequest.requestId);
   }
