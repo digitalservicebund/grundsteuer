@@ -3,7 +3,7 @@ import { useSecureCookie } from "~/storage/useSecureCookie";
 import invariant from "tiny-invariant";
 import crypto from "crypto";
 import { GrundModel } from "~/domain/steps/index.server";
-import { encrypt, decrypt } from "./services/encryption";
+import { encrypt, decrypt } from "~/services/encryption";
 
 export const COOKIE_ENCODING = "base64";
 
