@@ -6,7 +6,6 @@ invariant(process.env.AUDIT_PUBLIC_KEY, "AUDIT_PUBLIC_KEY is not set.");
 invariant(process.env.REDIS_URL, "REDIS_URL is not set.");
 invariant(process.env.ERICA_URL, "ERICA_URL is not set.");
 // run once every hour
-jobs.scheduleFscCleanup("0 * * * *");
 jobs.schedulePdfCleanup("30 * * * *");
 jobs.scheduleTransferticketCleanup("31 * * * *");
 // run once every day

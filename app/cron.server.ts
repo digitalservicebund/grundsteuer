@@ -4,14 +4,6 @@ import { deleteManyUsers } from "~/domain/user";
 import { updateOpenEricaRequests } from "~/erica/updateOpenEricaRequests.server";
 import * as remixNode from "@remix-run/node";
 
-const scheduleFscCleanup = (cronExpression: string) => {
-  console.info(
-    "Schedule deleting expired FSC requests with cron expression: %s",
-    cronExpression
-  );
-  schedule(cronExpression, async () => deleteExpiredFscs());
-};
-
 const schedulePdfCleanup = (cronExpression: string) => {
   console.info(
     "Schedule deleting expired PDFs with cron expression: %s",
@@ -34,23 +26,6 @@ const scheduleAccountCleanup = (cronExpression: string) => {
     cronExpression
   );
   schedule(cronExpression, async () => deleteExpiredAccounts());
-};
-
-export const deleteExpiredFscs = async () => {
-  try {
-    const now = new Date();
-    const ninetyDaysAgo = new Date(now.setDate(now.getDate() - 90));
-    const queryResult = await db.fscRequest.deleteMany({
-      where: {
-        createdAt: {
-          lte: ninetyDaysAgo,
-        },
-      },
-    });
-    console.log("Deleted %d expired FSC requests.", queryResult.count);
-  } catch (error) {
-    console.error(error);
-  }
 };
 
 export const deleteExpiredPdfs = async () => {
@@ -144,7 +119,6 @@ const scheduleUpdateEricaRequest = (cronExpression: string) => {
 };
 
 export const jobs = {
-  scheduleFscCleanup,
   schedulePdfCleanup,
   scheduleTransferticketCleanup,
   scheduleAccountCleanup,
