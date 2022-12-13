@@ -65,6 +65,7 @@ import letter from "~/assets/images/fsc-letter-eingeben.png";
 import letterImg from "~/assets/images/letter-medium.svg";
 import letterImgSmall from "~/assets/images/letter-small.svg";
 import { FscRequest } from "~/domain/fscRequest";
+import { hasValidFscRequest } from "~/domain/identificationStatus";
 
 type LoaderData = {
   csrfToken?: string;
@@ -252,10 +253,11 @@ export const loader: LoaderFunction = async ({
     "expected a matching user in the database from a user in a cookie session"
   );
 
-  if (!userData.fscRequest) {
+  if (!hasValidFscRequest(userData)) {
     return redirect("/identifikation");
   }
 
+  invariant(userData.fscRequest, "Expected user to have a FscRequest");
   const fscRequest = new FscRequest(userData.fscRequest);
   const antragDate = fscRequest.creationDate();
   const letterArrivalDate = fscRequest.estLatestArrivalDate();

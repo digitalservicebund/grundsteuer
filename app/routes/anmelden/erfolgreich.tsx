@@ -15,6 +15,7 @@ import { flags } from "~/flags.server";
 import { rememberCookie } from "~/storage/rememberLogin.server";
 import { findUserByEmail, User } from "~/domain/user";
 import invariant from "tiny-invariant";
+import { hasStartedIdentification } from "~/domain/identificationStatus";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erfolgreich angemeldet.") };
@@ -22,7 +23,7 @@ export const meta: MetaFunction = () => {
 
 const getNextStepUrl = (user: User) => {
   if (!user.inDeclarationProcess) return "/formular/erfolg";
-  if (!user.identified && !user.fscRequest) {
+  if (!hasStartedIdentification(user)) {
     return "/identifikation";
   }
   return "/formular";

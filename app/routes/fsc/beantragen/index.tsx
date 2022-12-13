@@ -56,13 +56,14 @@ import { ericaUtils } from "~/erica/utils";
 import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
 import { flags } from "~/flags.server";
 import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
+import { hasValidOpenFscRequest } from "~/domain/identificationStatus";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
 };
 
 const wasEricaRequestSuccessful = async (userData: User) => {
-  return Boolean(userData.fscRequest);
+  return hasValidOpenFscRequest(userData);
 };
 
 const getEricaRequestIdFscBeantragen = async (userData: User) => {
