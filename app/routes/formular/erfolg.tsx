@@ -157,7 +157,7 @@ export default function Erfolg() {
               className="mb-32"
             />
             <p className="font-bold">
-              Ihr Nutzerkonto wird 4 Monate nach Absenden der Erklärung
+              Ihr Nutzerkonto wird 7 Monate nach Absenden der Erklärung
               automatisch gelöscht.
             </p>
           </ContentContainer>
