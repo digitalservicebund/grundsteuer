@@ -25,7 +25,6 @@ import { pageTitle } from "~/util/pageTitle";
 import { flags } from "~/flags.server";
 import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 import TeaserIdentCard from "~/components/TeaserIdentCard";
-import { hasValidOpenFscRequest } from "~/domain/identificationStatus";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation mit Ausweis") };
@@ -50,7 +49,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/identifikation/erfolgreich");
   }
 
-  if (hasValidOpenFscRequest(dbUser)) {
+  const hasFscRequest = dbUser.fscRequest;
+  if (hasFscRequest) {
     return redirect("/fsc/eingeben");
   }
 

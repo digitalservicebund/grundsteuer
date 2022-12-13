@@ -9,7 +9,6 @@ import {
 import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
 import { sendFscRequestCreatedMail } from "~/jobs";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
-import { hasValidOpenFscRequest } from "~/domain/identificationStatus";
 
 export const saveSuccessfulFscRequestData = async (
   email: string,
@@ -149,6 +148,15 @@ export const saveSuccessfulFscRevocationData = async (
     });
   };
 
+  const deleteFscRequest = () => {
+    return db.fscRequest.deleteMany({
+      where: {
+        userId: user.id,
+        requestId: user.fscRequest?.requestId,
+      },
+    });
+  };
+
   try {
     await db.$transaction(async () => {
       const updatedUsersWithEricaId = await deleteEricaRequestIdFscStornieren();
@@ -156,6 +164,8 @@ export const saveSuccessfulFscRevocationData = async (
       if (updatedUsersWithEricaId.count != 1) {
         throw Error("ericaRequestId of user does not match");
       }
+
+      await deleteFscRequest();
 
       await saveAuditLog({
         eventName: AuditLogEvent.FSC_REVOKED,
@@ -183,7 +193,7 @@ const shouldThrowError = (error: object) => {
 };
 
 export const revokeOutstandingFSCRequests = async (user: User) => {
-  if (hasValidOpenFscRequest(user) && user.fscRequest) {
+  if (user.fscRequest) {
     await revokeFscForUser(user);
     await deleteFscRequest(user.email, user.fscRequest.requestId);
   }

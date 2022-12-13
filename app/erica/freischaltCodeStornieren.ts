@@ -19,7 +19,7 @@ export const revokeFreischaltCode = async (elsterRequestId: string) => {
 
 export const revokeFscForUser = async (userData: User | UserWithoutPdf) => {
   invariant(userData.fscRequest, "expected an fscRequest in database for user");
-  return revokeFreischaltCode(userData.fscRequest.requestId);
+  return revokeFreischaltCode(userData.fscRequest?.requestId);
 };
 
 export const checkRevokeFreischaltCodeRequest = async (requestId: string) => {
