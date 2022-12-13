@@ -25,6 +25,10 @@ export class FscRequest {
     );
   }
 
+  public isValid(): boolean {
+    return this.remainingValidityInDays() >= 0;
+  }
+
   // 21 days after request
   public estLatestArrivalDate(): string {
     return FscRequest.format(

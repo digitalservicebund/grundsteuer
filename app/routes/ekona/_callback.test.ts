@@ -269,7 +269,7 @@ describe("Action", () => {
       userMock = getMockedFunction(userModule, "findUserById", {
         email: "existing_user@foo.com",
         userId: "12346",
-        fscRequest: { requestId: "foo" },
+        fscRequest: { requestId: "foo", createdAt: new Date() },
       });
       getMockedFunction(
         freischaltCodeStornierenModule,
