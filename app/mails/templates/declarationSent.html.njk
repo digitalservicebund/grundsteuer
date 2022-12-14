@@ -1,0 +1,52 @@
+{% extends "baseLayout.html.njk" %} {% block content %}
+
+<p>
+  Sie haben Ihre Grundsteuererklärung erfolgreich an das Finanzamt übermittelt.
+</p>
+
+<p>
+  Als Bestätigung bekommen Sie ein sogenanntes Transferticket. Dieses wird von
+  ELSTER bei der erfolgreichen Übermittlung automatisch erzeugt.
+</p>
+
+<p>
+  <strong>Ihr Transferticket: {{ transferticket }}</strong>
+</p>
+
+{% if pdfIsAttached %}
+<p>
+  Im Anhang finden Sie eine PDF-Datei mit der Zusammenfassung Ihrer
+  Grundsteuererklärung.
+</p>
+{% else %}
+<p>
+  Ein PDF mit der Zusammenfassung Ihrer Grundsteuererklärung können Sie noch 24
+  Stunden in ihrem Konto runterladen. Wenn Sie eine neue Erklärung anfangen,
+  löschen wir das PDF der letzen Erklärung. Ihre Daten sind natürlich trotzdem
+  an das Finanzamt übermittelt worden.
+</p>
+{% endif %}
+
+<p>
+  Sollten Sie Ihre Grundsteuererklärung korrigieren wollen, finden Sie in
+  <a href="">unserem Hilfebereich</a> eine Anleitung.
+</p>
+
+<p><strong>Wie geht es jetzt weiter?</strong></p>
+
+<ol>
+  <li>Ihre Erklärung wird nun von Ihrem Finanzamt bearbeitet.</li>
+  <li>
+    In der Zeit bis 2024 bekommen Sie drei Briefe: den Grundsteuerwertbescheid,
+    den Grundsteuermessbescheid und den neuen Grundsteuerbescheid.
+  </li>
+  <li>
+    Bis zum Jahr 2025 zahlen Sie die alte Grundsteuer. Ab 2025 zahlen Sie die
+    neue Grundsteuer.
+  </li>
+</ol>
+
+<p><strong>Haben Sie Fragen?</strong></p>
+<p>Wenden Sie sich bitte an das für Ihr Grundstück zuständige Finanzamt.</p>
+
+{% endblock %}
