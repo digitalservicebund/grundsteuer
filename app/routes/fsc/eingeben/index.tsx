@@ -31,7 +31,6 @@ import {
 } from "~/erica/freischaltCodeAktivieren";
 import {
   deleteEricaRequestIdFscAktivieren,
-  deleteEricaRequestIdFscStornieren,
   findUserByEmail,
   saveEricaRequestIdFscAktivieren,
   saveEricaRequestIdFscStornieren,
@@ -42,19 +41,13 @@ import { authenticator } from "~/auth.server";
 import { commitSession, getSession } from "~/session.server";
 import { useEffect, useState } from "react";
 import FreischaltCodeInput from "~/components/FreischaltCodeInput";
-import {
-  checkFreischaltcodeRevocation,
-  revokeFscForUser,
-} from "~/erica/freischaltCodeStornieren";
+import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
 import ErrorBar from "~/components/ErrorBar";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import FreischaltcodeHelp from "~/components/form/help/Freischaltcode";
 import ArrowRight from "~/components/icons/mui/ArrowRight";
 import { getErrorMessageForFreischaltcode } from "~/domain/validation/fscValidation";
-import {
-  saveSuccessfulFscActivationData,
-  saveSuccessfulFscRevocationData,
-} from "~/domain/lifecycleEvents.server";
+import { saveSuccessfulFscActivationData } from "~/domain/lifecycleEvents.server";
 import { ericaUtils } from "~/erica/utils";
 import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
 import { flags } from "~/flags.server";
@@ -79,10 +72,7 @@ type LoaderData = {
 };
 
 const isEricaRequestInProgress = (userData: User) => {
-  return (
-    isEricaActivationRequestInProgress(userData) ||
-    isEricaRevocationRequestInProgress(userData)
-  );
+  return isEricaActivationRequestInProgress(userData);
 };
 
 const isFscEingebenProcessStarted = (userData: User) => {
@@ -93,16 +83,8 @@ const isEricaActivationRequestInProgress = (userData: User) => {
   return Boolean(userData.ericaRequestIdFscAktivieren);
 };
 
-export const isEricaRevocationRequestInProgress = (userData: User) => {
-  return Boolean(userData.ericaRequestIdFscStornieren);
-};
-
 const wasEricaRequestSuccessful = async (userData: User) => {
-  return (
-    !isFscEingebenProcessStarted(userData) &&
-    userData.identified &&
-    !isEricaRevocationRequestInProgress(userData)
-  );
+  return !isFscEingebenProcessStarted(userData) && userData.identified;
 };
 
 const getEricaRequestIdFscAktivieren = async (userData: User) => {
@@ -186,58 +168,6 @@ const startNewFscRevocationProcess = async (
   }
 };
 
-const getEricaRequestIdFscStornieren = async (userData: User) => {
-  invariant(
-    userData.ericaRequestIdFscStornieren,
-    "ericaRequestIdFscStornieren is null"
-  );
-  return userData.ericaRequestIdFscStornieren;
-};
-
-export const handleFscRevocationInProgress = async (
-  userData: User,
-  clientIp: string,
-  successLoggingMessage?: string
-) => {
-  const ericaRequestIdFscStornieren = await getEricaRequestIdFscStornieren(
-    userData
-  );
-  const fscRevokedOrError = await checkFreischaltcodeRevocation(
-    ericaRequestIdFscStornieren
-  );
-  if (fscRevokedOrError) {
-    if ("transferticket" in fscRevokedOrError) {
-      invariant(userData.fscRequest, "expected fscRequest to be present");
-      await saveSuccessfulFscRevocationData(
-        userData.email,
-        ericaRequestIdFscStornieren,
-        clientIp,
-        fscRevokedOrError.transferticket
-      );
-      console.log(`${successLoggingMessage}`);
-      return { finished: true };
-    } else if (fscRevokedOrError?.errorType == "EricaUserInputError") {
-      await deleteEricaRequestIdFscStornieren(userData.email);
-      return {
-        finished: true,
-        showError: true,
-        showSpinner: false,
-      };
-    } else if (fscRevokedOrError?.errorType == "EricaRequestNotFound") {
-      await deleteEricaRequestIdFscStornieren(userData.email);
-      return {
-        finished: true,
-        showError: false,
-        showSpinner: false,
-        failure: true,
-      };
-    } else {
-      await deleteEricaRequestIdFscStornieren(userData.email);
-      return { finished: true };
-    }
-  }
-};
-
 export const loader: LoaderFunction = async ({
   request,
   context,
@@ -268,8 +198,6 @@ export const loader: LoaderFunction = async ({
   const fscEingebenProcessStarted = isFscEingebenProcessStarted(userData);
   const ericaActivationRequestIsInProgress =
     isEricaActivationRequestInProgress(userData);
-  const ericaRevocationRequestIsInProgress =
-    isEricaRevocationRequestInProgress(userData);
 
   if (await wasEricaRequestSuccessful(userData)) {
     return redirect("/fsc/eingeben/erfolgreich");
@@ -287,23 +215,10 @@ export const loader: LoaderFunction = async ({
     }
   }
 
-  if (ericaRevocationRequestIsInProgress) {
-    // We only try to revoke. If it does not succeed, we do not want to show an error to the user
-    const fscRevocationData = await handleFscRevocationInProgress(
-      userData,
-      clientIp,
-      `FSC revoked after activation for user with id ${userData.id}`
-    );
-    if (fscRevocationData?.finished && fscRevocationData?.failure) {
-      return { ...fscRevocationData, ...antragStatus };
-    }
-  }
-
   // The cronjob was faster with handling the activation request
   if (
     fscEingebenProcessStarted &&
     !ericaActivationRequestIsInProgress &&
-    !ericaRevocationRequestIsInProgress &&
     userData.identified
   ) {
     await startNewFscRevocationProcess(userData, clientIp);
@@ -323,9 +238,7 @@ export const loader: LoaderFunction = async ({
     {
       csrfToken,
       showError: false,
-      showSpinner:
-        isEricaActivationRequestInProgress(updatedUserData) ||
-        isEricaRevocationRequestInProgress(updatedUserData),
+      showSpinner: isEricaActivationRequestInProgress(updatedUserData),
       ericaDown: flags.isEricaDown(),
       ...antragStatus,
       testFeaturesEnabled: testFeaturesEnabled(),
@@ -460,7 +373,7 @@ export default function FscEingeben() {
   useEffect(() => {
     const interval: IntervalInstance = { timer: null, stoppedFetching: false };
     interval.timer = fetchInDynamicInterval(
-      showSpinner as boolean,
+      showSpinner,
       fetchInProgress,
       setFetchInProgress,
       fetcher,

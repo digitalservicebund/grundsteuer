@@ -367,7 +367,7 @@ describe("Loader", () => {
 
       it("should delete erica request id", async () => {
         const args = await getLoaderArgsWithAuthenticatedSession(
-          "/fsc/beantragen",
+          "/fsc/eingeben",
           "existing_user@foo.com"
         );
         const spyOnDeleteEricaRequestId = jest.spyOn(
@@ -384,7 +384,7 @@ describe("Loader", () => {
 
       it("should throw", async () => {
         const args = await getLoaderArgsWithAuthenticatedSession(
-          "/fsc/beantragen",
+          "/fsc/eingeben",
           "existing_user@foo.com"
         );
         await expect(async () => {
@@ -404,171 +404,16 @@ describe("Loader", () => {
       });
     });
 
-    describe("erica revocation sends success", () => {
-      let mockedStornierenCheck: jest.SpyInstance;
-      beforeAll(() => {
-        mockedStornierenCheck = getMockedFunction(
-          freischaltCodeStornierenModule,
-          "checkFreischaltcodeRevocation",
-          {
-            transferticket: expectedTransferticket,
-            taxIdNumber: expectedTaxIdNumber,
-          }
-        );
-      });
-
-      afterAll(() => {
-        mockedStornierenCheck.mockClear();
-      });
-
-      it("should call revocation lifecycle event", async () => {
-        const spyOnSetUserIdentified = jest.spyOn(
-          userModule,
-          "setUserIdentified"
-        );
-        const spyOnLifecycleEvent = jest.spyOn(
-          lifecycleModule,
-          "saveSuccessfulFscRevocationData"
-        );
-        jest.spyOn(userModule, "deleteFscRequest");
-
-        const expectedClientIp = "123.007";
-        const args = await getLoaderArgsWithAuthenticatedSession(
-          "/fsc/eingeben",
-          "existing_user@foo.com"
-        );
-        args.context.clientIp = expectedClientIp;
-        await loader(args);
-
-        expect(spyOnSetUserIdentified).not.toHaveBeenCalled();
-        expect(spyOnLifecycleEvent).toHaveBeenCalledWith(
-          "existing_user@foo.com",
-          "foo",
-          expectedClientIp,
-          expectedTransferticket
-        );
-      });
-    });
-
-    describe("erica revocation sends expected error", () => {
-      let mockedStornierenCheck: jest.SpyInstance;
-      beforeAll(() => {
-        mockedStornierenCheck = getMockedFunction(
-          freischaltCodeStornierenModule,
-          "checkFreischaltcodeRevocation",
-          {
-            errorType: "EricaUserInputError",
-            errorMessage: "ELSTER_REQUEST_ID_UNKNOWN",
-          }
-        );
-      });
-
-      afterAll(() => {
-        mockedStornierenCheck.mockClear();
-      });
-
-      it("should not call revocation lifecycle event", async () => {
-        const args = await getLoaderArgsWithAuthenticatedSession(
-          "/fsc/eingeben",
-          "existing_user@foo.com"
-        );
-        const spyOnLifecycleEvent = jest.spyOn(
-          lifecycleModule,
-          "saveSuccessfulFscRevocationData"
-        );
-        await loader(args);
-        expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
-      });
-    });
-
-    describe("erica revocation sends unexpected error", () => {
-      let mockedStornierenCheck: jest.SpyInstance;
-      beforeAll(() => {
-        mockedStornierenCheck = getMockedFunction(
-          freischaltCodeStornierenModule,
-          "checkFreischaltcodeRevocation",
-          {
-            errorType: "GeneralEricaError",
-            errorMessage: "We found some problem",
-          }
-        );
-      });
-
-      afterAll(() => {
-        mockedStornierenCheck.mockClear();
-      });
-
-      it("should not call revocation lifecycle event", async () => {
-        const spyOnSetUserIdentified = jest.spyOn(
-          userModule,
-          "setUserIdentified"
-        );
-        const spyOnDeleteEricaRequestIdFscStornieren = jest.spyOn(
-          userModule,
-          "deleteEricaRequestIdFscStornieren"
-        );
-        const spyOnLifecycleEvent = jest.spyOn(
-          lifecycleModule,
-          "saveSuccessfulFscRevocationData"
-        );
-
-        await loader(
-          await getLoaderArgsWithAuthenticatedSession(
-            "/fsc/eingeben",
-            "existing_user@foo.com"
-          )
-        );
-
-        expect(spyOnSetUserIdentified).not.toHaveBeenCalled();
-        expect(spyOnDeleteEricaRequestIdFscStornieren).toHaveBeenCalledWith(
-          "existing_user@foo.com"
-        );
-        expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
-        spyOnLifecycleEvent.mockClear();
-      });
-    });
-
-    describe("erica sends not found error for stornieren", () => {
-      let mockedStornierenCheck: jest.SpyInstance;
-      beforeAll(() => {
-        mockedStornierenCheck = getMockedFunction(
-          freischaltCodeStornierenModule,
-          "checkFreischaltcodeRevocation",
-          {
-            errorType: "EricaRequestNotFound",
-            errorMessage: "Could not find request",
-          }
-        );
-      });
-
-      afterAll(() => {
-        mockedStornierenCheck.mockClear();
-      });
-
-      it("should delete erica request id", async () => {
-        const args = await getLoaderArgsWithAuthenticatedSession(
-          "/fsc/beantragen",
-          "existing_user@foo.com"
-        );
-        const spyOnDeleteEricaRequestId = jest.spyOn(
-          userModule,
-          "deleteEricaRequestIdFscStornieren"
-        );
-
-        await loader(args);
-
-        expect(spyOnDeleteEricaRequestId).toHaveBeenCalled();
-        spyOnDeleteEricaRequestId.mockReset();
-      });
-
-      it("should return not spinning", async () => {
-        const args = await getLoaderArgsWithAuthenticatedSession(
-          "/fsc/beantragen",
-          "existing_user@foo.com"
-        );
-        const result = await loader(args);
-        expect(result.showSpinner).toEqual(false);
-      });
+    it("should redirect to success page", async () => {
+      const args = await getLoaderArgsWithAuthenticatedSession(
+        "/fsc/eingeben",
+        "existing_user@foo.com"
+      );
+      const result = await loader(args);
+      expect(result.status).toEqual(302);
+      expect(result.headers.get("Location")).toEqual(
+        "/fsc/eingeben/erfolgreich"
+      );
     });
   });
 });
@@ -589,28 +434,6 @@ describe("Action", () => {
   });
   afterAll(() => {
     jest.restoreAllMocks();
-  });
-
-  test("Returns startTime if storno in progress", async () => {
-    const userMock = getMockedFunction(userModule, "findUserByEmail", {
-      email: "existing_user@foo.com",
-      ericaRequestIdFscStornieren: "storno-id",
-    });
-    try {
-      const args = await mockActionArgs({
-        route: "/fsc/eingeben",
-        formData: { freischaltCode: "XXXX-XXXX-XXXX" },
-        context: {},
-        email: "existing_user@foo.com",
-        allData: {},
-      });
-
-      const result = await action(args);
-
-      expect(result).toEqual({});
-    } finally {
-      userMock.mockRestore();
-    }
   });
 
   test("Returns startTime if eingeben in progress", async () => {

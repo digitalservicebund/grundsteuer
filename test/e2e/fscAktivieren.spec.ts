@@ -121,8 +121,9 @@ describe("/eingeben", () => {
       cy.url().should("include", "/fsc/eingeben/erfolgreich");
       cy.contains("Sie haben sich erfolgreich identifiziert.");
 
-      cy.task("getFscRequest", "foo@bar.com").then((fscRequest) => {
-        expect(fscRequest[0]).to.be.undefined;
+      cy.task("getUser", "foo@bar.com").then((user) => {
+        console.log(JSON.stringify(user));
+        expect(user[0].ericaRequestIdFscStornieren).not.to.be.undefined;
       });
     });
 
