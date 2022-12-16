@@ -113,7 +113,7 @@
     },
     "onlyDecimal": "Darf nur Ziffern beinhalten",
     "isDate": "Kein valides Datenformat. Benötigtes Format: TT.MM.JJJJ",
-    "isFreischaltCode": "Ihre Eingabe war nicht richtig",
+    "isFreischaltCode": "Die Anzahl der Zeichen ist falsch. Achten Sie auf die korrekte Schreibweise: XXXX-XXXX-XXXX.",
     "isSteuerId": "Die eingegebene Steuer-Identifikationsnummer ist ungültig. Bitte überprüfen Sie, dass es sich nicht um Ihre Steuernummer handelt.",
     "noZero": "Darf nicht Null sein",
     "float": "Die Angabe muss eine positive Zahl sein, die durch Komma getrennt sein kann",
