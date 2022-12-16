@@ -404,7 +404,7 @@ export default function FscEingeben() {
             Wochen per Post. Sie können jetzt die Grundsteuererklärung ausfüllen
             und zu einem späteren Zeitpunkt den Freischaltcode eingeben.
           </IntroText>
-          <Button to="/formular">Weiter zum Formular</Button>;
+          <Button to="/formular">Weiter zum Formular</Button>
         </UebersichtStep>
       </ContentContainer>
     );

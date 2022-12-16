@@ -50,11 +50,11 @@ describe("createFscRequestCreatedMail", () => {
         </li>
         <li>
           Der Freischaltcode sollte innerhalb von 3 Wochen bei Ihnen zugestellt
-          werden. Aktuell kann es Verzögerungen durch die Feiertage kommen.
+          werden. Aktuell kann es zu Verzögerungen durch die Feiertage kommen.
         </li>
         <li>
-          Wenn Ihr Brief bei Ihnen angekommen ist, geben sie ihn in Ihrem Konto ein um
-          sich abschließend zu identifizieren. Sie können dann ihr vollständig
+          Wenn Ihr Brief bei Ihnen angekommen ist, geben Sie ihn in Ihrem Konto ein um
+          sich abschließend zu identifizieren. Sie können dann Ihr vollständig
           ausgefülltes Formular an das Finanzamt übermitteln.
           <br />
           Sie haben den Freischaltcode-Brief schon erhalten? <a href=undefined/fsc/eingeben>Jetzt anmelden und Freischaltcode eingeben.
@@ -108,9 +108,9 @@ describe("createFscRequestCreatedMail", () => {
        1. Ihren Freischaltcode haben Sie nun beantragt. Warten Sie, bis dieser per
           Post zugestellt wird.
        2. Der Freischaltcode sollte innerhalb von 3 Wochen bei Ihnen zugestellt
-          werden. Aktuell kann es Verzögerungen durch die Feiertage kommen.
-       3. Wenn Ihr Brief bei Ihnen angekommen ist, geben sie ihn in Ihrem Konto ein um
-          sich abschließend zu identifizieren. Sie können dann ihr vollständig
+          werden. Aktuell kann es zu Verzögerungen durch die Feiertage kommen.
+       3. Wenn Ihr Brief bei Ihnen angekommen ist, geben Sie ihn in Ihrem Konto ein um
+          sich abschließend zu identifizieren. Sie können dann Ihr vollständig
           ausgefülltes Formular an das Finanzamt übermitteln.
           Sie haben den Freischaltcode-Brief schon erhalten? Jetzt anmelden und
           Freischaltcode eingeben. [undefined/fsc/eingeben]
