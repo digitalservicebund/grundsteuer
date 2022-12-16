@@ -30,7 +30,7 @@ export default function PruefenNachfrage() {
         </IntroText>
 
         <IntroText className="!mb-16">
-          Ja, mit Registrierung eines neuen Kontos fortfahren
+          Ja, mit der Registrierung eines neuen Kontos fortfahren
         </IntroText>
 
         <Button to="/pruefen/start?continue=1" className="mb-48">

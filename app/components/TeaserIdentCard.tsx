@@ -30,9 +30,9 @@ export default function TeaserIdentCard(props: { className?: string }) {
               <strong className="hidden lg:inline">
                 Abgabefrist ist der 31.01.2023.
               </strong>{" "}
-              Für die Option Identifikation mit Freischaltcode diesen jetzt
-              beantragen, damit er noch rechtzeitg vor Abgabefrist per Post
-              zugestellt werden kann.
+              Bei Option Freischaltcode: Denken Sie daran, den Freischaltcode
+              rechtzeitig zu beantragen. Der Versand mit der Post kann einige
+              Wochen dauern.
             </p>
           </div>
         </ContentContainer>
