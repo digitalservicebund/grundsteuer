@@ -15,7 +15,12 @@ import { flags } from "~/flags.server";
 import { rememberCookie } from "~/storage/rememberLogin.server";
 import { findUserByEmail, User } from "~/domain/user";
 import invariant from "tiny-invariant";
-import { needsToStartIdentification } from "~/domain/identificationStatus";
+import {
+  canEnterFsc,
+  fscIsOlderThanOneDay,
+  fscIsTooOld,
+  needsToStartIdentification,
+} from "~/domain/identificationStatus";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erfolgreich angemeldet.") };
@@ -23,10 +28,14 @@ export const meta: MetaFunction = () => {
 
 const getNextStepUrl = (user: User) => {
   if (!user.inDeclarationProcess) return "/formular/erfolg";
-  if (needsToStartIdentification(user)) {
-    return "/identifikation";
-  }
+  if (needsToStartIdentification(user)) return "/identifikation";
   return "/formular";
+};
+
+const getFscStepUrl = (user: User) => {
+  if (!canEnterFsc(user)) return;
+  if (fscIsTooOld(user)) return "/fsc/eingeben";
+  if (fscIsOlderThanOneDay(user)) return "/fsc/eingeben";
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -57,11 +66,12 @@ export const loader: LoaderFunction = async ({ request }) => {
   return {
     email: sessionUser.email,
     nextStepUrl: getNextStepUrl(user),
+    fscStepUrl: getFscStepUrl(user),
     flags: flags.getAllFlags(),
   };
 };
 export default function ErfolgreichAngemeldet() {
-  const { email, nextStepUrl, flags } = useLoaderData();
+  const { email, nextStepUrl, fscStepUrl, flags } = useLoaderData();
 
   return (
     <UserLayout email={email} flags={flags}>
@@ -81,6 +91,22 @@ export default function ErfolgreichAngemeldet() {
           <Button data-testid="continue" to={nextStepUrl}>
             Verstanden & weiter
           </Button>
+
+          {fscStepUrl && (
+            <div className="mt-80">
+              <h2 className="mb-32 text-30 leading-36">
+                Sie haben einen Freischaltcode beantragt, um sich zu
+                identifizieren.
+              </h2>
+              <IntroText>
+                Geben Sie Ihren Freischaltcode jetzt ein oder erhalten Sie Hilfe
+                zu dem Thema
+              </IntroText>
+              <Button data-testid="continue-fsc" to={fscStepUrl}>
+                Zum Freischaltcode
+              </Button>
+            </div>
+          )}
         </SuccessPageLayout>
       </ContentContainer>
     </UserLayout>

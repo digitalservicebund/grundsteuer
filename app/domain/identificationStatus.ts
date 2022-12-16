@@ -19,6 +19,17 @@ export const canEnterFsc = (user: User) => {
   );
 };
 
+export const fscIsOlderThanOneDay = (user: User) => {
+  return (
+    user.fscRequest &&
+    new FscRequest(user.fscRequest).remainingValidityInDays() < 90
+  );
+};
+
+export const fscIsTooOld = (user: User) => {
+  return user.fscRequest && !new FscRequest(user.fscRequest).isValid();
+};
+
 export const needsToStartIdentification = (user: User) => {
   return !user.identified && !user.fscRequest;
 };
