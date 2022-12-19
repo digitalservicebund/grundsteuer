@@ -18,7 +18,7 @@ const WohnflaecheHelp: HelpComponentFunction = () => {
               Weitere Beispiele für die Ermittlung der Wohn- und Nutzflächen
               finden Sie{" "}
               <a
-                href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/14-konkrete-felder-im-formular/52-was-gehort-zur-wohn-und-nutzflache-und-wie-kann-ich-sie-richtig-bemessen"
+                href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/44/52"
                 target="_blank"
                 rel="noopener"
                 className="underline font-bold"
