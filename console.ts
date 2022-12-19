@@ -46,6 +46,8 @@ const initializeContext = (context: any) => {
 
 initializeContext(replServer.context);
 
+replServer.setupHistory(".console_history", () => {});
+
 replServer.on("reset", initializeContext);
 replServer.on("exit", () => {
   process.exit();

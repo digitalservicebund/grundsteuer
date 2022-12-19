@@ -8,6 +8,7 @@ node_modules
 /public/tailwind.css
 /public/locales/de/*
 !/public/locales/de/all.json
+.console_history
 
 cypress/screenshots
 
