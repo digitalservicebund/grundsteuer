@@ -46,6 +46,7 @@ const initializeContext = (context: any) => {
 
 initializeContext(replServer.context);
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 replServer.setupHistory(".console_history", () => {});
 
 replServer.on("reset", initializeContext);
