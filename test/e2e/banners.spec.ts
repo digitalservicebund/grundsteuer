@@ -385,4 +385,47 @@ describe("error banners", () => {
   });
 });
 
+describe("Deadline banner", () => {
+  const paths = [
+    "/",
+    "/anmelden",
+    "/registrieren",
+    "/pruefen/start",
+    "/identifikation",
+    "/fsc/beantragen",
+    "/ekona",
+    "/bundesIdent",
+    "/formular/welcome",
+    "/formular/zusammenfassung",
+  ];
+
+  const screenWidths = [400, 1400];
+
+  screenWidths.forEach((width) => {
+    paths.forEach((path) => {
+      it(`should appear on ${path} with screen width ${width}`, () => {
+        cy.viewport(width, 1000);
+        if (!path.includes("anmelden")) {
+          cy.login();
+        }
+        cy.visit(path);
+        cy.url().should("include", path);
+
+        cy.get("[data-testid=deadline-banner]").should("exist");
+      });
+    });
+  });
+
+  const errorPaths = ["/404", "/fehler"];
+
+  errorPaths.forEach((path) => {
+    it(`should not appear on ${path}`, () => {
+      cy.visit(path, { failOnStatusCode: false });
+      cy.url().should("include", path);
+
+      cy.get("[data-testid=deadline-banner]").should("not.exist");
+    });
+  });
+});
+
 export {};

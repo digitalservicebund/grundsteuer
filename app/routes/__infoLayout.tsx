@@ -2,11 +2,12 @@ import { LoaderFunction } from "@remix-run/node";
 import { Outlet, useLoaderData, useLocation } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Footer } from "~/components";
+import { ContentContainer, Footer } from "~/components";
 import ErrorBanner from "~/components/ErrorBanner";
 import Header from "~/components/navigation/Header";
 import { flags } from "~/flags.server";
 import { getSession } from "~/session.server";
+import DeadlineBanner from "~/components/DeadlineBanner";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
@@ -62,6 +63,9 @@ export default function InfoLayout() {
       )}
       <Header email={user?.email} noLoginLink={isHomepage || isQuestionnaire} />
       <main className="flex-grow">
+        <ContentContainer>
+          <DeadlineBanner />
+        </ContentContainer>
         <Outlet />
       </main>
       <Footer />

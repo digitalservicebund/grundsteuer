@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import ErrorBanner from "~/components/ErrorBanner";
 import { Flags } from "~/flags.server";
+import DeadlineBanner from "~/components/DeadlineBanner";
 
 export interface LayoutProps {
   /**
@@ -44,69 +45,72 @@ const Layout = ({
   const { t } = useTranslation("all");
 
   return (
-    <div className="flex items-stretch min-h-screen">
-      <header className="w-[256px] flex-shrink-0 hidden lg:block">
-        <div className="h-full bg-white">{sidebarNavigation}</div>
-      </header>
-      <div className="flex flex-col flex-grow">
-        <div className="flex flex-col">
-          {flags?.ericaDown &&
-            path &&
-            (path.includes("/fsc") || path === "/identifikation") && (
+    <>
+      <DeadlineBanner />
+      <div className="flex items-stretch min-h-screen">
+        <header className="w-[256px] flex-shrink-0 hidden lg:block">
+          <div className="h-full bg-white">{sidebarNavigation}</div>
+        </header>
+        <div className="flex flex-col flex-grow">
+          <div className="flex flex-col">
+            {flags?.ericaDown &&
+              path &&
+              (path.includes("/fsc") || path === "/identifikation") && (
+                <ErrorBanner
+                  heading={t("banners.ericaDownHeading")}
+                  service="erica"
+                >
+                  {t("banners.ericaDownBody")}
+                </ErrorBanner>
+              )}
+            {flags?.ericaDown && path === "/formular/zusammenfassung" && (
               <ErrorBanner
-                heading={t("banners.ericaDownHeading")}
+                heading={t("banners.ericaDownZusammenfassungHeading")}
                 service="erica"
               >
-                {t("banners.ericaDownBody")}
+                {t("banners.ericaDownZusammenfassungBody")}
               </ErrorBanner>
             )}
-          {flags?.ericaDown && path === "/formular/zusammenfassung" && (
-            <ErrorBanner
-              heading={t("banners.ericaDownZusammenfassungHeading")}
-              service="erica"
-            >
-              {t("banners.ericaDownZusammenfassungBody")}
-            </ErrorBanner>
-          )}
-          {flags?.ekonaDown &&
-            (path === "/ekona" || path === "/identifikation") && (
+            {flags?.ekonaDown &&
+              (path === "/ekona" || path === "/identifikation") && (
+                <ErrorBanner
+                  heading={t("banners.ekonaDownHeading")}
+                  service="ekona"
+                >
+                  {t("banners.ekonaDownBody")}
+                </ErrorBanner>
+              )}
+            {!flags?.bundesIdentDisabled &&
+              isMobile &&
+              flags?.bundesIdentDown &&
+              path &&
+              (path.includes("/bundesIdent") || path === "/identifikation") && (
+                <ErrorBanner
+                  heading={t("banners.bundesIdentDownHeading")}
+                  service="bundesident"
+                >
+                  {t("banners.bundesIdentDownBody")}
+                </ErrorBanner>
+              )}
+            {flags?.zammadDown && (
               <ErrorBanner
-                heading={t("banners.ekonaDownHeading")}
-                service="ekona"
+                style="warning"
+                heading={t("banners.zammadDownHeading")}
+                service="zammad"
               >
-                {t("banners.ekonaDownBody")}
+                <div> {t("banners.zammadDownBody")} </div>
               </ErrorBanner>
             )}
-          {!flags?.bundesIdentDisabled &&
-            isMobile &&
-            flags?.bundesIdentDown &&
-            path &&
-            (path.includes("/bundesIdent") || path === "/identifikation") && (
-              <ErrorBanner
-                heading={t("banners.bundesIdentDownHeading")}
-                service="bundesident"
-              >
-                {t("banners.bundesIdentDownBody")}
-              </ErrorBanner>
-            )}
-          {flags?.zammadDown && (
-            <ErrorBanner
-              style="warning"
-              heading={t("banners.zammadDownHeading")}
-              service="zammad"
-            >
-              <div> {t("banners.zammadDownBody")} </div>
-            </ErrorBanner>
-          )}
+          </div>
+          <header className="flex-shrink-0 bg-white lg:hidden">
+            {topNavigation}
+          </header>
+          <div className="justify-end mr-48 hidden lg:flex">{logoutMenu}</div>
+          <main className="flex-grow relative">{children}</main>
+          <footer className="flex-shrink-0 pl-2">{footer}</footer>
         </div>
-        <header className="flex-shrink-0 bg-white lg:hidden">
-          {topNavigation}
-        </header>
-        <div className="justify-end mr-48 hidden lg:flex">{logoutMenu}</div>
-        <main className="flex-grow relative">{children}</main>
-        <footer className="flex-shrink-0 pl-2">{footer}</footer>
       </div>
-    </div>
+    </>
   );
 };
 
