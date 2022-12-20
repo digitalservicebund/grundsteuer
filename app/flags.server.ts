@@ -31,8 +31,7 @@ export type Service =
   | "erica"
   | "grundsteuer"
   | "sendinblue"
-  | "zammad"
-  | "ratelimiting";
+  | "zammad";
 
 const isServiceDown = (service: Service | undefined) => {
   if (service === undefined) return false;
