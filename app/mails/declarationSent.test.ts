@@ -38,7 +38,7 @@ describe("createDeclarationSentMail", () => {
       <p>
         Ein PDF mit der Zusammenfassung Ihrer Grundsteuererklärung können Sie noch 24
         Stunden in ihrem Konto runterladen. Wenn Sie eine neue Erklärung anfangen,
-        löschen wir das PDF der letzen Erklärung. Ihre Daten sind natürlich trotzdem
+        löschen wir das PDF der letzten Erklärung. Ihre Daten sind natürlich trotzdem
         an das Finanzamt übermittelt worden.
       </p>
 
@@ -95,7 +95,7 @@ describe("createDeclarationSentMail", () => {
 
       Ein PDF mit der Zusammenfassung Ihrer Grundsteuererklärung können Sie noch 24
       Stunden in ihrem Konto runterladen. Wenn Sie eine neue Erklärung anfangen,
-      löschen wir das PDF der letzen Erklärung. Ihre Daten sind natürlich trotzdem an
+      löschen wir das PDF der letzten Erklärung. Ihre Daten sind natürlich trotzdem an
       das Finanzamt übermittelt worden.
 
       Sollten Sie Ihre Grundsteuererklärung korrigieren wollen, finden Sie in unserem

@@ -70,6 +70,7 @@ import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
 import { flags } from "~/flags.server";
 import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
+import { sendDeclarationSentMail } from "~/jobs";
 
 type LoaderData = {
   formData: StepFormData;
@@ -199,6 +200,13 @@ export const loader: LoaderFunction = async ({
           username: userData.email,
           eventData: { transferticket: successResponseOrErrors.transferticket },
         });
+        if (testFeaturesEnabled()) {
+          await sendDeclarationSentMail({
+            to: user.email,
+            transferticket: successResponseOrErrors.transferticket,
+            pdf: undefined,
+          });
+        }
         invariant(
           process.env.HASHED_LOGGING_SALT,
           "Environment variable HASHED_LOGGING_SALT is not defined"

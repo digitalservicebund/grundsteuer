@@ -1,7 +1,7 @@
 import fetch from "cross-fetch";
 import invariant from "tiny-invariant";
 
-type Mail = {
+export type Mail = {
   to: string;
   subject: string;
   textContent: string;

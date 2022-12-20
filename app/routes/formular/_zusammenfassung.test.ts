@@ -20,6 +20,7 @@ import * as csrfModule from "~/util/csrf";
 import { AuditLogEvent } from "~/audit/auditLog";
 import * as modelModule from "~/domain/model";
 import { getSession } from "~/session.server";
+import * as jobsModule from "~/jobs";
 
 describe("/zusammenfassung loader", () => {
   beforeAll(async () => {
@@ -178,6 +179,10 @@ describe("/zusammenfassung loader", () => {
           "deleteEricaRequestIdSenden"
         );
         const spyOnSaveDeclaration = jest.spyOn(userModule, "saveDeclaration");
+        const spyOnSendDeclarationSentMail = jest.spyOn(
+          jobsModule,
+          "sendDeclarationSentMail"
+        );
 
         await loader(
           await getLoaderArgsWithAuthenticatedSession(
@@ -194,6 +199,11 @@ describe("/zusammenfassung loader", () => {
           "transfer complete",
           "PDF"
         );
+        expect(spyOnSendDeclarationSentMail).toHaveBeenCalledWith({
+          to: "existing_user@foo.com",
+          transferticket: "transfer complete",
+          pdf: undefined,
+        });
       });
 
       it("should set inDeclarationProcess to false", async () => {

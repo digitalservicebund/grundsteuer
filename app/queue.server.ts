@@ -62,8 +62,14 @@ export const getJob = async ({ name, id }: { name: string; id: string }) =>
 export const defaultOptions = () => {
   return {
     jobId: uuidv4(),
-    removeOnComplete: {
-      age: 3600 * 24 * 7, // keep finished job for 7 days
+    attempts: 3,
+    backoff: {
+      type: "exponential",
+      delay: 30000,
+    },
+    removeOnComplete: true,
+    removeOnFail: {
+      age: 3600 * 24 * 14, // keep failed jobs for 14 days
     },
   };
 };
