@@ -64,7 +64,7 @@ export default function InfoLayout() {
       <Header email={user?.email} noLoginLink={isHomepage || isQuestionnaire} />
       <main className="flex-grow">
         <ContentContainer>
-          <DeadlineBanner />
+          <DeadlineBanner size="large" />
         </ContentContainer>
         <Outlet />
       </main>
