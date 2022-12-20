@@ -5,6 +5,10 @@ const desktopUserAgent =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36";
 
 describe("Identifikation option", () => {
+  before(() => {
+    cy.task("dbResetUser", "foo@bar.com");
+  });
+
   beforeEach(() => {
     cy.task("setUserUnidentified", {
       email: "foo@bar.com",
@@ -33,6 +37,10 @@ describe("Identifikation option", () => {
 });
 
 describe("bundesIdent flow", () => {
+  before(() => {
+    cy.task("dbResetUser", "foo@bar.com");
+  });
+
   beforeEach(() => {
     cy.task("setUserUnidentified", {
       email: "foo@bar.com",
@@ -67,9 +75,7 @@ describe("bundesIdent flow", () => {
 
 describe("with kill switch enabled", () => {
   before(() => {
-    cy.task("setUserUnidentified", {
-      email: "foo@bar.com",
-    });
+    cy.task("dbResetUser", "foo@bar.com");
     cy.task("enableFlag", {
       name: "grundsteuer.bundesident_disabled",
     });
