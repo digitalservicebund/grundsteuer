@@ -100,7 +100,7 @@ export type BundesIdentIdentifiedData = {
   country: string;
 };
 
-export const useid = {
+export const useidServer = {
   getWidgetSrc,
   getTcTokenUrl,
   getIdentityData,

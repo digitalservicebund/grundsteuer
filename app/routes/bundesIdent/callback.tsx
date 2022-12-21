@@ -1,7 +1,7 @@
 import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
 import { pageTitle } from "~/util/pageTitle";
 import invariant from "tiny-invariant";
-import { useid, BundesIdentIdentifiedData } from "~/useid/useid";
+import { useidServer, BundesIdentIdentifiedData } from "~/useid/useid.server";
 import { authenticator } from "~/auth.server";
 import { findUserByEmail, setUserIdentified } from "~/domain/user";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
@@ -61,7 +61,7 @@ export const loader: LoaderFunction = async ({ context, request }) => {
   if (errorState) return errorState;
 
   const sessionId = getSessionId(request);
-  const identityData = await useid.getIdentityData(sessionId);
+  const identityData = await useidServer.getIdentityData(sessionId);
 
   await setUserIdentified(user.email);
 

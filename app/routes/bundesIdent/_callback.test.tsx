@@ -1,6 +1,6 @@
 import * as userModule from "~/domain/user";
 import * as lifecycleEventsModule from "~/domain/lifecycleEvents.server";
-import * as useidModule from "~/useid/useid";
+import * as useidModule from "~/useid/useid.server";
 import * as auditLogModule from "~/audit/auditLog";
 import { callWithMockedTime, getMockedFunction } from "test/mocks/mockHelper";
 import { loader } from "~/routes/bundesIdent/callback";
@@ -67,7 +67,7 @@ describe("Loader", () => {
     });
 
     describe("with correct data returned", () => {
-      const originalGetIdentityData = useidModule.useid.getIdentityData;
+      const originalGetIdentityData = useidModule.useidServer.getIdentityData;
       const correctUseidData = {
         firstName: "Rubeus",
         lastName: "Hagrid",
@@ -78,12 +78,12 @@ describe("Loader", () => {
       };
 
       beforeAll(() => {
-        useidModule.useid.getIdentityData = () =>
+        useidModule.useidServer.getIdentityData = () =>
           Promise.resolve(correctUseidData);
       });
 
       afterAll(() => {
-        useidModule.useid.getIdentityData = originalGetIdentityData;
+        useidModule.useidServer.getIdentityData = originalGetIdentityData;
       });
 
       it("sets user identified", async () => {
