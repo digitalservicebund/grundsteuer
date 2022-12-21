@@ -42,12 +42,15 @@ export const loader: LoaderFunction = async ({ request }) => {
   } else {
     console.log("Started bundesIdent flow");
   }
+  const tcTokenUrl = await useid.getTcTokenUrl();
+  const hashedTcTokenUrl = await useid.hashTcTokenUrl(tcTokenUrl);
 
   return json(
     {
       host: new URL(request.url).hostname,
       widgetSrc: useid.getWidgetSrc(),
-      tcTokenUrl: await useid.getTcTokenUrl(),
+      tcTokenUrl: tcTokenUrl,
+      hashedTcTokenUrl: hashedTcTokenUrl,
       useidDomain: process.env.USEID_DOMAIN,
       isMobile: isMobileUserAgent(request),
     },
@@ -56,8 +59,14 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function BundesIdentIndex() {
-  const { tcTokenUrl, useidDomain, host, isMobile, rateLimitExceeded } =
-    useLoaderData();
+  const {
+    tcTokenUrl,
+    hashedTcTokenUrl,
+    useidDomain,
+    host,
+    isMobile,
+    rateLimitExceeded,
+  } = useLoaderData();
   if (!isMobile) {
     return <OnlyMobileDisclaimer />;
   }
@@ -90,7 +99,7 @@ export default function BundesIdentIndex() {
 
       <div className="h-[476px] pt-16">
         <iframe
-          src={`${useidDomain}/widget?hostname=${host}#tcTokenURL=${encodeURIComponent(
+          src={`${useidDomain}/widget?hostname=${host}&hash=${hashedTcTokenUrl}#tcTokenURL=${encodeURIComponent(
             tcTokenUrl
           )}`}
           style={{ width: "100%", height: "100%" }}

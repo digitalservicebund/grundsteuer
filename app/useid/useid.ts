@@ -30,6 +30,16 @@ const getTcTokenUrl = async () => {
   return useidResponse.tcTokenUrl;
 };
 
+const hashTcTokenUrl = async (tcTokenUrl: string) => {
+  const hashBuffer = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(tcTokenUrl)
+  );
+  return Array.from(new Uint8Array(hashBuffer))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+};
+
 // Only exporting for testing purposes. Use getIdentityData instead.
 export const getIdentity = async (sessionId: string) => {
   return getUseidApi().getIdentity(sessionId);
@@ -93,4 +103,5 @@ export const useid = {
   getWidgetSrc,
   getTcTokenUrl,
   getIdentityData,
+  hashTcTokenUrl,
 };
