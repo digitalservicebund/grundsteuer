@@ -18,6 +18,7 @@ import Hint from "~/components/Hint";
 import EnumeratedList from "~/components/EnumeratedList";
 import Plus from "~/components/icons/mui/Plus";
 import Check from "~/components/icons/mui/Check";
+import { getStoredFormData } from "~/storage/formDataStorage.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erklärung abgeschickt") };
@@ -36,10 +37,12 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (userData.inDeclarationProcess) {
     return redirect("/formular/welcome");
   }
+  const storedFormData = await getStoredFormData({ request, user });
 
   return {
     transferticket: userData.transferticket,
     pdf: userData.pdf,
+    emailWarning: storedFormData?.zusammenfassung?.includePdfInMail === "true",
   };
 };
 
@@ -63,7 +66,7 @@ const DownloadCard = (props: {
 };
 
 export default function Erfolg() {
-  const { transferticket, pdf } = useLoaderData();
+  const { transferticket, pdf, emailWarning } = useLoaderData();
   const transferticketButtonProps = transferticket
     ? { href: "/download/transferticket" }
     : { disabled: true };
@@ -80,6 +83,17 @@ export default function Erfolg() {
             Ihre Grundsteuererklärung wurde erfolgreich versendet.
           </h1>
         </div>
+
+        {emailWarning ? (
+          <p className="mb-32">
+            Wir haben Ihnen eine E-Mail mit der Erklärung als PDF geschickt.
+            Eine erfolgreiche Zustellung kann nicht immer sichergestellt werden.
+            Bitte prüfen Sie vor Verlassen dieser Seite, ob Sie unsere E-Mail
+            erhalten haben.
+          </p>
+        ) : (
+          ""
+        )}
       </ContentContainer>
       <ContentContainer size="lg">
         <DownloadCard image={erklaerungImage} imageAltText="">
