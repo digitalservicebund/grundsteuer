@@ -35,13 +35,9 @@ const hashTcTokenUrl = async (tcTokenUrl: string) => {
   if (process.env.SKIP_TCTOKEN_HASH) {
     return tcTokenUrl;
   }
-  const hashBuffer = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(tcTokenUrl)
-  );
-  return Array.from(new Uint8Array(hashBuffer))
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
+  const hash = crypto.createHash("sha256");
+  hash.update(tcTokenUrl);
+  return hash.digest("hex");
 };
 
 // Only exporting for testing purposes. Use getIdentityData instead.
