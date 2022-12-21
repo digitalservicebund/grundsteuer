@@ -4,6 +4,7 @@ export type ZusammenfassungFields = {
   confirmCompleteCorrect: string;
   confirmDataPrivacy: string;
   confirmTermsOfUse: string;
+  includePdfInMail?: string;
 };
 
 export const zusammenfassung: StepDefinition = {
@@ -25,6 +26,10 @@ export const zusammenfassung: StepDefinition = {
       validations: {
         required: {},
       },
+    },
+    includePdfInMail: {
+      type: "checkbox",
+      validations: {},
     },
   },
 };

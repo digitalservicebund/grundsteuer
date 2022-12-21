@@ -83,6 +83,7 @@ type LoaderData = {
   showSpinner: boolean;
   csrfToken?: string;
   ericaDown?: boolean;
+  testFeaturesEnabled: boolean;
 };
 
 export const getEricaErrorMessagesFromResponse = (
@@ -201,10 +202,12 @@ export const loader: LoaderFunction = async ({
           eventData: { transferticket: successResponseOrErrors.transferticket },
         });
         if (testFeaturesEnabled()) {
+          const includePdf =
+            storedFormData?.zusammenfassung?.includePdfInMail === "true";
           await sendDeclarationSentMail({
             to: user.email,
             transferticket: successResponseOrErrors.transferticket,
-            pdf: undefined,
+            pdf: includePdf ? successResponseOrErrors.pdf : undefined,
           });
         }
         invariant(
@@ -267,6 +270,7 @@ export const loader: LoaderFunction = async ({
       ericaErrors,
       showSpinner: !!ericaRequestId,
       ericaDown: flags.isEricaDown(),
+      testFeaturesEnabled: testFeaturesEnabled(),
     },
     {
       headers: {
@@ -364,8 +368,15 @@ export const meta: MetaFunction = () => {
 
 export default function Zusammenfassung() {
   const loaderData = useLoaderData<LoaderData>();
-  const { formData, allData, i18n, stepDefinition, isIdentified, ericaDown } =
-    loaderData;
+  const {
+    formData,
+    allData,
+    i18n,
+    stepDefinition,
+    isIdentified,
+    ericaDown,
+    testFeaturesEnabled,
+  } = loaderData;
   const actionData = useActionData();
   const errors = actionData?.errors;
   const previousStepsErrors =
@@ -526,7 +537,11 @@ export default function Zusammenfassung() {
               </Trans>
             </StepFormField>
           </div>
-          <div className="bg-white p-16 mb-80">
+          <div
+            className={`bg-white p-16 ${
+              testFeaturesEnabled ? "mb-16" : "mb-80"
+            }`}
+          >
             <StepFormField {...fieldProps[2]}>
               <Trans
                 components={{
@@ -543,6 +558,20 @@ export default function Zusammenfassung() {
               </Trans>
             </StepFormField>
           </div>
+          {testFeaturesEnabled ? (
+            <div className="bg-white p-16 mb-80">
+              <StepFormField {...fieldProps[3]}>
+                Ich möchte die Erklärung als PDF per E-Mail erhalten.
+                <br />
+                <em>
+                  (Das PDF kann auch auf der nächsten Seite heruntergeladen
+                  werden.)
+                </em>
+              </StepFormField>
+            </div>
+          ) : (
+            ""
+          )}
           <Button
             id="nextButton"
             disabled={!isIdentified || isSubmitting || ericaDown}

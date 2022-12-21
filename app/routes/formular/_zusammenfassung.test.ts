@@ -496,6 +496,7 @@ describe("/zusammenfassung action", () => {
           confirmCompleteCorrect: "true",
           confirmDataPrivacy: "true",
           confirmTermsOfUse: "true",
+          includePdfInMail: "",
         }
       );
     });

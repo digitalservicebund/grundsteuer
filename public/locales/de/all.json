@@ -1603,6 +1603,9 @@
       },
       "confirmEligibilityCheck": {
         "label": "Ich habe den Fragebogen <pruefenLink>Nutzung prüfen</pruefenLink> ausgewertet und erfülle alle Voraussetzungen für die Nutzung des Online-Dienstes Grundsteuererklärung für Privateigentum."
+      },
+      "includePdfInMail": {
+        "label": ""
       }
     },
     "specifics": {
