@@ -13,53 +13,42 @@ describe("createFscRequestCreatedMail", () => {
       <html lang=\\"de\\">
         <head>
           <meta http-equiv=\\"Content-Type\\" content=\\"text/html charset=UTF-8\\" />
-          <title>Freischaltcode erfolgreich angefordert</title>
+          <title>Bestellung Freischaltcode</title>
           <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\" />
         </head>
         <body>
-          <p>Guten Tag!</p>
-
           
 
       <p>
-        Dies ist die Bestätigung, dass Sie am 08.12.1922 einen
-        Freischaltcode bei <strong>„Grundsteuererklärung für Privateigentum“</strong> angefordert
-        haben. Innerhalb von ungefähr 3 Wochen wird Ihnen ein Brief vom Finanzamt mit
-        dem 12-stelligem Freischaltcode zugesendet. Sie finden den Code auf der
-        letzten Seite des Briefes über der Zeile mit der Bezeichnung „Antragsteller:in Digitalservice GmbH des Bundes“.
+        <strong>Bestätigung</strong>
       </p>
 
       <p>
-        <strong> Warten Sie bis der Brief eintrifft </strong>
-        <br />
-
-        Sie müssen erstmal nichts weiter tun. Warten Sie auf die Zusendung des
-        Freischaltcodes per Brief. Nach Erhalt des Briefes melden Sie sich wieder mit
-        Ihrer E-Mail-Adresse an und geben Ihren Freischaltcode ein um sich zu
-        identifizieren und Ihre Grundsteuererklärung an das Finanzamt übermitteln zu
-        können.
+        Erfolgreiche Anforderung Freischaltcode bei
+        <strong>Grundsteuererklärung für Privateigentum</strong> am 08.12.1922.
       </p>
 
       <p>
-        <strong> Das sind die nächsten Schritte: </strong>
+        <strong>Was passiert jetzt?</strong>
       </p>
+
       <ol>
         <li>
-          Ihren Freischaltcode haben Sie nun beantragt. Warten Sie, bis dieser per
-          Post zugestellt wird.
+          Nur Geduld! Der Freischaltcode wird jetzt per Post an Ihre Meldeadresse
+          gesendet. Das kann bis zu 3 Wochen dauern.
         </li>
         <li>
-          Der Freischaltcode sollte innerhalb von 3 Wochen bei Ihnen zugestellt
-          werden. Aktuell kann es zu Verzögerungen durch die Feiertage kommen.
+          Wenn Ihr Brief bei Ihnen angekommen ist, melden Sie sich in Ihrem Konto an.
         </li>
         <li>
-          Wenn Ihr Brief bei Ihnen angekommen ist, geben Sie ihn in Ihrem Konto ein um
-          sich abschließend zu identifizieren. Sie können dann Ihr vollständig
-          ausgefülltes Formular an das Finanzamt übermitteln.
-          <br />
-          Sie haben den Freischaltcode-Brief schon erhalten? <a href=undefined/fsc/eingeben>Jetzt anmelden und Freischaltcode eingeben.
+          Der Code steht auf der letzten Seite über der Zeile „Antragsteller:in
+          Digitalservice GmbH des Bundes“. Geben Sie den Code ein.
         </li>
       </ol>
+
+      <p>
+        Sie haben den Freischaltcode-Brief schon erhalten? <a href=undefined/fsc/eingeben>Jetzt anmelden und Freischaltcode eingeben.
+      </p>
 
       <p>
         Weitere Informationen finden Sie in unserem
@@ -86,34 +75,22 @@ describe("createFscRequestCreatedMail", () => {
         </body>
       </html>
       ",
-        "subject": "Freischaltcode erfolgreich angefordert",
-        "textContent": "Guten Tag!
+        "subject": "Bestellung Freischaltcode",
+        "textContent": "Bestätigung
 
-      Dies ist die Bestätigung, dass Sie am 08.12.1922 einen Freischaltcode bei
-      „Grundsteuererklärung für Privateigentum“ angefordert haben. Innerhalb von
-      ungefähr 3 Wochen wird Ihnen ein Brief vom Finanzamt mit dem 12-stelligem
-      Freischaltcode zugesendet. Sie finden den Code auf der letzten Seite des Briefes
-      über der Zeile mit der Bezeichnung „Antragsteller:in Digitalservice GmbH des
-      Bundes“.
+      Erfolgreiche Anforderung Freischaltcode bei Grundsteuererklärung für
+      Privateigentum am 08.12.1922.
 
-      Warten Sie bis der Brief eintrifft
-      Sie müssen erstmal nichts weiter tun. Warten Sie auf die Zusendung des
-      Freischaltcodes per Brief. Nach Erhalt des Briefes melden Sie sich wieder mit
-      Ihrer E-Mail-Adresse an und geben Ihren Freischaltcode ein um sich zu
-      identifizieren und Ihre Grundsteuererklärung an das Finanzamt übermitteln zu
-      können.
+      Was passiert jetzt?
 
-      Das sind die nächsten Schritte:
+       1. Nur Geduld! Der Freischaltcode wird jetzt per Post an Ihre Meldeadresse
+          gesendet. Das kann bis zu 3 Wochen dauern.
+       2. Wenn Ihr Brief bei Ihnen angekommen ist, melden Sie sich in Ihrem Konto an.
+       3. Der Code steht auf der letzten Seite über der Zeile „Antragsteller:in
+          Digitalservice GmbH des Bundes“. Geben Sie den Code ein.
 
-       1. Ihren Freischaltcode haben Sie nun beantragt. Warten Sie, bis dieser per
-          Post zugestellt wird.
-       2. Der Freischaltcode sollte innerhalb von 3 Wochen bei Ihnen zugestellt
-          werden. Aktuell kann es zu Verzögerungen durch die Feiertage kommen.
-       3. Wenn Ihr Brief bei Ihnen angekommen ist, geben Sie ihn in Ihrem Konto ein um
-          sich abschließend zu identifizieren. Sie können dann Ihr vollständig
-          ausgefülltes Formular an das Finanzamt übermitteln.
-          Sie haben den Freischaltcode-Brief schon erhalten? Jetzt anmelden und
-          Freischaltcode eingeben. [undefined/fsc/eingeben]
+      Sie haben den Freischaltcode-Brief schon erhalten? Jetzt anmelden und
+      Freischaltcode eingeben. [undefined/fsc/eingeben]
 
       Weitere Informationen finden Sie in unserem Hilfebereich
       [https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/7].

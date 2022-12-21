@@ -18,9 +18,8 @@ describe("createLoginMail", () => {
           <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\" />
         </head>
         <body>
-          <p>Guten Tag!</p>
-
           
+      <p>Guten Tag!</p>
 
       <p>
         <strong>

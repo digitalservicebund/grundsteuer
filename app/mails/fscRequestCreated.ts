@@ -3,7 +3,7 @@ import { renderMailTemplate } from "~/services";
 import { convert } from "html-to-text";
 
 const TEMPLATE = "fscRequestCreated";
-const subject = "Freischaltcode erfolgreich angefordert";
+const subject = "Bestellung Freischaltcode";
 
 export const createFscRequestCreatedMail = ({
   to,

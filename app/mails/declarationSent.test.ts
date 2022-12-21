@@ -17,8 +17,6 @@ describe("createDeclarationSentMail", () => {
           <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\" />
         </head>
         <body>
-          <p>Guten Tag!</p>
-
           
 
       <p>
@@ -88,9 +86,7 @@ describe("createDeclarationSentMail", () => {
       </html>
       ",
         "subject": "Grundsteuererklärung erfolgreich übermittelt",
-        "textContent": "Guten Tag!
-
-      Sie haben Ihre Grundsteuererklärung erfolgreich an das Finanzamt übermittelt.
+        "textContent": "Sie haben Ihre Grundsteuererklärung erfolgreich an das Finanzamt übermittelt.
 
       Als Bestätigung bekommen Sie ein sogenanntes Transferticket. Dieses wird von
       ELSTER bei der erfolgreichen Übermittlung automatisch erzeugt.
@@ -158,8 +154,6 @@ describe("createDeclarationSentMail", () => {
             <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\" />
           </head>
           <body>
-            <p>Guten Tag!</p>
-
             
 
         <p>
@@ -227,9 +221,7 @@ describe("createDeclarationSentMail", () => {
         </html>
         ",
           "subject": "Grundsteuererklärung erfolgreich übermittelt",
-          "textContent": "Guten Tag!
-
-        Sie haben Ihre Grundsteuererklärung erfolgreich an das Finanzamt übermittelt.
+          "textContent": "Sie haben Ihre Grundsteuererklärung erfolgreich an das Finanzamt übermittelt.
 
         Als Bestätigung bekommen Sie ein sogenanntes Transferticket. Dieses wird von
         ELSTER bei der erfolgreichen Übermittlung automatisch erzeugt.
