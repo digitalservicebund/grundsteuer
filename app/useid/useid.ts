@@ -1,4 +1,5 @@
 import invariant from "tiny-invariant";
+import * as crypto from "crypto";
 import { DataGroup, Place, UseIdAPI } from "useid-eservice-sdk";
 
 let useidAPIConnection: UseIdAPI;
