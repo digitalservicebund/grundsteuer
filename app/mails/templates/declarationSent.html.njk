@@ -1,29 +1,29 @@
 {% extends "baseLayout.html.njk" %} {% block content %}
 
 <p>
-  Sie haben Ihre Grundsteuererklärung erfolgreich an das Finanzamt übermittelt.
+  <strong>Bestätigung erfolgreiche Übermittlung</strong>
 </p>
 
 <p>
-  Als Bestätigung bekommen Sie ein sogenanntes Transferticket. Dieses wird von
-  ELSTER bei der erfolgreichen Übermittlung automatisch erzeugt.
+  Ihre Grundsteuererklärung wurde an das Finanzamt gesendet. Mit Ihrem
+  Transferticket können Sie dort bei Bedarf den Status Ihrer Erklärung
+  nachfragen.
 </p>
 
 <p>
-  <strong>Ihr Transferticket: {{ transferticket }}</strong>
+  <strong>Ihr persönliches Transferticket: {{ transferticket }}</strong>
 </p>
 
 {% if pdfIsAttached %}
 <p>
-  Im Anhang finden Sie eine PDF-Datei mit der Zusammenfassung Ihrer
-  Grundsteuererklärung.
+  Im Anhang finden Sie das PDF mit der Zusammenfassung Ihrer
+  Grundsteuererklärung. Bitte überprüfen Sie die Angaben.
 </p>
 {% else %}
 <p>
   Ein PDF mit der Zusammenfassung Ihrer Grundsteuererklärung können Sie noch 24
-  Stunden in ihrem Konto runterladen. Wenn Sie eine neue Erklärung anfangen,
-  löschen wir das PDF der letzten Erklärung. Ihre Daten sind natürlich trotzdem
-  an das Finanzamt übermittelt worden.
+  Stunden in Ihrem Konto herunterladen (wenn Sie keine weitere Erklärung
+  abgegeben haben).
 </p>
 {% endif %}
 
@@ -41,16 +41,17 @@
 <ol>
   <li>Ihre Erklärung wird nun von Ihrem Finanzamt bearbeitet.</li>
   <li>
-    In der Zeit bis 2024 bekommen Sie drei Briefe: den Grundsteuerwertbescheid,
-    den Grundsteuermessbescheid und den neuen Grundsteuerbescheid.
+    In der Zeit bis 2024 bekommen Sie drei Briefe:
+    <ul>
+      <li>Grundsteuerwertbescheid</li>
+      <li>Grundsteuermessbescheid</li>
+      <li>den neuen Grundsteuerbescheid</li>
+    </ul>
   </li>
   <li>
     Bis zum Jahr 2025 zahlen Sie die alte Grundsteuer. Ab 2025 zahlen Sie die
     neue Grundsteuer.
   </li>
 </ol>
-
-<p><strong>Haben Sie Fragen?</strong></p>
-<p>Wenden Sie sich bitte an das für Ihr Grundstück zuständige Finanzamt.</p>
 
 {% endblock %}

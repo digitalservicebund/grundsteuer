@@ -13,31 +13,31 @@ describe("createDeclarationSentMail", () => {
       <html lang=\\"de\\">
         <head>
           <meta http-equiv=\\"Content-Type\\" content=\\"text/html charset=UTF-8\\" />
-          <title>Grundsteuererklärung erfolgreich übermittelt</title>
+          <title>Erfolgreiche Übermittlung Ihrer Grundsteuererklärung</title>
           <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\" />
         </head>
         <body>
           
 
       <p>
-        Sie haben Ihre Grundsteuererklärung erfolgreich an das Finanzamt übermittelt.
+        <strong>Bestätigung erfolgreiche Übermittlung</strong>
       </p>
 
       <p>
-        Als Bestätigung bekommen Sie ein sogenanntes Transferticket. Dieses wird von
-        ELSTER bei der erfolgreichen Übermittlung automatisch erzeugt.
+        Ihre Grundsteuererklärung wurde an das Finanzamt gesendet. Mit Ihrem
+        Transferticket können Sie dort bei Bedarf den Status Ihrer Erklärung
+        nachfragen.
       </p>
 
       <p>
-        <strong>Ihr Transferticket: transferticket</strong>
+        <strong>Ihr persönliches Transferticket: transferticket</strong>
       </p>
 
 
       <p>
         Ein PDF mit der Zusammenfassung Ihrer Grundsteuererklärung können Sie noch 24
-        Stunden in ihrem Konto runterladen. Wenn Sie eine neue Erklärung anfangen,
-        löschen wir das PDF der letzten Erklärung. Ihre Daten sind natürlich trotzdem
-        an das Finanzamt übermittelt worden.
+        Stunden in Ihrem Konto herunterladen (wenn Sie keine weitere Erklärung
+        abgegeben haben).
       </p>
 
 
@@ -55,17 +55,18 @@ describe("createDeclarationSentMail", () => {
       <ol>
         <li>Ihre Erklärung wird nun von Ihrem Finanzamt bearbeitet.</li>
         <li>
-          In der Zeit bis 2024 bekommen Sie drei Briefe: den Grundsteuerwertbescheid,
-          den Grundsteuermessbescheid und den neuen Grundsteuerbescheid.
+          In der Zeit bis 2024 bekommen Sie drei Briefe:
+          <ul>
+            <li>Grundsteuerwertbescheid</li>
+            <li>Grundsteuermessbescheid</li>
+            <li>den neuen Grundsteuerbescheid</li>
+          </ul>
         </li>
         <li>
           Bis zum Jahr 2025 zahlen Sie die alte Grundsteuer. Ab 2025 zahlen Sie die
           neue Grundsteuer.
         </li>
       </ol>
-
-      <p><strong>Haben Sie Fragen?</strong></p>
-      <p>Wenden Sie sich bitte an das für Ihr Grundstück zuständige Finanzamt.</p>
 
 
 
@@ -85,18 +86,17 @@ describe("createDeclarationSentMail", () => {
         </body>
       </html>
       ",
-        "subject": "Grundsteuererklärung erfolgreich übermittelt",
-        "textContent": "Sie haben Ihre Grundsteuererklärung erfolgreich an das Finanzamt übermittelt.
+        "subject": "Erfolgreiche Übermittlung Ihrer Grundsteuererklärung",
+        "textContent": "Bestätigung erfolgreiche Übermittlung
 
-      Als Bestätigung bekommen Sie ein sogenanntes Transferticket. Dieses wird von
-      ELSTER bei der erfolgreichen Übermittlung automatisch erzeugt.
+      Ihre Grundsteuererklärung wurde an das Finanzamt gesendet. Mit Ihrem
+      Transferticket können Sie dort bei Bedarf den Status Ihrer Erklärung nachfragen.
 
-      Ihr Transferticket: transferticket
+      Ihr persönliches Transferticket: transferticket
 
       Ein PDF mit der Zusammenfassung Ihrer Grundsteuererklärung können Sie noch 24
-      Stunden in ihrem Konto runterladen. Wenn Sie eine neue Erklärung anfangen,
-      löschen wir das PDF der letzten Erklärung. Ihre Daten sind natürlich trotzdem an
-      das Finanzamt übermittelt worden.
+      Stunden in Ihrem Konto herunterladen (wenn Sie keine weitere Erklärung abgegeben
+      haben).
 
       Sollten Sie Ihre Grundsteuererklärung korrigieren wollen, finden Sie in unserem
       Hilfebereich
@@ -106,14 +106,12 @@ describe("createDeclarationSentMail", () => {
       Wie geht es jetzt weiter?
 
        1. Ihre Erklärung wird nun von Ihrem Finanzamt bearbeitet.
-       2. In der Zeit bis 2024 bekommen Sie drei Briefe: den Grundsteuerwertbescheid,
-          den Grundsteuermessbescheid und den neuen Grundsteuerbescheid.
+       2. In der Zeit bis 2024 bekommen Sie drei Briefe:
+          * Grundsteuerwertbescheid
+          * Grundsteuermessbescheid
+          * den neuen Grundsteuerbescheid
        3. Bis zum Jahr 2025 zahlen Sie die alte Grundsteuer. Ab 2025 zahlen Sie die
           neue Grundsteuer.
-
-      Haben Sie Fragen?
-
-      Wenden Sie sich bitte an das für Ihr Grundstück zuständige Finanzamt.
 
       --------------------------------------------------------------------------------
 
@@ -150,29 +148,30 @@ describe("createDeclarationSentMail", () => {
         <html lang=\\"de\\">
           <head>
             <meta http-equiv=\\"Content-Type\\" content=\\"text/html charset=UTF-8\\" />
-            <title>Grundsteuererklärung erfolgreich übermittelt</title>
+            <title>Erfolgreiche Übermittlung Ihrer Grundsteuererklärung</title>
             <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\" />
           </head>
           <body>
             
 
         <p>
-          Sie haben Ihre Grundsteuererklärung erfolgreich an das Finanzamt übermittelt.
+          <strong>Bestätigung erfolgreiche Übermittlung</strong>
         </p>
 
         <p>
-          Als Bestätigung bekommen Sie ein sogenanntes Transferticket. Dieses wird von
-          ELSTER bei der erfolgreichen Übermittlung automatisch erzeugt.
+          Ihre Grundsteuererklärung wurde an das Finanzamt gesendet. Mit Ihrem
+          Transferticket können Sie dort bei Bedarf den Status Ihrer Erklärung
+          nachfragen.
         </p>
 
         <p>
-          <strong>Ihr Transferticket: transferticket</strong>
+          <strong>Ihr persönliches Transferticket: transferticket</strong>
         </p>
 
 
         <p>
-          Im Anhang finden Sie eine PDF-Datei mit der Zusammenfassung Ihrer
-          Grundsteuererklärung.
+          Im Anhang finden Sie das PDF mit der Zusammenfassung Ihrer
+          Grundsteuererklärung. Bitte überprüfen Sie die Angaben.
         </p>
 
 
@@ -190,17 +189,18 @@ describe("createDeclarationSentMail", () => {
         <ol>
           <li>Ihre Erklärung wird nun von Ihrem Finanzamt bearbeitet.</li>
           <li>
-            In der Zeit bis 2024 bekommen Sie drei Briefe: den Grundsteuerwertbescheid,
-            den Grundsteuermessbescheid und den neuen Grundsteuerbescheid.
+            In der Zeit bis 2024 bekommen Sie drei Briefe:
+            <ul>
+              <li>Grundsteuerwertbescheid</li>
+              <li>Grundsteuermessbescheid</li>
+              <li>den neuen Grundsteuerbescheid</li>
+            </ul>
           </li>
           <li>
             Bis zum Jahr 2025 zahlen Sie die alte Grundsteuer. Ab 2025 zahlen Sie die
             neue Grundsteuer.
           </li>
         </ol>
-
-        <p><strong>Haben Sie Fragen?</strong></p>
-        <p>Wenden Sie sich bitte an das für Ihr Grundstück zuständige Finanzamt.</p>
 
 
 
@@ -220,16 +220,16 @@ describe("createDeclarationSentMail", () => {
           </body>
         </html>
         ",
-          "subject": "Grundsteuererklärung erfolgreich übermittelt",
-          "textContent": "Sie haben Ihre Grundsteuererklärung erfolgreich an das Finanzamt übermittelt.
+          "subject": "Erfolgreiche Übermittlung Ihrer Grundsteuererklärung",
+          "textContent": "Bestätigung erfolgreiche Übermittlung
 
-        Als Bestätigung bekommen Sie ein sogenanntes Transferticket. Dieses wird von
-        ELSTER bei der erfolgreichen Übermittlung automatisch erzeugt.
+        Ihre Grundsteuererklärung wurde an das Finanzamt gesendet. Mit Ihrem
+        Transferticket können Sie dort bei Bedarf den Status Ihrer Erklärung nachfragen.
 
-        Ihr Transferticket: transferticket
+        Ihr persönliches Transferticket: transferticket
 
-        Im Anhang finden Sie eine PDF-Datei mit der Zusammenfassung Ihrer
-        Grundsteuererklärung.
+        Im Anhang finden Sie das PDF mit der Zusammenfassung Ihrer Grundsteuererklärung.
+        Bitte überprüfen Sie die Angaben.
 
         Sollten Sie Ihre Grundsteuererklärung korrigieren wollen, finden Sie in unserem
         Hilfebereich
@@ -239,14 +239,12 @@ describe("createDeclarationSentMail", () => {
         Wie geht es jetzt weiter?
 
          1. Ihre Erklärung wird nun von Ihrem Finanzamt bearbeitet.
-         2. In der Zeit bis 2024 bekommen Sie drei Briefe: den Grundsteuerwertbescheid,
-            den Grundsteuermessbescheid und den neuen Grundsteuerbescheid.
+         2. In der Zeit bis 2024 bekommen Sie drei Briefe:
+            * Grundsteuerwertbescheid
+            * Grundsteuermessbescheid
+            * den neuen Grundsteuerbescheid
          3. Bis zum Jahr 2025 zahlen Sie die alte Grundsteuer. Ab 2025 zahlen Sie die
             neue Grundsteuer.
-
-        Haben Sie Fragen?
-
-        Wenden Sie sich bitte an das für Ihr Grundstück zuständige Finanzamt.
 
         --------------------------------------------------------------------------------
 

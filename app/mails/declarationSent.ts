@@ -4,7 +4,7 @@ import { convert } from "html-to-text";
 import { Mail } from "~/services/sendMail";
 
 const TEMPLATE = "declarationSent";
-const subject = "Grundsteuererklärung erfolgreich übermittelt";
+const subject = "Erfolgreiche Übermittlung Ihrer Grundsteuererklärung";
 
 export type CreateDeclarationSentMailArgs = {
   to: string;
