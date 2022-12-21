@@ -45,7 +45,11 @@ describe("createDeclarationSentMail", () => {
 
       <p>
         Sollten Sie Ihre Grundsteuererklärung korrigieren wollen, finden Sie in
-        <a href=\\"\\">unserem Hilfebereich</a> eine Anleitung.
+        <a
+          href=\\"https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/48\\"
+          >unserem Hilfebereich</a
+        >
+        eine Anleitung.
       </p>
 
       <p><strong>Wie geht es jetzt weiter?</strong></p>
@@ -99,7 +103,9 @@ describe("createDeclarationSentMail", () => {
       das Finanzamt übermittelt worden.
 
       Sollten Sie Ihre Grundsteuererklärung korrigieren wollen, finden Sie in unserem
-      Hilfebereich eine Anleitung.
+      Hilfebereich
+      [https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/48]
+      eine Anleitung.
 
       Wie geht es jetzt weiter?
 
@@ -178,7 +184,11 @@ describe("createDeclarationSentMail", () => {
 
         <p>
           Sollten Sie Ihre Grundsteuererklärung korrigieren wollen, finden Sie in
-          <a href=\\"\\">unserem Hilfebereich</a> eine Anleitung.
+          <a
+            href=\\"https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/48\\"
+            >unserem Hilfebereich</a
+          >
+          eine Anleitung.
         </p>
 
         <p><strong>Wie geht es jetzt weiter?</strong></p>
@@ -230,7 +240,9 @@ describe("createDeclarationSentMail", () => {
         Grundsteuererklärung.
 
         Sollten Sie Ihre Grundsteuererklärung korrigieren wollen, finden Sie in unserem
-        Hilfebereich eine Anleitung.
+        Hilfebereich
+        [https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/48]
+        eine Anleitung.
 
         Wie geht es jetzt weiter?
 
