@@ -105,7 +105,6 @@ jobs:
           HASHED_LOGGING_SALT: "$2a$10$7hclYwYcZY5qCfmedLQx/u"
           HASHED_IP_LIMIT_SALT: "$2a$10$7hclYwYcZY5qCfmidLQx/u"
           SKIP_RATELIMIT: true
-          SKIP_TCTOKEN_HASH: true
           EKONA_ISSUER: "${{ secrets.EKONA_ISSUER }}"
           EKONA_ISSUER_URL: "${{ secrets.EKONA_ISSUER_URL }}"
           EKONA_IDP_CERT: "${{ secrets.EKONA_IDP_CERT }}"

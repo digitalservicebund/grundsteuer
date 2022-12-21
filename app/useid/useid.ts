@@ -1,5 +1,5 @@
-import * as crypto from "crypto";
 import invariant from "tiny-invariant";
+import * as crypto from "crypto";
 import { DataGroup, Place, UseIdAPI } from "useid-eservice-sdk";
 
 let useidAPIConnection: UseIdAPI;
@@ -32,9 +32,6 @@ const getTcTokenUrl = async () => {
 };
 
 const hashTcTokenUrl = async (tcTokenUrl: string) => {
-  if (process.env.SKIP_TCTOKEN_HASH) {
-    return tcTokenUrl;
-  }
   const hash = crypto.createHash("sha256");
   hash.update(tcTokenUrl);
   return hash.digest("hex");
