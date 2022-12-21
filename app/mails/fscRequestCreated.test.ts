@@ -64,7 +64,7 @@ describe("createFscRequestCreatedMail", () => {
       <p>
         Weitere Informationen finden Sie in unserem
         <a
-          href=\\"https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de\\"
+          href=\\"https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/7\\"
           >Hilfebereich</a
         >.
       </p>
@@ -116,7 +116,7 @@ describe("createFscRequestCreatedMail", () => {
           Freischaltcode eingeben. [undefined/fsc/eingeben]
 
       Weitere Informationen finden Sie in unserem Hilfebereich
-      [https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de].
+      [https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/7].
 
       --------------------------------------------------------------------------------
 
