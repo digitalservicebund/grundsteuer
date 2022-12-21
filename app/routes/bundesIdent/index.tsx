@@ -1,6 +1,7 @@
 import { json, LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
 import { authenticator } from "~/auth.server";
 import { pageTitle } from "~/util/pageTitle";
+import { useid } from "~/useid/useid";
 import { useLoaderData } from "@remix-run/react";
 import { Button, ButtonContainer, Headline, SectionLabel } from "~/components";
 import Bolt from "~/components/icons/mui/Bolt";
@@ -11,7 +12,6 @@ import { applyRateLimit } from "~/redis/rateLimiting.server";
 import RateLimitExceeded from "~/components/RateLimitExceeded";
 import { Feature } from "~/redis/redis.server";
 import { isMobileUserAgent } from "~/util/isMobileUserAgent";
-import { useidServer } from "~/useid/useid.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifizieren Sie sich mit Ihrem Ausweis") };
@@ -42,13 +42,13 @@ export const loader: LoaderFunction = async ({ request }) => {
   } else {
     console.log("Started bundesIdent flow");
   }
-  const tcTokenUrl = await useidServer.getTcTokenUrl();
-  const hashedTcTokenUrl = await useidServer.hashTcTokenUrl(tcTokenUrl);
+  const tcTokenUrl = await useid.getTcTokenUrl();
+  const hashedTcTokenUrl = await useid.hashTcTokenUrl(tcTokenUrl);
 
   return json(
     {
       host: new URL(request.url).hostname,
-      widgetSrc: useidServer.getWidgetSrc(),
+      widgetSrc: useid.getWidgetSrc(),
       tcTokenUrl: tcTokenUrl,
       hashedTcTokenUrl: hashedTcTokenUrl,
       useidDomain: process.env.USEID_DOMAIN,
