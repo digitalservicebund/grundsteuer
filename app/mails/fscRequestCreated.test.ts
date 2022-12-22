@@ -24,7 +24,7 @@ describe("createFscRequestCreatedMail", () => {
       </p>
 
       <p>
-        Erfolgreiche Anforderung Freischaltcode bei
+        Erfolgreiche Anforderung eines Freischaltcodes bei
         <strong>Grundsteuererklärung für Privateigentum</strong> am 08.12.1922.
       </p>
 
@@ -78,7 +78,7 @@ describe("createFscRequestCreatedMail", () => {
         "subject": "Bestellung Freischaltcode",
         "textContent": "Bestätigung
 
-      Erfolgreiche Anforderung Freischaltcode bei Grundsteuererklärung für
+      Erfolgreiche Anforderung eines Freischaltcodes bei Grundsteuererklärung für
       Privateigentum am 08.12.1922.
 
       Was passiert jetzt?
