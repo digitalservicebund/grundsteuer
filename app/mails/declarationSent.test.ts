@@ -20,7 +20,7 @@ describe("createDeclarationSentMail", () => {
           
 
       <p>
-        <strong>Bestätigung erfolgreiche Übermittlung</strong>
+        <strong>Erfolgreiche Übermittlung</strong>
       </p>
 
       <p>
@@ -87,7 +87,7 @@ describe("createDeclarationSentMail", () => {
       </html>
       ",
         "subject": "Erfolgreiche Übermittlung Ihrer Grundsteuererklärung",
-        "textContent": "Bestätigung erfolgreiche Übermittlung
+        "textContent": "Erfolgreiche Übermittlung
 
       Ihre Grundsteuererklärung wurde an das Finanzamt gesendet. Mit Ihrem
       Transferticket können Sie dort bei Bedarf den Status Ihrer Erklärung nachfragen.
@@ -155,7 +155,7 @@ describe("createDeclarationSentMail", () => {
             
 
         <p>
-          <strong>Bestätigung erfolgreiche Übermittlung</strong>
+          <strong>Erfolgreiche Übermittlung</strong>
         </p>
 
         <p>
@@ -221,7 +221,7 @@ describe("createDeclarationSentMail", () => {
         </html>
         ",
           "subject": "Erfolgreiche Übermittlung Ihrer Grundsteuererklärung",
-          "textContent": "Bestätigung erfolgreiche Übermittlung
+          "textContent": "Erfolgreiche Übermittlung
 
         Ihre Grundsteuererklärung wurde an das Finanzamt gesendet. Mit Ihrem
         Transferticket können Sie dort bei Bedarf den Status Ihrer Erklärung nachfragen.
