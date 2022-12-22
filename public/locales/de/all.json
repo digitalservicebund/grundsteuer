@@ -1611,6 +1611,7 @@
     "specifics": {
       "confirmationHeading": "Bestätigung und Versand an Ihre Finanzverwaltung",
       "confirmationText": "Die Erklärung ist eine Erklärung zur Feststellung des Grundsteuerwerts im Sinne des § 228 Abs. 1 Satz 1 des Bewertungsgesetzes (BewG). Die mit der Feststellungserklärung angeforderten Daten werden aufgrund der §§ 149, 150 und 181 Absatz 2 AO sowie § 228 BewG erhoben. Die Angabe der Telefonnummer ist freiwillig.",
+      "pdfDisclaimer": "Sie können nach Abgabe Ihre Daten als PDF herunterladen.",
       "submitbutton": "Grundsteuererklärung abschicken",
       "sectionUnfilled": "Bitte ergänzen",
       "fscHeading": "Sie haben sich noch nicht identifiziert.",
