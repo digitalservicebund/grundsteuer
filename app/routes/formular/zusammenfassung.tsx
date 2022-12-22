@@ -201,15 +201,13 @@ export const loader: LoaderFunction = async ({
           username: userData.email,
           eventData: { transferticket: successResponseOrErrors.transferticket },
         });
-        if (testFeaturesEnabled()) {
-          const includePdf =
-            storedFormData?.zusammenfassung?.includePdfInMail === "true";
-          await sendDeclarationSentMail({
-            to: user.email,
-            transferticket: successResponseOrErrors.transferticket,
-            pdf: includePdf ? successResponseOrErrors.pdf : undefined,
-          });
-        }
+        const includePdf =
+          storedFormData?.zusammenfassung?.includePdfInMail === "true";
+        await sendDeclarationSentMail({
+          to: user.email,
+          transferticket: successResponseOrErrors.transferticket,
+          pdf: includePdf ? successResponseOrErrors.pdf : undefined,
+        });
         invariant(
           process.env.HASHED_LOGGING_SALT,
           "Environment variable HASHED_LOGGING_SALT is not defined"
@@ -507,11 +505,6 @@ export default function Zusammenfassung() {
             {i18n.specifics.confirmationHeading}
           </h2>
           <p className="mb-32">{i18n.specifics.confirmationText}</p>
-          {testFeaturesEnabled ? (
-            ""
-          ) : (
-            <p className="font-bold mb-32">{i18n.specifics.pdfDisclaimer}</p>
-          )}
           <div className="bg-white p-16 mb-16">
             <StepFormField {...fieldProps[0]}>
               {i18n.fields.confirmCompleteCorrect.label}
@@ -541,11 +534,7 @@ export default function Zusammenfassung() {
               </Trans>
             </StepFormField>
           </div>
-          <div
-            className={`bg-white p-16 ${
-              testFeaturesEnabled ? "mb-16" : "mb-80"
-            }`}
-          >
+          <div className="bg-white p-16 mb-16">
             <StepFormField {...fieldProps[2]}>
               <Trans
                 components={{
@@ -562,20 +551,16 @@ export default function Zusammenfassung() {
               </Trans>
             </StepFormField>
           </div>
-          {testFeaturesEnabled ? (
-            <div className="bg-white p-16 mb-80">
-              <StepFormField {...fieldProps[3]}>
-                Ich möchte die Erklärung als PDF per E-Mail erhalten.
-                <br />
-                <em>
-                  (Das PDF kann auch auf der nächsten Seite heruntergeladen
-                  werden.)
-                </em>
-              </StepFormField>
-            </div>
-          ) : (
-            ""
-          )}
+          <div className="bg-white p-16 mb-80">
+            <StepFormField {...fieldProps[3]}>
+              Ich möchte die Erklärung als PDF per E-Mail erhalten.
+              <br />
+              <em>
+                (Das PDF kann auch auf der nächsten Seite heruntergeladen
+                werden.)
+              </em>
+            </StepFormField>
+          </div>
           <Button
             id="nextButton"
             disabled={!isIdentified || isSubmitting || ericaDown}
