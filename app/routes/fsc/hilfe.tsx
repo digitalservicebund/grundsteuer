@@ -37,7 +37,7 @@ export default function FscHilfe() {
       <ContentContainer size="sm-md" className="mb-80">
         <BreadcrumbNavigation />
         <Headline asLegend>
-          Sie haben noch keinen Brief mit dem Freischaltcode erhalten?{" "}
+          Sie haben noch keinen Brief mit einem Freischaltcode erhalten?
         </Headline>
         <FscLetterHint
           antragDate={antragDate}

@@ -32,8 +32,8 @@ export default function FscBeantragenErfolgreich() {
         <IntroText>
           Sie haben Ihren persönlichen Freischaltcode beantragt. Diesen erhalten
           sie voraussichtlich in den nächsten 3 Wochen per Post. Sie können
-          jetzt die Feststellungserklärung ausfüllen und zu einem späteren
-          Zeitpunkt, nach Erhalt des Briefes, den Freischaltcode eingeben.
+          jetzt die Grundsteuererklärung ausfüllen und nach Erhalt des Briefes
+          den Freischaltcode eingeben.
         </IntroText>
       </ContentContainer>
 
@@ -45,9 +45,9 @@ export default function FscBeantragenErfolgreich() {
           <h2 className="text-24 mb-16">Wie geht es jetzt weiter?</h2>
           <EnumeratedList
             items={[
-              "Ihren Freischaltcode haben Sie nun beantragt. Sie warten jetzt, bis dieser per Post bei Ihnen zugestellt wird.",
-              "Der Freischaltcode sollte innerhalb von 3 Wochen bei Ihnen zugestellt werden. Durch Weihnachten kann es hier zu Verzögerungen kommen.",
-              "Ihr Brief kommt nach spätestens 3 Wochen bei Ihnen an. In dem Brief vom Finanzamt finden Sie auf der letzten Seite den 12-stelligen Freischaltcode. Vermerkt ist in der Zeile darüber “Antragsteller:in Digitalservice GmbH des Bundes”. Das sind wir. Der Brief bleibt bei Ihnen. Senden Sie ihn bitte nicht an uns!",
+              "Sie haben Ihren Freischaltcode erfolgreich beantragt. Bitte warten Sie, bis Ihnen dieser an Ihre Meldeadresse zugesendet wird.",
+              "Der Versand wird ungefähr 3 Wochen dauern.",
+              "Den 12-stelligen Freischaltcode finden Sie auf der letzten Seite des Briefes unter der Zeile “Antragsteller:in Digitalservice GmbH des Bundes”. Senden Sie uns den Brief nicht zu.",
             ]}
             className="mb-32"
           />

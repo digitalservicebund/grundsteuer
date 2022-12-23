@@ -18,11 +18,10 @@ export default function FscAbgelaufen() {
           dieser seine Gültigkeit und kann nicht mehr eingegeben werden.
         </p>
         <p className="mb-32">
-          Sie können versuchen nochmal einen neuen Freischaltcode zu beantragen.
-          <strong> Achtung:</strong> dies kann aber wiederum einige Wochen
-          dauern und gegebenenfalls die Abgabe Ihrer Grundsteuererklärung
-          verzögern. Wir empfehlen einen Freischaltcode maximal einmal neu zu
-          beantragen.
+          Sie können versuchen erneut einen Freischaltcode zu beantragen.{" "}
+          <strong>Achtung:</strong> dies kann aber wiederum einige Wochen dauern
+          und gegebenenfalls die Abgabe Ihrer Grundsteuererklärung verzögern.
+          Wir empfehlen einen Freischaltcode maximal einmal neu zu beantragen.
         </p>
       </div>
 

@@ -415,15 +415,14 @@ export default function FscEingeben() {
       <ContentContainer size="sm-md">
         <BreadcrumbNavigation />
         <Headline>
-          Super, Sie haben den Brief mit dem Freischaltcode erhalten
+          Super, Sie haben den Brief mit Ihrem Freischaltcode erhalten
         </Headline>
         <FscHint antragDate={antragDate} remainingDays={remainingDays} />
 
         <IntroText>
-          Sie können nun Ihren Freischaltcode eingeben. Den Code finden Sie in
-          dem Brief, den Sie von Ihrem Finanzamt erhalten haben. Er steht auf
-          der letzten Seite über der Zeile “Antragsteller/in: DigitalService
-          GmbH des Bundes”.
+          Sie können nun Ihren Freischaltcode eingeben. Er steht auf der letzten
+          Seite über der Zeile “Antragsteller/in: DigitalService GmbH des
+          Bundes”.
         </IntroText>
         <img
           src={letter}

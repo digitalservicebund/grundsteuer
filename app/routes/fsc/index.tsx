@@ -126,12 +126,12 @@ export default function FscIndex() {
                   {
                     value: "true",
                     label:
-                      "Ja, meinen Brief mit dem Freischaltcode habe ich erhalten",
+                      "Ja, den Brief mit meinem Freischaltcode habe ich erhalten",
                   },
                   {
                     value: "false",
                     label:
-                      "Nein, bisher ist kein Brief mit dem Freischaltcode angekommen",
+                      "Nein, bisher ist kein Brief mit einem Freischaltcode angekommen",
                   },
                 ]}
               />
