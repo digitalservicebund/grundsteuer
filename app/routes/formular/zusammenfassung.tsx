@@ -201,15 +201,13 @@ export const loader: LoaderFunction = async ({
           username: userData.email,
           eventData: { transferticket: successResponseOrErrors.transferticket },
         });
-        if (testFeaturesEnabled()) {
-          const includePdf =
-            storedFormData?.zusammenfassung?.includePdfInMail === "true";
-          await sendDeclarationSentMail({
-            to: user.email,
-            transferticket: successResponseOrErrors.transferticket,
-            pdf: includePdf ? successResponseOrErrors.pdf : undefined,
-          });
-        }
+        const includePdf =
+          storedFormData?.zusammenfassung?.includePdfInMail === "true";
+        await sendDeclarationSentMail({
+          to: user.email,
+          transferticket: successResponseOrErrors.transferticket,
+          pdf: includePdf ? successResponseOrErrors.pdf : undefined,
+        });
         invariant(
           process.env.HASHED_LOGGING_SALT,
           "Environment variable HASHED_LOGGING_SALT is not defined"
