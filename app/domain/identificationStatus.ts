@@ -13,9 +13,11 @@ export const hasValidOpenFscRequest = (user: User) => {
   );
 };
 
-export const canEnterFsc = (user: User) => {
-  return (
-    !user.identified && !user.ericaRequestIdFscStornieren && user.fscRequest
+export const canEnterFsc = (user: User): boolean => {
+  return !!(
+    !user.identified &&
+    !user.ericaRequestIdFscStornieren &&
+    user.fscRequest
   );
 };
 

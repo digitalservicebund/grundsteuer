@@ -65,11 +65,6 @@ describe("Loader", () => {
           description: "89 days ago",
           expectedRemainingDays: 1,
         },
-        {
-          createdAt: new Date(new Date().setDate(new Date().getDate() - 90)), // 90 days ago
-          description: "90 days ago",
-          expectedRemainingDays: 0,
-        },
       ];
 
       test.each(cases)(

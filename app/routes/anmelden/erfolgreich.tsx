@@ -34,8 +34,8 @@ const getNextStepUrl = (user: User) => {
 
 const getFscStepUrl = (user: User) => {
   if (!canEnterFsc(user)) return;
-  if (fscIsTooOld(user)) return "/fsc/eingeben";
-  if (fscIsOlderThanOneDay(user)) return "/fsc/eingeben";
+  if (fscIsTooOld(user)) return "/fsc/abgelaufen";
+  if (fscIsOlderThanOneDay(user)) return "/fsc";
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -79,16 +79,31 @@ export default function ErfolgreichAngemeldet() {
         <BreadcrumbNavigation />
         <SuccessPageLayout>
           <Headline> Sie haben sich erfolgreich angemeldet. </Headline>
-          <IntroText>
-            Sie können die Bearbeitung jederzeit unterbrechen und fortführen.
-          </IntroText>
+          {fscStepUrl && (
+            <IntroText>
+              Sie können die Bearbeitung jederzeit unterbrechen und fortführen.
+              Bitte beachten Sie, dass dies nur am Gerät und Browser möglich
+              ist, in dem Sie sich registriert haben.
+            </IntroText>
+          )}
+          {!fscStepUrl && (
+            <>
+              <IntroText>
+                Sie können die Bearbeitung jederzeit unterbrechen und
+                fortführen.
+              </IntroText>
 
-          <IntroText className="mb-80">
-            Bitte beachten Sie, das dies nur am Gerät und Browser möglich ist,
-            in dem Sie sich registriert haben.
-          </IntroText>
-
-          <Button data-testid="continue" to={nextStepUrl}>
+              <IntroText className="mb-48">
+                Bitte beachten Sie, das dies nur am Gerät und Browser möglich
+                ist, in dem Sie sich registriert haben.
+              </IntroText>
+            </>
+          )}
+          <Button
+            data-testid="continue"
+            to={nextStepUrl}
+            className="min-w-[18rem]"
+          >
             Verstanden & weiter
           </Button>
 
@@ -102,7 +117,12 @@ export default function ErfolgreichAngemeldet() {
                 Geben Sie Ihren Freischaltcode jetzt ein oder erhalten Sie Hilfe
                 zu dem Thema
               </IntroText>
-              <Button data-testid="continue-fsc" to={fscStepUrl}>
+              <Button
+                look="secondary"
+                data-testid="continue-fsc"
+                to={fscStepUrl}
+                className="min-w-[18rem]"
+              >
                 Zum Freischaltcode
               </Button>
             </div>

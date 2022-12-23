@@ -45,7 +45,6 @@ import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
 import ErrorBar from "~/components/ErrorBar";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import FreischaltcodeHelp from "~/components/form/help/Freischaltcode";
-import ArrowRight from "~/components/icons/mui/ArrowRight";
 import { getErrorMessageForFreischaltcode } from "~/domain/validation/fscValidation";
 import { saveSuccessfulFscActivationData } from "~/domain/lifecycleEvents.server";
 import { ericaUtils } from "~/erica/utils";
@@ -57,8 +56,10 @@ import Hint from "~/components/Hint";
 import letter from "~/assets/images/fsc-letter-eingeben.png";
 import letterImg from "~/assets/images/letter-medium.svg";
 import letterImgSmall from "~/assets/images/letter-small.svg";
-import { FscRequest } from "~/domain/fscRequest";
 import { canEnterFsc } from "~/domain/identificationStatus";
+import FscHint from "~/components/fsc/FscHint";
+import { FscRequest } from "~/domain/fscRequest";
+import LinkWithArrow from "~/components/LinkWithArrow";
 
 type LoaderData = {
   csrfToken?: string;
@@ -176,39 +177,38 @@ export const loader: LoaderFunction = async ({
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
-  const userData: User | null = await findUserByEmail(user.email);
+  const dbUser: User | null = await findUserByEmail(user.email);
   const session = await getSession(request.headers.get("Cookie"));
   invariant(
-    userData,
+    dbUser,
     "expected a matching user in the database from a user in a cookie session"
   );
 
-  if (!canEnterFsc(userData)) {
+  if (!canEnterFsc(dbUser)) {
     return redirect("/identifikation");
   }
 
-  invariant(userData.fscRequest, "Expected user to have a FscRequest");
-  const fscRequest = new FscRequest(userData.fscRequest);
-  const antragDate = fscRequest.creationDate();
-  const letterArrivalDate = fscRequest.estLatestArrivalDate();
-  const remainingDays = fscRequest.remainingValidityInDays();
+  invariant(dbUser.fscRequest, "expected an fscRequest in database for user");
+  const antragStatus = new FscRequest(dbUser.fscRequest).getAntragStatus();
 
-  const antragStatus = { antragDate, letterArrivalDate, remainingDays };
+  if (antragStatus.remainingDays <= 0) {
+    return redirect("/fsc/abgelaufen");
+  }
 
-  const fscEingebenProcessStarted = isFscEingebenProcessStarted(userData);
+  const fscEingebenProcessStarted = isFscEingebenProcessStarted(dbUser);
   const ericaActivationRequestIsInProgress =
-    isEricaActivationRequestInProgress(userData);
+    isEricaActivationRequestInProgress(dbUser);
 
-  if (await wasEricaRequestSuccessful(userData)) {
+  if (await wasEricaRequestSuccessful(dbUser)) {
     return redirect("/fsc/eingeben/erfolgreich");
   }
 
   if (ericaActivationRequestIsInProgress) {
     const fscActivationData = await handleFscActivationProgress(
-      userData,
+      dbUser,
       session,
       clientIp,
-      `FSC activated for user with id ${userData?.id}`
+      `FSC activated for user with id ${dbUser?.id}`
     );
     if (fscActivationData) {
       return { ...fscActivationData, ...antragStatus };
@@ -219,10 +219,10 @@ export const loader: LoaderFunction = async ({
   if (
     fscEingebenProcessStarted &&
     !ericaActivationRequestIsInProgress &&
-    userData.identified
+    dbUser.identified
   ) {
-    await startNewFscRevocationProcess(userData, clientIp);
-    await setUserInFscEingebenProcess(userData.email, false);
+    await startNewFscRevocationProcess(dbUser, clientIp);
+    await setUserInFscEingebenProcess(dbUser.email, false);
   }
 
   const csrfToken = createCsrfToken(session);
@@ -391,7 +391,7 @@ export default function FscEingeben() {
 
   if (remainingDays >= 90) {
     return (
-      <ContentContainer size="sm">
+      <ContentContainer size="sm-md">
         <BreadcrumbNavigation />
         <UebersichtStep imageSrc={letterImg} smallImageSrc={letterImgSmall}>
           <Headline>Ihr Freischaltcode wurde beantragt</Headline>
@@ -404,28 +404,31 @@ export default function FscEingeben() {
             Wochen per Post. Sie können jetzt die Grundsteuererklärung ausfüllen
             und zu einem späteren Zeitpunkt den Freischaltcode eingeben.
           </IntroText>
-          <Button to="/formular">Weiter zum Formular</Button>
+          <Button to="/formular" className="min-w-[18rem]">
+            Weiter zum Formular
+          </Button>
         </UebersichtStep>
       </ContentContainer>
     );
-  } else if (remainingDays > 0) {
+  } else {
     return (
       <ContentContainer size="sm-md">
         <BreadcrumbNavigation />
-        <Headline>Haben Sie Ihren Freischaltcode schon erhalten?</Headline>
-        <Hint type="status">
-          Ihr Freischaltcode wurde am {antragDate} beantragt. Ihr Code läuft in{" "}
-          {remainingDays} {remainingDays === 1 ? "Tag" : "Tagen"} ab.
-        </Hint>
+        <Headline>
+          Super, Sie haben den Brief mit dem Freischaltcode erhalten
+        </Headline>
+        <FscHint antragDate={antragDate} remainingDays={remainingDays} />
 
         <IntroText>
-          Ihren Freischaltcode finden Sie in dem Brief, den Sie von Ihrem
-          Finanzamt erhalten haben. Der Code steht auf der letzten Seite.
+          Sie können nun Ihren Freischaltcode eingeben. Den Code finden Sie in
+          dem Brief, den Sie von Ihrem Finanzamt erhalten haben. Er steht auf
+          der letzten Seite über der Zeile “Antragsteller/in: DigitalService
+          GmbH des Bundes”.
         </IntroText>
         <img
           src={letter}
           alt="Bildbeispiel des Freischaltcode Brief"
-          className="mb-32"
+          className="mb-32 ml-[-16px]"
         />
 
         {showError && !isSubmitting && (
@@ -465,40 +468,17 @@ export default function FscEingeben() {
             </Button>
           </ButtonContainer>
         </Form>
-        <h2 className="mt-80 mb-16 text-24 font-bold">
-          Keinen Freischaltcode erhalten?
+        <h2 className="mt-80 mb-16 text-24">
+          Sie haben keinen Freischaltcode erhalten?
         </h2>
-        {remainingDays < 90 && (
-          <>
-            <p className="mb-8">
-              3 Wochen sind um und Sie haben noch keinen Brief mit dem
-              Freischaltcode erhalten?
-            </p>
-            <div className="flex items-center mb-32">
-              <ArrowRight className="inline-block mr-16" />
-              <a
-                href="/fsc/stornieren"
-                className="font-bold underline text-18 text-blue-800"
-              >
-                Freischaltcode neu beantragen
-              </a>
-            </div>
-          </>
-        )}
-        <p className="mb-8">
-          Personen mit einem ELSTER Konto erhalten in der Regel keinen Brief mit
-          einem Freischaltcode. Sie können Ihre ELSTER Zugangsdaten nutzen, um
-          sich zu identifizieren.
+
+        <p className="mb-16">
+          Mehr als drei Wochen sind um und Sie haben noch keinen Brief mit dem
+          Freischaltcode erhalten?
         </p>
-        <div className="flex items-center">
-          <ArrowRight className="inline-block mr-16" />
-          <a
-            href={"/ekona?index"}
-            className="font-bold underline text-18 text-blue-800"
-          >
-            Mit ELSTER Zugang identifizieren
-          </a>
-        </div>
+        <LinkWithArrow href="/fsc/hilfe">
+          Hilfe zum Freischaltcode
+        </LinkWithArrow>
 
         {showSpinner && (
           <Spinner
@@ -512,25 +492,6 @@ export default function FscEingeben() {
             startTime={startTime}
           />
         )}
-      </ContentContainer>
-    );
-  } else {
-    return (
-      <ContentContainer size="sm-md">
-        <BreadcrumbNavigation />
-        <Headline>Ihr Freischaltcode ist leider abgelaufen.</Headline>
-
-        <Hint type="status">
-          Ihr Code hat nach 90 Tagen seine Gültigkeit verloren. Beantragen Sie
-          bitte einen neuen Freischaltcode.
-        </Hint>
-
-        <ButtonContainer className="flex-col">
-          <Button to="/fsc/stornieren">Freischaltcode neu beantragen</Button>
-          <Button look="secondary" to="/formular/zusammenfassung">
-            Zurück zur Übersicht
-          </Button>
-        </ButtonContainer>
       </ContentContainer>
     );
   }

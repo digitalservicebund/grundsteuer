@@ -23,15 +23,16 @@ describe("menu item Identifikation", () => {
     cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
   });
 
-  it("should redirect to /fsc/eingeben on user with FSC request", () => {
+  it("should redirect to /fsc on user with FSC request", () => {
     cy.task("addFscRequestId", {
       email: "foo@bar.com",
       fscRequestId: "foo",
+      createdAt: new Date(new Date().setDate(new Date().getDate() - 2)),
     });
     cy.login();
     cy.visit("/formular");
     cy.contains("a", "Identifikation").click();
-    cy.location("pathname").should("eq", "/fsc/eingeben");
+    cy.location("pathname").should("eq", "/fsc");
   });
 
   it("should redirect to /identifikation/erfolgriech on identified user", () => {

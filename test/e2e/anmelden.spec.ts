@@ -118,17 +118,17 @@ describe("/anmelden/erfolgreich", () => {
       {
         fscRequest: true,
         fscRequestAgeInDays: 1,
-        expectedUrl: "/fsc/eingeben",
+        expectedUrl: "/fsc",
       },
       {
         fscRequest: true,
         fscRequestAgeInDays: 90,
-        expectedUrl: "/fsc/eingeben",
+        expectedUrl: "/fsc/abgelaufen",
       },
       {
         fscRequest: true,
         fscRequestAgeInDays: 91,
-        expectedUrl: "/fsc/eingeben",
+        expectedUrl: "/fsc/abgelaufen",
       },
     ];
 

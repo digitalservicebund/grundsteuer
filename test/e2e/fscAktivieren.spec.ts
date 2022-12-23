@@ -179,7 +179,7 @@ describe("/eingeben", () => {
         "contain",
         `Ihr Freischaltcode wurde am ${yesterday.toLocaleDateString(
           "de-DE"
-        )} beantragt. Ihr Code läuft in 89 Tagen ab.`
+        )} beantragt. Ihr Code ist noch 89 Tage gültig.`
       );
     });
 
@@ -194,7 +194,7 @@ describe("/eingeben", () => {
         "contain",
         `Ihr Freischaltcode wurde am ${date89DaysAgo.toLocaleDateString(
           "de-DE"
-        )} beantragt. Ihr Code läuft in 1 Tag ab.`
+        )} beantragt. Ihr Code ist noch 1 Tag gültig.`
       );
     });
 
@@ -203,10 +203,6 @@ describe("/eingeben", () => {
       cy.visit("/fsc/eingeben");
 
       cy.contains("h1", "Ihr Freischaltcode ist leider abgelaufen.");
-      cy.get("[data-testid=hint-box]").should(
-        "contain",
-        "Ihr Code hat nach 90 Tagen seine Gültigkeit verloren. Beantragen Sie bitte einen neuen Freischaltcode."
-      );
     });
   });
 });

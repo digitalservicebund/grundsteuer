@@ -36,6 +36,14 @@ export class FscRequest {
     );
   }
 
+  public getAntragStatus() {
+    const antragDate = this.creationDate();
+    const letterArrivalDate = this.estLatestArrivalDate();
+    const remainingDays = this.remainingValidityInDays();
+
+    return { antragDate, letterArrivalDate, remainingDays };
+  }
+
   private static format(date: Date) {
     return date.toLocaleDateString("de-DE");
   }
