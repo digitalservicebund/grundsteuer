@@ -899,7 +899,7 @@
           "options": {
             "true": {
               "label": "Ja, ich möchte eine empfangsbevollmächtigte Person angeben",
-              "help": "Ihre Bescheide werden später auf diesen Namen postalisch ausgestellt und an die Postadresse von Eigentümer:in 1 versendet."
+              "help": "Ihre Bescheide werden später auf den Namen der empfangsbevollmächtigen Person ausgestellt und an deren Postadresse versendet. Name und Anschrift können auf den nächsten Seiten hinterlegt werden."
             },
             "false": {
               "label": "Nein, ich möchte keine empfangsbevollmächtigte Person angeben",
