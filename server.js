@@ -22,8 +22,6 @@ const app = express();
 // Set security-related http headers
 app.use(
   helmet({
-    //We have to disable this for embedding the useid widget
-    crossOriginEmbedderPolicy: false,
     contentSecurityPolicy: {
       directives: {
         // unfortunately we have to allow unsafe inline scripts, as otherwise Remix does not work;
