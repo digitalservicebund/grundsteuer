@@ -160,36 +160,35 @@ describe("updateOpenEricaRequests", () => {
       );
     });
 
-    expect(decryptedAuditLogs).toEqual([
-      {
-        eventName: AuditLogEvent.FSC_REQUESTED,
-        timestamp: Date.now(),
-        ipAddress: "testIpAddress:erica-request-id",
-        username: "erica_request_id@test.de",
-        eventData: {
-          transferticket: "requestTransferticket",
-          steuerId: "012345",
-        },
+    expect(decryptedAuditLogs).toContainEqual({
+      eventName: AuditLogEvent.FSC_REQUESTED,
+      timestamp: Date.now(),
+      ipAddress: "testIpAddress:erica-request-id",
+      username: "erica_request_id@test.de",
+      eventData: {
+        transferticket: "requestTransferticket",
+        steuerId: "012345",
       },
-      {
-        eventName: AuditLogEvent.FSC_ACTIVATED,
-        timestamp: Date.now(),
-        ipAddress: "testIpAddress:erica-activation-id",
-        username: "erica_activation_id@test.de",
-        eventData: {
-          transferticket: "activationTransferticket",
-        },
+    });
+
+    expect(decryptedAuditLogs).toContainEqual({
+      eventName: AuditLogEvent.FSC_ACTIVATED,
+      timestamp: Date.now(),
+      ipAddress: "testIpAddress:erica-activation-id",
+      username: "erica_activation_id@test.de",
+      eventData: {
+        transferticket: "activationTransferticket",
       },
-      {
-        eventName: AuditLogEvent.FSC_REVOKED,
-        timestamp: Date.now(),
-        ipAddress: "testIpAddress:erica-revocation-id",
-        username: "erica_revocation_id@test.de",
-        eventData: {
-          transferticket: "revocationTransferticket",
-        },
+    });
+    expect(decryptedAuditLogs).toContainEqual({
+      eventName: AuditLogEvent.FSC_REVOKED,
+      timestamp: Date.now(),
+      ipAddress: "testIpAddress:erica-revocation-id",
+      username: "erica_revocation_id@test.de",
+      eventData: {
+        transferticket: "revocationTransferticket",
       },
-    ]);
+    });
   });
 
   it("should perform no update if no client Ip address", async () => {
