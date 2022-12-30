@@ -6,11 +6,20 @@ export interface RadioBildProps
   image: string;
   imageAltText: string;
   error?: string;
+  imageSize?: "large";
 }
 
 export default function RadioButtonBild(props: RadioBildProps) {
-  const { children, name, id, error, image, imageAltText, ...otherProps } =
-    props;
+  const {
+    children,
+    name,
+    id,
+    error,
+    image,
+    imageAltText,
+    imageSize,
+    ...otherProps
+  } = props;
 
   const derivedId = id || `${name}-${props.value}`;
 
@@ -28,7 +37,7 @@ export default function RadioButtonBild(props: RadioBildProps) {
     <label
       htmlFor={derivedId}
       className={classNames(
-        "radio__label flex items-center text-18 leading-26 before:top-[50%] after:top-[50%] before:mt-0 after:mt-0",
+        "radio__label flex flex-col text-18 leading-26 before:top-[50%] after:top-[50%] before:mt-0 after:mt-0",
         {
           "has-error": error,
         }
@@ -40,6 +49,11 @@ export default function RadioButtonBild(props: RadioBildProps) {
 
   const errorComponent = error && <FieldError>{error}</FieldError>;
 
+  const imageCssClasses = classNames("mr-24 w-1/3", {
+    "max-w-[7.5rem]": !imageSize,
+    "max-w-[11.5rem]": imageSize === "large",
+  });
+
   return (
     <>
       <div
@@ -48,11 +62,7 @@ export default function RadioButtonBild(props: RadioBildProps) {
           props.className
         )}
       >
-        <img
-          src={image}
-          alt={imageAltText}
-          className="mr-24 w-1/3 max-w-[120px] max-h-[120px]"
-        />
+        <img src={image} alt={imageAltText} className={imageCssClasses} />
         {inputComponent}
         {labelComponent}
         {errorComponent}

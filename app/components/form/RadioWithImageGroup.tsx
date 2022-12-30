@@ -23,6 +23,7 @@ export type RadioWithImageGroupProps = {
     image: string;
     imageAltText: string;
   }[];
+  imageSize?: "large";
   value?: string;
   defaultValue?: string;
   error?: string;
@@ -34,6 +35,7 @@ const RadioGroupOption = (
     image: string;
     imageAltText: string;
     description?: string;
+    imageSize?: "large";
   }
 ) => {
   const radioComponent = (
@@ -43,6 +45,7 @@ const RadioGroupOption = (
       value={option.value}
       image={option.image}
       imageAltText={option.imageAltText}
+      imageSize={option.imageSize}
     >
       <Trans components={{ bold: <strong className="contents" /> }}>
         {option.label}
@@ -50,7 +53,12 @@ const RadioGroupOption = (
       {option.description && (
         <>
           <br />
-          <Trans components={{ bold: <strong className="contents" /> }}>
+          <Trans
+            components={{
+              bold: <strong className="contents" />,
+              italic: <em />,
+            }}
+          >
             {option.description}
           </Trans>
         </>
@@ -66,7 +74,7 @@ const RadioGroupOption = (
 };
 
 export default function RadioWithImageGroup(props: RadioWithImageGroupProps) {
-  const { name, label, options, value, defaultValue, error } = props;
+  const { name, label, options, value, defaultValue, error, imageSize } = props;
 
   const errorComponent = error && (
     <FieldError className="!mt-32">{error}</FieldError>
@@ -87,6 +95,7 @@ export default function RadioWithImageGroup(props: RadioWithImageGroupProps) {
               {...{
                 name,
                 checked,
+                imageSize,
                 image: option.image,
                 imageAltText: option.imageAltText,
                 value: option.value,

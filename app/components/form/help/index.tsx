@@ -10,6 +10,10 @@ import GrundbuchblattHelp from "~/components/form/help/grundstueck/Grundbuchblat
 import FlurHelp from "~/components/form/help/grundstueck/Flur";
 import EigentuemerAnzahlHelp from "~/components/form/help/eigentuemer/EigentuemerAnzahl";
 import { BodenrichtwertEingabeHelp } from "~/components/form/help/grundstueck/bodenrichtwert/BodenrichtwertEingabeHelp";
+import {
+  BodenrichtwertAnzahl1Help,
+  BodenrichtwertAnzahl2Help,
+} from "~/components/form/help/grundstueck/bodenrichtwert/BodenrichtwertAnzahlHelp";
 import SteuerIdHelp from "~/components/form/help/eigentuemer/SteuerId";
 import {
   MiteigentumAuswahlHausFalseHelp,
@@ -39,6 +43,9 @@ export const helpComponents = {
     },
     steuernummer: { steuernummer: SteuernummerHelp },
     anzahl: { anzahl: GrundstueckAnzahlHelp },
+    bodenrichtwertAnzahl: {
+      anzahl: { 1: BodenrichtwertAnzahl1Help, 2: BodenrichtwertAnzahl2Help },
+    },
     bodenrichtwertEingabe: { bodenrichtwert: BodenrichtwertEingabeHelp },
     miteigentumAuswahlHaus: {
       hasMiteigentum: {

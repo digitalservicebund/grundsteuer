@@ -177,18 +177,16 @@ describe("Boris pags", () => {
         );
         cy.contains(
           "legend",
-          "Verläuft durch Ihr Grundstück eine Bodenrichtwertgrenze?"
+          "Liegt für Ihr gesamtes Grundstück ein einheitlicher Bodenrichtwert vor?"
         );
         cy.contains(
-          "Die meisten Grundstücke liegen innerhalb einer Bodenrichtwertzone. Es kann aber vorkommen, dass sich diese überlagern. Wie verläuft die Bodenrichtwertgrenze für Ihr Grundstück? Herum oder hindurch? Vergleichen Sie dafür die Bildbeispiele."
+          "Hier geht es darum, ob alle Teile Ihres Grundstücks denselben Bodenrichtwert (in Euro) haben. Liegt das gesamte Grundstück innerhalb einer Bodenrichtwertzone oder wird es geteilt und hat dadurch unterschiedliche Werte?"
         );
         cy.get("label[for=anzahl-1]")
-          .contains(
-            "Nein, das Grundstück liegt innerhalb einer Bodenrichtwertzone"
-          )
+          .contains("Ja, mein gesamtes Grundstück hat nur einen Bodenrichtwert")
           .click();
         cy.get("label[for=anzahl-2").contains(
-          "Ja, eine Bodenrichtwertgrenze teilt das Grundstück"
+          "Nein, es liegen mehrere Bodenrichtwerte für mein Grundstück vor"
         );
         cy.get("#nextButton").click();
 

@@ -242,7 +242,7 @@ describe("Happy Path", () => {
     cy.url().should("include", "/formular/grundstueck/bodenrichtwertAnzahl");
     cy.contains(
       "legend",
-      "Verläuft durch Ihr Grundstück eine Bodenrichtwertgrenze?"
+      "Liegt für Ihr gesamtes Grundstück ein einheitlicher Bodenrichtwert vor?"
     );
     cy.get("label[for=anzahl-1]").click();
     cy.get(submitBtnSelector).click();

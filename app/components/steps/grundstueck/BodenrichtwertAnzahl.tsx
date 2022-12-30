@@ -38,6 +38,7 @@ const BodenrichtwertAnzahl: StepComponentFunction = ({
             imagesAndAltTexts,
             currentState
           )}
+          imageSize="large"
         />
       </FormGroup>
     </ContentContainer>
