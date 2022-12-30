@@ -103,6 +103,7 @@ export default function Index() {
             className="mx-auto md:ml-48 lg:ml-112 xl:ml-176"
             width={255}
             height={391}
+            loading="lazy"
           />
         </div>
 

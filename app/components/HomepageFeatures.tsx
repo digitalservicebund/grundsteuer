@@ -21,6 +21,7 @@ function HomepageFeature(props: HomepageFeatureProps) {
         className="w-full"
         width={312}
         height={182}
+        loading="lazy"
       />
       <div className="flex-grow bg-blue-300 p-32 rounded-b-md border-t-gray-800 border-t-4">
         <h2 className="text-20 leading-26 mb-24">{headline}</h2>

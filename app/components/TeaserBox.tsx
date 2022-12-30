@@ -16,6 +16,7 @@ export default function TeaserBox() {
         width={222}
         height={208}
         className="relative w-[160px] h-[150px] md:w-[200px] md:h-[187px] lg:w-[222px] lg:h-[208px] md:mr-32 lg:mr-48 mb-32 lg:mb-0 flex-shrink-0"
+        loading="lazy"
       />
       <div className="flex flex-col">
         <h2 className="text-20 leading-26 mb-24">
