@@ -68,7 +68,7 @@ export const deleteExpiredAccounts = async () => {
   try {
     const now = new Date();
     const sevenMonthsAgo = new Date(now.setMonth(now.getMonth() - 7));
-    const accountsToDelete = await db.user.findMany({
+    const accounts = await db.user.findMany({
       where: {
         OR: [
           // Declaration sent
@@ -97,6 +97,12 @@ export const deleteExpiredAccounts = async () => {
       include: {
         fscRequest: true,
       },
+    });
+
+    const accountsToDelete = accounts.filter((account) => {
+      return (
+        !account.fscRequest || account.fscRequest.createdAt < sevenMonthsAgo
+      );
     });
 
     const count = await deleteManyUsers(accountsToDelete);

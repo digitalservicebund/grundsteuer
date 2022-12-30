@@ -149,7 +149,29 @@ describe("Cron jobs", () => {
             ),
             fscRequest: {
               create: {
+                createdAt: new Date(
+                  // 7 months ago
+                  new Date().setMonth(new Date().getMonth() - 7)
+                ),
                 requestId: "oldRequestId",
+              },
+            },
+          },
+        });
+        await db.user.create({
+          data: {
+            email: "fsc-request-new@foo.com",
+            createdAt: new Date(
+              // 7 months ago
+              new Date().setMonth(new Date().getMonth() - 7)
+            ),
+            fscRequest: {
+              create: {
+                createdAt: new Date(
+                  // 4 months ago
+                  new Date().setMonth(new Date().getMonth() - 4)
+                ),
+                requestId: "requestId",
               },
             },
           },
@@ -210,25 +232,26 @@ describe("Cron jobs", () => {
                 "identified-old@foo.com",
                 "declaration-new@foo.com",
                 "declaration-old@foo.com",
+                "fsc-request-new@foo.com",
               ],
             },
           },
         });
       });
 
-      it("should delete entries over four months old", async () => {
+      it("should delete entries over seven months old", async () => {
         const beforeRows = await db.user.findMany();
-        expect(beforeRows.length).toEqual(7); // including seeded 'foo@bar.com'
+        expect(beforeRows.length).toEqual(8); // including seeded 'foo@bar.com'
 
         try {
           await deleteExpiredAccounts();
         } catch (e) {
           const afterRows = await db.user.findMany();
-          expect(afterRows.length).toEqual(7);
+          expect(afterRows.length).toEqual(8);
         }
 
         const afterRows = await db.user.findMany();
-        expect(afterRows.length).toEqual(4);
+        expect(afterRows.length).toEqual(5);
 
         const remainingEmails = afterRows.map((row) => row.email);
         const expectedEmails = [
@@ -236,6 +259,7 @@ describe("Cron jobs", () => {
           "created-new@foo.com",
           "identified-new@foo.com",
           "declaration-new@foo.com",
+          "fsc-request-new@foo.com",
         ];
         expect(remainingEmails.sort()).toEqual(expectedEmails.sort());
       });
@@ -279,6 +303,10 @@ describe("Cron jobs", () => {
             ),
             fscRequest: {
               create: {
+                createdAt: new Date(
+                  // 7 months ago
+                  new Date().setMonth(new Date().getMonth() - 7)
+                ),
                 requestId: "oldRequestId",
               },
             },
