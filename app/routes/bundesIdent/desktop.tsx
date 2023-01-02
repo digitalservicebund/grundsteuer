@@ -14,6 +14,8 @@ import anmeldenQRImage from "~/assets/images/anmelden-qr.svg";
 import anmeldenSmartphoneImage from "~/assets/images/anmelden-smartphone.png";
 import EnumeratedCard from "~/components/EnumeratedCard";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
+import { Form, useLoaderData } from "@remix-run/react";
+import ErrorBar from "~/components/ErrorBar";
 
 export const meta: MetaFunction = () => {
   return {
@@ -38,12 +40,31 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/bundesIdent");
   }
 
+  const refresh = !!new URL(request.url).searchParams.get("reload");
+  if (refresh) {
+    return {
+      showNotIdentifiedError: true,
+    };
+  }
+
   return {};
 };
 
 export default function BundesIdentIndex() {
+  const { showNotIdentifiedError } = useLoaderData();
   return (
     <>
+      <ContentContainer size="md">
+        {showNotIdentifiedError && (
+          <ErrorBar
+            heading="Identifikation nicht abgeschlossen"
+            className="mb-32"
+          >
+            Stellen Sie sicher, dass Sie die Identifikation auf dem Smartphone
+            mit der BundesIdent App abgeschlossen haben.
+          </ErrorBar>
+        )}
+      </ContentContainer>
       <ContentContainer size="sm-md">
         <Headline>
           Schnell und sicher mit der BundesIdent App auf Ihrem Smartphone
@@ -92,9 +113,12 @@ export default function BundesIdentIndex() {
       </ContentContainer>
       <ContentContainer size="lg">
         <ButtonContainer className="mt-24">
-          <Button look={"primary"} to="#">
-            Identifikation abgeschlossen & Seite neu laden
-          </Button>
+          <Form reloadDocument method="get">
+            <input name="reload" hidden readOnly value="true" />
+            <Button look={"primary"}>
+              Identifikation abgeschlossen & Seite neu laden
+            </Button>
+          </Form>
           <Button look={"secondary"} to="/identifikation">
             Zurück zu Identifikationsoptionen
           </Button>
