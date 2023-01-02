@@ -60,6 +60,7 @@ import { canEnterFsc } from "~/domain/identificationStatus";
 import FscHint from "~/components/fsc/FscHint";
 import { FscRequest } from "~/domain/fscRequest";
 import LinkWithArrow from "~/components/LinkWithArrow";
+import EnumeratedList from "~/components/EnumeratedList";
 
 type LoaderData = {
   csrfToken?: string;
@@ -394,19 +395,55 @@ export default function FscEingeben() {
       <ContentContainer size="sm-md">
         <BreadcrumbNavigation />
         <UebersichtStep imageSrc={letterImg} smallImageSrc={letterImgSmall}>
-          <Headline>Ihr Freischaltcode wurde beantragt</Headline>
-          <Hint type="status">
-            Ihr Freischaltcode wurde am {antragDate}. beantragt. Ihr Brief kommt
-            voraussichtlich bis zum {letterArrivalDate} an.
-          </Hint>
-          <IntroText>
-            Sie erhalten Ihren Freischaltcode voraussichtlich in den nächsten 3
-            Wochen per Post. Sie können jetzt die Grundsteuererklärung ausfüllen
-            und zu einem späteren Zeitpunkt den Freischaltcode eingeben.
-          </IntroText>
-          <Button to="/formular" className="min-w-[18rem]">
-            Weiter zum Formular
-          </Button>
+          <ContentContainer size="sm">
+            <Headline>Ihr Freischaltcode wurde beantragt</Headline>
+            <Hint type="status">
+              Ihr Freischaltcode wurde am {antragDate}. beantragt. Ihr Brief
+              kommt voraussichtlich bis zum {letterArrivalDate} an.
+            </Hint>
+            <IntroText>
+              Sie erhalten Ihren Freischaltcode voraussichtlich in den nächsten
+              3 Wochen per Post. Sie können jetzt die Grundsteuererklärung
+              ausfüllen und zu einem späteren Zeitpunkt den Freischaltcode
+              eingeben.
+            </IntroText>
+            <Button to="/formular" className="min-w-[18rem]">
+              Weiter zum Formular
+            </Button>
+          </ContentContainer>
+
+          <div className="fsc-alternatives">
+            <h2 className="mt-80 mb-16 text-24">
+              Alternative zum Freischaltcode
+            </h2>
+            <EnumeratedList
+              gap="48"
+              items={[
+                <div>
+                  <p className="mb-8">
+                    <strong>Elster-Zertifikat:</strong> Vielleicht haben Sie
+                    doch ein Elsterzertifikat? Personen mit einem ELSTER Konto
+                    erhalten in der Regel keinen Brief mit einem Freischaltcode.
+                    Nutzen Sie Ihre ELSTER Zugangsdaten, um sich zu
+                    identifizieren.
+                  </p>
+                  <LinkWithArrow href="/ekona">
+                    Zur Identifikation mit ELSTER Zugang
+                  </LinkWithArrow>
+                </div>,
+                <div>
+                  <p className="mb-8">
+                    <strong>Ausweis und Smartphone:</strong> Sie haben außerdem
+                    die Möglichkeit sich mit Ihrem Ausweis auf dem Smartphone zu
+                    identifizieren.
+                  </p>
+                  <LinkWithArrow href="/bundesIdent">
+                    Zur Identifikation mit Personalausweis
+                  </LinkWithArrow>
+                </div>,
+              ]}
+            />
+          </div>
         </UebersichtStep>
       </ContentContainer>
     );

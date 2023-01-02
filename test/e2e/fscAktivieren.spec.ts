@@ -170,6 +170,20 @@ describe("/eingeben", () => {
       cy.get("[name=freischaltCode]").should("not.exist");
     });
 
+    it("should display alternatives duriing the first 24 hours", () => {
+      createFscRequest(new Date());
+
+      cy.visit("/fsc/eingeben");
+
+      cy.contains("h2", "Alternative zum Freischaltcode");
+      cy.contains(".fsc-alternatives a", "ELSTER")
+        .should("have.attr", "href")
+        .should("contain", "/ekona");
+      cy.contains(".fsc-alternatives a", "Personalausweis")
+        .should("have.attr", "href")
+        .should("contain", "/bundesIdent");
+    });
+
     it("should display remainig days on valid request", () => {
       const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
       createFscRequest(yesterday);
