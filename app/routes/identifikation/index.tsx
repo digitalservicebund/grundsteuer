@@ -8,6 +8,7 @@ import {
 import ident1 from "~/assets/images/ident-1.png";
 import ident2 from "~/assets/images/ident-2.png";
 import ident3 from "~/assets/images/ident-3.png";
+import identBundesIdentDesktop from "~/assets/images/ident-bundes-ident-desktop.png";
 import { ReactNode } from "react";
 import classNames from "classnames";
 import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
@@ -26,6 +27,7 @@ import { flags } from "~/flags.server";
 import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 import TeaserIdentCard from "~/components/TeaserIdentCard";
 import { canEnterFsc } from "~/domain/identificationStatus";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation mit Ausweis") };
@@ -60,12 +62,19 @@ export const loader: LoaderFunction = async ({ request }) => {
     ekonaDown: flags.isEkonaDown(),
     ericaDown: flags.isEricaDown(),
     bundesIdentDown: flags.isBundesIdentDown(),
+    showTestFeatures: testFeaturesEnabled(),
   };
 };
 
 export default function IdentifikationIndex() {
-  const { useUseid, isMobile, ekonaDown, ericaDown, bundesIdentDown } =
-    useLoaderData();
+  const {
+    useUseid,
+    isMobile,
+    ekonaDown,
+    ericaDown,
+    bundesIdentDown,
+    showTestFeatures,
+  } = useLoaderData();
   return (
     <>
       <ContentContainer size="sm-md">
@@ -117,6 +126,22 @@ export default function IdentifikationIndex() {
             buttonLabel="Identifikation mit Ausweis"
             buttonDisabled={bundesIdentDown}
             url="/bundesIdent/voraussetzung"
+            className="mb-16"
+          />
+        )}
+        {showTestFeatures && useUseid && !isMobile && (
+          <IdentCard
+            image={identBundesIdentDesktop}
+            imageAltText="Bildbeispiel App, Ausweis und Pin"
+            icon={<EdgeSensorHigh className="mr-4" />}
+            betaTag={true}
+            optionCount={3}
+            heading="Identifikation mit Ihrem Ausweis über Ihr Smartphone"
+            subheading="Empfohlen für digitalaffine Nutzer:innen."
+            text="Identifizieren Sie sich in wenigen Minuten mit der Online-Ausweisfunktion Ihres Ausweises und der BundesIdent App."
+            buttonLabel="Identifikation mit Ausweis"
+            buttonDisabled={bundesIdentDown}
+            url="/bundesIdent/desktop"
             className="mb-16"
           />
         )}
@@ -202,11 +227,21 @@ function IdentCard(props: {
         className="hidden lg:flex mr-24 md:w-[300px] w-full"
       />
       <div className="flex flex-col">
-        <ContentContainer size="sm">
-          <dl>
-            <div className="flex flex-row mt-16 md:mt-0">
-              <dt className="mb-8 font-bold text-18">{props.heading}</dt>
-            </div>
+        <dl>
+          <div className="flex flex-row mt-16 md:mt-0 justify-between">
+            <dt className="mb-8 font-bold text-18">{props.heading}</dt>
+            {props.betaTag && (
+              <SectionLabel
+                backgroundColor="yellow"
+                icon={<Bolt className="mr-4" />}
+                className="h-[36px] hidden md:flex ml-8 float-right"
+              >
+                Beta-Status
+              </SectionLabel>
+            )}
+          </div>
+
+          <ContentContainer size="sm">
             <div className="flex flex-row mt-8 lg:mt-0">
               <dd className="w-full md:w-fit">
                 {props.subheading && (
@@ -225,8 +260,8 @@ function IdentCard(props: {
                 </Button>
               </dd>
             </div>
-          </dl>
-        </ContentContainer>
+          </ContentContainer>
+        </dl>
       </div>
     </div>
   );
