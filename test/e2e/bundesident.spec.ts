@@ -25,14 +25,14 @@ describe("Identifikation option", () => {
     cy.contains("dt", "Identifikation mit Ihrem Ausweis");
   });
 
-  it("should not show bundesIdent option on desktop", () => {
+  it("should show bundesIdent desktop option on desktop", () => {
     cy.login();
     cy.visit("/identifikation", {
       headers: {
         "user-agent": desktopUserAgent,
       },
     });
-    cy.contains("dt", "Identifikation mit Ihrem Ausweis").should("not.exist");
+    cy.contains("dt", "Identifikation mit Ihrem Ausweis über Ihr Smartphone");
   });
 });
 
