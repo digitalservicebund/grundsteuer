@@ -179,6 +179,20 @@ export default function Anmelden() {
         </div>
         <div className="mb-56 text-18">
           <p className="mb-8">
+            Keine Adresse funktioniert? In unserem Hilfebereich finden Sie einen
+            Artikel mit Lösungsvorschlägen.
+          </p>
+          <a
+            href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/34/210"
+            className="underline text-blue-800 font-bold"
+            target="_blank"
+          >
+            Zum Hilfebereich
+          </a>
+        </div>
+
+        <div className="mb-192 text-18">
+          <p className="mb-8">
             Hier können Sie die Registrierung für ein neues Nutzerkonto starten.
           </p>
           <a
@@ -187,21 +201,6 @@ export default function Anmelden() {
           >
             Neues Konto erstellen
           </a>
-        </div>
-
-        <div className="mb-192 text-18">
-          {/* no article yet
-          <p className="mb-8">
-            Keine Adresse funktioniert? In unserem Hilfebereich finden Sie einen
-            Artikel mit Lösungsvorschlägen.
-          </p>
-          <a
-            href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/"
-            className="underline text-blue-800 font-bold"
-            target="_blank"
-          >
-            Zum Hilfebereich
-          </a> */}
         </div>
       </ContentContainer>
     </ContentContainer>
