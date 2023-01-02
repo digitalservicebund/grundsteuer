@@ -110,7 +110,7 @@
     "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.191",
     "@types/morgan": "^1.9.3",
-    "@types/node": "^18.11.17",
+    "@types/node": "^18.11.18",
     "@types/node-cron": "^3.0.7",
     "@types/nunjucks": "^3.2.1",
     "@types/react": "^18.0.9",
