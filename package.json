@@ -117,7 +117,7 @@
     "@types/react-dom": "^18.0.3",
     "@types/uuid": "^9.0.0",
     "@types/validator": "^13.7.10",
-    "@typescript-eslint/eslint-plugin": "^5.47.0",
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
     "copy-env-cli": "^1.0.0",
     "cypress": "^12.2.0",
