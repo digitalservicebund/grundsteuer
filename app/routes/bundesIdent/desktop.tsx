@@ -16,6 +16,8 @@ import EnumeratedCard from "~/components/EnumeratedCard";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { Form, useLoaderData } from "@remix-run/react";
 import ErrorBar from "~/components/ErrorBar";
+import { findUserByEmail, User } from "~/domain/user";
+import invariant from "tiny-invariant";
 
 export const meta: MetaFunction = () => {
   return {
@@ -26,16 +28,23 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const user = await authenticator.isAuthenticated(request, {
+  const sessionUser = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
 
   if (!testFeaturesEnabled()) {
     throw new Response("Not found", { status: 404 });
   }
-  if (user.identified) {
+
+  const dbUser: User | null = await findUserByEmail(sessionUser.email);
+  invariant(
+    dbUser,
+    "expected a matching user in the database from a user in a cookie session"
+  );
+  if (dbUser.identified) {
     return redirect("/identifikation/erfolgreich");
   }
+
   if (isMobileUserAgent(request)) {
     return redirect("/bundesIdent");
   }
