@@ -421,8 +421,8 @@ export default function FscEingeben() {
               items={[
                 <div>
                   <p className="mb-8">
-                    <strong>Elster-Zertifikat:</strong> Vielleicht haben Sie
-                    doch ein Elsterzertifikat? Personen mit einem ELSTER Konto
+                    <strong>ELSTER-Zertifikat:</strong> Vielleicht haben Sie
+                    doch ein ELSTER-Zertifikat? Personen mit einem ELSTER Konto
                     erhalten in der Regel keinen Brief mit einem Freischaltcode.
                     Nutzen Sie Ihre ELSTER Zugangsdaten, um sich zu
                     identifizieren.
