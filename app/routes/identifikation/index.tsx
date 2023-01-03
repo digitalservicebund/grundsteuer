@@ -234,7 +234,7 @@ function IdentCard(props: {
               <SectionLabel
                 backgroundColor="yellow"
                 icon={<Bolt className="mr-4" />}
-                className="h-[36px] hidden md:flex ml-8 float-right"
+                className="h-[36px] hidden md:flex ml-8 float-right whitespace-nowrap"
               >
                 Beta-Status
               </SectionLabel>
