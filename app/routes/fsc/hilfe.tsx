@@ -5,7 +5,7 @@ import {
   ContentContainer,
   Headline,
 } from "~/components";
-import { json, LoaderFunction } from "@remix-run/node";
+import { json, LoaderFunction, redirect } from "@remix-run/node";
 import { authenticator } from "~/auth.server";
 import { findUserByEmail } from "~/domain/user";
 import invariant from "tiny-invariant";
@@ -13,6 +13,7 @@ import { FscRequest } from "~/domain/fscRequest";
 import FscLetterHint from "~/components/fsc/FscLetterHint";
 import LinkWithArrow from "~/components/LinkWithArrow";
 import EnumeratedList from "~/components/EnumeratedList";
+import { canEnterFsc } from "~/domain/identificationStatus";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
@@ -23,6 +24,10 @@ export const loader: LoaderFunction = async ({ request }) => {
     dbUser,
     "expected a matching user in the database from a user in a cookie session"
   );
+
+  if (!canEnterFsc(dbUser)) {
+    return redirect("/fsc/beantragen");
+  }
 
   return json({
     ...new FscRequest(dbUser.fscRequest!).getAntragStatus(),
