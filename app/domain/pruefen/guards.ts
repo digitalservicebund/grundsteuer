@@ -53,6 +53,22 @@ const isBewohnbar: PruefenCondition = (context) => {
   return context?.bewohnbar?.bewohnbar == "bewohnbar";
 };
 
+const isEligibleGebaeudeArtBewohnbar: PruefenCondition = (context) => {
+  const eligibleGebaeudeArten = [
+    "einfamilienhaus",
+    "zweifamilienhaus",
+    "eigentumswohnung",
+  ];
+  return !!(
+    context?.gebaeudeArtBewohnbar?.gebaeude &&
+    eligibleGebaeudeArten.includes(context.gebaeudeArtBewohnbar.gebaeude)
+  );
+};
+
+const isLufGebaeudeArtBewohnbar: PruefenCondition = (context) => {
+  return context?.gebaeudeArtBewohnbar?.gebaeude == "hof";
+};
+
 const isEligibleGrundstueckArt: PruefenCondition = (context) => {
   const eligibleGrundstueckArten = [
     "einfamilienhaus",
@@ -88,6 +104,8 @@ export const pruefenConditions: PruefenConditions = {
   isBundesmodelBundesland,
   showTestFeaturesAndBundesmodel,
   isBewohnbar,
+  isEligibleGebaeudeArtBewohnbar,
+  isLufGebaeudeArtBewohnbar,
   isEligibleGrundstueckArt,
   isNotAusland,
   isNotFremderBoden,

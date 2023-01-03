@@ -153,8 +153,9 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
       },
     },
   },
-  nutzung: infoStep,
+  lufSpezial: infoStep,
   keineNutzung: infoStep,
+  nutzung: infoStep,
 };
 
 export const getPruefenStepDefinition = ({

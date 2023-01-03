@@ -72,19 +72,38 @@ describe("states", () => {
         expectedPath: ["start", "eigentuemerTyp", "bundesland", "keineNutzung"],
       },
       {
-        description: "with invalid grundstueckArt",
+        description: "with special LuF gebaeudeArtBewohnbar",
         context: pruefenModelFactory
           .abgeber({ abgeber: "eigentuemer" })
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
-          .grundstueckArt({ grundstueckArt: "landUndForst" })
+          .bewohnbar({ bewohnbar: "bewohnbar" })
+          .gebaeudeArtBewohnbar({ gebaeude: "hof" })
           .build(),
         expectedPath: [
           "start",
           "eigentuemerTyp",
           "bundesland",
           "bewohnbar",
-          "ausland",
+          "gebaeudeArtBewohnbar",
+          "lufSpezial",
+        ],
+      },
+      {
+        description: "with invalid gebaeudeArtBewohnbar",
+        context: pruefenModelFactory
+          .abgeber({ abgeber: "eigentuemer" })
+          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
+          .bundesland({ bundesland: "BE" })
+          .bewohnbar({ bewohnbar: "bewohnbar" })
+          .gebaeudeArtBewohnbar({ gebaeude: "mehrfamilienhaus" })
+          .build(),
+        expectedPath: [
+          "start",
+          "eigentuemerTyp",
+          "bundesland",
+          "bewohnbar",
+          "gebaeudeArtBewohnbar",
           "keineNutzung",
         ],
       },
@@ -175,6 +194,7 @@ describe("states", () => {
         context: pruefenModelFactory
           .full()
           .bewohnbar({ bewohnbar: "bewohnbar" })
+          .gebaeudeArtBewohnbar({ gebaeude: "einfamilienhaus" })
           .build(),
         expectedPath: [
           "start",

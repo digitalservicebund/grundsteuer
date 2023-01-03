@@ -378,6 +378,9 @@
         }
       }
     },
+    "lufSpezial": {
+      "headline": "Zwei Erklärungen bitte"
+    },
     "keineNutzung": {
       "headline": "Tut uns leid, Sie können unseren Online-Dienst leider nicht nutzen",
       "specifics": {
