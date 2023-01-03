@@ -38,6 +38,15 @@ export type BewohnbarFields = {
   bewohnbar: "bewohnbar" | "nichtBewohnbar" | "unbebaut";
 };
 
+export type GebaeudeArtBewohnbarFields = {
+  gebaeude:
+    | "einfamilienhaus"
+    | "zweifamilienhaus"
+    | "eigentumswohnung"
+    | "hof"
+    | "mehrfamilienhaus";
+};
+
 export type GrundstueckArtFields = {
   grundstueckArt:
     | "einfamilienhaus"
@@ -66,6 +75,7 @@ export type PruefenModel = {
   eigentuemerTyp?: EigentuemerTypFields;
   bundesland?: BundeslandFields;
   bewohnbar?: BewohnbarFields;
+  gebaeudeArtBewohnbar?: GebaeudeArtBewohnbarFields;
   grundstueckArt?: GrundstueckArtFields;
   ausland?: AuslandFields;
   fremderBoden?: FremderBodenFields;

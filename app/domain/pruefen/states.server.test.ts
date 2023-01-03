@@ -168,27 +168,57 @@ describe("states", () => {
       { ...pruefenStates, initial: "nutzung" },
       "NEXT"
     );
-    const context = pruefenModelFactory.full().build();
-    const expectedPath = [
-      "start",
-      "eigentuemerTyp",
-      "bundesland",
-      "bewohnbar",
-      "ausland",
-      "fremderBoden",
-      "beguenstigung",
-      "nutzung",
+
+    const cases = [
+      {
+        description: "bewohnbar",
+        context: pruefenModelFactory
+          .full()
+          .bewohnbar({ bewohnbar: "bewohnbar" })
+          .build(),
+        expectedPath: [
+          "start",
+          "eigentuemerTyp",
+          "bundesland",
+          "bewohnbar",
+          "gebaeudeArtBewohnbar",
+          "ausland",
+          "fremderBoden",
+          "beguenstigung",
+          "nutzung",
+        ],
+      },
+      {
+        description: "not bewohnbar",
+        context: pruefenModelFactory.full().build(),
+        expectedPath: [
+          "start",
+          "eigentuemerTyp",
+          "bundesland",
+          "bewohnbar",
+          "ausland",
+          "fremderBoden",
+          "beguenstigung",
+          "nutzung",
+        ],
+      },
     ];
 
-    test("next next next with full data", () => {
-      const path = getPath(statesForForwardTraversal, context);
-      expect(path).toEqual(expectedPath);
-    });
+    test.each(cases)(
+      "next, next, next $description",
+      ({ context, expectedPath }) => {
+        const path = getPath(statesForForwardTraversal, context);
+        expect(path).toEqual(expectedPath);
+      }
+    );
 
-    test("back back back with full data", () => {
-      const path = getPath(statesForReverseTraversal, context);
-      expectedPath.reverse();
-      expect(path).toEqual(expectedPath);
-    });
+    test.each(cases)(
+      "back, back, back $description",
+      ({ context, expectedPath }) => {
+        const path = getPath(statesForReverseTraversal, context);
+        expectedPath.reverse();
+        expect(path).toEqual(expectedPath);
+      }
+    );
   });
 });

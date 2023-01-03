@@ -80,6 +80,23 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
       },
     },
   },
+  gebaeudeArtBewohnbar: {
+    fields: {
+      gebaeude: {
+        type: "radio",
+        options: [
+          { value: "einfamilienhaus" },
+          { value: "zweifamilienhaus" },
+          { value: "eigentumswohnung" },
+          { value: "hof" },
+          { value: "mehrfamilienhaus" },
+        ],
+        validations: {
+          required: { msg: "Bitte treffen Sie eine Auswahl" },
+        },
+      },
+    },
+  },
   grundstueckArt: {
     fields: {
       grundstueckArt: {

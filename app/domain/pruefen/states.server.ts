@@ -46,6 +46,15 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
     bewohnbar: {
       on: {
         BACK: { target: "bundesland" },
+        NEXT: [
+          { target: "gebaeudeArtBewohnbar", cond: "isBewohnbar" },
+          { target: "ausland" },
+        ],
+      },
+    },
+    gebaeudeArtBewohnbar: {
+      on: {
+        BACK: { target: "bewohnbar" },
         NEXT: [{ target: "ausland" }],
       },
     },
@@ -61,6 +70,7 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
     ausland: {
       on: {
         BACK: [
+          { target: "gebaeudeArtBewohnbar", cond: "isBewohnbar" },
           { target: "bewohnbar", cond: "showTestFeaturesAndBundesmodel" },
           { target: "grundstueckArt" },
         ],

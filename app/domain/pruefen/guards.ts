@@ -49,6 +49,10 @@ const showTestFeaturesAndBundesmodel: PruefenCondition = (context) => {
   return testFeaturesEnabled() && isBundesmodelBundesland(context);
 };
 
+const isBewohnbar: PruefenCondition = (context) => {
+  return context?.bewohnbar?.bewohnbar == "bewohnbar";
+};
+
 const isEligibleGrundstueckArt: PruefenCondition = (context) => {
   const eligibleGrundstueckArten = [
     "einfamilienhaus",
@@ -83,6 +87,7 @@ export const pruefenConditions: PruefenConditions = {
   isEigentuemer,
   isBundesmodelBundesland,
   showTestFeaturesAndBundesmodel,
+  isBewohnbar,
   isEligibleGrundstueckArt,
   isNotAusland,
   isNotFremderBoden,

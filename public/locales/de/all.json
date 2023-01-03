@@ -268,6 +268,30 @@
         }
       }
     },
+    "gebaeudeArtBewohnbar": {
+      "headline": "Gebäudeart Bewohnbar?",
+      "fields": {
+        "gebaeude": {
+          "options": {
+            "einfamilienhaus": {
+              "label": "Einfamilienhaus"
+            },
+            "zweifamilienhaus": {
+              "label": "Zweifamilienhaus"
+            },
+            "eigentumswohnung": {
+              "label": "Eigentumswohnung"
+            },
+            "hof": {
+              "label": "Hofstelle"
+            },
+            "mehrfamilienhaus": {
+              "label": "Mehrfamilienhaus"
+            }
+          }
+        }
+      }
+    },
     "grundstueckArt": {
       "headline": "Um welche Art Grundstück handelt es sich?",
       "fields": {

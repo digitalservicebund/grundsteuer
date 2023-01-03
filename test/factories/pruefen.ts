@@ -3,6 +3,7 @@ import {
   AbgeberFields,
   AuslandFields,
   BeguenstigungFields,
+  BewohnbarFields,
   BundeslandFields,
   EigentuemerTypFields,
   FremderBodenFields,
@@ -32,6 +33,14 @@ class PruefenFactory extends Factory<PruefenMachineContext> {
     return this.params({
       bundesland: {
         bundesland: fields?.bundesland,
+      },
+    });
+  }
+
+  bewohnbar(fields?: Partial<BewohnbarFields>) {
+    return this.params({
+      bewohnbar: {
+        bewohnbar: fields?.bewohnbar,
       },
     });
   }
