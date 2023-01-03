@@ -8,6 +8,7 @@ import {
   EigentuemerTypFields,
   FremderBodenFields,
   GebaeudeArtBewohnbarFields,
+  GebaeudeArtUnbewohnbarFields,
   GrundstueckArtFields,
 } from "~/domain/pruefen/model";
 import { PruefenMachineContext } from "~/domain/pruefen/states.server";
@@ -49,6 +50,14 @@ class PruefenFactory extends Factory<PruefenMachineContext> {
   gebaeudeArtBewohnbar(fields?: Partial<GebaeudeArtBewohnbarFields>) {
     return this.params({
       gebaeudeArtBewohnbar: {
+        gebaeude: fields?.gebaeude,
+      },
+    });
+  }
+
+  gebaeudeArtUnbewohnbar(fields?: Partial<GebaeudeArtUnbewohnbarFields>) {
+    return this.params({
+      gebaeudeArtUnbewohnbar: {
         gebaeude: fields?.gebaeude,
       },
     });

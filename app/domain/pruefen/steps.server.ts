@@ -97,6 +97,25 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
       },
     },
   },
+  gebaeudeArtUnbewohnbar: {
+    fields: {
+      gebaeude: {
+        type: "radio",
+        options: [
+          { value: "garage" },
+          { value: "imBau" },
+          { value: "verfallen" },
+          { value: "wochenendhaus" },
+          { value: "geschaeft" },
+          { value: "luf" },
+          { value: "other" },
+        ],
+        validations: {
+          required: { msg: "Bitte treffen Sie eine Auswahl" },
+        },
+      },
+    },
+  },
   grundstueckArt: {
     fields: {
       grundstueckArt: {

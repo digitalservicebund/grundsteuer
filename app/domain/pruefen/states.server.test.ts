@@ -108,6 +108,25 @@ describe("states", () => {
         ],
       },
       {
+        description: "with invalid gebaeudeArtUnbewohnbar",
+        context: pruefenModelFactory
+          .abgeber({ abgeber: "eigentuemer" })
+          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
+          .bundesland({ bundesland: "BE" })
+          .bewohnbar({ bewohnbar: "bewohnbar" })
+          .gebaeudeArtBewohnbar({ gebaeude: "mehrfamilienhaus" })
+          .gebaeudeArtUnbewohnbar({ gebaeude: "garage" })
+          .build(),
+        expectedPath: [
+          "start",
+          "eigentuemerTyp",
+          "bundesland",
+          "bewohnbar",
+          "gebaeudeArtBewohnbar",
+          "keineNutzung",
+        ],
+      },
+      {
         description: "with living abroad",
         context: pruefenModelFactory
           .abgeber({ abgeber: "eigentuemer" })
@@ -202,6 +221,25 @@ describe("states", () => {
           "bundesland",
           "bewohnbar",
           "gebaeudeArtBewohnbar",
+          "ausland",
+          "fremderBoden",
+          "beguenstigung",
+          "nutzung",
+        ],
+      },
+      {
+        description: "unbewohnbar",
+        context: pruefenModelFactory
+          .full()
+          .bewohnbar({ bewohnbar: "unbewohnbar" })
+          .gebaeudeArtUnbewohnbar({ gebaeude: "imBau" })
+          .build(),
+        expectedPath: [
+          "start",
+          "eigentuemerTyp",
+          "bundesland",
+          "bewohnbar",
+          "gebaeudeArtUnbewohnbar",
           "ausland",
           "fremderBoden",
           "beguenstigung",

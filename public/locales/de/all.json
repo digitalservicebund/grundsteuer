@@ -292,6 +292,36 @@
         }
       }
     },
+    "gebaeudeArtUnbewohnbar": {
+      "headline": "Gebäudeart Unbewohnbar?",
+      "fields": {
+        "gebaeude": {
+          "options": {
+            "garage": {
+              "label": "Garage"
+            },
+            "imBau": {
+              "label": "Im Bau"
+            },
+            "verfallen": {
+              "label": "Verfallen"
+            },
+            "wochenendhaus": {
+              "label": "Wochenendhaus"
+            },
+            "geschaeft": {
+              "label": "Geschäft"
+            },
+            "luf": {
+              "label": "LuF"
+            },
+            "other": {
+              "label": "Sonstiges"
+            }
+          }
+        }
+      }
+    },
     "grundstueckArt": {
       "headline": "Um welche Art Grundstück handelt es sich?",
       "fields": {

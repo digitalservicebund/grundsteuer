@@ -47,6 +47,17 @@ export type GebaeudeArtBewohnbarFields = {
     | "mehrfamilienhaus";
 };
 
+export type GebaeudeArtUnbewohnbarFields = {
+  gebaeude:
+    | "garage"
+    | "imBau"
+    | "verfallen"
+    | "wochenendhaus"
+    | "geschaeft"
+    | "luf"
+    | "other";
+};
+
 export type GrundstueckArtFields = {
   grundstueckArt:
     | "einfamilienhaus"
@@ -76,6 +87,7 @@ export type PruefenModel = {
   bundesland?: BundeslandFields;
   bewohnbar?: BewohnbarFields;
   gebaeudeArtBewohnbar?: GebaeudeArtBewohnbarFields;
+  gebaeudeArtUnbewohnbar?: GebaeudeArtUnbewohnbarFields;
   grundstueckArt?: GrundstueckArtFields;
   ausland?: AuslandFields;
   fremderBoden?: FremderBodenFields;

@@ -48,6 +48,7 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
         BACK: { target: "bundesland" },
         NEXT: [
           { target: "gebaeudeArtBewohnbar", cond: "isBewohnbar" },
+          { target: "gebaeudeArtUnbewohnbar", cond: "isUnbewohnbar" },
           { target: "ausland" },
         ],
       },
@@ -58,6 +59,15 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
         NEXT: [
           { target: "ausland", cond: "isEligibleGebaeudeArtBewohnbar" },
           { target: "lufSpezial", cond: "isLufGebaeudeArtBewohnbar" },
+          { target: "keineNutzung" },
+        ],
+      },
+    },
+    gebaeudeArtUnbewohnbar: {
+      on: {
+        BACK: { target: "bewohnbar" },
+        NEXT: [
+          { target: "ausland", cond: "isEligibleGebaeudeArtUnbewohnbar" },
           { target: "keineNutzung" },
         ],
       },
@@ -75,6 +85,7 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
       on: {
         BACK: [
           { target: "gebaeudeArtBewohnbar", cond: "isBewohnbar" },
+          { target: "gebaeudeArtUnbewohnbar", cond: "isUnbewohnbar" },
           { target: "bewohnbar", cond: "showTestFeaturesAndBundesmodel" },
           { target: "grundstueckArt" },
         ],
