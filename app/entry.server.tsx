@@ -13,7 +13,14 @@ Sentry.init({
   dsn: process.env.SENTRY_DSN,
   environment: process.env.APP_ENV,
   release: process.env.APP_VERSION,
-  integrations: [new Sentry.Integrations.Prisma({ client: db })],
+  integrations: function (integrations) {
+    // Do not send request data to sentry
+    return integrations
+      .filter((integration) => {
+        return integration.name !== "RequestData";
+      })
+      .concat(new Sentry.Integrations.Prisma({ client: db }));
+  },
 });
 
 export default async function handleRequest(
