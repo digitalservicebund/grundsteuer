@@ -71,7 +71,7 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
         type: "radio",
         options: [
           { value: "bewohnbar" },
-          { value: "nichtBewohnbar" },
+          { value: "unbewohnbar" },
           { value: "unbebaut" },
         ],
         validations: {

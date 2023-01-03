@@ -35,7 +35,7 @@ export type BundeslandFields = {
 };
 
 export type BewohnbarFields = {
-  bewohnbar: "bewohnbar" | "nichtBewohnbar" | "unbebaut";
+  bewohnbar: "bewohnbar" | "unbewohnbar" | "unbebaut";
 };
 
 export type GebaeudeArtBewohnbarFields = {

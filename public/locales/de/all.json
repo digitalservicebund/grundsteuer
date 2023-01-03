@@ -258,7 +258,7 @@
             "bewohnbar": {
               "label": "Bewohnbar"
             },
-            "nichtBewohnbar": {
+            "unbewohnbar": {
               "label": "Nicht bewohnbar"
             },
             "unbebaut": {
