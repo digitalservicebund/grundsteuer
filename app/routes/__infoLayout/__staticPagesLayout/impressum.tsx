@@ -65,8 +65,8 @@ export default function Impressum() {
         <Hint>
           Bei Fragen zu unserem Online-Dienst können Sie uns gerne per{" "}
           <span className="whitespace-nowrap">E-Mail</span> kontaktieren. Leider
-          können wir keine Auskunft zu steuerlichen Anliegen geben. Haben Sie
-          eine Frage zu Ihrem Sachverhalt? In unserem{" "}
+          sind wir nicht befugt, im Einzelfall rechtsberatend tätig zu sein. In
+          unserem{" "}
           <a
             href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de"
             rel="noopener"
@@ -74,7 +74,8 @@ export default function Impressum() {
           >
             <strong>Hilfebereich</strong>
           </a>{" "}
-          haben wir viele Themen und Lösungen zusammengetragen.
+          haben wir viele Themen und Lösungen zur Grundsteuer und Nutzung
+          unseres Dienstes zusammengetragen.
         </Hint>
         <h3>Informationspflichten gemäß Art. 14 ODR-VO, § 36 VSBG</h3>
         <p>
