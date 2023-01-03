@@ -62,6 +62,20 @@ export default function Impressum() {
             hilfe@grundsteuererklaerung-fuer-privateigentum.de
           </a>
         </p>
+        <Hint className="hyph">
+          Bei Fragen zu unserem Online-Dienst können Sie uns gerne per{" "}
+          <span className="whitespace-nowrap">E-Mail</span> kontaktieren. Leider
+          können wir keine Auskunft zu steuerlichen Anliegen geben. Haben Sie
+          eine Frage zu Ihrem Sachverhalt? In unserem{" "}
+          <a
+            href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de"
+            rel="noopener"
+            target="_blank"
+          >
+            <strong>Hilfebereich</strong>
+          </a>{" "}
+          haben wir viele Themen und Lösungen zusammengetragen.
+        </Hint>
         <h3>Informationspflichten gemäß Art. 14 ODR-VO, § 36 VSBG</h3>
         <p>
           Die Europäische Kommission stellt eine Plattform zur
