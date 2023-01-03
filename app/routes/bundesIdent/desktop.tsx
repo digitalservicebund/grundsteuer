@@ -13,7 +13,6 @@ import Hint from "~/components/Hint";
 import anmeldenQRImage from "~/assets/images/anmelden-qr.svg";
 import anmeldenSmartphoneImage from "~/assets/images/anmelden-smartphone.png";
 import EnumeratedCard from "~/components/EnumeratedCard";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { Form, useLoaderData } from "@remix-run/react";
 import ErrorBar from "~/components/ErrorBar";
 import { findUserByEmail, User } from "~/domain/user";
@@ -31,10 +30,6 @@ export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
-
-  if (!testFeaturesEnabled()) {
-    throw new Response("Not found", { status: 404 });
-  }
 
   const dbUser: User | null = await findUserByEmail(sessionUser.email);
   invariant(

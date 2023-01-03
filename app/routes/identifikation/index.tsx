@@ -27,7 +27,6 @@ import { flags } from "~/flags.server";
 import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 import TeaserIdentCard from "~/components/TeaserIdentCard";
 import { canEnterFsc } from "~/domain/identificationStatus";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation mit Ausweis") };
@@ -62,19 +61,12 @@ export const loader: LoaderFunction = async ({ request }) => {
     ekonaDown: flags.isEkonaDown(),
     ericaDown: flags.isEricaDown(),
     bundesIdentDown: flags.isBundesIdentDown(),
-    showTestFeatures: testFeaturesEnabled(),
   };
 };
 
 export default function IdentifikationIndex() {
-  const {
-    useUseid,
-    isMobile,
-    ekonaDown,
-    ericaDown,
-    bundesIdentDown,
-    showTestFeatures,
-  } = useLoaderData();
+  const { useUseid, isMobile, ekonaDown, ericaDown, bundesIdentDown } =
+    useLoaderData();
   return (
     <>
       <ContentContainer size="sm-md">
@@ -129,7 +121,7 @@ export default function IdentifikationIndex() {
             className="mb-16"
           />
         )}
-        {showTestFeatures && useUseid && !isMobile && (
+        {useUseid && !isMobile && (
           <IdentCard
             image={identBundesIdentDesktop}
             imageAltText="Bildbeispiel App, Ausweis und Pin"
