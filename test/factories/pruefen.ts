@@ -8,6 +8,7 @@ import {
   EigentuemerTypFields,
   FremderBodenFields,
   GebaeudeArtBewohnbarFields,
+  GebaeudeArtUnbebautFields,
   GebaeudeArtUnbewohnbarFields,
   GrundstueckArtFields,
 } from "~/domain/pruefen/model";
@@ -63,10 +64,10 @@ class PruefenFactory extends Factory<PruefenMachineContext> {
     });
   }
 
-  grundstueckArt(fields?: Partial<GrundstueckArtFields>) {
+  gebaeudeArtUnbebaut(fields?: Partial<GebaeudeArtUnbebautFields>) {
     return this.params({
-      grundstueckArt: {
-        grundstueckArt: fields?.grundstueckArt,
+      gebaeudeArtUnbebaut: {
+        art: fields?.art,
       },
     });
   }
@@ -100,7 +101,8 @@ class PruefenFactory extends Factory<PruefenMachineContext> {
       this.abgeber({ abgeber: "eigentuemer" })
         .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
         .bundesland({ bundesland: "BB" })
-        .grundstueckArt({ grundstueckArt: "zweifamilienhaus" })
+        .bewohnbar({ bewohnbar: "unbebaut" })
+        .gebaeudeArtUnbebaut({ art: "baureif" })
         .ausland({ ausland: "false" })
         .fremderBoden({ fremderBoden: "false" })
         .beguenstigung({ beguenstigung: "false" })

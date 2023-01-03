@@ -116,6 +116,24 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
       },
     },
   },
+  gebaeudeArtUnbebaut: {
+    fields: {
+      art: {
+        type: "radio",
+        options: [
+          { value: "baureif" },
+          { value: "acker" },
+          { value: "wald" },
+          { value: "garten" },
+          { value: "moor" },
+          { value: "other" },
+        ],
+        validations: {
+          required: { msg: "Bitte treffen Sie eine Auswahl" },
+        },
+      },
+    },
+  },
   grundstueckArt: {
     fields: {
       grundstueckArt: {

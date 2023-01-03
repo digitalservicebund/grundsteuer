@@ -77,6 +77,10 @@ const isEligibleGebaeudeArtUnbewohnbar: PruefenCondition = (context) => {
   );
 };
 
+const isEligibleGebaeudeArtUnbebaut: PruefenCondition = (context) => {
+  return context?.gebaeudeArtUnbebaut?.art == "baureif";
+};
+
 const isLufGebaeudeArtBewohnbar: PruefenCondition = (context) => {
   return context?.gebaeudeArtBewohnbar?.gebaeude == "hof";
 };
@@ -119,6 +123,7 @@ export const pruefenConditions: PruefenConditions = {
   isUnbewohnbar,
   isEligibleGebaeudeArtBewohnbar,
   isEligibleGebaeudeArtUnbewohnbar,
+  isEligibleGebaeudeArtUnbebaut,
   isLufGebaeudeArtBewohnbar,
   isEligibleGrundstueckArt,
   isNotAusland,

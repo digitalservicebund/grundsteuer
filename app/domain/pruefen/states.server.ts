@@ -49,7 +49,7 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
         NEXT: [
           { target: "gebaeudeArtBewohnbar", cond: "isBewohnbar" },
           { target: "gebaeudeArtUnbewohnbar", cond: "isUnbewohnbar" },
-          { target: "ausland" },
+          { target: "gebaeudeArtUnbebaut" },
         ],
       },
     },
@@ -72,6 +72,15 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
         ],
       },
     },
+    gebaeudeArtUnbebaut: {
+      on: {
+        BACK: { target: "bewohnbar" },
+        NEXT: [
+          { target: "ausland", cond: "isEligibleGebaeudeArtUnbebaut" },
+          { target: "keineNutzung" },
+        ],
+      },
+    },
     grundstueckArt: {
       on: {
         BACK: { target: "bundesland" },
@@ -86,7 +95,10 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
         BACK: [
           { target: "gebaeudeArtBewohnbar", cond: "isBewohnbar" },
           { target: "gebaeudeArtUnbewohnbar", cond: "isUnbewohnbar" },
-          { target: "bewohnbar", cond: "showTestFeaturesAndBundesmodel" },
+          {
+            target: "gebaeudeArtUnbebaut",
+            cond: "showTestFeaturesAndBundesmodel",
+          },
           { target: "grundstueckArt" },
         ],
         NEXT: [

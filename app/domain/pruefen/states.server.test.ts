@@ -113,8 +113,7 @@ describe("states", () => {
           .abgeber({ abgeber: "eigentuemer" })
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
-          .bewohnbar({ bewohnbar: "bewohnbar" })
-          .gebaeudeArtBewohnbar({ gebaeude: "mehrfamilienhaus" })
+          .bewohnbar({ bewohnbar: "unbewohnbar" })
           .gebaeudeArtUnbewohnbar({ gebaeude: "garage" })
           .build(),
         expectedPath: [
@@ -122,7 +121,25 @@ describe("states", () => {
           "eigentuemerTyp",
           "bundesland",
           "bewohnbar",
-          "gebaeudeArtBewohnbar",
+          "gebaeudeArtUnbewohnbar",
+          "keineNutzung",
+        ],
+      },
+      {
+        description: "with invalid gebaeudeArtUnbebaut",
+        context: pruefenModelFactory
+          .abgeber({ abgeber: "eigentuemer" })
+          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
+          .bundesland({ bundesland: "BE" })
+          .bewohnbar({ bewohnbar: "unbebaut" })
+          .gebaeudeArtUnbebaut({ art: "moor" })
+          .build(),
+        expectedPath: [
+          "start",
+          "eigentuemerTyp",
+          "bundesland",
+          "bewohnbar",
+          "gebaeudeArtUnbebaut",
           "keineNutzung",
         ],
       },
@@ -132,7 +149,8 @@ describe("states", () => {
           .abgeber({ abgeber: "eigentuemer" })
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
-          .grundstueckArt({ grundstueckArt: "unbebaut" })
+          .bewohnbar({ bewohnbar: "bewohnbar" })
+          .gebaeudeArtBewohnbar({ gebaeude: "einfamilienhaus" })
           .ausland({ ausland: "true" })
           .build(),
         expectedPath: [
@@ -140,6 +158,7 @@ describe("states", () => {
           "eigentuemerTyp",
           "bundesland",
           "bewohnbar",
+          "gebaeudeArtBewohnbar",
           "ausland",
           "keineNutzung",
         ],
@@ -150,7 +169,8 @@ describe("states", () => {
           .abgeber({ abgeber: "eigentuemer" })
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
-          .grundstueckArt({ grundstueckArt: "unbebaut" })
+          .bewohnbar({ bewohnbar: "bewohnbar" })
+          .gebaeudeArtBewohnbar({ gebaeude: "einfamilienhaus" })
           .ausland({ ausland: "false" })
           .fremderBoden({ fremderBoden: "true" })
           .build(),
@@ -159,6 +179,7 @@ describe("states", () => {
           "eigentuemerTyp",
           "bundesland",
           "bewohnbar",
+          "gebaeudeArtBewohnbar",
           "ausland",
           "fremderBoden",
           "keineNutzung",
@@ -170,7 +191,8 @@ describe("states", () => {
           .abgeber({ abgeber: "eigentuemer" })
           .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
-          .grundstueckArt({ grundstueckArt: "unbebaut" })
+          .bewohnbar({ bewohnbar: "bewohnbar" })
+          .gebaeudeArtBewohnbar({ gebaeude: "einfamilienhaus" })
           .ausland({ ausland: "false" })
           .fremderBoden({ fremderBoden: "false" })
           .beguenstigung({ beguenstigung: "true" })
@@ -180,6 +202,7 @@ describe("states", () => {
           "eigentuemerTyp",
           "bundesland",
           "bewohnbar",
+          "gebaeudeArtBewohnbar",
           "ausland",
           "fremderBoden",
           "beguenstigung",
@@ -247,13 +270,14 @@ describe("states", () => {
         ],
       },
       {
-        description: "not bewohnbar",
+        description: "unbebaut",
         context: pruefenModelFactory.full().build(),
         expectedPath: [
           "start",
           "eigentuemerTyp",
           "bundesland",
           "bewohnbar",
+          "gebaeudeArtUnbebaut",
           "ausland",
           "fremderBoden",
           "beguenstigung",

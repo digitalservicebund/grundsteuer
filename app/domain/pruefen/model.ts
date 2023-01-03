@@ -58,6 +58,10 @@ export type GebaeudeArtUnbewohnbarFields = {
     | "other";
 };
 
+export type GebaeudeArtUnbebautFields = {
+  art: "baureif" | "acker" | "wald" | "garten" | "moor" | "other";
+};
+
 export type GrundstueckArtFields = {
   grundstueckArt:
     | "einfamilienhaus"
@@ -88,6 +92,7 @@ export type PruefenModel = {
   bewohnbar?: BewohnbarFields;
   gebaeudeArtBewohnbar?: GebaeudeArtBewohnbarFields;
   gebaeudeArtUnbewohnbar?: GebaeudeArtUnbewohnbarFields;
+  gebaeudeArtUnbebaut?: GebaeudeArtUnbebautFields;
   grundstueckArt?: GrundstueckArtFields;
   ausland?: AuslandFields;
   fremderBoden?: FremderBodenFields;

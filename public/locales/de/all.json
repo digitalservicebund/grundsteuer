@@ -322,6 +322,33 @@
         }
       }
     },
+    "gebaeudeArtUnbebaut": {
+      "headline": "Gebäudeart Unbebaut?",
+      "fields": {
+        "art": {
+          "options": {
+            "baureif": {
+              "label": "Baureif"
+            },
+            "acker": {
+              "label": "Acker"
+            },
+            "wald": {
+              "label": "Wald"
+            },
+            "garten": {
+              "label": "Garten"
+            },
+            "moor": {
+              "label": "Moor"
+            },
+            "other": {
+              "label": "Sonstiges"
+            }
+          }
+        }
+      }
+    },
     "grundstueckArt": {
       "headline": "Um welche Art Grundstück handelt es sich?",
       "fields": {
