@@ -38,7 +38,7 @@ export default function BundesIdentVoraussetzung() {
         </li>
         <span className="block ml-[-24px] mb-8">oder</span>
         <li>
-          Sie haben noch Ihren PIN-Brief. <br /> Den PIN-Brief haben Sie nach
+          Sie haben noch Ihren PIN‑Brief. <br /> Den PIN‑Brief haben Sie nach
           der Beantragung des Ausweises per Post erhalten.
         </li>
       </ul>

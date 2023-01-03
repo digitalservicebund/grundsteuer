@@ -80,7 +80,7 @@ export default function BundesIdentIndex() {
           identifizieren
         </Headline>
 
-        <Hint>Nur für digitalaffine Nutzerinnen ud Nutzer empfohlen.</Hint>
+        <Hint>Nur für digitalaffine Nutzerinnen und Nutzer empfohlen.</Hint>
 
         <IntroText>
           In Ihrem Ausweis befindet sich ein Chip, der mithilfe der BundesIdent
@@ -91,8 +91,8 @@ export default function BundesIdentIndex() {
         <h2 className="font-bold text-18 leading-26">Sie benötigen</h2>
         <ul className="list-disc pl-24 mb-32 text-18 leading-26">
           <li>
-            Entweder Ihre 6-stellige persönliche Ausweis-PIN oder Ihren
-            PIN-Brief. Den PIN-Brief haben Sie nach der Beantragung des
+            Entweder Ihre 6-stellige persönliche Ausweis‑PIN oder Ihren
+            PIN‑Brief. Den PIN‑Brief haben Sie nach der Beantragung des
             Ausweises per Post erhalten.
           </li>
           <li>
@@ -109,14 +109,14 @@ export default function BundesIdentIndex() {
           imageAltText="QR-Code um zu folgender URL zu gelangen: www.grundsteuererklaerung-fuer-privateigentum.de/anmelden"
           number="1"
           heading="Wechseln Sie zu Grundsteuer auf Ihrem Smartphone"
-          text="Öffnen Sie Grundsteuererklärung für Privateigentum auf Ihrem Smartphone um die Bearbeitung fortzusetzen: www.grundsteuererklaerung-fuer-privateigentum.de/anmelden. Alternativ können Sie auch den QR-Code scannen."
+          text="Öffnen Sie Grundsteuererklärung für Privateigentum auf Ihrem Smartphone, um die Bearbeitung fortzusetzen: www.grundsteuererklaerung-fuer-privateigentum.de/anmelden. Alternativ können Sie auch den QR-Code scannen."
           className="mb-16"
         />
         <EnumeratedCard
           image={anmeldenSmartphoneImage}
           imageAltText="Bildbeispiel für Anmeldung auf dem Smartphone"
           number="2"
-          heading="Melden Sie sich auf dem Smartphone an, wählen Sie erneut »Ausweis« als Option"
+          heading="Melden Sie sich auf dem Smartphone an, wählen Sie erneut »Identifikation mit Ausweis« als Option"
           text="Nutzen Sie für die Anmeldunng dieselbe E-Mail-Adresse, mit der Sie sich registriert haben. Wählen Sie wieder die Identifikationsoption »Identifikation mit Ihrem Ausweis über Ihr Smartphone« und folgen Sie den weiteren Hinweisen."
         />
       </ContentContainer>
