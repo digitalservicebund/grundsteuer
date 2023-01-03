@@ -62,7 +62,7 @@ export default function Impressum() {
             hilfe@grundsteuererklaerung-fuer-privateigentum.de
           </a>
         </p>
-        <Hint className="hyph">
+        <Hint>
           Bei Fragen zu unserem Online-Dienst können Sie uns gerne per{" "}
           <span className="whitespace-nowrap">E-Mail</span> kontaktieren. Leider
           können wir keine Auskunft zu steuerlichen Anliegen geben. Haben Sie
