@@ -1,4 +1,5 @@
 import { PruefenMachineContext } from "~/domain/pruefen/states.server";
+import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export type PruefenCondition = (
   context: PruefenMachineContext | undefined
@@ -44,6 +45,10 @@ const isBundesmodelBundesland: PruefenCondition = (context) => {
   );
 };
 
+const showTestFeaturesAndBundesmodel: PruefenCondition = (context) => {
+  return testFeaturesEnabled() && isBundesmodelBundesland(context);
+};
+
 const isEligibleGrundstueckArt: PruefenCondition = (context) => {
   const eligibleGrundstueckArten = [
     "einfamilienhaus",
@@ -77,6 +82,7 @@ export const pruefenConditions: PruefenConditions = {
   isPrivatperson,
   isEigentuemer,
   isBundesmodelBundesland,
+  showTestFeaturesAndBundesmodel,
   isEligibleGrundstueckArt,
   isNotAusland,
   isNotFremderBoden,

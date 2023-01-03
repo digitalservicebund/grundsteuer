@@ -250,6 +250,24 @@
         }
       }
     },
+    "bewohnbar": {
+      "headline": "Bewohnbar?",
+      "fields": {
+        "bewohnbar": {
+          "options": {
+            "bewohnbar": {
+              "label": "Bewohnbar"
+            },
+            "nichtBewohnbar": {
+              "label": "Nicht bewohnbar"
+            },
+            "unbebaut": {
+              "label": "Unbebaut"
+            }
+          }
+        }
+      }
+    },
     "grundstueckArt": {
       "headline": "Um welche Art Grundstück handelt es sich?",
       "fields": {

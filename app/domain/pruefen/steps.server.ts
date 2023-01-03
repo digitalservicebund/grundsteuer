@@ -65,6 +65,21 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
       },
     },
   },
+  bewohnbar: {
+    fields: {
+      bewohnbar: {
+        type: "radio",
+        options: [
+          { value: "bewohnbar" },
+          { value: "nichtBewohnbar" },
+          { value: "unbebaut" },
+        ],
+        validations: {
+          required: { msg: "Bitte treffen Sie eine Auswahl" },
+        },
+      },
+    },
+  },
   grundstueckArt: {
     fields: {
       grundstueckArt: {

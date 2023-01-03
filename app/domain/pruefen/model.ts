@@ -34,6 +34,10 @@ export type BundeslandFields = {
     | "TH";
 };
 
+export type BewohnbarFields = {
+  bewohnbar: "bewohnbar" | "nichtBewohnbar" | "unbebaut";
+};
+
 export type GrundstueckArtFields = {
   grundstueckArt:
     | "einfamilienhaus"
@@ -61,6 +65,7 @@ export type PruefenModel = {
   start?: AbgeberFields;
   eigentuemerTyp?: EigentuemerTypFields;
   bundesland?: BundeslandFields;
+  bewohnbar?: BewohnbarFields;
   grundstueckArt?: GrundstueckArtFields;
   ausland?: AuslandFields;
   fremderBoden?: FremderBodenFields;

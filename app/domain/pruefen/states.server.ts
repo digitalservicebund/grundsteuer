@@ -37,9 +37,16 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
       on: {
         BACK: { target: "eigentuemerTyp" },
         NEXT: [
+          { target: "bewohnbar", cond: "showTestFeaturesAndBundesmodel" },
           { target: "grundstueckArt", cond: "isBundesmodelBundesland" },
           { target: "keineNutzung" },
         ],
+      },
+    },
+    bewohnbar: {
+      on: {
+        BACK: { target: "bundesland" },
+        NEXT: [{ target: "ausland" }],
       },
     },
     grundstueckArt: {
@@ -53,7 +60,10 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
     },
     ausland: {
       on: {
-        BACK: { target: "grundstueckArt" },
+        BACK: [
+          { target: "bewohnbar", cond: "showTestFeaturesAndBundesmodel" },
+          { target: "grundstueckArt" },
+        ],
         NEXT: [
           { target: "fremderBoden", cond: "isNotAusland" },
           { target: "keineNutzung" },
