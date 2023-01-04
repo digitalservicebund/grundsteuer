@@ -664,6 +664,24 @@ describe("getEricaErrorMessagesFromResponse", () => {
     expect(result).toEqual(validationErrors);
   });
 
+  it("should return validation errors with aktenzeichen message if ERIC_GLOBAL_PRUEF_FEHLER and aktenzeichen", () => {
+    const validationErrors = [
+      "Grundsteuer, we have a problem with our Aktenzeichen.",
+      "Feld '$/Vorsatz[1]/Aktenzeichen[1]$': Sie haben ein ungültiges Aktenzeichen angegeben.",
+      "Actually, three.",
+    ];
+    const result = getEricaErrorMessagesFromResponse({
+      errorType: "ERIC_GLOBAL_PRUEF_FEHLER",
+      errorMessage: "some Error",
+      validationErrors,
+    });
+    expect(result).toEqual([
+      "Grundsteuer, we have a problem with our Aktenzeichen.",
+      "Das Aktenzeichen Ihres Grundstücks scheint nicht gültig zu sein. Bitte prüfen Sie Ihre Angaben unter Grundstück > Aktenzeichen / Steuernummer.",
+      "Actually, three.",
+    ]);
+  });
+
   it("should return general error message if ERIC_GLOBAL_PRUEF_FEHLER but no validation errors", () => {
     const result = getEricaErrorMessagesFromResponse({
       errorType: "ERIC_GLOBAL_PRUEF_FEHLER",

@@ -90,7 +90,20 @@ export const getEricaErrorMessagesFromResponse = (
   errorResponse: EricaError
 ): string[] => {
   if (errorResponse.errorType == "ERIC_GLOBAL_PRUEF_FEHLER") {
-    return errorResponse.validationErrors || ["Bitte prüfen Sie Ihre Angaben."];
+    const parsedValidationErrors = errorResponse.validationErrors?.map(
+      (error) => {
+        if (
+          error.includes(
+            "Feld '$/Vorsatz[1]/Aktenzeichen[1]$': Sie haben ein ungültiges Aktenzeichen angegeben."
+          )
+        ) {
+          return "Das Aktenzeichen Ihres Grundstücks scheint nicht gültig zu sein. Bitte prüfen Sie Ihre Angaben unter Grundstück > Aktenzeichen / Steuernummer.";
+        } else {
+          return error;
+        }
+      }
+    );
+    return parsedValidationErrors || ["Bitte prüfen Sie Ihre Angaben."];
   }
   if (
     [
