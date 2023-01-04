@@ -73,6 +73,55 @@ describe("bundesIdent flow", () => {
   });
 });
 
+describe("bundesIdent desktop flow", () => {
+  before(() => {
+    cy.task("dbResetUser", "foo@bar.com");
+  });
+
+  beforeEach(() => {
+    cy.task("setUserUnidentified", {
+      email: "foo@bar.com",
+    });
+  });
+
+  it("should go to correct pages on desktop if user not identified in process", () => {
+    cy.login();
+    cy.visit("/identifikation", {
+      headers: {
+        "user-agent": desktopUserAgent,
+      },
+    });
+    cy.contains("a", "Identifikation mit Ausweis").click();
+    cy.contains("h1", "auf Ihrem Smartphone identifizieren");
+    cy.url().should("include", "/bundesIdent/desktop");
+
+    cy.contains("button", "Identifikation abgeschlossen").click();
+
+    cy.contains("h1", "auf Ihrem Smartphone identifizieren");
+    cy.url().should("include", "/bundesIdent/desktop");
+    cy.contains("Identifikation nicht abgeschlossen");
+  });
+
+  it("should go to correct pages on desktop if user identified in process", () => {
+    cy.login();
+    cy.visit("/identifikation", {
+      headers: {
+        "user-agent": desktopUserAgent,
+      },
+    });
+    cy.contains("a", "Identifikation mit Ausweis").click();
+    cy.contains("h1", "auf Ihrem Smartphone identifizieren");
+    cy.url().should("include", "/bundesIdent/desktop");
+
+    cy.task("setUserIdentified", {
+      email: "foo@bar.com",
+    });
+    cy.contains("button", "Identifikation abgeschlossen").click();
+
+    cy.url().should("include", "/identifikation/erfolgreich");
+  });
+});
+
 describe("with kill switch enabled", () => {
   before(() => {
     cy.task("dbResetUser", "foo@bar.com");
