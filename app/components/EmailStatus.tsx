@@ -72,7 +72,7 @@ const statusAdvice = (status: UiStatus) => {
   return {
     request: null,
     deferred:
-      "Zur Spam-Vermeidung hat Ihr E-Mail-Server unsere E-Mail temporär zurückgestellt. Wir versuchen die Zustellung gleich noch einmal.",
+      "Zur Spam-Vermeidung hat Ihr E-Mail-Server unsere E-Mail temporär zurückgestellt. Bitte haben Sie Geduld, die Zustellung verzögert sich dadurch um einige Minuten.",
     delivered:
       "Bitte schauen Sie in Ihr E-Mail-Postfach und klicken Sie auf den Anmeldelink in der E-Mail. Damit werden Sie angemeldet. Bitte schauen Sie in ihrem Spam-Ordner nach, falls sie die E-Mail mit den Anmeldelink nicht finden können.",
     address_problem:
