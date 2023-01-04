@@ -1,41 +1,88 @@
 /// <reference types="../../cypress/support" />
 const submitBtnSelector = "#nextButton";
 
-describe("Happy Path", () => {
-  it("Enter full path until success", () => {
-    cy.visit("/");
-    cy.contains("a", "Grundsteuererklärung starten").click();
+const goThroughFirstSteps = () => {
+  cy.visit("/");
+  cy.contains("a", "Grundsteuererklärung starten").click();
 
-    cy.url().should("include", "/pruefen/start");
-    cy.contains(
-      "h1",
-      "Prüfen Sie in wenigen Schritten, ob Sie unseren Online-Dienst nutzen können."
-    );
-    cy.get(`label[for=abgeber-eigentuemer]`).click();
+  cy.url().should("include", "/pruefen/start");
+  cy.contains(
+    "h1",
+    "Prüfen Sie in wenigen Schritten, ob Sie unseren Online-Dienst nutzen können."
+  );
+  cy.get(`label[for=abgeber-eigentuemer]`).click();
+  cy.get(submitBtnSelector).click();
+
+  cy.get(`label[for=eigentuemerTyp-privatperson]`).click();
+  cy.get(submitBtnSelector).click();
+
+  cy.get("#bundesland").select("BB");
+  cy.get(submitBtnSelector).click();
+};
+
+const goThroughLastSteps = () => {
+  cy.get(`label[for=ausland-false]`).click();
+  cy.get(submitBtnSelector).click();
+
+  cy.get(`label[for=fremderBoden-false]`).click();
+  cy.get(submitBtnSelector).click();
+
+  cy.get(`label[for=beguenstigung-false]`).click();
+  cy.get(submitBtnSelector).click();
+
+  cy.contains(
+    "h1",
+    "Sie können diesen Online-Dienst für Ihre Grundsteuererklärung nutzen."
+  );
+};
+
+describe("Happy Paths", () => {
+  it("Enter full path bewohnbar until success", () => {
+    goThroughFirstSteps();
+
+    cy.get(`label[for=bewohnbar-bewohnbar]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.get(`label[for=eigentuemerTyp-privatperson]`).click();
+    cy.get(`label[for=gebaeude-einfamilienhaus]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.get("#bundesland").select("BB");
+    goThroughLastSteps();
+  });
+
+  it("Enter full path unbewohnbar until success", () => {
+    goThroughFirstSteps();
+
+    cy.get(`label[for=bewohnbar-unbewohnbar]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.get(`label[for=grundstueckArt-einfamilienhaus]`).click();
+    cy.get(`label[for=gebaeude-imBau]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.get(`label[for=ausland-false]`).click();
+    goThroughLastSteps();
+  });
+
+  it("Enter full path unbebaut until success", () => {
+    goThroughFirstSteps();
+
+    cy.get(`label[for=bewohnbar-unbebaut]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.get(`label[for=fremderBoden-false]`).click();
+    cy.get(`label[for=art-baureif]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.get(`label[for=beguenstigung-false]`).click();
+    goThroughLastSteps();
+  });
+
+  it("Enter full path unbebaut until lufSpezial", () => {
+    goThroughFirstSteps();
+
+    cy.get(`label[for=bewohnbar-bewohnbar]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.contains(
-      "h1",
-      "Sie können diesen Online-Dienst für Ihre Grundsteuererklärung nutzen."
-    );
+    cy.get(`label[for=gebaeude-hof]`).click();
+    cy.get(submitBtnSelector).click();
+
+    cy.contains("h1", "Zwei Erklärungen bitte");
   });
 });
 
