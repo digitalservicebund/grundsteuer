@@ -1567,19 +1567,16 @@
     },
     "bodenrichtwertAnzahl": {
       "default": {
-        "headline": "Liegt für Ihr gesamtes Grundstück ein einheitlicher Bodenrichtwert vor?",
+        "headline": "Liegt Ihr gesamtes Grundstück innerhalb einer Bodenrichtwertzone?",
         "description": "Hier geht es darum, ob alle Teile Ihres Grundstücks denselben Bodenrichtwert (in Euro) haben. Liegt das gesamte Grundstück innerhalb einer Bodenrichtwertzone oder wird es geteilt und hat dadurch unterschiedliche Werte?",
         "fields": {
           "anzahl": {
             "options": {
               "1": {
-                "label": "Ja, mein gesamtes Grundstück hat nur einen Bodenrichtwert",
-                "help": "Wenn ihr Grundstück innerhalb einer Bodenrichtwertzone liegt, wählen Sie dieses Feld aus."
+                "label": "Ja, mein gesamtes Grundstück liegt innerhalb einer Bodenrichtwertzone"
               },
               "2": {
-                "label": "Nein, es liegen mehrere Bodenrichtwerte für mein Grundstück vor",
-                "description": "<italic>(Nicht Art der Nutzung)</italic>",
-                "help": "Die meisten Grundstücke haben nur einen Bodenrichtwert. Es kann jedoch vorkommen, dass sich Bodenrichtwertzonen flächenmäßig überlagern. In Ausnahmefällen kann ein Flurstück auch anteilig mehreren Bodenrichtwertzonen zugeordnet werden."
+                "label": "Nein, mein Grundstück liegt in verschiedenen Bodenrichtwertzonen"
               }
             }
           }

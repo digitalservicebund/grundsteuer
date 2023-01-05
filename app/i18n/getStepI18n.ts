@@ -27,7 +27,7 @@ export type I18nObject = {
     [index: string]: I18nObjectField;
   };
   specifics: Record<string, string>;
-  help: Record<string, string>;
+  help?: Record<string, string>;
   nextButtonLabel: string;
   common: Record<string, string>;
 };

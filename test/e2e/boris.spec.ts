@@ -177,16 +177,18 @@ describe("Boris pags", () => {
         );
         cy.contains(
           "legend",
-          "Liegt für Ihr gesamtes Grundstück ein einheitlicher Bodenrichtwert vor?"
+          "Liegt Ihr gesamtes Grundstück innerhalb einer Bodenrichtwertzone?"
         );
         cy.contains(
           "Hier geht es darum, ob alle Teile Ihres Grundstücks denselben Bodenrichtwert (in Euro) haben. Liegt das gesamte Grundstück innerhalb einer Bodenrichtwertzone oder wird es geteilt und hat dadurch unterschiedliche Werte?"
         );
         cy.get("label[for=anzahl-1]")
-          .contains("Ja, mein gesamtes Grundstück hat nur einen Bodenrichtwert")
+          .contains(
+            "Ja, mein gesamtes Grundstück liegt innerhalb einer Bodenrichtwertzone"
+          )
           .click();
         cy.get("label[for=anzahl-2").contains(
-          "Nein, es liegen mehrere Bodenrichtwerte für mein Grundstück vor"
+          "Nein, mein Grundstück liegt in verschiedenen Bodenrichtwertzonen"
         );
         cy.get("#nextButton").click();
 

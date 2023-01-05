@@ -59,8 +59,7 @@ const BEEingabeHelp: HelpComponentFunction = () => {
         {
           type: "image",
           source: mehrereWerte,
-          altText:
-            "Bildbeispiel für eine Bodenrichtwertzone mit mehreren Werten",
+          altText: "Bildbeispiel für verschiedene Arten der Nutzung",
         },
       ]}
     />
@@ -90,8 +89,7 @@ const HBEingabeHelp: HelpComponentFunction = () => {
         {
           type: "image",
           source: mehrereWerte,
-          altText:
-            "Bildbeispiel für eine Bodenrichtwertzone mit mehreren Werten",
+          altText: "Bildbeispiel für verschiedene Arten der Nutzung",
         },
       ]}
     />
@@ -181,8 +179,7 @@ const SHEingabeHelp: HelpComponentFunction = () => {
         {
           type: "image",
           source: mehrereWerte,
-          altText:
-            "Bildbeispiel für eine Bodenrichtwertzone mit mehreren Werten",
+          altText: "Bildbeispiel für verschiedene Arten der Nutzung",
         },
       ]}
     />
@@ -232,8 +229,7 @@ const SNEingabeHelp: HelpComponentFunction = () => {
         {
           type: "image",
           source: mehrereWerte,
-          altText:
-            "Bildbeispiel für eine Bodenrichtwertzone mit mehreren Werten",
+          altText: "Bildbeispiel für verschiedene Arten der Nutzung",
         },
       ]}
     />
@@ -283,8 +279,7 @@ const THEingabeHelp: HelpComponentFunction = () => {
         {
           type: "image",
           source: mehrereWerte,
-          altText:
-            "Bildbeispiel für eine Bodenrichtwertzone mit mehreren Werten",
+          altText: "Bildbeispiel für verschiedene Arten der Nutzung",
         },
       ]}
     />
@@ -303,8 +298,7 @@ const DefaultEingabeHelp: HelpComponentFunction = () => {
         {
           type: "image",
           source: mehrereWerte,
-          altText:
-            "Bildbeispiel für eine Bodenrichtwertzone mit mehreren Werten",
+          altText: "Bildbeispiel für verschiedene Arten der Nutzung",
         },
       ]}
     />

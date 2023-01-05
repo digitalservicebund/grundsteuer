@@ -1,9 +1,7 @@
 import DefaultHelpContent, {
   HelpComponentFunction,
 } from "~/components/form/help/Default";
-import image11 from "~/assets/images/help/help-bodenrichtwert-anzahl-1-1.png";
-import image12 from "~/assets/images/help/help-bodenrichtwert-anzahl-1-2.png";
-import image21 from "~/assets/images/help/help-bodenrichtwert-anzahl-2-1.png";
+import image from "~/assets/images/help/boris/eingabe-mehrere-werte.png";
 
 export const BodenrichtwertAnzahl1Help: HelpComponentFunction = () => {
   return (
@@ -15,19 +13,14 @@ export const BodenrichtwertAnzahl1Help: HelpComponentFunction = () => {
             "Wenn alle Teile Ihres Grundstücks einen Bodenrichtwert haben, wählen Sie diese Option aus.",
         },
         {
-          type: "image",
-          source: image11,
-          altText: "",
-        },
-        {
           type: "paragraph",
           value:
-            "Manche Bodenrichtwertportale bieten verschiedene „Arten der Nutzung“ an. Zum Beispiel Mehrfamilienhaus, Gewerbefläche oder Freizeitfläche). Bestimmen Sie die entsprechende Art der Nutzung für Ihr Grundstück. Diese entspricht nur einem Bodenrichtwert.",
+            "Manche Bodenrichtwertportale bieten verschiedene “Art der Nutzung” an. Zum Beispiel Mehrfamilienhaus, Gewerbefläche oder Freizeitfläche. Bestimmen Sie die entsprechende Art der Nutzung, die auf Ihr Grundstück zutrifft. Wenn Ihr Grundstück mehrere Arten der Nutzung hat, vermerken Sie dies im Freitextfeld am Ende der Formularseiten.",
         },
         {
           type: "image",
-          source: image12,
-          altText: "",
+          source: image,
+          altText: "Bildbeispiel für verschiedene Arten der Nutzung",
         },
       ]}
     />
@@ -40,22 +33,18 @@ export const BodenrichtwertAnzahl2Help: HelpComponentFunction = () => {
         {
           type: "paragraph",
           value:
-            "Wenn Ihr Grundstück zwei oder mehr verschiedene Bodenrichtwerte hat, wählen Sie diese Option aus.",
-        },
-        {
-          type: "image",
-          source: image21,
-          altText: "",
+            "Wenn Ihr Grundstück zwei oder mehrere verschiedene Bodenrichtwerte hat, wählen Sie diese Option aus. Dies ist der Fall, wenn durch alle Flurstücke, die zu einem Grundstück gehören, eine Bodenrichtwertgrenze verläuft.",
         },
         {
           type: "paragraph",
           value:
-            "Manche Bodenrichtwertportale bieten verschiedene „Arten der Nutzung“ an. Zum Beispiel Mehrfamilienhaus, Gewerbefläche oder Freizeitfläche). Bestimmen Sie die entsprechende Art der Nutzung für Ihr Grundstück. Diese entspricht nur einem Bodenrichtwert.",
+            "Manche Bodenrichtwertportale bieten verschiedene “Art der Nutzung” an. Zum Beispiel Mehrfamilienhaus, Gewerbefläche oder Freizeitfläche. Bestimmen Sie die entsprechende Art der Nutzung, die auf Ihr Grundstück zutrifft.\n" +
+            "Wenn Ihr Grundstück mehrere Arten der Nutzung hat, vermerken Sie dies im Freitextfeld am Ende der Formularseiten.",
         },
         {
           type: "image",
-          source: image12,
-          altText: "",
+          source: image,
+          altText: "Bildbeispiel für verschiedene Arten der Nutzung",
         },
       ]}
     />
