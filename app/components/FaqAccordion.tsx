@@ -1,6 +1,6 @@
 import Accordion from "~/components/Accordion";
 
-export default function FaqAccordion() {
+export default function FaqAccordion(props: { pruefenPath: string }) {
   const items = [
     {
       header: "Wie kann ich mich auf die Abgabe der Erklärung vorbereiten?",
@@ -513,7 +513,7 @@ export default function FaqAccordion() {
           </ul>
           <p>
             Überprüfen Sie unter “
-            <a href="/pruefen/start" className="underline text-blue-800">
+            <a href={props.pruefenPath} className="underline text-blue-800">
               Nutzung prüfen
             </a>
             ”, ob unser Online-Dienst für Sie in Frage kommt.
@@ -564,7 +564,7 @@ export default function FaqAccordion() {
               ELSTER
             </a>
             . Überprüfen Sie unter “
-            <a href="/pruefen/start" className="underline text-blue-800">
+            <a href={props.pruefenPath} className="underline text-blue-800">
               Nutzung prüfen
             </a>
             ”, ob unser Online-Dienst für Sie in Frage kommt.

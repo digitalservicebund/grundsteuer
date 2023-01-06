@@ -1,4 +1,4 @@
-import { MetaFunction } from "@remix-run/node";
+import { LoaderFunction, MetaFunction } from "@remix-run/node";
 import {
   BreadcrumbNavigation,
   Button,
@@ -7,6 +7,8 @@ import {
   IntroText,
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
+import { useLoaderData } from "@remix-run/react";
+import { PRUEFEN_START_PATH } from "~/routes/__infoLayout/pruefen/_pruefenPath.server";
 
 export const meta: MetaFunction = () => {
   return {
@@ -15,7 +17,12 @@ export const meta: MetaFunction = () => {
   };
 };
 
+export const loader: LoaderFunction = async () => {
+  return { pruefenPath: PRUEFEN_START_PATH };
+};
+
 export default function PruefenNachfrage() {
+  const { pruefenPath } = useLoaderData();
   return (
     <ContentContainer>
       <BreadcrumbNavigation />
@@ -33,7 +40,7 @@ export default function PruefenNachfrage() {
           Ja, mit der Registrierung eines neuen Kontos fortfahren
         </IntroText>
 
-        <Button to="/pruefen/start?continue=1" className="mb-48">
+        <Button to={pruefenPath + "?continue=1"} className="mb-48">
           Neues Konto erstellen
         </Button>
 

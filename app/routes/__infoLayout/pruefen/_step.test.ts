@@ -3,6 +3,7 @@ import * as csrfModule from "~/util/csrf";
 import * as modelModule from "~/domain/model";
 import { action, getMachine } from "./_step";
 import { saveToPruefenStateCookie } from "~/storage/pruefenCookie.server";
+import { PRUEFEN_START_PATH } from "~/routes/__infoLayout/pruefen/_pruefenPath.server";
 
 describe("_step action", () => {
   beforeEach(async () => {
@@ -26,7 +27,7 @@ describe("_step action", () => {
     const result = await action(args);
 
     expect(result.status).toEqual(302);
-    expect(result.headers.get("location")).toEqual("/pruefen/start");
+    expect(result.headers.get("location")).toEqual(PRUEFEN_START_PATH);
   });
 
   describe("With state in cookie", () => {

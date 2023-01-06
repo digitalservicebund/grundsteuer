@@ -15,6 +15,7 @@ import { json, LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { getSession } from "~/session.server";
 import { rememberCookieExists } from "~/storage/rememberLogin.server";
+import { PRUEFEN_START_PATH } from "~/routes/__infoLayout/pruefen/_pruefenPath.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const cookieHeader = request.headers.get("Cookie");
@@ -23,11 +24,12 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json({
     userIsLoggedIn: !!session.get("user"),
     userWasLoggedIn: await rememberCookieExists({ cookieHeader }),
+    pruefenPath: PRUEFEN_START_PATH,
   });
 };
 
 export default function Index() {
-  const { userIsLoggedIn, userWasLoggedIn } = useLoaderData();
+  const { userIsLoggedIn, userWasLoggedIn, pruefenPath } = useLoaderData();
   const { t } = useTranslation("all");
 
   return (
@@ -49,6 +51,7 @@ export default function Index() {
             <HomepageCallToAction
               userIsLoggedIn={userIsLoggedIn}
               userWasLoggedIn={userWasLoggedIn}
+              pruefenPath={pruefenPath}
             />
           </ContentContainer>
         </div>
@@ -115,7 +118,7 @@ export default function Index() {
             <HelpInfoBox />
           </div>
           <div className="xl:pr-96">
-            <FaqAccordion />
+            <FaqAccordion pruefenPath={pruefenPath} />
           </div>
         </div>
 
@@ -126,7 +129,7 @@ export default function Index() {
             <h2 className="text-32 leading-40 mb-32 md:mb-64">
               {t("homepage.action.headline")}
             </h2>
-            <HomepageAction />
+            <HomepageAction pruefenPath={pruefenPath} />
           </div>
         )}
       </ContentContainer>

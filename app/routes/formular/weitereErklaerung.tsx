@@ -39,6 +39,7 @@ import {
   setUserInDeclarationProcess,
 } from "~/domain/user";
 import { validateRequired } from "~/domain/validation/requiredValidation";
+import { PRUEFEN_START_PATH } from "~/routes/__infoLayout/pruefen/_pruefenPath.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
   await authenticator.isAuthenticated(request, {
@@ -118,7 +119,7 @@ export const action: ActionFunction = async ({ request }) => {
     });
     headers?.append("Set-Cookie", await commitSession(session));
 
-    return redirect("/pruefen/start?weitereErklaerung=true", {
+    return redirect(PRUEFEN_START_PATH + "?weitereErklaerung=true", {
       headers,
     });
   }

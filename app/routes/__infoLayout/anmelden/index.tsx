@@ -34,6 +34,7 @@ import { validateEmail } from "~/domain/validation/stringValidation";
 import * as crypto from "crypto";
 import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
 import Help from "~/components/form/help/Help";
+import { PRUEFEN_START_PATH } from "~/routes/__infoLayout/pruefen/_pruefenPath.server";
 
 const validateInputEmail = async (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -59,6 +60,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     {
       csrfToken,
       error,
+      pruefenPath: PRUEFEN_START_PATH,
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -196,7 +198,7 @@ export default function Anmelden() {
             Hier können Sie die Registrierung für ein neues Nutzerkonto starten.
           </p>
           <a
-            href="/pruefen/start"
+            href={loaderData.pruefenPath}
             className="underline text-blue-800 font-bold"
           >
             Neues Konto erstellen

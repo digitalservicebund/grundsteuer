@@ -2,6 +2,7 @@ import { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { pageTitle } from "~/util/pageTitle";
 import { useLoaderData } from "@remix-run/react";
 import { flags } from "~/flags.server";
+import { PRUEFEN_START_PATH } from "~/routes/__infoLayout/pruefen/_pruefenPath.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Nutzungsbedingungen") };
@@ -10,11 +11,12 @@ export const meta: MetaFunction = () => {
 export const loader: LoaderFunction = async () => {
   return {
     useUseid: !flags.isBundesIdentDisabled(),
+    pruefenPath: PRUEFEN_START_PATH,
   };
 };
 
 export default function Nutzungsbedingungen() {
-  const { useUseid } = useLoaderData();
+  const { useUseid, pruefenPath } = useLoaderData();
 
   return (
     <>
@@ -172,8 +174,8 @@ export default function Nutzungsbedingungen() {
           Ob Sie berechtigt sind, mit unserer Anwendung eine
           Grundsteuererklärung abzugeben, können Sie im ersten Schritt über die
           Funktion „Kann ich teilnehmen?“ (
-          <a href="/pruefen/start" className="text-blue-800 underline">
-            www.grundsteuererklaerung-fuer-privateigentum.de/pruefen/start
+          <a href={pruefenPath} className="text-blue-800 underline">
+            {"www.grundsteuererklaerung-fuer-privateigentum.de" + pruefenPath}
           </a>
           ) ermitteln. Dazu haben Sie die dort aufgeführten Fragen zu
           beantworten. Wenn Sie alle Fragen beantwortet haben, teilt Ihnen

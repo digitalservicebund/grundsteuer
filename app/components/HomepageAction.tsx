@@ -1,7 +1,7 @@
 import startImage from "~/assets/images/start.svg";
 import { Button } from "~/components/index";
 
-export default function HomepageAction() {
+export default function HomepageAction(props: { pruefenPath: string }) {
   return (
     <div>
       <div className="md:hidden mb-36 flex justify-center">
@@ -9,7 +9,7 @@ export default function HomepageAction() {
           look="primary"
           size="large"
           className="w-full max-w-[412px]"
-          to="pruefen/start"
+          to={props.pruefenPath}
         >
           Grundsteuererklärung starten
         </Button>
@@ -30,7 +30,7 @@ export default function HomepageAction() {
               look="primary"
               size="large"
               className="w-[412px]"
-              to="pruefen/start"
+              to={props.pruefenPath}
             >
               Grundsteuererklärung starten
             </Button>

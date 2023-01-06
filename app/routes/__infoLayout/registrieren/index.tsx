@@ -36,6 +36,7 @@ import { validateRequired } from "~/domain/validation/requiredValidation";
 import { validateEmail } from "~/domain/validation/stringValidation";
 import * as crypto from "crypto";
 import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
+import { PRUEFEN_START_PATH } from "~/routes/__infoLayout/pruefen/_pruefenPath.server";
 
 const validateInputEmail = (normalizedEmail: string) =>
   (!validateRequired({ value: normalizedEmail }) && "errors.required") ||
@@ -109,6 +110,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json(
     {
       csrfToken,
+      pruefenPath: PRUEFEN_START_PATH,
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -311,7 +313,7 @@ export default function Registrieren() {
                 components={{
                   pruefenLink: (
                     <a
-                      href="/pruefen/start"
+                      href={loaderData.pruefenPath}
                       target="_blank"
                       className="font-bold underline"
                     />

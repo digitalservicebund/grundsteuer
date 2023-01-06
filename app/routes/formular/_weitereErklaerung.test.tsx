@@ -7,6 +7,7 @@ import { decodeFormDataCookie } from "~/storage/formDataStorage.server";
 import { getMockedFunction } from "test/mocks/mockHelper";
 import * as userModule from "~/domain/user";
 import { getSession } from "~/session.server";
+import { PRUEFEN_START_PATH } from "~/routes/__infoLayout/pruefen/_pruefenPath.server";
 
 describe("/weitereErklaerung action", () => {
   beforeAll(async () => {
@@ -109,7 +110,7 @@ describe("/weitereErklaerung action", () => {
 
         expect(result.status).toEqual(302);
         expect(result.headers.get("Location")).toEqual(
-          "/pruefen/start?weitereErklaerung=true"
+          PRUEFEN_START_PATH + "?weitereErklaerung=true"
         );
       });
 
@@ -237,7 +238,7 @@ describe("/weitereErklaerung action", () => {
         const result = await action(args);
         expect(result.status).toEqual(302);
         expect(result.headers.get("Location")).toEqual(
-          "/pruefen/start?weitereErklaerung=true"
+          PRUEFEN_START_PATH + "?weitereErklaerung=true"
         );
       });
 

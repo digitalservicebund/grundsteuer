@@ -50,9 +50,12 @@ import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { useEffect, useState } from "react";
 import { Flags, flags } from "~/flags.server";
 import { rememberCookieExists } from "~/storage/rememberLogin.server";
+import {
+  PRUEFEN_PREFIX,
+  PRUEFEN_START_PATH,
+  PRUEFEN_START_STEP,
+} from "~/routes/__infoLayout/pruefen/_pruefenPath.server";
 
-const PREFIX = "pruefen";
-const START_STEP = "start";
 const SUCCESS_STEP = "nutzung";
 const FAILURE_STEP = "keineNutzung";
 
@@ -77,6 +80,8 @@ export type LoaderData = {
   formData: StepFormData;
   allData: PruefenModel;
   i18n: I18nObject;
+  startStep: string;
+  startPath: string;
   backUrl: string | null;
   isStartStep: boolean;
   isFinalStep: boolean;
@@ -91,10 +96,10 @@ export type LoaderData = {
 };
 
 const resetFlow = async () => {
-  return redirect("/" + PREFIX + "/" + START_STEP, {
+  return redirect(PRUEFEN_START_PATH, {
     headers: {
       "Set-Cookie": await saveToPruefenStateCookie(
-        getMachine({ formData: {} }).getInitialState(START_STEP)
+        getMachine({ formData: {} }).getInitialState(PRUEFEN_START_STEP)
       ),
     },
   });
@@ -141,7 +146,7 @@ export const loader: LoaderFunction = async ({
   });
   const isFinalStep =
     machine.getStateNodeByPath(currentStateFromUrl).type === "final";
-  const isStartStep = currentStateFromUrl === START_STEP;
+  const isStartStep = currentStateFromUrl === PRUEFEN_START_STEP;
 
   // on starting the prüfen flow check for login on this browser in the past
   // so we can double-check with the user, if they really want to create
@@ -167,7 +172,7 @@ export const loader: LoaderFunction = async ({
   const backUrl = getBackUrl({
     machine,
     currentStateWithoutId: currentStateFromUrl,
-    prefix: PREFIX,
+    prefix: PRUEFEN_PREFIX,
   });
   const stepDefinition = getPruefenStepDefinition({
     currentState: currentStateFromUrl,
@@ -179,8 +184,16 @@ export const loader: LoaderFunction = async ({
     {
       formData: getStepData(storedFormData, currentStateFromUrl),
       allData: storedFormData,
-      i18n: await getStepI18n(currentStateFromUrl, {}, "default", PREFIX),
-      backUrl: backUrl === "/pruefen/start" ? `${backUrl}?continue=1` : backUrl,
+      i18n: await getStepI18n(
+        currentStateFromUrl,
+        {},
+        "default",
+        PRUEFEN_PREFIX
+      ),
+      startStep: PRUEFEN_START_STEP,
+      startPath: PRUEFEN_START_PATH,
+      backUrl:
+        backUrl === PRUEFEN_START_PATH ? `${backUrl}?continue=1` : backUrl,
       isStartStep,
       isFinalStep,
       isSuccessStep,
@@ -242,7 +255,7 @@ export const action: ActionFunction = async ({ request }) => {
   });
   const nextStepUrl = getRedirectUrl(
     nextState,
-    PREFIX,
+    PRUEFEN_PREFIX,
     new URL(request.url).searchParams
   );
 
@@ -309,7 +322,7 @@ export function Step() {
               <CsrfToken value={loaderData.csrfToken} />
               {headlineIsLegend ? (
                 <>
-                  {currentState == START_STEP && (
+                  {currentState == loaderData.startStep && (
                     <h1 className="text-30 leading-36 font-bold mb-16">
                       Prüfen Sie in wenigen Schritten, ob Sie unseren
                       Online-Dienst nutzen können.
