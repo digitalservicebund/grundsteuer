@@ -74,7 +74,7 @@ describe("Boris pags", () => {
       ],
       portalLabel: "Zum Bodenrichtwert-Portal Nordrhein-Westfalen",
       eingabeDesc:
-        "Den Wert finden Sie in der Tabelle der Anlage, die Sie kürzlich mit dem Informationsschreiben der Finanzverwaltung erhalten haben. Falls Ihnen dieses Datenblatt nicht mehr vorliegt, nutzen Sie dafür den Link auf der Seite Bodenrichtwert-Info.",
+        "Den Bodenrichtwert finden Sie im Datenblatt des Informationsschreibens der Finanzverwaltung. Prüfen Sie, welche Art der Nutzung auf Ihr Grundstück zutrifft und tragen Sie den entsprechenden Wert ein.",
     },
     {
       bundesland: "Rheinland-Pfalz",

@@ -263,7 +263,7 @@ const THEingabeHelp: HelpComponentFunction = () => {
         {
           type: "paragraph",
           value:
-            "Im Grundsteuer Viewer Thüringen öffnet sich nach Adresseingabe ein Feld rechts neben dem Kartenausschnitt. Hier finden weiter unten den Bodenrichtwert für Ihr Grundstück.",
+            "Im Grundsteuer Viewer Thüringen öffnet sich nach Adresseingabe ein Feld rechts neben dem Kartenausschnitt. Hier finden Sie weiter unten den Bodenrichtwert für Ihr Grundstück.",
         },
         {
           type: "image",
