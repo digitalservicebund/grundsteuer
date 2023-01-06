@@ -15,21 +15,13 @@ describe("/eingeben", () => {
 
   beforeEach(() => {
     cy.request("GET", Cypress.env("ERICA_URL") + "/reset");
-    cy.task("dbRemoveFsc", "foo@bar.com");
-    cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
-    cy.task("setUserUnidentified", {
-      email: "foo@bar.com",
-    });
+    cy.task("dbResetUser", "foo@bar.com");
     cy.login();
   });
 
-  afterEach(() => {
+  after(() => {
     cy.request("GET", Cypress.env("ERICA_URL") + "/reset");
-    cy.task("dbRemoveFsc", "foo@bar.com");
-    cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
-    cy.task("setUserUnidentified", {
-      email: "foo@bar.com",
-    });
+    cy.task("dbResetUser", "foo@bar.com");
   });
 
   describe("no FSC request", () => {
