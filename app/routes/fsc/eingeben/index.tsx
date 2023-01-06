@@ -61,6 +61,7 @@ import FscHint from "~/components/fsc/FscHint";
 import { FscRequest } from "~/domain/fscRequest";
 import LinkWithArrow from "~/components/LinkWithArrow";
 import EnumeratedList from "~/components/EnumeratedList";
+import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 
 type LoaderData = {
   csrfToken?: string;
@@ -179,11 +180,8 @@ export const loader: LoaderFunction = async ({
     failureRedirect: "/anmelden",
   });
   const dbUser: User | null = await findUserByEmail(user.email);
+  if (!dbUser) return logoutDeletedUser(request);
   const session = await getSession(request.headers.get("Cookie"));
-  invariant(
-    dbUser,
-    "expected a matching user in the database from a user in a cookie session"
-  );
 
   if (!canEnterFsc(dbUser)) {
     return redirect("/identifikation");
@@ -269,12 +267,8 @@ export const action: ActionFunction = async ({
     failureRedirect: "/anmelden",
   });
   const userData: User | null = await findUserByEmail(user.email);
+  if (!userData) return logoutDeletedUser(request);
   const session = await getSession(request.headers.get("Cookie"));
-
-  invariant(
-    userData,
-    "expected a matching user in the database from a user in a cookie session"
-  );
 
   if (isEricaRequestInProgress(userData)) return {};
 

@@ -16,7 +16,7 @@ import EnumeratedCard from "~/components/EnumeratedCard";
 import { Form, useLoaderData } from "@remix-run/react";
 import ErrorBar from "~/components/ErrorBar";
 import { findUserByEmail, User } from "~/domain/user";
-import invariant from "tiny-invariant";
+import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 
 export const meta: MetaFunction = () => {
   return {
@@ -32,10 +32,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 
   const dbUser: User | null = await findUserByEmail(sessionUser.email);
-  invariant(
-    dbUser,
-    "expected a matching user in the database from a user in a cookie session"
-  );
+  if (!dbUser) return logoutDeletedUser(request);
+
   if (dbUser.identified) {
     return redirect("/identifikation/erfolgreich");
   }

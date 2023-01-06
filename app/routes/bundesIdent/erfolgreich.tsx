@@ -3,7 +3,7 @@ import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
 import IdentificationSuccess from "~/components/IdentificationSuccess";
 import { findUserByEmail } from "~/domain/user";
-import invariant from "tiny-invariant";
+import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erfolgreich identifiziert") };
@@ -14,10 +14,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     failureRedirect: "/anmelden",
   });
   const dbUser = await findUserByEmail(sessionUser.email);
-  invariant(
-    dbUser,
-    "expected a matching user in the database from a user in a cookie session"
-  );
+  if (!dbUser) return logoutDeletedUser(request);
+
   if (!dbUser.identified) {
     return redirect("/identifikation");
   }

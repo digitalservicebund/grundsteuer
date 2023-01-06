@@ -35,6 +35,7 @@ import { ericaUtils } from "~/erica/utils";
 import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
 import { flags } from "~/flags.server";
 import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
+import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 
 type LoaderData = {
   csrfToken?: string;
@@ -50,10 +51,7 @@ export const loader: LoaderFunction = async ({
   });
   const session = await getSession(request.headers.get("Cookie"));
   const userData = await findUserByEmail(sessionUser.email);
-  invariant(
-    userData,
-    "expected a matching user in the database from a user in a cookie session"
-  );
+  if (!userData) return logoutDeletedUser(request);
 
   // cron job successfully canceled fsc request
   if (!userData.fscRequest) {

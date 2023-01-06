@@ -71,6 +71,7 @@ import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
 import { flags } from "~/flags.server";
 import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
 import { sendDeclarationSentMail } from "~/jobs";
+import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 
 type LoaderData = {
   formData: StepFormData;
@@ -181,10 +182,8 @@ export const loader: LoaderFunction = async ({
     failureRedirect: "/anmelden",
   });
   const userData: User | null = await findUserByEmail(user.email);
-  invariant(
-    userData,
-    "expected a matching user in the database from a user in a cookie session"
-  );
+  if (!userData) return logoutDeletedUser(request);
+
   const session = await getSession(request.headers.get("Cookie"));
 
   const storedFormData = await getStoredFormData({ request, user });
@@ -314,10 +313,7 @@ export const action: ActionFunction = async ({
   });
 
   const dbUser: User | null = await findUserByEmail(user.email);
-  invariant(
-    dbUser,
-    "expected a matching user in the database from a user in a cookie session"
-  );
+  if (!dbUser) return logoutDeletedUser(request);
   if (!dbUser.identified) throw new Error("user not identified!");
   if (dbUser.ericaRequestIdSenden) return {};
 

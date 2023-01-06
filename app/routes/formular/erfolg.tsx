@@ -8,7 +8,6 @@ import {
   ContentContainer,
   IntroText,
 } from "~/components";
-import invariant from "tiny-invariant";
 import { authenticator } from "~/auth.server";
 import { findUserByEmail, User } from "~/domain/user";
 import { useLoaderData } from "@remix-run/react";
@@ -19,6 +18,7 @@ import EnumeratedList from "~/components/EnumeratedList";
 import Plus from "~/components/icons/mui/Plus";
 import Check from "~/components/icons/mui/Check";
 import { getStoredFormData } from "~/storage/formDataStorage.server";
+import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erklärung abgeschickt") };
@@ -29,10 +29,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     failureRedirect: "/anmelden",
   });
   const userData: User | null = await findUserByEmail(user.email);
-  invariant(
-    userData,
-    "expected a matching user in the database from a user in a cookie session"
-  );
+  if (!userData) return logoutDeletedUser(request);
 
   if (userData.inDeclarationProcess) {
     return redirect("/formular/welcome");

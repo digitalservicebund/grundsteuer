@@ -8,22 +8,19 @@ import {
 import { json, LoaderFunction, redirect } from "@remix-run/node";
 import { authenticator } from "~/auth.server";
 import { findUserByEmail } from "~/domain/user";
-import invariant from "tiny-invariant";
 import { FscRequest } from "~/domain/fscRequest";
 import FscLetterHint from "~/components/fsc/FscLetterHint";
 import LinkWithArrow from "~/components/LinkWithArrow";
 import EnumeratedList from "~/components/EnumeratedList";
 import { canEnterFsc } from "~/domain/identificationStatus";
+import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
   const dbUser = await findUserByEmail(sessionUser.email);
-  invariant(
-    dbUser,
-    "expected a matching user in the database from a user in a cookie session"
-  );
+  if (!dbUser) return logoutDeletedUser(request);
 
   if (!canEnterFsc(dbUser)) {
     return redirect("/fsc/beantragen");

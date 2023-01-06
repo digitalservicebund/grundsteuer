@@ -30,6 +30,7 @@ import { commitSession, getSession } from "~/session.server";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { FscRequest } from "~/domain/fscRequest";
 import FscLetterHint from "~/components/fsc/FscLetterHint";
+import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
@@ -37,10 +38,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
   const session = await getSession(request.headers.get("Cookie"));
   const dbUser = await findUserByEmail(sessionUser.email);
-  invariant(
-    dbUser,
-    "expected a matching user in the database from a user in a cookie session"
-  );
+  if (!dbUser) return logoutDeletedUser(request);
 
   if (!canEnterFsc(dbUser)) {
     return redirect("/fsc/beantragen");

@@ -57,6 +57,7 @@ import { fetchInDynamicInterval, IntervalInstance } from "~/routes/fsc/_utils";
 import { flags } from "~/flags.server";
 import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
 import { hasValidOpenFscRequest } from "~/domain/identificationStatus";
+import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -179,10 +180,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
     failureRedirect: "/anmelden",
   });
   const userData: User | null = await findUserByEmail(user.email);
-  invariant(
-    userData,
-    "expected a matching user in the database from a user in a cookie session"
-  );
+  if (!userData) return logoutDeletedUser(request);
 
   const ericaRequestInProgress = await isEricaRequestInProgress(userData);
 
@@ -234,10 +232,7 @@ export const action: ActionFunction = async ({
     failureRedirect: "/anmelden",
   });
   const userData: User | null = await findUserByEmail(user.email);
-  invariant(
-    userData,
-    "expected a matching user in the database from a user in a cookie session"
-  );
+  if (!userData) return logoutDeletedUser(request);
 
   if (await wasEricaRequestSuccessful(userData)) {
     return redirect("/fsc/beantragen/erfolgreich");

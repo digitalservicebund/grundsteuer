@@ -14,7 +14,6 @@ import classNames from "classnames";
 import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
 import { authenticator } from "~/auth.server";
 import { findUserByEmail } from "~/domain/user";
-import invariant from "tiny-invariant";
 import SectionLabel from "../../components/navigation/SectionLabel";
 import LetterIcon from "~/components/icons/mui/LetterIcon";
 import WavingHand from "~/components/icons/mui/WavingHand";
@@ -27,6 +26,7 @@ import { flags } from "~/flags.server";
 import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 import TeaserIdentCard from "~/components/TeaserIdentCard";
 import { canEnterFsc } from "~/domain/identificationStatus";
+import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation mit Ausweis") };
@@ -42,10 +42,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 
   const dbUser = await findUserByEmail(sessionUser.email);
-  invariant(
-    dbUser,
-    "expected a matching user in the database from a user in a cookie session"
-  );
+  if (!dbUser) return logoutDeletedUser(request);
 
   if (dbUser.identified) {
     return redirect("/identifikation/erfolgreich");

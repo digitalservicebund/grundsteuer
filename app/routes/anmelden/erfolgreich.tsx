@@ -14,13 +14,13 @@ import { useLoaderData } from "@remix-run/react";
 import { flags } from "~/flags.server";
 import { rememberCookie } from "~/storage/rememberLogin.server";
 import { findUserByEmail, User } from "~/domain/user";
-import invariant from "tiny-invariant";
 import {
   canEnterFsc,
   fscIsOlderThanOneDay,
   fscIsTooOld,
   needsToStartIdentification,
 } from "~/domain/identificationStatus";
+import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erfolgreich angemeldet.") };
@@ -58,10 +58,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 
   const user: User | null = await findUserByEmail(sessionUser.email);
-  invariant(
-    user,
-    "expected a matching user in the database from a user in a cookie session"
-  );
+  if (!user) return logoutDeletedUser(request);
 
   return {
     email: sessionUser.email,
