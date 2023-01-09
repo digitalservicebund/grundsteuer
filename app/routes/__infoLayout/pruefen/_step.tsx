@@ -80,7 +80,6 @@ export type LoaderData = {
   formData: StepFormData;
   allData: PruefenModel;
   i18n: I18nObject;
-  startStep: string;
   startPath: string;
   backUrl: string | null;
   isStartStep: boolean;
@@ -179,7 +178,6 @@ export const loader: LoaderFunction = async ({
   });
 
   const csrfToken = createCsrfToken(session);
-
   return json(
     {
       formData: getStepData(storedFormData, currentStateFromUrl),
@@ -190,7 +188,6 @@ export const loader: LoaderFunction = async ({
         "default",
         PRUEFEN_PREFIX
       ),
-      startStep: PRUEFEN_START_STEP,
       startPath: PRUEFEN_START_PATH,
       backUrl:
         backUrl === PRUEFEN_START_PATH ? `${backUrl}?continue=1` : backUrl,
@@ -322,12 +319,6 @@ export function Step() {
               <CsrfToken value={loaderData.csrfToken} />
               {headlineIsLegend ? (
                 <>
-                  {currentState == loaderData.startStep && (
-                    <h1 className="text-30 leading-36 font-bold mb-16">
-                      Prüfen Sie in wenigen Schritten, ob Sie unseren
-                      Online-Dienst nutzen können.
-                    </h1>
-                  )}
                   <fieldset>
                     <StepHeadline
                       i18n={i18n}
@@ -342,6 +333,12 @@ export function Step() {
                 </>
               ) : (
                 <>
+                  {loaderData.isStartStep && (
+                    <h1 className="text-30 leading-36 font-bold mb-16">
+                      Prüfen Sie in wenigen Schritten, ob Sie unseren
+                      Online-Dienst nutzen können.
+                    </h1>
+                  )}
                   <StepHeadline i18n={i18n} />
                   {actionData?.errors && !isSubmitting && <ErrorBarStandard />}
                   <StepComponent {...loaderData} {...actionData} />

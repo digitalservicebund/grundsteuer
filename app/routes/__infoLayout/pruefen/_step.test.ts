@@ -35,7 +35,7 @@ describe("_step action", () => {
 
     beforeAll(async () => {
       explicitCookie = await saveToPruefenStateCookie(
-        getMachine({ formData: {} }).getInitialState("start")
+        getMachine({ formData: {} }).getInitialState("bundesland")
       );
     });
 
@@ -57,7 +57,7 @@ describe("_step action", () => {
     test("Does not update data if fields not filled", async () => {
       const spyOnSetStepData = jest.spyOn(modelModule, "setStepData");
       const args = await mockActionArgs({
-        route: "/start",
+        route: "/bundesland",
         formData: {},
         context: {},
         email: "user@example.com",
@@ -74,9 +74,9 @@ describe("_step action", () => {
       const spyOnSetStepData = jest.spyOn(modelModule, "setStepData");
       const previousData = {};
       const args = await mockActionArgs({
-        route: "/start",
+        route: "/bundesland",
         formData: {
-          abgeber: "eigentuemerNeu",
+          bundesland: "BE",
           additional: "Should not be in result",
         },
         context: {},
@@ -88,9 +88,13 @@ describe("_step action", () => {
       await action(args);
 
       expect(spyOnSetStepData).toHaveBeenCalledTimes(1);
-      expect(spyOnSetStepData).toHaveBeenCalledWith(previousData, "start", {
-        abgeber: "eigentuemerNeu",
-      });
+      expect(spyOnSetStepData).toHaveBeenCalledWith(
+        previousData,
+        "bundesland",
+        {
+          bundesland: "BE",
+        }
+      );
     });
   });
 });

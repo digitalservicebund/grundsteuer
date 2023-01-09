@@ -5,29 +5,29 @@ const goThroughFirstSteps = () => {
   cy.visit("/");
   cy.contains("a", "Grundsteuererklärung starten").click();
 
-  cy.url().should("include", "/pruefen/start");
+  cy.url().should("include", "/pruefen/bundesland");
   cy.contains(
     "h1",
     "Prüfen Sie in wenigen Schritten, ob Sie unseren Online-Dienst nutzen können."
   );
+  cy.get("#bundesland").select("BB");
+  cy.get(submitBtnSelector).click();
+};
+
+const goThroughLastSteps = () => {
+  cy.get(`label[for=fremderBoden-false]`).click();
+  cy.get(submitBtnSelector).click();
+
+  cy.get(`label[for=beguenstigung-false]`).click();
+  cy.get(submitBtnSelector).click();
+
   cy.get(`label[for=abgeber-eigentuemer]`).click();
   cy.get(submitBtnSelector).click();
 
   cy.get(`label[for=eigentuemerTyp-privatperson]`).click();
   cy.get(submitBtnSelector).click();
 
-  cy.get("#bundesland").select("BB");
-  cy.get(submitBtnSelector).click();
-};
-
-const goThroughLastSteps = () => {
   cy.get(`label[for=ausland-false]`).click();
-  cy.get(submitBtnSelector).click();
-
-  cy.get(`label[for=fremderBoden-false]`).click();
-  cy.get(submitBtnSelector).click();
-
-  cy.get(`label[for=beguenstigung-false]`).click();
   cy.get(submitBtnSelector).click();
 
   cy.contains(
@@ -73,7 +73,7 @@ describe("Happy Paths", () => {
     goThroughLastSteps();
   });
 
-  it("Enter full path unbebaut until lufSpezial", () => {
+  it("Enter full path hof until mehrereEkrlaerungen", () => {
     goThroughFirstSteps();
 
     cy.get(`label[for=bewohnbar-bewohnbar]`).click();
@@ -82,7 +82,10 @@ describe("Happy Paths", () => {
     cy.get(`label[for=gebaeude-hof]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.contains("h1", "Zwei Erklärungen bitte");
+    cy.get("label[for=wirtschaftlich-true").click();
+    cy.get(submitBtnSelector).click();
+
+    cy.contains("h1", "separate Erklärungen");
   });
 });
 
@@ -96,7 +99,7 @@ describe("Order Enforcing", () => {
   });
 
   it("Redirects if directly accessing disabled step", () => {
-    cy.visit("/pruefen/bundesland");
+    cy.visit("/pruefen/fremderBoden");
     cy.contains(
       "h1",
       "Prüfen Sie in wenigen Schritten, ob Sie unseren Online-Dienst nutzen können."
@@ -104,23 +107,23 @@ describe("Order Enforcing", () => {
   });
 
   it("Does not redirect if directly accessing enabled step", () => {
-    cy.visit("/pruefen/start");
-    cy.get(`label[for=abgeber-eigentuemer]`).click();
+    cy.visit("/pruefen/bundesland");
+    cy.get("#bundesland").select("BB");
     cy.get(submitBtnSelector).click();
 
-    cy.visit("/pruefen/start");
+    cy.visit("/pruefen/bundesland");
 
-    cy.contains("legend", "Wer gibt die Grundsteuererklärung ab?");
+    cy.contains("h1", "In welchem Bundesland liegt Ihr Grundstück?");
   });
 });
 
 describe("Double-check with returning user before starting", () => {
   it("Redirects to /pruefen/nachfrage", () => {
     cy.setCookie("login", "1");
-    cy.visit("/pruefen/start");
+    cy.visit("/pruefen/bundesland");
     cy.url().should("include", "/pruefen/nachfrage");
-    cy.get("[href='/pruefen/start?continue=1']").click();
-    cy.url().should("include", "/pruefen/start");
+    cy.get("[href='/pruefen/bundesland?continue=1']").click();
+    cy.url().should("include", "/pruefen/bundesland");
   });
 });
 

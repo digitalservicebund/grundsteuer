@@ -38,28 +38,40 @@ export type BewohnbarFields = {
   bewohnbar: "bewohnbar" | "unbewohnbar" | "unbebaut";
 };
 
+export type BewohnbarType =
+  | "einfamilienhaus"
+  | "zweifamilienhaus"
+  | "eigentumswohnung"
+  | "hof"
+  | "mehrfamilienhaus";
+
 export type GebaeudeArtBewohnbarFields = {
-  gebaeude:
-    | "einfamilienhaus"
-    | "zweifamilienhaus"
-    | "eigentumswohnung"
-    | "hof"
-    | "mehrfamilienhaus";
+  gebaeude: BewohnbarType;
 };
+
+export type UnbewohnbarType =
+  | "garage"
+  | "imBau"
+  | "verfallen"
+  | "wochenendhaus"
+  | "geschaeft"
+  | "luf"
+  | "other";
 
 export type GebaeudeArtUnbewohnbarFields = {
-  gebaeude:
-    | "garage"
-    | "imBau"
-    | "verfallen"
-    | "wochenendhaus"
-    | "geschaeft"
-    | "luf"
-    | "other";
+  gebaeude: UnbewohnbarType;
 };
 
+export type UnbebautType =
+  | "baureif"
+  | "acker"
+  | "wald"
+  | "garten"
+  | "moor"
+  | "other";
+
 export type GebaeudeArtUnbebautFields = {
-  art: "baureif" | "acker" | "wald" | "garten" | "moor" | "other";
+  art: UnbebautType;
 };
 
 export type GrundstueckArtFields = {
@@ -85,8 +97,13 @@ export type BeguenstigungFields = {
   beguenstigung: "true" | "false";
 };
 
+export type NutzungsartFields = {
+  wirtschaftlich: "true" | "false";
+};
+
 export type PruefenModel = {
   start?: AbgeberFields;
+  abgeber?: AbgeberFields;
   eigentuemerTyp?: EigentuemerTypFields;
   bundesland?: BundeslandFields;
   bewohnbar?: BewohnbarFields;
@@ -97,4 +114,5 @@ export type PruefenModel = {
   ausland?: AuslandFields;
   fremderBoden?: FremderBodenFields;
   beguenstigung?: BeguenstigungFields;
+  nutzungsart?: NutzungsartFields;
 };

@@ -10,6 +10,150 @@ export interface PruefenMachineContext extends PruefenModel {
 
 export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
   id: "steps",
+  initial: "bundesland",
+  states: {
+    bundesland: {
+      on: {
+        NEXT: [
+          { target: "bewohnbar", cond: "isBundesmodelBundesland" },
+          { target: "keineNutzung" },
+        ],
+      },
+    },
+    bewohnbar: {
+      on: {
+        BACK: { target: "bundesland" },
+        NEXT: [
+          { target: "gebaeudeArtBewohnbar", cond: "isBewohnbar" },
+          { target: "gebaeudeArtUnbewohnbar", cond: "isUnbewohnbar" },
+          { target: "gebaeudeArtUnbebaut" },
+        ],
+      },
+    },
+    gebaeudeArtBewohnbar: {
+      on: {
+        BACK: { target: "bewohnbar" },
+        NEXT: [
+          { target: "nutzungsart", cond: "isHof" },
+          { target: "fremderBoden", cond: "isEligibleGebaeudeArtBewohnbar" },
+          { target: "keineNutzung" },
+        ],
+      },
+    },
+    gebaeudeArtUnbewohnbar: {
+      on: {
+        BACK: { target: "bewohnbar" },
+        NEXT: [
+          { target: "fremderBoden", cond: "isEligibleGebaeudeArtUnbewohnbar" },
+          { target: "keineNutzung" },
+        ],
+      },
+    },
+    gebaeudeArtUnbebaut: {
+      on: {
+        BACK: { target: "bewohnbar" },
+        NEXT: [
+          { target: "fremderBoden", cond: "isEligibleGebaeudeArtUnbebaut" },
+          { target: "keineNutzung" },
+        ],
+      },
+    },
+    nutzungsart: {
+      on: {
+        BACK: { target: "gebaeudeArtBewohnbar" },
+        NEXT: [
+          { target: "fremderBoden", cond: "isNotWirtschaftlich" },
+          { target: "mehrereErklaerungen" },
+        ],
+      },
+    },
+    fremderBoden: {
+      on: {
+        BACK: [
+          { target: "nutzungsart", cond: "isNotWirtschaftlich" },
+          {
+            target: "gebaeudeArtUnbebaut",
+            cond: "isEligibleGebaeudeArtUnbebaut",
+          },
+          {
+            target: "gebaeudeArtUnbewohnbar",
+            cond: "isEligibleGebaeudeArtUnbewohnbar",
+          },
+          { target: "gebaeudeArtBewohnbar" },
+        ],
+        NEXT: [
+          { target: "beguenstigung", cond: "isNotFremderBoden" },
+          { target: "keineNutzung" },
+        ],
+      },
+    },
+    beguenstigung: {
+      on: {
+        BACK: { target: "fremderBoden" },
+        NEXT: [
+          {
+            target: "abgeber",
+            cond: "isNotBeguenstigung",
+          },
+          { target: "keineNutzung" },
+        ],
+      },
+    },
+    abgeber: {
+      on: {
+        BACK: { target: "beguenstigung" },
+        NEXT: [
+          { target: "eigentuemerTyp", cond: "isEigentuemer" },
+          {
+            target: "keineNutzung",
+          },
+        ],
+      },
+    },
+    eigentuemerTyp: {
+      on: {
+        BACK: { target: "abgeber" },
+        NEXT: [
+          { target: "ausland", cond: "isPrivatperson" },
+          {
+            target: "keineNutzung",
+          },
+        ],
+      },
+    },
+    ausland: {
+      on: {
+        BACK: { target: "eigentuemerTyp" },
+        NEXT: [
+          { target: "nutzung", cond: "isNotAusland" },
+          { target: "keineNutzung" },
+        ],
+      },
+    },
+    mehrereErklaerungen: {
+      type: "final",
+      on: {
+        BACK: [{ target: "beguenstigung" }],
+      },
+    },
+    keineNutzung: {
+      type: "final",
+    },
+    nutzung: {
+      type: "final",
+      on: {
+        BACK: [{ target: "ausland" }],
+      },
+    },
+  },
+};
+
+export const pruefenStatesLegacy: MachineConfig<
+  PruefenModel,
+  any,
+  EventObject
+> = {
+  id: "steps",
   initial: "start",
   states: {
     start: {
@@ -58,7 +202,7 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
         BACK: { target: "bewohnbar" },
         NEXT: [
           { target: "ausland", cond: "isEligibleGebaeudeArtBewohnbar" },
-          { target: "lufSpezial", cond: "isLufGebaeudeArtBewohnbar" },
+          { target: "mehrereErklaerungen", cond: "isLufGebaeudeArtBewohnbar" },
           { target: "keineNutzung" },
         ],
       },
@@ -132,7 +276,7 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
         ],
       },
     },
-    lufSpezial: {
+    mehrereErklaerungen: {
       type: "final",
       on: {
         BACK: [{ target: "beguenstigung" }],
@@ -150,10 +294,16 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
   },
 };
 
-export type PruefenMachineConfig = typeof pruefenStates;
+export type PruefenMachineConfig =
+  | typeof pruefenStatesLegacy
+  | typeof pruefenStates;
 
-export const getPruefenConfig = (formData: PruefenMachineContext) => {
-  return Object.assign({}, pruefenStates, { context: formData });
+export const getPruefenConfig = (context: PruefenMachineContext) => {
+  return Object.assign(
+    {},
+    context.testFeaturesEnabled ? pruefenStates : pruefenStatesLegacy,
+    { context: context }
+  );
 };
 
 export const createPruefenGraph = ({

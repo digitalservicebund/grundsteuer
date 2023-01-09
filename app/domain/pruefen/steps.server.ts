@@ -20,6 +20,23 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
       },
     },
   },
+  abgeber: {
+    fields: {
+      abgeber: {
+        type: "radio",
+        options: [
+          { value: "eigentuemer" },
+          { value: "angehoerig" },
+          { value: "keinEigentuemer" },
+          { value: "eigentuemerNeu" },
+          { value: "steuerberater" },
+        ],
+        validations: {
+          required: { msg: "Bitte treffen Sie eine Auswahl" },
+        },
+      },
+    },
+  },
   eigentuemerTyp: {
     fields: {
       eigentuemerTyp: {
@@ -190,9 +207,20 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
       },
     },
   },
-  lufSpezial: infoStep,
+  nutzungsart: {
+    fields: {
+      wirtschaftlich: {
+        type: "radio",
+        options: [{ value: "false" }, { value: "true" }],
+        validations: {
+          required: { msg: "Bitte treffen Sie eine Auswahl" },
+        },
+      },
+    },
+  },
   keineNutzung: infoStep,
   nutzung: infoStep,
+  mehrereErklaerungen: infoStep,
 };
 
 export const getPruefenStepDefinition = ({

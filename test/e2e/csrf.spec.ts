@@ -97,10 +97,10 @@ describe("CSRF protection", () => {
   describe("on pruefen", () => {
     it("should fail on direct post", () => {
       cy.login();
-      cy.visit("/pruefen/start");
+      cy.visit("/pruefen/bundesland");
       cy.request({
         method: "POST",
-        url: "/pruefen/start",
+        url: "/pruefen/bundesland",
         body: "csrf=bar",
         form: true,
         failOnStatusCode: false,

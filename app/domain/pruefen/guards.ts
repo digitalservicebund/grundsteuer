@@ -1,5 +1,4 @@
 import { PruefenMachineContext } from "~/domain/pruefen/states.server";
-import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 
 export type PruefenCondition = (
   context: PruefenMachineContext | undefined
@@ -12,10 +11,15 @@ const isEigentuemer: PruefenCondition = (context) => {
     "angehoerig",
     "eigentuemerNeu",
   ];
-  return !!(
-    context?.start?.abgeber &&
-    eligibleEigentuemerArten.includes(context.start.abgeber)
-  );
+  return context?.testFeaturesEnabled
+    ? !!(
+        context?.abgeber?.abgeber &&
+        eligibleEigentuemerArten.includes(context?.abgeber?.abgeber)
+      )
+    : !!(
+        context?.start?.abgeber &&
+        eligibleEigentuemerArten.includes(context?.start?.abgeber)
+      );
 };
 
 const isPrivatperson: PruefenCondition = (context) => {
@@ -46,7 +50,7 @@ const isBundesmodelBundesland: PruefenCondition = (context) => {
 };
 
 const showTestFeaturesAndBundesmodel: PruefenCondition = (context) => {
-  return testFeaturesEnabled() && isBundesmodelBundesland(context);
+  return !!(context?.testFeaturesEnabled && isBundesmodelBundesland(context));
 };
 
 const isBewohnbar: PruefenCondition = (context) => {
@@ -57,6 +61,10 @@ const isUnbewohnbar: PruefenCondition = (context) => {
   return context?.bewohnbar?.bewohnbar == "unbewohnbar";
 };
 
+const isUnbebaut: PruefenCondition = (context) => {
+  return context?.bewohnbar?.bewohnbar == "unbebaut";
+};
+
 const isEligibleGebaeudeArtBewohnbar: PruefenCondition = (context) => {
   const eligibleGebaeudeArten = [
     "einfamilienhaus",
@@ -64,6 +72,7 @@ const isEligibleGebaeudeArtBewohnbar: PruefenCondition = (context) => {
     "eigentumswohnung",
   ];
   return !!(
+    isBewohnbar(context) &&
     context?.gebaeudeArtBewohnbar?.gebaeude &&
     eligibleGebaeudeArten.includes(context.gebaeudeArtBewohnbar.gebaeude)
   );
@@ -72,13 +81,14 @@ const isEligibleGebaeudeArtBewohnbar: PruefenCondition = (context) => {
 const isEligibleGebaeudeArtUnbewohnbar: PruefenCondition = (context) => {
   const eligibleGebaeudeArten = ["imBau", "verfallen"];
   return !!(
+    isUnbewohnbar(context) &&
     context?.gebaeudeArtUnbewohnbar?.gebaeude &&
     eligibleGebaeudeArten.includes(context.gebaeudeArtUnbewohnbar.gebaeude)
   );
 };
 
 const isEligibleGebaeudeArtUnbebaut: PruefenCondition = (context) => {
-  return context?.gebaeudeArtUnbebaut?.art == "baureif";
+  return isUnbebaut(context) && context?.gebaeudeArtUnbebaut?.art == "baureif";
 };
 
 const isLufGebaeudeArtBewohnbar: PruefenCondition = (context) => {
@@ -114,6 +124,20 @@ const isNotBeguenstigung: PruefenCondition = (context) => {
   return context?.beguenstigung?.beguenstigung == "false";
 };
 
+const isHof: PruefenCondition = (context) => {
+  return (
+    isBewohnbar(context) && context?.gebaeudeArtBewohnbar?.gebaeude === "hof"
+  );
+};
+
+const isNotWirtschaftlich: PruefenCondition = (context) => {
+  return (
+    isBewohnbar(context) &&
+    isHof(context) &&
+    context?.nutzungsart?.wirtschaftlich === "false"
+  );
+};
+
 export const pruefenConditions: PruefenConditions = {
   isPrivatperson,
   isEigentuemer,
@@ -129,4 +153,6 @@ export const pruefenConditions: PruefenConditions = {
   isNotAusland,
   isNotFremderBoden,
   isNotBeguenstigung,
+  isHof,
+  isNotWirtschaftlich,
 };

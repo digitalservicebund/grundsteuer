@@ -46,4 +46,5 @@ UNLEASH_HOST=http://localhost:4243 \
 UNLEASH_API_TOKEN=default:development.unleash-insecure-api-token \
 UNLEASH_ADMIN_TOKEN=*:*.unleash-insecure-admin-token \
 UNLEASH_REFRESH_INTERVAL=500 \
+TEST_FEATURES_ENABLED=true \
 run_tests $command

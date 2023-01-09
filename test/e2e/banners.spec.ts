@@ -390,7 +390,7 @@ describe("Deadline banner", () => {
     "/",
     "/anmelden",
     "/registrieren",
-    "/pruefen/start",
+    "/pruefen/bundesland",
     "/identifikation",
     "/fsc/beantragen",
     "/ekona",

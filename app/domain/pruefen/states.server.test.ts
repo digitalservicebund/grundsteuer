@@ -12,6 +12,11 @@ import {
 } from "~/domain/pruefen/states.server";
 import { pruefenConditions } from "~/domain/pruefen/guards";
 import { pruefenModelFactory } from "test/factories/pruefen";
+import {
+  BewohnbarType,
+  UnbebautType,
+  UnbewohnbarType,
+} from "~/domain/pruefen/model";
 
 const removeTransitionsPruefen = (
   refStates: PruefenMachineConfig,
@@ -45,120 +50,100 @@ describe("states", () => {
       {
         description: "without context",
         context: pruefenModelFactory.build(),
-        expectedPath: ["start", "keineNutzung"],
+        expectedPath: ["bundesland", "keineNutzung"],
       },
       {
-        description: "with invalid abgeber",
-        context: pruefenModelFactory
-          .abgeber({ abgeber: "steuerberater" })
-          .build(),
-        expectedPath: ["start", "keineNutzung"],
+        description: "with unsupported bundesland",
+        context: pruefenModelFactory.bundesland({ bundesland: "BY" }).build(),
+        expectedPath: ["bundesland", "keineNutzung"],
       },
       {
-        description: "with invalid eigentuemerTyp",
+        description: "with unsupported nutzungsart",
         context: pruefenModelFactory
-          .abgeber({ abgeber: "eigentuemer" })
-          .eigentuemerTyp({ eigentuemerTyp: "unternehmen" })
-          .build(),
-        expectedPath: ["start", "eigentuemerTyp", "keineNutzung"],
-      },
-      {
-        description: "with invalid bundesland",
-        context: pruefenModelFactory
-          .abgeber({ abgeber: "eigentuemer" })
-          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
-          .bundesland({ bundesland: "HE" })
-          .build(),
-        expectedPath: ["start", "eigentuemerTyp", "bundesland", "keineNutzung"],
-      },
-      {
-        description: "with special LuF gebaeudeArtBewohnbar",
-        context: pruefenModelFactory
-          .abgeber({ abgeber: "eigentuemer" })
-          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
           .bewohnbar({ bewohnbar: "bewohnbar" })
           .gebaeudeArtBewohnbar({ gebaeude: "hof" })
+          .nutzungsart({ wirtschaftlich: "true" })
           .build(),
         expectedPath: [
-          "start",
-          "eigentuemerTyp",
           "bundesland",
           "bewohnbar",
           "gebaeudeArtBewohnbar",
-          "lufSpezial",
+          "nutzungsart",
+          "mehrereErklaerungen",
         ],
       },
       {
-        description: "with invalid gebaeudeArtBewohnbar",
+        description: "with unsupported gebaeudeArt mehrfamilienhaus",
         context: pruefenModelFactory
-          .abgeber({ abgeber: "eigentuemer" })
-          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
           .bewohnbar({ bewohnbar: "bewohnbar" })
           .gebaeudeArtBewohnbar({ gebaeude: "mehrfamilienhaus" })
           .build(),
         expectedPath: [
-          "start",
-          "eigentuemerTyp",
           "bundesland",
           "bewohnbar",
           "gebaeudeArtBewohnbar",
           "keineNutzung",
         ],
       },
-      {
-        description: "with invalid gebaeudeArtUnbewohnbar",
-        context: pruefenModelFactory
-          .abgeber({ abgeber: "eigentuemer" })
-          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
-          .bundesland({ bundesland: "BE" })
-          .bewohnbar({ bewohnbar: "unbewohnbar" })
-          .gebaeudeArtUnbewohnbar({ gebaeude: "garage" })
-          .build(),
-        expectedPath: [
-          "start",
-          "eigentuemerTyp",
-          "bundesland",
-          "bewohnbar",
-          "gebaeudeArtUnbewohnbar",
-          "keineNutzung",
-        ],
-      },
-      {
-        description: "with invalid gebaeudeArtUnbebaut",
-        context: pruefenModelFactory
-          .abgeber({ abgeber: "eigentuemer" })
-          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
-          .bundesland({ bundesland: "BE" })
-          .bewohnbar({ bewohnbar: "unbebaut" })
-          .gebaeudeArtUnbebaut({ art: "moor" })
-          .build(),
-        expectedPath: [
-          "start",
-          "eigentuemerTyp",
-          "bundesland",
-          "bewohnbar",
-          "gebaeudeArtUnbebaut",
-          "keineNutzung",
-        ],
-      },
+
+      ...["garage", "wochenendhaus", "geschaeft", "luf", "other"].map((art) => {
+        return {
+          description: `with unsupported unbewohnbar gebaeudeArt ${art}`,
+          context: pruefenModelFactory
+            .bundesland({ bundesland: "BE" })
+            .bewohnbar({ bewohnbar: "unbewohnbar" })
+            .gebaeudeArtUnbewohnbar({
+              gebaeude: art as UnbewohnbarType,
+            })
+            .build(),
+          expectedPath: [
+            "bundesland",
+            "bewohnbar",
+            "gebaeudeArtUnbewohnbar",
+            "keineNutzung",
+          ],
+        };
+      }),
+      ...["acker", "wald", "garten", "moor", "other"].map((art) => {
+        return {
+          description: `with unsupported unbebaut gebaeudeArt ${art}`,
+          context: pruefenModelFactory
+            .bundesland({ bundesland: "BE" })
+            .bewohnbar({ bewohnbar: "unbebaut" })
+            .gebaeudeArtUnbebaut({
+              art: art as UnbebautType,
+            })
+            .build(),
+          expectedPath: [
+            "bundesland",
+            "bewohnbar",
+            "gebaeudeArtUnbebaut",
+            "keineNutzung",
+          ],
+        };
+      }),
       {
         description: "with living abroad",
         context: pruefenModelFactory
-          .abgeber({ abgeber: "eigentuemer" })
-          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
           .bewohnbar({ bewohnbar: "bewohnbar" })
           .gebaeudeArtBewohnbar({ gebaeude: "einfamilienhaus" })
+          .fremderBoden({ fremderBoden: "false" })
+          .beguenstigung({ beguenstigung: "false" })
+          .abgeber({ abgeber: "eigentuemer" })
+          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .ausland({ ausland: "true" })
           .build(),
         expectedPath: [
-          "start",
-          "eigentuemerTyp",
           "bundesland",
           "bewohnbar",
           "gebaeudeArtBewohnbar",
+          "fremderBoden",
+          "beguenstigung",
+          "abgeber",
+          "eigentuemerTyp",
           "ausland",
           "keineNutzung",
         ],
@@ -166,21 +151,19 @@ describe("states", () => {
       {
         description: "with fremderBoden",
         context: pruefenModelFactory
-          .abgeber({ abgeber: "eigentuemer" })
-          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
           .bewohnbar({ bewohnbar: "bewohnbar" })
           .gebaeudeArtBewohnbar({ gebaeude: "einfamilienhaus" })
-          .ausland({ ausland: "false" })
           .fremderBoden({ fremderBoden: "true" })
+          .beguenstigung({ beguenstigung: "false" })
+          .abgeber({ abgeber: "eigentuemer" })
+          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
+          .ausland({ ausland: "true" })
           .build(),
         expectedPath: [
-          "start",
-          "eigentuemerTyp",
           "bundesland",
           "bewohnbar",
           "gebaeudeArtBewohnbar",
-          "ausland",
           "fremderBoden",
           "keineNutzung",
         ],
@@ -188,24 +171,67 @@ describe("states", () => {
       {
         description: "with beguenstigung",
         context: pruefenModelFactory
-          .abgeber({ abgeber: "eigentuemer" })
-          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
           .bundesland({ bundesland: "BE" })
           .bewohnbar({ bewohnbar: "bewohnbar" })
           .gebaeudeArtBewohnbar({ gebaeude: "einfamilienhaus" })
-          .ausland({ ausland: "false" })
           .fremderBoden({ fremderBoden: "false" })
           .beguenstigung({ beguenstigung: "true" })
+          .abgeber({ abgeber: "eigentuemer" })
+          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
+          .ausland({ ausland: "true" })
           .build(),
         expectedPath: [
-          "start",
-          "eigentuemerTyp",
           "bundesland",
           "bewohnbar",
           "gebaeudeArtBewohnbar",
-          "ausland",
           "fremderBoden",
           "beguenstigung",
+          "keineNutzung",
+        ],
+      },
+
+      {
+        description: `with unsupported abgeber steuerberater`,
+        context: pruefenModelFactory
+          .bundesland({ bundesland: "BE" })
+          .bewohnbar({ bewohnbar: "bewohnbar" })
+          .gebaeudeArtBewohnbar({ gebaeude: "einfamilienhaus" })
+          .fremderBoden({ fremderBoden: "false" })
+          .beguenstigung({ beguenstigung: "false" })
+          .abgeber({ abgeber: "steuerberater" })
+          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
+          .ausland({ ausland: "false" })
+          .build(),
+        expectedPath: [
+          "bundesland",
+          "bewohnbar",
+          "gebaeudeArtBewohnbar",
+          "fremderBoden",
+          "beguenstigung",
+          "abgeber",
+          "keineNutzung",
+        ],
+      },
+      {
+        description: `with unsupported eigentuemerTyp unternehmen`,
+        context: pruefenModelFactory
+          .bundesland({ bundesland: "BE" })
+          .bewohnbar({ bewohnbar: "bewohnbar" })
+          .gebaeudeArtBewohnbar({ gebaeude: "einfamilienhaus" })
+          .fremderBoden({ fremderBoden: "false" })
+          .beguenstigung({ beguenstigung: "false" })
+          .abgeber({ abgeber: "eigentuemer" })
+          .eigentuemerTyp({ eigentuemerTyp: "unternehmen" })
+          .ausland({ ausland: "false" })
+          .build(),
+        expectedPath: [
+          "bundesland",
+          "bewohnbar",
+          "gebaeudeArtBewohnbar",
+          "fremderBoden",
+          "beguenstigung",
+          "abgeber",
+          "eigentuemerTyp",
           "keineNutzung",
         ],
       },
@@ -231,61 +257,91 @@ describe("states", () => {
     );
 
     const cases = [
+      ...["einfamilienhaus", "zweifamilienhaus", "eigentumswohnung"].map(
+        (art) => {
+          return {
+            description: `with supported bewohnbar gebaeudeArt ${art}`,
+            context: pruefenModelFactory
+              .bundesland({ bundesland: "BE" })
+              .bewohnbar({ bewohnbar: "bewohnbar" })
+              .gebaeudeArtBewohnbar({
+                gebaeude: art as BewohnbarType,
+              })
+              .fremderBoden({ fremderBoden: "false" })
+              .beguenstigung({ beguenstigung: "false" })
+              .abgeber({ abgeber: "eigentuemer" })
+              .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
+              .ausland({ ausland: "false" })
+              .build(),
+            expectedPath: [
+              "bundesland",
+              "bewohnbar",
+              "gebaeudeArtBewohnbar",
+              "fremderBoden",
+              "beguenstigung",
+              "abgeber",
+              "eigentuemerTyp",
+              "ausland",
+              "nutzung",
+            ],
+          };
+        }
+      ),
+
+      ...["imBau", "verfallen"].map((art) => {
+        return {
+          description: `with supported unbewohnbar gebaeudeArt ${art}`,
+          context: pruefenModelFactory
+            .bundesland({ bundesland: "BE" })
+            .bewohnbar({ bewohnbar: "unbewohnbar" })
+            .gebaeudeArtUnbewohnbar({
+              gebaeude: art as UnbewohnbarType,
+            })
+            .fremderBoden({ fremderBoden: "false" })
+            .beguenstigung({ beguenstigung: "false" })
+            .abgeber({ abgeber: "eigentuemer" })
+            .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
+            .ausland({ ausland: "false" })
+            .build(),
+          expectedPath: [
+            "bundesland",
+            "bewohnbar",
+            "gebaeudeArtUnbewohnbar",
+            "fremderBoden",
+            "beguenstigung",
+            "abgeber",
+            "eigentuemerTyp",
+            "ausland",
+            "nutzung",
+          ],
+        };
+      }),
+
       {
-        description: "bewohnbar",
+        description: "with supported unbebaut art baureif",
         context: pruefenModelFactory
-          .full()
-          .bewohnbar({ bewohnbar: "bewohnbar" })
-          .gebaeudeArtBewohnbar({ gebaeude: "einfamilienhaus" })
+          .bundesland({ bundesland: "BE" })
+          .bewohnbar({ bewohnbar: "unbebaut" })
+          .gebaeudeArtUnbebaut({ art: "baureif" })
+          .fremderBoden({ fremderBoden: "false" })
+          .beguenstigung({ beguenstigung: "false" })
+          .abgeber({ abgeber: "eigentuemer" })
+          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
+          .ausland({ ausland: "false" })
           .build(),
         expectedPath: [
-          "start",
-          "eigentuemerTyp",
-          "bundesland",
-          "bewohnbar",
-          "gebaeudeArtBewohnbar",
-          "ausland",
-          "fremderBoden",
-          "beguenstigung",
-          "nutzung",
-        ],
-      },
-      {
-        description: "unbewohnbar",
-        context: pruefenModelFactory
-          .full()
-          .bewohnbar({ bewohnbar: "unbewohnbar" })
-          .gebaeudeArtUnbewohnbar({ gebaeude: "imBau" })
-          .build(),
-        expectedPath: [
-          "start",
-          "eigentuemerTyp",
-          "bundesland",
-          "bewohnbar",
-          "gebaeudeArtUnbewohnbar",
-          "ausland",
-          "fremderBoden",
-          "beguenstigung",
-          "nutzung",
-        ],
-      },
-      {
-        description: "unbebaut",
-        context: pruefenModelFactory.full().build(),
-        expectedPath: [
-          "start",
-          "eigentuemerTyp",
           "bundesland",
           "bewohnbar",
           "gebaeudeArtUnbebaut",
-          "ausland",
           "fremderBoden",
           "beguenstigung",
+          "abgeber",
+          "eigentuemerTyp",
+          "ausland",
           "nutzung",
         ],
       },
     ];
-
     test.each(cases)(
       "next, next, next $description",
       ({ context, expectedPath }) => {
