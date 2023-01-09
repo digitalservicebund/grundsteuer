@@ -123,6 +123,9 @@ export const loader: LoaderFunction = async ({
 }): Promise<LoaderData | Response> => {
   const session = await getSession(request.headers.get("Cookie"));
   const currentStateFromUrl = getCurrentStateFromUrl(request.url);
+  if (currentStateFromUrl === "start" && testFeaturesEnabled()) {
+    return redirect(PRUEFEN_START_PATH);
+  }
   const cookieHeader = request.headers.get("Cookie");
   const state = (await getFromPruefenStateCookie(cookieHeader)) || undefined;
 
@@ -143,8 +146,22 @@ export const loader: LoaderFunction = async ({
     formData: storedFormData,
     testFeaturesEnabled: testFeaturesEnabled(),
   });
-  const isFinalStep =
-    machine.getStateNodeByPath(currentStateFromUrl).type === "final";
+
+  let stateNodeType;
+  try {
+    stateNodeType = machine.getStateNodeByPath(currentStateFromUrl).type;
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      /^Child state .* does not exist/.test(error.message)
+    ) {
+      // handle invalid paths
+      throw new Response("Cannot map url to pruefen step.", { status: 404 });
+    }
+    throw error;
+  }
+
+  const isFinalStep = stateNodeType === "final";
   const isStartStep = currentStateFromUrl === PRUEFEN_START_STEP;
 
   // on starting the prüfen flow check for login on this browser in the past
