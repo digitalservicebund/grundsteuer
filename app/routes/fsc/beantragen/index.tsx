@@ -58,6 +58,7 @@ import { flags } from "~/flags.server";
 import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
 import { hasValidOpenFscRequest } from "~/domain/identificationStatus";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
+import { getBundesIdentUrl } from "~/routes/bundesIdent/_bundesIdentUrl";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -208,6 +209,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
       showSpinner: ericaRequestInProgress,
       csrfToken,
       ericaDown: flags.isEricaDown(),
+      bundesIdentUrl: getBundesIdentUrl(request),
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -342,16 +344,23 @@ export default function FscBeantragen() {
           <a
             href="https://www.elster.de/eportal/start"
             target="_blank"
-            className="underline text-blue-800"
+            className="font-bold underline text-blue-800"
           >
             MeinELSTER
           </a>{" "}
           haben, können Sie sich nicht über einen Freischaltcode identifizieren.
           Nutzen Sie stattdessen die{" "}
-          <a href="/ekona" className="underline text-blue-800">
+          <a href="/ekona" className="font-bold underline text-blue-800">
             Identifikation über ELSTER
           </a>
-          .
+          . Alternativ können Sie sich auch mit Ihrem Smartphone und der{" "}
+          <a
+            href={loaderData.bundesIdentUrl}
+            className="font-bold underline text-blue-800"
+          >
+            Online-Ausweisfunktion
+          </a>{" "}
+          identifizieren.
         </Hint>
 
         {showError && !isSubmitting && (

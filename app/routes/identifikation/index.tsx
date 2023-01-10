@@ -75,40 +75,13 @@ export default function IdentifikationIndex() {
         </IntroText>
       </ContentContainer>
       <ContentContainer size="lg">
-        <IdentCard
-          image={ident1}
-          imageAltText="Bildbeispiel der Oberfläche für ELSTER Zugang"
-          icon={<PhotoCameraFront className="mr-4" />}
-          optionCount={1}
-          heading="Identifikation mit ELSTER"
-          subheading="Empfohlen für Nutzer:innen mit einem ELSTER-Konto."
-          text="Identifizieren Sie sich mit den Zugangsdaten für Ihr ELSTER‑Konto, um die Grundsteuererklärung abzuschicken."
-          buttonLabel="Identifikation mit ELSTER-Konto"
-          buttonDisabled={ekonaDown}
-          url="/ekona"
-          className="mb-16"
-        />
-        <TeaserIdentCard />
-        <IdentCard
-          image={ident2}
-          imageAltText="Bildbeispiel Freischaltcode"
-          icon={<LetterIcon fill="#4E596A" className="mr-4" />}
-          optionCount={2}
-          heading="Identifikation mit Freischaltcode"
-          subheading="Empfohlen für Nutzer:innen ohne ELSTER-Konto."
-          text="Sie erhalten einen Brief mit einem Freischaltcode an Ihre Meldeadresse. Sie können die Erklärung ausfüllen und nach Erhalt des Codes abschicken."
-          buttonLabel="Identifikation mit Freischaltcode"
-          buttonDisabled={ericaDown}
-          url="/fsc"
-          className="mb-16 mt-0"
-        />
         {useUseid && isMobile && (
           <IdentCard
             image=""
             imageAltText="Bildbeispiel Ausweis"
             icon={<EdgeSensorHigh className="mr-4" />}
             betaTag={true}
-            optionCount={3}
+            optionCount={1}
             heading="Identifikation mit Ihrem Ausweis"
             subheading="Empfohlen für digitalaffine Nutzer:innen, die sich elektronisch mit Ihrem Ausweis identifizieren möchten."
             text=""
@@ -124,7 +97,7 @@ export default function IdentifikationIndex() {
             imageAltText="Bildbeispiel App, Ausweis und Pin"
             icon={<EdgeSensorHigh className="mr-4" />}
             betaTag={true}
-            optionCount={3}
+            optionCount={1}
             heading="Identifikation mit Ihrem Ausweis über Ihr Smartphone"
             subheading="Empfohlen für digitalaffine Nutzer:innen."
             text="Identifizieren Sie sich in wenigen Minuten mit der Online-Ausweisfunktion Ihres Ausweises und der BundesIdent App."
@@ -135,10 +108,37 @@ export default function IdentifikationIndex() {
           />
         )}
         <IdentCard
+          image={ident1}
+          imageAltText="Bildbeispiel der Oberfläche für ELSTER Zugang"
+          icon={<PhotoCameraFront className="mr-4" />}
+          optionCount={useUseid ? 2 : 1}
+          heading="Identifikation mit ELSTER"
+          subheading="Empfohlen für Nutzer:innen mit einem ELSTER-Konto."
+          text="Identifizieren Sie sich mit den Zugangsdaten für Ihr ELSTER‑Konto, um die Grundsteuererklärung abzuschicken."
+          buttonLabel="Identifikation mit ELSTER-Konto"
+          buttonDisabled={ekonaDown}
+          url="/ekona"
+          className="mb-16"
+        />
+        <TeaserIdentCard />
+        <IdentCard
+          image={ident2}
+          imageAltText="Bildbeispiel Freischaltcode"
+          icon={<LetterIcon fill="#4E596A" className="mr-4" />}
+          optionCount={useUseid ? 3 : 2}
+          heading="Identifikation mit Freischaltcode"
+          subheading="Empfohlen für Nutzer:innen ohne ELSTER-Konto."
+          text="Sie erhalten einen Brief mit einem Freischaltcode an Ihre Meldeadresse. Sie können die Erklärung ausfüllen und nach Erhalt des Codes abschicken."
+          buttonLabel="Identifikation mit Freischaltcode"
+          buttonDisabled={ericaDown}
+          url="/fsc"
+          className="mb-16 mt-0"
+        />
+        <IdentCard
           image={ident3}
           imageAltText="Illustration Später Identifizieren"
           icon={<WavingHand className="mr-4" />}
-          optionCount={useUseid && isMobile ? 4 : 3}
+          optionCount={useUseid ? 4 : 3}
           heading="Später identifizieren"
           subheading="Hinweis: Ein Versand ohne Identifikation ist nicht möglich. "
           text="Füllen Sie das Formular aus und identifizieren Sie sich später vor dem Versand. Hinweis: Ein Versand ohne Identifikation ist nicht möglich."

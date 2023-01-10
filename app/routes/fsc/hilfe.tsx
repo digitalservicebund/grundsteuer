@@ -14,6 +14,7 @@ import LinkWithArrow from "~/components/LinkWithArrow";
 import EnumeratedList from "~/components/EnumeratedList";
 import { canEnterFsc } from "~/domain/identificationStatus";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
+import { getBundesIdentUrl } from "~/routes/bundesIdent/_bundesIdentUrl";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
@@ -28,11 +29,12 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   return json({
     ...new FscRequest(dbUser.fscRequest!).getAntragStatus(),
+    bundesIdentUrl: getBundesIdentUrl(request),
   });
 };
 
 export default function FscHilfe() {
-  const { antragDate, letterArrivalDate } = useLoaderData();
+  const { antragDate, letterArrivalDate, bundesIdentUrl } = useLoaderData();
 
   return (
     <>
@@ -90,6 +92,16 @@ export default function FscHilfe() {
             items={[
               <div>
                 <p className="mb-8">
+                  <strong>Mit Ausweis und Smartphone:</strong> Sie haben
+                  außerdem die Möglichkeit sich mit Ihrem Ausweis auf dem
+                  Smartphone zu identifizieren.
+                </p>
+                <LinkWithArrow href={bundesIdentUrl}>
+                  Zur Identifikation mit Personalausweis
+                </LinkWithArrow>
+              </div>,
+              <div>
+                <p className="mb-8">
                   <strong>Über Angehörige:</strong> Fragen Sie Ihre Angehörigen,
                   ob Sie bereits einen identifizierten Account beim
                   Online-Service "Grundsteuererklärung für Privateigentum" haben
@@ -111,16 +123,6 @@ export default function FscHilfe() {
                 </p>
                 <LinkWithArrow href="/ekona">
                   Zur Identifikation mit ELSTER Zugang
-                </LinkWithArrow>
-              </div>,
-              <div>
-                <p className="mb-8">
-                  <strong>Mit Ausweis und Smartphone:</strong> Sie haben
-                  außerdem die Möglichkeit sich mit Ihrem Ausweis auf dem
-                  Smartphone zu identifizieren.
-                </p>
-                <LinkWithArrow href="/bundesIdent">
-                  Zur Identifikation mit Personalausweis
                 </LinkWithArrow>
               </div>,
               <div>

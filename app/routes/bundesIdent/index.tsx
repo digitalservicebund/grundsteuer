@@ -5,7 +5,6 @@ import { useid } from "~/useid/useid";
 import { useLoaderData } from "@remix-run/react";
 import { Button, ButtonContainer, Headline, SectionLabel } from "~/components";
 import Bolt from "~/components/icons/mui/Bolt";
-import OnlyMobileDisclaimer from "~/components/OnlyMobileDisclaimer";
 import { useEffect, useState } from "react";
 import EnableJsDisclaimer from "~/components/EnableJsDisclaimer";
 import { applyRateLimit } from "~/redis/rateLimiting.server";
@@ -52,24 +51,14 @@ export const loader: LoaderFunction = async ({ request }) => {
       tcTokenUrl: tcTokenUrl,
       hashedTcTokenUrl: hashedTcTokenUrl,
       useidDomain: process.env.USEID_DOMAIN,
-      isMobile: isMobileUserAgent(request),
     },
     {}
   );
 };
 
 export default function BundesIdentIndex() {
-  const {
-    tcTokenUrl,
-    hashedTcTokenUrl,
-    useidDomain,
-    host,
-    isMobile,
-    rateLimitExceeded,
-  } = useLoaderData();
-  if (!isMobile) {
-    return <OnlyMobileDisclaimer />;
-  }
+  const { tcTokenUrl, hashedTcTokenUrl, useidDomain, host, rateLimitExceeded } =
+    useLoaderData();
 
   const [isJavaScriptEnabled, setIsJavaScriptEnabled] = useState(false);
   useEffect(() => {

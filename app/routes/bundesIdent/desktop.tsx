@@ -9,7 +9,6 @@ import {
   IntroText,
 } from "~/components";
 import { isMobileUserAgent } from "~/util/isMobileUserAgent";
-import Hint from "~/components/Hint";
 import anmeldenQRImage from "~/assets/images/anmelden-qr.svg";
 import anmeldenSmartphoneImage from "~/assets/images/anmelden-smartphone.png";
 import EnumeratedCard from "~/components/EnumeratedCard";
@@ -73,8 +72,6 @@ export default function BundesIdentIndex() {
           identifizieren
         </Headline>
 
-        <Hint>Nur für digitalaffine Nutzerinnen und Nutzer empfohlen.</Hint>
-
         <IntroText>
           In Ihrem Ausweis befindet sich ein Chip, der mithilfe der BundesIdent
           App und Ihrer PIN ausgelesen werden kann. So können Sie sich sicher
@@ -125,6 +122,15 @@ export default function BundesIdentIndex() {
             Zurück zu Identifikationsoptionen
           </Button>
         </ButtonContainer>
+        <ContentContainer size="sm" className="mt-64">
+          Bei Problemen mit der BundesIdent App melden Sie sich unter:{" "}
+          <a
+            href="mailto:hilfe@bundesident.de"
+            className="font-bold text-blue-800 underline"
+          >
+            hilfe@bundesident.de
+          </a>
+        </ContentContainer>
       </ContentContainer>
     </>
   );
