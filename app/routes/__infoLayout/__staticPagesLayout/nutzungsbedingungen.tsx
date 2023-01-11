@@ -24,7 +24,7 @@ export default function Nutzungsbedingungen() {
         Nutzungsbedingungen
       </h1>
       <div className="prose prose-xl mb-64">
-        <p className="mb-32">Stand: 24.10.2022</p>
+        <p className="mb-32">Stand: 11.01.2023</p>
         <h2 className="text-24 mb-24 font-bold">Präambel</h2>
         <p>
           Die Software „Grundsteuererklärung für Privateigentum“ ist eine
@@ -422,9 +422,10 @@ export default function Nutzungsbedingungen() {
           <li>
             Das Nutzer:innenkonto wird automatisch gelöscht. Das geschieht 7
             Monate seit dem Zeitpunkt der letzten von folgenden Aktionen:
-            Registrierung, erfolgreiche Identifizierung oder Abgabe der
-            Erklärung. Der Zeitraum 7 Monate ist begründet durch die gesetzliche
-            Abgabefrist (Juli 2022 - Januar 2023).
+            Registrierung, Beantragung des Freischaltcodes, erfolgreiche
+            Identifizierung oder Abgabe der Erklärung. Der Zeitraum 7 Monate ist
+            begründet durch die gesetzliche Abgabefrist (Juli 2022 - Januar
+            2023).
           </li>
           <li>
             Nach Abschicken der Grundsteuererklärung kann diese nicht mehr über
