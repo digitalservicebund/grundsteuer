@@ -23,5 +23,24 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function BundesIdentErfolgreich() {
-  return <IdentificationSuccess backButton="start" />;
+  return (
+    <>
+      <IdentificationSuccess backButton="start">
+        <div className="mt-48 text-18 leading-26">
+          <h2 className="font-bold mb-8">
+            Wie hat Ihnen die Identifikation mit der BundesIdent App gefallen?
+          </h2>
+          Ihr Feedback hilft uns die App zu verbessern! Schreiben Sie uns kurz
+          an{" "}
+          <a
+            href="mailto:hilfe@bundesident.de"
+            className="font-bold text-blue-800 underline"
+          >
+            hilfe@bundesident.de
+          </a>
+          . Wir sind für jedes Feedback dankbar!
+        </div>
+      </IdentificationSuccess>
+    </>
+  );
 }

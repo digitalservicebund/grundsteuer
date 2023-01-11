@@ -62,6 +62,7 @@ import { FscRequest } from "~/domain/fscRequest";
 import LinkWithArrow from "~/components/LinkWithArrow";
 import EnumeratedList from "~/components/EnumeratedList";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
+import { getBundesIdentUrl } from "~/routes/bundesIdent/_bundesIdentUrl";
 
 type LoaderData = {
   csrfToken?: string;
@@ -72,6 +73,7 @@ type LoaderData = {
   letterArrivalDate: string;
   ekonaDown?: boolean;
   ericaDown?: boolean;
+  bundesIdentUrl: string;
 };
 
 const isEricaRequestInProgress = (userData: User) => {
@@ -202,6 +204,8 @@ export const loader: LoaderFunction = async ({
     return redirect("/fsc/eingeben/erfolgreich");
   }
 
+  const bundesIdentUrl = getBundesIdentUrl(request);
+
   if (ericaActivationRequestIsInProgress) {
     const fscActivationData = await handleFscActivationProgress(
       dbUser,
@@ -210,7 +214,7 @@ export const loader: LoaderFunction = async ({
       `FSC activated for user with id ${dbUser?.id}`
     );
     if (fscActivationData) {
-      return { ...fscActivationData, ...antragStatus };
+      return { ...fscActivationData, ...antragStatus, bundesIdentUrl };
     }
   }
 
@@ -240,6 +244,7 @@ export const loader: LoaderFunction = async ({
       showSpinner: isEricaActivationRequestInProgress(updatedUserData),
       ericaDown: flags.isEricaDown(),
       ...antragStatus,
+      bundesIdentUrl,
       testFeaturesEnabled: testFeaturesEnabled(),
     },
     {
@@ -329,7 +334,8 @@ export const action: ActionFunction = async ({
 
 export default function FscEingeben() {
   const loaderData = useLoaderData<LoaderData>();
-  const { antragDate, letterArrivalDate, remainingDays } = loaderData;
+  const { antragDate, letterArrivalDate, remainingDays, bundesIdentUrl } =
+    loaderData;
   const actionData: EingebenActionData | undefined = useActionData();
   const errors = actionData?.errors;
 
@@ -415,6 +421,16 @@ export default function FscEingeben() {
               items={[
                 <div>
                   <p className="mb-8">
+                    <strong>Ausweis und Smartphone:</strong> Sie haben außerdem
+                    die Möglichkeit sich mit Ihrem Ausweis auf dem Smartphone zu
+                    identifizieren.
+                  </p>
+                  <LinkWithArrow href={bundesIdentUrl}>
+                    Zur Identifikation mit Personalausweis
+                  </LinkWithArrow>
+                </div>,
+                <div>
+                  <p className="mb-8">
                     <strong>ELSTER-Zertifikat:</strong> Vielleicht haben Sie
                     doch ein ELSTER-Zertifikat? Personen mit einem ELSTER Konto
                     erhalten in der Regel keinen Brief mit einem Freischaltcode.
@@ -423,16 +439,6 @@ export default function FscEingeben() {
                   </p>
                   <LinkWithArrow href="/ekona">
                     Zur Identifikation mit ELSTER Zugang
-                  </LinkWithArrow>
-                </div>,
-                <div>
-                  <p className="mb-8">
-                    <strong>Ausweis und Smartphone:</strong> Sie haben außerdem
-                    die Möglichkeit sich mit Ihrem Ausweis auf dem Smartphone zu
-                    identifizieren.
-                  </p>
-                  <LinkWithArrow href="/bundesIdent">
-                    Zur Identifikation mit Personalausweis
                   </LinkWithArrow>
                 </div>,
               ]}

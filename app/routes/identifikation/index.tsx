@@ -83,7 +83,7 @@ export default function IdentifikationIndex() {
             betaTag={true}
             optionCount={1}
             heading="Identifikation mit Ihrem Ausweis"
-            subheading="Empfohlen für digitalaffine Nutzer:innen, die sich elektronisch mit Ihrem Ausweis identifizieren möchten."
+            subheading="Empfohlen für Nutzer:innen, die sich elektronisch mit dem Ausweis identifizieren wollen."
             text=""
             buttonLabel="Identifikation mit Ausweis"
             buttonDisabled={bundesIdentDown}
@@ -99,7 +99,7 @@ export default function IdentifikationIndex() {
             betaTag={true}
             optionCount={1}
             heading="Identifikation mit Ihrem Ausweis über Ihr Smartphone"
-            subheading="Empfohlen für digitalaffine Nutzer:innen."
+            subheading="Empfohlen für Nutzer:innen, die sich elektronisch mit dem Ausweis identifizieren wollen."
             text="Identifizieren Sie sich in wenigen Minuten mit der Online-Ausweisfunktion Ihres Ausweises und der BundesIdent App."
             buttonLabel="Identifikation mit Ausweis"
             buttonDisabled={bundesIdentDown}

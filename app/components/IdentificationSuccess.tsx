@@ -7,17 +7,28 @@ import {
 } from "~/components/index";
 import imageSrc from "~/assets/images/identified-medium.svg";
 import smallImageSrc from "~/assets/images/identified-small.svg";
+import { ReactNode } from "react";
 
 type BackButton = "start" | "summary";
 
 type IdentificationSuccessProps = {
   backButton: BackButton;
+  children?: ReactNode;
 };
 
 const renderBackButton = (backButton: BackButton) => {
+  const classes = "mt-80";
   if (backButton === "summary")
-    return <Button to="/formular/zusammenfassung">Zur Übersicht</Button>;
-  return <Button to="/formular">Weiter zum Formular</Button>;
+    return (
+      <Button to="/formular/zusammenfassung" className={classes}>
+        Zur Übersicht
+      </Button>
+    );
+  return (
+    <Button to="/formular" className={classes}>
+      Weiter zum Formular
+    </Button>
+  );
 };
 
 export default function IdentificationSuccess(
@@ -29,7 +40,7 @@ export default function IdentificationSuccess(
       <UebersichtStep imageSrc={imageSrc} smallImageSrc={smallImageSrc}>
         <Headline>Sie haben sich erfolgreich identifiziert.</Headline>
 
-        <div className="mb-80 text-18 leading-26">
+        <div className="text-18 leading-26">
           <p className="mb-24">
             Damit konnte sichergestellt werden, dass Sie die Person sind, die
             die Grundsteuererklärung übermittelt. Sie können die vollständige
@@ -47,6 +58,7 @@ export default function IdentificationSuccess(
             </li>
           </ul>
         </div>
+        {props.children}
         {renderBackButton(props.backButton)}
       </UebersichtStep>
     </ContentContainer>
