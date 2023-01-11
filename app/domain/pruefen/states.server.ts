@@ -3,6 +3,7 @@ import { PruefenModel } from "~/domain/pruefen/model";
 import { createGraph, getReachablePaths, Graph } from "~/domain";
 import { pruefenConditions } from "~/domain/pruefen/guards";
 import { EventObject } from "xstate/lib/types";
+import { negate } from "lodash";
 
 export interface PruefenMachineContext extends PruefenModel {
   testFeaturesEnabled?: boolean;
@@ -24,8 +25,14 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
       on: {
         BACK: { target: "bundesland" },
         NEXT: [
-          { target: "gebaeudeArtBewohnbar", cond: "isBewohnbar" },
-          { target: "gebaeudeArtUnbewohnbar", cond: "isUnbewohnbar" },
+          {
+            target: "gebaeudeArtBewohnbar",
+            cond: pruefenConditions.isBewohnbar,
+          },
+          {
+            target: "gebaeudeArtUnbewohnbar",
+            cond: pruefenConditions.isUnbewohnbar,
+          },
           { target: "gebaeudeArtUnbebaut" },
         ],
       },
@@ -34,8 +41,11 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
       on: {
         BACK: { target: "bewohnbar" },
         NEXT: [
-          { target: "nutzungsart", cond: "isHof" },
-          { target: "fremderBoden", cond: "isEligibleGebaeudeArtBewohnbar" },
+          { target: "nutzungsart", cond: pruefenConditions.isHof },
+          {
+            target: "fremderBoden",
+            cond: pruefenConditions.isEligibleGebaeudeArtBewohnbar,
+          },
           { target: "keineNutzung" },
         ],
       },
@@ -44,7 +54,10 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
       on: {
         BACK: { target: "bewohnbar" },
         NEXT: [
-          { target: "fremderBoden", cond: "isEligibleGebaeudeArtUnbewohnbar" },
+          {
+            target: "fremderBoden",
+            cond: pruefenConditions.isEligibleGebaeudeArtUnbewohnbar,
+          },
           { target: "keineNutzung" },
         ],
       },
@@ -53,7 +66,10 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
       on: {
         BACK: { target: "bewohnbar" },
         NEXT: [
-          { target: "fremderBoden", cond: "isEligibleGebaeudeArtUnbebaut" },
+          {
+            target: "fremderBoden",
+            cond: pruefenConditions.isEligibleGebaeudeArtUnbebaut,
+          },
           { target: "keineNutzung" },
         ],
       },
@@ -62,7 +78,10 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
       on: {
         BACK: { target: "gebaeudeArtBewohnbar" },
         NEXT: [
-          { target: "fremderBoden", cond: "isNotWirtschaftlich" },
+          {
+            target: "fremderBoden",
+            cond: pruefenConditions.isNotWirtschaftlich,
+          },
           { target: "mehrereErklaerungen" },
         ],
       },
@@ -70,19 +89,25 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
     fremderBoden: {
       on: {
         BACK: [
-          { target: "nutzungsart", cond: "isNotWirtschaftlich" },
+          {
+            target: "nutzungsart",
+            cond: pruefenConditions.isNotWirtschaftlich,
+          },
           {
             target: "gebaeudeArtUnbebaut",
-            cond: "isEligibleGebaeudeArtUnbebaut",
+            cond: pruefenConditions.isEligibleGebaeudeArtUnbebaut,
           },
           {
             target: "gebaeudeArtUnbewohnbar",
-            cond: "isEligibleGebaeudeArtUnbewohnbar",
+            cond: pruefenConditions.isEligibleGebaeudeArtUnbewohnbar,
           },
           { target: "gebaeudeArtBewohnbar" },
         ],
         NEXT: [
-          { target: "beguenstigung", cond: "isNotFremderBoden" },
+          {
+            target: "beguenstigung",
+            cond: pruefenConditions.isNotFremderBoden,
+          },
           { target: "keineNutzung" },
         ],
       },
@@ -93,7 +118,7 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
         NEXT: [
           {
             target: "abgeber",
-            cond: "isNotBeguenstigung",
+            cond: pruefenConditions.isNotBeguenstigung,
           },
           { target: "keineNutzung" },
         ],
@@ -103,7 +128,7 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
       on: {
         BACK: { target: "beguenstigung" },
         NEXT: [
-          { target: "eigentuemerTyp", cond: "isEigentuemer" },
+          { target: "eigentuemerTyp", cond: pruefenConditions.isEigentuemer },
           {
             target: "keineNutzung",
           },
@@ -114,7 +139,7 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
       on: {
         BACK: { target: "abgeber" },
         NEXT: [
-          { target: "ausland", cond: "isPrivatperson" },
+          { target: "ausland", cond: pruefenConditions.isPrivatperson },
           {
             target: "keineNutzung",
           },
@@ -125,7 +150,7 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
       on: {
         BACK: { target: "eigentuemerTyp" },
         NEXT: [
-          { target: "nutzung", cond: "isNotAusland" },
+          { target: "nutzung", cond: pruefenConditions.isNotAusland },
           { target: "keineNutzung" },
         ],
       },
@@ -159,7 +184,7 @@ export const pruefenStatesLegacy: MachineConfig<
     start: {
       on: {
         NEXT: [
-          { target: "eigentuemerTyp", cond: "isEigentuemer" },
+          { target: "eigentuemerTyp", cond: pruefenConditions.isEigentuemer },
           {
             target: "keineNutzung",
           },
@@ -170,7 +195,7 @@ export const pruefenStatesLegacy: MachineConfig<
       on: {
         BACK: { target: "start" },
         NEXT: [
-          { target: "bundesland", cond: "isPrivatperson" },
+          { target: "bundesland", cond: pruefenConditions.isPrivatperson },
           {
             target: "keineNutzung",
           },
@@ -181,46 +206,10 @@ export const pruefenStatesLegacy: MachineConfig<
       on: {
         BACK: { target: "eigentuemerTyp" },
         NEXT: [
-          { target: "bewohnbar", cond: "showTestFeaturesAndBundesmodel" },
-          { target: "grundstueckArt", cond: "isBundesmodelBundesland" },
-          { target: "keineNutzung" },
-        ],
-      },
-    },
-    bewohnbar: {
-      on: {
-        BACK: { target: "bundesland" },
-        NEXT: [
-          { target: "gebaeudeArtBewohnbar", cond: "isBewohnbar" },
-          { target: "gebaeudeArtUnbewohnbar", cond: "isUnbewohnbar" },
-          { target: "gebaeudeArtUnbebaut" },
-        ],
-      },
-    },
-    gebaeudeArtBewohnbar: {
-      on: {
-        BACK: { target: "bewohnbar" },
-        NEXT: [
-          { target: "ausland", cond: "isEligibleGebaeudeArtBewohnbar" },
-          { target: "mehrereErklaerungen", cond: "isLufGebaeudeArtBewohnbar" },
-          { target: "keineNutzung" },
-        ],
-      },
-    },
-    gebaeudeArtUnbewohnbar: {
-      on: {
-        BACK: { target: "bewohnbar" },
-        NEXT: [
-          { target: "ausland", cond: "isEligibleGebaeudeArtUnbewohnbar" },
-          { target: "keineNutzung" },
-        ],
-      },
-    },
-    gebaeudeArtUnbebaut: {
-      on: {
-        BACK: { target: "bewohnbar" },
-        NEXT: [
-          { target: "ausland", cond: "isEligibleGebaeudeArtUnbebaut" },
+          {
+            target: "grundstueckArt",
+            cond: pruefenConditions.isBundesmodelBundesland,
+          },
           { target: "keineNutzung" },
         ],
       },
@@ -229,24 +218,19 @@ export const pruefenStatesLegacy: MachineConfig<
       on: {
         BACK: { target: "bundesland" },
         NEXT: [
-          { target: "ausland", cond: "isEligibleGrundstueckArt" },
+          {
+            target: "ausland",
+            cond: pruefenConditions.isEligibleGrundstueckArt,
+          },
           { target: "keineNutzung" },
         ],
       },
     },
     ausland: {
       on: {
-        BACK: [
-          { target: "gebaeudeArtBewohnbar", cond: "isBewohnbar" },
-          { target: "gebaeudeArtUnbewohnbar", cond: "isUnbewohnbar" },
-          {
-            target: "gebaeudeArtUnbebaut",
-            cond: "showTestFeaturesAndBundesmodel",
-          },
-          { target: "grundstueckArt" },
-        ],
+        BACK: [{ target: "grundstueckArt" }],
         NEXT: [
-          { target: "fremderBoden", cond: "isNotAusland" },
+          { target: "fremderBoden", cond: pruefenConditions.isNotAusland },
           { target: "keineNutzung" },
         ],
       },
@@ -255,7 +239,10 @@ export const pruefenStatesLegacy: MachineConfig<
       on: {
         BACK: { target: "ausland" },
         NEXT: [
-          { target: "beguenstigung", cond: "isNotFremderBoden" },
+          {
+            target: "beguenstigung",
+            cond: pruefenConditions.isNotFremderBoden,
+          },
           { target: "keineNutzung" },
         ],
       },
@@ -266,11 +253,7 @@ export const pruefenStatesLegacy: MachineConfig<
         NEXT: [
           {
             target: "nutzung",
-            cond: "isNotBeguenstigung",
-          },
-          {
-            target: "nutzung",
-            cond: "isNotBeguenstigung",
+            cond: pruefenConditions.isNotBeguenstigung,
           },
           { target: "keineNutzung" },
         ],
@@ -284,6 +267,37 @@ export const pruefenStatesLegacy: MachineConfig<
     },
     keineNutzung: {
       type: "final",
+      on: {
+        BACK: [
+          {
+            target: "start",
+            cond: negate(pruefenConditions.isEigentuemer),
+          },
+          {
+            target: "eigentuemerTyp",
+            cond: negate(pruefenConditions.isPrivatperson),
+          },
+          {
+            target: "bundesland",
+            cond: negate(pruefenConditions.isBundesmodelBundesland),
+          },
+          {
+            target: "grundstueckArt",
+            cond: negate(pruefenConditions.isEligibleGrundstueckArt),
+          },
+          {
+            target: "ausland",
+            cond: negate(pruefenConditions.isNotAusland),
+          },
+          {
+            target: "fremderBoden",
+            cond: negate(pruefenConditions.isNotFremderBoden),
+          },
+          {
+            target: "beguenstigung",
+          },
+        ],
+      },
     },
     nutzung: {
       type: "final",

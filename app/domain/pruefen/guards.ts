@@ -3,7 +3,6 @@ import { PruefenMachineContext } from "~/domain/pruefen/states.server";
 export type PruefenCondition = (
   context: PruefenMachineContext | undefined
 ) => boolean;
-export type PruefenConditions = Record<string, PruefenCondition>;
 
 const isEigentuemer: PruefenCondition = (context) => {
   const eligibleEigentuemerArten = [
@@ -138,7 +137,7 @@ const isNotWirtschaftlich: PruefenCondition = (context) => {
   );
 };
 
-export const pruefenConditions: PruefenConditions = {
+export const pruefenConditions = {
   isPrivatperson,
   isEigentuemer,
   isBundesmodelBundesland,
