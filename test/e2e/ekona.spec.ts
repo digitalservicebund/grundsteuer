@@ -1,6 +1,6 @@
 /// <reference types="../../cypress/support" />
 
-describe.skip("/ekona", () => {
+describe("/ekona", () => {
   it("/ekona routes should only be accessible for logged-in users", () => {
     cy.visit("/ekona", { failOnStatusCode: false });
     cy.url().should("include", "/anmelden");
