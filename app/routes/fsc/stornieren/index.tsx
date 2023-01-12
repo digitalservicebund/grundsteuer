@@ -97,9 +97,13 @@ export const action: ActionFunction = async ({
   const userData = await findUserByEmail(sessionUser.email);
 
   invariant(
-    userData && userData.fscRequest && !userData.ericaRequestIdFscStornieren,
+    userData && !userData.ericaRequestIdFscStornieren,
     "Expected an user eligible for fsc request revocation."
   );
+
+  if (!userData.fscRequest) {
+    return redirect("/fsc/stornieren/erfolgreich");
+  }
 
   const ericaRequestIdOrError = await revokeFscForUser(userData);
 
