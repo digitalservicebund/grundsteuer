@@ -47,7 +47,6 @@ import {
 } from "~/storage/pruefenCookie.server";
 import { commitSession, getSession } from "~/session.server";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
-import { useEffect, useState } from "react";
 import { Flags, flags } from "~/flags.server";
 import { rememberCookieExists } from "~/storage/rememberLogin.server";
 import {
@@ -307,12 +306,6 @@ export function Step() {
     "type" in firstFieldDefinition &&
     firstFieldDefinition.type === "radio";
 
-  const [isJavaScriptEnabled, setIsJavaScriptEnabled] = useState(false);
-
-  useEffect(() => {
-    setIsJavaScriptEnabled(true);
-  });
-
   return (
     <>
       <ContentContainer>
@@ -412,12 +405,8 @@ export function Step() {
                           {i18n.common.backToHomepage}
                         </Button>
                       )}
-                      {isJavaScriptEnabled && (
-                        <Button
-                          href="#"
-                          onClick={() => history.back()}
-                          look="secondary"
-                        >
+                      {backUrl && (
+                        <Button to={backUrl} look="secondary">
                           {i18n.common.back}
                         </Button>
                       )}
