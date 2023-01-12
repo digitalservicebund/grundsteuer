@@ -85,7 +85,7 @@ export default function FscHilfe() {
       >
         <ContentContainer size="sm-md">
           <h2 className="text-24 mb-24">
-            Wie kann mich stattdessen identifizieren?
+            Wie kann ich mich stattdessen identifizieren?
           </h2>
           <EnumeratedList
             gap="48"
