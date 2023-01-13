@@ -98,7 +98,7 @@ export type BeguenstigungFields = {
 };
 
 export type NutzungsartFields = {
-  wirtschaftlich: "true" | "false";
+  privat: "true" | "false";
 };
 
 export type PruefenModel = {
@@ -114,5 +114,6 @@ export type PruefenModel = {
   ausland?: AuslandFields;
   fremderBoden?: FremderBodenFields;
   beguenstigung?: BeguenstigungFields;
-  nutzungsart?: NutzungsartFields;
+  nutzungsartBebaut?: NutzungsartFields;
+  nutzungsartUnbebaut?: NutzungsartFields;
 };

@@ -344,7 +344,7 @@
             },
             "geschaeft": {
               "label": "Geschäft, Laden oder Werkstatt",
-              "description": ""
+              "description": "Die Räume können auch Wohnfläche haben, diese beträgt aber weniger als 50% der Gesamtfläche"
             },
             "luf": {
               "label": "Gebäude der Land- und Forstwirtschaft",
@@ -477,37 +477,53 @@
         }
       }
     },
-    "nutzungsart": {
-      "headline": "Wie werden die Flächen oder Gebäude neben Ihrem Wohngebäude genutzt? ",
+    "nutzungsartBebaut": {
+      "headline": "Wie werden die (land- und forstwirtschaftlichen) Flächen oder Gebäude neben Ihrem Wohnhaus genutzt? ",
       "fields": {
-        "wirtschaftlich": {
+        "privat": {
           "options": {
-            "false": {
-              "label": "Nicht wirtschaftlich genutzte Flächen oder Gebäude",
+            "true": {
+              "label": "Private Nutzung",
               "description": "Flächen wie Grünland, Waldstück, Obstwiese oder ehemalige Wirtschaftsgebäude wie Stall oder Scheune liegen brach oder werden nur für private Zwecke genutzt. Zum Beispiel als Garten, als Kfz Stellplatz, Lagerfläche für Brennholz/Gartengeräte oder private Tierhaltung. Es ist nicht geplant, diese in den nächsten 7 Jahren wieder wirtschaftlich und gewinnorientiert zu nutzen."
             },
-            "true": {
-              "label": "Wirtschaftlich genutzte Flächen oder Gebäude",
+            "false": {
+              "label": "Brach liegend/ungenutzt, verpachtet oder land- und forstwirtschaftliche Nutzung",
               "description": "Die Grünflächen oder Wirtschaftsgebäude werden teilweise oder ganz land- und forstwirtschaftlich genutzt. Auch falls Flächen oder Nebengebäude nur vorübergehend (7 Jahre) brach liegen oder leer stehen, gelten sie weiterhin als land- und forstwirtschaftliches Vermögen."
             }
           }
         }
       }
     },
-    "lufSpezial": {
-      "headline": "Zwei Erklärungen bitte"
+    "nutzungsartUnbebaut": {
+      "headline": "Wie werden die Flächen oder Gebäude neben Ihrem Wohngebäude genutzt? ",
+      "fields": {
+        "privat": {
+          "options": {
+            "true": {
+              "label": "Private Nutzung",
+              "description": "Flächen wie Grünland, Waldstück, Obstwiese oder ehemalige Wirtschaftsgebäude wie Stall oder Scheune liegen brach oder werden nur für private Zwecke genutzt. Zum Beispiel als Garten, als Kfz Stellplatz, Lagerfläche für Brennholz/Gartengeräte oder private Tierhaltung. Es ist nicht geplant, diese in den nächsten 7 Jahren wieder wirtschaftlich und gewinnorientiert zu nutzen."
+            },
+            "false": {
+              "label": "Brach liegend/ungenutzt, verpachtet oder land- und forstwirtschaftliche Nutzung",
+              "description": "Die Grünflächen oder Wirtschaftsgebäude werden teilweise oder ganz land- und forstwirtschaftlich genutzt. Auch falls Flächen oder Nebengebäude nur vorübergehend (7 Jahre) brach liegen oder leer stehen, gelten sie weiterhin als land- und forstwirtschaftliches Vermögen."
+            }
+          }
+        }
+      }
     },
     "keineNutzung": {
       "headline": "Tut uns leid, Sie können unseren Online-Dienst leider nicht nutzen",
       "specifics": {
         "explanationFallback": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Online-Dienst machen können. „Grundsteuererklärung für Privateigentum“ ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
-        "noEigentuemer": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Unser Online-Dienst ist speziell für Privatpersonen entwickelt, die zum Stichtag am 01.01.2022 Eigentümer:innen des Grundstücks waren. <break/><break/>Wenn Sie das Grundstück nach dem 01.01.2022 erworben haben, müssen Sie derzeit keine Erklärung abgeben.<break/><break/>Rechtsberatende Berufe können wir leider nicht abdecken.",
-        "noPrivatperson": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Unser Online-Dienst ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben. <break/><break/>Auch Erbengemeinschaften bilden wir aktuell nicht ab. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
+        "noEigentuemer": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Unser Online-Dienst ist speziell für Privatpersonen entwickelt, die zum Stichtag am 01.01.2022 Eigentümer:innen des Grundstücks waren. <break/>Wenn Sie das Grundstück nach dem 01.01.2022 erworben haben, müssen Sie derzeit keine Erklärung abgeben.<break/>Rechtsberatende Berufe können wir leider nicht abdecken.",
+        "noPrivatperson": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Unser Online-Dienst ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben. <break/>Auch Erbengemeinschaften bilden wir aktuell nicht ab. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
         "invalidBundesland": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Ihr ausgewähltes Bundesland nimmt nicht am Bundesmodell teil, sondern hat ein eigenes Grundsteuermodell eingeführt. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
-        "invalidGrundstueckArt": "Aktuell können nur Eigentümer:innen von Einfamilien- und Zweifamilienhäusern, Eigentumswohnungen und unbebauten Grundstücken „Grundsteuererklärung für Privateigentum“ nutzen. Für alle anderen bietet sich alternativ eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
+        "invalidGrundstueckArtLegacy": "Aktuell können nur Eigentümer:innen von Einfamilien- und Zweifamilienhäusern, Eigentumswohnungen und unbebauten Grundstücken „Grundsteuererklärung für Privateigentum“ nutzen. Für alle anderen bietet sich alternativ eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
         "ausland": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Online-Dienst machen können. Im Moment können wir nur Personen, die in Deutschland einen Wohnsitz haben, eine Abgabe mit “Grundsteuererklärung für Privateigentum” ermöglichen. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
         "fremderBoden": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Online-Dienst machen können. Aktuell müssen Grundstück und Gebäude einen Eigentümer oder Eigentümerin haben. Gemischte Eigentumsverhältnisse können wir aktuell noch nicht anbieten. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
-        "beguenstigung": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Online-Dienst machen können. Im Moment decken wir keine Grundstücke ab, die steuerlich begünstigt oder befreit sind. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an."
+        "beguenstigung": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Online-Dienst machen können. Im Moment decken wir keine Grundstücke ab, die steuerlich begünstigt oder befreit sind. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
+        "invalidGrundstueckArt": "Aktuell können nur Eigentümer:innen von Einfamilien- und Zweifamilienhäusern, Eigentumswohnungen und unbebauten Grundstücken „Grundsteuererklärung für Privateigentum“ nutzen.<break/>Für alle anderen bietet sich alternativ eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
+        "luf": "Auf Basis Ihrer Angaben haben wir festgestellt, das Sie Ihr Grundstück als Land- und Forstwirtschaft erklären müssten. Diesen Fall decken wir in unserem Online-Portal nicht ab.<break/>Für diesen Fall, bietet sich alternativ eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.<break/>In unserem <hilfebereich>Hilfebereich</hilfebereich>, haben wir weiterführende Informationen und Schritte zusammengestellt."
       }
     },
     "nutzung": {

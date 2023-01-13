@@ -40,10 +40,49 @@ const getPath = (
 };
 
 describe("states", () => {
-  describe("traversal", () => {
-    const statesForForwardTraversal = removeTransitionsPruefen(
-      pruefenStates,
-      "BACK"
+  const statesForForwardTraversal = removeTransitionsPruefen(
+    pruefenStates,
+    "BACK"
+  );
+
+  function traverseForward(
+    cases: {
+      context: PruefenMachineContext;
+      description: string;
+      expectedPath: string[];
+    }[]
+  ) {
+    test.each(cases)(
+      "next, next, next $description",
+      ({ context, expectedPath }) => {
+        const path = getPath(statesForForwardTraversal, context);
+        expect(path).toEqual(expectedPath);
+      }
+    );
+  }
+
+  function traverseBackward(
+    cases: {
+      context: PruefenMachineContext;
+      description: string;
+      expectedPath: string[];
+    }[],
+    statesForReverseTraversal: any
+  ) {
+    test.each(cases)(
+      "back, back, back $description",
+      ({ context, expectedPath }) => {
+        const path = getPath(statesForReverseTraversal, context);
+        expectedPath.reverse();
+        expect(path).toEqual(expectedPath);
+      }
+    );
+  }
+
+  describe("Keine Nutzung", () => {
+    const statesForReverseTraversal = removeTransitionsPruefen(
+      { ...pruefenStates, initial: "keineNutzung" },
+      "NEXT"
     );
 
     const cases = [
@@ -56,22 +95,6 @@ describe("states", () => {
         description: "with unsupported bundesland",
         context: pruefenModelFactory.bundesland({ bundesland: "BY" }).build(),
         expectedPath: ["bundesland", "keineNutzung"],
-      },
-      {
-        description: "with unsupported nutzungsart",
-        context: pruefenModelFactory
-          .bundesland({ bundesland: "BE" })
-          .bewohnbar({ bewohnbar: "bewohnbar" })
-          .gebaeudeArtBewohnbar({ gebaeude: "hof" })
-          .nutzungsart({ wirtschaftlich: "true" })
-          .build(),
-        expectedPath: [
-          "bundesland",
-          "bewohnbar",
-          "gebaeudeArtBewohnbar",
-          "nutzungsart",
-          "mehrereErklaerungen",
-        ],
       },
       {
         description: "with unsupported gebaeudeArt mehrfamilienhaus",
@@ -106,7 +129,7 @@ describe("states", () => {
           ],
         };
       }),
-      ...["acker", "wald", "garten", "moor", "other"].map((art) => {
+      ...["wald", "moor", "other"].map((art) => {
         return {
           description: `with unsupported unbebaut gebaeudeArt ${art}`,
           context: pruefenModelFactory
@@ -120,6 +143,24 @@ describe("states", () => {
             "bundesland",
             "bewohnbar",
             "gebaeudeArtUnbebaut",
+            "keineNutzung",
+          ],
+        };
+      }),
+      ...["acker", "garten"].map((art) => {
+        return {
+          description: `unbebaut ${art} with unsupported nutzungsart`,
+          context: pruefenModelFactory
+            .bundesland({ bundesland: "BE" })
+            .bewohnbar({ bewohnbar: "unbebaut" })
+            .gebaeudeArtUnbebaut({ art: art as UnbebautType })
+            .nutzungsartUnbebaut({ privat: "false" })
+            .build(),
+          expectedPath: [
+            "bundesland",
+            "bewohnbar",
+            "gebaeudeArtUnbebaut",
+            "nutzungsartUnbebaut",
             "keineNutzung",
           ],
         };
@@ -237,20 +278,11 @@ describe("states", () => {
       },
     ];
 
-    test.each(cases)(
-      "next, next, next $description",
-      ({ context, expectedPath }) => {
-        const path = getPath(statesForForwardTraversal, context);
-        expect(path).toEqual(expectedPath);
-      }
-    );
+    traverseForward(cases);
+    traverseBackward(cases, statesForReverseTraversal);
   });
 
-  describe("full traversal", () => {
-    const statesForForwardTraversal = removeTransitionsPruefen(
-      pruefenStates,
-      "BACK"
-    );
+  describe("Nutzung", () => {
     const statesForReverseTraversal = removeTransitionsPruefen(
       { ...pruefenStates, initial: "nutzung" },
       "NEXT"
@@ -342,21 +374,36 @@ describe("states", () => {
         ],
       },
     ];
-    test.each(cases)(
-      "next, next, next $description",
-      ({ context, expectedPath }) => {
-        const path = getPath(statesForForwardTraversal, context);
-        expect(path).toEqual(expectedPath);
-      }
+
+    traverseForward(cases);
+    traverseBackward(cases, statesForReverseTraversal);
+  });
+
+  describe("Mehrere Erklaerungen", () => {
+    const statesForReverseTraversal = removeTransitionsPruefen(
+      { ...pruefenStates, initial: "mehrereErklaerungen" },
+      "NEXT"
     );
 
-    test.each(cases)(
-      "back, back, back $description",
-      ({ context, expectedPath }) => {
-        const path = getPath(statesForReverseTraversal, context);
-        expectedPath.reverse();
-        expect(path).toEqual(expectedPath);
-      }
-    );
+    const cases = [
+      {
+        description: "hof with unsupported nutzungsart",
+        context: pruefenModelFactory
+          .bundesland({ bundesland: "BE" })
+          .bewohnbar({ bewohnbar: "bewohnbar" })
+          .gebaeudeArtBewohnbar({ gebaeude: "hof" })
+          .nutzungsartBebaut({ privat: "false" })
+          .build(),
+        expectedPath: [
+          "bundesland",
+          "bewohnbar",
+          "gebaeudeArtBewohnbar",
+          "nutzungsartBebaut",
+          "mehrereErklaerungen",
+        ],
+      },
+    ];
+    traverseForward(cases);
+    traverseBackward(cases, statesForReverseTraversal);
   });
 });

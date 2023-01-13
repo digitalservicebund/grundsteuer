@@ -82,7 +82,7 @@ describe("Happy Paths", () => {
     cy.get(`label[for=gebaeude-hof]`).click();
     cy.get(submitBtnSelector).click();
 
-    cy.get("label[for=wirtschaftlich-true").click();
+    cy.get("label[for=privat-false").click();
     cy.get(submitBtnSelector).click();
 
     cy.contains("h1", "separate Erklärungen");

@@ -216,6 +216,7 @@ export const loader: LoaderFunction = async ({
       stepDefinition,
       csrfToken,
       flags: flags.getAllFlags(),
+      testFeaturesEnabled: testFeaturesEnabled(),
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },
@@ -317,6 +318,9 @@ export function Step() {
           >
             Nutzung prüfen
           </SectionLabel>
+          <div className="mb-16 text-blue-800">
+            Als Grundlage gilt der Stichtag: 01.01.2022
+          </div>
           <ContentContainer size="sm-md">
             <Form
               method="post"

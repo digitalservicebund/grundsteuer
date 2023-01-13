@@ -1,6 +1,6 @@
 import FieldError from "./FieldError";
 import Radio from "./Radio";
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 import Help from "~/components/form/help/Help";
 import { Trans } from "react-i18next";
 
@@ -9,7 +9,7 @@ export type RadioOptionProps = {
   label: string;
   checked?: boolean;
   help?: ReactElement;
-  description?: string;
+  description?: string | ReactNode;
 };
 
 export type RadioGroupProps = {

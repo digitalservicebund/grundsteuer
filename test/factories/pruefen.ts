@@ -108,10 +108,18 @@ class PruefenFactory extends Factory<PruefenMachineContext> {
     });
   }
 
-  nutzungsart(fields?: Partial<NutzungsartFields>) {
+  nutzungsartBebaut(fields?: Partial<NutzungsartFields>) {
     return this.params({
-      nutzungsart: {
-        wirtschaftlich: fields?.wirtschaftlich,
+      nutzungsartBebaut: {
+        privat: fields?.privat,
+      },
+    });
+  }
+
+  nutzungsartUnbebaut(fields?: Partial<NutzungsartFields>) {
+    return this.params({
+      nutzungsartUnbebaut: {
+        privat: fields?.privat,
       },
     });
   }

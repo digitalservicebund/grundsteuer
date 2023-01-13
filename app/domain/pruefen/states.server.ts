@@ -41,7 +41,7 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
       on: {
         BACK: { target: "bewohnbar" },
         NEXT: [
-          { target: "nutzungsart", cond: pruefenConditions.isHof },
+          { target: "nutzungsartBebaut", cond: pruefenConditions.isHof },
           {
             target: "fremderBoden",
             cond: pruefenConditions.isEligibleGebaeudeArtBewohnbar,
@@ -67,6 +67,10 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
         BACK: { target: "bewohnbar" },
         NEXT: [
           {
+            target: "nutzungsartUnbebaut",
+            cond: pruefenConditions.isAckerOrGarten,
+          },
+          {
             target: "fremderBoden",
             cond: pruefenConditions.isEligibleGebaeudeArtUnbebaut,
           },
@@ -74,15 +78,27 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
         ],
       },
     },
-    nutzungsart: {
+    nutzungsartBebaut: {
       on: {
         BACK: { target: "gebaeudeArtBewohnbar" },
         NEXT: [
           {
             target: "fremderBoden",
-            cond: pruefenConditions.isNotWirtschaftlich,
+            cond: pruefenConditions.isPrivatBebaut,
           },
           { target: "mehrereErklaerungen" },
+        ],
+      },
+    },
+    nutzungsartUnbebaut: {
+      on: {
+        BACK: { target: "gebaeudeArtUnbebaut" },
+        NEXT: [
+          {
+            target: "fremderBoden",
+            cond: pruefenConditions.isPrivatUnbebaut,
+          },
+          { target: "keineNutzung" },
         ],
       },
     },
@@ -90,8 +106,12 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
       on: {
         BACK: [
           {
-            target: "nutzungsart",
-            cond: pruefenConditions.isNotWirtschaftlich,
+            target: "nutzungsartBebaut",
+            cond: pruefenConditions.isPrivatBebaut,
+          },
+          {
+            target: "nutzungsartUnbebaut",
+            cond: pruefenConditions.isPrivatUnbebaut,
           },
           {
             target: "gebaeudeArtUnbebaut",
@@ -158,11 +178,55 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
     mehrereErklaerungen: {
       type: "final",
       on: {
-        BACK: [{ target: "beguenstigung" }],
+        BACK: [{ target: "nutzungsartBebaut" }],
       },
     },
     keineNutzung: {
       type: "final",
+      on: {
+        BACK: [
+          {
+            target: "bundesland",
+            cond: negate(pruefenConditions.isBundesmodelBundesland),
+          },
+          {
+            target: "nutzungsartUnbebaut",
+            cond: pruefenConditions.isWirtschaftlichUnbebaut,
+          },
+          {
+            target: "gebaeudeArtBewohnbar",
+            cond: pruefenConditions.isUnsupportedBewohnbar,
+          },
+          {
+            target: "gebaeudeArtUnbewohnbar",
+            cond: pruefenConditions.isUnsupportedUnbewohnbar,
+          },
+          {
+            target: "gebaeudeArtUnbebaut",
+            cond: pruefenConditions.isUnsupportedUnbebaut,
+          },
+          {
+            target: "fremderBoden",
+            cond: negate(pruefenConditions.isNotFremderBoden),
+          },
+          {
+            target: "beguenstigung",
+            cond: negate(pruefenConditions.isNotBeguenstigung),
+          },
+          {
+            target: "abgeber",
+            cond: negate(pruefenConditions.isEigentuemer),
+          },
+          {
+            target: "eigentuemerTyp",
+            cond: negate(pruefenConditions.isPrivatperson),
+          },
+          {
+            target: "ausland",
+            cond: negate(pruefenConditions.isNotAusland),
+          },
+        ],
+      },
     },
     nutzung: {
       type: "final",

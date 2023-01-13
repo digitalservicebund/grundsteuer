@@ -207,11 +207,22 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
       },
     },
   },
-  nutzungsart: {
+  nutzungsartUnbebaut: {
     fields: {
-      wirtschaftlich: {
+      privat: {
         type: "radio",
-        options: [{ value: "false" }, { value: "true" }],
+        options: [{ value: "true" }, { value: "false" }],
+        validations: {
+          required: { msg: "Bitte treffen Sie eine Auswahl" },
+        },
+      },
+    },
+  },
+  nutzungsartBebaut: {
+    fields: {
+      privat: {
+        type: "radio",
+        options: [{ value: "true" }, { value: "false" }],
         validations: {
           required: { msg: "Bitte treffen Sie eine Auswahl" },
         },

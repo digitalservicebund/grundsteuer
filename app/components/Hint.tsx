@@ -8,6 +8,7 @@ export default function Hint(props: {
   type?: "hint" | "status";
   children: ReactNode;
   className?: string;
+  overrideMargin?: boolean;
 }) {
   const type = props.type ? props.type : "hint";
   const title = type === "hint" ? "Hinweis" : "Status";
@@ -16,8 +17,9 @@ export default function Hint(props: {
   return (
     <div
       className={classNames(
-        "flex flex-col bg-yellow-200 rounded-lg px-36 py-24 mb-32",
-        className
+        className,
+        "flex flex-col bg-yellow-200 rounded-lg px-36 py-24",
+        { "mb-32": !props.overrideMargin }
       )}
       data-testid="hint-box"
     >
