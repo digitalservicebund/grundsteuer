@@ -14,10 +14,13 @@ Sentry.init({
   environment: process.env.APP_ENV,
   release: process.env.APP_VERSION,
   integrations: function (integrations) {
-    // Do not send request data to sentry
+    // Do not send request data or local variables to sentry
     return integrations
       .filter((integration) => {
-        return integration.name !== "RequestData";
+        return (
+          integration.name !== "RequestData" &&
+          integration.name !== "LocalVariables"
+        );
       })
       .concat(new Sentry.Integrations.Prisma({ client: db }));
   },
