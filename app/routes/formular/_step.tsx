@@ -1,15 +1,15 @@
 import {
   ActionFunction,
-  json,
   LoaderFunction,
   MetaFunction,
   redirect,
+  json,
 } from "@remix-run/node";
 import {
   Form,
   useActionData,
   useLoaderData,
-  useNavigation,
+  useTransition,
 } from "@remix-run/react";
 import { createMachine } from "xstate";
 import _ from "lodash";
@@ -268,8 +268,8 @@ export type HeadlineComponentFunction = (props: {
 export function Step() {
   const loaderData: LoaderData = useLoaderData();
   const actionData: ActionData = useActionData() as ActionData;
-  const navigation = useNavigation();
-  const isSubmitting = Boolean(navigation.state === "submitting");
+  const transition = useTransition();
+  const isSubmitting = Boolean(transition.submission);
   const {
     i18n,
     backUrl,

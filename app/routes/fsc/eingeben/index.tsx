@@ -21,7 +21,7 @@ import {
   useActionData,
   useFetcher,
   useLoaderData,
-  useNavigation,
+  useTransition,
 } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { removeUndefined } from "~/util/removeUndefined";
@@ -341,8 +341,8 @@ export default function FscEingeben() {
 
   // We need to fetch data to check the result with Elster
   const fetcher = useFetcher();
-  const navigation = useNavigation();
-  const isSubmitting = Boolean(navigation.state === "submitting");
+  const transition = useTransition();
+  const isSubmitting = Boolean(transition.submission);
 
   const [showSpinner, setShowSpinner] = useState(loaderData?.showSpinner);
   const [showError, setShowError] = useState(loaderData?.showError);

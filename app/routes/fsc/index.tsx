@@ -20,7 +20,7 @@ import {
   Form,
   useActionData,
   useLoaderData,
-  useNavigation,
+  useTransition,
 } from "@remix-run/react";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 import { t } from "i18next";
@@ -96,7 +96,7 @@ export default function FscIndex() {
   const { antragDate, letterArrivalDate, csrfToken } = useLoaderData();
   const actionData = useActionData();
   const errors = actionData?.errors;
-  const isSubmitting = Boolean(useNavigation().state === "submitting");
+  const isSubmitting = Boolean(useTransition().submission);
 
   return (
     <ContentContainer size="sm-md">

@@ -1,4 +1,4 @@
-import { useNavigation } from "@remix-run/react";
+import { useTransition } from "@remix-run/react";
 import { Fragment, ReactNode } from "react";
 import { Button, ContentContainer, SectionLabel } from "~/components";
 import Help from "~/components/form/help/Help";
@@ -16,8 +16,8 @@ const Anzahl = (props: {
   help: ReactNode;
   labelIcon: ReactNode;
 }) => {
-  const navigation = useNavigation();
-  const isSubmitting = Boolean(navigation.state === "submitting");
+  const transition = useTransition();
+  const isSubmitting = Boolean(transition.submission);
   const anzahl = Number(props.anzahl || 1);
 
   const renderItems = () => {
