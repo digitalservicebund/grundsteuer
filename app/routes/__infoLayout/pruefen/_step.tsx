@@ -56,7 +56,7 @@ import {
 } from "~/routes/__infoLayout/pruefen/_pruefenPath.server";
 
 const SUCCESS_STEP = "nutzung";
-const FAILURE_STEP = "keineNutzung";
+const FAILURE_STEPS = ["keineNutzung", "mehrereErklaerungen"];
 
 export const getMachine = ({
   formData,
@@ -183,7 +183,8 @@ export const loader: LoaderFunction = async ({
   }
 
   const isSuccessStep = isFinalStep && currentStateFromUrl === SUCCESS_STEP;
-  const isFailureStep = isFinalStep && currentStateFromUrl === FAILURE_STEP;
+  const isFailureStep =
+    isFinalStep && FAILURE_STEPS.includes(currentStateFromUrl);
   const backUrl = getBackUrl({
     machine,
     currentStateWithoutId: currentStateFromUrl,
@@ -405,7 +406,7 @@ export function Step() {
                           </Button>
                         )}
                       {loaderData?.isFailureStep && (
-                        <Button to="/" look="ghost">
+                        <Button to="/" look="primary">
                           {i18n.common.backToHomepage}
                         </Button>
                       )}

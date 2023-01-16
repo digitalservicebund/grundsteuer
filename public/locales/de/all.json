@@ -85,7 +85,7 @@
   "common": {
     "continue": "Übernehmen & weiter",
     "back": "Zurück",
-    "backToHomepage": "Zurück zur Startseite",
+    "backToHomepage": "Zur Startseite",
     "backToSummary": "Übernehmen & Zur Übersicht"
   },
   "banners": {
@@ -299,15 +299,15 @@
           "options": {
             "einfamilienhaus": {
               "label": "Einfamilienhaus",
-              "description": "Das Gebäude hat genau eine Wohnung mit einem Eingang. Vielleicht gehören zum Beispiel auch eine Garage, Garten, Privatweg, Arbeitszimmer, Schuppen oder ähnliches dazu."
+              "description": "Das Gebäude hat genau eine Wohnung mit einem Eingang. Vielleicht gehören zum Beispiel auch eine Garage, Garten, Privatweg, Arbeitszimmer, Schuppen oder Ähnliches dazu."
             },
             "zweifamilienhaus": {
               "label": "Zweifamilienhaus",
-              "description": "Das Gebäude hat genau zwei Wohnungen mit separaten Eingängen. Vielleicht gehören zum Beispiel auch eine Garage, Garten, Privatweg, Arbeitszimmer, Schuppen oder ähnliches dazu."
+              "description": "Das Gebäude hat genau zwei Wohnungen mit separaten Eingängen. Vielleicht gehören zum Beispiel auch eine Garage, Garten, Privatweg, Arbeitszimmer, Schuppen oder Ähnliches dazu."
             },
             "eigentumswohnung": {
               "label": "Eigentumswohnung",
-              "description": "Eine baulich getrennte und in sich abgeschlossene Wohnung mit eigenem Zugang. In der Regel in einem Mehrfamilienhaus. Vielleicht gehören zum Beispiel auch eine Garage, Garten, Privatweg, Arbeitszimmer, Schuppen oder ähnliches dazu."
+              "description": "Eine baulich getrennte und in sich abgeschlossene Wohnung mit eigenem Zugang. In der Regel in einem Mehrfamilienhaus. Vielleicht gehören zum Beispiel auch eine Garage, Garten, Privatweg, Arbeitszimmer, Schuppen oder Ähnliches dazu."
             },
             "hof": {
               "label": "Hof, Dreiseitenhof, Gutshof",
@@ -368,16 +368,12 @@
               "description": "Oder demnächst baureif (Bauerwartungsland/Rohbauland)"
             },
             "acker": {
-              "label": "Acker und Grünland",
-              "description": "Land- und forstwirtschaftlich genutzt oder in Privateigentum "
-            },
-            "wald": {
-              "label": "Waldstück",
-              "description": "Land- und forstwirtschaftliche Nutzung oder in Privateigentum"
+              "label": "Acker, Grünland oder Waldstück",
+              "description": "Land- und forstwirtschaftlich oder privat genutzt"
             },
             "garten": {
               "label": "Gärtnerische Nutzung",
-              "description": "Obstbau, Gemüsebau, Blumen und Zierpflanzenbau"
+              "description": "Obstbau, Gemüsebau, Blumen und Zierpflanzenbau, land- und forstwirtschaftlich oder privat genutzt "
             },
             "moor": {
               "label": "Moor oder Heide",
@@ -495,7 +491,7 @@
       }
     },
     "nutzungsartUnbebaut": {
-      "headline": "Wie werden die Flächen oder Gebäude neben Ihrem Wohngebäude genutzt? ",
+      "headline": "Wie werden die (land- und forstwirtschaftlichen) Flächen genutzt? ",
       "fields": {
         "privat": {
           "options": {

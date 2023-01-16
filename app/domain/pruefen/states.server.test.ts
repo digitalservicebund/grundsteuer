@@ -129,7 +129,7 @@ describe("states", () => {
           ],
         };
       }),
-      ...["wald", "moor", "other"].map((art) => {
+      ...["moor", "other"].map((art) => {
         return {
           description: `with unsupported unbebaut gebaeudeArt ${art}`,
           context: pruefenModelFactory

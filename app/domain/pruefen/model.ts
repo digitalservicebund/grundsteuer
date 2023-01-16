@@ -62,13 +62,7 @@ export type GebaeudeArtUnbewohnbarFields = {
   gebaeude: UnbewohnbarType;
 };
 
-export type UnbebautType =
-  | "baureif"
-  | "acker"
-  | "wald"
-  | "garten"
-  | "moor"
-  | "other";
+export type UnbebautType = "baureif" | "acker" | "garten" | "moor" | "other";
 
 export type GebaeudeArtUnbebautFields = {
   art: UnbebautType;

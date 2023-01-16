@@ -140,7 +140,6 @@ export const pruefenStepDefinitions: Record<string, StepDefinition> = {
         options: [
           { value: "baureif" },
           { value: "acker" },
-          { value: "wald" },
           { value: "garten" },
           { value: "moor" },
           { value: "other" },

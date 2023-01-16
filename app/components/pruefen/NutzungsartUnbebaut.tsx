@@ -1,6 +1,6 @@
 import { StepComponentFunction } from "~/routes/__infoLayout/pruefen/_step";
-import { FormGroup, RadioGroup } from "~/components";
 import Hint from "~/components/Hint";
+import { NutzungsartRadioGroup } from "~/components/pruefen/NutzungsartRadioGroup";
 
 const options = [
   {
@@ -69,16 +69,7 @@ const options = [
 ];
 
 const NutzungsartBebaut: StepComponentFunction = (props) => {
-  return (
-    <FormGroup>
-      <RadioGroup
-        {...props}
-        {...{ error: props.errors?.["privat"] }}
-        name="privat"
-        options={options}
-      />
-    </FormGroup>
-  );
+  return <NutzungsartRadioGroup {...props} options={options} />;
 };
 
 export default NutzungsartBebaut;
