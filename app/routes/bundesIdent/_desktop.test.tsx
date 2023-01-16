@@ -67,7 +67,7 @@ describe("Loader", () => {
       );
       expect(result.status).toEqual(302);
       expect(result.headers.get("Location")).toEqual(
-        "/identifikation/erfolgreich"
+        "/bundesIdent/erfolgreich"
       );
     });
 
@@ -80,7 +80,7 @@ describe("Loader", () => {
       );
       expect(result.status).toEqual(302);
       expect(result.headers.get("Location")).toEqual(
-        "/identifikation/erfolgreich"
+        "/bundesIdent/erfolgreich"
       );
     });
   });

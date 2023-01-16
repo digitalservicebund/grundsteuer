@@ -34,7 +34,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (!dbUser) return logoutDeletedUser(request);
 
   if (dbUser.identified) {
-    return redirect("/identifikation/erfolgreich");
+    return redirect("/bundesIdent/erfolgreich");
   }
 
   if (isMobileUserAgent(request)) {
