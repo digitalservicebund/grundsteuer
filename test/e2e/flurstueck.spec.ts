@@ -17,8 +17,6 @@ describe("Flurstuecke", () => {
 
     for (let i = 2; i <= 45; i++) {
       cy.contains("button", "Flurstück hinzufügen").should("exist").click();
-      // workaround for the unhandled promise rejection caused by insufficient time between clicks
-      cy.wait(200);
     }
     cy.contains("button", "Flurstück hinzufügen").should("not.exist");
     for (let i = 1; i <= 45; i++) {
