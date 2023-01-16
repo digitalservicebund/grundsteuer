@@ -9,7 +9,7 @@ import {
   Form,
   useActionData,
   useLoaderData,
-  useTransition,
+  useNavigation,
 } from "@remix-run/react";
 import { createMachine } from "xstate";
 import _ from "lodash";
@@ -289,8 +289,8 @@ export type StepComponentFunction = (
 export function Step() {
   const loaderData: LoaderData = useLoaderData();
   const actionData: ActionData = useActionData() as ActionData;
-  const transition = useTransition();
-  const isSubmitting = Boolean(transition.submission);
+  const navigation = useNavigation();
+  const isSubmitting = Boolean(navigation.state === "submitting");
   const { i18n, backUrl, currentState } = loaderData;
   const StepComponent =
     _.get(stepComponents, currentState) || FallbackStepComponent;

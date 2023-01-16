@@ -9,7 +9,7 @@ import {
   Form,
   useActionData,
   useLoaderData,
-  useTransition,
+  useNavigation,
 } from "@remix-run/react";
 import { authenticator } from "~/auth.server";
 import {
@@ -119,8 +119,8 @@ export default function Anmelden() {
   const loaderData = useLoaderData();
   const actionData = useActionData();
   const errors = actionData?.errors;
-  const transition = useTransition();
-  const isSubmitting = Boolean(transition.submission);
+  const navigation = useNavigation();
+  const isSubmitting = Boolean(navigation.state === "submitting");
 
   return (
     <ContentContainer>

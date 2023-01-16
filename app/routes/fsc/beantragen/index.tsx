@@ -10,7 +10,7 @@ import {
   useActionData,
   useFetcher,
   useLoaderData,
-  useTransition,
+  useNavigation,
 } from "@remix-run/react";
 import { authenticator } from "~/auth.server";
 import {
@@ -270,8 +270,8 @@ export default function FscBeantragen() {
   const errors = actionData?.errors;
   // We need to fetch data to check the result with Elster
   const fetcher = useFetcher();
-  const transition = useTransition();
-  const isSubmitting = Boolean(transition.submission);
+  const navigation = useNavigation();
+  const isSubmitting = Boolean(navigation.state === "submitting");
 
   const [showSpinner, setShowSpinner] = useState(loaderData?.showSpinner);
   const [showError, setShowError] = useState(loaderData?.showError);

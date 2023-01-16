@@ -19,7 +19,7 @@ import {
   useActionData,
   useFetcher,
   useLoaderData,
-  useTransition,
+  useNavigation,
 } from "@remix-run/react";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import { useEffect, useState } from "react";
@@ -133,8 +133,8 @@ export default function FscStornieren() {
   const actionData: ActionData | undefined = useActionData();
 
   const fetcher = useFetcher();
-  const transition = useTransition();
-  const isSubmitting = Boolean(transition.submission);
+  const navigation = useNavigation();
+  const isSubmitting = Boolean(navigation.state === "submitting");
 
   const [showSpinner, setShowSpinner] = useState(loaderData?.showSpinner);
   const [fetchInProgress, setFetchInProgress] = useState(false);
