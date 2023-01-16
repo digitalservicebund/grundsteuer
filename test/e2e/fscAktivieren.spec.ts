@@ -47,8 +47,7 @@ describe("/eingeben", () => {
       cy.url().should("include", "/formular/zusammenfassung");
     });
 
-    // TODO fix this very flaky test
-    it.skip("should show spinner if data is correct and mockErica returns no result", () => {
+    it("should show spinner if data is correct and mockErica returns no result", () => {
       cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDelayedResponse");
       cy.visit("/fsc/eingeben");
       cy.get("[name=freischaltCode]").type(validFreischaltCode);
