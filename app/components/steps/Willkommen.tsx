@@ -65,7 +65,7 @@ const Willkommen: StepComponentFunction = () => {
       <div className="mb-32">
         Bei Fragen oder Unsicherheiten, schauen Sie gern in unserem{" "}
         <a
-          href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/29-eigentumsverhaltnisse/145-wie-viele-erklarungen-gebe-ich-wann-ab"
+          href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/58/145"
           className="underline font-bold"
           target="_blank"
         >
