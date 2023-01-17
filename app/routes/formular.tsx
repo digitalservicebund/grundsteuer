@@ -1,4 +1,4 @@
-import { LoaderFunction } from "@remix-run/node";
+import { LoaderFunction, redirect } from "@remix-run/node";
 import { Outlet, useLoaderData, useLocation } from "@remix-run/react";
 import { getStoredFormData } from "~/storage/formDataStorage.server";
 import {
@@ -12,15 +12,30 @@ import {
 } from "~/components";
 import { createFormGraph } from "~/domain";
 import { getCurrentStateFromUrl } from "~/util/getCurrentState";
-import { authenticator } from "~/auth.server";
+import { authenticator, SessionUser } from "~/auth.server";
 import LogoutMenu from "~/components/navigation/LogoutMenu";
 import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { flags } from "~/flags.server";
+import { findUserByEmail, User } from "~/domain/user";
+
+const userIsInDeclarationProcess = async (user: SessionUser) => {
+  if (user) {
+    const userData: User | null = await findUserByEmail(user.email);
+    return userData && userData.ericaRequestIdSenden;
+  }
+  return false;
+};
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
+  if (
+    (await userIsInDeclarationProcess(user)) &&
+    !request.url.includes("/formular/zusammenfassung")
+  ) {
+    return redirect("/formular/zusammenfassung");
+  }
   const storedFormData = await getStoredFormData({ request, user });
 
   const graph = createFormGraph({
