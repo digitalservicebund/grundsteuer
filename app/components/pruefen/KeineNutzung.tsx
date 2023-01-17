@@ -17,7 +17,10 @@ const getFailureReason = (
 
   if (!pruefenConditions.isBundesmodelBundesland(allData))
     return i18n.specifics.invalidBundesland;
-  if (pruefenConditions.isWirtschaftlichUnbebaut(allData)) {
+  if (
+    pruefenConditions.isWirtschaftlichUnbebaut(allData) ||
+    pruefenConditions.isUnbewohnbarLuf(allData)
+  ) {
     return i18n.specifics.luf;
   }
   if (!pruefenConditions.isSupportedGrundstueckArt(allData)) {
