@@ -111,7 +111,7 @@ describe("states", () => {
         ],
       },
 
-      ...["garage", "wochenendhaus", "geschaeft", "luf", "other"].map((art) => {
+      ...["garage", "wochenendhaus", "geschaeft", "other"].map((art) => {
         return {
           description: `with unsupported unbewohnbar gebaeudeArt ${art}`,
           context: pruefenModelFactory
@@ -399,6 +399,20 @@ describe("states", () => {
           "bewohnbar",
           "gebaeudeArtBewohnbar",
           "nutzungsartBebaut",
+          "mehrereErklaerungen",
+        ],
+      },
+      {
+        description: "unbewohnbar luf",
+        context: pruefenModelFactory
+          .bundesland({ bundesland: "BE" })
+          .bewohnbar({ bewohnbar: "unbewohnbar" })
+          .gebaeudeArtUnbewohnbar({ gebaeude: "luf" })
+          .build(),
+        expectedPath: [
+          "bundesland",
+          "bewohnbar",
+          "gebaeudeArtUnbewohnbar",
           "mehrereErklaerungen",
         ],
       },

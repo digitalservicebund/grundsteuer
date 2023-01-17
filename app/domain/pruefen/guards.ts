@@ -184,6 +184,13 @@ const isUnsupportedUnbewohnbar: PruefenCondition = (context) => {
   );
 };
 
+const isUnbewohnbarLuf: PruefenCondition = (context) => {
+  return (
+    isUnbewohnbar(context) &&
+    context?.gebaeudeArtUnbewohnbar?.gebaeude === "luf"
+  );
+};
+
 const isUnsupportedUnbebaut: PruefenCondition = (context) => {
   return isUnbebaut(context) && context?.gebaeudeArtUnbebaut?.art !== "baureif";
 };
@@ -211,5 +218,6 @@ export const pruefenConditions = {
   isUnsupportedBewohnbar,
   isUnsupportedUnbewohnbar,
   isUnsupportedUnbebaut,
+  isUnbewohnbarLuf,
   isSupportedGrundstueckArt,
 };
