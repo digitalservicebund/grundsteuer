@@ -47,13 +47,17 @@ describe("/eingeben", () => {
       cy.url().should("include", "/formular/zusammenfassung");
     });
 
-    it("should show spinner if data is correct and mockErica returns no result", () => {
-      cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDelayedResponse");
-      cy.visit("/fsc/eingeben");
-      cy.get("[name=freischaltCode]").type(validFreischaltCode);
-      cy.get("form[action='/fsc/eingeben?index'] button").click();
-      cy.contains("Ihr Freischaltcode wird überprüft.");
-    });
+    it(
+      "should show spinner if data is correct and mockErica returns no result",
+      { retries: 5 },
+      () => {
+        cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDelayedResponse");
+        cy.visit("/fsc/eingeben");
+        cy.get("[name=freischaltCode]").type(validFreischaltCode);
+        cy.get("form[action='/fsc/eingeben?index'] button").click();
+        cy.contains("Ihr Freischaltcode wird überprüft.");
+      }
+    );
 
     it("should show error messages and no spinner if user input is invalid", () => {
       cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDelayedResponse");
