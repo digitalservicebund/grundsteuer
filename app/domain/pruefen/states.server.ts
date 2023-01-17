@@ -55,10 +55,6 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
         BACK: { target: "bewohnbar" },
         NEXT: [
           {
-            target: "mehrereErklaerungen",
-            cond: "isUnbewohnbarLuf",
-          },
-          {
             target: "fremderBoden",
             cond: pruefenConditions.isEligibleGebaeudeArtUnbewohnbar,
           },
@@ -182,13 +178,7 @@ export const pruefenStates: MachineConfig<PruefenModel, any, EventObject> = {
     mehrereErklaerungen: {
       type: "final",
       on: {
-        BACK: [
-          {
-            target: "gebaeudeArtUnbewohnbar",
-            cond: "isUnbewohnbarLuf",
-          },
-          { target: "nutzungsartBebaut" },
-        ],
+        BACK: [{ target: "nutzungsartBebaut" }],
       },
     },
     keineNutzung: {
