@@ -188,13 +188,6 @@ const isUnsupportedUnbebaut: PruefenCondition = (context) => {
   return isUnbebaut(context) && context?.gebaeudeArtUnbebaut?.art !== "baureif";
 };
 
-const isUnbewohnbarLuf: PruefenCondition = (context) => {
-  return (
-    isUnbewohnbar(context) &&
-    context?.gebaeudeArtUnbewohnbar?.gebaeude === "luf"
-  );
-};
-
 export const pruefenConditions = {
   isPrivatperson,
   isEigentuemer,
@@ -219,5 +212,4 @@ export const pruefenConditions = {
   isUnsupportedUnbewohnbar,
   isUnsupportedUnbebaut,
   isSupportedGrundstueckArt,
-  isUnbewohnbarLuf,
 };
