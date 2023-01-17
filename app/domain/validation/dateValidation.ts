@@ -19,7 +19,10 @@ export const validateYearAfterBaujahr: ValidateYearAfterBaujahrFunction = ({
   value,
   allData,
 }) => {
-  const baujahr = allData.gebaeude?.baujahr?.baujahr;
+  const baujahr =
+    allData.gebaeude?.ab1949?.isAb1949 == "true"
+      ? allData.gebaeude?.baujahr?.baujahr
+      : "";
   if (!value || !baujahr) return true;
   return +value >= +baujahr;
 };

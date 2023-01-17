@@ -30,18 +30,32 @@ describe("validateIsDate", () => {
 
 describe("validateYearAfterBaujahr", () => {
   const cases = [
-    { value: "", baujahr: undefined, valid: true },
-    { value: "", baujahr: "2021", valid: true },
-    { value: "2022", baujahr: "2021", valid: true },
-    { value: "2022", baujahr: "2022", valid: true },
-    { value: "2022", baujahr: "2023", valid: false },
+    { value: "", baujahr: undefined, ab1949: true, valid: true },
+    { value: "", baujahr: "2021", ab1949: true, valid: true },
+    { value: "2022", baujahr: "2021", ab1949: true, valid: true },
+    { value: "2022", baujahr: "2022", ab1949: true, valid: true },
+    { value: "2022", baujahr: "2023", ab1949: true, valid: false },
+    { value: "", baujahr: undefined, ab1949: false, valid: true },
+    { value: "", baujahr: "2021", ab1949: false, valid: true },
+    { value: "2022", baujahr: "2021", ab1949: false, valid: true },
+    { value: "2022", baujahr: "2022", ab1949: false, valid: true },
+    { value: "2022", baujahr: "2023", ab1949: false, valid: true },
+    { value: "", baujahr: undefined, ab1949: undefined, valid: true },
+    { value: "", baujahr: "2021", ab1949: undefined, valid: true },
+    { value: "2022", baujahr: "2021", ab1949: undefined, valid: true },
+    { value: "2022", baujahr: "2022", ab1949: undefined, valid: true },
+    { value: "2022", baujahr: "2023", ab1949: undefined, valid: true },
   ];
 
   test.each(cases)(
-    "Should return $valid if value is '$value' and baujahr is '$baujahr'",
-    ({ value, baujahr, valid }) => {
+    "Should return $valid if value is '$value', baujahr is '$baujahr' and ab1949 is '$ab1949'",
+    ({ value, baujahr, ab1949, valid }) => {
+      const valueAb1949 = (
+        ab1949 == undefined ? undefined : JSON.stringify(ab1949)
+      ) as "true" | "false" | undefined;
       const allData = grundModelFactory
         .gebaeudeBaujahr({ baujahr: baujahr })
+        .gebaeudeAb1949({ isAb1949: valueAb1949 })
         .build();
       expect(validateYearAfterBaujahr({ value, allData })).toBe(valid);
     }
