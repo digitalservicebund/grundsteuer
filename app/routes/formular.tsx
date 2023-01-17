@@ -18,7 +18,7 @@ import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 import { flags } from "~/flags.server";
 import { findUserByEmail, User } from "~/domain/user";
 
-const userIsInDeclarationProcess = async (user: SessionUser) => {
+const userIsSendingDeclaration = async (user: SessionUser) => {
   if (user) {
     const userData: User | null = await findUserByEmail(user.email);
     return userData && userData.ericaRequestIdSenden;
@@ -31,7 +31,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     failureRedirect: "/anmelden",
   });
   if (
-    (await userIsInDeclarationProcess(user)) &&
+    (await userIsSendingDeclaration(user)) &&
     !request.url.includes("/formular/zusammenfassung")
   ) {
     return redirect("/formular/zusammenfassung");
