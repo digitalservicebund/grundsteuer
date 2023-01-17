@@ -4,15 +4,31 @@ export type Condition = (context: StateMachineContext | undefined) => boolean;
 export type Conditions = Record<string, Condition>;
 
 const isEigentumswohnung: Condition = (context) => {
-  return context?.grundstueck?.haustyp?.haustyp === "wohnungseigentum";
+  return (
+    isBebaut(context) &&
+    context?.grundstueck?.haustyp?.haustyp === "wohnungseigentum"
+  );
 };
 
 const isEinfamilienhaus: Condition = (context) => {
-  return context?.grundstueck?.haustyp?.haustyp === "einfamilienhaus";
+  return (
+    isBebaut(context) &&
+    context?.grundstueck?.haustyp?.haustyp === "einfamilienhaus"
+  );
 };
 
 const isZweifamilienhaus: Condition = (context) => {
-  return context?.grundstueck?.haustyp?.haustyp === "zweifamilienhaus";
+  return (
+    isBebaut(context) &&
+    context?.grundstueck?.haustyp?.haustyp === "zweifamilienhaus"
+  );
+};
+
+const isWohnung: Condition = (context) => {
+  return (
+    isBebaut(context) &&
+    context?.grundstueck?.haustyp?.haustyp === "wohnungseigentum"
+  );
 };
 
 const isBebaut: Condition = (context) => {
@@ -40,8 +56,7 @@ const isHausOrUnbebaut: Condition = (context) => {
 
 // sondernutzung is treated like "none"
 const wohnungHasMiteigentumNone: Condition = (context) => {
-  if (context?.grundstueck?.haustyp?.haustyp !== "wohnungseigentum")
-    return false;
+  if (!isWohnung(context)) return false;
   const miteigentumTyp =
     context?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp;
   return miteigentumTyp === "none" || miteigentumTyp === "sondernutzung";
@@ -49,14 +64,14 @@ const wohnungHasMiteigentumNone: Condition = (context) => {
 
 const wohnungHasMiteigentumGarage: Condition = (context) => {
   return (
-    context?.grundstueck?.haustyp?.haustyp === "wohnungseigentum" &&
+    isWohnung(context) &&
     context?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp === "garage"
   );
 };
 
 const wohnungHasMiteigentumMixed: Condition = (context) => {
   return (
-    context?.grundstueck?.haustyp?.haustyp === "wohnungseigentum" &&
+    isWohnung(context) &&
     context?.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp === "mixed"
   );
 };

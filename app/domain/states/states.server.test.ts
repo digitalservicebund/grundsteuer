@@ -1,9 +1,9 @@
 import { createMachine } from "xstate";
 import { getSimplePaths } from "@xstate/graph";
 import {
-  states,
   StateMachineConfig,
   StateMachineContext,
+  states,
 } from "~/domain/states/states.server";
 import { conditions } from "~/domain/states/guards";
 import { actions } from "~/domain/states/actions.server";
@@ -115,6 +115,31 @@ describe("states", () => {
       {
         description: "unbebaut",
         context: grundModelFactory.bebaut({ bebaut: "unbebaut" }).build(),
+        expectedPath: [
+          "welcome",
+          "grundstueck.uebersicht",
+          "grundstueck.bebaut",
+          "grundstueck.grundstuecktyp",
+          "grundstueck.adresse",
+          "grundstueck.gemeinde",
+          "grundstueck.bodenrichtwertInfo",
+          "grundstueck.bodenrichtwertAnzahl",
+          "grundstueck.bodenrichtwertEingabe",
+          "grundstueck.miteigentumAuswahlHaus",
+          "grundstueck.anzahl",
+          "grundstueck.flurstueck.1.angaben",
+          "grundstueck.flurstueck.1.flur",
+          "grundstueck.flurstueck.1.groesse",
+          ...defaultEigentuemer,
+          "zusammenfassung",
+        ],
+      },
+      {
+        description: "unbebaut where the user changed their mind",
+        context: grundModelFactory
+          .bebaut({ bebaut: "unbebaut" })
+          .haustyp({ haustyp: "wohnungseigentum" })
+          .build(),
         expectedPath: [
           "welcome",
           "grundstueck.uebersicht",

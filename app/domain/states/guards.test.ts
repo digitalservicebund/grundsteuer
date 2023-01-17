@@ -45,6 +45,17 @@ describe("isEigentumswohnung", () => {
     });
     expect(result).toEqual(true);
   });
+
+  it("Should return false if typ is wohnungseigentum but not bebaut", async () => {
+    const inputData = grundModelFactory
+      .bebaut({ bebaut: "unbebaut" })
+      .haustyp({ haustyp: "wohnungseigentum" })
+      .build();
+    const result = conditions.isEigentumswohnung({
+      ...inputData,
+    });
+    expect(result).toEqual(false);
+  });
 });
 
 describe("isZweifamilienhaus", () => {
@@ -88,6 +99,15 @@ describe("isZweifamilienhaus", () => {
       .build();
     const result = conditions.isZweifamilienhaus(inputData);
     expect(result).toEqual(true);
+  });
+
+  it("Should return false if typ is zweifamilienhaus but not bebaut", async () => {
+    const inputData = grundModelFactory
+      .bebaut({ bebaut: "unbebaut" })
+      .haustyp({ haustyp: "zweifamilienhaus" })
+      .build();
+    const result = conditions.isZweifamilienhaus(inputData);
+    expect(result).toEqual(false);
   });
 });
 
