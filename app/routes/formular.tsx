@@ -32,7 +32,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
   if (
     (await userIsSendingDeclaration(user)) &&
-    !request.url.includes("/formular/zusammenfassung")
+    !request.url.includes("/formular/zusammenfassung") &&
+    !testFeaturesEnabled()
   ) {
     return redirect("/formular/zusammenfassung");
   }
