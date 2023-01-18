@@ -144,30 +144,6 @@
     }
   },
   "pruefen": {
-    "start": {
-      "headline": "Wer gibt die Grundsteuererklärung ab?",
-      "fields": {
-        "abgeber": {
-          "options": {
-            "eigentuemer": {
-              "label": "Ich als Eigentümer:in. Ich möchte die Erklärung für mein Grundstück abgeben, bei dem ggf. noch andere Privatpersonen Eigentümer:in sind"
-            },
-            "angehoerig": {
-              "label": "Ich als naher Angehöriger der Eigentümer:in. Ich unterstütze diese bei der Erklärungsabgabe"
-            },
-            "keinEigentuemer": {
-              "label": "Ich als neue:r Eigentümer:in. Ich habe das Grundstück nach dem 01.01.2022 erworben"
-            },
-            "eigentuemerNeu": {
-              "label": "Ich als neue:r Eigentümer:in. Ich habe das Grundstück vor dem 01.01.2022 erworben. Zum Stichtag 01.01.2022 habe ich den Kaufpreis bezahlt und auf mich sind bereits alle Pflichten (Besitz, Lasten, Nutzen und Gefahren) übergegangen. Ich bin aber noch nicht im Grundbuch als neue:r Eigentümer:in eingetragen"
-            },
-            "steuerberater": {
-              "label": "Ich als Steuerberater:in, Rechtsanwalt/Rechtsanwältin oder Hausverwaltung. Ich gebe die Erklärung für eine andere Person ab (Bevollmächtigter nach § 80 AO), im Auftrag für eine Organisation, einen Verein, ein Unternehmen, eine Personengesellschaft, eine Stiftung oder Genossenschaft o.ä."
-            }
-          }
-        }
-      }
-    },
     "abgeber": {
       "headline": "Wer gibt die Grundsteuererklärung ab?",
       "fields": {
@@ -387,43 +363,6 @@
         }
       }
     },
-    "grundstueckArt": {
-      "headline": "Um welche Art Grundstück handelt es sich?",
-      "fields": {
-        "grundstueckArt": {
-          "options": {
-            "einfamilienhaus": {
-              "label": "Einfamilienhaus",
-              "description": "Mit oder ohne Garagen, Gärten oder Privatwege. Das Gebäude hat genau eine Wohnung mit einem separaten Eingang. Es kann auch eine Doppelhaushälfte oder ein Reihenhaus sein."
-            },
-            "zweifamilienhaus": {
-              "label": "Zweifamilienhaus",
-              "description": "Mit oder ohne Garagen, Gärten oder Privatwege. Das Gebäude hat genau zwei Wohnungen mit separaten Eingängen. Es kann auch eine Doppelhaushälfte oder ein Reihenhaus sein."
-            },
-            "mehrfamilienhaus": {
-              "label": "Mehrfamilienhaus",
-              "description": "Das Gebäude hat mehr als zwei Wohnungen."
-            },
-            "eigentumswohnung": {
-              "label": "Eigentumswohnung",
-              "description": "Eine baulich getrennte und in sich abgeschlossene Wohneinheit mit eigenem Zugang in einem Mehrfamilienhaus."
-            },
-            "nichtWohn": {
-              "label": "Nicht-Wohngrundstück",
-              "description": "Hiermit sind separate Garagen, Geschäftsgrundstücke, Werkstätten,  Wochenendgrundstücke oder gemischt genutzte Grundstücke gemeint. Nicht-Wohngrundstücke sind Grundstücke, bei denen mehr als 20% der Fläche als Nutzfläche (zum Beispiel Büro oder Werkstatt) genutzt werden."
-            },
-            "unbebaut": {
-              "label": "Unbebautes Grundstück",
-              "description": "Ihr Grundstück ist unbebaut, wenn sich darauf keine benutzbaren Gebäude befinden und es keine land- und forstwirtschaftliche Fläche ist. Grundstücke mit zerstörten oder verfallenen Gebäuden gelten ebenfalls als unbebaut."
-            },
-            "landUndForst": {
-              "label": "Betrieb der Land- und/oder Forstwirtschaft",
-              "description": "Hierzu zählen land- und forstwirtschaftliche Flurstücke wie Acker und Wiesen (verpachtet, unentgeltlich überlassen oder ungenutzt). Gemeint sind hier beispielsweise auch Betriebe des Wein- und Gartenbaus sowie Fischereibetriebe (Wasserflächen),  Kleingarten- und Dauerkleingartenland."
-            }
-          }
-        }
-      }
-    },
     "ausland": {
       "headline": "Haben Sie als Eigentümer:in einen Wohnsitz in Deutschland?",
       "fields": {
@@ -514,7 +453,6 @@
         "noEigentuemer": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Unser Online-Dienst ist speziell für Privatpersonen entwickelt, die zum Stichtag am 01.01.2022 Eigentümer:innen des Grundstücks waren. <break/>Wenn Sie das Grundstück nach dem 01.01.2022 erworben haben, müssen Sie derzeit keine Erklärung abgeben.<break/>Rechtsberatende Berufe können wir leider nicht abdecken.",
         "noPrivatperson": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Unser Online-Dienst ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben. <break/>Auch Erbengemeinschaften bilden wir aktuell nicht ab. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
         "invalidBundesland": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit „Grundsteuererklärung für Privateigentum“ machen können. Ihr ausgewähltes Bundesland nimmt nicht am Bundesmodell teil, sondern hat ein eigenes Grundsteuermodell eingeführt. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
-        "invalidGrundstueckArtLegacy": "Aktuell können nur Eigentümer:innen von Einfamilien- und Zweifamilienhäusern, Eigentumswohnungen und unbebauten Grundstücken „Grundsteuererklärung für Privateigentum“ nutzen. Für alle anderen bietet sich alternativ eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
         "ausland": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Online-Dienst machen können. Im Moment können wir nur Personen, die in Deutschland einen Wohnsitz haben, eine Abgabe mit “Grundsteuererklärung für Privateigentum” ermöglichen. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
         "fremderBoden": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Online-Dienst machen können. Aktuell müssen Grundstück und Gebäude einen Eigentümer oder Eigentümerin haben. Gemischte Eigentumsverhältnisse können wir aktuell noch nicht anbieten. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",
         "beguenstigung": "Auf Basis Ihrer Angaben haben wir festgestellt, dass Sie Ihre Grundsteuererklärung leider nicht mit unserem Online-Dienst machen können. Im Moment decken wir keine Grundstücke ab, die steuerlich begünstigt oder befreit sind. Alternativ bietet sich eine Erfassung mit <elsterLink>ELSTER</elsterLink> an.",

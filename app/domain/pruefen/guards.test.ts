@@ -5,7 +5,6 @@ describe("guards", () => {
     { guard: pruefenConditions.isEigentuemer },
     { guard: pruefenConditions.isPrivatperson },
     { guard: pruefenConditions.isBundesmodelBundesland },
-    { guard: pruefenConditions.isEligibleGrundstueckArt },
     { guard: pruefenConditions.isNotAusland },
     { guard: pruefenConditions.isNotFremderBoden },
     { guard: pruefenConditions.isNotBeguenstigung },

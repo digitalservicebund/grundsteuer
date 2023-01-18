@@ -58,6 +58,8 @@ import {
 const SUCCESS_STEP = "nutzung";
 const FAILURE_STEPS = ["keineNutzung", "mehrereErklaerungen"];
 
+const LEGACY_FIRST_STEP = "start";
+
 export const getMachine = ({
   formData,
   testFeaturesEnabled,
@@ -122,7 +124,7 @@ export const loader: LoaderFunction = async ({
 }): Promise<LoaderData | Response> => {
   const session = await getSession(request.headers.get("Cookie"));
   const currentStateFromUrl = getCurrentStateFromUrl(request.url);
-  if (currentStateFromUrl === "start" && testFeaturesEnabled()) {
+  if (currentStateFromUrl === LEGACY_FIRST_STEP) {
     return redirect(PRUEFEN_START_PATH);
   }
   const cookieHeader = request.headers.get("Cookie");

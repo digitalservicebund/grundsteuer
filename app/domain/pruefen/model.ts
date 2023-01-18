@@ -68,17 +68,6 @@ export type GebaeudeArtUnbebautFields = {
   art: UnbebautType;
 };
 
-export type GrundstueckArtFields = {
-  grundstueckArt:
-    | "einfamilienhaus"
-    | "zweifamilienhaus"
-    | "eigentumswohnung"
-    | "mehrfamilienhaus"
-    | "nichtWohn"
-    | "unbebaut"
-    | "landUndForst";
-};
-
 export type AuslandFields = {
   ausland: "true" | "false";
 };
@@ -96,7 +85,6 @@ export type NutzungsartFields = {
 };
 
 export type PruefenModel = {
-  start?: AbgeberFields;
   abgeber?: AbgeberFields;
   eigentuemerTyp?: EigentuemerTypFields;
   bundesland?: BundeslandFields;
@@ -104,7 +92,6 @@ export type PruefenModel = {
   gebaeudeArtBewohnbar?: GebaeudeArtBewohnbarFields;
   gebaeudeArtUnbewohnbar?: GebaeudeArtUnbewohnbarFields;
   gebaeudeArtUnbebaut?: GebaeudeArtUnbebautFields;
-  grundstueckArt?: GrundstueckArtFields;
   ausland?: AuslandFields;
   fremderBoden?: FremderBodenFields;
   beguenstigung?: BeguenstigungFields;

@@ -6,7 +6,7 @@ import {
 
 describe("saveToPruefenStateCookie / getFromPruefenStateCookie", () => {
   it("encodes/decodes correctly", async () => {
-    const state = getMachine({ formData: {} }).getInitialState("start");
+    const state = getMachine({ formData: {} }).getInitialState("bundesland");
     const encodedCookie = await saveToPruefenStateCookie(state);
     const decodedCookie = await getFromPruefenStateCookie(encodedCookie);
     expect(decodedCookie.value).toEqual(state.value);

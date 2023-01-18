@@ -10,15 +10,10 @@ const isEigentuemer: PruefenCondition = (context) => {
     "angehoerig",
     "eigentuemerNeu",
   ];
-  return context?.testFeaturesEnabled
-    ? !!(
-        context?.abgeber?.abgeber &&
-        eligibleEigentuemerArten.includes(context?.abgeber?.abgeber)
-      )
-    : !!(
-        context?.start?.abgeber &&
-        eligibleEigentuemerArten.includes(context?.start?.abgeber)
-      );
+  return !!(
+    context?.abgeber?.abgeber &&
+    eligibleEigentuemerArten.includes(context?.abgeber?.abgeber)
+  );
 };
 
 const isPrivatperson: PruefenCondition = (context) => {
@@ -46,10 +41,6 @@ const isBundesmodelBundesland: PruefenCondition = (context) => {
     context?.bundesland?.bundesland &&
     bundesmodellBundeslaender.includes(context.bundesland.bundesland)
   );
-};
-
-const showTestFeaturesAndBundesmodel: PruefenCondition = (context) => {
-  return !!(context?.testFeaturesEnabled && isBundesmodelBundesland(context));
 };
 
 const isBewohnbar: PruefenCondition = (context) => {
@@ -88,19 +79,6 @@ const isEligibleGebaeudeArtUnbewohnbar: PruefenCondition = (context) => {
 
 const isEligibleGebaeudeArtUnbebaut: PruefenCondition = (context) => {
   return isUnbebaut(context) && context?.gebaeudeArtUnbebaut?.art === "baureif";
-};
-
-const isEligibleGrundstueckArt: PruefenCondition = (context) => {
-  const eligibleGrundstueckArten = [
-    "einfamilienhaus",
-    "zweifamilienhaus",
-    "eigentumswohnung",
-    "unbebaut",
-  ];
-  return !!(
-    context?.grundstueckArt?.grundstueckArt &&
-    eligibleGrundstueckArten.includes(context.grundstueckArt.grundstueckArt)
-  );
 };
 
 const isSupportedGrundstueckArt: PruefenCondition = (context) => {
@@ -152,10 +130,6 @@ const isPrivatUnbebaut: PruefenCondition = (context) => {
   );
 };
 
-const isWirtschaftlichBebaut: PruefenCondition = (context) => {
-  return isHof(context) && context?.nutzungsartBebaut?.privat === "false";
-};
-
 const isWirtschaftlichUnbebaut: PruefenCondition = (context) => {
   return (
     isAckerOrGarten(context) && context?.nutzungsartUnbebaut?.privat === "false"
@@ -192,13 +166,11 @@ export const pruefenConditions = {
   isPrivatperson,
   isEigentuemer,
   isBundesmodelBundesland,
-  showTestFeaturesAndBundesmodel,
   isBewohnbar,
   isUnbewohnbar,
   isEligibleGebaeudeArtBewohnbar,
   isEligibleGebaeudeArtUnbewohnbar,
   isEligibleGebaeudeArtUnbebaut,
-  isEligibleGrundstueckArt,
   isNotAusland,
   isNotFremderBoden,
   isNotBeguenstigung,
@@ -206,7 +178,6 @@ export const pruefenConditions = {
   isAckerOrGarten,
   isPrivatBebaut,
   isPrivatUnbebaut,
-  isWirtschaftlichBebaut,
   isWirtschaftlichUnbebaut,
   isUnsupportedBewohnbar,
   isUnsupportedUnbewohnbar,

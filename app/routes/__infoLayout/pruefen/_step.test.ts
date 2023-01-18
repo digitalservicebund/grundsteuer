@@ -41,7 +41,7 @@ describe("_step action", () => {
 
     test("Returns error if fields not filled", async () => {
       const args = await mockActionArgs({
-        route: "/start",
+        route: "/bundesland",
         formData: {},
         context: {},
         email: "user@example.com",

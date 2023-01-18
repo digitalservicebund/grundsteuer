@@ -10,7 +10,6 @@ import {
   GebaeudeArtBewohnbarFields,
   GebaeudeArtUnbebautFields,
   GebaeudeArtUnbewohnbarFields,
-  GrundstueckArtFields,
   NutzungsartFields,
 } from "~/domain/pruefen/model";
 import { PruefenMachineContext } from "~/domain/pruefen/states.server";
@@ -19,9 +18,6 @@ import { testFeaturesEnabled } from "~/util/testFeaturesEnabled";
 class PruefenFactory extends Factory<PruefenMachineContext> {
   abgeber(fields?: Partial<AbgeberFields>) {
     return this.params({
-      start: {
-        abgeber: fields?.abgeber,
-      },
       abgeber: {
         abgeber: fields?.abgeber,
       },
@@ -72,14 +68,6 @@ class PruefenFactory extends Factory<PruefenMachineContext> {
     return this.params({
       gebaeudeArtUnbebaut: {
         art: fields?.art,
-      },
-    });
-  }
-
-  grundstueckArt(fields?: Partial<GrundstueckArtFields>) {
-    return this.params({
-      grundstueckArt: {
-        grundstueckArt: fields?.grundstueckArt,
       },
     });
   }
