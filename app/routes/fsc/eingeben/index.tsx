@@ -398,8 +398,16 @@ export default function FscEingeben() {
           <ContentContainer size="sm">
             <Headline>Ihr Freischaltcode wurde beantragt</Headline>
             <Hint type="status">
-              Ihr Freischaltcode wurde am {antragDate}. beantragt. Ihr Brief
-              kommt voraussichtlich bis zum {letterArrivalDate} an.
+              <p>
+                Ihr Freischaltcode wurde am {antragDate}. beantragt. Ihr Brief
+                kommt voraussichtlich bis zum {letterArrivalDate} an.
+              </p>
+              <p className="mt-24">
+                Der Brief mit dem Freischaltcode trifft eventuell erst{" "}
+                <span className="font-bold">nach der Abgabefrist</span> bei
+                Ihnen ein. Geben Sie mit Erhalt des Briefes, auch nach dem 31.
+                Januar, Ihre Grundsteuererklärung so schnell wie möglich ab.
+              </p>
             </Hint>
             <IntroText>
               Sie erhalten Ihren Freischaltcode voraussichtlich in den nächsten
