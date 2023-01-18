@@ -110,6 +110,32 @@ describe("states", () => {
           "keineNutzung",
         ],
       },
+      {
+        description: `hof with supported nutzungsart but living abroad`,
+        context: pruefenModelFactory
+          .bundesland({ bundesland: "BE" })
+          .bewohnbar({ bewohnbar: "bewohnbar" })
+          .gebaeudeArtBewohnbar({ gebaeude: "hof" })
+          .nutzungsartBebaut({ privat: "true" })
+          .fremderBoden({ fremderBoden: "false" })
+          .beguenstigung({ beguenstigung: "false" })
+          .abgeber({ abgeber: "eigentuemer" })
+          .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
+          .ausland({ ausland: "true" })
+          .build(),
+        expectedPath: [
+          "bundesland",
+          "bewohnbar",
+          "gebaeudeArtBewohnbar",
+          "nutzungsartBebaut",
+          "fremderBoden",
+          "beguenstigung",
+          "abgeber",
+          "eigentuemerTyp",
+          "ausland",
+          "keineNutzung",
+        ],
+      },
 
       ...["garage", "wochenendhaus", "geschaeft", "luf", "other"].map((art) => {
         return {
@@ -161,6 +187,34 @@ describe("states", () => {
             "bewohnbar",
             "gebaeudeArtUnbebaut",
             "nutzungsartUnbebaut",
+            "keineNutzung",
+          ],
+        };
+      }),
+      ...["acker", "garten"].map((art) => {
+        return {
+          description: `unbebaut ${art} with supported nutzungsart but living abroad`,
+          context: pruefenModelFactory
+            .bundesland({ bundesland: "BE" })
+            .bewohnbar({ bewohnbar: "unbebaut" })
+            .gebaeudeArtUnbebaut({ art: art as UnbebautType })
+            .nutzungsartUnbebaut({ privat: "true" })
+            .fremderBoden({ fremderBoden: "false" })
+            .beguenstigung({ beguenstigung: "false" })
+            .abgeber({ abgeber: "eigentuemer" })
+            .eigentuemerTyp({ eigentuemerTyp: "privatperson" })
+            .ausland({ ausland: "true" })
+            .build(),
+          expectedPath: [
+            "bundesland",
+            "bewohnbar",
+            "gebaeudeArtUnbebaut",
+            "nutzungsartUnbebaut",
+            "fremderBoden",
+            "beguenstigung",
+            "abgeber",
+            "eigentuemerTyp",
+            "ausland",
             "keineNutzung",
           ],
         };

@@ -137,29 +137,35 @@ const isWirtschaftlichUnbebaut: PruefenCondition = (context) => {
 };
 
 const isUnsupportedBewohnbar: PruefenCondition = (context) => {
-  const eligibleGebaeudeArten = [
+  const supported = [
     "einfamilienhaus",
     "zweifamilienhaus",
     "eigentumswohnung",
+    "hof",
   ];
   return !!(
     isBewohnbar(context) &&
     context?.gebaeudeArtBewohnbar?.gebaeude &&
-    !eligibleGebaeudeArten.includes(context.gebaeudeArtBewohnbar.gebaeude)
+    !supported.includes(context.gebaeudeArtBewohnbar.gebaeude)
   );
 };
 
 const isUnsupportedUnbewohnbar: PruefenCondition = (context) => {
-  const eligibleGebaeudeArten = ["imBau", "verfallen"];
+  const supported = ["imBau", "verfallen"];
   return !!(
     isUnbewohnbar(context) &&
     context?.gebaeudeArtUnbewohnbar?.gebaeude &&
-    !eligibleGebaeudeArten.includes(context.gebaeudeArtUnbewohnbar.gebaeude)
+    !supported.includes(context.gebaeudeArtUnbewohnbar.gebaeude)
   );
 };
 
 const isUnsupportedUnbebaut: PruefenCondition = (context) => {
-  return isUnbebaut(context) && context?.gebaeudeArtUnbebaut?.art !== "baureif";
+  const supported = ["baureif", "acker", "garten"];
+  return !!(
+    isUnbebaut(context) &&
+    context?.gebaeudeArtUnbebaut?.art &&
+    !supported.includes(context.gebaeudeArtUnbebaut.art)
+  );
 };
 
 export const pruefenConditions = {
