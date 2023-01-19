@@ -309,42 +309,135 @@ describe("Loader", () => {
           await loader(args);
         } catch {
           expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
-
-          it("should not start revocation process", async () => {
-            const revokeSpy = jest.spyOn(
-              freischaltCodeStornierenModule,
-              "revokeFscForUser"
-            );
-            const args = await getLoaderArgsWithAuthenticatedSession(
-              "/fsc/eingeben",
-              "existing_user@foo.com"
-            );
-            try {
-              await loader(args);
-            } catch {
-              expect(revokeSpy).not.toHaveBeenCalled();
-            }
-          });
-
-          it("sets inFscEingebenProcess to false", async () => {
-            const spyOnsetInProcessMock = jest.spyOn(
-              userModule,
-              "setUserInFscEingebenProcess"
-            );
-            const args = await getLoaderArgsWithAuthenticatedSession(
-              "/fsc/eingeben",
-              "existing_user@foo.com"
-            );
-            try {
-              await loader(args);
-            } catch {
-              expect(spyOnsetInProcessMock).toHaveBeenCalledWith(
-                "existing_user@foo.com",
-                false
-              );
-            }
-          });
         }
+      });
+
+      it("should not start revocation process", async () => {
+        const revokeSpy = jest.spyOn(
+          freischaltCodeStornierenModule,
+          "revokeFscForUser"
+        );
+        const args = await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/eingeben",
+          "existing_user@foo.com"
+        );
+        try {
+          await loader(args);
+        } catch {
+          expect(revokeSpy).not.toHaveBeenCalled();
+        }
+      });
+
+      it("sets inFscEingebenProcess to false", async () => {
+        const spyOnsetInProcessMock = jest.spyOn(
+          userModule,
+          "setUserInFscEingebenProcess"
+        );
+        const args = await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/eingeben",
+          "existing_user@foo.com"
+        );
+        try {
+          await loader(args);
+        } catch {
+          expect(spyOnsetInProcessMock).toHaveBeenCalledWith(
+            "existing_user@foo.com",
+            false
+          );
+        }
+      });
+
+      it("shows error and no spinner", async () => {
+        const args = await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/eingeben",
+          "existing_user@foo.com"
+        );
+        const result = await loader(args);
+        expect(result.showError).toEqual(true);
+        expect(result.showSpinner).toEqual(false);
+      });
+    });
+
+    describe("erica activation sends already activated", () => {
+      beforeAll(() => {
+        getMockedFunction(
+          freischaltCodeAktivierenModule,
+          "checkFreischaltcodeActivation",
+          {
+            errorType: "AlreadyActivatedFsc",
+            errorMessage: "ALREADY_ACTIVATED_UNLOCK_CODE",
+          }
+        );
+      });
+
+      beforeEach(async () => {
+        getMockedFunction(userModule, "findUserByEmail", {
+          email: "existing_user@foo.com",
+          ericaRequestIdFscAktivieren: "foo",
+          fscRequest: { requestId: "elster-request-id", createdAt: new Date() },
+        });
+      });
+
+      it("should not call lifecycle event", async () => {
+        const args = await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/eingeben",
+          "existing_user@foo.com"
+        );
+        const spyOnLifecycleEvent = jest.spyOn(
+          lifecycleModule,
+          "saveSuccessfulFscActivationData"
+        );
+
+        try {
+          await loader(args);
+        } catch {
+          expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
+        }
+      });
+
+      it("should not start revocation process", async () => {
+        const revokeSpy = jest.spyOn(
+          freischaltCodeStornierenModule,
+          "revokeFscForUser"
+        );
+        const args = await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/eingeben",
+          "existing_user@foo.com"
+        );
+        try {
+          await loader(args);
+        } catch {
+          expect(revokeSpy).not.toHaveBeenCalled();
+        }
+      });
+
+      it("sets inFscEingebenProcess to false", async () => {
+        const spyOnsetInProcessMock = jest.spyOn(
+          userModule,
+          "setUserInFscEingebenProcess"
+        );
+        const args = await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/eingeben",
+          "existing_user@foo.com"
+        );
+        try {
+          await loader(args);
+        } catch {
+          expect(spyOnsetInProcessMock).toHaveBeenCalledWith(
+            "existing_user@foo.com",
+            false
+          );
+        }
+      });
+
+      it("redirects to /fehler", async () => {
+        const args = await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/eingeben",
+          "existing_user@foo.com"
+        );
+        const result = await loader(args);
+        expect(result.status).toEqual(302);
+        expect(result.headers.get("Location")).toEqual("/fsc/eingeben/fehler");
       });
     });
 

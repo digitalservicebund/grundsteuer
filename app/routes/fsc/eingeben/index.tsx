@@ -135,6 +135,10 @@ const handleFscActivationProgress = async (
         showError: true,
         showSpinner: false,
       };
+    } else if (fscActivatedOrError?.errorType == "AlreadyActivatedFsc") {
+      return {
+        redirectToAlreadyActivated: true,
+      };
     } else {
       await deleteEricaRequestIdFscAktivieren(userData.email);
       await setUserInFscEingebenProcess(userData.email, false);
@@ -213,6 +217,12 @@ export const loader: LoaderFunction = async ({
       clientIp,
       `FSC activated for user with id ${dbUser?.id}`
     );
+    if (
+      fscActivationData &&
+      "redirectToAlreadyActivated" in fscActivationData
+    ) {
+      return redirect("/fsc/eingeben/fehler");
+    }
     if (fscActivationData) {
       return { ...fscActivationData, ...antragStatus, bundesIdentUrl };
     }

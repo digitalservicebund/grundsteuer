@@ -42,6 +42,11 @@ export const isFscCorrect = (
         errorType: "EricaUserInputError",
         errorMessage: result.errorMessage,
       };
+    } else if (result.errorCode == "ALREADY_ACTIVATED_UNLOCK_CODE") {
+      return {
+        errorType: "AlreadyActivatedFsc",
+        errorMessage: result.errorMessage,
+      };
     } else {
       return {
         errorType: "GeneralEricaError",
