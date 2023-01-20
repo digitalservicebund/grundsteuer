@@ -126,7 +126,9 @@ const handleFscActivationProgress = async (
       );
       console.log(`${successLoggingMessage}`);
 
-      await startNewFscRevocationProcess(userData, clientIp);
+      if (testFeaturesEnabled()) {
+        await startNewFscRevocationProcess(userData, clientIp);
+      }
       await setUserInFscEingebenProcess(userData.email, false);
     } else if (fscActivatedOrError?.errorType == "EricaUserInputError") {
       await deleteEricaRequestIdFscAktivieren(userData.email);
@@ -234,7 +236,9 @@ export const loader: LoaderFunction = async ({
     !ericaActivationRequestIsInProgress &&
     dbUser.identified
   ) {
-    await startNewFscRevocationProcess(dbUser, clientIp);
+    if (testFeaturesEnabled()) {
+      await startNewFscRevocationProcess(dbUser, clientIp);
+    }
     await setUserInFscEingebenProcess(dbUser.email, false);
   }
 
