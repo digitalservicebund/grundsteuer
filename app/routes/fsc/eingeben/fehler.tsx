@@ -45,7 +45,7 @@ export default function FscBeantragenErfolgreich() {
           eintreffen, geben Sie Ihre Erklärung trotzdem schnellstmöglich nach
           Erhalt ab.
         </p>
-        <LinkWithArrow href="/fsc/stornieren" className="mb-56">
+        <LinkWithArrow href="/fsc/beantragen" className="mb-56">
           Freischaltcode neu beantragen
         </LinkWithArrow>
 
