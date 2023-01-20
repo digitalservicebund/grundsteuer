@@ -7,10 +7,7 @@ import {
   Headline,
   IntroText,
 } from "~/components";
-import EnumeratedList from "~/components/EnumeratedList";
 import LinkWithArrow from "~/components/LinkWithArrow";
-import { getBundesIdentUrl } from "~/routes/bundesIdent/_bundesIdentUrl";
-import { useLoaderData } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return {
@@ -22,12 +19,10 @@ export const loader: LoaderFunction = async ({ request }) => {
   await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
-
-  return { bundesIdentUrl: getBundesIdentUrl(request) };
+  return {};
 };
 
 export default function FscBeantragenErfolgreich() {
-  const { bundesIdentUrl } = useLoaderData();
   return (
     <>
       <ContentContainer size="sm-md">
