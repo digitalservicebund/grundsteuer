@@ -49,7 +49,7 @@ const values = [
 ] as const;
 
 export type GrundstueckAnzahlFields = {
-  anzahl: typeof values[number]; // "1" | ... | "45"
+  anzahl: (typeof values)[number]; // "1" | ... | "45"
 };
 
 const options: FieldOptions = [{ value: "default", defaultOption: true }];
