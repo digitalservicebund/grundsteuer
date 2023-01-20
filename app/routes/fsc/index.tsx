@@ -137,7 +137,7 @@ export default function FscIndex() {
           </ContentContainer>
         </fieldset>
         <Button id="nextButton" disabled={isSubmitting}>
-          Übernehmen & Weiter
+          Übernehmen & weiter
         </Button>
       </Form>
     </ContentContainer>
