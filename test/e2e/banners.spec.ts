@@ -383,6 +383,49 @@ describe("error banners", () => {
       cy.get(bannerId).should("exist");
     });
   });
+
+  describe("grundsteuer is slow", () => {
+    before(() => {
+      cy.task("enableFlag", {
+        name: "grundsteuer.grundsteuer_slow",
+      });
+      cy.wait(1000);
+    });
+    after(() => {
+      cy.task("disableFlag", {
+        name: "grundsteuer.grundsteuer_slow",
+      });
+    });
+
+    const bannerId = "[data-testid=grundsteuer-slow-banner]";
+
+    it("should show banner on home", () => {
+      cy.visit("/");
+      cy.get(bannerId).should("exist");
+    });
+
+    it("should show banner on /identifikation", () => {
+      cy.login();
+      cy.visit("/identifikation");
+      cy.url().should("include", "/identifikation");
+
+      cy.get(bannerId).should("exist");
+    });
+
+    it("should show banner on /formular", () => {
+      cy.login();
+      cy.visit("/formular");
+      cy.url().should("include", "/formular/welcome");
+      cy.get(bannerId).should("exist");
+    });
+
+    it("should show banner on /formular/zusammenfassung", () => {
+      cy.login();
+      cy.visit("/formular/zusammenfassung");
+      cy.url().should("include", "/formular/zusammenfassung");
+      cy.get(bannerId).should("exist");
+    });
+  });
 });
 
 describe("Deadline banner", () => {

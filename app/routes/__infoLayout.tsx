@@ -44,6 +44,15 @@ export default function InfoLayout() {
           <div> {t("banners.grundsteuerDownBody")} </div>
         </ErrorBanner>
       )}
+      {flags?.grundsteuerSlow && (
+        <ErrorBanner
+          style="warning"
+          heading={t("banners.grundsteuerSlowHeading")}
+          service="grundsteuer-slow"
+        >
+          <div> {t("banners.grundsteuerSlowBody")} </div>
+        </ErrorBanner>
+      )}
       {flags?.sendinblueDown && (
         <ErrorBanner
           heading={t("banners.sendinblueDownHeading")}

@@ -102,7 +102,9 @@
     "sendinblueDownHeading": "Aktuell gibt es Probleme bei der Anmeldung.",
     "sendinblueDownBody": "Aufgrund eines technischen Problems können wir im Moment keine Anmelde-Links versenden. Wir arbeiten an einer Lösung und sind bald wieder für Sie da.",
     "zammadDownHeading": "Es gibt ein technisches Problem. Aktuell können Sie unseren Support und den Hilfebereich nicht erreichen.",
-    "zammadDownBody": "Wir arbeiten an einer Lösung und sind bald wieder für Sie da."
+    "zammadDownBody": "Wir arbeiten an einer Lösung und sind bald wieder für Sie da.",
+    "grundsteuerSlowHeading": "Unser Online-Dienst ist momentan eingeschränkt erreichbar.",
+    "grundsteuerSlowBody": "Zur Zeit werden viele Grundsteuererklärungen über unserem Online-Dienst bearbeitet."
   },
   "errors": {
     "required": "Bitte füllen Sie dieses Feld aus.",

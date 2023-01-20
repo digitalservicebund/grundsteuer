@@ -52,6 +52,15 @@ const Layout = ({
         </header>
         <div className="flex flex-col flex-grow">
           <div className="flex flex-col">
+            {flags?.grundsteuerSlow && (
+              <ErrorBanner
+                style="warning"
+                heading={t("banners.grundsteuerSlowHeading")}
+                service="grundsteuer-slow"
+              >
+                {t("banners.grundsteuerSlowBody")}
+              </ErrorBanner>
+            )}
             {flags?.ericaDown &&
               path &&
               (path.includes("/fsc") || path === "/identifikation") && (
