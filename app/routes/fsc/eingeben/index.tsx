@@ -33,7 +33,6 @@ import {
   deleteEricaRequestIdFscAktivieren,
   findUserByEmail,
   saveEricaRequestIdFscAktivieren,
-  saveEricaRequestIdFscStornieren,
   setUserInFscEingebenProcess,
   User,
 } from "~/domain/user";
@@ -41,7 +40,6 @@ import { authenticator } from "~/auth.server";
 import { commitSession, getSession } from "~/session.server";
 import { useEffect, useState } from "react";
 import FreischaltCodeInput from "~/components/FreischaltCodeInput";
-import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
 import ErrorBar from "~/components/ErrorBar";
 import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
 import FreischaltcodeHelp from "~/components/form/help/Freischaltcode";
@@ -126,9 +124,6 @@ const handleFscActivationProgress = async (
       );
       console.log(`${successLoggingMessage}`);
 
-      if (testFeaturesEnabled()) {
-        await startNewFscRevocationProcess(userData, clientIp);
-      }
       await setUserInFscEingebenProcess(userData.email, false);
     } else if (fscActivatedOrError?.errorType == "EricaUserInputError") {
       await deleteEricaRequestIdFscAktivieren(userData.email);
@@ -148,34 +143,6 @@ const handleFscActivationProgress = async (
         `${fscActivatedOrError?.errorType}: ${fscActivatedOrError?.errorMessage}`
       );
     }
-  }
-};
-
-const startNewFscRevocationProcess = async (
-  userData: User,
-  clientIp: string
-) => {
-  let ericaRequestIdOrError;
-  try {
-    ericaRequestIdOrError = await revokeFscForUser(userData);
-  } catch {
-    console.warn("Failed to revoke fsc");
-    return;
-  }
-  if (ericaRequestIdOrError && "location" in ericaRequestIdOrError) {
-    await saveEricaRequestIdFscStornieren(
-      userData.email,
-      ericaRequestIdOrError.location
-    );
-    await ericaUtils.setClientIpForEricaRequest(
-      ericaRequestIdOrError.location,
-      clientIp
-    );
-  } else {
-    console.warn(
-      "Failed to revoke FSC on eingeben with error message: ",
-      ericaRequestIdOrError.error
-    );
   }
 };
 
@@ -236,9 +203,6 @@ export const loader: LoaderFunction = async ({
     !ericaActivationRequestIsInProgress &&
     dbUser.identified
   ) {
-    if (testFeaturesEnabled()) {
-      await startNewFscRevocationProcess(dbUser, clientIp);
-    }
     await setUserInFscEingebenProcess(dbUser.email, false);
   }
 

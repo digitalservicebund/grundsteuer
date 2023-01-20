@@ -159,20 +159,6 @@ describe("Loader", () => {
         expect(session.get("user").identified).toBe(true);
       });
 
-      it("should start revocation process", async () => {
-        const revokeSpy = jest.spyOn(
-          freischaltCodeStornierenModule,
-          "revokeFscForUser"
-        );
-        await loader(
-          await getLoaderArgsWithAuthenticatedSession(
-            "/fsc/eingeben",
-            "existing_user@foo.com"
-          )
-        );
-        expect(revokeSpy).toHaveBeenCalledTimes(1);
-      });
-
       it("sets inFscEingebenProcess to false", async () => {
         const spyOnsetInProcessMock = jest.spyOn(
           userModule,
