@@ -32,71 +32,56 @@ export default function FscBeantragenErfolgreich() {
     <>
       <ContentContainer size="sm-md">
         <BreadcrumbNavigation />
-        <ContentContainer size="sm">
+        <ContentContainer size="sm" className="mb-48">
           <Headline>
             Es gab ein technisches Problem mit Ihrem Freischaltcode.
           </Headline>
           <IntroText>
             Auf Grund eines technischen Problems zwischen unserem Online-Dienst
-            und ELSTER kann Ihr Freischaltcode nicht mehr verwendet werden.
+            und ELSTER kann Ihr Freischaltcode nicht mehr verwendet werden. Wir
+            bedauern dies sehr!
           </IntroText>
         </ContentContainer>
 
-        <h2 className="text-24 mb-32">Folgende Lösung schlagen wir vor:</h2>
+        <h2 className="text-24 mb-24">Das können Sie jetzt tun:</h2>
+        <p className="mb-8">
+          <strong>Freischaltcode neu beantragen</strong>: Sie können den
+          Freischaltcode auch neu beantragen. Sollte dieser nach der Frist
+          eintreffen, geben Sie Ihre Erklärung trotzdem schnellstmöglich nach
+          Erhalt ab.
+        </p>
+        <LinkWithArrow href="/fsc/stornieren" className="mb-56">
+          Freischaltcode neu beantragen
+        </LinkWithArrow>
 
-        <EnumeratedList
-          gap="48"
-          items={[
-            <div>
-              <p className="mb-8">
-                <strong>Elster-Zertifikat</strong>: Unter{" "}
-                <a
-                  href="https://www.elster.de/eportal/start"
-                  className="underline font-bold"
-                  target="_blank"
-                >
-                  ELSTER
-                </a>{" "}
-                können Sie sich ein Konto anlegen. Dafür registrieren Sie sich
-                zunächst und erhalten dann Ihre Aktivierungsdaten per Post. Mit
-                diesen Daten erhalten Sie nach Eingabe bei{" "}
-                <a
-                  href="https://www.elster.de/eportal/start"
-                  className="underline font-bold"
-                  target="_blank"
-                >
-                  ELSTER
-                </a>{" "}
-                eine Zertifikatsdatei per Download, mit der Sie sich in unserem
-                Online-Dienst identifizieren können.
-              </p>
-              <LinkWithArrow href="/ekona">
-                Zur Identifikation mit ELSTER Zugang
-              </LinkWithArrow>
-            </div>,
-            <div>
-              <p className="mb-8">
-                <strong>Ausweis und Smartphone</strong>: Sie haben außerdem die
-                Möglichkeit sich mit Ihrem Ausweis auf dem Smartphone zu
-                identifizieren.
-              </p>
-              <LinkWithArrow href={bundesIdentUrl}>
-                Zur Identifikation mit Personalausweis
-              </LinkWithArrow>
-            </div>,
-            <div>
-              <p className="mb-8">
-                <strong>Freischaltcode neu beantragen</strong>: Sie können den
-                Freischaltcode auch neu beantragen. Sollte dieser nach der Frist
-                eintreffen, geben Sie Ihre Erklärung trotzdem schnellstmöglich
-                nach Erhalt ab.
-              </p>
-              <LinkWithArrow href="/fsc/stornieren">
-                Freischaltcode neu beantragen
-              </LinkWithArrow>
-            </div>,
-          ]}
-        />
+        <h2 className="text-24 mb-24">Alternativen:</h2>
+        <p className="mb-16">
+          Wenn Sie eine Alternative zum Freischaltcode verwenden wollen, wählen
+          Sie eine andere Identifikationsmethode aus.
+        </p>
+        <LinkWithArrow href="/identifikation" className="mb-40">
+          Zu den Identifikations-Optionen
+        </LinkWithArrow>
+
+        <p className="mb-16">
+          Klappt keine Identifikation bei Ihnen, dann haben wir folgende
+          Alternativen für Sie: Nutzen sie das Konto Ihrer nahen Angehörigen, um
+          über diese Ihre Grundsteuererklärung abzugeben oder lesen Sie in
+          unserem Hilfebereich weiter, welche Optionen Sie haben.
+        </p>
+        <LinkWithArrow
+          external
+          href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/38-abgabe-uber-angehorige-und-bekannte/104-konnen-mich-meine-angehorigen-familie-freunde-nachbarn-bei-der-grundsteuererklarung-unterstutzen"
+          className="mb-32"
+        >
+          Identifikation über nahe Angehörige
+        </LinkWithArrow>
+        <LinkWithArrow
+          external
+          href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/28-fragen-zur-abgabefrist-31-januar-2023/227-welche-alternativen-habe-ich-um-mich-zu-identifizieren"
+        >
+          Ich kann mich nicht identifizieren
+        </LinkWithArrow>
       </ContentContainer>
     </>
   );
