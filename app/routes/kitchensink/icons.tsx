@@ -38,7 +38,6 @@ import Refresh from "~/components/icons/mui/Refresh";
 import Remove from "~/components/icons/mui/Remove";
 import Send from "~/components/icons/mui/Send";
 import Slash from "~/components/icons/mui/Slash";
-import YellowArrowLeft from "~/components/icons/mui/YellowArrowLeft";
 import OpenTab from "~/components/icons/mui/OpenTab";
 import WarningAmber from "~/components/icons/mui/WarningAmber";
 import Schedule from "~/components/icons/mui/Schedule";
@@ -90,7 +89,6 @@ export default function KitchenSinkIcons() {
       <Slash />
       <TaskAlt />
       <WarningAmber />
-      <YellowArrowLeft />
     </ContentContainer>
   );
 }
