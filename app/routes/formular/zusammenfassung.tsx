@@ -10,7 +10,7 @@ import {
   useActionData,
   useFetcher,
   useLoaderData,
-  useTransition,
+  useNavigation,
 } from "@remix-run/react";
 import {
   createHeadersWithFormDataCookie,
@@ -61,8 +61,8 @@ import ErrorBar from "~/components/ErrorBar";
 import { AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import Send from "~/components/icons/mui/Send";
 import Attention from "~/components/icons/mui/Attention";
-import { CsrfToken, verifyCsrfToken, createCsrfToken } from "~/util/csrf";
-import { getSession, commitSession } from "~/session.server";
+import { createCsrfToken, CsrfToken, verifyCsrfToken } from "~/util/csrf";
+import { commitSession, getSession } from "~/session.server";
 import { Trans } from "react-i18next";
 import ErrorBarStandard from "~/components/ErrorBarStandard";
 import bcrypt from "bcryptjs";
@@ -399,8 +399,8 @@ export default function Zusammenfassung() {
   const [startTime, setStartTime] = useState(
     actionData?.startTime || Date.now()
   );
-  const transition = useTransition();
-  const isSubmitting = Boolean(transition.submission);
+  const navigation = useNavigation();
+  const isSubmitting = Boolean(navigation.state === "submitting");
 
   useEffect(() => {
     if (actionData?.startTime) {

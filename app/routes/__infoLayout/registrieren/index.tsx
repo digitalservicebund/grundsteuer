@@ -8,7 +8,7 @@ import {
   Form,
   useActionData,
   useLoaderData,
-  useTransition,
+  useNavigation,
 } from "@remix-run/react";
 import { Trans, useTranslation } from "react-i18next";
 import invariant from "tiny-invariant";
@@ -213,8 +213,8 @@ export default function Registrieren() {
   const loaderData = useLoaderData();
   const actionData = useActionData();
   const errors = actionData?.errors;
-  const transition = useTransition();
-  const isSubmitting = Boolean(transition.submission);
+  const navigation = useNavigation();
+  const isSubmitting = Boolean(navigation.state === "submitting");
 
   return (
     <ContentContainer>

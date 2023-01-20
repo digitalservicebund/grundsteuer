@@ -16,6 +16,9 @@ const Anzahl = (props: {
   help: ReactNode;
   labelIcon: ReactNode;
 }) => {
+  // TODO replace with useNavigation once the latter is stable enough.
+  // useTransition is soon to be deprecated in favor of useNavigation, so we replaced it everywhere
+  // except for this one place due to flurstueck.spec.ts going all flaky (as of Remix 1.11.0)
   const transition = useTransition();
   const isSubmitting = Boolean(transition.submission);
   const anzahl = Number(props.anzahl || 1);
