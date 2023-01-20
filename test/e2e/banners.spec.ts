@@ -386,18 +386,7 @@ describe("error banners", () => {
 });
 
 describe("Deadline banner", () => {
-  const paths = [
-    "/",
-    "/anmelden",
-    "/registrieren",
-    "/pruefen/bundesland",
-    "/identifikation",
-    "/fsc/beantragen",
-    "/ekona",
-    "/bundesIdent",
-    "/formular/welcome",
-    "/formular/zusammenfassung",
-  ];
+  const paths = ["/", "/anmelden", "/registrieren", "/pruefen/bundesland"];
 
   const screenWidths = [400, 1400];
 
@@ -416,10 +405,22 @@ describe("Deadline banner", () => {
     });
   });
 
-  const errorPaths = ["/404", "/fehler"];
+  const noAppearPaths = [
+    "/404",
+    "/fehler",
+    "/identifikation",
+    "/fsc/beantragen",
+    "/ekona",
+    "/bundesIdent",
+    "/formular/welcome",
+    "/formular/zusammenfassung",
+  ];
 
-  errorPaths.forEach((path) => {
+  noAppearPaths.forEach((path) => {
     it(`should not appear on ${path}`, () => {
+      if (!path.includes("anmelden")) {
+        cy.login();
+      }
       cy.visit(path, { failOnStatusCode: false });
       cy.url().should("include", path);
 
