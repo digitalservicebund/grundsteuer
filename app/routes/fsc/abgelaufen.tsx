@@ -5,6 +5,7 @@ import {
   Headline,
 } from "~/components";
 import ArrowRight from "~/components/icons/mui/ArrowRight";
+import LinkWithArrow from "~/components/LinkWithArrow";
 
 export default function FscAbgelaufen() {
   return (
@@ -31,18 +32,10 @@ export default function FscAbgelaufen() {
         Nutzen Sie eine Alternative, um sich zu identifizieren
       </h2>
       <p className="text-18 mb-16">
-        Ihr Freischaltcode ist ungültig und die Abgabfrist rückt näher. Hier
+        Ihr Freischaltcode ist ungültig und die Abgabefrist rückt näher. Hier
         finden Sie Tipps und Alternativen.
       </p>
-      <div className="flex items-center mb-32">
-        <ArrowRight className="inline-block mr-16" />
-        <a
-          href="/fsc/hilfe"
-          className="font-bold underline text-18 text-blue-800"
-        >
-          Hilfe zum Freischaltcode
-        </a>
-      </div>
+      <LinkWithArrow href="/fsc/hilfe">Hilfe zum Freischaltcode</LinkWithArrow>
     </ContentContainer>
   );
 }
