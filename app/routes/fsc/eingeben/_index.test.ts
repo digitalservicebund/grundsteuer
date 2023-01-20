@@ -374,11 +374,9 @@ describe("Loader", () => {
           "saveSuccessfulFscActivationData"
         );
 
-        try {
-          await loader(args);
-        } catch {
-          expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
-        }
+        await loader(args);
+
+        expect(spyOnLifecycleEvent).not.toHaveBeenCalled();
       });
 
       it("should not start revocation process", async () => {
@@ -390,11 +388,10 @@ describe("Loader", () => {
           "/fsc/eingeben",
           "existing_user@foo.com"
         );
-        try {
-          await loader(args);
-        } catch {
-          expect(revokeSpy).not.toHaveBeenCalled();
-        }
+
+        await loader(args);
+
+        expect(revokeSpy).not.toHaveBeenCalled();
       });
 
       it("sets inFscEingebenProcess to false", async () => {
@@ -406,14 +403,29 @@ describe("Loader", () => {
           "/fsc/eingeben",
           "existing_user@foo.com"
         );
-        try {
-          await loader(args);
-        } catch {
-          expect(spyOnsetInProcessMock).toHaveBeenCalledWith(
-            "existing_user@foo.com",
-            false
-          );
-        }
+
+        await loader(args);
+
+        expect(spyOnsetInProcessMock).toHaveBeenCalledTimes(1);
+        expect(spyOnsetInProcessMock).toHaveBeenCalledWith(
+          "existing_user@foo.com",
+          false
+        );
+      });
+
+      it("deletes correct fsc", async () => {
+        const spyOnDeleteFscMock = jest.spyOn(userModule, "deleteFscRequest");
+        const args = await getLoaderArgsWithAuthenticatedSession(
+          "/fsc/eingeben",
+          "existing_user@foo.com"
+        );
+
+        await loader(args);
+
+        expect(spyOnDeleteFscMock).toHaveBeenCalledTimes(1);
+        expect(spyOnDeleteFscMock).toHaveBeenCalledWith(
+          "existing_user@foo.com"
+        );
       });
 
       it("redirects to /fehler", async () => {

@@ -31,6 +31,7 @@ import {
 } from "~/erica/freischaltCodeAktivieren";
 import {
   deleteEricaRequestIdFscAktivieren,
+  deleteFscRequest,
   findUserByEmail,
   saveEricaRequestIdFscAktivieren,
   setUserInFscEingebenProcess,
@@ -133,6 +134,9 @@ const handleFscActivationProgress = async (
         showSpinner: false,
       };
     } else if (fscActivatedOrError?.errorType == "AlreadyActivatedFsc") {
+      await deleteFscRequest(userData.email);
+      await deleteEricaRequestIdFscAktivieren(userData.email);
+      await setUserInFscEingebenProcess(userData.email, false);
       return {
         redirectToAlreadyActivated: true,
       };
