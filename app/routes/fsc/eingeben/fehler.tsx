@@ -49,12 +49,26 @@ export default function FscBeantragenErfolgreich() {
           items={[
             <div>
               <p className="mb-8">
-                <strong>Elster-Zertifikat</strong>: Unter ELSTER können Sie sich
-                ein Konto anlegen. Dafür registrieren Sie sich zunächst und
-                erhalten dann Ihre Aktivierungsdaten per Post. Mit diesen Daten
-                erhalten Sie nach Eingabe bei ELSTER eine Zertifikatsdatei per
-                Download, mit der Sie sich in unserem Online-Dienst
-                identifizieren können.
+                <strong>Elster-Zertifikat</strong>: Unter{" "}
+                <a
+                  href="https://www.elster.de/eportal/start"
+                  className="underline font-bold"
+                  target="_blank"
+                >
+                  ELSTER
+                </a>{" "}
+                können Sie sich ein Konto anlegen. Dafür registrieren Sie sich
+                zunächst und erhalten dann Ihre Aktivierungsdaten per Post. Mit
+                diesen Daten erhalten Sie nach Eingabe bei{" "}
+                <a
+                  href="https://www.elster.de/eportal/start"
+                  className="underline font-bold"
+                  target="_blank"
+                >
+                  ELSTER
+                </a>{" "}
+                eine Zertifikatsdatei per Download, mit der Sie sich in unserem
+                Online-Dienst identifizieren können.
               </p>
               <LinkWithArrow href="/ekona">
                 Zur Identifikation mit ELSTER Zugang
