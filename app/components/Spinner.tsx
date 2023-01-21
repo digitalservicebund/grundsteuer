@@ -3,6 +3,7 @@ import Button from "./Button";
 import RefreshIcon from "./icons/mui/Refresh";
 import loopGif from "~/assets/images/loader.gif";
 import { Form } from "@remix-run/react";
+import { setInterval } from "timers";
 
 export default function Spinner(props: {
   initialText?: string;
@@ -10,47 +11,38 @@ export default function Spinner(props: {
   longerWaitingText?: string;
   startTime?: number;
 }) {
-  const { initialText, waitingText, longerWaitingText, startTime } = props;
-  const [text, setText] = useState(
-    initialText ? initialText : "Anfrage wird verarbeitet."
-  );
   const [isJavaScriptEnabled, setIsJavaScriptEnabled] = useState(false);
 
-  useEffect(() => {
-    setIsJavaScriptEnabled(true);
-    if (startTime) {
-      if (Date.now() - startTime > 30000) {
+  const { initialText, waitingText, longerWaitingText, startTime } = props;
+  const [text, setText] = useState(initialText || "Anfrage wird verarbeitet.");
+  const [initialStartTime] = useState(startTime || Date.now());
+  const initialTextPeriod = 8000;
+  const waitingTextPeriod = 8000;
+  const longerWaitingTextPeriod = 30000;
+
+  const setNewText = () => {
+    if (Date.now() - initialStartTime > initialTextPeriod) {
+      if (
+        (Date.now() - initialStartTime - initialTextPeriod) %
+          (longerWaitingTextPeriod + waitingTextPeriod) <
+        waitingTextPeriod
+      ) {
         setText(
-          longerWaitingText
-            ? longerWaitingText
-            : "Wir bearbeiten weiter Ihre Anfrage. Bitte verlassen Sie diese Seite nicht."
+          waitingText ||
+            "Ihre Anfrage dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
         );
-      } else if (Date.now() - startTime > 8000) {
+      } else {
         setText(
-          waitingText
-            ? waitingText
-            : "Ihre Anfrage dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
+          longerWaitingText ||
+            "Wir bearbeiten weiter Ihre Anfrage. Bitte verlassen Sie diese Seite nicht."
         );
       }
     }
-    const timer1 = setTimeout(() => {
-      setText(
-        waitingText
-          ? waitingText
-          : "Ihre Anfrage dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
-      );
-    }, 8000);
-    const timer2 = setTimeout(() => {
-      setText(
-        longerWaitingText
-          ? longerWaitingText
-          : "Wir bearbeiten weiter Ihre Anfrage. Bitte verlassen Sie diese Seite nicht."
-      );
-    }, 30000);
-    return () => {
-      if (timer1) clearTimeout(timer1);
-      if (timer2) clearTimeout(timer2);
-    };
+  };
+
+  useEffect(() => {
+    setIsJavaScriptEnabled(true);
+    setInterval(setNewText, 5000);
   });
 
   return (
