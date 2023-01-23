@@ -27,6 +27,7 @@ import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 import TeaserIdentCard from "~/components/TeaserIdentCard";
 import { canEnterFsc } from "~/domain/identificationStatus";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
+import LinkWithArrow from "~/components/LinkWithArrow";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation mit Ausweis") };
@@ -144,8 +145,27 @@ export default function IdentifikationIndex() {
           text="Füllen Sie das Formular aus und identifizieren Sie sich später vor dem Versand. Hinweis: Ein Versand ohne Identifikation ist nicht möglich."
           buttonLabel="Zum Formular"
           url="/formular"
-          className="mb-16"
+          className="mb-56"
         />
+        <ContentContainer size="sm-md">
+          <p className="mb-32">
+            Nutzen sie das Konto Ihrer{" "}
+            <a
+              href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/38-abgabe-uber-angehorige-und-bekannte"
+              className="text-blue-800 underline font-bold"
+            >
+              nahen Angehörigen
+            </a>
+            , um über diese Ihre Grundsteuererklärung abzugeben oder lesen Sie
+            in unserem Hilfebereich weiter.
+          </p>
+          <LinkWithArrow
+            external
+            href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/28-fragen-zur-abgabefrist-31-januar-2023/227-welche-alternativen-habe-ich-um-mich-zu-identifizieren"
+          >
+            Alternativen bei Problemen mit der Identifikation
+          </LinkWithArrow>
+        </ContentContainer>
       </ContentContainer>
     </>
   );
