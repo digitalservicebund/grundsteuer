@@ -30,7 +30,9 @@ import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 import LinkWithArrow from "~/components/LinkWithArrow";
 
 export const meta: MetaFunction = () => {
-  return { title: pageTitle("Identifikation mit Ausweis") };
+  return {
+    title: pageTitle("Mit welcher Option möchten Sie sich identifizieren?"),
+  };
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
