@@ -16,8 +16,11 @@ export default function Spinner(props: {
   const { initialText, waitingText, longerWaitingText, startTime } = props;
   const [text, setText] = useState(initialText || "Anfrage wird verarbeitet.");
   const [initialStartTime] = useState(startTime || Date.now());
-  const initialTextPeriod = 8000;
-  const waitingTextPeriod = 8000;
+  const [spinnerInterval, setSpinnerInterval] = useState<
+    ReturnType<typeof setInterval> | undefined
+  >(undefined);
+  const initialTextPeriod = 10000;
+  const waitingTextPeriod = 30000;
   const longerWaitingTextPeriod = 30000;
 
   const setNewText = () => {
@@ -42,7 +45,9 @@ export default function Spinner(props: {
 
   useEffect(() => {
     setIsJavaScriptEnabled(true);
-    setInterval(setNewText, 5000);
+    if (!spinnerInterval) {
+      setSpinnerInterval(setInterval(setNewText, 3000));
+    }
   });
 
   return (
