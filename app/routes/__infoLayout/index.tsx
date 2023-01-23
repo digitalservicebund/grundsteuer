@@ -68,46 +68,47 @@ export default function Index() {
           <h2 className="text-32 leading-40 mb-16">
             {t("homepage.about.headline")}
           </h2>
-          <p className="mb-24">{t("homepage.about.text1")}</p>
-          <p className="font-bold">{t("homepage.about.text2")}</p>
-        </div>
 
-        <div
-          className="mb-64 md:mb-24 flex flex-col md:flex-row"
-          id="teilnehmende-bundeslaender"
-        >
-          <div className="mb-32 md:mb-0 lg:pt-64">
-            <h2 className="text-32 leading-40 mb-16">
-              {t("homepage.states.headline")}
-            </h2>
-            <p className="mb-24">{t("homepage.states.text")}</p>
-            <div className="font-bold md:flex">
-              <ul className="list-disc pl-24">
-                <li>Berlin</li>
-                <li>Brandenburg</li>
-                <li>Bremen</li>
-                <li>Mecklenburg-Vorpommern</li>
-                <li>Nordrhein-Westfalen</li>
-                <li>Rheinland-Pfalz</li>
-              </ul>
-              <ul className="list-disc pl-24 md:ml-24">
-                <li>Saarland</li>
-                <li>Sachsen</li>
-                <li>Sachsen-Anhalt</li>
-                <li>Schleswig-Holstein</li>
-                <li>Thüringen</li>
-              </ul>
+          <div
+            className="mb-64 md:mb-24 flex flex-col md:flex-row"
+            id="teilnehmende-bundeslaender"
+          >
+            <div>
+              <p className="mb-24">{t("homepage.about.text1")}</p>
+              <p className="font-bold">{t("homepage.about.text2")}</p>
+
+              <div className="mb-32 md:mb-0 pt-40">
+                <div className="font-bold md:flex">
+                  <ul className="list-disc pl-24">
+                    <li>Berlin</li>
+                    <li>Brandenburg</li>
+                    <li>Bremen</li>
+                    <li>Mecklenburg-Vorpommern</li>
+                    <li>Nordrhein-Westfalen</li>
+                    <li>Rheinland-Pfalz</li>
+                  </ul>
+                  <ul className="list-disc pl-24 md:ml-24">
+                    <li>Saarland</li>
+                    <li>Sachsen</li>
+                    <li>Sachsen-Anhalt</li>
+                    <li>Schleswig-Holstein</li>
+                    <li>Thüringen</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="mx-auto mt-auto md:ml-48 lg:ml-112 flex-shrink-0">
+              <img
+                src={germanyMapImage}
+                alt={t("homepage.about.mapAlt")}
+                aria-describedby="teilnehmende-bundeslaender"
+                className=""
+                width={255}
+                height={391}
+                loading="lazy"
+              />
             </div>
           </div>
-          <img
-            src={germanyMapImage}
-            alt={t("homepage.states.mapAlt")}
-            aria-describedby="teilnehmende-bundeslaender"
-            className="mx-auto md:ml-48 lg:ml-112 xl:ml-176"
-            width={255}
-            height={391}
-            loading="lazy"
-          />
         </div>
 
         <div className="mb-80" id="faq">
