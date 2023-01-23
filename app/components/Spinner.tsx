@@ -4,6 +4,7 @@ import RefreshIcon from "./icons/mui/Refresh";
 import loopGif from "~/assets/images/loader.gif";
 import { Form } from "@remix-run/react";
 import { setInterval } from "timers";
+import { Trans } from "react-i18next";
 
 export default function Spinner(props: {
   initialText?: string;
@@ -62,7 +63,15 @@ export default function Spinner(props: {
               alt={"Endlosschleife, die sich im Kreis dreht"}
             />
           )}
-          <p className="text-18">{text}</p>
+          <p className="text-18">
+            <Trans
+              components={{
+                br: <br />,
+              }}
+            >
+              {text}
+            </Trans>
+          </p>
         </div>
         {!isJavaScriptEnabled && (
           <Form reloadDocument method="get" className="mt-32 flex justify-end">

@@ -210,12 +210,12 @@ export default function FscStornieren() {
         </Form>
         {showSpinner && (
           <Spinner
-            initialText={"Ihr Freischaltcode wird storniert."}
+            initialText={"Ihr Freischaltcode wird storniert. Bitte warten."}
             waitingText={
-              "Das Stornieren dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
+              "Aktuell gibt es viele Anfragen zum Freischaltcode.<br>Bitte verlassen Sie diese Seite nicht."
             }
             longerWaitingText={
-              "Wir stornieren weiter Ihren Freischaltcode. Bitte verlassen Sie diese Seite nicht."
+              "Wir stornieren weiterhin Ihren Freischaltcode. <br>Bitte verlassen Sie diese Seite nicht. "
             }
             startTime={startTime}
           />

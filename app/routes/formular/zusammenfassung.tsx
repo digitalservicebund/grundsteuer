@@ -592,7 +592,14 @@ export default function Zusammenfassung() {
           </Button>
         </Form>
       </ContentContainer>
-      {showSpinner && <Spinner startTime={startTime} />}
+      {showSpinner && (
+        <Spinner
+          startTime={startTime}
+          initialText="Ihre Grundsteuererklärung wird versendet. Bitte warten."
+          waitingText="Aktuell werden über unseren Dienst viele Erklärungen versendet.  Bitte verlassen Sie diese Seite nicht."
+          longerWaitingText="Der Versand Ihrer Erklärung kann einige Minuten dauern.  Bitte verlassen Sie diese Seite nicht. "
+        />
+      )}
     </>
   );
 }

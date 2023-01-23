@@ -508,12 +508,12 @@ export default function FscEingeben() {
 
         {showSpinner && (
           <Spinner
-            initialText={"Ihr Freischaltcode wird überprüft."}
+            initialText={"Ihr Freischaltcode wird überprüft. Bitte warten."}
             waitingText={
-              "Das Überprüfen dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
+              "Viel los heute. Die Überprüfung dauert einen Moment länger.<br>Bitte verlassen Sie diese Seite nicht."
             }
             longerWaitingText={
-              "Wir überprüfen weiter Ihren Freischaltcode. Bitte verlassen Sie diese Seite nicht."
+              "Wir überprüfen weiterhin Ihren Freischaltcode.<br>Bitte verlassen Sie diese Seite nicht. "
             }
             startTime={startTime}
           />

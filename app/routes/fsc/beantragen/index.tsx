@@ -462,12 +462,12 @@ export default function FscBeantragen() {
         </Form>
         {showSpinner && (
           <Spinner
-            initialText={"Ihr Freischaltcode wird beantragt."}
+            initialText={"Ihr Freischaltcode wird bestellt. Bitte warten."}
             waitingText={
-              "Das Beantragen dauert gerade leider etwas länger. Bitte verlassen Sie diese Seite nicht."
+              "Aktuell gibt es viele Anfragen zum Freischaltcode.<br>Bitte verlassen Sie diese Seite nicht."
             }
             longerWaitingText={
-              "Wir beantragen weiter Ihren Freischaltcode. Bitte verlassen Sie diese Seite nicht."
+              "Wir bestellen weiterhin einen Freischaltcode für Sie.<br>Bitte verlassen Sie diese Seite nicht."
             }
             startTime={startTime}
           />
