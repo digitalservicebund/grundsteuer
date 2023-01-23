@@ -27,7 +27,7 @@ describe("/beantragen", () => {
     cy.get("[name=steuerId]").type(validSteuerId);
     cy.get("[name=geburtsdatum]").type("01.08.1991");
     cy.get("form[action='/fsc/beantragen?index'] button").click();
-    cy.contains("Ihr Freischaltcode wird beantragt.");
+    cy.contains("Ihr Freischaltcode wird bestellt.");
     cy.contains("Weiter zum Formular").click();
     cy.url().should("include", "/formular/welcome");
   });
@@ -42,7 +42,7 @@ describe("/beantragen", () => {
     cy.contains(
       "Die Steuer-Identifikationsnummer ist genau 11-stellig. Bitte überprüfen Sie Ihre Eingabe."
     );
-    cy.contains("Ihr Freischaltcode wird beantragt.").should("not.exist");
+    cy.contains("Ihr Freischaltcode wird bestellt.").should("not.exist");
   });
 
   it("should show spinner if ericaRequestId already in database", () => {
@@ -54,7 +54,7 @@ describe("/beantragen", () => {
       ericaRequestId: "foo",
     });
     cy.visit("/fsc/beantragen");
-    cy.contains("Ihr Freischaltcode wird beantragt.");
+    cy.contains("Ihr Freischaltcode wird bestellt.");
   });
 
   it("should redirect to success page if mockErica returns success", () => {
@@ -75,7 +75,7 @@ describe("/beantragen", () => {
     cy.get("[name=geburtsdatum]").type("01.08.1991");
     cy.get("form[action='/fsc/beantragen?index'] button").click();
     cy.contains("Bitte überprüfen Sie Ihre Angaben.");
-    cy.contains("Ihr Freischaltcode wird beantragt.").should("not.exist");
+    cy.contains("Ihr Freischaltcode wird bestellt.").should("not.exist");
   });
 
   it("should redirect to success page if it was already successful", () => {
@@ -93,7 +93,7 @@ describe("/beantragen", () => {
     cy.get("[name=steuerId]").type(validSteuerId);
     cy.get("[name=geburtsdatum]").type("01.08.1991");
     cy.get("form[action='/fsc/beantragen?index'] button").click();
-    cy.contains("Ihr Freischaltcode wird beantragt.");
+    cy.contains("Ihr Freischaltcode wird bestellt.");
 
     //Simulate another task processing the erica request faster
     cy.task("dbRemoveAllEricaRequestIds", "foo@bar.com");
@@ -101,7 +101,7 @@ describe("/beantragen", () => {
       email: "foo@bar.com",
       fscRequestId: "fooRequestId",
     });
-    cy.contains("Ihr Freischaltcode wird beantragt.");
+    cy.contains("Ihr Freischaltcode wird bestellt.");
 
     cy.url().should("include", "/fsc/beantragen/erfolgreich");
     cy.task("getFscRequest", "foo@bar.com").then((fscRequest) => {
