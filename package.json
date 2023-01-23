@@ -70,7 +70,7 @@
     "i18next": "^21.10.0",
     "i18next-fs-backend": "^2.1.1",
     "i18next-http-backend": "^2.1.1",
-    "ioredis": "^5.2.4",
+    "ioredis": "^5.2.5",
     "ip-range-check": "^0.2.0",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
