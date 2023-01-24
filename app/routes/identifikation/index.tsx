@@ -155,11 +155,12 @@ export default function IdentifikationIndex() {
             <a
               href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/38-abgabe-uber-angehorige-und-bekannte"
               className="text-blue-800 underline font-bold"
+              target="_blank"
             >
               nahen Angehörigen
             </a>
             , um über diese Ihre Grundsteuererklärung abzugeben oder lesen Sie
-            in unserem Hilfebereich weiter.
+            in unserem Hilfebereich weiter:
           </p>
           <LinkWithArrow
             external
