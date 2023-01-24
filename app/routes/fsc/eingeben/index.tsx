@@ -377,30 +377,27 @@ export default function FscEingeben() {
       <ContentContainer size="sm-md">
         <BreadcrumbNavigation />
         <UebersichtStep imageSrc={letterImg} smallImageSrc={letterImgSmall}>
-          <ContentContainer size="sm">
-            <Headline>Ihr Freischaltcode wurde beantragt</Headline>
-            <Hint type="status">
-              <p>
-                Ihr Freischaltcode wurde am {antragDate}. beantragt. Ihr Brief
-                kommt voraussichtlich bis zum {letterArrivalDate} an.
-              </p>
-              <p className="mt-24">
-                Der Brief mit dem Freischaltcode trifft eventuell erst{" "}
-                <span className="font-bold">nach der Abgabefrist</span> bei
-                Ihnen ein. Geben Sie mit Erhalt des Briefes, auch nach dem 31.
-                Januar, Ihre Grundsteuererklärung so schnell wie möglich ab.
-              </p>
-            </Hint>
-            <IntroText>
-              Sie erhalten Ihren Freischaltcode voraussichtlich in den nächsten
-              3 Wochen per Post. Sie können jetzt die Grundsteuererklärung
-              ausfüllen und zu einem späteren Zeitpunkt den Freischaltcode
-              eingeben.
-            </IntroText>
-            <Button to="/formular" className="min-w-[18rem]">
-              Weiter zum Formular
-            </Button>
-          </ContentContainer>
+          <Headline>Ihr Freischaltcode wurde beantragt</Headline>
+          <Hint type="status">
+            <p>
+              Ihr Freischaltcode wurde am {antragDate}. beantragt. Ihr Brief
+              kommt voraussichtlich bis zum {letterArrivalDate} an.
+            </p>
+            <p className="mt-24">
+              Der Brief mit dem Freischaltcode trifft eventuell erst{" "}
+              <span className="font-bold">nach der Abgabefrist</span> bei Ihnen
+              ein. Geben Sie mit Erhalt des Briefes, auch nach dem 31. Januar,
+              Ihre Grundsteuererklärung so schnell wie möglich ab.
+            </p>
+          </Hint>
+          <IntroText>
+            Sie erhalten Ihren Freischaltcode voraussichtlich in den nächsten 3
+            Wochen per Post. Sie können jetzt die Grundsteuererklärung ausfüllen
+            und zu einem späteren Zeitpunkt den Freischaltcode eingeben.
+          </IntroText>
+          <Button to="/formular" className="min-w-[18rem]">
+            Weiter zum Formular
+          </Button>
 
           <div className="fsc-alternatives">
             <h2 className="mt-80 mb-16 text-24">
