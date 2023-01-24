@@ -679,7 +679,7 @@ export default function FaqAccordion(props: { pruefenPath: string }) {
                 "https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/28-fragen-zur-abgabefrist-31-januar-2023/227-ich-habe-probleme-mit-der-identifizierung-gibt-es-alternativen"
               }
             >
-              here
+              hier
             </a>
             .
           </p>
