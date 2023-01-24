@@ -671,7 +671,17 @@ export default function FaqAccordion(props: { pruefenPath: string }) {
           <p className="mt-24">
             Falls Sie Schwierigkeiten bei den genannten Identifizierungsoptionen
             haben, können Sie auch die Anmeldedaten oder das bereits
-            identifizierte Konto Ihrer nahen Angehörigen nutzen.
+            identifizierte Konto Ihrer nahen Angehörigen nutzen. Weitere
+            Informationen dazu finden Sie{" "}
+            <a
+              className={"underline"}
+              href={
+                "https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/28-fragen-zur-abgabefrist-31-januar-2023/227-ich-habe-probleme-mit-der-identifizierung-gibt-es-alternativen"
+              }
+            >
+              here
+            </a>
+            .
           </p>
         </>
       ),
