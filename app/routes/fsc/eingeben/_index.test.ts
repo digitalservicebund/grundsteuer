@@ -413,7 +413,7 @@ describe("Loader", () => {
         );
       });
 
-      it("deletes correct fsc", async () => {
+      it("does not delete fsc", async () => {
         const spyOnDeleteFscMock = jest.spyOn(userModule, "deleteFscRequest");
         const args = await getLoaderArgsWithAuthenticatedSession(
           "/fsc/eingeben",
@@ -422,10 +422,7 @@ describe("Loader", () => {
 
         await loader(args);
 
-        expect(spyOnDeleteFscMock).toHaveBeenCalledTimes(1);
-        expect(spyOnDeleteFscMock).toHaveBeenCalledWith(
-          "existing_user@foo.com"
-        );
+        expect(spyOnDeleteFscMock).not.toHaveBeenCalled();
       });
 
       it("redirects to /fehler", async () => {

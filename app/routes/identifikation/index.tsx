@@ -51,7 +51,8 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/identifikation/erfolgreich");
   }
 
-  if (canEnterFsc(dbUser)) {
+  const isDirectLink = !!new URL(request.url).searchParams.get("direct");
+  if (canEnterFsc(dbUser) && !isDirectLink) {
     return redirect("/fsc");
   }
 
