@@ -212,7 +212,7 @@ export default function FscStornieren() {
           <Spinner
             initialText={"Ihr Freischaltcode wird storniert. Bitte warten."}
             waitingText={
-              "Aktuell gibt es viele Anfragen zum Freischaltcode.<br>Bitte verlassen Sie diese Seite nicht."
+              "Aktuell gibt es viele Anfragen zum Freischaltcode.<br>Es kommt zu längeren Antwortzeiten des Servers. Bitte lassen Sie diese Seite geöffnet."
             }
             longerWaitingText={
               "Wir stornieren weiterhin Ihren Freischaltcode. <br>Bitte verlassen Sie diese Seite nicht. "

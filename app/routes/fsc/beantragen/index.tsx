@@ -464,7 +464,7 @@ export default function FscBeantragen() {
           <Spinner
             initialText={"Ihr Freischaltcode wird bestellt. Bitte warten."}
             waitingText={
-              "Aktuell gibt es viele Anfragen zum Freischaltcode.<br>Bitte verlassen Sie diese Seite nicht."
+              "Aktuell gibt es viele Anfragen zum Freischaltcode.<br>Es kommt zu längeren Antwortzeiten des Servers. Bitte lassen Sie diese Seite geöffnet."
             }
             longerWaitingText={
               "Wir bestellen weiterhin einen Freischaltcode für Sie.<br>Bitte verlassen Sie diese Seite nicht."

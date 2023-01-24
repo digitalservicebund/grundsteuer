@@ -596,8 +596,8 @@ export default function Zusammenfassung() {
         <Spinner
           startTime={startTime}
           initialText="Ihre Grundsteuererklärung wird versendet. Bitte warten."
-          waitingText="Aktuell werden über unseren Dienst viele Erklärungen versendet.  Bitte verlassen Sie diese Seite nicht."
-          longerWaitingText="Der Versand Ihrer Erklärung kann einige Minuten dauern.  Bitte verlassen Sie diese Seite nicht. "
+          waitingText="Aktuell werden über unseren Dienst viele Erklärungen versendet. <br>Es kommt zu längeren Antwortzeiten des Servers. Bitte lassen Sie diese Seite geöffnet."
+          longerWaitingText="Der Versand Ihrer Erklärung kann einige Minuten dauern. <br>Bitte verlassen Sie diese Seite nicht."
         />
       )}
     </>
