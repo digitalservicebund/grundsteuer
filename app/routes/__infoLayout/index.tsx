@@ -64,7 +64,7 @@ export default function Index() {
           <HomepageFeatures />
         </div>
 
-        <div className="mb-64 md:max-w-screen-sm md:mb-32 lg:max-w-screen-md">
+        <div className="mb-64 md:mb-80 lg:mb-96 md:max-w-screen-sm lg:max-w-screen-lg">
           <h2 className="text-32 leading-40 mb-16">
             {t("homepage.about.headline")}
           </h2>
