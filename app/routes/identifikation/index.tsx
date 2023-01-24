@@ -237,7 +237,7 @@ function IdentCard(props: {
       <img
         src={props.image}
         alt={props.imageAltText}
-        className="hidden lg:flex mr-24 md:w-[300px] w-full"
+        className="hidden lg:flex mr-24 md:w-[300px] w-full mb-auto"
       />
       <div className="flex flex-col">
         <dl>
