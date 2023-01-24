@@ -180,6 +180,20 @@ jobs:
           docker push --all-tags ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           docker push --all-tags ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-migrate
 
+      - name: Install cosign
+        # Third-party action, pin to commit SHA!
+        # See https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions
+        uses: sigstore/cosign-installer@7cc35d7fdbe70d4278a0c96779081e6fac665f88
+
+      - name: Sign the published Docker image
+        env:
+          COSIGN_EXPERIMENTAL: "true"
+        # This step uses the identity token to provision an ephemeral certificate
+        # against the sigstore community Fulcio instance.
+        run: |
+          cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$${{ github.sha }}
+          cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-migrate:$${{ github.sha }}
+
       # This needs to happen here b/c remix changes filenames on each `remix build` run. So, to get working source maps,
       # we need access to the actual image that was built.
       - name: Extract and upload sourcemaps to Sentry
