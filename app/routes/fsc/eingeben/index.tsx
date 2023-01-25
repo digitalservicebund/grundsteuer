@@ -31,7 +31,6 @@ import {
 } from "~/erica/freischaltCodeAktivieren";
 import {
   deleteEricaRequestIdFscAktivieren,
-  deleteFscRequest,
   findUserByEmail,
   saveEricaRequestIdFscAktivieren,
   setUserInFscEingebenProcess,
@@ -73,6 +72,7 @@ type LoaderData = {
   ekonaDown?: boolean;
   ericaDown?: boolean;
   bundesIdentUrl: string;
+  bundesIdentDisabled?: boolean;
 };
 
 const isEricaRequestInProgress = (userData: User) => {
@@ -226,6 +226,7 @@ export const loader: LoaderFunction = async ({
       ericaDown: flags.isEricaDown(),
       ...antragStatus,
       bundesIdentUrl,
+      bundesIdentDisabled: flags.isBundesIdentDisabled(),
       testFeaturesEnabled: testFeaturesEnabled(),
     },
     {
@@ -315,8 +316,13 @@ export const action: ActionFunction = async ({
 
 export default function FscEingeben() {
   const loaderData = useLoaderData<LoaderData>();
-  const { antragDate, letterArrivalDate, remainingDays, bundesIdentUrl } =
-    loaderData;
+  const {
+    antragDate,
+    letterArrivalDate,
+    remainingDays,
+    bundesIdentUrl,
+    bundesIdentDisabled,
+  } = loaderData;
   const actionData: EingebenActionData | undefined = useActionData();
   const errors = actionData?.errors;
 
@@ -371,6 +377,36 @@ export default function FscEingeben() {
     };
   }, [fetcher, showSpinner]);
 
+  let alternatives = [
+    <div>
+      <p className="mb-8">
+        <strong>ELSTER-Zertifikat:</strong> Vielleicht haben Sie doch ein
+        ELSTER-Zertifikat? Personen mit einem ELSTER Konto erhalten in der Regel
+        keinen Brief mit einem Freischaltcode. Nutzen Sie Ihre ELSTER
+        Zugangsdaten, um sich zu identifizieren.
+      </p>
+      <LinkWithArrow href="/ekona">
+        Zur Identifikation mit ELSTER Zugang
+      </LinkWithArrow>
+    </div>,
+  ];
+
+  if (!bundesIdentDisabled) {
+    alternatives = [
+      <div>
+        <p className="mb-8">
+          <strong>Ausweis und Smartphone:</strong> Sie haben außerdem die
+          Möglichkeit sich mit Ihrem Ausweis auf dem Smartphone zu
+          identifizieren.
+        </p>
+        <LinkWithArrow href={bundesIdentUrl}>
+          Zur Identifikation mit Personalausweis
+        </LinkWithArrow>
+      </div>,
+      ...alternatives,
+    ];
+  }
+
   if (remainingDays >= 90) {
     return (
       <ContentContainer size="sm-md">
@@ -402,33 +438,7 @@ export default function FscEingeben() {
             <h2 className="mt-80 mb-16 text-24">
               Alternative zum Freischaltcode
             </h2>
-            <EnumeratedList
-              gap="48"
-              items={[
-                <div>
-                  <p className="mb-8">
-                    <strong>Ausweis und Smartphone:</strong> Sie haben außerdem
-                    die Möglichkeit sich mit Ihrem Ausweis auf dem Smartphone zu
-                    identifizieren.
-                  </p>
-                  <LinkWithArrow href={bundesIdentUrl}>
-                    Zur Identifikation mit Personalausweis
-                  </LinkWithArrow>
-                </div>,
-                <div>
-                  <p className="mb-8">
-                    <strong>ELSTER-Zertifikat:</strong> Vielleicht haben Sie
-                    doch ein ELSTER-Zertifikat? Personen mit einem ELSTER Konto
-                    erhalten in der Regel keinen Brief mit einem Freischaltcode.
-                    Nutzen Sie Ihre ELSTER Zugangsdaten, um sich zu
-                    identifizieren.
-                  </p>
-                  <LinkWithArrow href="/ekona">
-                    Zur Identifikation mit ELSTER Zugang
-                  </LinkWithArrow>
-                </div>,
-              ]}
-            />
+            <EnumeratedList gap="48" items={alternatives} />
           </div>
         </UebersichtStep>
       </ContentContainer>

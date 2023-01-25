@@ -15,6 +15,7 @@ import EnumeratedList from "~/components/EnumeratedList";
 import { canEnterFsc } from "~/domain/identificationStatus";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 import { getBundesIdentUrl } from "~/routes/bundesIdent/_bundesIdentUrl";
+import { flags } from "~/flags.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
@@ -30,11 +31,64 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json({
     ...new FscRequest(dbUser.fscRequest!).getAntragStatus(),
     bundesIdentUrl: getBundesIdentUrl(request),
+    bundesIdentDisabled: flags.isBundesIdentDisabled(),
   });
 };
 
 export default function FscHilfe() {
-  const { antragDate, letterArrivalDate, bundesIdentUrl } = useLoaderData();
+  const { antragDate, letterArrivalDate, bundesIdentUrl, bundesIdentDisabled } =
+    useLoaderData();
+
+  let alternatives = [
+    <div>
+      <p className="mb-8">
+        <strong>Über Angehörige:</strong> Fragen Sie Ihre Angehörigen, ob Sie
+        bereits einen identifizierten Account beim Online-Service
+        "Grundsteuererklärung für Privateigentum" haben oder ob sie ein
+        ELSTER-Zertifikat haben, womit Sie sich für Ihre Erklärung
+        identifizieren können.
+      </p>
+      <LinkWithArrow href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/38/104">
+        Mehr Informationen dazu
+      </LinkWithArrow>
+    </div>,
+    <div>
+      <p className="mb-8">
+        <strong>Mit Elster-Zertifikat:</strong> Vielleicht haben Sie doch ein
+        Elsterzertifikat und der Brief konnten Ihnen deshalb nicht zugstellt
+        werden? Personen mit einem ELSTER Konto erhalten in der Regel keinen
+        Brief mit einem Freischaltcode. Nutzen Sie Ihre ELSTER Zugangsdaten, um
+        sich zu identifizieren.
+      </p>
+      <LinkWithArrow href="/ekona">
+        Zur Identifikation mit ELSTER Zugang
+      </LinkWithArrow>
+    </div>,
+    <div>
+      <p className="mb-8">
+        <strong>Papierformular:</strong> Ist Ihnen keine der Identifikationen
+        möglich, können Sie Ihre Erklärung noch in Papierform abgeben.
+      </p>
+      <LinkWithArrow href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/53-abgabe-in-papierform/101-kann-ich-die-erklarung-auch-in-papierform-abgeben">
+        Mehr Informationen dazu{" "}
+      </LinkWithArrow>
+    </div>,
+  ];
+  if (!bundesIdentDisabled) {
+    alternatives = [
+      <div>
+        <p className="mb-8">
+          <strong>Mit Ausweis und Smartphone:</strong> Sie haben außerdem die
+          Möglichkeit sich mit Ihrem Ausweis auf dem Smartphone zu
+          identifizieren.
+        </p>
+        <LinkWithArrow href={bundesIdentUrl}>
+          Zur Identifikation mit Personalausweis
+        </LinkWithArrow>
+      </div>,
+      ...alternatives,
+    ];
+  }
 
   return (
     <>
@@ -87,56 +141,7 @@ export default function FscHilfe() {
           <h2 className="text-24 mb-24">
             Wie kann ich mich stattdessen identifizieren?
           </h2>
-          <EnumeratedList
-            gap="48"
-            items={[
-              <div>
-                <p className="mb-8">
-                  <strong>Mit Ausweis und Smartphone:</strong> Sie haben
-                  außerdem die Möglichkeit sich mit Ihrem Ausweis auf dem
-                  Smartphone zu identifizieren.
-                </p>
-                <LinkWithArrow href={bundesIdentUrl}>
-                  Zur Identifikation mit Personalausweis
-                </LinkWithArrow>
-              </div>,
-              <div>
-                <p className="mb-8">
-                  <strong>Über Angehörige:</strong> Fragen Sie Ihre Angehörigen,
-                  ob Sie bereits einen identifizierten Account beim
-                  Online-Service "Grundsteuererklärung für Privateigentum" haben
-                  oder ob sie ein ELSTER-Zertifikat haben, womit Sie sich für
-                  Ihre Erklärung identifizieren können.
-                </p>
-                <LinkWithArrow href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/38/104">
-                  Mehr Informationen dazu
-                </LinkWithArrow>
-              </div>,
-              <div>
-                <p className="mb-8">
-                  <strong>Mit Elster-Zertifikat:</strong> Vielleicht haben Sie
-                  doch ein Elsterzertifikat und der Brief konnten Ihnen deshalb
-                  nicht zugstellt werden? Personen mit einem ELSTER Konto
-                  erhalten in der Regel keinen Brief mit einem Freischaltcode.
-                  Nutzen Sie Ihre ELSTER Zugangsdaten, um sich zu
-                  identifizieren.
-                </p>
-                <LinkWithArrow href="/ekona">
-                  Zur Identifikation mit ELSTER Zugang
-                </LinkWithArrow>
-              </div>,
-              <div>
-                <p className="mb-8">
-                  <strong>Papierformular:</strong> Ist Ihnen keine der
-                  Identifikationen möglich, können Sie Ihre Erklärung noch in
-                  Papierform abgeben.
-                </p>
-                <LinkWithArrow href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/53-abgabe-in-papierform/101-kann-ich-die-erklarung-auch-in-papierform-abgeben">
-                  Mehr Informationen dazu{" "}
-                </LinkWithArrow>
-              </div>,
-            ]}
-          />
+          <EnumeratedList gap="48" items={alternatives} />
         </ContentContainer>
       </ContentContainer>
       <Button to="/formular" className="min-w-[18rem]">
