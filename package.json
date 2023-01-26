@@ -134,7 +134,7 @@
     "patch-package": "^6.5.1",
     "prettier": "2.8.3",
     "prisma": "^4.9.0",
-    "start-server-and-test": "^1.15.2",
+    "start-server-and-test": "^1.15.3",
     "tailwindcss": "^3.2.4",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.9.1",
