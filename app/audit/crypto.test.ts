@@ -1,11 +1,13 @@
 import * as crypto from "crypto";
 import {
+  AuditLogScheme,
   decryptData,
   decryptSym,
   decryptWithPrivateKey,
   encryptData,
   encryptSym,
   encryptWithPublicKey,
+  hash,
 } from "~/audit/crypto";
 import * as fs from "fs";
 import { Buffer } from "buffer";
@@ -105,7 +107,7 @@ describe("encryptData", () => {
   it("should encrypt small data correctly", () => {
     const plaintext = "boo!";
 
-    const encrypted = encryptData(plaintext, PUBLIC_KEY);
+    const encrypted = encryptData(plaintext, AuditLogScheme.V2);
     expect(encrypted).not.toEqual(plaintext);
 
     const decrypted = decryptData(encrypted, PRIVATE_KEY);
@@ -115,7 +117,7 @@ describe("encryptData", () => {
   it("should encrypt large data correctly", () => {
     const plaintext = "super secret message".repeat(500);
 
-    const encrypted = encryptData(plaintext, PUBLIC_KEY);
+    const encrypted = encryptData(plaintext, AuditLogScheme.V2);
     expect(encrypted).not.toEqual(plaintext);
 
     const decrypted = decryptData(encrypted, PRIVATE_KEY);
@@ -125,17 +127,28 @@ describe("encryptData", () => {
   it("should prepend encryption scheme version", () => {
     const plaintext = "super secret message";
 
-    const encrypted = encryptData(plaintext, PUBLIC_KEY);
+    const encrypted = encryptData(plaintext, AuditLogScheme.V2);
 
-    expect(encrypted.slice(0, 2)).toEqual("01");
+    expect(encrypted.slice(0, 2)).toEqual("02");
   });
 
   it("should not generate identical ciphertext on identical input", () => {
     const plaintext = "boo!";
 
-    const encryptedDataFirstTime = encryptData(plaintext, PUBLIC_KEY);
-    const encryptedDataSecondTime = encryptData(plaintext, PUBLIC_KEY);
+    const encryptedDataFirstTime = encryptData(plaintext, AuditLogScheme.V2);
+    const encryptedDataSecondTime = encryptData(plaintext, AuditLogScheme.V2);
 
     expect(encryptedDataFirstTime).not.toEqual(encryptedDataSecondTime);
+  });
+});
+
+describe("hash", () => {
+  it("should generate SHA-256 hash", () => {
+    const plaintext = "boo!";
+
+    const hashed = hash(plaintext);
+    expect(hashed).toEqual(
+      "dba7744f3086677fef3e3f281e7a5e567315cd53d4facd66f54cad065227f38e"
+    );
   });
 });

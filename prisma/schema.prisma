@@ -48,3 +48,11 @@ model AuditLog {
   createdAt DateTime @default(now())
   data      String
 }
+
+model AuditLogV2 {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  version   String
+  user      String
+  data      String
+}

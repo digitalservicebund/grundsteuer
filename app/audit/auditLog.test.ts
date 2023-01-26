@@ -5,7 +5,7 @@ import {
   AuditLogEvent,
   encryptAuditLogData,
 } from "~/audit/auditLog";
-import { decryptData } from "~/audit/crypto";
+import { AuditLogScheme, decryptData } from "~/audit/crypto";
 import { db } from "~/db.server";
 
 const PRIVATE_KEY = Buffer.from(
