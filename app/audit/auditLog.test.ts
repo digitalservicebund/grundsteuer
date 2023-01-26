@@ -5,7 +5,7 @@ import {
   AuditLogEvent,
   encryptAuditLogData,
 } from "~/audit/auditLog";
-import { AuditLogScheme, decryptData } from "~/audit/crypto";
+import { decryptData } from "~/audit/crypto";
 import { db } from "~/db.server";
 
 const PRIVATE_KEY = Buffer.from(
@@ -14,7 +14,7 @@ const PRIVATE_KEY = Buffer.from(
 
 describe("auditLog", () => {
   afterAll(async () => {
-    await db.auditLog.deleteMany({});
+    await db.auditLogV2.deleteMany({});
   });
   it("should encrypt audit log data correctly.", () => {
     const data: AuditLogData = {

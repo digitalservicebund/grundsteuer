@@ -37,7 +37,7 @@ const cleanUp = async () => {
       },
     },
   });
-  await db.auditLog.deleteMany({});
+  await db.auditLogV2.deleteMany({});
   await redis.flushAll();
 };
 describe("updateOpenEricaRequests", () => {
@@ -151,7 +151,7 @@ describe("updateOpenEricaRequests", () => {
     expect(revocatingUser?.ericaRequestIdFscStornieren).toBeNull();
     expect(revocatingUser?.fscRequest).toBeNull();
 
-    const auditLogs = await db.auditLog.findMany();
+    const auditLogs = await db.auditLogV2.findMany();
     expect(auditLogs.length).toBe(3);
     const decryptedAuditLogs: unknown[] = [];
     auditLogs.forEach((auditLog) => {

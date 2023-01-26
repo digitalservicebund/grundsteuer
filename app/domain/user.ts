@@ -2,7 +2,8 @@ import { db } from "~/db.server";
 import { Prisma } from "@prisma/client";
 import invariant from "tiny-invariant";
 import { revokeFscForUser } from "~/erica/freischaltCodeStornieren";
-import { AuditLogEvent, encryptAuditLogData } from "~/audit/auditLog";
+import { AuditLogEvent, encryptAuditLogData, SCHEME } from "~/audit/auditLog";
+import { hash } from "~/audit/crypto";
 
 const normalizeEmail = (email: string) => email.trim().toLowerCase();
 
@@ -295,10 +296,12 @@ export const deleteManyUsers = async (users: UserWithoutPdf[]) => {
         timestamp: Date.now(),
         username: user.email,
       }),
+      user: hash(user.email),
+      version: SCHEME.version,
     };
   });
 
-  const createAuditLogs = db.auditLog.createMany({
+  const createAuditLogs = db.auditLogV2.createMany({
     data: logsToCreate,
   });
 

@@ -219,7 +219,7 @@ describe("Cron jobs", () => {
       });
 
       afterEach(async () => {
-        await db.auditLog.deleteMany({});
+        await db.auditLogV2.deleteMany({});
         await db.fscRequest.deleteMany({});
         await db.pdf.deleteMany({});
         await db.user.deleteMany({
@@ -265,12 +265,12 @@ describe("Cron jobs", () => {
       });
 
       it("should add audit logs", async () => {
-        const beforeRows = await db.auditLog.findMany();
+        const beforeRows = await db.auditLogV2.findMany();
         expect(beforeRows.length).toEqual(0);
 
         await deleteExpiredAccounts();
 
-        const afterRows = await db.auditLog.findMany();
+        const afterRows = await db.auditLogV2.findMany();
         expect(afterRows.length).toEqual(3);
       });
 
@@ -330,7 +330,7 @@ describe("Cron jobs", () => {
       });
 
       afterEach(async () => {
-        await db.auditLog.deleteMany({});
+        await db.auditLogV2.deleteMany({});
         await db.fscRequest.deleteMany({});
         await db.pdf.deleteMany({});
         await db.user.deleteMany({
@@ -376,12 +376,12 @@ describe("Cron jobs", () => {
       });
 
       it("should add no audit logs", async () => {
-        const beforeRows = await db.auditLog.findMany();
+        const beforeRows = await db.auditLogV2.findMany();
         expect(beforeRows.length).toEqual(0);
 
         await deleteExpiredAccounts();
 
-        const afterRows = await db.auditLog.findMany();
+        const afterRows = await db.auditLogV2.findMany();
         expect(afterRows.length).toEqual(0);
       });
 

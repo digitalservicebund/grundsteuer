@@ -1,7 +1,7 @@
 import { db } from "~/db.server";
 import { AuditLogScheme, encryptData, hash } from "~/audit/crypto";
 
-const SCHEME = AuditLogScheme.V2;
+export const SCHEME = AuditLogScheme.V2;
 
 export enum AuditLogEvent {
   USER_REGISTERED = "user_registered",
