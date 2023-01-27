@@ -54,6 +54,7 @@ const applyIpRateLimit = async (
   return false;
 };
 
+// You need to use this function in the route you want to rate limit
 export const throwErrorIfRateLimitReached = async (
   ipAddress: string,
   limitedRoute: string,
