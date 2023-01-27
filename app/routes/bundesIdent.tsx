@@ -7,9 +7,7 @@ import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 
 export const loader: LoaderFunction = async ({ request }) => {
   if (flags.isBundesIdentDisabled()) {
-    throw new Response("Not Found", {
-      status: 404,
-    });
+    return redirect("/identifikation?direct=true");
   }
   const sessionUser = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
