@@ -146,15 +146,14 @@ describe("with kill switch enabled", () => {
     cy.contains("dt", "Identifikation mit Ihrem Ausweis").should("not.exist");
   });
 
-  it("should receive 404 on /bundesIdent", () => {
+  it("should redirect to identifikation on /bundesIdent", () => {
     cy.login();
     cy.visit("/bundesIdent", {
       headers: {
         "user-agent": mobileUserAgent,
       },
-      failOnStatusCode: false,
     });
-    cy.contains("h1", "404");
+    cy.url().should("include", "/identifikation");
   });
 });
 
