@@ -15,7 +15,6 @@ export default function UserLayout(props: {
   email: string;
   path?: string;
   flags?: Flags;
-  isMobile?: boolean;
 }) {
   return (
     <Layout
@@ -39,7 +38,6 @@ export default function UserLayout(props: {
       }
       flags={props.flags}
       path={props.path}
-      isMobile={props.isMobile}
     >
       <Main>{props.children}</Main>
     </Layout>

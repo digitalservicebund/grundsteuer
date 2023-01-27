@@ -4,7 +4,6 @@ import { pageTitle } from "~/util/pageTitle";
 import { Outlet, useLoaderData, useLocation } from "@remix-run/react";
 import { authenticator } from "~/auth.server";
 import { flags } from "~/flags.server";
-import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation") };
@@ -17,20 +16,14 @@ export const loader: LoaderFunction = async ({ request }) => {
   return {
     email: sessionUser.email,
     flags: flags.getAllFlags(),
-    isMobile: isMobileUserAgent(request),
   };
 };
 
 export default function Identifikation() {
-  const { email, flags, isMobile } = useLoaderData();
+  const { email, flags } = useLoaderData();
   const location = useLocation();
   return (
-    <UserLayout
-      email={email}
-      flags={flags}
-      path={location.pathname}
-      isMobile={isMobile}
-    >
+    <UserLayout email={email} flags={flags} path={location.pathname}>
       <Outlet />
     </UserLayout>
   );

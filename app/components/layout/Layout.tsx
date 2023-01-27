@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import ErrorBanner from "~/components/ErrorBanner";
 import { Flags } from "~/flags.server";
-import DeadlineBanner from "~/components/DeadlineBanner";
 
 export interface LayoutProps {
   /**
@@ -29,7 +28,6 @@ export interface LayoutProps {
 
   flags?: Flags;
   path?: string;
-  isMobile?: boolean;
 }
 
 const Layout = ({
@@ -40,7 +38,6 @@ const Layout = ({
   topNavigation,
   flags,
   path,
-  isMobile,
 }: LayoutProps) => {
   const { t } = useTranslation("all");
 
@@ -89,7 +86,6 @@ const Layout = ({
                 </ErrorBanner>
               )}
             {!flags?.bundesIdentDisabled &&
-              isMobile &&
               flags?.bundesIdentDown &&
               path &&
               (path.includes("/bundesIdent") || path === "/identifikation") && (
