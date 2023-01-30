@@ -16,12 +16,12 @@ Before starting the app in development mode, you need to have working instances 
 - Redis (v5 or higher)
 - [Unleash](https://www.getunleash.io)
 
-Additionally, you need Erica API (actual or mock) for all interactions with Erica/ELSTER. It is technically optional
+Additionally, you need Erica API ([actual](https://github.com/digitalservicebund/erica) or [mock](https://github.com/digitalservicebund/erica-mock/pkgs/container/erica-mock)) for all interactions with Erica/ELSTER. It is technically optional
 since you can start the app with no running Erica; however, the environment variable `ERICA_URL` must be set.
 
 We recommend Docker containers for PostgreSQL, Redis and Unleash. Default ports and credentials are configured
-in `.env.example`. You also need to create a databse named `grundsteuer` in Postgres. Sicne setting up Unleash is not as
-trivial as the others since it requires its own database, we have provided a convenience script:
+in `.env.example`. You also need to create a database named `grundsteuer` in Postgres. Since setting up Unleash is not as
+trivial as the others as it requires its own database, we have provided a convenience script:
 
 ```shell
 cd unleash
@@ -29,7 +29,7 @@ chmod +x ./create-local-unleash.sh
 ./create-local-unleash.sh
 ```
 
-You can log in to this fresh Unleash installation at `http://localhost:4242` with the username `admin` and
+You can log into this fresh Unleash installation at `http://localhost:4242` with the username `admin` and
 password `unleash4all`.
 
 Once everything is up and running, you can start the app for the first time:
@@ -67,7 +67,7 @@ manual formatting work.
 To be on the safe side ESLint and Prettier are also run on all staged files before a commit. Automatically, so you can't
 forget it.
 
-Additionally ,you can always run ESLint and Prettier manually via npm tasks:
+Additionally, you can always run ESLint and Prettier manually via npm tasks:
 
 Check style:
 
@@ -135,11 +135,11 @@ Please run `npm run build:console` after changes to `<PROJECT_ROOT>/console.ts`.
 
 To construct our forms we use four different structures:
 
-- State machine: The state machine defines the order in which the form is build from steps depending on the user data.
-  This can be found in `app/domain/states.ts`.
+- State machine: The state machine defines the order of form steps depending on the user data.
+  This can be found in `app/domain/states/states.server.ts`. The conditions are located in `app/domain/states/guards.ts`.
 - Step definitions: The fields that are used in a step and further information such as validations is defined through
   the step definition. These can be found in `app/domain/steps/index.ts`.
-- Step-specific components: If a step needs to look different from the DefaultStep, it needs to have a specific
+- Step-specific components: If a step needs to look different from the `DefaultStep`, it needs to have a specific
   StepComponent or StepHeadlineComponent (only title and description). These can be found
   in `app/components/steps/index.ts` or `app/components/headlines/index.ts`.
 - Step-specific texts: Texts for each step (like headlines, descriptions, text in help components) need to be set
