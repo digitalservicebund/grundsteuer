@@ -9,7 +9,7 @@ import { decryptData } from "~/audit/crypto";
 import { db } from "~/db.server";
 
 const PRIVATE_KEY = Buffer.from(
-  fs.readFileSync("test/resources/audit/private.pem", { encoding: "utf-8" })
+  fs.readFileSync("test/resources/audit/private-v2.pem", { encoding: "utf-8" })
 );
 
 describe("auditLog", () => {

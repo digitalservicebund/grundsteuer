@@ -12,11 +12,14 @@ import {
 import * as fs from "fs";
 import { Buffer } from "buffer";
 
-const PUBLIC_KEY = Buffer.from(
-  fs.readFileSync("test/resources/audit/public.pem", { encoding: "utf-8" })
-);
-const PRIVATE_KEY = Buffer.from(
+const PRIVATE_KEY_V1 = Buffer.from(
   fs.readFileSync("test/resources/audit/private.pem", { encoding: "utf-8" })
+);
+const PUBLIC_KEY_V2 = Buffer.from(
+  fs.readFileSync("test/resources/audit/public-v2.pem", { encoding: "utf-8" })
+);
+const PRIVATE_KEY_V2 = Buffer.from(
+  fs.readFileSync("test/resources/audit/private-v2.pem", { encoding: "utf-8" })
 );
 
 describe("symmetric encprytion", () => {
@@ -82,21 +85,21 @@ describe("asymmetric encryption", () => {
   it("should produce correct ciphertext", () => {
     const plaintext = "super secret message";
 
-    const ciphertext = encryptWithPublicKey(PUBLIC_KEY, plaintext);
+    const ciphertext = encryptWithPublicKey(PUBLIC_KEY_V2, plaintext);
     expect(ciphertext).not.toEqual(plaintext);
 
-    const decrypted = decryptWithPrivateKey(PRIVATE_KEY, ciphertext);
+    const decrypted = decryptWithPrivateKey(PRIVATE_KEY_V2, ciphertext);
     expect(decrypted).toEqual(plaintext);
   });
 
   it("should not produce ciphertext decryptable with public key", () => {
     const plaintext = "super secret message";
 
-    const ciphertext = encryptWithPublicKey(PUBLIC_KEY, plaintext);
+    const ciphertext = encryptWithPublicKey(PUBLIC_KEY_V2, plaintext);
 
     const decryptWithPublicKey = () => {
       return crypto
-        .publicDecrypt(PUBLIC_KEY, Buffer.from(ciphertext, "hex"))
+        .publicDecrypt(PUBLIC_KEY_V2, Buffer.from(ciphertext, "hex"))
         .toString("utf-8");
     };
     expect(() => decryptWithPublicKey()).toThrow();
@@ -104,13 +107,23 @@ describe("asymmetric encryption", () => {
 });
 
 describe("encryptData", () => {
-  it("should encrypt small data correctly", () => {
+  it("should encrypt v1 data correctly", () => {
+    const plaintext = "boo!";
+
+    const encrypted = encryptData(plaintext, AuditLogScheme.V1);
+    expect(encrypted).not.toEqual(plaintext);
+
+    const decrypted = decryptData(encrypted, PRIVATE_KEY_V1);
+    expect(decrypted).toEqual(plaintext);
+  });
+
+  it("should encrypt v2 data correctly", () => {
     const plaintext = "boo!";
 
     const encrypted = encryptData(plaintext, AuditLogScheme.V2);
     expect(encrypted).not.toEqual(plaintext);
 
-    const decrypted = decryptData(encrypted, PRIVATE_KEY);
+    const decrypted = decryptData(encrypted, PRIVATE_KEY_V2);
     expect(decrypted).toEqual(plaintext);
   });
 
@@ -120,7 +133,7 @@ describe("encryptData", () => {
     const encrypted = encryptData(plaintext, AuditLogScheme.V2);
     expect(encrypted).not.toEqual(plaintext);
 
-    const decrypted = decryptData(encrypted, PRIVATE_KEY);
+    const decrypted = decryptData(encrypted, PRIVATE_KEY_V2);
     expect(decrypted).toEqual(plaintext);
   });
 
