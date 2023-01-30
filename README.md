@@ -16,12 +16,14 @@ Before starting the app in development mode, you need to have working instances 
 - Redis (v5 or higher)
 - [Unleash](https://www.getunleash.io)
 
-Additionally, you need Erica API ([actual](https://github.com/digitalservicebund/erica) or [mock](https://github.com/digitalservicebund/erica-mock/pkgs/container/erica-mock)) for all interactions with Erica/ELSTER. It is technically optional
-since you can start the app with no running Erica; however, the environment variable `ERICA_URL` must be set.
+Additionally, you need Erica API ([actual](https://github.com/digitalservicebund/erica)
+or [mock](https://github.com/digitalservicebund/erica-mock/pkgs/container/erica-mock)) for all interactions with
+Erica/ELSTER. It is technically optional since you can start the app with no running Erica; however, the environment
+variable `ERICA_URL` must be set.
 
 We recommend Docker containers for PostgreSQL, Redis and Unleash. Default ports and credentials are configured
-in `.env.example`. You also need to create a database named `grundsteuer` in Postgres. Since setting up Unleash is not as
-trivial as the others as it requires its own database, we have provided a convenience script:
+in `.env.example`. You also need to create a database named `grundsteuer` in Postgres. Since setting up Unleash is not
+as trivial as the others as it requires its own database, we have provided a convenience script:
 
 ```shell
 cd unleash
@@ -135,8 +137,8 @@ Please run `npm run build:console` after changes to `<PROJECT_ROOT>/console.ts`.
 
 To construct our forms we use four different structures:
 
-- State machine: The state machine defines the order of form steps depending on the user data.
-  This can be found in `app/domain/states/states.server.ts`. The conditions are located in `app/domain/states/guards.ts`.
+- State machine: The state machine defines the order of form steps depending on the user data. This can be found
+  in `app/domain/states/states.server.ts`. The conditions are located in `app/domain/states/guards.ts`.
 - Step definitions: The fields that are used in a step and further information such as validations is defined through
   the step definition. These can be found in `app/domain/steps/index.ts`.
 - Step-specific components: If a step needs to look different from the `DefaultStep`, it needs to have a specific
