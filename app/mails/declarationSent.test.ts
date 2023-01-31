@@ -36,8 +36,11 @@ describe("createDeclarationSentMail", () => {
 
       <p>
         Ein PDF mit der Zusammenfassung Ihrer Grundsteuererklärung können Sie
-        <a href=\\"https://grundsteuererklaerung-fuer-privateigentum.de/formular/erfolg\\">hier</a> noch 24
-        Stunden in Ihrem Konto herunterladen (wenn Sie keine weitere Erklärung abgegeben haben).
+        <a href=\\"https://grundsteuererklaerung-fuer-privateigentum.de/formular/erfolg\\"
+          >hier</a
+        >
+        noch 24 Stunden in Ihrem Konto herunterladen (wenn Sie keine weitere Erklärung
+        abgegeben haben).
       </p>
 
 
