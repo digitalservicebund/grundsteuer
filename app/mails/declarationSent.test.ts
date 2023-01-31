@@ -35,9 +35,9 @@ describe("createDeclarationSentMail", () => {
 
 
       <p>
-        Ein PDF mit der Zusammenfassung Ihrer Grundsteuererklärung können Sie noch 24
-        Stunden in Ihrem Konto herunterladen (wenn Sie keine weitere Erklärung
-        abgegeben haben).
+        Ein PDF mit der Zusammenfassung Ihrer Grundsteuererklärung können Sie
+        <a href=\\"https://grundsteuererklaerung-fuer-privateigentum.de/formular/erfolg\\">hier</a> noch 24
+        Stunden in Ihrem Konto herunterladen (wenn Sie keine weitere Erklärung abgegeben haben).
       </p>
 
 
@@ -94,7 +94,8 @@ describe("createDeclarationSentMail", () => {
 
       Ihr persönliches Transferticket: transferticket
 
-      Ein PDF mit der Zusammenfassung Ihrer Grundsteuererklärung können Sie noch 24
+      Ein PDF mit der Zusammenfassung Ihrer Grundsteuererklärung können Sie hier
+      [https://grundsteuererklaerung-fuer-privateigentum.de/formular/erfolg] noch 24
       Stunden in Ihrem Konto herunterladen (wenn Sie keine weitere Erklärung abgegeben
       haben).
 
