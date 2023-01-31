@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { Trans, useTranslation } from "react-i18next";
 import feature1Image from "~/assets/images/feature1.svg";
 import feature2Image from "~/assets/images/feature2.svg";
 import feature3Image from "~/assets/images/feature3.svg";
@@ -32,50 +31,54 @@ function HomepageFeature(props: HomepageFeatureProps) {
 }
 
 export default function HomepageFeatures() {
-  const { t } = useTranslation("all");
   return (
     <div className="grid grid-cols-1 md:auto-rows-fr gap-x-24 gap-y-48 md:grid-cols-2 lg:grid-cols-3">
       <HomepageFeature
-        headline={t("homepage.features.1.headline")}
+        headline="Ich möchte meine Erklärung korrigieren"
         image={feature1Image}
       >
         <p>
-          <Trans components={{ bold: <strong /> }}>
-            {t("homepage.features.1.text")}
-          </Trans>
+          Ich habe einen Fehler in meiner Erklärung bemerkt oder Angaben
+          vergessen und möchte diese nachträglich korrigieren. Den
+          Grundsteuerwertbescheid habe ich noch nicht bekommen.
+        </p>
+        <p className="mt-24">
+          Mehr zum Thema{" "}
+          <a href="#" className="font-bold underline">
+            Korrektur der Erklärung{" "}
+          </a>
         </p>
       </HomepageFeature>
       <HomepageFeature
-        headline={t("homepage.features.2.headline")}
-        image={feature2Image}
-      >
-        <p className="mb-24">{t("homepage.features.2.text1")}</p>
-        <ul className="mb-24 list-disc pl-24">
-          <li>
-            <Trans components={{ bold: <strong /> }}>
-              {t("homepage.features.2.listItem1")}
-            </Trans>
-          </li>
-          <li>
-            <Trans components={{ bold: <strong /> }}>
-              {t("homepage.features.2.listItem2")}
-            </Trans>
-          </li>
-          <li>{t("homepage.features.2.listItem3")}</li>
-        </ul>
-        <p>{t("homepage.features.2.text2")}</p>
-      </HomepageFeature>
-      <HomepageFeature
-        headline={t("homepage.features.3.headline")}
+        headline="Ich habe ein Erinnerungsschreiben erhalten"
         image={feature3Image}
       >
-        <p className="mb-24">{t("homepage.features.3.text1")}</p>
-        <ul className="mb-24 font-bold list-disc pl-24">
-          <li>{t("homepage.features.3.listItem1")}</li>
-          <li>{t("homepage.features.3.listItem2")}</li>
-          <li>{t("homepage.features.3.listItem3")}</li>
-        </ul>
-        <p>{t("homepage.features.3.text2")}</p>
+        <p className="mb-24">
+          Sie haben Ihre Grundsteuererklärung nicht eingereicht und ein
+          Erinnerungsschreiben erhalten oder sie haben Fragen zu diesem
+          Schreiben?
+        </p>
+        <p className="mb-24">
+          Mehr zum Thema{" "}
+          <a href="#" className="font-bold underline">
+            Erinnerungsschreiben
+          </a>
+        </p>
+      </HomepageFeature>
+      <HomepageFeature
+        headline="Ich habe Fragen zu einem Bescheid"
+        image={feature2Image}
+      >
+        <p className="mb-24">
+          Sie haben einen Bescheid nach der Abgabe Ihrer Grundsteuererklärung
+          erhalten und haben Fragen?
+        </p>
+        <p>
+          Mehr zum Thema{" "}
+          <a href="#" className="font-bold underline">
+            Grundsteuerwertbescheid
+          </a>
+        </p>
       </HomepageFeature>
     </div>
   );

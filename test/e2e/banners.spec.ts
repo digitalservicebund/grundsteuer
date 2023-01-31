@@ -429,7 +429,7 @@ describe("error banners", () => {
 });
 
 describe("Deadline banner", () => {
-  const paths = ["/", "/anmelden", "/registrieren", "/pruefen/bundesland"];
+  const paths = ["/", "/anmelden/erfolgreich"];
 
   const screenWidths = [400, 1400];
 
@@ -437,7 +437,7 @@ describe("Deadline banner", () => {
     paths.forEach((path) => {
       it(`should appear on ${path} with screen width ${width}`, () => {
         cy.viewport(width, 1000);
-        if (!path.includes("anmelden")) {
+        if (path.includes("erfolgreich")) {
           cy.login();
         }
         cy.visit(path);
@@ -450,7 +450,8 @@ describe("Deadline banner", () => {
 
   const noAppearPaths = [
     "/404",
-    "/fehler",
+    "/anmelden",
+    "/registrieren",
     "/identifikation",
     "/fsc/beantragen",
     "/ekona",
@@ -461,7 +462,7 @@ describe("Deadline banner", () => {
 
   noAppearPaths.forEach((path) => {
     it(`should not appear on ${path}`, () => {
-      if (!path.includes("anmelden")) {
+      if (!path.includes("anmelden") && !path.includes("registrieren")) {
         cy.login();
       }
       cy.visit(path, { failOnStatusCode: false });

@@ -2,7 +2,7 @@ import { LoaderFunction } from "@remix-run/node";
 import { Outlet, useLoaderData, useLocation } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ContentContainer, Footer } from "~/components";
+import { Footer } from "~/components";
 import ErrorBanner from "~/components/ErrorBanner";
 import Header from "~/components/navigation/Header";
 import { flags } from "~/flags.server";
@@ -72,9 +72,7 @@ export default function InfoLayout() {
       )}
       <Header email={user?.email} noLoginLink={isHomepage || isQuestionnaire} />
       <main className="flex-grow">
-        <ContentContainer>
-          <DeadlineBanner size="large" />
-        </ContentContainer>
+        {isHomepage && <DeadlineBanner homepage={true} />}
         <Outlet />
       </main>
       <Footer />

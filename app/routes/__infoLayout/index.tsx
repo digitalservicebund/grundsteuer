@@ -8,7 +8,6 @@ import {
   HomepageFeatures,
 } from "~/components";
 import germanyMapImage from "~/assets/images/germany-map.svg";
-import TeaserBox from "~/components/TeaserBox";
 import HelpInfoBox from "~/components/HelpInfoBox";
 import HomepageCallToAction from "~/components/HomepageCallToAction";
 import { json, LoaderFunction } from "@remix-run/node";
@@ -37,7 +36,7 @@ export default function Index() {
       <BreadcrumbNavigation />
       <ContentContainer>
         <BmfLogo />
-        <div className="mb-64 md:mb-96 xl:mb-80">
+        <div className="mb-64 md:mb-96 xl:mb-144">
           <h1 className="mb-24">
             <div className="max-w-[300px] text-32 leading-40 mb-8 mt-18 sm:max-w-[560px] sm:text-[3.5rem] sm:leading-68 md:mb-24 lg:text-64 lg:mb-8">
               {t("homepage.headline")}
@@ -56,21 +55,13 @@ export default function Index() {
           </ContentContainer>
         </div>
 
-        <div className="mb-64 md:mb-80 lg:mb-96">
-          <TeaserBox />
-        </div>
-
-        <div className="mb-64 md:mb-80 lg:mb-96">
-          <HomepageFeatures />
-        </div>
-
-        <div className="mb-64 md:mb-80 lg:mb-96 md:max-w-screen-sm lg:max-w-screen-lg">
+        <div className="mb-64 md:mb-80 lg:mb-112 md:max-w-screen-sm lg:max-w-screen-lg">
           <h2 className="text-32 leading-40 mb-16">
             {t("homepage.about.headline")}
           </h2>
 
           <div
-            className="mb-64 md:mb-24 flex flex-col md:flex-row"
+            className="flex flex-col md:flex-row"
             id="teilnehmende-bundeslaender"
           >
             <div>
@@ -109,6 +100,13 @@ export default function Index() {
               />
             </div>
           </div>
+        </div>
+
+        <div className="mb-64 md:mb-80 lg:mb-128">
+          <h2 className="text-32 leading-40 mb-48">
+            {t("homepage.features.headline")}
+          </h2>
+          <HomepageFeatures />
         </div>
 
         <div className="mb-80" id="faq">

@@ -10,7 +10,7 @@ import {
 } from "~/components";
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useLocation } from "@remix-run/react";
 import { flags } from "~/flags.server";
 import { rememberCookie } from "~/storage/rememberLogin.server";
 import { findUserByEmail, User } from "~/domain/user";
@@ -69,9 +69,10 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 export default function ErfolgreichAngemeldet() {
   const { email, nextStepUrl, fscStepUrl, flags } = useLoaderData();
+  const location = useLocation();
 
   return (
-    <UserLayout email={email} flags={flags}>
+    <UserLayout email={email} flags={flags} path={location.pathname}>
       <ContentContainer size="sm">
         <BreadcrumbNavigation />
         <SuccessPageLayout>

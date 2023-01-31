@@ -19,26 +19,7 @@
       "linkText": "Weitere Informationen zur Frist"
     },
     "features": {
-      "1": {
-        "headline": "Bis wann kann ich die Grundsteuererklärung abgeben?",
-        "text": "Sie können Ihre Erklärung bis zum <bold>31. Januar 2023</bold> mit unserem Online-Dienst „Grundsteuererklärung für Privateigentum“ digital abgeben."
-      },
-      "2": {
-        "headline": "Wie kann ich mich vorbereiten?",
-        "text1": "Je nachdem in welchem Bundesland Ihr Grundstück liegt, brauchen Sie unterschiedliche Unterlagen. In der Regel sind das:",
-        "listItem1": "<bold>Informationsschreiben</bold> Ihres Bundeslandes ggf. mit beigefügtem <bold>Beiblatt oder Datenstammblatt</bold>,",
-        "listItem2": "<bold>Grundsteuerportal (Geodatenportal)</bold> Ihres Bundeslandes,",
-        "listItem3": "optional Grundbuchauszug, Einheitswertbescheid, Kauf-/Schenkungsvertrag, Teilungserklärung bei Wohnungseigentum oder Bau- / Vermessungsunterlagen.",
-        "text2": "Unten finden Sie eine genauere Auflistung pro Bundesland."
-      },
-      "3": {
-        "headline": "Wer kann die Grundsteuererklärung abgeben?",
-        "text1": "„Grundsteuererklärung für Privateigentum“ ist speziell für Privatpersonen entwickelt, die einfache Eigentumsverhältnisse haben:",
-        "listItem1": "Ein- oder Zweifamilienhaus",
-        "listItem2": "Eigentumswohnung",
-        "listItem3": "unbebautes Grundstück",
-        "text2": "Seltene Fälle wie Erbengemeinschaften oder Steuerbegünstigungen decken wir nicht ab."
-      }
+      "headline": "Wie können wir Ihnen helfen?"
     },
     "about": {
       "headline": "Worum geht es?",
