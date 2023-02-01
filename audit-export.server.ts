@@ -4,7 +4,7 @@ import fs from "fs";
 async function exportAuditLogs(from: string, to: string, pathToFile: string) {
   console.log(`Exporting audit logs from ${from} to ${to}`);
   const db = new PrismaClient();
-  const auditLogs = await db.auditLog.findMany({
+  const auditLogs = await db.auditLogV2.findMany({
     where: {
       createdAt: {
         gte: new Date(from),

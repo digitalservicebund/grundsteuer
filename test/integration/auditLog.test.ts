@@ -3,15 +3,15 @@ import fs from "fs";
 import { AuditLogData, AuditLogEvent, saveAuditLog } from "~/audit/auditLog";
 import { decryptData } from "~/audit/crypto";
 import { db } from "~/db.server";
-import { AuditLog } from "@prisma/client";
+import { AuditLogV2 } from "@prisma/client";
 
 export const PRIVATE_KEY = Buffer.from(
-  fs.readFileSync("test/resources/audit/private.pem", { encoding: "utf-8" })
+  fs.readFileSync("test/resources/audit/private-v2.pem", { encoding: "utf-8" })
 );
 
 describe("auditLog", () => {
   afterEach(async () => {
-    await db.auditLog.deleteMany({});
+    await db.auditLogV2.deleteMany({});
   });
 
   it("should encrypt audit log data correctly.", async () => {
@@ -28,7 +28,7 @@ describe("auditLog", () => {
 
     await saveAuditLog(data);
 
-    const savedLog = (await db.auditLog.findFirst()) as AuditLog;
+    const savedLog = (await db.auditLogV2.findFirst()) as AuditLogV2;
 
     expect(savedLog).toBeTruthy();
     const decryptedData = JSON.parse(decryptData(savedLog.data, PRIVATE_KEY));

@@ -1,6 +1,5 @@
 import * as crypto from "crypto";
 import { Buffer } from "buffer";
-import invariant from "tiny-invariant";
 
 /*
  * The decryption functions in this file serve only as as PoC for audit log decrytion performed
@@ -8,8 +7,20 @@ import invariant from "tiny-invariant";
  * will not have access to the private key.
  */
 
-enum Version {
-  AES_128_GCM_RSA_4096 = "01",
+export class AuditLogScheme {
+  static readonly V1 = new AuditLogScheme(
+    "01",
+    process.env.AUDIT_PUBLIC_KEY as string
+  );
+  static readonly V2 = new AuditLogScheme(
+    "02",
+    process.env.AUDIT_PUBLIC_KEY_V2 as string
+  );
+
+  private constructor(
+    public readonly version: string,
+    public readonly key: string
+  ) {}
 }
 
 const ALGORITHM = "aes-128-gcm";
@@ -93,10 +104,11 @@ export const decryptWithPrivateKey = (
  * with the given RSA public key, and returns both values in hex encoding separated by ASYM_SEPARATOR.
  *
  * @param data the plaintext data to encrypt
- * @param publicKey an RSA public key in PEM format
+ * @param scheme object containing the RSA public key in PEM format and a version prefix
  * @return {string} hex-encoded encrypted symmetric key + ASYM_SEPARATOR + hex-encoded encrypted data
  */
-export const encryptData = (data: string, publicKey: Buffer) => {
+export const encryptData = (data: string, scheme: AuditLogScheme) => {
+  const publicKey = Buffer.from(scheme.key);
   const symKey = crypto.randomBytes(CIPHER_BLOCK_SIZE);
   const encryptedData = encryptSym(symKey, data);
   const encryptedSymKey = encryptWithPublicKey(
@@ -104,30 +116,32 @@ export const encryptData = (data: string, publicKey: Buffer) => {
     symKey.toString(OUTPUT_ENCODING)
   );
 
-  return [Version.AES_128_GCM_RSA_4096, encryptedSymKey, encryptedData].join(
-    ASYM_SEPARATOR
-  );
+  return [scheme.version, encryptedSymKey, encryptedData].join(ASYM_SEPARATOR);
 };
 
 /**
  * Decrypts the data encrypted with {@link encryptData} using the corresponding private key.
+ *
+ * Note: This is not automation ready! Do not use in production.
  *
  * @param encryptedBlock hex-encoded encrypted symmetric key + ASYM_SEPARATOR + hex-encoded encrypted data
  * @param privateKey the RSA private key for the public key used to encrypt data
  * @return {string} plaintext data
  */
 export const decryptData = (encryptedBlock: string, privateKey: Buffer) => {
-  const [version, encryptedSymKey, encryptedData] =
+  const [, encryptedSymKey, encryptedData] =
     encryptedBlock.split(ASYM_SEPARATOR);
-
-  invariant(
-    version === Version.AES_128_GCM_RSA_4096,
-    "Invalid encryption scheme version."
-  );
 
   const symKey = Buffer.from(
     decryptWithPrivateKey(privateKey, encryptedSymKey),
     OUTPUT_ENCODING
   );
   return decryptSym(symKey, encryptedData);
+};
+
+/**
+ * Returns the SHA-256 hash.
+ */
+export const hash = (plaintext: string) => {
+  return crypto.createHash("sha256").update(plaintext).digest("hex");
 };

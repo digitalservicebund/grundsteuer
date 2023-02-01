@@ -1,6 +1,7 @@
 import { db } from "~/db.server";
-import { encryptData } from "~/audit/crypto";
-import invariant from "tiny-invariant";
+import { AuditLogScheme, encryptData, hash } from "~/audit/crypto";
+
+export const SCHEME = AuditLogScheme.V2;
 
 export enum AuditLogEvent {
   USER_REGISTERED = "user_registered",
@@ -70,18 +71,15 @@ export type EventData =
   | BundesIdentIdentifiedData;
 
 export const saveAuditLog = async (data: AuditLogData) => {
-  await db.auditLog.create({
+  await db.auditLogV2.create({
     data: {
+      user: hash(data.username),
+      version: SCHEME.version,
       data: encryptAuditLogData(data),
     },
   });
 };
 
 export const encryptAuditLogData = (data: AuditLogData) => {
-  invariant(
-    process.env.AUDIT_PUBLIC_KEY,
-    "Environemnt variable AUDIT_PUBLIC_KEY is not set."
-  );
-  const publicKey = Buffer.from(process.env.AUDIT_PUBLIC_KEY);
-  return encryptData(JSON.stringify(data), publicKey);
+  return encryptData(JSON.stringify(data), SCHEME);
 };

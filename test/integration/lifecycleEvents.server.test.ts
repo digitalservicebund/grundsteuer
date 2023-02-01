@@ -40,7 +40,7 @@ const cleanUpDatabase = async () => {
       },
     },
   });
-  await db.auditLog.deleteMany({});
+  await db.auditLogV2.deleteMany({});
 };
 
 describe("saveSuccessfullFscRequestData", () => {
@@ -112,7 +112,7 @@ describe("saveSuccessfullFscRequestData", () => {
         "04903837828"
       );
 
-      const auditLogs = await db.auditLog.findMany();
+      const auditLogs = await db.auditLogV2.findMany();
       const lastAuditLog = JSON.parse(
         decryptData(auditLogs[auditLogs.length - 1].data, PRIVATE_KEY)
       );
@@ -139,7 +139,7 @@ describe("saveSuccessfullFscRequestData", () => {
         "04903837828"
       );
 
-      const auditLogs = await db.auditLog.findMany();
+      const auditLogs = await db.auditLogV2.findMany();
       expect(auditLogs.length).toBe(0);
     });
   });
@@ -197,7 +197,7 @@ describe("saveSuccessfullFscRequestData", () => {
         "04903837828"
       );
 
-      const auditLogs = await db.auditLog.findMany();
+      const auditLogs = await db.auditLogV2.findMany();
       const lastAuditLog = JSON.parse(
         decryptData(auditLogs[auditLogs.length - 1].data, PRIVATE_KEY)
       );
@@ -224,7 +224,7 @@ describe("saveSuccessfullFscRequestData", () => {
         "04903837828"
       );
 
-      const auditLogs = await db.auditLog.findMany();
+      const auditLogs = await db.auditLogV2.findMany();
       expect(auditLogs.length).toBe(0);
     });
   });
@@ -293,7 +293,7 @@ describe("saveSuccessfullFscActivationData", () => {
         "transferticket007"
       );
 
-      const auditLogs = await db.auditLog.findMany();
+      const auditLogs = await db.auditLogV2.findMany();
       const lastAuditLog = JSON.parse(
         decryptData(auditLogs[auditLogs.length - 1].data, PRIVATE_KEY)
       );
@@ -317,7 +317,7 @@ describe("saveSuccessfullFscActivationData", () => {
         "transferticket007"
       );
 
-      const auditLogs = await db.auditLog.findMany();
+      const auditLogs = await db.auditLogV2.findMany();
       expect(auditLogs.length).toBe(0);
     });
   });
@@ -353,7 +353,7 @@ describe("saveSuccessfullFscActivationData", () => {
         "transferticket007"
       );
 
-      const auditLogs = await db.auditLog.findMany();
+      const auditLogs = await db.auditLogV2.findMany();
       const lastAuditLog = JSON.parse(
         decryptData(auditLogs[auditLogs.length - 1].data, PRIVATE_KEY)
       );
@@ -442,7 +442,7 @@ describe("saveSuccessfullFscRevocationData", () => {
         "transferticket007"
       );
 
-      const auditLogs = await db.auditLog.findMany();
+      const auditLogs = await db.auditLogV2.findMany();
       const lastAuditLog = JSON.parse(
         decryptData(auditLogs[auditLogs.length - 1].data, PRIVATE_KEY)
       );
@@ -466,7 +466,7 @@ describe("saveSuccessfullFscRevocationData", () => {
         "transferticket007"
       );
 
-      const auditLogs = await db.auditLog.findMany();
+      const auditLogs = await db.auditLogV2.findMany();
       expect(auditLogs.length).toBe(0);
     });
   });
@@ -504,7 +504,7 @@ describe("saveSuccessfullFscRevocationData", () => {
         "transferticket007"
       );
 
-      const auditLogs = await db.auditLog.findMany();
+      const auditLogs = await db.auditLogV2.findMany();
       const lastAuditLog = JSON.parse(
         decryptData(auditLogs[auditLogs.length - 1].data, PRIVATE_KEY)
       );
