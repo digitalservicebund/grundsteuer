@@ -44,7 +44,10 @@ export default function HomepageFeatures() {
         </p>
         <p className="mt-24">
           Mehr zum Thema{" "}
-          <a href="#" className="font-bold underline">
+          <a
+            href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/48"
+            className="font-bold underline"
+          >
             Korrektur der Erklärung{" "}
           </a>
         </p>
@@ -60,7 +63,10 @@ export default function HomepageFeatures() {
         </p>
         <p className="mb-24">
           Mehr zum Thema{" "}
-          <a href="#" className="font-bold underline">
+          <a
+            href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/68"
+            className="font-bold underline"
+          >
             Erinnerungsschreiben
           </a>
         </p>
@@ -75,7 +81,10 @@ export default function HomepageFeatures() {
         </p>
         <p>
           Mehr zum Thema{" "}
-          <a href="#" className="font-bold underline">
+          <a
+            href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/69"
+            className="font-bold underline"
+          >
             Grundsteuerwertbescheid
           </a>
         </p>
