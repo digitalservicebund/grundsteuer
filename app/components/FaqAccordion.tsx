@@ -3,6 +3,22 @@ import Accordion from "~/components/Accordion";
 export default function FaqAccordion(props: { pruefenPath: string }) {
   const items = [
     {
+      header: "Kann ich den Online-Dienst weiterhin nutzen?",
+      id: "weitere-nutzung",
+      content: (
+        <>
+          <p>
+            Geben Sie Ihre Grundsteuererklärung schnellstmöglich ab. Der
+            Online-Dienst “Grundsteuererklärung für Privateigentum” steht Ihnen
+            weiterhin zur Verfügung. Bei Nichtabgabe oder verspäteter Abgabe
+            kann ein Verspätungszuschlag festgesetzt werden, und das Finanzamt
+            kann die Besteuerungsgrundlagen schätzen. Wie kann ich mich auf die
+            Abgabe der Erklärung vorbereiten?
+          </p>
+        </>
+      ),
+    },
+    {
       header: "Wie kann ich mich auf die Abgabe der Erklärung vorbereiten?",
       id: "vorbereitung",
       content: (
@@ -604,29 +620,8 @@ export default function FaqAccordion(props: { pruefenPath: string }) {
       ),
     },
     {
-      header: "Bis wann kann ich meine Grundsteuererklärung abgeben?",
-      id: "ab-wann-online",
-      content: (
-        <>
-          <p>
-            Als Eigentümer:in sind Sie dazu verpflichtet, Ihre
-            Grundsteuererklärung bis zum 31. Januar 2023 abgeben. Weitere
-            Informationen finden Sie hier:{" "}
-            <a
-              className={"underline"}
-              href={
-                "https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/28-fragen-zur-abgabefrist-31-januar-2023"
-              }
-            >
-              Abgabefrist
-            </a>
-          </p>
-        </>
-      ),
-    },
-    {
       header:
-        "In meinem Informationsschreiben steht, ich soll die Erklärung über ELSTER abgeben. Darf ich „Grundsteuererklärung für Privateigentum“ trotzdem nutzen?",
+        "In meinem Erinnerungsschreiben steht, ich soll die Erklärung über ELSTER abgeben. Darf ich „Grundsteuererklärung für Privateigentum“ trotzdem nutzen?",
       id: "elster",
       content: (
         <>
