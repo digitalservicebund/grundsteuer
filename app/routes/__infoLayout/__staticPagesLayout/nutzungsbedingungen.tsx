@@ -29,7 +29,7 @@ export default function Nutzungsbedingungen() {
         <p>
           Die Software „Grundsteuererklärung für Privateigentum“ ist eine
           webbasierte Anwendung („Anwendung“), welche die DigitalService GmbH
-          des Bundes, Prinzessinenstraße 8-14, 10969 Berlin („wir“, „uns“,
+          des Bundes, Prinzessinnenstraße 8-14, 10969 Berlin („wir“, „uns“,
           „unser“), im Auftrag der Bundesrepublik Deutschland, vertreten durch
           das Bundesministerium der Finanzen (BMF), entwickelt hat und betreibt.
         </p>

@@ -82,7 +82,7 @@ describe("createDeclarationSentMail", () => {
             <a href=\\"https://www.linkedin.com/company/digitalservicebund\\">LinkedIn</a
             ><br />
             DigitalService GmbH des Bundes<br />
-            Prinzessinenstraße 8-14, 10969 Berlin<br />
+            Prinzessinnenstraße 8-14, 10969 Berlin<br />
             Ust-IdNr.: DE327075535 | Geschäftsführung: Christina Lang & Philipp Möser<br />
             Handelsregisternummer: HRB 212879 B | Registergericht: Berlin Charlottenburg
           </p>
@@ -124,7 +124,7 @@ describe("createDeclarationSentMail", () => {
       Twitter [https://twitter.com/DigitalServBund] | LinkedIn
       [https://www.linkedin.com/company/digitalservicebund]
       DigitalService GmbH des Bundes
-      Prinzessinenstraße 8-14, 10969 Berlin
+      Prinzessinnenstraße 8-14, 10969 Berlin
       Ust-IdNr.: DE327075535 | Geschäftsführung: Christina Lang & Philipp Möser
       Handelsregisternummer: HRB 212879 B | Registergericht: Berlin Charlottenburg",
         "to": "chewbacca@examle.com",
@@ -217,7 +217,7 @@ describe("createDeclarationSentMail", () => {
               <a href=\\"https://www.linkedin.com/company/digitalservicebund\\">LinkedIn</a
               ><br />
               DigitalService GmbH des Bundes<br />
-              Prinzessinenstraße 8-14, 10969 Berlin<br />
+              Prinzessinnenstraße 8-14, 10969 Berlin<br />
               Ust-IdNr.: DE327075535 | Geschäftsführung: Christina Lang & Philipp Möser<br />
               Handelsregisternummer: HRB 212879 B | Registergericht: Berlin Charlottenburg
             </p>
@@ -257,7 +257,7 @@ describe("createDeclarationSentMail", () => {
         Twitter [https://twitter.com/DigitalServBund] | LinkedIn
         [https://www.linkedin.com/company/digitalservicebund]
         DigitalService GmbH des Bundes
-        Prinzessinenstraße 8-14, 10969 Berlin
+        Prinzessinnenstraße 8-14, 10969 Berlin
         Ust-IdNr.: DE327075535 | Geschäftsführung: Christina Lang & Philipp Möser
         Handelsregisternummer: HRB 212879 B | Registergericht: Berlin Charlottenburg",
           "to": "chewbacca@examle.com",

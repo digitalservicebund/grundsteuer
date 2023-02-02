@@ -12,7 +12,7 @@ export const defaultProps = {
       label: "Website",
       url: "https://digitalservice.bund.de",
     },
-    street: "Prinzessinenstraße 8-14",
+    street: "Prinzessinnenstraße 8-14",
     zip: "10969",
     city: "Berlin",
     vatId: "Ust-IdNr.: DE327075535",
