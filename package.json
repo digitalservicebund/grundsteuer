@@ -47,7 +47,7 @@
     "@node-saml/node-saml": "^4.0.3",
     "@prisma/client": "^4.9.0",
     "@remix-run/express": "^1.11.1",
-    "@remix-run/node": "^1.11.1",
+    "@remix-run/node": "^1.12.0",
     "@remix-run/react": "^1.11.1",
     "@sentry/remix": "^7.34.0",
     "@tailwindcss/typography": "^0.5.9",
