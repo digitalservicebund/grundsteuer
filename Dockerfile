@@ -1,4 +1,4 @@
-FROM node:16.19.0 as build
+FROM node:16.19.1 as build
 
 ARG COMMIT_SHA
 ENV APP_VERSION=$COMMIT_SHA
@@ -10,7 +10,7 @@ COPY . ./
 RUN npm pkg delete scripts.prepare && npm ci && npm run build && npm prune --production && \
     curl https://dbs-download.obs.otc.t-systems.com/rds/ca-bundle.pem -o /opt/rds-ca-bundle.pem
 
-FROM node:16.19.0-alpine3.16
+FROM node:16.19.1-alpine3.16
 RUN apk add --no-cache dumb-init curl && \
     rm -rf /var/cache/apk/* && \
     curl https://dbs-download.obs.otc.t-systems.com/rds/ca-bundle.pem -o /opt/rds-ca-bundle.pem
