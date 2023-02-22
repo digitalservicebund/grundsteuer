@@ -231,9 +231,13 @@ export default function Registrieren() {
         </IntroText>
 
         <Hint className="mb-40">
-          Die Weiterbearbeitung ist nur mit dem Gerät und dem Browser möglich,
-          mit dem das Konto erstellt wurde. Der Grund: Ihre Formulardaten werden
-          nur im Cookie in Ihrem Browser gespeichert.
+          Die Weiterbearbeitung der Grundsteuererklärung ist nur mit dem Gerät
+          und dem Browser möglich, mit dem das Konto erstellt wurde. Der Grund:
+          Ihre Formulardaten werden nur lokal im Cookie des Browsers
+          gespeichert. Stellen Sie sicher, dass Sie den Browser nicht im
+          Inkognito bzw. Privaten Modus nutzen. Nutzen Sie für die Anmeldung
+          dieselbe E-Mail-Adresse, mit der Sie sich auf dem Computer registriert
+          haben.
         </Hint>
 
         {errors && !isSubmitting && <ErrorBarStandard />}

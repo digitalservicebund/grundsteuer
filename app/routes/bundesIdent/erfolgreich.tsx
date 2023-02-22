@@ -28,17 +28,17 @@ export default function BundesIdentErfolgreich() {
       <IdentificationSuccess backButton="start">
         <div className="mt-48 text-18 leading-26">
           <h2 className="font-bold mb-8">
-            Wie hat Ihnen die Identifikation mit der BundesIdent App gefallen?
+            Haben Sie Feedback oder Fragen zur BundesIdent App?
           </h2>
-          Ihr Feedback hilft uns die App zu verbessern! Schreiben Sie uns kurz
-          an{" "}
+          Ihr Feedback hilft uns, die App zu verbessern! Wir freuen uns, wenn
+          Sie uns an{" "}
           <a
             href="mailto:hilfe@bundesident.de"
             className="font-bold text-blue-800 underline"
           >
             hilfe@bundesident.de
           </a>
-          . Wir sind für jedes Feedback dankbar!
+          schreiben.
         </div>
       </IdentificationSuccess>
     </>

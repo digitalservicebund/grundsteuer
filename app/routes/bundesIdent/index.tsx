@@ -80,7 +80,7 @@ export default function BundesIdentIndex() {
         backgroundColor="yellow"
         className="mb-16"
       >
-        Beta-Status
+        Beta-Stadium
       </SectionLabel>
       <Headline>
         Identifizieren Sie sich mit Ihrem Ausweis und der BundesIdent App

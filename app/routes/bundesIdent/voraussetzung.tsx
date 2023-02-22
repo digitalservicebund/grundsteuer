@@ -27,7 +27,7 @@ export default function BundesIdentVoraussetzung() {
         backgroundColor="yellow"
         className="mb-16"
       >
-        Beta-Status
+        Beta-Stadium
       </SectionLabel>
       <Headline>
         Voraussetzung für die Identifikation mit Ihrem Ausweis

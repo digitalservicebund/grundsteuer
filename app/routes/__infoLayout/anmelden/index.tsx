@@ -128,22 +128,27 @@ export default function Anmelden() {
         <BreadcrumbNavigation />
         {loaderData?.error === "token" && (
           <ErrorBar className="mb-64">
-            Der Login Link hat leider nicht funktioniert. Bitte beachten Sie,
-            dass Sie immer nur den zuletzt angeforderten Login Link verwenden
-            können und die Gültigkeit des Links auf 24 Stunden begrenzt ist.
-            Stellen Sie außerdem sicher, dass Sie den Login Link im gleichen
-            Browser auf dem gleichen Gerät aufrufen, in dem Sie auch die
-            Anmeldung oder Registrierung angefangen haben. Bitte führen Sie die
-            Anmeldung oder Registrierung erneut durch um einen neuen Login Link
-            zu erhalten.
+            Stellen Sie sicher, dass Sie den Anmelde‐Link im gleichen Browser
+            öffnen, in dem Sie auch gerade den Anmelde‐Link angefordert haben.
+            Der integrierte Browser der E‐Mail‐App ist nicht kompatibel.
+            Kopieren Sie deswegen den Anmelde-Link aus der E-Mail in Ihren
+            Standard‐Browser. Beachten Sie außerdem, dass Sie immer nur den
+            zuletzt angeforderten Anmelde‐Link verwenden können und die
+            Gültigkeit des Links auf 24 Stunden begrenzt ist. Führen Sie die
+            Anmeldung oder Registrierung erneut durch, um einen neuen
+            Anmelde‐Link zu erhalten.
           </ErrorBar>
         )}
 
         <Headline>Willkommen zurück!</Headline>
         <Hint className="mb-40">
-          Die Weiterbearbeitung ist nur mit dem Gerät und dem Browser möglich,
-          mit dem das Konto erstellt wurde. Der Grund: Ihre Formulardaten werden
-          nur im Cookie in Ihrem Browser gespeichert.
+          Die Weiterbearbeitung der Grundsteuererklärung ist nur mit dem Gerät
+          und dem Browser möglich, mit dem das Konto erstellt wurde. Der Grund:
+          Ihre Formulardaten werden nur lokal im Cookie des Browsers
+          gespeichert. Stellen Sie sicher, dass Sie den Browser nicht im
+          Inkognito bzw. Privaten Modus nutzen. Nutzen Sie für die Anmeldung
+          dieselbe E-Mail-Adresse, mit der Sie sich auf dem Computer registriert
+          haben.
         </Hint>
         {errors && !isSubmitting && <ErrorBarStandard />}
         <div className="mb-80">

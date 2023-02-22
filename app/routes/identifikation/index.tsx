@@ -87,7 +87,7 @@ export default function IdentifikationIndex() {
             betaTag={true}
             optionCount={1}
             heading="Identifikation mit Ihrem Ausweis"
-            subheading="Empfohlen für Nutzer:innen, die sich elektronisch mit dem Ausweis identifizieren wollen."
+            subheading="Empfohlen für Nutzer:innen mit einem Personalausweis und Smartphone."
             text=""
             buttonLabel="Identifikation mit Ausweis"
             buttonDisabled={bundesIdentDown}
@@ -103,7 +103,7 @@ export default function IdentifikationIndex() {
             betaTag={true}
             optionCount={1}
             heading="Identifikation mit Ihrem Ausweis über Ihr Smartphone"
-            subheading="Empfohlen für Nutzer:innen, die sich elektronisch mit dem Ausweis identifizieren wollen."
+            subheading="Empfohlen für Nutzer:innen mit einem Personalausweis und Smartphone."
             text="Identifizieren Sie sich in wenigen Minuten mit der Online-Ausweisfunktion Ihres Ausweises und der BundesIdent App."
             buttonLabel="Identifikation mit Ausweis"
             buttonDisabled={bundesIdentDown}
@@ -231,7 +231,7 @@ function IdentCard(props: {
           emphasised={true}
           className="float-right"
         >
-          Beta-Status
+          Beta-Stadium
         </OptionLabel>
       )}
       <img
@@ -249,7 +249,7 @@ function IdentCard(props: {
                 icon={<Bolt className="mr-4" />}
                 className="h-[36px] hidden md:flex ml-8 float-right whitespace-nowrap"
               >
-                Beta-Status
+                Beta-Stadium
               </SectionLabel>
             )}
           </div>
