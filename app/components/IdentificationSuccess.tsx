@@ -52,7 +52,7 @@ export default function IdentificationSuccess(
               Die Identifikation findet nur einmal statt. Sie brauchen sich
               nicht für die Abgabe einer weiteren Erklärung neu identifizieren.
             </li>
-            <li>
+            <li className="mb-16">
               Eine parallele Bearbeitung von mehreren Erklärungen ist nicht
               möglich. Sie geben die Erklärungen nacheinander ab.
             </li>
