@@ -37,7 +37,7 @@ export default function BundesIdentErfolgreich() {
             className="font-bold text-blue-800 underline"
           >
             hilfe@bundesident.de
-          </a>
+          </a>{" "}
           schreiben.
         </div>
       </IdentificationSuccess>
