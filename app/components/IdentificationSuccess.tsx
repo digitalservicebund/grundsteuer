@@ -56,6 +56,11 @@ export default function IdentificationSuccess(
               Eine parallele Bearbeitung von mehreren Erklärungen ist nicht
               möglich. Sie geben die Erklärungen nacheinander ab.
             </li>
+            <li>
+              Falls Sie die Grundsteuererklärung auf dem Computer angefangen
+              haben, können Sie jetzt zurückkehren. Klicken Sie am Computer auf
+              »Identifikation abgeschlossen & Seite neu laden«.
+            </li>
           </ul>
         </div>
         {props.children}
