@@ -14,6 +14,19 @@ type BackButton = "start" | "summary";
 type IdentificationSuccessProps = {
   backButton: BackButton;
   children?: ReactNode;
+  identificationType?: string;
+};
+
+const renderAdditionalHint = (identificationType?: string) => {
+  if (identificationType === "bundesIdent") {
+    return (
+      <li>
+        Falls Sie die Grundsteuererklärung auf dem Computer angefangen haben,
+        können Sie jetzt zurückkehren. Klicken Sie am Computer auf
+        »Identifikation abgeschlossen & Seite neu laden«.
+      </li>
+    );
+  }
 };
 
 const renderBackButton = (backButton: BackButton) => {
@@ -56,11 +69,7 @@ export default function IdentificationSuccess(
               Eine parallele Bearbeitung von mehreren Erklärungen ist nicht
               möglich. Sie geben die Erklärungen nacheinander ab.
             </li>
-            <li>
-              Falls Sie die Grundsteuererklärung auf dem Computer angefangen
-              haben, können Sie jetzt zurückkehren. Klicken Sie am Computer auf
-              »Identifikation abgeschlossen & Seite neu laden«.
-            </li>
+            {renderAdditionalHint(props.identificationType)}
           </ul>
         </div>
         {props.children}

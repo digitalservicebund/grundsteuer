@@ -25,7 +25,10 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function BundesIdentErfolgreich() {
   return (
     <>
-      <IdentificationSuccess backButton="start">
+      <IdentificationSuccess
+        backButton="start"
+        identificationType="bundesIdent"
+      >
         <div className="mt-48 text-18 leading-26">
           <h2 className="font-bold mb-8">
             Haben Sie Feedback oder Fragen zur BundesIdent App?
