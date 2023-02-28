@@ -10,6 +10,7 @@
   "scripts": {
     "audit:decrypt": "ts-node -r tsconfig-paths/register audit-decrypt.server.ts",
     "audit:export": "ts-node -r tsconfig-paths/register audit-export.server.ts",
+    "audit:reEncrypt ": "ts-node -r tsconfig-paths/register audit-reencrypt.server.ts",
     "prebuild": "cp -v ./public/locales/de/all.json ./public/locales/de/all-${APP_VERSION}.json",
     "build": "tsc --noEmit && run-s build:*",
     "build:css": "npm run generate:css -- --minify",
