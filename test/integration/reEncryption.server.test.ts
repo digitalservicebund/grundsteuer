@@ -6,6 +6,11 @@ import * as readline from "readline";
 import { reEncrypt, ReEncryptedLog } from "~/audit/reEncryption.server";
 
 describe("reEncrypt", () => {
+  afterEach(async () => {
+    await fs.unlinkSync("test/resources/audit/encrypted_logs");
+    await fs.unlinkSync("test/resources/audit/reencrypted_logs");
+  });
+
   it("should reEncrypt audit log data correctly.", async () => {
     const pathToEncryptedLogs = "test/resources/audit/encrypted_logs";
     const pathToReEncryptedLogs = "test/resources/audit/reencrypted_logs";
@@ -52,7 +57,7 @@ describe("reEncrypt", () => {
       `${encryptedData1}\n${encryptedData2}`
     );
 
-    reEncrypt(
+    await reEncrypt(
       "test/resources/audit/private.pem",
       pathToEncryptedLogs,
       pathToReEncryptedLogs
@@ -67,7 +72,6 @@ describe("reEncrypt", () => {
     for await (const line of rl) {
       lines += line;
     }
-    console.log(lines);
     const reEncryptedData = JSON.parse(lines) as ReEncryptedLog[];
 
     expect(reEncryptedData[0].timestamp).toEqual(

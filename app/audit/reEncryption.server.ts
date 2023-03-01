@@ -15,13 +15,11 @@ export async function reEncrypt(
   pathToInput: string,
   pathToOutput: string
 ) {
-  console.log(pathToKey);
   const privateKey = Buffer.from(
     fs.readFileSync(pathToKey, { encoding: "utf-8" })
   );
 
   const fileStream = fs.createReadStream(pathToInput);
-
   const rl = readline.createInterface({
     input: fileStream,
     crlfDelay: Infinity,
@@ -37,6 +35,5 @@ export async function reEncrypt(
       encryptedData: encryptAuditLogData(decryptedLog),
     });
   }
-
   fs.writeFileSync(pathToOutput, JSON.stringify(readableLogs, null, 2));
 }
