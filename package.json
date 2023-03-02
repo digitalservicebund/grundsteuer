@@ -96,7 +96,7 @@
     "xstate": "^4.35.4"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.13.0",
+    "@remix-run/dev": "^1.14.0",
     "@remix-run/eslint-config": "^1.13.0",
     "@testing-library/dom": "^8.20.0",
     "@testing-library/jest-dom": "^5.16.5",
