@@ -29,8 +29,7 @@ describe("Loader", () => {
         )
       );
 
-      const jsonResponse = await result.json();
-      expect(jsonResponse).toEqual({ hasSurveyShown: false });
+      expect(result).toEqual({ hasSurveyShown: false });
     });
 
     it("returns error if reload", async () => {

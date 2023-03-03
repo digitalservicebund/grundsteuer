@@ -50,17 +50,10 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 
   const session = await getSession(request.headers.get("Cookie"));
-  const hasSurveyShown = session.get("hasSurveyShown") || false;
+  const hasSurveyShown = Boolean(session.get("hasSurveyShown"));
   session.set("hasSurveyShown", hasSurveyShown);
 
-  return json(
-    {
-      hasSurveyShown,
-    },
-    {
-      headers: { "Set-Cookie": await commitSession(session) },
-    }
-  );
+  return { hasSurveyShown };
 };
 
 export default function BundesIdentIndex() {
