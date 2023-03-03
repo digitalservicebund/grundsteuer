@@ -28,7 +28,8 @@ describe("Loader", () => {
           "existing_user@foo.com"
         )
       );
-      expect(result).toEqual({});
+
+      expect(result).toEqual({ hasSurveyShown: false });
     });
 
     it("returns error if reload", async () => {

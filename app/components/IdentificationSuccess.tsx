@@ -15,6 +15,7 @@ type IdentificationSuccessProps = {
   backButton: BackButton;
   children?: ReactNode;
   identificationType?: string;
+  hasSurveyShown?: boolean;
 };
 
 const renderAdditionalHint = (identificationType?: string) => {
@@ -29,7 +30,7 @@ const renderAdditionalHint = (identificationType?: string) => {
   }
 };
 
-const renderBackButton = (backButton: BackButton) => {
+const renderBackButton = (backButton: BackButton, hasSurveyShown?: boolean) => {
   const classes = "mt-80";
   if (backButton === "summary")
     return (
@@ -38,7 +39,10 @@ const renderBackButton = (backButton: BackButton) => {
       </Button>
     );
   return (
-    <Button to="/formular" className={classes}>
+    <Button
+      to={hasSurveyShown ? "/formular" : "/bundesIdent/survey/success"}
+      className={classes}
+    >
       Weiter zum Formular
     </Button>
   );
@@ -73,7 +77,7 @@ export default function IdentificationSuccess(
           </ul>
         </div>
         {props.children}
-        {renderBackButton(props.backButton)}
+        {renderBackButton(props.backButton, props.hasSurveyShown)}
       </UebersichtStep>
     </ContentContainer>
   );
