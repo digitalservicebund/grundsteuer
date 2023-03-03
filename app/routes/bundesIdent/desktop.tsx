@@ -1,4 +1,4 @@
-import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
+import { LoaderFunction, MetaFunction, redirect, json } from "@remix-run/node";
 import { authenticator } from "~/auth.server";
 import { pageTitle } from "~/util/pageTitle";
 import {
@@ -16,6 +16,7 @@ import { Form, useLoaderData } from "@remix-run/react";
 import ErrorBar from "~/components/ErrorBar";
 import { findUserByEmail, User } from "~/domain/user";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
+import { commitSession, getSession } from "~/session.server";
 
 export const meta: MetaFunction = () => {
   return {
@@ -48,11 +49,22 @@ export const loader: LoaderFunction = async ({ request }) => {
     };
   }
 
-  return {};
+  const session = await getSession(request.headers.get("Cookie"));
+  const hasSurveyShown = session.get("hasSurveyShown") || false;
+  session.set("hasSurveyShown", hasSurveyShown);
+
+  return json(
+    {
+      hasSurveyShown,
+    },
+    {
+      headers: { "Set-Cookie": await commitSession(session) },
+    }
+  );
 };
 
 export default function BundesIdentIndex() {
-  const { showNotIdentifiedError } = useLoaderData();
+  const { hasSurveyShown, showNotIdentifiedError } = useLoaderData();
   return (
     <>
       <ContentContainer size="md">
@@ -118,7 +130,12 @@ export default function BundesIdentIndex() {
               Identifikation abgeschlossen & Seite neu laden
             </Button>
           </Form>
-          <Button look={"secondary"} to="/identifikation">
+          <Button
+            look={"secondary"}
+            to={
+              hasSurveyShown ? "/identifikation" : "/bundesIdent/survey/dropout"
+            }
+          >
             Zurück zu Identifikationsoptionen
           </Button>
         </ButtonContainer>

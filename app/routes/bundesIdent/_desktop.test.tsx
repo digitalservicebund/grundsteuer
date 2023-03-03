@@ -28,7 +28,9 @@ describe("Loader", () => {
           "existing_user@foo.com"
         )
       );
-      expect(result).toEqual({});
+
+      const jsonResponse = await result.json();
+      expect(jsonResponse).toEqual({ hasSurveyShown: false });
     });
 
     it("returns error if reload", async () => {

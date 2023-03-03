@@ -1,9 +1,11 @@
-import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
+import { LoaderFunction, MetaFunction, redirect, json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
 import IdentificationSuccess from "~/components/IdentificationSuccess";
 import { findUserByEmail } from "~/domain/user";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
+import { commitSession, getSession } from "~/session.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erfolgreich identifiziert") };
@@ -19,15 +21,30 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (!dbUser.identified) {
     return redirect("/identifikation");
   }
-  return {};
+
+  const session = await getSession(request.headers.get("Cookie"));
+  const hasSurveyShown = session.get("hasSurveyShown") || false;
+  session.set("hasSurveyShown", hasSurveyShown);
+
+  return json(
+    {
+      hasSurveyShown,
+    },
+    {
+      headers: { "Set-Cookie": await commitSession(session) },
+    }
+  );
 };
 
 export default function BundesIdentErfolgreich() {
+  const { hasSurveyShown } = useLoaderData();
+
   return (
     <>
       <IdentificationSuccess
         backButton="start"
         identificationType="bundesIdent"
+        hasSurveyShown={hasSurveyShown}
       >
         <div className="mt-48 text-18 leading-26">
           <h2 className="font-bold mb-8">
