@@ -29,8 +29,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 
   const session = await getSession(request.headers.get("Cookie"));
-  const hasSurveyShown = session.get("hasSurveyShown") || true;
-  session.set("hasSurveyShown", hasSurveyShown);
+  session.set("hasSurveyShown", true);
 
   return json(
     {
