@@ -87,7 +87,7 @@ export default function SurveySuccess() {
               data-testid={`${SURVEY}-${SURVEY_CATEGORY}-textarea`}
             />
           </div>
-          <ButtonContainer className="md:max-w-[412px]">
+          <ButtonContainer className="flex-col-reverse sm:flex-row-reverse md:max-w-[412px]">
             <Button look="tertiary" to={FORMULAR_PATH}>
               Überspringen
             </Button>
