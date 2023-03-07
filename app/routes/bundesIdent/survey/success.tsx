@@ -77,7 +77,7 @@ export default function SurveySuccess() {
         <fieldset disabled={isSubmitting}>
           <div className="mb-32">
             <label htmlFor={SURVEY} className="block mb-4 text-gray-900">
-              Nachricht (max. Zeichen 900)
+              Feedback (max. Zeichen 900)
             </label>
             <Textarea
               className="h-[110px]"
