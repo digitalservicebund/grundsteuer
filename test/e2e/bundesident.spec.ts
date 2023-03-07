@@ -69,6 +69,7 @@ describe("bundesIdent flow", () => {
     );
     cy.contains("a", "Zurück zur Voraussetzung").click();
     cy.contains("a", "Zurück zu Identifikationsoptionen").click();
+    cy.contains("a", "Überspringen").click();
     cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
   });
 });
