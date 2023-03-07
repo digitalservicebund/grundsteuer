@@ -42,16 +42,17 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/bundesIdent");
   }
 
-  const refresh = !!new URL(request.url).searchParams.get("reload");
-  if (refresh) {
-    return {
-      showNotIdentifiedError: true,
-    };
-  }
-
   const session = await getSession(request.headers.get("Cookie"));
   const hasSurveyShown = Boolean(session.get("hasSurveyShown"));
   session.set("hasSurveyShown", hasSurveyShown);
+
+  const refresh = !!new URL(request.url).searchParams.get("reload");
+  if (refresh) {
+    return {
+      hasSurveyShown,
+      showNotIdentifiedError: true,
+    };
+  }
 
   return { hasSurveyShown };
 };

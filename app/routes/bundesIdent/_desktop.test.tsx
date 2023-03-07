@@ -39,7 +39,10 @@ describe("Loader", () => {
           "existing_user@foo.com"
         )
       );
-      expect(result).toEqual({ showNotIdentifiedError: true });
+      expect(result).toEqual({
+        hasSurveyShown: false,
+        showNotIdentifiedError: true,
+      });
     });
   });
 
