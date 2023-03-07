@@ -16,7 +16,7 @@ import { Form, useLoaderData } from "@remix-run/react";
 import ErrorBar from "~/components/ErrorBar";
 import { findUserByEmail, User } from "~/domain/user";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
-import { commitSession, getSession } from "~/session.server";
+import { getSession } from "~/session.server";
 
 export const meta: MetaFunction = () => {
   return {

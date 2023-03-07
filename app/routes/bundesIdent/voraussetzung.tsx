@@ -1,9 +1,12 @@
 import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
 import { Button, ButtonContainer, Headline, SectionLabel } from "~/components";
 import pinbriefImage from "~/assets/images/pinbrief.png";
 import Bolt from "~/components/icons/mui/Bolt";
+import { isMobileUserAgent } from "~/util/isMobileUserAgent";
+import { getSession } from "~/session.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation mit Ausweis") };
@@ -16,10 +19,19 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (sessionUser.identified) {
     return redirect("/identifikation/erfolgreich");
   }
-  return {};
+
+  const session = await getSession(request.headers.get("Cookie"));
+  const hasSurveyShown = Boolean(session.get("hasSurveyShown"));
+  session.set("hasSurveyShown", hasSurveyShown);
+
+  return {
+    isMobile: isMobileUserAgent(request),
+    hasSurveyShown,
+  };
 };
 
 export default function BundesIdentVoraussetzung() {
+  const { isMobile, hasSurveyShown } = useLoaderData();
   return (
     <div>
       <SectionLabel
@@ -51,7 +63,14 @@ export default function BundesIdentVoraussetzung() {
       </div>
       <ButtonContainer>
         <Button to="/bundesIdent">Verstanden & weiter</Button>
-        <Button to="/identifikation" look="secondary">
+        <Button
+          to={
+            isMobile && hasSurveyShown
+              ? "/identifikation"
+              : "/bundesIdent/survey/dropout"
+          }
+          look="secondary"
+        >
           Zurück zu Identifikationsoptionen
         </Button>
       </ButtonContainer>

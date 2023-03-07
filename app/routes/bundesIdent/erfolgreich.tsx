@@ -5,7 +5,7 @@ import { authenticator } from "~/auth.server";
 import IdentificationSuccess from "~/components/IdentificationSuccess";
 import { findUserByEmail } from "~/domain/user";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
-import { commitSession, getSession } from "~/session.server";
+import { getSession } from "~/session.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erfolgreich identifiziert") };

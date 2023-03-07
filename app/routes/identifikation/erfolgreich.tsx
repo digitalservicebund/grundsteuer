@@ -3,7 +3,7 @@ import { useLoaderData } from "@remix-run/react";
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
 import IdentificationSuccess from "~/components/IdentificationSuccess";
-import { commitSession, getSession } from "~/session.server";
+import { getSession } from "~/session.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erfolgreich identifiziert") };
