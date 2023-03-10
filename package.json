@@ -93,7 +93,7 @@
     "useid-eservice-sdk": "^1.8.4",
     "uuid": "^9.0.0",
     "validator": "^13.7.0",
-    "xstate": "^4.35.4"
+    "xstate": "^4.37.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.13.0",
