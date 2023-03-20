@@ -102,10 +102,10 @@ export default function BundesIdentIndex() {
         <h2 className="text-24 mb-24">Nächste Schritte:</h2>
         <EnumeratedCard
           image={anmeldenQRImage}
-          imageAltText="QR-Code um zu folgender URL zu gelangen: www.grundsteuererklaerung-fuer-privateigentum.de/anmelden"
+          imageAltText="QR-Code um zu folgender URL zu gelangen: www.bundesident.de/gfp"
           number="1"
           heading="Wechseln Sie zu Grundsteuer auf Ihrem Smartphone"
-          text="Öffnen Sie Grundsteuererklärung für Privateigentum auf Ihrem Smartphone, um die Bearbeitung fortzusetzen: www.grundsteuererklaerung-fuer-privateigentum.de/anmelden. Alternativ können Sie auch den QR-Code scannen."
+          text="Öffnen Sie Grundsteuer-Webseite auf Ihrem Smartphone, um die Bearbeitung fortzusetzen: www.bundesident.de/gfp Alternativ können Sie auch den QR-Code scannen."
           className="mb-16"
         />
         <EnumeratedCard
