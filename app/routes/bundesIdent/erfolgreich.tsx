@@ -1,4 +1,4 @@
-import { LoaderFunction, MetaFunction, redirect, json } from "@remix-run/node";
+import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
