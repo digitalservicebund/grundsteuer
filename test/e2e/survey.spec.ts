@@ -30,14 +30,10 @@ describe("Survey feedback", () => {
       cy.url().should("include", "/formular/welcome");
     });
 
-    it("should show survey page once on the generic success identification page", () => {
+    it("should not show survey page once on the generic success identification page", () => {
       cy.visit("/identifikation/erfolgreich");
       cy.contains("div", "Weiter zum Formular").click();
-      cy.url().should("include", "/bundesIdent/survey/success");
-
-      cy.visit("/identifikation/erfolgreich");
-      cy.contains("div", "Weiter zum Formular").click();
-      cy.url().should("include", "/formular/welcome");
+      cy.url().should("include", "/formular");
     });
   });
 

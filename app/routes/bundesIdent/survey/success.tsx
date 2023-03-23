@@ -65,7 +65,9 @@ export default function SurveySuccess() {
   return (
     <ContentContainer size="sm-md">
       <BreadcrumbNavigation />
-      <Headline>Wie fanden Sie die Identifikation mit BundesIdent?</Headline>
+      <Headline>
+        Was sollte an der Identifikation mit dem Ausweis verbessert werden?
+      </Headline>
       <div className="mb-24">
         <p className="text-18 leading-26">
           Ihr Feedback hilft uns, das Produkt zu verbessern. Bitte geben Sie

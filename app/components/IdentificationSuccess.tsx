@@ -30,8 +30,14 @@ const renderAdditionalHint = (identificationType?: string) => {
   }
 };
 
-const renderBackButton = (backButton: BackButton, hasSurveyShown?: boolean) => {
+const renderContinueButton = (
+  backButton: BackButton,
+  hasSurveyShown?: boolean,
+  identificationType?: string
+) => {
   const classes = "mt-80";
+  const isBundesIdentIdentification = identificationType === "bundesIdent";
+
   if (backButton === "summary")
     return (
       <Button to="/formular/zusammenfassung" className={classes}>
@@ -40,7 +46,11 @@ const renderBackButton = (backButton: BackButton, hasSurveyShown?: boolean) => {
     );
   return (
     <Button
-      to={hasSurveyShown ? "/formular" : "/bundesIdent/survey/success"}
+      to={
+        !hasSurveyShown && isBundesIdentIdentification
+          ? "/bundesIdent/survey/success"
+          : "/formular"
+      }
       className={classes}
     >
       Weiter zum Formular
@@ -77,7 +87,11 @@ export default function IdentificationSuccess(
           </ul>
         </div>
         {props.children}
-        {renderBackButton(props.backButton, props.hasSurveyShown)}
+        {renderContinueButton(
+          props.backButton,
+          props.hasSurveyShown,
+          props.identificationType
+        )}
       </UebersichtStep>
     </ContentContainer>
   );
