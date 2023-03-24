@@ -57,8 +57,8 @@ export default function BundesIdentVoraussetzung() {
           </li>
           <span className="block ml-[-24px] mb-8">oder</span>
           <li>
-            Sie haben noch Ihren PIN‑Brief. <br /> Den PIN‑Brief haben Sie nach
-            der Beantragung des Ausweises per Post erhalten.
+            Sie haben noch Ihren PIN‑Brief. Den PIN‑Brief haben Sie nach der
+            Beantragung des Ausweises per Post erhalten.
           </li>
         </ul>
         <div className="flex justify-center lg:justify-start mb-48">
@@ -68,7 +68,7 @@ export default function BundesIdentVoraussetzung() {
             alt="Beispiel für einen PIN-Brief"
           />
         </div>
-        <ButtonContainer className="lg:max-w-[329px]">
+        <ButtonContainer className="lg:max-w-[365px]">
           <Button
             className="w-full lg:max-w-[203px]"
             look="primary"
@@ -77,7 +77,7 @@ export default function BundesIdentVoraussetzung() {
             Verstanden & weiter
           </Button>
           <Button
-            className="w-full lg:max-w-[102px]"
+            className="w-full lg:max-w-[138px]"
             look="secondary"
             to={
               hasSurveyShown ? "/identifikation" : "/bundesIdent/survey/dropout"
