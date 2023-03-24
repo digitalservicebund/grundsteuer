@@ -97,7 +97,7 @@ export default function BundesIdentIndex() {
               Identifikation abgeschlossen & Seite neu laden
             </Button>
           </Form>
-          <Button look={"secondary"} to="/voraussetzung">
+          <Button look={"secondary"} to="/bundesIdent/voraussetzung">
             Zurück
           </Button>
         </ButtonContainer>
