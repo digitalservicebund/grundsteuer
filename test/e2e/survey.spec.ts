@@ -47,27 +47,32 @@ describe("Survey feedback", () => {
 
     describe("and in desktop", () => {
       it("should show survey page once when users goes back to the identification options page", () => {
-        // when first visit
+        // WHEN I visit identification option page for first time
         cy.visit("/identifikation");
         cy.contains(
           "h1",
           "Mit welcher Option möchten Sie sich identifizieren?"
         );
+
+        // AND I choose to identify with Ausweis
         cy.contains("div", "Identifikation mit Ausweis").click();
 
-        cy.url().should("include", "/bundesIdent/desktop");
+        // THEN I should be on the Voraussetzung page
+        cy.url().should("include", "/bundesIdent/voraussetzung");
         cy.contains(
           "h1",
-          "Schnell und sicher mit der BundesIdent App auf Ihrem Smartphone identifizieren"
+          "Voraussetzung für die Identifikation mit Ihrem Ausweis"
         );
-        cy.contains("div", "Zurück zu Identifikationsoptionen").click();
+        cy.contains("div", "Zurück").click();
 
-        // then show survey
+        // THEN I see a dropout survey
         cy.url().should("include", "/bundesIdent/survey/dropout");
         cy.contains(
           "h1",
           "Warum haben Sie sich gegen eine Identifikation mit dem Ausweis entschieden?"
         );
+
+        //THEN I click on Überspringen
         cy.contains("a", "Überspringen").click();
 
         cy.url().should("include", "/identifikation");
@@ -76,17 +81,17 @@ describe("Survey feedback", () => {
           "Mit welcher Option möchten Sie sich identifizieren?"
         );
 
-        // when second visit
+        // AND I choose to identify with Ausweis second time
         cy.contains("div", "Identifikation mit Ausweis").click();
 
-        cy.url().should("include", "/bundesIdent/desktop");
+        cy.url().should("include", "/bundesIdent/voraussetzung");
         cy.contains(
           "h1",
-          "Schnell und sicher mit der BundesIdent App auf Ihrem Smartphone identifizieren"
+          "Voraussetzung für die Identifikation mit Ihrem Ausweis"
         );
-        cy.contains("div", "Zurück zu Identifikationsoptionen").click();
+        cy.contains("div", "Zurück").click();
 
-        // then no survey
+        // THEN I do not see a survey
         cy.url().should("include", "/identifikation");
         cy.contains(
           "h1",
@@ -97,7 +102,7 @@ describe("Survey feedback", () => {
       it("should redirect user to identification option page after submitting the survey", () => {
         cy.visit("/identifikation");
         cy.contains("div", "Identifikation mit Ausweis").click();
-        cy.contains("div", "Zurück zu Identifikationsoptionen").click();
+        cy.contains("div", "Zurück").click();
         cy.url().should("include", "/bundesIdent/survey/dropout");
         cy.get('[data-testid="survey-dropout-textarea"]').type(
           "dropout feedback"
@@ -109,7 +114,7 @@ describe("Survey feedback", () => {
 
     describe("and in mobile", () => {
       it("should show survey page once when users goes back to the identification options page", () => {
-        // first visit
+        // WHEN I visit identification option page for the first time
         cy.visit("/identifikation", {
           headers: {
             "user-agent": mobileUserAgent,
@@ -131,7 +136,7 @@ describe("Survey feedback", () => {
         );
 
         // WHEN I click back to the identification option
-        cy.contains("a", "Zurück zu Identifikationsoptionen").click();
+        cy.contains("a", "Zurück").click();
 
         // THEN I should see dropout survey
         cy.url().should("include", "/bundesIdent/survey/dropout");
@@ -154,7 +159,7 @@ describe("Survey feedback", () => {
         cy.contains("div", "Identifikation mit Ausweis").click();
 
         // WHEN I click back button
-        cy.contains("div", "Zurück zu Identifikationsoptionen").click();
+        cy.contains("div", "Zurück").click();
 
         // THEN I should NOT see dropout survey
         cy.url().should("include", "/identifikation");
@@ -171,7 +176,7 @@ describe("Survey feedback", () => {
           },
         });
         cy.contains("div", "Identifikation mit Ausweis").click();
-        cy.contains("div", "Zurück zu Identifikationsoptionen").click();
+        cy.contains("div", "Zurück").click();
         cy.url().should("include", "/bundesIdent/survey/dropout");
         cy.get('[data-testid="survey-dropout-textarea"]').type(
           "dropout feedback"

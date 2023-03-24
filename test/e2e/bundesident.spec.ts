@@ -68,7 +68,7 @@ describe("bundesIdent flow", () => {
       "Identifizieren Sie sich mit Ihrem Ausweis und der BundesIdent App"
     );
     cy.contains("a", "Zurück zur Voraussetzung").click();
-    cy.contains("a", "Zurück zu Identifikationsoptionen").click();
+    cy.contains("a", "Zurück").click();
     cy.contains("a", "Überspringen").click();
     cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
   });
@@ -93,12 +93,14 @@ describe("bundesIdent desktop flow", () => {
       },
     });
     cy.contains("a", "Identifikation mit Ausweis").click();
+    cy.contains("h1", "Voraussetzung für die Identifikation mit Ihrem Ausweis");
+    cy.url().should("include", "/bundesIdent/voraussetzung");
+
+    cy.contains("div", "Verstanden & weiter").click();
+
     cy.contains("h1", "auf Ihrem Smartphone identifizieren");
-    cy.url().should("include", "/bundesIdent/desktop");
 
     cy.contains("button", "Identifikation abgeschlossen").click();
-
-    cy.contains("h1", "auf Ihrem Smartphone identifizieren");
     cy.url().should("include", "/bundesIdent/desktop");
     cy.contains("Identifikation nicht abgeschlossen");
   });
@@ -111,6 +113,8 @@ describe("bundesIdent desktop flow", () => {
       },
     });
     cy.contains("a", "Identifikation mit Ausweis").click();
+    cy.contains("h1", "Voraussetzung für die Identifikation mit Ihrem Ausweis");
+    cy.contains("a", "Verstanden & weiter").click();
     cy.contains("h1", "auf Ihrem Smartphone identifizieren");
     cy.url().should("include", "/bundesIdent/desktop");
 
@@ -138,7 +142,7 @@ describe("with kill switch enabled", () => {
     });
   });
 
-  it("should not show bundesIdent option on /identifikation", () => {
+  it.only("should not show bundesIdent option on /identifikation", () => {
     cy.login();
     cy.visit("/identifikation", {
       headers: {

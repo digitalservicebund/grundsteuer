@@ -29,7 +29,7 @@ describe("Loader", () => {
         )
       );
 
-      expect(result).toEqual({ hasSurveyShown: false });
+      expect(result).toEqual({});
     });
 
     it("returns error if reload", async () => {
@@ -40,7 +40,6 @@ describe("Loader", () => {
         )
       );
       expect(result).toEqual({
-        hasSurveyShown: false,
         showNotIdentifiedError: true,
       });
     });

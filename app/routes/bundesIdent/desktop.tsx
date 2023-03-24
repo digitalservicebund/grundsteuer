@@ -6,7 +6,6 @@ import {
   ButtonContainer,
   ContentContainer,
   Headline,
-  IntroText,
 } from "~/components";
 import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 import anmeldenQRImage from "~/assets/images/anmelden-qr.svg";
@@ -16,7 +15,6 @@ import { Form, useLoaderData } from "@remix-run/react";
 import ErrorBar from "~/components/ErrorBar";
 import { findUserByEmail, User } from "~/domain/user";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
-import { getSession } from "~/session.server";
 
 export const meta: MetaFunction = () => {
   return {
@@ -42,23 +40,18 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/bundesIdent");
   }
 
-  const session = await getSession(request.headers.get("Cookie"));
-  const hasSurveyShown = Boolean(session.get("hasSurveyShown"));
-  session.set("hasSurveyShown", hasSurveyShown);
-
   const refresh = !!new URL(request.url).searchParams.get("reload");
   if (refresh) {
     return {
-      hasSurveyShown,
       showNotIdentifiedError: true,
     };
   }
 
-  return { hasSurveyShown };
+  return {};
 };
 
 export default function BundesIdentIndex() {
-  const { hasSurveyShown, showNotIdentifiedError } = useLoaderData();
+  const { showNotIdentifiedError } = useLoaderData();
   return (
     <>
       <ContentContainer size="md">
@@ -74,28 +67,8 @@ export default function BundesIdentIndex() {
       </ContentContainer>
       <ContentContainer size="sm-md">
         <Headline>
-          Schnell und sicher mit der BundesIdent App auf Ihrem Smartphone
-          identifizieren
+          Identifizieren Sie sich in wenigen Minuten mit Ihrem Ausweis
         </Headline>
-
-        <IntroText>
-          In Ihrem Ausweis befindet sich ein Chip, der mithilfe der BundesIdent
-          App und Ihrer PIN ausgelesen werden kann. So können Sie sich sicher
-          online identifizieren.
-        </IntroText>
-
-        <h2 className="font-bold text-18 leading-26">Sie benötigen</h2>
-        <ul className="list-disc pl-24 mb-32 text-18 leading-26">
-          <li>
-            Entweder Ihre 6-stellige persönliche Ausweis‑PIN oder Ihren
-            PIN‑Brief. Den PIN‑Brief haben Sie nach der Beantragung des
-            Ausweises per Post erhalten.
-          </li>
-          <li>
-            Entweder ein Android mit der Version 9 »Pie« oder neuer und
-            integriertem NFC-Sensor oder ein iPhone 7 mit iOS 15 oder neuer.
-          </li>
-        </ul>
       </ContentContainer>
 
       <ContentContainer size="lg">
@@ -124,16 +97,11 @@ export default function BundesIdentIndex() {
               Identifikation abgeschlossen & Seite neu laden
             </Button>
           </Form>
-          <Button
-            look={"secondary"}
-            to={
-              hasSurveyShown ? "/identifikation" : "/bundesIdent/survey/dropout"
-            }
-          >
-            Zurück zu Identifikationsoptionen
+          <Button look={"secondary"} to="/voraussetzung">
+            Zurück
           </Button>
         </ButtonContainer>
-        <ContentContainer size="sm" className="mt-64">
+        <ContentContainer size="md-lg" className="mt-64">
           Bei Problemen mit der BundesIdent App melden Sie sich unter:{" "}
           <a
             href="mailto:hilfe@bundesident.de"

@@ -107,7 +107,7 @@ export default function IdentifikationIndex() {
             text="Identifizieren Sie sich in wenigen Minuten mit der Online-Ausweisfunktion Ihres Ausweises und der BundesIdent App."
             buttonLabel="Identifikation mit Ausweis"
             buttonDisabled={bundesIdentDown}
-            url="/bundesIdent/desktop"
+            url="/bundesIdent/voraussetzung"
             className="mb-16"
           />
         )}
