@@ -21,6 +21,7 @@ import {
   needsToStartIdentification,
 } from "~/domain/identificationStatus";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
+import { getSession } from "~/session.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erfolgreich angemeldet.") };
@@ -60,16 +61,25 @@ export const loader: LoaderFunction = async ({ request }) => {
   const user: User | null = await findUserByEmail(sessionUser.email);
   if (!user) return logoutDeletedUser(request);
 
+  const session = await getSession(request.headers.get("Cookie"));
+  const hasPrimaryOptionShown = Boolean(session.get("hasPrimaryOptionShown"));
+  session.set("hasPrimaryOptionShown", hasPrimaryOptionShown);
+
   return {
     email: sessionUser.email,
+    hasPrimaryOptionShown,
     nextStepUrl: getNextStepUrl(user),
     fscStepUrl: getFscStepUrl(user),
     flags: flags.getAllFlags(),
   };
 };
 export default function ErfolgreichAngemeldet() {
-  const { email, nextStepUrl, fscStepUrl, flags } = useLoaderData();
+  const { email, hasPrimaryOptionShown, nextStepUrl, fscStepUrl, flags } =
+    useLoaderData();
   const location = useLocation();
+
+  const shouldDisablePrimaryOptionPage =
+    flags.bundesIdentDisabled || flags.bundesIdentDown;
 
   return (
     <UserLayout email={email} flags={flags} path={location.pathname}>
@@ -99,7 +109,11 @@ export default function ErfolgreichAngemeldet() {
           )}
           <Button
             data-testid="continue"
-            to={nextStepUrl}
+            to={
+              shouldDisablePrimaryOptionPage || hasPrimaryOptionShown
+                ? nextStepUrl
+                : "/bundesIdent/primaryoption"
+            }
             className="min-w-[18rem]"
           >
             Verstanden & weiter

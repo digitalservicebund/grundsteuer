@@ -8,7 +8,7 @@ import {
 import ident1 from "~/assets/images/ident-1.png";
 import ident2 from "~/assets/images/ident-2.png";
 import ident3 from "~/assets/images/ident-3.png";
-import identBundesIdentDesktop from "~/assets/images/ident-bundes-ident-desktop.png";
+import bundesIdentCardsImage from "~/assets/images/bundesident-cards.png";
 import { ReactNode } from "react";
 import classNames from "classnames";
 import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
@@ -97,8 +97,8 @@ export default function IdentifikationIndex() {
         )}
         {useUseid && !isMobile && (
           <IdentCard
-            image={identBundesIdentDesktop}
-            imageAltText="Bildbeispiel App, Ausweis und Pin"
+            image={bundesIdentCardsImage}
+            imageAltText="Drei kompatible Ausweise: Deutscher Personalausweis, elektronischer Aufenthaltstitel und eID‑Karte für Bürgerinnen und Bürger der Europäischen Union und des europäischen Wirtschaftsraums."
             icon={<EdgeSensorHigh className="mr-4" />}
             betaTag={true}
             optionCount={1}
@@ -108,7 +108,7 @@ export default function IdentifikationIndex() {
             buttonLabel="Identifikation mit Ausweis"
             buttonDisabled={bundesIdentDown}
             url="/bundesIdent/voraussetzung"
-            className="mb-16"
+            className="mb-16 bg-white"
           />
         )}
         <IdentCard
@@ -237,7 +237,7 @@ function IdentCard(props: {
       <img
         src={props.image}
         alt={props.imageAltText}
-        className="hidden lg:flex mr-24 md:w-[300px] w-full mb-auto"
+        className="hidden lg:flex mr-24 md:w-[300px] w-full mb-auto bg-white"
       />
       <div className="flex flex-col">
         <dl>

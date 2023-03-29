@@ -98,8 +98,6 @@ describe("bundesIdent desktop flow", () => {
 
     cy.contains("div", "Verstanden & weiter").click();
 
-    cy.contains("h1", "auf Ihrem Smartphone identifizieren");
-
     cy.contains("button", "Identifikation abgeschlossen").click();
     cy.url().should("include", "/bundesIdent/desktop");
     cy.contains("Identifikation nicht abgeschlossen");
@@ -115,7 +113,7 @@ describe("bundesIdent desktop flow", () => {
     cy.contains("a", "Identifikation mit Ausweis").click();
     cy.contains("h1", "Voraussetzung für die Identifikation mit Ihrem Ausweis");
     cy.contains("a", "Verstanden & weiter").click();
-    cy.contains("h1", "auf Ihrem Smartphone identifizieren");
+
     cy.url().should("include", "/bundesIdent/desktop");
 
     cy.task("setUserIdentified", {
@@ -142,7 +140,7 @@ describe("with kill switch enabled", () => {
     });
   });
 
-  it.only("should not show bundesIdent option on /identifikation", () => {
+  it("should not show bundesIdent option on /identifikation", () => {
     cy.login();
     cy.visit("/identifikation", {
       headers: {
