@@ -20,8 +20,18 @@ export class FscRequest {
       new Date().setTime(this.antragDate.getTime() + 90 * 24 * 60 * 60 * 1000)
     );
 
+    const expirationDateOffset = this.antragDate.getTimezoneOffset();
+
+    const currentDate = new Date();
+
+    const offsetDifference =
+      expirationDateOffset - expirationDate.getTimezoneOffset();
+
     return Math.ceil(
-      (expirationDate.getTime() - new Date().getTime()) / (24 * 60 * 60 * 1000)
+      (expirationDate.getTime() -
+        offsetDifference * 60 * 1000 -
+        currentDate.getTime()) /
+        (24 * 60 * 60 * 1000)
     );
   }
 
