@@ -68,8 +68,13 @@ describe("bundesIdent flow", () => {
       "Identifizieren Sie sich mit Ihrem Ausweis und der BundesIdent App"
     );
     cy.contains("a", "Zurück zur Voraussetzung").click();
-    cy.contains("a", "Zurück").click();
-    cy.contains("a", "Überspringen").click();
+    cy.contains("h1", "Voraussetzung für die Identifikation mit Ihrem Ausweis");
+    cy.contains("Zurück").click();
+    cy.contains(
+      "h1",
+      "Warum haben Sie sich gegen eine Identifikation mit dem Ausweis entschieden?"
+    );
+    cy.contains("div", "Überspringen").click();
     cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
   });
 });
