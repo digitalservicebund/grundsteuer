@@ -56,7 +56,7 @@ export default function BundesIdentVoraussetzung() {
           <div className="flex justify-center mb-12 bg-blue-200 rounded-lg">
             <img
               src={bundesIdentCardsImage}
-              className="max-w-[520px] h-[256px]"
+              className="h-[256px]"
               alt="Drei kompatible Ausweise: Deutscher Personalausweis, elektronischer Aufenthaltstitel und eID‑Karte für Bürgerinnen und Bürger der Europäischen Union und des europäischen Wirtschaftsraums."
             />
           </div>
