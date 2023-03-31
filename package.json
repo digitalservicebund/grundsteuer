@@ -109,7 +109,7 @@
     "@types/html-to-text": "^9.0.0",
     "@types/i18next-fs-backend": "^1.1.2",
     "@types/jest": "^27.4.1",
-    "@types/lodash": "^4.14.191",
+    "@types/lodash": "^4.14.192",
     "@types/morgan": "^1.9.4",
     "@types/node": "^18.15.11",
     "@types/node-cron": "^3.0.7",
