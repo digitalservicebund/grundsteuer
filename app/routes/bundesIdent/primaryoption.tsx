@@ -6,7 +6,9 @@ import {
   ButtonContainer,
   ContentContainer,
   Headline,
+  SectionLabel,
 } from "~/components";
+import Bolt from "~/components/icons/mui/Bolt";
 import bundesIdentCardsImage from "~/assets/images/bundesident-cards.png";
 import { commitSession, getSession } from "~/session.server";
 
@@ -38,6 +40,13 @@ export default function BundesIdentVoraussetzung() {
     <>
       <ContentContainer size="sm-md">
         <div data-testid="primaryoption">
+          <SectionLabel
+            icon={<Bolt className="mr-4" />}
+            backgroundColor="yellow"
+            className="mb-16"
+          >
+            Beta-Stadium
+          </SectionLabel>
           <Headline>
             Möchten Sie sich in wenigen Minuten mit Ihrem Ausweis
             identifizieren?

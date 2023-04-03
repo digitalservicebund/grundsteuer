@@ -41,13 +41,6 @@ export default function BundesIdentVoraussetzung() {
   return (
     <ContentContainer size="sm-md">
       <div>
-        <SectionLabel
-          icon={<Bolt className="mr-4" />}
-          backgroundColor="yellow"
-          className="mb-16"
-        >
-          Beta-Stadium
-        </SectionLabel>
         <Headline>
           Voraussetzung für die Identifikation mit Ihrem Ausweis
         </Headline>
