@@ -7,10 +7,8 @@ import {
   ButtonContainer,
   ContentContainer,
   Headline,
-  SectionLabel,
 } from "~/components";
 import pinbriefImage from "~/assets/images/pinbrief.png";
-import Bolt from "~/components/icons/mui/Bolt";
 import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 import { getSession } from "~/session.server";
 
