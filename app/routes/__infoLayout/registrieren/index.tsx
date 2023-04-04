@@ -265,27 +265,38 @@ export default function Registrieren() {
               name="confirmDataPrivacy"
               error={t(errors?.confirmDataPrivacy)}
             >
-              <Trans
-                components={{
-                  dataPrivacyLink: (
-                    <a
-                      href="/datenschutz"
-                      target="_blank"
-                      className="font-bold underline"
-                    />
-                  ),
-                  bmfDataPrivacyLink: (
-                    <a
-                      href="https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Weitere_Steuerthemen/Abgabenordnung/2020-07-01-Korrektur-Allgemeine-Informationen-Datenschutz-Grundverordnung-Steuerverwaltung-anlage-1.pdf?__blob=publicationFile&v=3"
-                      target="_blank"
-                      rel="noopener"
-                      className="font-bold underline"
-                    />
-                  ),
-                }}
-              >
-                {t("zusammenfassung.fields.confirmDataPrivacy.label")}
-              </Trans>
+              <p className="mb-8">
+                <Trans>
+                  {t(
+                    "zusammenfassung.fields.confirmDataPrivacy.confirmationText"
+                  )}
+                </Trans>
+              </p>
+              <p>
+                <Trans
+                  components={{
+                    dataPrivacyLink: (
+                      <a
+                        href="/datenschutz"
+                        target="_blank"
+                        className="font-bold underline"
+                      />
+                    ),
+                    bmfDataPrivacyLink: (
+                      <a
+                        href="https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Weitere_Steuerthemen/Abgabenordnung/2020-07-01-Korrektur-Allgemeine-Informationen-Datenschutz-Grundverordnung-Steuerverwaltung-anlage-1.pdf?__blob=publicationFile&v=3"
+                        target="_blank"
+                        rel="noopener"
+                        className="font-bold underline"
+                      />
+                    ),
+                  }}
+                >
+                  {t(
+                    "zusammenfassung.fields.confirmDataPrivacy.moreInformation"
+                  )}
+                </Trans>
+              </p>
             </Checkbox>
           </div>
           <div className="bg-white p-24 mb-16">
