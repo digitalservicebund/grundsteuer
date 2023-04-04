@@ -1,11 +1,10 @@
-import { Session } from "@remix-run/node";
+import { Session, createSession } from "@remix-run/node";
 import {
   appendCsrfToken,
   createCsrfToken,
   formTokenIsValid,
   SESSION_KEY,
 } from "./csrf";
-import { createSession } from "@remix-run/node";
 
 describe("appendCsrfToken", () => {
   describe("with empty session", () => {

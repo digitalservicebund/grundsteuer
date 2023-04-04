@@ -124,9 +124,35 @@ const scheduleUpdateEricaRequest = (cronExpression: string) => {
   });
 };
 
+export const deleteOutdatedSurveyResults = async () => {
+  try {
+    const now = new Date();
+    const oneDayAgo = new Date(now.setUTCDate(now.getUTCDate() - 1));
+    const queryResult = await db.survey.deleteMany({
+      where: {
+        createdAt: {
+          lte: oneDayAgo,
+        },
+      },
+    });
+    console.log("Deleted %d outdated survey results.", queryResult.count);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const scheduleSurveyCleanUp = (cronExpression: string) => {
+  console.info(
+    "Schedule deleting outdated survey entries with cron expression: %s",
+    cronExpression
+  );
+  schedule(cronExpression, async () => deleteOutdatedSurveyResults());
+};
+
 export const jobs = {
   schedulePdfCleanup,
   scheduleTransferticketCleanup,
   scheduleAccountCleanup,
   scheduleUpdateEricaRequest,
+  scheduleSurveyCleanUp,
 };
