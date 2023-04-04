@@ -77,7 +77,7 @@ describe("Cron jobs", () => {
           category: "success",
           content: "under24HoursOld",
           createdAt: new Date(
-            // 24 hours ago
+            // 23 hours and 59 minutes ago
             new Date(Date.now() - 24 * 60 * 60 * 1000 + 60 * 1000)
           ),
         },
