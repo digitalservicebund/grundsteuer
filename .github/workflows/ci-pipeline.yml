@@ -151,7 +151,7 @@ jobs:
           docker build -t ${{ env.IMAGE_NAME }}-migrate:${{ github.sha }} . --target build
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
+        uses: aquasecurity/trivy-action@1f0aa582c8c8f5f7639610d6d38baddfea4fdcee
         with:
           image-ref: "${{ env.IMAGE_NAME }}:${{ github.sha }}"
           format: "template"
