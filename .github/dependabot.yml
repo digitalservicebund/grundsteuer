@@ -1,17 +1,32 @@
 # Please see the documentation for all configuration options:
-# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "daily"
-    open-pull-requests-limit: 8
-
+      # By default, Dependabot checks for new versions at a random set time for the repository.
+      time: "08:00"
+      timezone: "Europe/Berlin"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "daily"
+      time: "08:00"
+      timezone: "Europe/Berlin"
     ignore:
       - dependency-name: "node"
         update-types: ["version-update:semver-major"]
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "08:00"
+      timezone: "Europe/Berlin"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
