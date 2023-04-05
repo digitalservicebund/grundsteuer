@@ -51,7 +51,7 @@ jobs:
           path: webapp-unit-test-report.log
 
       - name: Log in to the Container registry
-        uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -167,7 +167,7 @@ jobs:
           sarif_file: "trivy-results.sarif"
 
       - name: Login to container registry
-        uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
