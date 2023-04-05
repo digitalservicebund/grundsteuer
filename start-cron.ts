@@ -9,6 +9,7 @@ invariant(process.env.ERICA_URL, "ERICA_URL is not set.");
 jobs.schedulePdfCleanup("30 * * * *");
 jobs.scheduleTransferticketCleanup("31 * * * *");
 // run once every day
+jobs.scheduleSurveyCleanUp("0 6 * * *");
 jobs.scheduleAccountCleanup("0 8 * * *");
 // run every minute
 jobs.scheduleUpdateEricaRequest("* * * * *");
