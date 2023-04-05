@@ -57,6 +57,40 @@ describe("Primary option page", () => {
     });
   });
 
+  describe("when user has an FSC request and no identification", () => {
+    function createFscRequest(
+      createdAt: Date = new Date(new Date().setDate(new Date().getDate() - 2))
+    ) {
+      cy.task("addFscRequestId", {
+        email: "foo@bar.com",
+        fscRequestId: "foo",
+        createdAt,
+      });
+    }
+
+    beforeEach(() => {
+      cy.task("setUserUnidentified", {
+        email: "foo@bar.com",
+      });
+    });
+
+    afterEach(() => {
+      cy.task("dbResetUser", "foo@bar.com");
+    });
+
+    it("should not show BundesIdent primary option", () => {
+      createFscRequest(new Date());
+      // WHEN I successfully login
+      cy.login();
+      cy.viewport(1200, 1000); // element is invisible, we need to set the screen bigger
+      cy.visit("/formular");
+      // THEN I click identification button on the left sidebar
+      cy.get("#sidebar-navigation-content #icon-lock").click();
+      // THEN I should not see bundesident primary page
+      cy.contains("h1", "Ihr Freischaltcode wurde beantragt");
+    });
+  });
+
   describe("when bundesident_disabled is active", () => {
     before(() => {
       cy.task("dbResetUser", "foo@bar.com");
