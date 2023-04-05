@@ -11,6 +11,8 @@ import {
 import Bolt from "~/components/icons/mui/Bolt";
 import bundesIdentCardsImage from "~/assets/images/bundesident-cards.png";
 import { commitSession, getSession } from "~/session.server";
+import { findUserByEmail } from "~/domain/user";
+import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation mit Ausweis") };
@@ -20,12 +22,20 @@ export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
     failureRedirect: "/anmelden",
   });
+
   if (sessionUser.identified) {
     return redirect("/identifikation/erfolgreich");
   }
 
+  const dbUser = await findUserByEmail(sessionUser.email);
+  if (!dbUser) return logoutDeletedUser(request);
+
   const session = await getSession(request.headers.get("Cookie"));
   session.set("hasPrimaryOptionShown", true);
+
+  if (dbUser.identified) {
+    return redirect("/identifikation/erfolgreich");
+  }
 
   return json(
     {},

@@ -2,6 +2,7 @@ import { SVGProps } from "react";
 
 const Lock = (props: SVGProps<SVGSVGElement>) => (
   <svg
+    id="icon-lock"
     width="24"
     height="24"
     fill="#000"
