@@ -14,7 +14,7 @@ describe("Primary option page", () => {
     );
     // THEN I click Identifikation mit Ausweis
     cy.contains("a", "Identifikation mit Ausweis").click();
-    // WHEN I successfully login second time
+    // WHEN I visit the success login page again
     cy.visit("/anmelden/erfolgreich");
     // THEN I click continue button
     cy.contains("a", "Verstanden & weiter").click();
