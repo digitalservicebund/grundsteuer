@@ -188,8 +188,6 @@ jobs:
         uses: sigstore/cosign-installer@c3667d99424e7e6047999fb6246c0da843953c65
 
       - name: Sign the published Docker image
-        env:
-          COSIGN_EXPERIMENTAL: "true"
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: |
