@@ -22,7 +22,7 @@ describe("/ekona", () => {
       });
     });
 
-    it("should redirect to /identifikation page from erfolgreich", () => {
+    it("should redirect to /bundesIdent/primaryoption page from erfolgreich", () => {
       cy.visit("/ekona/erfolgreich", { failOnStatusCode: false });
       cy.url().should("include", "/bundesIdent/primaryoption");
     });

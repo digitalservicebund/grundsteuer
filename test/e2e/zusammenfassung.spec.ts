@@ -49,7 +49,7 @@ describe("Zusammenfassung route", () => {
         cy.contains("Sie haben sich noch nicht identifiziert.");
       });
 
-      it("should contain link and go to /identifikation page on click", () => {
+      it("should contain link and go to /bundesident/primaryoption page on click", () => {
         cy.contains("a", "Zum Bereich Identifikation").click();
         cy.url().should("include", "/bundesIdent/primaryoption");
       });
