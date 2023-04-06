@@ -30,6 +30,7 @@ describe("error banners", () => {
       cy.login();
       cy.visit("/identifikation");
       cy.url().should("include", "/bundesIdent/primaryoption");
+      cy.contains("a", "Alle Identifikationsoptionen").click();
 
       cy.get(bannerId).should("exist");
       cy.contains("button", buttonLabel).should("be.disabled");
@@ -90,6 +91,7 @@ describe("error banners", () => {
       cy.login();
       cy.visit("/identifikation");
       cy.url().should("include", "/bundesIdent/primaryoption");
+      cy.contains("a", "Alle Identifikationsoptionen").click();
 
       cy.get(bannerId).should("exist");
       cy.contains("button", "Freischaltcode").should("be.disabled");
@@ -191,7 +193,7 @@ describe("error banners", () => {
           "user-agent": mobileUserAgent,
         },
       });
-      cy.url().should("include", "/bundesIdent/primaryoption");
+      cy.url().should("include", "/identifikation");
 
       cy.get(bannerId).should("exist");
       cy.contains("button", buttonLabel).should("be.disabled");
@@ -466,7 +468,13 @@ describe("Deadline banner", () => {
         cy.login();
       }
       cy.visit(path, { failOnStatusCode: false });
-      cy.url().should("include", path);
+
+      if (path.includes("identifikation")) {
+        cy.url().should("include", "bundesIdent/primaryoption");
+        cy.contains("a", "Alle Identifikationsoptionen").click();
+      } else {
+        cy.url().should("include", path);
+      }
 
       cy.get("[data-testid=deadline-banner]").should("not.exist");
     });
