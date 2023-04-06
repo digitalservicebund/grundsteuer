@@ -24,10 +24,12 @@ describe("Primary option page", () => {
   });
 
   describe("user clicks on sidebar identifikation button", () => {
-    it("should see bundesident once", () => {
+    beforeEach(() => {
       // WHEN I successfully login
       cy.login();
       cy.viewport(1200, 1000); // element is invisible, we need to set the screen bigger
+    });
+    it("should see bundesident once", () => {
       cy.visit("/anmelden/erfolgreich");
       // THEN I click identification button on the left sidebar
       cy.get("#sidebar-navigation-content #icon-lock").click();
@@ -43,9 +45,6 @@ describe("Primary option page", () => {
     });
 
     it("should go to primary option page when in /formular route", () => {
-      // WHEN I successfully login
-      cy.login();
-      cy.viewport(1200, 1000); // element is invisible, we need to set the screen bigger
       cy.visit("/formular");
       // THEN I click identification button on the left sidebar
       cy.get("#sidebar-navigation-content #icon-lock").click();
