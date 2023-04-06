@@ -51,7 +51,7 @@ describe("Zusammenfassung route", () => {
 
       it("should contain link and go to /identifikation page on click", () => {
         cy.contains("a", "Zum Bereich Identifikation").click();
-        cy.url().should("include", "/identifikation");
+        cy.url().should("include", "/bundesIdent/primaryoption");
       });
 
       it("should have a disabled submit button", () => {

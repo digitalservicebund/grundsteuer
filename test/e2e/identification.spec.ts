@@ -19,7 +19,7 @@ describe("menu item Identifikation", () => {
     cy.login();
     cy.visit("/formular");
     cy.contains("a", "Identifikation").click();
-    cy.location("pathname").should("eq", "/identifikation");
+    cy.location("pathname").should("eq", "/bundesIdent/primaryoption");
     cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
   });
 

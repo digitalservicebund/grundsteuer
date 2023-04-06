@@ -51,7 +51,7 @@ describe("Survey feedback", () => {
         cy.visit("/identifikation");
         cy.contains(
           "h1",
-          "Mit welcher Option möchten Sie sich identifizieren?"
+          "Möchten Sie sich in wenigen Minuten mit Ihrem Ausweis identifizieren?"
         );
 
         // AND I choose to identify with Ausweis
@@ -122,7 +122,7 @@ describe("Survey feedback", () => {
         });
         cy.contains(
           "h1",
-          "Mit welcher Option möchten Sie sich identifizieren?"
+          "Möchten Sie sich in wenigen Minuten mit Ihrem Ausweis identifizieren?"
         );
 
         // THEN I click on the Identifikation mit Ausweis

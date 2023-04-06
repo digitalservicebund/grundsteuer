@@ -22,7 +22,10 @@ describe("Identifikation option", () => {
         "user-agent": mobileUserAgent,
       },
     });
-    cy.contains("dt", "Identifikation mit Ihrem Ausweis");
+    cy.contains(
+      "h1",
+      "Möchten Sie sich in wenigen Minuten mit Ihrem Ausweis identifizieren?"
+    );
   });
 
   it("should show bundesIdent desktop option on desktop", () => {
@@ -32,7 +35,10 @@ describe("Identifikation option", () => {
         "user-agent": desktopUserAgent,
       },
     });
-    cy.contains("dt", "Identifikation mit Ihrem Ausweis über Ihr Smartphone");
+    cy.contains(
+      "h1",
+      "Möchten Sie sich in wenigen Minuten mit Ihrem Ausweis identifizieren?"
+    );
   });
 });
 
