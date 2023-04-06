@@ -55,13 +55,13 @@ export const loader: LoaderFunction = async ({ request }) => {
     !flags.isBundesIdentDisabled() && !flags.isBundesIdentDown();
   const session = await getSession(request.headers.get("Cookie"));
   const hasPrimaryOptionShown = Boolean(session.get("hasPrimaryOptionShown"));
-  const shouldBundesidentPrimayOptionPage = showBundesidentPrimayOptionPage(
+  const shouldShowBundesidentPrimayOptionPage = showBundesidentPrimayOptionPage(
     bundesIdentIsOnline,
     hasPrimaryOptionShown,
     dbUser
   );
 
-  if (shouldBundesidentPrimayOptionPage) {
+  if (shouldShowBundesidentPrimayOptionPage) {
     return redirect("/bundesIdent/primaryoption");
   }
 
