@@ -29,7 +29,7 @@ describe("error banners", () => {
     it("should show banner and disable button on /identifikation", () => {
       cy.login();
       cy.visit("/identifikation");
-      cy.url().should("include", "/identifikation");
+      cy.url().should("include", "/bundesIdent/primaryoption");
 
       cy.get(bannerId).should("exist");
       cy.contains("button", buttonLabel).should("be.disabled");
@@ -89,7 +89,7 @@ describe("error banners", () => {
     it("should show banner and disable button on /identifikation", () => {
       cy.login();
       cy.visit("/identifikation");
-      cy.url().should("include", "/identifikation");
+      cy.url().should("include", "/bundesIdent/primaryoption");
 
       cy.get(bannerId).should("exist");
       cy.contains("button", "Freischaltcode").should("be.disabled");
@@ -191,7 +191,7 @@ describe("error banners", () => {
           "user-agent": mobileUserAgent,
         },
       });
-      cy.url().should("include", "/identifikation");
+      cy.url().should("include", "/bundesIdent/primaryoption");
 
       cy.get(bannerId).should("exist");
       cy.contains("button", buttonLabel).should("be.disabled");
@@ -278,7 +278,7 @@ describe("error banners", () => {
     it("should have no effect on /identifikation", () => {
       cy.login();
       cy.visit("/identifikation");
-      cy.url().should("include", "/identifikation");
+      cy.url().should("include", "/bundesIdent/primaryoption");
 
       cy.get(bannerId).should("not.exist");
     });
@@ -321,7 +321,7 @@ describe("error banners", () => {
     it("should have no effect on /identifikation", () => {
       cy.login();
       cy.visit("/identifikation");
-      cy.url().should("include", "/identifikation");
+      cy.url().should("include", "/bundesIdent/primaryoption");
 
       cy.get(bannerId).should("not.exist");
     });
@@ -364,7 +364,7 @@ describe("error banners", () => {
     it("should show banner /identifikation", () => {
       cy.login();
       cy.visit("/identifikation");
-      cy.url().should("include", "/identifikation");
+      cy.url().should("include", "/bundesIdent/primaryoption");
 
       cy.get(bannerId).should("exist");
     });
@@ -407,7 +407,7 @@ describe("error banners", () => {
     it("should show banner on /identifikation", () => {
       cy.login();
       cy.visit("/identifikation");
-      cy.url().should("include", "/identifikation");
+      cy.url().should("include", "/bundesIdent/primaryoption");
 
       cy.get(bannerId).should("exist");
     });

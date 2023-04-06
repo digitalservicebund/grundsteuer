@@ -24,7 +24,7 @@ describe("/ekona", () => {
 
     it("should redirect to /identifikation page from erfolgreich", () => {
       cy.visit("/ekona/erfolgreich", { failOnStatusCode: false });
-      cy.url().should("include", "/identifikation");
+      cy.url().should("include", "/bundesIdent/primaryoption");
     });
 
     it("should identify user if correct certificate provided", () => {

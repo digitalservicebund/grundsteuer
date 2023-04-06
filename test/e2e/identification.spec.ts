@@ -20,7 +20,10 @@ describe("menu item Identifikation", () => {
     cy.visit("/formular");
     cy.contains("a", "Identifikation").click();
     cy.location("pathname").should("eq", "/bundesIdent/primaryoption");
-    cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
+    cy.contains(
+      "h1",
+      "Möchten Sie sich in wenigen Minuten mit Ihrem Ausweis identifizieren?"
+    );
   });
 
   it("should redirect to /fsc on user with FSC request", () => {
