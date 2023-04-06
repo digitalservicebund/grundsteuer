@@ -1,6 +1,7 @@
 import type { StepComponentFunction } from "~/routes/formular/_step";
 import { ContentContainer, FormGroup, StepFormField } from "~/components";
 import { getFieldProps } from "~/util/getFieldProps";
+import { conditions } from "~/domain/states/guards";
 
 const FlurstueckAngaben: StepComponentFunction = ({
   stepDefinition,
@@ -12,11 +13,8 @@ const FlurstueckAngaben: StepComponentFunction = ({
 }) => {
   const fieldProps = getFieldProps(stepDefinition, formData, i18n, errors);
 
-  const haustyp = allData.grundstueck?.haustyp?.haustyp;
-
   const shouldDisplayGrundbuchblattnummer =
-    haustyp !== "wohnungseigentum" ||
-    allData.grundstueck?.miteigentumAuswahlWohnung?.miteigentumTyp === "mixed";
+    conditions.isNotWohnungOrHasMiteigentumWohnungMixed(allData);
 
   return (
     <ContentContainer size="sm-md">

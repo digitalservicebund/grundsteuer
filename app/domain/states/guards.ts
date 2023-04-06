@@ -118,6 +118,10 @@ const grundstueckHasMiteigentumAndPreviousFlurstueckeExist: Condition = (
   );
 };
 
+const isNotWohnungOrHasMiteigentumWohnungMixed: Condition = (context) => {
+  return !isWohnung(context) || wohnungHasMiteigentumMixed(context);
+};
+
 const isBezugsfertigAb1949: Condition = (context) => {
   return isBebaut(context) && context?.gebaeude?.ab1949?.isAb1949 === "true";
 };
@@ -261,4 +265,5 @@ export const conditions: Conditions = {
   bundeslandIsNW,
   isExplicitFlurstueckGrundbuchblattnummer,
   isGrundstueckBundeslandKnown,
+  isNotWohnungOrHasMiteigentumWohnungMixed,
 };

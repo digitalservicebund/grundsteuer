@@ -188,6 +188,63 @@ describe("previousFlurstueckHasMiteigentum", () => {
   });
 });
 
+describe("isNotWohnungOrHasMiteigentumWohnungMixed", () => {
+  it("Should return true if undefined", () => {
+    const result =
+      conditions.isNotWohnungOrHasMiteigentumWohnungMixed(undefined);
+    expect(result).toEqual(true);
+  });
+
+  it("Should return true if unbebaut", () => {
+    const inputData = grundModelFactory.bebaut({ bebaut: "unbebaut" }).build();
+    const result =
+      conditions.isNotWohnungOrHasMiteigentumWohnungMixed(inputData);
+    expect(result).toEqual(true);
+  });
+
+  it("Should return true if unbebaut but wohnung given", () => {
+    const inputData = grundModelFactory
+      .bebaut({ bebaut: "unbebaut" })
+      .haustyp({ haustyp: "wohnungseigentum" })
+      .build();
+    const result =
+      conditions.isNotWohnungOrHasMiteigentumWohnungMixed(inputData);
+    expect(result).toEqual(true);
+  });
+
+  it("Should return true if not wohnung", () => {
+    const inputData = grundModelFactory
+      .bebaut({ bebaut: "bebaut" })
+      .haustyp({ haustyp: "einfamilienhaus" })
+      .build();
+    const result =
+      conditions.isNotWohnungOrHasMiteigentumWohnungMixed(inputData);
+    expect(result).toEqual(true);
+  });
+
+  it("Should return true if wohnung with miteigentum mixed", () => {
+    const inputData = grundModelFactory
+      .bebaut({ bebaut: "bebaut" })
+      .haustyp({ haustyp: "wohnungseigentum" })
+      .miteigentumWohnung({ miteigentumTyp: "mixed" })
+      .build();
+    const result =
+      conditions.isNotWohnungOrHasMiteigentumWohnungMixed(inputData);
+    expect(result).toEqual(true);
+  });
+
+  it("Should return false if wohnung with miteigentum not-mixed", () => {
+    const inputData = grundModelFactory
+      .bebaut({ bebaut: "bebaut" })
+      .haustyp({ haustyp: "wohnungseigentum" })
+      .miteigentumWohnung({ miteigentumTyp: "none" })
+      .build();
+    const result =
+      conditions.isNotWohnungOrHasMiteigentumWohnungMixed(inputData);
+    expect(result).toEqual(false);
+  });
+});
+
 describe("isBezugsfertigAb1949", () => {
   it("Should return false if data is undefined", async () => {
     const result = conditions.isBezugsfertigAb1949(undefined);
