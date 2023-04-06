@@ -191,8 +191,8 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: |
-          cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-          cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-migrate:${{ github.sha }}
+          cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} --yes
+          cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-migrate:${{ github.sha }} --yes
 
       # This needs to happen here b/c remix changes filenames on each `remix build` run. So, to get working source maps,
       # we need access to the actual image that was built.
