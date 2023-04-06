@@ -26,6 +26,8 @@ describe("Identifikation option", () => {
       "h1",
       "Möchten Sie sich in wenigen Minuten mit Ihrem Ausweis identifizieren?"
     );
+    cy.contains("Alle Identifikationsoptionen").click();
+    cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
   });
 
   it("should show bundesIdent desktop option on desktop", () => {
@@ -39,6 +41,8 @@ describe("Identifikation option", () => {
       "h1",
       "Möchten Sie sich in wenigen Minuten mit Ihrem Ausweis identifizieren?"
     );
+    cy.contains("Alle Identifikationsoptionen").click();
+    cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
   });
 });
 
