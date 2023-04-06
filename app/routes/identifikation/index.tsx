@@ -27,7 +27,7 @@ import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 import TeaserIdentCard from "~/components/TeaserIdentCard";
 import {
   canEnterFsc,
-  needsToStartIdentification,
+  showBundesidentPrimayOptionPage,
 } from "~/domain/identificationStatus";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 import LinkWithArrow from "~/components/LinkWithArrow";
@@ -55,11 +55,13 @@ export const loader: LoaderFunction = async ({ request }) => {
     !flags.isBundesIdentDisabled() && !flags.isBundesIdentDown();
   const session = await getSession(request.headers.get("Cookie"));
   const hasPrimaryOptionShown = Boolean(session.get("hasPrimaryOptionShown"));
-  if (
-    bundesIdentIsOnline &&
-    !hasPrimaryOptionShown &&
-    needsToStartIdentification(dbUser)
-  ) {
+  const shouldBundesidentPrimayOptionPage = showBundesidentPrimayOptionPage(
+    bundesIdentIsOnline,
+    hasPrimaryOptionShown,
+    dbUser
+  );
+
+  if (shouldBundesidentPrimayOptionPage) {
     return redirect("/bundesIdent/primaryoption");
   }
 
