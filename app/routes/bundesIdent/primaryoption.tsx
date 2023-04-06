@@ -30,12 +30,12 @@ export const loader: LoaderFunction = async ({ request }) => {
   const dbUser = await findUserByEmail(sessionUser.email);
   if (!dbUser) return logoutDeletedUser(request);
 
-  const session = await getSession(request.headers.get("Cookie"));
-  session.set("hasPrimaryOptionShown", true);
-
   if (dbUser.identified) {
     return redirect("/identifikation/erfolgreich");
   }
+
+  const session = await getSession(request.headers.get("Cookie"));
+  session.set("hasPrimaryOptionShown", true);
 
   return json(
     {},
