@@ -49,6 +49,7 @@ describe("Survey feedback", () => {
       it("should show survey page once when users goes back to the identification options page", () => {
         // WHEN I visit identification option page for first time
         cy.visit("/identifikation");
+        // THEN I get redirected to primary option page
         cy.contains(
           "h1",
           "Möchten Sie sich in wenigen Minuten mit Ihrem Ausweis identifizieren?"
@@ -120,6 +121,7 @@ describe("Survey feedback", () => {
             "user-agent": mobileUserAgent,
           },
         });
+        // THEN I get redirected to primary option page
         cy.contains(
           "h1",
           "Möchten Sie sich in wenigen Minuten mit Ihrem Ausweis identifizieren?"

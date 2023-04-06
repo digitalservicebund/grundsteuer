@@ -15,7 +15,7 @@ describe("menu item Identifikation", () => {
     });
   });
 
-  it("should redirect to options page on unidentified user with no FSC request", () => {
+  it("should redirect to primary option page on unidentified user with no FSC request", () => {
     cy.login();
     cy.visit("/formular");
     cy.contains("a", "Identifikation").click();
