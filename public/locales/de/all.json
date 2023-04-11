@@ -1687,7 +1687,8 @@
         "label": "Hiermit bestätige ich, dass die Angaben überprüft wurden und dass sie vollständig und richtig sind."
       },
       "confirmDataPrivacy": {
-        "label": "Ich bin damit einverstanden, dass meine E-Mail-Adresse nur zur Abgabe meiner Grundsteuererklärung registriert wird und meine eingegebenen Grundsteuerdaten von DigitalService des Bundes kurzzeitig zwischengespeichert und an mein zuständiges Finanzamt weitergeleitet werden. Ich kann meine Einwilligung mit Wirkung für die Zukunft jederzeit widerrufen. Weitere Informationen finden sich in der <dataPrivacyLink>Datenschutzerklärung der DigitalService GmbH des Bundes</dataPrivacyLink> und den <bmfDataPrivacyLink>Datenschutzhinweisen der Steuerverwaltung</bmfDataPrivacyLink>."
+        "confirmationText": "Ich bin damit einverstanden, dass meine E-Mail-Adresse nur zur Abgabe meiner Grundsteuererklärung registriert wird und meine eingegebenen Grundsteuerdaten von DigitalService des Bundes kurzzeitig zwischengespeichert und an mein zuständiges Finanzamt weitergeleitet werden. Ich kann meine Einwilligung mit Wirkung für die Zukunft jederzeit widerrufen.",
+        "moreInformation": "Weitere Informationen finden sich in der <dataPrivacyLink>Datenschutzerklärung der DigitalService GmbH des Bundes</dataPrivacyLink> und den <bmfDataPrivacyLink>Datenschutzhinweisen der Steuerverwaltung</bmfDataPrivacyLink>."
       },
       "confirmTermsOfUse": {
         "label": "Ich habe die <termsOfUseLink>Nutzungsbedingungen</termsOfUseLink> gelesen und stimme ihnen zu."
