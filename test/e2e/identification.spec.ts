@@ -15,12 +15,15 @@ describe("menu item Identifikation", () => {
     });
   });
 
-  it("should redirect to options page on unidentified user with no FSC request", () => {
+  it("should redirect to primary option page on unidentified user with no FSC request", () => {
     cy.login();
     cy.visit("/formular");
     cy.contains("a", "Identifikation").click();
-    cy.location("pathname").should("eq", "/identifikation");
-    cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
+    cy.location("pathname").should("eq", "/bundesIdent/primaryoption");
+    cy.contains(
+      "h1",
+      "Möchten Sie sich in wenigen Minuten mit Ihrem Ausweis identifizieren?"
+    );
   });
 
   it("should redirect to /fsc on user with FSC request", () => {

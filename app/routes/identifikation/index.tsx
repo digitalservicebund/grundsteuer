@@ -25,9 +25,13 @@ import { pageTitle } from "~/util/pageTitle";
 import { flags } from "~/flags.server";
 import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 import TeaserIdentCard from "~/components/TeaserIdentCard";
-import { canEnterFsc } from "~/domain/identificationStatus";
+import {
+  canEnterFsc,
+  showBundesidentPrimayOptionPage,
+} from "~/domain/identificationStatus";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 import LinkWithArrow from "~/components/LinkWithArrow";
+import { getSession } from "~/session.server";
 
 export const meta: MetaFunction = () => {
   return {
@@ -46,6 +50,20 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const dbUser = await findUserByEmail(sessionUser.email);
   if (!dbUser) return logoutDeletedUser(request);
+
+  const bundesIdentIsOnline =
+    !flags.isBundesIdentDisabled() && !flags.isBundesIdentDown();
+  const session = await getSession(request.headers.get("Cookie"));
+  const hasPrimaryOptionShown = Boolean(session.get("hasPrimaryOptionShown"));
+  const shouldShowBundesidentPrimayOptionPage = showBundesidentPrimayOptionPage(
+    bundesIdentIsOnline,
+    hasPrimaryOptionShown,
+    dbUser
+  );
+
+  if (shouldShowBundesidentPrimayOptionPage) {
+    return redirect("/bundesIdent/primaryoption");
+  }
 
   if (dbUser.identified) {
     return redirect("/identifikation/erfolgreich");

@@ -25,9 +25,9 @@ describe("/eingeben", () => {
   });
 
   describe("no FSC request", () => {
-    it("should redirect to /identifikation", () => {
+    it("should redirect to /bundesIdent/primaryoption ", () => {
       cy.visit("/fsc/eingeben");
-      cy.url().should("include", "/identifikation");
+      cy.url().should("include", "/bundesIdent/primaryoption");
     });
   });
 

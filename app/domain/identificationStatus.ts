@@ -35,3 +35,15 @@ export const fscIsTooOld = (user: User) => {
 export const needsToStartIdentification = (user: User) => {
   return !user.identified && !user.fscRequest;
 };
+
+export const showBundesidentPrimayOptionPage = (
+  bundesIdentIsOnline: boolean,
+  hasPrimaryOptionShown: boolean,
+  user: User
+) => {
+  return (
+    bundesIdentIsOnline &&
+    !hasPrimaryOptionShown &&
+    needsToStartIdentification(user)
+  );
+};
