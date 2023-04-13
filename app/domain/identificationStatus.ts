@@ -36,14 +36,9 @@ export const needsToStartIdentification = (user: User) => {
   return !user.identified && !user.fscRequest;
 };
 
-export const showBundesidentPrimayOptionPage = (
-  bundesIdentIsOnline: boolean,
-  hasPrimaryOptionShown: boolean,
+export const isEligibleForPrimaryOption = (
+  isServiceOnline: boolean,
   user: User
 ) => {
-  return (
-    bundesIdentIsOnline &&
-    !hasPrimaryOptionShown &&
-    needsToStartIdentification(user)
-  );
+  return isServiceOnline && needsToStartIdentification(user);
 };

@@ -1,4 +1,4 @@
-import { LoaderFunction, MetaFunction, json, redirect } from "@remix-run/node";
+import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
 import { pageTitle } from "~/util/pageTitle";
 import { authenticator } from "~/auth.server";
 import {
@@ -10,7 +10,6 @@ import {
 } from "~/components";
 import Bolt from "~/components/icons/mui/Bolt";
 import bundesIdentCardsImage from "~/assets/images/bundesident-cards.png";
-import { commitSession, getSession } from "~/session.server";
 import { findUserByEmail } from "~/domain/user";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 
@@ -34,18 +33,10 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/identifikation/erfolgreich");
   }
 
-  const session = await getSession(request.headers.get("Cookie"));
-  session.set("hasPrimaryOptionShown", true);
-
-  return json(
-    {},
-    {
-      headers: { "Set-Cookie": await commitSession(session) },
-    }
-  );
+  return {};
 };
 
-export default function BundesIdentVoraussetzung() {
+export default function PrimaryOption() {
   return (
     <>
       <ContentContainer size="sm-md">
@@ -97,7 +88,7 @@ export default function BundesIdentVoraussetzung() {
         <Button
           className="w-full lg:max-w-[267px]"
           look="tertiary"
-          to="/identifikation"
+          to="/identifikation?origin=primaryoption"
         >
           Alle Identifikationsoptionen
         </Button>

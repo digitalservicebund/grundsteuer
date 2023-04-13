@@ -101,15 +101,25 @@ describe("Survey feedback", () => {
       });
 
       it("should redirect user to identification option page after submitting the survey", () => {
+        // WHEN I visit identifikation page
         cy.visit("/identifikation");
+        // THEN I get redirected to primary option page
+        cy.contains(
+          "h1",
+          "Möchten Sie sich in wenigen Minuten mit Ihrem Ausweis identifizieren?"
+        );
+        // THEN I choose identification with ID
         cy.contains("div", "Identifikation mit Ausweis").click();
+        // THEN I click back
         cy.contains("div", "Zurück").click();
+        // THEN I should see dropout survey
         cy.url().should("include", "/bundesIdent/survey/dropout");
+        // WHEN I fill and submit the survey
         cy.get('[data-testid="survey-dropout-textarea"]').type(
           "dropout feedback"
         );
         cy.contains("button", "Übernehmen & weiter").click();
-        cy.url().should("include", "/identifikation");
+        cy.url().should("include", "/identifikation?origin=survey");
       });
     });
 
