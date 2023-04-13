@@ -61,10 +61,12 @@ export const loader: LoaderFunction = async ({ request }) => {
   const originQueryParam = new URL(request.url).searchParams.get("origin");
   const isPrimaryOptionRequest = originQueryParam === "primaryoption";
   const isDropoutSurveyRequest = originQueryParam === "survey";
+  const isBackButtonRequest = originQueryParam === "back";
 
   if (
     !isPrimaryOptionRequest &&
     !isDropoutSurveyRequest &&
+    !isBackButtonRequest &&
     shouldShowPrimaryOption
   ) {
     return redirect("/bundesIdent/primaryoption");
