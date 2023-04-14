@@ -11,7 +11,12 @@ import ident3 from "~/assets/images/ident-3.png";
 import bundesIdentCardsImage from "~/assets/images/bundesident-cards.png";
 import { ReactNode } from "react";
 import classNames from "classnames";
-import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
+import {
+  LoaderFunction,
+  MetaFunction,
+  Request,
+  redirect,
+} from "@remix-run/node";
 import { authenticator } from "~/auth.server";
 import { findUserByEmail } from "~/domain/user";
 import SectionLabel from "../../components/navigation/SectionLabel";
@@ -27,7 +32,7 @@ import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 import TeaserIdentCard from "~/components/TeaserIdentCard";
 import {
   canEnterFsc,
-  isEligibleForPrimaryOption,
+  hasPrimaryOptionEligibility,
 } from "~/domain/identificationStatus";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 import LinkWithArrow from "~/components/LinkWithArrow";
@@ -53,22 +58,13 @@ export const loader: LoaderFunction = async ({ request }) => {
   const bundesIdentIsOnline =
     !flags.isBundesIdentDisabled() && !flags.isBundesIdentDown();
 
-  const shouldShowPrimaryOption = isEligibleForPrimaryOption(
+  const shouldShowPrimaryOption = hasPrimaryOptionEligibility(
+    request.url,
     bundesIdentIsOnline,
     dbUser
   );
 
-  const originQueryParam = new URL(request.url).searchParams.get("origin");
-  const isPrimaryOptionRequest = originQueryParam === "primaryoption";
-  const isDropoutSurveyRequest = originQueryParam === "survey";
-  const isBackButtonRequest = originQueryParam === "back";
-
-  if (
-    !isPrimaryOptionRequest &&
-    !isDropoutSurveyRequest &&
-    !isBackButtonRequest &&
-    shouldShowPrimaryOption
-  ) {
+  if (shouldShowPrimaryOption) {
     return redirect("/bundesIdent/primaryoption");
   }
 
