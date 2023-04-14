@@ -71,7 +71,9 @@ export default function BundesIdentVoraussetzung() {
             className="w-full lg:max-w-[138px]"
             look="secondary"
             to={
-              hasSurveyShown ? "/identifikation" : "/bundesIdent/survey/dropout"
+              hasSurveyShown
+                ? "/identifikation?origin=back"
+                : "/bundesIdent/survey/dropout"
             }
           >
             Zurück

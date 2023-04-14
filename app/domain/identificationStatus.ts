@@ -36,14 +36,21 @@ export const needsToStartIdentification = (user: User) => {
   return !user.identified && !user.fscRequest;
 };
 
-export const showBundesidentPrimayOptionPage = (
-  bundesIdentIsOnline: boolean,
-  hasPrimaryOptionShown: boolean,
+export const hasPrimaryOptionEligibility = (
+  requestUrl: string,
+  serviceAvailability: boolean,
   user: User
 ) => {
+  const originQueryParam = new URL(requestUrl).searchParams.get("origin");
+  const isPrimaryOptionRequest = originQueryParam === "primaryoption";
+  const isDropoutSurveyRequest = originQueryParam === "survey";
+  const isBackButtonRequest = originQueryParam === "back";
+
   return (
-    bundesIdentIsOnline &&
-    !hasPrimaryOptionShown &&
+    !isPrimaryOptionRequest &&
+    !isDropoutSurveyRequest &&
+    !isBackButtonRequest &&
+    serviceAvailability &&
     needsToStartIdentification(user)
   );
 };

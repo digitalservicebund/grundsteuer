@@ -21,7 +21,7 @@ import { commitSession, getSession } from "~/session.server";
 
 const SURVEY = "survey";
 const SURVEY_CATEGORY = "dropout";
-const IDENT_OPTION_PATH = "/identifikation";
+const IDENT_OPTION_PATH = "/identifikation?origin=survey";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {

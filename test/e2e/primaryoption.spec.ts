@@ -12,15 +12,6 @@ describe("Primary option page", () => {
       "h1",
       "Möchten Sie sich in wenigen Minuten mit Ihrem Ausweis identifizieren?"
     );
-    // THEN I click Identifikation mit Ausweis
-    cy.contains("a", "Identifikation mit Ausweis").click();
-    // WHEN I visit the success login page again
-    cy.visit("/anmelden/erfolgreich");
-    // THEN I click continue button
-    cy.contains("a", "Verstanden & weiter").click();
-    // THEN I should not see bundesident primary page
-    cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
-    cy.url().should("include", "/identifikation");
   });
 
   describe("user clicks on sidebar identifikation button", () => {
@@ -28,20 +19,6 @@ describe("Primary option page", () => {
       // WHEN I successfully login
       cy.login();
       cy.viewport(1200, 1000); // element is invisible, we need to set the screen bigger
-    });
-    it("should see bundesident once", () => {
-      cy.visit("/anmelden/erfolgreich");
-      // THEN I click identification button on the left sidebar
-      cy.get("#sidebar-navigation-content #icon-lock").click();
-      // THEN I should see bundesident primary page
-      cy.contains(
-        "h1",
-        "Möchten Sie sich in wenigen Minuten mit Ihrem Ausweis identifizieren?"
-      );
-      // THEN I click identification button on the left sidebar
-      cy.get("#sidebar-navigation-content #icon-lock").click();
-      // THEN I should see identification option page
-      cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
     });
 
     it("should go to primary option page when in /formular route", () => {

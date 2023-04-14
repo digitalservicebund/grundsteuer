@@ -27,11 +27,10 @@ import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 import TeaserIdentCard from "~/components/TeaserIdentCard";
 import {
   canEnterFsc,
-  showBundesidentPrimayOptionPage,
+  hasPrimaryOptionEligibility,
 } from "~/domain/identificationStatus";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 import LinkWithArrow from "~/components/LinkWithArrow";
-import { getSession } from "~/session.server";
 
 export const meta: MetaFunction = () => {
   return {
@@ -53,15 +52,14 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const bundesIdentIsOnline =
     !flags.isBundesIdentDisabled() && !flags.isBundesIdentDown();
-  const session = await getSession(request.headers.get("Cookie"));
-  const hasPrimaryOptionShown = Boolean(session.get("hasPrimaryOptionShown"));
-  const shouldShowBundesidentPrimayOptionPage = showBundesidentPrimayOptionPage(
+
+  const shouldShowPrimaryOption = hasPrimaryOptionEligibility(
+    request.url,
     bundesIdentIsOnline,
-    hasPrimaryOptionShown,
     dbUser
   );
 
-  if (shouldShowBundesidentPrimayOptionPage) {
+  if (shouldShowPrimaryOption) {
     return redirect("/bundesIdent/primaryoption");
   }
 
