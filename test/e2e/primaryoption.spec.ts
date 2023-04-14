@@ -1,6 +1,19 @@
 /// <reference types="../../cypress/support" />
 
 describe("Primary option page", () => {
+  it("should show primary option page once", () => {
+    cy.login();
+    // WHEN I successfully login
+    cy.visit("/anmelden/erfolgreich");
+    // THEN I click continue button
+    cy.contains("a", "Verstanden & weiter").click();
+    // THEN I should see bundesident primary option page
+    cy.contains(
+      "h1",
+      "Möchten Sie sich in wenigen Minuten mit Ihrem Ausweis identifizieren?"
+    );
+  });
+
   describe("user clicks on sidebar identifikation button", () => {
     beforeEach(() => {
       // WHEN I successfully login
