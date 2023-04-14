@@ -11,12 +11,7 @@ import ident3 from "~/assets/images/ident-3.png";
 import bundesIdentCardsImage from "~/assets/images/bundesident-cards.png";
 import { ReactNode } from "react";
 import classNames from "classnames";
-import {
-  LoaderFunction,
-  MetaFunction,
-  Request,
-  redirect,
-} from "@remix-run/node";
+import { LoaderFunction, MetaFunction, redirect } from "@remix-run/node";
 import { authenticator } from "~/auth.server";
 import { findUserByEmail } from "~/domain/user";
 import SectionLabel from "../../components/navigation/SectionLabel";
