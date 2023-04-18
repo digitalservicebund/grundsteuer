@@ -91,7 +91,7 @@ export default function SurveySuccess() {
                 data-testid={`${SURVEY}-${SURVEY_CATEGORY}-textarea`}
               />
             </div>
-            <ButtonContainer className="lg:max-w-[412px]">
+            <ButtonContainer className="lg:max-w-[392px]">
               <Button className="w-full lg:max-w-[216px]" look="primary">
                 Übernehmen & weiter
               </Button>
