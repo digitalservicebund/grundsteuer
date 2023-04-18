@@ -73,6 +73,7 @@ type LoaderData = {
   ericaDown?: boolean;
   bundesIdentUrl: string;
   bundesIdentDisabled?: boolean;
+  bundesIdentDown?: boolean;
 };
 
 const isEricaRequestInProgress = (userData: User) => {
@@ -227,6 +228,7 @@ export const loader: LoaderFunction = async ({
       ...antragStatus,
       bundesIdentUrl,
       bundesIdentDisabled: flags.isBundesIdentDisabled(),
+      bundesIdentDown: flags.isBundesIdentDown(),
       testFeaturesEnabled: testFeaturesEnabled(),
     },
     {
@@ -322,9 +324,11 @@ export default function FscEingeben() {
     remainingDays,
     bundesIdentUrl,
     bundesIdentDisabled,
+    bundesIdentDown,
   } = loaderData;
   const actionData: EingebenActionData | undefined = useActionData();
   const errors = actionData?.errors;
+  const bundesIdentIsOffline = bundesIdentDisabled || bundesIdentDown;
 
   // We need to fetch data to check the result with Elster
   const fetcher = useFetcher();
@@ -391,7 +395,7 @@ export default function FscEingeben() {
     </div>,
   ];
 
-  if (!bundesIdentDisabled) {
+  if (!bundesIdentIsOffline) {
     alternatives = [
       <div>
         <p className="mb-8">

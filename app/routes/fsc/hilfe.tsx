@@ -32,12 +32,20 @@ export const loader: LoaderFunction = async ({ request }) => {
     ...new FscRequest(dbUser.fscRequest!).getAntragStatus(),
     bundesIdentUrl: getBundesIdentUrl(request),
     bundesIdentDisabled: flags.isBundesIdentDisabled(),
+    bundesIdentDown: flags.isBundesIdentDown(),
   });
 };
 
 export default function FscHilfe() {
-  const { antragDate, letterArrivalDate, bundesIdentUrl, bundesIdentDisabled } =
-    useLoaderData();
+  const {
+    antragDate,
+    letterArrivalDate,
+    bundesIdentUrl,
+    bundesIdentDisabled,
+    bundesIdentDown,
+  } = useLoaderData();
+
+  const bundesIdentOffline = bundesIdentDisabled || bundesIdentDown;
 
   let alternatives = [
     <div>
@@ -74,7 +82,8 @@ export default function FscHilfe() {
       </LinkWithArrow>
     </div>,
   ];
-  if (!bundesIdentDisabled) {
+
+  if (!bundesIdentOffline) {
     alternatives = [
       <div>
         <p className="mb-8">

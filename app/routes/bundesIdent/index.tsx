@@ -75,13 +75,6 @@ export default function BundesIdentIndex() {
 
   return (
     <>
-      <SectionLabel
-        icon={<Bolt className="mr-4" />}
-        backgroundColor="yellow"
-        className="mb-16"
-      >
-        Beta-Stadium
-      </SectionLabel>
       <Headline>
         Identifizieren Sie sich mit Ihrem Ausweis und der BundesIdent App
       </Headline>
