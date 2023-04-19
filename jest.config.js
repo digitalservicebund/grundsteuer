@@ -5,6 +5,7 @@ module.exports = {
     "~/(.*)": "<rootDir>/app/$1",
     "test/(.*)": "<rootDir>/test/$1",
     "testUtil/(.*)": "<rootDir>/private/jest/util/$1",
+    "^axios$": "axios/dist/axios.js",
   },
   testPathIgnorePatterns: ["<rootDir>/test/e2e"],
   setupFiles: [
