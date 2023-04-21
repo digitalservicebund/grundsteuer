@@ -104,7 +104,7 @@ export default function BundesIdentIndex() {
           imageAltText=""
           number="2"
           heading="Wechseln Sie zurück zur Grundsteuer‑Website und tippen Sie auf »Mit BundesIdent ausweisen«"
-          text=""
+          text="Anschließend öffnet sich die BundesIdent App automatisch."
           className="mb-16 px-32 py-32 items-center md:items-start"
           imageStyle="mr-24 max-w-[180px] h-[100%] w-full"
         />
@@ -112,7 +112,7 @@ export default function BundesIdentIndex() {
           image={identSuccessStepImage}
           imageAltText=""
           number="3"
-          heading="Folgen Sie den weiteren Anweisungen in der App, bis Sie sich erfolgreich identifiziert haben"
+          heading="Folgen Sie den weiteren Anweisungen in der BundesIdent App, bis Sie sich erfolgreich identifiziert haben"
           text=""
           className="mb-16 px-32 py-32 items-center md:items-start"
           imageStyle="mr-24 max-w-[180px] h-[100%] w-full"

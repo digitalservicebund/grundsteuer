@@ -56,7 +56,7 @@ export default function BundesIdentIndex() {
           image={loginStepimage}
           imageAltText=""
           number="1"
-          heading="Klicken Sie auf »Verstanden & weiter«."
+          heading="Klicken Sie auf »Verstanden & weiter«"
           text=""
           className="mb-16 px-32 py-32 items-center md:items-start"
           imageStyle="mr-24 max-w-[180px] h-[100%] w-full"

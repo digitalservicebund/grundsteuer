@@ -183,7 +183,7 @@ describe("bundesIdent desktop flow", () => {
     cy.contains("button", "Weiter").click();
 
     cy.url().should("include", "/bundesIdent/erfolgreich");
-    cy.contains("li", "Identifikation abgeschlossen & Seite neu laden");
+    cy.contains("li", "Weiter");
   });
 });
 

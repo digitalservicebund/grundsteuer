@@ -23,8 +23,7 @@ const renderAdditionalHint = (identificationType?: string) => {
     return (
       <li>
         Falls Sie die Grundsteuererklärung auf dem Computer angefangen haben,
-        können Sie jetzt zurückkehren. Klicken Sie am Computer auf
-        »Identifikation abgeschlossen & Seite neu laden«.
+        können Sie jetzt zurückkehren. Klicken Sie am Computer auf »Weiter«.
       </li>
     );
   }

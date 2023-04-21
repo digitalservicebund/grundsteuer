@@ -48,7 +48,7 @@ export default function BundesIdentIndex() {
       <ContentContainer size="sm-md">
         <p className="mb-16 text-gray-900">Schritt 1 von 3</p>
         <Headline>
-          Identifizieren Sie sich in wenigen Minuten mit Ihrem Ausweis
+          Melden Sie sich bei Grundsteuer auf dem Smartphone an
         </Headline>
         <h3 className="text-18 leading-26 mb-24">
           Nachdem Sie sich auf dem Smartphone identifiziert haben, können Sie
