@@ -68,7 +68,7 @@ export default function BundesIdentIndex() {
           imageStyle="mr-24 max-w-[180px] h-[100%] w-full"
         />
         <EnumeratedCard
-          image={emailStepImage}
+          image={anmeldenStepImage}
           imageAltText=""
           number="2"
           heading="Geben Sie die E‑Mail-Adresse ein, mit der Sie sich registriert haben"
@@ -77,7 +77,7 @@ export default function BundesIdentIndex() {
           imageStyle="mr-24 max-w-[180px] h-[100%] w-full"
         />
         <EnumeratedCard
-          image={anmeldenStepImage}
+          image={emailStepImage}
           imageAltText=""
           number="3"
           heading="Öffnen Sie den Anmelde‑Link in der E‑Mail auf dem Smartphone"
