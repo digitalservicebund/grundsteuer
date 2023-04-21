@@ -1,14 +1,20 @@
 import { ReactNode } from "react";
 import classNames from "classnames";
 
-export default function EnumeratedCard(props: {
+interface EnumeratedCard {
   image: string;
   imageAltText: string;
   number?: string;
   heading: ReactNode | string;
   text: ReactNode | string;
+  imageStyle?: string;
   className?: string;
-}) {
+}
+
+export default function EnumeratedCard({
+  imageStyle = "mr-24 md:w-[300px] md:h-[180px] w-full",
+  ...props
+}: EnumeratedCard) {
   return (
     <div
       className={classNames(
@@ -16,11 +22,7 @@ export default function EnumeratedCard(props: {
         props.className
       )}
     >
-      <img
-        src={props.image}
-        alt={props.imageAltText}
-        className="mr-24 md:w-[300px] md:h-[180px] w-full"
-      />
+      <img src={props.image} alt={props.imageAltText} className={imageStyle} />
       <div className="flex flex-col">
         <dl>
           <div className="flex flex-row mt-24 md:mt-0">

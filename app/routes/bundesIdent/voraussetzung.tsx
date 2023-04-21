@@ -63,7 +63,9 @@ export default function BundesIdentVoraussetzung() {
           <Button
             className="w-full lg:max-w-[203px]"
             look="primary"
-            to={isMobile ? "/bundesIdent" : "/bundesIdent/desktop"}
+            to={
+              isMobile ? "/bundesIdent" : "/bundesIdent/desktopguide/magiclink"
+            }
           >
             Verstanden & weiter
           </Button>

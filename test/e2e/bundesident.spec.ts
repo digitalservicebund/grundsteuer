@@ -113,9 +113,33 @@ describe("bundesIdent desktop flow", () => {
 
     cy.contains("div", "Verstanden & weiter").click();
 
-    cy.contains("button", "Identifikation abgeschlossen").click();
+    // THEN I see first destktop guide with 3 steps
+    cy.contains(
+      "h1",
+      "Identifizieren Sie sich in wenigen Minuten mit Ihrem Ausweis"
+    );
+    cy.get(".enumerate-card").should("have.length", 3);
+    cy.contains("a", "Weiter").click();
+
+    // THEN I see second destktop guide with 2 steps
+    cy.contains(
+      "h1",
+      "Wählen Sie wieder die Option »Identifikation mit Ausweis«"
+    );
+    cy.get(".enumerate-card").should("have.length", 2);
+    cy.contains("a", "Weiter").click();
+
+    // THEN I see third destktop guide with 3 steps
+    cy.contains(
+      "h1",
+      "Installieren Sie BundesIdent und identifizieren Sie sich mit Ihrem Ausweis"
+    );
+    cy.get(".enumerate-card").should("have.length", 3);
+    cy.contains("button", "Weiter").click();
+
+    // THEN I see an error notification
     cy.url().should("include", "/bundesIdent/desktop");
-    cy.contains("Identifikation nicht abgeschlossen");
+    cy.contains("Identifikation nicht erfolgreich abgeschlossen");
   });
 
   it("should go to correct pages on desktop if user identified in process", () => {
@@ -129,12 +153,34 @@ describe("bundesIdent desktop flow", () => {
     cy.contains("h1", "Voraussetzung für die Identifikation mit Ihrem Ausweis");
     cy.contains("a", "Verstanden & weiter").click();
 
-    cy.url().should("include", "/bundesIdent/desktop");
+    // THEN I see first destktop guide with 3 steps
+    cy.contains(
+      "h1",
+      "Identifizieren Sie sich in wenigen Minuten mit Ihrem Ausweis"
+    );
+    cy.get(".enumerate-card").should("have.length", 3);
+    cy.contains("a", "Weiter").click();
+
+    // THEN I see second destktop guide with 2 steps
+    cy.contains(
+      "h1",
+      "Wählen Sie wieder die Option »Identifikation mit Ausweis«"
+    );
+    cy.get(".enumerate-card").should("have.length", 2);
+    cy.contains("a", "Weiter").click();
+
+    // THEN I see third destktop guide with 3 steps
+    cy.contains(
+      "h1",
+      "Installieren Sie BundesIdent und identifizieren Sie sich mit Ihrem Ausweis"
+    );
+    cy.get(".enumerate-card").should("have.length", 3);
 
     cy.task("setUserIdentified", {
       email: "foo@bar.com",
     });
-    cy.contains("button", "Identifikation abgeschlossen").click();
+
+    cy.contains("button", "Weiter").click();
 
     cy.url().should("include", "/bundesIdent/erfolgreich");
     cy.contains("li", "Identifikation abgeschlossen & Seite neu laden");
