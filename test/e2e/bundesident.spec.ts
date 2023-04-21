@@ -114,10 +114,7 @@ describe("bundesIdent desktop flow", () => {
     cy.contains("div", "Verstanden & weiter").click();
 
     // THEN I see first destktop guide with 3 steps
-    cy.contains(
-      "h1",
-      "Identifizieren Sie sich in wenigen Minuten mit Ihrem Ausweis"
-    );
+    cy.contains("h1", "Melden Sie sich bei Grundsteuer auf dem Smartphone an");
     cy.get(".enumerate-card").should("have.length", 3);
     cy.contains("a", "Weiter").click();
 
@@ -154,10 +151,7 @@ describe("bundesIdent desktop flow", () => {
     cy.contains("a", "Verstanden & weiter").click();
 
     // THEN I see first destktop guide with 3 steps
-    cy.contains(
-      "h1",
-      "Identifizieren Sie sich in wenigen Minuten mit Ihrem Ausweis"
-    );
+    cy.contains("h1", "Melden Sie sich bei Grundsteuer auf dem Smartphone an");
     cy.get(".enumerate-card").should("have.length", 3);
     cy.contains("a", "Weiter").click();
 
