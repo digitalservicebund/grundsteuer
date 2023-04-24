@@ -76,7 +76,7 @@
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
     "node-cron": "^3.0.2",
-    "nunjucks": "^3.2.3",
+    "nunjucks": "^3.2.4",
     "plausible-tracker": "^0.3.8",
     "react": "^17.0.2",
     "react-device-detect": "^2.2.2",
