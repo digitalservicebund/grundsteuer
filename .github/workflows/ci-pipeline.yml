@@ -240,7 +240,7 @@ jobs:
           npx --package @sentry/cli --yes sentry-cli releases deploys --org digitalservice --project grundsteuer ${{ github.sha }} new -e staging
 
       - name: Report Deployment
-        uses: digitalservicebund/github-actions/track-deployment@b51920b9fdeeb0c8721c210853aee955bd7cefc0
+        uses: digitalservicebund/github-actions/track-deployment@34a48d29a9c4cc2fd6710b8eb37e13618a08fa88
         with:
           project: grundsteuer
           environment: staging
