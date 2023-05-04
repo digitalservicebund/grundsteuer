@@ -54,12 +54,12 @@ function usage() {
   );
 }
 
-async function main() {
+function main() {
   const args = process.argv.slice(2);
   if (args.length < 2) {
     usage();
   } else {
-    await decryptLogs(args[0], args[1], args[2] || "all");
+    decryptLogs(args[0], args[1], args[2] || "all");
   }
 }
 
