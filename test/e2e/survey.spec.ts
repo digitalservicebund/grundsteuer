@@ -11,29 +11,18 @@ describe("Survey feedback", () => {
       cy.login();
     });
 
-    it("should show survey page once on the BundesIdent success identification page", () => {
-      cy.visit("/bundesIdent/erfolgreich");
-      cy.contains("div", "Weiter zum Formular").click();
-      cy.url().should("include", "/bundesIdent/survey/success");
+    describe("and in desktop", () => {
+      it("should not show survey page once on the BundesIdent success identification page", () => {
+        cy.visit("/bundesIdent/erfolgreich");
+        cy.contains("div", "Weiter").click();
+        cy.url().should("include", "/formular/welcome");
+      });
 
-      cy.visit("/bundesIdent/erfolgreich");
-      cy.contains("div", "Weiter zum Formular").click();
-      cy.url().should("include", "/formular/welcome");
-    });
-
-    it("should redirect user to formular page after submitting the survey", () => {
-      cy.visit("/bundesIdent/erfolgreich");
-      cy.contains("div", "Weiter zum Formular").click();
-      cy.url().should("include", "/bundesIdent/survey/success");
-      cy.get('[data-testid="survey-success-textarea"]').type("nice feedback");
-      cy.contains("button", "Übernehmen & weiter").click();
-      cy.url().should("include", "/formular/welcome");
-    });
-
-    it("should not show survey page once on the generic success identification page", () => {
-      cy.visit("/identifikation/erfolgreich");
-      cy.contains("div", "Weiter zum Formular").click();
-      cy.url().should("include", "/formular");
+      it("should not show survey page once on the generic success identification page", () => {
+        cy.visit("/identifikation/erfolgreich");
+        cy.contains("div", "Weiter zum Formular").click();
+        cy.url().should("include", "/formular");
+      });
     });
   });
 

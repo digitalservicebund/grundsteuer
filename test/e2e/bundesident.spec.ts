@@ -177,7 +177,7 @@ describe("bundesIdent desktop flow", () => {
     cy.contains("button", "Weiter").click();
 
     cy.url().should("include", "/bundesIdent/erfolgreich");
-    cy.contains("li", "Weiter");
+    cy.contains("a", "Weiter");
   });
 });
 

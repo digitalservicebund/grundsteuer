@@ -16,42 +16,39 @@ type IdentificationSuccessProps = {
   children?: ReactNode;
   identificationType?: string;
   hasSurveyShown?: boolean;
-};
-
-const renderAdditionalHint = (identificationType?: string) => {
-  if (identificationType === "bundesIdent") {
-    return (
-      <li>
-        Falls Sie die Grundsteuererklärung auf dem Computer angefangen haben,
-        können Sie jetzt zurückkehren. Klicken Sie am Computer auf »Weiter«.
-      </li>
-    );
-  }
+  isMobile?: boolean;
 };
 
 const renderContinueButton = (
   backButton: BackButton,
   hasSurveyShown?: boolean,
-  identificationType?: string
+  isMobile?: boolean
 ) => {
   const classes = "mt-80";
-  const isBundesIdentIdentification = identificationType === "bundesIdent";
 
-  if (backButton === "summary")
+  if (backButton === "summary") {
     return (
       <Button to="/formular/zusammenfassung" className={classes}>
         Zur Übersicht
       </Button>
     );
+  }
+
+  if (isMobile) {
+    return (
+      <Button
+        to={
+          hasSurveyShown ? "/formular/welcome" : "/bundesIdent/survey/success"
+        }
+        className={classes}
+      >
+        Weiter
+      </Button>
+    );
+  }
+
   return (
-    <Button
-      to={
-        !hasSurveyShown && isBundesIdentIdentification
-          ? "/bundesIdent/survey/success"
-          : "/formular"
-      }
-      className={classes}
-    >
+    <Button to="/formular/welcome" className={classes}>
       Weiter zum Formular
     </Button>
   );
@@ -82,14 +79,13 @@ export default function IdentificationSuccess(
               Eine parallele Bearbeitung von mehreren Erklärungen ist nicht
               möglich. Sie geben die Erklärungen nacheinander ab.
             </li>
-            {renderAdditionalHint(props.identificationType)}
           </ul>
         </div>
         {props.children}
         {renderContinueButton(
           props.backButton,
           props.hasSurveyShown,
-          props.identificationType
+          props.isMobile
         )}
       </UebersichtStep>
     </ContentContainer>

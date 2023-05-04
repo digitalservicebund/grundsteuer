@@ -19,9 +19,9 @@ import { authenticator } from "~/auth.server";
 import { createSurvey } from "~/domain/survey";
 import { commitSession, getSession } from "~/session.server";
 
-const SURVEY = "survey";
+const SURVEY_ID = "survey";
 const SURVEY_CATEGORY = "success";
-const FORMULAR_PATH = "/formular/welcome";
+const DEVICE_QUESTIONAIRE = "/bundesIdent/device";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const sessionUser = await authenticator.isAuthenticated(request, {
@@ -43,7 +43,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  const userSurvey = formData.get(SURVEY);
+  const userSurvey = formData.get(SURVEY_ID);
 
   invariant(
     typeof userSurvey === "string",
@@ -51,11 +51,11 @@ export const action: ActionFunction = async ({ request }) => {
   );
 
   if (isEmpty(userSurvey)) {
-    return redirect(FORMULAR_PATH);
+    return redirect(DEVICE_QUESTIONAIRE);
   }
 
   await createSurvey("success", userSurvey);
-  return redirect(FORMULAR_PATH);
+  return redirect(DEVICE_QUESTIONAIRE);
 };
 
 export default function SurveySuccess() {
@@ -78,15 +78,15 @@ export default function SurveySuccess() {
       <Form method="post">
         <fieldset disabled={isSubmitting}>
           <div className="mb-32">
-            <label htmlFor={SURVEY} className="block mb-4 text-gray-900">
+            <label htmlFor={SURVEY_ID} className="block mb-4 text-gray-900">
               Feedback (max. Zeichen 900)
             </label>
             <Textarea
               className="h-[110px]"
               maxLength={900}
-              name={SURVEY}
+              name={SURVEY_ID}
               placeholder="Feedback"
-              data-testid={`${SURVEY}-${SURVEY_CATEGORY}-textarea`}
+              data-testid={`${SURVEY_ID}-${SURVEY_CATEGORY}-textarea`}
             />
           </div>
           <ButtonContainer className="lg:max-w-[392px]">
@@ -96,7 +96,7 @@ export default function SurveySuccess() {
             <Button
               className="w-full lg:max-w-[152px]"
               look="tertiary"
-              to={FORMULAR_PATH}
+              to={DEVICE_QUESTIONAIRE}
             >
               Überspringen
             </Button>
