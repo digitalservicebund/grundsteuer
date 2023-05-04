@@ -40,7 +40,7 @@ const sendEmail: SendEmailFunction<SessionUser> = async ({
 }) => {
   // TODO: use "form" to distinguish login and register
   const mail = createLoginMail({ magicLink, to: emailAddress });
-  storeMessageId(await sendMail(mail));
+  await storeMessageId(await sendMail(mail));
 };
 
 authenticator.use(

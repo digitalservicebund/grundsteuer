@@ -11,12 +11,12 @@ function usage() {
   );
 }
 
-function main() {
+async function main() {
   const args = process.argv.slice(2);
   if (args.length < 3) {
     usage();
   } else {
-    reEncrypt(args[0], args[1], args[2] || OUTPUT_FILE);
+    await reEncrypt(args[0], args[1], args[2] || OUTPUT_FILE);
   }
 }
 

@@ -45,14 +45,14 @@ function usage() {
   );
 }
 
-function main() {
+async function main() {
   const args = process.argv.slice(2);
   if (args.length < 3) {
     usage();
   } else if (args.length == 4 && args[3] == "v2") {
-    exportAuditLogs(args[0], args[1], args[2]);
+    await exportAuditLogs(args[0], args[1], args[2]);
   } else {
-    exportAuditLogsFromAuditLogV1(args[0], args[1], args[2]);
+    await exportAuditLogsFromAuditLogV1(args[0], args[1], args[2]);
   }
 }
 
