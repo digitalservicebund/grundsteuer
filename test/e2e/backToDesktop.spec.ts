@@ -37,7 +37,13 @@ describe("Back to Desktop", () => {
         );
         cy.get(`label[for=startAnswer-startDesktop]`).click();
         cy.contains("div", "Übernehmen & weiter").click();
-        cy.url().should("include", "/formular");
+        cy.url().should("include", "/bundesIdent/backtodesktop");
+        cy.contains(
+          "h1",
+          "Klicken Sie am Computer bzw. Tablet auf »Weiter«, um fortzufahren"
+        );
+        cy.contains("div", "Zurück").click();
+        cy.url().should("include", "/bundesIdent/device");
       });
     });
 
@@ -57,9 +63,7 @@ describe("Back to Desktop", () => {
         );
         cy.get(`label[for=startAnswer-startMobile]`).click();
         cy.contains("div", "Übernehmen & weiter").click();
-        cy.url().should("include", "/bundesIdent/backtodesktop");
-        cy.contains("div", "Zurück").click();
-        cy.contains("h1", "Sie haben sich erfolgreich identifiziert.");
+        cy.url().should("include", "/formular");
       });
     });
 

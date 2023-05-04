@@ -42,11 +42,11 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const userAnswer = formData.get("startAnswer");
 
-  if (userAnswer === "startMobile") {
+  if (userAnswer === "startDesktop") {
     return redirect("/bundesIdent/backtodesktop");
   }
 
-  if (userAnswer === "startDesktop") {
+  if (userAnswer === "startMobile") {
     return redirect("/formular/welcome");
   }
 
@@ -100,13 +100,6 @@ export default function Device() {
           <ButtonContainer className="mt-32 max-w-[520px] lg:max-w-[342px]">
             <Button className="w-full lg:max-w-[216px]" look="primary">
               Übernehmen & weiter
-            </Button>
-            <Button
-              className="w-full lg:max-w-[102px]"
-              look="secondary"
-              to="/bundesIdent/erfolgreich"
-            >
-              Zurück
             </Button>
           </ButtonContainer>
         </Form>

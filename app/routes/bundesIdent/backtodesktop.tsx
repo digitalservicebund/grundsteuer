@@ -49,7 +49,7 @@ export default function BackToDesktop() {
         <Button
           className="w-full lg:max-w-[102px]"
           look="secondary"
-          to="/bundesIdent/erfolgreich"
+          to="/bundesIdent/device"
         >
           Zurück
         </Button>

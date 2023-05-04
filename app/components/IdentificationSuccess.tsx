@@ -22,9 +22,11 @@ type IdentificationSuccessProps = {
 const renderContinueButton = (
   backButton: BackButton,
   hasSurveyShown?: boolean,
+  identificationType?: string,
   isMobile?: boolean
 ) => {
   const classes = "mt-80";
+  const isBundesIdentSuccessPage = identificationType === "bundesIdent";
 
   if (backButton === "summary") {
     return (
@@ -34,7 +36,7 @@ const renderContinueButton = (
     );
   }
 
-  if (isMobile) {
+  if (isMobile && isBundesIdentSuccessPage) {
     return (
       <Button
         to={
@@ -42,6 +44,14 @@ const renderContinueButton = (
         }
         className={classes}
       >
+        Weiter
+      </Button>
+    );
+  }
+
+  if (!isMobile && isBundesIdentSuccessPage) {
+    return (
+      <Button to="/formular/welcome" className={classes}>
         Weiter
       </Button>
     );
@@ -85,6 +95,7 @@ export default function IdentificationSuccess(
         {renderContinueButton(
           props.backButton,
           props.hasSurveyShown,
+          props.identificationType,
           props.isMobile
         )}
       </UebersichtStep>
