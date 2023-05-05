@@ -66,13 +66,13 @@ export default function SurveySuccess() {
     <ContentContainer size="sm-md">
       <BreadcrumbNavigation />
       <Headline>
-        Was sollte an der Identifikation mit dem Ausweis verbessert werden?
+        Wieso war die Identifikation nicht super? An welcher Stelle hatten Sie
+        bei der Identifikation Schwierigkeiten?
       </Headline>
       <div className="mb-24">
         <p className="text-18 leading-26">
-          Ihr Feedback hilft uns, das Produkt zu verbessern. Bitte geben Sie
-          keine personenbezogenen Daten wie zum Beispiel Name oder
-          E‑Mail-Adresse ein.
+          Ihr Feedback hilft uns, das Produkt zu verbessern. Geben Sie nicht
+          Ihren Namen und auch nicht Ihre E‑Mail-Adresse ein.
         </p>
       </div>
       <Form method="post">

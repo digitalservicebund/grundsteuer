@@ -15,13 +15,13 @@ type IdentificationSuccessProps = {
   backButton: BackButton;
   children?: ReactNode;
   identificationType?: string;
-  hasSurveyShown?: boolean;
+  hasRatingPageShown?: boolean;
   isMobile?: boolean;
 };
 
 const renderContinueButton = (
   backButton: BackButton,
-  hasSurveyShown?: boolean,
+  hasRatingPageShown?: boolean,
   identificationType?: string,
   isMobile?: boolean
 ) => {
@@ -39,9 +39,7 @@ const renderContinueButton = (
   if (isMobile && isBundesIdentSuccessPage) {
     return (
       <Button
-        to={
-          hasSurveyShown ? "/formular/welcome" : "/bundesIdent/survey/success"
-        }
+        to={hasRatingPageShown ? "/formular/welcome" : "/bundesIdent/rating"}
         className={classes}
       >
         Weiter
@@ -94,7 +92,7 @@ export default function IdentificationSuccess(
         {props.children}
         {renderContinueButton(
           props.backButton,
-          props.hasSurveyShown,
+          props.hasRatingPageShown,
           props.identificationType,
           props.isMobile
         )}

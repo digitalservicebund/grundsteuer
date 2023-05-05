@@ -24,23 +24,23 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 
   const session = await getSession(request.headers.get("Cookie"));
-  const hasSurveyShown = Boolean(session.get("hasSurveyShown"));
-  session.set("hasSurveyShown", hasSurveyShown);
+  const hasRatingPageShown = Boolean(session.get("hasRatingPageShown"));
+  session.set("hasRatingPageShown", hasRatingPageShown);
 
   return {
-    hasSurveyShown,
+    hasRatingPageShown,
     isMobile: isMobileUserAgent(request),
   };
 };
 
 export default function BundesIdentErfolgreich() {
-  const { hasSurveyShown, isMobile } = useLoaderData();
+  const { hasRatingPageShown, isMobile } = useLoaderData();
 
   return (
     <IdentificationSuccess
       backButton="start"
       identificationType="bundesIdent"
-      hasSurveyShown={hasSurveyShown}
+      hasRatingPageShown={hasRatingPageShown}
       isMobile={isMobile}
     ></IdentificationSuccess>
   );
