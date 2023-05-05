@@ -97,10 +97,12 @@ export default function Device() {
               error={error && "Bitte treffen Sie eine Auswahl"}
             />
           </FormGroup>
-          <ButtonContainer className="mt-32 max-w-[520px] lg:max-w-[342px]">
-            <Button className="w-full lg:max-w-[216px]" look="primary">
-              Übernehmen & weiter
-            </Button>
+          <ButtonContainer className="mt-32">
+            <div className="justify-start">
+              <Button className="w-full lg:max-w-[216px]" look="primary">
+                Übernehmen & weiter
+              </Button>
+            </div>
           </ButtonContainer>
         </Form>
       </div>
