@@ -29,7 +29,7 @@ const handleAppStoreBewertenButton = () => {
   }
 
   if (isMobile && isIOS) {
-    window.open(iOSAppStoreUrl, "_blank");
+    window.open(iOSAppStoreUrl, "_blank", "noopener");
   }
 };
 
