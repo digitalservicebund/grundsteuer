@@ -25,7 +25,7 @@ const handleAppStoreBewertenButton = () => {
     "https://play.google.com/store/apps/details?id=de.digitalService.useID";
 
   if (isMobile && isAndroid) {
-    window.open(AndroidPlayStoreUrl, "_blank");
+    window.open(AndroidPlayStoreUrl, "_blank", "noopener");
   }
 
   if (isMobile && isIOS) {
