@@ -1,6 +1,12 @@
 /// <reference types="../../cypress/support" />
 
 describe("Primary option page", () => {
+  beforeEach(() => {
+    cy.task("setUserUnidentified", {
+      email: "foo@bar.com",
+    });
+  });
+
   it("should show primary option page once", () => {
     cy.login();
     // WHEN I successfully login
