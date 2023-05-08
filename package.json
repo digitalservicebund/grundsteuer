@@ -47,9 +47,9 @@
   "dependencies": {
     "@node-saml/node-saml": "^4.0.4",
     "@prisma/client": "^4.13.0",
-    "@remix-run/express": "^1.15.0",
-    "@remix-run/node": "^1.15.0",
-    "@remix-run/react": "^1.15.0",
+    "@remix-run/express": "^1.16.0",
+    "@remix-run/node": "^1.16.0",
+    "@remix-run/react": "^1.16.0",
     "@sentry/remix": "^7.50.0",
     "@tailwindcss/typography": "^0.5.9",
     "@xstate/graph": "^1.4.2",
@@ -96,8 +96,8 @@
     "xstate": "^4.37.0"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.15.0",
-    "@remix-run/eslint-config": "^1.15.0",
+    "@remix-run/dev": "^1.16.0",
+    "@remix-run/eslint-config": "^1.16.0",
     "@testing-library/dom": "^9.2.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
