@@ -63,11 +63,7 @@ export default function BackToDesktop() {
           Wir freuen uns über Ihre Bewertung im App bzw. Play Store
         </Headline>
         <div className="flex justify-center mb-12 bg-blue-200 rounded-lg">
-          <img
-            src={appReviewImage}
-            className="max-h-[256px]"
-            alt="Drei kompatible Ausweise: Deutscher Personalausweis, elektronischer Aufenthaltstitel und eID‑Karte für Bürgerinnen und Bürger der Europäischen Union und des europäischen Wirtschaftsraums."
-          />
+          <img src={appReviewImage} className="max-h-[256px]" alt="" />
         </div>
       </div>
       <div className="mt-32">
