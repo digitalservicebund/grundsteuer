@@ -24,7 +24,7 @@ export const createEkonaSession = () => {
 
 export const getEkonaSession = (cookieHeader: string | null) => {
   return sessionStorage.getSession(cookieHeader, {
-    decode: (ciphertext) => {
+    decode: (ciphertext: string) => {
       return decryptCookie(Buffer.from(ciphertext, COOKIE_ENCODING));
     },
   });
@@ -32,7 +32,7 @@ export const getEkonaSession = (cookieHeader: string | null) => {
 
 export const commitEkonaSession = (session: Session) => {
   return sessionStorage.commitSession(session, {
-    encode: (plaintext) => {
+    encode: (plaintext: string) => {
       return encryptCookie(plaintext);
     },
   });
