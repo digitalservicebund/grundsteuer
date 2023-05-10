@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@node-saml/node-saml": "^4.0.4",
-    "@prisma/client": "^4.13.0",
+    "@prisma/client": "^4.14.0",
     "@remix-run/express": "^1.16.0",
     "@remix-run/node": "^1.16.0",
     "@remix-run/react": "^1.16.0",
