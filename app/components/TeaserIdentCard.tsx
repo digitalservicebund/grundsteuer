@@ -1,8 +1,13 @@
 import ClockIcon from "~/assets/images/icon_clock.svg";
 import classNames from "classnames";
 import { ContentContainer } from "~/components/index";
+import { ReactNode } from "react";
 
-export default function TeaserIdentCard(props: { className?: string }) {
+export default function TeaserIdentCard(props: {
+  children: ReactNode;
+  headline?: string;
+  className?: string;
+}) {
   return (
     <div
       className={classNames(
@@ -14,11 +19,11 @@ export default function TeaserIdentCard(props: { className?: string }) {
         <img
           src={ClockIcon}
           alt={"Weißer Wecker mit blauem Display"}
-          className="h-[42px] lg:flex mr-16 lg:mr-36 lg:h-auto lg:w-full"
+          className="h-[42px] lg:flex mr-16 lg:mr-36 lg:h-[60px] lg:w-full"
         />
         <div className="flex items-center">
           <p className="text-18 lg:hidden inline-block align-middle">
-            <strong>Abgabefrist ist der 31.01.2023.</strong>
+            <strong>{props.headline}</strong>
           </p>
         </div>
       </div>
@@ -26,14 +31,7 @@ export default function TeaserIdentCard(props: { className?: string }) {
       <div className="lg:flex lg:flex-col">
         <ContentContainer size="sm-md">
           <div className="mt-16 lg:mt-0">
-            <p className="mb-24 lg:mb-8 text-18">
-              <strong className="hidden lg:inline">
-                Abgabefrist ist der 31.01.2023.
-              </strong>{" "}
-              Bei Option Freischaltcode: Denken Sie daran, den Freischaltcode
-              rechtzeitig zu beantragen. Der Versand mit der Post kann einige
-              Wochen dauern.
-            </p>
+            <p className="mb-24 lg:mb-8 text-18">{props.children}</p>
           </div>
         </ContentContainer>
       </div>
