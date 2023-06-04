@@ -21,10 +21,7 @@ describe("Rating Flow", () => {
           },
         });
         cy.contains("div", "Weiter").click();
-        cy.url().should("include", "/bundesIdent/rating");
-        cy.get(`label[for=satisfactionAnswer-answerHard]`).click();
-        cy.contains("div", "Übernehmen & weiter").click();
-        cy.url().should("include", "/bundesIdent/survey/success");
+        cy.url().should("include", "/formular/welcome");
       });
     });
     describe("with an answer 'Super'", () => {
@@ -35,10 +32,7 @@ describe("Rating Flow", () => {
           },
         });
         cy.contains("div", "Weiter").click();
-        cy.url().should("include", "/bundesIdent/rating");
-        cy.get(`label[for=satisfactionAnswer-answerHard]`).click();
-        cy.contains("div", "Übernehmen & weiter").click();
-        cy.url().should("include", "/bundesIdent/survey/success");
+        cy.url().should("include", "/formular/welcome");
       });
     });
     describe("with no answer", () => {
@@ -49,10 +43,7 @@ describe("Rating Flow", () => {
           },
         });
         cy.contains("div", "Weiter").click();
-        cy.url().should("include", "/bundesIdent/rating");
-        cy.contains("div", "Übernehmen & weiter").click();
-        cy.contains("div", "Es ist ein Fehler aufgetreten.");
-        cy.contains("div", "Bitte treffen Sie eine Auswahl");
+        cy.url().should("include", "/formular/welcome");
       });
     });
     describe("and users skip the page", () => {
@@ -63,9 +54,7 @@ describe("Rating Flow", () => {
           },
         });
         cy.contains("div", "Weiter").click();
-        cy.url().should("include", "/bundesIdent/rating");
-        cy.contains("div", "Überspringen").click();
-        cy.url().should("include", "/bundesIdent/device");
+        cy.url().should("include", "/formular/welcome");
       });
     });
   });
