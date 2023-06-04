@@ -3,7 +3,7 @@ import { Session } from "@remix-run/node";
 import { SessionCacheProvider } from "~/ekona/SessionCacheProvider";
 import { ValidateInResponseTo } from "@node-saml/node-saml/lib/types";
 
-export function getSamlConfig(session: Session, useAlternativeKey = false) {
+function getSamlConfig(session: Session) {
   const samlOptions: SamlConfig = {
     issuer: process.env.EKONA_ISSUER as string,
     cert: process.env.EKONA_IDP_CERT as string,
@@ -13,9 +13,7 @@ export function getSamlConfig(session: Session, useAlternativeKey = false) {
     signatureAlgorithm: "sha256",
     digestAlgorithm: "sha256",
     signMetadata: true,
-    decryptionPvk: useAlternativeKey
-      ? process.env.ALTERNATIVE_EKONA_ENC_KEY
-      : process.env.EKONA_ENC_KEY,
+    decryptionPvk: process.env.EKONA_ENC_KEY,
     privateKey: process.env.EKONA_SIGNING_KEY,
     forceAuthn: true,
     wantAssertionsSigned: false,
@@ -39,19 +37,5 @@ export const validateSamlResponse = async (
 ) => {
   const samlOptions = getSamlConfig(session);
   const saml = new SAML(samlOptions);
-  let validatedResponse;
-  try {
-    validatedResponse = saml.validatePostResponseAsync({
-      SAMLResponse: response,
-    });
-  } catch (exception) {
-    const samlOptionsForRetryWithDifferentKey = getSamlConfig(session, true);
-    const samlForRetryWithDifferentKey = new SAML(
-      samlOptionsForRetryWithDifferentKey
-    );
-    validatedResponse = samlForRetryWithDifferentKey.validatePostResponseAsync({
-      SAMLResponse: response,
-    });
-  }
-  return validatedResponse;
+  return saml.validatePostResponseAsync({ SAMLResponse: response });
 };
