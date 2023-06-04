@@ -58,7 +58,6 @@ import { flags } from "~/flags.server";
 import { throwErrorIfRateLimitReached } from "~/redis/rateLimiting.server";
 import { hasValidOpenFscRequest } from "~/domain/identificationStatus";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
-import { getBundesIdentUrl } from "~/routes/bundesIdent/_bundesIdentUrl";
 
 const isEricaRequestInProgress = async (userData: User) => {
   return Boolean(userData.ericaRequestIdFscBeantragen);
@@ -209,7 +208,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
       showSpinner: ericaRequestInProgress,
       csrfToken,
       ericaDown: flags.isEricaDown(),
-      bundesIdentUrl: getBundesIdentUrl(request),
+      bundesIdentUrl: "/bundesIdent/voraussetzung",
     },
     {
       headers: { "Set-Cookie": await commitSession(session) },

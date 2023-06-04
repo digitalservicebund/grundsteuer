@@ -49,9 +49,9 @@ describe("Zusammenfassung route", () => {
         cy.contains("Sie haben sich noch nicht identifiziert.");
       });
 
-      it("should contain link and go to /bundesident/primaryoption page on click", () => {
+      it("should contain link and go to identification overview page on click", () => {
         cy.contains("a", "Zum Bereich Identifikation").click();
-        cy.url().should("include", "/bundesIdent/primaryoption");
+        cy.url().should("include", "/identifikation");
       });
 
       it("should have a disabled submit button", () => {

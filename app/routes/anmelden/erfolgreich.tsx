@@ -62,19 +62,14 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   return {
     email: sessionUser.email,
-    isUserIdentified: sessionUser.identified,
     nextStepUrl: getNextStepUrl(user),
     fscStepUrl: getFscStepUrl(user),
     flags: flags.getAllFlags(),
   };
 };
 export default function ErfolgreichAngemeldet() {
-  const { email, nextStepUrl, isUserIdentified, fscStepUrl, flags } =
-    useLoaderData();
+  const { email, nextStepUrl, fscStepUrl, flags } = useLoaderData();
   const location = useLocation();
-
-  const bundesIdentIsOffline =
-    flags.bundesIdentDisabled || flags.bundesIdentDown;
 
   return (
     <UserLayout email={email} flags={flags} path={location.pathname}>
@@ -104,11 +99,7 @@ export default function ErfolgreichAngemeldet() {
           )}
           <Button
             data-testid="continue"
-            to={
-              bundesIdentIsOffline || isUserIdentified || fscStepUrl
-                ? nextStepUrl
-                : "/bundesIdent/primaryoption"
-            }
+            to={nextStepUrl}
             className="min-w-[18rem]"
           >
             Verstanden & weiter

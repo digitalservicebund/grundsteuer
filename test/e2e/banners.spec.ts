@@ -30,9 +30,6 @@ describe("error banners", () => {
       cy.login();
       cy.visit("/identifikation");
 
-      cy.url().should("include", "/bundesIdent/primaryoption");
-      cy.contains("a", "Alle Identifikationsoptionen").click();
-
       cy.url().should("include", "/identifikation");
       cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
 
@@ -94,9 +91,6 @@ describe("error banners", () => {
     it("should show banner and disable button on /identifikation", () => {
       cy.login();
       cy.visit("/identifikation");
-
-      cy.url().should("include", "/bundesIdent/primaryoption");
-      cy.contains("a", "Alle Identifikationsoptionen").click();
 
       cy.url().should("include", "/identifikation");
       cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
@@ -289,9 +283,6 @@ describe("error banners", () => {
       cy.login();
       cy.visit("/identifikation");
 
-      cy.url().should("include", "/bundesIdent/primaryoption");
-      cy.contains("a", "Alle Identifikationsoptionen").click();
-
       cy.url().should("include", "/identifikation");
       cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
 
@@ -336,9 +327,6 @@ describe("error banners", () => {
     it("should have no effect on /identifikation", () => {
       cy.login();
       cy.visit("/identifikation");
-
-      cy.url().should("include", "/bundesIdent/primaryoption");
-      cy.contains("a", "Alle Identifikationsoptionen").click();
 
       cy.url().should("include", "/identifikation");
       cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
@@ -385,9 +373,6 @@ describe("error banners", () => {
       cy.login();
       cy.visit("/identifikation");
 
-      cy.url().should("include", "/bundesIdent/primaryoption");
-      cy.contains("a", "Alle Identifikationsoptionen").click();
-
       cy.url().should("include", "/identifikation");
       cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
 
@@ -432,9 +417,6 @@ describe("error banners", () => {
     it("should show banner on /identifikation", () => {
       cy.login();
       cy.visit("/identifikation");
-
-      cy.url().should("include", "/bundesIdent/primaryoption");
-      cy.contains("a", "Alle Identifikationsoptionen").click();
 
       cy.url().should("include", "/identifikation");
       cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
@@ -497,12 +479,7 @@ describe("Deadline banner", () => {
       }
       cy.visit(path, { failOnStatusCode: false });
 
-      if (path.includes("identifikation")) {
-        cy.url().should("include", "bundesIdent/primaryoption");
-        cy.contains("a", "Alle Identifikationsoptionen").click();
-      } else {
-        cy.url().should("include", path);
-      }
+      cy.url().should("include", path);
 
       cy.get("[data-testid=deadline-banner]").should("not.exist");
     });

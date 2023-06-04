@@ -14,7 +14,6 @@ import LinkWithArrow from "~/components/LinkWithArrow";
 import EnumeratedList from "~/components/EnumeratedList";
 import { canEnterFsc } from "~/domain/identificationStatus";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
-import { getBundesIdentUrl } from "~/routes/bundesIdent/_bundesIdentUrl";
 import { flags } from "~/flags.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -30,7 +29,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   return json({
     ...new FscRequest(dbUser.fscRequest!).getAntragStatus(),
-    bundesIdentUrl: getBundesIdentUrl(request),
+    bundesIdentUrl: "/bundesIdent/voraussetzung",
     bundesIdentDisabled: flags.isBundesIdentDisabled(),
     bundesIdentDown: flags.isBundesIdentDown(),
   });
