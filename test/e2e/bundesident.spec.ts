@@ -68,6 +68,7 @@ describe("bundesIdent flow", () => {
       "Identifizieren Sie sich mit Ihrem Ausweis und der BundesIdent App"
     );
     cy.contains("a", "Zurück zur Voraussetzung").click();
+    cy.url().should("include", "/bundesIdent/voraussetzung");
     cy.contains("a", "Zurück").click();
     cy.contains("h1", "Mit welcher Option möchten Sie sich identifizieren?");
   });
