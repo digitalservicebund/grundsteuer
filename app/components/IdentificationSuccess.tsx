@@ -14,38 +14,15 @@ type BackButton = "start" | "summary";
 type IdentificationSuccessProps = {
   backButton: BackButton;
   children?: ReactNode;
-  identificationType?: string;
-  isMobile?: boolean;
 };
 
-const renderContinueButton = (
-  backButton: BackButton,
-  identificationType?: string,
-  isMobile?: boolean
-) => {
+const renderContinueButton = (backButton: BackButton) => {
   const classes = "mt-80";
-  const isBundesIdentSuccessPage = identificationType === "bundesIdent";
 
   if (backButton === "summary") {
     return (
       <Button to="/formular/zusammenfassung" className={classes}>
         Zur Übersicht
-      </Button>
-    );
-  }
-
-  if (isMobile && isBundesIdentSuccessPage) {
-    return (
-      <Button to={"/formular/welcome"} className={classes}>
-        Weiter
-      </Button>
-    );
-  }
-
-  if (!isMobile && isBundesIdentSuccessPage) {
-    return (
-      <Button to="/formular/welcome" className={classes}>
-        Weiter
       </Button>
     );
   }
@@ -85,11 +62,7 @@ export default function IdentificationSuccess(
           </ul>
         </div>
         {props.children}
-        {renderContinueButton(
-          props.backButton,
-          props.identificationType,
-          props.isMobile
-        )}
+        {renderContinueButton(props.backButton)}
       </UebersichtStep>
     </ContentContainer>
   );

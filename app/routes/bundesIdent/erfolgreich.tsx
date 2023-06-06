@@ -21,20 +21,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (!dbUser.identified) {
     return redirect("/identifikation");
   }
-
-  return {
-    isMobile: isMobileUserAgent(request),
-  };
 };
 
 export default function BundesIdentErfolgreich() {
-  const { isMobile } = useLoaderData();
-
-  return (
-    <IdentificationSuccess
-      backButton="start"
-      identificationType="bundesIdent"
-      isMobile={isMobile}
-    />
-  );
+  return <IdentificationSuccess backButton="start" />;
 }
