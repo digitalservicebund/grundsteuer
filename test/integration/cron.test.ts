@@ -2,7 +2,6 @@ import {
   deleteExpiredAccounts,
   deleteExpiredPdfs,
   deleteExpiredTransfertickets,
-  deleteOutdatedSurveyResults,
 } from "~/cron.server";
 import { db } from "~/db.server";
 import * as freischaltCodeStornierenModule from "~/erica/freischaltCodeStornieren";
@@ -57,47 +56,6 @@ describe("Cron jobs", () => {
 
       expect(afterRows.length).toEqual(1);
       expect(afterRows[0].data).toEqual(Buffer.from("under24HoursOld"));
-    });
-  });
-
-  describe("deleteOutdatedSurveyResults", () => {
-    beforeAll(async () => {
-      await db.survey.create({
-        data: {
-          category: "success",
-          content: "over24HoursOld",
-          createdAt: new Date(
-            // 24 hours ago
-            new Date(Date.now() - 24 * 60 * 60 * 1000)
-          ),
-        },
-      });
-      await db.survey.create({
-        data: {
-          category: "success",
-          content: "under24HoursOld",
-          createdAt: new Date(
-            // 23 hours and 59 minutes ago
-            new Date(Date.now() - 24 * 60 * 60 * 1000 + 60 * 1000)
-          ),
-        },
-      });
-    });
-
-    afterAll(async () => {
-      await db.survey.deleteMany({});
-    });
-
-    it("should delete surveys over 24 hours old", async () => {
-      const beforeRows = await db.survey.findMany();
-      expect(beforeRows.length).toEqual(2);
-
-      await deleteOutdatedSurveyResults();
-
-      const afterRows = await db.survey.findMany();
-
-      expect(afterRows.length).toEqual(1);
-      expect(afterRows[0].content).toEqual("under24HoursOld");
     });
   });
 
