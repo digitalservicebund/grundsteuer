@@ -21,6 +21,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (!dbUser.identified) {
     return redirect("/identifikation");
   }
+
+  return {};
 };
 
 export default function BundesIdentErfolgreich() {
