@@ -10,7 +10,6 @@ import {
 } from "~/components";
 import pinbriefImage from "~/assets/images/pinbrief.png";
 import { isMobileUserAgent } from "~/util/isMobileUserAgent";
-import { getSession } from "~/session.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Identifikation mit Ausweis") };
@@ -24,18 +23,13 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/identifikation/erfolgreich");
   }
 
-  const session = await getSession(request.headers.get("Cookie"));
-  const hasSurveyShown = Boolean(session.get("hasSurveyShown"));
-  session.set("hasSurveyShown", hasSurveyShown);
-
   return {
     isMobile: isMobileUserAgent(request),
-    hasSurveyShown,
   };
 };
 
 export default function BundesIdentVoraussetzung() {
-  const { isMobile, hasSurveyShown } = useLoaderData();
+  const { isMobile } = useLoaderData();
   return (
     <ContentContainer size="sm-md">
       <div>
@@ -72,11 +66,7 @@ export default function BundesIdentVoraussetzung() {
           <Button
             className="w-full lg:max-w-[138px]"
             look="secondary"
-            to={
-              hasSurveyShown
-                ? "/identifikation?origin=back"
-                : "/bundesIdent/survey/dropout"
-            }
+            to={"/identifikation?origin=back"}
           >
             Zurück
           </Button>

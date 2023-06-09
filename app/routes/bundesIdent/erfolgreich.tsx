@@ -6,7 +6,6 @@ import { authenticator } from "~/auth.server";
 import IdentificationSuccess from "~/components/IdentificationSuccess";
 import { findUserByEmail } from "~/domain/user";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
-import { getSession } from "~/session.server";
 
 export const meta: MetaFunction = () => {
   return { title: pageTitle("Erfolgreich identifiziert") };
@@ -23,25 +22,9 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/identifikation");
   }
 
-  const session = await getSession(request.headers.get("Cookie"));
-  const hasRatingPageShown = Boolean(session.get("hasRatingPageShown"));
-  session.set("hasRatingPageShown", hasRatingPageShown);
-
-  return {
-    hasRatingPageShown,
-    isMobile: isMobileUserAgent(request),
-  };
+  return {};
 };
 
 export default function BundesIdentErfolgreich() {
-  const { hasRatingPageShown, isMobile } = useLoaderData();
-
-  return (
-    <IdentificationSuccess
-      backButton="start"
-      identificationType="bundesIdent"
-      hasRatingPageShown={hasRatingPageShown}
-      isMobile={isMobile}
-    ></IdentificationSuccess>
-  );
+  return <IdentificationSuccess backButton="start" />;
 }

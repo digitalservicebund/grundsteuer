@@ -60,7 +60,6 @@ import { FscRequest } from "~/domain/fscRequest";
 import LinkWithArrow from "~/components/LinkWithArrow";
 import EnumeratedList from "~/components/EnumeratedList";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
-import { getBundesIdentUrl } from "~/routes/bundesIdent/_bundesIdentUrl";
 
 type LoaderData = {
   csrfToken?: string;
@@ -181,7 +180,7 @@ export const loader: LoaderFunction = async ({
     return redirect("/fsc/eingeben/erfolgreich");
   }
 
-  const bundesIdentUrl = getBundesIdentUrl(request);
+  const bundesIdentUrl = "/bundesIdent/voraussetzung";
 
   if (ericaActivationRequestIsInProgress) {
     const fscActivationData = await handleFscActivationProgress(

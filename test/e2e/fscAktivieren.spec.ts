@@ -25,9 +25,9 @@ describe("/eingeben", () => {
   });
 
   describe("no FSC request", () => {
-    it("should redirect to /bundesIdent/primaryoption ", () => {
+    it("should redirect to identification overview ", () => {
       cy.visit("/fsc/eingeben");
-      cy.url().should("include", "/bundesIdent/primaryoption");
+      cy.url().should("include", "/identifikation");
     });
   });
 
@@ -126,10 +126,10 @@ describe("/eingeben", () => {
 
       cy.request("GET", Cypress.env("ERICA_URL") + "/triggerDirectResponse");
 
-      cy.task("getUser", "foo@bar.com").then((user) => {
+      cy.task("getUser", "foo@bar.com").then((user: any) => {
         expect(user[0].ericaRequestIdFscStornieren).not.to.be.undefined;
       });
-      cy.task("getUser", "foo@bar.com").then((user) => {
+      cy.task("getUser", "foo@bar.com").then((user: any) => {
         expect(user[0].identified).to.equal(true);
       });
 

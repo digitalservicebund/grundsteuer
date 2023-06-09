@@ -56,10 +56,3 @@ model AuditLogV2 {
   user      String
   data      String
 }
-
-model Survey {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  category  String
-  content   String
-}

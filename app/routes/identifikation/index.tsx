@@ -25,10 +25,7 @@ import { pageTitle } from "~/util/pageTitle";
 import { flags } from "~/flags.server";
 import { isMobileUserAgent } from "~/util/isMobileUserAgent";
 import TeaserIdentCard from "~/components/TeaserIdentCard";
-import {
-  canEnterFsc,
-  hasPrimaryOptionEligibility,
-} from "~/domain/identificationStatus";
+import { canEnterFsc } from "~/domain/identificationStatus";
 import { logoutDeletedUser } from "~/util/logoutDeletedUser";
 import LinkWithArrow from "~/components/LinkWithArrow";
 
@@ -49,19 +46,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const dbUser = await findUserByEmail(sessionUser.email);
   if (!dbUser) return logoutDeletedUser(request);
-
-  const bundesIdentIsOnline =
-    !flags.isBundesIdentDisabled() && !flags.isBundesIdentDown();
-
-  const shouldShowPrimaryOption = hasPrimaryOptionEligibility(
-    request.url,
-    bundesIdentIsOnline,
-    dbUser
-  );
-
-  if (shouldShowPrimaryOption) {
-    return redirect("/bundesIdent/primaryoption");
-  }
 
   if (dbUser.identified) {
     return redirect("/identifikation/erfolgreich");
