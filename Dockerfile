@@ -14,7 +14,7 @@ FROM node:16.20.0-alpine3.18
 RUN apk add --no-cache dumb-init curl && \
     rm -rf /var/cache/apk/* && \
     curl https://dbs-download.obs.otc.t-systems.com/rds/ca-bundle.pem -o /opt/rds-ca-bundle.pem
-
+RUN apk upgrade libssl3 libcrypto3
 USER node
 ENV NODE_ENV=production
 ARG COMMIT_SHA
