@@ -251,5 +251,3 @@ jobs:
         with:
           name: webapp-e2e-test-report.log
           path: webapp-e2e-test-report.log
-
-
