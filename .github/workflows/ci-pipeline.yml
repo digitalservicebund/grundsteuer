@@ -1,6 +1,12 @@
 name: CI
 
-on: push
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # Allow to run this workflow manually
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
@@ -354,3 +360,118 @@ jobs:
         with:
           name: webapp-long-e2e-test-report.log
           path: webapp-long-e2e-test-report.log
+
+  build-push-image:
+    needs: [build-app]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      security-events: write
+      packages: write
+      id-token: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build an image from Dockerfile
+        run: |
+          docker build -t ${{ env.IMAGE_NAME }}:${{ github.sha }} . --build-arg COMMIT_SHA=${{ github.sha }}
+          docker build -t ${{ env.IMAGE_NAME }}-migrate:${{ github.sha }} . --target build
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@e5f43133f6e8736992c9f3c1b3296e24b37e17f2
+        with:
+          image-ref: "${{ env.IMAGE_NAME }}:${{ github.sha }}"
+          format: "template"
+          template: "@/contrib/sarif.tpl"
+          output: "trivy-results.sarif"
+          ignore-unfixed: true
+          vuln-type: "os,library"
+          severity: "CRITICAL,HIGH"
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@81b419c908d540ec4c7da9bfb4b5d941fca8f624
+        with:
+          sarif_file: "trivy-results.sarif"
+
+      - name: Login to container registry
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push image
+        run: |
+          docker tag ${{ env.IMAGE_NAME }}:${{ github.sha }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          docker tag ${{ env.IMAGE_NAME }}:${{ github.sha }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          docker tag ${{ env.IMAGE_NAME }}-migrate:${{ github.sha }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-migrate
+          docker tag ${{ env.IMAGE_NAME }}-migrate:${{ github.sha }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-migrate:${{ github.sha }}
+          docker push --all-tags ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          docker push --all-tags ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-migrate
+
+      - name: Install cosign
+        # Third-party action, pin to commit SHA!
+        # See https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions
+        uses: sigstore/cosign-installer@c3667d99424e7e6047999fb6246c0da843953c65
+
+      - name: Sign the published Docker image
+        # This step uses the identity token to provision an ephemeral certificate
+        # against the sigstore community Fulcio instance.
+        run: |
+          cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} --yes
+          cosign sign ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-migrate:${{ github.sha }} --yes
+
+      # This needs to happen here b/c remix changes filenames on each `remix build` run. So, to get working source maps,
+      # we need access to the actual image that was built.
+      - name: Extract and upload sourcemaps to Sentry
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        run: |
+          # Extract source maps
+          container_id=$(docker create ${{ env.IMAGE_NAME }}-migrate:${{ github.sha }})
+          docker cp ${container_id}:/src/public/build public
+          docker rm ${container_id}
+          npx --package @sentry/cli --yes sentry-cli releases new --org digitalservice --project grundsteuer ${{ github.sha }} --finalize
+          npx --package @sentry/cli --yes sentry-cli sourcemaps upload --org digitalservice --project grundsteuer --release ${{ github.sha }} --url-prefix '~/build/' public/build
+
+  deploy-staging:
+    needs: [build-push-image]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Check out infra repo
+        uses: actions/checkout@v3
+        with:
+          repository: digitalservicebund/grundsteuer-infra
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Update image tag for staging
+        run: |
+          cd manifests/overlays/staging
+          kustomize edit set image ghcr.io/digitalservicebund/grundsteuer:${{ github.sha }}
+          kustomize edit set image ghcr.io/digitalservicebund/grundsteuer-migrate:${{ github.sha }}
+
+      - name: Commit and push
+        uses: EndBug/add-and-commit@61a88be553afe4206585b31aa72387c64295d08b
+        with:
+          add: "manifests/overlays/staging/kustomization.yaml"
+          message: "Update staging image to ${{ github.sha }}"
+          pathspec_error_handling: exitImmediately
+          push: true
+
+      - name: Register deployment with Sentry
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        run: |
+          npx --package @sentry/cli --yes sentry-cli releases deploys --org digitalservice --project grundsteuer ${{ github.sha }} new -e staging
+
+      - name: Report Deployment
+        uses: digitalservicebund/github-actions/track-deployment@34a48d29a9c4cc2fd6710b8eb37e13618a08fa88
+        with:
+          project: grundsteuer
+          environment: staging
+          metrics_deployment_webhook_url: ${{ secrets.METRICS_DEPLOYMENT_WEBHOOK_URL }}
+          metrics_webhook_token: ${{ secrets.METRICS_WEBHOOK_TOKEN }}
