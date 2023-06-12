@@ -49,7 +49,7 @@
     "@prisma/client": "^4.15.0",
     "@remix-run/express": "^1.16.0",
     "@remix-run/node": "^1.16.0",
-    "@remix-run/react": "^1.16.0",
+    "@remix-run/react": "^1.17.0",
     "@sentry/remix": "^7.54.0",
     "@tailwindcss/typography": "^0.5.9",
     "@xstate/graph": "^1.4.2",
