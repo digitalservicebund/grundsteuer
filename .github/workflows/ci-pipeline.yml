@@ -149,7 +149,7 @@ jobs:
           name: webapp-integration-test-report.log
           path: webapp-integration-test-report.log
 
-  e2e-test:
+  short-e2e-test:
     needs: check-format
     permissions:
       packages: read
@@ -251,6 +251,66 @@ jobs:
         with:
           name: webapp-short-e2e-test-report.log
           path: webapp-short-e2e-test-report.log
+
+  long-e2e-test:
+    needs: check-format
+    permissions:
+      packages: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.15.1"
+          cache: "npm"
+
+      - name: Cache npm dependencies
+        id: cache-npm-deps
+        uses: actions/cache@v2
+        with:
+          path: |
+            **/node_modules
+            ~/.cache/Cypress
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependecies
+        if: steps.cache-npm-deps.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: Check build
+        env:
+          APP_VERSION: test
+        run: npm run build
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up postgres, erica, redis, unleash
+        run: docker-compose -f ./test/docker-compose-test.yml -p grundsteuer-test up -d
+
+      - name: Wait for test db to rise and shine
+        run: sleep 2
+        shell: bash
+
+      - name: Migrate test db
+        env:
+          DATABASE_URL: postgresql://prisma:prisma@localhost:5433/tests
+        run: npx prisma migrate deploy && npx prisma db seed
+
+      - name: Create Unleash toggles
+        working-directory: ./unleash
+        run: ./create-flags.sh http://localhost:4243 '*:*.unleash-insecure-admin-token'
+        shell: bash
 
       - name: Run long E2E tests
         env:
