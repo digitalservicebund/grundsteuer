@@ -362,7 +362,7 @@ jobs:
           path: webapp-long-e2e-test-report.log
 
   build-push-image:
-    needs: [build-app]
+    needs: [unit-test, integration-test, short-e2e-test, long-e2e-test]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
