@@ -28,7 +28,7 @@ jobs:
 
       - name: Cache npm dependencies
         id: cache-npm-deps
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             **/node_modules
@@ -63,7 +63,7 @@ jobs:
 
       - name: Cache npm dependencies
         id: cache-npm-deps
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             **/node_modules
@@ -103,7 +103,7 @@ jobs:
 
       - name: Cache npm dependencies
         id: cache-npm-deps
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             **/node_modules
@@ -173,7 +173,7 @@ jobs:
 
       - name: Cache npm dependencies
         id: cache-npm-deps
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             **/node_modules
@@ -276,7 +276,7 @@ jobs:
 
       - name: Cache npm dependencies
         id: cache-npm-deps
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             **/node_modules
