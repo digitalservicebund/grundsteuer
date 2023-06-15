@@ -80,36 +80,56 @@ export default function IdentifikationIndex() {
       </ContentContainer>
       <ContentContainer size="lg">
         {useUseid && isMobile && (
-          <IdentCard
-            image=""
-            imageAltText="Bildbeispiel Ausweis"
-            icon={<EdgeSensorHigh className="mr-4" />}
-            betaTag={true}
-            optionCount={1}
-            heading="Identifikation mit Ihrem Ausweis"
-            subheading="Empfohlen für Nutzer:innen mit einem Personalausweis und Smartphone."
-            text=""
-            buttonLabel="Identifikation mit Ausweis"
-            buttonDisabled={bundesIdentDown}
-            url="/bundesIdent/voraussetzung"
-            className="mb-16"
-          />
+          <div>
+            <TeaserIdentCard
+              headline={`Die Identifikation mit dem Ausweis wird am Mittwoch, dem\u00A028.\u00A0Juni\u00A02023, eingestellt.`}
+            >
+              <strong className="hidden lg:inline">
+                Die Identifikation mit dem Ausweis wird am Mittwoch,
+                dem&nbsp;28.&nbsp;Juni&nbsp;2023, eingestellt.
+              </strong>{" "}
+            </TeaserIdentCard>
+            <IdentCard
+              image=""
+              imageAltText="Bildbeispiel Ausweis"
+              icon={<EdgeSensorHigh className="mr-4" />}
+              betaTag={true}
+              optionCount={1}
+              heading="Identifikation mit Ihrem Ausweis"
+              subheading="Empfohlen für Nutzer:innen mit einem Personalausweis und Smartphone."
+              text=""
+              buttonLabel="Identifikation mit Ausweis"
+              buttonDisabled={bundesIdentDown}
+              url="/bundesIdent/voraussetzung"
+              className="mb-16"
+            />
+          </div>
         )}
         {useUseid && !isMobile && (
-          <IdentCard
-            image={bundesIdentCardsImage}
-            imageAltText="Drei kompatible Ausweise: Deutscher Personalausweis, elektronischer Aufenthaltstitel und eID‑Karte für Bürgerinnen und Bürger der Europäischen Union und des europäischen Wirtschaftsraums."
-            icon={<EdgeSensorHigh className="mr-4" />}
-            betaTag={true}
-            optionCount={1}
-            heading="Identifikation mit Ihrem Ausweis über Ihr Smartphone"
-            subheading="Empfohlen für Nutzer:innen mit einem Personalausweis und Smartphone."
-            text="Identifizieren Sie sich in wenigen Minuten mit der Online-Ausweisfunktion Ihres Ausweises und der BundesIdent App."
-            buttonLabel="Identifikation mit Ausweis"
-            buttonDisabled={bundesIdentDown}
-            url="/bundesIdent/voraussetzung"
-            className="mb-16 bg-white"
-          />
+          <div>
+            <TeaserIdentCard
+              headline={`Die Identifikation mit dem Ausweis wird am Mittwoch, dem\u00A028.\u00A0Juni\u00A02023, eingestellt.`}
+            >
+              <strong className="hidden lg:inline">
+                Die Identifikation mit dem Ausweis wird am Mittwoch,
+                dem&nbsp;28.&nbsp;Juni&nbsp;2023, eingestellt.
+              </strong>{" "}
+            </TeaserIdentCard>
+            <IdentCard
+              image={bundesIdentCardsImage}
+              imageAltText="Drei kompatible Ausweise: Deutscher Personalausweis, elektronischer Aufenthaltstitel und eID‑Karte für Bürgerinnen und Bürger der Europäischen Union und des europäischen Wirtschaftsraums."
+              icon={<EdgeSensorHigh className="mr-4" />}
+              betaTag={true}
+              optionCount={1}
+              heading="Identifikation mit Ihrem Ausweis über Ihr Smartphone"
+              subheading="Empfohlen für Nutzer:innen mit einem Personalausweis und Smartphone."
+              text="Identifizieren Sie sich in wenigen Minuten mit der Online-Ausweisfunktion Ihres Ausweises und der BundesIdent App."
+              buttonLabel="Identifikation mit Ausweis"
+              buttonDisabled={bundesIdentDown}
+              url="/bundesIdent/voraussetzung"
+              className="mb-16 bg-white"
+            />
+          </div>
         )}
         <IdentCard
           image={ident1}
@@ -124,7 +144,6 @@ export default function IdentifikationIndex() {
           url="/ekona"
           className="mb-16"
         />
-        <TeaserIdentCard />
         <IdentCard
           image={ident2}
           imageAltText="Bildbeispiel Freischaltcode"

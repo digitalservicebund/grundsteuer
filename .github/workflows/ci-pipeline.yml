@@ -13,11 +13,9 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-app:
-    permissions:
-      packages: read
+  check-format:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 20
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -28,18 +26,55 @@ jobs:
           node-version: "16.15.1"
           cache: "npm"
 
-      - run: npm install
+      - name: Cache npm dependencies
+        id: cache-npm-deps
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/node_modules
+            ~/.cache/Cypress
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-      - name: Check build
-        env:
-          APP_VERSION: test
-        run: npm run build
+      - name: Install dependecies
+        if: steps.cache-npm-deps.outputs.cache-hit != 'true'
+        run: npm install
 
       - name: Check format
         run: npm run format:check
 
       - name: Lint
         run: npm run lint:check
+
+  unit-test:
+    needs: check-format
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.15.1"
+          cache: "npm"
+
+      - name: Cache npm dependencies
+        id: cache-npm-deps
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/node_modules
+            ~/.cache/Cypress
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependecies
+        if: steps.cache-npm-deps.outputs.cache-hit != 'true'
+        run: npm install
 
       - name: Run unit tests
         run: npm test -- --json ----outputFile=webapp-unit-test-report.log
@@ -49,6 +84,37 @@ jobs:
         with:
           name: webapp-unit-test-report.log
           path: webapp-unit-test-report.log
+
+  integration-test:
+    needs: check-format
+    permissions:
+      packages: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.15.1"
+          cache: "npm"
+
+      - name: Cache npm dependencies
+        id: cache-npm-deps
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/node_modules
+            ~/.cache/Cypress
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependecies
+        if: steps.cache-npm-deps.outputs.cache-hit != 'true'
+        run: npm install
 
       - name: Log in to the Container registry
         uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc
@@ -83,13 +149,73 @@ jobs:
           UNLEASH_ADMIN_TOKEN: "*:*.unleash-insecure-admin-token"
         run: npm run test:integration -- --json ----outputFile=webapp-integration-test-report.log
 
-      - name: Archive unit test logs
-        uses: actions/upload-artifact@v3
+      - name: Archive integration test logs
+        uses: actions/upload-artifact@v1
         with:
           name: webapp-integration-test-report.log
           path: webapp-integration-test-report.log
 
-      - name: Run E2E tests
+  short-e2e-test:
+    needs: check-format
+    permissions:
+      packages: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.15.1"
+          cache: "npm"
+
+      - name: Cache npm dependencies
+        id: cache-npm-deps
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/node_modules
+            ~/.cache/Cypress
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependecies
+        if: steps.cache-npm-deps.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: Check build
+        env:
+          APP_VERSION: test
+        run: npm run build
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up postgres, erica, redis, unleash
+        run: docker-compose -f ./test/docker-compose-test.yml -p grundsteuer-test up -d
+
+      - name: Wait for test db to rise and shine
+        run: sleep 2
+        shell: bash
+
+      - name: Migrate test db
+        env:
+          DATABASE_URL: postgresql://prisma:prisma@localhost:5433/tests
+        run: npx prisma migrate deploy && npx prisma db seed
+
+      - name: Create Unleash toggles
+        working-directory: ./unleash
+        run: ./create-flags.sh http://localhost:4243 '*:*.unleash-insecure-admin-token'
+        shell: bash
+
+      - name: Run short E2E tests
         env:
           APP_ENV: gha
           APP_VERSION: test
@@ -122,18 +248,121 @@ jobs:
           USE_USEID: true
           NO_COLOR: 1
         run: |
-          npm run test:e2e | tee webapp-e2e-test-report.log
+          npm run test:e2e:short | tee webapp-short-e2e-test-report.log
           result_code=${PIPESTATUS[0]}
           exit $result_code
 
-      - name: Archive unit test logs
-        uses: actions/upload-artifact@v3
+      - name: Archive short e2e test logs
+        uses: actions/upload-artifact@v1
         with:
-          name: webapp-e2e-test-report.log
-          path: webapp-e2e-test-report.log
+          name: webapp-short-e2e-test-report.log
+          path: webapp-short-e2e-test-report.log
+
+  long-e2e-test:
+    needs: check-format
+    permissions:
+      packages: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.15.1"
+          cache: "npm"
+
+      - name: Cache npm dependencies
+        id: cache-npm-deps
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/node_modules
+            ~/.cache/Cypress
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependecies
+        if: steps.cache-npm-deps.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: Check build
+        env:
+          APP_VERSION: test
+        run: npm run build
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up postgres, erica, redis, unleash
+        run: docker-compose -f ./test/docker-compose-test.yml -p grundsteuer-test up -d
+
+      - name: Wait for test db to rise and shine
+        run: sleep 2
+        shell: bash
+
+      - name: Migrate test db
+        env:
+          DATABASE_URL: postgresql://prisma:prisma@localhost:5433/tests
+        run: npx prisma migrate deploy && npx prisma db seed
+
+      - name: Create Unleash toggles
+        working-directory: ./unleash
+        run: ./create-flags.sh http://localhost:4243 '*:*.unleash-insecure-admin-token'
+        shell: bash
+
+      - name: Run long E2E tests
+        env:
+          APP_ENV: gha
+          APP_VERSION: test
+          BASE_URL: http://localhost:3000
+          DATABASE_URL: postgresql://prisma:prisma@localhost:5433/tests
+          SESSION_COOKIE_SECRET: thisaintnosecret
+          FORM_COOKIE_SECRET: thisalsoaintnosecret
+          FORM_COOKIE_ENC_SECRET: 26d011bcbb9db8c4673b7fcd90c9ec6d
+          ERICA_URL: http://localhost:8001
+          AUDIT_PUBLIC_KEY: "-----BEGIN PUBLIC KEY-----\nMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAvMxhy5PDdUO8EgAXZFK+\nH8X0iswlg685+iXeCEekl+aohrzJEUrUw6GJwmIdqwkK8YDjcZdr7WzcuAazDK5F\nOjenA7IdR7go8fj1fHugaEoX/Mb+qDAsmP1tNCW3my4GJa7g2vl67qLE8QtvX6hz\nn8FaXx8NKlkDQZ85s3yhykpSGC2zBajXukb4GY5dWYURXInbvaH/immNzAlzfAi0\nJylm+qwsHdH281alq7rXc4v3KVoXF4Sj4oAyeDIvHyJwrpNDwrjb/Chu8fKifr3J\nAWPVD2YiwI6WENhCUorZiDiCNjqZtYizXeIrrehQ5YGvujnVKRbPZx9IPrrTE2Lg\nSqKfAMQsxD2pyxW8xN1zu3SthWJX4KwyU+8v4V1Es3ET7QvXyZ9TaoHvLFJuj01G\n9jpupn1hLeCP7cROQ5etjscH2nrRpdIe9ZS4u6Oz1YWYeNDSl+19zLpBdzp3UuZo\nlfrQjXZMHsVaN9u8AnY7+U9Gx44sjwEFmKhiLCI6LzUrzkHVGmg847O9NvLkeYgX\nmOcNJ5U9+8LjUYGjUWttKpLGC+a7CXVmXe7WqKdG3En8yj6gFGLENGYg/Ri/5rOJ\neh1EeTSyLQCzCaSRigeeZ/nlc5xSn6/GgPoIchWHK0bNcHds7afmF4NkRmq+DhS/\nsc6ZU6KrMdtASGVZKvdft/MCAwEAAQ==\n-----END PUBLIC KEY-----\n"
+          AUDIT_PUBLIC_KEY_V2: "-----BEGIN PUBLIC KEY-----\nMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAn8CcfcJIg7ZvRr1ZzHNv\nBpTH/vFngK50Xr9/fFMY+Jd8EDYc7OSln9WDMDm4dX557/SxTU102P8KfbzRgNLG\nOP4fPgVSxAAlUIu7GRnilaLMAh1mqsMkdhaUwefdxUUBbMPJtvIyJVjiVaDUXemF\n1cp/YhI33FeY1kR4IdcIeS7oY/vIMWcYF/0EgbOmD01hjK5DGjry/8lcb/nDaoL2\nQtZ6U/2TlhOQ4f307GPrmmGg5KHlvw8ITEraMyB4Imz3vC1RMuITLp5gPzOn6LT2\nkoSBl4NpWqsLTeAHZGENeD5zdgbD1furY75Kksgm8ACPFQq01lTdwtQZIM57eRip\notSUtmq2ZRtDMYhjJ3gHtKVZ/lPmb1FLv1jYPHS7v6PSjfy2jZ1oscbvRq1Z3HCD\nx6AJJHeiQSTIWc+LmmSb1V+Z8X+EuNenr2p7gHiS99vN1WfnTukzXMPs0G4nfJhY\njje6uAfdkp09AJ/D5bS/K2JZ4Fe7n4BnPGxfPJFy1shiroMPkhz2AEhXJM+9iIFB\n77fHJqYILA21D+hiRnMjdYqgSLVNEOcLT0msvjCys4V4SM5YHy81vm/J3kBFi207\nsj93kBjD6MhZJbgG5DkC+oBvae3uKR+/SD8uD+L9zyv3BeC3DFYQxC7Wx6uuB0zK\nf+KIHGFNz42vD717Gk2Ez7sCAwEAAQ==\n-----END PUBLIC KEY-----\n"
+          MAGIC_LINK_SECRET: thisaintnosecret
+          TEST_FEATURES_ENABLED: true
+          HASHED_LOGGING_SALT: "$2a$10$7hclYwYcZY5qCfmedLQx/u"
+          HASHED_IP_LIMIT_SALT: "$2a$10$7hclYwYcZY5qCfmidLQx/u"
+          SKIP_RATELIMIT: true
+          EKONA_ISSUER: "${{ secrets.EKONA_ISSUER }}"
+          EKONA_ISSUER_URL: "${{ secrets.EKONA_ISSUER_URL }}"
+          EKONA_IDP_CERT: "${{ secrets.EKONA_IDP_CERT }}"
+          EKONA_ENTRY_POINT: "${{ secrets.EKONA_ENTRY_POINT }}"
+          EKONA_ENC_KEY: "${{ secrets.EKONA_ENC_KEY }}"
+          EKONA_SIGNING_KEY: "${{ secrets.EKONA_SIGNING_KEY }}"
+          REDIS_URL: redis://localhost:6380/0
+          UNLEASH_HOST: http://localhost:4243
+          UNLEASH_API_TOKEN: default:development.unleash-insecure-api-token
+          UNLEASH_ADMIN_TOKEN: "*:*.unleash-insecure-admin-token"
+          UNLEASH_REFRESH_INTERVAL: 500
+          USEID_DOMAIN: "https://useid.dev.ds4g.net"
+          USEID_API_KEY: "${{ secrets.USEID_API_KEY }}"
+          USE_USEID: true
+          NO_COLOR: 1
+        run: |
+          npm run test:e2e:long | tee webapp-long-e2e-test-report.log
+          result_code=${PIPESTATUS[0]}
+          exit $result_code
+
+      - name: Archive long e2e test logs
+        uses: actions/upload-artifact@v1
+        with:
+          name: webapp-long-e2e-test-report.log
+          path: webapp-long-e2e-test-report.log
 
   build-push-image:
-    needs: [build-app]
+    needs: [unit-test, integration-test, short-e2e-test, long-e2e-test]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -185,7 +414,7 @@ jobs:
       - name: Install cosign
         # Third-party action, pin to commit SHA!
         # See https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions
-        uses: sigstore/cosign-installer@871cdc754496eb3792209f6e81422fac01b793b4
+        uses: sigstore/cosign-installer@ef0e9691595ea19ec990a46b1a591dcafe568f34
 
       - name: Sign the published Docker image
         # This step uses the identity token to provision an ephemeral certificate
