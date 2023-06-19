@@ -150,7 +150,7 @@ jobs:
         run: npm run test:integration -- --json ----outputFile=webapp-integration-test-report.log
 
       - name: Archive integration test logs
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: webapp-integration-test-report.log
           path: webapp-integration-test-report.log
@@ -253,7 +253,7 @@ jobs:
           exit $result_code
 
       - name: Archive short e2e test logs
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: webapp-short-e2e-test-report.log
           path: webapp-short-e2e-test-report.log
@@ -356,7 +356,7 @@ jobs:
           exit $result_code
 
       - name: Archive long e2e test logs
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: webapp-long-e2e-test-report.log
           path: webapp-long-e2e-test-report.log
