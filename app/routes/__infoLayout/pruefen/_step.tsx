@@ -290,7 +290,7 @@ export type StepComponentFunction = (
 ) => JSX.Element;
 
 export function Step() {
-  const loaderData: LoaderData = useLoaderData();
+  const loaderData = useLoaderData<typeof loader>();
   const actionData: ActionData = useActionData() as ActionData;
   const navigation = useNavigation();
   const isSubmitting = Boolean(navigation.state === "submitting");
