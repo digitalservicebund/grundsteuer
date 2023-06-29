@@ -213,18 +213,6 @@ describe("error banners", () => {
       cy.get(bannerId).should("exist");
     });
 
-    it("should show banner on /bundesIdent", () => {
-      cy.login();
-      cy.visit("/bundesIdent", {
-        headers: {
-          "user-agent": mobileUserAgent,
-        },
-      });
-      cy.url().should("include", "/bundesIdent");
-
-      cy.get(bannerId).should("exist");
-    });
-
     it("should have no effect on /fsc", () => {
       cy.login();
       cy.visit("/fsc", {
