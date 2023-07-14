@@ -653,8 +653,7 @@ export default function FaqAccordion(props: { pruefenPath: string }) {
           <p>
             Nein, Sie brauchen kein ELSTER-Konto, um den Online-Dienst
             „Grundsteuererklärung für Privateigentum“ nutzen zu können. Wenn Sie
-            kein ELSTER-Konto haben, können Sie sich entweder mit Ihrem
-            Personalausweis über die App BundesIdent oder mit einem so genannten
+            kein ELSTER-Konto haben, können Sie sich mit einem so genannten
             Freischaltcode identifizieren. Dieser benötigt aktuell einige Zeit,
             um per Post zugestellt zu werden.
           </p>

@@ -352,14 +352,7 @@ export default function FscBeantragen() {
           <a href="/ekona" className="font-bold underline text-blue-800">
             Identifikation über ELSTER
           </a>
-          . Alternativ können Sie sich auch mit Ihrem Smartphone und der{" "}
-          <a
-            href={loaderData.bundesIdentUrl}
-            className="font-bold underline text-blue-800"
-          >
-            Online-Ausweisfunktion
-          </a>{" "}
-          identifizieren.
+          .
         </Hint>
 
         {showError && !isSubmitting && (
