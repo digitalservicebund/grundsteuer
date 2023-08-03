@@ -445,7 +445,7 @@ describe("Deadline banner", () => {
     paths.forEach((path) => {
       it(`should appear on ${path} with screen width ${width}`, () => {
         cy.viewport(width, 1000);
-        if (path.includes("erfolgreich")) {
+        if (!(path == "/")) {
           cy.login();
         }
         cy.visit(path);
