@@ -4,7 +4,7 @@ import { ContentContainer } from "~/components/index";
 import { ReactNode } from "react";
 
 export default function TeaserIdentCard(props: {
-  children: ReactNode;
+  children?: ReactNode;
   headline?: string;
   className?: string;
 }) {
