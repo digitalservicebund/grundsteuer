@@ -429,7 +429,16 @@ describe("error banners", () => {
 });
 
 describe("Deadline banner", () => {
-  const paths = ["/", "/anmelden/erfolgreich"];
+  const paths = [
+    "/",
+    "/anmelden/erfolgreich",
+    "/identifikation",
+    "/fsc/beantragen",
+    "/ekona",
+    "/bundesIdent",
+    "/formular/welcome",
+    "/formular/zusammenfassung",
+  ];
 
   const screenWidths = [400, 1400];
 
@@ -448,17 +457,7 @@ describe("Deadline banner", () => {
     });
   });
 
-  const noAppearPaths = [
-    "/404",
-    "/anmelden",
-    "/registrieren",
-    "/identifikation",
-    "/fsc/beantragen",
-    "/ekona",
-    "/bundesIdent",
-    "/formular/welcome",
-    "/formular/zusammenfassung",
-  ];
+  const noAppearPaths = ["/404", "/anmelden", "/registrieren"];
 
   noAppearPaths.forEach((path) => {
     it(`should not appear on ${path}`, () => {
