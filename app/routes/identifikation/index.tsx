@@ -109,12 +109,7 @@ export default function IdentifikationIndex() {
           <div>
             <TeaserIdentCard
               headline={`Die Identifikation mit dem Ausweis wird am Mittwoch, dem\u00A028.\u00A0Juni\u00A02023, eingestellt.`}
-            >
-              <strong className="hidden lg:inline">
-                Die Identifikation mit dem Ausweis wird am Mittwoch,
-                dem&nbsp;28.&nbsp;Juni&nbsp;2023, eingestellt.
-              </strong>{" "}
-            </TeaserIdentCard>
+            ></TeaserIdentCard>
             <IdentCard
               image={bundesIdentCardsImage}
               imageAltText="Drei kompatible Ausweise: Deutscher Personalausweis, elektronischer Aufenthaltstitel und eID‑Karte für Bürgerinnen und Bürger der Europäischen Union und des europäischen Wirtschaftsraums."
@@ -144,6 +139,13 @@ export default function IdentifikationIndex() {
           url="/ekona"
           className="mb-16"
         />
+        <TeaserIdentCard
+          headline={`Die Zusendung des Briefes mit dem Freischaltcode kann bis zu 3\u00A0Wochen dauern.`}
+        >
+          Planen Sie die Bestellung des Freischaltcodes rechtzeitig ein. Wenn
+          Sie oder <u>Ihre Angehörigen</u> ein ELSTER-Zertifikat haben, nutzen
+          Sie "Identifikation mit ELSTER".
+        </TeaserIdentCard>
         <IdentCard
           image={ident2}
           imageAltText="Bildbeispiel Freischaltcode"

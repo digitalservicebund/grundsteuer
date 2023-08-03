@@ -27,15 +27,13 @@ export default function DeadlineBanner(props: { homepage?: boolean }) {
           </div>
           <div aria-live="polite">
             <div className="text-24 leading-30 mb-8">
-              Die Frist zur Abgabe der Grundsteuererklärung ist abgelaufen
+              Dieser Service wird am 31. August 2023 eingestellt.
             </div>
             <div className="text-16 max-w-[35rem]">
-              Die Abgabefrist für die Grundsteuererklärung endete am 31. Januar
-              2023. Bitte geben Sie Ihre Erklärung noch schnellstmöglich ab. Der
-              Online-Dienst ist weiterhin für Sie verfügbar. Weitere
-              Informationen dazu finden Sie in{" "}
+              Bis dahin haben Sie noch die Möglichkeit unseren Online-Dienst zu
+              nutzen. Weiter Informationen dazu finden Sie in{" "}
               <a
-                href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/28-fragen-zur-abgabefrist-31-januar-2023"
+                href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/71"
                 className="font-bold text-blue-800 underline"
               >
                 unserem Hilfebereich

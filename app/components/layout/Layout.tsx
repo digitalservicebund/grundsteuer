@@ -51,6 +51,7 @@ const Layout = ({
         </header>
         <div className="flex flex-col flex-grow">
           <div className="flex flex-col">
+            <DeadlineBanner></DeadlineBanner>
             {flags?.grundsteuerSlow && (
               <ErrorBanner
                 style="warning"

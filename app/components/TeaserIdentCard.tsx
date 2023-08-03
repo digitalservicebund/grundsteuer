@@ -31,7 +31,10 @@ export default function TeaserIdentCard(props: {
       <div className="lg:flex lg:flex-col">
         <ContentContainer size="sm-md">
           <div className="mt-16 lg:mt-0">
-            <p className="mb-24 lg:mb-8 text-18">{props.children}</p>
+            <p className="mb-24 lg:mb-8 text-18">
+              <strong className="hidden lg:inline">{props.headline}</strong>{" "}
+              {props.children}
+            </p>
           </div>
         </ContentContainer>
       </div>
