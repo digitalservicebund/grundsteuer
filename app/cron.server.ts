@@ -1,6 +1,6 @@
 import { schedule } from "node-cron";
 import { db } from "./db.server";
-import { deleteManyUsers } from "~/domain/user";
+import { deleteManyUsers, User } from "~/domain/user";
 import { updateOpenEricaRequests } from "~/erica/updateOpenEricaRequests.server";
 import * as remixNode from "@remix-run/node";
 
@@ -68,7 +68,7 @@ export const deleteExpiredAccounts = async () => {
   try {
     const now = new Date();
     const sevenMonthsAgo = new Date(now.setMonth(now.getMonth() - 7));
-    const accounts = await db.user.findMany({
+    const accounts: User[] = await db.user.findMany({
       where: {
         OR: [
           // Declaration sent

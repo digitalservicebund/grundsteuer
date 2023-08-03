@@ -253,7 +253,7 @@ describe("Cron jobs", () => {
         const afterRows = await db.user.findMany();
         expect(afterRows.length).toEqual(5);
 
-        const remainingEmails = afterRows.map((row) => row.email);
+        const remainingEmails = afterRows.map((row: any) => row.email);
         const expectedEmails = [
           "foo@bar.com",
           "created-new@foo.com",
@@ -355,7 +355,7 @@ describe("Cron jobs", () => {
         const afterRows = await db.user.findMany();
         expect(afterRows.length).toEqual(4);
 
-        const remainingEmails = afterRows.map((row) => row.email);
+        const remainingEmails = afterRows.map((row: any) => row.email);
         const expectedEmails = [
           "foo@bar.com",
           "created-new@foo.com",

@@ -17,7 +17,9 @@ async function exportAuditLogsFromAuditLogV1(
     },
   });
   fs.writeFileSync(pathToFile, "");
-  auditLogs.forEach((log) => fs.appendFileSync(pathToFile, log.data + "\n"));
+  auditLogs.forEach((log: any) =>
+    fs.appendFileSync(pathToFile, log.data + "\n")
+  );
 }
 
 async function exportAuditLogs(from: string, to: string, pathToFile: string) {
@@ -32,7 +34,9 @@ async function exportAuditLogs(from: string, to: string, pathToFile: string) {
     },
   });
   fs.writeFileSync(pathToFile, "");
-  auditLogs.forEach((log) => fs.appendFileSync(pathToFile, log.data + "\n"));
+  auditLogs.forEach((log: any) =>
+    fs.appendFileSync(pathToFile, log.data + "\n")
+  );
 }
 
 function usage() {

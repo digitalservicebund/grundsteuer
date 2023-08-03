@@ -867,7 +867,9 @@ describe("user", () => {
       );
 
       const result = await getAllEricaRequestIds();
-      expect(result.sort((a, b) => (a.email < b.email ? -1 : 1))).toEqual(
+      expect(
+        result.sort((a: any, b: any) => (a.email < b.email ? -1 : 1))
+      ).toEqual(
         [
           {
             id: userBeantragen1.id,

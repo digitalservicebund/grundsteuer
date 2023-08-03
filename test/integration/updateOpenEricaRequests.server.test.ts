@@ -154,7 +154,7 @@ describe("updateOpenEricaRequests", () => {
     const auditLogs = await db.auditLogV2.findMany();
     expect(auditLogs.length).toBe(3);
     const decryptedAuditLogs: unknown[] = [];
-    auditLogs.forEach((auditLog) => {
+    auditLogs.forEach((auditLog: any) => {
       decryptedAuditLogs.push(
         JSON.parse(decryptData(auditLog.data, PRIVATE_KEY))
       );
