@@ -435,7 +435,6 @@ describe("Deadline banner", () => {
     "/identifikation",
     "/fsc/beantragen",
     "/ekona",
-    "/bundesIdent",
     "/formular/welcome",
     "/formular/zusammenfassung",
   ];
@@ -457,7 +456,7 @@ describe("Deadline banner", () => {
     });
   });
 
-  const noAppearPaths = ["/404", "/anmelden", "/registrieren"];
+  const noAppearPaths = ["/404", "/anmelden", "/bundesIdent", "/registrieren"];
 
   noAppearPaths.forEach((path) => {
     it(`should not appear on ${path}`, () => {
