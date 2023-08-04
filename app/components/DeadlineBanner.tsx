@@ -31,7 +31,7 @@ export default function DeadlineBanner(props: { homepage?: boolean }) {
             </div>
             <div className="text-16 max-w-[35rem]">
               Bis dahin haben Sie noch die Möglichkeit unseren Online-Dienst zu
-              nutzen. Weiter Informationen dazu finden Sie in{" "}
+              nutzen. Weitere Informationen dazu finden Sie in{" "}
               <a
                 href="https://grundsteuererklaerung-fuer-privateigentum.zammad.com/help/de-de/71"
                 className="font-bold text-blue-800 underline"
