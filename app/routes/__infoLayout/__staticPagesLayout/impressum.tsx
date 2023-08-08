@@ -41,10 +41,7 @@ export default function Impressum() {
           finden Sie mehr Informationen dazu.
         </Hint>
 
-        <p>
-          Vertreten durch die Geschäftsführung: Frau Christina Lang, Herr
-          Philipp Moeser
-        </p>
+        <p>Vertreten durch die Geschäftsführung: Frau Christina Lang</p>
         <p>
           Alleingesellschafterin: Bundesrepublik Deutschland, vertreten durch
           das Bundeskanzleramt

@@ -16,7 +16,7 @@ export const defaultProps = {
     zip: "10969",
     city: "Berlin",
     vatId: "Ust-IdNr.: DE327075535",
-    directors: "Geschäftsführung: Christina Lang & Philipp Möser",
+    directors: "Geschäftsführung: Christina Lang",
     registerNumber: "Handelsregisternummer: HRB 212879 B",
     registerCourt: "Registergericht: Berlin Charlottenburg",
     twitter: {

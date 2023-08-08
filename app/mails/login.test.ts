@@ -52,7 +52,7 @@ describe("createLoginMail", () => {
             ><br />
             DigitalService GmbH des Bundes<br />
             Prinzessinnenstraße 8-14, 10969 Berlin<br />
-            Ust-IdNr.: DE327075535 | Geschäftsführung: Christina Lang & Philipp Möser<br />
+            Ust-IdNr.: DE327075535 | Geschäftsführung: Christina Lang<br />
             Handelsregisternummer: HRB 212879 B | Registergericht: Berlin Charlottenburg
           </p>
         </body>
@@ -78,7 +78,7 @@ describe("createLoginMail", () => {
       [https://www.linkedin.com/company/digitalservicebund]
       DigitalService GmbH des Bundes
       Prinzessinnenstraße 8-14, 10969 Berlin
-      Ust-IdNr.: DE327075535 | Geschäftsführung: Christina Lang & Philipp Möser
+      Ust-IdNr.: DE327075535 | Geschäftsführung: Christina Lang
       Handelsregisternummer: HRB 212879 B | Registergericht: Berlin Charlottenburg",
         "to": "chewbacca@examle.com",
       }
