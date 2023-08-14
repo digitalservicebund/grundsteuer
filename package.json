@@ -103,7 +103,7 @@
     "@remix-run/dev": "^1.18.1",
     "@remix-run/eslint-config": "^1.19.1",
     "@testing-library/dom": "^9.3.0",
-    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
     "@types/bcryptjs": "^2.4.2",
