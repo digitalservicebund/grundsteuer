@@ -4,6 +4,6 @@
   "dependencies": {
     "@nfelger/cypress-har-generator": "^0.0.0",
     "commander": "^9.2.0",
-    "cypress": "^9.7.0"
+    "cypress": "^13.0.0"
   }
 }
