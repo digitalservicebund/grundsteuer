@@ -96,7 +96,7 @@
     "unleash-client": "^4.1.0",
     "useid-eservice-sdk": "^1.8.15",
     "uuid": "^9.0.0",
-    "validator": "^13.9.0",
+    "validator": "^13.11.0",
     "xstate": "^4.38.2"
   },
   "devDependencies": {
@@ -121,7 +121,7 @@
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
     "@types/uuid": "^9.0.1",
-    "@types/validator": "^13.7.14",
+    "@types/validator": "^13.11.1",
     "@typescript-eslint/eslint-plugin": "^5.60.0",
     "@typescript-eslint/parser": "^5.62.0",
     "copy-env-cli": "^1.0.0",
