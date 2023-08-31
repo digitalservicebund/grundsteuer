@@ -2,6 +2,9 @@
 
 This is the code repository of Grundsteuer by [DigitalService](https://digitalservice.bund.de).
 
+> **Important:  This project has been discontinued**
+> The service "Grundsteuererklärung für Privateigentum" allowed private individuals from July 4th, 2022 to August 31st to hand in their property tax declarations. After this time the service was replaced by a static page.
+
 ## Quick Start Guide
 
 - [Remix Docs](https://remix.run/docs)
