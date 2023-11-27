@@ -42,7 +42,7 @@ jobs:
           npx --package @sentry/cli --yes sentry-cli releases deploys --org digitalservice --project grundsteuer ${{ github.event.inputs.imageTag }} new -e production
 
       - name: Report Deployment
-        uses: satak/webrequest-action@283a84a8a140f4ddd8f7df4ef676c45c1f590933
+        uses: satak/webrequest-action@3697cc0c0ba0d501729b080ab5825c04bf96132e
         with:
           url: ${{ secrets.METRICS_DEPLOYMENT_WEBHOOK_URL }}
           method: POST
